@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="template">
+	<name>Semantic</name>
+	<creationDate>15/02/07</creationDate>
+	<author>rsgallery2.net</author>
+	<copyright>Open Source, GPL</copyright>
+	<authorEmail>info@rsgallery2.net</authorEmail>
+	<authorUrl>rsgallery2.net</authorUrl>
+	<version>.3</version>
+	<description>This is the default semantic HTML template.  Currently unfinished.</description>
+	<files>
+		<filename>index.php</filename>
+		<filename>display.class.php</filename>
+		<filename>templateDetails.css</filename>
+	</files>
+	<css>
+		<filename>css/template.css</filename>
+	</css>
+</mosinstall>
