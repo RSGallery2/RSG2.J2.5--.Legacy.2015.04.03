@@ -29,10 +29,10 @@ switch( $task ){
 
 
 /**
-	this is the primary and default function
-	it loads a template to run
-	that template's rsgDisplay has a switch for $page to handle various features
-**/
+ * this is the primary and default function
+ * it loads a template to run
+ * that template's rsgDisplay has a switch for $page to handle various features
+ */
 function template(){
 	global $rsgConfig;
 
@@ -140,9 +140,9 @@ function downloadFile($id) {
 
 
 /**
-	this temporary class holds functions that need to be moved to proper classes
-	but they work here for now, so we'll leave them here
-**/
+ * this temporary class holds functions that need to be moved to proper classes
+ * but they work here for now, so we'll leave them here
+ */
 class tempDisplay{
 	var $gallery;
 	var $items;
@@ -239,8 +239,8 @@ class tempDisplay{
 	}
 	
 	/**
-	* Wrapper function for showing the My Galleries interface
-	*/
+	 * Wrapper function for showing the My Galleries interface
+	 */
 	function my_galleries() {
 	global $my, $database, $rsgConfig;
 	
@@ -698,22 +698,32 @@ class tempDisplay{
 				
 			switch ($file_ext) {
 				case 'zip':
-					//Check if zip-file is too big
-					if ($uploadfile->checkSize($i_file) == 0) {
-						mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries"), _RSGALLERY_BATCH_ERROR_SIZE );
-						break;
-					} else {
-						$ziplist = $uploadfile->handleZIP($i_file);
-						//Import images into gallery
-						for ($i=0; $i<sizeof($ziplist); $i++)
-							{
-							$import = imgUtils::importImage($mosConfig_absolute_path."/media/".$ziplist[$i]['filename'], $ziplist[$i]['filename'], $i_cat);
-							if ($import == 1)
-								if (file_exists($mosConfig_absolute_path."/media/".$ziplist[$i]['filename']))
-									unlink($mosConfig_absolute_path."/media/".$ziplist[$i]['filename']);
-							}  //End for
-						mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries"), _RSGALLERY_ALERT_UPLOADOK );
-						}
+					//Check if file is really a ZIP-file
+    				if (!eregi( '.zip$', $i_file['name'] )) {
+    					mosRedirect( "index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries", $i_file['name']." is not a valid archive format. Only ZIP-files are allowed!");
+    				} else {
+    					//Valid ZIP-file, continue
+	            		if ($uploadfile->checkSize($i_file) == 1) {
+	                		$ziplist = $uploadfile->handleZIP($i_file);
+	                		
+	                		//Set extract dir
+	                		$extractdir = JPATH_ROOT . DS . "media" . DS . $uploadfile->extractDir . DS;
+	                		
+	                		//Import images into right folder
+	                		for ($i = 0; $i<sizeof($ziplist); $i++) {
+	                			$import = imgUtils::importImage($extractdir . $ziplist[$i], $ziplist[$i], $i_cat);
+	                		}
+	                		
+	                		//Clean mediadir
+	                		fileHandler::cleanMediaDir( $uploadfile->extractDir );
+	                		
+	                		//Redirect
+	                		mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries"), _RSGALLERY_ALERT_UPLOADOK );
+	            		} else {
+	                		//Error message
+	                		mosRedirect( "index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries", _RSGALLERY_ZIP_TO_BIG);
+	            		}
+    				}
 					break;
 				case 'image':
 					//Check if image is too big

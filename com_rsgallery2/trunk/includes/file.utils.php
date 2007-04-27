@@ -389,7 +389,7 @@ class fileHandler {
          
         //check source directory
         if (!file_exists( $source ) OR !is_dir ( $source )) {
-            echo $source." does not exist is is no directory on your server. Please check the path.";
+            echo $source." does not exist or is no directory on your server. Please check the path.";
             mosRedirect('index2.php?option=com_rsgallery2&task=batchupload', $source.' does not exist or is no directory on your server. Please check the path.');
         }
         //Read files from FTP-directory

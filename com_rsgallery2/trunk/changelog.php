@@ -31,6 +31,9 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2007-04-27 Ronald Smit
+ # Fixed frontend ZIP-upload routine.
+
 2007-04-02 Jonah Braun
  ^ templating system modified, approaching finished state
  + added templates: Tables, Simple Flash, debug_ListEverything
