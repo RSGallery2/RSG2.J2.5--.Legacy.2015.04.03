@@ -363,7 +363,7 @@ class rsgDisplay_tables extends rsgDisplay{
 
         $thumbNumber = 0;
         ?>
-        <div id='rsg2-pageNav'>
+        <div class='rsg2-pageNav'>
                 <?php
                 /*
                 if( $numPics > $PageSize ){
@@ -456,7 +456,7 @@ class rsgDisplay_tables extends rsgDisplay{
                 break;
             endswitch;
             ?>
-            <div id='rsg2-pageNav'>
+            <div class='rsg2-pageNav'>
                     <?php
                     if( $numPics > $PageSize ){
                     global $Itemid;
@@ -1549,7 +1549,7 @@ class HTML_RSGALLERY{
 
         $thumbNumber = 0;
         ?>
-        <div id='rsg2-pageNav'>
+        <div class='rsg2-pageNav'>
                 <?php
                 /*
                 if( $numPics > $PageSize ){
@@ -1641,7 +1641,7 @@ class HTML_RSGALLERY{
                 break;
             endswitch;
             ?>
-            <div id='rsg2-pageNav'>
+            <div class='rsg2-pageNav'>
                     <?php
                     if( $numPics > $PageSize ){
                     global $Itemid;
