@@ -905,7 +905,7 @@ class rsgDisplay_tables extends rsgDisplay{
         </div>
         <div style="float:left;">
         <?php if( isset( $catid )): ?>
-            <h2 id='rsg2-galleryTitle'><?php htmlspecialchars(stripslashes(galleryUtils::getCatNameFromId($catid)), ENT_QUOTES) ?></h2>
+            <h2 id='rsg2-galleryTitle'><?php echo htmlspecialchars(stripslashes(galleryUtils::getCatNameFromId($catid)), ENT_QUOTES) ?></h2>
         <?php elseif( $page != "my_galleries" ): ?>
             <h2 id='rsg2-galleryTitle'><?php echo _RSGALLERY_COMPONENT_TITLE ?></h2>
         <?php endif; ?>
@@ -1352,7 +1352,7 @@ class HTML_RSGALLERY{
         </div>
         <div style="float:left;">
         <?php if( isset( $catid )): ?>
-            <h2 id='rsg2-galleryTitle'><?php htmlspecialchars(stripslashes(galleryUtils::getCatNameFromId($catid)), ENT_QUOTES) ?></h2>
+            <h2 id='rsg2-galleryTitle'><?php echo htmlspecialchars(stripslashes(galleryUtils::getCatNameFromId($catid)), ENT_QUOTES) ?></h2>
         <?php elseif( $page != "my_galleries" ): ?>
             <h2 id='rsg2-galleryTitle'><?php echo _RSGALLERY_COMPONENT_TITLE ?></h2>
         <?php endif; ?>
