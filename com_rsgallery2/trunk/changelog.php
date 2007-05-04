@@ -31,6 +31,9 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2007-05-04 Jonah Braun
+ + added template Super Clean
+
 2007-04-27 Ronald Smit
  # Fixed frontend ZIP-upload routine.
 

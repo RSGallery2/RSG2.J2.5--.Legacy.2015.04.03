@@ -95,6 +95,10 @@
 	<filename>templates/semantic/display.class.php</filename>
 	<filename>templates/semantic/templateDetails.xml</filename>
 	<filename>templates/semantic/index.php</filename>
+	<filename>templates/superClean/css/template.css</filename>
+	<filename>templates/superClean/display.class.php</filename>
+	<filename>templates/superClean/index.php</filename>
+	<filename>templates/superClean/templateDetails.xml</filename>
 	<filename>templates/tables_wSimpleFlash/display.class.php</filename>
 	<filename>templates/tables_wSimpleFlash/templateDetails.xml</filename>
 	<filename>templates/tables_wSimpleFlash/index.php</filename>
