@@ -68,7 +68,7 @@ class rsgDisplay_semantic extends rsgDisplay{
      * @param boolean Show subgalleries or not.
      * @return HTML for main gallery page.
      */
-    function showMainGalleries($style = "double", $cols = 3, $subgalleries = "true") {
+    function showMainGalleries($style = "box", $cols = 3, $subgalleries = "true") {
         global $database, $Itemid, $rsgConfig;
         
         $gid = mosGetParam( $_REQUEST, 'catid', 0 );
@@ -155,7 +155,6 @@ class rsgDisplay_semantic extends rsgDisplay{
     
     function _showSingle( $kids ) {
         global $rsgConfig;
-
         foreach ($kids as $kid) {
         ?>
         <div class="rsg_galleryblock">
@@ -173,7 +172,7 @@ class rsgDisplay_semantic extends rsgDisplay{
                 <div class="rsg2-galleryList-description"><?php echo $kid->description;?>
 				</div>
             </div>
-            <div class="rsg_sub_url"><?php HTML_RSGALLERY::subGalleryList( $kid->get('id') ); ?>
+            <div class="rsg_sub_url_single"><?php HTML_RSGALLERY::subGalleryList( $kid->get('id') ); ?>
 			</div>
         </div>
         <?php
@@ -215,54 +214,45 @@ class rsgDisplay_semantic extends rsgDisplay{
     
     function _showBox( $kids, $subgalleries ) {
         ?>
-            <table width="100%" border="0">
-            <tr>
+		<div class="rsg_box_block">
             <?php
             $i = 0;
             foreach ( $kids as $kid ) {
                 $i++;
-                ?>
-                <td width="200" valign="top">
-                    <table class="galleryblock">
-                    <tr>
-                        <td colspan="2"><div class="rsg2-galleryList-status"><?php echo $kid->status; ?></div></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
+				if($i>3){
+					$i = 1;
+					}
+			 ?>
+                <div class="rsg_box_box_<?php echo $i;?>">
+                    <div class="rsg_galleryblock">
+                    	<div>
+							<div class="rsg2-galleryList-status"><?php echo $kid->status; ?></div>
                             <?php echo $kid->galleryName;?>
                             <sup><span class='rsg2-galleryList-newImages'><?php echo galleryUtils::newImages($kid->get('id')); ?></span></sup>
                             <div class='rsg2-galleryList-totalImages'>(<?php echo galleryUtils::getFileCount($kid->get('id')). _RSGALLERY_IMAGES;?>)</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td valign="top">
-                            <?php echo $kid->thumbHTML; ?>
-                        </td>
-                        <td valign="top">
-                            <?php echo $this->_showGalleryDetails( $kid );?>
-                        </td>
-                    </tr>
-                    
-                    <tr>
-                        <td colspan="2">
-                            <div class='rsg2-galleryList-description'>
-                            <?php echo $kid->description;?>
-                            </div>
-                            <span class="rsg_sub_url"><?php HTML_RSGALLERY::subGalleryList( $kid->get('id'), $subgalleries ); ?></span>
-                        </td>
-                    </table>
-                </td>
+                        </div>
+						<div>
+                        	<div class="rsg2-galleryList-thumb_box">
+								<?php echo $kid->thumbHTML; ?>
+                        	</div>
+                        	<div class="rsg2-galleryList-text_box">
+                          		<?php echo $this->_showGalleryDetails( $kid );?>
+                        	</div>
+                    	</div>
+                        <div class="rsg2-galleryList-description_box">
+                            	<?php echo $kid->description;?>
+						</div>
+                        <div class="rsg_sub_url"><?php HTML_RSGALLERY::subGalleryList( $kid->get('id'), $subgalleries ); ?></span>
+                        </div>
+                    </div>
+                </div>
                 <?php
-                if ($i%3 == 0) {
-                    echo "</tr><tr>";
-                }
             }
-            ?>
-            </tr>
-            </table>
+			?>
+            </div>
         <?php
     }
-    
+	
     function _showCustom( $kids, $cols, $gubgalleries ) {
         echo "<h2>For testing purposes only!</h2>";
         $width = 100/$cols."%"; 

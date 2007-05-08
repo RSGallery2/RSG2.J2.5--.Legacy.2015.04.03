@@ -6,13 +6,15 @@
 	padding:0;
 }
 .rsg_galleryblock, .rsg_galleryblock_double_1, .rsg_galleryblock_double_2{
-	width:100%;
 	border: 1px #999999 solid;
 	padding:8px;
 	float:left;
 	position:relative;
 	margin:0 0 10px 0;
 	vertical-align:top;
+}
+.rsg_galleryblock{
+	width:97%;
 }
 .rsg_galleryblock_double_1{
 	width:46%;
@@ -27,6 +29,46 @@
 	width:100%;
 	margin:0;
 	padding:0;
+}
+.rsg_box_block{
+	width:100%;
+	border:0;
+	background:red;
+}
+.rsg_box_box_1, .rsg_box_box_2, .rsg_box_box_3{
+	width:200px;
+	vertical-align:top;
+}
+.rsg_box_box_2, .rsg_box_box_3{
+	position:relative;
+	float:left;
+}
+.rsg2-galleryList-thumb_box{
+	position:relative;
+	float:left;
+	padding-left: 5px;
+}
+.rsg2-galleryList-text_box{
+	position:relative;
+	float:right;
+}
+.rsg2-galleryList-description_box{
+	width:100%;
+	position:relative;
+	float:left;
+	padding-top:5px;
+}
+.rsg_sub_url{
+	width:100%;
+	position:relative;
+	float:left;
+	padding-top:5px;
+}
+.rsg_sub_url_single{
+	width:90%;
+	position:relative;
+	float:left;
+	padding-top:5px;
 }
 
 /* Status icons */

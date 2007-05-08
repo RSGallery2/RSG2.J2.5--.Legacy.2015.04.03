@@ -6,7 +6,7 @@
 	<copyright>Open Source, GPL</copyright>
 	<authorEmail>info@rsgallery2.net</authorEmail>
 	<authorUrl>rsgallery2.net</authorUrl>
-	<version>.3</version>
+	<version>.4</version>
 	<description>This is the default semantic HTML template.  Currently unfinished.</description>
 	<files>
 		<filename>index.php</filename>
