@@ -12,12 +12,14 @@ class rsgDisplay extends tempDisplay{
 	
 	
 	function mainPage(){
+		 $this->metadata();
+
 		// if tempDisplay handles this function let it, otherwise continue as regularily scheduled.
 		if( parent::mainPage() )
 			return;
 	
 		$page = mosGetParam ( $_REQUEST, 'page', '' );
-	
+
 		switch( $page ){
 			
 			case 'inline':
@@ -120,6 +122,14 @@ class rsgDisplay extends tempDisplay{
             $mainframe->appendPathWay($imgTitle);
         }    // if
     }
+
+	/**
+		insert meta data into head
+	**/
+	function metadata(){
+		$mainframe->setPageTitle( ' '. $this->gallery->get('name') );
+		$mainframe->appendMetaTag( 'description', $this->gallery->get('description') );
+	}
 
 	/***************************
 		private functions
