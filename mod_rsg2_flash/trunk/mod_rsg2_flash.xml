@@ -19,5 +19,7 @@
 			<option value="kirupa">Kirupa</option>
 		</param>
 		<param name="gid" type="text" default="" label="Gallery ID" description="Enter the ID of the gallery to show.  Check the Gallery Manager in RSGallery2 to find the gallery ID." />
+		<param name="width" type="text" default="" label="Gallery ID" description="Width of the flash player." value="200" />
+		<param name="height" type="text" default="" label="Gallery ID" description="Height of the flash player." value="200" />
 	</params>
 </mosinstall>
