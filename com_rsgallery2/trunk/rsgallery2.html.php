@@ -127,6 +127,7 @@ class rsgDisplay extends tempDisplay{
 		insert meta data into head
 	**/
 	function metadata(){
+		global $mainframe;
 		$mainframe->setPageTitle( ' '. $this->gallery->get('name') );
 		$mainframe->appendMetaTag( 'description', $this->gallery->get('description') );
 	}
