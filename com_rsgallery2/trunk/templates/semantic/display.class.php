@@ -68,7 +68,7 @@ class rsgDisplay_semantic extends rsgDisplay{
      * @param boolean Show subgalleries or not.
      * @return HTML for main gallery page.
      */
-    function showMainGalleries($style = "box", $cols = 3, $subgalleries = "true") {
+    function showMainGalleries($style = "single", $cols = 3, $subgalleries = "true") {
         global $database, $Itemid, $rsgConfig;
         
         $gid = mosGetParam( $_REQUEST, 'catid', 0 );
