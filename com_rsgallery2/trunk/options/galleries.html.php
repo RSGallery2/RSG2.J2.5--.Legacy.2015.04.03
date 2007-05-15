@@ -47,7 +47,7 @@ class html_rsg2_galleries{
         <table class="adminlist">
         <tr>
             <th width="5">
-            #
+            ID
             </th>
             <th width="20">
             <input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $rows ); ?>);" />
@@ -85,7 +85,7 @@ class html_rsg2_galleries{
             ?>
             <tr class="<?php echo "row$k"; ?>">
                 <td>
-                <?php echo $pageNav->rowNumber( $i ); ?>
+                <?php echo $row->id; ?>
                 </td>
                 <td>
                 <?php echo $checked; ?>
