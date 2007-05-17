@@ -181,12 +181,12 @@ class menuRSGallery {
 		//mosMenuBar::assign();
 		mosMenuBar::spacer();
 		mosMenuBar::deleteList();
-		mosMenuBar::spacer();
+		mosMenuBar::spacer();/*
 		mosMenuBar::editHtmlX( 'edit_main', 'Main' );
 		mosMenuBar::spacer();
 		mosMenuBar::editHtmlX( 'edit_display', 'Display' );
 		mosMenuBar::spacer();
-		mosMenuBar::editCssX( 'edit_css', 'CSS' );
+		mosMenuBar::editCssX( 'edit_css', 'CSS' );*/
 		mosMenuBar::spacer();
 		//mosMenuBar::addNew();
 		//mosMenuBar::spacer();
