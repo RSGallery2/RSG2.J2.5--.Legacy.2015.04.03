@@ -19,38 +19,24 @@ require_once($mosConfig_absolute_path.'/administrator/components/com_rsgallery2/
 $width = $params->get( 'width' );
 $height = $params->get( 'height' );
 
-// bunch more parameters
-$p = '';
-$p .= buildParamString( 'gid' );
-$p .= buildParamString( 'imageSize' );
-$p .= buildParamString( 'timer' );
-$p .= buildParamString( 'order' );
-$p .= buildParamString( 'looping' );
-$p .= buildParamString( 'fadeTime' );
-$p .= buildParamString( 'xpos' );
-$p .= buildParamString( 'ypos' );
+// build get string
+$getString = '';
+$paramArray = array( 'gid', 'imageSize', 'timer', 'order', 'looping', 'fadeTime',  'xpos',  'ypos' );
+foreach( $paramArray as $p )
+	$getString .= "%26$p%3D" . $params->get( $p );
 
-function buildParamString( $name ){
-	if( $params->get( $name ))
-		return "%26$name%3D" . $params->get( $name );
-	else
-		return '';
-}
 
-switch( $params->get( 'xmlTemplate' )) {
-	case 'todd':
-		echo <<<EOD
+echo <<<EOD
 <object
+	class='mod_rsg2_toddFlash'
 	type="application/x-shockwave-flash"
-	data="$mosConfig_live_site/components/com_rsgallery2/flash/todd_dominey.swf?xmlName=/index.php%3Foption%3Dcom_rsgallery2%26task%3Dxml%26xmlTemplate%3Dtodd_dominey$p"
+	data="$mosConfig_live_site/components/com_rsgallery2/flash/todd_dominey.swf?xmlName=/index.php%3Foption%3Dcom_rsgallery2%26task%3Dxml%26xmlTemplate%3Dtodd_dominey$getString"
 	width="$width" height="$height"
 	align="middle">
 	<param name="allowScriptAccess" value="sameDomain" />
-	<param name="movie" value="$mosConfig_live_site/components/com_rsgallery2/flash/todd_dominey.swf?xmlName=/index.php%3Foption%3Dcom_rsgallery2%26task%3Dxml%26xmlTemplate%3Dtodd_dominey$p" />
+	<param name="movie" value="$mosConfig_live_site/components/com_rsgallery2/flash/todd_dominey.swf?xmlName=/index.php%3Foption%3Dcom_rsgallery2%26task%3Dxml%26xmlTemplate%3Dtodd_dominey$getString" />
 	<param name="quality" value="high" />
 	<param name="bgcolor" value="#ffffff" />
 </object>
 EOD;
-	break;
-}
 ?>

@@ -19,22 +19,22 @@
 			<option value="display">Display Image</option>
 			<option value="original">Original Image</option>
 		</param>
-		<param name="width" type="text" default="200" label="Gallery ID" description="Width of the flash player." />
-		<param name="height" type="text" default="200" label="Gallery ID" description="Height of the flash player." />
+		<param name="width" type="text" default="100" label="Gallery ID" description="Width of the flash player." />
+		<param name="height" type="text" default="100" label="Gallery ID" description="Height of the flash player." />
 		
-		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="@spacer" type="spacer" default="" label="Do not change parameters below this line." description="This flash player is buggy.  The below parameters sometimes cause things to stop working.  Reinstall this module to reset to defaults if it stops working." />
 		
-		<param name="timer" type="text" default="" label="Timer" description="Number of seconds between each image transition." />
+		<param name="timer" type="text" default="5" label="Timer" description="Number of seconds between each image transition." />
 		<param name="order" type="radio" default="sequential" label="Order" description="How you want your images displayed." >
 			<option value="sequential">Sequential</option>
 			<option value="random">Random</option>
 		</param>
 		<param name="looping" type="radio" default="yes" label="Looping" description="If in sequential mode, start again after last image." >
 			<option value="yes">Yes</option>
-			<option value="yes">No</option>
+			<option value="no">No</option>
 		</param>
-		<param name="fadeTime" type="text" default="" label="Fade Time" description="Velocity of image crossfade. Increment for faster fades, decrement for slower. Approximately equal to seconds." />
-		<param name="xpos" type="text" default="" label="x Position" description="x position of all loaded clips (0 is default)." />
-		<param name="ypos" type="text" default="" label="y Position" description="y position of all loaded clips (0 is default)." />
+		<param name="fadeTime" type="text" default="2" label="Fade Time" description="Velocity of image crossfade. Increment for faster fades, decrement for slower. Approximately equal to seconds." />
+		<param name="xpos" type="text" default="0" label="x Position" description="x position of all loaded clips." />
+		<param name="ypos" type="text" default="0" label="y Position" description="y position of all loaded clips." />
 	</params>
 </mosinstall>
