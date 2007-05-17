@@ -28,6 +28,11 @@ switch ($task) {
     	break;
     /* end template system */
 
+// 	temporary bug fix. todo: code editing system
+	default:
+		viewTemplates( $option );
+    	break;
+
 	case 'edit_css':
 		editTemplateCSS($option);
 		HTML_RSGallery::RSGalleryFooter();
