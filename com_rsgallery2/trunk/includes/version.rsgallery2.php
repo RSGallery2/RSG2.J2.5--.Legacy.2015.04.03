@@ -19,17 +19,17 @@ class rsgalleryVersion {
     /** @var string Product */
     var $PRODUCT    = 'RSGallery2';
     /** @var int Main Release Level */
-    var $RELEASE    = '1.12';
+    var $RELEASE    = '1.13';
     /** @var string Development Status */
     var $DEV_STATUS = 'Alpha';
     /** @var int Sub Release Level */
-    var $DEV_LEVEL  = '2';
+    var $DEV_LEVEL  = '0';
     /** @var int build Number */
     var $BUILD      = 'SVN: $GlobalRev$';
     /** @var string Codename */
     var $CODENAME   = '';
     /** @var string Date */
-    var $RELDATE    = '27 Mar 2007';
+    var $RELDATE    = '17 May 2007';
     /** @var string Time */
     var $RELTIME    = '08:10';
     /** @var string Timezone */
@@ -58,7 +58,7 @@ class rsgalleryVersion {
     /**
      * @return string Short version format
      */
-    function getShortVersion() {                                               
+    function getShortVersion() {
         return $this->PRODUCT . ' ' . $this->RELEASE .'.'. $this->DEV_LEVEL .' '.$this->DEV_STATUS . ' - '.$this->BUILD.'<br />'.$this->COPYRIGHT;
     }
 

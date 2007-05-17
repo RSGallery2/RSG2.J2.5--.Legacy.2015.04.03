@@ -22,30 +22,42 @@ class rsgXmlGalleryTemplate_todd_dominey extends rsgXmlGalleryTemplate_generic{
 'xpos' :: _x position of all loaded clips (0 is default)
 'ypos' :: _y position of all loaded clips (0 is default)
     **/
-    function prepare(){
-        $this->output = '';
-        
-        $timer = (int)mosGetParam ( $_REQUEST, 'timer', 5 );
-        $order = mosGetParam ( $_REQUEST, 'order', 'sequential' ) == 'sequential'? 'sequential' : 'random';
-        $fadetime = (int)mosGetParam ( $_REQUEST, 'fadetime', 2 );
-        $looping = mosGetParam ( $_REQUEST, 'looping', 'yes' ) == 'yes'? 'yes' : 'no';
-        $xpos = (int)mosGetParam ( $_REQUEST, 'xpos', 0 );
-        $ypos = (int)mosGetParam ( $_REQUEST, 'ypos', 0 );
-        
-        $this->output = '';
-        $this->output .= <<<EOD
-
-<gallery timer="$timer" order="$order" fadetime="$fadetime" looping="$looping" xpos="$xpos" ypos="ypos">
-
+	function prepare(){
+		$this->output = '';
+		
+		$imageSize = mosGetParam ( $_REQUEST, 'imageSize', 'display' );
+		
+		$timer = (int)mosGetParam ( $_REQUEST, 'timer', 5 );
+		$order = mosGetParam ( $_REQUEST, 'order', 'sequential' ) == 'sequential'? 'sequential' : 'random';
+		$fadeTime = (int)mosGetParam ( $_REQUEST, 'fadeTime', 2 );
+		$looping = mosGetParam ( $_REQUEST, 'looping', 'yes' ) == 'yes'? 'yes' : 'no';
+		$xpos = (int)mosGetParam ( $_REQUEST, 'xpos', 0 );
+		$ypos = (int)mosGetParam ( $_REQUEST, 'ypos', 0 );
+		
+		$this->output .= <<<EOD
+	
+	<gallery timer="$timer" order="$order" fadeTime="$fadeTime" looping="$looping" xpos="$xpos" ypos="$ypos">
+	
 EOD;
-//         print_r($this->gallery);die();
-        foreach( $this->gallery->items() as $img ){
-            $this->output .= '  <image path="';
-            $this->output .= imgUtils::getImgDisplay( $img['name'] );
-            $this->output .= "\" />\n";
-        }
-        
-        $this->output .= '</gallery>';
-    }
+		foreach( $this->gallery->items() as $img ){
+			$this->output .= '  <image path="';
+			
+			switch( $imageSize ){
+				case 'thumb':	
+					$this->output .= imgUtils::getImgThumb( $img['name'] );
+				break;
+				case 'display':	
+					$this->output .= imgUtils::getImgDisplay( $img['name'] );
+				break;
+				case 'original':	
+					$this->output .= imgUtils::getImgOriginal( $img['name'] );
+				break;
+			}
+			
+			$this->output .= "\" />\n";
+		}
+		
+		$this->output .= '</gallery>';
+	}
 }
 ?>
