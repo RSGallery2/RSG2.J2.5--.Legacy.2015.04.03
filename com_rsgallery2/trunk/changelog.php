@@ -31,6 +31,8 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+---------------- 1.13.0 alpha -- svn 25 -- 2007-05-18 -------------
+
 2007-05-04 Jonah Braun
  + added template Super Clean
 
@@ -124,6 +126,7 @@ Legend:
  + Added templating system for frontend.
 
 ---------------- 1.12.2 alpha -- svn 587 -- 2007-02-13 -------------
+
 2007-02-14 Ronald Smit
  # Removed shadow borders around thumbs due to issues in some browsers.
 
