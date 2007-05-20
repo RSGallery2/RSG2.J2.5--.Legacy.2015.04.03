@@ -36,7 +36,11 @@ class html_rsg2_images {
 		<table class="adminheading">
 		<tr>
 			<th><?php echo _RSGALLERY_IMG_IMG_MANAGE?></th>
+			<td>Move to:</td>
+			<td><?php echo $lists['move_id'];?></td>
+			<td>&nbsp;&nbsp;</td>
 			<td><?php echo _RSGALLERY_IMG_FILTER?></td>
+			
 			<td>
 				<input type="text" name="search" value="<?php echo $search;?>" class="text_area" onChange="document.adminForm.submit();" />
 			</td>

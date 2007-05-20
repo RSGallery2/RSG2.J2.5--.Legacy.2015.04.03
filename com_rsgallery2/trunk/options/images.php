@@ -75,6 +75,9 @@ switch ($task) {
 	case 'reset_hits':
 		resetHits( $cid );
 		break;
+	
+	case 'move_images':
+		moveImages( $cid, $option );
 		
 	case 'showImages':
 	default:
@@ -133,6 +136,7 @@ function showImages( $option ) {
 	// build list of categories
 	$javascript 	= 'onchange="document.adminForm.submit();"';
 	$lists['gallery_id']			= galleryUtils::galleriesSelectList( $gallery_id, 'gallery_id', false, $javascript );
+	$lists['move_id']			= galleryUtils::galleriesSelectList( $gallery_id, 'move_id', false, '' );
 	html_rsg2_images::showImages( $option, $rows, $lists, $search, $pageNav );
 }
 
@@ -264,6 +268,29 @@ function removeImages( $cid, $option ) {
 	mosRedirect( "index2.php?option=$option&rsgOption=$rsgOption", _RSGALLERY_ALERT_IMGDELETEOK );
 }
 
+
+function moveImages( $cid, $option ) {
+	global $database;
+	
+	$new_id = mosGetParam( $_POST, 'move_id', '' );
+	if ($new_id == 0) {
+		echo "<script> alert('No gallery selected to move to'); window.history.go(-1);</script>\n";
+		exit;
+	}
+	
+	//Move images to another gallery
+	foreach ($cid as $id) {
+		$query = "UPDATE #__rsgallery2_files"
+		. "\n SET gallery_id = " . intval( $new_id )
+		. "\n WHERE id = ". intval ( $id )
+		;
+		$database->setQuery( $query );
+		if (!$database->query()) {
+			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
+			exit();
+		}
+	}
+}
 /**
 * Publishes or Unpublishes one or more records
 * @param array An array of unique category id numbers

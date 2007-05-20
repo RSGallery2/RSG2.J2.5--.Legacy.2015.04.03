@@ -767,7 +767,6 @@ class waterMarker extends GD2 {
 			//Merge watermark image with image
         	$watermark = imagecreatefrompng( JPATH_ROOT . DS . 'images' . DS . 'rsgallery' . DS . $rsgConfig->get('watermark_image') );
         	ImageCopyMerge ( $im, $watermark,  $newX + 1, $newY + 1, 0, 0, $w, $h, $rsgConfig->get('watermark_transparency') );
-        	//echo "xxxxxxxxxxxxxxxxxxxxx";
         } else {
         	//draw shadow text over image
 	        imagettftext($im, $this->size, $this->angle, $newX+1, $newY+1, $shadowColor, $this->font, $this->waterMarkText); 
@@ -784,14 +783,12 @@ class waterMarker extends GD2 {
             
         $fh = fopen($file_name_dest,'wb');
         fclose($fh);
-        
-		//Merge copy and original image
-		//ImageCopyMerge ( $im, $im_copy, 0, 0, 0, 0, $width, $height, $rsgConfig->get('watermark_transparency') );
 		
         //deploy the image with generalized image deploy function
         $this->imageResource= $outputProc($im, $file_name_dest, 100);
         imagedestroy($im);
         imagedestroy($im_copy);
+        imagedestroy($watermark);
     }
      
     /**
@@ -825,5 +822,4 @@ class waterMarker extends GD2 {
             echo $mosConfig_live_site."/media/display_temp.jpg?".$rand;
     }
 }//END CLASS WATERMARKER
-
 ?>

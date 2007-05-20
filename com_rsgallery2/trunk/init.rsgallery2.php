@@ -27,9 +27,11 @@ $rsgConfig = new rsgConfig();
 //Set path globals for RSGallery2
 DEFINE('JPATH_RSGALLERY2_SITE', JPATH_ROOT.'/components/com_rsgallery2');
 DEFINE('JPATH_RSGALLERY2_ADMIN', JPATH_ROOT.'/administrator/components/com_rsgallery2');
+DEFINE('JPATH_RSGALLERY2_LIBS',JPATH_ROOT.'/components/com_rsgallery2/lib');
 DEFINE('JPATH_ORIGINAL', JPATH_ROOT.$rsgConfig->get('imgPath_original') );
 DEFINE('JPATH_DISPLAY', JPATH_ROOT.$rsgConfig->get('imgPath_display') );
 DEFINE('JPATH_THUMB', JPATH_ROOT.$rsgConfig->get('imgPath_thumb') );
+
 DEFINE ('DS', "/");
 
 $rsgOptions_path = JPATH_RSGALLERY2_ADMIN.'/options/';

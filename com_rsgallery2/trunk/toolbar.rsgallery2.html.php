@@ -23,6 +23,7 @@ class menu_rsg2_images{
     }
     function show(){
         mosMenuBar::startTable();
+        mosMenuBar::custom('move_images','file_f2.png','file_f2.png','Move', true);
         mosMenuBar::spacer();
         mosMenuBar::publishList();
         mosMenuBar::spacer();

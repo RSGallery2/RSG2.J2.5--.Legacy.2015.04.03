@@ -8,12 +8,9 @@
 */
 
 /**
-
-ATTENTION!
-
-This is built to imitate the Joomla 1.0.* style of templating.  Hopefully that is enlightening.
-
-**/
+ * ATTENTION!
+ * This is built to imitate the Joomla 1.0.* style of templating.  Hopefully that is enlightening.
+ */
 
 defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 

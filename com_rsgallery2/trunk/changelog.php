@@ -31,6 +31,9 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2007-05-20 Ronald Smit
+ + Added move images function to backend image manager
+ 
 ---------------- 1.13.0 alpha -- svn 25 -- 2007-05-18 -------------
 
 2007-05-04 Jonah Braun
