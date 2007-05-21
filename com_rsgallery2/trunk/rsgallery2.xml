@@ -10,7 +10,6 @@
   <description>RSGallery2 is a full featured gallery component for Joomla!  Visit the official site for FAQ, support forums and latest news: www.RSGallery2.net.</description>
   <files>
 	<filename>rsgallery.css</filename>
-	<filename>rsgallery2.html.php</filename>
 	<filename>rsgallery2.php</filename>
 	<filename>slideshow.rsgallery2.php</filename>
     <filename>picklist.js</filename>
@@ -139,6 +138,7 @@
     <files>
 <!-- files in main directory, alphabetical order -->
     <filename>admin.rsgallery2.css</filename>    
+    <filename>admin.rsgallery2.html.php</filename>
     <filename>admin.rsgallery2.php</filename>
     <filename>config.rsgallery2.php</filename>
     <filename>changelog.php</filename>
