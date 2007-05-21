@@ -87,6 +87,9 @@
 	<filename>templates/tables_wToddFlash/display.class.php</filename>
 	<filename>templates/tables_wToddFlash/templateDetails.xml</filename>
 	<filename>templates/tables_wToddFlash/index.php</filename>
+	<filename>templates/meta/display.class.php</filename>
+	<filename>templates/meta/templateDetails.xml</filename>
+	<filename>templates/meta/index.php</filename>
 	<filename>templates/microMacro/css/template.css</filename>
 	<filename>templates/microMacro/display.class.php</filename>
 	<filename>templates/microMacro/templateDetails.xml</filename>
