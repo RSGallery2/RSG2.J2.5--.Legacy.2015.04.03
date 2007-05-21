@@ -34,13 +34,13 @@ EOD;
 		foreach( $g->items() as $item ):
 			$thumb = imgUtils::getImgThumb( $item['name'] );
 			$original = imgUtils::getImgOriginal( $item['name'] );
-			$name = $item['name'];
+			$title = $item['title'];
 			$descr = $item['descr'];
 			// note that we don't specify an alt parameter in the following image.  it interferes with overlib popup thumbnail
 			// if you want to add the alt param, here it is: alt='$name'
 			echo <<<EOD
 <li>
-	<a href="$original" rel="lightbox" title='$name<br/>$descr' onmouseover="showInfo('$name', '$name', '$name', '$thumb')" onmouseout="return nd();">
+	<a href="$original" rel="lightbox" title='$title<br/>$descr' onmouseover="showInfo('$title', '$title', '$title', '$thumb')" onmouseout="return nd();">
 		<img src='$thumb' width='20' height='20' />
 	</a>
 </li>
