@@ -404,7 +404,7 @@ DEFINE("_RSGALLERY_C_TMPL_DISP_RAND",		"Display Random");
 DEFINE("_RSGALLERY_C_TMPL_DISP_LATEST",		"Display Latest");
 DEFINE("_RSGALLERY_C_TMPL_DISP_BRAND",		"Display Branding");
 DEFINE("_RSGALLERY_C_TMPL_DISP_DOWN",		"Display Downloadlink");
-DEFINE("_RSGALLERY_C_TMPL_WATERMARK",		"Image Watermark ");
+DEFINE("_RSGALLERY_C_TMPL_WATERMARK",		"Image Watermark.  Buggy, do not use on productions sites.");
 DEFINE("_RSGALLERY_C_TMPL_DISP_WTRMRK",		"Display Watermark");
 DEFINE("_RSGALLERY_C_TMPL_WTRMRK_TEXT",		"Watermark text");
 DEFINE("_RSGALLERY_C_TMPL_WTRMRK_FONTSIZE",	"Watermark Font Size");

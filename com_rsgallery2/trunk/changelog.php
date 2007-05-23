@@ -31,7 +31,11 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
----------------- 1.13.1 alpha -- svn 34 -- 2007-05-22 -------------
+---------------- 1.13.1 alpha -- svn 35 -- 2007-05-23 -------------
+
+2007-05-23 Jonah Braun
+ # Fixed undefined imageUploadError by moving the class to file.utils.php.
+ ^ Added note to watermarking advising it is not to be used on production sites.
 
 2007-05-21 Jonah Braun
  # Altered microMacro template to use image titles instead of filenames.

@@ -12,6 +12,36 @@ defined( '_VALID_MOS' ) or die( 'Access Denied' );
 require_once(JPATH_RSGALLERY2_ADMIN.'/includes/mimetype.php');
 require_once(JPATH_ROOT.'/includes/PEAR/PEAR.php');
 
+/**
+ * simple error class
+ * built to make migration to php5 easier (hopefully)
+ * @package RSGallery2
+ */
+class imageUploadError{
+    var $filename;
+    var $error;
+    /**
+     * Contructor for imageUploadError
+     * @param string Filename for which the error was found
+     * @param string Error message
+     */
+    function ImageUploadError($f, $e){
+        $this->filename=$f;
+        $this->error=$e;
+    }
+
+    function getFilename(){
+        return $this->filename;
+    }
+    
+    function getError(){
+        return $this->error;
+    }
+    
+    function toString(){
+        return _RSGALLERY_CONF_ERROR_UPLOAD . $this->filename . " : " . $this->error . "<br>";
+    }
+}
 
 /**
 * file utilities class, super class for specific file type handlers

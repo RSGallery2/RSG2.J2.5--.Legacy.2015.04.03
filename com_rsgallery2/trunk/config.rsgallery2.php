@@ -11,36 +11,6 @@
 
 defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
 
-/**
- * simple error class
- * built to make migration to php5 easier (hopefully)
- * @package RSGallery2
- */
-class imageUploadError{
-    var $filename;
-    var $error;
-    /**
-     * Contructor for imageUploadError
-     * @param string Filename for which the error was found
-     * @param string Error message
-     */
-    function ImageUploadError($f, $e){
-        $this->filename=$f;
-        $this->error=$e;
-    }
-
-    function getFilename(){
-        return $this->filename;
-    }
-    
-    function getError(){
-        return $this->error;
-    }
-    
-    function toString(){
-        return _RSGALLERY_CONF_ERROR_UPLOAD . $this->filename . " : " . $this->error . "<br>";
-    }
-}
 
 /**
  * Class with util functions for RSGallery2
