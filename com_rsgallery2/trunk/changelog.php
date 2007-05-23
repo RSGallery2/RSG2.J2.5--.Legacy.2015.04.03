@@ -31,6 +31,8 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+---------------- 1.13.1 alpha -- svn 34 -- 2007-05-22 -------------
+
 2007-05-21 Jonah Braun
  # Altered microMacro template to use image titles instead of filenames.
 
