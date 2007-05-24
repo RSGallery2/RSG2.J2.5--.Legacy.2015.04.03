@@ -182,9 +182,9 @@ class html_rsg2_config{
         $templateVariables['acl_enabled'] = mosHTML::yesnoRadioList('acl_enabled', '', $config->acl_enabled);
         
         //Number of galleries dropdown field
-        $dispLimitbox[] = mosHTML::makeOption('0','Never');
-        $dispLimitbox[] = mosHTML::makeOption('1','If more galleries then limit');
-        $dispLimitbox[] = mosHTML::makeOption('2','Always');
+        $dispLimitbox[] = mosHTML::makeOption('0',_RSGALLERY_CONF_LIMIT_NEV);
+        $dispLimitbox[] = mosHTML::makeOption('1',_RSGALLERY_CONF_LIMIT_LIMIT);
+        $dispLimitbox[] = mosHTML::makeOption('2',_RSGALLERY_CONF_LIMIT_ALW);
         $templateVariables['dispLimitbox'] = mosHTML::selectList($dispLimitbox, 'dispLimitbox','','value', 'text', $config->dispLimitbox);
         $galcountNrs[] = mosHTML::makeOption('5','5');
         $galcountNrs[] = mosHTML::makeOption('10','10');

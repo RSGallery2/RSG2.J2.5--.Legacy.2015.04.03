@@ -753,9 +753,9 @@ class galleryUtils {
 	 function writeGalleryStatus( $gallery_id ) {
 	 	global $rsgConfig, $mosConfig_live_site, $database, $my, $rsgAccess;
 
-	 	$owner 			= "<a href=\"#\" onmouseover=\"return overlib('*You are the owner of this gallery*')\" onmouseout=\"return nd();\"><img class=\"status\" src=\"$mosConfig_live_site/components/com_rsgallery2/images/status_owner.png\" alt=\"You are the owner of the gallery\" width=\"15\" height=\"15\" /></a>";
-	 	$upload 		= "<a href=\"#\" onmouseover=\"return overlib('*You can upload in this directory*')\" onmouseout=\"return nd();\"><img class=\"status\" src=\"$mosConfig_live_site/components/com_rsgallery2/images/status_upload.png\" alt=\"You can upload in this gallery\" width=\"15\" height=\"15\" />";
-	 	$unpublished 	= "<a href=\"#\" onmouseover=\"return overlib('*This gallery is not published*')\" onmouseout=\"return nd();\"><img class=\"status\" src=\"$mosConfig_live_site/components/com_rsgallery2/images/status_hidden.png\" alt=\"This gallery is NOT published!\" width=\"15\" height=\"15\" />";
+	 	$owner 			= "<a href=\"#\" onmouseover=\"return overlib('".echo _RSGALLERY_STATUS_ARE_OWNER."')\" onmouseout=\"return nd();\"><img class=\"status\" src=\"$mosConfig_live_site/components/com_rsgallery2/images/status_owner.png\" alt=\"".echo _RSGALLERY_STATUS_ARE_OWNER."\" width=\"15\" height=\"15\" /></a>";
+	 	$upload 		= "<a href=\"#\" onmouseover=\"return overlib('".echo _RSGALLERY_STATUS_CAN_UPLOAD."')\" onmouseout=\"return nd();\"><img class=\"status\" src=\"$mosConfig_live_site/components/com_rsgallery2/images/status_upload.png\" alt=\"".echo _RSGALLERY_STATUS_CAN_UPLOAD."\" width=\"15\" height=\"15\" />";
+	 	$unpublished 	= "<a href=\"#\" onmouseover=\"return overlib('".echo _RSGALLERY_STATUS_NOT_PUBL."')\" onmouseout=\"return nd();\"><img class=\"status\" src=\"$mosConfig_live_site/components/com_rsgallery2/images/status_hidden.png\" alt=\"".echo _RSGALLERY_STATUS_NOT_PUBL."\" width=\"15\" height=\"15\" />";
 	 	$html			= "";
 	 	if ( $rsgConfig->get('displayStatus') ) {
 	 		$database->setQuery( "SELECT * FROM #__rsgallery2_galleries WHERE id = '$gallery_id' LIMIT 1" );

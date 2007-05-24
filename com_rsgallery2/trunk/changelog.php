@@ -31,8 +31,11 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
----------------- 1.13.1 alpha -- svn 35 -- 2007-05-23 -------------
-
+---------------- 1.13.1 alpha -- svn 37 -- 2007-05-24 -------------
+2007-05-24 Daniel Tulp
+ ^ Added language definitions to english.php
+ ^ Replaced hardcoded strings with language definitions
+ 
 2007-05-23 Jonah Braun
  # Fixed undefined imageUploadError by moving the class to file.utils.php.
  ^ Added note to watermarking advising it is not to be used on production sites.

@@ -140,9 +140,9 @@ class rsgDisplay_tables extends rsgDisplay{
         global $rsgConfig;
         ?>
         <span class="rsg_gallery_details"><div class="rsg2_details">
-        Owner: <?php echo $kid->owner;?><br />
-        Size: <?php echo galleryUtils::getFileCount($kid->get('id')). _RSGALLERY_IMAGES;?><br />
-        Created: <?php echo mosFormatDate( $kid->date,"%d-%m-%Y" );?><br />
+        <?php echo _RSGALLERY_TMPL_GAL_DETAILS_OWNER; echo $kid->owner;?><br />
+        <?php echo _RSGALLERY_TMPL_GAL_DETAILS_SIZE; echo galleryUtils::getFileCount($kid->get('id')). _RSGALLERY_IMAGES;?><br />
+        <?php echo _RSGALLERY_TMPL_GAL_DETAILS_DATE; echo mosFormatDate( $kid->date,"%d-%m-%Y" );?><br />
         </div></span>
         <?php
     }
