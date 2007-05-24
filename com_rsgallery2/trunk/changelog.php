@@ -31,7 +31,8 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
----------------- 1.13.1 alpha -- svn 37 -- 2007-05-24 -------------
+---------------- 1.13.1 alpha -- svn 41 -- 2007-05-24 -------------
+
 2007-05-24 Daniel Tulp
  ^ Added language definitions to english.php
  ^ Replaced hardcoded strings with language definitions
