@@ -23,7 +23,7 @@ class menu_rsg2_images{
     }
     function show(){
         mosMenuBar::startTable();
-        mosMenuBar::custom('move_images','file_f2.png','file_f2.png','Move', true);
+        mosMenuBar::custom('move_images','file_f2.png','file_f2.png',_RSGALLERY_MOVETO, true);
         mosMenuBar::spacer();
         mosMenuBar::publishList();
         mosMenuBar::spacer();
@@ -35,7 +35,7 @@ class menu_rsg2_images{
         mosMenuBar::spacer();
         mosMenuBar::deleteList();
         mosMenuBar::spacer();
-        mosMenuBar::custom('reset_hits','reload_f2.png','reload_f2.png','*Reset hits*', true);
+        mosMenuBar::custom('reset_hits','reload_f2.png','reload_f2.png',_RSGALLERY_TOOL_RES_HITS, true);
         mosMenuBar::spacer();
         mosMenuBar::help( 'screen.rsgallery2' );
         menuRSGallery::adminTasksMenu();

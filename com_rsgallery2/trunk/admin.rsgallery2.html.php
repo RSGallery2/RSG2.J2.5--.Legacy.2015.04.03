@@ -956,12 +956,12 @@ class HTML_RSGALLERY{
             <td style='width:40px;'>&nbsp;</td>
             <td>
                 <input type="button" name="delete" value="<?php echo _RSGALLERY_DELETE ?>" class="button"
-                   onClick="if (document.adminForm.boxchecked.value == 0){ alert('Please make a selection from the list to delete'); } else if (confirm('Are you sure you want to delete selected items? ')){ submitbutton('delete_image');}" />
+                   onClick="if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _RSGALLERY_SEL_TO_DEL?>'); } else if (confirm('<?php echo _RSGALLERY_SURE_DEL?>')){ submitbutton('delete_image');}" />
             </td>
             <td width="10%"></td>
             <td>
                 <input type="button" name="moveto" value="<?php echo _RSGALLERY_MOVETO ?>" class="button"
-                   onClick="if (document.adminForm.boxchecked.value == 0){ alert('Please make a selection from the list to move'); } else if (document.adminForm.catmoveid.value==0) { alert('Please make a category selection from the list to move images to'); }else if (confirm('Are you sure you want to move selected items? ')){ submitbutton('move_image');}" />
+                   onClick="if (document.adminForm.boxchecked.value == 0){ alert('<?php echo _RSGALLERY_SEL_TO_MOVE?>'); } else if (document.adminForm.catmoveid.value==0) { alert('<?php echo _RSGALLERY_SEL_GAL_TO_MOVE?>'); }else if (confirm('<?php echo _RSGALLERY_SURE_MOVE?>')){ submitbutton('move_image');}" />
             </td>
             <td>
                 <?php echo $clist2;?>
@@ -1021,7 +1021,7 @@ class HTML_RSGALLERY{
 //asdbg_break();
 if ($row->fordering > $cat_ordering_min[$row->gallery_id]) { ?>
                     <a href="#reorder" onclick="return listItemTask('cb<?php echo $i;?>','images_orderup')">
-                                        <img src="images/uparrow.png" width="12" height="12" border="0" alt="Move Up" />
+                                        <img src="images/uparrow.png" width="12" height="12" border="0" alt="<?php echo _RSGALLERY_ORDER_UP?>" />
                     </a>
 <?php       } else { ?>
             &nbsp;
@@ -1030,7 +1030,7 @@ if ($row->fordering > $cat_ordering_min[$row->gallery_id]) { ?>
                 <td>
 <?php       if ($row->fordering < $cat_ordering_max[$row->gallery_id]) { ?>
                     <a href="#reorder" onclick="return listItemTask('cb<?php echo $i;?>','images_orderdown')">
-                    <img src="images/downarrow.png" width="12" height="12" border="0" alt="Move Down" />
+                    <img src="images/downarrow.png" width="12" height="12" border="0" alt="<?php echo _RSGALLERY_ORDER_DOWN?>" />
                     </a>
 <?php       } else { ?>
             &nbsp;

@@ -37,7 +37,7 @@ class rsgDisplay_semantic extends rsgDisplay{
     <?php
     }
     
-    function thumbs(){
+    function mainpage(){
     ?>
 <div class="rsg_sem_th">
 	<div class="rsg_sem_th_subgal">
@@ -53,10 +53,10 @@ class rsgDisplay_semantic extends rsgDisplay{
 		/**
 		 * This will show the thumbs from the current gallery
 		 */
-		$this->showThumbs();?></td>
+		$this->showThumbs();?>
 	</div>
-	<div class="rsg_sem_th_footer">
-    	<?php $this->showRsgFooter(); ?>
+	<div class="rsg_sem_th_footer"">
+    	<?php $this->showRsgFooter();; ?>
 	</div>
 </div>
     <?php
@@ -127,11 +127,6 @@ class rsgDisplay_semantic extends rsgDisplay{
         <div class='clr'>&nbsp;</div>
         <?php
         }
-		?>
-		<div class="rsg_sem_inl_footer">
-				<?php $this->showRsgFooter(); ?>
-		</div>
-		<?php
     }
     
     /***************************

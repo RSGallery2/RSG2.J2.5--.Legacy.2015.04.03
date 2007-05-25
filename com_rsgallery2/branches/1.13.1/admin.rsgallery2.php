@@ -284,16 +284,16 @@ function uploadFile( $filename, $userfile_name, $msg ) {
 				if (mosChmod( $baseDir . $userfile_name )) {
 					return true;
 				} else {
-					$msg = 'Failed to change the permissions of the uploaded file.';
+					$msg = echo _RSGALLERY_ERMSG_FAILD_CHMOD;
 				}
 			} else {
-				$msg = 'Failed to move uploaded file to <code>/media</code> directory.';
+				$msg = echo _RSGALLERY_ERMSG_FAILD_MOVE_MEDIA;
 			}
 		} else {
-			$msg = 'Upload failed as <code>/media</code> directory is not writable.';
+			$msg = echo _RSGALLERY_ERMSG_MEDIA_NOT_WRITE;
 		}
 	} else {
-		$msg = 'Upload failed as <code>/media</code> directory does not exist.';
+		$msg = echo _RSGALLERY_ERMSG_MEDIA_NOT_EXIST;
 	}
 	return false;
 }

@@ -252,6 +252,14 @@ DEFINE("_RSGALLERY_IMAGECAT",				"Gallery");
 DEFINE("_RSGALLERY_IMAGEHITS",				"Hits");
 DEFINE("_RSGALLERY_IMAGEDATE",				"Date upload");
 DEFINE("_RSGALLERY_REORDER",				"Reorder");
+/*new*/DEFINE("_RSGALLERY_SEL_TO_DEL",		"Please make a selection from the list to delete");
+/*new*/DEFINE("_RSGALLERY_SURE_DEL",		"Are you sure you want to delete selected items? ");
+/*new*/DEFINE("_RSGALLERY_SEL_TO_MOVE",		"Please make a selection from the list to move");
+/*new*/DEFINE("_RSGALLERY_SEL_GAL_TO_MOVE",	"Please select a gallery from the list to move images to");
+/*new*/DEFINE("_RSGALLERY_SURE_MOVE",		"Are you sure you want to move selected items?");
+/*new*/DEFINE("_RSGALLERY_ORDER_UP",		"Move Up");
+/*new*/DEFINE("_RSGALLERY_ORDER_DOWN",		"Move Down");
+
 //function showTemplates
 DEFINE("_RSGALLERY_TEMP_MANG",				"Template Manager");
 DEFINE("_RSGALLERY_RSG_NAME",				"RSGallery2");
@@ -347,6 +355,11 @@ DEFINE("_RSGALLERY_ISWRITABLE_WRITABLE",	"Writeable");
 DEFINE("_RSGALLERY_ISWRITABLE_UNWRITABLE",	"Unwriteable");
 DEFINE("_RSGALLERY_MAKE_WRITABLE",			"Make unwriteable after saving");
 DEFINE("_RSGALLERY_OVERWRITE_WRITABLE",		"Override write protection while saving");
+//function uploadFile
+/*new*/DEFINE("_RSGALLERY_ERMSG_FAILD_CHMOD",	"Failed to change the permissions of the uploaded file.");
+/*new*/DEFINE("_RSGALLERY_ERMSG_FAILD_MOVE_MEDIA",	"Failed to move uploaded file to <code>/media</code> directory.");
+/*new*/DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_WRITE",	"Upload failed as <code>/media</code> directory is not writable.");
+/*new*/DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_EXIST",	"Upload failed as <code>/media</code> directory does not exist.");
 
 //config.rsgallery2.php
 //function toString
@@ -385,6 +398,7 @@ DEFINE("_RSGALLERY_TOOL_UP",				"Upload");
 DEFINE("_RSGALLERY_TOOL_NEXT",				"Next");
 DEFINE("_RSGALLERY_TOOL_DELETE",			"Delete");
 DEFINE("_RSGALLERY_TOOL_CONFIRM_DEL",		"Confirm removal");
+/*new*/DEFINE("_RSGALLERY_TOOL_RES_HITS",	"Reset hits");
 
 //config.html
 DEFINE("_RSGALLERY_C_TMPL_VERSION",			"Version:");

@@ -1,0 +1,17 @@
+#FrogJS{
+width:100%;
+text-align:left;
+position:relative;
+float:left;
+padding-bottom:10px;
+}
+#FrogJSCredit{
+text-align: right;
+font-size: 80%;
+color: #999;
+padding: 1px;
+}
+#FrogJSCaption{
+text-align: left;
+line-height: 140%;
+}

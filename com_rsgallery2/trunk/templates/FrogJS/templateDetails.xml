@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="template">
+	<name>FrogJS</name>
+	<creationDate>25/05/07</creationDate>
+	<author>Daniel Tulp</author>
+	<copyright>GNU/ GPL</copyright>
+	<authorEmail>mail@danieltulp.nl</authorEmail>
+	<authorUrl>rsgallery2.net</authorUrl>
+	<version>.1</version>
+	<description>A template using the FrogJS and Scriptaculous javascript.</description>
+	<files>
+		<filename>index.php</filename>
+		<filename>display.class.php</filename>
+		<filename>templateDetails.xml</filename>
+		<filename>scripts/prototype.js</filename>
+		<filename>scripts/frog.js</filename>
+		<filename>scripts/builder.js</filename>
+		<filename>scripts/dragdrop.js</filename>
+		<filename>scripts/controls.js</filename>
+		<filename>scripts/effects.js</filename>
+		<filename>scripts/slider.js</filename>
+	</files>
+	<css>
+		<filename>css/template.css</filename>
+	</css>
+</mosinstall>
