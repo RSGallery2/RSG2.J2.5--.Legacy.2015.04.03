@@ -106,7 +106,7 @@
 	<filename>templates/tables_wSimpleFlash/index.php</filename>
 	<filename>templates/tables_wKirupa/display.class.php</filename>
 	<filename>templates/tables_wKirupa/templateDetails.xml</filename>
-	<filename>templates/tables_wKirupa/index.php</filename>
+	<filename>templates/tables_wKirupa/index.php</filename>	
 	
 	<filename>xml_templates/Kirupa.php</filename>
 	<filename>xml_templates/generic.php</filename>
@@ -157,27 +157,40 @@
     <filename>includes/install.class.php</filename>
     <filename>includes/version.rsgallery2.php</filename>
     <filename>includes/script.js</filename>
+	
     <filename>language/brazilian_portuguese.php</filename>
-    <filename>language/czechutf8.php</filename>
+	<filename>language/bulgarian.php</filename>
+	<filename>language/croation.php</filename>
+	<filename>language/czech1250.php</filename>
+	<filename>language/czechiso.php</filename>
+	<filename>language/czechutf8.php</filename>
+	<filename>language/danish.php</filename>
     <filename>language/dutch.php</filename>
     <filename>language/english.php</filename>
     <filename>language/french.php</filename>
+	<filename>language/galician.php</filename>
     <filename>language/german.php</filename>
     <filename>language/germani.php</filename>
+	<filename>language/greek.php</filename>
+	<filename>language/hebrew.php</filename>
     <filename>language/hungarian.php</filename>
     <filename>language/hungariani.php</filename>
     <filename>language/hungariani-ISO-8859-2.php</filename>
     <filename>language/hungarian-ISO-8859-2.php</filename>
+	<filename>language/italian.php</filename>
+	<filename>language/latvian.php</filename>
+	<filename>language/norwegian.php</filename>
+	<filename>language/polish-utf8.php</filename>
     <filename>language/polish.php</filename>
     <filename>language/russian.php</filename>
+	<filename>language/simplified_chinese.php</filename>
+	<filename>language/slovak.php</filename>
+	<filename>language/slovak-utf8.php</filename>
     <filename>language/spanish.php</filename>
     <filename>language/spanish_iso-8859-1.php</filename>
     <filename>language/spanish_iso-8859-2.php</filename>
     <filename>language/swedish.php</filename>
     <filename>language/traditional_chinese.php</filename>
-    <filename>language/greek.php</filename>
-    <filename>language/norwegian.php</filename>
-    <filename>language/italian.php</filename>
 	
     <filename>options/config.php</filename>
     <filename>options/config.html.php</filename>

@@ -3,7 +3,8 @@ width:100%;
 text-align:left;
 position:relative;
 float:left;
-padding-bottom:10px;
+height: 800px;
+margin: 0 auto;
 }
 #FrogJSCredit{
 text-align: right;
