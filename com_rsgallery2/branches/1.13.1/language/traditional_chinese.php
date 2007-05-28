@@ -72,7 +72,7 @@ DEFINE("_RSGALLERY_MY_GALLERIES",			"我的相簿");
 DEFINE("_RSGALLERY_SLIDESHOW_EXIT",			"離開幻燈片顯示");
 DEFINE("_RSGALLERY_COMPONENT_TITLE",		"相簿");
 //function subGalleryList
-DEFINE("_RSGALLERY_IMAGES",					" 相片");
+DEFINE("_RSGALLERY_IMAGES",					" 張相片");
 DEFINE("_RSGALLERY_SUB_GALLERIES",			"子相簿：");
 //function RSGalleryList
 //function RSShowPictures
@@ -228,6 +228,9 @@ DEFINE("_RSGALLERY_CONF_GENERALTAB",		"一般 ");
 DEFINE("_RSGALLERY_CONF_IMAGESTAB",		"相片");
 DEFINE("_RSGALLERY_CONF_DISPLAY",		"顯示");
 DEFINE("_RSGALLERY_CONF_USERS",		"權限");
+DEFINE("_RSGALLERY_CONF_LIMIT_NEV",		"永不");
+DEFINE("_RSGALLERY_CONF_LIMIT_LIMIT",	"如果相簿數目多於限制");
+DEFINE("_RSGALLERY_CONF_LIMIT_ALW",		"總是");
 //function showUploadStep1
 DEFINE("_RSGALLERY_PICK",					"選取相簿");
 //function showUploadStep2
@@ -249,6 +252,14 @@ DEFINE("_RSGALLERY_IMAGECAT",				"相簿");
 DEFINE("_RSGALLERY_IMAGEHITS",				"點擊");
 DEFINE("_RSGALLERY_IMAGEDATE",				"上傳日期");
 DEFINE("_RSGALLERY_REORDER",				"重新排序");
+DEFINE("_RSGALLERY_SEL_TO_DEL",		"請從清單中選取要刪除的項目");
+DEFINE("_RSGALLERY_SURE_DEL",		"你確定要刪除已選取項目嗎? ");
+DEFINE("_RSGALLERY_SEL_TO_MOVE",		"請從清單中選取要移動的項目");
+DEFINE("_RSGALLERY_SEL_GAL_TO_MOVE",	"請從清單中選取要移動到的目標相簿");
+DEFINE("_RSGALLERY_SURE_MOVE",		"你確定要移動已選取項目嗎?");
+DEFINE("_RSGALLERY_ORDER_UP",		"上移");
+DEFINE("_RSGALLERY_ORDER_DOWN",		"下移");
+
 //function showTemplates
 DEFINE("_RSGALLERY_TEMP_MANG",				"佈景主題管理員");
 DEFINE("_RSGALLERY_RSG_NAME",				"RSGallery2");
@@ -344,6 +355,11 @@ DEFINE("_RSGALLERY_ISWRITABLE_WRITABLE",	"可以寫入");
 DEFINE("_RSGALLERY_ISWRITABLE_UNWRITABLE",	"不能寫入");
 DEFINE("_RSGALLERY_MAKE_WRITABLE",			"儲存後變更為不可寫入");
 DEFINE("_RSGALLERY_OVERWRITE_WRITABLE",		"儲存時覆蓋寫入保護");
+//function uploadFile
+DEFINE("_RSGALLERY_ERMSG_FAILD_CHMOD",	"變更已上載檔案權限失敗.");
+DEFINE("_RSGALLERY_ERMSG_FAILD_MOVE_MEDIA",	"移動檔案到 <code>/media</code> 目錄失敗.");
+DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_WRITE",	"上載失敗因 <code>/media</code> 目錄不可寫入.");
+DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_EXIST",	"上載失敗因 <code>/media</code> 目錄不存在.");
 
 //config.rsgallery2.php
 //function toString
@@ -362,6 +378,10 @@ DEFINE("_RSGALLERY_ERROR_SETTINGS",			"以下設定令 RSGallery2 不能正常�
 DEFINE("_RSGALLERY_REFRESH",				"重新整理");
 //function writeDownloadLink
 DEFINE("_RSGALLERY_DOWNLOAD",				"下載");
+//function writeGalleryStatus
+DEFINE("_RSGALLERY_STATUS_ARE_OWNER",	"你是此相簿的擁有者");
+DEFINE("_RSGALLERY_STATUS_CAN_UPLOAD",	"你可以上載到此目錄");
+DEFINE("_RSGALLERY_STATUS_NOT_PUBL",		"此目錄未發佈");
 
 //install.rsgallery2.php
 //function com_install
@@ -378,6 +398,7 @@ DEFINE("_RSGALLERY_TOOL_UP",				"上傳");
 DEFINE("_RSGALLERY_TOOL_NEXT",				"下一步");
 DEFINE("_RSGALLERY_TOOL_DELETE",			"刪除");
 DEFINE("_RSGALLERY_TOOL_CONFIRM_DEL",		"確定移除");
+DEFINE("_RSGALLERY_TOOL_RES_HITS",	"重置點擊");
 
 //config.html
 DEFINE("_RSGALLERY_C_TMPL_VERSION",			"版本：");
@@ -586,4 +607,9 @@ DEFINE("_RSGALLERY_IMG_MORE",			"（更多相片）");
 //function checkGallery
 DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"找不到權限，因此建立了預設權限。請再試一次。");
 
+//tables/display.class.php
+//function _showGalleryDetails
+DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"擁有者: ");
+DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"容量: ");
+DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"建立日期: ");
 ?>

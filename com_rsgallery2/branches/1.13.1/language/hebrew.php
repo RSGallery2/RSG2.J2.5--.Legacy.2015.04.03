@@ -194,7 +194,7 @@ DEFINE("_RSGALLERY_BATCH_DELETE",	"מחק");
 DEFINE("_RSGALLERY_BATCH_TITLE",		"כותרת");
 DEFINE("_RSGALLERY_BATCH_GAL",		"גלריה");
 DEFINE("_RSGALLERY_BATCH_UPLOAD",	"העלאה");
-/*new*/DEFINE("_RSGALLERY_BATCH_FTP_PATH_OVERL",	"Please make sure the FTP path is within the webroot. It cannot be on another server! Also, end with a trailing slash.");
+DEFINE("_RSGALLERY_BATCH_FTP_PATH_OVERL",	"Please make sure the FTP path is within the webroot. It cannot be on another server! Also, end with a trailing slash.");
 //function editImage
 DEFINE("_RSGALLERY_PROP_TITLE",				"עריכת מאפייני התמונה");
 DEFINE("_RSGALLERY_TITLE",					"כותרת");
@@ -229,6 +229,9 @@ DEFINE("_RSGALLERY_CONF_GENERALTAB",		"כללי");
 DEFINE("_RSGALLERY_CONF_IMAGESTAB",		"תמונות");
 DEFINE("_RSGALLERY_CONF_DISPLAY",		"תצוגה");
 DEFINE("_RSGALLERY_CONF_USERS",		"הרשאות");
+/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_NEV",		"לעולם לא");
+/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_LIMIT",	"כאשר קיימות יותר גלריות מההגבלה");
+/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_ALW",		"תמיד");
 //function showUploadStep1
 DEFINE("_RSGALLERY_PICK",					"בחר גלריה");
 //function showUploadStep2
@@ -251,9 +254,9 @@ DEFINE("_RSGALLERY_IMAGEHITS",				"כניסות");
 DEFINE("_RSGALLERY_IMAGEDATE",				"תאריך העלאה");
 DEFINE("_RSGALLERY_REORDER",				"סידור מחדש");
 //function showTemplates
-/*new*/DEFINE("_RSGALLERY_TEMP_MANG",				"מנהל תבניות");
-/*new*/DEFINE("_RSGALLERY_RSG_NAME",				"RSGallery2");
-/*new*/DEFINE("_RSGALLERY_TEMP_PREV",				"תצוגת תבניות מקדימה");
+DEFINE("_RSGALLERY_TEMP_MANG",				"מנהל תבניות");
+DEFINE("_RSGALLERY_RSG_NAME",				"RSGallery2");
+DEFINE("_RSGALLERY_TEMP_PREV",				"תצוגת תבניות מקדימה");
 //function consolidateDbGo
 DEFINE("_RSGALLERY_CONSDB_IN_DB",			"בתוך<br>מסד הנתונים");
 DEFINE("_RSGALLERY_CONSDB_DISP",			"קובץ להצגה<br>ספריה");
@@ -265,7 +268,7 @@ DEFINE("_RSGALLERY_CONSDB_CREATE_IMG",		"[&nbsp;יצירת תמונות חסרו
 DEFINE("_RSGALLERY_CONSDB_CREATE_DB",		"[&nbsp;יצירת רישום במסד הנתונים&nbsp;]");
 DEFINE("_RSGALLERY_CONSDB_DELETE_IMG",		"[&nbsp;מחיקת תמונות&nbsp;]");
 DEFINE("_RSGALLERY_CONSDB_NO_INCOS",		"לא נמצא חוסר עקביות במסד הנתונים");
-/*new*/DEFINE("_RSGALLERY_CONSDB_NOTICE",	"&nbsp;<span style='text-size: 14px;font-weight:bold;'>תשומת לב</span>:<br />תכונת מיזוג מסד הנתונים מוכנה לשימוש. הוספה תכונת 'הוספת רישום במסד הנתונים'.<br />תשומת הלב שלא ניתן עדיין להכניס רישומים מרובים. לעת עתה יש להכניס רישומים אחד אחד!");
+DEFINE("_RSGALLERY_CONSDB_NOTICE",	"&nbsp;<span style='text-size: 14px;font-weight:bold;'>תשומת לב</span>:<br />תכונת מיזוג מסד הנתונים מוכנה לשימוש. הוספה תכונת 'הוספת רישום במסד הנתונים'.<br />תשומת הלב שלא ניתן עדיין להכניס רישומים מרובים. לעת עתה יש להכניס רישומים אחד אחד!");
 DEFINE("_RSGALLERY_NOT_WORKING",		"עדיין לא מופעל");
 DEFINE("_RSGALLERY_DEL_FROM_SYSTEM",		"מחיקה ממערכת הקבצים");
 DEFINE("_RSGALLERY_CREATE_MISSING_IMG",		"יצירת תמונות חסרות");
@@ -282,7 +285,7 @@ DEFINE("_RSGALLERY_HEAD_CONSDB",		"מיזוג מסד נתונים");
 DEFINE("_RSGALLERY_HEAD_LOG",		"רשימת שינויים");
 DEFINE("_RSGALLERY_HEAD_CONF_VARIA",		"תצורת משתנים");
 DEFINE("_RSGALLERY_HEAD_CONF_RAW_EDIT",		"תצורת עריכה גולמית");
-/*new*/DEFINE("_RSGALLERY_HEAD_MISS_IMG_CREATE",	"אבדו תמונות שנוצרו");
+DEFINE("_RSGALLERY_HEAD_MISS_IMG_CREATE",	"אבדו תמונות שנוצרו");
 //function config_rawEdit_save
 DEFINE("_RSGALLERY_CONF_SAVED",				"התצורה נשמרה");
 DEFINE("_RSGALLERY_CONF_SAVE_ERROR",		"שגיאה בשמירת התצורה");
@@ -363,6 +366,10 @@ DEFINE("_RSGALLERY_ERROR_SETTINGS",			"The following settings prevent RSGallery2
 DEFINE("_RSGALLERY_REFRESH",				"רענן");
 //function writeDownloadLink
 DEFINE("_RSGALLERY_DOWNLOAD",				"הורד");
+//function writeGalleryStatus
+/*new*/DEFINE("_RSGALLERY_STATUS_ARE_OWNER",	"הגלריה הזאת בבעלותך");
+/*new*/DEFINE("_RSGALLERY_STATUS_CAN_UPLOAD",	"אתה יכול להעלות תמונות לגלריה זו");
+/*new*/DEFINE("_RSGALLERY_STATUS_NOT_PUBL",		"גלריה זו מוגדרת לא לפירסום");
 
 //install.rsgallery2.php
 //function com_install
@@ -435,13 +442,13 @@ DEFINE("_RSGALLERY_C_TMPL_ACL_ENABLE",		"אפשר בקרת כניסה");
 DEFINE("_RSGALLERY_C_TMPL_SHOW_MYGAL",		"הראה גלריות שלי");
 DEFINE("_RSGALLERY_C_TMPL_USER_SET",		"הגדרות אופייניות למשתמש");
 DEFINE("_RSGALLERY_C_DISP_STATUS_ICON",		"הצגת סמל המצב");
-/*new*/DEFINE("_RSGALLERY_C_GEN_SET",			"הגדרות כלליות");
-/*new*/DEFINE("_RSGALLERY_C_HTML_ROOT",			"HTML-root is");
-/*new*/DEFINE("_RSGALLERY_C_DISP_LIMIB",		"הצג מס' גלריות מרבי");
-/*new*/DEFINE("_RSGALLERY_C_NUMB_GAL_FRONT",	"מס' ברירת מחדל של הגלריות בדף הראשי");
-/*new*/DEFINE("_RSGALLERY_C_FONT",				"גופן");
-/*new*/DEFINE("_RSGALLERY_C_WATER_TRANS",		"שקיפות סימן המים");
-/*new*/DEFINE("_RSGALLERY_C_ALLOWED_FILE",		"סוגי קבצים מורשים");
+DEFINE("_RSGALLERY_C_GEN_SET",			"הגדרות כלליות");
+DEFINE("_RSGALLERY_C_HTML_ROOT",			"HTML-root is");
+DEFINE("_RSGALLERY_C_DISP_LIMIB",		"הצג מס' גלריות מרבי");
+DEFINE("_RSGALLERY_C_NUMB_GAL_FRONT",	"מס' ברירת מחדל של הגלריות בדף הראשי");
+DEFINE("_RSGALLERY_C_FONT",				"גופן");
+DEFINE("_RSGALLERY_C_WATER_TRANS",		"שקיפות סימן המים");
+DEFINE("_RSGALLERY_C_ALLOWED_FILE",		"סוגי קבצים מורשים");
 
 //galleries.class.php
 //function check
@@ -464,20 +471,20 @@ DEFINE("_RSGALLERY_GAL_THUMB",			"תמונה ממוזערת");
 DEFINE("_RSGALLERY_GAL_ORDERING",		"סדר");
 DEFINE("_RSGALLERY_GAL_PUBLISHED",		"פרסום");
 DEFINE("_RSGALLERY_GAL_PARAMETERS",		"פרמטרים");
-/*new*/DEFINE("_RSGALLERY_GAL_OWNER",	"הועלה על ידי");
-/*new*/DEFINE("_RSGALLERY_GAL_PERMS",	"הרשאות");
-/*new*/DEFINE("_RSGALLERY_GAL_DEF_PERM_CREATE",	"Default permissions are created. <br />After creating the gallery, you can come back to edit the gallery permissions.");
-/*new*/DEFINE("_RSGALLERY_GAL_NO_PERM_FOUND",	"No permissions found for this gallery. Click on the <strong>SAVE</strong> button in the toolbar above to create default permissions. After that, come back here and set permissions.");
-/*new*/DEFINE("_RSGALLERY_GAL_USERTYPE",		"סוג המשתמש");
-/*new*/DEFINE("_RSGALLERY_GAL_VIEW_GAL",		"תצוגת<br/>גלריה</span>");
-/*new*/DEFINE("_RSGALLERY_GAL_UPL_EDIT_IMG",	"העלאת/עריכת<br/>תמונות</span>");
-/*new*/DEFINE("_RSGALLERY_GAL_DEL_IMG",			"מחיקת תמונה</span>");
-/*new*/DEFINE("_RSGALLERY_GAL_MOD_GAL",			"עריכת<br/>גלריה</span>");
-/*new*/DEFINE("_RSGALLERY_GAL_DEL_GAL",			"מחיקת<br/>גלריה</span>");
-/*new*/DEFINE("_RSGALLERY_GAL_ACL_PUB",			"ציבור</span>");
-/*new*/DEFINE("_RSGALLERY_GAL_ACL_REG",			"רשומים</span>");
-/*new*/DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",	"&nbsp;בחר/אל תבחר הכל");
-/*new*/DEFINE("_RSGALLERY_GAL_ORDER",	"סידור");
+DEFINE("_RSGALLERY_GAL_OWNER",	"הועלה על ידי");
+DEFINE("_RSGALLERY_GAL_PERMS",	"הרשאות");
+DEFINE("_RSGALLERY_GAL_DEF_PERM_CREATE",	"Default permissions are created. <br />After creating the gallery, you can come back to edit the gallery permissions.");
+DEFINE("_RSGALLERY_GAL_NO_PERM_FOUND",	"No permissions found for this gallery. Click on the <strong>SAVE</strong> button in the toolbar above to create default permissions. After that, come back here and set permissions.");
+DEFINE("_RSGALLERY_GAL_USERTYPE",		"סוג המשתמש");
+DEFINE("_RSGALLERY_GAL_VIEW_GAL",		"תצוגת<br/>גלריה</span>");
+DEFINE("_RSGALLERY_GAL_UPL_EDIT_IMG",	"העלאת/עריכת<br/>תמונות</span>");
+DEFINE("_RSGALLERY_GAL_DEL_IMG",			"מחיקת תמונה</span>");
+DEFINE("_RSGALLERY_GAL_MOD_GAL",			"עריכת<br/>גלריה</span>");
+DEFINE("_RSGALLERY_GAL_DEL_GAL",			"מחיקת<br/>גלריה</span>");
+DEFINE("_RSGALLERY_GAL_ACL_PUB",			"ציבור</span>");
+DEFINE("_RSGALLERY_GAL_ACL_REG",			"רשומים</span>");
+DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",	"&nbsp;בחר/אל תבחר הכל");
+DEFINE("_RSGALLERY_GAL_ORDER",	"סידור");
 
 //install.class.php
 //function echo_values
@@ -559,32 +566,37 @@ DEFINE("_RSGALLERY_SLIDE_PREV",			"הקודם");
 
 //images.html.php
 //function showImages
-/*new*/DEFINE("_RSGALLERY_IMG_IMG_MANAGE",			"מנהל תמונות");
-/*new*/DEFINE("_RSGALLERY_IMG_FILTER",				"סינון:");
-/*new*/DEFINE("_RSGALLERY_IMG_TITLE",				"כותרת - שם קובץ");
-/*new*/DEFINE("_RSGALLERY_IMG_ORDER",				"סדר");
-/*new*/DEFINE("_RSGALLERY_IMG_DATE_TIME",			"תאריך ושעה");
-/*new*/DEFINE("_RSGALLERY_IMG_EDIT_IMG",			"עריכת תמונה");
+DEFINE("_RSGALLERY_IMG_IMG_MANAGE",			"מנהל תמונות");
+DEFINE("_RSGALLERY_IMG_FILTER",				"סינון:");
+DEFINE("_RSGALLERY_IMG_TITLE",				"כותרת - שם קובץ");
+DEFINE("_RSGALLERY_IMG_ORDER",				"סדר");
+DEFINE("_RSGALLERY_IMG_DATE_TIME",			"תאריך ושעה");
+DEFINE("_RSGALLERY_IMG_EDIT_IMG",			"עריכת תמונה");
 //function editImage
-/*new*/DEFINE("_RSGALLERY_IMG_IMAGE",			"תמונה");
-/*new*/DEFINE("_RSGALLERY_IMG_DETAILS",			"פרטים");
-/*new*/DEFINE("_RSGALLERY_IMG_ORDERING",			"סידור");
-/*new*/DEFINE("_RSGALLERY_IMG_IMG_PREV",			"תצוגה מקדימה");
-/*new*/DEFINE("_RSGALLERY_IMG_PARAMETERS",			"פרמטרים");
+DEFINE("_RSGALLERY_IMG_IMAGE",			"תמונה");
+DEFINE("_RSGALLERY_IMG_DETAILS",			"פרטים");
+DEFINE("_RSGALLERY_IMG_ORDERING",			"סידור");
+DEFINE("_RSGALLERY_IMG_IMG_PREV",			"תצוגה מקדימה");
+DEFINE("_RSGALLERY_IMG_PARAMETERS",			"פרמטרים");
 //function uploadImage
-/*new*/DEFINE("_RSGALLERY_IMG_SELECT_GAL",			"יש לבחור גלריה.");/*javascript alert*/
-/*new*/DEFINE("_RSGALLERY_IMG_NO_FILE_SELECT",		"לא נבחר קובץ בשדה אחד או בשדות רבים.");/*javascript alert*/
-/*new*/DEFINE("_RSGALLERY_IMG_UPLOAD",			"העלאה");
-/*new*/DEFINE("_RSGALLERY_IMG_UPL_DETAILS",			"פרטי העלאה");
-/*new*/DEFINE("_RSGALLERY_IMG_UPL_GALLERY",			"העלאת גלריה");
-/*new*/DEFINE("_RSGALLERY_IMG_GEN_DESCR",			"תיאור כללי");
-/*new*/DEFINE("_RSGALLERY_IMG_IMG_FILES",			"קבצי תמונה");
-/*new*/DEFINE("_RSGALLERY_IMG_IMAGES",			"תמונות");
-/*new*/DEFINE("_RSGALLERY_IMG_FILE",			"קובץ");
-/*new*/DEFINE("_RSGALLERY_IMG_MORE",			"(תמונות נוספות)");
+DEFINE("_RSGALLERY_IMG_SELECT_GAL",			"יש לבחור גלריה.");/*javascript alert*/
+DEFINE("_RSGALLERY_IMG_NO_FILE_SELECT",		"לא נבחר קובץ בשדה אחד או בשדות רבים.");/*javascript alert*/
+DEFINE("_RSGALLERY_IMG_UPLOAD",			"העלאה");
+DEFINE("_RSGALLERY_IMG_UPL_DETAILS",			"פרטי העלאה");
+DEFINE("_RSGALLERY_IMG_UPL_GALLERY",			"העלאת גלריה");
+DEFINE("_RSGALLERY_IMG_GEN_DESCR",			"תיאור כללי");
+DEFINE("_RSGALLERY_IMG_IMG_FILES",			"קבצי תמונה");
+DEFINE("_RSGALLERY_IMG_IMAGES",			"תמונות");
+DEFINE("_RSGALLERY_IMG_FILE",			"קובץ");
+DEFINE("_RSGALLERY_IMG_MORE",			"(תמונות נוספות)");
 
 //access.class.php
 //function checkGallery
-/*new*/DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"לא נמצאו הרשאות לכן נבחרו הרשאות ברירת מחדל. נסה שנית");
+DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"לא נמצאו הרשאות לכן נבחרו הרשאות ברירת מחדל. נסה שנית");
 
+//tables/display.class.php
+//function _showGalleryDetails
+/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"הועלה על ידי: ");
+/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"מס' תמונות: ");
+/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"תאריך: ");
 ?>

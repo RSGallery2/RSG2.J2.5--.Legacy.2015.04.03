@@ -284,16 +284,16 @@ function uploadFile( $filename, $userfile_name, $msg ) {
 				if (mosChmod( $baseDir . $userfile_name )) {
 					return true;
 				} else {
-					$msg = echo _RSGALLERY_ERMSG_FAILD_CHMOD;
+					$msg = _RSGALLERY_ERMSG_FAILD_CHMOD;
 				}
 			} else {
-				$msg = echo _RSGALLERY_ERMSG_FAILD_MOVE_MEDIA;
+				$msg = _RSGALLERY_ERMSG_FAILD_MOVE_MEDIA;
 			}
 		} else {
-			$msg = echo _RSGALLERY_ERMSG_MEDIA_NOT_WRITE;
+			$msg = _RSGALLERY_ERMSG_MEDIA_NOT_WRITE;
 		}
 	} else {
-		$msg = echo _RSGALLERY_ERMSG_MEDIA_NOT_EXIST;
+		$msg = _RSGALLERY_ERMSG_MEDIA_NOT_EXIST;
 	}
 	return false;
 }

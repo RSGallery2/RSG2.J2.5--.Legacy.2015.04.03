@@ -2,588 +2,600 @@
 
 /**
 * Hungarian (formal) languagefile for RSGallery
-* @version 1.12.2 alpha created on February 16, 2007
+* @version 1.13.1 alpha created on May 25, 2007
 * @package RSGallery2
 * @copyright (C) 2003 - 2006 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 **/
-defined( '_VALID_MOS' ) or die( 'A hozz·fÈrÈs tilos' );
+defined( '_VALID_MOS' ) or die( 'A hozz√°f√©r√©s tilos' );
 
 //rsgallery2.html.php
 //RSShowPictures
-DEFINE("_RSGALLERY_MAGIC_NOTIMP",		"A var·zslat mÈg megvalÛsÌt·sra v·r");
+DEFINE("_RSGALLERY_MAGIC_NOTIMP",		"A var√°zslat m√©g megval√≥s√≠t√°sra v√°r");
 //showMyGalleries
-DEFINE("_RSGALLERY_FEAT_NOTIMP",		"A funkciÛ megvalÛsÌt·sra v·r");
+DEFINE("_RSGALLERY_FEAT_NOTIMP",		"A funkci√≥ megval√≥s√≠t√°sra v√°r");
 //function showUserGallery
-DEFINE("_RSGALLERY_MAKECAT_ALERT_NAME",		"KÈrj¸k, hogy Ìrja be a galÈria nevÈt.");
-DEFINE("_RSGALLERY_MAKECAT_ALERT_DESCR",	"KÈrj¸k, hogy kÈszÌtse el a leÌr·st.");
-DEFINE("_RSGALLERY_CREATE_GALLERY",			"GalÈria lÈtrehoz·sa");
-DEFINE("_RSGALLERY_SAVE",					"MentÈs");
-DEFINE("_RSGALLERY_CANCEL",					"MÈgse");
-DEFINE("_RSGALLERY_CATLEVEL",				"FıgalÈria");
-DEFINE("_RSGALLERY_USERCAT_NAME",			"GalÈria neve");
-DEFINE("_RSGALLERY_DESCR",					"LeÌr·s");
-DEFINE("_RSGALLERY_CATPUBLISHED",			"KˆzzÈtÈve");
+DEFINE("_RSGALLERY_MAKECAT_ALERT_NAME",		"K√©rj√ºk, hogy √≠rja be a gal√©ria nev√©t.");
+DEFINE("_RSGALLERY_MAKECAT_ALERT_DESCR",	"K√©rj√ºk, hogy k√©sz√≠tse el a le√≠r√°st.");
+DEFINE("_RSGALLERY_CREATE_GALLERY",			"Gal√©ria l√©trehoz√°sa");
+DEFINE("_RSGALLERY_SAVE",					"Ment√©s");
+DEFINE("_RSGALLERY_CANCEL",					"M√©gse");
+DEFINE("_RSGALLERY_CATLEVEL",				"F√µgal√©ria");
+DEFINE("_RSGALLERY_USERCAT_NAME",			"Gal√©ria neve");
+DEFINE("_RSGALLERY_DESCR",					"Le√≠r√°s");
+DEFINE("_RSGALLERY_CATPUBLISHED",			"K√∂zz√©t√©ve");
 //function edit_image
-DEFINE("_RSGALLERY_EDIT_IMAGE",				"KÈpadatok mÛdosÌt·sa");
-DEFINE("_RSGALLERY_CAT_NAME",				"KategÛrianÈv");
-DEFINE("_RSGALLERY_EDIT_FILENAME",			"F·jlnÈv");
-DEFINE("_RSGALLERY_EDIT_TITLE",				"CÌm");
-DEFINE("_RSGALLERY_EDIT_DESCRIPTION",		"LeÌr·s");
+DEFINE("_RSGALLERY_EDIT_IMAGE",				"K√©padatok m√≥dos√≠t√°sa");
+DEFINE("_RSGALLERY_CAT_NAME",				"Kateg√≥rian√©v");
+DEFINE("_RSGALLERY_EDIT_FILENAME",			"F√°jln√©v");
+DEFINE("_RSGALLERY_EDIT_TITLE",				"C√≠m");
+DEFINE("_RSGALLERY_EDIT_DESCRIPTION",		"Le√≠r√°s");
 //function showFrontUpload
-DEFINE("_RSGALLERY_UPLOAD_ALERT_CAT",		"KÈrj¸k, hogy v·lassza ki a galÈri·t.");
-DEFINE("_RSGALLERY_UPLOAD_ALERT_FILE",		"KÈrj¸k, hogy v·lassza ki a feltˆltendı f·jlt.");
-DEFINE("_RSGALLERY_ADD_IMAGE",				"KÈp feltˆltÈse");
-DEFINE("_RSGALLERY_USERUPLOAD_TITLE",		"Felhaszn·lÛi feltˆltÈs");
-DEFINE("_RSGALLERY_USERUPLOAD_CATEGORY",	"GalÈria");
-DEFINE("_RSGALLERY_FILENAME",				"F·jlnÈv");
-DEFINE("_RSGALLERY_UPLOAD_FORM_TITLE",		"CÌm");
-DEFINE("_RSGALLERY_UPLOAD_THUMB",			"BÈlyegkÈp:");
+DEFINE("_RSGALLERY_UPLOAD_ALERT_CAT",		"K√©rj√ºk, hogy v√°lassza ki a gal√©ri√°t.");
+DEFINE("_RSGALLERY_UPLOAD_ALERT_FILE",		"K√©rj√ºk, hogy v√°lassza ki a felt√∂ltend√µ f√°jlt.");
+DEFINE("_RSGALLERY_ADD_IMAGE",				"K√©p felt√∂lt√©se");
+DEFINE("_RSGALLERY_USERUPLOAD_TITLE",		"Felhaszn√°l√≥i felt√∂lt√©s");
+DEFINE("_RSGALLERY_USERUPLOAD_CATEGORY",	"Gal√©ria");
+DEFINE("_RSGALLERY_FILENAME",				"F√°jln√©v");
+DEFINE("_RSGALLERY_UPLOAD_FORM_TITLE",		"C√≠m");
+DEFINE("_RSGALLERY_UPLOAD_THUMB",			"B√©lyegk√©p:");
 //function RSGalleryInline
-DEFINE("_RSGALLERY_COMMENT_DELETE",			"Biztosan tˆrˆlni akarja ezt a vÈlemÈnyt?");
-DEFINE("_RSGALLERY_NOIMG",					"‹res a galÈria");
-DEFINE("_RSGALLERY_SLIDESHOW",				"VetÌtÈs");
-DEFINE("_RSGALLERY_CATHITS",				"Tal·latok");
-DEFINE("_RSGALLERY_NODESCR",				"Nincs leÌr·s");
-DEFINE("_RSGALLERY_VOTING",					"…rtÈkelÈs");
-DEFINE("_RSGALLERY_VOTES_NR",				"…rtÈkelÈsek");
-DEFINE("_RSGALLERY_VOTES_AVG",				"¡tlagos ÈrtÈkelÈs");
-DEFINE("_RSGALLERY_NO_RATINGS",				"MÈg senki sem ÈrtÈkelte ezt a kÈpet!");
-DEFINE("_RSGALLERY_VOTE",					"Szavaz·s");
-DEFINE("_RSGALLERY_VERYGOOD",				"&nbsp;Kit˚nı&nbsp;");
-DEFINE("_RSGALLERY_GOOD",					"&nbsp;JÛ&nbsp;");
-DEFINE("_RSGALLERY_OK",						"&nbsp;Kˆzepes&nbsp;");
-DEFINE("_RSGALLERY_BAD",					"&nbsp;ElÈgsÈges&nbsp;");
-DEFINE("_RSGALLERY_VERYBAD",				"&nbsp;ElÈgtelen&nbsp;");
-DEFINE("_RSGALLERY_COMMENTS",			   	"VÈlemÈnyek");
-DEFINE("_RSGALLERY_NO_COMMENTS",			"MÈg senki nem mondta el a vÈlemÈnyÈt!");
-DEFINE("_RSGALLERY_COMMENT_DATE",			"D·tum");
-DEFINE("_RSGALLERY_COMMENT_BY",				"Õrta");
-DEFINE("_RSGALLERY_COMMENT_TEXT",			"VÈlemÈny");
-DEFINE("_RSGALLERY_DELETE_COMMENT",			"VÈlemÈny tˆrlÈse");
-DEFINE("_RSGALLERY_COMMENT_ADD",			"K¸ldÈs");
-DEFINE("_RSGALLERY_COMMENT_NAME",			"NÈv");
-DEFINE("_RSGALLERY_COMMENT_ADD_TEXT",		"Az ÷n vÈlemÈnye");
+DEFINE("_RSGALLERY_COMMENT_DELETE",			"Biztosan t√∂r√∂lni akarja ezt a v√©lem√©nyt?");
+DEFINE("_RSGALLERY_NOIMG",					"√úres a gal√©ria");
+DEFINE("_RSGALLERY_SLIDESHOW",				"Vet√≠t√©s");
+DEFINE("_RSGALLERY_CATHITS",				"Tal√°latok");
+DEFINE("_RSGALLERY_NODESCR",				"Nincs le√≠r√°s");
+DEFINE("_RSGALLERY_VOTING",					"√ârt√©kel√©s");
+DEFINE("_RSGALLERY_VOTES_NR",				"√ârt√©kel√©sek");
+DEFINE("_RSGALLERY_VOTES_AVG",				"√Åtlagos √©rt√©kel√©s");
+DEFINE("_RSGALLERY_NO_RATINGS",				"M√©g senki sem √©rt√©kelte ezt a k√©pet!");
+DEFINE("_RSGALLERY_VOTE",					"Szavaz√°s");
+DEFINE("_RSGALLERY_VERYGOOD",				"&nbsp;Kit√ªn√µ&nbsp;");
+DEFINE("_RSGALLERY_GOOD",					"&nbsp;J√≥&nbsp;");
+DEFINE("_RSGALLERY_OK",						"&nbsp;K√∂zepes&nbsp;");
+DEFINE("_RSGALLERY_BAD",					"&nbsp;El√©gs√©ges&nbsp;");
+DEFINE("_RSGALLERY_VERYBAD",				"&nbsp;El√©gtelen&nbsp;");
+DEFINE("_RSGALLERY_COMMENTS",			   	"V√©lem√©nyek");
+DEFINE("_RSGALLERY_NO_COMMENTS",			"M√©g senki nem mondta el a v√©lem√©ny√©t!");
+DEFINE("_RSGALLERY_COMMENT_DATE",			"D√°tum");
+DEFINE("_RSGALLERY_COMMENT_BY",				"√çrta");
+DEFINE("_RSGALLERY_COMMENT_TEXT",			"V√©lem√©ny");
+DEFINE("_RSGALLERY_DELETE_COMMENT",			"V√©lem√©ny t√∂rl√©se");
+DEFINE("_RSGALLERY_COMMENT_ADD",			"K√ºld√©s");
+DEFINE("_RSGALLERY_COMMENT_NAME",			"N√©v");
+DEFINE("_RSGALLERY_COMMENT_ADD_TEXT",		"Az √ñn v√©lem√©nye");
 DEFINE("_RSGALLERY_EXIF","EXIF");
 //function RSGalleryTitleblock
-DEFINE("_RSGALLERY_MAIN_GALLERY_PAGE",		"GalÈria fıoldal");
-DEFINE("_RSGALLERY_MY_GALLERIES",			"GalÈri·im");
-DEFINE("_RSGALLERY_SLIDESHOW_EXIT",			"KilÈpÈs a vetÌtÈsbıl");
-DEFINE("_RSGALLERY_COMPONENT_TITLE",		"GalÈria");
+DEFINE("_RSGALLERY_MAIN_GALLERY_PAGE",		"Gal√©ria f√µoldal");
+DEFINE("_RSGALLERY_MY_GALLERIES",			"Gal√©ri√°im");
+DEFINE("_RSGALLERY_SLIDESHOW_EXIT",			"Kil√©p√©s a vet√≠t√©sb√µl");
+DEFINE("_RSGALLERY_COMPONENT_TITLE",		"Gal√©ria");
 //function subGalleryList
-DEFINE("_RSGALLERY_IMAGES",					" kÈp");
-DEFINE("_RSGALLERY_SUB_GALLERIES",			"AlgalÈri·k:");
+DEFINE("_RSGALLERY_IMAGES",					" k√©p");
+DEFINE("_RSGALLERY_SUB_GALLERIES",			"Algal√©ri√°k:");
 //function RSGalleryList
 //function RSShowPictures
-DEFINE("_RSGALLERY_DELIMAGE_TEXT",			"Biztosan tˆrˆlni akarja ezt a kÈpet?");
+DEFINE("_RSGALLERY_DELIMAGE_TEXT",			"Biztosan t√∂r√∂lni akarja ezt a k√©pet?");
 //function showMyGalleries
-DEFINE("_RSGALLERY_USER_MY_GAL",			"GalÈri·im");
-DEFINE("_RSGALLERY_MY_IMAGES_CATEGORY",		"GalÈria");
-DEFINE("_RSGALLERY_MY_IMAGES_PUBLISHED",	"KˆzzÈtÈve");
-DEFINE("_RSGALLERY_MY_IMAGES_DELETE",		"TˆrlÈs");
-DEFINE("_RSGALLERY_MY_IMAGES_EDIT",			"MÛdosÌt·s");
-DEFINE("_RSGALLERY_MY_IMAGES_PERMISSIONS",	"Hozz·fÈrÈs");
-DEFINE("_RSGALLERY_NO_USER_GAL",			"MÈg nem hozott lÈtre saj·t galÈri·t");
-DEFINE("_RSGALLERY_DELCAT_TEXT",			"Biztosan tˆrˆlni akarja ezt a galÈri·t?\\nHa t·rol mÈg kÈpeket ebben a galÈri·ban, akkor azok is tˆrlÈsre ker¸lnek.");
+DEFINE("_RSGALLERY_USER_MY_GAL",			"Gal√©ri√°im");
+DEFINE("_RSGALLERY_MY_IMAGES_CATEGORY",		"Gal√©ria");
+DEFINE("_RSGALLERY_MY_IMAGES_PUBLISHED",	"K√∂zz√©t√©ve");
+DEFINE("_RSGALLERY_MY_IMAGES_DELETE",		"T√∂rl√©s");
+DEFINE("_RSGALLERY_MY_IMAGES_EDIT",			"M√≥dos√≠t√°s");
+DEFINE("_RSGALLERY_MY_IMAGES_PERMISSIONS",	"Hozz√°f√©r√©s");
+DEFINE("_RSGALLERY_NO_USER_GAL",			"M√©g nem hozott l√©tre saj√°t gal√©ri√°t");
+DEFINE("_RSGALLERY_DELCAT_TEXT",			"Biztosan t√∂r√∂lni akarja ezt a gal√©ri√°t?\\nHa t√°rol m√©g k√©peket ebben a gal√©ri√°ban, akkor azok is t√∂rl√©sre ker√ºlnek.");
 //function showMyImages
-DEFINE("_RSGALLERY_MY_IMAGES",				"KÈpeim");
-DEFINE("_RSGALLERY_MY_IMAGES_NAME",			"NÈv");
-DEFINE("_RSGALLERY_NOIMG_USER",				"Nincsenek kÈpek a felhaszn·lÛi galÈri·kban");
+DEFINE("_RSGALLERY_MY_IMAGES",				"K√©peim");
+DEFINE("_RSGALLERY_MY_IMAGES_NAME",			"N√©v");
+DEFINE("_RSGALLERY_NOIMG_USER",				"Nincsenek k√©pek a felhaszn√°l√≥i gal√©ri√°kban");
 //function RSGalleryUserInfo
-DEFINE("_RSGALLERY_USER_INFO",				"Felhaszn·lÛ tulajdons·gai");
-DEFINE("_RSGALLERY_USER_INFO_NAME",			"Felhaszn·lÛnÈv");
-DEFINE("_RSGALLERY_USER_INFO_ACL",			"Felhaszn·lÛi szint");
-DEFINE("_RSGALLERY_USER_INFO_MAX_GAL",		"A lÈtrehozhatÛ saj·t galÈri·k sz·ma");
-DEFINE("_RSGALLERY_USER_INFO_CREATED",				"kÈsz¸lt)");
-DEFINE("_RSGALLERY_USER_INFO_MAX_IMG",		"A feltˆlthetı kÈpek sz·ma");
-DEFINE("_RSGALLERY_USER_INFO_UPL",			"feltˆltve)");
+DEFINE("_RSGALLERY_USER_INFO",				"Felhaszn√°l√≥ tulajdons√°gai");
+DEFINE("_RSGALLERY_USER_INFO_NAME",			"Felhaszn√°l√≥n√©v");
+DEFINE("_RSGALLERY_USER_INFO_ACL",			"Felhaszn√°l√≥i szint");
+DEFINE("_RSGALLERY_USER_INFO_MAX_GAL",		"A l√©trehozhat√≥ saj√°t gal√©ri√°k sz√°ma");
+DEFINE("_RSGALLERY_USER_INFO_CREATED",				"k√©sz√ºlt)");
+DEFINE("_RSGALLERY_USER_INFO_MAX_IMG",		"A felt√∂lthet√µ k√©pek sz√°ma");
+DEFINE("_RSGALLERY_USER_INFO_UPL",			"felt√∂ltve)");
 //function myGalleries
-DEFINE("_RSGALLERY_USERGAL_DISABLED",		"Munkat·rsunk letiltotta a felhaszn·lÛi galÈri·kat.");
+DEFINE("_RSGALLERY_USERGAL_DISABLED",		"Munkat√°rsunk letiltotta a felhaszn√°l√≥i gal√©ri√°kat.");
 //function showRandom
-DEFINE("_RSGALLERY_RANDOM_TITLE",			"VÈletlenszer˚ kÈpek");
+DEFINE("_RSGALLERY_RANDOM_TITLE",			"V√©letlenszer√ª k√©pek");
 //function showLatest
-DEFINE("_RSGALLERY_LATEST_TITLE",			"⁄j kÈpek");
+DEFINE("_RSGALLERY_LATEST_TITLE",			"√öj k√©pek");
 
 //rsgallery2.php
 //function my_galleries
-DEFINE("_RSGALLERY_NO_USERCATS",			"Az adminisztr·tor letiltotta a felhaszn·lÛi galÈri·k kÈszÌtÈsÈt");
-DEFINE("_RSGALLERY_MYGAL_NOT_AUTH",		"Jogosulatlan hozz·fÈrÈsi kÌsÈrlet tˆrtÈnt a GalÈri·imhoz!");
+DEFINE("_RSGALLERY_NO_USERCATS",			"Az adminisztr√°tor letiltotta a felhaszn√°l√≥i gal√©ri√°k k√©sz√≠t√©s√©t");
+DEFINE("_RSGALLERY_MYGAL_NOT_AUTH",		"Jogosulatlan hozz√°f√©r√©si k√≠s√©rlet t√∂rt√©nt a Gal√©ri√°imhoz!");
 //function save_image
-DEFINE("_RSGALLERY_SAVE_SUCCESS",			"A tulajdons·gok mentÈse siker¸lt");
+DEFINE("_RSGALLERY_SAVE_SUCCESS",			"A tulajdons√°gok ment√©se siker√ºlt");
 DEFINE("_RSGALLERY_ERROR_SAVE",		"Hiba: ");
 //function viewChangelog
-DEFINE("_RSGALLERY_FEAT_INDEBUG",			"Ez a funkciÛ csak hibakeresı mÛdban Èrhetı el.");
+DEFINE("_RSGALLERY_FEAT_INDEBUG",			"Ez a funkci√≥ csak hibakeres√µ m√≥dban √©rhet√µ el.");
 //function delete_image
-DEFINE("_RSGALLERY_USERIMAGE_NOTOWNER",		"Nem ÷n a tulajdonosa ennek a kÈpnek, visszavissz¸k ÷nt a fıoldalra");
-DEFINE("_RSGALLERY_DELIMAGE_OK",			"A kÈpet tˆrˆlt¸k.");
-DEFINE("_RSGALLERY_DELIMAGE_NOID",			"Nincs megadva az azonosÌtÛ. KÈrj¸k, hogy vegye fel a kapcsolatot a komponens fejlesztıjÈvel");
+DEFINE("_RSGALLERY_USERIMAGE_NOTOWNER",		"Nem √ñn a tulajdonosa ennek a k√©pnek, visszavissz√ºk √ñnt a f√µoldalra");
+DEFINE("_RSGALLERY_DELIMAGE_OK",			"A k√©pet t√∂r√∂lt√ºk.");
+DEFINE("_RSGALLERY_DELIMAGE_NOID",			"Nincs megadva az azonos√≠t√≥. K√©rj√ºk, hogy vegye fel a kapcsolatot a komponens fejleszt√µj√©vel");
 //function addVote
-DEFINE("_RSGALLERY_THANK_VOTING",			"Kˆszˆnj¸k az ÈrtÈkelÈst");
-DEFINE("_RSGALLERY_VOTING_FAILED",			"Nem siker¸lt az ÈrtÈkelÈs");
+DEFINE("_RSGALLERY_THANK_VOTING",			"K√∂sz√∂nj√ºk az √©rt√©kel√©st");
+DEFINE("_RSGALLERY_VOTING_FAILED",			"Nem siker√ºlt az √©rt√©kel√©s");
 //function deleteComment
-DEFINE("_RSGALLERY_COMMENT_DELETED",		"A vÈlemÈny tˆrlÈse siker¸lt!");
-DEFINE("_RSGALLERY_COMMENT_NOT_DELETED",	"Nem tˆrˆlhetı a vÈlemÈny");
+DEFINE("_RSGALLERY_COMMENT_DELETED",		"A v√©lem√©ny t√∂rl√©se siker√ºlt!");
+DEFINE("_RSGALLERY_COMMENT_NOT_DELETED",	"Nem t√∂r√∂lhet√µ a v√©lem√©ny");
 //function addComment
-DEFINE("_RSGALLERY_COMMENT_FIELD_CHECK",	"KÈrj¸k, hogy Ìrja be a nevÈt Ès/vagy a vÈlemÈnyÈt!");
-DEFINE("_RSGALLERY_COMMENT_ADDED",			"A vÈlemÈny hozz·ad·sa siker¸lt!");
-DEFINE("_RSGALLERY_COMMENT_NOT_ADDED",		"A vÈlemÈny hozz·ad·sa nem siker¸lt!");
+DEFINE("_RSGALLERY_COMMENT_FIELD_CHECK",	"K√©rj√ºk, hogy √≠rja be a nev√©t √©s/vagy a v√©lem√©ny√©t!");
+DEFINE("_RSGALLERY_COMMENT_ADDED",			"A v√©lem√©ny hozz√°ad√°sa siker√ºlt!");
+DEFINE("_RSGALLERY_COMMENT_NOT_ADDED",		"A v√©lem√©ny hozz√°ad√°sa nem siker√ºlt!");
 //function makeusercat
-DEFINE("_RSGALLERY_ALERT_CATDETAILSOK",		"FrissÌtett¸k a galÈria tulajdons·gait!");
-DEFINE("_RSGALLERY_ALERT_CATDETAILSNOTOK",	"Nem tudtuk frissÌteni a galÈria tulajdons·gait!");
-DEFINE("_RSGALLERY_MAX_USERCAT_ALERT",		"M·r lÈtrehozta az engedÈlyezett sz·m˙ galÈri·t, visszavissz¸k a fıoldalra");
-DEFINE("_RSGALLERY_ALERT_NEWCAT",			"LÈtrehoztuk az ˙j galÈri·t!");
-DEFINE("_RSGALLERY_ALERT_NONEWCAT",			"Nem tudtuk lÈtrehozni a galÈri·t!\\nVissza fogjuk ÷nt vinni az elızı oldalra.");
+DEFINE("_RSGALLERY_ALERT_CATDETAILSOK",		"Friss√≠tett√ºk a gal√©ria tulajdons√°gait!");
+DEFINE("_RSGALLERY_ALERT_CATDETAILSNOTOK",	"Nem tudtuk friss√≠teni a gal√©ria tulajdons√°gait!");
+DEFINE("_RSGALLERY_MAX_USERCAT_ALERT",		"M√°r l√©trehozta az enged√©lyezett sz√°m√∫ gal√©ri√°t, visszavissz√ºk a f√µoldalra");
+DEFINE("_RSGALLERY_ALERT_NEWCAT",			"L√©trehoztuk az √∫j gal√©ri√°t!");
+DEFINE("_RSGALLERY_ALERT_NONEWCAT",			"Nem tudtuk l√©trehozni a gal√©ri√°t!\\nVissza fogjuk √ñnt vinni az el√µz√µ oldalra.");
 //function delUserCat
-DEFINE("_RSGALLERY_USERCAT_SUBCATS",		"Ez a galÈria algalÈri·kat tartalmaz, Ès nem tˆrˆlhetı. Ha tˆrˆlni akarja ezt a galÈri·t, akkor elıbb helyezze ·t vagy tˆrˆlje az algalÈri·kat.");
-DEFINE("_RSGALLERY_ALERT_CATDELNOTOK",		"Nem tudtuk tˆrˆlni a galÈri·t!");
-DEFINE("_RSGALLERY_ALERT_CATDELOK",			"A galÈri·t tˆrˆlt¸k!");
+DEFINE("_RSGALLERY_USERCAT_SUBCATS",		"Ez a gal√©ria algal√©ri√°kat tartalmaz, √©s nem t√∂r√∂lhet√µ. Ha t√∂r√∂lni akarja ezt a gal√©ri√°t, akkor el√µbb helyezze √°t vagy t√∂r√∂lje az algal√©ri√°kat.");
+DEFINE("_RSGALLERY_ALERT_CATDELNOTOK",		"Nem tudtuk t√∂r√∂lni a gal√©ri√°t!");
+DEFINE("_RSGALLERY_ALERT_CATDELOK",			"A gal√©ri√°t t√∂r√∂lt√ºk!");
 //function doFrontUpload
-DEFINE("_RSGALLERY_MAX_USERIMAGES_ALERT",	"M·r feltˆltˆtte az engedÈlyezett sz·m˙ kÈpet. Elıbb tˆrˆljˆn nÈh·nyat.");
-DEFINE("_RSGALLERY_BATCH_ERROR_SIZE",		"T˙l nagy a feltˆltendı ZIP f·jl. A (php.ini f·jlban be·llÌtott) feltˆltÈsi hat·r ");
-DEFINE("_RSGALLERY_ALERT_UPLOADOK",			"A kÈp feltˆltÈse siker¸lt!");
-DEFINE("_RSGALLERY_ALERT_NOWRITE",			"A feltˆltÈs nem siker¸lt.\\nVissza a feltˆltÈsi oldalra");
-DEFINE("_RSGALLERY_ALERT_WRONGFORMAT",		"Hib·s a kÈpform·tum.\\nMost ·tir·nyÌtjuk a feltˆltÈsi oldalra");
+DEFINE("_RSGALLERY_MAX_USERIMAGES_ALERT",	"M√°r felt√∂lt√∂tte az enged√©lyezett sz√°m√∫ k√©pet. El√µbb t√∂r√∂lj√∂n n√©h√°nyat.");
+DEFINE("_RSGALLERY_BATCH_ERROR_SIZE",		"T√∫l nagy a felt√∂ltend√µ ZIP f√°jl. A (php.ini f√°jlban be√°ll√≠tott) felt√∂lt√©si hat√°r ");
+DEFINE("_RSGALLERY_ALERT_UPLOADOK",			"A k√©p felt√∂lt√©se siker√ºlt!");
+DEFINE("_RSGALLERY_ALERT_NOWRITE",			"A felt√∂lt√©s nem siker√ºlt.\\nVissza a felt√∂lt√©si oldalra");
+DEFINE("_RSGALLERY_ALERT_WRONGFORMAT",		"Hib√°s a k√©pform√°tum.\\nMost √°tir√°ny√≠tjuk a felt√∂lt√©si oldalra");
 
 //admin.rsgallery2.html.php
-DEFINE("_RSGALLERY_TAB_GALLERIES",			"GalÈri·k");
-DEFINE("_RSGALLERY_MOST_RECENT_GAL",		"Utolj·ra lÈtrehozott galÈri·k");
-DEFINE("_RSGALLERY_GALLERY",				"GalÈria");
-DEFINE("_RSGALLERY_USER",					"Felhaszn·lÛ");
+DEFINE("_RSGALLERY_TAB_GALLERIES",			"Gal√©ri√°k");
+DEFINE("_RSGALLERY_MOST_RECENT_GAL",		"Utolj√°ra l√©trehozott gal√©ri√°k");
+DEFINE("_RSGALLERY_GALLERY",				"Gal√©ria");
+DEFINE("_RSGALLERY_USER",					"Felhaszn√°l√≥");
 DEFINE("_RSGALLERY_ID",						"AZ");
-DEFINE("_RSGALLERY_TAB_IMAGES",				"KÈpek");
-DEFINE("_RSGALLERY_MOST_RECENT_IMG",		"Utolj·ra feltˆltˆtt kÈpek");
-DEFINE("_RSGALLERY_DATE",					"D·tum");
-DEFINE("_RSGALLERY_CREDITS",				"Kˆzrem˚kˆdtek");
-DEFINE("_RSGALLERY_INSTALLED_VERSION",		"TelepÌtett verziÛ");
+DEFINE("_RSGALLERY_TAB_IMAGES",				"K√©pek");
+DEFINE("_RSGALLERY_MOST_RECENT_IMG",		"Utolj√°ra felt√∂lt√∂tt k√©pek");
+DEFINE("_RSGALLERY_DATE",					"D√°tum");
+DEFINE("_RSGALLERY_CREDITS",				"K√∂zrem√ªk√∂dtek");
+DEFINE("_RSGALLERY_INSTALLED_VERSION",		"Telep√≠tett verzi√≥");
 DEFINE("_RSGALLERY_LICENSE",			"Licenc");
 //Cpanel
-DEFINE("_RSGALLERY_C_CONFIG",				"Be·llÌt·sok");
-DEFINE("_RSGALLERY_C_UPLOAD",				"FeltˆltÈs");
-DEFINE("_RSGALLERY_C_UPLOAD_ZIP",			"Kˆtegelt feltˆltÈs");
-DEFINE("_RSGALLERY_C_IMAGES",				"KÈpek kezelÈse");
-DEFINE("_RSGALLERY_C_CATEGORIES",			"GalÈri·k kezelÈse");
-DEFINE("_RSGALLERY_C_DATABASE",				"÷sszevon·s adatb·zissal");
-DEFINE("_RSGALLERY_C_MIGRATION",			"FrissÌtÈs");
-DEFINE("_RSGALLERY_C_CSS_EDIT",				"CSS szerkesztÈse");
-DEFINE("_RSGALLERY_C_DEBUG_ON",				"Speci·lis hibakeresÈsi lehetısÈgek. A hibakeresı mÛd a <a href='index2.php?option=com_rsgallery2&task=showConfig'>be·llÌt·sokban</a> van engedÈlyezve.");
-DEFINE("_RSGALLERY_C_PURGE",				"Mind ki¸rÌtÈse/tˆrlÈse");
-DEFINE("_RSGALLERY_C_REALLY_UNINSTALL",		"T…NYLEGES elt·volÌt·s - Tˆrli az ˆsszes kÈpet, kˆnyvt·rat, eldobja az ˆsszes t·bl·t. Csak Linux alatt az alapÈrtelmezett kˆnyvt·rakkal.");
-DEFINE("_RSGALLERY_C_VIEW_CONFIG",			"Be·llÌt·sok - NÈzet");
-DEFINE("_RSGALLERY_C_EDIT_CONFIG",			"Be·llÌt·sok - Nyers szerkesztÈs");
+DEFINE("_RSGALLERY_C_CONFIG",				"Be√°ll√≠t√°sok");
+DEFINE("_RSGALLERY_C_UPLOAD",				"Felt√∂lt√©s");
+DEFINE("_RSGALLERY_C_UPLOAD_ZIP",			"K√∂tegelt felt√∂lt√©s");
+DEFINE("_RSGALLERY_C_IMAGES",				"K√©pek kezel√©se");
+DEFINE("_RSGALLERY_C_CATEGORIES",			"Gal√©ri√°k kezel√©se");
+DEFINE("_RSGALLERY_C_DATABASE",				"√ñsszevon√°s adatb√°zissal");
+DEFINE("_RSGALLERY_C_MIGRATION",			"Friss√≠t√©s");
+DEFINE("_RSGALLERY_C_CSS_EDIT",				"CSS szerkeszt√©se");
+DEFINE("_RSGALLERY_C_DEBUG_ON",				"Speci√°lis hibakeres√©si lehet√µs√©gek. A hibakeres√µ m√≥d a <a href='index2.php?option=com_rsgallery2&task=showConfig'>be√°ll√≠t√°sokban</a> van enged√©lyezve.");
+DEFINE("_RSGALLERY_C_PURGE",				"Mind ki√ºr√≠t√©se/t√∂rl√©se");
+DEFINE("_RSGALLERY_C_REALLY_UNINSTALL",		"T√âNYLEGES elt√°vol√≠t√°s - T√∂rli az √∂sszes k√©pet, k√∂nyvt√°rat, eldobja az √∂sszes t√°bl√°t. Csak Linux alatt az alap√©rtelmezett k√∂nyvt√°rakkal.");
+DEFINE("_RSGALLERY_C_VIEW_CONFIG",			"Be√°ll√≠t√°sok - N√©zet");
+DEFINE("_RSGALLERY_C_EDIT_CONFIG",			"Be√°ll√≠t√°sok - Nyers szerkeszt√©s");
 //function requestCatCreation
-DEFINE("_RSGALLERY_C_CAT_FIRST",			"Elıbb hozzon lÈtre egy kategÛri·t!");
+DEFINE("_RSGALLERY_C_CAT_FIRST",			"El√µbb hozzon l√©tre egy kateg√≥ri√°t!");
 //function batch_upload
-DEFINE("_RSGALLERY_BATCH_NO_ZIP",			"A ZIP-feltˆltÈst v·lasztotta, viszont nem jelˆlte ki a f·jlt");
-DEFINE("_RSGALLERY_BATCH_GAL_FIRST",		"KÈrj¸k, hogy elıbb v·lassza ki a kategÛri·t");
-DEFINE("_RSGALLERY_BATCH_NO_FTP",			"Az FTP-feltˆltÈst v·lasztotta, viszont nem adta meg az FTP-˙tvonalat");
-DEFINE("_RSGALLERY_BATCH_STEP1",			"1. lÈpÈs");
-DEFINE("_RSGALLERY_BATCH_METHOD",			"V·lassza ki a feltˆltÈsi mÛdszert");
-DEFINE("_RSGALLERY_BATCH_METHOD_TIP",		"V·lassza ki, hogy egyetlen f·jlt, egy ZIP f·jlt, vagy egy teljes kˆnyvt·rat akar-e feltˆlteni");
-DEFINE("_RSGALLERY_BATCH_ZIPFILE",			"ZIP f·jl");
-DEFINE("_RSGALLERY_BATCH_UPLOAD_LIMIT",		"A feltˆltÈsi korl·toz·s ");
-DEFINE("_RSGALLERY_BATCH_IN_PHPINI",		" megab·jt (a php.ini f·jlban megadott ÈrtÈk)");
-DEFINE("_RSGALLERY_BATCH_FTP_PATH",			"FTP-˙tvonal");
-DEFINE("_RSGALLERY_BATCH_DONT_FORGET_SLASH","(Ne feledkezzen meg a kezdı Ès a z·rÛ szÛkˆzrıl)");
-DEFINE("_RSGALLERY_BATCH_CATEGORY",			"V·lassza ki a galÈri·t");
-DEFINE("_RSGALLERY_BATCH_YES_IMAGES_IN",	"Igen, az ˆsszes itt lÈvı kÈp: ");
-DEFINE("_RSGALLERY_BATCH_NO_SPECIFY",		"Nem, kÈpenkÈnt v·lasztom ki a 2. lÈpÈsben a galÈri·t");
-DEFINE("_RSGALLERY_BATCH_NEXT",				"Tov·bb -->");
-DEFINE("_RSGALLERY_BATCH_DELETE",	"TˆrlÈs");
-DEFINE("_RSGALLERY_BATCH_TITLE",		"CÌm");
-DEFINE("_RSGALLERY_BATCH_GAL",		"GalÈria");
-DEFINE("_RSGALLERY_BATCH_UPLOAD",	"FeltˆltÈs");
-DEFINE("_RSGALLERY_BATCH_FTP_PATH_OVERL",	"KÈrj¸k, gyızıdjˆn meg rÛla, hogy az FTP ˙tvonal a webgyˆkÈren bel¸l tal·lhatÛ. Nem lehet m·sik kiszolg·lÛn! Tov·bb· perjel legyen a vÈgÈn.");
+DEFINE("_RSGALLERY_BATCH_NO_ZIP",			"A ZIP-felt√∂lt√©st v√°lasztotta, viszont nem jel√∂lte ki a f√°jlt");
+DEFINE("_RSGALLERY_BATCH_GAL_FIRST",		"K√©rj√ºk, hogy el√µbb v√°lassza ki a kateg√≥ri√°t");
+DEFINE("_RSGALLERY_BATCH_NO_FTP",			"Az FTP-felt√∂lt√©st v√°lasztotta, viszont nem adta meg az FTP-√∫tvonalat");
+DEFINE("_RSGALLERY_BATCH_STEP1",			"1. l√©p√©s");
+DEFINE("_RSGALLERY_BATCH_METHOD",			"V√°lassza ki a felt√∂lt√©si m√≥dszert");
+DEFINE("_RSGALLERY_BATCH_METHOD_TIP",		"V√°lassza ki, hogy egyetlen f√°jlt, egy ZIP f√°jlt, vagy egy teljes k√∂nyvt√°rat akar-e felt√∂lteni");
+DEFINE("_RSGALLERY_BATCH_ZIPFILE",			"ZIP f√°jl");
+DEFINE("_RSGALLERY_BATCH_UPLOAD_LIMIT",		"A felt√∂lt√©si korl√°toz√°s ");
+DEFINE("_RSGALLERY_BATCH_IN_PHPINI",		" megab√°jt (a php.ini f√°jlban megadott √©rt√©k)");
+DEFINE("_RSGALLERY_BATCH_FTP_PATH",			"FTP-√∫tvonal");
+DEFINE("_RSGALLERY_BATCH_DONT_FORGET_SLASH","(Ne feledkezzen meg a kezd√µ √©s a z√°r√≥ sz√≥k√∂zr√µl)");
+DEFINE("_RSGALLERY_BATCH_CATEGORY",			"V√°lassza ki a gal√©ri√°t");
+DEFINE("_RSGALLERY_BATCH_YES_IMAGES_IN",	"Igen, az √∂sszes itt l√©v√µ k√©p: ");
+DEFINE("_RSGALLERY_BATCH_NO_SPECIFY",		"Nem, k√©penk√©nt v√°lasztom ki a 2. l√©p√©sben a gal√©ri√°t");
+DEFINE("_RSGALLERY_BATCH_NEXT",				"Tov√°bb -->");
+DEFINE("_RSGALLERY_BATCH_DELETE",	"T√∂rl√©s");
+DEFINE("_RSGALLERY_BATCH_TITLE",		"C√≠m");
+DEFINE("_RSGALLERY_BATCH_GAL",		"Gal√©ria");
+DEFINE("_RSGALLERY_BATCH_UPLOAD",	"Felt√∂lt√©s");
+DEFINE("_RSGALLERY_BATCH_FTP_PATH_OVERL",	"K√©rj√ºk, gy√µz√µdj√∂n meg r√≥la, hogy az FTP √∫tvonal a webgy√∂k√©ren bel√ºl tal√°lhat√≥. Nem lehet m√°sik kiszolg√°l√≥n! Tov√°bb√° perjel legyen a v√©g√©n.");
 //function editImage
-DEFINE("_RSGALLERY_PROP_TITLE",				"A kÈp tulajdons·gainak mÛdosÌt·sa");
-DEFINE("_RSGALLERY_TITLE",					"CÌm");
-DEFINE("_RSGALLERY_CONF_OPTION_TABLE",		"T·bl·zat");
-DEFINE("_RSGALLERY_CONF_OPTION_FLOAT",		"Lebegı");
-DEFINE("_RSGALLERY_CONF_OPTION_MAGIC",		"Var·zslatos (mÈg nem t·mogatott!)");
-DEFINE("_RSGALLERY_CONF_OPTION_L2R",		"BalrÛl jobbra");
-DEFINE("_RSGALLERY_CONF_OPTION_R2L",		"JobbrÛl balra");
-DEFINE("_RSGALLERY_CONF_OPTION_PROP",		"Ar·nyos");
-DEFINE("_RSGALLERY_CONF_OPTION_SQUARE",		"N…GYZET");
-DEFINE("_RSGALLERY_CONF_OPTION_DEFAULT_SIZE",		"AlapÈrtelmezett mÈret");
-DEFINE("_RSGALLERY_CONF_OPTION_REZ_LARGE",		"A nagyobb kÈpek ·tmÈretezÈse");
-DEFINE("_RSGALLERY_CONF_OPTION_REZ_SMALL",		"A kisebb kÈpek ·tmÈretezÈse");
-DEFINE("_RSGALLERY_CONF_OPTION_REZ_2FIT",		"A kÈpek ·tmÈretezÈse az illesztÈshez");
-DEFINE("_RSGALLERY_CONF_OPTION_TL",		"Bal felsı");
-DEFINE("_RSGALLERY_CONF_OPTION_TC",		"Fent kˆzÈpen");
-DEFINE("_RSGALLERY_CONF_OPTION_TR",		"Jobb felsı");
+DEFINE("_RSGALLERY_PROP_TITLE",				"A k√©p tulajdons√°gainak m√≥dos√≠t√°sa");
+DEFINE("_RSGALLERY_TITLE",					"C√≠m");
+DEFINE("_RSGALLERY_CONF_OPTION_TABLE",		"T√°bl√°zat");
+DEFINE("_RSGALLERY_CONF_OPTION_FLOAT",		"Lebeg√µ");
+DEFINE("_RSGALLERY_CONF_OPTION_MAGIC",		"Var√°zslatos (m√©g nem t√°mogatott!)");
+DEFINE("_RSGALLERY_CONF_OPTION_L2R",		"Balr√≥l jobbra");
+DEFINE("_RSGALLERY_CONF_OPTION_R2L",		"Jobbr√≥l balra");
+DEFINE("_RSGALLERY_CONF_OPTION_PROP",		"Ar√°nyos");
+DEFINE("_RSGALLERY_CONF_OPTION_SQUARE",		"N√âGYZET");
+DEFINE("_RSGALLERY_CONF_OPTION_DEFAULT_SIZE",		"Alap√©rtelmezett m√©ret");
+DEFINE("_RSGALLERY_CONF_OPTION_REZ_LARGE",		"A nagyobb k√©pek √°tm√©retez√©se");
+DEFINE("_RSGALLERY_CONF_OPTION_REZ_SMALL",		"A kisebb k√©pek √°tm√©retez√©se");
+DEFINE("_RSGALLERY_CONF_OPTION_REZ_2FIT",		"A k√©pek √°tm√©retez√©se az illeszt√©shez");
+DEFINE("_RSGALLERY_CONF_OPTION_TL",		"Bal fels√µ");
+DEFINE("_RSGALLERY_CONF_OPTION_TC",		"Fent k√∂z√©pen");
+DEFINE("_RSGALLERY_CONF_OPTION_TR",		"Jobb fels√µ");
 DEFINE("_RSGALLERY_CONF_OPTION_L",		"Bal");
-DEFINE("_RSGALLERY_CONF_OPTION_C",		"KˆzÈpen");
+DEFINE("_RSGALLERY_CONF_OPTION_C",		"K√∂z√©pen");
 DEFINE("_RSGALLERY_CONF_OPTION_R",		"Jobb");
-DEFINE("_RSGALLERY_CONF_OPTION_BL",		"Bal alsÛ");
-DEFINE("_RSGALLERY_CONF_OPTION_BC",		"Alul kˆzÈpen");
-DEFINE("_RSGALLERY_CONF_OPTION_BR",		"Jobb alsÛ");
-DEFINE("_RSGALLERY_CONF_POPUP_STYLE",		"ElıugrÛ ablak stÌlusa");
-DEFINE("_RSGALLERY_CONF_POPUP_NO",		"Nincs elıugrÛ ablak");
-DEFINE("_RSGALLERY_CONF_POPUP_NORMAL",		"Norm·l elıugrÛ ablak");
-DEFINE("_RSGALLERY_CONF_POPUP_FANCY",		"ÕzlÈses elıugrÛ ablak (IE6-ban hib·k!)");
+DEFINE("_RSGALLERY_CONF_OPTION_BL",		"Bal als√≥");
+DEFINE("_RSGALLERY_CONF_OPTION_BC",		"Alul k√∂z√©pen");
+DEFINE("_RSGALLERY_CONF_OPTION_BR",		"Jobb als√≥");
+DEFINE("_RSGALLERY_CONF_POPUP_STYLE",		"El√µugr√≥ ablak st√≠lusa");
+DEFINE("_RSGALLERY_CONF_POPUP_NO",		"Nincs el√µugr√≥ ablak");
+DEFINE("_RSGALLERY_CONF_POPUP_NORMAL",		"Norm√°l el√µugr√≥ ablak");
+DEFINE("_RSGALLERY_CONF_POPUP_FANCY",		"√çzl√©ses el√µugr√≥ ablak (IE6-ban hib√°k!)");
 //function showconfig
-DEFINE("_RSGALLERY_FREETYPE_INSTALLED",		"(A Freetype f¸ggvÈnyt·r telepÌtve van, a vÌzjelezÈs m˚kˆdik)");
-DEFINE("_RSGALLERY_FREETYPE_NOTINSTALLED",	"(A Freetype f¸ggvÈnyt·r NINCS telepÌtve! A vÌzjelezÈs nem m˚kˆdik)");
-DEFINE("_RSGALLERY_CONF_GENERALTAB",		"¡ltal·nos");
-DEFINE("_RSGALLERY_CONF_IMAGESTAB",		"KÈpek");
-DEFINE("_RSGALLERY_CONF_DISPLAY",		"MegjelenÌtÈs");
-DEFINE("_RSGALLERY_CONF_USERS",		"EngedÈlyek");
+DEFINE("_RSGALLERY_FREETYPE_INSTALLED",		"(A Freetype f√ºggv√©nyt√°r telep√≠tve van, a v√≠zjelez√©s m√ªk√∂dik)");
+DEFINE("_RSGALLERY_FREETYPE_NOTINSTALLED",	"(A Freetype f√ºggv√©nyt√°r NINCS telep√≠tve! A v√≠zjelez√©s nem m√ªk√∂dik)");
+DEFINE("_RSGALLERY_CONF_GENERALTAB",		"√Åltal√°nos");
+DEFINE("_RSGALLERY_CONF_IMAGESTAB",		"K√©pek");
+DEFINE("_RSGALLERY_CONF_DISPLAY",		"Megjelen√≠t√©s");
+DEFINE("_RSGALLERY_CONF_USERS",		"Enged√©lyek");
+DEFINE("_RSGALLERY_CONF_LIMIT_NEV",		"Soha");
+DEFINE("_RSGALLERY_CONF_LIMIT_LIMIT",	"Ha az enged√©lyezettn√©l t√∂bb gal√©ria van");
+DEFINE("_RSGALLERY_CONF_LIMIT_ALW",		"Mindig");
 //function showUploadStep1
-DEFINE("_RSGALLERY_PICK",					"V·lassza ki a galÈri·t");
+DEFINE("_RSGALLERY_PICK",					"V√°lassza ki a gal√©ri√°t");
 //function showUploadStep2
-DEFINE("_RSGALLERY_BATCH_STEP2",			"2. lÈpÈs");
-DEFINE("_RSGALLERY_UPLOAD_NUMBER",			"A feltˆltendı kÈpek sz·ma");
+DEFINE("_RSGALLERY_BATCH_STEP2",			"2. l√©p√©s");
+DEFINE("_RSGALLERY_UPLOAD_NUMBER",			"A felt√∂ltend√µ k√©pek sz√°ma");
 //function showUploadStep3
-DEFINE("_RSGALLERY_BATCH_STEP3",			"3. lÈpÈs");
-DEFINE("_RSGALLERY_UPLOAD_FORM_IMAGE",		"KÈp");
-DEFINE("_RSGALLERY_CATNAME",				"GalÈria neve");
-DEFINE("_RSGALLERY_UPLOAD_FORM_FILE",		"F·jl");
+DEFINE("_RSGALLERY_BATCH_STEP3",			"3. l√©p√©s");
+DEFINE("_RSGALLERY_UPLOAD_FORM_IMAGE",		"K√©p");
+DEFINE("_RSGALLERY_CATNAME",				"Gal√©ria neve");
+DEFINE("_RSGALLERY_UPLOAD_FORM_FILE",		"F√°jl");
 //function viewImages
-DEFINE("_RSGALLERY_DELETE",					"TˆrlÈs");
-DEFINE("_RSGALLERY_MOVETO",					"¡thelyezÈs ide");
-DEFINE("_RSGALLERY_NUMDISPLAY",				"TÈtelek #");
-DEFINE("_RSGALLERY_SEARCH",					"KeresÈs");
-DEFINE("_RSGALLERY_IMAGENAME",				"NÈv");
-DEFINE("_RSGALLERY_IMAGEFILE",				"F·jlnÈv");
-DEFINE("_RSGALLERY_IMAGECAT",				"GalÈria");
-DEFINE("_RSGALLERY_IMAGEHITS",				"Tal·latok");
-DEFINE("_RSGALLERY_IMAGEDATE",				"Feltˆltve");
-DEFINE("_RSGALLERY_REORDER",				"¡trendezÈs");
+DEFINE("_RSGALLERY_DELETE",					"T√∂rl√©s");
+DEFINE("_RSGALLERY_MOVETO",					"√Åthelyez√©s ide");
+DEFINE("_RSGALLERY_NUMDISPLAY",				"T√©telek #");
+DEFINE("_RSGALLERY_SEARCH",					"Keres√©s");
+DEFINE("_RSGALLERY_IMAGENAME",				"N√©v");
+DEFINE("_RSGALLERY_IMAGEFILE",				"F√°jln√©v");
+DEFINE("_RSGALLERY_IMAGECAT",				"Gal√©ria");
+DEFINE("_RSGALLERY_IMAGEHITS",				"Tal√°latok");
+DEFINE("_RSGALLERY_IMAGEDATE",				"Felt√∂ltve");
+DEFINE("_RSGALLERY_REORDER",				"√Åtrendez√©s");
 //function showTemplates
-DEFINE("_RSGALLERY_TEMP_MANG",				"Sablonkezelı");
+DEFINE("_RSGALLERY_TEMP_MANG",				"Sablonkezel√µ");
 DEFINE("_RSGALLERY_RSG_NAME",				"RSGallery2");
-DEFINE("_RSGALLERY_TEMP_PREV",				"Sablon elınÈzet");
+DEFINE("_RSGALLERY_TEMP_PREV",				"Sablon el√µn√©zet");
 //function consolidateDbGo
-DEFINE("_RSGALLERY_CONSDB_IN_DB",			"Az<br>adatb·zisban");
-DEFINE("_RSGALLERY_CONSDB_DISP",			"MegjelenÌtettek<br>mapp·ja");
+DEFINE("_RSGALLERY_CONSDB_IN_DB",			"Az<br>adatb√°zisban");
+DEFINE("_RSGALLERY_CONSDB_DISP",			"Megjelen√≠tettek<br>mapp√°ja");
 DEFINE("_RSGALLERY_CONSDB_ORIG",			"Eredeti<br>mappa");
-DEFINE("_RSGALLERY_CONSDB_THUMB",			"BÈlyegkÈpek<br>mapp·ja");
-DEFINE("_RSGALLERY_CONSDB_ACT",				"M˚velet");
-DEFINE("_RSGALLERY_CONSDB_DELETE_DB",		"[&nbsp;TˆrlÈs az adatb·zisbÛl&nbsp;]");
-DEFINE("_RSGALLERY_CONSDB_CREATE_IMG",		"[&nbsp;Hi·nyzÛ kÈpek lÈtrehoz·sa&nbsp;]");
-DEFINE("_RSGALLERY_CONSDB_CREATE_DB",		"[&nbsp;Adatb·zis-bejegyzÈs lÈtrehoz·sa&nbsp;]");
-DEFINE("_RSGALLERY_CONSDB_DELETE_IMG",		"[&nbsp;KÈpek tˆrlÈse&nbsp;]");
-DEFINE("_RSGALLERY_CONSDB_NO_INCOS",		"Nincsenek ˆsszeegyeztethetetlensÈgek az adatb·zisban");
-DEFINE("_RSGALLERY_CONSDB_NOTICE",	"&nbsp;<span style='text-size: 14px;font-weight:bold;'>MEGJEGYZ…S</span>:<br />Az ÷sszevon·s adatb·zissal funkciÛ majdnem m˚kˆdik. Hozz·ad·sra ker¸lt az 'Adatb·zisbejegyzÈs lÈtrehoz·sa' funkciÛ is.<br />‹gyeljen azonban arra, hogy egyszerre tˆbb bejegyzÈst nem adhat hozz· az adatb·zishoz. MostantÛl egyenkÈnt kell hozz·adnia ıket!");
-DEFINE("_RSGALLERY_NOT_WORKING",		"MÈg nem m˚kˆdik");
-DEFINE("_RSGALLERY_DEL_FROM_SYSTEM",		"TˆrlÈs a f·jlrendszerbıl");
-DEFINE("_RSGALLERY_CREATE_MISSING_IMG",		"Hi·nyzÛ kÈpek lÈtrehoz·sa");
-DEFINE("_RSGALLERY_CREATE_DB_ENTRIES",		"Adatb·zis-bejegyzÈsek lÈtrehoz·sa");
+DEFINE("_RSGALLERY_CONSDB_THUMB",			"B√©lyegk√©pek<br>mapp√°ja");
+DEFINE("_RSGALLERY_CONSDB_ACT",				"M√ªvelet");
+DEFINE("_RSGALLERY_CONSDB_DELETE_DB",		"[&nbsp;T√∂rl√©s az adatb√°zisb√≥l&nbsp;]");
+DEFINE("_RSGALLERY_CONSDB_CREATE_IMG",		"[&nbsp;Hi√°nyz√≥ k√©pek l√©trehoz√°sa&nbsp;]");
+DEFINE("_RSGALLERY_CONSDB_CREATE_DB",		"[&nbsp;Adatb√°zis-bejegyz√©s l√©trehoz√°sa&nbsp;]");
+DEFINE("_RSGALLERY_CONSDB_DELETE_IMG",		"[&nbsp;K√©pek t√∂rl√©se&nbsp;]");
+DEFINE("_RSGALLERY_CONSDB_NO_INCOS",		"Nincsenek √∂sszeegyeztethetetlens√©gek az adatb√°zisban");
+DEFINE("_RSGALLERY_CONSDB_NOTICE",	"&nbsp;<span style='text-size: 14px;font-weight:bold;'>MEGJEGYZ√âS</span>:<br />Az √ñsszevon√°s adatb√°zissal funkci√≥ majdnem m√ªk√∂dik. Hozz√°ad√°sra ker√ºlt az 'Adatb√°zisbejegyz√©s l√©trehoz√°sa' funkci√≥ is.<br />√úgyeljen azonban arra, hogy egyszerre t√∂bb bejegyz√©st nem adhat hozz√° az adatb√°zishoz. Mostant√≥l egyenk√©nt kell hozz√°adnia √µket!");
+DEFINE("_RSGALLERY_NOT_WORKING",		"M√©g nem m√ªk√∂dik");
+DEFINE("_RSGALLERY_DEL_FROM_SYSTEM",		"T√∂rl√©s a f√°jlrendszerb√µl");
+DEFINE("_RSGALLERY_CREATE_MISSING_IMG",		"Hi√°nyz√≥ k√©pek l√©trehoz√°sa");
+DEFINE("_RSGALLERY_CREATE_DB_ENTRIES",		"Adatb√°zis-bejegyz√©sek l√©trehoz√°sa");
 
 //admin.rsgallery2.php
-DEFINE("_RSGALLERY_HEAD_CONFIG",		"Be·llÌt·sok");
-DEFINE("_RSGALLERY_HEAD_CPANEL",		"Kezelıpult");
-DEFINE("_RSGALLERY_HEAD_EDIT",		"SzerkesztÈs");
-DEFINE("_RSGALLERY_HEAD_UPLOAD",		"FeltˆltÈs");
-DEFINE("_RSGALLERY_HEAD_MIGRATE",		"TelepÌtÈs Ès ·ttelepÌtÈs");
-DEFINE("_RSGALLERY_HEAD_UPLOAD_ZIP",		"ZIP f·jl feltˆltÈse");
-DEFINE("_RSGALLERY_HEAD_CONSDB",		"Adatb·zis egyesÌtÈse");
-DEFINE("_RSGALLERY_HEAD_LOG",		"FejlesztÈsi naplÛ");
-DEFINE("_RSGALLERY_HEAD_CONF_VARIA",		"Konfigur·ciÛs v·ltozÛk");
-DEFINE("_RSGALLERY_HEAD_CONF_RAW_EDIT",		"Be·llÌt·sok nyers mÛdosÌt·sa");
-DEFINE("_RSGALLERY_HEAD_MISS_IMG_CREATE",	"A hi·nyzÛ kÈpek lÈtrehoz·sa kÈsz");
+DEFINE("_RSGALLERY_HEAD_CONFIG",		"Be√°ll√≠t√°sok");
+DEFINE("_RSGALLERY_HEAD_CPANEL",		"Kezel√µpult");
+DEFINE("_RSGALLERY_HEAD_EDIT",		"Szerkeszt√©s");
+DEFINE("_RSGALLERY_HEAD_UPLOAD",		"Felt√∂lt√©s");
+DEFINE("_RSGALLERY_HEAD_MIGRATE",		"Telep√≠t√©s √©s √°ttelep√≠t√©s");
+DEFINE("_RSGALLERY_HEAD_UPLOAD_ZIP",		"ZIP f√°jl felt√∂lt√©se");
+DEFINE("_RSGALLERY_HEAD_CONSDB",		"Adatb√°zis egyes√≠t√©se");
+DEFINE("_RSGALLERY_HEAD_LOG",		"Fejleszt√©si napl√≥");
+DEFINE("_RSGALLERY_HEAD_CONF_VARIA",		"Konfigur√°ci√≥s v√°ltoz√≥k");
+DEFINE("_RSGALLERY_HEAD_CONF_RAW_EDIT",		"Be√°ll√≠t√°sok nyers m√≥dos√≠t√°sa");
+DEFINE("_RSGALLERY_HEAD_MISS_IMG_CREATE",	"A hi√°nyz√≥ k√©pek l√©trehoz√°sa k√©sz");
 //function config_rawEdit_save
-DEFINE("_RSGALLERY_CONF_SAVED",				"A be·llÌt·sok mentÈse megtˆrtÈnt");
-DEFINE("_RSGALLERY_CONF_SAVE_ERROR",		"Hiba tˆrtÈnt a be·llÌt·sok mentÈsekor");
-DEFINE("_RSGALLERY_CONF_CREATE_DIR",		"A kÈpkˆnyvt·rak lÈtrehoz·sa mÈg megvalÛsÌt·sra v·r.");
+DEFINE("_RSGALLERY_CONF_SAVED",				"A be√°ll√≠t√°sok ment√©se megt√∂rt√©nt");
+DEFINE("_RSGALLERY_CONF_SAVE_ERROR",		"Hiba t√∂rt√©nt a be√°ll√≠t√°sok ment√©sekor");
+DEFINE("_RSGALLERY_CONF_CREATE_DIR",		"A k√©pk√∂nyvt√°rak l√©trehoz√°sa m√©g megval√≥s√≠t√°sra v√°r.");
 //function RSInstall
-DEFINE("_RSGALLERY_MIGR_OK",				"az ·ttelepÌtÈs siker¸lt");
+DEFINE("_RSGALLERY_MIGR_OK",				"az √°ttelep√≠t√©s siker√ºlt");
 //function purgeEverything
-DEFINE("_RSGALLERY_PURGE_IMG",				"a kÈpbejegyzÈsek ki¸rÌtÈse az adatb·zisbÛl kÈsz.");
-DEFINE("_RSGALLERY_PURGE_GAL",				"a galÈri·k ki¸rÌtÈse az adatb·zisbÛl kÈsz.");
-DEFINE("_RSGALLERY_PURGE_CONFIG",			"a be·llÌt·sok ki¸rÌtÈse az adatb·zisbÛl kÈsz.");
-DEFINE("_RSGALLERY_PURGE_COMMENTS",			"a vÈlemÈnyek ki¸rÌtÈse az adatb·zisbÛl kÈsz.");
+DEFINE("_RSGALLERY_PURGE_IMG",				"a k√©pbejegyz√©sek ki√ºr√≠t√©se az adatb√°zisb√≥l k√©sz.");
+DEFINE("_RSGALLERY_PURGE_GAL",				"a gal√©ri√°k ki√ºr√≠t√©se az adatb√°zisb√≥l k√©sz.");
+DEFINE("_RSGALLERY_PURGE_CONFIG",			"a be√°ll√≠t√°sok ki√ºr√≠t√©se az adatb√°zisb√≥l k√©sz.");
+DEFINE("_RSGALLERY_PURGE_COMMENTS",			"a v√©lem√©nyek ki√ºr√≠t√©se az adatb√°zisb√≥l k√©sz.");
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Az rm -r haszn·lat·val megkÌsÈrelt¸k elt·volÌtani a $mosConfig_absolute_path/images/rsgallery kˆnyvt·rat");
-DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"A #__rsgallery2_files t·bla ELDOB¡SA kÈsz");
-DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"A #__rsgallery2_galleries t·bla ELDOB¡SA kÈsz");
-DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"A #__rsgallery2_config t·bla ELDOB¡SA kÈsz");
-DEFINE("_RSGALLERY_REAL_UNINST_DROP_COM",	"A #__rsgallery2_comments t·bla ELDOB¡SA kÈsz");
-DEFINE("_RSGALLERY_REAL_UNINST_DONE",		"KÈsz.  T·volÌtson el a fentiek kˆz¸l mindent, ha hiba lÈpett fˆl.  T·volÌtsa el M¡RIS az RSGallery2 komponenst, vagy tov·bbra is hib·k fognak felmer¸lni.");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Az rm -r haszn√°lat√°val megk√≠s√©relt√ºk elt√°vol√≠tani a $mosConfig_absolute_path/images/rsgallery k√∂nyvt√°rat");
+DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"A #__rsgallery2_files t√°bla ELDOB√ÅSA k√©sz");
+DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"A #__rsgallery2_galleries t√°bla ELDOB√ÅSA k√©sz");
+DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"A #__rsgallery2_config t√°bla ELDOB√ÅSA k√©sz");
+DEFINE("_RSGALLERY_REAL_UNINST_DROP_COM",	"A #__rsgallery2_comments t√°bla ELDOB√ÅSA k√©sz");
+DEFINE("_RSGALLERY_REAL_UNINST_DONE",		"K√©sz.  T√°vol√≠tson el a fentiek k√∂z√ºl mindent, ha hiba l√©pett f√∂l.  T√°vol√≠tsa el M√ÅRIS az RSGallery2 komponenst, vagy tov√°bbra is hib√°k fognak felmer√ºlni.");
 //function deleteImage
-DEFINE("_RSGALLERY_ALERT_IMGDELETEOK",		"A kÈp(ek) tˆrlÈse siker¸lt!");
+DEFINE("_RSGALLERY_ALERT_IMGDELETEOK",		"A k√©p(ek) t√∂rl√©se siker√ºlt!");
 //function c_delete
-DEFINE("_RSGALLERY_ALERT_IMGDELETENOTOK",	"Nem ker¸lt(ek) tˆrlÈsre a kÈp(ek)!");
+DEFINE("_RSGALLERY_ALERT_IMGDELETENOTOK",	"Nem ker√ºlt(ek) t√∂rl√©sre a k√©p(ek)!");
 //function save_batchupload
-DEFINE("_RSGALLERY_ALERT_NOCATSELECTED",	"KÈrj¸k, hogy v·lassza ki az ÷SSZES kÈp galÈri·j·t!\\n(AzokÈt a kÈpekÈt is, melyek tˆrlÈsre ker¸lnek.\\nnA kˆvetkezı verziÛkban javÌtani fogjuk ezt a funkciÛt!)");
-DEFINE("_RSGALLERY_ZIP_TO_BIG",				"T˙l nagy a ZIP f·jl!");
+DEFINE("_RSGALLERY_ALERT_NOCATSELECTED",	"K√©rj√ºk, hogy v√°lassza ki az √ñSSZES k√©p gal√©ri√°j√°t!\\n(Azok√©t a k√©pek√©t is, melyek t√∂rl√©sre ker√ºlnek.\\nnA k√∂vetkez√µ verzi√≥kban jav√≠tani fogjuk ezt a funkci√≥t!)");
+DEFINE("_RSGALLERY_ZIP_TO_BIG",				"T√∫l nagy a ZIP f√°jl!");
 //function myPreExtractCallBack
-DEFINE("_RSGALLERY_NOT_ALLOWED_FILETYPE",	"nem engedÈlyezett f·jltÌpus, tˆrlÈsre ker¸l!");
-DEFINE("_RSGALLERY_BATCH_ERROR_FTP1",		"Nem lÈtezik az ÷n ·ltal kiv·lasztott kˆnyvt·r.\\n Most vissza fog jutni a feltˆltÈsi oldalra.");
+DEFINE("_RSGALLERY_NOT_ALLOWED_FILETYPE",	"nem enged√©lyezett f√°jlt√≠pus, t√∂rl√©sre ker√ºl!");
+DEFINE("_RSGALLERY_BATCH_ERROR_FTP1",		"Nem l√©tezik az √ñn √°ltal kiv√°lasztott k√∂nyvt√°r.\\n Most vissza fog jutni a felt√∂lt√©si oldalra.");
 //function showUpload
-DEFINE("_RSGALLEY_ALERT_REST_UPLOADOK",		"a tˆbbi f·jl feltˆltÈse rendben van");
+DEFINE("_RSGALLEY_ALERT_REST_UPLOADOK",		"a t√∂bbi f√°jl felt√∂lt√©se rendben van");
 //function saveImage
-DEFINE("_RSGALLERY_ALERT_IMAGEDETAILSOK",	"A tulajdons·gok frissÌtÈse siker¸lt!");
-DEFINE("_RSGALLERY_ALERT_IMAGEDETAILSNOTOK","Nem frissÌtett¸k a galÈria tulajdons·gait!");
+DEFINE("_RSGALLERY_ALERT_IMAGEDETAILSOK",	"A tulajdons√°gok friss√≠t√©se siker√ºlt!");
+DEFINE("_RSGALLERY_ALERT_IMAGEDETAILSNOTOK","Nem friss√≠tett√ºk a gal√©ria tulajdons√°gait!");
 //function showConfig
-DEFINE("_RSGALLERY_CONF_NOGD2",				"Nem tal·lhatÛ a GD2");
-DEFINE("_RSAGALLERY_CONF_NOIMGMAGICK",		"Nem tal·lhatÛ az ImageMagick");
-DEFINE("_RSAGALLERY_CONF_NONETPBM",			"Nem tal·lhatÛ a netPBM");
+DEFINE("_RSGALLERY_CONF_NOGD2",				"Nem tal√°lhat√≥ a GD2");
+DEFINE("_RSAGALLERY_CONF_NOIMGMAGICK",		"Nem tal√°lhat√≥ az ImageMagick");
+DEFINE("_RSAGALLERY_CONF_NONETPBM",			"Nem tal√°lhat√≥ a netPBM");
 //function viewImages
-DEFINE("_RSGALLERY_VIEW_GAL",				"GalÈria megtekintÈse");
-DEFINE("_RSGALLERY_ALL_GAL",				"- Minden galÈria");
-DEFINE("_RSGALLERY_SELECT_GAL",				"- V·lasszon galÈri·t -");
+DEFINE("_RSGALLERY_VIEW_GAL",				"Gal√©ria megtekint√©se");
+DEFINE("_RSGALLERY_ALL_GAL",				"- Minden gal√©ria");
+DEFINE("_RSGALLERY_SELECT_GAL",				"- V√°lasszon gal√©ri√°t -");
 //function consolidateDbInform
 DEFINE("_RSGALLERY_CONSOLIDATE_DB",
-"Az '÷sszevon·s adatb·zissal' funkciÛ ellenırzi az RSGallery t·bl·it az adatb·zisban, Ès a fizikai kÈpf·jlokat".
-" a galÈria kˆnyvt·r·ban, majd jelentÈst kÈszÌt a tal·lt eltÈrÈsekrıl.  A felhaszn·lÛ azt·n hozz·adhatja vagy".
-" tˆrˆlheti az adatb·zis bejegyzÈseket, ill. a fizikai kÈpf·jlokat, hogy fenntartsa a galÈri·kban az ˆsszef¸ggÈst.<br/><br/>".
-" Ezt a funkciÛt akkor is le kell futtatnia, ha feltˆltˆttek egy kÈpf·jlt a galÈria kˆnyvt·r·ba, vagy tˆrˆltÈk valamelyiket".
-" onnan.  Pl. egy felhaszn·lÛ fel tud FTP-n tov·bbi kÈpf·jlokat tˆlteni a galÈria alkˆnyvt·r·ba, azt·n meg tudja hÌvni".
-" ezt a funkciÛt, hogy frissÌtse az adatb·zist.<br/><br/>KÈrj¸k, hogy v·lasszon al·bb a 'Folytat·s' vagy a 'MÈgse' kˆz¸l.".
-" AmÌg a felhaszn·lÛ nem erısÌti meg a dˆntÈsÈt, addig nem tˆrtÈnik v·ltoztat·s.<br/>");
-DEFINE("_RSGALLERY_PROCEED","Folytat·s");
+"Az '√ñsszevon√°s adatb√°zissal' funkci√≥ ellen√µrzi az RSGallery t√°bl√°it az adatb√°zisban, √©s a fizikai k√©pf√°jlokat".
+" a gal√©ria k√∂nyvt√°r√°ban, majd jelent√©st k√©sz√≠t a tal√°lt elt√©r√©sekr√µl.  A felhaszn√°l√≥ azt√°n hozz√°adhatja vagy".
+" t√∂r√∂lheti az adatb√°zis bejegyz√©seket, ill. a fizikai k√©pf√°jlokat, hogy fenntartsa a gal√©ri√°kban az √∂sszef√ºgg√©st.<br/><br/>".
+" Ezt a funkci√≥t akkor is le kell futtatnia, ha felt√∂lt√∂ttek egy k√©pf√°jlt a gal√©ria k√∂nyvt√°r√°ba, vagy t√∂r√∂lt√©k valamelyiket".
+" onnan.  Pl. egy felhaszn√°l√≥ fel tud FTP-n tov√°bbi k√©pf√°jlokat t√∂lteni a gal√©ria alk√∂nyvt√°r√°ba, azt√°n meg tudja h√≠vni".
+" ezt a funkci√≥t, hogy friss√≠tse az adatb√°zist.<br/><br/>K√©rj√ºk, hogy v√°lasszon al√°bb a 'Folytat√°s' vagy a 'M√©gse' k√∂z√ºl.".
+" Am√≠g a felhaszn√°l√≥ nem er√µs√≠ti meg a d√∂nt√©s√©t, addig nem t√∂rt√©nik v√°ltoztat√°s.<br/>");
+DEFINE("_RSGALLERY_PROCEED","Folytat√°s");
 //function editTemplateCSS
-DEFINE("_RSGALLERY_EDITCSS_FAIL_NOOPEN",	"Sikertelen m˚velet: Nem nyithatÛ meg");
-DEFINE("_RSGALLERY_EDITCSS_NOT_WRITABLE",	"Sikertelen m˚velet: A f·jl nem ÌrhatÛ.");
-DEFINE("_RSGALLERY_EDITCSS_FAIL_NOTWRITING","Sikertelen m˚velet: Nem siker¸lt megnyitni Ìr·sra a f·jlt.");
+DEFINE("_RSGALLERY_EDITCSS_FAIL_NOOPEN",	"Sikertelen m√ªvelet: Nem nyithat√≥ meg");
+DEFINE("_RSGALLERY_EDITCSS_NOT_WRITABLE",	"Sikertelen m√ªvelet: A f√°jl nem √≠rhat√≥.");
+DEFINE("_RSGALLERY_EDITCSS_FAIL_NOTWRITING","Sikertelen m√ªvelet: Nem siker√ºlt megnyitni √≠r√°sra a f√°jlt.");
 //function editCSSSource
-DEFINE("_RSGALLERY_EDITCSS_TITLE",			"RSgallery2 CSS-szerkesztı");
+DEFINE("_RSGALLERY_EDITCSS_TITLE",			"RSgallery2 CSS-szerkeszt√µ");
 DEFINE("_RSGALLERY_ISWRITABLE",				"Az RSgallery2.css");
-DEFINE("_RSGALLERY_ISWRITABLE_WRITABLE",	"ÌrhatÛ");
-DEFINE("_RSGALLERY_ISWRITABLE_UNWRITABLE",	"Ìr·svÈdett");
-DEFINE("_RSGALLERY_MAKE_WRITABLE",			"Õr·svÈdettÈ tÈtel mentÈs ut·n");
-DEFINE("_RSGALLERY_OVERWRITE_WRITABLE",		"Az Ìr·svÈdelem hat·lytalanÌt·sa mentÈskor");
+DEFINE("_RSGALLERY_ISWRITABLE_WRITABLE",	"√≠rhat√≥");
+DEFINE("_RSGALLERY_ISWRITABLE_UNWRITABLE",	"√≠r√°sv√©dett");
+DEFINE("_RSGALLERY_MAKE_WRITABLE",			"√çr√°sv√©dett√© t√©tel ment√©s ut√°n");
+DEFINE("_RSGALLERY_OVERWRITE_WRITABLE",		"Az √≠r√°sv√©delem hat√°lytalan√≠t√°sa ment√©skor");
 
 //config.rsgallery2.php
 //function toString
-DEFINE("_RSGALLERY_CONF_ERROR_UPLOAD",		" - KÈpfeltˆltÈsi hiba : ");
+DEFINE("_RSGALLERY_CONF_ERROR_UPLOAD",		" - K√©pfelt√∂lt√©si hiba : ");
 //function showCategories
-DEFINE("_RSGALLERY_SELECT_GAL_DROP_BOX",		"- V·lasszon galÈri·t -");
+DEFINE("_RSGALLERY_SELECT_GAL_DROP_BOX",		"- V√°lasszon gal√©ri√°t -");
 //function galleriesSelectList
-DEFINE("_RSGALLERY_SELECT_GAL_TOP",		"Felsı");
+DEFINE("_RSGALLERY_SELECT_GAL_TOP",		"Fels√µ");
 //function newImages
-DEFINE("_RSGALLERY_NEW",				"⁄j!");
+DEFINE("_RSGALLERY_NEW",				"√öj!");
 //function writeWarningBox
-DEFINE("_RSGALLERY_NO_IMGLIBRARY",			"Egy kÈp f¸ggvÈnyt·rat sem siker¸lt tal·lni! KÈrj¸k, hogy lÈpjen kapcsolatba a t·rhelyszolg·ltatÛj·val, Ès kÈrje meg, hogy telepÌtsÈk a GD2 f¸ggvÈnyt·rat, vagy nÈzzen kˆr¸l a fÛrumban az ImageMagick vagy a NETPBM telepÌtÈsÈvel kapcsolatban!");
-DEFINE("_RSGALLERY_NOT_WRITABLE",			" NEM ÌrhatÛ!");
-DEFINE("_RSGALLERY_FOLDER_NOTEXIST",		" NEM lÈtezik! KÈrj¸k, hogy hozza lÈtre ezt a kˆnyvt·rat, Ès ellenırizze, hogy 0755-e kˆnyvt·r CHMOD ÈrtÈke!");
-DEFINE("_RSGALLERY_ERROR_SETTINGS",			"A kˆvetkezı be·llÌt·sok megakad·lyozz·k az RSGallery2 hibamentes m˚kˆdÈsÈt:");
-DEFINE("_RSGALLERY_REFRESH",				"FrissÌtÈs");
+DEFINE("_RSGALLERY_NO_IMGLIBRARY",			"Egy k√©p f√ºggv√©nyt√°rat sem siker√ºlt tal√°lni! K√©rj√ºk, hogy l√©pjen kapcsolatba a t√°rhelyszolg√°ltat√≥j√°val, √©s k√©rje meg, hogy telep√≠ts√©k a GD2 f√ºggv√©nyt√°rat, vagy n√©zzen k√∂r√ºl a f√≥rumban az ImageMagick vagy a NETPBM telep√≠t√©s√©vel kapcsolatban!");
+DEFINE("_RSGALLERY_NOT_WRITABLE",			" NEM √≠rhat√≥!");
+DEFINE("_RSGALLERY_FOLDER_NOTEXIST",		" NEM l√©tezik! K√©rj√ºk, hogy hozza l√©tre ezt a k√∂nyvt√°rat, √©s ellen√µrizze, hogy 0755-e k√∂nyvt√°r CHMOD √©rt√©ke!");
+DEFINE("_RSGALLERY_ERROR_SETTINGS",			"A k√∂vetkez√µ be√°ll√≠t√°sok megakad√°lyozz√°k az RSGallery2 hibamentes m√ªk√∂d√©s√©t:");
+DEFINE("_RSGALLERY_REFRESH",				"Friss√≠t√©s");
 //function writeDownloadLink
-DEFINE("_RSGALLERY_DOWNLOAD",				"LetˆltÈs");
+DEFINE("_RSGALLERY_DOWNLOAD",				"Let√∂lt√©s");
+//function writeGalleryStatus
+DEFINE("_RSGALLERY_STATUS_ARE_OWNER",	"√ñn a tulajdonosa ennek a gal√©ri√°nak");
+DEFINE("_RSGALLERY_STATUS_CAN_UPLOAD",	"√ñn t√∂lthet fel ebbe a gal√©ri√°ba");
+DEFINE("_RSGALLERY_STATUS_NOT_PUBL",		"Ez a gal√©ria NINCS k√∂zz√©t√©ve");
 
 //install.rsgallery2.php
 //function com_install
-DEFINE("_RSGALLERY_MIGRATING_FROM",			"¡ttelepÌtÈs az RSGallery2 ");
-DEFINE("_RSGALLERY_INSTALL_SUCCESS",		"Siker¸lt!  Most m·r ezt haszn·lja: RSGallery2 ");
+DEFINE("_RSGALLERY_MIGRATING_FROM",			"√Åttelep√≠t√©s az RSGallery2 ");
+DEFINE("_RSGALLERY_INSTALL_SUCCESS",		"Siker√ºlt!  Most m√°r ezt haszn√°lja: RSGallery2 ");
 DEFINE("_RSGALLERY_INSTALL_FAIL",			"Hiba: ");
 
 //toolbar.rsgallery2.html.php
-DEFINE("_RSGALLERY_TOOL_CLOSE",				"Bez·r·s");
-DEFINE("_RSGALLERY_TOOL_PANEL",				"VezÈrlıpult");
-DEFINE("_RSGALLERY_TOOL_GAL",				"GalÈri·k");
-DEFINE("_RSGALLERY_TOOL_IMG",				"KÈpek");
-DEFINE("_RSGALLERY_TOOL_UP",				"FeltˆltÈs");
-DEFINE("_RSGALLERY_TOOL_NEXT",				"Kˆvetkezı");
-DEFINE("_RSGALLERY_TOOL_DELETE",			"TˆrlÈs");
-DEFINE("_RSGALLERY_TOOL_CONFIRM_DEL",		"Elt·volÌt·s megerısÌtÈse");
+DEFINE("_RSGALLERY_TOOL_CLOSE",				"Bez√°r√°s");
+DEFINE("_RSGALLERY_TOOL_PANEL",				"Vez√©rl√µpult");
+DEFINE("_RSGALLERY_TOOL_GAL",				"Gal√©ri√°k");
+DEFINE("_RSGALLERY_TOOL_IMG",				"K√©pek");
+DEFINE("_RSGALLERY_TOOL_UP",				"Felt√∂lt√©s");
+DEFINE("_RSGALLERY_TOOL_NEXT",				"K√∂vetkez√µ");
+DEFINE("_RSGALLERY_TOOL_DELETE",			"T√∂rl√©s");
+DEFINE("_RSGALLERY_TOOL_CONFIRM_DEL",		"Elt√°vol√≠t√°s meger√µs√≠t√©se");
 
 //config.html
-DEFINE("_RSGALLERY_C_TMPL_VERSION",			"VerziÛ:");
-DEFINE("_RSGALLERY_C_TMPL_INTRO_TEXT",		"Bevezetı szˆveg:");
-DEFINE("_RSGALLERY_C_TMPL_DEBUG",			"HibakeresÈs:");
-DEFINE("_RSGALLERY_C_TMPL_IMG_MANIP",		"KÈpfeldolgoz·s");
-DEFINE("_RSGALLERY_C_TMPL_DISP_WIDTH",		"A megjelenÌtett kÈp szÈlessÈge:");
-DEFINE("_RSGALLERY_C_TMPL_THUMB_WIDTH",		"A bÈlyegkÈp szÈlessÈge:");
-DEFINE("_RSGALLERY_C_TMPL_THUMBNAIL_STYLE",		"BÈlyegkÈp stÌlusa:");
-DEFINE("_RSGALLERY_C_TMPL_JPEG_QUALITY",	"JPEG minısÈg sz·zalÈkban");
-DEFINE("_RSGALLERY_C_TMPL_GRAPH_LIB",		"Grafikai f¸ggvÈnyt·r");
-DEFINE("_RSGALLERY_C_TMPL_NOTE_GLIB_PATH",	"MegjegyzÈs:</span> Hagyja ¸resen az al·bbi mezıket, ha nincs problÈm·ja.");
-DEFINE("_RSGALLERY_C_TMPL_IMGMAGICK_PATH",	"Az ImageMagick ˙tvonala:");
-DEFINE("_RSGALLERY_C_TMPL_NETPBM_PATH",		"A Netpbm ˙tvonala:");
-DEFINE("_RSGALLERY_C_TMPL_FTP_PATH",		"FTP ˙tvonal:");
-DEFINE("_RSGALLERY_C_TMPL_IMG_STORAGE",		"KÈpt·rol·s");
-DEFINE("_RSGALLERY_C_TMPL_KEEP_ORIG",		"Az eredeti kÈp megtart·sa:");
-DEFINE("_RSGALLERY_C_TMPL_ORIG_PATH",		"Az eredeti kÈp ˙tvonala:");
-DEFINE("_RSGALLERY_C_TMPL_DISP_PATH",		"A megjelenÌtett kÈp ˙tvonala:");
-DEFINE("_RSGALLERY_C_TMPL_THUMB_PATH",		"A bÈlyegkÈp ˙tvonala:");
-DEFINE("_RSGALLERY_C_TMPL_CREATE_DIR",		"A nem lÈtezı kˆnyvt·rak lÈtrehoz·sa:");
-DEFINE("_RSGALLERY_C_TMPL_FRONT_PAGE",		"CÌmlap");
-DEFINE("_RSGALLERY_C_TMPL_DISP_RAND",		"VÈletlenszer˚ megjelenÌtÈs");
-DEFINE("_RSGALLERY_C_TMPL_DISP_LATEST",		"A leg˙jabbak megjelenÌtÈse");
-DEFINE("_RSGALLERY_C_TMPL_DISP_BRAND",		"A szerzıi jogi inform·ciÛ megjelenÌtÈse");
-DEFINE("_RSGALLERY_C_TMPL_DISP_DOWN",		"A letˆltÈsi cÌm megjelenÌtÈse");
-DEFINE("_RSGALLERY_C_TMPL_WATERMARK",		"KÈp vÌzjelezÈse ");
-DEFINE("_RSGALLERY_C_TMPL_DISP_WTRMRK",		"A vÌzjel megjelenÌtÈse");
-DEFINE("_RSGALLERY_C_TMPL_WTRMRK_TEXT",		"A vÌzjel szˆvege");
-DEFINE("_RSGALLERY_C_TMPL_WTRMRK_FONTSIZE",	"A vÌzjel bet˚mÈrete");
-DEFINE("_RSGALLERY_C_TMPL_WTRMRK_ANGLE",	"A vÌzjel szˆvegÈnek dılÈsszˆge");
-DEFINE("_RSGALLERY_C_TMPL_WTRMRK_POS",		"A vÌzjel elhelyezÈse");
-DEFINE("_RSGALLERY_C_TMPL_GAL_VIEW",		"GalÈria nÈzet");
-DEFINE("_RSGALLERY_C_TMPL_THUMB_STYLE",		"A bÈlyegkÈp stÌlusa:<br>V·ltozÛ szÈlessÈg˚ sablonok esetÈn v·lassza a Kˆrbefuttat·s lehetısÈget.");
-DEFINE("_RSGALLERY_C_TMPL_FLOATDIRECTION",	"Ir·ny (csak a kˆrbefuttat·s esetÈn m˚kˆdik):");
-DEFINE("_RSGALLERY_C_TMPL_COLS_PERPAGE",	"A bÈlyegkÈposzlopok sz·ma (csak t·bl·zat esetÈn):");
-DEFINE("_RSGALLERY_C_TMPL_THUMBS_PERPAGE",	"A bÈlyegkÈpek oldalankÈnti sz·ma:");
-DEFINE("_RSGALLERY_C_TMPL_DISP_SLIDE",		"A diavetÌtÈs megjelenÌtÈse");
-DEFINE("_RSGALLERY_C_TMPL_IMG_DISP",		"KÈp megjelenÌtÈse");
-DEFINE("_RSGALLERY_C_TMPL_RESIZE_OPT",		"¡tmÈretezÈsi lehetısÈg");
-DEFINE("_RSGALLERY_C_TMPL_DISP_DESCR",		"A leÌr·s megjelenÌtÈse");
-DEFINE("_RSGALLERY_C_TMPL_DISP_HITS",		"A tal·latok megjelenÌtÈse");
-DEFINE("_RSGALLERY_C_TMPL_DISP_VOTE",		"Az ÈrtÈkelÈs megjelenÌtÈse");
-DEFINE("_RSGALLERY_C_TMPL_DISP_COMM",		"A vÈlemÈnyek megjelenÌtÈse");
-DEFINE("_RSGALLERY_C_TMPL_DISP_EXIF",		"Az EXIF adatok megjelenÌtÈse");
-DEFINE("_RSGALLERY_C_TMPL_ENABLE_U_UP",		"A felhaszn·lÛi feltˆltÈsek engedÈlyezÈse");
-DEFINE("_RSGALLERY_C_TMPL_ONLY_REGISTERED",	"Csak a regisztr·lt felhaszn·lÛknak");
-DEFINE("_RSGALLERY_C_TMPL_U_CREATE_GAL",	"LÈtrehozhat galÈri·kat a felhaszn·lÛ?");
-DEFINE("_RSGALLERY_C_TMPL_U_MAX_GAL",		"A felhaszn·lÛ ·ltal lÈtrehozhatÛ galÈri·k sz·ma:");
-DEFINE("_RSGALLERY_C_TMPL_U_MAX_IMG",		"A felhaszn·lÛ ·ltal feltˆlthetı kÈpek sz·ma:");
-DEFINE("_RSGALLERY_C_TMPL_SHOW_IMGNAME",		"A kÈp nevÈnek megjelenÌtÈse a bÈlyegkÈp alatt:");
-DEFINE("_RSGALLERY_C_TMPL_ACL_SETINGS",		"Hozz·fÈrÈs-szab·lyoz·s be·llÌt·sai");
-DEFINE("_RSGALLERY_C_TMPL_ACL_ENABLE",		"A hozz·fÈrÈs-szab·lyoz·s engedÈlyezÈse");
-DEFINE("_RSGALLERY_C_TMPL_SHOW_MYGAL",		"A GalÈri·im megjelenÌtÈse");
-DEFINE("_RSGALLERY_C_TMPL_USER_SET",		"Felhaszn·lÛ-specifikus be·llÌt·sok");
-DEFINE("_RSGALLERY_C_DISP_STATUS_ICON",		"* ¡llapotikonok megjelenÌtÈse *");
-DEFINE("_RSGALLERY_C_GEN_SET",			"¡ltal·nos be·llÌt·sok");
-DEFINE("_RSGALLERY_C_HTML_ROOT",			"A HTML-gyˆkÈr a kˆvetkezı:");
-DEFINE("_RSGALLERY_C_DISP_LIMIB",		"A galÈria korl·tpanel megjelenÌtÈse");
-DEFINE("_RSGALLERY_C_NUMB_GAL_FRONT",	"A cÌmlapon l·thatÛ galÈri·k sz·ma");
-DEFINE("_RSGALLERY_C_FONT",				"Bet˚tÌpus");
-DEFINE("_RSGALLERY_C_WATER_TRANS",		"VÌzjel ·tl·tszÛs·ga");
-DEFINE("_RSGALLERY_C_ALLOWED_FILE",		"EngedÈlyezett f·jltÌpusok");
+DEFINE("_RSGALLERY_C_TMPL_VERSION",			"Verzi√≥:");
+DEFINE("_RSGALLERY_C_TMPL_INTRO_TEXT",		"Bevezet√µ sz√∂veg:");
+DEFINE("_RSGALLERY_C_TMPL_DEBUG",			"Hibakeres√©s:");
+DEFINE("_RSGALLERY_C_TMPL_IMG_MANIP",		"K√©pfeldolgoz√°s");
+DEFINE("_RSGALLERY_C_TMPL_DISP_WIDTH",		"A megjelen√≠tett k√©p sz√©less√©ge:");
+DEFINE("_RSGALLERY_C_TMPL_THUMB_WIDTH",		"A b√©lyegk√©p sz√©less√©ge:");
+DEFINE("_RSGALLERY_C_TMPL_THUMBNAIL_STYLE",		"B√©lyegk√©p st√≠lusa:");
+DEFINE("_RSGALLERY_C_TMPL_JPEG_QUALITY",	"JPEG min√µs√©g sz√°zal√©kban");
+DEFINE("_RSGALLERY_C_TMPL_GRAPH_LIB",		"Grafikai f√ºggv√©nyt√°r");
+DEFINE("_RSGALLERY_C_TMPL_NOTE_GLIB_PATH",	"Megjegyz√©s:</span> Hagyja √ºresen az al√°bbi mez√µket, ha nincs probl√©m√°ja.");
+DEFINE("_RSGALLERY_C_TMPL_IMGMAGICK_PATH",	"Az ImageMagick √∫tvonala:");
+DEFINE("_RSGALLERY_C_TMPL_NETPBM_PATH",		"A Netpbm √∫tvonala:");
+DEFINE("_RSGALLERY_C_TMPL_FTP_PATH",		"FTP √∫tvonal:");
+DEFINE("_RSGALLERY_C_TMPL_IMG_STORAGE",		"K√©pt√°rol√°s");
+DEFINE("_RSGALLERY_C_TMPL_KEEP_ORIG",		"Az eredeti k√©p megtart√°sa:");
+DEFINE("_RSGALLERY_C_TMPL_ORIG_PATH",		"Az eredeti k√©p √∫tvonala:");
+DEFINE("_RSGALLERY_C_TMPL_DISP_PATH",		"A megjelen√≠tett k√©p √∫tvonala:");
+DEFINE("_RSGALLERY_C_TMPL_THUMB_PATH",		"A b√©lyegk√©p √∫tvonala:");
+DEFINE("_RSGALLERY_C_TMPL_CREATE_DIR",		"A nem l√©tez√µ k√∂nyvt√°rak l√©trehoz√°sa:");
+DEFINE("_RSGALLERY_C_TMPL_FRONT_PAGE",		"C√≠mlap");
+DEFINE("_RSGALLERY_C_TMPL_DISP_RAND",		"V√©letlenszer√ª megjelen√≠t√©s");
+DEFINE("_RSGALLERY_C_TMPL_DISP_LATEST",		"A leg√∫jabbak megjelen√≠t√©se");
+DEFINE("_RSGALLERY_C_TMPL_DISP_BRAND",		"A szerz√µi jogi inform√°ci√≥ megjelen√≠t√©se");
+DEFINE("_RSGALLERY_C_TMPL_DISP_DOWN",		"A let√∂lt√©si c√≠m megjelen√≠t√©se");
+DEFINE("_RSGALLERY_C_TMPL_WATERMARK",		"K√©p v√≠zjelez√©se ");
+DEFINE("_RSGALLERY_C_TMPL_DISP_WTRMRK",		"A v√≠zjel megjelen√≠t√©se");
+DEFINE("_RSGALLERY_C_TMPL_WTRMRK_TEXT",		"A v√≠zjel sz√∂vege");
+DEFINE("_RSGALLERY_C_TMPL_WTRMRK_FONTSIZE",	"A v√≠zjel bet√ªm√©rete");
+DEFINE("_RSGALLERY_C_TMPL_WTRMRK_ANGLE",	"A v√≠zjel sz√∂veg√©nek d√µl√©ssz√∂ge");
+DEFINE("_RSGALLERY_C_TMPL_WTRMRK_POS",		"A v√≠zjel elhelyez√©se");
+DEFINE("_RSGALLERY_C_TMPL_GAL_VIEW",		"Gal√©ria n√©zet");
+DEFINE("_RSGALLERY_C_TMPL_THUMB_STYLE",		"A b√©lyegk√©p st√≠lusa:<br>V√°ltoz√≥ sz√©less√©g√ª sablonok eset√©n v√°lassza a K√∂rbefuttat√°s lehet√µs√©get.");
+DEFINE("_RSGALLERY_C_TMPL_FLOATDIRECTION",	"Ir√°ny (csak a k√∂rbefuttat√°s eset√©n m√ªk√∂dik):");
+DEFINE("_RSGALLERY_C_TMPL_COLS_PERPAGE",	"A b√©lyegk√©poszlopok sz√°ma (csak t√°bl√°zat eset√©n):");
+DEFINE("_RSGALLERY_C_TMPL_THUMBS_PERPAGE",	"A b√©lyegk√©pek oldalank√©nti sz√°ma:");
+DEFINE("_RSGALLERY_C_TMPL_DISP_SLIDE",		"A diavet√≠t√©s megjelen√≠t√©se");
+DEFINE("_RSGALLERY_C_TMPL_IMG_DISP",		"K√©p megjelen√≠t√©se");
+DEFINE("_RSGALLERY_C_TMPL_RESIZE_OPT",		"√Åtm√©retez√©si lehet√µs√©g");
+DEFINE("_RSGALLERY_C_TMPL_DISP_DESCR",		"A le√≠r√°s megjelen√≠t√©se");
+DEFINE("_RSGALLERY_C_TMPL_DISP_HITS",		"A tal√°latok megjelen√≠t√©se");
+DEFINE("_RSGALLERY_C_TMPL_DISP_VOTE",		"Az √©rt√©kel√©s megjelen√≠t√©se");
+DEFINE("_RSGALLERY_C_TMPL_DISP_COMM",		"A v√©lem√©nyek megjelen√≠t√©se");
+DEFINE("_RSGALLERY_C_TMPL_DISP_EXIF",		"Az EXIF adatok megjelen√≠t√©se");
+DEFINE("_RSGALLERY_C_TMPL_ENABLE_U_UP",		"A felhaszn√°l√≥i felt√∂lt√©sek enged√©lyez√©se");
+DEFINE("_RSGALLERY_C_TMPL_ONLY_REGISTERED",	"Csak a regisztr√°lt felhaszn√°l√≥knak");
+DEFINE("_RSGALLERY_C_TMPL_U_CREATE_GAL",	"L√©trehozhat gal√©ri√°kat a felhaszn√°l√≥?");
+DEFINE("_RSGALLERY_C_TMPL_U_MAX_GAL",		"A felhaszn√°l√≥ √°ltal l√©trehozhat√≥ gal√©ri√°k sz√°ma:");
+DEFINE("_RSGALLERY_C_TMPL_U_MAX_IMG",		"A felhaszn√°l√≥ √°ltal felt√∂lthet√µ k√©pek sz√°ma:");
+DEFINE("_RSGALLERY_C_TMPL_SHOW_IMGNAME",		"A k√©p nev√©nek megjelen√≠t√©se a b√©lyegk√©p alatt:");
+DEFINE("_RSGALLERY_C_TMPL_ACL_SETINGS",		"Hozz√°f√©r√©s-szab√°lyoz√°s be√°ll√≠t√°sai");
+DEFINE("_RSGALLERY_C_TMPL_ACL_ENABLE",		"A hozz√°f√©r√©s-szab√°lyoz√°s enged√©lyez√©se");
+DEFINE("_RSGALLERY_C_TMPL_SHOW_MYGAL",		"A Gal√©ri√°im megjelen√≠t√©se");
+DEFINE("_RSGALLERY_C_TMPL_USER_SET",		"Felhaszn√°l√≥-specifikus be√°ll√≠t√°sok");
+DEFINE("_RSGALLERY_C_DISP_STATUS_ICON",		"* √Ållapotikonok megjelen√≠t√©se *");
+DEFINE("_RSGALLERY_C_GEN_SET",			"√Åltal√°nos be√°ll√≠t√°sok");
+DEFINE("_RSGALLERY_C_HTML_ROOT",			"A HTML-gy√∂k√©r a k√∂vetkez√µ:");
+DEFINE("_RSGALLERY_C_DISP_LIMIB",		"A gal√©ria korl√°tpanel megjelen√≠t√©se");
+DEFINE("_RSGALLERY_C_NUMB_GAL_FRONT",	"A c√≠mlapon l√°that√≥ gal√©ri√°k sz√°ma");
+DEFINE("_RSGALLERY_C_FONT",				"Bet√ªt√≠pus");
+DEFINE("_RSGALLERY_C_WATER_TRANS",		"V√≠zjel √°tl√°tsz√≥s√°ga");
+DEFINE("_RSGALLERY_C_ALLOWED_FILE",		"Enged√©lyezett f√°jlt√≠pusok");
 
 //galleries.class.php
 //function check
-DEFINE("_RSGALLERY_GAL_EXIST_ERROR",		"M·r van ilyen nev˚ galÈria. KÈrj¸k, hogy prÛb·lkozzon ˙jra.");
+DEFINE("_RSGALLERY_GAL_EXIST_ERROR",		"M√°r van ilyen nev√ª gal√©ria. K√©rj√ºk, hogy pr√≥b√°lkozzon √∫jra.");
 
 //galleries.html.php
 //function show
-DEFINE("_RSGALLERY_GAL_MANAGE",			"GalÈriakezelı");
+DEFINE("_RSGALLERY_GAL_MANAGE",			"Gal√©riakezel√µ");
 DEFINE("_RSGALLERY_GAL_MAX_LEVELS",		"Max. szintek");
-DEFINE("_RSGALLERY_GAL_FILTER",			"Sz˚rı");
-DEFINE("_RSGALLERY_GAL_NAME",			"NÈv");
-DEFINE("_RSGALLERY_GAL_REORDER",			"¡trendezÈs");
-DEFINE("_RSGALLERY_GAL_HITS",			"Tal·latok");
+DEFINE("_RSGALLERY_GAL_FILTER",			"Sz√ªr√µ");
+DEFINE("_RSGALLERY_GAL_NAME",			"N√©v");
+DEFINE("_RSGALLERY_GAL_REORDER",			"√Åtrendez√©s");
+DEFINE("_RSGALLERY_GAL_HITS",			"Tal√°latok");
 //function edit
-DEFINE("_RSGALLERY_GAL_GAL",				"GalÈria");
-DEFINE("_RSGALLERY_GAL_DETAILS",			"RÈszletek");
-DEFINE("_RSGALLERY_GAL_DESCR",			"LeÌr·s");
-DEFINE("_RSGALLERY_GAL_PARENT",			"Sz¸lıelem");
-DEFINE("_RSGALLERY_GAL_THUMB",			"GalÈria bÈlyegkÈp");
+DEFINE("_RSGALLERY_GAL_GAL",				"Gal√©ria");
+DEFINE("_RSGALLERY_GAL_DETAILS",			"R√©szletek");
+DEFINE("_RSGALLERY_GAL_DESCR",			"Le√≠r√°s");
+DEFINE("_RSGALLERY_GAL_PARENT",			"Sz√ºl√µelem");
+DEFINE("_RSGALLERY_GAL_THUMB",			"Gal√©ria b√©lyegk√©p");
 DEFINE("_RSGALLERY_GAL_ORDERING",		"Sorrend");
-DEFINE("_RSGALLERY_GAL_PUBLISHED",		"KˆzzÈtÈve");
-DEFINE("_RSGALLERY_GAL_PARAMETERS",		"ParamÈterek");
+DEFINE("_RSGALLERY_GAL_PUBLISHED",		"K√∂zz√©t√©ve");
+DEFINE("_RSGALLERY_GAL_PARAMETERS",		"Param√©terek");
 DEFINE("_RSGALLERY_GAL_OWNER",	"Tulajdonos");
-DEFINE("_RSGALLERY_GAL_PERMS",	"EngedÈlyek");
-DEFINE("_RSGALLERY_GAL_DEF_PERM_CREATE",	"Az alapÈrtelmezett engedÈlyek lÈtrehoz·sa kÈsz. <br />A galÈria lÈtrehoz·sa ut·n tÈrhet vissza a galÈria engedÈlyeinek mÛdosÌt·s·hoz.");
-DEFINE("_RSGALLERY_GAL_NO_PERM_FOUND",	"Nem tal·lhatÛk ennek a galÈri·nak az engedÈlyei. Kattintson a <strong>MENT…S</strong> gombra a fenti eszkˆzt·ron az alapÈrtelmezett engedÈlyek lÈtrehoz·s·hoz. Ezut·n tÈrjen vissza ide, Ès ·llÌtsa be az engedÈlyeket.");
-DEFINE("_RSGALLERY_GAL_USERTYPE",		"Felhaszn·lÛtÌpus");
-DEFINE("_RSGALLERY_GAL_VIEW_GAL",		"GalÈria<br/>megtekintÈse</span>");
-DEFINE("_RSGALLERY_GAL_UPL_EDIT_IMG",	"KÈpek<br/>feltˆltÈse/szerkesztÈse</span>");
-DEFINE("_RSGALLERY_GAL_DEL_IMG",			"KÈp tˆrlÈse</span>");
-DEFINE("_RSGALLERY_GAL_MOD_GAL",			"GalÈria<br/>mÛdosÌt·sa</span>");
-DEFINE("_RSGALLERY_GAL_DEL_GAL",			"GalÈria<br/>tˆrlÈse</span>");
+DEFINE("_RSGALLERY_GAL_PERMS",	"Enged√©lyek");
+DEFINE("_RSGALLERY_GAL_DEF_PERM_CREATE",	"Az alap√©rtelmezett enged√©lyek l√©trehoz√°sa k√©sz. <br />A gal√©ria l√©trehoz√°sa ut√°n t√©rhet vissza a gal√©ria enged√©lyeinek m√≥dos√≠t√°s√°hoz.");
+DEFINE("_RSGALLERY_GAL_NO_PERM_FOUND",	"Nem tal√°lhat√≥k ennek a gal√©ri√°nak az enged√©lyei. Kattintson a <strong>MENT√âS</strong> gombra a fenti eszk√∂zt√°ron az alap√©rtelmezett enged√©lyek l√©trehoz√°s√°hoz. Ezut√°n t√©rjen vissza ide, √©s √°ll√≠tsa be az enged√©lyeket.");
+DEFINE("_RSGALLERY_GAL_USERTYPE",		"Felhaszn√°l√≥t√≠pus");
+DEFINE("_RSGALLERY_GAL_VIEW_GAL",		"Gal√©ria<br/>megtekint√©se</span>");
+DEFINE("_RSGALLERY_GAL_UPL_EDIT_IMG",	"K√©pek<br/>felt√∂lt√©se/szerkeszt√©se</span>");
+DEFINE("_RSGALLERY_GAL_DEL_IMG",			"K√©p t√∂rl√©se</span>");
+DEFINE("_RSGALLERY_GAL_MOD_GAL",			"Gal√©ria<br/>m√≥dos√≠t√°sa</span>");
+DEFINE("_RSGALLERY_GAL_DEL_GAL",			"Gal√©ria<br/>t√∂rl√©se</span>");
 DEFINE("_RSGALLERY_GAL_ACL_PUB",			"Mindenki</span>");
-DEFINE("_RSGALLERY_GAL_ACL_REG",			"Regisztr·ltak</span>");
-DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",	"&nbsp;Az ˆsszes kijelˆlÈse/kijelˆlÈs megsz¸ntetÈse");
+DEFINE("_RSGALLERY_GAL_ACL_REG",			"Regisztr√°ltak</span>");
+DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",	"&nbsp;Az √∂sszes kijel√∂l√©se/kijel√∂l√©s megsz√ºntet√©se");
 DEFINE("_RSGALLERY_GAL_ORDER",	"Sorrend");
 
 //install.class.php
 //function echo_values
-DEFINE("_RSGALLERY_INSTALL_THUMBDIR",			"A bÈlyegkÈpkˆnyvt·r a kˆvetkezı:");
+DEFINE("_RSGALLERY_INSTALL_THUMBDIR",			"A b√©lyegk√©pk√∂nyvt√°r a k√∂vetkez√µ:");
 //function changeMenuIcon
-DEFINE("_RSGALLERY_INSTALL_MENU_ICON_OK",		"Az RSGallery2 men¸kÈp lecserÈlÈse siker¸lt");
-DEFINE("_RSGALLERY_INSTALL_MENU_ICON_ERROR",		"A men¸kÈp nem cserÈlhetı le");
+DEFINE("_RSGALLERY_INSTALL_MENU_ICON_OK",		"Az RSGallery2 men√ºk√©p lecser√©l√©se siker√ºlt");
+DEFINE("_RSGALLERY_INSTALL_MENU_ICON_ERROR",		"A men√ºk√©p nem cser√©lhet√µ le");
 //function createDirStructure
-DEFINE("_RSGALLERY_INSTALL_DIR_EXISTS",			" m·r lÈtezik");
-DEFINE("_RSGALLERY_ISNTALL_IS_CREATED",			" lÈtrehoz·sa siker¸lt");
-DEFINE("_RSGALLERY_INSTALL_NOT_CREATED",			" lÈtrehoz·sa nem siker¸lt");
+DEFINE("_RSGALLERY_INSTALL_DIR_EXISTS",			" m√°r l√©tezik");
+DEFINE("_RSGALLERY_ISNTALL_IS_CREATED",			" l√©trehoz√°sa siker√ºlt");
+DEFINE("_RSGALLERY_INSTALL_NOT_CREATED",			" l√©trehoz√°sa nem siker√ºlt");
 //function createTableStructure
-DEFINE("_RSGALLERY_ISNTALL_DB_OK",				"Az adatb·zist·bl·k lÈtrehoz·sa siker¸lt.");
+DEFINE("_RSGALLERY_ISNTALL_DB_OK",				"Az adatb√°zist√°bl√°k l√©trehoz√°sa siker√ºlt.");
 //function copyFiles
-DEFINE("_RSGALLERY_INSTALL_FILE_COPY_FROM",		"Siker¸lt a f·jl m·sol·sa innen: ");
+DEFINE("_RSGALLERY_INSTALL_FILE_COPY_FROM",		"Siker√ºlt a f√°jl m√°sol√°sa innen: ");
 DEFINE("_RSGALLERY_INSTALL_FILE_COPY_TO",		" ide: ");
-DEFINE("_RSGALLERY_INSTALL_FILE_NOTCOPY_FROM",	"nem m·solhatÛ a f·jl innen: ");
-DEFINE("_RSGALLERY_INSTALL_DIR_CREATED",			"A kˆnyvt·r lÈtrehoz·sa megtˆrtÈnt: ");
-DEFINE("_RSGALLERY_INSTALL_DIR_NOTCREATED",		"nem hozhatÛ lÈtre a kˆvetkezı kˆnyvt·r: ");
+DEFINE("_RSGALLERY_INSTALL_FILE_NOTCOPY_FROM",	"nem m√°solhat√≥ a f√°jl innen: ");
+DEFINE("_RSGALLERY_INSTALL_DIR_CREATED",			"A k√∂nyvt√°r l√©trehoz√°sa megt√∂rt√©nt: ");
+DEFINE("_RSGALLERY_INSTALL_DIR_NOTCREATED",		"nem hozhat√≥ l√©tre a k√∂vetkez√µ k√∂nyvt√°r: ");
 //function deleteGalleryDir
-DEFINE("_RSGALLERY_DELGAL_PROCES",				"FeldolgozandÛ: ");
-DEFINE("_RSGALLERY_DELGAL_OK",					"A kˆnyvt·rszerkezet tˆrlÈse befejezıdˆtt!");
-DEFINE("_RSGALLERY_DELGAL_NOTOK",				"A rÈgi kˆnyvt·rszerkezet tˆrlÈse siker¸lt.");
-DEFINE("_RSGALLERY_DELGAL_NO_OLD_DIR",			"Nem tal·lhatÛ a rÈgi kˆnyvt·rszerkezet. Folytassuk");
+DEFINE("_RSGALLERY_DELGAL_PROCES",				"Feldolgozand√≥: ");
+DEFINE("_RSGALLERY_DELGAL_OK",					"A k√∂nyvt√°rszerkezet t√∂rl√©se befejez√µd√∂tt!");
+DEFINE("_RSGALLERY_DELGAL_NOTOK",				"A r√©gi k√∂nyvt√°rszerkezet t√∂rl√©se siker√ºlt.");
+DEFINE("_RSGALLERY_DELGAL_NO_OLD_DIR",			"Nem tal√°lhat√≥ a r√©gi k√∂nyvt√°rszerkezet. Folytassuk");
 //function checkDirPerms
-DEFINE("_RSGALLERY_PERMS_NOT_EXIST",				" Nem lÈtezik. KÈrj¸k, hogy FTP-n hozza lÈtre kÈzzel, Ès ellenırizze az engedÈlyeket");
-DEFINE("_RSGALLERY_PERMS_NOT_SET",				" megtal·lhatÛ, de a megfelelı engedÈlyek (777) be·llÌt·sa nem siker¸lt.\nAz engedÈlyek be·llÌt·sa jelenleg ");
-DEFINE("_RSGALLERY_PERMS_NOT_SET_TRY_FTP",		".<br />KÈrj¸k, hogy FTP-n kereszt¸l prÛb·lja meg mÛdosÌtani ezeket az engedÈlyeket.");
-DEFINE("_RSGALLERY_PERMS_OK",					" megtal·lhatÛ, az engedÈlyek rendben.");
+DEFINE("_RSGALLERY_PERMS_NOT_EXIST",				" Nem l√©tezik. K√©rj√ºk, hogy FTP-n hozza l√©tre k√©zzel, √©s ellen√µrizze az enged√©lyeket");
+DEFINE("_RSGALLERY_PERMS_NOT_SET",				" megtal√°lhat√≥, de a megfelel√µ enged√©lyek (777) be√°ll√≠t√°sa nem siker√ºlt.\nAz enged√©lyek be√°ll√≠t√°sa jelenleg ");
+DEFINE("_RSGALLERY_PERMS_NOT_SET_TRY_FTP",		".<br />K√©rj√ºk, hogy FTP-n kereszt√ºl pr√≥b√°lja meg m√≥dos√≠tani ezeket az enged√©lyeket.");
+DEFINE("_RSGALLERY_PERMS_OK",					" megtal√°lhat√≥, az enged√©lyek rendben.");
 //function installComplete
-DEFINE("_RSGALLERY_INSTALL_COMPLETE",			"Az RSGallery telepÌtÈse befejezıdˆtt");
-DEFINE("_RSGALLERY_INSTALL_STATUS_MSGS",			"Ha van valamilyen figyelemre mÈltÛ ·llapot¸zenet, akkor kÈrj¸k, hogy tekintse meg, mielıtt felkeresi a kezelıpultot.");
+DEFINE("_RSGALLERY_INSTALL_COMPLETE",			"Az RSGallery telep√≠t√©se befejez√µd√∂tt");
+DEFINE("_RSGALLERY_INSTALL_STATUS_MSGS",			"Ha van valamilyen figyelemre m√©lt√≥ √°llapot√ºzenet, akkor k√©rj√ºk, hogy tekintse meg, miel√µtt felkeresi a kezel√µpultot.");
 //function deleteTable
-DEFINE("_RSGALLERY_TABLEDEL_OK",					" tˆrlÈse megtˆrtÈnt");
-DEFINE("_RSGALLERY_TABLEDEL_NOTOK",				" nem tˆrˆlhetı.<br />Tˆrˆlje kÈzzel.");
+DEFINE("_RSGALLERY_TABLEDEL_OK",					" t√∂rl√©se megt√∂rt√©nt");
+DEFINE("_RSGALLERY_TABLEDEL_NOTOK",				" nem t√∂r√∂lhet√µ.<br />T√∂r√∂lje k√©zzel.");
 //function migrateOldFiles
-DEFINE("_RSGALLERY_MIGRATE_NOT_ALL",			"Ismeretlen okokbÛl kifolyÛlag nem minden f·jlinform·ciÛ ·ttelepÌtÈse siker¸lt az RSGallery2 adatb·zisba(");
+DEFINE("_RSGALLERY_MIGRATE_NOT_ALL",			"Ismeretlen okokb√≥l kifoly√≥lag nem minden f√°jlinform√°ci√≥ √°ttelep√≠t√©se siker√ºlt az RSGallery2 adatb√°zisba(");
 DEFINE("_RSGALLERY_MIGRATE_OUT_OF",			" / ");
-DEFINE("_RSGALLERY_MIGRATE_ENTRIES_OK",		" bejegyzÈs feldolgozva)");
-DEFINE("_RSGALLERY_MIGRATE_ALL",				"Az ˆsszes f·jlinform·ciÛ ·ttelepÌtÈse siker¸lt az RSGallery2 adatb·zisba(");
+DEFINE("_RSGALLERY_MIGRATE_ENTRIES_OK",		" bejegyz√©s feldolgozva)");
+DEFINE("_RSGALLERY_MIGRATE_ALL",				"Az √∂sszes f√°jlinform√°ci√≥ √°ttelep√≠t√©se siker√ºlt az RSGallery2 adatb√°zisba(");
 //function migrateOldCats
-DEFINE("_RSGALLERY_MIGRATE_NOT_ALL_GAL",		"Ismeretlen okokbÛl kifolyÛlag nem minden galÈriainform·ciÛ ker¸lt ·ttelepÌtÈsre az RSGallery2 adatb·zisba(");
-DEFINE("_RSGALLERY_MIGRATE_ALL_GAL",			"Az ˆsszes galÈriainform·ciÛ ·ttelepÌtÈse siker¸lt az RSGallery2 adatb·zisba (");
-DEFINE("_RSGALLERY_MIGRATE_ALL_FILES",		"A f·jlok m·sol·sa az ˙j szerkezetbe sikeresen befejezıdˆtt");
-DEFINE("_RSGALLERY_MIGRATE_NOTALL_FILES",		"Hib·k mer¸ltek fˆl a f·jlok ˙j szerkezetbe tˆrtÈnı m·sol·sakor");
-DEFINE("_RSGALLERY_MIGRATE_ZOOM_OK",		"a Zoom Gallery ·ttelepÌtÈse befejezıdˆtt. Keresse fel a kezelıpultot.");
+DEFINE("_RSGALLERY_MIGRATE_NOT_ALL_GAL",		"Ismeretlen okokb√≥l kifoly√≥lag nem minden gal√©riainform√°ci√≥ ker√ºlt √°ttelep√≠t√©sre az RSGallery2 adatb√°zisba(");
+DEFINE("_RSGALLERY_MIGRATE_ALL_GAL",			"Az √∂sszes gal√©riainform√°ci√≥ √°ttelep√≠t√©se siker√ºlt az RSGallery2 adatb√°zisba (");
+DEFINE("_RSGALLERY_MIGRATE_ALL_FILES",		"A f√°jlok m√°sol√°sa az √∫j szerkezetbe sikeresen befejez√µd√∂tt");
+DEFINE("_RSGALLERY_MIGRATE_NOTALL_FILES",		"Hib√°k mer√ºltek f√∂l a f√°jlok √∫j szerkezetbe t√∂rt√©n√µ m√°sol√°sakor");
+DEFINE("_RSGALLERY_MIGRATE_ZOOM_OK",		"a Zoom Gallery √°ttelep√≠t√©se befejez√µd√∂tt. Keresse fel a kezel√µpultot.");
 //function upgradeInstall
-DEFINE("_RSGALLERY_UPGRADE_RSG",		"FrissÌtÈs az RSGallery-rıl");
-DEFINE("_RSGALLERY_UPGRADE_REC_FULL",		"A komponens megtal·lhatÛ, viszont a verziÛinform·ciÛ nem elÈrhetı.<br />A teljes telepÌtÈst aj·nljuk.");
-DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF",		"Az eredeti f·jlok ·tvitele sikeresen befejezıdˆtt");
-DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF_ERROR",		"Hib·k mer¸ltek fˆl az eredeti f·jlok ˙j szerkezetbe tˆrtÈnı ·tvitelekor.\nKÈrj¸k, hogy FTP-n kereszt¸l ellenırizze.");
-DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF",		"A bÈlyegkÈpf·jlok ·tvitele sikeresen befejezıdˆtt");
-DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF_ERROR",		"Hib·k mer¸ltek fˆl a bÈlyegkÈpf·jlok ˙j szerkezetbe tˆrtÈnı ·tvitelekor.<br />KÈrj¸k, hogy FTP-n kereszt¸l ellenırizze.");
-DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE",		"A megjelenÌtett kÈpek lÈtrehoz·sa siker¸lt.");
-DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE_ERROR",		"Nem siker¸lt lÈtrehozni nÈh·ny vagy az ˆsszes megjelenÌtett kÈpet.<br />LÈpjen kapcsolatba a komponens fejlesztıivel.");
-DEFINE("_RSGALLERY_UPGRADE_TABLE",		"A t·bla (");
-DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_OK",		") ·talakÌt·sa siker¸lt");
-DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_ERROR",		" ·talakÌt·sa NEM siker¸lt");
-DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_OK",		") ·tnevezÈse siker¸lt");
+DEFINE("_RSGALLERY_UPGRADE_RSG",		"Friss√≠t√©s az RSGallery-r√µl");
+DEFINE("_RSGALLERY_UPGRADE_REC_FULL",		"A komponens megtal√°lhat√≥, viszont a verzi√≥inform√°ci√≥ nem el√©rhet√µ.<br />A teljes telep√≠t√©st aj√°nljuk.");
+DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF",		"Az eredeti f√°jlok √°tvitele sikeresen befejez√µd√∂tt");
+DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF_ERROR",		"Hib√°k mer√ºltek f√∂l az eredeti f√°jlok √∫j szerkezetbe t√∂rt√©n√µ √°tvitelekor.\nK√©rj√ºk, hogy FTP-n kereszt√ºl ellen√µrizze.");
+DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF",		"A b√©lyegk√©pf√°jlok √°tvitele sikeresen befejez√µd√∂tt");
+DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF_ERROR",		"Hib√°k mer√ºltek f√∂l a b√©lyegk√©pf√°jlok √∫j szerkezetbe t√∂rt√©n√µ √°tvitelekor.<br />K√©rj√ºk, hogy FTP-n kereszt√ºl ellen√µrizze.");
+DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE",		"A megjelen√≠tett k√©pek l√©trehoz√°sa siker√ºlt.");
+DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE_ERROR",		"Nem siker√ºlt l√©trehozni n√©h√°ny vagy az √∂sszes megjelen√≠tett k√©pet.<br />L√©pjen kapcsolatba a komponens fejleszt√µivel.");
+DEFINE("_RSGALLERY_UPGRADE_TABLE",		"A t√°bla (");
+DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_OK",		") √°talak√≠t√°sa siker√ºlt");
+DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_ERROR",		" √°talak√≠t√°sa NEM siker√ºlt");
+DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_OK",		") √°tnevez√©se siker√ºlt");
 DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_ERROR",		"");
-DEFINE("_RSGALLERY_UPGRADE_DUMMY_ERROR",		"Hiba tˆrtÈnt az ¸res t·bl·k lÈtrehoz·sakor. Lehet, hogy az RSGallery 2.0 beta 5 nem lesz elt·volÌthatÛ.");
-DEFINE("_RSGALLERY_UPGRADE_NOT_POSSIBLE",		"A frissÌtÈs nem vÈgezhetı el. Nem tal·lhatÛ frissÌthetı RSGallery\nA teljes telepÌtÈst aj·nljuk.");
-DEFINE("_RSGALLERY_UPGRADE_SUCCESS",		"A frissÌtÈs az RSGallery2-re siker¸lt.\nMost m·r nyugodtan elt·volÌthatja a rÈgi RSGallery-t");
+DEFINE("_RSGALLERY_UPGRADE_DUMMY_ERROR",		"Hiba t√∂rt√©nt az √ºres t√°bl√°k l√©trehoz√°sakor. Lehet, hogy az RSGallery 2.0 beta 5 nem lesz elt√°vol√≠that√≥.");
+DEFINE("_RSGALLERY_UPGRADE_NOT_POSSIBLE",		"A friss√≠t√©s nem v√©gezhet√µ el. Nem tal√°lhat√≥ friss√≠thet√µ RSGallery\nA teljes telep√≠t√©st aj√°nljuk.");
+DEFINE("_RSGALLERY_UPGRADE_SUCCESS",		"A friss√≠t√©s az RSGallery2-re siker√ºlt.\nMost m√°r nyugodtan elt√°vol√≠thatja a r√©gi RSGallery-t");
 //function showMigrationOptions
-DEFINE("_RSGALLERY_MIGRATION",		"¡ttelepÌtÈs");
-DEFINE("_RSGALLERY_MIGRATION_NO_SYSTEMS",		"Nincs m·s galÈriarendszer telepÌtve");
+DEFINE("_RSGALLERY_MIGRATION",		"√Åttelep√≠t√©s");
+DEFINE("_RSGALLERY_MIGRATION_NO_SYSTEMS",		"Nincs m√°s gal√©riarendszer telep√≠tve");
 //function doMigration
-DEFINE("_RSGALLERY_MIGRATION_NOT_VALID",		"nem ÈrvÈnyes ·ttelepÌtÈsi tÌpus.");
+DEFINE("_RSGALLERY_MIGRATION_NOT_VALID",		"nem √©rv√©nyes √°ttelep√≠t√©si t√≠pus.");
 
 //uninstall.rsgallery2.php
 //function com_uninstall
-DEFINE("_RSGALLERY_UNINSTALL_OK",		"Az elt·volÌt·s siker¸lt");
+DEFINE("_RSGALLERY_UNINSTALL_OK",		"Az elt√°vol√≠t√°s siker√ºlt");
 
 //slideshow.rsgallery2.php
-DEFINE("_RSGALLERY_SLIDE_START",		"IndÌt·s");
-DEFINE("_RSGALLERY_SLIDE_STOP",			"Le·llÌt·s");
-DEFINE("_RSGALLERY_SLIDE_NEXT",			"Kˆvetkezı");
-DEFINE("_RSGALLERY_SLIDE_PREV",			"Elızı");
+DEFINE("_RSGALLERY_SLIDE_START",		"Ind√≠t√°s");
+DEFINE("_RSGALLERY_SLIDE_STOP",			"Le√°ll√≠t√°s");
+DEFINE("_RSGALLERY_SLIDE_NEXT",			"K√∂vetkez√µ");
+DEFINE("_RSGALLERY_SLIDE_PREV",			"El√µz√µ");
 
 //images.html.php
 //function showImages
-DEFINE("_RSGALLERY_IMG_IMG_MANAGE",			"KÈpkezelı");
-DEFINE("_RSGALLERY_IMG_FILTER",				"Sz˚rı:");
-DEFINE("_RSGALLERY_IMG_TITLE",				"CÌm (f·jlnÈv)");
+DEFINE("_RSGALLERY_IMG_IMG_MANAGE",			"K√©pkezel√µ");
+DEFINE("_RSGALLERY_IMG_FILTER",				"Sz√ªr√µ:");
+DEFINE("_RSGALLERY_IMG_TITLE",				"C√≠m (f√°jln√©v)");
 DEFINE("_RSGALLERY_IMG_ORDER",				"Sorrend");
-DEFINE("_RSGALLERY_IMG_DATE_TIME",			"D·tum Ès idı");
-DEFINE("_RSGALLERY_IMG_EDIT_IMG",			"KÈpek szerkesztÈse");
+DEFINE("_RSGALLERY_IMG_DATE_TIME",			"D√°tum √©s id√µ");
+DEFINE("_RSGALLERY_IMG_EDIT_IMG",			"K√©pek szerkeszt√©se");
 //function editImage
-DEFINE("_RSGALLERY_IMG_IMAGE",			"KÈp");
-DEFINE("_RSGALLERY_IMG_DETAILS",			"RÈszletek");
-DEFINE("_RSGALLERY_IMG_ORDERING",			"RendezÈs");
-DEFINE("_RSGALLERY_IMG_IMG_PREV",			"KÈp elınÈzete");
-DEFINE("_RSGALLERY_IMG_PARAMETERS",			"ParamÈterek");
+DEFINE("_RSGALLERY_IMG_IMAGE",			"K√©p");
+DEFINE("_RSGALLERY_IMG_DETAILS",			"R√©szletek");
+DEFINE("_RSGALLERY_IMG_ORDERING",			"Rendez√©s");
+DEFINE("_RSGALLERY_IMG_IMG_PREV",			"K√©p el√µn√©zete");
+DEFINE("_RSGALLERY_IMG_PARAMETERS",			"Param√©terek");
 //function uploadImage
-DEFINE("_RSGALLERY_IMG_SELECT_GAL",			"Ki kell v·lasztania egy galÈri·t.");/*javascript alert*/
-DEFINE("_RSGALLERY_IMG_NO_FILE_SELECT",		"Egy f·jlt sem jelˆlt ki egy vagy tˆbb mezıben.");/*javascript alert*/
-DEFINE("_RSGALLERY_IMG_UPLOAD",			"FeltˆltÈs");
-DEFINE("_RSGALLERY_IMG_UPL_DETAILS",			"FeltˆltÈs rÈszletei");
-DEFINE("_RSGALLERY_IMG_UPL_GALLERY",			"GalÈria feltˆltÈse");
-DEFINE("_RSGALLERY_IMG_GEN_DESCR",			"¡ltal·nos leÌr·s");
-DEFINE("_RSGALLERY_IMG_IMG_FILES",			"KÈpf·jlok");
-DEFINE("_RSGALLERY_IMG_IMAGES",			"KÈpek");
-DEFINE("_RSGALLERY_IMG_FILE",			"F·jl");
-DEFINE("_RSGALLERY_IMG_MORE",			"(tˆbb kÈp)");
+DEFINE("_RSGALLERY_IMG_SELECT_GAL",			"Ki kell v√°lasztania egy gal√©ri√°t.");/*javascript alert*/
+DEFINE("_RSGALLERY_IMG_NO_FILE_SELECT",		"Egy f√°jlt sem jel√∂lt ki egy vagy t√∂bb mez√µben.");/*javascript alert*/
+DEFINE("_RSGALLERY_IMG_UPLOAD",			"Felt√∂lt√©s");
+DEFINE("_RSGALLERY_IMG_UPL_DETAILS",			"Felt√∂lt√©s r√©szletei");
+DEFINE("_RSGALLERY_IMG_UPL_GALLERY",			"Gal√©ria felt√∂lt√©se");
+DEFINE("_RSGALLERY_IMG_GEN_DESCR",			"√Åltal√°nos le√≠r√°s");
+DEFINE("_RSGALLERY_IMG_IMG_FILES",			"K√©pf√°jlok");
+DEFINE("_RSGALLERY_IMG_IMAGES",			"K√©pek");
+DEFINE("_RSGALLERY_IMG_FILE",			"F√°jl");
+DEFINE("_RSGALLERY_IMG_MORE",			"(t√∂bb k√©p)");
 
 //access.class.php
 //function checkGallery
-DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"Nem tal·lhatÛ engedÈly, ezÈrt az alapÈrtelmezett engedÈlyek ker¸ltek lÈtrehoz·sra. KÈrj¸k, hogy prÛb·lja ˙jra.");
+DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"Nem tal√°lhat√≥ enged√©ly, ez√©rt az alap√©rtelmezett enged√©lyek ker√ºltek l√©trehoz√°sra. K√©rj√ºk, hogy pr√≥b√°lja √∫jra.");
 
+//tables/display.class.php
+//function _showGalleryDetails
+/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"Tulajdonos: ");
+/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"M√©ret: ");
+/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"K√©sz√ºlt: ");
 ?>

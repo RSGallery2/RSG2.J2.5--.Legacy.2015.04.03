@@ -2,7 +2,7 @@
 
 /**
 * Hungarian (informal) languagefile for RSGallery
-* @version 1.12.2 alpha created on February 16, 2007
+* @version 1.13.1 alpha created on May 25, 2007
 * @package RSGallery2
 * @copyright (C) 2003 - 2006 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -228,6 +228,9 @@ DEFINE("_RSGALLERY_CONF_GENERALTAB",		"Általános");
 DEFINE("_RSGALLERY_CONF_IMAGESTAB",		"Képek");
 DEFINE("_RSGALLERY_CONF_DISPLAY",		"Megjelenítés");
 DEFINE("_RSGALLERY_CONF_USERS",		"Engedélyek");
+DEFINE("_RSGALLERY_CONF_LIMIT_NEV",		"Soha");
+DEFINE("_RSGALLERY_CONF_LIMIT_LIMIT",	"Ha az engedélyezettnél több galéria van");
+DEFINE("_RSGALLERY_CONF_LIMIT_ALW",		"Mindig");
 //function showUploadStep1
 DEFINE("_RSGALLERY_PICK",					"Válaszd ki a galériát");
 //function showUploadStep2
@@ -362,6 +365,10 @@ DEFINE("_RSGALLERY_ERROR_SETTINGS",			"A következõ beállítások megakadályozzák a
 DEFINE("_RSGALLERY_REFRESH",				"Frissítés");
 //function writeDownloadLink
 DEFINE("_RSGALLERY_DOWNLOAD",				"Letöltés");
+//function writeGalleryStatus
+DEFINE("_RSGALLERY_STATUS_ARE_OWNER",	"Te vagy a tulajdonosa ennek a galériának");
+DEFINE("_RSGALLERY_STATUS_CAN_UPLOAD",	"Tölthetsz fel ebbe a galériába");
+DEFINE("_RSGALLERY_STATUS_NOT_PUBL",		"Ez a galéria NINCS közzétéve");
 
 //install.rsgallery2.php
 //function com_install
@@ -586,4 +593,9 @@ DEFINE("_RSGALLERY_IMG_MORE",			"(több kép)");
 //function checkGallery
 DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"Nem található engedély, ezért az alapértelmezett engedélyek kerültek létrehozásra. Kérjük, hogy próbáld újra.");
 
+//tables/display.class.php
+//function _showGalleryDetails
+/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"Tulajdonos: ");
+/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"Méret: ");
+/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Készült: ");
 ?>
