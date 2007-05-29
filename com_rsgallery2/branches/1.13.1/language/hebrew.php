@@ -253,6 +253,13 @@ DEFINE("_RSGALLERY_IMAGECAT",				"גלריה");
 DEFINE("_RSGALLERY_IMAGEHITS",				"כניסות");
 DEFINE("_RSGALLERY_IMAGEDATE",				"תאריך העלאה");
 DEFINE("_RSGALLERY_REORDER",				"סידור מחדש");
+/*new*/DEFINE("_RSGALLERY_SEL_TO_DEL",		"למחיקה אנא בחר מהרשימה");
+/*new*/DEFINE("_RSGALLERY_SURE_DEL",		"למחוק הפריטים שסומנו? ");
+/*new*/DEFINE("_RSGALLERY_SEL_TO_MOVE",		"להעברה אנא בחר מהרשימה");
+/*new*/DEFINE("_RSGALLERY_SEL_GAL_TO_MOVE",	"אנא בחר גלריה מהרשימה להעברת התמונות ");
+/*new*/DEFINE("_RSGALLERY_SURE_MOVE",		"האם להעביר פריטים מסומנים?");
+/*new*/DEFINE("_RSGALLERY_ORDER_UP",		"העבר למעלה");
+/*new*/DEFINE("_RSGALLERY_ORDER_DOWN",		"העבר למטה");
 //function showTemplates
 DEFINE("_RSGALLERY_TEMP_MANG",				"מנהל תבניות");
 DEFINE("_RSGALLERY_RSG_NAME",				"RSGallery2");
@@ -348,6 +355,11 @@ DEFINE("_RSGALLERY_ISWRITABLE_WRITABLE",	"ניתן לשינוי");
 DEFINE("_RSGALLERY_ISWRITABLE_UNWRITABLE",	"לא ניתן לשינוי");
 DEFINE("_RSGALLERY_MAKE_WRITABLE",			"לאחר שמירה הקובץ יהפוך ללא ניתן לשינוי");
 DEFINE("_RSGALLERY_OVERWRITE_WRITABLE",		"ביטול הגנת כתיבה בזמן השמירה");
+//function uploadFile
+/*new*/DEFINE("_RSGALLERY_ERMSG_FAILD_CHMOD",	"Failed to change the permissions of the uploaded file.");
+/*new*/DEFINE("_RSGALLERY_ERMSG_FAILD_MOVE_MEDIA",	"Failed to move uploaded file to <code>/media</code> directory.");
+/*new*/DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_WRITE",	"Upload failed as <code>/media</code> directory is not writable.");
+/*new*/DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_EXIST",	"Upload failed as <code>/media</code> directory does not exist.");
 
 //config.rsgallery2.php
 //function toString
@@ -386,6 +398,7 @@ DEFINE("_RSGALLERY_TOOL_UP",				"העלאה");
 DEFINE("_RSGALLERY_TOOL_NEXT",				"הבא");
 DEFINE("_RSGALLERY_TOOL_DELETE",			"מחק");
 DEFINE("_RSGALLERY_TOOL_CONFIRM_DEL",		"אשר מחיקה");
+/*new*/DEFINE("_RSGALLERY_TOOL_RES_HITS",	"איפוס כניסות");
 
 //config.html
 DEFINE("_RSGALLERY_C_TMPL_VERSION",			"גרסה");
