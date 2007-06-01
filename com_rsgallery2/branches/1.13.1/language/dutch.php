@@ -1,6 +1,6 @@
 ﻿<?php
 /**
-* Dutch language file for RSGallery
+* Dutch language file for RSGallery - (31-05-2007)
 * @version $Id$
 * @package RSGallery2
 * @copyright (C) 2003 - 2007 RSGallery2
@@ -156,7 +156,7 @@ DEFINE("_RSGALLERY_ALERT_NEWCAT",				"Nieuwe Galerij aangemaakt!");
 DEFINE("_RSGALLERY_ALERT_NONEWCAT",				"Galerij kon niet worden aangemaakt!\\nWe gaan terug naar het vorige scherm.");
 
 //function delUserCat
-DEFINE("_RSGALLERY_USERCAT_SUBCATS",       		"Deze Galerij bevat sub  en kan niet worden verwijderd. Als u deze galerij wilt verwijder, verplaats of verwijder dan eerst de sub categorie�n");
+DEFINE("_RSGALLERY_USERCAT_SUBCATS",       		"Deze Galerij bevat sub  en kan niet worden verwijderd. Als u deze galerij wilt verwijder, verplaats of verwijder dan eerst de sub categorieën");
 DEFINE("_RSGALLERY_ALERT_CATDELNOTOK",			"Galerij kon niet worden verwijderd!");
 DEFINE("_RSGALLERY_ALERT_CATDELOK",				"Galerij verwijderd!");
 
@@ -251,8 +251,8 @@ DEFINE("_RSGALLERY_CONF_POPUP_FANCY",			"Chique popup (Geeft fouten in IE6!)");
 
 
 //function showconfig
-DEFINE("_RSGALLERY_FREETYPE_INSTALLED",			"(Freetype bibliotheek ge�nstalleerd, watermerk is mogelijk)");
-DEFINE("_RSGALLERY_FREETYPE_NOTINSTALLED",		"(Freetype bibliotheek Niet ge�nstalleerd! Watermerk niet mogelijk)");
+DEFINE("_RSGALLERY_FREETYPE_INSTALLED",			"(Freetype bibliotheek geïnstalleerd, watermerk is mogelijk)");
+DEFINE("_RSGALLERY_FREETYPE_NOTINSTALLED",		"(Freetype bibliotheek Niet geïnstalleerd! Watermerk niet mogelijk)");
 DEFINE("_RSGALLERY_CONF_GENERALTAB",			"Algemeen");
 DEFINE("_RSGALLERY_CONF_IMAGESTAB",				"Afbeeldingen");
 DEFINE("_RSGALLERY_CONF_DISPLAY",				"Weergave");
@@ -304,7 +304,7 @@ DEFINE("_RSGALLERY_CONSDB_CREATE_IMG",			"[&nbsp;Creëer missende afbeeldingen&n
 DEFINE("_RSGALLERY_CONSDB_CREATE_DB",			"[&nbsp;Creëer Database invoer&nbsp;]");
 DEFINE("_RSGALLERY_CONSDB_DELETE_IMG",			"[&nbsp;Verwijder afbeelding&nbsp;]");
 DEFINE("_RSGALLERY_CONSDB_NO_INCOS",			"Geen inconsistentie in database");
-DEFINE("_RSGALLERY_CONSDB_NOTICE",				"&nbsp;<span style='text-size: 14px;font-weight:bold;'>LETOP</span>:<br />De Consolidate Database functie werkt bijna helemaal. De functie 'Cre�er Database invoer' werkt nu ook.<br />Let echter op dat je geen meerdere invoegingen in de database kunt maken. voorlopig moet dit nog een voor een gebeuren!");
+DEFINE("_RSGALLERY_CONSDB_NOTICE",				"&nbsp;<span style='text-size: 14px;font-weight:bold;'>LETOP</span>:<br />De Consolidate Database functie werkt bijna helemaal. De functie 'Creëer Database invoer' werkt nu ook.<br />Let echter op dat je geen meerdere invoegingen in de database kunt maken. voorlopig moet dit nog een voor een gebeuren!");
 DEFINE("_RSGALLERY_NOT_WORKING",				"Werkt nog niet");
 DEFINE("_RSGALLERY_DEL_FROM_SYSTEM",			"Verwijder van bestandssysteem");
 DEFINE("_RSGALLERY_CREATE_MISSING_IMG",			"Creëer ontbrekende afbeeldingen");
@@ -341,7 +341,7 @@ DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",		"Verwijderd #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",		"Verwijderd #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",		"Verwijderd #__rsgallery2_config");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_COM",		"Verwijderd #__rsgallery2_comments");
-DEFINE("_RSGALLERY_REAL_UNINST_DONE",			"Klaar.  Verwijder alles handmatig als er een fout optreedt.  J moet RSGallery2 NU de�nstalleren of je krijgt fouten.");
+DEFINE("_RSGALLERY_REAL_UNINST_DONE",			"Klaar.  Verwijder alles handmatig als er een fout optreedt.  J moet RSGallery2 NU deïnstalleren of je krijgt fouten.");
 
 //function deleteImage
 DEFINE("_RSGALLERY_ALERT_IMGDELETEOK",			"Afbeelding (en) succesvol verwijderd!");
@@ -565,9 +565,9 @@ DEFINE("_RSGALLERY_INSTALL_NOT_CREATED",		" kon niet worden aangemaakt");
 DEFINE("_RSGALLERY_ISNTALL_DB_OK",			"Database tabbellen succesvol aangemaakt.");
 
 //function copyFiles
-DEFINE("_RSGALLERY_INSTALL_FILE_COPY_FROM",		"Bestand kopi�ren van ");
+DEFINE("_RSGALLERY_INSTALL_FILE_COPY_FROM",		"Bestand kopiëren van ");
 DEFINE("_RSGALLERY_INSTALL_FILE_COPY_TO",		" naar ");
-DEFINE("_RSGALLERY_INSTALL_FILE_NOTCOPY_FROM",		"kan bestand niet kopi�ren van ");
+DEFINE("_RSGALLERY_INSTALL_FILE_NOTCOPY_FROM",		"kan bestand niet kopiëren van ");
 DEFINE("_RSGALLERY_INSTALL_DIR_CREATED",		"Map aangemaakt: ");
 DEFINE("_RSGALLERY_INSTALL_DIR_NOTCREATED",		"Kon map niet aanmaken ");
 
@@ -608,9 +608,9 @@ DEFINE("_RSGALLERY_MIGRATE_ZOOM_OK",			"De Migratie van  Zoom Galerij is complee
 DEFINE("_RSGALLERY_UPGRADE_RSG",				"Upgraden van RSGallery");
 DEFINE("_RSGALLERY_UPGRADE_REC_FULL",			"Component gevonden, maar er is geen versie informatie beschikbaar.<br />Volledige installatie aangeraden.");
 DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF",		"Originele bestanden succesvol overgezet");
-DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF_ERROR",	"Er zijn fouten ontstaat bij het kopi�ren naar de nieuwe structuur.\nControleer dit via FTP");
+DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF_ERROR",	"Er zijn fouten ontstaat bij het kopiëren naar de nieuwe structuur.\nControleer dit via FTP");
 DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF",		"Thumb bestanden succesvol overgezet");
-DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF_ERROR",	"Er zijn fouten ontstaat bij het kopi�ren van de Thumb bestanden naar de nieuwe structuur.<br />Controleer dit via FTP");
+DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF_ERROR",	"Er zijn fouten ontstaat bij het kopiëren van de Thumb bestanden naar de nieuwe structuur.<br />Controleer dit via FTP");
 DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE",		"Weergave afbeeldingen succesvol aangemaakt.");
 DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE_ERROR",	"Fout bij het aanmaken van sommige of alle weergave afbeeldingen.<br />Neem contact op met de ontwikkelaars van dit product.");
 DEFINE("_RSGALLERY_UPGRADE_TABLE",				"Tabel ");
@@ -618,13 +618,13 @@ DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_OK",		" is succesvol aangepast");
 DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_ERROR",	" is NIET succesvol aangepast");
 DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_OK",	" is succesvol hernoemd");
 DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_ERROR",	" is NIET succesvol hernoemd");
-DEFINE("_RSGALLERY_UPGRADE_DUMMY_ERROR",		"Fout bij het aanmaken van de dummy tabel. de�nstalleren van RSGallery 2.0 beta 5 zal mogelijk niet werken.");
+DEFINE("_RSGALLERY_UPGRADE_DUMMY_ERROR",		"Fout bij het aanmaken van de dummy tabel. deïnstalleren van RSGallery 2.0 beta 5 zal mogelijk niet werken.");
 DEFINE("_RSGALLERY_UPGRADE_NOT_POSSIBLE",		"Upgrade niet mogelijk. Geen versie van RSGallery gevonden waarbij dit kan.\nVolledige installatie aangeraden.");
-DEFINE("_RSGALLERY_UPGRADE_SUCCESS",			"Upgrade naar RSGallery2 is compleet.\nHet is nu veilig om de oude RSGallery te de�nstalleren");
+DEFINE("_RSGALLERY_UPGRADE_SUCCESS",			"Upgrade naar RSGallery2 is compleet.\nHet is nu veilig om de oude RSGallery te deïnstalleren");
 
 //function showMigrationOptions
 DEFINE("_RSGALLERY_MIGRATION",					"Migratie");
-DEFINE("_RSGALLERY_MIGRATION_NO_SYSTEMS",		"Geen andere galerij systeem ge�nstalleerd");
+DEFINE("_RSGALLERY_MIGRATION_NO_SYSTEMS",		"Geen andere galerij systeem geïnstalleerd");
 
 //function doMigration
 DEFINE("_RSGALLERY_MIGRATION_NOT_VALID",		"er is geen geldig migratie type aanwezig.");
