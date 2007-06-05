@@ -301,7 +301,7 @@ class rsgGallery{
 		$this->thumb();
 
 		// generate some vars
-		$this->url 				= "index.php?option=com_rsgallery2&Itemid=$Itemid&catid=".$this->get('id');
+		$this->url 				= sefRelToAbs("index.php?option=com_rsgallery2&Itemid=$Itemid&catid=".$this->get('id'));
 		//Write status icons
 		$this->status 			= galleryUtils::writeGalleryStatus( $this->get('id'));
 		//Write owner name
