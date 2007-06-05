@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="sef_ext">
+	<name>RSGallery2</name>
+	<author>Daniel Tulp</author>
+	<creationDate>5. June 2007</creationDate>
+	<copyright>DT^2</copyright>
+	<license>GNU/ GPL</license>
+	<authorEmail>mail@danieltulp.nl</authorEmail>
+	<authorUrl>design.danieltulp.nl</authorUrl>
+	<version>0.1</version>
+	<description>Adds SEO support for RSGallery2 component.</description>
+	<files>
+		<filename sef_ext="remository">com_rsgallery2.php</filename>
+	</files>
+</mosinstall>
