@@ -19,6 +19,7 @@ global $mosConfig_live_site;
 $template_dir = "$mosConfig_live_site/components/com_rsgallery2/templates/superClean";
 $lightbox_dir = "$mosConfig_live_site/components/com_rsgallery2/lib/lightbox_plus";
 
+$rsgDisplay->metadata();
 // append to Joomla's pathway
 $rsgDisplay->showRSPathWay();
 

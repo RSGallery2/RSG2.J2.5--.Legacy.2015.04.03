@@ -20,6 +20,7 @@ $rsgDisplay = new rsgDisplay_FrogJS();
 global $mosConfig_live_site;
 $template_dir = "$mosConfig_live_site/components/com_rsgallery2/templates/FrogJS";
 
+$rsgDisplay->metadata();
 // append to Joomla's pathway
 $rsgDisplay->showRSPathWay();
 require_once(JPATH_ROOT.'/includes/pageNavigation.php');
