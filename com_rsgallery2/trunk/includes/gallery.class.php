@@ -16,6 +16,24 @@ require_once( $mosConfig_absolute_path .'/administrator/components/com_installer
 */
 class rsgGalleryManager{
 
+	/**
+	 * returns the rsgGallery object which contains item id
+	 *
+	 * @param id of item
+	 */
+	function getGalleryByItemID ( $id ) {
+		global $database;
+		
+		if( !is_numeric( $id )) return false;
+		$query = "SELECT f.gallery_id FROM #__rsgallery2_files AS f WHERE f.id = $id";
+		$database->setQuery ($query);
+		$gid = $database->loadResult();
+		
+		if ($gid) {
+			return rsgGalleryManager::get( $gid );	
+		}
+	}
+
     /**
      * returns a gallery
      * @param id of the gallery
