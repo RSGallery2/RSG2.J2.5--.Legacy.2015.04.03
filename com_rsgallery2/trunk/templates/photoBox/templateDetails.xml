@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="template">
+	<name>photoBox</name>
+	<creationDate>05/21/07</creationDate>
+	<author>Jonathan DeLaigle and Tobby </author>
+	<copyright>Open Source, GPL</copyright>
+	<authorEmail>jonathan.delaigle@morris.com</authorEmail>
+	<authorUrl>morrisdigitalworks.com</authorUrl>
+	<version>0.1</version>
+	<description>Creates a clickable javascript image display block. Intended for use of RSGDisplay Mambot.  Sponsored by: Morris DigitalWorks.  Javascript and HTML by Tobby Hagler.</description>
+	<files>
+		<filename>index.php</filename>
+		<filename>display.class.php</filename>
+		<filename>templateDetails.css</filename>
+		<filename>js/selectThumb.js</filename>
+	</files>
+	<css>
+		<filename>css/template.css</filename>
+	</css>
+</mosinstall>
