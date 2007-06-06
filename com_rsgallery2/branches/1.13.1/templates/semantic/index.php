@@ -28,6 +28,7 @@ $rsgDisplay->setItemid();
 global $mosConfig_live_site;
 $template_dir = "$mosConfig_live_site/components/com_rsgallery2/templates/". $rsgConfig->get('template');
 
+$rsgDisplay->metadata();
 // append to Joomla's pathway
 $rsgDisplay->showRSPathWay();
 

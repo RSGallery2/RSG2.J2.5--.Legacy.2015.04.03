@@ -629,8 +629,6 @@ class rsgDisplay extends tempDisplay{
 	
 	
 	function mainPage(){
-		 $this->metadata();
-
 		// if tempDisplay handles this function let it, otherwise continue as regularily scheduled.
 		if( parent::mainPage() )
 			return;

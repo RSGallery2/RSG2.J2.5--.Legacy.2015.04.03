@@ -31,6 +31,10 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+
+2007-06-06 Jonah Braun
+ # fixed meta tags.  rsgDisplay->metadata(); must be called from the templates index.php.
+
 ---------------- 1.13.1 alpha -- svn 41 -- 2007-05-24 -------------
 
 2007-05-24 Daniel Tulp

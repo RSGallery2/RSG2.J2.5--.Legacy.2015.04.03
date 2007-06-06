@@ -49,6 +49,7 @@ if ( !$rsgConfig->get('debug') ) {
     <?php
 }
 
+$rsgDisplay->metadata();
 // append to Joomla's pathway
 $rsgDisplay->showRSPathWay();
 ?>
