@@ -35,6 +35,7 @@ Legend:
 2007-06-06 Jonah Braun
  + added template photoBox
  # fixed meta tags
+ - removed JPATH_RSGALLERY2_TEMPLATE, multiple templates can now be used on the same page.
 
 ---------------- 1.13.1 alpha -- svn 41 -- 2007-05-24 -------------
 

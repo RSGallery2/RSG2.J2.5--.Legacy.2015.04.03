@@ -38,8 +38,7 @@ function template(){
 	//Set template selection
 	$template = preg_replace( '#\W#', '', mosGetParam ( $_REQUEST, 'rsgTemplate', $rsgConfig->get('template') ));
 	
-	define( 'JPATH_RSGALLERY2_TEMPLATE', JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template );
-	require_once( JPATH_RSGALLERY2_TEMPLATE . DS . 'index.php');
+	require_once( JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template . DS . 'index.php');
 }
 
 function xmlFile(){

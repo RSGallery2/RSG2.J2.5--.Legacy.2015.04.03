@@ -19,7 +19,8 @@ defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 
 // bring in display code
 require_once( JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'tables' . DS . 'display.class.php');
-require_once( JPATH_RSGALLERY2_TEMPLATE . DS . 'display.class.php');
+$templatePath = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'tables_wToddFlash';
+require_once( $templatePath . DS . 'display.class.php');
 
 $rsgDisplay = new rsgDisplay_tables_wToddFlash();
 
