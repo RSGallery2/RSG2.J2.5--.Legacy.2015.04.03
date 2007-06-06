@@ -47,19 +47,7 @@ function xmlFile(){
     // if this succeeds we know we have a proper gallery.
     $gallery = rsgGalleryManager::get( $gid );
     
-    // what follows is just to ensure against file hacking
-    // note that currently if the specified template does not exist generic will be used and no error produced.
-    $xmlTemplateName = mosGetParam ( $_REQUEST, 'xmlTemplate', 'generic' );
-    $xmlTemplateFile = 'generic.php';
-
-    // php4 alternative for php5's scandir()
-    $dh  = opendir( JPATH_RSGALLERY2_SITE . '/xml_templates/' );
-    while (false !== ($filename = readdir($dh))) {
-        if( $filename == $xmlTemplateName.'.php' ){
-            $xmlTemplateFile = $filename;
-            break;
-        }
-    }
+    $xmlTemplateFile = preg_replace( '#\W#', '', mosGetParam ( $_REQUEST, 'xmlTemplate', 'generic' ) );
     
     // require generic template which all other templates should extend
     require_once( JPATH_RSGALLERY2_SITE . '/xml_templates/generic.php' );
