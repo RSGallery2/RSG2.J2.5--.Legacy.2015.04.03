@@ -1,6 +1,6 @@
 ﻿<?php
 /**
-* Dutch language file for RSGallery - (31-05-2007)
+* Dutch language file for RSGallery - (05-06-2007)
 * @version $Id$
 * @package RSGallery2
 * @copyright (C) 2003 - 2007 RSGallery2
@@ -286,29 +286,36 @@ DEFINE("_RSGALLERY_IMAGECAT",					"Galerij");
 DEFINE("_RSGALLERY_IMAGEHITS",					"Hits");
 DEFINE("_RSGALLERY_IMAGEDATE",					"Datum upload");
 DEFINE("_RSGALLERY_REORDER",					"Rangschik opnieuw");
+DEFINE("_RSGALLERY_SEL_TO_DEL",					"Maak een keuze uit de lijst om te verwijderen");
+DEFINE("_RSGALLERY_SURE_DEL",					"Weet u het zeker dat u de geselecteerde items wilt verwijderen? ");
+DEFINE("_RSGALLERY_SEL_TO_MOVE",				"Selecteer uit de lijst welke u wilt verplaatsen");
+DEFINE("_RSGALLERY_SEL_GAL_TO_MOVE",				"Selecteer een gallerij uit de lijst waar u de afbeeldingen naar toe wilt verplaatsen");
+DEFINE("_RSGALLERY_SURE_MOVE",					"Weet u het zeker dat u de  geselecteerde items wilt verplaatsen?");
+DEFINE("_RSGALLERY_ORDER_UP",					"Naar boven");
+DEFINE("_RSGALLERY_ORDER_DOWN",					"Naar beneden");
 
 //function showTemplates
 DEFINE("_RSGALLERY_TEMP_MANG",					"Sjabloon Manager");
 DEFINE("_RSGALLERY_RSG_NAME",					"RSGallery2");
 DEFINE("_RSGALLERY_TEMP_PREV",					"Voorbeeld Sjabloon");
-
-//admin.rsgallery2.php
 //function consolidateDbGo
 DEFINE("_RSGALLERY_CONSDB_IN_DB",				"In<br>database");
 DEFINE("_RSGALLERY_CONSDB_DISP",				"Weergave<br>folder");
 DEFINE("_RSGALLERY_CONSDB_ORIG",				"Originele<br>folder");
 DEFINE("_RSGALLERY_CONSDB_THUMB",				"Thumb<br>folder");
 DEFINE("_RSGALLERY_CONSDB_ACT",					"Actie");
-DEFINE("_RSGALLERY_CONSDB_DELETE_DB",			"[&nbsp;Verwijder uit database&nbsp;]");
-DEFINE("_RSGALLERY_CONSDB_CREATE_IMG",			"[&nbsp;Creëer missende afbeeldingen&nbsp;]");
-DEFINE("_RSGALLERY_CONSDB_CREATE_DB",			"[&nbsp;Creëer Database invoer&nbsp;]");
-DEFINE("_RSGALLERY_CONSDB_DELETE_IMG",			"[&nbsp;Verwijder afbeelding&nbsp;]");
-DEFINE("_RSGALLERY_CONSDB_NO_INCOS",			"Geen inconsistentie in database");
+DEFINE("_RSGALLERY_CONSDB_DELETE_DB",				"[&nbsp;Verwijder uit database&nbsp;]");
+DEFINE("_RSGALLERY_CONSDB_CREATE_IMG",				"[&nbsp;Creëer missende afbeeldingen&nbsp;]");
+DEFINE("_RSGALLERY_CONSDB_CREATE_DB",				"[&nbsp;Creëer Database invoer&nbsp;]");
+DEFINE("_RSGALLERY_CONSDB_DELETE_IMG",				"[&nbsp;Verwijder afbeelding&nbsp;]");
+DEFINE("_RSGALLERY_CONSDB_NO_INCOS",				"Geen inconsistentie in database");
 DEFINE("_RSGALLERY_CONSDB_NOTICE",				"&nbsp;<span style='text-size: 14px;font-weight:bold;'>LETOP</span>:<br />De Consolidate Database functie werkt bijna helemaal. De functie 'Creëer Database invoer' werkt nu ook.<br />Let echter op dat je geen meerdere invoegingen in de database kunt maken. voorlopig moet dit nog een voor een gebeuren!");
 DEFINE("_RSGALLERY_NOT_WORKING",				"Werkt nog niet");
 DEFINE("_RSGALLERY_DEL_FROM_SYSTEM",			"Verwijder van bestandssysteem");
 DEFINE("_RSGALLERY_CREATE_MISSING_IMG",			"Creëer ontbrekende afbeeldingen");
 DEFINE("_RSGALLERY_CREATE_DB_ENTRIES",			"Creëer database");
+
+//admin.rsgallery2.php
 DEFINE("_RSGALLERY_HEAD_CONFIG",				"Instellingen");
 DEFINE("_RSGALLERY_HEAD_CPANEL",				"Controle Paneel");
 DEFINE("_RSGALLERY_HEAD_EDIT",					"Bewerken");
@@ -388,7 +395,7 @@ DEFINE("_RSGALLERY_PROCEED",				"Doorgaan");
 //function editTemplateCSS
 DEFINE("_RSGALLERY_EDITCSS_FAIL_NOOPEN",		"Operatie mislukt: kan niet openen");
 DEFINE("_RSGALLERY_EDITCSS_NOT_WRITABLE",		"Operatie mislukt: het bestand is niet beschrijfbaar.");
-DEFINE("_RSGALLERY_EDITCSS_FAIL_NOTWRITING",	"Operatie mislukt: Kan niet naar bestand schrijven.");
+DEFINE("_RSGALLERY_EDITCSS_FAIL_NOTWRITING",		"Operatie mislukt: Kan niet naar bestand schrijven.");
 
 //function editCSSSource
 DEFINE("_RSGALLERY_EDITCSS_TITLE",				"RSgallery2 CSS Editor");
@@ -397,6 +404,11 @@ DEFINE("_RSGALLERY_ISWRITABLE_WRITABLE",		"Beschrijfbaar");
 DEFINE("_RSGALLERY_ISWRITABLE_UNWRITABLE",		"Niet Beschrijfbaar");
 DEFINE("_RSGALLERY_MAKE_WRITABLE",				"Maak NIET beschrijfbaar na opslaan");
 DEFINE("_RSGALLERY_OVERWRITE_WRITABLE",			"Negeer schrijfbeveiliging bij opslaan");
+//function uploadFile
+DEFINE("_RSGALLERY_ERMSG_FAILD_CHMOD",			"Operatie mislukt, kan de rechten niet aanpassen van het upgeloaden bestand.");
+DEFINE("_RSGALLERY_ERMSG_FAILD_MOVE_MEDIA",		"Operetie mislukt, kan upgeloaden bestand niet verplaatsen naar <code>/media</code> map.");
+DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_WRITE",		"Upload mislukt omdat <code>/media</code> map niet beschrijfbaar is.");
+DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_EXIST",		"Upload mislukt omdat <code>/media</code> map niet bestaat.");
 
 //config.rsgallery2.php
 //function toString
@@ -421,9 +433,9 @@ DEFINE("_RSGALLERY_DOWNLOAD",					"Download");
 
 
 //function writeGalleryStatus
-/*new*/DEFINE("_RSGALLERY_STATUS_ARE_OWNER",	"U bent de eigenaar van deze galerij");
-/*new*/DEFINE("_RSGALLERY_STATUS_CAN_UPLOAD",	"U kunt in deze galerij uploaden");
-/*new*/DEFINE("_RSGALLERY_STATUS_NOT_PUBL",		"Deze galerij is NIET openbaar");
+DEFINE("_RSGALLERY_STATUS_ARE_OWNER",			"U bent de eigenaar van deze galerij");
+DEFINE("_RSGALLERY_STATUS_CAN_UPLOAD",			"U kunt in deze galerij uploaden");
+DEFINE("_RSGALLERY_STATUS_NOT_PUBL",			"Deze galerij is NIET openbaar");
 
 
 
@@ -444,6 +456,7 @@ DEFINE("_RSGALLERY_TOOL_UP",				"Upload");
 DEFINE("_RSGALLERY_TOOL_NEXT",				"Volgende");
 DEFINE("_RSGALLERY_TOOL_DELETE",			"Verwijderen");
 DEFINE("_RSGALLERY_TOOL_CONFIRM_DEL",		  	"Bevestig verwijderen");
+DEFINE("_RSGALLERY_TOOL_RES_HITS",			"Reset hits");
 
 //config.html
 DEFINE("_RSGALLERY_C_TMPL_VERSION",			"Versie:");

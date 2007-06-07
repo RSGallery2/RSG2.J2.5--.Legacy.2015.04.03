@@ -4,9 +4,10 @@
 * Russian languagefile for RSGallery
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2007 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * @author Alexey Gubanov <ragnaar@gmail.com>
+* add new 49 parametrs by GFXer <info@gfx-group.info> 07.06.2007
 * RSGallery is Free Software
 **/
 defined( '_VALID_MOS' ) or die( 'Restricted access' );
@@ -219,6 +220,9 @@ DEFINE("_RSGALLERY_CONF_GENERALTAB",		"Основные");
 DEFINE("_RSGALLERY_CONF_IMAGESTAB",			"Рисунки");
 DEFINE("_RSGALLERY_CONF_DISPLAY",			"Отображение");
 DEFINE("_RSGALLERY_CONF_USERS",				"Права доступа");
+/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_NEV",		"Никогда");
+/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_LIMIT",	"Если больше галерей чем предел");
+/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_ALW",		"Всегда");
 //function showUploadStep1
 DEFINE("_RSGALLERY_PICK",					"Выбор галереи");
 //function showUploadStep2
@@ -240,6 +244,10 @@ DEFINE("_RSGALLERY_IMAGECAT",				"Галерея");
 DEFINE("_RSGALLERY_IMAGEHITS",				"Просмотров");
 DEFINE("_RSGALLERY_IMAGEDATE",				"Дата загрузки");
 DEFINE("_RSGALLERY_REORDER",				"Реорганизация");
+//function showTemplates
+DEFINE("_RSGALLERY_TEMP_MANG",				"Менеджер шаблонов");
+DEFINE("_RSGALLERY_RSG_NAME",				"RSGallery2");
+DEFINE("_RSGALLERY_TEMP_PREV",				"Предосмотр шаблона");
 //function consolidateDbGo
 DEFINE("_RSGALLERY_CONSDB_IN_DB",			"В<br>базе");
 DEFINE("_RSGALLERY_CONSDB_DISP",			"Показать<br>папку");
@@ -339,6 +347,10 @@ DEFINE("_RSGALLERY_ERROR_SETTINGS",			"Следующие настройки мешают RSGallery2 раб
 DEFINE("_RSGALLERY_REFRESH",				"Обновить");
 //function writeDownloadLink
 DEFINE("_RSGALLERY_DOWNLOAD",				"Загрузка");
+//function writeGalleryStatus
+/*new*/DEFINE("_RSGALLERY_STATUS_ARE_OWNER",	"Вы - владелец этой галереи");
+/*new*/DEFINE("_RSGALLERY_STATUS_CAN_UPLOAD",	"Вы можете загрузить в эту галерею");
+/*new*/DEFINE("_RSGALLERY_STATUS_NOT_PUBL",	"Эта галерея не опублиуована");
 
 //install.rsgallery2.php
 //function com_install
@@ -404,7 +416,19 @@ DEFINE("_RSGALLERY_C_TMPL_ONLY_REGISTERED",	"Только зарегистрированным пользоват
 DEFINE("_RSGALLERY_C_TMPL_U_CREATE_GAL",	"Могут ли пользователи создавать галереи?");
 DEFINE("_RSGALLERY_C_TMPL_U_MAX_GAL",		"Максимальное количество галерей для пользователя:");
 DEFINE("_RSGALLERY_C_TMPL_U_MAX_IMG",		"Максимальное количество рисунков для пользователя:");
-
+/**new**/DEFINE("_RSGALLERY_C_TMPL_SHOW_IMGNAME",	"Показать назвние картинки ниже возле thumbnail:");
+/**new**/DEFINE("_RSGALLERY_C_TMPL_ACL_SETINGS",		"Параметры настройки Контроля Доступа");
+/**new**/DEFINE("_RSGALLERY_C_TMPL_ACL_ENABLE",		"включить Контроль Доступа");
+/**new**/DEFINE("_RSGALLERY_C_TMPL_SHOW_MYGAL",		"Показать Мои Галереи");
+/**new**/DEFINE("_RSGALLERY_C_TMPL_USER_SET",		"Пользовательские определенные параметры настройки");
+/**new**/DEFINE("_RSGALLERY_C_DISP_STATUS_ICON",		"Изображения Статуса");
+/**new**/DEFINE("_RSGALLERY_C_GEN_SET",			"Главные настройки");
+/**new**/DEFINE("_RSGALLERY_C_HTML_ROOT",			"HTML-root is");
+/**new**/DEFINE("_RSGALLERY_C_DISP_LIMIB",		"Display gallery limitbox");
+/**new**/DEFINE("_RSGALLERY_C_NUMB_GAL_FRONT",	"Число по умолчанию галерей на странице");
+/**new**/DEFINE("_RSGALLERY_C_FONT",				"Шрифт");
+/**new**/DEFINE("_RSGALLERY_C_WATER_TRANS",		"Прозрачность водяного знака");
+/**new**/DEFINE("_RSGALLERY_C_ALLOWED_FILE",		"Разрешенные типы файлов");
 //galleries.class.php
 //function check
 DEFINE("_RSGALLERY_GAL_EXIST_ERROR",		"Галерея с таким названием уже существует, попробуйте ввести другое название.");
@@ -425,6 +449,7 @@ DEFINE("_RSGALLERY_GAL_THUMB",				"Эскиз галереи");
 DEFINE("_RSGALLERY_GAL_ORDERING",			"Доступ");
 DEFINE("_RSGALLERY_GAL_PUBLISHED",			"Публикация");
 DEFINE("_RSGALLERY_GAL_PARAMETERS",			"Параметры");
+/**new**/DEFINE("_RSGALLERY_GAL_ORDER",	"Порядок");
 
 //install.class.php
 //function echo_values
@@ -493,4 +518,46 @@ DEFINE("_RSGALLERY_MIGRATION",					"Миграция");
 DEFINE("_RSGALLERY_MIGRATION_NO_SYSTEMS",		"Другие галереи не установлены");
 //function doMigration
 DEFINE("_RSGALLERY_MIGRATION_NOT_VALID",		"не является правильным типом для миграции.");
+
+//uninstall.rsgallery2.php
+//function com_uninstall
+/**new**/DEFINE("_RSGALLERY_UNINSTALL_OK",		"Удаление завершено");
+
+//slideshow.rsgallery2.php
+/**new**/DEFINE("_RSGALLERY_SLIDE_START",		"Старт");
+/**new**/DEFINE("_RSGALLERY_SLIDE_STOP",			"Стоп");
+/**new**/DEFINE("_RSGALLERY_SLIDE_NEXT",			"Следующее");
+/**new**/DEFINE("_RSGALLERY_SLIDE_PREV",			"Предыдущая");
+
+//images.html.php
+//function showImages
+/**new**/DEFINE("_RSGALLERY_IMG_IMG_MANAGE",			"Менеджер изображений");
+/**new**/DEFINE("_RSGALLERY_IMG_FILTER",				"Фильтр:");
+/**new**/DEFINE("_RSGALLERY_IMG_TITLE",				"Название (filename)");
+/**new**/DEFINE("_RSGALLERY_IMG_ORDER",				"Порядок");
+/**new**/DEFINE("_RSGALLERY_IMG_DATE_TIME",			"Дата и время");
+/**new**/DEFINE("_RSGALLERY_IMG_EDIT_IMG",			"Редактировать изображение");
+//function editImage
+/**new**/DEFINE("_RSGALLERY_IMG_IMAGE",			"Изображение");
+/**new**/DEFINE("_RSGALLERY_IMG_DETAILS",			"Детали");
+/**new**/DEFINE("_RSGALLERY_IMG_ORDERING",			"Ordering");
+/**new**/DEFINE("_RSGALLERY_IMG_IMG_PREV",			"Предосмотр изображения");
+/**new**/DEFINE("_RSGALLERY_IMG_PARAMETERS",			"Параметры");
+//function uploadImage
+/**new**/DEFINE("_RSGALLERY_IMG_SELECT_GAL",			"Вы должны выбрать галерею.");/*javascript alert*/
+/**new**/DEFINE("_RSGALLERY_IMG_NO_FILE_SELECT",		"Нет выбранного файла в одном или более полях.");/*javascript alert*/
+/**new**/DEFINE("_RSGALLERY_IMG_UPLOAD",			"Загрузить");
+/**new**/DEFINE("_RSGALLERY_IMG_UPL_DETAILS",			"Загрузить детали");
+/**new**/DEFINE("_RSGALLERY_IMG_UPL_GALLERY",			"Загрузить галерею");
+/**new**/DEFINE("_RSGALLERY_IMG_GEN_DESCR",			"Описание");
+/**new**/DEFINE("_RSGALLERY_IMG_IMG_FILES",			"Image files");
+/**new**/DEFINE("_RSGALLERY_IMG_IMAGES",			"Images");
+/**new**/DEFINE("_RSGALLERY_IMG_FILE",			"File");
+/**new**/DEFINE("_RSGALLERY_IMG_MORE",			"(more images)");
+///***///
+//tables/display.class.php
+//function _showGalleryDetails
+/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"Пользователь: ");
+/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"Размер: ");
+/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Создана: ");
 ?>

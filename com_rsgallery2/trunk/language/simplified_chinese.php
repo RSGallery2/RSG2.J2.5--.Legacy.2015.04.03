@@ -1,7 +1,6 @@
-﻿<?php
-	
+<?php
 /**
-* simplified chinese language file for RSGallery
+* simplified chinese language file for RSGallery updated 2007-06-04
 * @version $Id$
 * @package RSGallery2
 * @copyright (C) 2003 - 2006 RSGallery2
@@ -12,6 +11,10 @@
 defined( '_VALID_MOS' ) or die( 'Restricted access' );
 
 //rsgallery2.html.php
+//RSShowPictures
+DEFINE("_RSGALLERY_MAGIC_NOTIMP",		"Magic 尚未施行");
+//showMyGalleries
+DEFINE("_RSGALLERY_FEAT_NOTIMP",		"该特性还未施行");
 //function showUserGallery
 DEFINE("_RSGALLERY_MAKECAT_ALERT_NAME",		"你必须提供图库名称.");
 DEFINE("_RSGALLERY_MAKECAT_ALERT_DESCR",	"你必须提供描述.");
@@ -96,6 +99,7 @@ DEFINE("_RSGALLERY_USER_INFO_CREATED",				"已建立)");
 DEFINE("_RSGALLERY_USER_INFO_MAX_IMG",		"最大允许图片数目");
 DEFINE("_RSGALLERY_USER_INFO_UPL",			"已上传)");
 //function myGalleries
+DEFINE("_RSGALLERY_USERGAL_DISABLED",		"管理员已禁用了会员图库功能.");
 //function showRandom
 DEFINE("_RSGALLERY_RANDOM_TITLE",			"随机图片");
 //function showLatest
@@ -104,8 +108,12 @@ DEFINE("_RSGALLERY_LATEST_TITLE",			"最新图片");
 //rsgallery2.php
 //function my_galleries
 DEFINE("_RSGALLERY_NO_USERCATS",            "用户图库已被管理员关闭");
+DEFINE("_RSGALLERY_MYGAL_NOT_AUTH",			"您无权访问“我的图库”!");
 //function save_image
 DEFINE("_RSGALLERY_SAVE_SUCCESS",		    "细节已成功保存");
+DEFINE("_RSGALLERY_ERROR_SAVE",				"错误: ");
+//function viewChangelog
+DEFINE("_RSGALLERY_FEAT_INDEBUG",			"此功能仅在除错模式有效");
 //function delete_image
 DEFINE("_RSGALLERY_USERIMAGE_NOTOWNER",		"你不是此图片的拥有者, 你将会被带回主画面");
 DEFINE("_RSGALLERY_DELIMAGE_OK",			"图片已删除");
@@ -148,7 +156,7 @@ DEFINE("_RSGALLERY_MOST_RECENT_IMG", 		"最近新增图片");
 DEFINE("_RSGALLERY_DATE",					"日期");
 DEFINE("_RSGALLERY_CREDITS",				"开发人员");
 DEFINE("_RSGALLERY_INSTALLED_VERSION",		"己安装版本");
-/*new*/DEFINE("_RSGALLERY_LICENSE",				"许可协议");
+DEFINE("_RSGALLERY_LICENSE",				"许可协议");
 //Cpanel
 DEFINE("_RSGALLERY_C_CONFIG",				"配置");
 DEFINE("_RSGALLERY_C_UPLOAD",				"上传");
@@ -181,44 +189,48 @@ DEFINE("_RSGALLERY_BATCH_CATEGORY",			"指定图库");
 DEFINE("_RSGALLERY_BATCH_YES_IMAGES_IN",	"是, 所有图片于 ");
 DEFINE("_RSGALLERY_BATCH_NO_SPECIFY",		"否, 请在步骤 2 指定每图库的图片数");
 DEFINE("_RSGALLERY_BATCH_NEXT",				"下一步 -->");
-/*new*/DEFINE("_RSGALLERY_BATCH_DELETE",	"删除");
-/*new*/DEFINE("_RSGALLERY_BATCH_TITLE",		"标题");
-/*new*/DEFINE("_RSGALLERY_BATCH_GAL",		"图库");
-/*new*/DEFINE("_RSGALLERY_BATCH_UPLOAD",	"上传");
+DEFINE("_RSGALLERY_BATCH_DELETE",	"删除");
+DEFINE("_RSGALLERY_BATCH_TITLE",		"标题");
+DEFINE("_RSGALLERY_BATCH_GAL",		"图库");
+DEFINE("_RSGALLERY_BATCH_UPLOAD",	"上传");
+DEFINE("_RSGALLERY_BATCH_FTP_PATH_OVERL",	"请确保 FTP 路径位于 webroot 之下. 不能位于其他服务器。还有，路径末尾必须有斜线（/）。");
 //function editImage
 DEFINE("_RSGALLERY_PROP_TITLE",				"编辑图片属性");
 DEFINE("_RSGALLERY_TITLE",					"标题");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_TABLE",		"表");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_FLOAT",		"浮动");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_MAGIC",		"魔法(尚不可用!)");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_L2R",		"从左至右");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_R2L",		"从右至左");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_PROP",		"成比例的");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_SQUARE",		"正方形");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_DEFAULT_SIZE",		"默认大小");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_REZ_LARGE",		"缩小大图");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_REZ_SMALL",		"放大小图");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_REZ_2FIT",		"缩放图片使适合");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_TL",		"左上");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_TC",		"顶部中央");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_TR",		"右上");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_L",		"左");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_C",		"中");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_R",		"右");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_BL",		"左下");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_BC",		"底部中央");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_BR",		"右下");
-/*new*/DEFINE("_RSGALLERY_CONF_POPUP_STYLE",		"弹出样式");
-/*new*/DEFINE("_RSGALLERY_CONF_POPUP_NO",		"不弹出");
-/*new*/DEFINE("_RSGALLERY_CONF_POPUP_NORMAL",		"正常弹出");
-/*new*/DEFINE("_RSGALLERY_CONF_POPUP_FANCY",		"别致弹出效果(在IE6会出错!)");
+DEFINE("_RSGALLERY_CONF_OPTION_TABLE",		"表");
+DEFINE("_RSGALLERY_CONF_OPTION_FLOAT",		"浮动");
+DEFINE("_RSGALLERY_CONF_OPTION_MAGIC",		"魔法(尚不可用!)");
+DEFINE("_RSGALLERY_CONF_OPTION_L2R",		"从左至右");
+DEFINE("_RSGALLERY_CONF_OPTION_R2L",		"从右至左");
+DEFINE("_RSGALLERY_CONF_OPTION_PROP",		"成比例的");
+DEFINE("_RSGALLERY_CONF_OPTION_SQUARE",		"正方形");
+DEFINE("_RSGALLERY_CONF_OPTION_DEFAULT_SIZE",		"默认大小");
+DEFINE("_RSGALLERY_CONF_OPTION_REZ_LARGE",		"缩小大图");
+DEFINE("_RSGALLERY_CONF_OPTION_REZ_SMALL",		"放大小图");
+DEFINE("_RSGALLERY_CONF_OPTION_REZ_2FIT",		"缩放图片使适合");
+DEFINE("_RSGALLERY_CONF_OPTION_TL",		"左上");
+DEFINE("_RSGALLERY_CONF_OPTION_TC",		"顶部中央");
+DEFINE("_RSGALLERY_CONF_OPTION_TR",		"右上");
+DEFINE("_RSGALLERY_CONF_OPTION_L",		"左");
+DEFINE("_RSGALLERY_CONF_OPTION_C",		"中");
+DEFINE("_RSGALLERY_CONF_OPTION_R",		"右");
+DEFINE("_RSGALLERY_CONF_OPTION_BL",		"左下");
+DEFINE("_RSGALLERY_CONF_OPTION_BC",		"底部中央");
+DEFINE("_RSGALLERY_CONF_OPTION_BR",		"右下");
+DEFINE("_RSGALLERY_CONF_POPUP_STYLE",		"弹出样式");
+DEFINE("_RSGALLERY_CONF_POPUP_NO",		"不弹出");
+DEFINE("_RSGALLERY_CONF_POPUP_NORMAL",		"正常弹出");
+DEFINE("_RSGALLERY_CONF_POPUP_FANCY",		"别致弹出效果(在IE6会出错!)");
 //function showconfig
 DEFINE("_RSGALLERY_FREETYPE_INSTALLED",		"(已安装 Freetype library, 可使用水印)");
 DEFINE("_RSGALLERY_FREETYPE_NOTINSTALLED",	"(未安装 Freetype library! 不能使用水印)");
-/*new*/DEFINE("_RSGALLERY_CONF_GENERALTAB",		"常规");
-/*new*/DEFINE("_RSGALLERY_CONF_IMAGESTAB",		"图像");
-/*new*/DEFINE("_RSGALLERY_CONF_DISPLAY",		"显示");
-/*new*/DEFINE("_RSGALLERY_CONF_USERS",		"用户");
+DEFINE("_RSGALLERY_CONF_GENERALTAB",		"常规");
+DEFINE("_RSGALLERY_CONF_IMAGESTAB",		"图像");
+DEFINE("_RSGALLERY_CONF_DISPLAY",		"显示");
+DEFINE("_RSGALLERY_CONF_USERS",		"权限");
+/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_NEV",		"从不");
+/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_LIMIT",	"如果图库数量多于限额");
+/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_ALW",		"总是");
 //function showUploadStep1
 DEFINE("_RSGALLERY_PICK",					"选取图库");
 //function showUploadStep2
@@ -226,7 +238,7 @@ DEFINE("_RSGALLERY_BATCH_STEP2",			"步骤 2");
 DEFINE("_RSGALLERY_UPLOAD_NUMBER",			"上传数目");
 //function showUploadStep3
 DEFINE("_RSGALLERY_BATCH_STEP3",			"步骤 3");
-/*new*/DEFINE("_RSGALLERY_UPLOAD_FORM_IMAGE",		"图像");
+DEFINE("_RSGALLERY_UPLOAD_FORM_IMAGE",		"图像");
 DEFINE("_RSGALLERY_CATNAME",				"图库名称");
 DEFINE("_RSGALLERY_UPLOAD_FORM_FILE",		"文件");
 //function viewImages
@@ -240,6 +252,10 @@ DEFINE("_RSGALLERY_IMAGECAT",				"图库");
 DEFINE("_RSGALLERY_IMAGEHITS",				"点击数");
 DEFINE("_RSGALLERY_IMAGEDATE",				"上传日期");
 DEFINE("_RSGALLERY_REORDER",				"排序");
+//function showTemplates
+DEFINE("_RSGALLERY_TEMP_MANG",				"模板管理");
+DEFINE("_RSGALLERY_RSG_NAME",				"RSGallery2");
+DEFINE("_RSGALLERY_TEMP_PREV",				"预览模板");
 //function consolidateDbGo
 DEFINE("_RSGALLERY_CONSDB_IN_DB",			"于<br>数据库");
 DEFINE("_RSGALLERY_CONSDB_DISP",			"显示<br>资料夹");
@@ -251,18 +267,24 @@ DEFINE("_RSGALLERY_CONSDB_CREATE_IMG",		"[&nbsp;建立缺失图片&nbsp;]");
 DEFINE("_RSGALLERY_CONSDB_CREATE_DB",		"[&nbsp;建立数据库纪录&nbsp;]");
 DEFINE("_RSGALLERY_CONSDB_DELETE_IMG",		"[&nbsp;删除图片&nbsp;]");
 DEFINE("_RSGALLERY_CONSDB_NO_INCOS",		"数据库没有不一致情况");
+DEFINE("_RSGALLERY_CONSDB_NOTICE",	"&nbsp;<span style='text-size: 14px;font-weight:bold;'>注意</span>:<br />“统一数据库”功能大多数情况下可用。'创建数据库条目'的功能也已经增加。<br />不过，你不能添加多个条目到数据库。目前来说，你必须一个一个添加它们!");
+DEFINE("_RSGALLERY_NOT_WORKING",		"还未工作");
+DEFINE("_RSGALLERY_DEL_FROM_SYSTEM",		"从文件系统删除");
+DEFINE("_RSGALLERY_CREATE_MISSING_IMG",		"创建丢失的图像");
+DEFINE("_RSGALLERY_CREATE_DB_ENTRIES",		"创建数据库条目");
 
 //admin.rsgallery2.php
-/*new*/DEFINE("_RSGALLERY_HEAD_CONFIG",		"设置");
-/*new*/DEFINE("_RSGALLERY_HEAD_CPANEL",		"控制面板");
-/*new*/DEFINE("_RSGALLERY_HEAD_EDIT",		"编辑");
-/*new*/DEFINE("_RSGALLERY_HEAD_UPLOAD",		"上传");
-/*new*/DEFINE("_RSGALLERY_HEAD_MIGRATE",		"安装及迁移");
-/*new*/DEFINE("_RSGALLERY_HEAD_UPLOAD_ZIP",		"上传 ZIP 文件");
-/*new*/DEFINE("_RSGALLERY_HEAD_CONSDB",		"合并数据库");
-/*new*/DEFINE("_RSGALLERY_HEAD_LOG",		"更新日志");
-/*new*/DEFINE("_RSGALLERY_HEAD_CONF_VARIA",		"配置变量");
-/*new*/DEFINE("_RSGALLERY_HEAD_CONF_RAW_EDIT",		"配置 Raw 编辑");
+DEFINE("_RSGALLERY_HEAD_CONFIG",		"设置");
+DEFINE("_RSGALLERY_HEAD_CPANEL",		"控制面板");
+DEFINE("_RSGALLERY_HEAD_EDIT",		"编辑");
+DEFINE("_RSGALLERY_HEAD_UPLOAD",		"上传");
+DEFINE("_RSGALLERY_HEAD_MIGRATE",		"安装及迁移");
+DEFINE("_RSGALLERY_HEAD_UPLOAD_ZIP",		"上传 ZIP 文件");
+DEFINE("_RSGALLERY_HEAD_CONSDB",		"合并数据库");
+DEFINE("_RSGALLERY_HEAD_LOG",		"更新日志");
+DEFINE("_RSGALLERY_HEAD_CONF_VARIA",		"配置变量");
+DEFINE("_RSGALLERY_HEAD_CONF_RAW_EDIT",		"配置 Raw 编辑");
+DEFINE("_RSGALLERY_HEAD_MISS_IMG_CREATE",	"Missing images created");
 //function config_rawEdit_save
 DEFINE("_RSGALLERY_CONF_SAVED",				"配置已保存");
 DEFINE("_RSGALLERY_CONF_SAVE_ERROR",		"保存配置时发生错误");
@@ -327,10 +349,14 @@ DEFINE("_RSGALLERY_MAKE_WRITABLE",			"保存后变更为不可写入");
 DEFINE("_RSGALLERY_OVERWRITE_WRITABLE",		"保存时覆盖写入保护");
 
 //config.rsgallery2.php
+//function toString
+DEFINE("_RSGALLERY_CONF_ERROR_UPLOAD",		" - 上传图像出错 : ");
+//function showCategories
+DEFINE("_RSGALLERY_SELECT_GAL_DROP_BOX",		"- 选择图库 -");
 //function galleriesSelectList
-/*new*/DEFINE("_RSGALLERY_SELECT_GAL_TOP",		"到顶部");
+DEFINE("_RSGALLERY_SELECT_GAL_TOP",		"到顶部");
 //function newImages
-/*new*/DEFINE("_RSGALLERY_NEW",				"新!");
+DEFINE("_RSGALLERY_NEW",				"新!");
 //function writeWarningBox
 DEFINE("_RSGALLERY_NO_IMGLIBRARY",			"检测不到可用的图像库! 请联络你的网存商安装 GD2 或浏览讨论区如何安装 ImageMagick 或 NETPBM!");
 DEFINE("_RSGALLERY_NOT_WRITABLE",			" 是不可写入!");
@@ -339,6 +365,10 @@ DEFINE("_RSGALLERY_ERROR_SETTINGS",			"以下设定令 RSGallery2 不能正常�
 DEFINE("_RSGALLERY_REFRESH",				"重新整理");
 //function writeDownloadLink
 DEFINE("_RSGALLERY_DOWNLOAD",				"下载");
+//function writeGalleryStatus
+/*new*/DEFINE("_RSGALLERY_STATUS_ARE_OWNER",	"您是本图库的主人");
+/*new*/DEFINE("_RSGALLERY_STATUS_CAN_UPLOAD",	"您可以向本图库上传图像");
+/*new*/DEFINE("_RSGALLERY_STATUS_NOT_PUBL",		"本图库尚未发布");
 
 //install.rsgallery2.php
 //function com_install
@@ -354,6 +384,7 @@ DEFINE("_RSGALLERY_TOOL_IMG",				"图片");
 DEFINE("_RSGALLERY_TOOL_UP",				"上传");
 DEFINE("_RSGALLERY_TOOL_NEXT",				"下一步");
 DEFINE("_RSGALLERY_TOOL_DELETE",			"删除");
+DEFINE("_RSGALLERY_TOOL_CONFIRM_DEL",		"删除确认");
 
 //config.html
 DEFINE("_RSGALLERY_C_TMPL_VERSION",			"版本:");
@@ -404,93 +435,167 @@ DEFINE("_RSGALLERY_C_TMPL_ONLY_REGISTERED",	"只限注册用户");
 DEFINE("_RSGALLERY_C_TMPL_U_CREATE_GAL",	"允许用户建立图库?");
 DEFINE("_RSGALLERY_C_TMPL_U_MAX_GAL",		"用户可拥有的图库最大数目:");
 DEFINE("_RSGALLERY_C_TMPL_U_MAX_IMG",		"用户可拥有的图片最大数目:");
+DEFINE("_RSGALLERY_C_TMPL_SHOW_IMGNAME",	"在缩略图下方显示图像名称:");
+DEFINE("_RSGALLERY_C_TMPL_ACL_SETINGS",		"访问权限控制设定");
+DEFINE("_RSGALLERY_C_TMPL_ACL_ENABLE",		"启用访问权限控制");
+DEFINE("_RSGALLERY_C_TMPL_SHOW_MYGAL",		"显示“我的图库”");
+DEFINE("_RSGALLERY_C_TMPL_USER_SET",		"用户相关设定");
+DEFINE("_RSGALLERY_C_DISP_STATUS_ICON",		"显示状态图标");
+DEFINE("_RSGALLERY_C_GEN_SET",			"常规设定");
+DEFINE("_RSGALLERY_C_HTML_ROOT",			"HTML 根目录是");
+DEFINE("_RSGALLERY_C_DISP_LIMIB",		"显示图库限制窗口");
+DEFINE("_RSGALLERY_C_NUMB_GAL_FRONT",	"默认的首页图库数量");
+DEFINE("_RSGALLERY_C_FONT",				"字体");
+DEFINE("_RSGALLERY_C_WATER_TRANS",		"水印透明度");
+DEFINE("_RSGALLERY_C_ALLOWED_FILE",		"允许的文件格式");
+
 //galleries.class.php
 //function check
-/*new*/DEFINE("_RSGALLERY_GAL_EXIST_ERROR",		"已有同名图库，请再试一次。");
+DEFINE("_RSGALLERY_GAL_EXIST_ERROR",		"已有同名图库，请再试一次。");
+
 //galleries.html.php
 //function show
-/*new*/DEFINE("_RSGALLERY_GAL_MANAGE",			"图库管理");
-/*new*/DEFINE("_RSGALLERY_GAL_MAX_LEVELS",		"最多级数");
-/*new*/DEFINE("_RSGALLERY_GAL_FILTER",			"筛选");
-/*new*/DEFINE("_RSGALLERY_GAL_NAME",			"名称");
-/*new*/DEFINE("_RSGALLERY_GAL_REORDER",			"重新排序");
-/*new*/DEFINE("_RSGALLERY_GAL_HITS",			"点击量");
+DEFINE("_RSGALLERY_GAL_MANAGE",			"图库管理");
+DEFINE("_RSGALLERY_GAL_MAX_LEVELS",		"最多级数");
+DEFINE("_RSGALLERY_GAL_FILTER",			"筛选");
+DEFINE("_RSGALLERY_GAL_NAME",			"名称");
+DEFINE("_RSGALLERY_GAL_REORDER",			"重新排序");
+DEFINE("_RSGALLERY_GAL_HITS",			"点击量");
 //function edit
-/*new*/DEFINE("_RSGALLERY_GAL_GAL",				"图库");
-/*new*/DEFINE("_RSGALLERY_GAL_DETAILS",			"详细资料");
-/*new*/DEFINE("_RSGALLERY_GAL_DESCR",			"描述");
-/*new*/DEFINE("_RSGALLERY_GAL_PARENT",			"上级项目");
-/*new*/DEFINE("_RSGALLERY_GAL_THUMB",			"图库缩略图");
-/*new*/DEFINE("_RSGALLERY_GAL_ORDERING",		"排序");
-/*new*/DEFINE("_RSGALLERY_GAL_PUBLISHED",		"已发布");
-/*new*/DEFINE("_RSGALLERY_GAL_PARAMETERS",		"参数");
+DEFINE("_RSGALLERY_GAL_GAL",				"图库");
+DEFINE("_RSGALLERY_GAL_DETAILS",			"详细资料");
+DEFINE("_RSGALLERY_GAL_DESCR",			"描述");
+DEFINE("_RSGALLERY_GAL_PARENT",			"上级项目");
+DEFINE("_RSGALLERY_GAL_THUMB",			"图库缩略图");
+DEFINE("_RSGALLERY_GAL_ORDERING",		"排序");
+DEFINE("_RSGALLERY_GAL_PUBLISHED",		"已发布");
+DEFINE("_RSGALLERY_GAL_PARAMETERS",		"参数");
+DEFINE("_RSGALLERY_GAL_OWNER",	"主人");
+DEFINE("_RSGALLERY_GAL_PERMS",	"权限");
+DEFINE("_RSGALLERY_GAL_DEF_PERM_CREATE",	"默认权限已创建。<br />在创建图库之后, 您可以返回这里编辑图库权限.");
+DEFINE("_RSGALLERY_GAL_NO_PERM_FOUND",	"您没有该图库的权限。点击上面工具栏上的<strong>保存</strong> 按钮以便创建默认权限。然后，回到这里设置权限。");
+DEFINE("_RSGALLERY_GAL_USERTYPE",		"用户类型");
+DEFINE("_RSGALLERY_GAL_VIEW_GAL",		"查看<br/>图库</span>");
+DEFINE("_RSGALLERY_GAL_UPL_EDIT_IMG",	"上传/编辑<br/>图像</span>");
+DEFINE("_RSGALLERY_GAL_DEL_IMG",			"删除图像</span>");
+DEFINE("_RSGALLERY_GAL_MOD_GAL",			"修改<br/>图库</span>");
+DEFINE("_RSGALLERY_GAL_DEL_GAL",			"删除<br/>图库</span>");
+DEFINE("_RSGALLERY_GAL_ACL_PUB",			"公众</span>");
+DEFINE("_RSGALLERY_GAL_ACL_REG",			"注册会员</span>");
+DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",	"&nbsp;选择/取消选择 所有");
+DEFINE("_RSGALLERY_GAL_ORDER",	"次序");
 
 //install.class.php
 //function echo_values
-/*new*/DEFINE("_RSGALLERY_INSTALL_THUMBDIR",			"缩略图目录:");
+DEFINE("_RSGALLERY_INSTALL_THUMBDIR",			"缩略图目录:");
 //function changeMenuIcon
-/*new*/DEFINE("_RSGALLERY_INSTALL_MENU_ICON_OK",		"RSGallery2 菜单图像更改成功。");
-/*new*/DEFINE("_RSGALLERY_INSTALL_MENU_ICON_ERROR",		"菜单图像无法更改。");
+DEFINE("_RSGALLERY_INSTALL_MENU_ICON_OK",		"RSGallery2 菜单图像更改成功。");
+DEFINE("_RSGALLERY_INSTALL_MENU_ICON_ERROR",		"菜单图像无法更改。");
 //function createDirStructure
-/*new*/DEFINE("_RSGALLERY_INSTALL_DIR_EXISTS",			" 已存在");
-/*new*/DEFINE("_RSGALLERY_ISNTALL_IS_CREATED",			" 已创建");
-/*new*/DEFINE("_RSGALLERY_INSTALL_NOT_CREATED",			" 无法创建");
+DEFINE("_RSGALLERY_INSTALL_DIR_EXISTS",			" 已存在");
+DEFINE("_RSGALLERY_ISNTALL_IS_CREATED",			" 已创建");
+DEFINE("_RSGALLERY_INSTALL_NOT_CREATED",			" 无法创建");
 //function createTableStructure
-/*new*/DEFINE("_RSGALLERY_ISNTALL_DB_OK",				"数据库中建表成功。");
+DEFINE("_RSGALLERY_ISNTALL_DB_OK",				"数据库中建表成功。");
 //function copyFiles
-/*new*/DEFINE("_RSGALLERY_INSTALL_FILE_COPY_FROM",		"复制文件从 ");
-/*new*/DEFINE("_RSGALLERY_INSTALL_FILE_COPY_TO",		" 到 ");
-/*new*/DEFINE("_RSGALLERY_INSTALL_FILE_NOTCOPY_FROM",	"无法复制文件自 ");
-/*new*/DEFINE("_RSGALLERY_INSTALL_DIR_CREATED",			"目录已创建: ");
-/*new*/DEFINE("_RSGALLERY_INSTALL_DIR_NOTCREATED",		"无法创建目录 ");
+DEFINE("_RSGALLERY_INSTALL_FILE_COPY_FROM",		"复制文件从 ");
+DEFINE("_RSGALLERY_INSTALL_FILE_COPY_TO",		" 到 ");
+DEFINE("_RSGALLERY_INSTALL_FILE_NOTCOPY_FROM",	"无法复制文件自 ");
+DEFINE("_RSGALLERY_INSTALL_DIR_CREATED",			"目录已创建: ");
+DEFINE("_RSGALLERY_INSTALL_DIR_NOTCREATED",		"无法创建目录 ");
 //function deleteGalleryDir
-/*new*/DEFINE("_RSGALLERY_DELGAL_PROCES",				"正在处理: ");
-/*new*/DEFINE("_RSGALLERY_DELGAL_OK",					"目录结构已删除！");
-/*new*/DEFINE("_RSGALLERY_DELGAL_NOTOK",				"删除旧目录结构失败。");
-/*new*/DEFINE("_RSGALLERY_DELGAL_NO_OLD_DIR",			"没有找到旧目录结构，我们继续吧。");
+DEFINE("_RSGALLERY_DELGAL_PROCES",				"正在处理: ");
+DEFINE("_RSGALLERY_DELGAL_OK",					"目录结构已删除！");
+DEFINE("_RSGALLERY_DELGAL_NOTOK",				"删除旧目录结构失败。");
+DEFINE("_RSGALLERY_DELGAL_NO_OLD_DIR",			"没有找到旧目录结构，我们继续吧。");
 //function checkDirPerms
-/*new*/DEFINE("_RSGALLERY_PERMS_NOT_EXIST",				" 不存在。请通过 FTP 手动创建并检查权限。");
-/*new*/DEFINE("_RSGALLERY_PERMS_NOT_SET",				" 已找到，但无法设置成正确的权限(777)。\n当前权限是 ");
-/*new*/DEFINE("_RSGALLERY_PERMS_NOT_SET_TRY_FTP",		".<br />请通过 FTP 纠正这些权限。");
-/*new*/DEFINE("_RSGALLERY_PERMS_OK",					" 已找到，权限正确。");
-DEFINE("_RSGALLERY_INSTALL_COMPLETE",			"RSGallery 安装完毕");
+DEFINE("_RSGALLERY_PERMS_NOT_EXIST",				" 不存在。请通过 FTP 手动创建并检查权限。");
+DEFINE("_RSGALLERY_PERMS_NOT_SET",				" 已找到，但无法设置成正确的权限(777)。\n当前权限是 ");
+DEFINE("_RSGALLERY_PERMS_NOT_SET_TRY_FTP",		".<br />请通过 FTP 纠正这些权限。");
+DEFINE("_RSGALLERY_PERMS_OK",					" 已找到，权限正确。");
 //function installComplete
-/*new*/DEFINE("_RSGALLERY_INSTALL_COMPLETE",			"RSGallery 安装完成！");
-/*new*/DEFINE("_RSGALLERY_INSTALL_STATUS_MSGS",			"若有任何状态信息需您关注，请即刻处理，不要急于前往控制面板。");
+DEFINE("_RSGALLERY_INSTALL_COMPLETE",			"RSGallery 安装完成！");
+DEFINE("_RSGALLERY_INSTALL_STATUS_MSGS",			"若有任何状态信息需您关注，请即刻处理，不要急于前往控制面板。");
 //function deleteTable
-/*new*/DEFINE("_RSGALLERY_TABLEDEL_OK",					" 已删除");
-/*new*/DEFINE("_RSGALLERY_TABLEDEL_NOTOK",				" 无法删除。<br />请手动删除。");
+DEFINE("_RSGALLERY_TABLEDEL_OK",					" 已删除");
+DEFINE("_RSGALLERY_TABLEDEL_NOTOK",				" 无法删除。<br />请手动删除。");
 //function migrateOldFiles
-/*new*/DEFINE("_RSGALLERY_MIGRATE_NOT_ALL",			"并非所有文件信息被迁移进入 RSGallery2 数据库，原因未知(");
-/*new*/DEFINE("_RSGALLERY_MIGRATE_OUT_OF",			" 来自 ");
-/*new*/DEFINE("_RSGALLERY_MIGRATE_ENTRIES_OK",		" 条目已处理。)");
-/*new*/DEFINE("_RSGALLERY_MIGRATE_ALL",				"所有文件信息已迁移到RSGallery2 数据库(");
+DEFINE("_RSGALLERY_MIGRATE_NOT_ALL",			"并非所有文件信息被迁移进入 RSGallery2 数据库，原因未知(");
+DEFINE("_RSGALLERY_MIGRATE_OUT_OF",			" 来自 ");
+DEFINE("_RSGALLERY_MIGRATE_ENTRIES_OK",		" 条目已处理。)");
+DEFINE("_RSGALLERY_MIGRATE_ALL",				"所有文件信息已迁移到RSGallery2 数据库(");
 //function migrateOldCats
-/*new*/DEFINE("_RSGALLERY_MIGRATE_NOT_ALL_GAL",		"并非所有图库信息已被迁移到 RSGallery2 数据库，原因未知(");
-/*new*/DEFINE("_RSGALLERY_MIGRATE_ALL_GAL",			"所有图库信息已被迁移到 RSGallery2 数据库(");
-/*new*/DEFINE("_RSGALLERY_MIGRATE_ALL_FILES",		"成功复制文件到新结构");
-/*new*/DEFINE("_RSGALLERY_MIGRATE_NOTALL_FILES",		"复制文件到新结构时发生了错误");
-/*new*/DEFINE("_RSGALLERY_MIGRATE_ZOOM_OK",		" Zoom Gallery 图库迁移完成。前往控制面板。");
+DEFINE("_RSGALLERY_MIGRATE_NOT_ALL_GAL",		"并非所有图库信息已被迁移到 RSGallery2 数据库，原因未知(");
+DEFINE("_RSGALLERY_MIGRATE_ALL_GAL",			"所有图库信息已被迁移到 RSGallery2 数据库(");
+DEFINE("_RSGALLERY_MIGRATE_ALL_FILES",		"成功复制文件到新结构");
+DEFINE("_RSGALLERY_MIGRATE_NOTALL_FILES",		"复制文件到新结构时发生了错误");
+DEFINE("_RSGALLERY_MIGRATE_ZOOM_OK",		" Zoom Gallery 图库迁移完成。前往控制面板。");
 //function upgradeInstall
-/*new*/DEFINE("_RSGALLERY_UPGRADE_RSG",		"从 RSGallery 升级");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_REC_FULL",		"组件已找到，但没有版本信息。<br />建议全新安装。");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF",		"原始文件传输成功。");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF_ERROR",		"传输文件到新结构时发生了错误。\n请通过 FTP 检查。");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF",		"缩略图文件传输成功。");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF_ERROR",		"传输缩略图文件到新结构时发生了错误。<br />请通过 FTP 检查。");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE",		"展示图像创建成功。");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE_ERROR",		"创建部分或全部展示图片失败。<br />请与本组件的开发人员联系。");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_TABLE",		"表 ");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_OK",		" 变动成功");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_ERROR",		" 变动不成功");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_OK",		" 重命名成功");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_ERROR",		"");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_DUMMY_ERROR",		"创建示范表时发生错误。卸载 RSGallery 2.0 beta 5 可能无效。");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_NOT_POSSIBLE",		"不能升级。没有找到可升级的 RSGallery。\n建议全新安装。");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_SUCCESS",		"升级到 RSGallery2 完成。\n现在您可以放心卸载旧版 RSGallery");
+DEFINE("_RSGALLERY_UPGRADE_RSG",		"从 RSGallery 升级");
+DEFINE("_RSGALLERY_UPGRADE_REC_FULL",		"组件已找到，但没有版本信息。<br />建议全新安装。");
+DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF",		"原始文件传输成功。");
+DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF_ERROR",		"传输文件到新结构时发生了错误。\n请通过 FTP 检查。");
+DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF",		"缩略图文件传输成功。");
+DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF_ERROR",		"传输缩略图文件到新结构时发生了错误。<br />请通过 FTP 检查。");
+DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE",		"展示图像创建成功。");
+DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE_ERROR",		"创建部分或全部展示图片失败。<br />请与本组件的开发人员联系。");
+DEFINE("_RSGALLERY_UPGRADE_TABLE",		"表 ");
+DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_OK",		" 变动成功");
+DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_ERROR",		" 变动不成功");
+DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_OK",		" 重命名成功");
+DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_ERROR",		"");
+DEFINE("_RSGALLERY_UPGRADE_DUMMY_ERROR",		"创建示范表时发生错误。卸载 RSGallery 2.0 beta 5 可能无效。");
+DEFINE("_RSGALLERY_UPGRADE_NOT_POSSIBLE",		"不能升级。没有找到可升级的 RSGallery。\n建议全新安装。");
+DEFINE("_RSGALLERY_UPGRADE_SUCCESS",		"升级到 RSGallery2 完成。\n现在您可以放心卸载旧版 RSGallery");
 //function showMigrationOptions
-/*new*/DEFINE("_RSGALLERY_MIGRATION",		"迁移");
-/*new*/DEFINE("_RSGALLERY_MIGRATION_NO_SYSTEMS",		"未安装其他图库系统");
+DEFINE("_RSGALLERY_MIGRATION",		"迁移");
+DEFINE("_RSGALLERY_MIGRATION_NO_SYSTEMS",		"未安装其他图库系统");
 //function doMigration
-/*new*/DEFINE("_RSGALLERY_MIGRATION_VOT_VALID",		"不是有效迁移类型");
+DEFINE("_RSGALLERY_MIGRATION_VOT_VALID",		"不是有效迁移类型");
+
+//uninstall.rsgallery2.php
+//function com_uninstall
+DEFINE("_RSGALLERY_UNINSTALL_OK",		"卸载成功");
+
+//slideshow.rsgallery2.php
+DEFINE("_RSGALLERY_SLIDE_START",		"开始");
+DEFINE("_RSGALLERY_SLIDE_STOP",			"停止");
+DEFINE("_RSGALLERY_SLIDE_NEXT",			"下一个");
+DEFINE("_RSGALLERY_SLIDE_PREV",			"上一个");
+
+//images.html.php
+//function showImages
+DEFINE("_RSGALLERY_IMG_IMG_MANAGE",			"图像管理");
+DEFINE("_RSGALLERY_IMG_FILTER",				"筛选:");
+DEFINE("_RSGALLERY_IMG_TITLE",				"标题 (文件名)");
+DEFINE("_RSGALLERY_IMG_ORDER",				"次序");
+DEFINE("_RSGALLERY_IMG_DATE_TIME",			"日期和时间");
+DEFINE("_RSGALLERY_IMG_EDIT_IMG",			"编辑图像");
+//function editImage
+DEFINE("_RSGALLERY_IMG_IMAGE",			"图像");
+DEFINE("_RSGALLERY_IMG_DETAILS",			"详情");
+DEFINE("_RSGALLERY_IMG_ORDERING",			"排序");
+DEFINE("_RSGALLERY_IMG_IMG_PREV",			"图像预览");
+DEFINE("_RSGALLERY_IMG_PARAMETERS",			"参数");
+//function uploadImage
+DEFINE("_RSGALLERY_IMG_SELECT_GAL",			"您必须选择图库.");/*javascript alert*/
+DEFINE("_RSGALLERY_IMG_NO_FILE_SELECT",		"没有选择文件.");/*javascript alert*/
+DEFINE("_RSGALLERY_IMG_UPLOAD",			"上传");
+DEFINE("_RSGALLERY_IMG_UPL_DETAILS",			"上传详情");
+DEFINE("_RSGALLERY_IMG_UPL_GALLERY",			"上传图库");
+DEFINE("_RSGALLERY_IMG_GEN_DESCR",			"普通描述");
+DEFINE("_RSGALLERY_IMG_IMG_FILES",			"图像文件");
+DEFINE("_RSGALLERY_IMG_IMAGES",			"图像");
+DEFINE("_RSGALLERY_IMG_FILE",			"文件");
+DEFINE("_RSGALLERY_IMG_MORE",			"(更多图像)");
+
+//access.class.php
+//function checkGallery
+DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"没有找到权限，默认权限已被创建。请再试一次。");
+
+//tables/display.class.php
+//function _showGalleryDetails
+DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"主人: ");
+DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"大小: ");
+DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"创建日期: ");
 ?>
