@@ -52,15 +52,26 @@ function bot_rsg2_singledisplay_replacer( &$matches ) {
 		// get attributes from matches and create array
 		$attribs = split( ',',$matches[1] );
 		
-		if ( is_numeric( $attribs[0] ) ) {// check if imageID is numeric
-			$image_attribute = $attribs[0];// imageID
-			if ( isset( $attribs[1] ) ) {// check if Size is set
-				$image_size = $attribs[1];
+		if ( is_array( $attribs ) ) {//clean up the attribs, this can be used to do further data clean up currently only removing whitespaces and &nbsp;
+			$clean_attribs = array ();
+			foreach ( $attribs as $attrib ) {
+				$clean_attrib = bot_rsg2_singledisplay_clean_data ( $attrib );
+				array_push( $clean_attribs, $clean_attrib );
+			}
+		} else {
+			return true;
+		}
+		
+		
+		if ( (int)$clean_attribs[0] ) {// check if imageID is numeric
+			$image_attribute = $clean_attribs[0];// imageID
+			if ( isset( $clean_attribs[1] ) ) {// check if Size is set
+				$image_size = $clean_attribs[1];
 			} else {
 				$image_size = NULL;
 			}
-			if ( isset( $attribs[2] ) ) {// check if caption is set
-				$image_caption = bot_rsg2_singledisplay_bool($attribs[2]);//make sure you get bool 
+			if ( isset( $clean_attribs[2] ) ) {// check if caption is set
+				$image_caption = bot_rsg2_singledisplay_bool($clean_attribs[2]);//make sure you get bool 
 			} else {
 				$image_caption = NULL;
 			}
@@ -72,7 +83,7 @@ function bot_rsg2_singledisplay_replacer( &$matches ) {
 		// obtain gallery object by the Images ID
 		$gallery_object = rsgGalleryManager::getGalleryByItemID( $image_attribute );
 		
-		if ( isset( $gallery_object ) ) {// check if gallery object was returned from ImageID
+		if ( is_object( $gallery_object ) ) {// check if gallery object was returned from ImageID
 			$image_array = $gallery_object->getItem( $image_attribute );// get image array from gallery object	
 		} else {
 			return true; // if image array is not returned from gallery object then user specified wrong imageID SHOW NOTHING!
@@ -101,7 +112,7 @@ function bot_rsg2_singledisplay_replacer( &$matches ) {
  */
 function bot_rsg2_singledisplay_display ( $image_array, $image_size ,$image_caption) {
 	$output = '<div class="rsgSingleDisplayImage id_' . $image_array['id'] . '">';
-	switch ( $image_size ) {
+	switch ( strtolower( $image_size ) ) {
 		case "thumb":// thumbnail display
 			$output .= '<img src="' . imgUtils::getImgThumb( $image_array['name'] ) . '" alt="' . $image_array['descr'] . '" border="0" />';
 			break;
@@ -150,5 +161,17 @@ function bot_rsg2_singledisplay_bool( $var ) {
         default:
             return false;
     }
+}
+
+/**
+ * clean up the input data
+ *
+ * @param string $attrib
+ * @return string $attrib;
+ */
+function bot_rsg2_singledisplay_clean_data ( $attrib ) {//remove &nbsp; and trim white space
+	$attrib = str_replace( "&nbsp;", '', "$attrib" );
+
+	return trim( $attrib );
 }
 ?>
