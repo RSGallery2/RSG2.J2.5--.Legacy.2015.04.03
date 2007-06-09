@@ -85,7 +85,7 @@ class fileUtils{
                 return videoUtils::importImage( $imgTmpName, $imgName, $imgCat, $imgTitle, $imgDesc );
             break;
             default:
-                return new imageUploadError( $imgName, "$imgName not a supported file type." );
+                return new imageUploadError( $imgName, "$imgName"._RSGALLERY_FU_NOT_SUP_TYPE );
         }
     }
 
@@ -117,7 +117,7 @@ class fileUtils{
         $destination = JPATH_ORIGINAL . DS . $basename;
         if ( !move_uploaded_file( $tmpName, $destination )) {
             if( !copy( $tmpName, $destination )){
-            	return new imageUploadError( $basename, "could not copy $tmpName image to: $destination" );
+            	return new imageUploadError( $basename, _RSGALLERY_FU_UNABLE_COPY."$tmpName"._RSGALLERY_FU_IMAGE_TO."$destination" );
                 }
         }
         return $destination;
@@ -195,9 +195,9 @@ class fileHandler {
                 if ( is_writable($folder) )
                     continue;
                 else
-                    $error .= "<p>".$folder." exists, but is not Writable!</p>";
+                    $error .= "<p>".$folder._RSGALLERY_FU_NOT_WRITABLE."</p>";
             } else {
-                $error .= "<p>".$folder." does not exist!</p>";
+                $error .= "<p>".$folder._RSGALLERY_FU_NOT_EXIST."</p>";
             }
         }
         //Error handling
@@ -314,7 +314,7 @@ class fileHandler {
         if (file_exists( $mediadir )) {
             fileHandler::deldir( mosPathName($mediadir) );
         } else {
-            echo "Blijkbaar bestaat <strong>$mediadir</strong> niet!";
+            echo _RSGALLERY_FU_APPARENTLY."<strong>$mediadir</strong>"._RSGALLERY_FU_DOESNT_EXIST;
         }
     }
     
@@ -419,13 +419,13 @@ class fileHandler {
          
         //check source directory
         if (!file_exists( $source ) OR !is_dir ( $source )) {
-            echo $source." does not exist or is no directory on your server. Please check the path.";
-            mosRedirect('index2.php?option=com_rsgallery2&task=batchupload', $source.' does not exist or is no directory on your server. Please check the path.');
+            echo $source._RSGALLERY_FU_FTP_DIR_NOT_EXIST;
+            mosRedirect('index2.php?option=com_rsgallery2&task=batchupload', $source._RSGALLERY_FU_FTP_DIR_NOT_EXIST);
         }
         //Read files from FTP-directory
         $files = mosReadDirectory($source, '');
         if (!$files) {
-            mosRedirect('index2.php?option=com_rsgallery2&task=batchupload', 'No valid images found in '.$source.'. Please check the path.');
+            mosRedirect('index2.php?option=com_rsgallery2&task=batchupload', _RSGALLERY_FU_NO_VALID_IMG.$source._RSGALLERY_FU_PLEASE_CHECK_PATH);
         }
         
         //Create imagelist from FTP-directory
@@ -444,7 +444,7 @@ class fileHandler {
         }
 
         if (count($list) == 0) {
-            echo "No files found to process!";
+            echo _RSGALLERY_FU_NO_FILES;
         } else {
         return $list;            
         }
@@ -461,27 +461,27 @@ class fileHandler {
         } else {
             switch ( $error ) {
                 case UPLOAD_ERR_INI_SIZE:
-                    $msg = "The uploaded file exceeds the upload_max_filesize directive (".ini_get("upload_max_filesize").") in php.ini.";
+                    $msg = _RSGALLERY_FU_MAX_FILESIZE."(".ini_get("upload_max_filesize").")"._RSGALLERY_FU_IN_PINI;
                     break;
                 case UPLOAD_ERR_FORM_SIZE:
-                    $msg = "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.";
+                    $msg = _RSGALLERY_FU_MAX_FILESIZE_FORM;
                     break;
                 case UPLOAD_ERR_PARTIAL:
-                    $msg = "The uploaded file was only partially uploaded.";
+                    $msg = _RSGALLERY_FU_PARTIAL_UPL;
                     break;
                 case UPLOAD_ERR_NO_FILE:
-                    $msg = "No file was uploaded.";
+                    $msg = _RSGALLERY_FU_NO_UPL;
                     break;
                 case UPLOAD_ERR_NO_TMP_DIR:
-                    $msg = "Missing a temporary folder.";
+                    $msg = _RSGALLERY_FU_MISS_TEMP_DIR;
                     break;
                 case UPLOAD_ERR_CANT_WRITE:
-                    $msg = "Failed to write file to disk";
+                    $msg = _RSGALLERY_FU_FAIL_WRITE_DISK;
                     break;
                 case UPLOAD_ERR_EXTENSION;
-                    $msg = "File upload stopped by extension";         
+                    $msg = _RSGALLERY_FU_UPL_STOP_EXT;         
                 default:
-                    $msg = "Unknown File Error";
+                    $msg = _RSGALLERY_FU_UNKW_ERROR;
             }
         return $msg;
         }

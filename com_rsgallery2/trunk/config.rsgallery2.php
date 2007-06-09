@@ -469,7 +469,7 @@ class galleryUtils {
     function showRating($id) {
         global $database,$mosConfig_live_site;
         $database->setQuery("SELECT * FROM #__rsgallery2_files WHERE id = '$id'");
-        $values = array("No rating","Very bad","Bad","OK","Good","Very good");
+        $values = array(_RSGALLERY_RATE_NONE,_RSGALLERY_VERYBAD,_RSGALLERY_BAD,_RSGALLERY_OK,_RSGALLERY_GOOD,_RSGALLERY_VERYGOOD);
         $rows = $database->loadObjectList();
         $images = "";
         foreach ($rows as $row)
@@ -568,7 +568,7 @@ class galleryUtils {
             }
         else
             {
-            echo "<tr><td colspan=\"3\">No new entries</td></tr>";
+            echo "<tr><td colspan=\"3\">"._RSGALLERY_NO_NEW_ENT."</td></tr>";
             }
     }
     
@@ -612,7 +612,7 @@ class galleryUtils {
         }
     else
         {
-        echo "<tr><td colspan=\"4\">No new entries</td></tr>";
+        echo "<tr><td colspan=\"4\">"._RSGALLERY_NO_NEW_ENT."</td></tr>";
         }
     }
     

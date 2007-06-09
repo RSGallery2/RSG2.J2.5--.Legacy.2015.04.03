@@ -171,10 +171,16 @@ DEFINE("_RSGALLERY_C_PURGE",				"Purge/Delete everything");
 DEFINE("_RSGALLERY_C_REALLY_UNINSTALL",		"REALLY Uninstall - Deletes all images, directories, drops all tables. Only on Linux with default directories.");
 DEFINE("_RSGALLERY_C_VIEW_CONFIG",			"Config - View");
 DEFINE("_RSGALLERY_C_EDIT_CONFIG",			"Config - Raw Edit");
+//function showInstallForm
+/*new*/DEFINE("_RSGALLERY_INST_UPL_PCK_FILE",		"Upload Package File");
+/*new*/DEFINE("_RSGALLERY_INST_PCK_FILE",		"Package File:");
+//function showInstallMessage
+/*new*/DEFINE("_RSGALLERY_INST_MES_CONTINUE",	"Continue ...");
 //function requestCatCreation
 DEFINE("_RSGALLERY_C_CAT_FIRST",			"Create a category first!");
 //function batch_upload
 DEFINE("_RSGALLERY_BATCH_NO_ZIP",			"ZIP-upload selected but no file chosen");
+/*new*/DEFINE("_RSGALLERY_BACTCH_NOT_VALID_ZIP",		" is not a valid archive format. Only ZIP-files are allowed!");
 DEFINE("_RSGALLERY_BATCH_GAL_FIRST",		"Please choose a category first");
 DEFINE("_RSGALLERY_BATCH_NO_FTP",			"FTP upload chosen but no FTP-path provided");
 DEFINE("_RSGALLERY_BATCH_STEP1",			"Step 1");
@@ -228,9 +234,9 @@ DEFINE("_RSGALLERY_CONF_GENERALTAB",		"General");
 DEFINE("_RSGALLERY_CONF_IMAGESTAB",			"Images");
 DEFINE("_RSGALLERY_CONF_DISPLAY",			"Display");
 DEFINE("_RSGALLERY_CONF_USERS",				"Permissions");
-/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_NEV",		"Never");
-/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_LIMIT",	"If more galleries than limit");
-/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_ALW",		"Always");
+DEFINE("_RSGALLERY_CONF_LIMIT_NEV",		"Never");
+DEFINE("_RSGALLERY_CONF_LIMIT_LIMIT",	"If more galleries than limit");
+DEFINE("_RSGALLERY_CONF_LIMIT_ALW",		"Always");
 //function showUploadStep1
 DEFINE("_RSGALLERY_PICK",					"Pick a gallery");
 //function showUploadStep2
@@ -242,6 +248,7 @@ DEFINE("_RSGALLERY_UPLOAD_FORM_IMAGE",		"Image");
 DEFINE("_RSGALLERY_CATNAME",				"Gallery name");
 DEFINE("_RSGALLERY_UPLOAD_FORM_FILE",		"File");
 //function viewImages
+/*new*/DEFINE("_RSGALLERY_NO_PREVIEW ",		"No preview available");
 DEFINE("_RSGALLERY_DELETE",					"Delete");
 DEFINE("_RSGALLERY_MOVETO",					"Move To");
 DEFINE("_RSGALLERY_NUMDISPLAY",				"Display #");
@@ -252,13 +259,13 @@ DEFINE("_RSGALLERY_IMAGECAT",				"Gallery");
 DEFINE("_RSGALLERY_IMAGEHITS",				"Hits");
 DEFINE("_RSGALLERY_IMAGEDATE",				"Date upload");
 DEFINE("_RSGALLERY_REORDER",				"Reorder");
-/*new*/DEFINE("_RSGALLERY_SEL_TO_DEL",		"Please make a selection from the list to delete");
-/*new*/DEFINE("_RSGALLERY_SURE_DEL",		"Are you sure you want to delete selected items? ");
-/*new*/DEFINE("_RSGALLERY_SEL_TO_MOVE",		"Please make a selection from the list to move");
-/*new*/DEFINE("_RSGALLERY_SEL_GAL_TO_MOVE",	"Please select a gallery from the list to move images to");
-/*new*/DEFINE("_RSGALLERY_SURE_MOVE",		"Are you sure you want to move selected items?");
-/*new*/DEFINE("_RSGALLERY_ORDER_UP",		"Move Up");
-/*new*/DEFINE("_RSGALLERY_ORDER_DOWN",		"Move Down");
+DEFINE("_RSGALLERY_SEL_TO_DEL",		"Please make a selection from the list to delete");
+DEFINE("_RSGALLERY_SURE_DEL",		"Are you sure you want to delete selected items? ");
+DEFINE("_RSGALLERY_SEL_TO_MOVE",		"Please make a selection from the list to move");
+DEFINE("_RSGALLERY_SEL_GAL_TO_MOVE",	"Please select a gallery from the list to move images to");
+DEFINE("_RSGALLERY_SURE_MOVE",		"Are you sure you want to move selected items?");
+DEFINE("_RSGALLERY_ORDER_UP",		"Move Up");
+DEFINE("_RSGALLERY_ORDER_DOWN",		"Move Down");
 
 //function showTemplates
 DEFINE("_RSGALLERY_TEMP_MANG",				"Template Manager");
@@ -280,6 +287,9 @@ DEFINE("_RSGALLERY_NOT_WORKING",		"Not working yet");
 DEFINE("_RSGALLERY_DEL_FROM_SYSTEM",		"Delete from filesystem");
 DEFINE("_RSGALLERY_CREATE_MISSING_IMG",		"Create missing images");
 DEFINE("_RSGALLERY_CREATE_DB_ENTRIES",		"Create database entries");
+/*new*/DEFINE("_RSGALLERY_CONSDB_IMG_IN_FLDR",		"Image in folder");
+/*new*/DEFINE("_RSGALLERY_CONSDB_IMG__NOT_IN_FLDR",		"Image NOT in folder");
+/*new*/DEFINE("_RSGALLERY_ ",		"");
 
 //admin.rsgallery2.php
 DEFINE("_RSGALLERY_HEAD_CONFIG",		"Configuration");
@@ -304,6 +314,10 @@ DEFINE("_RSGALLERY_PURGE_IMG",				"purged image entries from database.");
 DEFINE("_RSGALLERY_PURGE_GAL",				"purged galleries from database.");
 DEFINE("_RSGALLERY_PURGE_CONFIG",			"purged config from database.");
 DEFINE("_RSGALLERY_PURGE_COMMENTS",			"purged comments from database.");
+/*new*/DEFINE("_RSGALLERY_PURGE_THUMB",		"removing thumb images.");
+/*new*/DEFINE("_RSGALLERY_PURGE_DISPLAY",	"removing display images.");
+/*new*/DEFINE("_RSGALLERY_PURGE_ORIGINAL",	"removing original images.");
+/*new*/DEFINE("_RSGALLERY_PURGE_PURGED",	"purged.");
 //function reallyUninstall
 DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Used rm -r to attempt to remove $mosConfig_absolute_path/images/rsgallery");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"DROPed #__rsgallery2_files");
@@ -315,6 +329,12 @@ DEFINE("_RSGALLERY_REAL_UNINST_DONE",		"Done.  Manually remove anything above if
 DEFINE("_RSGALLERY_ALERT_IMGDELETEOK",		"Image(s) deleted succesfully!");
 //function c_delete
 DEFINE("_RSGALLERY_ALERT_IMGDELETENOTOK",	"Image(s) were not deleted!");
+//function c_create
+/*new*/DEFINE("_RSGALLERY_CC_NO_FILE_INFO",		"No fileinformation found. This should never happen!");
+//function db_create
+/*new*/DEFINE("_RSGALLERY_DB_CREATE_NO_GAL",		"No gallery chosen to place image in!");
+/*new*/DEFINE("_RSGALLERY_DB_CREATE_IMG_SUCCES ",		"Images succesfully added to the database!");
+/*new*/DEFINE("_RSGALLERY_DB_CREATE_IMG_FAIL",		"Images could NOT be added to the database!");
 //function save_batchupload
 DEFINE("_RSGALLERY_ALERT_NOCATSELECTED",	"Please select gallery for ALL images!\\n(Also for images that will be deleted.\\nnThis will be corrected in future version!)");
 DEFINE("_RSGALLERY_ZIP_TO_BIG",				"ZIP-file is too big!");
@@ -356,10 +376,10 @@ DEFINE("_RSGALLERY_ISWRITABLE_UNWRITABLE",	"Unwriteable");
 DEFINE("_RSGALLERY_MAKE_WRITABLE",			"Make unwriteable after saving");
 DEFINE("_RSGALLERY_OVERWRITE_WRITABLE",		"Override write protection while saving");
 //function uploadFile
-/*new*/DEFINE("_RSGALLERY_ERMSG_FAILD_CHMOD",	"Failed to change the permissions of the uploaded file.");
-/*new*/DEFINE("_RSGALLERY_ERMSG_FAILD_MOVE_MEDIA",	"Failed to move uploaded file to <code>/media</code> directory.");
-/*new*/DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_WRITE",	"Upload failed as <code>/media</code> directory is not writable.");
-/*new*/DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_EXIST",	"Upload failed as <code>/media</code> directory does not exist.");
+DEFINE("_RSGALLERY_ERMSG_FAILD_CHMOD",	"Failed to change the permissions of the uploaded file.");
+DEFINE("_RSGALLERY_ERMSG_FAILD_MOVE_MEDIA",	"Failed to move uploaded file to <code>/media</code> directory.");
+DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_WRITE",	"Upload failed as <code>/media</code> directory is not writable.");
+DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_EXIST",	"Upload failed as <code>/media</code> directory does not exist.");
 
 //config.rsgallery2.php
 //function toString
@@ -368,8 +388,12 @@ DEFINE("_RSGALLERY_CONF_ERROR_UPLOAD",		" - Error Image Upload : ");
 DEFINE("_RSGALLERY_SELECT_GAL_DROP_BOX",		"- Select gallery -");
 //function galleriesSelectList
 DEFINE("_RSGALLERY_SELECT_GAL_TOP",		"Top");
+//function showRating
+/*new*/DEFINE("_RSGALLERY_RATE_NONE",		"No rating");
 //function newImages
 DEFINE("_RSGALLERY_NEW",				"New!");
+//function latestCats
+/*new*/DEFINE("_RSGALLERY_NO_NEW_ENT",		"No new entries");
 //function writeWarningBox
 DEFINE("_RSGALLERY_NO_IMGLIBRARY",			"There was no available image libray detected! Please contact your hosting provider to install GD2 or check the forums to install either ImageMagick or NETPBM!");
 DEFINE("_RSGALLERY_NOT_WRITABLE",			" is NOT writable!");
@@ -379,9 +403,9 @@ DEFINE("_RSGALLERY_REFRESH",				"Refresh");
 //function writeDownloadLink
 DEFINE("_RSGALLERY_DOWNLOAD",				"Download");
 //function writeGalleryStatus
-/*new*/DEFINE("_RSGALLERY_STATUS_ARE_OWNER",	"You are the owner of this gallery");
-/*new*/DEFINE("_RSGALLERY_STATUS_CAN_UPLOAD",	"You can upload in this gallery");
-/*new*/DEFINE("_RSGALLERY_STATUS_NOT_PUBL",		"This gallery is NOT published");
+DEFINE("_RSGALLERY_STATUS_ARE_OWNER",	"You are the owner of this gallery");
+DEFINE("_RSGALLERY_STATUS_CAN_UPLOAD",	"You can upload in this gallery");
+DEFINE("_RSGALLERY_STATUS_NOT_PUBL",		"This gallery is NOT published");
 
 //install.rsgallery2.php
 //function com_install
@@ -398,7 +422,7 @@ DEFINE("_RSGALLERY_TOOL_UP",				"Upload");
 DEFINE("_RSGALLERY_TOOL_NEXT",				"Next");
 DEFINE("_RSGALLERY_TOOL_DELETE",			"Delete");
 DEFINE("_RSGALLERY_TOOL_CONFIRM_DEL",		"Confirm removal");
-/*new*/DEFINE("_RSGALLERY_TOOL_RES_HITS",	"Reset hits");
+DEFINE("_RSGALLERY_TOOL_RES_HITS",	"Reset hits");
 
 //config.html
 DEFINE("_RSGALLERY_C_TMPL_VERSION",			"Version:");
@@ -609,7 +633,36 @@ DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"No permissions were found, so default 
 
 //tables/display.class.php
 //function _showGalleryDetails
-/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"Owner: ");
-/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"Size: ");
-/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Created: ");
+DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"Owner: ");
+DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"Size: ");
+DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Created: ");
+
+//file.utils.php
+//function importImage
+/*new*/DEFINE("_RSGALLERY_FU_NOT_SUP_TYPE",		" not a supported file type.");
+//function move_uploadedFile_to_orignalDir
+/*new*/DEFINE("_RSGALLERY_FU_UNABLE_COPY",		"could not copy ");
+/*new*/DEFINE("_RSGALLERY_FU_IMAGE_TO",		" image to: ");
+//function preHandlerCheck
+/*new*/DEFINE("_RSGALLERY_FU_NOT_WRITABLE",		" exists, but is not Writable!");
+/*new*/DEFINE("_RSGALLERY_FU_NOT_EXIST",		" does not exist!");
+//function cleanMediaDir
+/*new*/DEFINE("_RSGALLERY_FU_APPARENTLY",		"Apparently ");
+/*new*/DEFINE("_RSGALLERY_FU_DOESNT_EXIST",		"does not exit");
+//function handleFTP
+/*new*/DEFINE("_RSGALLERY_FU_FTP_DIR_NOT_EXIST",		" does not exist or is no directory on your server. Please check the path.");
+/*new*/DEFINE("_RSGALLERY_FU_NO_VALID_IMG",		"No valid images found in ");
+/*new*/DEFINE("_RSGALLERY_FU_PLEASE_CHECK_PATH",		". Please check the path.");
+/*new*/DEFINE("_RSGALLERY_FU_NO_FILES",		"No files found to process!");
+/*new*/DEFINE("_RSGALLERY_FU_MAX_FILESIZE",		"The uploaded file exceeds the upload_max_filesize directive ");
+/*new*/DEFINE("_RSGALLERY_FU_IN_PINI",		" in php.ini.");
+/*new*/DEFINE("_RSGALLERY_FU_MAX_FILESIZE_FORM",		"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.");
+/*new*/DEFINE("_RSGALLERY_FU_PARTIAL_UPL",		"The uploaded file was only partially uploaded.)";
+/*new*/DEFINE("_RSGALLERY_FU_NO_UPL",		"No file was uploaded.");
+/*new*/DEFINE("_RSGALLERY_FU_MISS_TEMP_DIR",		"Missing a temporary folder.");
+/*new*/DEFINE("_RSGALLERY_FU_FAIL_WRITE_DISK",		"Failed to write file to disk");
+/*new*/DEFINE("_RSGALLERY_FU_UPL_STOP_EXT",		"File upload stopped by extension");
+/*new*/DEFINE("_RSGALLERY_FU_UNKW_ERROR",		"Unknown File Error");
+
+//stopped at gallery.class.php
 ?>

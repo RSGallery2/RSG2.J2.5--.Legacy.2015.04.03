@@ -375,24 +375,24 @@ function purgeEverything(){
     processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_comments', _RSGALLERY_PURGE_COMMENTS );
 
     // remove thumbnails
-    HTML_RSGALLERY::printAdminMsg( 'removing thumb images.' );
+    HTML_RSGALLERY::printAdminMsg( _RSGALLERY_PURGE_THUMB );
     foreach ( glob( $fullPath_thumb.'*' ) as $filename ) {
         if( is_file( $filename )) unlink( $filename );
     }
     
     // remove display imgs
-    HTML_RSGALLERY::printAdminMsg( 'removing display images.' );
+    HTML_RSGALLERY::printAdminMsg( _RSGALLERY_PURGE_DISPLAY );
     foreach ( glob( $fullPath_display.'*' ) as $filename ) {
         if( is_file( $filename )) unlink( $filename );
     }
     
     // remove display imgs
-    HTML_RSGALLERY::printAdminMsg( 'removing original images.' );
+    HTML_RSGALLERY::printAdminMsg( _RSGALLERY_PURGE_ORIGINAL );
     foreach ( glob( $fullPath_original.'*' ) as $filename ) {
         if( is_file( $filename )) unlink( $filename );
     }
     
-    HTML_RSGALLERY::printAdminMsg( 'purged.', true );
+    HTML_RSGALLERY::printAdminMsg( _RSGALLERY_PURGE_PURGED, true );
 }
 
 /**
@@ -475,7 +475,7 @@ function c_create() {
 	elseif ( isset($_REQUEST['name'] ) ) {
 		$name    = mosGetParam($_REQUEST, 'name', '');
 	} else {
-		mosRedirect("index2.php?option=com_rsgallery2&task=batchupload", 'No fileinformation found. This should never happen!');
+		mosRedirect("index2.php?option=com_rsgallery2&task=batchupload", _RSGALLERY_CC_NO_FILE_INFO);
 	}
 	
 	//Just for readability of code
@@ -517,7 +517,7 @@ function db_create() {
     
     //Redirect if no gallery chosen
     if ($gallery_id < 1)
-    	mosRedirect("index2.php?option=com_rsgallery2&task=consolidate_db_go", "No gallery chosen to place image in!");
+    	mosRedirect("index2.php?option=com_rsgallery2&task=consolidate_db_go", _RSGALLERY_DB_CREATE_NO_GAL);
     
     //If we are here, we're good to go. Save entry into database
     $title = explode(".", $name);
@@ -531,9 +531,9 @@ function db_create() {
                 " (title, name, descr, gallery_id, date, ordering, userid) VALUES".
                 " ('$title[0]', '$name', '$descr', '$gallery_id', now(), '$ordering', '$my->id')");
 	if ( $database->query() )
-		mosRedirect("index2.php?option=com_rsgallery2&task=consolidate_db_go", "Images succesfully added to the database!");
+		mosRedirect("index2.php?option=com_rsgallery2&task=consolidate_db_go", _RSGALLERY_DB_CREATE_IMG_SUCCES);
 	else
-		mosRedirect("index2.php?option=com_rsgallery2&task=consolidate_db_go", "Images could NOT be added to the database!");
+		mosRedirect("index2.php?option=com_rsgallery2&task=consolidate_db_go", _RSGALLERY_DB_CREATE_IMG_FAIL);
 }
 
 function save_batchupload() {
@@ -648,7 +648,7 @@ function batch_upload($option) {
         if ($batchmethod == "zip") {
         	//Check if file is really a ZIP-file
     		if (!eregi( '.zip$', $zip_file['name'] )) {
-    			mosRedirect( "index2.php?option=com_rsgallery2&task=batchupload", $zip_file['name']." is not a valid archive format. Only ZIP-files are allowed!");
+    			mosRedirect( "index2.php?option=com_rsgallery2&task=batchupload", $zip_file['name']._RSGALLERY_BACTCH_NOT_VALID_ZIP);
     		} else {
     			//Valid ZIP-file, continue
 	            if ($uploadfile->checkSize($zip_file) == 1) {

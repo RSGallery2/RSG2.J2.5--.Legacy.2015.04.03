@@ -288,12 +288,12 @@ class HTML_RSGALLERY{
 		<table class="adminform">
 		<tr>
 			<th>
-			Upload Package File
+			<?php echo _RSGALLERY_INST_UPL_PCK_FILE?>
 			</th>
 		</tr>
 		<tr>
 			<td align="left">
-			Package File:
+			<?php echo _RSGALLERY_INST_PCK_FILE?>
 			<input class="text_area" name="userfile" type="file" size="70"/>
 			<input type="button" class="button" value="Upload File &amp; Install" onclick="submitbutton3()" />
 			</td>
@@ -333,7 +333,7 @@ class HTML_RSGALLERY{
 		</tr>
 		<tr>
 			<td colspan="2" align="center">
-			[&nbsp;<a href="<?php echo $url;?>" style="font-size: 16px; font-weight: bold">Continue ...</a>&nbsp;]
+			[&nbsp;<a href="<?php echo $url;?>" style="font-size: 16px; font-weight: bold"><?php echo _RSGALLERY_INST_MES_CONTINUE?></a>&nbsp;]
 			</td>
 		</tr>
 		</table>
@@ -944,7 +944,7 @@ class HTML_RSGALLERY{
         function showInfo(name) {
                 var src = '<?php echo $mosConfig_live_site.$rsgConfig->get('imgPath_display'); ?>/'+name+'.jpg';
                 var html=name;
-                html = '<br /><img border="1" src="'+src+'" name="imagelib" alt="No preview available" width="250" />';
+                html = '<br /><img border="1" src="'+src+'" name="imagelib" alt="<?php echo _RSGALLERY_NO_PREVIEW?>" width="250" />';
                 return overlib(html, CAPTION, name);
         }
         //-->
@@ -1121,8 +1121,8 @@ if ($row->fordering > $cat_ordering_min[$row->gallery_id]) { ?>
 		        <td colspan="9">&nbsp;</td>
 		    </tr>
 		    <?php
-		    $yes    = "<td align=\"center\"><img src=\"$mosConfig_live_site/images/tick.png\" alt=\"Image in folder\" border=\"0\"></td>";
-		    $no     = "<td align=\"center\"><img src=\"$mosConfig_live_site/images/publish_x.png\" alt=\"Image NOT in folder\" border=\"0\"></td>";
+		    $yes    = "<td align=\"center\"><img src=\"$mosConfig_live_site/images/tick.png\" alt=\""._RSGALLERY_CONSDB_IMG_IN_FLDR."\" border=\"0\"></td>";
+		    $no     = "<td align=\"center\"><img src=\"$mosConfig_live_site/images/publish_x.png\" alt=\""._RSGALLERY_CONSDB_IMG__NOT_IN_FLDR."\" border=\"0\"></td>";
 		    $z = 0;
 		    $c = 0;
 		    //Check database and crossreference against filesystem
@@ -1167,7 +1167,7 @@ if ($row->fordering > $cat_ordering_min[$row->gallery_id]) { ?>
 		            ?>
 		            <td>&nbsp;</td>
 		            <td>
-		            	<img src="<?php echo imgUtils::getImgThumb( $name );?>" name="image" width="<?php echo $rsgConfig->get('thumb_width')?>" />
+		            	<img src="<?php echo imgUtils::getImgThumb( $name );?>" name="image" width="<?php echo $rsgConfig->get('thumb_width')?>" alt="<?php echo $name;?>"/>
 		            </td>
 		            <td align="center">
 		                <a href="index2.php?option=com_rsgallery2&task=c_delete&cid=<?php echo $fid;?>"><?php echo _RSGALLERY_CONSDB_DELETE_DB?></a><br />
