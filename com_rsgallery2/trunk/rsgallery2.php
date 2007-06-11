@@ -12,20 +12,29 @@ defined( '_VALID_MOS' ) or die( 'Access Denied.' );
 // initialize RSG2 core functionality
 require_once( $mosConfig_absolute_path.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
 
-// if we need to output other file formats (image, xml, etc) then we should detect and do so here before outputting anything else.
-switch( $task ){
-    case 'xml':
-        xmlFile();
-    break;
-    case "downloadfile":
-		$id = mosGetParam ( $_REQUEST, 'id'  , '');
-		downloadFile($id);
-	break;
-	default:
-		require_once( JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'meta' . DS . 'display.class.php' );
-		template();
+/**
+ * Checking for rsgOption in the URL, if not, default to main template
+ */
+$rsgOption    = mosGetParam( $_REQUEST, 'rsgOption', '' );
+switch( $rsgOption ) {
+    case 'rsgComments':
+        require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgcomments' . DS . 'rsgcomments.php');
+        break;
+    default:
+    	// if we need to output other file formats (image, xml, etc) then we should detect and do so here before outputting anything else.
+		switch( $task ){
+    		case 'xml':
+        		xmlFile();
+    			break;
+		    case "downloadfile":
+				$id = mosGetParam ( $_REQUEST, 'id'  , '');
+				downloadFile($id);
+				break;
+			default:
+				require_once( JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'meta' . DS . 'display.class.php' );
+				template();
+		}
 }
-
 
 /**
  * this is the primary and default function

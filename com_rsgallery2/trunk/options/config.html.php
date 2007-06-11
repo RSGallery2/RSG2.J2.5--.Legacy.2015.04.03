@@ -255,6 +255,18 @@ class html_rsg2_config{
 
         $templateVariables['watermark_upload'] = "An upload option should appear here";
         $templateVariables['watermark_font'] = galleryUtils::showFontList();
+        //Commenting options
+        $templateVariables['comment'] 					= mosHTML::yesnoRadioList('comment', '', $config->comment);
+        $templateVariables['comment_security'] 			= mosHTML::yesnoRadioList('comment_security', '', $config->comment_security);
+        $templateVariables['comment_once'] 				= mosHTML::yesnoRadioList('comment_once', '', $config->comment_once);
+        $templateVariables['comment_allowed_public'] 	= mosHTML::yesnoRadioList('comment_allowed_public', '', $config->comment_allowed_public);
+        
+        if ( galleryUtils::isComponentInstalled('com_securityimages') == 1 ) {
+        	$security_notice = "<span style=\"color:#009933;font-weight:bold;\">( SecurityImages component detected! )</span>";
+        } else {
+        	$security_notice = "<span style=\"color:#FF0000;font-weight:bold;\">SecurityImages component NOT installed!</span>";
+        }
+        $templateVariables['security_notice'] = $security_notice;
         /**
          * Routine checks if Freetype library is compiled with GD2
          * @return boolean True or False

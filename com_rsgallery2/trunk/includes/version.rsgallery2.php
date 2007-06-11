@@ -23,15 +23,15 @@ class rsgalleryVersion {
     /** @var string Development Status */
     var $DEV_STATUS = 'Alpha';
     /** @var int Sub Release Level */
-    var $DEV_LEVEL  = '1';
+    var $DEV_LEVEL  = '2';
     /** @var int build Number */
     var $BUILD      = 'SVN: $GlobalRev$';
     /** @var string Codename */
     var $CODENAME   = '';
     /** @var string Date */
-    var $RELDATE    = '17 May 2007';
+    var $RELDATE    = '11 june 2007';
     /** @var string Time */
-    var $RELTIME    = '08:10';
+    var $RELTIME    = '19:45';
     /** @var string Timezone */
     var $RELTZ      = 'GMT';
     /** @var string Copyright Text */

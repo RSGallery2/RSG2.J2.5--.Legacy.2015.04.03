@@ -31,14 +31,16 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
-
+2007-06-11 Ronald Smit
+ + Added fullblown commenting system, based on BBCode.
+ ! Requires database changes from file upgrade_1.12.2_to_1.13.2.sql
+ 
 2007-06-06 Jonah Braun
  + added template photoBox
  # fixed meta tags.  rsgDisplay->metadata(); must be called from the templates index.php.
  - removed JPATH_RSGALLERY2_TEMPLATE, multiple templates can now be used on the same page.
 
 ---------------- 1.13.1 alpha -- svn 41 -- 2007-05-24 -------------
-
 2007-05-24 Daniel Tulp
  ^ Added language definitions to english.php
  ^ Replaced hardcoded strings with language definitions

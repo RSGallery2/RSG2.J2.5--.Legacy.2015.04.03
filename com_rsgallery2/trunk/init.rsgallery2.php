@@ -56,6 +56,7 @@ require_once( JPATH_RSGALLERY2_ADMIN.'/includes/video.utils.php' );
 // contains misc. utility functions
 require_once(JPATH_RSGALLERY2_ADMIN.'/config.rsgallery2.php');
 require_once(JPATH_RSGALLERY2_ADMIN.'/includes/gallery.class.php');
+require_once(JPATH_RSGALLERY2_SITE.'/lib/rsgcomments/rsgcomments.class.php');
 
 //Check for language files, if not found, default to english
 if (file_exists(JPATH_RSGALLERY2_ADMIN.'/language/'.$mosConfig_lang.'.php')){

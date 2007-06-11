@@ -98,8 +98,10 @@
 		</fieldset>
 	</td>
 </tr>
+</table>
+<table border="0" width="100%">
 <tr>
-	<td colspan="2" valign="top">
+	<td width="50%" valign="top">
 		<fieldset>
 		<legend>{_RSGALLERY_C_TMPL_IMG_STORAGE}</legend>
 		<table width="100%">
@@ -109,19 +111,42 @@
 	    </tr>
 	    <tr>
 	        <td>{_RSGALLERY_C_TMPL_ORIG_PATH}</td>
-	        <td><input class="text_area" style="width:500px;" type="text" name="imgPath_original" size="10" value="{IMGPATH_ORIGINAL}"/></td>
+	        <td><input class="text_area" style="width:300px;" type="text" name="imgPath_original" size="10" value="{IMGPATH_ORIGINAL}"/></td>
 	    </tr>
 	    <tr>
 	        <td>{_RSGALLERY_C_TMPL_DISP_PATH}</td>
-	        <td><input class="text_area" style="width:500px;" type="text" name="imgPath_display" size="10" value="{IMGPATH_DISPLAY}"/></td>
+	        <td><input class="text_area" style="width:300px;" type="text" name="imgPath_display" size="10" value="{IMGPATH_DISPLAY}"/></td>
 	    </tr>
 	    <tr>
 	        <td>{_RSGALLERY_C_TMPL_THUMB_PATH}</td>
-	        <td><input class="text_area" style="width:500px;" type="text" name="imgPath_thumb" size="10" value="{IMGPATH_THUMB}"/></td>
+	        <td><input class="text_area" style="width:300px;" type="text" name="imgPath_thumb" size="10" value="{IMGPATH_THUMB}"/></td>
 	    </tr>
 	    <tr>
 	        <td>{_RSGALLERY_C_TMPL_CREATE_DIR}</td>
 	        <td>{CREATEIMGDIRS}</td>
+	    </tr>
+		</table>
+		</fieldset>
+	</td>
+	<td width="50%" valign="top">
+		<fieldset>
+		<legend>** Comments **</legend>
+		<table width="100%">
+	    <tr>
+	        <td>** Commenting enabled **</td>
+	        <td>{COMMENT}</td>
+	    </tr>
+	    <tr>
+	        <td>** Use <a href="http://www.waltercedric.com" target="_blank">SecurityImages component</a> **{SECURITY_NOTICE}</td>
+	        <td>{COMMENT_SECURITY}</td>
+	    </tr>
+	    <tr>
+	        <td>** Allow public users to comment **</td>
+	        <td>{COMMENT_ALLOWED_PUBLIC}</td>
+	    </tr>
+	    <tr>
+	        <td>** User can only comment once **(Not working yet!)</td>
+	        <td>{COMMENT_ONCE}</td>
 	    </tr>
 		</table>
 		</fieldset>

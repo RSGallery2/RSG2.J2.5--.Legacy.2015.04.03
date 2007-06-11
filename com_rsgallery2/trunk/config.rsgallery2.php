@@ -833,5 +833,22 @@ class galleryUtils {
 
 		return $text;
 	}
+	
+	/**
+	 * Checks if a specific component is installed
+	 * @param Component name
+	 */
+	function isComponentInstalled( $component_name ) {
+		global $database;
+		$sql = "SELECT COUNT(1) FROM #__components as a WHERE a.option = '$component_name'";
+		$database->setQuery( $sql );
+		$result = $database->loadResult();
+		if ($result > 0) {
+			$notice = 1;
+		} else {
+			$notice = 0;
+		}
+		return $notice;
+	}
 }//end class
 ?>

@@ -81,6 +81,12 @@ class rsgConfig {
     var $watermark_font_size = 20;
     var $watermark_font		 = "arial.ttf";
     var $watermark_transparency = 50;
+    
+    // Commenting system
+    var $comment						= 1;
+    var $comment_security				= 1;
+    var $comment_once		 			= 0;
+    var $comment_allowed_public			= 1;
 
 	// private vars for internal use
 	var $_configTable = '#__rsgallery2_config';

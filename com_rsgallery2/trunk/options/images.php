@@ -155,7 +155,7 @@ function editImage( $option, $id ) {
 
 	// fail if checked out not by 'me'
 	if ($row->isCheckedOut( $my->id )) {
-		mosRedirect( "index2.php?option=$option&rsgOption=$rsgOption", "he module $row->title is currently being edited by another administrator." );
+		mosRedirect( "index2.php?option=$option&rsgOption=$rsgOption", "The module $row->title is currently being edited by another administrator." );
 	}
 
 	if ($id) {
