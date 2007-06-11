@@ -10,7 +10,6 @@
 
 defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
 
-//require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgcomments' . DS . 'rsgcomments.html.php' );
 require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgcomments' . DS . 'rsgcomments.class.php' );
 
 $cid    = mosGetParam( $_REQUEST, 'cid', array(0) );
@@ -71,7 +70,7 @@ function saveComment( $option ) {
 		//Check if only one comment is allowed
 		if ($rsgConfig->get('comment_once') == 1) {
 			//Check how many comments the user already made on this item
-			$sql = "SELECT COUNT(1) FROM #__rsgallery2_comment WHERE user_id = '$user_id'";
+			$sql = "SELECT COUNT(1) FROM #__rsgallery2_comments WHERE user_id = '$user_id'";
 			$database->setQuery( $sql );
 			$result = loadResult();
 			if ($result > 0 ) {
@@ -108,7 +107,7 @@ function saveComment( $option ) {
 	}
 	
 	//Start database thing
-	$sql = "INSERT INTO #__rsgallery2_comment (id, user_id, user_name, user_ip, parent_id, item_id, item_table, datetime, subject, comment, published, checked_out, checked_out_time, ordering, params, hits)" .
+	$sql = "INSERT INTO #__rsgallery2_comments (id, user_id, user_name, user_ip, parent_id, item_id, item_table, datetime, subject, comment, published, checked_out, checked_out_time, ordering, params, hits)" .
 			" VALUES (" .
 			"''," . 				//Autoincrement id
 			"'$user_id'," .			//User id
@@ -152,7 +151,7 @@ function deleteComments( $cid, $option ) {
 	if (count( $cid )) {
 		mosArrayToInts( $cid );
 		$cids = 'id=' . implode( ' OR id=', $cid );
-		$query = "DELETE FROM #__rsgallery2_comment"
+		$query = "DELETE FROM #__rsgallery2_comments"
 		. "\n WHERE ( $cids )"
 		;
 		$database->setQuery( $query );

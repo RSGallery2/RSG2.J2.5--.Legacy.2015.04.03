@@ -44,13 +44,24 @@ CREATE TABLE IF NOT EXISTS `#__rsgallery2_files` (
   KEY `id` (`id`)
 )TYPE=MyISAM ;
 
-CREATE TABLE IF NOT EXISTS `#__rsgallery2_comments` (
-  `id` int(9) unsigned NOT NULL auto_increment,
-  `picid` int(9) unsigned NOT NULL default '0',
-  `name` varchar(50) NOT NULL default '',
+CREATE TABLE `#__rsgallery2_comments` (
+  `id` int(11) NOT NULL auto_increment,
+  `user_id` int(11) NOT NULL,
+  `user_name` varchar(100) NOT NULL,
+  `user_ip` varchar(50) NOT NULL default '0.0.0.0',
+  `parent_id` int(11) NOT NULL default '0',
+  `item_id` int(11) NOT NULL,
+  `item_table` varchar(50) default NULL,
+  `datetime` datetime NOT NULL,
+  `subject` varchar(100) default NULL,
   `comment` text NOT NULL,
-  `date` datetime NOT NULL default '0000-00-00 00:00:00',
-  PRIMARY KEY `id` (`id`)
+  `published` tinyint(1) NOT NULL default '1',
+  `checked_out` int(11) default NULL,
+  `checked_out_time` datetime default NULL,
+  `ordering` int(11) NOT NULL,
+  `params` text,
+  `hits` int(11) NOT NULL,
+  PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `#__rsgallery2_config` (

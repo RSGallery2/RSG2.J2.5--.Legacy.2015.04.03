@@ -360,7 +360,7 @@ function _get( $id ){
     if( !is_numeric( $id )) die("item id is not a number: $id");
     
     //Retrieve 
-    $database->setQuery("SELECT * FROM #__rsgallery2_comment ".
+    $database->setQuery("SELECT * FROM #__rsgallery2_comments ".
                         "WHERE id = '$id' " .
                         "AND published = '1' ".
                         "ORDER BY ordering ASC ");
@@ -382,7 +382,7 @@ function _get( $id ){
 function _getList( $item_id ) {
 	global $database;
 	
-	$sql = "SELECT * FROM #__rsgallery2_comment " .
+	$sql = "SELECT * FROM #__rsgallery2_comments " .
 			"WHERE item_id = '$item_id' " .
 			"ORDER BY datetime DESC";
 	$database->setQuery( $sql );
