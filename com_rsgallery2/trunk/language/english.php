@@ -657,7 +657,7 @@ DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Created: ");
 /*new*/DEFINE("_RSGALLERY_FU_MAX_FILESIZE",		"The uploaded file exceeds the upload_max_filesize directive ");
 /*new*/DEFINE("_RSGALLERY_FU_IN_PINI",		" in php.ini.");
 /*new*/DEFINE("_RSGALLERY_FU_MAX_FILESIZE_FORM",		"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.");
-/*new*/DEFINE("_RSGALLERY_FU_PARTIAL_UPL",		"The uploaded file was only partially uploaded.)";
+/*new*/DEFINE("_RSGALLERY_FU_PARTIAL_UPL",		"The uploaded file was only partially uploaded.");
 /*new*/DEFINE("_RSGALLERY_FU_NO_UPL",		"No file was uploaded.");
 /*new*/DEFINE("_RSGALLERY_FU_MISS_TEMP_DIR",		"Missing a temporary folder.");
 /*new*/DEFINE("_RSGALLERY_FU_FAIL_WRITE_DISK",		"Failed to write file to disk");

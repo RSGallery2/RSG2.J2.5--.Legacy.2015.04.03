@@ -1,5 +1,5 @@
 <?php
- 
+
 /**
 * Polish languagefile for RSGallery 1.12.2
 * @version $Id$
@@ -8,7 +8,6 @@
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
-
 defined( '_VALID_MOS' ) or die( 'Restricted access' );
 
 //rsgallery2.html.php
@@ -73,7 +72,7 @@ DEFINE("_RSGALLERY_MY_GALLERIES",			"Panel u¿ytkownika");
 DEFINE("_RSGALLERY_SLIDESHOW_EXIT",			"Zakoñcz pokaz slajdów");
 DEFINE("_RSGALLERY_COMPONENT_TITLE",		"Galeria Zdjêæ");
 //function subGalleryList
-DEFINE("_RSGALLERY_IMAGES",					" zdjêcie(-cia)");
+DEFINE("_RSGALLERY_IMAGES",					" zdjêæ");
 DEFINE("_RSGALLERY_SUB_GALLERIES",			"Podgalerie:");
 //function RSGalleryList
 //function RSShowPictures
@@ -105,6 +104,7 @@ DEFINE("_RSGALLERY_USERGAL_DISABLED",		"Galerie u¿ytkownika zosta³y wy³±czone pr
 DEFINE("_RSGALLERY_RANDOM_TITLE",			"Zdjêcia losowo");
 //function showLatest
 DEFINE("_RSGALLERY_LATEST_TITLE",			"Ostatnio dodano");
+
 //rsgallery2.php
 //function my_galleries
 DEFINE("_RSGALLERY_NO_USERCATS",            "Galeria u¿ytkownika zosta³a zablokowana przez administratora");
@@ -144,6 +144,7 @@ DEFINE("_RSGALLERY_BATCH_ERROR_SIZE",		"Plik ZIP jest zbyt du¿y. Maksymalny rozm
 DEFINE("_RSGALLERY_ALERT_UPLOADOK",			"Zdjêcie za³adowane pomy¶lnie!");
 DEFINE("_RSGALLERY_ALERT_NOWRITE",			"£adowanie nie powiod³o siê\\nPowrót do strony z ³adowaniem zdjêæ");
 DEFINE("_RSGALLERY_ALERT_WRONGFORMAT",		"Z³y format zdjêcia\\nPowrót do strony z ³adowaniem zdjêæ");
+
 //admin.rsgallery2.html.php
 DEFINE("_RSGALLERY_TAB_GALLERIES",			"Galerie");
 DEFINE("_RSGALLERY_MOST_RECENT_GAL",		"Ostatnio dodane Galerie");
@@ -192,7 +193,7 @@ DEFINE("_RSGALLERY_BATCH_DELETE",	"Kasuj");
 DEFINE("_RSGALLERY_BATCH_TITLE",		"Tytu³");
 DEFINE("_RSGALLERY_BATCH_GAL",		"Galeria");
 DEFINE("_RSGALLERY_BATCH_UPLOAD",	"Za³aduj");
-/*new*/DEFINE("_RSGALLERY_BATCH_FTP_PATH_OVERL",	"Please make sure the FTP path is within the webroot. It cannot be on another server! Also, end with a trailing slash.");
+DEFINE("_RSGALLERY_BATCH_FTP_PATH_OVERL",	"Please make sure the FTP path is within the webroot. It cannot be on another server! Also, end with a trailing slash.");
 //function editImage
 DEFINE("_RSGALLERY_PROP_TITLE",				"Edytuj w³a¶ciwo¶ci zdjêcia");
 DEFINE("_RSGALLERY_TITLE",					"Tytu³");
@@ -227,6 +228,9 @@ DEFINE("_RSGALLERY_CONF_GENERALTAB",		"Globalnie");
 DEFINE("_RSGALLERY_CONF_IMAGESTAB",		"Zdjêcia");
 DEFINE("_RSGALLERY_CONF_DISPLAY",		"Wyswietlanie");
 DEFINE("_RSGALLERY_CONF_USERS",		"Prawa dostêpu");
+DEFINE("_RSGALLERY_CONF_LIMIT_NEV",		"Nigdy");
+DEFINE("_RSGALLERY_CONF_LIMIT_LIMIT",	"Je¶li wiêcej galerii wtedy limit");
+DEFINE("_RSGALLERY_CONF_LIMIT_ALW",		"Zawsze");
 //function showUploadStep1
 DEFINE("_RSGALLERY_PICK",					"Zdjêcia galerii");
 //function showUploadStep2
@@ -268,6 +272,7 @@ DEFINE("_RSGALLERY_NOT_WORKING",		"Not working yet");
 DEFINE("_RSGALLERY_DEL_FROM_SYSTEM",		"Delete from filesystem");
 DEFINE("_RSGALLERY_CREATE_MISSING_IMG",		"Create missing images");
 DEFINE("_RSGALLERY_CREATE_DB_ENTRIES",		"Create database entries");
+
 //admin.rsgallery2.php
 DEFINE("_RSGALLERY_HEAD_CONFIG",		"Konfiguracja");
 DEFINE("_RSGALLERY_HEAD_CPANEL",		"Panel kontrolny");
@@ -342,6 +347,7 @@ DEFINE("_RSGALLERY_ISWRITABLE_WRITABLE",	"Zapisywalny");
 DEFINE("_RSGALLERY_ISWRITABLE_UNWRITABLE",	"Niezapisywalny");
 DEFINE("_RSGALLERY_MAKE_WRITABLE",			"Zablokuj edycje po zapisaniu");
 DEFINE("_RSGALLERY_OVERWRITE_WRITABLE",		"Podczas zapisu omiñ ochronê przed zapisem");
+
 //config.rsgallery2.php
 //function toString
 DEFINE("_RSGALLERY_CONF_ERROR_UPLOAD",		" - B³±d za³adowania obrazka : ");
@@ -350,7 +356,7 @@ DEFINE("_RSGALLERY_SELECT_GAL_DROP_BOX",		"- Wybierz galerie -");
 //function galleriesSelectList
 DEFINE("_RSGALLERY_SELECT_GAL_TOP",		"Góra");
 //function newImages
-DEFINE("_RSGALLERY_NEW",				"Nowa");
+DEFINE("_RSGALLERY_NEW",		"Nowo¶æ");
 //function writeWarningBox
 DEFINE("_RSGALLERY_NO_IMGLIBRARY",			"Nie znaleziono dostêpnych bibliotek obrazów! Popro¶ administratora serwera o zainstalowanie GD2 lub sprawd¿ na forum jak zainstalowaæ ImageMagick lub NETPBM!");
 DEFINE("_RSGALLERY_NOT_WRITABLE",			" zabezpieczony przed zapisem!");
@@ -359,11 +365,17 @@ DEFINE("_RSGALLERY_ERROR_SETTINGS",			"Poni¿sze ustawienia uniemo¿liwiaj± bezb³ê
 DEFINE("_RSGALLERY_REFRESH",				"Od¶wierz");
 //function writeDownloadLink
 DEFINE("_RSGALLERY_DOWNLOAD",				"Pobierz");
+//function writeGalleryStatus
+/*new*/DEFINE("_RSGALLERY_STATUS_ARE_OWNER",	"Jeste¶ w³a¶cicielem tej kategorii");
+/*new*/DEFINE("_RSGALLERY_STATUS_CAN_UPLOAD",	"Mo¿esz zamieszczaæ zdjêcia w tej kategorii");
+/*new*/DEFINE("_RSGALLERY_STATUS_NOT_PUBL",		"Ta kategoria nie jest opublikowana");
+
 //install.rsgallery2.php
 //function com_install
 DEFINE("_RSGALLERY_MIGRATING_FROM",			"Migracja z RSGallery2 ");
 DEFINE("_RSGALLERY_INSTALL_SUCCESS",		"Brawo.  Teraz u¿ywasz RSGallery2 ");
 DEFINE("_RSGALLERY_INSTALL_FAIL",			"B³±d: ");
+
 //toolbar.rsgallery2.html.php
 DEFINE("_RSGALLERY_TOOL_CLOSE",				"Zamknij");
 DEFINE("_RSGALLERY_TOOL_PANEL",				"Panel Sterowania");
@@ -372,6 +384,8 @@ DEFINE("_RSGALLERY_TOOL_IMG",				"zdjêcia");
 DEFINE("_RSGALLERY_TOOL_UP",				"Wczytaj");
 DEFINE("_RSGALLERY_TOOL_NEXT",				"Nastêpne");
 DEFINE("_RSGALLERY_TOOL_DELETE",			"Usuñ");
+DEFINE("_RSGALLERY_TOOL_CONFIRM_DEL",		"Potwierdzaj usuwanie");
+
 //config.html
 DEFINE("_RSGALLERY_C_TMPL_VERSION",			"Wersja:");
 DEFINE("_RSGALLERY_C_TMPL_INTRO_TEXT",		"Tekst wprowadzenia:");
@@ -421,7 +435,6 @@ DEFINE("_RSGALLERY_C_TMPL_ONLY_REGISTERED",	"Tylko zarejestrowani u¿ytkownicy");
 DEFINE("_RSGALLERY_C_TMPL_U_CREATE_GAL",	"U¿ytkownik mo¿e tworzyæ galeriê?");
 DEFINE("_RSGALLERY_C_TMPL_U_MAX_GAL",		"Maksymalna ilo¶æ galerii dla u¿ytkownika:");
 DEFINE("_RSGALLERY_C_TMPL_U_MAX_IMG",		"Maksymalna ilo¶æ zdjêæ dla u¿ytkownika:");
-DEFINE("_RSGALLERY_NEW",		"Nowo¶æ");
 DEFINE("_RSGALLERY_C_TMPL_SHOW_IMGNAME",		"Poka¿ nazwy obrazków  w miniaturach:");
 DEFINE("_RSGALLERY_C_TMPL_ACL_SETINGS",		"Access Control Ustawienia");
 DEFINE("_RSGALLERY_C_TMPL_ACL_ENABLE",		"W³acz Access Control");
@@ -435,9 +448,11 @@ DEFINE("_RSGALLERY_C_DISP_STATUS_ICON",		"Wy¶wietl ikonê statusu");
 /*new*/DEFINE("_RSGALLERY_C_FONT",				"Czcionka");
 /*new*/DEFINE("_RSGALLERY_C_WATER_TRANS",		"Przezroczysto¶æ znaku wodnego");
 /*new*/DEFINE("_RSGALLERY_C_ALLOWED_FILE",		"Obs³ugiwane typy plików");
+
 //galleries.class.php
 //function check
 DEFINE("_RSGALLERY_GAL_EXIST_ERROR",		"Galeria o takiej nazwie istnieje. Prosze spróbuj jeszcze raz z inn¹ nazw¹.");
+
 //galleries.html.php
 //function show
 DEFINE("_RSGALLERY_GAL_MANAGE",			"Zarz±dzanie Galeriami");
@@ -469,6 +484,7 @@ DEFINE("_RSGALLERY_GAL_PARAMETERS",		"Parametry");
 /*new*/DEFINE("_RSGALLERY_GAL_ACL_REG",			"Registered</span>");
 /*new*/DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",	"&nbsp;Wybierz/Nie wybieraj Wszystkiego");
 /*new*/DEFINE("_RSGALLERY_GAL_ORDER",	"Kolejno¶æ");
+
 //install.class.php
 //function echo_values
 DEFINE("_RSGALLERY_INSTALL_THUMBDIR",			"Katalog miniatur:");
@@ -536,11 +552,11 @@ DEFINE("_RSGALLERY_MIGRATION",		"Migration");
 DEFINE("_RSGALLERY_MIGRATION_NO_SYSTEMS",		"No other gallerysystems installed");
 //function doMigration
 DEFINE("_RSGALLERY_MIGRATION_NOT_VALID",		"is not a valid migration type.");
+
 //uninstall.rsgallery2.php
 //function com_uninstall
 DEFINE("_RSGALLERY_UNINSTALL_OK",		"Odinstalowano z powoodzeniem");
-//toolbar.rsgallery2.html.php
-DEFINE("_RSGALLERY_TOOL_CONFIRM_DEL",		"Potwierdzanie usówania");
+
 //slideshow.rsgallery2.php
 DEFINE("_RSGALLERY_SLIDE_START",		"Start");
 DEFINE("_RSGALLERY_SLIDE_STOP",			"Stop");
@@ -575,6 +591,11 @@ DEFINE("_RSGALLERY_SLIDE_PREV",			"Poprzedni");
 
 //access.class.php
 //function checkGallery
-/*new*/DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"No permissions were found, so default permissions were created. Please try again.");
+DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"No permissions were found, so default permissions were created. Please try again.");
 
+//tables/display.class.php
+//function _showGalleryDetails
+/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"Autor: ");
+/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"Ilo¶æ: ");
+/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Utworzony: ");
 ?>
