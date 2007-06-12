@@ -74,29 +74,29 @@
 	<filename>lib/rsgcomments/rsgcomments.class.php</filename>
 	<filename>lib/rsgcomments/rsgcomments.php</filename>
 	<filename>lib/rsgcomments/rsgcomments.css</filename>
-	<filename>lib/rsgcomments/emoticons/icon_arrow.gif</filename>
-	<filename>lib/rsgcomments/emoticons/icon_biggrin.gif</filename>
-	<filename>lib/rsgcomments/emoticons/icon_confused.gif</filename>
-	<filename>lib/rsgcomments/emoticons/icon_cool.gif</filename>
-	<filename>lib/rsgcomments/emoticons/icon_cry.gif</filename>
-	<filename>lib/rsgcomments/emoticons/icon_eek.gif</filename>
-	<filename>lib/rsgcomments/emoticons/icon_evil.gif</filename>
-	<filename>lib/rsgcomments/emoticons/icon_exclaim.gif</filename>
-	<filename>lib/rsgcomments/emoticons/icon_frown.gif</filename>
-	<filename>lib/rsgcomments/emoticons/icon_idea.gif</filename>
-	<filename>lib/rsgcomments/emoticons/icon_lol.gif</filename>
-	<filename>lib/rsgcomments/emoticons/icon_mad.gif</filename>
-	<filename>lib/rsgcomments/emoticons/icon_mrgreen.gif</filename>
-	<filename>lib/rsgcomments/emoticons/icon_neutral.gif</filename>
-	<filename>lib/rsgcomments/emoticons/icon_question.gif</filename>
-	<filename>lib/rsgcomments/emoticons/icon_razz.gif</filename>
-	<filename>lib/rsgcomments/emoticons/icon_redface.gif</filename>
-	<filename>lib/rsgcomments/emoticons/icon_rolleyes.gif</filename>
-	<filename>lib/rsgcomments/emoticons/icon_sad.gif</filename>
-	<filename>lib/rsgcomments/emoticons/icon_smile.gif</filename>
-	<filename>lib/rsgcomments/emoticons/icon_surprised.gif</filename>
-	<filename>lib/rsgcomments/emoticons/icon_twisted.gif</filename>
-	<filename>lib/rsgcomments/emoticons/icon_wink.gif</filename>
+	<filename>lib/rsgcomments/emoticons/default/icon_arrow.gif</filename>
+	<filename>lib/rsgcomments/emoticons/default/icon_biggrin.gif</filename>
+	<filename>lib/rsgcomments/emoticons/default/icon_confused.gif</filename>
+	<filename>lib/rsgcomments/emoticons/default/icon_cool.gif</filename>
+	<filename>lib/rsgcomments/emoticons/default/icon_cry.gif</filename>
+	<filename>lib/rsgcomments/emoticons/default/icon_eek.gif</filename>
+	<filename>lib/rsgcomments/emoticons/default/icon_evil.gif</filename>
+	<filename>lib/rsgcomments/emoticons/default/icon_exclaim.gif</filename>
+	<filename>lib/rsgcomments/emoticons/default/icon_frown.gif</filename>
+	<filename>lib/rsgcomments/emoticons/default/icon_idea.gif</filename>
+	<filename>lib/rsgcomments/emoticons/default/icon_lol.gif</filename>
+	<filename>lib/rsgcomments/emoticons/default/icon_mad.gif</filename>
+	<filename>lib/rsgcomments/emoticons/default/icon_mrgreen.gif</filename>
+	<filename>lib/rsgcomments/emoticons/default/icon_neutral.gif</filename>
+	<filename>lib/rsgcomments/emoticons/default/icon_question.gif</filename>
+	<filename>lib/rsgcomments/emoticons/default/icon_razz.gif</filename>
+	<filename>lib/rsgcomments/emoticons/default/icon_redface.gif</filename>
+	<filename>lib/rsgcomments/emoticons/default/icon_rolleyes.gif</filename>
+	<filename>lib/rsgcomments/emoticons/default/icon_sad.gif</filename>
+	<filename>lib/rsgcomments/emoticons/default/icon_smile.gif</filename>
+	<filename>lib/rsgcomments/emoticons/default/icon_surprised.gif</filename>
+	<filename>lib/rsgcomments/emoticons/default/icon_twisted.gif</filename>
+	<filename>lib/rsgcomments/emoticons/default/icon_wink.gif</filename>
 	<filename>lib/rsgcomments/images/busy.gif</filename>
 	<filename>lib/rsgcomments/images/head.png</filename>
 	<filename>lib/rsgcomments/images/ubb_bold.gif</filename>
@@ -266,6 +266,7 @@
     <filename>sql/upgrade_1.11.10_to_1.11.11.sql</filename>
     <filename>sql/upgrade_1.11.11_to_1.12.0.sql</filename>
     <filename>sql/upgrade_1.12.1_to_1.12.2.sql</filename>
+    <filename>sql/upgrade_1.12.2_to_1.13.2.sql</filename>
     <filename>tmpl/config.html</filename>
     <filename>fonts/arial.ttf</filename>
 </files>

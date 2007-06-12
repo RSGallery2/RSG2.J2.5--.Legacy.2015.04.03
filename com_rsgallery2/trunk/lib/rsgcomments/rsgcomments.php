@@ -20,7 +20,7 @@ switch( $task ){
         saveComment( $option );
         break;
     case 'delete':
-    	deleteComments( $cid, $option );
+    	deleteComments( $option );
     	break;
 }
 
@@ -54,6 +54,13 @@ function test( $option ) {
  */
 function saveComment( $option ) {
 	global $Itemid, $database, $my, $rsgConfig, $Itemid, $mosConfig_absolute_path;
+	//Check if commenting is enabled
+	$redirect_url = "index.php?option=$option&amp;Itemid=$Itemid&amp;page=inline&amp;id=$item_id&amp;catid=$catid";
+	if ($rsgConfig->get('comment') == 0) {
+		mosRedirect( $redirect_url, "** Commenting disabled for this gallery **" );
+		exit();
+	}
+	
 	//Retrieve parameters
 	$user_ip	= $_SERVER['REMOTE_ADDR'];
 	$rsgOption	= mosGetParam ( $_REQUEST, 'rsgOption'  , '');
@@ -62,7 +69,7 @@ function saveComment( $option ) {
 	$comment 	= mosGetParam ( $_REQUEST, 'tcomment'  , '');
 	$item_id 	= mosGetParam ( $_REQUEST, 'item_id'  , '');
 	$catid 		= mosGetParam ( $_REQUEST, 'catid'  , '');
-	$redirect_url = "index.php?option=$option&amp;Itemid=$Itemid&amp;page=inline&amp;id=$item_id&amp;catid=$catid";
+	
 	
 	//Check if user is logged in
 	if ($my->id) {
@@ -85,11 +92,7 @@ function saveComment( $option ) {
 		//Check for unique IP-address and see if only one comment from this IP=address is allowed
 	}
 	
-	//Check if commenting is enabled
-	if ($rsgConfig->get('comment') == 0) {
-		mosRedirect( $redirect_url, "** Commenting disabled for this gallery **" );
-		exit();
-	}
+	
 	
 	//Do the CAPTCHA check
 	if ( ( $rsgConfig->get('comment_security') == 1 ) && file_exists(JPATH_ROOT.'/administrator/components/com_securityimages/server.php') ) {
@@ -141,13 +144,14 @@ function saveComment( $option ) {
 * @param array An array of unique comment id numbers
 * @param string The current url option
 */
-function deleteComments( $cid, $option ) {
+function deleteComments( $option ) {
 	global $database;
 
 	if (!is_array( $cid ) || count( $cid ) < 1) {
 		echo "<script> alert('Select a comment to delete'); window.history.go(-1);</script>\n";
 		exit;
 	}
+	
 	if (count( $cid )) {
 		mosArrayToInts( $cid );
 		$cids = 'id=' . implode( ' OR id=', $cid );

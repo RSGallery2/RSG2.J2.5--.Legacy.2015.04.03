@@ -341,7 +341,18 @@ function showComments( $item_id ) {
 		</tr>
 		<tr>
 			<td valign="top" width="100"><span class="postusername"><?php echo galleryUtils::genericGetUsername( $comment['user_id'] );?></span></td>
-			<td valign="top" class="content_area"><?php echo mosFormatDate($comment['datetime']);?><hr /><?php echo rsgComments::parse( $comment['comment'] );?></td>
+			<td valign="top" class="content_area">
+			<?php echo mosFormatDate($comment['datetime']);?>
+			<hr />
+			<?php echo rsgComments::parse( $comment['comment'] );?>
+			<?php
+			if ( $my->id == $comment['user_id'] OR $my->usertype == "Super Administrator" OR $my->usertype == "Administrator" ) {
+				?>
+				<div style="float:right;"><a href="index.php?option=com_rsgallery2&amp;rsgOption=rsgComments&amp;task=delete&amp;cid=<?php echo $comment['id'];?>">Delete</a></div>
+				<?php
+			}
+			?>
+			</td>
 		</tr>
 		</table>
 		<br />
