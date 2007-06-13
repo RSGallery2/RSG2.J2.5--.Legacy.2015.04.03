@@ -759,11 +759,11 @@ class rsgDisplay extends tempDisplay{
 
         if ($rsgConfig->get('watermark') == true) {
             ?>
-            <img id="thumb1" src="<?php waterMarker::showMarkedImage($name);?>" alt="<?php echo htmlspecialchars(stripslashes($descr), ENT_QUOTES); ?>" border="0" width="<?php echo $rsgConfig->get('image_width');?>" />
+            <img id="thumb1" src="<?php waterMarker::showMarkedImage($name);?>" alt="<?php echo htmlspecialchars(stripslashes($descr), ENT_QUOTES); ?>" border="0"  />
             <?php
         } else {
             ?>
-            <img id="thumb1" src="<?php echo imgUtils::getImgDisplay($name); ?>" alt="<?php echo htmlspecialchars(stripslashes($descr), ENT_QUOTES); ?>" border="0" width="<?php echo $rsgConfig->get('image_width');?>" />
+            <img id="thumb1" src="<?php echo imgUtils::getImgDisplay($name); ?>" alt="<?php echo htmlspecialchars(stripslashes($descr), ENT_QUOTES); ?>" border="0"  />
             <?php
         }
     }
