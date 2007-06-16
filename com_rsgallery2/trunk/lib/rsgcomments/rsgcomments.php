@@ -54,12 +54,7 @@ function test( $option ) {
  */
 function saveComment( $option ) {
 	global $Itemid, $database, $my, $rsgConfig, $Itemid, $mosConfig_absolute_path;
-	//Check if commenting is enabled
-	$redirect_url = "index.php?option=$option&amp;Itemid=$Itemid&amp;page=inline&amp;id=$item_id&amp;catid=$catid";
-	if ($rsgConfig->get('comment') == 0) {
-		mosRedirect( $redirect_url, "** Commenting disabled for this gallery **" );
-		exit();
-	}
+	
 	
 	//Retrieve parameters
 	$user_ip	= $_SERVER['REMOTE_ADDR'];
@@ -69,7 +64,12 @@ function saveComment( $option ) {
 	$comment 	= mosGetParam ( $_REQUEST, 'tcomment'  , '');
 	$item_id 	= mosGetParam ( $_REQUEST, 'item_id'  , '');
 	$catid 		= mosGetParam ( $_REQUEST, 'catid'  , '');
-	
+	//Check if commenting is enabled
+	$redirect_url = "index.php?option=$option&amp;Itemid=$Itemid&amp;page=inline&amp;id=$item_id&amp;catid=$catid";
+	if ($rsgConfig->get('comment') == 0) {
+		mosRedirect( $redirect_url, "** Commenting disabled for this gallery **" );
+		exit();
+	}
 	
 	//Check if user is logged in
 	if ($my->id) {
@@ -92,24 +92,23 @@ function saveComment( $option ) {
 		//Check for unique IP-address and see if only one comment from this IP=address is allowed
 	}
 	
-	
-	
-	//Do the CAPTCHA check
-	if ( ( $rsgConfig->get('comment_security') == 1 ) && file_exists(JPATH_ROOT.'/administrator/components/com_securityimages/server.php') ) {
-		include (JPATH_ROOT.'/administrator/components/com_securityimages/server.php');
-		//Get parameters
-		$security_refid		= mosGetParam( $_POST, 'security_rsgallery2_refid', '' );
-		$security_try    	= mosGetParam( $_POST, 'security_rsgallery2_try', '' );
-		$security_reload	= mosGetParam( $_POST, 'security_rsgallery2_reload', '' ); 
-		$checkSecurity 		= checkSecurityImage($security_refid, $security_try);
+	if ($rsgConfig->get('comment_security') == 1) {
+		if ( file_exists(JPATH_ROOT.'/administrator/components/com_securityimages/server.php') ) {
+			include (JPATH_ROOT.'/administrator/components/com_securityimages/server.php');
+			//Get parameters
+			$security_refid		= mosGetParam( $_POST, 'security_rsgallery2_refid', '' );
+			$security_try    	= mosGetParam( $_POST, 'security_rsgallery2_try', '' );
+			$security_reload	= mosGetParam( $_POST, 'security_rsgallery2_reload', '' ); 
+			$checkSecurity 		= checkSecurityImage($security_refid, $security_try);
+		}
+		//Check if security check was OK
+		if ($checkSecurity == false ) {
+			mosRedirect( $redirect_url, "** Incorrect CAPTCHA check. Comment not saved! **" );
+			exit();
+		}	
 	}
 	
-	if ($checkSecurity == false ) {
-		mosRedirect( $redirect_url, "** Incorrect CAPTCHA check. Comment not saved! **" );
-		exit();
-	}
-	
-	//Start database thing
+	//If we are here, start database thing
 	$sql = "INSERT INTO #__rsgallery2_comments (id, user_id, user_name, user_ip, parent_id, item_id, item_table, datetime, subject, comment, published, checked_out, checked_out_time, ordering, params, hits)" .
 			" VALUES (" .
 			"''," . 				//Autoincrement id

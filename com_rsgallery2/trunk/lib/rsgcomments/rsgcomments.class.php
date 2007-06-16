@@ -329,33 +329,58 @@ function editComment( $item_id ) {
 
 function showComments( $item_id ) {
 	global $database, $my;
-
+	?>
+	<script language="javascript" type="text/javascript">
+	function delComment(id) {
+		alert('Feature not implemented yet.(comment ID =' + id + ')');
+		return;
+	}
+	</script>
+	<?php
 	$comments = rsgComments::_getList( $item_id );
+	/*
+	echo "<pre>";
+	print_r($comments);
+	echo "</pre>";
+	*/
+	if (count($comments) > 0) {
+		foreach ($comments as $comment) {
+			?>
+			<div id="comment">
+			<table width="100%" class="comment_table">
+			<tr>
+				<td colspan="2" class="title"><span class='posttitle'><?php echo $comment['subject'];?></span></td>
+			</tr>
+			<tr>
+				<td valign="top" width="100"><span class="postusername"><?php echo galleryUtils::genericGetUsername( $comment['user_id'] );?></span></td>
+				<td valign="top" class="content_area">
+				<?php echo mosFormatDate($comment['datetime']);?>
+				<hr />
+				<?php echo rsgComments::parse( $comment['comment'] );?>
+				<?php
+				//Not my favorite way of checking for Admin or Super Admin but $my->gid is only working in backend.
+				if ( $my->id == $comment['user_id'] OR $my->usertype == "Super Administrator" OR $my->usertype == "Administrator" ) {
+					?>
+					<div style="float:right;"><a href="javascript:void(0);" onclick="delComment(<?php echo $comment['id'];?>);">Delete</a></div>
+					<?php
+				}
+				?>
+				</td>
+			</tr>
+			</table>
+			<br />
+			</div>
+			<?php
+		}
+	} else {
 
-	foreach ($comments as $comment) {
 		?>
 		<div id="comment">
 		<table width="100%" class="comment_table">
-		<tr>
-			<td colspan="2" class="title"><span class='posttitle'><?php echo $comment['subject'];?></span></td>
-		</tr>
-		<tr>
-			<td valign="top" width="100"><span class="postusername"><?php echo galleryUtils::genericGetUsername( $comment['user_id'] );?></span></td>
-			<td valign="top" class="content_area">
-			<?php echo mosFormatDate($comment['datetime']);?>
-			<hr />
-			<?php echo rsgComments::parse( $comment['comment'] );?>
-			<?php
-			if ( $my->id == $comment['user_id'] OR $my->usertype == "Super Administrator" OR $my->usertype == "Administrator" ) {
-				?>
-				<div style="float:right;"><a href="index.php?option=com_rsgallery2&amp;rsgOption=rsgComments&amp;task=delete&amp;cid=<?php echo $comment['id'];?>">Delete</a></div>
-				<?php
-			}
-			?>
-			</td>
-		</tr>
+			<tr>
+				<td class="title"><span class='posttitle'>No comments entered yet</span></td>
+			</tr>
 		</table>
-		<br />
 		</div>
 		<?php
 	}
@@ -393,15 +418,19 @@ function _get( $id ){
 function _getList( $item_id ) {
 	global $database;
 	
+	$result = array();
 	$sql = "SELECT * FROM #__rsgallery2_comments " .
 			"WHERE item_id = '$item_id' " .
 			"ORDER BY datetime DESC";
 	$database->setQuery( $sql );
 	$result = $database->loadAssocList();
+	/*
 	foreach ($result as $id)
-		$comment[] = $id;
+		$comment[] = $id;	
 	
 	return $comment;
+	*/
+	return $result;
 }
 }//end class
 ?>
