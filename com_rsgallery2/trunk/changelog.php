@@ -31,6 +31,9 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2007-06-17 Ronald Smit
+ + Added delete option to frontend commenting system
+ 
 2007-06-11 Ronald Smit
  + Added fullblown commenting system, based on BBCode.
  ! Requires database changes from file upgrade_1.12.2_to_1.13.2.sql

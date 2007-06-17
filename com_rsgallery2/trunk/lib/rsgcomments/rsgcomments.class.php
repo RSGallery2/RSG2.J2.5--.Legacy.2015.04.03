@@ -324,16 +324,20 @@ function editComment( $item_id ) {
 	<input type="hidden" name="Itemid" value="<?php echo mosGetParam ( $_REQUEST, 'Itemid'  , '');?>" />
 	<input type="hidden" name="catid" value="<?php echo mosGetParam ( $_REQUEST, 'catid'  , '');?>" />
 	</form>
+	<a name="comment2"></a>
 	<?php
 }
 
 function showComments( $item_id ) {
-	global $database, $my;
+	global $database, $my, $Itemid;
 	?>
 	<script language="javascript" type="text/javascript">
-	function delComment(id) {
-		alert('Feature not implemented yet.(comment ID =' + id + ')');
-		return;
+	function delComment(id, item_id, catid) {
+		var delCom = confirm('Are you sure you want to delete the comment?(' + id + ')');
+		
+		if (delCom) {
+			window.location = "index.php?option=com_rsgallery2&rsgOption=rsgComments&task=delete&id="+id+"&item_id="+item_id+"&catid="+catid;
+		}
 	}
 	</script>
 	<?php
@@ -344,7 +348,20 @@ function showComments( $item_id ) {
 	echo "</pre>";
 	*/
 	if (count($comments) > 0) {
+		?>
+		<div id="comment">
+		<table width="100%" class="comment_table">
+			<tr>
+				<td class="title" width="25%">Comments</td>
+				<td class="title" width="50%"># comments added</td>
+				<td class="title"><div class="addcomment"><a class="special" href="#comment2">Add comment</a></div></td>
+			</tr>
+		</table>
+		<br />
+		</div>
+		<?php
 		foreach ($comments as $comment) {
+			$catid = galleryUtils::getCatIdFromFileId($comment['item_id']);
 			?>
 			<div id="comment">
 			<table width="100%" class="comment_table">
@@ -361,7 +378,7 @@ function showComments( $item_id ) {
 				//Not my favorite way of checking for Admin or Super Admin but $my->gid is only working in backend.
 				if ( $my->id == $comment['user_id'] OR $my->usertype == "Super Administrator" OR $my->usertype == "Administrator" ) {
 					?>
-					<div style="float:right;"><a href="javascript:void(0);" onclick="delComment(<?php echo $comment['id'];?>);">Delete</a></div>
+					<div style="float:right;"><a href="javascript:void(0);" onclick="delComment(<?php echo $comment['id'];?>, <?php echo $comment['item_id'];?>, <?php echo $catid;?>);">Delete</a></div>
 					<?php
 				}
 				?>
@@ -378,7 +395,7 @@ function showComments( $item_id ) {
 		<div id="comment">
 		<table width="100%" class="comment_table">
 			<tr>
-				<td class="title"><span class='posttitle'>No comments entered yet</span></td>
+				<td class="title"><span class='posttitle'>** No comments entered yet **</span></td>
 			</tr>
 		</table>
 		</div>

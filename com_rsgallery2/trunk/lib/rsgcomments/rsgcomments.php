@@ -21,6 +21,7 @@ switch( $task ){
         break;
     case 'delete':
     	deleteComments( $option );
+    	//test( $option );
     	break;
 }
 
@@ -29,22 +30,12 @@ switch( $task ){
  * @param string The current url option
  */
 function test( $option ) {
-	global $mainframe, $database, $mosConfig_live_site, $mosConfig_absolute_path;
-	include ($mosConfig_absolute_path.'/administrator/components/com_securityimages/server.php');
-	
-	echo "<h1>Testing ground!</h1>";
-	//Get parameters
-	//$checkSecurity = true;
-	$security_refid		= mosGetParam( $_POST, 'security_rsgallery2_refid', '' );
-	$security_try    	= mosGetParam( $_POST, 'security_rsgallery2_try', '' );
-	$security_reload	= mosGetParam( $_POST, 'security_rsgallery2_reload', '' ); 
-	$checkSecurity = checkSecurityImage($security_refid, $security_try);
-
-	if ($checkSecurity == true) {
-		echo "Check succesfull";
-	} else {
-		echo "Check failed!";
-	}
+	global $Itemid, $mainframe, $database, $mosConfig_live_site, $mosConfig_absolute_path;
+	$id	= mosGetParam ( $_REQUEST, 'id'  , '');
+	$item_id 	= mosGetParam ( $_REQUEST, 'item_id'  , '');
+	$catid 		= mosGetParam ( $_REQUEST, 'catid'  , '');
+	$redirect_url = "index.php?option=$option&amp;Itemid=$Itemid&amp;page=inline&amp;id=$item_id&amp;catid=$catid";
+	echo "Here we will delete comment number ".$id."\\n and redirect to ".$redirect_url;
 }
 
 /**
@@ -139,30 +130,25 @@ function saveComment( $option ) {
 }
 
 /**
-* Deletes one or more comments
+* Deletes a comment
 * @param array An array of unique comment id numbers
 * @param string The current url option
 */
 function deleteComments( $option ) {
 	global $database;
-
-	if (!is_array( $cid ) || count( $cid ) < 1) {
-		echo "<script> alert('Select a comment to delete'); window.history.go(-1);</script>\n";
-		exit;
-	}
 	
-	if (count( $cid )) {
-		mosArrayToInts( $cid );
-		$cids = 'id=' . implode( ' OR id=', $cid );
-		$query = "DELETE FROM #__rsgallery2_comments"
-		. "\n WHERE ( $cids )"
-		;
+	//Get parameters
+	$id			= mosGetParam( $_REQUEST, 'id', '' );
+	$item_id 	= mosGetParam ( $_REQUEST, 'item_id'  , '');
+	$catid 		= mosGetParam ( $_REQUEST, 'catid'  , '');
+	
+	if ( !empty($id) ) {
+		$query = "DELETE FROM #__rsgallery2_comments WHERE id = '$id'";
 		$database->setQuery( $query );
 		if (!$database->query()) {
 			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 		}
 	}
-
-	mosRedirect( "index.php?option=$option&amp;Itemid=$Itemid&amp;page=inline&amp;id=$item_id&amp;catid=$catid", "** Comment deleted succesfully **" );
+	mosRedirect( "index.php?option=$option&amp;page=inline&amp;id=$item_id&amp;catid=$catid", "** Comment deleted succesfully **" );
 }
 ?>
