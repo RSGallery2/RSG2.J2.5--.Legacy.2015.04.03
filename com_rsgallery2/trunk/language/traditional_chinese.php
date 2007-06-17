@@ -1,11 +1,11 @@
 <?php
+
 /**
-* Traditional Chinese languagefile for RSGallery
+* Traditional Chinese languagefile for RSGallery @ translated by mikeho1980 (www.dogneighbor.com)
 * @version $Id$
 * @package RSGallery2
 * @copyright (C) 2003 - 2006 RSGallery2
 * @license http：//www.gnu.org/copyleft/gpl.html GNU/GPL
-* @author Mike Ho <admin(at)dogneighbor.com> (http：//www.dogneighbor.com)
 * RSGallery is Free Software
 **/
 defined( '_VALID_MOS' ) or die( 'Restricted access' );
@@ -171,16 +171,22 @@ DEFINE("_RSGALLERY_C_PURGE",				"消除／刪除全部");
 DEFINE("_RSGALLERY_C_REALLY_UNINSTALL",		"真的要刪除 - 刪除所有相片，目錄及資料庫。只適合在有預設目錄的 Linux。");
 DEFINE("_RSGALLERY_C_VIEW_CONFIG",			"設定 - 查看");
 DEFINE("_RSGALLERY_C_EDIT_CONFIG",			"設定 - Raw 編輯");
+//function showInstallForm
+DEFINE("_RSGALLERY_INST_UPL_PCK_FILE",		"上載壓縮檔案");
+DEFINE("_RSGALLERY_INST_PCK_FILE",		"壓縮檔案:");
+//function showInstallMessage
+DEFINE("_RSGALLERY_INST_MES_CONTINUE",	"繼續 ...");
 //function requestCatCreation
-DEFINE("_RSGALLERY_C_CAT_FIRST",			"先建立目錄！");
+DEFINE("_RSGALLERY_C_CAT_FIRST",			"先要建立分類!");
 //function batch_upload
-DEFINE("_RSGALLERY_BATCH_NO_ZIP",			"已選取 ZIP 上傳但沒有選擇檔案");
+DEFINE("_RSGALLERY_BATCH_NO_ZIP",			"已選取 ZIP-上載 但未有選擇檔案");
+DEFINE("_RSGALLERY_BACTCH_NOT_VALID_ZIP",		" 不是有效的壓縮格式. 只允許 ZIP-檔案!");
 DEFINE("_RSGALLERY_BATCH_GAL_FIRST",		"請先選擇目錄");
 DEFINE("_RSGALLERY_BATCH_NO_FTP",			"已選取 FTP 上傳但沒有提供 FTP 路徑");
 DEFINE("_RSGALLERY_BATCH_STEP1",			"步驟 1");
 DEFINE("_RSGALLERY_BATCH_METHOD",			"指定上傳模式");
 DEFINE("_RSGALLERY_BATCH_METHOD_TIP",		"選擇要上傳單一檔案，ZIP 壓縮包或上傳完整目錄");
-DEFINE("_RSGALLERY_BATCH_ZIPFILE",			"ZIP 壓縮包");
+DEFINE("_RSGALLERY_BATCH_ZIPFILE",			"ZIP 壓縮檔");
 DEFINE("_RSGALLERY_BATCH_UPLOAD_LIMIT",		"上傳限制是 ");
 DEFINE("_RSGALLERY_BATCH_IN_PHPINI",		" MB（設定於 php.ini）");
 DEFINE("_RSGALLERY_BATCH_FTP_PATH",			"FTP 路徑");
@@ -225,9 +231,9 @@ DEFINE("_RSGALLERY_CONF_POPUP_FANCY",		"花式彈出（在 IE6 會發生錯誤�
 DEFINE("_RSGALLERY_FREETYPE_INSTALLED",		"（已安裝 Freetype 字庫，可以使用浮水印）");
 DEFINE("_RSGALLERY_FREETYPE_NOTINSTALLED",	"（未安裝 Freetype 字庫！不能使用浮水印）");
 DEFINE("_RSGALLERY_CONF_GENERALTAB",		"一般 ");
-DEFINE("_RSGALLERY_CONF_IMAGESTAB",		"相片");
-DEFINE("_RSGALLERY_CONF_DISPLAY",		"顯示");
-DEFINE("_RSGALLERY_CONF_USERS",		"權限");
+DEFINE("_RSGALLERY_CONF_IMAGESTAB",			"相片");
+DEFINE("_RSGALLERY_CONF_DISPLAY",			"顯示");
+DEFINE("_RSGALLERY_CONF_USERS",				"權限");
 DEFINE("_RSGALLERY_CONF_LIMIT_NEV",		"永不");
 DEFINE("_RSGALLERY_CONF_LIMIT_LIMIT",	"如果相簿數目多於限制");
 DEFINE("_RSGALLERY_CONF_LIMIT_ALW",		"總是");
@@ -242,6 +248,7 @@ DEFINE("_RSGALLERY_UPLOAD_FORM_IMAGE",		"圖像");
 DEFINE("_RSGALLERY_CATNAME",				"相簿名稱");
 DEFINE("_RSGALLERY_UPLOAD_FORM_FILE",		"檔案");
 //function viewImages
+DEFINE("_RSGALLERY_NO_PREVIEW ",		"沒有可用預覽");
 DEFINE("_RSGALLERY_DELETE",					"刪除");
 DEFINE("_RSGALLERY_MOVETO",					"移動到");
 DEFINE("_RSGALLERY_NUMDISPLAY",				"顯示 #");
@@ -266,7 +273,7 @@ DEFINE("_RSGALLERY_RSG_NAME",				"RSGallery2");
 DEFINE("_RSGALLERY_TEMP_PREV",				"預覽佈景主題");
 //function consolidateDbGo
 DEFINE("_RSGALLERY_CONSDB_IN_DB",			"於<br>資料庫");
-DEFINE("_RSGALLERY_CONSDB_DISP",			"顯示<br>資料夾");
+DEFINE("_RSGALLERY_CONSDB_DISP",			"展示<br>資料夾");
 DEFINE("_RSGALLERY_CONSDB_ORIG",			"原圖<br>資料夾");
 DEFINE("_RSGALLERY_CONSDB_THUMB",			"縮圖<br>資料夾");
 DEFINE("_RSGALLERY_CONSDB_ACT",				"行動");
@@ -280,6 +287,9 @@ DEFINE("_RSGALLERY_NOT_WORKING",		"尚未啟用");
 DEFINE("_RSGALLERY_DEL_FROM_SYSTEM",		"從檔案系統刪除");
 DEFINE("_RSGALLERY_CREATE_MISSING_IMG",		"建立缺失相片");
 DEFINE("_RSGALLERY_CREATE_DB_ENTRIES",		"建立資料庫紀錄");
+DEFINE("_RSGALLERY_CONSDB_IMG_IN_FLDR",		"相片在資料夾");
+DEFINE("_RSGALLERY_CONSDB_IMG__NOT_IN_FLDR",		"相片不在資料夾");
+DEFINE("_RSGALLERY_ ",		"");
 
 //admin.rsgallery2.php
 DEFINE("_RSGALLERY_HEAD_CONFIG",		"設定");
@@ -304,6 +314,10 @@ DEFINE("_RSGALLERY_PURGE_IMG",				"已從資料庫消除相片紀錄。");
 DEFINE("_RSGALLERY_PURGE_GAL",				"已從資料庫消除相簿。");
 DEFINE("_RSGALLERY_PURGE_CONFIG",			"已從資料庫消除設定。");
 DEFINE("_RSGALLERY_PURGE_COMMENTS",			"已從資料庫消除評論。");
+DEFINE("_RSGALLERY_PURGE_THUMB",		"縮圖刪除中.");
+DEFINE("_RSGALLERY_PURGE_DISPLAY",	"展示圖刪除中.");
+DEFINE("_RSGALLERY_PURGE_ORIGINAL",	"原圖刪除中.");
+DEFINE("_RSGALLERY_PURGE_PURGED",	"已消除.");
 //function reallyUninstall
 DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"已使用 rm -r 嘗試移除 $mosConfig_absolute_path/images/rsgallery");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"已刪除 #__rsgallery2_files");
@@ -315,6 +329,12 @@ DEFINE("_RSGALLERY_REAL_UNINST_DONE",		"完成。如發生錯誤請手動移除�
 DEFINE("_RSGALLERY_ALERT_IMGDELETEOK",		"相片已成功刪除！");
 //function c_delete
 DEFINE("_RSGALLERY_ALERT_IMGDELETENOTOK",	"相片沒有被刪除！");
+//function c_create
+DEFINE("_RSGALLERY_CC_NO_FILE_INFO",		"找不到檔案資料. 此是不應該發生的!");
+//function db_create
+DEFINE("_RSGALLERY_DB_CREATE_NO_GAL",		"沒有選擇要放置相片的相簿!");
+DEFINE("_RSGALLERY_DB_CREATE_IMG_SUCCES ",		"相片已成功加到資料庫!");
+DEFINE("_RSGALLERY_DB_CREATE_IMG_FAIL",		"相片未能加到資料庫!");
 //function save_batchupload
 DEFINE("_RSGALLERY_ALERT_NOCATSELECTED",	"請為所有相片選擇相簿！\\n（也為將會被刪除的相片選擇相簿。\\nn這將會於未來版本修正！）");
 DEFINE("_RSGALLERY_ZIP_TO_BIG",				"ZIP-壓縮包太大！");
@@ -368,8 +388,12 @@ DEFINE("_RSGALLERY_CONF_ERROR_UPLOAD",		" - 相片上載錯誤：");
 DEFINE("_RSGALLERY_SELECT_GAL_DROP_BOX",		"- 選擇相簿 -");
 //function galleriesSelectList
 DEFINE("_RSGALLERY_SELECT_GAL_TOP",		"頂層");
+//function showRating
+DEFINE("_RSGALLERY_RATE_NONE",		"沒有評分");
 //function newImages
-DEFINE("_RSGALLERY_NEW",				"有新相片！");
+DEFINE("_RSGALLERY_NEW",				"有新相片!");
+//function latestCats
+DEFINE("_RSGALLERY_NO_NEW_ENT",		"沒有新資料");
 //function writeWarningBox
 DEFINE("_RSGALLERY_NO_IMGLIBRARY",			"偵測不到可用的圖像庫！請聯絡你的網存商安裝 GD2 或瀏覽討論區如何安裝 ImageMagick 或 NETPBM！");
 DEFINE("_RSGALLERY_NOT_WRITABLE",			" 是不可寫入！");
@@ -552,7 +576,7 @@ DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF_ERROR",		"傳送原始檔案到新結構�
 DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF",		"縮圖檔案傳輸成功。");
 DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF_ERROR",		"傳輸縮圖檔案到新結構時發生了錯誤。<br />請透過 FTP 檢查");
 DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE",		"展示圖像建立成功。");
-DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE_ERROR",		"創立部分或全部顯示相片失敗。<br />聯絡本元件開發者。");
+DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE_ERROR",		"創立部分或全部展示相片失敗。<br />聯絡本元件開發者。");
 DEFINE("_RSGALLERY_UPGRADE_TABLE",		"表格 ");
 DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_OK",		" 變動成功");
 DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_ERROR",		" 變動不成功");
@@ -601,7 +625,7 @@ DEFINE("_RSGALLERY_IMG_GEN_DESCR",			"一般描述");
 DEFINE("_RSGALLERY_IMG_IMG_FILES",			"相片檔案");
 DEFINE("_RSGALLERY_IMG_IMAGES",			"相片");
 DEFINE("_RSGALLERY_IMG_FILE",			"檔案");
-DEFINE("_RSGALLERY_IMG_MORE",			"（更多相片）");
+DEFINE("_RSGALLERY_IMG_MORE",			"(更多相片)");
 
 //access.class.php
 //function checkGallery
@@ -612,4 +636,33 @@ DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"找不到權限，因此建立了預�
 DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"擁有者: ");
 DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"容量: ");
 DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"建立日期: ");
+
+//file.utils.php
+//function importImage
+DEFINE("_RSGALLERY_FU_NOT_SUP_TYPE",		" 並非支援的檔案類型.");
+//function move_uploadedFile_to_orignalDir
+DEFINE("_RSGALLERY_FU_UNABLE_COPY",		"不能複製 ");
+DEFINE("_RSGALLERY_FU_IMAGE_TO",		" 相片到: ");
+//function preHandlerCheck
+DEFINE("_RSGALLERY_FU_NOT_WRITABLE",		" 存在, 但不能寫入!");
+DEFINE("_RSGALLERY_FU_NOT_EXIST",		" 並不存在!");
+//function cleanMediaDir
+DEFINE("_RSGALLERY_FU_APPARENTLY",		"似乎 ");
+DEFINE("_RSGALLERY_FU_DOESNT_EXIST",		"並不存在");
+//function handleFTP
+DEFINE("_RSGALLERY_FU_FTP_DIR_NOT_EXIST",		" 並不存在或你的伺服器沒有目錄. 請檢查路徑.");
+DEFINE("_RSGALLERY_FU_NO_VALID_IMG",		"找不到有效相片於 ");
+DEFINE("_RSGALLERY_FU_PLEASE_CHECK_PATH",		". 請檢查路徑.");
+DEFINE("_RSGALLERY_FU_NO_FILES",		"找不到要處理的檔案!");
+DEFINE("_RSGALLERY_FU_MAX_FILESIZE",		"上載檔案超過了 upload_max_filesize 指定 ");
+DEFINE("_RSGALLERY_FU_IN_PINI",		" 於 php.ini.");
+DEFINE("_RSGALLERY_FU_MAX_FILESIZE_FORM",		"上載檔案超過了 MAX_FILE_SIZE 在 HTML 表格所指定.");
+DEFINE("_RSGALLERY_FU_PARTIAL_UPL",		"所上載檔案只部份上載.");
+DEFINE("_RSGALLERY_FU_NO_UPL",		"沒有上載檔案.");
+DEFINE("_RSGALLERY_FU_MISS_TEMP_DIR",		"找不到臨時資料夾.");
+DEFINE("_RSGALLERY_FU_FAIL_WRITE_DISK",		"寫入檔案到磁碟機失敗");
+DEFINE("_RSGALLERY_FU_UPL_STOP_EXT",		"上載檔案被元件中止");
+DEFINE("_RSGALLERY_FU_UNKW_ERROR",		"不明檔案錯誤");
+
+//stopped at gallery.class.php
 ?>
