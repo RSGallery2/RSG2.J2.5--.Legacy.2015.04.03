@@ -68,19 +68,6 @@ class rsgImagesItem extends mosDBTable {
 			return false;
 		}
 
-		/** check for existing title */
-		$query = "SELECT id"
-		. "\n FROM #__rsgallery2_files "
-		. "\n WHERE title = '$this->title'"
-		. "\n AND gallery_id = $this->gallery_id"
-		;
-		$this->_db->setQuery( $query );
-
-		$xid = intval( $this->_db->loadResult() );
-		if ($xid && $xid != intval( $this->id )) {
-			$this->_error = '*An image with this title already exists*';
-			return false;
-		}
 		return true;
 	}
 }
