@@ -126,7 +126,7 @@ function bot_rsg2_singledisplay_display ( $image_array, $image_size ,$image_capt
 			break;
 			
 		default:// display set by RSGallery
-			$output .= '<img src="' . imgUtils::getImgDisplay( $RSGDisplay_image_array['name'] ) . '" alt="' . $RSGDisplay_image_array['descr'] . '" border="0" />';
+			$output .= '<img src="' . imgUtils::getImgDisplay( $image_array['name'] ) . '" alt="' . $RSGDisplay_image_array['descr'] . '" border="0" />';
 			break;
 	}
 	
