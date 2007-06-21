@@ -17,7 +17,13 @@ if( isset( $rsgConfig )) return;
 
 //Prepare for Joomla 1.5
 if( !defined( '_JEXEC' )){
-    DEFINE('JPATH_ROOT', $mosConfig_absolute_path);
+    	// indicate we are emulating Joomla 1.5
+	DEFINE( 'JEMU15', 1 );
+	
+	// setup a Joomla 1.5 environment
+	DEFINE( '_JEXEC', 1 );
+	DEFINE('JPATH_BASE', $mosConfig_absolute_path);
+	DEFINE('JPATH_ROOT', $mosConfig_absolute_path);
 }
 
 // initialize the rsg config file
@@ -65,4 +71,32 @@ if (file_exists(JPATH_RSGALLERY2_ADMIN.'/language/'.$mosConfig_lang.'.php')){
     include_once(JPATH_RSGALLERY2_ADMIN.'/language/english.php');
 }
 
+// joomla 1.5 lib imports
+if( defined( 'JEMU15' )){
+	require_once(JPATH_RSGALLERY2_SITE."/lib/joomla_1.5/libraries/loader.php");
+	jimport( 'joomla.base.object' );
+	jimport( 'joomla.environment.request' );
+	
+	// Include object abstract class
+	jimport( 'joomla.utilities.compat.compat' );
+	
+	// Joomla! library imports
+	jimport( 'joomla.environment.response'   );
+	jimport( 'joomla.application.application' );
+	jimport( 'joomla.application.helper' );
+	jimport( 'joomla.application.event' );
+	jimport( 'joomla.application.menu' );
+	jimport( 'joomla.database.table' );
+	jimport( 'joomla.user.user');
+	jimport( 'joomla.environment.uri' );
+	jimport( 'joomla.factory' );
+	jimport( 'joomla.html.html' );
+	jimport( 'joomla.html.parameter' );
+	jimport( 'joomla.utilities.array' );
+	jimport( 'joomla.utilities.error' );
+	jimport( 'joomla.utilities.functions' );
+	jimport( 'joomla.utilities.utility' );
+	jimport( 'joomla.utilities.string' );
+	jimport( 'joomla.version' );
+}
 ?>
