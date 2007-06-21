@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 /**
-* Dutch language file for RSGallery - (13-06-2007)
+* Dutch language file for RSGallery - (19-06-2007)
 * @version $Id$
 * @package RSGallery2
 * @copyright (C) 2003 - 2007 RSGallery2
@@ -739,7 +739,7 @@ DEFINE("_RSGALLERY_FU_PLEASE_CHECK_PATH",		". Controleer het pad.");
 DEFINE("_RSGALLERY_FU_NO_FILES",			"Geen bestanden gevonden voor bewerking!");
 DEFINE("_RSGALLERY_FU_MAX_FILESIZE",			"Het upgeloaden bestand is te groot");
 DEFINE("_RSGALLERY_FU_IN_PINI",				" in php.ini.");
-DEFINE("_RSGALLERY_FU_MAX_FILESIZE_FORM",		"Het upgeloaden bestand is groter dan toegestaan in het HTML forumulier.");
+DEFINE("_RSGALLERY_FU_MAX_FILESIZE_FORM",		"Het upgeloaden bestand is groter dan toegestaan in het HTML formulier.");
 DEFINE("_RSGALLERY_FU_PARTIAL_UPL",			"Het upgeloaden bestand is maar gedeeltelijk upgeload.");
 DEFINE("_RSGALLERY_FU_NO_UPL",				"Geen bestand in upgeload.");
 DEFINE("_RSGALLERY_FU_MISS_TEMP_DIR",			"Tijdelijke map is niet beschikbaar.");
