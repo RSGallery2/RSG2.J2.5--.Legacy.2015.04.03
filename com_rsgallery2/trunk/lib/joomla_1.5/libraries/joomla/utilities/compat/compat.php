@@ -15,6 +15,9 @@
 // Check to ensure this file is within the rest of the framework
 defined('JPATH_BASE') or die();
 
+// Joomla 1.0 already provides PHP5 compatibility.
+return;
+
 /**
  * Load compatibility files
  *

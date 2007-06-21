@@ -84,7 +84,7 @@ if( defined( 'JEMU15' )){
 	jimport( 'joomla.environment.response'   );
 	jimport( 'joomla.application.application' );
 	jimport( 'joomla.application.helper' );
-	jimport( 'joomla.application.event' );
+// 	jimport( 'joomla.application.event' );
 	jimport( 'joomla.application.menu' );
 	jimport( 'joomla.database.table' );
 	jimport( 'joomla.user.user');
@@ -94,9 +94,8 @@ if( defined( 'JEMU15' )){
 	jimport( 'joomla.html.parameter' );
 	jimport( 'joomla.utilities.array' );
 	jimport( 'joomla.utilities.error' );
-	jimport( 'joomla.utilities.functions' );
+// 	jimport( 'joomla.utilities.functions' );
 	jimport( 'joomla.utilities.utility' );
 	jimport( 'joomla.utilities.string' );
 	jimport( 'joomla.version' );
 }
-?>
