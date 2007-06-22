@@ -457,6 +457,7 @@
     <filename>includes/gallery.class.php</filename>
     <filename>includes/file.utils.php</filename>
     <filename>includes/img.utils.php</filename>
+	<filename>includes/instance.class.php</filename>
     <filename>includes/video.utils.php</filename>
     <filename>includes/mimetype.php</filename>
     <filename>includes/config.class.php</filename>
