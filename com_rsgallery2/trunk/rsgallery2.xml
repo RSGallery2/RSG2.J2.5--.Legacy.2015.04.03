@@ -276,6 +276,66 @@
 	<filename>lib/joomla_1.5/libraries/joomla/utilities/utility.php</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/version.php</filename>
 	<filename>lib/joomla_1.5/libraries/loader.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/index.html</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patError.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patErrorManager.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Compiler.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Dump/Html.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Dump/index.html</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Dump/XUL.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Dump.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Function/Alias.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Function/Attribute.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Function/Call.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Function/Globalvar.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Function/Highlight.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Function/Img.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Function/index.html</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Function/Phphighlight.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Function/Strip.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Function/Time.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Function.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/index.html</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/InputFilter/index.html</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/InputFilter/ShortModifiers.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/InputFilter/StripComments.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/InputFilter.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Modifier/Dateformat.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Modifier/Expression.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Modifier/HTML/Img.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Modifier/HTML/index.html</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Modifier/index.html</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Modifier/Numberformat.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Modifier/QuoteLatex.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Modifier/Surround.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Modifier/Truncate.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Modifier/Wordwrapper.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Modifier.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Module.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/OutputCache.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/OutputFilter/BBCode.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/OutputFilter/Gzip.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/OutputFilter/HighlightPhp.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/OutputFilter/index.html</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/OutputFilter/PdfLatex.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/OutputFilter/StripWhitespace.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/OutputFilter/Tidy.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/OutputFilter.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Reader/DB.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Reader/File.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Reader/index.html</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Reader/IT.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Reader/String.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Reader.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Stat/File.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Stat/index.html</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/Stat.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/TemplateCache/eAccelerator.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/TemplateCache/File.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/TemplateCache/index.html</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/TemplateCache/MMCache.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate/TemplateCache.php</filename>
+	<filename>lib/joomla_1.5/libraries/pattemplate/patTemplate.php</filename>
 	<filename>lib/joomla_1.5/libraries/phputf8/index.html</filename>
 	<filename>lib/joomla_1.5/libraries/phputf8/LICENSE</filename>
 	<filename>lib/joomla_1.5/libraries/phputf8/mbstring/case.php</filename>
