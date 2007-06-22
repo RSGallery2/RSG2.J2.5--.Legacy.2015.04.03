@@ -42,7 +42,13 @@ class rsgInstance extends JRequest{
 				rsgInstance::instanceStack[] = rsgInstance::instance;
 			}
 			else{
-				// stack exists, push current instance on
+				// stack exists, check for infinite recursion
+				if( count( rsgInstance::instanceStack > 9 )){
+					echo "Fatal Error. rsgInstance stack count exceeds 9. Probable infinite recursion.<pre>";
+					print_r( rsgInstance::instanceStack );
+				}
+				
+				// push current instance on stack
 				array_push( rsgInstance::instanceStack, rsgInstance::instance );
 			}
 		}
