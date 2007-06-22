@@ -23,21 +23,7 @@ class tempDisplay{
 		@todo move this constructor back to rsgDisplay when all functions have been moved out of tempDisplay
 	**/
 	function tempDisplay(){
-		$gid = mosGetParam ( $_REQUEST, 'catid', 0 );
-		$gid = mosGetParam ( $_REQUEST, 'gid', $gid );
-
-		$this->gallery = rsgGalleryManager::get( $gid );
-		$this->items = $this->gallery->items();
-		
-		$id = mosGetParam ( $_REQUEST, 'id', null );
-		if( $id )
-			$this->item = $this->gallery->getItem( $id );
-			
-		$limitstart = mosGetParam ( $_REQUEST, 'limitstart', null );
-		if( $limitstart ){
-			$this->item = $this->items[$limitstart];
-			$this->limitstart = $limitstart;
-		}
+		$this->gallery = rsgInstance::getGallery();
 	}
 	
 	function mainPage(){

@@ -30,6 +30,10 @@ if( !defined( '_JEXEC' )){
 require_once(JPATH_ROOT.'/administrator/components/com_rsgallery2/includes/config.class.php');
 $rsgConfig = new rsgConfig();
 
+// report all errors if in debug mode
+if ($rsgConfig->get('debug'))
+    error_reporting(E_ALL);
+
 //Set path globals for RSGallery2
 DEFINE('JPATH_RSGALLERY2_SITE', JPATH_ROOT.'/components/com_rsgallery2');
 DEFINE('JPATH_RSGALLERY2_ADMIN', JPATH_ROOT.'/administrator/components/com_rsgallery2');
@@ -46,13 +50,12 @@ $rsgClasses_path = JPATH_RSGALLERY2_ADMIN.'/includes/';
 require_once(JPATH_RSGALLERY2_ADMIN.'/includes/version.rsgallery2.php');
 $rsgVersion = new rsgalleryVersion();
 
-// report all errors if in debug mode
-if ($rsgConfig->get('debug'))
-    error_reporting(E_ALL);
-
 //include ACL class
 require_once(JPATH_RSGALLERY2_ADMIN.'/includes/access.class.php');
 $rsgAccess = new rsgAccess();
+
+// include rsgInstance
+require_once(JPATH_RSGALLERY2_ADMIN.'/includes/instance.class.php');
 
 // require file utilities
 require_once( JPATH_RSGALLERY2_ADMIN.'/includes/file.utils.php' );
