@@ -40,7 +40,17 @@ class rsgItem{
 	 * increases the hit counter for this object
 	 */
 	function hit(){
-	
+		$query = "UPDATE #__rsgallery2_files SET hits = hits + 1 WHERE id = {$this->id}";
+		
+		$db = &JFactory::getDBO();
+		$db->setQuery( $query );
+		
+		if( !$db->query() ) {
+			$this->setError( $db->getErrorMsg() );
+			return false;
+		}
+		
+		$this->hits++;
 	}
 }
 
