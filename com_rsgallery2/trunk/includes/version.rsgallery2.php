@@ -19,11 +19,11 @@ class rsgalleryVersion {
     /** @var string Product */
     var $PRODUCT    = 'RSGallery2';
     /** @var int Main Release Level */
-    var $RELEASE    = '1.13';
+    var $RELEASE    = '1.14';
     /** @var string Development Status */
     var $DEV_STATUS = 'Alpha';
     /** @var int Sub Release Level */
-    var $DEV_LEVEL  = '2';
+    var $DEV_LEVEL  = '0';
     /** @var int build Number */
     var $BUILD      = 'SVN: $GlobalRev$';
     /** @var string Codename */
