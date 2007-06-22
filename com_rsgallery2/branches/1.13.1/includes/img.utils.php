@@ -244,23 +244,28 @@ class imgUtils extends fileUtils{
         }
     }
     
-    /**
-      * @param string name of the image
-      * @param boolean return a local path instead of URL
-      * @return complete URL of the image
-      */
-    function getImgDisplay($name, $local=false){
-        global $mosConfig_live_site, $rsgConfig;
-        
-        $locale = $local? JPATH_ROOT : $mosConfig_live_site;
-        
-        // if display image exists return that, otherwise the original image width <= $display_width so we return the original image instead.
-        if( file_exists( JPATH_ROOT.$rsgConfig->get('imgPath_display') . '/' . imgUtils::getImgNameDisplay( $name ))){
-            return $locale . $rsgConfig->get('imgPath_display') . '/' . rawurlencode( imgUtils::getImgNameDisplay( $name ));
-        }else {
-            return $locale . $rsgConfig->get('imgPath_original') . '/' . rawurlencode($name);
-        }
-    }
+	/**
+		* @param string name of the image
+		* @param boolean return a local path instead of URL
+		* @return complete URL of the image
+		*/
+	function getImgDisplay($name, $local=false){
+		global $mosConfig_live_site, $rsgConfig;
+		
+		$locale = $local? JPATH_ROOT : $mosConfig_live_site;
+		
+		if( !$local ){
+			$database->setQuery("UPDATE #__rsgallery2_files SET hits = hits + 1 WHERE name = '$name'");
+			$database->query();
+		}
+		
+		// if display image exists return that, otherwise the original image width <= $display_width so we return the original image instead.
+		if( file_exists( JPATH_ROOT.$rsgConfig->get('imgPath_display') . '/' . imgUtils::getImgNameDisplay( $name ))){
+			return $locale . $rsgConfig->get('imgPath_display') . '/' . rawurlencode( imgUtils::getImgNameDisplay( $name ));
+		}else {
+			return $locale . $rsgConfig->get('imgPath_original') . '/' . rawurlencode($name);
+		}
+	}
     
     /**
       * @param string name of the image

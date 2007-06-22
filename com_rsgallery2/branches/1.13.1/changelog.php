@@ -32,6 +32,9 @@ Legend:
 
 ---------------- Recent ----------------
 
+2007-07-22 Jonah Braun
+ # added image hit counter kludge.
+
 2007-06-06 Jonah Braun
  # fixed meta tags.  rsgDisplay->metadata(); must be called from the templates index.php.
 
