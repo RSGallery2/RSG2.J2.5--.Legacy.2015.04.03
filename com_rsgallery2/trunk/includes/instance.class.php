@@ -142,8 +142,14 @@ class rsgInstance extends JRequest{
 			case 'REQUEST':
 				$input = &$_REQUEST;
 			default:
-				$input = &rsgInstance::instance;
-				$hash = 'rsgInstance';
+				if( rsgInstance::instance == 'request' ){
+					$input = &$_REQUEST;
+					$hash = 'REQUEST';
+				}
+				else{
+					$input = &rsgInstance::instance;
+					$hash = 'rsgInstance';
+				}
 				break;
 		}
 
@@ -334,12 +340,26 @@ class rsgInstance extends JRequest{
 				$_COOKIE[$name] = $value;
 				$_REQUEST[$name] = $value;
 				break;
-			default:
+			case 'REQUEST' :
 				$_GET[$name] = $value;
 				$_POST[$name] = $value;
 				$_REQUEST[$name] = $value;
 				$GLOBALS['_JREQUEST'][$name]['SET.GET'] = true;
 				$GLOBALS['_JREQUEST'][$name]['SET.POST'] = true;
+				break;
+			default:
+				if( rsgInstance::instance == 'request' ){
+					$hash = 'REQUEST';
+					$_GET[$name] = $value;
+					$_POST[$name] = $value;
+					$_REQUEST[$name] = $value;
+					$GLOBALS['_JREQUEST'][$name]['SET.GET'] = true;
+					$GLOBALS['_JREQUEST'][$name]['SET.POST'] = true;
+				}
+				else{
+					rsgInstance::instance[$name] = $value;
+					$hash = 'rsgInstance';
+				}
 				break;
 		}
 
@@ -398,8 +418,13 @@ class rsgInstance extends JRequest{
 				$input = $_COOKIE;
 				break;
 
-			default:
+			case 'REQUEST' :
 				$input = $_REQUEST;
+				break;
+				
+			default:
+				$input = &rsgInstance::instance;
+				$hash = 'rsgInstance';
 				break;
 		}
 
