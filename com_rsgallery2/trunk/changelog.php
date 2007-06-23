@@ -31,6 +31,9 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2007-06-23 Jonathan DeLaigle
+ - Removed pattemplate usage from admin config
+
 2007-06-17 Ronald Smit
  + Added delete option to frontend commenting system
  
