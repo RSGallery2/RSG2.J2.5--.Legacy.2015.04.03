@@ -47,33 +47,6 @@ DEFINE ('DS', "/");
 $rsgOptions_path = JPATH_RSGALLERY2_ADMIN.'/options/';
 $rsgClasses_path = JPATH_RSGALLERY2_ADMIN.'/includes/';
 
-require_once(JPATH_RSGALLERY2_ADMIN.'/includes/version.rsgallery2.php');
-$rsgVersion = new rsgalleryVersion();
-
-//include ACL class
-require_once(JPATH_RSGALLERY2_ADMIN.'/includes/access.class.php');
-$rsgAccess = new rsgAccess();
-
-// include rsgInstance
-require_once(JPATH_RSGALLERY2_ADMIN.'/includes/instance.class.php');
-
-// require file utilities
-require_once( JPATH_RSGALLERY2_ADMIN.'/includes/file.utils.php' );
-require_once( JPATH_RSGALLERY2_ADMIN.'/includes/img.utils.php' );
-require_once( JPATH_RSGALLERY2_ADMIN.'/includes/video.utils.php' );
-
-// contains misc. utility functions
-require_once(JPATH_RSGALLERY2_ADMIN.'/config.rsgallery2.php');
-require_once(JPATH_RSGALLERY2_ADMIN.'/includes/gallery.class.php');
-require_once(JPATH_RSGALLERY2_SITE.'/lib/rsgcomments/rsgcomments.class.php');
-
-//Check for language files, if not found, default to english
-if (file_exists(JPATH_RSGALLERY2_ADMIN.'/language/'.$mosConfig_lang.'.php')){
-    include_once(JPATH_RSGALLERY2_ADMIN.'/language/'.$mosConfig_lang.'.php');
-} else {
-    include_once(JPATH_RSGALLERY2_ADMIN.'/language/english.php');
-}
-
 // joomla 1.5 lib imports
 if( defined( 'JEMU15' )){
 	require_once(JPATH_RSGALLERY2_SITE."/lib/joomla_1.5/libraries/loader.php");
@@ -101,4 +74,31 @@ if( defined( 'JEMU15' )){
 	jimport( 'joomla.utilities.utility' );
 	jimport( 'joomla.utilities.string' );
 	jimport( 'joomla.version' );
+}
+
+require_once(JPATH_RSGALLERY2_ADMIN.'/includes/version.rsgallery2.php');
+$rsgVersion = new rsgalleryVersion();
+
+//include ACL class
+require_once(JPATH_RSGALLERY2_ADMIN.'/includes/access.class.php');
+$rsgAccess = new rsgAccess();
+
+// include rsgInstance
+require_once(JPATH_RSGALLERY2_ADMIN.'/includes/instance.class.php');
+
+// require file utilities
+require_once( JPATH_RSGALLERY2_ADMIN.'/includes/file.utils.php' );
+require_once( JPATH_RSGALLERY2_ADMIN.'/includes/img.utils.php' );
+require_once( JPATH_RSGALLERY2_ADMIN.'/includes/video.utils.php' );
+
+// contains misc. utility functions
+require_once(JPATH_RSGALLERY2_ADMIN.'/config.rsgallery2.php');
+require_once(JPATH_RSGALLERY2_ADMIN.'/includes/gallery.class.php');
+require_once(JPATH_RSGALLERY2_SITE.'/lib/rsgcomments/rsgcomments.class.php');
+
+//Check for language files, if not found, default to english
+if (file_exists(JPATH_RSGALLERY2_ADMIN.'/language/'.$mosConfig_lang.'.php')){
+    include_once(JPATH_RSGALLERY2_ADMIN.'/language/'.$mosConfig_lang.'.php');
+} else {
+    include_once(JPATH_RSGALLERY2_ADMIN.'/language/english.php');
 }

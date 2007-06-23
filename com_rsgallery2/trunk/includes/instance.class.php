@@ -11,18 +11,16 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
 /**
+ * Create the request global object
+ */
+$GLOBALS['_RSGINSTANCE'] = null;
+
+/**
 * Represents an instance of RSGallery2
 * @package RSGallery2
 * @author Jonah Braun <Jonah@WhaleHosting.ca>
 */
 class rsgInstance extends JRequest{
-
-	/** @var array of variables for this instance */
-	var $instance = null;
-
-	/** @var array of $instance arrays for recursive calling */
-	var $instanceStack = null;
-	
 	/**
 	 * Creates a new RSG2 instance and executes it.
 	 *
@@ -31,35 +29,28 @@ class rsgInstance extends JRequest{
 	 * array			A custom array.
 	 * 'request'	Use the request array (default).
 	 */
-	function instance( $instance = 'request' ){
-		
-		// if rsg2 is already instanced then push the current instance to be pop'd later
-		if( rsgInstance::instance ){
-			$stacked = true;
+	function instance( $newInstance = 'request' ){
+		static $instanceStack = array();
+		$stacked = false;
 
-			if( !rsgInstance::instanceStack ){
-				// stack is null, let's create a new one
-				rsgInstance::instanceStack[] = rsgInstance::instance;
-			}
-			else{
-				// stack exists, check for infinite recursion
-				if( count( rsgInstance::instanceStack > 9 )){
-					echo "Fatal Error. rsgInstance stack count exceeds 9. Probable infinite recursion.<pre>";
-					print_r( rsgInstance::instanceStack );
-				}
-				
-				// push current instance on stack
-				array_push( rsgInstance::instanceStack, rsgInstance::instance );
-			}
+		// if rsg2 is already instanced then push the current instance to be pop'd later
+		if( $GLOBALS['_RSGINSTANCE'] ){
+			$stacked = true;
+			
+			if( count( $instanceStack ) > 9 )
+				die( 'throw a proper error here.' );
+
+			// push current instance on stack
+			array_push( $instanceStack, $GLOBALS['_RSGINSTANCE'] );
 		}
 		
-		rsgInstance::instance = $instance;
+		$GLOBALS['_RSGINSTANCE'] = $newInstance;
 		
 		// include rsgallery2.php to execute this instance
-		require( JPATH_RSGALLERY2_SITE . DS . 'rsgallery2.php' );
+		require( JPATH_RSGALLERY2_SITE . DS . 'main.rsgallery2.php' );
 		
 		if( $stacked )
-			rsgInstance::instance = array_pop( rsgInstance::instanceStack );
+			$GLOBALS['_RSGINSTANCE'] = array_pop( $instanceStack );
 	}
 	
 	/**
@@ -148,12 +139,12 @@ class rsgInstance extends JRequest{
 			case 'REQUEST':
 				$input = &$_REQUEST;
 			default:
-				if( rsgInstance::instance == 'request' ){
+				if( $GLOBALS['_RSGINSTANCE'] == 'request' ){
 					$input = &$_REQUEST;
 					$hash = 'REQUEST';
 				}
 				else{
-					$input = &rsgInstance::instance;
+					$input = $GLOBALS['_RSGINSTANCE'];
 					$hash = 'rsgInstance';
 				}
 				break;
@@ -354,7 +345,7 @@ class rsgInstance extends JRequest{
 				$GLOBALS['_JREQUEST'][$name]['SET.POST'] = true;
 				break;
 			default:
-				if( rsgInstance::instance == 'request' ){
+				if( $GLOBALS['_RSGINSTANCE'] == 'request' ){
 					$hash = 'REQUEST';
 					$_GET[$name] = $value;
 					$_POST[$name] = $value;
@@ -363,7 +354,7 @@ class rsgInstance extends JRequest{
 					$GLOBALS['_JREQUEST'][$name]['SET.POST'] = true;
 				}
 				else{
-					rsgInstance::instance[$name] = $value;
+					$GLOBALS['_RSGINSTANCE'][$name] = $value;
 					$hash = 'rsgInstance';
 				}
 				break;
@@ -429,7 +420,7 @@ class rsgInstance extends JRequest{
 				break;
 				
 			default:
-				$input = &rsgInstance::instance;
+				$input = $GLOBALS['_RSGINSTANCE'];
 				$hash = 'rsgInstance';
 				break;
 		}
@@ -531,5 +522,4 @@ class rsgInstance extends JRequest{
 			}
 		}
 	}
-
 }
