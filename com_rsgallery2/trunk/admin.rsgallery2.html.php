@@ -755,15 +755,17 @@ class HTML_RSGALLERY{
 		global $option;
 
 		//Check for Joomla 1.5
-		if (!defined('_JEXEC'))
-			require_once( JPATH_ROOT.'/includes/patTemplate/patTemplate.php' );
-		else
-			jimport('pattemplate.patTemplate');
+		if (!defined('_JEXEC')) {
+			require_once ( JPATH_ROOT . DS . 'includes' . DS . 'patTemplate' . DS . 'patTemplate.php' );
+		} else {
+			//jimport('pattemplate.patTemplate');
+			// Joomla 1.5 does not have createTemplate. Not sure how to handel this in 1.5.
+			require_once ( JPATH_ROOT . DS . 'includes' . DS . 'patTemplate' . DS . 'patTemplate.php' );
+			$tmpl =& patFactory::createTemplate( $option, true, false );
+			$tmpl->setRoot( dirname( __FILE__ ) . '/tmpl' );
 
-		$tmpl =& patFactory::createTemplate( $option, true, false );
-		$tmpl->setRoot( dirname( __FILE__ ) . '/tmpl' );
-
-		return $tmpl;
+			return $tmpl;
+		}
 	}
 
     /**
