@@ -38,7 +38,7 @@ class rsgInstance extends JRequest{
 			$stacked = true;
 			
 			if( count( $instanceStack ) > 9 )
-				die( 'throw a proper error here.' );
+				JError::raiseError( '9', 'RSGallery2 instance stack exceeds 9.  Probable endless recursion, $instanceStack:<pre>'.print_r( $instanceStack,1).'</pre>' );
 
 			// push current instance on stack
 			array_push( $instanceStack, $GLOBALS['_RSGINSTANCE'] );
@@ -194,7 +194,7 @@ class rsgInstance extends JRequest{
 	 * @since	1.5
 	 */
 	function getInt($name, $default = 0, $hash = 'default') {
-		return JRequest::getVar($name, $default, $hash, 'int');
+		return rsgInstance::getVar($name, $default, $hash, 'int');
 	}
 
 	/**
@@ -212,7 +212,7 @@ class rsgInstance extends JRequest{
 	 * @since	1.5
 	 */
 	function getFloat($name, $default = 0.0, $hash = 'default') {
-		return JRequest::getVar($name, $default, $hash, 'float');
+		return rsgInstance::getVar($name, $default, $hash, 'float');
 	}
 
 	/**
@@ -230,7 +230,7 @@ class rsgInstance extends JRequest{
 	 * @since	1.5
 	 */
 	function getBool($name, $default = false, $hash = 'default') {
-		return JRequest::getVar($name, $default, $hash, 'bool');
+		return rsgInstance::getVar($name, $default, $hash, 'bool');
 	}
 
 	/**
@@ -248,7 +248,7 @@ class rsgInstance extends JRequest{
 	 * @since	1.5
 	 */
 	function getWord($name, $default = '', $hash = 'default') {
-		return JRequest::getVar($name, $default, $hash, 'word');
+		return rsgInstance::getVar($name, $default, $hash, 'word');
 	}
 
 	/**
@@ -266,7 +266,7 @@ class rsgInstance extends JRequest{
 	 * @since	1.5
 	 */
 	function getCmd($name, $default = '', $hash = 'default') {
-		return JRequest::getVar($name, $default, $hash, 'cmd');
+		return rsgInstance::getVar($name, $default, $hash, 'cmd');
 	}
 
 	/**
@@ -287,7 +287,7 @@ class rsgInstance extends JRequest{
 	function getString($name, $default = '', $hash = 'default', $mask = 0)
 	{
 		// Cast to string, in case JREQUEST_ALLOWRAW was specified for mask
-		return (string) JRequest::getVar($name, $default, $hash, 'string', $mask);
+		return (string) rsgInstance::getVar($name, $default, $hash, 'string', $mask);
 	}
 
 	/**
@@ -438,7 +438,7 @@ class rsgInstance extends JRequest{
 	function set($array, $hash = 'default', $overwrite = true)
 	{
 		foreach($array as $key => $value) {
-			JRequest::setVar($key, $value, $hash, $overwrite);
+			rsgInstance::setVar($key, $value, $hash, $overwrite);
 		}
 	}
 
