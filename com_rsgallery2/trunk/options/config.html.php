@@ -162,11 +162,10 @@ class html_rsg2_config{
         // couldn't figure out how to use it effectively however.
         // this is why the templates were broken up, so i could call $tabs->func*() between them
         $tabs = new mosTabs(1);
-        //$tmpl->displayParsedTemplate( 'configStart' );
-        $tabs->startPane( 'rsgConfig' );
         ?>
         <form action="index2.php" method="post" name="adminForm">
-		<?php
+        <?php
+        $tabs->startPane( 'rsgConfig' );
         $tabs->startTab( _RSGALLERY_CONF_GENERALTAB, 'rsgConfig' );
         ?>
         <table border="0" width="100%">
@@ -530,7 +529,7 @@ class html_rsg2_config{
         //$tmpl->displayParsedTemplate( 'configTableUsers' );
         $tabs->endTab();
 		?>
-		<input type="hidden" name="option" value="{OPTION}" />
+		<input type="hidden" name="option" value="com_rsgallery2" />
 		<input type="hidden" name="task" value="" />
 		</form>
 		<!-- Fix for Firefox browser -->
