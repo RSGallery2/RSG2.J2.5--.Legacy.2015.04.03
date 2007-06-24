@@ -514,17 +514,20 @@
     <filename>toolbar.rsgallery2.php</filename>
 <!-- files in sub directories, alphabetical order  -->
     <filename>help/screen.rsgallery2.html</filename>
-    <filename>includes/access.class.php</filename>
-    <filename>includes/gallery.class.php</filename>
-    <filename>includes/file.utils.php</filename>
-    <filename>includes/img.utils.php</filename>
+	
+	<filename>includes/access.class.php</filename>
+	<filename>includes/config.class.php</filename>
+	<filename>includes/file.utils.php</filename>
+	<filename>includes/gallery.class.php</filename>
+	<filename>includes/img.utils.php</filename>
+	<filename>includes/install.class.php</filename>
 	<filename>includes/instance.class.php</filename>
-    <filename>includes/video.utils.php</filename>
-    <filename>includes/mimetype.php</filename>
-    <filename>includes/config.class.php</filename>
-    <filename>includes/install.class.php</filename>
-    <filename>includes/version.rsgallery2.php</filename>
-    <filename>includes/script.js</filename>
+	<filename>includes/items/image.php</filename>
+	<filename>includes/items/item.php</filename>
+	<filename>includes/mimetype.php</filename>
+	<filename>includes/script.js</filename>
+	<filename>includes/version.rsgallery2.php</filename>
+	<filename>includes/video.utils.php</filename>
 	
     <filename>language/brazilian_portuguese.php</filename>
 	<filename>language/bulgarian.php</filename>
