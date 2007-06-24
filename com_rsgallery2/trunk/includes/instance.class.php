@@ -47,10 +47,37 @@ class rsgInstance extends JRequest{
 		$GLOBALS['_RSGINSTANCE'] = $newInstance;
 		
 		// include rsgallery2.php to execute this instance
-		require( JPATH_RSGALLERY2_SITE . DS . 'main.rsgallery2.php' );
+		require_once( JPATH_RSGALLERY2_SITE . DS . 'main.rsgallery2.php' );
+		rsgInstance::mainSwitch();
 		
 		if( $stacked )
 			$GLOBALS['_RSGINSTANCE'] = array_pop( $instanceStack );
+	}
+	
+	/**
+	* This is the main task switch where we decide what to do.
+	*/
+	function mainSwitch(){
+		switch( rsgInstance::getVar( 'rsgOption', '' )) {
+			case 'rsgComments':
+				require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgcomments' . DS . 'rsgcomments.php');
+				break;
+			default:
+				switch( rsgInstance::getVar( 'task', '' ) ){
+					case 'xml':
+						xmlFile();
+						break;
+					case "downloadfile":
+						$id = mosGetParam ( $_REQUEST, 'id'  , '');
+						downloadFile($id);
+						break;
+					default:
+						// require the base class rsgDisplay
+						require_once( JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'meta' . DS . 'display.class.php' );
+						// show the template
+						template();
+				}
+		}
 	}
 	
 	/**
@@ -146,6 +173,11 @@ class rsgInstance extends JRequest{
 				else{
 					$input = $GLOBALS['_RSGINSTANCE'];
 					$hash = 'rsgInstance';
+					// kludge!
+					if( isset( $GLOBALS['_RSGINSTANCE'][$name] ))
+						return $GLOBALS['_RSGINSTANCE'][$name];
+					else
+						return $default;
 				}
 				break;
 		}

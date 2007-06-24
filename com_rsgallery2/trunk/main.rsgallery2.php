@@ -10,30 +10,6 @@
 defined( '_VALID_MOS' ) or die( 'Access Denied.' );
 
 /**
- * This is the main task switch where we decide what to do.
- */
-switch( rsgInstance::getVar( 'rsgOption', '' )) {
-    case 'rsgComments':
-        require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgcomments' . DS . 'rsgcomments.php');
-        break;
-    default:
-		switch( rsgInstance::getVar( 'task', '' ) ){
-    		case 'xml':
-        		xmlFile();
-    			break;
-		    case "downloadfile":
-				$id = mosGetParam ( $_REQUEST, 'id'  , '');
-				downloadFile($id);
-				break;
-			default:
-				// require the base class rsgDisplay
-				require_once( JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'meta' . DS . 'display.class.php' );
-				// show the template
-				template();
-		}
-}
-
-/**
  * this is the primary and default function
  * it loads a template to run
  * that template's rsgDisplay has a switch for $page to handle various features

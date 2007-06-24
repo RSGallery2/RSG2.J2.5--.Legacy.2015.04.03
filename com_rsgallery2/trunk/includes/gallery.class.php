@@ -411,7 +411,7 @@ class rsgGallery{
 		if( $this->thumb == null ){
 			if( $this->thumb_id == 0 ){
 				// thumbnail not set, use random
-				$items = $this->items();
+				$items = $this->itemRows();
 				if( count( $items ) == 0 )
 					return null;
 
@@ -419,7 +419,8 @@ class rsgGallery{
 				$this->thumb = $items[0];
 			}
 			else{
-				$this->thumb = $this->getItem( $this->thumb_id );
+				$this->thumb = $this->getItemRows;
+				$this->thumb = $this->thumb[$this->thumb_id];
 			}
 		}
 		return $this->thumb;
