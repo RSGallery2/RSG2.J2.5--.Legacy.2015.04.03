@@ -15,7 +15,7 @@ defined( '_VALID_MOS' ) or die( 'Access Denied.' );
 * @package RSGallery2
 * @author Jonah Braun <Jonah@WhaleHosting.ca>
 */
-class rsgItem{
+class rsgItem extends JObject{
 	/**
 	 * the parent gallery
 	 */
@@ -29,7 +29,7 @@ class rsgItem{
 	/**
 	 * @param array a database row
 	 */
-	function rsgItem( &$gallery, $row ){
+	function __construct( &$gallery, $row ){
 		$this->gallery =& $gallery;
 		
 		foreach( $row as $n=>$a )
@@ -52,6 +52,27 @@ class rsgItem{
 		
 		$this->hits++;
 	}
+	
+	/**
+	 * static class returns the appropriate class name for the item
+	 * @param String containing the filename
+	 * @return the apropriate item class name
+	 */
+	function getCorrectItemClass( $name ){
+		// get mime type of file
+		$type = MimeTypes::getMimeType( $name );
+		$type = explode( '/', $type );
+		// get only the category of mime type
+		$type = $type[0];
+		
+		if( file_exists( JPATH_RSGALLERY2_ADMIN.'/includes/items/'. $type .'.php' ){
+			require_once( JPATH_RSGALLERY2_ADMIN.'/includes/items/'. $type .'.php' );
+			return "rsgItem_$type";
+		}
+		else{
+			return "rsgItem";
+		}
+	}
 }
 
 /**
@@ -59,13 +80,13 @@ class rsgItem{
 * @package RSGallery2
 * @author Jonah Braun <Jonah@WhaleHosting.ca>
 */
-class rsgResource{
+class rsgResource extends JObject{
 	/**
 	 * the unique name to retrieve this resource
 	 */
 	$name = null;
 	
-	function rsgResource( $name ){
+	function __construct( $name ){
 		$this->name = $name;
 	}
 	

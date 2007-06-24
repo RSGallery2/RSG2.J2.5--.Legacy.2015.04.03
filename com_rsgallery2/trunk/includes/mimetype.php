@@ -48,7 +48,7 @@ class MimeTypes{
 		TODO: php4 is terrible.  $mtypes should be a class level static var in php5
 	**/
 	function getMimeType($filename){
-		$mtypes = array(
+		static $mtypes = array(
 	 "ez" => "application/andrew-inset",
 	 "hqx" => "application/mac-binhex40",
 	 "cpt" => "application/mac-compactpro",

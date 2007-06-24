@@ -296,6 +296,8 @@ class rsgGallery{
 //     variables for sub galleries and image items
 	/** @var array representing child galleries.  generated on demand!  use kids() */
 	var $kids = null;
+	/** @var array representing images.  generated on demand!  use itemRows() */
+	var $itemRows = null;
 	/** @var array representing images.  generated on demand!  use items() */
 	var $items = null;
 
@@ -352,22 +354,38 @@ class rsgGallery{
 	}
 	
 	/**
-	*  returns an array of images in this gallery
+	*  returns an array of item db rows
 	*/
-	function items(){
+	function itemRows(){
 		// check if we need to generate the list
-		if( $this->items == null ){
+		if( $this->itemRows == null ){
 			global $database;
 			$database->setQuery( "SELECT * FROM #__rsgallery2_files".
 				" WHERE gallery_id='". $this->get('id') ."'".
 				" ORDER BY ordering ASC" );
 	
 			// there is no rsgImage object yet, so we'll just load the row arrays directly
-			$this->items = $database->loadAssocList();
+			$this->itemRows = $database->loadAssocList();
+		}
+		return $this->itemRows;
+	}
+
+	/**
+	*  returns an array of item objects
+	*/
+	function items(){
+		// check if we need to generate the list
+		if( $this->items == null ){
+			$this->items = array();
+			
+			foreach( $this->itemRows as $row ){
+				$itemClass = $rsgItem::getCorrectItemClass( $row['name'] );
+				$this->items[$row['id']] = new $itemClass( $this, $row );
+			}
 		}
 		return $this->items;
 	}
-	
+
 	/**
 	*  returns basic information for this gallery
 	*/

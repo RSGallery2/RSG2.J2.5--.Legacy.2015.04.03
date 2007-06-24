@@ -24,7 +24,7 @@ class rsgItem_image extends rsgItem{
 	 */
 	$original = null;
 
-	rsgItem_image( &$gallery, $row){
+	__construct( &$gallery, $row){
 		$parent->rsgItem( &$gallery, $row );
 		
 		$this->_determineResources();
