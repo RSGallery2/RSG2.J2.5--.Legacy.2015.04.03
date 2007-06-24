@@ -397,7 +397,7 @@ class rsgGallery{
 	*  returns item by it's db id
 	*/
 	function getItem( $id ){
-		foreach( $this->items() as $item ){
+		foreach( $this->itemRows() as $item ){
 			if( $item['id'] == $id )
 				return $item;
 		}
