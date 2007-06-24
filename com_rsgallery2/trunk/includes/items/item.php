@@ -19,12 +19,12 @@ class rsgItem extends JObject{
 	/**
 	 * the parent gallery
 	 */
-	$gallery = null;
+	var $gallery = null;
 
 	/**
 	 * rsgResource: thumbnail for this item
 	 */
-	$thumb = null;
+	var $thumb = null;
 
 	/**
 	 * @param array a database row
@@ -65,7 +65,7 @@ class rsgItem extends JObject{
 		// get only the category of mime type
 		$type = $type[0];
 		
-		if( file_exists( JPATH_RSGALLERY2_ADMIN.'/includes/items/'. $type .'.php' ){
+		if( file_exists( JPATH_RSGALLERY2_ADMIN.'/includes/items/'. $type .'.php' )){
 			require_once( JPATH_RSGALLERY2_ADMIN.'/includes/items/'. $type .'.php' );
 			return "rsgItem_$type";
 		}
@@ -84,7 +84,7 @@ class rsgResource extends JObject{
 	/**
 	 * the unique name to retrieve this resource
 	 */
-	$name = null;
+	var $name = null;
 	
 	function __construct( $name ){
 		$this->name = $name;

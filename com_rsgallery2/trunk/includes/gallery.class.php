@@ -379,7 +379,7 @@ class rsgGallery{
 			$this->items = array();
 			
 			foreach( $this->itemRows as $row ){
-				$itemClass = $rsgItem::getCorrectItemClass( $row['name'] );
+				$itemClass = rsgItem::getCorrectItemClass( $row['name'] );
 				$this->items[$row['id']] = new $itemClass( $this, $row );
 			}
 		}
