@@ -14,7 +14,7 @@ class rsgXmlGalleryTemplate_Kirupa extends rsgXmlGalleryTemplate_generic{
 	global $rsgImagesItem;
         $this->output = '';
         $this->output .= "<images>\n";
-		foreach( $this->gallery->items() as $img ){
+		foreach( $this->gallery->itemRows() as $img ){
 			$this->output .= "<pic>\n";
 			$this->output .= "<thumb>";
 			$this->output .= imgUtils::getImgThumb( $img['name'] );

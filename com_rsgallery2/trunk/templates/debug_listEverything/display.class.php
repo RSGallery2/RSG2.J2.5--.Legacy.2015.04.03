@@ -67,7 +67,7 @@ function listEverything( $parent = 0 ){
     </tr>
 EOD;
 
-        foreach ( $gallery->items() as $item ){
+        foreach ( $gallery->itemRows() as $item ){
             echo "<tr>";
             echo '<td>';
                 echo $item['id'];

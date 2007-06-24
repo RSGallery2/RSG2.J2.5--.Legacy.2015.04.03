@@ -21,7 +21,7 @@ class rsgDisplay_photoBox extends rsgDisplay{
 	
 	function showThumbs ( $gallery ) {
 		$count = 0;
-		foreach ($gallery->items() as $item) {
+		foreach ($gallery->itemRows() as $item) {
 			$thumb = imgUtils::getImgThumb( $item['name'] );
 			$image_id = $item['id'];
 			?>
@@ -33,7 +33,7 @@ class rsgDisplay_photoBox extends rsgDisplay{
 	
 	function showImages ( $gallery ) {
 		$count = 0;
-		foreach ($gallery->items() as $item) {
+		foreach ($gallery->itemRows() as $item) {
 //			print '<pre>' .print_r($item,true) . '</pre>';
 			$title = $item['title'];
 			$name = $item['name'];

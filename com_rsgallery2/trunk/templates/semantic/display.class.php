@@ -454,7 +454,7 @@ class rsgDisplay_semantic extends rsgDisplay{
         
         $limitstart = mosGetParam ( $_REQUEST, 'limitstart', 0);
         $gallery = rsgGalleryManager::get( mosGetParam ( $_REQUEST, 'catid', 0) );
-        $items = $gallery->items();
+        $items = $gallery->itemRows();
         $image = $items[$limitstart];
         
         $this->writeSLideShowLink();

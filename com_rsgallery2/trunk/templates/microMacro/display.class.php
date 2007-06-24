@@ -31,7 +31,7 @@ class rsgDisplay_microMacro extends rsgDisplay{
 $galleryThumb
 <ul class='thumbs'>
 EOD;
-		foreach( $g->items() as $item ):
+		foreach( $g->itemRows() as $item ):
 			$thumb = imgUtils::getImgThumb( $item['name'] );
 			$original = imgUtils::getImgOriginal( $item['name'] );
 			$title = $item['title'];

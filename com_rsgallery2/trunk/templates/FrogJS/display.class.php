@@ -14,7 +14,7 @@ class rsgDisplay_FrogJS extends rsgDisplay_semantic{
 		function showThumbs(){
 			global $database, $rsgConfig, $rsgImagesItem;
 		 	echo "<div id='FrogJS'>";
-			foreach( $this->gallery->items() as $img ):
+			foreach( $this->gallery->itemRows() as $img ):
 				$thumb = imgUtils::getImgThumb( $img['name'] );
 				$display = imgUtils::getImgDisplay( $img['name'] );
 				$original = imgUtils::getImgOriginal( $img['name'] );

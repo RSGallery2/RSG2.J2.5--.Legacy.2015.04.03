@@ -168,7 +168,7 @@ class html_rsg2_galleries{
 
         foreach( $galleries as $g ){
             // print gallery details
-            echo "<li>". $g->get('name') ." (". count($g->items()) ." images)";
+            echo "<li>". $g->get('name') ." (". count($g->itemRows()) ." images)";
             html_rsg2_galleries::printTree( $g->kids() );
             echo "</li>";
         }

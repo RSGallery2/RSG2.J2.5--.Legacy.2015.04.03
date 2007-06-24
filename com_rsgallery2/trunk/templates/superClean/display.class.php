@@ -19,7 +19,7 @@ class rsgDisplay_superClean extends rsgDisplay{
 	}
 	
 	function showThumbs( $g ){
-		foreach( $g->items() as $item ){
+		foreach( $g->itemRows() as $item ){
 			$thumb = imgUtils::getImgThumb( $item['name'] );
 			$original = imgUtils::getImgOriginal( $item['name'] );
 			$name = $item['name'];

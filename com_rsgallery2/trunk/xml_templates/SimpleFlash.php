@@ -15,7 +15,7 @@ class rsgXmlGalleryTemplate_SimpleFlash extends rsgXmlGalleryTemplate_generic{
 		//$descr=rsgImagesItem::rsgImagesItem->descr( $img['name'] );
         $this->output = '';
         $this->output .= "<gallery>\n";
-		foreach( $this->gallery->items() as $img ){
+		foreach( $this->gallery->itemRows() as $img ){
 			$this->output .= "<image title=\"";
 			$this->output .= $img['name'];
 			$this->output .= "\" main=\"";

@@ -39,7 +39,7 @@ class rsgXmlGalleryTemplate_todd_dominey extends rsgXmlGalleryTemplate_generic{
 	<gallery timer="$timer" order="$order" fadeTime="$fadeTime" looping="$looping" xpos="$xpos" ypos="$ypos">
 	
 EOD;
-		foreach( $this->gallery->items() as $img ){
+		foreach( $this->gallery->itemRows() as $img ){
 			$this->output .= '  <image path="';
 			
 			switch( $imageSize ){

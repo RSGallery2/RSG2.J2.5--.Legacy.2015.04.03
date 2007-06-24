@@ -28,7 +28,7 @@ class rsgXmlGalleryTemplate_generic{
         $this->output = '';
         $this->output .= '<gallery name="'. $this->gallery->name .'">';
         
-        foreach( $this->gallery->items() as $img ){
+        foreach( $this->gallery->itemRows() as $img ){
             $this->output .= '  <image name="'. $img['name'] .'" />'."\n";
         }
         
