@@ -18,12 +18,15 @@ if( isset( $rsgConfig )) return;
 //Prepare for Joomla 1.5
 if( !defined( '_JEXEC' )){
     	// indicate we are emulating Joomla 1.5
-	DEFINE( 'JEMU15', 1 );
+	define( 'JEMU15', 1 );
 	
 	// setup a Joomla 1.5 environment
-	DEFINE( '_JEXEC', 1 );
-	DEFINE('JPATH_BASE', $mosConfig_absolute_path);
-	DEFINE('JPATH_ROOT', $mosConfig_absolute_path);
+	define( '_JEXEC', 1 );
+	define ('DS', "/");
+	define( 'JPATH_BASE', $mosConfig_absolute_path );
+	define( 'JPATH_ROOT', $mosConfig_absolute_path );
+	define( 'JPATH_LIBRARIES', JPATH_BASE . '/components/com_rsgallery2/lib/joomla_1.5/libraries' );
+	define( 'JPATH_THEMES', JPATH_BASE.DS.'templates' );
 }
 
 // initialize the rsg config file
@@ -35,14 +38,12 @@ if ($rsgConfig->get('debug'))
     error_reporting(E_ALL);
 
 //Set path globals for RSGallery2
-DEFINE('JPATH_RSGALLERY2_SITE', JPATH_ROOT.'/components/com_rsgallery2');
-DEFINE('JPATH_RSGALLERY2_ADMIN', JPATH_ROOT.'/administrator/components/com_rsgallery2');
-DEFINE('JPATH_RSGALLERY2_LIBS',JPATH_ROOT.'/components/com_rsgallery2/lib');
-DEFINE('JPATH_ORIGINAL', JPATH_ROOT.$rsgConfig->get('imgPath_original') );
-DEFINE('JPATH_DISPLAY', JPATH_ROOT.$rsgConfig->get('imgPath_display') );
-DEFINE('JPATH_THUMB', JPATH_ROOT.$rsgConfig->get('imgPath_thumb') );
-
-DEFINE ('DS', "/");
+define('JPATH_RSGALLERY2_SITE', JPATH_ROOT.'/components/com_rsgallery2');
+define('JPATH_RSGALLERY2_ADMIN', JPATH_ROOT.'/administrator/components/com_rsgallery2');
+define('JPATH_RSGALLERY2_LIBS',JPATH_ROOT.'/components/com_rsgallery2/lib');
+define('JPATH_ORIGINAL', JPATH_ROOT.$rsgConfig->get('imgPath_original') );
+define('JPATH_DISPLAY', JPATH_ROOT.$rsgConfig->get('imgPath_display') );
+define('JPATH_THUMB', JPATH_ROOT.$rsgConfig->get('imgPath_thumb') );
 
 $rsgOptions_path = JPATH_RSGALLERY2_ADMIN.'/options/';
 $rsgClasses_path = JPATH_RSGALLERY2_ADMIN.'/includes/';

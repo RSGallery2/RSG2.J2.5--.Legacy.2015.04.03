@@ -26,7 +26,9 @@ switch( rsgInstance::getVar( 'rsgOption', '' )) {
 				downloadFile($id);
 				break;
 			default:
+				// require the base class rsgDisplay
 				require_once( JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'meta' . DS . 'display.class.php' );
+				// show the template
 				template();
 		}
 }
@@ -40,9 +42,14 @@ function template(){
 	global $rsgConfig;
 
 	//Set template selection
-	$template = preg_replace( '#\W#', '', mosGetParam ( $_REQUEST, 'rsgTemplate', $rsgConfig->get('template') ));
+	$template = preg_replace( '#\W#', '', rsgInstance::getVar( 'rsgTemplate', $rsgConfig->get('template') ));
 	
-	require_once( JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template . DS . 'index.php');
+	$templateLocation = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template . DS . 'index.php';
+	
+	if( !file_exists( $templateLocation ))
+		JError::raiseError( '', "Template $template does not exist." );
+	else
+		require_once( $templateLocation );
 }
 
 function xmlFile(){
