@@ -378,7 +378,7 @@ class rsgGallery{
 		if( $this->items == null ){
 			$this->items = array();
 			
-			foreach( $this->itemRows as $row ){
+			foreach( $this->itemRows() as $row ){
 				$itemClass = rsgItem::getCorrectItemClass( $row['name'] );
 				$this->items[$row['id']] = new $itemClass( $this, $row );
 			}
@@ -425,5 +425,3 @@ class rsgGallery{
 		return $this->thumb;
 	}
 }
-
-?>

@@ -17,15 +17,15 @@ class rsgItem_image extends rsgItem{
 	/**
 	 * rsgResource: display image for this item
 	 */
-	$display = null;
+	var $display = null;
 
 	/**
 	 * rsgResource: the original image
 	 */
-	$original = null;
+	var $original = null;
 
-	__construct( &$gallery, $row){
-		$parent->rsgItem( &$gallery, $row );
+	function __construct( &$gallery, $row){
+		parent::__construct( &$gallery, $row );
 		
 		$this->_determineResources();
 	}
@@ -51,10 +51,12 @@ class rsgItem_image extends rsgItem{
 		return $this->original;
 	}
 
-	_determineResources(){
-		$thumb = $rsgConfig->get('imgPath_thumb') . DS . imgUtils::getImgNameThumb( $name );
-		$display = $rsgConfig->get('imgPath_display') . DS . imgUtils::getImgNameDisplay( $name );
-		$original = $rsgConfig->get('imgPath_original') . DS . $name;
+	function _determineResources(){
+		global $rsgConfig;
+		
+		$thumb = $rsgConfig->get('imgPath_thumb') . DS . imgUtils::getImgNameThumb( $this->name );
+		$display = $rsgConfig->get('imgPath_display') . DS . imgUtils::getImgNameDisplay( $this->name );
+		$original = $rsgConfig->get('imgPath_original') . DS . $this->name;
 		
 		if( file_exists( JPATH_ROOT . $original )){
 			// original image exists
@@ -68,11 +70,11 @@ class rsgItem_image extends rsgItem{
 		}
 		
 		// if original was smaller than thumb or display those won't exist
-		if( !file_exists( JPATH_ROOT . $thumb ){
+		if( !file_exists( JPATH_ROOT . $thumb )){
 			$this->thumb =& $this->original;
 			$this->display =& $this->original;
 		}
-		elseif( !file_exists( JPATH_ROOT . $display ){
+		elseif( !file_exists( JPATH_ROOT . $display )){
 			$this->thumb = new rsgResource( $thumb );
 			$this->display =& $this->original;
 		}
