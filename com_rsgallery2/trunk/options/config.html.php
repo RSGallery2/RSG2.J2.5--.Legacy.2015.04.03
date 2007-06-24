@@ -163,6 +163,12 @@ class html_rsg2_config{
         // this is why the templates were broken up, so i could call $tabs->func*() between them
         $tabs = new mosTabs(1);
         ?>
+        <script language="javascript" type="text/javascript">
+                function submitbutton(pressbutton) {
+                    <?php getEditorContents( 'editor1', 'intro_text' ) ; ?>
+                	submitform( pressbutton );
+                }
+         </script>
         <form action="index2.php" method="post" name="adminForm">
         <?php
         $tabs->startPane( 'rsgConfig' );
@@ -181,7 +187,8 @@ class html_rsg2_config{
 							<tr>
 								<td><?php echo _RSGALLERY_C_TMPL_INTRO_TEXT?></td>
 								<td>
-									<textarea class="text_area" cols="60" rows="2" style="width:500px; height:40px" name="intro_text"><?php echo $config->intro_text ?></textarea>
+									<?php editorArea( 'editor1',  $config->intro_text , 'intro_text', '100%;', '200', '10', '20' ) ; ?>
+									<!-- <textarea class="text_area" cols="60" rows="2" style="width:500px; height:40px" name="intro_text"><?php // echo $config->intro_text ?></textarea> -->
 								</td>
 							</tr>
 							<tr>
