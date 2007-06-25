@@ -95,7 +95,7 @@ class rsgResource extends JObject{
 	 */
 	function url(){
 		global $mosConfig_live_site;
-		return $mosConfig_live_site . DS . rawurlencode($name);
+		return $mosConfig_live_site . DS . rawurlencode( $this->name );
 	}
 	
 	/**
@@ -108,6 +108,6 @@ class rsgResource extends JObject{
 	 * @return the absolute local file path
 	 */
 	function filePath(){
-		return JPATH_ROOT . DS . rawurlencode($name);
+		return JPATH_ROOT . DS . rawurlencode( $this->name );
 	}
 }
