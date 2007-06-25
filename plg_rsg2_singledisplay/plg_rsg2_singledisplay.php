@@ -51,8 +51,7 @@ function bot_rsg2_singledisplay_replacer( &$matches ) {
 		
 		// get attributes from matches and create array
 		$attribs = split( ',',$matches[1] );
-		
-		if ( is_array( $attribs ) ) {//clean up the attribs, this can be used to do further data clean up currently only removing whitespaces and &nbsp;
+		if ( is_array( $attribs ) ) {
 			$clean_attribs = array ();
 			foreach ( $attribs as $attrib ) {
 				$clean_attrib = bot_rsg2_singledisplay_clean_data ( $attrib );
@@ -89,7 +88,7 @@ function bot_rsg2_singledisplay_replacer( &$matches ) {
 			return true; // if image array is not returned from gallery object then user specified wrong imageID SHOW NOTHING!
 		}
 		
-		if ( isset( $image_array ) ) {// Check if image array was returned
+		if ( is_array( ( $image_array ) ) ) {// Check if image array was returned
 			$output = bot_rsg2_singledisplay_display( $image_array, $image_size, $image_caption);
 			ob_start();// start output buffer
 				echo $output;// output content
@@ -163,12 +162,6 @@ function bot_rsg2_singledisplay_bool( $var ) {
     }
 }
 
-/**
- * clean up the input data
- *
- * @param string $attrib
- * @return string $attrib;
- */
 function bot_rsg2_singledisplay_clean_data ( $attrib ) {//remove &nbsp; and trim white space
 	$attrib = str_replace( "&nbsp;", '', "$attrib" );
 

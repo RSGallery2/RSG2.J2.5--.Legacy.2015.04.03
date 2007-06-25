@@ -29,10 +29,10 @@ function botMosRSGdisplay( $published, &$row, $mask=0, $page=0  ) {
   }
  
   // define the regular expression for the bot
-  $regex = "#{mosrsgdisplay\:*(.*?)}#s";
+  $regex = "#{rsg2_display\:*(.*?)}#s";
  
   // perform the replacement
-  $row->text = preg_replace_callback( $regex, 'botMosRSGdisplay_replacer', $row->text );
+  $row->text = preg_replace_callback( $regex, 'bot_rsg2_display_replacer', $row->text );
  
   return true;
 }
@@ -42,40 +42,40 @@ function botMosRSGdisplay( $published, &$row, $mask=0, $page=0  ) {
  * @param array $matches
  * @return string
  */
-function botMosRSGdisplay_replacer( &$matches ) {
+function bot_rsg2_display_replacer( &$matches ) {
 	if($matches) {
 		global $mosConfig_absolute_path;
 		global $mosConfig_lang;
 		
 		$attribs = explode(",",$matches[1]);
 	 	
-	 	$RSGDislay_gallery_attribute = $attribs[0];
-	 	$RSGDislay_template_attribute = $attribs[1];
+	 	$gallery_attribute =  bot_rsg2_display_clean_data( $attribs[0] );
+	 	( !isset( $attribs[1] ) ) ? $template_attribute = 'photoBox' : $template_attribute = bot_rsg2_display_clean_data( $attribs[1] );
+	 	
+	 
+	 	
+	 	if ( !file_exists( $mosConfig_absolute_path . '/components/com_rsgallery2/templates/' . $template_attribute . '/index.php' ) ) $template_attribute = 'photoBox';
 	 	
 	 	require_once( $mosConfig_absolute_path.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
-	 	require_once( JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'meta' . DS . 'display.class.php' );
 	 	
-	 	$_REQUEST['gid'] = $RSGDislay_gallery_attribute;
-	 	
-	 	ob_start();
-	 		RSGDisplay_template($RSGDislay_template_attribute);
-	 		$RSGDislay_content_output = ob_get_contents();
-	 	ob_end_clean();
-	 	
-	 	
-	 	return $RSGDislay_content_output;
+	 	if ((int)$gallery_attribute) {	
+		 	ob_start();
+				rsgInstance::instance( array( 'rsgTemplate' => $template_attribute, 'gid' => $gallery_attribute ) );
+				$content_output = ob_get_contents();
+			ob_end_clean();	
+			
+			return $content_output;
+	 	} else {
+	 		return '';
+	 	}
 	} else {
 		return '';
 	}
 }
 
-function RSGDisplay_template($template){
-	global $rsgConfig;
-	
-	//Set template selection
-	$template = preg_replace( '#\W#', '', $template);
-	
-	define( 'JPATH_RSGALLERY2_TEMPLATE', JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template );
-	require_once( JPATH_RSGALLERY2_TEMPLATE . DS . 'index.php');
+function bot_rsg2_display_clean_data ( $attrib ) {//remove &nbsp; and trim white space
+	$attrib = str_replace( "&nbsp;", '', "$attrib" );
+
+	return trim( $attrib );
 }
 ?>
