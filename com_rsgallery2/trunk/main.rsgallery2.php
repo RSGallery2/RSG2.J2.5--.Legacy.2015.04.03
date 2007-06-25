@@ -39,10 +39,10 @@ function xmlFile(){
     // require generic template which all other templates should extend
     require_once( JPATH_RSGALLERY2_SITE . '/xml_templates/generic.php' );
     // require the template specified to be used
-    require_once( JPATH_RSGALLERY2_SITE . '/xml_templates/' . $xmlTemplateFile );
+    require_once( JPATH_RSGALLERY2_SITE . '/xml_templates/' . $xmlTemplateFile . '.php' );
     
     // prepare and output xml
-    $xmlTemplate = "rsgXmlGalleryTemplate_$xmlTemplateName";
+    $xmlTemplate = "rsgXmlGalleryTemplate_$xmlTemplateFile";
     $xmlTemplate = new $xmlTemplate( $gallery );
     $xmlTemplate->prepare();
     $xmlTemplate->printHead();
