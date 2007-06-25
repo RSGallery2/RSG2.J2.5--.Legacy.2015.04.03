@@ -573,7 +573,12 @@ class JError
 
 		JResponse::setBody($data);
 		echo JResponse::toString();
-		$mainframe->close(0);
+
+// 		$mainframe->close(0);
+		echo '<pre>';
+		print_r( $error );
+		echo '</pre>';
+		die();
 	}
 }
 
