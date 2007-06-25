@@ -397,10 +397,8 @@ class rsgGallery{
 	*  returns item by it's db id
 	*/
 	function getItem( $id ){
-		foreach( $this->itemRows() as $item ){
-			if( $item['id'] == $id )
-				return $item;
-		}
+		$items = $this->getItems();
+		return $items[$id];
 	}
 	
 	/**
@@ -411,7 +409,7 @@ class rsgGallery{
 		if( $this->thumb == null ){
 			if( $this->thumb_id == 0 ){
 				// thumbnail not set, use random
-				$items = $this->itemRows();
+				$items = $this->items();
 				if( count( $items ) == 0 )
 					return null;
 
@@ -419,8 +417,7 @@ class rsgGallery{
 				$this->thumb = $items[0];
 			}
 			else{
-				$this->thumb = $this->getItemRows;
-				$this->thumb = $this->thumb[$this->thumb_id];
+				$this->thumb = $this->getItem( $this->thumb_id );
 			}
 		}
 		return $this->thumb;
