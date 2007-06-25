@@ -6,9 +6,10 @@
 * @package RSGallery2
 * @copyright (C) 2003 - 2006 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
-* @author woelzen[at]gmx[dot]de (modified May 25.2007)
+* @author woelzen[at]gmx[dot]de (modified Mar 09.2007)
 * RSGallery is Free Software
 **/
+
 defined( '_VALID_MOS' ) or die( 'Restricted access' );
 
 //rsgallery2.html.php
@@ -229,9 +230,6 @@ DEFINE("_RSGALLERY_FREETYPE_NOTINSTALLED",	"(Freetype library NICHT installiert!
 /*new*/DEFINE("_RSGALLERY_CONF_IMAGESTAB",		"Bilder");
 /*new*/DEFINE("_RSGALLERY_CONF_DISPLAY",		"Anzeige");
 /*new*/DEFINE("_RSGALLERY_CONF_USERS",		"Benutzer");
-/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_NEV",		"Niemals");
-/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_LIMIT",	"Wenn mehr Galerien als Limit");
-/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_ALW",		"Immer");
 //function showUploadStep1
 DEFINE("_RSGALLERY_PICK",					"W&auml;hle eine Galerie");
 //function showUploadStep2
@@ -337,6 +335,7 @@ DEFINE("_RSGALLERY_CONSOLIDATE_DB",
 " und f&uuml;hrt anschlie&szlig;nd diese Funktion aus, um die Datenbank zu aktuallisieren.<br/><br/>Bitte w&auml;hle 'Fortfahren' oder 'Abbrechen'.  Es".
 " werden keine &Auml;derungen erfolgen, solange der Benutzer diese nicht best&auml;igt hat.<br/>");
 DEFINE("_RSGALLERY_PROCEED",				"Fortfahren");
+
 //function editTemplateCSS
 DEFINE("_RSGALLERY_EDITCSS_FAIL_NOOPEN",	"Operation fehlgeschlagen: Fehler beim &Ouml;ffnen von");
 DEFINE("_RSGALLERY_EDITCSS_NOT_WRITABLE",	"Operation fehlgeschlagen: Die Datei ist nicht beschreibbar.");
@@ -366,10 +365,6 @@ DEFINE("_RSGALLERY_ERROR_SETTINGS",			"Die folgenden Einstellungen verhindern, d
 DEFINE("_RSGALLERY_REFRESH",				"Neu laden");
 //function writeDownloadLink
 DEFINE("_RSGALLERY_DOWNLOAD",				"Download");
-//function writeGalleryStatus
-/*new*/DEFINE("_RSGALLERY_STATUS_ARE_OWNER",	"Sie sind der Besitzer dieser Galerie");
-/*new*/DEFINE("_RSGALLERY_STATUS_CAN_UPLOAD",	"Sie k&ouml;nnen in dieser Galerie hochladen ");
-/*new*/DEFINE("_RSGALLERY_STATUS_NOT_PUBL",		"Diese Galerie ist NICHT ver&ouml;ffentlicht");
 
 //install.rsgallery2.php
 //function com_install
@@ -594,9 +589,4 @@ DEFINE("_RSGALLERY_SLIDE_PREV",			"Zur&uuml;ck");
 //function checkGallery
 /*new*/DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"Keine Berechtigungen gefunden, es wurden die Standard-Berechtigungen erstellt. Bitte noch einmal probieren.");
 
-//tables/display.class.php
-//function _showGalleryDetails
-/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"Besitzer: ");
-/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"Gr&ouml;&szlig;e: ");
-/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Erstellt: ");
 ?>
