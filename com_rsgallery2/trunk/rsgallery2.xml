@@ -463,6 +463,7 @@
 	<filename>includes/img.utils.php</filename>
 	<filename>includes/install.class.php</filename>
 	<filename>includes/instance.class.php</filename>
+	<filename>includes/items/audio.php</filename>
 	<filename>includes/items/image.php</filename>
 	<filename>includes/items/item.php</filename>
 	<filename>includes/mimetype.php</filename>
