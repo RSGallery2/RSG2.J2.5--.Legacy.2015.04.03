@@ -84,6 +84,9 @@ class fileUtils{
             case 'videoUtils':
                 return videoUtils::importImage( $imgTmpName, $imgName, $imgCat, $imgTitle, $imgDesc );
             break;
+            case 'audioUtils':
+                return videoUtils::importImage( $imgTmpName, $imgName, $imgCat, $imgTitle, $imgDesc );
+            break;
             default:
                 return new imageUploadError( $imgName, "$imgName"._RSGALLERY_FU_NOT_SUP_TYPE );
         }
@@ -123,16 +126,21 @@ class fileUtils{
         return $destination;
     }
     
-    function determineHandle( $filename ){
-        $ext = strtolower(substr(strrchr($filename, "."), 1));
-
-        if( in_array( $ext, imgUtils::allowedFileTypes() ))
-            return 'imgUtils';
-        else if( in_array( $ext, videoUtils::allowedFileTypes() ))
-            return 'videoUtils';
-        else
-            return false;
-    }
+	function determineHandle( $filename ){
+		require_once( JPATH_RSGALLERY2_ADMIN.'/includes/audio.utils.php' );
+		require_once( JPATH_RSGALLERY2_ADMIN.'/includes/video.utils.php' );
+	
+		$ext = strtolower(substr(strrchr($filename, "."), 1));
+	
+		if( in_array( $ext, imgUtils::allowedFileTypes() ))
+			return 'imgUtils';
+		else if( in_array( $ext, videoUtils::allowedFileTypes() ))
+			return 'videoUtils';
+		else if( in_array( $ext, audioUtils::allowedFileTypes() ))
+			return 'audioUtils';
+		else
+			return false;
+	}
 }
 
 
@@ -487,4 +495,3 @@ class fileHandler {
         }
     }   
 }//End class FileHandler
-?>

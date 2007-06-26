@@ -456,6 +456,7 @@
     <filename>help/screen.rsgallery2.html</filename>
 	
 	<filename>includes/access.class.php</filename>
+	<filename>includes/audio.utils.php</filename>
 	<filename>includes/config.class.php</filename>
 	<filename>includes/file.utils.php</filename>
 	<filename>includes/gallery.class.php</filename>
