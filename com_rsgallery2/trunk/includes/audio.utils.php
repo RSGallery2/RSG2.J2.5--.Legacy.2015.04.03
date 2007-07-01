@@ -60,4 +60,22 @@ class audioUtils extends fileUtils{
 
         return true;
     }
+    
+     function getAudio($name, $local=false){
+        global $mosConfig_live_site, $rsgConfig;
+        
+        $locale = $local? JPATH_ROOT : $mosConfig_live_site;
+        
+        // if thumb image exists return that, otherwise the original image width <= $thumb_width so we return the original image instead.
+        if( file_exists( JPATH_ROOT.$rsgConfig->get('imgPath_original') . '/' . audioUtils::getAudioName( $name ))){
+            return $locale  . $rsgConfig->get('imgPath_original') . '/' . audioUtils::getAudioName( $name );
+        }else {
+            return;
+        }
+    }
+    
+      
+    function getAudioName($name){
+        return $name;
+    }
 }

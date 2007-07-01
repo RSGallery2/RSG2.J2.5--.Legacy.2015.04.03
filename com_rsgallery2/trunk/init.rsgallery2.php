@@ -90,6 +90,7 @@ require_once(JPATH_RSGALLERY2_ADMIN.'/includes/instance.class.php');
 // require file utilities
 require_once( JPATH_RSGALLERY2_ADMIN.'/includes/file.utils.php' );
 require_once( JPATH_RSGALLERY2_ADMIN.'/includes/img.utils.php' );
+require_once( JPATH_RSGALLERY2_ADMIN.'/includes/audio.utils.php' );
 require_once( JPATH_RSGALLERY2_ADMIN.'/includes/items/item.php' );
 
 // contains misc. utility functions
