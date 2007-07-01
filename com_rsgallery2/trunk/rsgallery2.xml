@@ -16,6 +16,7 @@
     <filename>picklist.js</filename>
 	
 	<filename>flash/todd_dominey.swf</filename>
+	<filename>flash/xspf_player.swf</filename>
 	<filename>flash/kirupa_flash_xml_gallery.swf</filename>
 	<filename>flash/xmlphotogallery.swf</filename>
 	
@@ -414,8 +415,12 @@
 	<filename>templates/FrogJS/scripts/prototype.js</filename>
 	<filename>templates/FrogJS/scripts/scriptaculous.js</filename>
 	<filename>templates/FrogJS/scripts/slider.js</filename>
+	<filename>templates/xspf_Music_Player/display.class.php</filename>
+	<filename>templates/xspf_Music_Player/index.php</filename>
+	<filename>templates/xspf_Music_Player/templateDetails.xml</filename>
 	
 	<filename>xml_templates/Kirupa.php</filename>
+	<filename>xml_templates/xspf.php</filename>
 	<filename>xml_templates/generic.php</filename>
 	<filename>xml_templates/todd_dominey.php</filename>
 	<filename>xml_templates/SimpleFlash.php</filename>
