@@ -14,22 +14,68 @@ class rsgXmlGalleryTemplate_xspf extends rsgXmlGalleryTemplate_generic{
     }
     
     function prepare(){
-		$this->output = '';
+    	$this->output = '';
+    	$tempAudio = Array();
+		$albumArt = '';
 		
-		$this->output .= '<playlist version="0" xmlns="http://xspf.org/ns/0">';
-		$this->output .= '<trackList>';
+		$galleryName = $this->gallery->name;	
 		foreach ( $this->gallery->itemRows() as $audio ) {
-			$this->output .= '<track>';
-				$this->output .= '<title>';
-					$this->output .= $audio['name'];
-				$this->output .= '</title>';
-				$this->output .= '<location>';
-					$this->output .= audioUtils::getAudio( $audio['name'] );
-				$this->output .= '</location>';
-			$this->output .= '</track>';
+			$mimeType = MimeTypes::getMimeType(audioUtils::getAudio( $audio['name'] ));
+			if ( ( $mimeType == 'image/jpeg' || $mimeType == 'image/gif' || $mimeType == 'image/png')) {
+				$albumArt = '<image>';
+					$albumArt .= imgUtils::getImgDisplay( $audio['name'] );
+				$albumArt .= '</image>';
+			} else {
+				array_push ($tempAudio, array( 'title' => $audio['name'], 'location' => audioUtils::getAudio( $audio['name'] ),
+					'descr' => $audio['descr'] ));
+			}
+			
 		}
+		
+		
+		if ( count( $tempAudio ) ) {
+			$this->buildXML($albumArt, $tempAudio, $galleryName);	
+		} else {
+			return;
+		}
+    }
+    
+    function buildXML( $albumArt_temp, $audio_temp, $galleryName ) {
+    	$albumArt = '';
+    	if ( $albumArt_temp ) {
+    		$albumArt = $albumArt_temp;
+    	}
+    	
+    	$this->output .= '<playlist version="0" xmlns="http://xspf.org/ns/0">';
+    	$this->output .= '<title>';
+    		$this->output .= $galleryName;
+    	$this->output .= '</title>';
+		$this->output .= '<trackList>';
+		
+    	foreach ( $audio_temp as $audio ) {
+    		$this->output .= '<track>';
+				$this->output .= '<title>';
+					$this->output .= $audio['title'];
+				$this->output .= '</title>';
+				
+				$this->output .= '<location>';
+					$this->output .= $audio['location'];
+				$this->output .= '</location>';
+				
+				if( $audio['descr'] ) {
+					$this->output .= '<info>';
+						$this->output .= $audio['descr'];
+					$this->output .= '</info>';
+				}
+				
+				$this->output .= $albumArt;
+				
+			$this->output .= '</track>';
+    	}
+    	
 		$this->output .= '</trackList>';
 		$this->output .= '</playlist>';
+    	
     }
 }
 ?>

@@ -38,6 +38,8 @@ class audioUtils extends fileUtils{
             return $destination;
 
         $parts = pathinfo( $destination );
+        $newName = $parts['basename'];
+
         // fill $title if empty
         if( $title == '' ) 
             $title = substr( $parts['basename'], 0, -( strlen( $parts['extension'] ) + ( $parts['extension'] == '' ? 0 : 1 )));
@@ -51,10 +53,10 @@ class audioUtils extends fileUtils{
         $title = mysql_real_escape_string($title);
         $database->setQuery("INSERT INTO #__rsgallery2_files".
                 " (title, name, descr, gallery_id, date, ordering, userid) VALUES".
-                " ('$title', '$name', '$desc', '$cat', now(), '$ordering', '$my->id')");
+                " ('$title', '$newName', '$desc', '$cat', now(), '$ordering', '$my->id')");
         
         if (!$database->query()){
-            imgUtils::deleteImage( $parts['basename'] );
+           audioUtils::deleteAudio( $parts['basename'] );
             return new imageUploadError( $parts['basename'], $database->stderr(true) );
         }
 
@@ -74,6 +76,31 @@ class audioUtils extends fileUtils{
         }
     }
     
+    /**
+    * deletes all elements of image on disk and in database
+    * @param string name of image
+    * @return true if success or PEAR_Error if error
+    */
+	function deleteAudio($name){
+        global $database, $rsgConfig;
+        
+        $original   = JPATH_ORIGINAL . DS . $name;
+        
+        if( file_exists( $original ))
+            if( !unlink( $original ))
+                return new PEAR_Error( "error deleting original image: " . $original );
+        
+        $database->setQuery("SELECT gallery_id FROM #__rsgallery2_files WHERE name = '$name'");
+        $gallery_id = $database->loadResult();
+                
+        $database->setQuery("DELETE FROM #__rsgallery2_files WHERE name = '$name'");
+        if( !$database->query())
+            return new PEAR_Error( "error deleting database entry for image: " . $name);
+
+        galleryUtils::reorderRSGallery('#__rsgallery2_files', "gallery_id = '$gallery_id'");
+        
+        return true;
+    }
       
     function getAudioName($name){
         return $name;

@@ -16,9 +16,11 @@
     <filename>picklist.js</filename>
 	
 	<filename>flash/todd_dominey.swf</filename>
-	<filename>flash/xspf_player.swf</filename>
 	<filename>flash/kirupa_flash_xml_gallery.swf</filename>
 	<filename>flash/xmlphotogallery.swf</filename>
+	<filename>flash/xspf/xspf_player.swf</filename>
+	<filename>flash/xspf/xspf_player_slim.swf</filename>
+	<filename>flash/xspf/musicplayer.swf</filename>
 	
     <filename>js_highslide/highslide.css</filename>
     <filename>js_highslide/highslide.js</filename>

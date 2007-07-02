@@ -85,7 +85,7 @@ class fileUtils{
                 return videoUtils::importImage( $imgTmpName, $imgName, $imgCat, $imgTitle, $imgDesc );
             break;
             case 'audioUtils':
-                return videoUtils::importImage( $imgTmpName, $imgName, $imgCat, $imgTitle, $imgDesc );
+                return audioUtils::importImage( $imgTmpName, $imgName, $imgCat, $imgTitle, $imgDesc );
             break;
             default:
                 return new imageUploadError( $imgName, "$imgName"._RSGALLERY_FU_NOT_SUP_TYPE );

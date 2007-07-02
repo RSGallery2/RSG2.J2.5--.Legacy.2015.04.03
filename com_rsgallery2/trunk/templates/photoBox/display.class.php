@@ -9,7 +9,12 @@ defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 
 class rsgDisplay_photoBox extends rsgDisplay{
 	function mainPage(){
-		
+		foreach( $this->gallery->items() as $item ) {
+			if( is_a( $item, 'rsgItem_audio' ) ) {
+				echo 'This gallery currently only supports images';
+				return;
+			}
+		}
 		echo '<div id="photo-box">';
 			$this->showImages( $this->gallery );
 		echo '</div>';
@@ -34,7 +39,6 @@ class rsgDisplay_photoBox extends rsgDisplay{
 	function showImages ( $gallery ) {
 		$count = 0;
 		foreach ($gallery->itemRows() as $item) {
-//			print '<pre>' .print_r($item,true) . '</pre>';
 			$title = $item['title'];
 			$name = $item['name'];
 			$full_image = imgUtils::getImgDisplay($name);
