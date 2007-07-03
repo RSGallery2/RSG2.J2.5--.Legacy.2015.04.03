@@ -3,7 +3,7 @@
 /**
 * xml file for Slide Show Pro http://www.slideshowpro.net/
 * @package RSGallery2
-* @author Josiah Claassen <josiah@WhaleHosting.ca>
+* @author Anon. <josiah@WhaleHosting.ca>
 */
 
 class rsgXmlGalleryTemplate_slideshowpro extends rsgXmlGalleryTemplate_generic{
@@ -23,17 +23,33 @@ class rsgXmlGalleryTemplate_slideshowpro extends rsgXmlGalleryTemplate_generic{
         foreach( $this->gallery->kids() as $kid ){
             $title = htmlentities($kid->get("name"));
 		    $descr = htmlentities($kid->get("description"));
+		    
+		    // get  thumbnail item for gallery
 		    $thumb = $kid->thumb();
-		    $thumb = $thumb->thumb();
-		    $thumb = $thumb->name;
-			$this->output .= "<album id='$title' title='$title' description='$descr' lgPath='$mosConfig_live_site/$imgPath/' tnPath='$mosConfig_live_site/$thumbPath/' tn='$mosConfig_live_site/$thumbPath/$thumb'>";  
+		    if( $thumb ){
+				// get thumbnail resource of image item
+				$thumb = $thumb->thumb();
+				// get full url of thumbnail
+				$thumb = $thumb->url();
+		    }
+		    else $thumb = '';
+		    
+			$this->output .= "<album id='$title' title='$title' description='$descr' lgPath='$mosConfig_live_site/$imgPath/' tnPath='$mosConfig_live_site/$thumbPath/' tn='$thumb'>";  
 
 
             foreach( $kid->items() as $img ){
-            	$imgDescr = $img->("title");
+            	$imgDescr = $img->get("title");
+            	
+            	// get display resource of image item
+				$image = $img->display();
+				// name of image item
+				$image = $image->name;
+				// get just the filename
+				$image = pathinfo($image);
+				$image = $image["basename"];
             	
                 $this->output .= '  <img src="';
-                $this->output .= $thumb;
+                $this->output .= "$image";
                 $this->output .= '" caption="';
                 $this->output .= $imgDescr;
                 $this->output .= "\" />\n";
