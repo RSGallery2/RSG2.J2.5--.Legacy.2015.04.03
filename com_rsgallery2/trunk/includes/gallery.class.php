@@ -21,7 +21,7 @@ class rsgGalleryManager{
 	 *
 	 * @param id of item
 	 */
-	function getGalleryByItemID ( $id ) {
+	function getGalleryByItemID( $id ) {
 		global $database;
 		
 		if( !is_numeric( $id )) return false;
@@ -32,6 +32,11 @@ class rsgGalleryManager{
 		if ($gid) {
 			return rsgGalleryManager::get( $gid );	
 		}
+	}
+	
+	function getItem( $id ){
+		$gallery = getGalleryByItemID( $id );
+		return $gallery->getItem( $id );
 	}
 
     /**
