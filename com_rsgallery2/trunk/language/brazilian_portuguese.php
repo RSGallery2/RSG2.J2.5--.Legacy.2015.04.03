@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 /**
 * Brazilian portuguese languagefile for RSGallery

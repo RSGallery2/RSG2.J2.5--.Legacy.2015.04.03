@@ -1,11 +1,11 @@
 <?php
 /**
-* Dutch language file for RSGallery - (19-06-2007)
+* Dutch language file for RSGallery - (26-06-2007)
 * @version $Id$
 * @package RSGallery2
 * @copyright (C) 2003 - 2007 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
-* @author Bas van Kollenburg <www.dive-rescue.com>
+* @author Bas van Kollenburg <www.fantasea.nl>
 * RSGallery is Free Software
 **/
 
@@ -143,7 +143,7 @@ DEFINE("_RSGALLERY_COMMENT_DELETED",			"Het commentaar is met succes verwijderd!
 DEFINE("_RSGALLERY_COMMENT_NOT_DELETED",		"Het commentaar kon niet verwijderd worden");
 
 //function addComment
-DEFINE("_RSGALLERY_COMMENT_FIELD_CHECK",		"Vul aub uw naam en /of commentaar in!");
+DEFINE("_RSGALLERY_COMMENT_FIELD_CHECK",		"Vul aub uw naam en/of commentaar in!");
 DEFINE("_RSGALLERY_COMMENT_ADDED",		 	"Commentaar succesvol toegevoegd!");
 DEFINE("_RSGALLERY_COMMENT_NOT_ADDED",			"Commentaar niet toegevoegd!");
 

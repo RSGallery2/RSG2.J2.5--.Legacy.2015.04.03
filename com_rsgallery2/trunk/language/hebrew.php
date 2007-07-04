@@ -172,10 +172,16 @@ DEFINE("_RSGALLERY_C_PURGE",				"למחוק הכל");
 DEFINE("_RSGALLERY_C_REALLY_UNINSTALL",		"האם באמת להסיר - למחוק את כל התמונות, ספריות, להסיר את כל הטבלאות. רק בשרתי לינוקס עם ספריות ברירת המחדל.");
 DEFINE("_RSGALLERY_C_VIEW_CONFIG",			"הגדרות - תצוגה");
 DEFINE("_RSGALLERY_C_EDIT_CONFIG",			"הגדרות - עריכה גולמית");
+//function showInstallForm
+/*new*/DEFINE("_RSGALLERY_INST_UPL_PCK_FILE",		"העלאת קובץ ארוז");
+/*new*/DEFINE("_RSGALLERY_INST_PCK_FILE",		"קובץ ארוז:");
+//function showInstallMessage
+/*new*/DEFINE("_RSGALLERY_INST_MES_CONTINUE",	"המשך ...");
 //function requestCatCreation
 DEFINE("_RSGALLERY_C_CAT_FIRST",			"צור קטגוריה תחילה!");
 //function batch_upload
 DEFINE("_RSGALLERY_BATCH_NO_ZIP",			"קבצי הארכיב נבחרו אך לא סומן קובץ");
+/*new*/DEFINE("_RSGALLERY_BACTCH_NOT_VALID_ZIP",		" אינו נתמך כקובץ ארכיב. רק קבצי ארכיב מסוג זיפ נתמכים!");
 DEFINE("_RSGALLERY_BATCH_GAL_FIRST",		"אנא בחר קטגוריה תחילה");
 DEFINE("_RSGALLERY_BATCH_NO_FTP",			"לא סופק נתיב לשרת ה- FTP");
 DEFINE("_RSGALLERY_BATCH_STEP1",			"שלב ראשון");
@@ -229,9 +235,9 @@ DEFINE("_RSGALLERY_CONF_GENERALTAB",		"כללי");
 DEFINE("_RSGALLERY_CONF_IMAGESTAB",		"תמונות");
 DEFINE("_RSGALLERY_CONF_DISPLAY",		"תצוגה");
 DEFINE("_RSGALLERY_CONF_USERS",		"הרשאות");
-/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_NEV",		"לעולם לא");
-/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_LIMIT",	"כאשר קיימות יותר גלריות מההגבלה");
-/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_ALW",		"תמיד");
+DEFINE("_RSGALLERY_CONF_LIMIT_NEV",		"לעולם לא");
+DEFINE("_RSGALLERY_CONF_LIMIT_LIMIT",	"כאשר קיימות יותר גלריות מההגבלה");
+DEFINE("_RSGALLERY_CONF_LIMIT_ALW",		"תמיד");
 //function showUploadStep1
 DEFINE("_RSGALLERY_PICK",					"בחר גלריה");
 //function showUploadStep2
@@ -243,6 +249,7 @@ DEFINE("_RSGALLERY_UPLOAD_FORM_IMAGE",		"תמונה");
 DEFINE("_RSGALLERY_CATNAME",				"שם הגלריה");
 DEFINE("_RSGALLERY_UPLOAD_FORM_FILE",		"קובץ");
 //function viewImages
+/*new*/DEFINE("_RSGALLERY_NO_PREVIEW ",		"תצוגה מקדימה אינה זמינה");
 DEFINE("_RSGALLERY_DELETE",					"מחק");
 DEFINE("_RSGALLERY_MOVETO",					"העבר אל");
 DEFINE("_RSGALLERY_NUMDISPLAY",				"מספר תצוגה #");
@@ -253,6 +260,13 @@ DEFINE("_RSGALLERY_IMAGECAT",				"גלריה");
 DEFINE("_RSGALLERY_IMAGEHITS",				"כניסות");
 DEFINE("_RSGALLERY_IMAGEDATE",				"תאריך העלאה");
 DEFINE("_RSGALLERY_REORDER",				"סידור מחדש");
+DEFINE("_RSGALLERY_SEL_TO_DEL",		"למחיקה אנא בחר מהרשימה");
+DEFINE("_RSGALLERY_SURE_DEL",		"למחוק הפריטים שסומנו? ");
+DEFINE("_RSGALLERY_SEL_TO_MOVE",		"להעברה אנא בחר מהרשימה");
+DEFINE("_RSGALLERY_SEL_GAL_TO_MOVE",	"אנא בחר גלריה מהרשימה להעברת התמונות ");
+DEFINE("_RSGALLERY_SURE_MOVE",		"האם להעביר פריטים מסומנים?");
+DEFINE("_RSGALLERY_ORDER_UP",		"העבר למעלה");
+DEFINE("_RSGALLERY_ORDER_DOWN",		"העבר למטה");
 //function showTemplates
 DEFINE("_RSGALLERY_TEMP_MANG",				"מנהל תבניות");
 DEFINE("_RSGALLERY_RSG_NAME",				"RSGallery2");
@@ -273,6 +287,9 @@ DEFINE("_RSGALLERY_NOT_WORKING",		"עדיין לא מופעל");
 DEFINE("_RSGALLERY_DEL_FROM_SYSTEM",		"מחיקה ממערכת הקבצים");
 DEFINE("_RSGALLERY_CREATE_MISSING_IMG",		"יצירת תמונות חסרות");
 DEFINE("_RSGALLERY_CREATE_DB_ENTRIES",		"יצירת רישום במסד הנתונים");
+/*new*/DEFINE("_RSGALLERY_CONSDB_IMG_IN_FLDR",		"התמונה בסיפרייה");
+/*new*/DEFINE("_RSGALLERY_CONSDB_IMG__NOT_IN_FLDR",		"התמונה אינה בסיפרייה");
+/*new*/DEFINE("_RSGALLERY_ ",		"");
 
 //admin.rsgallery2.php
 DEFINE("_RSGALLERY_HEAD_CONFIG",		"תצורה");
@@ -297,6 +314,10 @@ DEFINE("_RSGALLERY_PURGE_IMG",				"ניקוי מסד הנתונים מרישומ
 DEFINE("_RSGALLERY_PURGE_GAL",				"ניקוי מסד הנתונים מרישומי הגלריות.");
 DEFINE("_RSGALLERY_PURGE_CONFIG",			"ניקוי מסד הנתונים מהגדרות התצורה.");
 DEFINE("_RSGALLERY_PURGE_COMMENTS",			"ניקוי מסד הנתונים מרישומי התגובות.");
+/*new*/DEFINE("_RSGALLERY_PURGE_THUMB",		"הסרת תמונות ממוזערות.");
+/*new*/DEFINE("_RSGALLERY_PURGE_DISPLAY",	"הסרת תמונות תצוגה.");
+/*new*/DEFINE("_RSGALLERY_PURGE_ORIGINAL",	"הסרת תמונות מקור.");
+/*new*/DEFINE("_RSGALLERY_PURGE_PURGED",	"התמונות הוסרו.");
 //function reallyUninstall
 DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Used rm -r to attempt to remove $mosConfig_absolute_path/images/rsgallery");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"DROPed #__rsgallery2_files");
@@ -308,6 +329,12 @@ DEFINE("_RSGALLERY_REAL_UNINST_DONE",		"Done.  Manually remove anything above if
 DEFINE("_RSGALLERY_ALERT_IMGDELETEOK",		"התמונות נמחקו בהצלחה!");
 //function c_delete
 DEFINE("_RSGALLERY_ALERT_IMGDELETENOTOK",	"התמונות לא נמחקו!");
+//function c_create
+/*new*/DEFINE("_RSGALLERY_CC_NO_FILE_INFO",		"לא אותר מידע לקובץ. מצב זה אסור שישנה!");
+//function db_create
+/*new*/DEFINE("_RSGALLERY_DB_CREATE_NO_GAL",		"לא נבחרה גלריה עבור התמונה!");
+/*new*/DEFINE("_RSGALLERY_DB_CREATE_IMG_SUCCES ",		"התמונות הוספו למסד הנתונים בהצלחה!");
+/*new*/DEFINE("_RSGALLERY_DB_CREATE_IMG_FAIL",		"הוספת התמונות למסד הנתונים לא הצליחה!");
 //function save_batchupload
 DEFINE("_RSGALLERY_ALERT_NOCATSELECTED",	"אנא בחר גלריה לכל התמונות!\\n(גם לתמונות שמיועדות למחיקה.\\nnבאג זה יתוקן בגרסאות הבאות!)");
 DEFINE("_RSGALLERY_ZIP_TO_BIG",				"קובץ הארכיב גדול מדי!");
@@ -348,6 +375,11 @@ DEFINE("_RSGALLERY_ISWRITABLE_WRITABLE",	"ניתן לשינוי");
 DEFINE("_RSGALLERY_ISWRITABLE_UNWRITABLE",	"לא ניתן לשינוי");
 DEFINE("_RSGALLERY_MAKE_WRITABLE",			"לאחר שמירה הקובץ יהפוך ללא ניתן לשינוי");
 DEFINE("_RSGALLERY_OVERWRITE_WRITABLE",		"ביטול הגנת כתיבה בזמן השמירה");
+//function uploadFile
+DEFINE("_RSGALLERY_ERMSG_FAILD_CHMOD",	"Failed to change the permissions of the uploaded file.");
+DEFINE("_RSGALLERY_ERMSG_FAILD_MOVE_MEDIA",	"Failed to move uploaded file to <code>/media</code> directory.");
+DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_WRITE",	"Upload failed as <code>/media</code> directory is not writable.");
+DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_EXIST",	"Upload failed as <code>/media</code> directory does not exist.");
 
 //config.rsgallery2.php
 //function toString
@@ -356,8 +388,12 @@ DEFINE("_RSGALLERY_CONF_ERROR_UPLOAD",		" - שגיאה בהעלאת תמונה :
 DEFINE("_RSGALLERY_SELECT_GAL_DROP_BOX",		"- בחר גלריה -");
 //function galleriesSelectList
 DEFINE("_RSGALLERY_SELECT_GAL_TOP",		"למעלה");
+//function showRating
+/*new*/DEFINE("_RSGALLERY_RATE_NONE",		"אין דירוג");
 //function newImages
 DEFINE("_RSGALLERY_NEW",				"חדש!");
+//function latestCats
+/*new*/DEFINE("_RSGALLERY_NO_NEW_ENT",		"אין כניסות חדשות");
 //function writeWarningBox
 DEFINE("_RSGALLERY_NO_IMGLIBRARY",			"There was no available image libray detected! Please contact your hosting provider to install GD2 or check the forums to install either ImageMagick or NETPBM!");
 DEFINE("_RSGALLERY_NOT_WRITABLE",			" לא ניתן לכתיבה!");
@@ -367,9 +403,9 @@ DEFINE("_RSGALLERY_REFRESH",				"רענן");
 //function writeDownloadLink
 DEFINE("_RSGALLERY_DOWNLOAD",				"הורד");
 //function writeGalleryStatus
-/*new*/DEFINE("_RSGALLERY_STATUS_ARE_OWNER",	"הגלריה הזאת בבעלותך");
-/*new*/DEFINE("_RSGALLERY_STATUS_CAN_UPLOAD",	"אתה יכול להעלות תמונות לגלריה זו");
-/*new*/DEFINE("_RSGALLERY_STATUS_NOT_PUBL",		"גלריה זו מוגדרת לא לפירסום");
+DEFINE("_RSGALLERY_STATUS_ARE_OWNER",	"הגלריה הזאת בבעלותך");
+DEFINE("_RSGALLERY_STATUS_CAN_UPLOAD",	"אתה יכול להעלות תמונות לגלריה זו");
+DEFINE("_RSGALLERY_STATUS_NOT_PUBL",		"גלריה זו מוגדרת לא לפירסום");
 
 //install.rsgallery2.php
 //function com_install
@@ -386,6 +422,7 @@ DEFINE("_RSGALLERY_TOOL_UP",				"העלאה");
 DEFINE("_RSGALLERY_TOOL_NEXT",				"הבא");
 DEFINE("_RSGALLERY_TOOL_DELETE",			"מחק");
 DEFINE("_RSGALLERY_TOOL_CONFIRM_DEL",		"אשר מחיקה");
+DEFINE("_RSGALLERY_TOOL_RES_HITS",	"איפוס כניסות");
 
 //config.html
 DEFINE("_RSGALLERY_C_TMPL_VERSION",			"גרסה");
@@ -506,20 +543,20 @@ DEFINE("_RSGALLERY_INSTALL_DIR_CREATED",			"ספריה נוצרה: ");
 DEFINE("_RSGALLERY_INSTALL_DIR_NOTCREATED",		"לא ניתן ליצור ספריה ");
 //function deleteGalleryDir
 DEFINE("_RSGALLERY_DELGAL_PROCES",				"מעבד: ");
-DEFINE("_RSGALLERY_DELGAL_OK",					"Directory structure deleted!");
-DEFINE("_RSGALLERY_DELGAL_NOTOK",				"Deleting old directory structure failed.");
-DEFINE("_RSGALLERY_DELGAL_NO_OLD_DIR",			"No old directory structure found. Let's continue");
+DEFINE("_RSGALLERY_DELGAL_OK",					"מבנה הספריות נמחק!");
+DEFINE("_RSGALLERY_DELGAL_NOTOK",				"מחיקת מבנה הספריות הישן נכשל.");
+DEFINE("_RSGALLERY_DELGAL_NO_OLD_DIR",			"לא נמצא מבנה ספריות ישן. בואו נמשיך");
 //function checkDirPerms
-DEFINE("_RSGALLERY_PERMS_NOT_EXIST",				" Does not exist. Please create manually through FTP and check permissions");
+DEFINE("_RSGALLERY_PERMS_NOT_EXIST",				" לא קיים. אנא צור אותו בצורה ידנית ובדוק הרשאות");
 DEFINE("_RSGALLERY_PERMS_NOT_SET",				" was found, but correct permissions(777) could not be set.\nPermissions are currently set at ");
 DEFINE("_RSGALLERY_PERMS_NOT_SET_TRY_FTP",		".<br />Please try to correct these permissions though FTP.");
-DEFINE("_RSGALLERY_PERMS_OK",					" was found, permissions are OK.");
+DEFINE("_RSGALLERY_PERMS_OK",					" נמצא. הרשאות תקינות.");
 //function installComplete
-DEFINE("_RSGALLERY_INSTALL_COMPLETE",			"Installation of RSGallery is completed");
-DEFINE("_RSGALLERY_INSTALL_STATUS_MSGS",			"If there are any status messages that need attention, please do so now, before going to the Control Panel.");
+DEFINE("_RSGALLERY_INSTALL_COMPLETE",			"ההתקנה עברה בהצלחה");
+DEFINE("_RSGALLERY_INSTALL_STATUS_MSGS",			"אם קיימות הודעות סטטוס הדורשות התיחסות אנא טפלו בהם עכשיו לפני מעבר ללוח הבקרה.");
 //function deleteTable
-DEFINE("_RSGALLERY_TABLEDEL_OK",					" is deleted");
-DEFINE("_RSGALLERY_TABLEDEL_NOTOK",				" could not be deleted.<br />Delete manually.");
+DEFINE("_RSGALLERY_TABLEDEL_OK",					" נמחק");
+DEFINE("_RSGALLERY_TABLEDEL_NOTOK",				" לא ניתן למחיקה.<br />אנא מחקו בצורה ידנית.");
 //function migrateOldFiles
 DEFINE("_RSGALLERY_MIGRATE_NOT_ALL",			"Not all file information was migrated to RSGallery2 database, due to unknown reasons(");
 DEFINE("_RSGALLERY_MIGRATE_OUT_OF",			" out of ");
@@ -528,21 +565,21 @@ DEFINE("_RSGALLERY_MIGRATE_ALL",				"All file information migrated to RSGallery2
 //function migrateOldCats
 DEFINE("_RSGALLERY_MIGRATE_NOT_ALL_GAL",		"Not all gallery information was migrated to RSGallery2 database, due to unknown reasons(");
 DEFINE("_RSGALLERY_MIGRATE_ALL_GAL",			"All gallery information migrated to RSGallery2 database(");
-DEFINE("_RSGALLERY_MIGRATE_ALL_FILES",		"Files succesfully copied to new structure");
-DEFINE("_RSGALLERY_MIGRATE_NOTALL_FILES",		"There were errors copying files to the new structure");
+DEFINE("_RSGALLERY_MIGRATE_ALL_FILES",		"הקבצים הועתקו בהצלחה למבנה החדש");
+DEFINE("_RSGALLERY_MIGRATE_NOTALL_FILES",		"קיימות שגיאות בהעברת הקבצים למבנה החדש");
 DEFINE("_RSGALLERY_MIGRATE_ZOOM_OK",		"migration of Zoom Gallery completed. Goto the Control Panel.");
 //function upgradeInstall
 DEFINE("_RSGALLERY_UPGRADE_RSG",		"Upgrade from RSGallery");
 DEFINE("_RSGALLERY_UPGRADE_REC_FULL",		"Component found, but no version information available.<br />Full install is recommended.");
-DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF",		"Original files succesfully transfered");
+DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF",		"קבצי מקור הועברו בהצלחה");
 DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF_ERROR",		"There were errors transferring original files to the new structure.\nPlease check via FTP");
-DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF",		"Thumb files succesfully transfered");
+DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF",		"קבצי התמונות הממוזערות הועברו בהצלחה");
 DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF_ERROR",		"There were errors transferring thumb files to the new structure.<br />Please check via FTP");
-DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE",		"Display images created succesfully.");
+DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE",		"קבצי התצוגה הועברו בהצלחה.");
 DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE_ERROR",		"Failed to create some or all of the display images.<br />Contact the developers of this component.");
 DEFINE("_RSGALLERY_UPGRADE_TABLE",		"Table ");
-DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_OK",		" is succesfully altered");
-DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_ERROR",		" is NOT succesfully altered");
+DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_OK",		" שונה בהצלחה");
+DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_ERROR",		" לא שונה בהצלחה");
 DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_OK",		" is succesfully renamed");
 DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_ERROR",		"");
 DEFINE("_RSGALLERY_UPGRADE_DUMMY_ERROR",		"Error creating dummy tables. Uninstall of RSGallery 2.0 beta 5 might not work.");
@@ -596,7 +633,36 @@ DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"לא נמצאו הרשאות לכן נ
 
 //tables/display.class.php
 //function _showGalleryDetails
-/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"הועלה על ידי: ");
-/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"מס' תמונות: ");
-/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"תאריך: ");
+DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"הועלה על ידי: ");
+DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"מס' תמונות: ");
+DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"תאריך: ");
+
+//file.utils.php
+//function importImage
+/*new*/DEFINE("_RSGALLERY_FU_NOT_SUP_TYPE",		" אינו קובץ נתמך.");
+//function move_uploadedFile_to_orignalDir
+/*new*/DEFINE("_RSGALLERY_FU_UNABLE_COPY",		"לא ניתן להעתקה ");
+/*new*/DEFINE("_RSGALLERY_FU_IMAGE_TO",		" תמונה ל: ");
+//function preHandlerCheck
+/*new*/DEFINE("_RSGALLERY_FU_NOT_WRITABLE",		" קיימת, אך לא ניתן לדרוס אותה!");
+/*new*/DEFINE("_RSGALLERY_FU_NOT_EXIST",		" לא קיימת!");
+//function cleanMediaDir
+/*new*/DEFINE("_RSGALLERY_FU_APPARENTLY",		"נראה ש- ");
+/*new*/DEFINE("_RSGALLERY_FU_DOESNT_EXIST",		"לא קיימת");
+//function handleFTP
+/*new*/DEFINE("_RSGALLERY_FU_FTP_DIR_NOT_EXIST",		" לא קיימת או לא ספריה על השרת. אנא בדקו את הנתיב שנית.");
+/*new*/DEFINE("_RSGALLERY_FU_NO_VALID_IMG",		"לא נמצאו תמונות נתמכות ב- ");
+/*new*/DEFINE("_RSGALLERY_FU_PLEASE_CHECK_PATH",		". אנא בדקו את הנתיב שנית.");
+/*new*/DEFINE("_RSGALLERY_FU_NO_FILES",		"לא נמצאו קבצים עבור פעולה זו!");
+/*new*/DEFINE("_RSGALLERY_FU_MAX_FILESIZE",		"גודל הקובץ עולה על הגודל המרבי המוגדר ");
+/*new*/DEFINE("_RSGALLERY_FU_IN_PINI",		" in php.ini.");
+/*new*/DEFINE("_RSGALLERY_FU_MAX_FILESIZE_FORM",		"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.");
+/*new*/DEFINE("_RSGALLERY_FU_PARTIAL_UPL",		"הקובץ הועלה חלקית בלבד.");
+/*new*/DEFINE("_RSGALLERY_FU_NO_UPL",		"לא הועלה קובץ.");
+/*new*/DEFINE("_RSGALLERY_FU_MISS_TEMP_DIR",		"לא נמצאה ספריה זמנית.");
+/*new*/DEFINE("_RSGALLERY_FU_FAIL_WRITE_DISK",		"לא הצליחה הכתיבה לכונן");
+/*new*/DEFINE("_RSGALLERY_FU_UPL_STOP_EXT",		"העלאת הקובץ הופסקה");
+/*new*/DEFINE("_RSGALLERY_FU_UNKW_ERROR",		"שגיאה לא ברורה");
+
+//stopped at gallery.class.php
 ?>
