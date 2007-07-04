@@ -24,11 +24,17 @@ class html_rsg2_images {
 		
 		?>
 		<script language="Javascript">
-        function showInfo(name, title, description) {
-                var src = '<?php echo $mosConfig_live_site.$rsgConfig->get('imgPath_display'); ?>/'+name+'.jpg';
+        function showInfo(name, title, description, type) {
+        	if (type == 'image') {
+        		var src = '<?php echo $mosConfig_live_site.$rsgConfig->get('imgPath_display'); ?>/'+name+'.jpg';
                 var html=name;
                 html = '<table width="250" border="0"><tr><td colspan="3"><img border="1" src="'+src+'" name="imagelib" alt="No preview available" width="250" /></td></tr><tr><td><strong>Filename:</strong></td><td>'+name+'</td></tr><tr><td valign="top"><strong>Description:</strong></td><td>'+description+'</td></tr></table>';
-                return overlib(html, CAPTION, title);
+                return overlib(html, CAPTION, title);	
+        	} else if (type == 'audio'){
+        		var html = name;
+        		html = '<table width="250" border="0"><tr><td><strong>Filename:</strong></td><td>'+name+'</td></tr><tr><td valign="top"><strong>Description:</strong></td><td>'+description+'</td></tr></table>';
+        		return overlib(html, CAPTION, title);
+        	}
         }
         </script>
         
@@ -94,8 +100,13 @@ class html_rsg2_images {
 				if ( $row->checked_out && ( $row->checked_out != $my->id ) ) {
 					echo $row->title;
 				} else {
+					if (is_a( rsgGalleryManager::getItem( $row->id ), 'rsgItem_audio' ) ) {
+						$type = 'audio';
+					} else {
+						$type = 'image';
+					}
 					?>
-					<a href="<?php echo $link; ?>" title="<?php echo _RSGALLERY_IMG_EDIT_IMG?>" onmouseover="showInfo('<?php echo $row->name;?>', '<?php echo $row->title;?>', '<?php echo $row->descr;?>')" onmouseout="return nd();">
+					<a href="<?php echo $link; ?>" title="<?php echo _RSGALLERY_IMG_EDIT_IMG?>" onmouseover="showInfo('<?php echo $row->name;?>', '<?php echo $row->title;?>', '<?php echo $row->descr;?>', '<?php echo $type?>')" onmouseout="return nd();">
 					<?php echo $row->title; ?>&nbsp;(<?php echo $row->name;?>)
 					</a>
 					<?php
@@ -154,7 +165,7 @@ class html_rsg2_images {
 	* @param string The option
 	*/
 	function editImage( &$row, &$lists, &$params, $option ) {
-		global $rsgOption;
+		global $rsgOption, $mosConfig_live_site;
 		mosMakeHtmlSafe( $row, ENT_QUOTES, 'descr' );
 		
 		mosCommonHTML::loadOverlib();
@@ -233,7 +244,17 @@ class html_rsg2_images {
 				<tr>
 					<td>
 						<div align="center">
-						<img width="300" border="1" src="<?php echo imgUtils::getImgDisplay($row->name);?>" alt="<?php echo htmlspecialchars(stripslashes($row->descr), ENT_QUOTES);?>" />
+						<?php 
+						if (is_a( rsgGalleryManager::getItem( $row->id ), 'rsgItem_audio' ) ) {
+							?>
+							<object type="application/x-shockwave-flash" width="400" height="15" data="<?php echo $mosConfig_live_site ?>/components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=<?php echo $row->name?>&song_url=<?php echo audioUtils::getAudio($row->name)?>"><param name="movie" value="<?php echo $mosConfig_live_site ?>/components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=<?php echo $row->title?>&song_url=<?php echo audioUtils::getAudio($row->name)?>" /></object>
+							<?php
+						} else {
+							?>
+							<img width="300" border="1" src="<?php echo imgUtils::getImgDisplay($row->name);?>" alt="<?php echo htmlspecialchars(stripslashes($row->descr), ENT_QUOTES);?>" />
+							<?php
+						}
+						?>
 						</div>
 					</td>
 				</tr>

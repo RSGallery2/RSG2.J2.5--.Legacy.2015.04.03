@@ -35,7 +35,7 @@ class rsgGalleryManager{
 	}
 	
 	function getItem( $id ){
-		$gallery = getGalleryByItemID( $id );
+		$gallery = rsgGalleryManager::getGalleryByItemID( $id );
 		return $gallery->getItem( $id );
 	}
 
@@ -404,7 +404,7 @@ class rsgGallery{
 	*  returns item by it's db id
 	*/
 	function getItem( $id ){
-		$items = $this->getItems();
+		$items = $this->items();
 		return $items[$id];
 	}
 	
