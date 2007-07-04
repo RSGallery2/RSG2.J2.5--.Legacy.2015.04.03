@@ -325,25 +325,27 @@ class rsgGallery{
 
 		$this->thumb();
 
-		// generate some vars
-		$this->url 				= sefRelToAbs("index.php?option=com_rsgallery2&Itemid=$Itemid&catid=".$this->get('id'));
 		//Write status icons
-		$this->status 			= galleryUtils::writeGalleryStatus( $this->get('id'));
+		$this->status = galleryUtils::writeGalleryStatus( $this->get('id'));
 		//Write owner name
-		$this->owner 			= galleryUtils::genericGetUserName( $this->get('uid') );
+		$this->owner = galleryUtils::genericGetUserName( $this->get('uid') );
 
         //Write HTML for thumbnail
-		$this->thumbHTML 		= "<a href=\"".$this->url."\">".galleryUtils::getThumb( $this->get('id'),0,0,"" )."</a>";
+		$this->thumbHTML = "<a href=\"".$this->url."\">".galleryUtils::getThumb( $this->get('id'),0,0,"" )."</a>";
 		
 		//Write gallery name
 		//TODO: sef is only included for frontend stuff.  perhaps this shouldn't be here?....
-		if( function_exists( 'sefRelToAbs' ) )
+		if( function_exists( 'sefRelToAbs' ) ){
+			$this->url = sefRelToAbs("index.php?option=com_rsgallery2&Itemid=$Itemid&gid=".$this->get('id'));
 			$this->galleryName = "<a class='rsg2-galleryList-title' href=\"".sefRelToAbs($this->url)."\">".htmlspecialchars(stripslashes($this->get('name')), ENT_QUOTES)."</a>";
-		else
+		}
+		else{
+			$this->url = "index.php?option=com_rsgallery2&Itemid=$Itemid&gid=".$this->get('id');
 			$this->galleryName = htmlspecialchars( stripslashes( $this->get( 'name' )));
-
+		}
+		
 		//Write description
-		$this->description  	= ampReplace($this->get('description'));
+		$this->description = ampReplace($this->get('description'));
 	}
 	
 	/**
