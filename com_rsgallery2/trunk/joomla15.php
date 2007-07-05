@@ -29,18 +29,17 @@ if( defined( 'JEMU15' )){
 	if ( file_exists(JPATH_LIBRARIES . DS . 'loader.php') ) {
 		require_once(JPATH_LIBRARIES . DS . 'loader.php');
 	}
-	
+
+	jimport( 'joomla.base.object' );
+	jimport( 'joomla.environment.request' );
+	// Include object abstract class
+	jimport( 'joomla.utilities.compat.compat' );
 	/** 
 	 * No need to include these now.
 	 * Call jimport when needed for a specific library
 	 */
-	 /*
-	jimport( 'joomla.base.object' );
-	jimport( 'joomla.environment.request' );
 	
-	// Include object abstract class
-	jimport( 'joomla.utilities.compat.compat' );
-	
+	/*
 	// Joomla! library imports
 	jimport( 'joomla.environment.response'   );
 	jimport( 'joomla.application.application' );
