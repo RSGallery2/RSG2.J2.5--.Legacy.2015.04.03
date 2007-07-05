@@ -12,22 +12,11 @@ defined( '_VALID_MOS' ) or die( 'Access Denied.' );
 // create global variables in case we are not in the global scope.
 global $rsgConfig, $rsgAccess, $rsgVersion, $rsgOption;
 
+//Include file to mimic Joomla 1.5 behaviour
+require_once(JPATH_ROOT.'/administrator/components/com_rsgallery2/joomla15.php');
+
 // check if this file has been included yet.
 if( isset( $rsgConfig )) return;
-
-//Prepare for Joomla 1.5
-if( !defined( '_JEXEC' )){
-    	// indicate we are emulating Joomla 1.5
-	define( 'JEMU15', 1 );
-	
-	// setup a Joomla 1.5 environment
-	define( '_JEXEC', 1 );
-	define ('DS', "/");
-	define( 'JPATH_BASE', $mosConfig_absolute_path );
-	define( 'JPATH_ROOT', $mosConfig_absolute_path );
-	define( 'JPATH_LIBRARIES', JPATH_BASE . '/components/com_rsgallery2/lib/joomla_1.5/libraries' );
-	define( 'JPATH_THEMES', JPATH_BASE.DS.'templates' );
-}
 
 // initialize the rsg config file
 require_once(JPATH_ROOT.'/administrator/components/com_rsgallery2/includes/config.class.php');
@@ -38,44 +27,16 @@ if ($rsgConfig->get('debug'))
     error_reporting(E_ALL);
 
 //Set path globals for RSGallery2
-define('JPATH_RSGALLERY2_SITE', JPATH_ROOT.'/components/com_rsgallery2');
-define('JPATH_RSGALLERY2_ADMIN', JPATH_ROOT.'/administrator/components/com_rsgallery2');
-define('JPATH_RSGALLERY2_LIBS',JPATH_ROOT.'/components/com_rsgallery2/lib');
+define('JPATH_RSGALLERY2_SITE', JPATH_ROOT. DS .'components'. DS . 'com_rsgallery2');
+define('JPATH_RSGALLERY2_ADMIN', JPATH_ROOT. DS .'administrator' . DS . 'components' . DS . 'com_rsgallery2');
+define('JPATH_RSGALLERY2_LIBS',JPATH_ROOT. DS . 'components' . DS . 'com_rsgallery2' . DS . 'lib');
 define('JPATH_ORIGINAL', JPATH_ROOT.$rsgConfig->get('imgPath_original') );
 define('JPATH_DISPLAY', JPATH_ROOT.$rsgConfig->get('imgPath_display') );
 define('JPATH_THUMB', JPATH_ROOT.$rsgConfig->get('imgPath_thumb') );
+define( 'JPATH_THEMES', JPATH_ROOT . DS . 'templates' );
 
 $rsgOptions_path = JPATH_RSGALLERY2_ADMIN.'/options/';
 $rsgClasses_path = JPATH_RSGALLERY2_ADMIN.'/includes/';
-
-// joomla 1.5 lib imports
-if( defined( 'JEMU15' )){
-	require_once(JPATH_RSGALLERY2_SITE."/lib/joomla_1.5/libraries/loader.php");
-	jimport( 'joomla.base.object' );
-	jimport( 'joomla.environment.request' );
-	
-	// Include object abstract class
-	jimport( 'joomla.utilities.compat.compat' );
-	
-	// Joomla! library imports
-	jimport( 'joomla.environment.response'   );
-	jimport( 'joomla.application.application' );
-	jimport( 'joomla.application.helper' );
-// 	jimport( 'joomla.application.event' );
-	jimport( 'joomla.application.menu' );
-	jimport( 'joomla.database.table' );
-	jimport( 'joomla.user.user');
-	jimport( 'joomla.environment.uri' );
-	jimport( 'joomla.factory' );
-	jimport( 'joomla.html.html' );
-	jimport( 'joomla.html.parameter' );
-	jimport( 'joomla.utilities.array' );
-	jimport( 'joomla.utilities.error' );
-// 	jimport( 'joomla.utilities.functions' );
-	jimport( 'joomla.utilities.utility' );
-	jimport( 'joomla.utilities.string' );
-	jimport( 'joomla.version' );
-}
 
 require_once(JPATH_RSGALLERY2_ADMIN.'/includes/version.rsgallery2.php');
 $rsgVersion = new rsgalleryVersion();

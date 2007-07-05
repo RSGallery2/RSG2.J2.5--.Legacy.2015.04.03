@@ -39,8 +39,8 @@ $rsgOption = mosGetParam( $_REQUEST, 'rsgOption', '' );
 
 
 /**
-    this is the new $rsgOption switch.  each option will have a switch for $task within it.
-**/
+ * this is the new $rsgOption switch.  each option will have a switch for $task within it.
+ */
 switch( $rsgOption ) {
     case 'galleries':
         require_once( $rsgOptions_path . 'galleries.php' );
