@@ -13,7 +13,7 @@ defined( '_VALID_MOS' ) or die( 'Access Denied.' );
 global $rsgConfig, $rsgAccess, $rsgVersion, $rsgOption;
 
 //Include file to mimic Joomla 1.5 behaviour
-require_once(JPATH_ROOT.'/administrator/components/com_rsgallery2/joomla15.php');
+require_once($mosConfig_absolute_path.'/administrator/components/com_rsgallery2/joomla15.php');
 
 // check if this file has been included yet.
 if( isset( $rsgConfig )) return;

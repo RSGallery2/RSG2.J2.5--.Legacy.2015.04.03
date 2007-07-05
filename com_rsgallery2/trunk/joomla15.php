@@ -26,7 +26,10 @@ if( !defined( '_JEXEC' )){
 
 // joomla 1.5 lib imports
 if( defined( 'JEMU15' )){
-	require_once(JPATH_LIBRARIES . DS . 'loader.php');
+	if ( file_exists(JPATH_LIBRARIES . DS . 'loader.php') ) {
+		require_once(JPATH_LIBRARIES . DS . 'loader.php');
+	}
+	
 	/** 
 	 * No need to include these now.
 	 * Call jimport when needed for a specific library
