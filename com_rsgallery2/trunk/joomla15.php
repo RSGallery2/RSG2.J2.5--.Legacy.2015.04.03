@@ -22,6 +22,7 @@ if( !defined( '_JEXEC' )){
 	define( 'JPATH_BASE', $mosConfig_absolute_path );
 	define( 'JPATH_ROOT', $mosConfig_absolute_path );
 	define( 'JPATH_LIBRARIES', JPATH_BASE . '/components/com_rsgallery2/lib/joomla_1.5/libraries' );
+	define( 'JPATH_THEMES', JPATH_ROOT . DS . 'templates' );
 }
 
 // joomla 1.5 lib imports
