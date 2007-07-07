@@ -34,12 +34,7 @@ if( defined( 'JEMU15' )){
 	jimport( 'joomla.environment.request' );
 	// Include object abstract class
 	jimport( 'joomla.utilities.compat.compat' );
-	/** 
-	 * No need to include these now.
-	 * Call jimport when needed for a specific library
-	 */
-	
-	/*
+
 	// Joomla! library imports
 	jimport( 'joomla.environment.response'   );
 	jimport( 'joomla.application.application' );
@@ -58,6 +53,5 @@ if( defined( 'JEMU15' )){
 	jimport( 'joomla.utilities.utility' );
 	jimport( 'joomla.utilities.string' );
 	jimport( 'joomla.version' );
-	*/
 }
 ?>
