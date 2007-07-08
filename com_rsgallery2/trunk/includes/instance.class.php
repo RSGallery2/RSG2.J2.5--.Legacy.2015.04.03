@@ -81,29 +81,55 @@ class rsgInstance extends JRequest{
 	}
 	
 	/**
-		Various get functions.
+		Various rsg2 object retrevial functions
 	**/
 	
 	/**
-	 * Returns the chosen gallery.
+	 * Returns the selected gallery.
 	 *
 	 * @static
 	 */
 	function getGallery(){
-		$gid = rsgInstance::getInt( 'gid' );
+		$gid = rsgInstance::getInt( 'catid' );
+		$gid = rsgInstance::getInt( 'gid', $gid );
 
 		return rsgGalleryManager::get( $gid );
 	}
 	
 	/**
-	 * Returns the chosen item.
-	 * @todo Unfinished!  I'm still deciding on methodology. -Jonah
+	 * Returns the selected item or the first item in the set if a set of items has been requested.
+	 *
 	 * @static
 	 */
 	function getItem(){
-		$gid = rsgInstance::getInt( 'id' );
+		$id = rsgInstance::getInt( 'id' );
+		
+		// there is no item set;
+		if( !$id )
+			return null;
 
-		return $this->gallery->getItem( $id );
+		return rsgGalleryManager::getItem( $id );
+	}
+	
+	/**
+	 * Returns: an array of items in the order requested
+	 * @todo default values should be obtained from config or elsewhere for limits, ordering, etc.
+	 * @static
+	 */
+	function getItemSet(){
+		$gallery = rsgInstance::getGallery();
+		
+		// there are no items in root gallery
+		if( $gallery->id == 0 )
+			return null;
+
+		$limit = rsgInstance::getInt( 'limit', 999 );
+		$limitstart = rsgInstance::getInt( 'limitstart' );
+		$filter_order = rsgInstance::getInt( 'filter_order' );
+		$filter_order_Dir = rsgInstance::getInt( 'filter_order_Dir' );
+		
+		$items = $gallery->items( $filter_order, $filter_order_Dir, $limit, $limitstart );
+		
 	}
 	
 	/**

@@ -363,32 +363,26 @@ class rsgGallery{
 	/**
 	*  returns an array of item db rows
 	*/
-	function itemRows(){
-		// check if we need to generate the list
-		if( $this->itemRows == null ){
-			global $database;
-			$database->setQuery( "SELECT * FROM #__rsgallery2_files".
-				" WHERE gallery_id='". $this->get('id') ."'".
-				" ORDER BY ordering ASC" );
-	
-			// there is no rsgImage object yet, so we'll just load the row arrays directly
-			$this->itemRows = $database->loadAssocList();
-		}
+	function itemRows( $filter_order = 'ordering', $filter_order_Dir = 'ASC', $limit = 999, $limitstart = 0 ){
+		global $database;
+		$database->setQuery( "SELECT * FROM #__rsgallery2_files".
+			" WHERE gallery_id='". $this->get('id') ."'".
+			" ORDER BY $filter_order $filter_order_Dir".
+			" LIMIT $limitstart, $limit" );
+
+		// there is no rsgImage object yet, so we'll just load the row arrays directly
+		$this->itemRows = $database->loadAssocList();
 		return $this->itemRows;
 	}
 
 	/**
 	*  returns an array of item objects
 	*/
-	function items(){
-		// check if we need to generate the list
-		if( $this->items == null ){
-			$this->items = array();
+	function items( $filter_order = 'ordering', $filter_order_Dir = 'ASC', $limit = 999, $limitstart = 0 ){
+		$this->items = array();
 			
-			foreach( $this->itemRows() as $row ){
-				$itemClass = rsgItem::getCorrectItemClass( $row['name'] );
-				$this->items[$row['id']] = new $itemClass( $this, $row );
-			}
+		foreach( $this->itemRows( $filter_order, $filter_order_Dir, $limit, $limitstart ) as $row ){
+			$this->items[$row['id']] = rsgItem::getCorrectItemObject( &$this, $row );
 		}
 		return $this->items;
 	}

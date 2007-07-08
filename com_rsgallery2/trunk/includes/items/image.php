@@ -24,8 +24,8 @@ class rsgItem_image extends rsgItem{
 	 */
 	var $original = null;
 
-	function __construct( &$gallery, $row){
-		parent::__construct( &$gallery, $row );
+	function __construct( $type, $mimetype, &$gallery, $row){
+		parent::__construct( $type, $mimetype, &$gallery, $row );
 		
 		$this->_determineResources();
 	}

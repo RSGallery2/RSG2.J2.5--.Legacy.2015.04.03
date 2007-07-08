@@ -17,6 +17,16 @@ defined( '_VALID_MOS' ) or die( 'Access Denied.' );
 */
 class rsgItem extends JObject{
 	/**
+	 * the general content type
+	 */
+	var $type = null;
+	
+	/**
+	 * the full mimetype
+	 */
+	var $mimetype = null;
+	
+	/**
 	 * the parent gallery
 	 */
 	var $gallery = null;
@@ -29,7 +39,9 @@ class rsgItem extends JObject{
 	/**
 	 * @param array a database row
 	 */
-	function __construct( &$gallery, $row ){
+	function __construct( $type, $mimetype, &$gallery, $row ){
+		$this->type = $type;
+		$this->mimetype = $mimetype;
 		$this->gallery =& $gallery;
 		
 		foreach( $row as $n=>$a )
@@ -54,23 +66,27 @@ class rsgItem extends JObject{
 	}
 	
 	/**
-	 * static class returns the appropriate class name for the item
-	 * @param String containing the filename
-	 * @return the apropriate item class name
+	 * static class returns the appropriate object for the item
+	 * @param rsgGallery of the parent gallery
+	 * @param array of the database row
+	 * @return the apropriate item object
 	 */
-	function getCorrectItemClass( $name ){
+	function getCorrectItemObject( &$gallery, $row ){
 		// get mime type of file
-		$type = MimeTypes::getMimeType( $name );
-		$type = explode( '/', $type );
-		// get only the category of mime type
+		$mimetype = MimeTypes::getMimeType( $row['name'] );
+		
+		// get only the general content type
+		$type = explode( '/', $mimetype );
 		$type = $type[0];
 		
 		if( file_exists( JPATH_RSGALLERY2_ADMIN.'/includes/items/'. $type .'.php' )){
 			require_once( JPATH_RSGALLERY2_ADMIN.'/includes/items/'. $type .'.php' );
-			return "rsgItem_$type";
+			$itemClass = "rsgItem_$type";
+			return new $itemClass( $type, $mimetype, &$gallery, $row );
 		}
 		else{
-			return "rsgItem";
+			$itemClass = "rsgItem";
+			return new $itemClass( $type, $mimetype, &$gallery, $row );
 		}
 	}
 }
@@ -95,7 +111,7 @@ class rsgResource extends JObject{
 	 */
 	function url(){
 		global $mosConfig_live_site;
-		return $mosConfig_live_site . DS . rawurlencode( $this->name );
+		return $mosConfig_live_site . DS . $this->name;
 	}
 	
 	/**
@@ -108,6 +124,6 @@ class rsgResource extends JObject{
 	 * @return the absolute local file path
 	 */
 	function filePath(){
-		return JPATH_ROOT . DS . rawurlencode( $this->name );
+		return JPATH_ROOT . DS . $this->name;
 	}
 }
