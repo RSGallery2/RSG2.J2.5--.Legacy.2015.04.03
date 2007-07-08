@@ -20,12 +20,6 @@ require_once($mosConfig_absolute_path.'/administrator/components/com_rsgallery2/
 define('JPATH_RSGALLERY2_SITE', JPATH_ROOT. DS .'components'. DS . 'com_rsgallery2');
 define('JPATH_RSGALLERY2_ADMIN', JPATH_ROOT. DS .'administrator' . DS . 'components' . DS . 'com_rsgallery2');
 define('JPATH_RSGALLERY2_LIBS',JPATH_ROOT. DS . 'components' . DS . 'com_rsgallery2' . DS . 'lib');
-define('JPATH_ORIGINAL', JPATH_ROOT.$rsgConfig->get('imgPath_original') );
-define('JPATH_DISPLAY', JPATH_ROOT.$rsgConfig->get('imgPath_display') );
-define('JPATH_THUMB', JPATH_ROOT.$rsgConfig->get('imgPath_thumb') );
-
-$rsgOptions_path = JPATH_RSGALLERY2_ADMIN.'/options/';
-$rsgClasses_path = JPATH_RSGALLERY2_ADMIN.'/includes/';
 
 // check if this file has been included yet.
 if( isset( $rsgConfig )) return;
@@ -34,10 +28,13 @@ if( isset( $rsgConfig )) return;
 require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'config.class.php');
 $rsgConfig = new rsgConfig();
 
+//Set image paths for RSGallery2
+define('JPATH_ORIGINAL', JPATH_ROOT.$rsgConfig->get('imgPath_original') );
+define('JPATH_DISPLAY', JPATH_ROOT.$rsgConfig->get('imgPath_display') );
+define('JPATH_THUMB', JPATH_ROOT.$rsgConfig->get('imgPath_thumb') );
 
-// report all errors if in debug mode
-if ($rsgConfig->get('debug'))
-    error_reporting(E_ALL);
+$rsgOptions_path = JPATH_RSGALLERY2_ADMIN.'/options/';
+$rsgClasses_path = JPATH_RSGALLERY2_ADMIN.'/includes/';
     
 require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'version.rsgallery2.php');
 $rsgVersion = new rsgalleryVersion();
