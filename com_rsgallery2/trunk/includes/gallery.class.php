@@ -349,6 +349,15 @@ class rsgGallery{
 	}
 	
 	/**
+	* returns the total number of items in this gallery.
+	*/
+	function itemCount(){
+		$gid = $this->id;
+		$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id='$gid' AND published = '1'");
+        return $database->loadResult();
+	}
+	
+	/**
 	* returns an array of sub galleries in this gallery
 	*/
 	function kids(){
@@ -422,5 +431,22 @@ class rsgGallery{
 			}
 		}
 		return $this->thumb;
+	}
+	
+	/**
+	 * increases the hit counter for this object
+	 */
+	function hit(){
+		$query = "UPDATE #__rsgallery2_galleries SET hits = hits + 1 WHERE id = {$this->id}";
+		
+		$db = &JFactory::getDBO();
+		$db->setQuery( $query );
+		
+		if( !$db->query() ) {
+			$this->setError( $db->getErrorMsg() );
+			return false;
+		}
+		
+		$this->hits++;
 	}
 }

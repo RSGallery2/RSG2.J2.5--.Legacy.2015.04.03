@@ -27,7 +27,7 @@ class tempDisplay{
 	}
 	
 	function mainPage(){
-		$page = mosGetParam ( $_REQUEST, 'page', '' );
+		$page = rsgInstance::getWord( 'page', '' );
 	
 		switch( $page ){
 			
@@ -612,7 +612,6 @@ class tempDisplay{
 }// end tempDisplay
 
 class rsgDisplay extends tempDisplay{
-	
 	
 	function mainPage(){
 		// if tempDisplay handles this function let it, otherwise continue as regularily scheduled.

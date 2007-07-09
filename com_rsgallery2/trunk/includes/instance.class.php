@@ -104,9 +104,11 @@ class rsgInstance extends JRequest{
 	function getItem(){
 		$id = rsgInstance::getInt( 'id' );
 		
-		// there is no item set;
-		if( !$id )
-			return null;
+		if( !$id ){
+			// there is no item set, return the first value from getItems()
+			$items = rsgInstance::getItems();
+			return array_shift( $items );
+		}
 
 		return rsgGalleryManager::getItem( $id );
 	}
@@ -116,10 +118,10 @@ class rsgInstance extends JRequest{
 	 * @todo default values should be obtained from config or elsewhere for limits, ordering, etc.
 	 * @static
 	 */
-	function getItemSet(){
+	function getItems(){
 		$gallery = rsgInstance::getGallery();
 		
-		// there are no items in root gallery
+		// there are no items in root gallery or gallery id is not set
 		if( $gallery->id == 0 )
 			return null;
 
@@ -129,7 +131,7 @@ class rsgInstance extends JRequest{
 		$filter_order_Dir = rsgInstance::getInt( 'filter_order_Dir' );
 		
 		$items = $gallery->items( $filter_order, $filter_order_Dir, $limit, $limitstart );
-		
+		return $items;
 	}
 	
 	/**
