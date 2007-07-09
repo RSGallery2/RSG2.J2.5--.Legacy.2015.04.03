@@ -265,13 +265,13 @@ class rsgDisplay_semantic extends rsgDisplay{
 		* @todo the html for float and thumb should be pushed out to template files in html/
 		*/ 
 	function showThumbs() {
-		global $mainframe, $database, $my, $mosConfig_live_site, $rsgConfig. $Itemid;
+		global $my, $mosConfig_live_site, $rsgConfig, $Itemid;
 		
 		$items = rsgInstance::getItems();
 		$itemCount = $this->gallery;
 		
-		$limit = rsgInstance::getInt( 'limit', $rsgConfig->get("display_thumbs_maxPerPage");
-		$limitstart = rsgInstance::getInt( 'limitstart',);
+		$limit = rsgInstance::getInt( 'limit', $rsgConfig->get("display_thumbs_maxPerPage") );
+		$limitstart = rsgInstance::getInt( 'limitstart' );
 		
 		$thumb_width = $rsgConfig->get("thumb_width");
 		$PageSize = $rsgConfig->get("display_thumbs_maxPerPage");
@@ -281,6 +281,15 @@ class rsgDisplay_semantic extends rsgDisplay{
 		
 		// increase the gallery hit counter
 		$this->gallery->hit();
+		
+		if( !$this->gallery->itemCount() ){
+			if( $this->gallery->id ){
+				// if gallery is not the root gallery display the message
+				echo _RSGALLERY_NOIMG;
+			}
+			// no items to display, so we can return;
+			return;
+		}
 	
 		//Old rights management. If user is owner or user is Super Administrator, you can edit this gallery
 		if(( $my->id <> 0 ) and (( $this->gallery->uid == $my->id ) OR ( $my->usertype == 'Super Administrator' )))
@@ -332,7 +341,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 						<td>
 							<!--<div class="img-shadow">-->
 								<a href="<?php global $Itemid; echo sefRelToAbs( "index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=inline&amp;id=".$item ); ?>">
-								<img border="1" alt="<?php echo htmlspecialchars(stripslashes($item->descr), ENT_QUOTES); ?>" src="<?php echo thumb->url(); ?>" />
+								<img border="1" alt="<?php echo htmlspecialchars(stripslashes($item->descr), ENT_QUOTES); ?>" src="<?php echo $thumb->url(); ?>" />
 								</a>
 							<!--</div>-->
 							<div class="clr"></div>
@@ -367,10 +376,6 @@ class rsgDisplay_semantic extends rsgDisplay{
 					?>
 			</div>
 			<?php
-			}
-		else {
-			if (!$gid == 0)echo _RSGALLERY_NOIMG;
-		}
 	}
     
     /**
