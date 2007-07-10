@@ -26,7 +26,7 @@ class rsgXmlGalleryTemplate_slideshowpro extends rsgXmlGalleryTemplate_generic{
 		    
 		    // get  thumbnail item for gallery
 		    $thumb = $kid->thumb();
-		    if( $thumb ){
+		    if( is_a($thumb, "rsgItem_image")){
 				// get thumbnail resource of image item
 				$thumb = $thumb->thumb();
 				// get full url of thumbnail
@@ -38,6 +38,7 @@ class rsgXmlGalleryTemplate_slideshowpro extends rsgXmlGalleryTemplate_generic{
 
 
             foreach( $kid->items() as $img ){
+            	if(!is_a($img, "rsgItem_image")) continue;
             	$imgDescr = $img->get("title");
             	
             	// get display resource of image item

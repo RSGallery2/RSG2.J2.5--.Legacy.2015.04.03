@@ -12,61 +12,67 @@ class rsgXmlGalleryTemplate_podcasting extends rsgXmlGalleryTemplate_generic{
 	}
 
 	function prepare(){
-	global $rsgConfig, $mosConfig_live_site, $mosConfig_mailfrom;
-
-        foreach( $this->gallery->kids() as $kid ){
+		$this->output = "\n";
+		$this->output .= "<rss version='$version'>\n";
+		
+		$this->processGallery( $this->gallery );
+		
+		$this->output .= "</rss>\n";
+	}
+	
+	function processGallery( $gallery ){
+		global $rsgConfig, $mosConfig_live_site, $mosConfig_mailfrom;
+	
 		$version = "2.0";
-		$title = htmlentities($kid->get("name"));
-		$descr = htmlentities($kid->get("description"));
+		$title = htmlentities($gallery->get("name"));
+		$descr = htmlentities($gallery->get("description"));
 		$year = date('Y');
-		$date = $kid->get("date");
+		$date = $gallery->get("date");
 		$email = $mosConfig_mailfrom;
 
-		$this->output = "\n";
-		$this->output .= "<rss version='$version'><br />";
-		$this->output .= "<channel><br />";
+		$this->output .= "<channel>\n";
 
-		$this->output .= "<title>$title</title><br />";
-		$this->output .= "<description>$descr</description><br />";
-		$this->output .= "<link>$mosConfig_live_site</link><br />";
-		$this->output .= "<language>en-us</language><br />";
-		$this->output .= "<copyright>$year</copyright><br />";
-		$this->output .= "<lastBuildDate>$date</lastBuildDate><br />";
-		$this->output .= "<webMaster>$email</webMaster><br />";
-		$this->output .= "<ttl>1</ttl><br />";
+		$this->output .= "<title>$title</title>\n";
+		$this->output .= "<description>$descr</description>\n";
+		$this->output .= "<link>$mosConfig_live_site</link>\n";
+		$this->output .= "<language>en-us</language>\n";
+		$this->output .= "<copyright>$year</copyright>\n";
+		$this->output .= "<lastBuildDate>$date</lastBuildDate>\n";
+		$this->output .= "<webMaster>$email</webMaster>\n";
+		$this->output .= "<ttl>1</ttl>\n";
+		
+		foreach( $gallery->items() as $item ){
+			// if not an audio file, don't use it
+			if(!is_a($item, "rsgItem_audio")) continue;
+			
+			$mp3 = $item->original();
+			$url = $mp3->url();
+			
+			$title = $item->title;
+			$descr = $item->descr;
+			
+			$pubDate = $item->date;
+			
+			
+			$size = filesize($mp3->filePath());
 
-		foreach( $kid->items() as $img ){
-			$path = $img->display();
-			$path = $display->display();
-			$path = $display->name;
-			//$path = imgUtils::getImgNameDisplay($img['name']);
-			print_r($path); die();
-			
-			$title = $img->title;
-			$descr = $img->descr;
-			
-			$pubDate = $kid->get("date");
-			$podPath = $rsgConfig->get("imgPath_display");
-			
-			
-			$location = $img->display()
-			$location = $img->url();
-			$size = filesize($location);
-
-			$this->output .= "<item><br />";
-			$this->output .= "<title>$title</title><br />";
-			$this->output .= "<description>$descr</description><br />";
-			$this->output .= "<pubDate>$pubDate</pubDate><br />";
+			$this->output .= "<item>\n";
+			$this->output .= "<title>$title</title>\n";
+			$this->output .= "<description>$descr</description>\n";
+			$this->output .= "<pubDate>$pubDate</pubDate>\n";
 			$this->output .= '<enclosure url="';
-			$this->output .= "$mosConfig_live_site$podPath/$path";
+			$this->output .= "$url";
 			$this->output .= '" length="';
 			$this->output .= "$size";
 			$this->output .= '" type="';
-			$this->output .= 'audio/mpeg" />\n<br />"';
-			$this->output .= '</item><br />';
+			$this->output .= 'audio/mpeg" />"';
+			$this->output .= '</item>';
 		}
-	}
-        $this->output .= "</channel><br />";
-        $this->output .= "</rss><br />";
+		
+		$this->output .= "</channel>\n";
+
+		foreach( $this->gallery->kids() as $kid ){
+			$this->processGallery( $gallery );
+		}
 	}
 }
