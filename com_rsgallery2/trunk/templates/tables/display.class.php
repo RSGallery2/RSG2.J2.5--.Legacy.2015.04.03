@@ -1392,13 +1392,13 @@ class HTML_RSGALLERY{
                 //check if viewer has the rights to view subgallery
                 if ($rsgAccess->checkGallery('view',$row->id)) {
                     ?>
-                    <a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;catid=".$row->id); ?>">
+                    <a class="rsg_sub_url" href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;catid=".$row->id); ?>">
                         <?php echo htmlspecialchars(stripslashes($row->name), ENT_QUOTES); ?>
                         (<?php echo galleryUtils::getFileCount($row->id); ?>)
                     </a>
                     <?php
                     if ($row !== end($rows))
-                        echo ",";
+                        echo ",<br />";
                 }
             }
         }
