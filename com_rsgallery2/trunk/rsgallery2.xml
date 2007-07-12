@@ -17,6 +17,8 @@
 	
 	<filename>flash/todd_dominey.swf</filename>
 	<filename>flash/kirupa_flash_xml_gallery.swf</filename>
+	<filename>flash/mdwErica.swf</filename>
+	<filename>flash/mdwErica.js</filename>
 	<filename>flash/xmlphotogallery.swf</filename>
 	<filename>flash/xspf/xspf_player.swf</filename>
 	<filename>flash/xspf/xspf_player_slim.swf</filename>
@@ -377,50 +379,12 @@
 	<filename>templates/debug_listEverything/templateDetails.xml</filename>
 	<filename>templates/debug_listEverything/index.php</filename>
 	<filename>templates/debug_listEverything/display.class.php</filename>
-	<filename>templates/tables_wToddFlash/display.class.php</filename>
-	<filename>templates/tables_wToddFlash/templateDetails.xml</filename>
-	<filename>templates/tables_wToddFlash/index.php</filename>
-	<filename>templates/meta/display.class.php</filename>
-	<filename>templates/meta/templateDetails.xml</filename>
-	<filename>templates/meta/index.php</filename>
-	<filename>templates/microMacro/css/template.css</filename>
-	<filename>templates/microMacro/display.class.php</filename>
-	<filename>templates/microMacro/templateDetails.xml</filename>
-	<filename>templates/microMacro/index.php</filename>
-	<filename>templates/photoBox/css/template.css</filename>
-	<filename>templates/photoBox/display.class.php</filename>
-	<filename>templates/photoBox/index.php</filename>
-	<filename>templates/photoBox/js/selectThumb.js</filename>
-	<filename>templates/photoBox/templateDetails.xml</filename>
 	<filename>templates/semantic/css/template.css</filename>
 	<filename>templates/semantic/display.class.php</filename>
 	<filename>templates/semantic/templateDetails.xml</filename>
 	<filename>templates/semantic/index.php</filename>
-	<filename>templates/superClean/css/template.css</filename>
-	<filename>templates/superClean/display.class.php</filename>
-	<filename>templates/superClean/index.php</filename>
-	<filename>templates/superClean/templateDetails.xml</filename>
-	<filename>templates/tables_wSimpleFlash/display.class.php</filename>
-	<filename>templates/tables_wSimpleFlash/templateDetails.xml</filename>
-	<filename>templates/tables_wSimpleFlash/index.php</filename>
-	<filename>templates/tables_wKirupa/display.class.php</filename>
-	<filename>templates/tables_wKirupa/templateDetails.xml</filename>
-	<filename>templates/tables_wKirupa/index.php</filename>
-	<filename>templates/FrogJS/display.class.php</filename>
-	<filename>templates/FrogJS/templateDetails.xml</filename>
-	<filename>templates/FrogJS/index.php</filename>
-	<filename>templates/FrogJS/scripts/builder.js</filename>
-	<filename>templates/FrogJS/scripts/controls.js</filename>
-	<filename>templates/FrogJS/scripts/dragdrop.js</filename>
-	<filename>templates/FrogJS/scripts/effects.js</filename>
-	<filename>templates/FrogJS/scripts/frog.js</filename>
-	<filename>templates/FrogJS/scripts/prototype.js</filename>
-	<filename>templates/FrogJS/scripts/scriptaculous.js</filename>
-	<filename>templates/FrogJS/scripts/slider.js</filename>
-	<filename>templates/xspf_Music_Player/display.class.php</filename>
-	<filename>templates/xspf_Music_Player/index.php</filename>
-	<filename>templates/xspf_Music_Player/templateDetails.xml</filename>
 	
+	<filename>xml_templates/mdwErica.php</filename>
 	<filename>xml_templates/Kirupa.php</filename>
 	<filename>xml_templates/xspf.php</filename>
 	<filename>xml_templates/generic.php</filename>
