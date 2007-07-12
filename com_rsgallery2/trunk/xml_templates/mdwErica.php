@@ -13,8 +13,8 @@ class rsgXmlGalleryTemplate_mdwErica extends rsgXmlGalleryTemplate_generic{
 		Prepare XML first.  Then if there are errors we print an error before changing Content-Type to xml.
 	**/
 	function prepare( ){
-		$showtitle = mosGetParam ( $_REQUEST, 'showTitle', true );
-		$imgSize = mosGetParam ( $_REQUEST, 'imgSize', 'display' );
+		$showtitle = rsgInstance::getBool( 'showTitle', true );
+		$imgSize = rsgInstance::getWord( 'imgSize', 'display' );
 		
 		$this->output = '<panels>';
 	
@@ -23,17 +23,19 @@ class rsgXmlGalleryTemplate_mdwErica extends rsgXmlGalleryTemplate_generic{
 			
 			switch( $imgSize ){
 				case 'original':
-					$this->output .= imgUtils::getImgOriginal( $img['name'] );
+					$resource = $img->getOriginal();
+					$this->output .= $resource->url();
 				break;
 				case 'display':
-					$this->output .= imgUtils::getImgDisplay( $img['name'] );
+					$resource = $img->getDisplay();
+					$this->output .= $resource->url();
 				break;
 			}
 			
-			$this->output .= '" link="'. $img['descr'] .'" title="';
+			$this->output .= '" link="'. $img->descr .'" title="';
 			
 			if( $showtitle )
-				$this->output .= $img['title'];
+				$this->output .= $img->title;
 				
 			$this->output .= '" />'."\n";
 		}
