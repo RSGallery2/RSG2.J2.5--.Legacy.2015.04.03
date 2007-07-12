@@ -78,6 +78,7 @@ class JSession extends JObject
 	*/
 	function __construct( $store = 'none', $options = array() )
 	{
+		JError::raiseError( '', "Who's calling session?" );
 		//set default sessios save handler
 		ini_set('session.save_handler', 'files');
 
