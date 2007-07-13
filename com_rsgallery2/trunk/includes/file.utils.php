@@ -336,7 +336,7 @@ class fileHandler {
         while ($entryname = readdir( $current_dir )) {
             if ($entryname != '.' and $entryname != '..') {
                 if (is_dir( $dir . $entryname )) {
-                    deldir( mosPathName( $dir . $entryname ) );
+                    fileHandler::deldir( mosPathName( $dir . $entryname ) );
                 } else {
                     @chmod($dir . $entryname, 0777);
                     unlink( $dir . $entryname );
