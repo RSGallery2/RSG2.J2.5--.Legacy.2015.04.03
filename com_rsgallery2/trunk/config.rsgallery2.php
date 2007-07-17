@@ -137,13 +137,18 @@ class galleryUtils {
      * @return HTML to show selectbox
      */
     function showUserGalSelectList($action = '', $select_name = 'catid', $gallery_id = null) {
-    	global $rsgAccess, $database;
+    	global $rsgAccess, $database, $my;
     	
     	//Get gallery Id's where action is permitted and write to string
 		$galleries = $rsgAccess->actionPermitted($action);
 		
 		//Get parent galleries from database
-		$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE parent = '0' ORDER BY ordering ASC");
+		if( $my->id ){
+			$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE parent = '0' ORDER BY ordering ASC");
+		}
+		else{
+			$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE parent = '0' AND uid = '{$my->id}' ORDER BY ordering ASC");
+		}
 		$rows = $database->loadObjectList();
 		
 		//Write first entry for selectbox

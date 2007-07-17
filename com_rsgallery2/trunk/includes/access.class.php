@@ -14,9 +14,10 @@ defined( '_VALID_MOS' ) or die( 'Access Denied.' );
 * Access Manager
 * Handles permissions on galleries
 * @package RSGallery2
-* @author Jonah Braun <Jonah@WhaleHosting.ca> & Ronald Smit <ronald.smit@rsdev.nl>
+* @author Ronald Smit <ronald.smit@rsdev.nl>
+* @author Jonah Braun <Jonah@WhaleHosting.ca>
 */
-class rsgAccess{
+class rsgAccess extends JObject{
     /** @var array List of rights per gallery for a specific user type */
     var $actions;
     /** @var array List of rights per gallery for a all user types */
@@ -25,7 +26,7 @@ class rsgAccess{
     var $_table;
     
     /** Constructor */
-    function rsgAccess() {
+    function __construct() {
     	$this->actions = array(
 							'view',				//View gallery from frontend
 							'up_mod_img',		//Upload and modify images to gallery
@@ -81,38 +82,46 @@ class rsgAccess{
      * @param int gallery ID of gallery to perform action on
      * @return int 1 if allowed, 0 if not allowed.
      */
-    function checkGallery($action, $gallery_id ) {
-    	global $database, $my, $check, $Itemid;
-    	//Check if Access Control is enabled
-    	if ( !rsgAccess::aclActivated() ) {
-    		//Acl not activated, always return 1;
-    		return 1;
-    	} elseif ($gallery_id == 0){
-    		//Check for root, always return 1
-    		return 1;
-    	} else {	
-	    	//Check usertype
-	    	$type = rsgAccess::returnUserType();
-	    	
-	    	if ( !rsgAccess::arePermissionsSet($gallery_id) ) {
-	    		//Aparently no permissions were found in #__rsgallery2_acl, so create default permissions
-	    		rsgAccess::createDefaultPermissions($gallery_id);
-	    		mosRedirect( "index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries", _RSGALLERY_ACL_NO_PERM_FOUND);
-	    	} else {
-		    	//Determine right action
-		    	switch ($type) {
-		    	case "public":
-		    		$action = $type."_".$action;
+	function checkGallery($action, $gallery_id ) {
+		global $database, $my, $check, $Itemid;
+		//Check if Access Control is enabled
+		if ( !rsgAccess::aclActivated() ) {
+			//Acl not activated, always return 1;
+			return 1;
+		} elseif ($gallery_id == 0){
+			//Check for root, always return 1
+			return 1;
+		} else {	
+			// first check if user is the owner.  if so we can assume user has access to do anything
+			if( $my->id ){  // check that user is logged in
+				$sql = "SELECT uid FROM {$this->_galTable} WHERE id = '$gallery_id'";
+				$database->setQuery( $sql );
+				if ( $my->id === $database->loadResult() )
+					return 1;
+			}
+
+			// check user type for access
+			$type = rsgAccess::returnUserType();
+			
+			if ( !rsgAccess::arePermissionsSet($gallery_id) ) {
+				//Aparently no permissions were found in #__rsgallery2_acl, so create default permissions
+				rsgAccess::createDefaultPermissions($gallery_id);
+				mosRedirect( "index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries", _RSGALLERY_ACL_NO_PERM_FOUND);
+			} else {
+				//Determine right action
+				switch ($type) {
+				case "public":
+					$action = $type."_".$action;
 					$sql = "SELECT $action FROM $this->_table WHERE gallery_id = '$gallery_id'";
 					$database->setQuery( $sql );
 					$check = $database->loadResult();
 					break;
-		    	case "registered":
-		    	case "author":
-		    	case "editor":
-		    	case "publisher":
-		    	case "manager":
-		    		$action = "registered_".$action;
+				case "registered":
+				case "author":
+				case "editor":
+				case "publisher":
+				case "manager":
+					$action = "registered_".$action;
 					$sql = "SELECT $action FROM $this->_table WHERE gallery_id = '$gallery_id'";
 					$database->setQuery( $sql );
 					$check = $database->loadResult();
@@ -121,12 +130,12 @@ class rsgAccess{
 				case "super administrator":
 					$check = 1;
 					break;
-		    	}
-		    //Return true(1) or false(0)
-		    return intval($check);
-	    	}
-    	}
-    }
+				}
+			//Return true(1) or false(0)
+			return intval($check);
+			}
+		}
+	}
     
     /**
      * Returns formatted usertype from $my for use in checkGallery().
@@ -355,5 +364,3 @@ class rsgAccess{
 	 
 	
 }//end class
-
-?>
