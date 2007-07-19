@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="template">
+	<name>Super Clean HS</name>
+	<creationDate>2007/May/25</creationDate>
+	<author>Jonah/piran</author>
+	<copyright>Open Source, GPL</copyright>
+	<authorEmail>info@rsgallery2.net</authorEmail>
+	<authorUrl>rsgallery2.net</authorUrl>
+	<version>0.2.1</version>
+	<description>Only thumbnails with High Slide (not free for commercial use) fancy popups.  Galleries one level down from linked gallery are collapsed, this can lead to a heavy demand on 'bandwidth'. Minimal details shown. </description>
+	<files>
+		<filename>index.php</filename>
+		<filename>display.class.php</filename>
+		<filename>templateDetails.xml</filename>
+		<filename>language/english.php</filename>
+		<filename>js_highslide/highslide.js</filename>
+		<filename>js_highslide/graphics/controlbar2.gif</filename>
+		<filename>js_highslide/graphics/controlbar3.gif</filename>
+		<filename>js_highslide/graphics/controlbar4.gif</filename>
+		<filename>js_highslide/graphics/controlbar4-hover.gif</filename>
+		<filename>js_highslide/graphics/credits.gif</filename>
+		<filename>js_highslide/graphics/fullexpand.gif</filename>
+		<filename>js_highslide/graphics/loader.gif</filename>
+		<filename>js_highslide/graphics/loader.white.gif</filename>
+		<filename>js_highslide/graphics/zoomin.cur</filename>
+		<filename>js_highslide/graphics/zoomout.cur</filename>
+		<filename>js_highslide/graphics/outlines/beveled/1.png</filename>
+		<filename>js_highslide/graphics/outlines/beveled/2.png</filename>
+		<filename>js_highslide/graphics/outlines/beveled/3.png</filename>
+		<filename>js_highslide/graphics/outlines/beveled/4.png</filename>
+		<filename>js_highslide/graphics/outlines/beveled/5.png</filename>
+		<filename>js_highslide/graphics/outlines/beveled/6.png</filename>
+		<filename>js_highslide/graphics/outlines/beveled/7.png</filename>
+		<filename>js_highslide/graphics/outlines/beveled/8.png</filename>
+		<filename>js_highslide/graphics/outlines/drop-shadow/1.png</filename>
+		<filename>js_highslide/graphics/outlines/drop-shadow/2.png</filename>
+		<filename>js_highslide/graphics/outlines/drop-shadow/3.png</filename>
+		<filename>js_highslide/graphics/outlines/drop-shadow/4.png</filename>
+		<filename>js_highslide/graphics/outlines/drop-shadow/5.png</filename>
+		<filename>js_highslide/graphics/outlines/drop-shadow/6.png</filename>
+		<filename>js_highslide/graphics/outlines/drop-shadow/7.png</filename>
+		<filename>js_highslide/graphics/outlines/drop-shadow/8.png</filename>
+		<filename>js_highslide/graphics/outlines/outer-glow/1.png</filename>
+		<filename>js_highslide/graphics/outlines/outer-glow/2.png</filename>
+		<filename>js_highslide/graphics/outlines/outer-glow/3.png</filename>
+		<filename>js_highslide/graphics/outlines/outer-glow/4.png</filename>
+		<filename>js_highslide/graphics/outlines/outer-glow/5.png</filename>
+		<filename>js_highslide/graphics/outlines/outer-glow/6.png</filename>
+		<filename>js_highslide/graphics/outlines/outer-glow/7.png</filename>
+		<filename>js_highslide/graphics/outlines/outer-glow/8.png</filename>
+		<filename>js_highslide/graphics/outlines/rounded-white/1.png</filename>
+		<filename>js_highslide/graphics/outlines/rounded-white/2.png</filename>
+		<filename>js_highslide/graphics/outlines/rounded-white/3.png</filename>
+		<filename>js_highslide/graphics/outlines/rounded-white/4.png</filename>
+		<filename>js_highslide/graphics/outlines/rounded-white/5.png</filename>
+		<filename>js_highslide/graphics/outlines/rounded-white/6.png</filename>
+		<filename>js_highslide/graphics/outlines/rounded-white/7.png</filename>
+		<filename>js_highslide/graphics/outlines/rounded-white/8.png</filename>
+		<filename>js_highslide/graphics/outlinesOutlines.psd</filename>
+		<filename>language/english.php</filename>
+
+	</files>
+	<css>
+		<filename>css/template.css</filename>
+		<filename>js_highslide/highslide.css</filename>
+	</css>
+</mosinstall>
