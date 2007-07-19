@@ -7,6 +7,7 @@
  */
 defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 
+//ToDo: add switch/ contional for extending tables or semantic
 class rsgDisplay_superCleanHS extends rsgDisplay_semantic{
 	function addVote() {
 		global $database, $Itemid;
