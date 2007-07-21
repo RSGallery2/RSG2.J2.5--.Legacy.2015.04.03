@@ -386,6 +386,8 @@
 	<filename>templates/semantic/display.class.php</filename>
 	<filename>templates/semantic/templateDetails.xml</filename>
 	<filename>templates/semantic/index.php</filename>
+	<filename>templates/semantic/html/exif.php</filename>
+	<filename>templates/semantic/html/gallery.php</filename>
 	
 	<filename>xml_templates/mdwErica.php</filename>
 	<filename>xml_templates/Kirupa.php</filename>
