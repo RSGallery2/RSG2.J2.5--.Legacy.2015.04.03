@@ -489,6 +489,9 @@ class galleryUtils {
             return $images;
         }
         
+	/**
+	 * @depreciated use rsgGallery->hasNewImages() instead;
+	 */
     function newImages($xid) {
     global $database;
     $lastweek  = mktime (0, 0, 0, date("m"),    date("d") - 7, date("Y"));

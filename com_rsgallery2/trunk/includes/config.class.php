@@ -21,6 +21,7 @@ class rsgConfig {
 	var $version    		= 'depreciated';  // this is set and loaded from includes/version.rsgallery2.php
 	var $debug      		= false;
 	var $allowedFileTypes 	= "jpg,jpeg,gif,png";
+	var $hideRoot = false; // hide the root gallery and it's listing.  this is to publish multiple independant galleries.
 
 	// new image paths, use imgUtils::getImg*() instead of calling these directly
 	var $imgPath_thumb 		= '/images/rsgallery/thumb';

@@ -51,6 +51,18 @@ class rsgItem_image extends rsgItem{
 		return $this->original;
 	}
 
+	/**
+	 * @todo check if exif_read_data() fails
+	 * @return EXIF data
+	 */
+	function exif(){
+		if(!function_exists('exif_read_data')) return false;
+
+		$exif = exif_read_data( $this->original->filePath(), 0, true);
+
+		return $exif;
+	}
+
 	function _determineResources(){
 		global $rsgConfig;
 		

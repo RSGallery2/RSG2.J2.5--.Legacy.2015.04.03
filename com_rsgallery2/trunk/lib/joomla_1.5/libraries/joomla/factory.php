@@ -367,6 +367,35 @@ class JFactory
 
 		// Create the JConfig object
 		$config = new JFrameworkConfig();
+		
+		global $mosConfig_host, $mosConfig_user, $mosConfig_password, $mosConfig_db, $mosConfig_dbprefix,
+			$mosConfig_mailer, $mosConfig_mailfrom, $mosConfig_fromname,
+			$mosConfig_sendmail, $mosConfig_smtpauth, $mosConfig_smtpuser, $mosConfig_smtppass, $mosConfig_smtphost,
+			$mosConfig_debug, $mosConfig_caching, $mosConfig_cachetime,
+			$mosConfig_locale, $mosConfig_secret, $mosConfig_editor, $mosConfig_offset, $mosConfig_lifetime
+			;
+
+		$config->host 		= $mosConfig_host;
+		$config->user 		= $mosConfig_user;
+		$config->password 	= $mosConfig_password;
+		$config->db 		= $mosConfig_db;
+		$config->dbprefix 	= $mosConfig_dbprefix;
+		$config->mailer 	= $mosConfig_mailer;
+		$config->mailfrom 	= $mosConfig_mailfrom;
+		$config->fromname 	= $mosConfig_fromname;
+		$config->sendmail 	= $mosConfig_sendmail;
+		$config->smtpauth 	= $mosConfig_smtpauth;
+		$config->smtpuser 	= $mosConfig_smtpuser;
+		$config->smtppass 	= $mosConfig_smtppass;
+		$config->smtphost 	= $mosConfig_smtphost;
+		$config->debug 		= $mosConfig_debug;
+		$config->caching 	= $mosConfig_caching;
+		$config->cachetime	= $mosConfig_cachetime;
+		$config->language  	= $mosConfig_locale;
+		$config->secret		= $mosConfig_secret;
+		$config->editor		= $mosConfig_editor;
+		$config->offset		= $mosConfig_offset;
+		$config->lifetime	= $mosConfig_lifetime;
 
 		// Load the configuration values into the registry
 		$registry->loadObject($config);

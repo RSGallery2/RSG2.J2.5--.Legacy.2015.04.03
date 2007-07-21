@@ -43,111 +43,59 @@ class rsgDisplay_semantic extends rsgDisplay{
 	* @param boolean Show subgalleries or not.
 	* @return HTML for main gallery page.
 	*/
-	function showMainGalleries($style = "single", $cols = 3, $subgalleries = "true") {
-		global $database, $Itemid, $rsgConfig;
+	function showMainGalleries() {
+		global $rsgConfig;
 		
 		$gallery =  rsgInstance::getGallery();
+		$this->gallery = $gallery;
 		
 		//Get values for page navigation from URL
-		$limit = mosGetParam ( $_REQUEST, 'limit', $rsgConfig->galcountNrs);
-		$limitstart = mosGetParam ( $_REQUEST, 'limitstart', 0);
+		$limit = rsgInstance::getInt( 'limit', $rsgConfig->get('galcountNrs') );
+		$limitstart = rsgInstance::getInt( 'limitstart', 0 );
 		
 		//Get number of galleries including main gallery
-		$kids = $gallery->kids();
-		$kidCountTotal = count( $kids );
-	
-		$pageNav = false;
+		$this->kids = $gallery->kids();
+		$kidCountTotal = count( $gallery->kids() );
+
+		$this->pageNav = false;
 		
-		if( $rsgConfig->get('dispLimitbox') == 1) {
+		if( $rsgConfig->get('dispLimitbox') == 1 ) {
 			if( $kidCountTotal > $limit ){
-				$kids = array_slice( $kids, $limitstart, $limit );
-				$pageNav = new mosPageNav( $kidCountTotal, $limitstart, $limit );
+				$this->kids = array_slice( $kids, $limitstart, $limit );
+				$this->pageNav = new mosPageNav( $kidCountTotal, $limitstart, $limit );
 			}
-		} elseif($rsgConfig->get('dispLimitbox') == 2) {
-			$kids = array_slice( $kids, $limitstart, $limit );
-			$pageNav = new mosPageNav( $kidCountTotal, $limitstart, $limit );
+		} elseif( $rsgConfig->get('dispLimitbox') == 2 ) {
+			$this->kids = array_slice( $kids, $limitstart, $limit );
+			$this->pageNav = new mosPageNav( $kidCountTotal, $limitstart, $limit );
 		}
 	
-		//Show limitbox
-		if( $pageNav ) {
-			?>
-			<div class="rsg2-pagenav-limitbox">
-				<?php echo $pageNav->writeLimitBox("index.php?option=com_rsgallery2&amp;Itemid=$Itemid"); ?>
-			</div>
-			<?php
-		}
+		$this->display( 'gallery.php' );;
 		
-		switch ( $style ) {
-			case "box":
-				$this->_showBox( $kids, $subgalleries );
-				break;
-			case "double":
-				$this->_showDouble( $kids, $subgalleries );
-				break;
-			case "custom":
-				$this->_showCustom( $kids,  $cols, $subgalleries );
-				break;
-			case "single":
-			default:
-				$this->_showSingle( $kids,  $subgalleries );
-				break;
-		}
 		//Show page navigation if selected in backend
-		if( $pageNav ) {
-		?>
-		<div class="rsg2-pageNav">
-		<?php 
-			echo $pageNav->writePagesLinks("index.php?option=com_rsgallery2&amp;Itemid=$Itemid");echo "<br>".$pageNav->writePagesCounter(); ?></div>
-		<div class='clr'>&nbsp;</div>
-		<?php
-		}
 	}
 
     /***************************
 		non page public functions
 	***************************/
-    
-    function _showGalleryDetails( $kid ) {
-        global $rsgConfig;
-        ?>
-        <span class="rsg_gallery_details"><div class="rsg2_details">
-        <?php echo _RSGALLERY_GAL_OWNER." "; echo $kid->owner;?><br />
-        Size: <?php echo galleryUtils::getFileCount($kid->get('id')). _RSGALLERY_IMAGES;?><br />
-        Created: <?php echo mosFormatDate( $kid->date,"%d-%m-%Y" );?><br />
-        </div></span>
-        <?php
-    }
+	
+	function _showGalleryDetails( $kid ) {
+		global $rsgConfig;
+		?>
+		<span class="rsg_gallery_details"><div class="rsg2_details">
+		<?php echo _RSGALLERY_GAL_OWNER." "; echo $kid->owner;?><br />
+		Size: <?php echo galleryUtils::getFileCount($kid->get('id')). _RSGALLERY_IMAGES;?><br />
+		Created: <?php echo mosFormatDate( $kid->date,"%d-%m-%Y" );?><br />
+		</div></span>
+		<?php
+	}
     
     /***************************
 		private functions
 	***************************/
-    
-    function _showSingle( $kids ) {
-        global $rsgConfig;
-        foreach ($kids as $kid) {
-        ?>
-        <div class="rsg_galleryblock">
-            <div class="rsg2-galleryList-status"><?php echo $kid->status;?></div>
-            <div class="rsg2-galleryList-thumb">
-				<?php echo $kid->thumbHTML; ?>
-				<div style="width:<?php echo $rsgConfig->get('thumb_width');?>px; height:1;"></div>
-			</div>
-            <div class="rsg2-galleryList-text">
-				<?php echo $kid->galleryName;?>
-				<span class='rsg2-galleryList-newImages'>
-					<sup><?php echo galleryUtils::newImages($kid->get('id')); ?></sup>
-				</span>
-                <?php echo $this->_showGalleryDetails( $kid );?>
-                <div class="rsg2-galleryList-description"><?php echo $kid->description;?>
-				</div>
-            </div>
-            <div class="rsg_sub_url_single"><?php HTML_RSGALLERY::subGalleryList( $kid->get('id') ); ?>
-			</div>
-        </div>
-        <?php
-        }
-    }
-    
+
+    /**
+     * @todo this alternate gallery view needs to be moved to an html file and added as a template parameter
+     */
     function _showDouble( $kids ) {
 		global $rsgConfig;
         $i = 0;
@@ -181,6 +129,9 @@ class rsgDisplay_semantic extends rsgDisplay{
 		echo "</div>";
     }
     
+    /**
+     * @todo this alternate gallery view needs to be moved to an html file and added as a template parameter
+     */
     function _showBox( $kids, $subgalleries ) {
         ?>
 		<div class="rsg_box_block">
@@ -222,6 +173,9 @@ class rsgDisplay_semantic extends rsgDisplay{
         <?php
     }
 	
+	/**
+	 * @todo this alternate gallery view needs to be moved to an html file and added as a template parameter
+	 */
     function _showCustom( $kids, $cols, $gubgalleries ) {
         echo "<h2>For testing purposes only!</h2>";
         $width = 100/$cols."%"; 
@@ -340,7 +294,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 				 ?>
 						<td>
 							<!--<div class="img-shadow">-->
-								<a href="<?php global $Itemid; echo sefRelToAbs( "index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=inline&amp;id=".$item ); ?>">
+								<a href="<?php global $Itemid; echo sefRelToAbs( "index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=inline&amp;id=".$item->id ); ?>">
 								<img border="1" alt="<?php echo htmlspecialchars(stripslashes($item->descr), ENT_QUOTES); ?>" src="<?php echo $thumb->url(); ?>" />
 								</a>
 							<!--</div>-->
@@ -381,80 +335,82 @@ class rsgDisplay_semantic extends rsgDisplay{
     /**
      * Shows main image
      */
-    function showDisplayImage(){
-        global $rsgConfig;
-        
-        $item = rsgInstance::getItem();
-        if( $item->type != 'image' )
-        	// item is not an image, return;
-        
-        $this->writeSLideShowLink();
-
-        if( $rsgConfig->get('displayPopup') == 2 ){
-            ?>
-            <link rel="stylesheet" href="<?php echo $mosConfig_live_site; ?>/components/com_rsgallery2/js_highslide/highslide.css" type="text/css" />
-            <script type="text/javascript" src="<?php echo $mosConfig_live_site;?>/components/com_rsgallery2/js_highslide/highslide.js"></script>
-            <script type="text/javascript">    
-                hs.graphicsDir = '<?php echo $mosConfig_live_site;?>/components/com_rsgallery2/js_highslide/graphics/';
-                hs.showCredits = false;
-                hs.outlineType = 'drop-shadow';
-                window.onload = function() {
-                    hs.preloadImages();
-                }
-            </script>
-            <?php
-        }
-        ?>
-        <table border="0" cellspacing="0" cellpadding="0" width="100%">
-            <tr>
-                <td><h2 class='rsg2_display_name' align="center"><?php echo htmlspecialchars(stripslashes($item->title), ENT_QUOTES); ?></h2></td>
-            </tr>
-            <tr>
-                <td>
-                <div align="center">
-                    <div id="highslide-container">
-                    <?php
-                    switch ($rsgConfig->get('displayPopup')) {
-                        //No popup
-                        case 0:
-                            $this->_showImageBox( $item->name, $item->descr );
-                            break;
-                        //Normal popup
-                        case 1:
-                            if ($rsgConfig->get('watermark')) {
-                                ?><a href="<?php echo waterMarker::showMarkedImage( $item->name, 'original' ); ?>" target="_blank"><?php
-                            } else {
-                                ?><a href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>" target="_blank"><?php
-                            }
-                            $this->_showImageBox( $item->name, $item->descr );
-                            ?>
-                            </a>
-                            <?php
-                            break;
-                        //Highslide popup
-                        case 2:
-                            if ($rsgConfig->get('watermark')) {
-                                ?><a href="<?php echo waterMarker::showMarkedImage( $item->name, 'original'); ?>" class="highslide" onclick="return hs.expand(this)"><?php
-                            } else {
-                                ?><a href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>" class="highslide" onclick="return hs.expand(this)"><?php
-                            }
-                            $this->_showImageBox( $item->name, $item->descr );
-                            ?>
-                            </a>
-                            <?php
-                            break;
-                    }
-                    ?>
-                    </div>
-                </div>
-                </td>
-            </tr>
-            <tr>
-                <td><?php $this->_writeDownloadLink( $item->id );?></td>
-            </tr>
-        </table>
-        <?php
-    }
+	function showDisplayImage(){
+		global $rsgConfig;
+		
+		$item = rsgInstance::getItem();
+		if( $item->type != 'image' ){
+			// item is not an image, return;
+			return;
+		}
+		
+// 		$this->writeSLideShowLink();
+	
+		if( $rsgConfig->get('displayPopup') == 2 ){
+			?>
+			<link rel="stylesheet" href="<?php echo $mosConfig_live_site; ?>/components/com_rsgallery2/js_highslide/highslide.css" type="text/css" />
+			<script type="text/javascript" src="<?php echo $mosConfig_live_site;?>/components/com_rsgallery2/js_highslide/highslide.js"></script>
+			<script type="text/javascript">    
+				hs.graphicsDir = '<?php echo $mosConfig_live_site;?>/components/com_rsgallery2/js_highslide/graphics/';
+				hs.showCredits = false;
+				hs.outlineType = 'drop-shadow';
+				window.onload = function() {
+					hs.preloadImages();
+				}
+			</script>
+			<?php
+		}
+		?>
+		<table border="0" cellspacing="0" cellpadding="0" width="100%">
+			<tr>
+				<td><h2 class='rsg2_display_name' align="center"><?php echo htmlspecialchars(stripslashes($item->title), ENT_QUOTES); ?></h2></td>
+			</tr>
+			<tr>
+				<td>
+				<div align="center">
+					<div id="highslide-container">
+					<?php
+					switch ($rsgConfig->get('displayPopup')) {
+						//No popup
+						case 0:
+							$this->_showImageBox( $item->name, $item->descr );
+							break;
+						//Normal popup
+						case 1:
+							if ($rsgConfig->get('watermark')) {
+								?><a href="<?php echo waterMarker::showMarkedImage( $item->name, 'original' ); ?>" target="_blank"><?php
+							} else {
+								?><a href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>" target="_blank"><?php
+							}
+							$this->_showImageBox( $item->name, $item->descr );
+							?>
+							</a>
+							<?php
+							break;
+						//Highslide popup
+						case 2:
+							if ($rsgConfig->get('watermark')) {
+								?><a href="<?php echo waterMarker::showMarkedImage( $item->name, 'original'); ?>" class="highslide" onclick="return hs.expand(this)"><?php
+							} else {
+								?><a href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>" class="highslide" onclick="return hs.expand(this)"><?php
+							}
+							$this->_showImageBox( $item->name, $item->descr );
+							?>
+							</a>
+							<?php
+							break;
+					}
+					?>
+					</div>
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td><?php $this->_writeDownloadLink( $item->id );?></td>
+			</tr>
+		</table>
+		<?php
+	}
     
 	/**
 		* Show page navigation for Display image
@@ -498,102 +454,73 @@ class rsgDisplay_semantic extends rsgDisplay{
 		<?php
 	}
 
-    /**
-     * Shows details of image
-     */
-    function showDisplayImageDetails() {
-        global $rsgConfig;
-        
-        $useTabs=0;
+	/**
+	 * Shows details of image
+	 */
+	function showDisplayImageDetails() {
+		global $rsgConfig;
 
-        if ($rsgConfig->get("displayDesc") == 1)    $useTabs++;
-        if ($rsgConfig->get("displayVoting") == 1)  $useTabs++;
-        if ($rsgConfig->get("displayComments") ==1) $useTabs++;
-        if ($rsgConfig->get("displayEXIF") == 1)    $useTabs++;
-        $useTabs = $useTabs > 1 ? 1 : 0;
-
-        $firstTab='';
-
-        if( $rsgConfig->get("displayDesc") )
-            $firstTab = 'tab1';
-        elseif( $rsgConfig->get("displayVoting") )
-            $firstTab = 'tab2';
-        elseif( $rsgConfig->get("displayComments") )
-            $firstTab = 'tab3';
-        elseif( $rsgConfig->get("displayEXIF") )
-            $firstTab = 'tab4';
-    
-        //Here comes the row with the tabs
-        if ( $useTabs ) {
-            $tabs = new mosTabs(0);
-            $tabs->startPane( 'tabs' );
-        }
-        
-        if ($rsgConfig->get("displayDesc") == 1) {
-            if ($useTabs) {
-                $tabs->startTab(_RSGALLERY_DESCR, 'rs-description' );
-                $this->_showDescription(); 
-                $tabs->endTab();
-            }
-        }
-        
-        if ($rsgConfig->get("displayVoting") == 1) {
-            if ($useTabs){
-                $tabs->startTab(_RSGALLERY_VOTING, 'Voting' );
-                $this->_showVoting();
-                $tabs->endTab();
-            }
-        }
-        
-        if ($rsgConfig->get("displayComments") == 1) {
-            if ($useTabs) {
-                $tabs->startTab(_RSGALLERY_COMMENTS, 'Comments' );
-                $this->_showComments();
-                $tabs->endTab();
-            }
-        }
-    
-        if ($rsgConfig->get("displayEXIF") == 1) {
-            if ($useTabs) {
-                $tabs->startTab(_RSGALLERY_EXIF, 'EXIF' );
-                $this->_showEXIF();
-                $tabs->endTab();
-            }
-        }
-        if ( $useTabs ) {
-            $tabs->endPane();
-        }
-    }
-
+		// if no details need to be displayed then exit
+		
+		if (! ( $rsgConfig->get("displayDesc") || $rsgConfig->get("displayVoting") || $rsgConfig->get("displayComments") || $rsgConfig->get("displayEXIF") ))
+			return;
+	
+		$tabs = new mosTabs(0);
+		$tabs->startPane( 'tabs' );
+		
+		if ( $rsgConfig->get("displayDesc") ) {
+			$tabs->startTab(_RSGALLERY_DESCR, 'rs-description' );
+			$this->_showDescription(); 
+			$tabs->endTab();
+		}
+		
+		if ( $rsgConfig->get("displayVoting") ) {
+			$tabs->startTab(_RSGALLERY_VOTING, 'Voting' );
+			$this->_showVoting();
+			$tabs->endTab();
+		}
+		
+		if ( $rsgConfig->get("displayComments") ) {
+			$tabs->startTab(_RSGALLERY_COMMENTS, 'Comments' );
+			$this->_showComments();
+			$tabs->endTab();
+		}
+	
+		if ($rsgConfig->get("displayEXIF") ) {
+			$tabs->startTab(_RSGALLERY_EXIF, 'EXIF' );
+			$this->_showEXIF();
+			$tabs->endTab();
+		}
+		$tabs->endPane();
+	}
 
     /**
      * Show description
      */
-    function _showDescription( ) {
-        global $rsgConfig;
-        ?>
-        <table width="100%" border="0" cellpadding="0" cellspacing="1" class="adminForm">
-        <tr>
-            <td>
-                <table width="100%" cellpadding="2" cellspacing="1">
-                    <?php if( $rsgConfig->get('displayHits')): ?>
-                    <tr>
-                        <td valign="top" width="100">&nbsp;<strong><?php echo _RSGALLERY_CATHITS; ?>:</strong></td>
-                        <td valign="top"><?php echo $this->item['hits']+1; ?></td>
-                    </tr>
-                    <?php endif; ?>
-                    <tr>
-                        <td valign="top" colspan='2'><?php if ( $this->item['descr'] ) echo $this->item['descr']; else echo "<em>"._RSGALLERY_NODESCR."</em>"; ?></td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        </table>
-        <?php
-    }
+	function _showDescription( ) {
+		global $rsgConfig;
+		$item = rsgInstance::getItem();
+		
+		if( $rsgConfig->get('displayHits')):
+		?>
+		<p class="rsg2_hits"><?php echo _RSGALLERY_CATHITS; ?> <span><?php echo $item->hits; ?></span></p>
+		<?php
+		endif;
+		
+		if ( $item->descr ):
+		?>
+		<p class="rsg2_description"><?php  echo $item->descr; ?></p>
+		<?php
+		endif;
+	}
     
+    /**
+     * @todo work with the new rsgCommenting system
+     */
     function _showVoting() {
         global $rsgConfig;
+        
+        return;
         ?>
         <script type="text/javascript">
             function deleteComment(id) {
@@ -637,7 +564,11 @@ class rsgDisplay_semantic extends rsgDisplay{
         <?php
     }
     
+    /**
+     * @todo work with the new rsgCommenting system
+     */
     function _showComments() {
+    	return;
         global $rsgConfig, $database, $my;
         $limitstart = $this->limitstart;
         $id = $this->item['id'];
@@ -726,69 +657,32 @@ class rsgDisplay_semantic extends rsgDisplay{
         </table>
         <?php
     }
-    
-    function _showEXIF( ) {
-        ?>
-        <table width="100%" border="0" cellpadding="0" cellspacing="1" class="adminForm">
-        <tr>
-            <td>
-                <table width="100%" cellpadding="2" cellspacing="1">
-                <tr>
-                    <td align="center"><?php echo imgUtils::showEXIF(imgUtils::getImgOriginal($this->item['name'], true)); ?></td>
-                </tr>
-                </table>
-            </td>
-        </tr>
-        </table>
-        <?php
-    }
-    /**
-     * shows proper Joomla path
-     * contributed by Jeckel
-     */
-    function showRSPathWay() {
-        global $mainframe, $database, $mosConfig_live_site, $Itemid, $gid, $imgid;
-        
-        $gid        = mosGetParam ( $_REQUEST, 'catid', 0 );
-        $imgid      = mosGetParam ( $_REQUEST, 'id', 0 );
 
-        if ($gid != 0) {
-            $database->setQuery('SELECT * FROM #__rsgallery2_galleries WHERE id = "'. $gid . '"');
-            $rows = $database->loadObjectList();
+	/**
+	 * shows exif data for the current item
+	 */
+	function _showEXIF( ) {
+		$image = rsgInstance::getItem();
 
-            $cat = $rows[0];
-            $cats = array();
-            array_push($cats, $cat);
-            
-            while ($cat->parent != 0) {
-                $database->setQuery('SELECT * FROM #__rsgallery2_galleries WHERE id = "' . $cat->parent . '"');
-                $rows = $database->loadObjectList();
-                $cat = $rows[0];
-                array_unshift($cats, $cat);
-            }    // while
-            
-            reset($cats);
-            foreach($cats as $cat) {
-                if ($cat->id == $gid && empty($imgid)) {
-                    $mainframe->appendPathWay($cat->name);
-                } else {
-                    $mainframe->appendPathWay('<a href="' . $mosConfig_live_site . '/index.php?option=com_rsgallery2&amp;Itemid='.$Itemid.'&amp;catid=' . $cat->id . '">' . $cat->name . '</a>');
-                }    // if
-            }    // foreach
-        }    // if
-        
-        if (!empty($imgid)) {
-            $database->setQuery('SELECT title FROM #__rsgallery2_files WHERE id = "'. $imgid . '"');
-            $imgTitle = $database->loadResult();
-            $mainframe->appendPathWay($imgTitle);
-        }    // if
-        
-    }
-    
+		// EXIF only available for images
+		if( $image->type != 'image' )
+			return;
+
+		$exif = $image->exif();
+
+		// no exif found display nothing.
+		if( !$exif )
+			return;
+
+		$this->exif = $exif;
+
+		$this->display('exif.php');
+	}
+
     /**
      * Shows random images for display on main page
      */
-    function showRandom($style = "hor", $count = 3) {
+    function showRandom( $style = "hor", $count = 3 ) {
         global $database, $rsgConfig;
         if ( $rsgConfig->get('displayRandom') ) {
             $catid = mosGetParam( $_REQUEST, 'catid', 0 );
@@ -866,88 +760,56 @@ class rsgDisplay_semantic extends rsgDisplay{
         </div>
         <?php
     }
-    
-	function writeSlideShowLink() {
-		global $rsgConfig, $Itemid;
-		// if no slideshow, then return
-		if ( !$rsgConfig->get('displaySlideshow') )
-			return;
-		
-		$catid = mosGetParam ( $_REQUEST, 'catid'  , '');
-		?>
-			<div style="float: right;">
-			<ul id='rsg2-navigation'>
-				<li>
-					<a href="<?php echo sefRelToAbs( 'index.php?option=com_rsgallery2&Itemid='.$Itemid.'&page=slideshow&catid='.$catid );?>">
-					<?php echo _RSGALLERY_SLIDESHOW; ?>
-					</a>
-				</li>
-			</ul>
-			</div>
-			<div class='rsg2-clr'>&nbsp;</div>
-		<?php
-	}
-    
-    function showIntroText() {
-        global $rsgConfig;
-        $catid = mosGetParam( $_REQUEST, 'catid', 0 );
-        if (!$catid) {
-            echo stripslashes( $rsgConfig->get('intro_text') );
-        }
-        
-    }
-    
+
     /**
      *  write the footer
      */
-    function showRsgFooter(){
-        global $rsgConfig, $rsgVersion;
-
-        $hidebranding = '';
-        if( $rsgConfig->get( 'displayBranding' ) == false )
-            $hidebranding ="style='display: none'";
-            
-        ?>
-        <div id='rsg2-footer' <?php echo $hidebranding; ?>>
-            <div><br /><br />
-                <?php echo $rsgVersion->getShortVersion(); ?>
-            </div>
-        </div>
-        <div class='rsg2-clr'>&nbsp;</div>
-        <?php
-    }
+	function showRsgFooter(){
+		global $rsgConfig, $rsgVersion;
+	
+		$hidebranding = '';
+		if( $rsgConfig->get( 'displayBranding' ) == false )
+			$hidebranding ="style='display: none'";
+			
+		?>
+		<div id='rsg2-footer' <?php echo $hidebranding; ?>>
+			<br /><br /><?php echo $rsgVersion->getShortVersion(); ?>
+		</div>
+		<div class='rsg2-clr'>&nbsp;</div>
+		<?php
+	}
     
-        /**
-     * Write downloadlink for image
-     * @param int image ID
-     * @param string Button or HTML link (button/link)
-     * @return HTML for downloadlink
-     */
-     function _writeDownloadLink($id, $showtext = true, $type = 'button') {
-        global $rsgConfig, $mosConfig_live_site;
-        if ( $rsgConfig->get('displayDownload') ) {
-            echo "<div class=\"rsg2-toolbar\">";
-            if ($type == 'button') {
-                ?>
-                <a href="<?php echo sefRelToAbs('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>">
-                <img height="20" width="20" src="<?php echo $mosConfig_live_site;?>/administrator/images/download_f2.png" alt="<?php echo _RSGALLERY_DOWNLOAD?>">
-                <?php
-                if ($showtext == true) {
-                    ?>
-                    <br /><span style="font-size:smaller;"><?php echo _RSGALLERY_DOWNLOAD?></span>
-                    <?php
-                }
-                ?>
-                </a>
-                <?php
-            } else {
-                ?>
-                <a href="<?php echo sefRelToAbs('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>"><?php echo _RSGALLERY_DOWNLOAD?></a>
-                <?php
-            }
-            echo "</div><div class=\"rsg2-clr\">&nbsp;</div>";
-         }
-     }  
+	/**
+	 * Write downloadlink for image
+	 * @param int image ID
+	 * @param string Button or HTML link (button/link)
+	 * @return HTML for downloadlink
+	 */
+	function _writeDownloadLink($id, $showtext = true, $type = 'button') {
+	global $rsgConfig, $mosConfig_live_site;
+	if ( $rsgConfig->get('displayDownload') ) {
+		echo "<div class=\"rsg2-toolbar\">";
+		if ($type == 'button') {
+			?>
+			<a href="<?php echo sefRelToAbs('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>">
+			<img height="20" width="20" src="<?php echo $mosConfig_live_site;?>/administrator/images/download_f2.png" alt="<?php echo _RSGALLERY_DOWNLOAD?>">
+			<?php
+			if ($showtext == true) {
+				?>
+				<br /><span style="font-size:smaller;"><?php echo _RSGALLERY_DOWNLOAD?></span>
+				<?php
+			}
+			?>
+			</a>
+			<?php
+		} else {
+			?>
+			<a href="<?php echo sefRelToAbs('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>"><?php echo _RSGALLERY_DOWNLOAD?></a>
+			<?php
+		}
+		echo "</div><div class=\"rsg2-clr\">&nbsp;</div>";
+		}
+	}
 }
 
 
@@ -957,25 +819,6 @@ class rsgDisplay_semantic extends rsgDisplay{
  */
 class HTML_RSGALLERY{
 
-    /**
-     *  write the footer
-     */
-    function RSGalleryFooter(){
-        global $rsgConfig, $rsgVersion;
-
-        $hidebranding = '';
-        if( $rsgConfig->get( 'displayBranding' ) == false )
-            $hidebranding ="style='display: none'";
-            
-        ?>
-        <div id='rsg2-footer' <?php echo $hidebranding; ?>>
-            <div><br /><br />
-                <?php echo $rsgVersion->getShortVersion(); ?>
-            </div>
-        </div>
-        <div class='rsg2-clr'>&nbsp;</div>
-        <?php
-    }
     
     function showUserGallery($rows)
     {

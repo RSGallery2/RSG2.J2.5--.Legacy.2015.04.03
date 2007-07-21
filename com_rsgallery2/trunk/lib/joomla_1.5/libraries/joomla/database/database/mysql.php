@@ -59,6 +59,7 @@ class JDatabaseMySQL extends JDatabase
 		if (!($this->_resource = @mysql_connect( $host, $user, $password, true ))) {
 			$this->_errorNum = 2;
 			$this->_errorMsg = 'Could not connect to MySQL';
+			JError::raiseError( 'help!' );
 			return;
 		}
 

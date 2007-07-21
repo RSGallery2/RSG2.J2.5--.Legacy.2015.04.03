@@ -13,16 +13,16 @@ defined( '_VALID_MOS' ) or die( 'Restricted Access' );
  * this temporary class holds functions that need to be moved to proper classes
  * but they work here for now, so we'll leave them here
  */
-class tempDisplay{
+class tempDisplay extends JObject{
 	var $gallery;
 	var $items;
 	var $item;
 	var $limitstart;
-		
+
 	/**
 		@todo move this constructor back to rsgDisplay when all functions have been moved out of tempDisplay
 	**/
-	function tempDisplay(){
+	function __construct(){
 		$this->gallery = rsgInstance::getGallery();
 	}
 	
@@ -634,6 +634,16 @@ class rsgDisplay extends tempDisplay{
 		}
 		
 	}
+	
+	function display( $file = null ){
+		global $rsgConfig;
+		$template = preg_replace( '#\W#', '', rsgInstance::getVar( 'rsgTemplate', $rsgConfig->get('template') ));
+		$templateDir = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template . DS . 'html';
+	
+		$file = preg_replace('/[^A-Z0-9_\.-]/i', '', $file);
+		
+		include $templateDir . DS . $file;
+	}
 
 	function showRSTopBar(){
 	
@@ -679,49 +689,45 @@ class rsgDisplay extends tempDisplay{
 		readfile( $mosConfig_absolute_path . '/administrator/components/com_rsgallery2/changelog.php' );
 		echo '</pre>';
 	}
-	
-	
+
     /**
      * shows proper Joomla path
      * contributed by Jeckel
      */
-    function showRSPathWay() {
-        global $mainframe, $database, $mosConfig_live_site, $Itemid, $gid, $imgid;
-        
-        $gid        = mosGetParam ( $_REQUEST, 'catid', 0 );
-        $imgid      = mosGetParam ( $_REQUEST, 'id', 0 );
+	function showRSPathWay() {
+		global $mainframe, $database, $mosConfig_live_site, $Itemid, $option;
+		
+		// if rsg2 isn't the component being displayed, don't show pathway
+		if( $option != 'com_rsgallery2' )
+			return;
+			
+		$gallery = rsgInstance::getGallery();
+		$currentGallery = $gallery->id;
+	
+		$item = rsgInstance::getItem();
+		
+		$galleries = array();
+		array_push( $galleries, $gallery );
 
-        if ($gid != 0) {
-            $database->setQuery('SELECT * FROM #__rsgallery2_galleries WHERE id = "'. $gid . '"');
-            $rows = $database->loadObjectList();
+		while ( $gallery->parent != 0) {
+			$database->setQuery('SELECT name, parent, gallery FROM #__rsgallery2_galleries WHERE id = "' . $gallery->parent . '"');
+			$gallery = $database->loadObject();
+			array_push( $galleries, $gallery );
+		}
+			
+		reset($galleries);
+		foreach( $galleries as $gallery ) {
+			if ($gallery->id == $currentGallery && empty($item)) {
+				$mainframe->appendPathWay($gallery->name);
+			} else {
+				$mainframe->appendPathWay('<a href="' . $mosConfig_live_site . '/index.php?option=com_rsgallery2&amp;Itemid='.$Itemid.'&amp;gid=' . $gallery->id . '">' . $gallery->name . '</a>');
+			}
+		}
 
-            $cat = $rows[0];
-            $cats = array();
-            array_push($cats, $cat);
-            
-            while ($cat->parent != 0) {
-                $database->setQuery('SELECT * FROM #__rsgallery2_galleries WHERE id = "' . $cat->parent . '"');
-                $rows = $database->loadObjectList();
-                $cat = $rows[0];
-                array_unshift($cats, $cat);
-            }    // while
-            
-            reset($cats);
-            foreach($cats as $cat) {
-                if ($cat->id == $gid && empty($imgid)) {
-                    $mainframe->appendPathWay($cat->name);
-                } else {
-                    $mainframe->appendPathWay('<a href="' . $mosConfig_live_site . '/index.php?option=com_rsgallery2&amp;Itemid='.$Itemid.'&amp;catid=' . $cat->id . '">' . $cat->name . '</a>');
-                }    // if
-            }    // foreach
-        }    // if
-        
-        if (!empty($imgid)) {
-            $database->setQuery('SELECT title FROM #__rsgallery2_files WHERE id = "'. $imgid . '"');
-            $imgTitle = $database->loadResult();
-            $mainframe->appendPathWay($imgTitle);
-        }    // if
-    }
+		if (!empty($item)) {
+			$mainframe->appendPathWay( $item->title );
+		}
+	}
 
 	/**
 		insert meta data into head

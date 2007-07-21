@@ -107,6 +107,9 @@ class rsgInstance extends JRequest{
 		if( !$id ){
 			// there is no item set, return the first value from getItems()
 			$items = rsgInstance::getItems();
+			if( ! $items )
+				return null;
+
 			return array_shift( $items );
 		}
 
@@ -127,8 +130,8 @@ class rsgInstance extends JRequest{
 
 		$limit = rsgInstance::getInt( 'limit', 999 );
 		$limitstart = rsgInstance::getInt( 'limitstart' );
-		$filter_order = rsgInstance::getInt( 'filter_order' );
-		$filter_order_Dir = rsgInstance::getInt( 'filter_order_Dir' );
+		$filter_order = rsgInstance::getVar( 'filter_order' );
+		$filter_order_Dir = rsgInstance::getVar( 'filter_order_Dir' );
 		
 		$items = $gallery->items( $filter_order, $filter_order_Dir, $limit, $limitstart );
 		return $items;

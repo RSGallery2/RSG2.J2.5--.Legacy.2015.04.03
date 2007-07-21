@@ -281,7 +281,8 @@ class imgUtils extends fileUtils{
     }
     
         /**
-        TODO: this class is for logic only!!!  take this html generation somewhere else.
+        @depreciated use rsgImage->showEXIF();
+        @todo this class is for logic only!!!  take this html generation somewhere else.
           reminder: exif should be read from original image only.
     **/
     function showEXIF($imagefile){

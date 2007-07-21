@@ -265,8 +265,11 @@ class rsgGalleryManager{
 * @package RSGallery2
 * @author Jonah Braun <Jonah@WhaleHosting.ca>
 */
-class rsgGallery{
+class rsgGallery extends JObject{
 //     variables from the db table
+	/** @var array the entire table row */
+	var $row = null;
+	
 	/** @var int Primary key */
 	var $id = null;
 	/** @var int id of parent */
@@ -315,9 +318,11 @@ class rsgGallery{
 	var $url = null;
 	var $status = null;
 
-    function rsgGallery( $row ){
+    function __construct( $row ){
 		global $Itemid;
-	
+
+		$this->row = $row;
+
 		// bind db row to this object
 		foreach ( $row as $k=>$v ){
 			$this->$k = $row[$k];
@@ -330,9 +335,6 @@ class rsgGallery{
 		//Write owner name
 		$this->owner = galleryUtils::genericGetUserName( $this->get('uid') );
 
-        //Write HTML for thumbnail
-		$this->thumbHTML = "<a href=\"".$this->url."\">".galleryUtils::getThumb( $this->get('id'),0,0,"" )."</a>";
-		
 		//Write gallery name
 		//TODO: sef is only included for frontend stuff.  perhaps this shouldn't be here?....
 		if( function_exists( 'sefRelToAbs' ) ){
@@ -344,8 +346,24 @@ class rsgGallery{
 			$this->galleryName = htmlspecialchars( stripslashes( $this->get( 'name' )));
 		}
 		
+		//Write HTML for thumbnail
+		$this->thumbHTML = "<a href=\"".$this->url."\">".galleryUtils::getThumb( $this->get('id'),0,0,"" )."</a>";
+		
 		//Write description
 		$this->description = ampReplace($this->get('description'));
+	}
+	
+	/**
+	 * @return true if there is an image within a week old
+	 * @todo rewrite the sql to use better date features
+	 */
+	function hasNewImages(){
+		global $database;
+		$lastweek  = mktime (0, 0, 0, date("m"),    date("d") - 7, date("Y"));
+		$lastweek = date("Y-m-d H:m:s",$lastweek);
+		$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE date >= '$lastweek' AND gallery_id = '{$this->id}'");
+		$database->query();
+		return (bool) $database->getNumRows();
 	}
 	
 	/**
@@ -373,15 +391,29 @@ class rsgGallery{
 	
 	/**
 	*  returns an array of item db rows
+	* @todo make filtering, ordering and limits work.
 	*/
 	function itemRows( $filter_order = 'ordering', $filter_order_Dir = 'ASC', $limit = 999, $limitstart = 0 ){
 		global $database;
-		$database->setQuery( "SELECT * FROM #__rsgallery2_files".
-			" WHERE gallery_id='". $this->get('id') ."'".
-			" ORDER BY $filter_order $filter_order_Dir".
-			" LIMIT $limitstart, $limit" );
+		
+		$limitStatement = '';
+		if( $limit && $limitstart )
+			$limitStatement = " LIMIT $limitstart, $limit";
 
-		// there is no rsgImage object yet, so we'll just load the row arrays directly
+		$filterStatement = '';
+		if( $filter_order && $filter_order_Dir )
+			" ORDER BY $filter_order $filter_order_Dir";
+
+// 		$database->setQuery( "SELECT * FROM #__rsgallery2_files".
+// 			" WHERE gallery_id='". $this->get('id') ."'".
+// 			$filterStatement . $limitStatement );
+
+		$database->setQuery( "SELECT * FROM #__rsgallery2_files".
+			" WHERE gallery_id='". $this->get('id') ."'");
+
+		if( !$database->query() )
+			echo $database->getErrorMsg();
+
 		$this->itemRows = $database->loadAssocList();
 		return $this->itemRows;
 	}
@@ -391,8 +423,9 @@ class rsgGallery{
 	*/
 	function items( $filter_order = 'ordering', $filter_order_Dir = 'ASC', $limit = 999, $limitstart = 0 ){
 		$this->items = array();
-			
-		foreach( $this->itemRows( $filter_order, $filter_order_Dir, $limit, $limitstart ) as $row ){
+		$rows = $this->itemRows( $filter_order, $filter_order_Dir, $limit, $limitstart );
+		
+		foreach( $rows as $row ){
 			$this->items[$row['id']] = rsgItem::getCorrectItemObject( &$this, $row );
 		}
 		return $this->items;
