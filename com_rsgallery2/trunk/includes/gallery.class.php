@@ -392,6 +392,7 @@ class rsgGallery extends JObject{
 	/**
 	*  returns an array of item db rows
 	* @todo make filtering, ordering and limits work.
+	* @todo image listing should be based on what the current visitor can see (owner, administrator, un/published, etc.)
 	*/
 	function itemRows( $filter_order = 'ordering', $filter_order_Dir = 'ASC', $limit = 999, $limitstart = 0 ){
 		global $database;
@@ -409,7 +410,8 @@ class rsgGallery extends JObject{
 // 			$filterStatement . $limitStatement );
 
 		$database->setQuery( "SELECT * FROM #__rsgallery2_files".
-			" WHERE gallery_id='". $this->get('id') ."'");
+			" WHERE gallery_id='". $this->get('id') ."'".
+			" AND published=1");
 
 		if( !$database->query() )
 			echo $database->getErrorMsg();
