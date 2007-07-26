@@ -430,6 +430,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		else{
 			// $items is null, and therefore could not be retrieved. obtain limits from single item instead
 			$item = rsgInstance::getItem();
+			$gallery = $item->gallery;
 			$itemCount = $item->gallery->itemCount();
 
 			$limit = 1;
@@ -448,7 +449,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		<?php
 		// print page navigation.
 		global $Itemid;
-		echo $pageNav->writePagesLinks( "index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=inline&amp;gid=".$gid );
+		echo $pageNav->writePagesLinks( "index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=inline&amp;gid=".$gallery->id );
 		?>
 		</div>
 		<?php
