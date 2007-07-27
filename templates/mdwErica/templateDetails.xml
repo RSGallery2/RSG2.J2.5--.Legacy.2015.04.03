@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="template">
+	<name>mdwErica</name>
+	<creationDate>2007</creationDate>
+	<author>Jonah Braun</author>
+	<copyright>Open Source, GPL</copyright>
+	<authorEmail>Jonah@WhaleHosting.ca</authorEmail>
+	<authorUrl>WhaleHosting.ca</authorUrl>
+	<version>1.0</version>
+	<description>Easy module to insert the mdwErica flash slideshow.</description>
+	<files>
+		<filename>index.php</filename>
+		<filename>templateDetails.css</filename>
+		<filename>mdwErica.js</filename>
+		<filename>mdwErica.swf</filename>
+		<filename>xml.php</filename>
+	</files>
+</mosinstall>

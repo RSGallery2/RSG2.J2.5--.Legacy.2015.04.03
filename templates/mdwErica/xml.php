@@ -11,6 +11,7 @@ class rsgXmlGalleryTemplate_mdwErica extends rsgXmlGalleryTemplate_generic{
 
 	/**
 		Prepare XML first.  Then if there are errors we print an error before changing Content-Type to xml.
+		@todo add parameter for display or original
 	**/
 	function prepare( ){
 		$showtitle = rsgInstance::getBool( 'showTitle', true );
@@ -23,11 +24,11 @@ class rsgXmlGalleryTemplate_mdwErica extends rsgXmlGalleryTemplate_generic{
 			
 			switch( $imgSize ){
 				case 'original':
-					$resource = $img->getOriginal();
+					$resource = $img->original();
 					$this->output .= $resource->url();
 				break;
 				case 'display':
-					$resource = $img->getDisplay();
+					$resource = $img->original();
 					$this->output .= $resource->url();
 				break;
 			}
