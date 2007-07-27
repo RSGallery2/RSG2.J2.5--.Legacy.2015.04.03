@@ -20,7 +20,7 @@ $gid = $params->get( 'gid' );
 //$imgSize = $params->get( 'imgSize' );
 $showTitle = $params->get( 'showTitle' );
 
-$flashURL = "$mosConfig_live_site/components/com_rsgallery2/flash/mdwErica.swf?".
+$flashURL = "$mosConfig_live_site/components/com_rsgallery2/templates/mdwErica/mdwErica.swf?".
 	"xmlName=".
 	urlencode( "$mosConfig_live_site/index.php?option=com_rsgallery2&task=xml&xmlTemplate=mdwErica&gid=$gid" );;
 
