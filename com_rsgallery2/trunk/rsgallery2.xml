@@ -364,7 +364,6 @@
 	<filename>lib/rsgcomments/images/ubb_url.gif</filename>
 	<filename>lib/rsgcomments/js/client.js</filename>
 
-	
 	<filename>templates/tables/css/template.css</filename>
 	<filename>templates/tables/index.php</filename>
 	<filename>templates/tables/templateDetails.xml</filename>
@@ -380,19 +379,16 @@
 	<filename>templates/meta/templateDetails.xml</filename>
 	<filename>templates/meta/index.php</filename>
 	<filename>templates/meta/display.class.php</filename>
+	<filename>templates/meta/xml.php</filename>
 	<filename>templates/semantic/css/template.css</filename>
 	<filename>templates/semantic/display.class.php</filename>
 	<filename>templates/semantic/templateDetails.xml</filename>
 	<filename>templates/semantic/index.php</filename>
 	<filename>templates/semantic/html/exif.php</filename>
 	<filename>templates/semantic/html/gallery.php</filename>
-	
-	<filename>xml_templates/Kirupa.php</filename>
-	<filename>xml_templates/xspf.php</filename>
-	<filename>xml_templates/generic.php</filename>
-	<filename>xml_templates/todd_dominey.php</filename>
-	<filename>xml_templates/SimpleFlash.php</filename>
+
   </files>
+ 
   <images>
 	<filename>images/no_pics.gif</filename>
     <filename>images/home.gif</filename>

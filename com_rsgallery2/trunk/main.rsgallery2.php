@@ -37,7 +37,7 @@ function xmlFile(){
 	require_once( JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template . DS . 'xml.php' );
 	
 	// prepare and output xml
-	$xmlTemplate = "rsgXmlGalleryTemplate_template";
+	$xmlTemplate = "rsgXmlGalleryTemplate_$template";
 	$xmlTemplate = new $xmlTemplate( rsgInstance::getGallery() );
 	$xmlTemplate->prepare();
 	$xmlTemplate->printHead();
