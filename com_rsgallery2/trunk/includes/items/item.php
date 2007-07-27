@@ -35,6 +35,11 @@ class rsgItem extends JObject{
 	 * rsgResource: thumbnail for this item
 	 */
 	var $thumb = null;
+	
+	/**
+	 * JParameter object representing the params
+	 */
+	var $parameters = null;
 
 	/**
 	 * @param array a database row
@@ -48,6 +53,13 @@ class rsgItem extends JObject{
 			$this->$n = $a;
 	}
 	
+	function parameters(){
+		if( $this->parameters === null )
+			$this->parameters = new JParameter( $this->param );
+
+		return $this->parameters;
+	}
+
 	/**
 	 * increases the hit counter for this object
 	 */

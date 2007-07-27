@@ -107,7 +107,6 @@ class rsgDisplay_semantic extends rsgDisplay{
 				<div class="rsg2-galleryList-status"><?php echo $kid->status;?></div>
 				<div class="rsg2-galleryList-thumb_double">
 					<?php echo $kid->thumbHTML; ?>
-					<div style="width:<?php echo $rsgConfig->get('thumb_width');?>px; height:1;"></div>
 				</div>
 				<div class="rsg2-galleryList-text_double">
 					<?php echo $kid->galleryName;?>
@@ -227,7 +226,6 @@ class rsgDisplay_semantic extends rsgDisplay{
 		$limit = rsgInstance::getInt( 'limit', $rsgConfig->get("display_thumbs_maxPerPage") );
 		$limitstart = rsgInstance::getInt( 'limitstart' );
 		
-		$thumb_width = $rsgConfig->get("thumb_width");
 		$PageSize = $rsgConfig->get("display_thumbs_maxPerPage");
 		
 		//instantiate page navigation
@@ -1315,7 +1313,6 @@ class HTML_RSGALLERY{
      */
     function RSShowPictures ($catid, $limit, $limitstart){
         global $database, $my, $mosConfig_live_site, $rsgConfig;
-        $thumb_width                = $rsgConfig->get("thumb_width");
         $columns                    = $rsgConfig->get("display_thumbs_colsPerPage");
         $PageSize                   = $rsgConfig->get("display_thumbs_maxPerPage");
         //$my_id                      = $my->id;
@@ -1374,7 +1371,7 @@ class HTML_RSGALLERY{
                 <li <?php echo "style='float: $floatDirection'"; ?> >
                     <a href="<?php global $Itemid; echo sefRelToAbs( "index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=inline&amp;id=".$row->id."&amp;catid=".$row->gallery_id."&amp;limitstart=".$limitstart++ ); ?>">
                         <!--<div class="img-shadow">-->
-                        <img border="1" alt="<?php echo htmlspecialchars(stripslashes($row->descr), ENT_QUOTES); ?>" width="<?php echo $thumb_width; ?>" src="<?php echo imgUtils::getImgThumb($row->name); ?>" />
+                        <img border="1" alt="<?php echo htmlspecialchars(stripslashes($row->descr), ENT_QUOTES); ?>" src="<?php echo imgUtils::getImgThumb($row->name); ?>" />
                         <!--</div>-->
                         <div class="clr"></div>
                         <?php if($rsgConfig->get("display_thumbs_showImgName")): ?>
@@ -1403,7 +1400,7 @@ class HTML_RSGALLERY{
                         <td>
                             <!--<div class="img-shadow">-->
                                 <a href="<?php global $Itemid; echo sefRelToAbs( "index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=inline&amp;id=".$row->id."&amp;catid=".$row->gallery_id."&amp;limitstart=".$limitstart++ ); ?>">
-                                <img border="1" alt="<?php echo htmlspecialchars(stripslashes($row->descr), ENT_QUOTES); ?>" width="<?php echo $thumb_width; ?>" src="<?php echo imgUtils::getImgThumb($row->name); ?>" />
+                                <img border="1" alt="<?php echo htmlspecialchars(stripslashes($row->descr), ENT_QUOTES); ?>" src="<?php echo imgUtils::getImgThumb($row->name); ?>" />
                                 </a>
                             <!--</div>-->
                             <div class="clr"></div>
