@@ -17,22 +17,27 @@ require_once($mosConfig_absolute_path.'/administrator/components/com_rsgallery2/
 
 // gallery id to show
 $gid = $params->get( 'gid' );
-$imgSize = $params->get( 'imgSize' );
+//$imgSize = $params->get( 'imgSize' );
 $showTitle = $params->get( 'showTitle' );
 
-echo <<<EOD
-<object
-	type="application/x-shockwave-flash"
-	data="$mosConfig_live_site/components/com_rsgallery2/flash/mdwErica.swf"
-	width="474" height="334"
-	align="middle">
-	<param name="FlashVars" value="gid=$gid" />
-	<param name="allowScriptAccess" value="sameDomain" />
-	<param name="wmode" value="transparent">
-	<param name="movie" value="$mosConfig_live_site/components/com_rsgallery2/flash/mdwErica.swf" />
-	<param name="quality" value="high" />
-	<param name="bgcolor" value="#ffffff" />
-</object>
-EOD;
+$flashURL = "$mosConfig_live_site/components/com_rsgallery2/flash/mdwErica.swf?".
+	"xmlName=".
+	urlencode( "$mosConfig_live_site/index.php?option=com_rsgallery2&task=xml&xmlTemplate=mdwErica&gid=$gid" );;
 
+echo <<<EOD
+<div class="object_holder">
+	<object
+		type="application/x-shockwave-flash"
+		data="$flashURL"
+		width="490" height="334"
+		align="middle">
+
+		<param name="allowScriptAccess" value="sameDomain" />
+		<param name="wmode" value="transparent">
+		<param name="movie" value="$flashURL" />
+		<param name="quality" value="high" />
+		<param name="bgcolor" value="#ffffff" />
+	</object>
+</div>
+EOD;
 ?>
