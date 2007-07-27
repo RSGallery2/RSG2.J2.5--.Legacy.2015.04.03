@@ -83,13 +83,13 @@ function bot_rsg2_singledisplay_replacer( &$matches ) {
 		$gallery_object = rsgGalleryManager::getGalleryByItemID( $image_attribute );
 		
 		if ( is_object( $gallery_object ) ) {// check if gallery object was returned from ImageID
-			$image_array = $gallery_object->getItem( $image_attribute );// get image array from gallery object	
+			$image_object = $gallery_object->getItem( $image_attribute );// get image array from gallery object	
 		} else {
 			return true; // if image array is not returned from gallery object then user specified wrong imageID SHOW NOTHING!
 		}
 		
-		if ( is_array( ( $image_array ) ) ) {// Check if image array was returned
-			$output = bot_rsg2_singledisplay_display( $image_array, $image_size, $image_caption);
+		if ( is_object( ( $image_object ) ) ) {// Check if image array was returned
+			$output = bot_rsg2_singledisplay_display( $image_object, $image_size, $image_caption);
 			ob_start();// start output buffer
 				echo $output;// output content
 				$display_output = ob_get_contents(); // apply buffer to var
@@ -109,28 +109,28 @@ function bot_rsg2_singledisplay_replacer( &$matches ) {
  * @param bool $image_caption
  * @return string
  */
-function bot_rsg2_singledisplay_display ( $image_array, $image_size ,$image_caption) {
+function bot_rsg2_singledisplay_display ( $image_object, $image_size ,$image_caption) {
 	$output = '<div class="rsgSingleDisplayImage id_' . $image_array['id'] . '">';
 	switch ( strtolower( $image_size ) ) {
 		case "thumb":// thumbnail display
-			$output .= '<img src="' . imgUtils::getImgThumb( $image_array['name'] ) . '" alt="' . $image_array['descr'] . '" border="0" />';
+			$output .= '<img src="' . imgUtils::getImgThumb( $image_object->name ) . '" alt="' . $image_object->descr . '" border="0" />';
 			break;
 		
 		case "display":// display set by RSGallery
-			$output .= '<img src="' . imgUtils::getImgDisplay( $image_array['name'] ) . '" alt="' . $image_array['descr'] . '" border="0" />';
+			$output .= '<img src="' . imgUtils::getImgDisplay( $image_object->name ) . '" alt="' . $image_object->descr . '" border="0" />';
 			break;
 						
 		case "original":// original image 
-			$output .= '<img src="' . imgUtils::getImgOriginal( $image_array['name'] ) . '" alt="' . $image_array['descr'] . '" border="0" />';
+			$output .= '<img src="' . imgUtils::getImgOriginal( $image_object->name ) . '" alt="' . $image_object->descr . '" border="0" />';
 			break;
 			
 		default:// display set by RSGallery
-			$output .= '<img src="' . imgUtils::getImgDisplay( $image_array['name'] ) . '" alt="' . $RSGDisplay_image_array['descr'] . '" border="0" />';
+			$output .= '<img src="' . imgUtils::getImgDisplay( $image_object->name ) . '" alt="' . $image_object->descr . '" border="0" />';
 			break;
 	}
 	
 	// if image caption then output the description of the image 
-	$image_caption ? $output .= '<div class=caption>' . $image_array['descr'] . '</div>' : $output .= "";
+	$image_caption ? $output .= '<div class=caption>' . $image_object->descr . '</div>' : $output .= "";
 	$output .= '</div>';
 	
 	// return image ouput
