@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="module" version="1.0.0">
+	<name>RSGallery2 mdwErica Flash Player</name>
+	
+	<author>Jonah</author>
+	<creationDate>2007</creationDate>
+	<copyright>This component is released under the GNU/GPL License</copyright>
+	<authorEmail>t.jonah.braun@morris.com</authorEmail>
+	<authorUrl>http://rsgallery2.net/</authorUrl>
+	<version>0.3</version>
+	<description>Generates Erica's flash player to display a gallery from RSGallery2.</description>
+	<files>
+		<filename module="mod_rsg2_mdwErica">mod_rsg2_mdwErica.php</filename>
+	</files>
+	<params>
+		<param name="gid" type="text" default="" label="Gallery ID" description="Enter the ID of the gallery to show.  Check the Gallery Manager in RSGallery2 to find the gallery ID." />
+	</params>
+</mosinstall>
