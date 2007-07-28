@@ -58,7 +58,7 @@ function bot_rsg2_singledisplay_replacer( &$matches ) {
 				array_push( $clean_attribs, $clean_attrib );
 			}
 		} else {
-			return true;
+			return false;
 		}
 		
 		
@@ -76,7 +76,7 @@ function bot_rsg2_singledisplay_replacer( &$matches ) {
 			}
 
 		} else {
-			return true;// if nothing is set then User is did not use bot correctly SHOW NOTHING!
+			return false;// if nothing is set then the User did not use bot correctly SHOW NOTHING!
 		}
 		
 		// obtain gallery object by the Images ID
@@ -85,7 +85,7 @@ function bot_rsg2_singledisplay_replacer( &$matches ) {
 		if ( is_object( $gallery_object ) ) {// check if gallery object was returned from ImageID
 			$image_object = $gallery_object->getItem( $image_attribute );// get image array from gallery object	
 		} else {
-			return true; // if image array is not returned from gallery object then user specified wrong imageID SHOW NOTHING!
+			return false; // if image object is not returned from gallery object then user specified wrong imageID SHOW NOTHING!
 		}
 		
 		if ( is_object( ( $image_object ) ) ) {// Check if image array was returned
@@ -104,29 +104,46 @@ function bot_rsg2_singledisplay_replacer( &$matches ) {
 /**
  * Code that generates Image output
  *
- * @param array $image_array
+ * @param object $image_object
  * @param string $image_size
  * @param bool $image_caption
  * @return string
  */
 function bot_rsg2_singledisplay_display ( $image_object, $image_size ,$image_caption) {
-	$output = '<div class="rsgSingleDisplayImage id_' . $image_array['id'] . '">';
+	$output = '<div class="rsgSingleDisplayImage id_' . $image_object->id . '">';
+	$params_obj = $image_object->parameters();//get params object
+		
 	switch ( strtolower( $image_size ) ) {
 		case "thumb":// thumbnail display
-			$output .= '<img src="' . imgUtils::getImgThumb( $image_object->name ) . '" alt="' . $image_object->descr . '" border="0" />';
+			$thumb = $image_object->thumb();
+			$image_output .= '<img src="' . $thumb->url() . '" alt="' . $image_object->descr . '" border="0" />';
 			break;
 		
 		case "display":// display set by RSGallery
-			$output .= '<img src="' . imgUtils::getImgDisplay( $image_object->name ) . '" alt="' . $image_object->descr . '" border="0" />';
+			$display = $image_object->display();
+			$image_output .= '<img src="' . $display->url() . '" alt="' . $image_object->descr . '" border="0" />';
 			break;
 						
 		case "original":// original image 
-			$output .= '<img src="' . imgUtils::getImgOriginal( $image_object->name ) . '" alt="' . $image_object->descr . '" border="0" />';
+			$original = $image_object->original();
+			$image_output .= '<img src="' . $original->url() . '" alt="' . $image_object->descr . '" border="0" />';
 			break;
 			
 		default:// display set by RSGallery
-			$output .= '<img src="' . imgUtils::getImgDisplay( $image_object->name ) . '" alt="' . $image_object->descr . '" border="0" />';
+			$display = $image_object->display();
+			$image_output .= '<img src="' . $display->url() . '" alt="' . $image_object->descr . '" border="0" />';
 			break;
+	}
+	
+	if ( $params_obj->get( 'link_text','' ) ) {
+		$parse_url = parse_url( $params_obj->get( 'link', '' ) );
+		( $parse_url['scheme'] == "http" ) ? $link = $params_obj->get( 'link', '' ) : $link = 'http://' . $params_obj->get( 'link', '' );
+		$output .= '<a href="' . $link . '">';
+		$output .= $image_output;
+		if( $params_obj->get( 'link_text','' ) ){ $output .= $params_obj->get( 'link_text','' ); }
+		$output .= '</a>';
+	} else {
+		$output .= $image_output;
 	}
 	
 	// if image caption then output the description of the image 
