@@ -13,15 +13,17 @@ defined( '_VALID_MOS' ) or die( 'Restricted Access' );
  */
 class rsgDisplay_xspf_Music_Player extends rsgDisplay{
 	function mainPage(){
-		$gallery = $this->gallery;
-		$this->showGalleries( $gallery );
-
-		foreach( $gallery->kids() as $kid ){
-			$this->showGalleries( $kid );
-		}
+		$this->showGalleries();
 	}
 	
-	function showGalleries ( $gallery ) {
+	function showGalleries () {
+		$gallery =  rsgInstance::getGallery();
+		$this->gallery = $gallery;
+		
+		foreach( $gallery->kids() as $kid ){
+			$this->showGalleries();
+		}
+		
 		if ( is_object( $gallery ) ) {
 			foreach( $gallery->items() as $item ) {
 				if( is_a( $item,'rsgItem_audio' ) ) {
