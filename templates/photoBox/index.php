@@ -17,6 +17,7 @@ $rsgDisplay = new rsgDisplay_photoBox();
 
 global $mosConfig_live_site;
 $template_dir = "$mosConfig_live_site/components/com_rsgallery2/templates/photoBox";
+$lightbox_dir = "$mosConfig_live_site/components/com_rsgallery2/lib/lightbox_plus";
 
 $rsgDisplay->metadata();
 // append to Joomla's pathway
@@ -28,6 +29,8 @@ mosCommonHTML::loadOverlib();
 
 <?php //image display ?>
 <script type="text/javascript" src="<?php echo $template_dir; ?>/js/selectThumb.js"></script>
+<script type="text/javascript" src="<?php echo $lightbox_dir; ?>/spica.js"></script>
+<script type="text/javascript" src="<?php echo $lightbox_dir; ?>/lightbox_plus.js"></script>
 
 <link href="<?php echo $template_dir; ?>/css/template.css" rel="stylesheet" type="text/css" />
 

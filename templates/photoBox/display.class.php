@@ -16,47 +16,51 @@ class rsgDisplay_photoBox extends rsgDisplay{
 			}
 		}
 		echo '<div id="photo-box">';
-			$this->showImages( $this->gallery );
-		echo '</div>';
+			$this->showImages();
+		echo '<div class="desc">Click Thumbnails to View <span class="desc_right">Click Large Image To See Full</span></div>';
 		echo '<div class="thumbs">';
-		echo '<div>Click Thumbnails to View</div>';
-			$this->showThumbs( $this->gallery );
+			$this->showThumbs();
+		echo '</div>';
 		echo '</div>';
 	}
 	
-	function showThumbs ( $gallery ) {
-		$count = 0;
-		foreach ($gallery->itemRows() as $item) {
-			$thumb = imgUtils::getImgThumb( $item['name'] );
-			$image_id = $item['id'];
+	function showThumbs () {
+		$count			 = 0;
+		$gallery		 =  rsgInstance::getGallery();
+		$this->gallery	 = $gallery;
+		
+		foreach ($gallery->items() as $item) {
+			$thumb = $item->thumb();
 			?>
-			<a href="javascript: select_thumb('<?php echo $image_id ?>', '<?php echo $image_id ?>');"><img src="<?php echo $thumb ?>" alt="" id="thumb-id-<?php echo $image_id ?>" <?php if(!$count){?>class="selected"<?php } ?> /></a>
+			<a href="javascript: select_thumb('<?php echo $item->get('id'); ?>', '<?php echo $item->get('id'); ?>');"><img src="<?php echo $thumb->url(); ?>" alt="" id="thumb-id-<?php echo $item->get('id'); ?>" <?php if(!$count){?>class="selected"<?php } ?> /></a>
 			<?php
 			$count++;
 		}
 	}
 	
-	function showImages ( $gallery ) {
-		$count = 0;
-		foreach ($gallery->itemRows() as $item) {
-			$title = $item['title'];
-			$name = $item['name'];
-			$full_image = imgUtils::getImgDisplay($name);
-			$desc = $item['descr'];
-			$image_id = $item['id'];
-								
-			$this->RSGallery2_template_photoBox($title, $name, $full_image, $desc, $image_id, $count);
+	function showImages () {
+		$count 			= 0;
+		$gallery 		=  rsgInstance::getGallery();
+		$this->gallery	= $gallery;
+		
+		foreach ($gallery->items() as $item) {
+			$display = $item->display();
+			
+			$this->RSGallery2_template_photoBox($item->title, $item->name, $display->url(), $item->descr, $item->get("id"), $count, $item->original);
 			$count++;
 		}
 	}
 	
-	function RSGallery2_template_photoBox($title, $name, $image, $desc, $id, $count) {
+	function RSGallery2_template_photoBox($title, $name, $image, $descr, $id, $count, $original) {
 		?>
 		<div id="photo-id-<?php echo $id?>" class="large<?php if(!$count){?>selected<?php } ?>">
-			<img src="<?php echo $image?>" alt="" /><br />
+			<a href="<?php echo $original->url(); ?>" rel="lightbox" title="<?php echo $title; echo $descr;?>">
+				<img src="<?php echo $image?>" alt="<?php echo $title ?>" border="0" /><br />
+			</a>
 			<p><?php echo $desc ?></p>
 		</div>
 		<?
 	}
 }
 ?>
+
