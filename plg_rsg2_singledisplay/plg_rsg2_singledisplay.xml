@@ -6,7 +6,7 @@
 	<copyright>(C) 2007 Jonathan DeLaigle. All rights reserved.</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorUrl>rsgallery2.net</authorUrl>
-	<version>0.1.5</version>
+	<version>0.1.6</version>
 	<description>This bot will replace {rsg2_singledisplay: imageid, size, caption} with the correct image output from the gallery.</description>
 	<files>
 		<filename mambot="plg_rsg2_singledisplay">plg_rsg2_singledisplay.php</filename>

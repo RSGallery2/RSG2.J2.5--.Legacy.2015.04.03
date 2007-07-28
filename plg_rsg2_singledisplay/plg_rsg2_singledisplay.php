@@ -110,44 +110,45 @@ function bot_rsg2_singledisplay_replacer( &$matches ) {
  * @return string
  */
 function bot_rsg2_singledisplay_display ( $image_object, $image_size ,$image_caption) {
-	$output = '<div class="rsgSingleDisplayImage id_' . $image_object->id . '">';
-	$params_obj = $image_object->parameters();//get params object
-		
-	switch ( strtolower( $image_size ) ) {
-		case "thumb":// thumbnail display
-			$thumb = $image_object->thumb();
-			$image_output .= '<img src="' . $thumb->url() . '" alt="' . $image_object->descr . '" border="0" />';
-			break;
-		
-		case "display":// display set by RSGallery
-			$display = $image_object->display();
-			$image_output .= '<img src="' . $display->url() . '" alt="' . $image_object->descr . '" border="0" />';
-			break;
-						
-		case "original":// original image 
-			$original = $image_object->original();
-			$image_output .= '<img src="' . $original->url() . '" alt="' . $image_object->descr . '" border="0" />';
-			break;
-			
-		default:// display set by RSGallery
-			$display = $image_object->display();
-			$image_output .= '<img src="' . $display->url() . '" alt="' . $image_object->descr . '" border="0" />';
-			break;
-	}
+	global $mosConfig_live_site;
+	$output = '<div class="rsgSingleDisplay id_' . $image_object->id . '">';
 	
-	if ( $params_obj->get( 'link_text','' ) ) {
-		$parse_url = parse_url( $params_obj->get( 'link', '' ) );
-		( $parse_url['scheme'] == "http" ) ? $link = $params_obj->get( 'link', '' ) : $link = 'http://' . $params_obj->get( 'link', '' );
-		$output .= '<a href="' . $link . '">';
-		$output .= $image_output;
-		if( $params_obj->get( 'link_text','' ) ){ $output .= $params_obj->get( 'link_text','' ); }
-		$output .= '</a>';
+	if( is_a( $image_object, 'rsgItem_audio' ) ) {
+		$audio = $image_object->original();
+		if ( strtolower( $image_size ) == "thumb" ) {
+			$output .= '<object type="application/x-shockwave-flash" width="17" height="17" data="' . $mosConfig_live_site . '/components/com_rsgallery2/flash/xspf/musicplayer.swf?song_title=' . $image_object->name . '&song_url=' . $audio->url() .'"><param name="movie" value="' . $mosConfig_live_site . '/components/com_rsgallery2/flash/xspf/musicplayer.swf?song_title=' . $image_object->name
+				.'&song_url=' . $audio->url() . '" /></object>';
+		} else {
+			$output .= '<object type="application/x-shockwave-flash" width="400" height="15" data="' . $mosConfig_live_site . '/components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=' . $image_object->name . '&song_url=' . $audio->url() .'"><param name="movie" value="' . $mosConfig_live_site . '/components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=' . $image_object->name
+				.'&song_url=' . $audio->url() . '" /></object>';			
+		}
 	} else {
-		$output .= $image_output;
+		switch ( strtolower( $image_size ) ) {
+			case "thumb":// thumbnail display
+				$thumb = $image_object->thumb();
+				$output .= '<img src="' . $thumb->url() . '" alt="' . $image_object->descr . '" border="0" />';
+				break;
+			
+			case "display":// display set by RSGallery
+				$display = $image_object->display();
+				$output .= '<img src="' . $display->url() . '" alt="' . $image_object->descr . '" border="0" />';
+				break;
+							
+			case "original":// original image 
+				$original = $image_object->original();
+				$output .= '<img src="' . $original->url() . '" alt="' . $image_object->descr . '" border="0" />';
+				break;
+				
+			default:// display set by RSGallery
+				$display = $image_object->display();
+				$output .= '<img src="' . $display->url() . '" alt="' . $image_object->descr . '" border="0" />';
+				break;
+		}
 	}
 	
 	// if image caption then output the description of the image 
-	$image_caption ? $output .= '<div class=caption>' . $image_object->descr . '</div>' : $output .= "";
+	$image_caption ? $output .= '<div class=caption>' . $image_object->descr . '</div>' : $output .= "";		
+	
 	$output .= '</div>';
 	
 	// return image ouput
