@@ -55,7 +55,7 @@ class rsgItem extends JObject{
 	
 	function parameters(){
 		if( $this->parameters === null )
-			$this->parameters = new JParameter( $this->param );
+			$this->parameters = new JParameter( $this->params );
 
 		return $this->parameters;
 	}
