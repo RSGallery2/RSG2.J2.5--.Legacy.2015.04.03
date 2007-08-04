@@ -141,18 +141,18 @@ DEFINE("_RSGALLERY_ALERT_CATDELOK",			"Gallery deleted!");
 //function doFrontUpload
 DEFINE("_RSGALLERY_MAX_USERIMAGES_ALERT",   "Maximum number of images uploaded reached. Delete some images first.");
 DEFINE("_RSGALLERY_BATCH_ERROR_SIZE",		"ZIP-file is too big to upload. Your upload limit(defined in php.ini) is ");
-DEFINE("_RSGALLERY_ALERT_UPLOADOK",			"Image uploaded succesfully!");
+DEFINE("_RSGALLERY_ALERT_UPLOADOK",			"Item uploaded succesfully!");
 DEFINE("_RSGALLERY_ALERT_NOWRITE",			"Upload failed.\\nBack to uploadscreen");
 DEFINE("_RSGALLERY_ALERT_WRONGFORMAT",		"Wrong image format.\\nWe will redirect you to the upload screen");
 
 //admin.rsgallery2.html.php
 DEFINE("_RSGALLERY_TAB_GALLERIES",			"Galleries");
 DEFINE("_RSGALLERY_MOST_RECENT_GAL",		"Most recently added galleries");
-DEFINE("_RSGALLERY_GALLERY",				"Gallerie");
+DEFINE("_RSGALLERY_GALLERY",				"Gallery");
 DEFINE("_RSGALLERY_USER",					"User");
 DEFINE("_RSGALLERY_ID",						"ID");
-DEFINE("_RSGALLERY_TAB_IMAGES",				"Images");
-DEFINE("_RSGALLERY_MOST_RECENT_IMG", 		"Most recently added images");
+DEFINE("_RSGALLERY_TAB_IMAGES",				"Items");
+DEFINE("_RSGALLERY_MOST_RECENT_IMG", 		"Most recently added items");
 DEFINE("_RSGALLERY_DATE",					"Date");
 DEFINE("_RSGALLERY_CREDITS",				"Credits");
 DEFINE("_RSGALLERY_INSTALLED_VERSION",		"Installed version");
@@ -161,7 +161,7 @@ DEFINE("_RSGALLERY_LICENSE",				"License");
 DEFINE("_RSGALLERY_C_CONFIG",				"Configuration");
 DEFINE("_RSGALLERY_C_UPLOAD",				"Upload");
 DEFINE("_RSGALLERY_C_UPLOAD_ZIP",			"Batch upload");
-DEFINE("_RSGALLERY_C_IMAGES",				"Manage Images");
+DEFINE("_RSGALLERY_C_IMAGES",				"Manage Items");
 DEFINE("_RSGALLERY_C_CATEGORIES",			"Manage Galleries");
 DEFINE("_RSGALLERY_C_DATABASE",				"Consolidate database");
 DEFINE("_RSGALLERY_C_MIGRATION",			"Migration options");
@@ -192,7 +192,7 @@ DEFINE("_RSGALLERY_BATCH_IN_PHPINI",		" Megabytes (set in php.ini)");
 DEFINE("_RSGALLERY_BATCH_FTP_PATH",			"FTP-path");
 DEFINE("_RSGALLERY_BATCH_DONT_FORGET_SLASH","(Don't forget starting and trailing slash)");
 DEFINE("_RSGALLERY_BATCH_CATEGORY",			"Specify gallery");
-DEFINE("_RSGALLERY_BATCH_YES_IMAGES_IN",	"Yes, all images in ");
+DEFINE("_RSGALLERY_BATCH_YES_IMAGES_IN",	"Yes, all items in ");
 DEFINE("_RSGALLERY_BATCH_NO_SPECIFY",		"No, specify gallery per image in step 2");
 DEFINE("_RSGALLERY_BATCH_NEXT",				"Next -->");
 DEFINE("_RSGALLERY_BATCH_DELETE",	"Delete");
@@ -608,7 +608,7 @@ DEFINE("_RSGALLERY_SLIDE_PREV",			"Previous");
 
 //images.html.php
 //function showImages
-DEFINE("_RSGALLERY_IMG_IMG_MANAGE",			"Image Manager");
+DEFINE("_RSGALLERY_IMG_IMG_MANAGE",			"Item Manager");
 DEFINE("_RSGALLERY_IMG_FILTER",				"Filter:");
 DEFINE("_RSGALLERY_IMG_CPY_MV_GAL",			"Copy/Move:");
 DEFINE("_RSGALLERY_IMG_TITLE",				"Title (filename)");
@@ -616,23 +616,23 @@ DEFINE("_RSGALLERY_IMG_ORDER",				"Order");
 DEFINE("_RSGALLERY_IMG_DATE_TIME",			"Date & time");
 DEFINE("_RSGALLERY_IMG_EDIT_IMG",			"Edit Images");
 //function editImage
-DEFINE("_RSGALLERY_IMG_IMAGE",			"Image");
+DEFINE("_RSGALLERY_IMG_IMAGE",			"Item");
 DEFINE("_RSGALLERY_IMG_DETAILS",		"Details");
 DEFINE("_RSGALLERY_IMG_ORDERING",		"Ordering");
-DEFINE("_RSGALLERY_IMG_IMG_PREV",		"Image preview");
+DEFINE("_RSGALLERY_IMG_IMG_PREV",		"Item preview");
 DEFINE("_RSGALLERY_IMG_PARAMETERS",		"Parameters");
 DEFINE("_RSGALLERY_IMG_LINKS",			"Links to image");
 //function uploadImage
 DEFINE("_RSGALLERY_IMG_SELECT_GAL",			"You must select a gallery.");/*javascript alert*/
 DEFINE("_RSGALLERY_IMG_NO_FILE_SELECT",		"No file was selected in one or more fields.");/*javascript alert*/
-DEFINE("_RSGALLERY_IMG_UPLOAD",			"Upload");
-DEFINE("_RSGALLERY_IMG_UPL_DETAILS",			"Upload details");
-DEFINE("_RSGALLERY_IMG_UPL_GALLERY",			"Upload Gallery");
+DEFINE("_RSGALLERY_IMG_UPLOAD",				"Upload");
+DEFINE("_RSGALLERY_IMG_UPL_DETAILS",		"Upload details");
+DEFINE("_RSGALLERY_IMG_UPL_GALLERY",		"Upload Gallery");
 DEFINE("_RSGALLERY_IMG_GEN_DESCR",			"Generic Description");
-DEFINE("_RSGALLERY_IMG_IMG_FILES",			"Image files");
-DEFINE("_RSGALLERY_IMG_IMAGES",			"Images");
-DEFINE("_RSGALLERY_IMG_FILE",			"File");
-DEFINE("_RSGALLERY_IMG_MORE",			"(more images)");
+DEFINE("_RSGALLERY_IMG_IMG_FILES",			"Item files");
+DEFINE("_RSGALLERY_IMG_IMAGES",				"Items");
+DEFINE("_RSGALLERY_IMG_FILE",				"File");
+DEFINE("_RSGALLERY_IMG_MORE",				"(more files)");
 
 //access.class.php
 //function checkGallery
