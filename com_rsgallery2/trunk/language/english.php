@@ -251,6 +251,7 @@ DEFINE("_RSGALLERY_UPLOAD_FORM_FILE",		"File");
 /*new*/DEFINE("_RSGALLERY_NO_PREVIEW ",		"No preview available");
 DEFINE("_RSGALLERY_DELETE",					"Delete");
 DEFINE("_RSGALLERY_MOVETO",					"Move To");
+DEFINE("_RSGALLERY_COPYIMAGE",				"Copy");
 DEFINE("_RSGALLERY_NUMDISPLAY",				"Display #");
 DEFINE("_RSGALLERY_SEARCH",					"Search");
 DEFINE("_RSGALLERY_IMAGENAME",				"Name");
@@ -329,6 +330,9 @@ DEFINE("_RSGALLERY_REAL_UNINST_DONE",		"Done.  Manually remove anything above if
 DEFINE("_RSGALLERY_ALERT_IMGDELETEOK",		"Image(s) deleted succesfully!");
 //function c_delete
 DEFINE("_RSGALLERY_ALERT_IMGDELETENOTOK",	"Image(s) were not deleted!");
+//function copy_image
+DEFINE("_RSGALLERY_ALERT_COPYOK",			"Item(s) copied successfully!");
+DEFINE("_RSGALLEY_ALERT_REST_COPYDOK",		"Rest of the items copied successfully!");
 //function c_create
 /*new*/DEFINE("_RSGALLERY_CC_NO_FILE_INFO",		"No fileinformation found. This should never happen!");
 //function db_create
@@ -497,7 +501,8 @@ DEFINE("_RSGALLERY_GAL_MANAGE",			"Gallery Manager");
 DEFINE("_RSGALLERY_GAL_MAX_LEVELS",		"Max Levels");
 DEFINE("_RSGALLERY_GAL_FILTER",			"Filter");
 DEFINE("_RSGALLERY_GAL_NAME",			"Name");
-DEFINE("_RSGALLERY_GAL_REORDER",			"Reorder");
+DEFINE("_RSGALLERY_GAL_REORDER",		"Reorder");
+DEFINE("_RSGALLERY_GAL_COUNT",			"# Items");
 DEFINE("_RSGALLERY_GAL_HITS",			"Hits");
 //function edit
 DEFINE("_RSGALLERY_GAL_GAL",				"Gallery");
@@ -605,16 +610,18 @@ DEFINE("_RSGALLERY_SLIDE_PREV",			"Previous");
 //function showImages
 DEFINE("_RSGALLERY_IMG_IMG_MANAGE",			"Image Manager");
 DEFINE("_RSGALLERY_IMG_FILTER",				"Filter:");
+DEFINE("_RSGALLERY_IMG_CPY_MV_GAL",			"Copy/Move:");
 DEFINE("_RSGALLERY_IMG_TITLE",				"Title (filename)");
 DEFINE("_RSGALLERY_IMG_ORDER",				"Order");
 DEFINE("_RSGALLERY_IMG_DATE_TIME",			"Date & time");
 DEFINE("_RSGALLERY_IMG_EDIT_IMG",			"Edit Images");
 //function editImage
 DEFINE("_RSGALLERY_IMG_IMAGE",			"Image");
-DEFINE("_RSGALLERY_IMG_DETAILS",			"Details");
-DEFINE("_RSGALLERY_IMG_ORDERING",			"Ordering");
-DEFINE("_RSGALLERY_IMG_IMG_PREV",			"Image preview");
-DEFINE("_RSGALLERY_IMG_PARAMETERS",			"Parameters");
+DEFINE("_RSGALLERY_IMG_DETAILS",		"Details");
+DEFINE("_RSGALLERY_IMG_ORDERING",		"Ordering");
+DEFINE("_RSGALLERY_IMG_IMG_PREV",		"Image preview");
+DEFINE("_RSGALLERY_IMG_PARAMETERS",		"Parameters");
+DEFINE("_RSGALLERY_IMG_LINKS",			"Links to image");
 //function uploadImage
 DEFINE("_RSGALLERY_IMG_SELECT_GAL",			"You must select a gallery.");/*javascript alert*/
 DEFINE("_RSGALLERY_IMG_NO_FILE_SELECT",		"No file was selected in one or more fields.");/*javascript alert*/
