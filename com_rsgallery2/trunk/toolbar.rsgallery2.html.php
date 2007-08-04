@@ -25,6 +25,8 @@ class menu_rsg2_images{
         mosMenuBar::startTable();
         mosMenuBar::custom('move_images','file_f2.png','file_f2.png',_RSGALLERY_MOVETO, true);
         mosMenuBar::spacer();
+        mosMenuBar::custom('copy_images','copy_f2.png','copy_f2.png',_RSGALLERY_COPYIMAGE, true);
+        mosMenuBar::spacer();
         mosMenuBar::publishList();
         mosMenuBar::spacer();
         mosMenuBar::unpublishList();

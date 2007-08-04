@@ -76,13 +76,20 @@ switch ($task) {
 		resetHits( $cid );
 		break;
 	
+	case 'copy_images':
+		copyImage( $cid, $option );
+		break;
+		
 	case 'move_images':
 		moveImages( $cid, $option );
+		break;
 		
 	case 'showImages':
-	default:
 		showImages( $option );
 		break;
+		
+	default:
+		showImages( $option );
 }
 
 /**
@@ -287,9 +294,12 @@ function moveImages( $cid, $option ) {
 		$database->setQuery( $query );
 		if (!$database->query()) {
 			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
+			
 			exit();
 		}
 	}
+	mosRedirect( "index2.php?option=$option&rsgOption=images", '' );
+	
 }
 /**
 * Publishes or Unpublishes one or more records
@@ -489,4 +499,65 @@ function saveOrder( &$cid ) {
 	$msg 	= 'New ordering saved';
 	mosRedirect( 'index2.php?option=com_rsgallery2&rsgOption=images', $msg );
 } // saveOrder
+
+function copyImage( $cid, $option ) {	
+	global $database;
+	
+	//For each error that is found, store error message in array
+	$errors = array();
+	
+	$cat_id = mosGetParam( $_POST, 'move_id', '' );//get gallery id to copy item to
+	if (!$cat_id) {
+		echo "<script> alert('No gallery selected to move to'); window.history.go(-1);</script>\n";
+		exit;
+	}
+	
+    //Create unique copy name
+    $tmpdir	= uniqid( 'rsgcopy_' );
+    
+    //Get full path to copy directory
+	$copyDir = mosPathName( JPATH_ROOT.DS . 'media' . DS . $tmpdir . DS );
+    if( !mkdir( $copyDir ) ) {
+    		$errors[] = 'Unable to create temp directory ' . $copyDir; 
+    } else {
+	    foreach( $cid as $id ) {
+	    	$item = rsgGalleryManager::getItem( $id );
+	    	$original = $item->original();
+	    	$source = $original->filePath();
+	    	
+	    	$destination = $copyDir . $item->name;
+	    	
+	    	if( is_dir($copyDir) ) {
+	    		if( file_exists( $source ) ) {
+	    			
+	    			if(!copy( $source, $destination)){
+	    				$errors[] = 'The file could not be copied!';
+	    			} else {
+						//Actually importing the image
+						$e = fileUtils::importImage($destination, $item->name, $cat_id, $item->title, $descr);
+						if ( $e !== true )	$errors[] = $e;
+						if(!unlink($destination)) $errors[] = 'Unable to delete the file' . $item->name;
+					}
+				}
+			}
+	    }
+	    
+	    if(!rmdir($copyDir)) $errors[] = 'Unable to delete the temp directory' . $copyDir;	
+    }
+
+	//Error handling if necessary
+	if ( count( $errors ) == 0){
+		mosRedirect( "index2.php?option=$option&rsgOption=images", _RSGALLERY_ALERT_COPYOK );
+	} else {
+		//Show error message for each error encountered
+		foreach( $errors as $e ) {
+			echo $e->toString();
+		}
+		//If there were more files than errors, assure the user the rest went well
+		if ( count( $errors ) < count( $files["error"] ) ) {
+			echo "<br>"._RSGALLEY_ALERT_REST_COPYDOK;
+		}
+	}
+}
+
 ?>
