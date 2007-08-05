@@ -708,14 +708,18 @@ class rsgDisplay extends tempDisplay{
 		
 		$galleries = array();
 		array_push( $galleries, $gallery );
-
+		
 		while ( $gallery->parent != 0) {
-			$database->setQuery('SELECT name, parent, gallery FROM #__rsgallery2_galleries WHERE id = "' . $gallery->parent . '"');
-			$gallery = $database->loadObject();
+			$query = 'SELECT name, parent, id FROM #__rsgallery2_galleries WHERE id = "' . $gallery->parent . '" LIMIT 1';
+			unset($gallery);	
+			
+			$database->setQuery( $query );
+			$database->loadObject($gallery);
+		
 			array_push( $galleries, $gallery );
 		}
-			
-		reset($galleries);
+		
+		$galleries = array_reverse($galleries);
 		foreach( $galleries as $gallery ) {
 			if ($gallery->id == $currentGallery && empty($item)) {
 				$mainframe->appendPathWay($gallery->name);
