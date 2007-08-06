@@ -78,6 +78,8 @@ class rsgItem_image extends rsgItem{
 			// original image does not exist, therefore display and thumb MUST exist
 			$this->display = new rsgResource( $display );
 			$this->thumb = new rsgResource( $thumb );
+
+			$this->original =& $this->display;
 			return;
 		}
 		
