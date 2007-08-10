@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <mosinstall type="template">
 	<name>Super Clean HS</name>
-	<creationDate>2007/May/25</creationDate>
-	<author>Jonah/piran</author>
+	<creationDate>2007/08/10</creationDate>
+	<author>Jonah/piran/DT^2</author>
 	<copyright>Open Source, GPL</copyright>
-	<authorEmail>info@rsgallery2.net</authorEmail>
-	<authorUrl>rsgallery2.net</authorUrl>
-	<version>0.2.1</version>
+	<authorEmail>mail@danieltulp.nl</authorEmail>
+	<authorUrl>design.danieltulp.nl</authorUrl>
+	<version>0.2.2</version>
 	<description>Only thumbnails with High Slide (not free for commercial use) fancy popups.  Galleries one level down from linked gallery are collapsed, this can lead to a heavy demand on 'bandwidth'. Minimal details shown. </description>
 	<files>
 		<filename>index.php</filename>
@@ -58,7 +58,8 @@
 		<filename>js_highslide/graphics/outlines/rounded-white/8.png</filename>
 		<filename>js_highslide/graphics/outlinesOutlines.psd</filename>
 		<filename>language/english.php</filename>
-
+		<filename>html/gallery.php</filename>
+		<filename>html/exif.php</filename>
 	</files>
 	<css>
 		<filename>css/template.css</filename>

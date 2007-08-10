@@ -1,10 +1,13 @@
 <?php
 /**
-* This file contains the main template file for RSGallery2.
+* This file contains the template file for RSGallery2 highslideJS template.
 * @package RSGallery2
 * @copyright (C) 2003 - 2006 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
+* Template created by Daniël Tulp, DT^2 (http://design.danieltulp.nl)
+* On basis by piran rsgallery2@dreckly.org; And Jonah, leaddeveloper RSGallery2 project
+* Version 0.2.2
 */
 defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 //set directories
@@ -54,7 +57,7 @@ if (file_exists($template_dir.'/language/'.$mosConfig_lang.'.php')){
     hs.outlineStartOffset = 3; // was 3, ends at 10
     hs.marginLeft = 10;
     hs.marginRight = 35; // leave room for scrollbars + outline
-    hs.marginTop = 145;
+    hs.marginTop = 35;
     hs.marginBottom = 35; // leave room for scrollbars + outline
     hs.zIndexCounter = 1001; // adjust to other absolutely positioned elements   
     // internationalization:
@@ -65,9 +68,12 @@ if (file_exists($template_dir.'/language/'.$mosConfig_lang.'.php')){
 	hs.graphicsDir = '<?php echo $template_dir_live; ?>/js_highslide/graphics/'; 
 	hs.outlineType = 'drop-shadow';
 	hs.showCredits = true; // you can set this to false if you want
-	hs.creditsText = 'Powered by <i>Highslide JS</i> and <i>DT^2</i>';
+	hs.creditsText = 'Powered by <i>Highslide JS</i>';
 	hs.creditsHref = 'http://vikjavev.no/highslide/?user=1';
 	hs.creditsTitle = 'Go to the Highslide JS homepage';
+	hs.creditsText2 = 'RSG2 Template by <i>DT^2</i>';
+	hs.creditsHref2 = 'http://design.danieltulp.nl';
+	hs.creditsTitle2 = 'Go to DT^2 website';
 	// These settings can also be overridden inline for each image
 	hs.anchor = 'auto'; // auto, where the image expands from
 	hs.align = 'center'; // auto, or center, position in the client (overrides anchor)

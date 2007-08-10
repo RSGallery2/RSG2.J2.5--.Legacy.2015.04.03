@@ -25,52 +25,16 @@ Under the following conditions:
 
 Your fair use and other rights are in no way affected by the above.
 ******************************************************************************/
-
+/******************************************************************************
+modified for use with highslideJS template for RSgallery2 by
+Daniël Tulp
+DT^2, http://design.danieltulp.nl
+******************************************************************************/
 var hs = {
 
 // Apply your own settings here, or override them in the html file.  
 restoreCursor : "zoomout.cur", // necessary for preload
 fullExpandIcon : 'fullexpand.gif',
-expandSteps : 50, // number of steps in zoom. Each step lasts for duration/step milliseconds.
-expandDuration : 500, // milliseconds
-restoreSteps : 50,
-restoreDuration : 500,
-allowMultipleInstances: true,
-hideThumbOnExpand : true,
-captionSlideSpeed : 1, // set to 0 to disable slide in effect
-outlineWhileAnimating : false, // not recommended for image popups, animation gets jerky on slow systems.
-outlineStartOffset : 3, // was 3, ends at 10
-marginLeft : 10,
-marginRight : 35, // leave room for scrollbars + outline
-marginTop : 145,
-marginBottom : 35, // leave room for scrollbars + outline
-zIndexCounter : 1001, // adjust to other absolutely positioned elements
-fullExpandTitle : 'Expand to actual size',
-restoreTitle : 'Click to close image, click and drag to move. Use arrow keys for next and previous.',
-focusTitle : 'Click to bring to front',
-loadingText : 'Loading...',
-loadingTitle : 'Click to cancel',
-loadingOpacity : 0.75, // was 0.75
-showCredits : true, // you can set this to false if you want
-creditsText : 'Powered by <i>Highslide JS</i>',
-creditsHref : 'http://vikjavev.no/highslide/?user=1',
-creditsTitle : 'Go to the Highslide JS homepage',
-
-// These settings can also be overridden inline for each image
-anchor : 'auto', // auto, where the image expands from
-align : 'center', // auto, or center, position in the client (overrides anchor)
-targetX: null, // the id of a target element
-targetY: null,
-captionId : null,
-captionTemplateId : null,
-slideshowGroup : null, // defines groups for next/previous links and keystrokes
-spaceForCaption : 30, // leaves space below images with captions
-minWidth: 200,
-minHeight: 200,
-allowSizeReduction: true, // allow the image to reduce to fit client size. If false, this overrides minWidth and minHeight
-outlineType : null, // set null to disable outlines
-wrapperClassName : null, // for enhanced css-control
-enableKeyListener : true,
 
 		
 // END OF YOUR SETTINGS
@@ -1094,7 +1058,7 @@ HsExpander.prototype.onExpanded = function() {
 	if (this.isHtml && this.objectLoadTime == 'after') this.writeExtendedContent();
 	this.createCustomOverlays();
 	if (hs.showCredits) this.writeCredits();
-	
+	if (hs.showCredits) this.writeCredits2();
 	if (this.caption) this.writeCaption();
 	
 	if (this.fullExpandWidth > this.x.span) this.createFullExpand();
@@ -1131,6 +1095,17 @@ HsExpander.prototype.writeCredits = function () {
 		}
 	);
 	this.createOverlay(credits, 'top left');
+};
+HsExpander.prototype.writeCredits2 = function () {
+	var credits2 = hs.createElement('a',
+		{
+			href: hs.creditsHref2,
+			className: 'highslide-credits',
+			innerHTML: hs.creditsText2,
+			title: hs.creditsTitle2
+		}
+	);
+	this.createOverlay(credits2, 'top right');
 };
 
 HsExpander.prototype.writeCaption = function() {
@@ -1443,6 +1418,7 @@ HsExpander.prototype.doFullExpand = function () {
 			this.overlays[x].parentNode.removeChild(this.overlays[x]);
 		}		
 		if (hs.showCredits) this.writeCredits();
+		if (hs.showCredits) this.writeCredits2();
 		this.createCustomOverlays();
 		
 		this.redoShowHide();

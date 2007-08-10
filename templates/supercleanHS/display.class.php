@@ -1,10 +1,14 @@
 <?php
 /**
- * @version $Id$
- * @package RSGallery2
- * @copyright (C) 2003 - 2006 RSGallery2
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
- */
+* This file contains the display file for RSGallery2 highslideJS template.
+* @package RSGallery2
+* @copyright (C) 2003 - 2006 RSGallery2
+* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+* RSGallery is Free Software
+* Template created by Daniël Tulp, DT^2 (http://design.danieltulp.nl)
+* On basis by piran rsgallery2@dreckly.org; And Jonah, leaddeveloper RSGallery2 project
+* Version 0.2.2
+*/
 defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 
 //ToDo: add switch/ contional for extending tables or semantic
@@ -22,7 +26,8 @@ class rsgDisplay_superCleanHS extends rsgDisplay_semantic{
 				{
 				$votes = $row->votes + 1;
 				$rating = $row->rating + $vote;
-				$ordering = $row->ordering - 1;
+				//This isn't doing anything right? 
+				//$ordering = $row->ordering - 1;
 				//Store new values
 				$database->setQuery("UPDATE #__rsgallery2_files SET votes = '$votes', rating = '$rating' WHERE id = '$row->id'");
 				if ($database->query())
@@ -30,7 +35,7 @@ class rsgDisplay_superCleanHS extends rsgDisplay_semantic{
 					?>
 					<script type="text/javascript">
 						alert("<?php echo _RSGALLERY_THANK_VOTING; ?>");
-						location = '<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=".$Itemid."&catid=".$row->gallery_id); ?>';
+						location = '<?php echo sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&gid=".$row->gallery_id); ?>';
 					</script>
 					<?php
 					}
@@ -39,21 +44,28 @@ class rsgDisplay_superCleanHS extends rsgDisplay_semantic{
 					?>
 					<script type="text/javascript">
 						alert("<?php echo _RSGALLERY_VOTING_FAILED; ?>");
-						location = '<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=".$Itemid."&catid=".$row->gallery_id); ?>';
+						location = '<?php echo sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&gid=".$row->gallery_id); ?>';
 					</script>
 					<?php
 					}
 				}
 			}
 		else
-			{
+			{echo"No vote value entered";
+			//very strange that the alert message does not work when $vote==0
+			?>
+			<script type="text/javascript">
+				alert("<?php echo _RSGALLERY_VOTING_FAILED; ?>");
+				location = '<?php echo sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&gid=".$row->gallery_id); ?>';
+			</script>
+			<?php
 			}
 		}
 	
 	function showThumbs(){
 		global $database, $rsgConfig, $rsgImagesItem, $Itemid, $mosConfig_live_site;
 		if(isset($_REQUEST['catid'])||isset($_REQUEST['gid'])){
-		echo"<p>You can navigate through the images with the right and left arrow keys.</p>";
+		echo"<p>".SCHS_NAV_TXT."</p>";
 		}
 		foreach( $this->gallery->itemRows() as $img ){
 			$thumb = imgUtils::getImgThumb( $img['name'] );
@@ -87,11 +99,11 @@ class rsgDisplay_superCleanHS extends rsgDisplay_semantic{
 		   title='".SCHS_NEXT."'>".SCHS_NEXT_ARROW."</a>  
 	</div>
 	<div class='description'>
-		$title<br />
+		<div class='imgname'>$title</div>
 		$descr
 	</div>
 	<div class='votes'>
-		".SCHS_VOTE."<br />
+		<b>".SCHS_VOTE."</b><br />
 		<form method='post' action='$url'>
 			<div>
 				"._RSGALLERY_VOTES_NR.": $votes <br />
@@ -99,11 +111,14 @@ class rsgDisplay_superCleanHS extends rsgDisplay_semantic{
 			</div>
 			<div class='hisghslide_voting'>
 				<input type='hidden' name='picid' value='$picid' />
-				<input type='radio' name='vote' value='1' />$ratingstar<br />
-				<input type='radio' name='vote' value='2' />$ratingstar$ratingstar<br />
-				<input type='radio' name='vote' value='3' CHECKED/>$ratingstar$ratingstar$ratingstar<br />
-				<input type='radio' name='vote' value='4' />$ratingstar$ratingstar$ratingstar$ratingstar<br />
-				<input type='radio' name='vote' value='5' />$ratingstar$ratingstar$ratingstar$ratingstar$ratingstar<br />
+				<select name='vote'>
+					<option value='0'>-Vote-</option>
+					<option value='1'>Very bad</option>
+					<option value='2'>Bad</option>
+					<option value='3'>OK</option>
+					<option value='4'>Good</option>
+					<option value='5'>Very good</option>
+				</select>
 				<input class='button' type='submit' name='submit' value='"._RSGALLERY_VOTE."' />
 			</div>
 		</form>
