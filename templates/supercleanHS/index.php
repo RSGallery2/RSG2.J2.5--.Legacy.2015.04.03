@@ -12,8 +12,8 @@
 defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 //set directories
 global $mosConfig_live_site;
-$template_dir = JPATH_RSGALLERY2_SITE."/templates/supercleanHS";
-$template_dir_live = "$mosConfig_live_site/components/com_rsgallery2/templates/supercleanHS";
+$template_dir = JPATH_RSGALLERY2_SITE."/templates/supercleanhs";
+$template_dir_live = "$mosConfig_live_site/components/com_rsgallery2/templates/supercleanhs";
 
 //include required files
 require_once( JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'semantic' . DS . 'display.class.php');
