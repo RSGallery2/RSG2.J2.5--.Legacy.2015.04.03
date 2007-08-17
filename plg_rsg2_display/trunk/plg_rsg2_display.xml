@@ -5,7 +5,7 @@
 	<creationDate>May 20007</creationDate>
 	<copyright>(C) 2007 Morris DigitalWorks. All rights reserved.</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-	<authorUrl>www.morrisdigitalworks.com</authorUrl>
+	<authorUrl>morrisdigitalworks.com</authorUrl>
 	<version>0.1.2</version>
 	<description>Usage: {rsg2_display: GID, Template}</description>
 	<files>
