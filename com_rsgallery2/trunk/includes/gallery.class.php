@@ -42,27 +42,33 @@ class rsgGalleryManager{
     /**
      * returns a gallery
      * @param id of the gallery
+     * @todo move published check to rsgAccess
      */
-    function get( $id ){
-        global $rsgAccess, $rsgConfig;
-
-        // since the user will never be offered the chance to view a gallery they can't, unauthorized attempts at viewing are a hacking attempt, so it is ok to print an unfriendly error.
-        $rsgAccess->checkGallery( 'view', $id ) or die("RSGallery2: Access denied to gallery $id");
-
-        $gallery = rsgGalleryManager::_get( $id );
-        
-        // if gallery is unpublished don't show it unless ACL is enabled and users has permissions to modify (owners can view their unpublished galleries).
-        if( $gallery->get('published')< 1 ) {
-            if( $rsgConfig->get( 'acl_enabled' )){
-                if( !$rsgAccess->checkGallery( 'create_mod_gal', $id )) die("RSGallery2: Access denied to gallery $id");
-            }
-            else{
-                die("RSGallery2: Access denied to gallery $id");
-            }
-        }
-        
-        return $gallery;
-    }
+	function get( $id ){
+		global $rsgAccess, $rsgConfig;
+	
+		// since the user will never be offered the chance to view a gallery they can't, unauthorized attempts at viewing are a hacking attempt, so it is ok to print an unfriendly error.
+		$rsgAccess->checkGallery( 'view', $id ) or die("RSGallery2: Access denied to gallery $id");
+	
+		$gallery = rsgGalleryManager::_get( $id );
+		
+		// if gallery is unpublished don't show it unless ACL is enabled and users has permissions to modify (owners can view their unpublished galleries).
+		if( $gallery->get('published') < 1 ) {
+			global $my;
+			
+			// if user is admin or superadmin then always return the gallery
+			if ( $my->gid > 23 )
+				return $gallery;
+	
+			if( $rsgConfig->get( 'acl_enabled' )){
+				if( !$rsgAccess->checkGallery( 'create_mod_gal', $id )) die("RSGallery2: Access denied to gallery $id");
+			}
+			else
+				die("RSGallery2: Access denied to gallery $id");
+		}
+	
+		return $gallery;
+	}
 
     /**
      * returns an array of all images in $parent and sub galleries
