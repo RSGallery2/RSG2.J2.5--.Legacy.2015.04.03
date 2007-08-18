@@ -245,7 +245,7 @@ class rsgGalleryManager{
 
             // delete images in gallery
             foreach( $gallery->items() as $item ){
-                imgUtils::deleteImage( galleryUtils::getFileNameFromId( $item['id'] ));
+                imgUtils::deleteImage( galleryUtils::getFileNameFromId( $item->id ));
             }
 
             // delete gallery
