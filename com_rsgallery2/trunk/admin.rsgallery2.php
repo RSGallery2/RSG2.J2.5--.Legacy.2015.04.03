@@ -11,11 +11,13 @@ defined( '_VALID_MOS' ) or die( 'Access Denied.' );
 
 // initialize RSG2 core functionality
 require_once( $mosConfig_absolute_path.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
+
+// instantate user variables but don't show a frontend template
+rsgInstance::instance( 'request', false );
+
 // XML library
 require_once( $mosConfig_absolute_path .'/includes/domit/xml_domit_lite_include.php' );
-// Installer class
-//require_once( $mosConfig_absolute_path .'/administrator/components/com_installer/installer.class.php' );
-// add link to css
+
 ?>
 <link href="<?php echo $mosConfig_live_site; ?>/administrator/components/com_rsgallery2/admin.rsgallery2.css" rel="stylesheet" type="text/css" />
 <?php
@@ -437,7 +439,7 @@ function processAdminSqlQueryVerbosely( $query, $successMsg ){
 function c_delete() {
 global $database;
     $cid    = rsgInstance::getInt( 'cid', null);
-	//Daniël: "should this conditional be sill here?"
+	//Daniï¿½l: "should this conditional be sill here?"
     if (isset($_REQUEST['name']))
     	$name = rsgInstance::getVar('name', null);
     else

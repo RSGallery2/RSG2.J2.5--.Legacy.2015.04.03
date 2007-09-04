@@ -21,6 +21,7 @@ $GLOBALS['_RSGINSTANCE'] = null;
 * @author Jonah Braun <Jonah@WhaleHosting.ca>
 */
 class rsgInstance extends JRequest{
+	
 	/**
 	 * Creates a new RSG2 instance and executes it.
 	 *
@@ -28,8 +29,9 @@ class rsgInstance extends JRequest{
 	 * @param	array	$instance		What parameters to use for the new instance.  Your options are:
 	 * array			A custom array.
 	 * 'request'	Use the request array (default).
+	 * @param boolean show a template or not.
 	 */
-	function instance( $newInstance = 'request' ){
+	function instance( $newInstance = 'request', $showTemplate = true ){
 		static $instanceStack = array();
 		$stacked = false;
 
@@ -46,9 +48,11 @@ class rsgInstance extends JRequest{
 		
 		$GLOBALS['_RSGINSTANCE'] = $newInstance;
 		
-		// include rsgallery2.php to execute this instance
-		require_once( JPATH_RSGALLERY2_SITE . DS . 'main.rsgallery2.php' );
-		rsgInstance::mainSwitch();
+		if( $showTemplate ){
+			// execute a frontend template based instance
+			require_once( JPATH_RSGALLERY2_SITE . DS . 'main.rsgallery2.php' );
+			rsgInstance::mainSwitch();
+		}
 		
 		if( $stacked )
 			$GLOBALS['_RSGINSTANCE'] = array_pop( $instanceStack );
