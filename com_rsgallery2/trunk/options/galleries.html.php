@@ -202,7 +202,7 @@ class html_rsg2_galleries{
 			$my_id = $my->id;
 		*/
         if (isset($_REQUEST['task']))
-        	$task = mosGetParam ( $_REQUEST, 'task'  , '');
+        	$task = rsgInstance::getVar( 'task'  , '');
     	else
         	$task = NULL;
         mosCommonHTML::loadOverlib();

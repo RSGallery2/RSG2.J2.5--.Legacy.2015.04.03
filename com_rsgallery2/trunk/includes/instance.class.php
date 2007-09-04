@@ -68,7 +68,7 @@ class rsgInstance extends JRequest{
 						xmlFile();
 						break;
 					case "downloadfile":
-						$id = mosGetParam ( $_REQUEST, 'id'  , '');
+						$id = rsgInstance::getInt('id' , null);
 						downloadFile($id);
 						break;
 					default:

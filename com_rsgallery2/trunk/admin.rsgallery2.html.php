@@ -577,10 +577,10 @@ class HTML_RSGALLERY{
         global $mosConfig_live_site, $database;
         
         //Get variables from form
-        if (isset($_REQUEST['selcat']))         $selcat = mosGetParam ( $_REQUEST, 'selcat'  , '');
-        if (isset($_REQUEST['ftppath']))        $ftppath = mosGetParam ( $_REQUEST, 'ftppath'  , '');
-        if (isset($_REQUEST['xcat']))           $xcat = mosGetParam ( $_REQUEST, 'xcat'  , '');
-        if (isset($_REQUEST['batchmethod']))    $batchmethod = mosGetParam ( $_REQUEST, 'batchmethod'  , '');
+        $selcat = rsgInstance::getInt('selcat'  , null);
+        $ftppath = rsgInstance::getVar('ftppath'  , null);
+        $xcat = rsgInstance::getInt('xcat'  , null);
+        $batchmethod = rsgInstance::getVar('batchmethod'  , null);
         ?>
                 <script>
                 function submitbutton(pressbutton){
@@ -813,7 +813,7 @@ class HTML_RSGALLERY{
      * asks user to choose how many files to upload
      */
     function showUploadStep2( ){
-        if (isset($_REQUEST['catid'])) $catid = mosGetParam ( $_REQUEST, 'catid'  , ''); 
+        $catid = rsgInstance::getInt('catid', null); 
         ?>
         <table width="100%">
         <tr>
@@ -856,9 +856,9 @@ class HTML_RSGALLERY{
      * asks user to choose what files to upload
      */
     function showUploadStep3( ){
-        if (isset($_REQUEST['catid'])) $catid = mosGetParam ( $_REQUEST, 'catid'  , ''); 
-        if (isset($_REQUEST['uploadstep'])) $uploadstep = mosGetParam ( $_REQUEST, 'uploadstep'  , ''); 
-        if (isset($_REQUEST['numberOfUploads'])) $numberOfUploads = mosGetParam ( $_REQUEST, 'numberOfUploads'  , ''); 
+        $catid = rsgInstance::getInt('catid', null); 
+        $uploadstep = rsgInstance::getInt('uploadstep', null); 
+        $numberOfUploads = rsgInstance::getInt('numberOfUploads', null); 
 
         ?>
         <script language="javascript" type="text/javascript">

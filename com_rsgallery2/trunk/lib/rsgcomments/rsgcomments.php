@@ -12,8 +12,8 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 
 require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgcomments' . DS . 'rsgcomments.class.php' );
 
-$cid    = mosGetParam( $_REQUEST, 'cid', array(0) );
-$task    = mosGetParam( $_REQUEST, 'task', '' );
+$cid    = rsgInstance::getInt('cid', array(0) );
+$task    = rsgInstance::getVar('task', '' );
 switch( $task ){
     case 'save':
     	//test( $option );
@@ -31,9 +31,9 @@ switch( $task ){
  */
 function test( $option ) {
 	global $Itemid, $mainframe, $database, $mosConfig_live_site, $mosConfig_absolute_path;
-	$id	= mosGetParam ( $_REQUEST, 'id'  , '');
-	$item_id 	= mosGetParam ( $_REQUEST, 'item_id'  , '');
-	$catid 		= mosGetParam ( $_REQUEST, 'catid'  , '');
+	$id	= rsgInstance::getInt('id'  , '');
+	$item_id 	= rsgInstance::getInt('item_id'  , '');
+	$catid 		= rsgInstance::getInt('catid'  , '');
 	$redirect_url = "index.php?option=$option&amp;Itemid=$Itemid&amp;page=inline&amp;id=$item_id&amp;catid=$catid";
 	echo "Here we will delete comment number ".$id."\\n and redirect to ".$redirect_url;
 }
@@ -49,12 +49,12 @@ function saveComment( $option ) {
 	
 	//Retrieve parameters
 	$user_ip	= $_SERVER['REMOTE_ADDR'];
-	$rsgOption	= mosGetParam ( $_REQUEST, 'rsgOption'  , '');
-	$subject 	= mosGetParam ( $_REQUEST, 'ttitle'  , '');
-	$user_name	= mosGetParam ( $_REQUEST, 'tname', '');
-	$comment 	= mosGetParam ( $_REQUEST, 'tcomment'  , '');
-	$item_id 	= mosGetParam ( $_REQUEST, 'item_id'  , '');
-	$catid 		= mosGetParam ( $_REQUEST, 'catid'  , '');
+	$rsgOption	= rsgInstance::getVar('rsgOption'  , '');
+	$subject 	= rsgInstance::getVar('ttitle'  , '');
+	$user_name	= rsgInstance::getVar( 'tname', '');
+	$comment 	= rsgInstance::getVar( 'tcomment'  , '');
+	$item_id 	= rsgInstance::getInt( 'item_id'  , '');
+	$catid 		= rsgInstance::getInt( 'catid'  , '');
 	//Check if commenting is enabled
 	$redirect_url = "index.php?option=$option&amp;Itemid=$Itemid&amp;page=inline&amp;id=$item_id&amp;catid=$catid";
 	if ($rsgConfig->get('comment') == 0) {
@@ -87,9 +87,9 @@ function saveComment( $option ) {
 		if ( file_exists(JPATH_ROOT.'/administrator/components/com_securityimages/server.php') ) {
 			include (JPATH_ROOT.'/administrator/components/com_securityimages/server.php');
 			//Get parameters
-			$security_refid		= mosGetParam( $_POST, 'security_rsgallery2_refid', '' );
-			$security_try    	= mosGetParam( $_POST, 'security_rsgallery2_try', '' );
-			$security_reload	= mosGetParam( $_POST, 'security_rsgallery2_reload', '' ); 
+			$security_refid		= rsgInstance::getVar( 'security_rsgallery2_refid', '' );
+			$security_try    	= rsgInstance::getVar( 'security_rsgallery2_try', '' );
+			$security_reload	= rsgInstance::getVar( 'security_rsgallery2_reload', '' ); 
 			$checkSecurity 		= checkSecurityImage($security_refid, $security_try);
 		}
 		//Check if security check was OK
@@ -138,9 +138,9 @@ function deleteComments( $option ) {
 	global $database;
 	
 	//Get parameters
-	$id			= mosGetParam( $_REQUEST, 'id', '' );
-	$item_id 	= mosGetParam ( $_REQUEST, 'item_id'  , '');
-	$catid 		= mosGetParam ( $_REQUEST, 'catid'  , '');
+	$id			= rsgInstance::getInt( 'id', '' );
+	$item_id 	= rsgInstance::getInt( 'item_id'  , '');
+	$catid 		= rsgInstance::getInt( 'catid'  , '');
 	
 	if ( !empty($id) ) {
 		$query = "DELETE FROM #__rsgallery2_comments WHERE id = '$id'";

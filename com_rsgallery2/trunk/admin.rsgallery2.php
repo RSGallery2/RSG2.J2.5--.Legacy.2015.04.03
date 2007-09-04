@@ -26,16 +26,16 @@ mosCommonHTML::loadOverlib();
 require_once( $mainframe->getPath( 'admin_html' ) );
 
 global $opt, $catid, $uploadStep, $numberOfUploads, $e_id ;
-$opt                = mosGetParam( $_REQUEST, 'opt', '' );
-$catid              = mosGetParam( $_REQUEST, 'catid', 0 );
-$uploadStep         = mosGetParam( $_REQUEST, 'uploadStep', 0 );
-$numberOfUploads    = mosGetParam( $_REQUEST, 'numberOfUploads', 1 );
-$e_id               = mosGetParam( $_REQUEST, 'e_id', 1 );
+$opt                = rsgInstance::getVar('opt', null );
+$catid 				= rsgInstance::getInt('catid', null);
+$uploadStep         = rsgInstance::getInt('uploadStep', 0 );
+$numberOfUploads    = rsgInstance::getInt('numberOfUploads', 1 );
+$e_id               = rsgInstance::getInt('e_id', 1 );
 
-$cid    = mosGetParam( $_REQUEST, 'cid', array(0) );
-$id     = mosGetParam( $_REQUEST, 'id', 0 );
+$cid    = rsgInstance::getInt('cid', array(0) );
+$id     = rsgInstance::getInt('id', 0 );
 
-$rsgOption = mosGetParam( $_REQUEST, 'rsgOption', '' );
+$rsgOption = rsgInstance::getVar('rsgOption', null );
 
 
 /**
@@ -80,7 +80,7 @@ if( $rsgOption != '' ){
 // only use the legacy task switch if rsgOption is not used.
 // these tasks require admin or super admin privledges.
 if( $rsgOption == '' && $my->gid > 23 )
-switch ( mosGetParam( $_REQUEST, 'task', '' ) ){
+switch ( rsgInstance::getVar('task', null) ){
 //     special/debug tasks
     case 'purgeEverything':
         HTML_RSGallery::RSGalleryHeader('cpanel', _RSGALLERY_HEAD_CPANEL);
@@ -129,7 +129,7 @@ switch ( mosGetParam( $_REQUEST, 'task', '' ) ){
 
 // only use the legacy task switch if rsgOption is not used.
 if( $rsgOption == '' )
-switch ( mosGetParam( $_REQUEST, 'task', '' ) ){
+switch ( rsgInstance::getVar('task', null ) ){
     // config tasks
     // this is just a kludge until all links and form vars to configuration functions have been updated to use $rsgOption = 'config';
     case 'config_dumpVars':
@@ -251,7 +251,7 @@ switch ( mosGetParam( $_REQUEST, 'task', '' ) ){
 
 function uploadWatermark() {
 	//Catch variables from form
-	if (isset($_FILES['watermark']))     $filename 	= mosGetParam ( $_FILES, 'watermark'  , '');
+	$filename 	= rsgInstance::getVar('watermark', null);
 	echo "<pre>";
 	print_r($filename);
 	echo "</pre>";
@@ -326,10 +326,7 @@ function RSInstall() {
     //Initialize new install instance
     $rsgInstall = new rsgInstall();
 
-    if (isset($_REQUEST['type']))
-        $type = mosGetParam ( $_REQUEST, 'type'  , '');
-    else
-        $type = NULL;
+	$type = rsgInstance::getVar('type', null);
 
     switch ($opt) {
         case "fresh":
@@ -439,11 +436,10 @@ function processAdminSqlQueryVerbosely( $query, $successMsg ){
 
 function c_delete() {
 global $database;
-    if (isset($_REQUEST['cid']))
-    	$cid    = mosGetParam($_REQUEST, 'cid', '');
-    	
+    $cid    = rsgInstance::getInt( 'cid', null);
+	//Daniël: "should this conditional be sill here?"
     if (isset($_REQUEST['name']))
-    	$name	= mosGetParam($_REQUEST, 'name', '');
+    	$name = rsgInstance::getVar('name', null);
     else
     	$name = galleryUtils::getFileNameFromId( $cid );
     
@@ -469,11 +465,11 @@ function c_create() {
 	global $rsgConfig, $database;
 	//Check if id or name is set
 	if ( isset( $_REQUEST['id'] ) ) {
-		$id    = mosGetParam($_REQUEST, 'id', '');
+		$id = rsgInstance::getInt( 'id', null);
 		$name = galleryUtils::getFileNameFromId($id);
 	}
 	elseif ( isset($_REQUEST['name'] ) ) {
-		$name    = mosGetParam($_REQUEST, 'name', '');
+		$name    = rsgInstance::getVar( 'name', null);
 	} else {
 		mosRedirect("index2.php?option=com_rsgallery2&task=batchupload", _RSGALLERY_CC_NO_FILE_INFO);
 	}
@@ -505,8 +501,8 @@ function c_create() {
  */
 function db_create() {
 	global $database;
-	if (isset($_REQUEST['name']))     		$name = mosGetParam ( $_REQUEST, 'name'  , '');
-    if (isset($_REQUEST['gallery_id']))     $gallery_id = mosGetParam ( $_REQUEST, 'gallery_id'  , '');
+	$name = rsgInstance::getVar('name'  , null);
+    $gallery_id = rsgInstance::getInt('gallery_id'  , null);
     
     //Force only first entry, if more are selected. Temporary measure untill multiple entries is supported!
     if ( is_array($name) )
@@ -544,16 +540,16 @@ function save_batchupload() {
     
     $FTP_path = $rsgConfig->get('ftp_path');
 
-    if (isset($_REQUEST['teller']))     $teller 	= mosGetParam ( $_REQUEST, 'teller'  , '');
-    if (isset($_REQUEST['delete']))     $delete 	= mosGetParam ( $_REQUEST, 'delete'  , '');
-    if (isset($_REQUEST['filename']))   $filename 	= mosGetParam ( $_REQUEST, 'filename'  , '');
-    if (isset($_REQUEST['ptitle']))     $ptitle 	= mosGetParam ( $_REQUEST, 'ptitle'  , '');
-    if (isset($_REQUEST['descr']))      $descr 		= mosGetParam ( $_REQUEST, 'descr'  , array(0));
-	if (isset($_REQUEST['extractdir']))	$extractdir = mosGetParam ( $_REQUEST, 'extractdir'  , '');
+    $teller 	= rsgInstance::getInt('teller'  , null);
+    $delete 	= rsgInstance::getVar('delete'  , null);
+    $filename 	= rsgInstance::getVar('filename'  , null);
+    $ptitle 	= rsgInstance::getVar('ptitle'  , null);
+    $descr 		= rsgInstance::getVar('descr'  , array(0));
+	$extractdir = rsgInstance::getVar('extractdir'  , null);
 	
     //Check if all categories are chosen
     if (isset($_REQUEST['category']))
-        $category = mosGetParam ( $_REQUEST, 'category'  , '');
+        $category = rsgInstance::getVar('category'  , null);
     else
         $category = array(0);
 
@@ -626,12 +622,12 @@ function batch_upload($option) {
     $FTP_path = $rsgConfig->get('ftp_path');
 
     //Retrieve data from submit form
-    if (isset($_REQUEST['batchmethod']))    $batchmethod = mosGetParam ( $_REQUEST, 'batchmethod'  , '');
-    if (isset($_REQUEST['uploaded']))       $uploaded = mosGetParam ( $_REQUEST, 'uploaded'  , '');
-    if (isset($_REQUEST['selcat']))         $selcat = mosGetParam ( $_REQUEST, 'selcat'  , '');
-    if (isset($_FILES['zip_file']))         $zip_file = mosGetParam ( $_FILES, 'zip_file'  , '');
-    if (isset($_REQUEST['ftppath']))        $ftppath = mosGetParam ( $_REQUEST, 'ftppath'  , '');
-    if (isset($_REQUEST['xcat']))           $xcat = mosGetParam ( $_REQUEST, 'xcat'  , '');
+    $batchmethod = rsgInstance::getVar('batchmethod'  , null);
+    $uploaded = rsgInstance::getVar('uploaded'  , null);
+    $selcat = rsgInstance::getInt('selcat'  , '');
+    $zip_file = rsgInstance::getVar('zip_file'  , null);
+    $ftppath = rsgInstance::getVar('ftppath'  , null);
+    $xcat = rsgInstance::getInt('xcat'  , null);
     
     //Check if a gallery exists, if not link to gallery creation
     $database->setQuery( "SELECT id FROM #__rsgallery2_galleries" );

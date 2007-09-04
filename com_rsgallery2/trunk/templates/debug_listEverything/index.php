@@ -19,7 +19,7 @@ $template_dir = "$mosConfig_live_site/components/com_rsgallery2/templates/debug_
 <link href="<?php echo $template_dir ?>/css/template.css" rel="stylesheet" type="text/css" />
 <?php
 
-$gid = (int)mosGetParam ( $_REQUEST, 'gid', 0); 
+$gid = rsgInstance::getInt('gid', 0); 
 
 echo "Listing contents of Gallery #$gid";
 

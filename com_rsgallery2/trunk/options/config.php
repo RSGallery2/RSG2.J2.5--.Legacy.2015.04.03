@@ -93,7 +93,7 @@ function saveConfig(){
             HTML_RSGALLERY::printAdminMsg(_RSGALLERY_CONF_SAVED);
 
             // save successful, try creating some image directories if we were asked to
-            if( mosGetParam( $_REQUEST, 'createImgDirs' ))
+            if( rsgInstance::getVar( 'createImgDirs' ))
                 HTML_RSGALLERY::printAdminMsg(_RSGALLERY_CONF_CREATE_DIR, true);
             
     }else{

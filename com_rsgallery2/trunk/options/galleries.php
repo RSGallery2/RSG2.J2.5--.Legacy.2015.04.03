@@ -208,7 +208,7 @@ function save( $option ) {
         exit();
     }
     // save params
-    $params = mosGetParam( $_POST, 'params', array() );
+    $params = rsgInstance::getVar( 'params', array() );
     if (is_array( $params )) {
         $txt = array();
         foreach ( $params as $k=>$v) {
@@ -233,7 +233,7 @@ function save( $option ) {
     
     //If acl is enabled, set permissions array and save them to the DB
     if ( $rsgConfig->get('acl_enabled') ) {
-    	$perms = $rsgAccess->makeArrayComplete( mosGetParam( $_POST, 'perm', array() ) );
+    	$perms = $rsgAccess->makeArrayComplete( rsgInstance::getVar( 'perm', array() ) );
     	$rsgAccess->savePermissions($perms, $row->id);
     }
 	
@@ -280,7 +280,7 @@ function removeReal( $cid, $option ) {
 function publish( $cid=null, $publish=1,  $option ) {
     global $database, $my, $rsgOption;
 
-    $catid = mosGetParam( $_POST, 'catid', array(0) );
+    $catid = rsgInstance::getInt( 'catid', array(0) );
 
     if (!is_array( $cid ) || count( $cid ) < 1) {
         $action = $publish ? 'publish' : 'unpublish';

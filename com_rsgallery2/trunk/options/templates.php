@@ -153,7 +153,7 @@ function viewTemplates( $option ) {
 
 	$rows = array_slice( $rows, $pageNav->limitstart, $pageNav->limit );
 	
-	$userfile 	= mosGetParam( $_REQUEST, 'userfile', dirname( __FILE__ ) );
+	$userfile 	= rsgInstance::getVar('userfile', dirname( __FILE__ ) );
 	$userfile 	= mosPathName( $userfile );
 	
 	HTML_RSGallery::showInstallForm( 'Install new RSGTemplate <small><small>[ Site ]</small></small>', $option, $userfile, '<a href="index2.php?option=com_rsgallery2&task=templates">Back to Templates</a>');
@@ -179,7 +179,7 @@ function uploadTemplate( $option ) {
 		exit();
 	}
 	//Get file details for uploaded file
-	$userfile = mosGetParam( $_FILES, 'userfile', null );
+	$userfile = rsgInstance::getVar( 'userfile', null );
 	
     //If no file selected, return error message
     if (!$userfile) {
@@ -217,7 +217,7 @@ function uploadTemplate( $option ) {
 function setDefaultTemplate( $option ) {
 	global $rsgConfig;
 	
-	$cid = mosGetParam( $_REQUEST, 'cid', array(0) );
+	$cid = rsgInstance::getInt( 'cid', array(0) );
 	if (!is_array( $cid )) {
 		$cid = array(0);
 	}
@@ -235,7 +235,7 @@ function setDefaultTemplate( $option ) {
 * @param
 */
 function removeTemplate( $option ) {
-	$cid = mosGetParam( $_REQUEST, 'cid', array(0) );
+	$cid = rsgInstance::getInt('cid', array(0) );
 	if (!is_array( $cid )) {
 		$cid = array(0);
 	}
@@ -263,7 +263,7 @@ function removeTemplate( $option ) {
  */
  function editTemplateMain( $option) {
 	global $mosConfig_absolute_path;
-	$cid = mosGetParam( $_REQUEST, 'cid', array(0) );
+	$cid = rsgInstance::getInt( 'cid', array(0) );
 		if (!is_array( $cid )) {
 			$cid = array(0);
 		}
@@ -282,14 +282,14 @@ function removeTemplate( $option ) {
 
 function saveTemplateMain( $option, $template) {
 	global $mosConfig_absolute_path;
-	$filecontent 	= mosGetParam( $_POST, 'filecontent', '', _MOS_ALLOWHTML );
+	$filecontent 	= rsgInstance::getVar('filecontent', '', _MOS_ALLOWHTML );
 	if ( !$filecontent ) {
 		mosRedirect( 'index2.php?option='. $option .'&task=templates'.'&client='. $client, 'Operation failed: Content empty.' );
 	}
 
 	$main_file = JPATH_RSGALLERY2_SITE.'/templates/' . $template . '/index.php';
 
-	$enable_write 	= mosGetParam($_POST,'enable_write',0);
+	$enable_write 	= rsgInstance::getVar('enable_write',0);
 	$oldperms 		= fileperms($main_file);
 	
 	if ($enable_write) @chmod($main_file, $oldperms | 0222);
@@ -305,7 +305,7 @@ function saveTemplateMain( $option, $template) {
 		if ($enable_write) {
 			@chmod($main_file, $oldperms);
 		} else {
-			if (mosGetParam($_POST,'disable_write',0))
+			if (rsgInstance::getVar('disable_write',0))
 				@chmod($main_file, $oldperms & 0777555);
 		} // if
 		mosRedirect( 'index2.php?option='. $option .'&task=templates', 'Changes to main view of '. $template .' template saved.' );
@@ -370,7 +370,7 @@ function editTemplateMainSource($content, $option, $template) {
  */
  function editTemplateThumbs( $option) {
 	global $mosConfig_absolute_path;
-	$cid = mosGetParam( $_REQUEST, 'cid', array(0) );
+	$cid = rsgInstance::getInt( 'cid', array(0) );
 		if (!is_array( $cid )) {
 			$cid = array(0);
 		}
@@ -389,14 +389,14 @@ function editTemplateMainSource($content, $option, $template) {
 
 function saveTemplateThumbs( $option, $template) {
 	global $mosConfig_absolute_path;
-	$filecontent 	= mosGetParam( $_POST, 'filecontent', '', _MOS_ALLOWHTML );
+	$filecontent 	= rsgInstance::getVar( 'filecontent', '', _MOS_ALLOWHTML );
 	if ( !$filecontent ) {
 		mosRedirect( 'index2.php?option='. $option .'&task=templates'.'&client='. $client, 'Operation failed: Content empty.' );
 	}
 
 	$thumbs_file = JPATH_RSGALLERY2_SITE.'/templates/' . $template . '/thumbs.php';
 
-	$enable_write 	= mosGetParam($_POST,'enable_write',0);
+	$enable_write 	= rsgInstance::getVar('enable_write',0);
 	$oldperms 		= fileperms($thumbs_file);
 	
 	if ($enable_write) @chmod($thumbs_file, $oldperms | 0222);
@@ -412,7 +412,7 @@ function saveTemplateThumbs( $option, $template) {
 		if ($enable_write) {
 			@chmod($thumbs_file, $oldperms);
 		} else {
-			if (mosGetParam($_POST,'disable_write',0))
+			if (rsgInstance::getVar('disable_write',0))
 				@chmod($thumbs_file, $oldperms & 0777555);
 		} // if
 		mosRedirect( 'index2.php?option='. $option .'&task=templates', 'Changes to display view of '. $template .' template saved.' );
@@ -475,7 +475,7 @@ function editTemplateThumbsSource($content, $option, $template) {
  */
  function editTemplateDisplay( $option) {
 	global $mosConfig_absolute_path;
-	$cid = mosGetParam( $_REQUEST, 'cid', array(0) );
+	$cid = rsgInstance::getInt( 'cid', array(0) );
 		if (!is_array( $cid )) {
 			$cid = array(0);
 		}
@@ -494,14 +494,14 @@ function editTemplateThumbsSource($content, $option, $template) {
 
 function saveTemplateDisplay( $option, $template) {
 	global $mosConfig_absolute_path;
-	$filecontent 	= mosGetParam( $_POST, 'filecontent', '', _MOS_ALLOWHTML );
+	$filecontent 	= rsgInstance::getVar( 'filecontent', '', _MOS_ALLOWHTML );
 	if ( !$filecontent ) {
 		mosRedirect( 'index2.php?option='. $option .'&task=templates'.'&client='. $client, 'Operation failed: Content empty.' );
 	}
 
 	$display_file = JPATH_RSGALLERY2_SITE.'/templates/' . $template . '/display.class.php';
 
-	$enable_write 	= mosGetParam($_POST,'enable_write',0);
+	$enable_write 	= rsgInstance::getVar('enable_write',0);
 	$oldperms 		= fileperms($display_file);
 	
 	if ($enable_write) @chmod($display_file, $oldperms | 0222);
@@ -517,7 +517,7 @@ function saveTemplateDisplay( $option, $template) {
 		if ($enable_write) {
 			@chmod($display_file, $oldperms);
 		} else {
-			if (mosGetParam($_POST,'disable_write',0))
+			if (rsgInstance::getVar('disable_write',0))
 				@chmod($display_file, $oldperms & 0777555);
 		} // if
 		mosRedirect( 'index2.php?option='. $option .'&task=templates', 'Changes to display view of '. $template .' template saved.' );
@@ -579,7 +579,7 @@ function editTemplateDisplaySource($content, $option, $template) {
  * Adapted for RSgallery2
  */
 function editTemplateCSS( $option ) {
-	$cid = mosGetParam( $_REQUEST, 'cid', array(0) );
+	$cid = rsgInstance::getInt( 'cid', array(0) );
 		if (!is_array( $cid )) {
 			$cid = array(0);
 		}
@@ -598,14 +598,14 @@ function editTemplateCSS( $option ) {
 
 
 function saveTemplateCSS( $option, $template) {
-	$filecontent 	= mosGetParam( $_POST, 'filecontent', '' );
+	$filecontent 	= rsgInstance::getVar( 'filecontent', '' );
 
 	if ( !$filecontent ) {
 		mosRedirect( 'index2.php?option='. $option.'&task=templates', 'Operation failed: Content empty.' );
 	}
 	$file = JPATH_RSGALLERY2_SITE.'/templates/' . $template . '/css/template.css';
 
-	$enable_write 	= mosGetParam($_POST,'enable_write',0);
+	$enable_write 	= rsgInstance::getVar('enable_write',0);
 	$oldperms 		= fileperms($file);
 	
 	if ($enable_write) {
@@ -623,7 +623,7 @@ function saveTemplateCSS( $option, $template) {
 		if ($enable_write) {
 			@chmod($file, $oldperms);
 		} else {
-			if (mosGetParam($_POST,'disable_write',0))
+			if (rsgInstance::getVar('disable_write',0))
 				@chmod($file, $oldperms & 0777555);
 		} // if
 		mosRedirect( 'index2.php?option='. $option .'&task=templates' );

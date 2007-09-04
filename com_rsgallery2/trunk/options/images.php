@@ -172,7 +172,7 @@ function editImage( $option, $id ) {
 		$row->published = 1;
 		$row->approved 	= 1;
 		$row->order 	= 0;
-		$row->gallery_id 	= intval( mosGetParam( $_POST, 'gallery_id', 0 ) );
+		$row->gallery_id 	= intval( rsgInstance::getInt( 'gallery_id', 0 ) );
 	}
 
 	// build the html select list for ordering
@@ -207,7 +207,7 @@ function saveImage( $option, $redirect = true ) {
 		exit();
 	}
 	// save params
-	$params = mosGetParam( $_POST, 'params', '' );
+	$params = rsgInstance::getVar( 'params', '' );
 	if (is_array( $params )) {
 		$txt = array();
 		foreach ( $params as $k=>$v) {
@@ -279,7 +279,7 @@ function removeImages( $cid, $option ) {
 function moveImages( $cid, $option ) {
 	global $database;
 	
-	$new_id = mosGetParam( $_POST, 'move_id', '' );
+	$new_id = rsgInstance::getInt( 'move_id', '' );
 	if ($new_id == 0) {
 		echo "<script> alert('No gallery selected to move to'); window.history.go(-1);</script>\n";
 		exit;
@@ -382,10 +382,10 @@ function uploadImage( $option ) {
 
 function saveUploadedImage( $option ) {
 	global $id, $rsgOption;
-	if (isset($_REQUEST['title'])) 		$title = mosGetParam ( $_REQUEST, 'title'  , '');  
-	if (isset($_REQUEST['descr'])) 		$descr = mosGetParam ( $_REQUEST, 'descr'  , ''); 
-	if (isset($_REQUEST['gallery_id'])) $gallery_id = mosGetParam ( $_REQUEST, 'gallery_id'  , '');
-	if (isset($_FILES['images'])) 		$files = mosGetParam ($_FILES, 'images','');
+	$title = rsgInstance::getVar('title'  , '');  
+	$descr = rsgInstance::getVar('descr'  , ''); 
+	$gallery_id = rsgInstance::getInt('gallery_id'  , '');
+	$files = rsgInstance::getVar('images','');
 
 	//For each error that is found, store error message in array
 	$errors = array();
@@ -506,7 +506,7 @@ function copyImage( $cid, $option ) {
 	//For each error that is found, store error message in array
 	$errors = array();
 	
-	$cat_id = mosGetParam( $_POST, 'move_id', '' );//get gallery id to copy item to
+	$cat_id = rsgInstance::getInt('move_id', '' );//get gallery id to copy item to
 	if (!$cat_id) {
 		echo "<script> alert('No gallery selected to move to'); window.history.go(-1);</script>\n";
 		exit;
