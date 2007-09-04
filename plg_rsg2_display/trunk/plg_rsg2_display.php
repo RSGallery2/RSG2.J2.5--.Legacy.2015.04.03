@@ -43,34 +43,25 @@ function botMosRSGdisplay( $published, &$row, $mask=0, $page=0  ) {
  * @return string
  */
 function bot_rsg2_display_replacer( &$matches ) {
-	if($matches) {
-		global $mosConfig_absolute_path;
-		global $mosConfig_lang;
-		
-		$attribs = explode(",",$matches[1]);
-	 	
-	 	$gallery_attribute =  bot_rsg2_display_clean_data( $attribs[0] );
-	 	( !isset( $attribs[1] ) ) ? $template_attribute = 'photoBox' : $template_attribute = bot_rsg2_display_clean_data( $attribs[1] );
-	 	
-	 
-	 	
-	 	if ( !file_exists( $mosConfig_absolute_path . '/components/com_rsgallery2/templates/' . $template_attribute . '/index.php' ) ) $template_attribute = 'photoBox';
-	 	
-	 	require_once( $mosConfig_absolute_path.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
-	 	
-	 	if ((int)$gallery_attribute) {	
-		 	ob_start();
-				rsgInstance::instance( array( 'rsgTemplate' => $template_attribute, 'gid' => $gallery_attribute ) );
-				$content_output = ob_get_contents();
-			ob_end_clean();	
-			
-			return $content_output;
-	 	} else {
-	 		return '';
-	 	}
-	} else {
+	if( !$matches )
 		return '';
-	}
+
+	global $mosConfig_absolute_path;
+	require_once( $mosConfig_absolute_path.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
+	
+	$attribs = explode(",",$matches[1]);
+	
+	ob_start();
+	rsgInstance::instance(
+		array(
+			'rsgTemplate' => bot_rsg2_display_clean_data($attribs[1]),
+			'gid' => bot_rsg2_display_clean_data($attribs[0])
+		)
+	);
+	$content_output = ob_get_contents();
+	ob_end_clean();	
+		
+	return $content_output;
 }
 
 function bot_rsg2_display_clean_data ( $attrib ) {//remove &nbsp; and trim white space
