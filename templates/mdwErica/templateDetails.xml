@@ -10,7 +10,6 @@
 	<description>Easy module to insert the mdwErica flash slideshow.</description>
 	<files>
 		<filename>index.php</filename>
-		<filename>templateDetails.css</filename>
 		<filename>mdwErica.js</filename>
 		<filename>mdwErica.swf</filename>
 		<filename>xml.php</filename>
