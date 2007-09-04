@@ -179,51 +179,42 @@ class html_rsg2_galleries{
         }
         echo "</ul>";
     }
-    
-    /**
-    * Writes the edit form for new and existing record
-    *
-    * A new record is defined when <var>$row</var> is passed with the <var>id</var>
-    * property set to 0.
-    * @param rsgGallery The gallery object
-    * @param array An array of select lists
-    * @param object Parameters
-    * @param string The option
-    */
-    function edit( &$row, &$lists, &$params, $option ) {
-        global $rsgOption, $rsgAccess, $my, $rsgConfig;
-        mosMakeHtmlSafe( $row, ENT_QUOTES, 'description' );
-		
-		//Keep user id when editing the gallery details
-		/*
-		if ( isset($row->id) )
-			$my_id = $row->uid;
-		else
-			$my_id = $my->id;
-		*/
-        if (isset($_REQUEST['task']))
-        	$task = rsgInstance::getVar( 'task'  , '');
-    	else
-        	$task = NULL;
-        mosCommonHTML::loadOverlib();
-        ?>
-        <script language="javascript" type="text/javascript">
-        function submitbutton(pressbutton) {
-            var form = document.adminForm;
-            if (pressbutton == 'cancel') {
-                submitform( pressbutton );
-                return;
-            }
 
-            // do field validation
-            if (form.name.value == ""){
-                alert( "Gallery must have a name" );
-            } else {
-                <?php getEditorContents( 'editor1', 'description' ) ; ?>
-                submitform( pressbutton );
-            }
-        }
-
+	/**
+	* Writes the edit form for new and existing record
+	*
+	* A new record is defined when <var>$row</var> is passed with the <var>id</var>
+	* property set to 0.
+	* @param rsgGallery The gallery object
+	* @param array An array of select lists
+	* @param object Parameters
+	* @param string The option
+	*/
+	function edit( &$row, &$lists, &$params, $option ) {
+		global $rsgOption, $rsgAccess, $my, $rsgConfig;
+		mosMakeHtmlSafe( $row, ENT_QUOTES, 'description' );
+	
+		$task = rsgInstance::getVar( 'task'  , '');
+	
+		mosCommonHTML::loadOverlib();
+		?>
+		<script language="javascript" type="text/javascript">
+		function submitbutton(pressbutton) {
+			var form = document.adminForm;
+			if (pressbutton == 'cancel') {
+				submitform( pressbutton );
+				return;
+			}
+	
+			// do field validation
+			if (form.name.value == ""){
+				alert( "Gallery must have a name" );
+			} else {
+				<?php getEditorContents( 'editor1', 'description' ) ; ?>
+				submitform( pressbutton );
+			}
+		}
+	
 		function selectAll() {
 			if(document.adminForm.checkbox0.checked) {
 				for (i = 0; i < 10; i++) {
@@ -235,175 +226,174 @@ class html_rsg2_galleries{
 				}
 			}
 		}
-        </script>
-        <form action="index2.php" method="post" name="adminForm" id="adminForm">
-        <table class="adminheading">
-        <tr>
-            <th>
-            <?php echo _RSGALLERY_GAL_GAL?>:
-            <small>
-            <?php echo $row->id ? 'Edit' : 'New';?>
-            </small>
-            </th>
-        </tr>
-        </table>
-
-        <table width="100%">
-        <tr>
-            <td width="60%" valign="top">
-                <table class="adminform">
-                <tr>
-                    <th colspan="2">
-                    <?php echo _RSGALLERY_GAL_DETAILS?>
-                    </th>
-                </tr>
-                <tr>
-                    <td width="20%" align="right">
-                    <?php echo _RSGALLERY_GAL_NAME?>:
-                    </td>
-                    <td width="80%">
-                    <input class="text_area" type="text" name="name" size="50" maxlength="250" value="<?php echo $row->name;?>" />
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right">
-                    <?php echo _RSGALLERY_GAL_OWNER;?>:
-                    </td>
-                    <td>
-                    <?php echo $lists['uid']; ?>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" align="right">
-                    <?php echo _RSGALLERY_GAL_DESCR?>:
-                    </td>
-                    <td>
-                    <?php
-                    // parameters : areaname, content, hidden field, width, height, rows, cols
-                    editorArea( 'editor1',  $row->description , 'description', '100%;', '300', '10', '20' ) ; ?>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right">
-                    <?php echo _RSGALLERY_GAL_PARENT;?>:
-                    </td>
-                    <td>
-                    <?php echo $lists['parent']; ?>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" align="right">
-                    <?php echo _RSGALLERY_GAL_THUMB;?>:
-                    </td>
-                    <td>
-                    <?php echo imgUtils::showThumbNames($row->id, $row->thumb_id); ?>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" align="right">
-                    <?php echo _RSGALLERY_GAL_ORDERING;?>:
-                    </td>
-                    <td>
-                    <?php echo $lists['ordering']; ?>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" align="right">
-                    <?php echo _RSGALLERY_GAL_PUBLISHED;?>:
-                    </td>
-                    <td>
-                    <?php echo $lists['published']; ?>
-                    </td>
-                </tr>
-                </table>
-            </td>
-            <td width="40%" valign="top">
-                <table class="adminform">
-                <tr>
-                    <th colspan="1">
-                    <?php echo _RSGALLERY_GAL_PARAMETERS;?>
-                    </th>
-                </tr>
-                <tr>
-                    <td>
-                    <?php echo $params->render();?>
-                    </td>
-                </tr>
-                </table><br/>
-                <table class="adminform">
-                <?php
-                if ($rsgConfig->get('acl_enabled')) {
-	                ?>
-	                <tr>
-                    	<th colspan="1"><?php echo _RSGALLERY_GAL_PERMS?></th>
-                	</tr>	                
-	                <?php
-	                if ( !isset($row->id) ) {
-	                ?>
-
-	                <tr>
-	                	<td><?php echo _RSGALLERY_GAL_DEF_PERM_CREATE?></td>
-	                </tr>
-	                <?php
-	                } else {
-	                	$perms = $rsgAccess->returnPermissions($row->id);
+		</script>
+		<form action="index2.php" method="post" name="adminForm" id="adminForm">
+		<table class="adminheading">
+		<tr>
+			<th>
+			<?php echo _RSGALLERY_GAL_GAL?>:
+			<small>
+			<?php echo $row->id ? 'Edit' : 'New';?>
+			</small>
+			</th>
+		</tr>
+		</table>
 	
-	                	if ( !$perms ) {
-	                		?>
-	                		<tr>
-	                			<td colspan="6"><?php echo _RSGALLERY_GAL_NO_PERM_FOUND?></td>
-	                		</tr>
-	                		<?php	
-	                	} else {
-			                ?>
-			                <tr>
-			                    <td>
-			                    <table class="adminform" border="0" width="100%">
-			                    <tr>
-			                    	<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_USERTYPE?></span></td>
-			                    	<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_VIEW_GAL?></td>
-			                    	<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_UPL_EDIT_IMG?></td>
-			                    	<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_DEL_IMG?></td>
-			                    	<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_MOD_GAL?></td>
-			                    	<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_DEL_GAL?></td>
-			                    </tr>
-			                    <tr>
-			                    	<td><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_ACL_PUB?></td>
-			                    	<td><input id="p0" type="checkbox" name="perm[0]" value="1" <?php if ($perms->public_view == 1) echo "CHECKED";?>></td>
-			                    	<td><input id="p1" type="checkbox" name="perm[1]" value="1" <?php if ($perms->public_up_mod_img == 1) echo "CHECKED";?>></td>
-			                    	<td><input id="p2" type="checkbox" name="perm[2]" value="1" <?php if ($perms->public_del_img == 1) echo "CHECKED";?>></td>
-			                    	<td><input id="p3" type="checkbox" name="perm[3]" value="1" <?php if ($perms->public_create_mod_gal == 1) echo "CHECKED";?>></td>
-			                    	<td><input id="p4" type="checkbox" name="perm[4]" value="1" <?php if ($perms->public_del_gal == 1) echo "CHECKED";?>></td>
-			                    </tr>
-			                    <tr>
-			                    	<td><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_ACL_REG?></td>
-			                    	<td><input id="p5" type="checkbox" name="perm[5]" value="1" <?php if ($perms->registered_view == 1) echo "CHECKED";?>></td>
-			                    	<td><input id="p6" type="checkbox" name="perm[6]" value="1" <?php if ($perms->registered_up_mod_img == 1) echo "CHECKED";?>></td>
-			                    	<td><input id="p7" type="checkbox" name="perm[7]" value="1" <?php if ($perms->registered_del_img == 1) echo "CHECKED";?>></td>
-			                    	<td><input id="p8" type="checkbox" name="perm[8]" value="1" <?php if ($perms->registered_create_mod_gal == 1) echo "CHECKED";?>></td>
-			                    	<td><input id="p9" type="checkbox" name="perm[9]" value="1" <?php if ($perms->registered_del_gal == 1) echo "CHECKED";?>></td>
-			                    </tr>
-			                    <tr>
-			                    	<td colspan="6"><input type="checkbox" name="checkbox0" value="true" onClick='selectAll()'><?php echo _RSGALLERY_GAL_SEL_DESEL_ALL?></td>
-			                    </tr>
-			                    </table>
-			                    </td>
-			                </tr>
-			                <?php
-	                	}
-                	}
-    			}
-                ?>
-                </table>
-            </td>
-        </tr>
-        </table>
-        <input type="hidden" name="id" value="<?php echo $row->id; ?>" />
-        <input type="hidden" name="rsgOption" value="<?php echo $rsgOption;?>" />
-        <input type="hidden" name="option" value="<?php echo $option;?>" />
-        <input type="hidden" name="task" value="" />
-        </form>
-        <?php
-    }
+		<table width="100%">
+		<tr>
+			<td width="60%" valign="top">
+				<table class="adminform">
+				<tr>
+					<th colspan="2">
+					<?php echo _RSGALLERY_GAL_DETAILS?>
+					</th>
+				</tr>
+				<tr>
+					<td width="20%" align="right">
+					<?php echo _RSGALLERY_GAL_NAME?>:
+					</td>
+					<td width="80%">
+					<input class="text_area" type="text" name="name" size="50" maxlength="250" value="<?php echo $row->name;?>" />
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+					<?php echo _RSGALLERY_GAL_OWNER;?>:
+					</td>
+					<td>
+					<?php echo $lists['uid']; ?>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" align="right">
+					<?php echo _RSGALLERY_GAL_DESCR?>:
+					</td>
+					<td>
+					<?php
+					// parameters : areaname, content, hidden field, width, height, rows, cols
+					editorArea( 'editor1',  $row->description , 'description', '100%;', '300', '10', '20' ) ; ?>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+					<?php echo _RSGALLERY_GAL_PARENT;?>:
+					</td>
+					<td>
+					<?php echo $lists['parent']; ?>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" align="right">
+					<?php echo _RSGALLERY_GAL_THUMB;?>:
+					</td>
+					<td>
+					<?php echo imgUtils::showThumbNames($row->id, $row->thumb_id); ?>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" align="right">
+					<?php echo _RSGALLERY_GAL_ORDERING;?>:
+					</td>
+					<td>
+					<?php echo $lists['ordering']; ?>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" align="right">
+					<?php echo _RSGALLERY_GAL_PUBLISHED;?>:
+					</td>
+					<td>
+					<?php echo $lists['published']; ?>
+					</td>
+				</tr>
+				</table>
+			</td>
+			<td width="40%" valign="top">
+				<table class="adminform">
+				<tr>
+					<th colspan="1">
+					<?php echo _RSGALLERY_GAL_PARAMETERS;?>
+					</th>
+				</tr>
+				<tr>
+					<td>
+					<?php echo $params->render();?>
+					</td>
+				</tr>
+				</table><br/>
+				<table class="adminform">
+				<?php
+				if ($rsgConfig->get('acl_enabled')) {
+					?>
+					<tr>
+						<th colspan="1"><?php echo _RSGALLERY_GAL_PERMS?></th>
+					</tr>	                
+					<?php
+					if ( !isset($row->id) ) {
+					?>
+	
+					<tr>
+						<td><?php echo _RSGALLERY_GAL_DEF_PERM_CREATE?></td>
+					</tr>
+					<?php
+					} else {
+						$perms = $rsgAccess->returnPermissions($row->id);
+	
+						if ( !$perms ) {
+							?>
+							<tr>
+								<td colspan="6"><?php echo _RSGALLERY_GAL_NO_PERM_FOUND?></td>
+							</tr>
+							<?php	
+						} else {
+							?>
+							<tr>
+								<td>
+								<table class="adminform" border="0" width="100%">
+								<tr>
+									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_USERTYPE?></span></td>
+									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_VIEW_GAL?></td>
+									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_UPL_EDIT_IMG?></td>
+									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_DEL_IMG?></td>
+									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_MOD_GAL?></td>
+									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_DEL_GAL?></td>
+								</tr>
+								<tr>
+									<td><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_ACL_PUB?></td>
+									<td><input id="p0" type="checkbox" name="perm[0]" value="1" <?php if ($perms->public_view == 1) echo "CHECKED";?>></td>
+									<td><input id="p1" type="checkbox" name="perm[1]" value="1" <?php if ($perms->public_up_mod_img == 1) echo "CHECKED";?>></td>
+									<td><input id="p2" type="checkbox" name="perm[2]" value="1" <?php if ($perms->public_del_img == 1) echo "CHECKED";?>></td>
+									<td><input id="p3" type="checkbox" name="perm[3]" value="1" <?php if ($perms->public_create_mod_gal == 1) echo "CHECKED";?>></td>
+									<td><input id="p4" type="checkbox" name="perm[4]" value="1" <?php if ($perms->public_del_gal == 1) echo "CHECKED";?>></td>
+								</tr>
+								<tr>
+									<td><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_ACL_REG?></td>
+									<td><input id="p5" type="checkbox" name="perm[5]" value="1" <?php if ($perms->registered_view == 1) echo "CHECKED";?>></td>
+									<td><input id="p6" type="checkbox" name="perm[6]" value="1" <?php if ($perms->registered_up_mod_img == 1) echo "CHECKED";?>></td>
+									<td><input id="p7" type="checkbox" name="perm[7]" value="1" <?php if ($perms->registered_del_img == 1) echo "CHECKED";?>></td>
+									<td><input id="p8" type="checkbox" name="perm[8]" value="1" <?php if ($perms->registered_create_mod_gal == 1) echo "CHECKED";?>></td>
+									<td><input id="p9" type="checkbox" name="perm[9]" value="1" <?php if ($perms->registered_del_gal == 1) echo "CHECKED";?>></td>
+								</tr>
+								<tr>
+									<td colspan="6"><input type="checkbox" name="checkbox0" value="true" onClick='selectAll()'><?php echo _RSGALLERY_GAL_SEL_DESEL_ALL?></td>
+								</tr>
+								</table>
+								</td>
+							</tr>
+							<?php
+						}
+					}
+				}
+				?>
+				</table>
+			</td>
+		</tr>
+		</table>
+		<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
+		<input type="hidden" name="rsgOption" value="<?php echo $rsgOption;?>" />
+		<input type="hidden" name="option" value="<?php echo $option;?>" />
+		<input type="hidden" name="task" value="" />
+		</form>
+		<?php
+	}
 }
-?>
