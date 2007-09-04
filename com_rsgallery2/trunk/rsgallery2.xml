@@ -486,6 +486,7 @@
     <filename>options/images.item.xml</filename>
 	<filename>options/images.html.php</filename>
 	<filename>options/templates.php</filename>
+	<filename>options/templates.class.php</filename>
 	<filename>options/templates.html.php</filename>
 	
     <filename>sql/rsgallery2.sql</filename>
