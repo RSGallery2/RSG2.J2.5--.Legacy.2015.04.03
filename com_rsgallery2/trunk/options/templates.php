@@ -179,7 +179,7 @@ function uploadTemplate( $option ) {
 		exit();
 	}
 	//Get file details for uploaded file
-	$userfile = rsgInstance::getVar( 'userfile', null );
+	$userfile = rsgInstance::getVar( 'userfile', null, 'FILES' );
 	
     //If no file selected, return error message
     if (!$userfile) {

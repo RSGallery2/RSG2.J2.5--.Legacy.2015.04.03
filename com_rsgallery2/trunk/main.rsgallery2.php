@@ -19,9 +19,10 @@ function template(){
 
 	//Set template selection
 	$template = preg_replace( '#\W#', '', rsgInstance::getVar( 'rsgTemplate', $rsgConfig->get('template') ));
+	$template = strtolower( $template );
 	
 	$templateLocation = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template . DS . 'index.php';
-	
+
 	if( !file_exists( $templateLocation ))
 		JError::raiseError( '', "Template $template does not exist." );
 	else
@@ -30,6 +31,7 @@ function template(){
 
 function xmlFile(){
 	$template = preg_replace( '#\W#', '', rsgInstance::getVar( 'xmlTemplate', 'meta' ) );
+	$template = strtolower( $template );
 	
 	// require generic template which all other templates should extend
 	require_once( JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'meta' . DS . 'xml.php' );
