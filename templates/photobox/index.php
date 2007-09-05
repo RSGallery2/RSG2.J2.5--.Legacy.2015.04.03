@@ -10,13 +10,13 @@
 defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 
 // bring in display code
-$templatePath = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'photoBox';
+$templatePath = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'photobox';
 require_once( $templatePath . DS . 'display.class.php');
 
 $rsgDisplay = new rsgDisplay_photoBox();
 
 global $mosConfig_live_site;
-$template_dir = "$mosConfig_live_site/components/com_rsgallery2/templates/photoBox";
+$template_dir = "$mosConfig_live_site/components/com_rsgallery2/templates/photobox";
 $lightbox_dir = "$mosConfig_live_site/components/com_rsgallery2/lib/lightbox_plus";
 
 $rsgDisplay->metadata();
