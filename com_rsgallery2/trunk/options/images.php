@@ -385,7 +385,7 @@ function saveUploadedImage( $option ) {
 	$title = rsgInstance::getVar('title'  , '');  
 	$descr = rsgInstance::getVar('descr'  , ''); 
 	$gallery_id = rsgInstance::getInt('gallery_id'  , '');
-	$files = rsgInstance::getVar('images','');
+	$files = rsgInstance::getVar('images','', 'FILES');
 
 	//For each error that is found, store error message in array
 	$errors = array();

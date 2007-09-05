@@ -253,7 +253,7 @@ switch ( rsgInstance::getVar('task', null ) ){
 
 function uploadWatermark() {
 	//Catch variables from form
-	$filename 	= rsgInstance::getVar('watermark', null);
+	$filename 	= rsgInstance::getVar('watermark', null, 'FILES');
 	echo "<pre>";
 	print_r($filename);
 	echo "</pre>";
@@ -627,7 +627,7 @@ function batch_upload($option) {
     $batchmethod = rsgInstance::getVar('batchmethod'  , null);
     $uploaded = rsgInstance::getVar('uploaded'  , null);
     $selcat = rsgInstance::getInt('selcat'  , '');
-    $zip_file = rsgInstance::getVar('zip_file'  , null);
+    $zip_file = rsgInstance::getVar('zip_file'  , null, 'FILES');
     $ftppath = rsgInstance::getVar('ftppath'  , null);
     $xcat = rsgInstance::getInt('xcat'  , null);
     
