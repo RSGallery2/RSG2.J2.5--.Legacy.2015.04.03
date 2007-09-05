@@ -1,6 +1,6 @@
 <?php
 /**
-* Dutch language file for RSGallery - (26-06-2007)
+* Dutch language file for RSGallery - (06-08-2007)
 * @version $Id$
 * @package RSGallery2
 * @copyright (C) 2003 - 2007 RSGallery2
@@ -207,6 +207,7 @@ DEFINE("_RSGALLERY_C_CAT_FIRST",			"Creëer eerst een categorie!");
 
 //function batch_upload
 DEFINE("_RSGALLERY_BATCH_NO_ZIP",			"ZIP-upload geselecteerd maar er is geen bestand gekozen");
+DEFINE("_RSGALLERY_BACTCH_NOT_VALID_ZIP",		" is geen geldig ZIP formaat. Alleen ZIP bestanden zijn toegestaan!");
 DEFINE("_RSGALLERY_BATCH_GAL_FIRST",			"Kies eerst een categorie");
 DEFINE("_RSGALLERY_BATCH_NO_FTP",			"FTP upload geselecteerd maar er is geen FTP-map aangegeven");
 DEFINE("_RSGALLERY_BATCH_STEP1",			"Stap 1");
@@ -285,6 +286,7 @@ DEFINE("_RSGALLERY_UPLOAD_FORM_FILE",			"Bestand");
 DEFINE("_RSGALLERY_NO_PREVIEW ",			"Geen voorbeeld beschikbaar");
 DEFINE("_RSGALLERY_DELETE",				"Verwijder");
 DEFINE("_RSGALLERY_MOVETO",				"Verplaats naar");
+DEFINE("_RSGALLERY_COPYIMAGE",				"Kopie");
 DEFINE("_RSGALLERY_NUMDISPLAY",				"Laat zien #");
 DEFINE("_RSGALLERY_SEARCH",				"Zoek");
 DEFINE("_RSGALLERY_IMAGENAME",				"Naam");
@@ -324,7 +326,7 @@ DEFINE("_RSGALLERY_CREATE_MISSING_IMG",			"Creëer ontbrekende afbeeldingen");
 DEFINE("_RSGALLERY_CREATE_DB_ENTRIES",			"Creëer database");
 DEFINE("_RSGALLERY_CONSDB_IMG_IN_FLDR",			"Afbeelding in map aanwezig");
 DEFINE("_RSGALLERY_CONSDB_IMG__NOT_IN_FLDR",		"Afbeeling niet in map aanwezig");
-
+DEFINE("_RSGALLERY_ ",		"");
 
 //admin.rsgallery2.php
 DEFINE("_RSGALLERY_HEAD_CONFIG",			"Instellingen");
@@ -370,7 +372,9 @@ DEFINE("_RSGALLERY_ALERT_IMGDELETEOK",			"Afbeelding (en) succesvol verwijderd!"
 
 //function c_delete
 DEFINE("_RSGALLERY_ALERT_IMGDELETENOTOK",		"Afbeelding (en) zijn niet verwijderd!");
-
+//function copy_image
+DEFINE("_RSGALLERY_ALERT_COPYOK",			"Kopie�ren is gelukt!");
+DEFINE("_RSGALLEY_ALERT_REST_COPYDOK",		"de rest is succesvol gekopieerd!");
 //function c_create
 DEFINE("_RSGALLERY_CC_NO_FILE_INFO",			"Er is geen bestandsinformatie gevonden. Dit is niet juist!");
 
@@ -559,8 +563,8 @@ DEFINE("_RSGALLERY_GAL_MAX_LEVELS",			"Maximale aantal niveaus");
 DEFINE("_RSGALLERY_GAL_FILTER",				"Filter");
 DEFINE("_RSGALLERY_GAL_NAME",				"Naam");
 DEFINE("_RSGALLERY_GAL_REORDER",			"Opnieuw Rangschikken");
+DEFINE("_RSGALLERY_GAL_COUNT",			"# stuks");
 DEFINE("_RSGALLERY_GAL_HITS",				"Hits");
-
 //function edit
 DEFINE("_RSGALLERY_GAL_GAL",				"Galerij");
 DEFINE("_RSGALLERY_GAL_DETAILS",			"Details");
@@ -681,18 +685,18 @@ DEFINE("_RSGALLERY_SLIDE_PREV",				"Vorige");
 //function showImages
 DEFINE("_RSGALLERY_IMG_IMG_MANAGE",			"Afbeeldings Manager");
 DEFINE("_RSGALLERY_IMG_FILTER",				"Filter:");
+DEFINE("_RSGALLERY_IMG_CPY_MV_GAL",			"Kopieer/Verplaats:");
 DEFINE("_RSGALLERY_IMG_TITLE",				"Titel (Bestandsnaam)");
 DEFINE("_RSGALLERY_IMG_ORDER",				"Volgorde");
 DEFINE("_RSGALLERY_IMG_DATE_TIME",			"Datum & Tijd");
 DEFINE("_RSGALLERY_IMG_EDIT_IMG",			"Afbeeldingen bewerken");
-
 //function editImage
 DEFINE("_RSGALLERY_IMG_IMAGE",				"Afbeelding");
 DEFINE("_RSGALLERY_IMG_DETAILS",			"Details");
 DEFINE("_RSGALLERY_IMG_ORDERING",			"Volgorde");
 DEFINE("_RSGALLERY_IMG_IMG_PREV",			"Voorbeeld van afbeelding");
 DEFINE("_RSGALLERY_IMG_PARAMETERS",			"Parameters");
-
+DEFINE("_RSGALLERY_IMG_LINKS",			"Links naar afbeelding");
 //function uploadImage
 DEFINE("_RSGALLERY_IMG_SELECT_GAL",			"Je moet een gallerij selecteren.");/*javascript alert*/
 DEFINE("_RSGALLERY_IMG_NO_FILE_SELECT",			"Er is geen veld geselecteerd selected.");/*javascript alert*/

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
 * Greek language file for RSGallery
