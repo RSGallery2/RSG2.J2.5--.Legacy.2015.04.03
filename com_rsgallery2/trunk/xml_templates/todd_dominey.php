@@ -25,14 +25,14 @@ class rsgXmlGalleryTemplate_todd_dominey extends rsgXmlGalleryTemplate_generic{
 	function prepare(){
 		$this->output = '';
 		
-		$imageSize = mosGetParam ( $_REQUEST, 'imageSize', 'display' );
+		$imageSize = rsgInstance::getVar( 'imageSize', 'display' );
 		
-		$timer = (int)mosGetParam ( $_REQUEST, 'timer', 5 );
-		$order = mosGetParam ( $_REQUEST, 'order', 'sequential' ) == 'sequential'? 'sequential' : 'random';
-		$fadeTime = (int)mosGetParam ( $_REQUEST, 'fadeTime', 2 );
-		$looping = mosGetParam ( $_REQUEST, 'looping', 'yes' ) == 'yes'? 'yes' : 'no';
-		$xpos = (int)mosGetParam ( $_REQUEST, 'xpos', 0 );
-		$ypos = (int)mosGetParam ( $_REQUEST, 'ypos', 0 );
+		$timer = rsgInstance::getInt( 'timer', 5 );
+		$order = rsgInstance::getVar( 'order', 'sequential' ) == 'sequential'? 'sequential' : 'random';
+		$fadeTime = rsgInstance::getInt( 'fadeTime', 2 );
+		$looping = rsgInstance::getVar( 'looping', 'yes' ) == 'yes'? 'yes' : 'no';
+		$xpos = rsgInstance::getInt( $_REQUEST, 'xpos', 0 );
+		$ypos = rsgInstance::getInt( $_REQUEST, 'ypos', 0 );
 		
 		$this->output .= <<<EOD
 	

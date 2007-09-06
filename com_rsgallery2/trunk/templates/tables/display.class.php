@@ -74,12 +74,12 @@ class rsgDisplay_tables extends rsgDisplay{
     function showMainGalleries($style = "single", $cols = 3, $subgalleries = "true") {
         global $database, $Itemid, $rsgConfig;
         
-        $gid = mosGetParam( $_REQUEST, 'catid', 0 );
+        $gid = rsgInstance::getInt( 'catid', 0 );
         $gallery = rsgGalleryManager::get( $gid );
         
         //Get values for page navigation from URL
-        $limit = mosGetParam ( $_REQUEST, 'limit', $rsgConfig->galcountNrs);
-        $limitstart = mosGetParam ( $_REQUEST, 'limitstart', 0);
+        $limit = rsgInstance::getInt( 'limit', $rsgConfig->galcountNrs);
+        $limitstart = rsgInstance::getInt( 'limitstart', 0);
         
         //Get number of galleries including main gallery
         $kids = $gallery->kids();
@@ -324,9 +324,9 @@ class rsgDisplay_tables extends rsgDisplay{
         global $mainframe, $database, $my, $mosConfig_live_site, $rsgConfig;
         
         // show list of images in gallery
-        $gid        = mosGetParam ( $_REQUEST, 'catid', 0 );
-        $limit      = mosGetParam ( $_REQUEST, 'limit', $rsgConfig->get("display_thumbs_maxPerPage") );
-        $limitstart = mosGetParam ( $_REQUEST, 'limitstart', 0 );
+        $gid        = rsgInstance::getInt( 'catid', 0 );
+        $limit      = rsgInstance::getInt( 'limit', $rsgConfig->get("display_thumbs_maxPerPage") );
+        $limitstart = rsgInstance::getInt( 'limitstart', 0 );
         
         //Add to pathway
         $galleryname = galleryUtils::getCatNameFromId( $gid );
@@ -478,8 +478,8 @@ class rsgDisplay_tables extends rsgDisplay{
     function showDisplayImage(){
         global $mosConfig_live_site, $rsgConfig, $database, $rows;
         
-        $limitstart = mosGetParam ( $_REQUEST, 'limitstart', 0);
-        $gallery = rsgGalleryManager::get( mosGetParam ( $_REQUEST, 'catid', 0) );
+        $limitstart = mrsgInstance::getInt( 'limitstart', 0);
+        $gallery = rsgGalleryManager::get( rsgInstance::getInt( 'catid', 0) );
         $items = $gallery->itemRows();
         $image = $items[$limitstart];
         
@@ -558,9 +558,9 @@ class rsgDisplay_tables extends rsgDisplay{
         global $database;
         
         //Get variables from URL
-        $limitstart = mosGetParam ( $_REQUEST, 'limitstart', 0);
-        $gid        = mosGetParam ( $_REQUEST, 'catid', 0);
-        $id         = mosGetParam ( $_REQUEST, 'id', 0);
+        $limitstart = rsgInstance::getInt( 'limitstart', 0);
+        $gid        = rsgInstance::getInt( 'catid', 0);
+        $id         = rsgInstance::getInt( 'id', 0);
         //Set page size to 1 for 1 display image per page
         $pageSize   = 1;
         
@@ -845,7 +845,7 @@ class rsgDisplay_tables extends rsgDisplay{
     function showRandom($style = "hor", $count = 3) {
         global $database, $rsgConfig;
         if ( $rsgConfig->get('displayRandom') ) {
-            $catid = mosGetParam( $_REQUEST, 'catid', 0 );
+            $catid = rsgInstance::getInt( 'catid', 0 );
             if (!$catid) {
                 $database->setQuery("SELECT file.gallery_id, file.ordering, file.id, file.name, file.descr".
                                 " FROM #__rsgallery2_files file, #__rsgallery2_galleries gal".
@@ -863,7 +863,7 @@ class rsgDisplay_tables extends rsgDisplay{
     function showLatest( $style = "hor", $count = 3) {
         global $database, $rsgConfig;
         if ( $rsgConfig->get('displayLatest') ) {
-            $catid = mosGetParam( $_REQUEST, 'catid', 0 );
+            $catid = rsgInstance::getInt( 'catid', 0 );
             if (!$catid) {
                 $database->setQuery("SELECT file.gallery_id, file.ordering, file.id, file.name, file.descr".
                                 " FROM #__rsgallery2_files file, #__rsgallery2_galleries gal".
@@ -877,13 +877,9 @@ class rsgDisplay_tables extends rsgDisplay{
     
     function showRSTopBar() {
         global $my, $mosConfig_live_site, $rsgConfig, $Itemid;
-        $catid = mosGetParam ( $_REQUEST, 'catid', 0 );
-        $Itemid = mosGetParam ( $_REQUEST, 'Itemid', 0 );
-        if ( isset($_REQUEST['page']) ) 
-            $page = mosGetParam ( $_REQUEST, 'page'  , '');
-        else
-            $page = NULL;
-
+        $catid = rsgInstance::getInt( 'catid', 0 );
+        $Itemid = rsgInstance::getInt( 'Itemid', 0 );
+        $page = rsgInstance::getVar( 'page'  , null);
         ?>
         <div style="float:right; text-align:right;">
         <ul id='rsg2-navigation'>
@@ -927,7 +923,7 @@ class rsgDisplay_tables extends rsgDisplay{
 		if ( !$rsgConfig->get('displaySlideshow') )
 			return;
 		
-		$catid = mosGetParam ( $_REQUEST, 'catid'  , '');
+		$catid = rsgInstance::getInt( 'catid'  , '');
 		?>
 			<div style="float: right;">
 			<ul id='rsg2-navigation'>
@@ -944,7 +940,7 @@ class rsgDisplay_tables extends rsgDisplay{
     
     function showIntroText() {
         global $rsgConfig;
-        $catid = mosGetParam( $_REQUEST, 'catid', 0 );
+        $catid = rsgInstance::getInt( 'catid', 0 );
         if (!$catid) {
             echo stripslashes( $rsgConfig->get('intro_text') );
         }
@@ -1324,11 +1320,7 @@ class HTML_RSGALLERY{
     function RSGalleryTitleblock($catid, $intro_text)   {
         global $my, $mosConfig_live_site, $rsgConfig, $Itemid;
         
-        if ( isset($_REQUEST['page']) ) 
-            $page = mosGetParam ( $_REQUEST, 'page'  , '');
-        else
-            $page = NULL;
-            
+		$page = rsgInstance::getVar( 'page'  , null);
         //$user_cats  = $rsgConfig->get('uu_enabled');
         //$my_galleries = $rsgConfig->get('show_mygalleries');
         ?>
@@ -1407,8 +1399,8 @@ class HTML_RSGALLERY{
     function RSGalleryList( $gallery ){
         global $Itemid, $rsgConfig;
         //Get values for page navigation from URL
-        $limit = mosGetParam ( $_REQUEST, 'limit', $rsgConfig->galcountNrs);
-        $limitstart = mosGetParam ( $_REQUEST, 'limitstart', 0);
+        $limit = rsgInstance::getInt( 'limit', $rsgConfig->galcountNrs);
+        $limitstart = rsgInstance::getInt( 'limitstart', 0);
         
         //Get number of galleries including main gallery
         $kids = $gallery->kids();

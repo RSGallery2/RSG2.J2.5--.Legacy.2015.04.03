@@ -38,7 +38,7 @@ class tempDisplay extends JObject{
 			break;
 			
 			case "edit_image":
-				$id = mosGetParam ( $_REQUEST, 'id'  , '');
+				$id = rsgInstance::getInt('id'  , null);
 				$this->edit_image($id);
 			break;
 			case "save_image":
@@ -49,8 +49,8 @@ class tempDisplay extends JObject{
 			break;
 			
 			case "slideshow":
-				$catid = mosGetParam ( $_REQUEST, 'catid'  , ''); 
-				$id = mosGetParam ( $_REQUEST, 'id'  , ''); 
+				$catid = rsgInstance::getInt( 'catid'  , ''); 
+				$id = rsgInstance::getInt( 'id'  , ''); 
 				$this->slideshow($id,$catid);
 				HTML_RSGALLERY::RSGalleryFooter(); 
 			break;
@@ -63,7 +63,7 @@ class tempDisplay extends JObject{
 				$this->addComment();
 			break;
 			case 'delete_comment':
-				if (isset($_REQUEST['id'])) $id = mosGetParam ( $_REQUEST, 'id'  , ''); 
+				$id = rsgInstance::getInt( 'id'  , null); 
 				$this->deleteComment($id);
 			break;
 			
@@ -77,7 +77,7 @@ class tempDisplay extends JObject{
 				$this->makeusercat(NULL);
 			break;
 			case "delusercat":
-				if (isset($_REQUEST['catid'])) $catid = mosGetParam ( $_REQUEST, 'catid'  , '');
+				$catid = rsgInstance::getInt( 'catid'  , null);
 				$this->delusercat($catid);
 			break;
 			
@@ -106,8 +106,8 @@ class tempDisplay extends JObject{
 	require_once(JPATH_ROOT. "/includes/pageNavigation.php");
 	
 	//Set limits for pagenav
-	$limit      = trim( mosGetParam( $_REQUEST, 'limit', 10 ) );
-	$limitstart = trim( mosGetParam( $_REQUEST, 'limitstart', 0 ) );
+	$limit      = trim(rsgInstance::getInt( 'limit', 10 ) );
+	$limitstart = trim(rsgInstance::getInt( 'limitstart', 0 ) );
 	
 	//Get total number of records for paging
 	$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE userid = '$my->id'");
@@ -145,10 +145,10 @@ class tempDisplay extends JObject{
 
 	function save_image() {
 		global $database;
-		if (isset($_REQUEST['id'])) $id = mosGetParam ( $_REQUEST, 'id'  , '');
-		if (isset($_REQUEST['title'])) $title = mosGetParam ( $_REQUEST, 'title'  , '');
-		if (isset($_REQUEST['descr'])) $description = mosGetParam ( $_REQUEST, 'descr'  , '');
-		if (isset($_REQUEST['catid'])) $catid = mosGetParam ( $_REQUEST, 'catid'  , '');
+		$id = rsgInstance::getInt( 'id'  , '');
+		$title = rsgInstance::getVar( 'title'  , '');
+		$description = rsgInstance::getVar( 'descr'  , '');
+		$catid = rsgInstance::getInt( 'catid'  , '');
 	
 		$database->setQuery("UPDATE #__rsgallery2_files SET ".
 				"title = '$title', ".
@@ -206,9 +206,9 @@ class tempDisplay extends JObject{
 	function addVote() {
 		global $database, $Itemid;
 	
-		if (isset($_REQUEST['picid']))      $picid = mosGetParam ( $_REQUEST, 'picid'  , '');
-		if (isset($_REQUEST['limitstart'])) $limitstart = mosGetParam ( $_REQUEST, 'limitstart'  , '');
-		if (isset($_REQUEST['vote']))       $vote = mosGetParam ( $_REQUEST, 'vote'  , '');
+		$picid = rsgInstance::getInt( 'picid'  , null);
+		$limitstart = rsgInstance::getInt( 'limitstart'  , null);
+		$vote = rsgInstance::getVar( 'vote'  , null);
 			
 		if ($vote)
 			{
@@ -287,11 +287,11 @@ class tempDisplay extends JObject{
 		// die if commenting turned off
 		if( $rsgConfig->get('displayComments') == false ) return;
 		
-		if (isset($_REQUEST['picid']))      $picid = mosGetParam ( $_REQUEST, 'picid'  , '');
-		if (isset($_REQUEST['limitstart'])) $limitstart = mosGetParam ( $_REQUEST, 'limitstart'  , '');
-		if (isset($_REQUEST['comment']))    $comment = mosGetParam ( $_REQUEST, 'comment'  , '');
-		if (isset($_REQUEST['name']))       $name = mosGetParam ( $_REQUEST, 'name'  , '');
-		if (isset($_REQUEST['ordering']))   $ordering = mosGetParam ( $_REQUEST, 'ordering'  , '');
+		$picid = rsgInstance::getInt( 'picid'  , '');
+		$limitstart = rsgInstance::getInt( 'limitstart'  , '');
+		$comment = rsgInstance::getVar( 'comment'  , '');
+		$name = rsgInstance::getVar( 'name'  , '');
+		$ordering = rsgInstance::getInt( 'ordering'  , '');
 		
 		$database->setQuery("SELECT * FROM #__rsgallery2_files WHERE id = '$picid'");
 		$rows = $database->loadObjectList();
@@ -358,7 +358,7 @@ class tempDisplay extends JObject{
 	
 	function userCat() {
 		global $my, $rsgConfig, $database, $Itemid;
-		if (isset($_REQUEST['catid']))      $catid = mosGetParam ( $_REQUEST, 'catid'  , '');	
+		$catid = rsgInstance::getInt( 'catid'  , null);	
 		
 		if ($catid != 0)
 			{
@@ -389,12 +389,12 @@ class tempDisplay extends JObject{
 		//If gallery creation is disabled, unauthorized attempts die here.
 		if (!$rsgConfig->get('uu_createCat')) die ("User category creation is disabled by administrator.");
 		
-		if (isset($_REQUEST['parent']))         $parent = mosGetParam ( $_REQUEST, 'parent'  , '');
-		if (isset($_REQUEST['catid']))          $id = mosGetParam ( $_REQUEST, 'catid'  , 0);
-		if (isset($_REQUEST['catname1']))       $catname1 = mosGetParam ( $_REQUEST, 'catname1'  , '');
-		if (isset($_REQUEST['description']))    $description = mosGetParam ( $_REQUEST, 'description'  , '');
-		if (isset($_REQUEST['published']))      $published = mosGetParam ( $_REQUEST, 'published'  , 0);
-		if (isset($_REQUEST['ordering']))       $ordering = mosGetParam ( $_REQUEST, 'ordering'  , '');
+		$parent = rsgInstance::getVar( 'parent'  , null);
+		$id = rsgInstance::getInt( 'catid'  , 0);
+		$catname1 = rsgInstance::getVar( 'catname1'  , null);
+		$description = rsgInstance::getVar( 'description'  , null);
+		$published = rsgInstance::getInt( 'published'  , 0);
+		$ordering = rsgInstance::getInt( 'ordering'  , null);
 		
 		$maxcats        = $rsgConfig->get('uu_maxCat');
 		if ($id) {
@@ -517,7 +517,7 @@ class tempDisplay extends JObject{
 		global $rsgAccess, $rsgConfig, $my, $database, $mosConfig_absolute_path, $Itemid;
 		
 		//Get category ID to check rights
-		if (isset($_REQUEST['i_cat']))      $i_cat = mosGetParam ( $_REQUEST, 'i_cat'  , '');
+		$i_cat = rsgInstance::getVar( 'i_cat'  , '');
 		
 		//Check if user can upload in this gallery
 		if ( !$rsgAccess->checkGallery('up_mod_img', $i_cat) ) die('Unauthorized upload attempt!');
@@ -537,11 +537,11 @@ class tempDisplay extends JObject{
 			<?php
 		} else {
 			//Get parameters from form
-			if (isset($_FILES['i_file']))       $i_file = mosGetParam ( $_FILES, 'i_file'  , ''); 
-			if (isset($_REQUEST['i_cat']))      $i_cat = mosGetParam ( $_REQUEST, 'i_cat'  , ''); 
-			if (isset($_REQUEST['title']))      $title = mosGetParam ( $_REQUEST, 'title'  , ''); 
-			if (isset($_REQUEST['descr']))      $descr = mosGetParam ( $_REQUEST, 'descr'  , ''); 
-			if (isset($_REQUEST['uploader']))   $uploader = mosGetParam ( $_REQUEST, 'uploader'  , ''); 
+			$i_file = rsgInstance::getVar( 'i_file'  , $_FILES); 
+			$i_cat = rsgInstance::getInt( 'i_cat'  , ''); 
+			$title = rsgInstance::getVar( 'title'  , ''); 
+			$descr = rsgInstance::getVar( 'descr'  , ''); 
+			$uploader = rsgInstance::getVar( 'uploader'  , ''); 
 			
 			//Check whether it is ZIP file or an image
 			$file_ext = $uploadfile->checkFileType($i_file['name']);
@@ -618,7 +618,7 @@ class rsgDisplay extends tempDisplay{
 		if( parent::mainPage() )
 			return;
 	
-		$page = mosGetParam ( $_REQUEST, 'page', '' );
+		$page = rsgInstance::getVar( 'page', '' );
 
 		switch( $page ){
 			

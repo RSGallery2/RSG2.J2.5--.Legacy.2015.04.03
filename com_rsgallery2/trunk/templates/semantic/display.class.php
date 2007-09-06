@@ -684,7 +684,7 @@ class rsgDisplay_semantic extends rsgDisplay{
     function showRandom( $style = "hor", $count = 3 ) {
         global $database, $rsgConfig;
         if ( $rsgConfig->get('displayRandom') ) {
-            $catid = mosGetParam( $_REQUEST, 'catid', 0 );
+            $catid = rsgInstance::getInt( 'catid', 0 );
             if (!$catid) {
                 $database->setQuery("SELECT file.gallery_id, file.ordering, file.id, file.name, file.descr".
                                 " FROM #__rsgallery2_files file, #__rsgallery2_galleries gal".
@@ -702,7 +702,7 @@ class rsgDisplay_semantic extends rsgDisplay{
     function showLatest( $style = "hor", $count = 3) {
         global $database, $rsgConfig;
         if ( $rsgConfig->get('displayLatest') ) {
-            $catid = mosGetParam( $_REQUEST, 'catid', 0 );
+            $catid = rsgInstance::getInt( 'catid', 0 );
             if (!$catid) {
                 $database->setQuery("SELECT file.gallery_id, file.ordering, file.id, file.name, file.descr".
                                 " FROM #__rsgallery2_files file, #__rsgallery2_galleries gal".
@@ -716,13 +716,9 @@ class rsgDisplay_semantic extends rsgDisplay{
     
     function showRSTopBar() {
         global $my, $mosConfig_live_site, $rsgConfig, $Itemid;
-        $catid = mosGetParam ( $_REQUEST, 'catid', 0 );
-        $Itemid = mosGetParam ( $_REQUEST, 'Itemid', 0 );
-        if ( isset($_REQUEST['page']) ) 
-            $page = mosGetParam ( $_REQUEST, 'page'  , '');
-        else
-            $page = NULL;
-
+        $catid =rsgInstance::getInt( 'catid', 0 );
+        $Itemid = rsgInstance::getInt( 'Itemid', 0 );
+        $page = rsgInstance::getVar( 'page'  , null);
         ?>
         <div style="float:right; text-align:right;">
         <ul id='rsg2-navigation'>
@@ -1110,12 +1106,8 @@ class HTML_RSGALLERY{
      */
     function RSGalleryTitleblock($catid, $intro_text)   {
         global $my, $mosConfig_live_site, $rsgConfig, $Itemid;
-        
-        if ( isset($_REQUEST['page']) ) 
-            $page = mosGetParam ( $_REQUEST, 'page'  , '');
-        else
-            $page = NULL;
-            
+        $page = rsgInstance::getVar( 'page'  , null);
+		
         //$user_cats  = $rsgConfig->get('uu_enabled');
         //$my_galleries = $rsgConfig->get('show_mygalleries');
         ?>
@@ -1194,8 +1186,8 @@ class HTML_RSGALLERY{
     function RSGalleryList( $gallery ){
         global $Itemid, $rsgConfig;
         //Get values for page navigation from URL
-        $limit = mosGetParam ( $_REQUEST, 'limit', $rsgConfig->galcountNrs);
-        $limitstart = mosGetParam ( $_REQUEST, 'limitstart', 0);
+        $limit = rsgInstance::getInt( 'limit', $rsgConfig->galcountNrs);
+        $limitstart = rsgInstance::getInt( 'limitstart', 0);
         
         //Get number of galleries including main gallery
         $kids = $gallery->kids();
