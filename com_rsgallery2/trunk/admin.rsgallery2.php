@@ -626,7 +626,7 @@ function batch_upload($option) {
     //Retrieve data from submit form
     $batchmethod = rsgInstance::getVar('batchmethod'  , null);
     $uploaded = rsgInstance::getVar('uploaded'  , null);
-    $selcat = rsgInstance::getInt('selcat'  , '');
+    $selcat = rsgInstance::getInt('selcat'  , null);
     $zip_file = rsgInstance::getVar('zip_file'  , null, 'FILES');
     $ftppath = rsgInstance::getVar('ftppath'  , null);
     $xcat = rsgInstance::getInt('xcat'  , null);

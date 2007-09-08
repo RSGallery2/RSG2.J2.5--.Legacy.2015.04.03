@@ -169,9 +169,8 @@ class tempDisplay extends JObject{
 	
 	function delete_image() {
 		global $my, $database, $Itemid, $rsgAccess;
-		
-		if (isset($_REQUEST['id'])) {
-			$id = mosGetParam ( $_REQUEST, 'id'  , '');
+		$id = rsgInstance::getInt( 'id'  , '');
+		if ($id) {
 			
 			//Get gallery id
 			$gallery_id = galleryUtils::getCatidFromFileId($id);
