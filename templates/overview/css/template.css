@@ -1,0 +1,18 @@
+.rsg2-overview h3{
+	border-bottom: 1px solid black;
+	
+	padding-left: 10px;
+}
+
+.rsg2-overview .rsg2-thumb{
+	float: left;
+	
+	width: 80px;
+	margin: 10px;
+}
+
+.rsg2-overview .rsg2-thumb h5{
+	margin: 0;
+	
+	font-weight: bold;
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="template">
+	<name>Overview</name>
+	<creationDate>Summer 2007</creationDate>
+	<author>Jonah Braun</author>
+	<copyright>Open Source, GPL</copyright>
+	<authorEmail>jonah@whalehosting.ca</authorEmail>
+	<authorUrl>rsgallery2.net</authorUrl>
+	<version>0.8</version>
+	<description>Shows a flat list of galleries with thumbnails and descriptions.</description>
+	<files>
+		<filename>index.php</filename>
+		<filename>display.class.php</filename>
+		<filename>templateDetails.xml</filename>
+		
+		<filename>html/gallery.php</filename>
+	</files>
+	<css>
+		<filename>css/template.css</filename>
+	</css>
+</mosinstall>
