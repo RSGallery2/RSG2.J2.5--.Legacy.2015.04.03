@@ -10,6 +10,37 @@
 // ensure this file is being included by a parent file
 defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
 
+
+class menu_rsg2_templates{
+	
+    function templates()
+        {
+        mosMenuBar::startTable();
+        mosMenuBar::makeDefault();
+		mosMenuBar::spacer();
+		//mosMenuBar::assign();
+		mosMenuBar::spacer();
+		mosMenuBar::deleteList();
+		mosMenuBar::spacer();/*
+		mosMenuBar::editHtmlX( 'edit_main', 'Main' );
+		mosMenuBar::spacer();
+		mosMenuBar::editHtmlX( 'edit_display', 'Display' );
+		mosMenuBar::spacer();
+		mosMenuBar::editCssX( 'edit_css', 'CSS' );*/
+		mosMenuBar::spacer();
+		//mosMenuBar::addNew();
+		//mosMenuBar::spacer();
+		mosMenuBar::help( 'screen.rsgallery2', true );
+		mosMenuBar::endTable();
+		/*
+        mosMenuBar::custom('save', 'publish_f2.png', 'publish_f2.png', 'Default', false);
+        mosMenuBar::spacer();
+        mosMenuBar::help('screen.rsgallery2', true);
+        mosMenuBar::endTable();
+        */
+        }
+}
+
 class menu_rsg2_images{
     function upload() {
     	mosMenuBar::startTable();
@@ -176,33 +207,6 @@ class menuRSGallery {
         mosMenuBar::endTable();
         }
     
-    function templates()
-        {
-        mosMenuBar::startTable();
-        mosMenuBar::makeDefault();
-		mosMenuBar::spacer();
-		//mosMenuBar::assign();
-		mosMenuBar::spacer();
-		mosMenuBar::deleteList();
-		mosMenuBar::spacer();/*
-		mosMenuBar::editHtmlX( 'edit_main', 'Main' );
-		mosMenuBar::spacer();
-		mosMenuBar::editHtmlX( 'edit_display', 'Display' );
-		mosMenuBar::spacer();
-		mosMenuBar::editCssX( 'edit_css', 'CSS' );*/
-		mosMenuBar::spacer();
-		//mosMenuBar::addNew();
-		//mosMenuBar::spacer();
-		mosMenuBar::help( 'screen.rsgallery2', true );
-		mosMenuBar::endTable();
-		/*
-        mosMenuBar::custom('save', 'publish_f2.png', 'publish_f2.png', 'Default', false);
-        mosMenuBar::spacer();
-        mosMenuBar::help('screen.rsgallery2', true);
-        mosMenuBar::endTable();
-        */
-        }
-    
     function images_show()
         {
         mosMenuBar::startTable();
@@ -229,13 +233,6 @@ class menuRSGallery {
         mosMenuBar::help('screen.rsgallery2', true);
         menuRSGallery::adminTasksMenu();
         }
-	function edit_css(){
-		mosMenuBar::startTable();
-		mosMenuBar::save( 'save_css' );
-		mosMenuBar::spacer();
-		mosMenuBar::cancel('templates');
-		mosMenuBar::endTable();
-	}
 	function edit_main(){
 		mosMenuBar::startTable();
 		mosMenuBar::save( 'save_main' );

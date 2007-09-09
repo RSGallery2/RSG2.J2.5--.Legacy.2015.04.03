@@ -213,14 +213,12 @@ function uploadTemplate( $option ) {
 /**
 * Sets the active template for RSGallery2
 * @param
+* @todo add error checking
 */
 function setDefaultTemplate( $option ) {
 	global $rsgConfig;
 	
-	$cid = rsgInstance::getInt( 'cid', array(0) );
-	if (!is_array( $cid )) {
-		$cid = array(0);
-	}
+	$cid = rsgInstance::getVar( 'cid', array(0) );
 
 	if ( $rsgConfig->saveConfig($rsgConfig->set("template", $cid[0]) ) ) {
 		$msg = "Active template set succesfully (".$cid[0].")";

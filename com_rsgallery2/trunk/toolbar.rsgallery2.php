@@ -53,6 +53,17 @@ switch( $rsgOption ){
             break;
         }
     break;
+    case 'templates':
+		switch ( $task ) {
+			case 'templates':
+			case 'remove':
+			case 'default':
+			case 'upload_template':
+			default:
+				menu_rsg2_templates::templates( $option );
+			break;
+		}
+	break;
 }
 
 // only use the legacy task switch if rsgOption is not used.
@@ -107,9 +118,6 @@ switch ($task){
 		menuRSGallery::edit_main();
 		break;
 // this is where you should add more toolbars:
-	case 'templates':
-		menuRSGallery::templates();
-		break;
 
 // do these need a toolbar?:
     case 'regen_thumbs':
