@@ -157,7 +157,10 @@ class rsgConfig {
 		global $database;
 
 		$query = "SELECT * FROM " . $this->_configTable;
-		$database->setQuery( $query );
+
+		if( !$database->setQuery( $query ) )
+			return; // database doesn't exist, use defaults.
+
 		$vars = $database->loadAssocList();
 
 		// if a new install, db hasn't been created yet.
