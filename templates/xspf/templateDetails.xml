@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <mosinstall type="template">
-	<name>XSPF Flash Music Player</name>
+	<name>XSPF</name>
 	<creationDate>June 2007</creationDate>
 	<author>rsgallery2.net</author>
 	<copyright>Open Source, GPL</copyright>
@@ -11,6 +11,6 @@
 	<files>
 		<filename>index.php</filename>
 		<filename>display.class.php</filename>
-		<filename>templateDetails.css</filename>
+		<filename>templateDetails.xml</filename>
 	</files>
 </mosinstall>
