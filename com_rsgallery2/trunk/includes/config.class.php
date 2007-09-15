@@ -61,7 +61,7 @@ class rsgConfig {
 	var $displayStatus				= 1;
 	var $dispLimitbox				= 1; //0 = never; 1 = If more galleries then limit; 2 = always
 	var $galcountNrs				= 5;
-	var $template					= 'tables';
+	var $template					= 'semantic';
 
     // user uploads
 	var $uu_enabled         = 0;

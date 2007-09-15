@@ -761,6 +761,19 @@ class rsgDisplay extends tempDisplay{
             <?php
         }
     }
+    /**
+     * Shows the comments screen
+     */
+    function _showComments() {
+    	global $mainframe, $mosConfig_live_site;
+    	$id = rsgInstance::getVar( 'id'  , '');
+    	$css = "<link rel=\"stylesheet\" href=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/rsgcomments/rsgcomments.css\" type=\"text/css\" />";
+		$mainframe->addCustomHeadTag($css);
+    	
+		$comment = new rsgComments();
+		$comment->showComments($id);
+    	$comment->editComment($id);
+    }
 }
 
 

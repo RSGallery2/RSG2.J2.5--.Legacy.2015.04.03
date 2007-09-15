@@ -724,15 +724,7 @@ class rsgDisplay_tables extends rsgDisplay{
         </table>
         <?php
     }
-    function _showComments() {
-    	global $mainframe, $mosConfig_live_site;
-    	$css = "<link rel=\"stylesheet\" href=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/rsgcomments/rsgcomments.css\" type=\"text/css\" />";
-		$mainframe->addCustomHeadTag($css);
-    	
-		$comment = new rsgComments();
-		$comment->showComments($this->item['id']);
-    	$comment->editComment($this->item['id']);
-    }
+
     function _showCommentsX() {
         global $rsgConfig, $database, $my;
         $limitstart = $this->limitstart;

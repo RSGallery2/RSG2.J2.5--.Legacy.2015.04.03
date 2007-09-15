@@ -334,7 +334,7 @@ class rsgDisplay_semantic extends rsgDisplay{
      * Shows main image
      */
 	function showDisplayImage(){
-		global $rsgConfig;
+		global $rsgConfig, $mosConfig_live_site;
 		
 		$item = rsgInstance::getItem();
 		if( $item->type != 'image' ){
@@ -563,100 +563,6 @@ class rsgDisplay_semantic extends rsgDisplay{
         <?php
     }
     
-    /**
-     * @todo work with the new rsgCommenting system
-     */
-    function _showComments() {
-    	return;
-        global $rsgConfig, $database, $my;
-        $limitstart = $this->limitstart;
-        $id = $this->item['id'];
-        ?>
-        <table width="100%" border="0" cellpadding="0" cellspacing="1" class="adminForm">
-        <?php
-        $database->setQuery("SELECT * FROM #__rsgallery2_comments WHERE picid='$id' ORDER BY id DESC");
-        $crows = $database->loadObjectList();
-        if (!$crows) {
-            ?>
-            <tr>
-                <td><?php echo _RSGALLERY_NO_COMMENTS; ?></td>
-            </tr>
-            <?php 
-        } else {
-        ?>
-        <tr>
-            <td>
-                <table width="100%" cellpadding="2" cellspacing="1">
-                <?php
-                foreach ($crows as $crow) {
-                    ?>
-                    <tr>
-                        <td width="120"><strong><?php echo _RSGALLERY_COMMENT_DATE; ?>:</strong></td>
-                        <td><?php echo mosFormatDate($crow->date); ?></td>
-                    </tr>
-                    <tr>
-                        <td><strong><?php echo _RSGALLERY_COMMENT_BY; ?>:</strong></td>
-                        <td><?php echo htmlspecialchars(stripslashes($crow->name), ENT_QUOTES); ?></td>
-                    </tr>
-                    <tr>
-                        <td valign="top"><strong><?php echo _RSGALLERY_COMMENT_TEXT; ?>:</strong></td>
-                        <td><?php echo htmlspecialchars(stripslashes($crow->comment), ENT_QUOTES); ?></td>
-                    </tr>
-                    <?php
-                    if ($my->usertype == 'Super Administrator') {
-                        ?>
-                        <tr>
-                            <td colspan="2">
-                            <div align="right">
-                                <a href="#" onClick="javascript:deleteComment(<?php echo $crow->id;?>);">
-                                <?php echo _RSGALLERY_DELETE_COMMENT;?>
-                                </a>
-                            </div>
-                            </td>
-                        </tr>
-                        <?php
-                        }
-                        ?>
-                        <tr>
-                            <td colspan="2" align="center"><hr></td>
-                        </tr>              
-                        <?php 
-                    }
-                    ?>
-                </table>
-            </td>
-        </tr>
-        <?php
-        }
-        ?> 
-        <tr>
-            <td colspan="2"><strong><font color="#FFFFFF">&nbsp;<?php echo _RSGALLERY_COMMENT_ADD; ?></font></strong></td>
-        </tr>
-        <tr>
-            <td>
-            <form method="post" action="<?php global $Itemid; echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=addcomment"); ?>">
-            <input type="hidden" name="picid" value="<?php echo $id; ?>" />
-            <input type="hidden" name="limitstart" value="<?php echo $limitstart; ?>" />
-            <table width="100%" cellpadding="2" cellspacing="1">
-                <tr>
-                    <td width="130"><strong><?php echo _RSGALLERY_COMMENT_NAME; ?>:</strong></td>
-                    <td><input class="inputbox" type="text" name="name" size="30" value="<?php echo $my->username; ?>" /></td>
-                </tr>
-                <tr>
-                    <td width="130" valign="top"><strong><?php echo _RSGALLERY_COMMENT_ADD_TEXT; ?>:</strong></td>
-                    <td><textarea class="inputbox" cols="30" rows="3" name="comment" /></textarea></td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center"><input class="button" type="submit" name="submit" value="<?php echo _RSGALLERY_COMMENT_ADD; ?>" /></td>
-                </tr>
-            </table>
-            </form>
-            </td>
-        </tr>
-        </table>
-        <?php
-    }
-
 	/**
 	 * shows exif data for the current item
 	 */

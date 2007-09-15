@@ -27,7 +27,7 @@ $rsgDisplay = new rsgDisplay_semantic();
 $rsgDisplay->setItemid();
 
 global $mosConfig_live_site;
-$template_dir = "$mosConfig_live_site/components/com_rsgallery2/templates/". $rsgConfig->get('template');
+$template_dir = $mosConfig_live_site . DS ."components" . DS . "com_rsgallery2". DS . "templates" . DS . $rsgConfig->get('template');
 
 $rsgDisplay->metadata();
 // append to Joomla's pathway
