@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: behavior.php 7568 2007-05-30 20:48:06Z jinx $
+* @version		$Id: behavior.php 8861 2007-09-13 13:54:06Z jinx $
 * @package		Joomla.Framework
 * @subpackage	HTML
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -18,10 +18,63 @@
  * @static
  * @package 	Joomla.Framework
  * @subpackage	HTML
- * @since		1.5
+ * @version		1.5
  */
 class JHTMLBehavior
 {
+	/**
+	 * Method to load the mootools framework into the document head
+	 *
+	 * - If debugging mode is on an uncompressed version of mootools is included for easier debugging.
+	 *
+	 * @static
+	 * @param	boolean	$debug	Is debugging mode on? [optional]
+	 * @return	void
+	 * @since	1.5
+	 */
+	function mootools($debug = null)
+	{
+		static $loaded;
+
+		// Only load once
+		if ($loaded) {
+			return;
+		}
+
+		// If no debugging value is set, use the configuration setting
+		if ($debug === null) {
+			$config = &JFactory::getConfig();
+			$debug = $config->getValue('config.debug');
+		}
+
+		// TODO NOTE: Here we are checking for Konqueror - If they fix thier issue with compressed, we will need to update this
+		$konkcheck = strpos (strtolower($_SERVER['HTTP_USER_AGENT']), "konqueror");
+
+		if ($debug || $konkcheck) {
+			JHTML::script('mootools-uncompressed.js', 'media/system/js/', false);
+		} else {
+			JHTML::script('mootools.js', 'media/system/js/', false);
+		}
+		$loaded = true;
+		return;
+	}
+
+		function caption() {
+		JHTML::script('caption.js');
+	}
+
+	function formvalidation() {
+		JHTML::script('validate.js' );
+	}
+
+	function switcher() {
+		JHTML::script('switcher.js' );
+	}
+
+	function combobox() {
+		JHTML::script('combobox.js' );
+	}
+
 	function tooltip($selector='.hasTip', $params = array())
 	{
 		static $tips;
@@ -30,35 +83,29 @@ class JHTMLBehavior
 			$tips = array();
 		}
 
+		// Include mootools framework
+		JHTMLBehavior::mootools();
+
 		$sig = md5(serialize(array($selector,$params)));
 		if (isset($tips[$sig]) && ($tips[$sig])) {
 			return;
 		}
 
 		// Setup options object
-		$options = '{';
 		$opt['maxTitleChars']	= (isset($params['maxTitleChars']) && ($params['maxTitleChars'])) ? (int)$params['maxTitleChars'] : 50 ;
 		$opt['offsets']			= (isset($params['offsets'])) ? (int)$params['offsets'] : null;
 		$opt['showDelay']		= (isset($params['showDelay'])) ? (int)$params['showDelay'] : null;
 		$opt['hideDelay']		= (isset($params['hideDelay'])) ? (int)$params['hideDelay'] : null;
 		$opt['className']		= (isset($params['className'])) ? $params['className'] : null;
-		$opt['fixed']			= (isset($params['fixed']) && ($params['fixed'])) ? 'true' : 'false';
-		$opt['onShow']			= (isset($params['onShow'])) ? $params['onShow'] : null;
-		$opt['onHide']			= (isset($params['onHide'])) ? $params['onHide'] : null;
-		foreach ($opt as $k => $v)
-		{
-			if ($v) {
-				$options .= $k.': '.$v.',';
-			}
-		}
-		if (substr($options, -1) == ',') {
-			$options = substr($options, 0, -1);
-		}
-		$options .= '}';
+		$opt['fixed']			= (isset($params['fixed']) && ($params['fixed'])) ? '\\true' : '\\false';
+		$opt['onShow']			= (isset($params['onShow'])) ? '\\'.$params['onShow'] : null;
+		$opt['onHide']			= (isset($params['onHide'])) ? '\\'.$params['onHide'] : null;
+
+		$options = JHTMLBehavior::_getJSObject($opt);
 
 		// Attach tooltips to document
 		$document =& JFactory::getDocument();
-		$tooltipInit = '		Window.onDomReady(function(){ var JTooltips = new Tips($$(\''.$selector.'\'), '.$options.'); });';
+		$tooltipInit = '		window.addEvent(\'domready\', function(){ var JTooltips = new Tips($$(\''.$selector.'\'), '.$options.'); });';
 		$document->addScriptDeclaration($tooltipInit);
 
 		// Set static array
@@ -66,21 +113,185 @@ class JHTMLBehavior
 		return;
 	}
 
+	function modal($selector='a.modal', $params = array())
+	{
+		static $modals;
+		static $included;
+
+		$document =& JFactory::getDocument();
+
+		// Load the necessary files if they haven't yet been loaded
+		if (!isset($included)) {
+
+			// Load the javascript and css
+			JHTML::script('modal.js');
+			JHTML::stylesheet('modal.css');
+
+			$included = true;
+		}
+
+		if (!isset($modals)) {
+			$modals = array();
+		}
+
+		$sig = md5(serialize(array($selector,$params)));
+		if (isset($modals[$sig]) && ($modals[$sig])) {
+			return;
+		}
+
+		// Setup options object
+		$opt['ajaxOptions']	= (isset($params['ajaxOptions']) && (is_array($params['ajaxOptions']))) ? $params['ajaxOptions'] : null;
+		$opt['size']		= (isset($params['size']) && (is_array($params['size']))) ? $params['size'] : null;
+		$opt['onOpen']		= (isset($params['onOpen'])) ? $params['onOpen'] : null;
+		$opt['onClose']		= (isset($params['onClose'])) ? $params['onClose'] : null;
+		$opt['onUpdate']	= (isset($params['onUpdate'])) ? $params['onUpdate'] : null;
+		$opt['onResize']	= (isset($params['onResize'])) ? $params['onResize'] : null;
+		$opt['onMove']		= (isset($params['onMove'])) ? $params['onMove'] : null;
+		$opt['onShow']		= (isset($params['onShow'])) ? $params['onShow'] : null;
+		$opt['onHide']		= (isset($params['onHide'])) ? $params['onHide'] : null;
+
+		$options = JHTMLBehavior::_getJSObject($opt);
+
+		// Attach modal behavior to document
+		$document->addScriptDeclaration("
+		window.addEvent('domready', function() {
+
+			SqueezeBox.initialize(".$options.");
+
+			$$('".$selector."').each(function(el) {
+				el.addEvent('click', function(e) {
+					new Event(e).stop();
+					SqueezeBox.fromElement(el);
+				});
+			});
+		});");
+
+		// Set static array
+		$modals[$sig] = true;
+		return;
+	}
+
+	function uploader($id='file-upload', $params = array())
+	{
+		JHTML::script('swf.js' );
+		JHTML::script('uploader.js' );
+
+		static $uploaders;
+
+		if (!isset($uploaders)) {
+			$uploaders = array();
+		}
+
+		if (isset($uploaders[$id]) && ($uploaders[$id])) {
+			return;
+		}
+
+		global $mainframe;
+		$base = $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
+
+		// Setup options object
+		$opt['url']					= (isset($params['targetURL'])) ? $params['targetURL'] : null ;
+		$opt['swf']					= (isset($params['swf'])) ? $params['swf'] : $base.'media/system/swf/uploader.swf';
+		$opt['multiple']			= (isset($params['multiple']) && !($params['multiple'])) ? '\\false' : '\\true';
+		$opt['queued']				= (isset($params['queued']) && !($params['queued'])) ? '\\false' : '\\true';
+		$opt['queueList']			= (isset($params['queueList'])) ? $params['queueList'] : 'upload-queue';
+		$opt['instantStart']		= (isset($params['instantStart']) && ($params['instantStart'])) ? '\\true' : '\\false';
+		$opt['allowDuplicates']		= (isset($params['allowDuplicates']) && !($params['allowDuplicates'])) ? '\\false' : '\\true';
+		$opt['limitSize']			= (isset($params['limitSize']) && ($params['limitSize'])) ? (int)$params['limitSize'] : null;
+		$opt['limitFiles']			= (isset($params['limitFiles']) && ($params['limitFiles'])) ? (int)$params['limitFiles'] : null;
+		$opt['optionFxDuration']	= (isset($params['optionFxDuration'])) ? (int)$params['optionFxDuration'] : null;
+		$opt['container']			= (isset($params['container'])) ? '\\$('.$params['container'].')' : null;
+		$opt['types']				= (isset($params['types'])) ?'\\'.$params['types'] : '\\{\'All Files (*.*)\': \'*.*\'}';
+
+
+		// Optional functions
+		$opt['createReplacement']	= (isset($params['createReplacement'])) ? '\\'.$params['createReplacement'] : null;
+		$opt['onComplete']			= (isset($params['onComplete'])) ? '\\'.$params['onComplete'] : null;
+		$opt['onAllComplete']		= (isset($params['onAllComplete'])) ? '\\'.$params['onAllComplete'] : null;
+
+/*  types: Object with (description: extension) pairs, default: Images (*.jpg; *.jpeg; *.gif; *.png)
+ */
+
+		$options = JHTMLBehavior::_getJSObject($opt);
+
+		// Attach tooltips to document
+		$document =& JFactory::getDocument();
+		$uploaderInit = '		window.addEvent(\'load\', function(){
+				var Uploader = new FancyUpload($(\''.$id.'\'), '.$options.');
+				$(\'upload-clear\').adopt(new Element(\'input\', { type: \'button\', events: { click: Uploader.clearList.bind(Uploader, [false])}, value: \''.JText::_('Clear Completed').'\' }));				});';
+		$document->addScriptDeclaration($uploaderInit);
+
+		// Set static array
+		$uploaders[$id] = true;
+		return;
+	}
+
+	function tree($id, $params = array(), $root = array())
+	{
+		static $trees;
+
+		if (!isset($trees)) {
+			$trees = array();
+		}
+
+		// Include mootools framework
+		JHTMLBehavior::mootools();
+		JHTML::script('mootree.js');
+		JHTML::stylesheet('mootree.css');
+
+		if (isset($trees[$id]) && ($trees[$id])) {
+			return;
+		}
+
+		global $mainframe;
+		$base = $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
+
+		// Setup options object
+		$opt['div']		= (array_key_exists('div', $params)) ? $params['div'] : $id.'_tree';
+		$opt['mode']	= (array_key_exists('mode', $params)) ? $params['mode'] : 'folders';
+		$opt['grid']	= (array_key_exists('grid', $params)) ? '\\'.$params['grid'] : '\\true';
+		$opt['theme']	= (array_key_exists('theme', $params)) ? $params['theme'] : $base.'media/system/images/mootree.gif';
+
+		// Event handlers
+		$opt['onExpand']	= (array_key_exists('onExpand', $params)) ? '\\'.$params['onExpand'] : null;
+		$opt['onSelect']	= (array_key_exists('onSelect', $params)) ? '\\'.$params['onSelect'] : null;
+		$opt['onClick']		= (array_key_exists('onClick', $params)) ? '\\'.$params['onClick'] : '\\function(node){  window.open(node.data.url, $chk(node.data.target) ? node.data.target : \'_self\'); }';
+		$options = JHTMLBehavior::_getJSObject($opt);
+
+		// Setup root node
+		$rt['text']		= (array_key_exists('text', $root)) ? $root['text'] : 'Root';
+		$rt['id']		= (array_key_exists('id', $root)) ? $root['id'] : null;
+		$rt['color']	= (array_key_exists('color', $root)) ? $root['color'] : null;
+		$rt['open']		= (array_key_exists('open', $root)) ? '\\'.$root['open'] : '\\true';
+		$rt['icon']		= (array_key_exists('icon', $root)) ? $root['icon'] : null;
+		$rt['openicon']	= (array_key_exists('openicon', $root)) ? $root['openicon'] : null;
+		$rt['data']		= (array_key_exists('data', $root)) ? $root['data'] : null;
+		$rootNode = JHTMLBehavior::_getJSObject($rt);
+
+		$js = '		window.addEvent(\'domready\', function(){
+			tree = new MooTreeControl('.$options.','.$rootNode.');
+			tree.adopt(\''.$id.'\');})';
+
+		// Attach tooltips to document
+		$document =& JFactory::getDocument();
+		$document->addScriptDeclaration($js);
+
+		// Set static array
+		$trees[$id] = true;
+		return;
+	}
+
 	function calendar()
 	{
-		global $mainframe;
-
-		$doc =& JFactory::getDocument();
 		$lang =& JFactory::getLanguage();
-		$url = $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
 
-		$doc->addStyleSheet( $url. 'includes/js/calendar/calendar-mos.css', 'text/css', null, array(' title' => JText::_( 'green' ) ,' media' => 'all' ));
-		$doc->addScript( $url. 'includes/js/calendar/calendar_mini.js' );
+		JHTML::stylesheet('calendar-mos.css', 'includes/js/calendar/', array(' title' => JText::_( 'green' ) ,' media' => 'all' ));
+		JHTML::script( 'calendar_mini.js', 'includes/js/calendar/' );
 		$langScript = JPATH_SITE.DS.'includes'.DS.'js'.DS.'calendar'.DS.'lang'.DS.'calendar-'.$lang->getTag().'.js';
 		if( file_exists( $langScript ) ){
-			$doc->addScript( $url. 'includes/js/calendar/lang/calendar-'.$lang->getTag().'.js' );
+			JHTML::script( 'calendar-'.$lang->getTag().'.js', 'includes/js/calendar/lang/' );
 		} else {
-			$doc->addScript( $url. 'includes/js/calendar/lang/calendar-en-GB.js' );
+			JHTML::script( 'calendar-en-GB.js', 'includes/js/calendar/lang/' );
 		}
 	}
 
@@ -89,26 +300,59 @@ class JHTMLBehavior
 	 */
 	function keepalive()
 	{
+		// Include mootools framework
+		JHTMLBehavior::mootools();
+
 		$config 		=& JFactory::getConfig();
 		$lifetime 	= ( $config->getValue('lifetime') * 60000 );
-		$refreshTime =  ( $lifetime < 120000 ) ? 120000 : $lifetime - 120000;
-		//refresh time is 2 minutes less than the liftime assined in the configuration.php file
+		$refreshTime =  ( $lifetime <= 60000 ) ? 30000 : $lifetime - 60000;
+		//refresh time is 1 minute less than the liftime assined in the configuration.php file
 		?>
 		<script language="javascript">
-		function keepAlive( refreshTime )
-		{
-			var url = "index.php?option=com_admin&tmpl=component&task=keepalive";
-			var myAjax = new Ajax( url, { method: "get", update: $("keepAliveLayer") } ).request();
-			setTimeout('keepAlive()', refreshTime );
+		function keepAlive( ) {
+			var myAjax = new Ajax( "index.php", { method: "get" } ).request();
 		}
 
 		window.addEvent('domready', function()
-			{ keepAlive( <?php echo $refreshTime; ?> ); }
+			{ keepAlive.periodical( <?php echo $refreshTime; ?> ); }
 		);
 		</script>
-		<div id="keepAliveLayer"></div>
 		<?php
 		return;
+	}
+
+	/**
+	 * Internal method to get a JavaScript object notation string from an array
+	 *
+	 * @param	array	$array	The array to convert to JavaScript object notation
+	 * @return	string	JavaScript object notation representation of the array
+	 * @since	1.5
+	 */
+	function _getJSObject($array=array())
+	{
+		// Initialize variables
+		$object = '{';
+
+		// Iterate over array to build objects
+		foreach ((array)$array as $k => $v)
+		{
+			if (is_null($v)) {
+				continue;
+			}
+			if (!is_array($v) && !is_object($v)) {
+				$object .= ' '.$k.': ';
+				$object .= (is_numeric($v) || strpos($v, '\\') === 0) ? (is_numeric($v)) ? $v : substr($v, 1) : "'".$v."'";
+				$object .= ',';
+			} else {
+				$object .= ' '.$k.': '.JHTMLBehavior::_getJSObject($v).',';
+			}
+		}
+		if (substr($object, -1) == ',') {
+			$object = substr($object, 0, -1);
+		}
+		$object .= '}';
+
+		return $object;
 	}
 }
 

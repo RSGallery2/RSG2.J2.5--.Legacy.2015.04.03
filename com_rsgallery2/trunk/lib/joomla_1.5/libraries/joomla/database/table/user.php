@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: user.php 7621 2007-06-04 23:29:13Z eddieajau $
+* @version		$Id: user.php 8762 2007-09-07 05:28:57Z pasamio $
 * @package		Joomla.Framework
 * @subpackage	Table
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -135,6 +135,8 @@ class JTableUser extends JTable
 	 */
 	function check()
 	{
+		jimport('joomla.utilities.mail');
+		
 		// Validate user information
 		if (trim( $this->name ) == '') {
 			$this->setError( JText::_( 'Please enter your name.' ) );
@@ -152,7 +154,7 @@ class JTableUser extends JTable
 			return false;
 		}
 
-		if ((trim($this->email == "")) || (preg_match("/[\w\.\-]+@\w+[\w\.\-]*?\.\w{1,4}/", $this->email )==false)) {
+		if ((trim($this->email == "")) || ! JMailHelper::isEmailAddress($this->email) ) {
 			$this->setError( JText::_( 'WARNREG_MAIL' ) );
 			return false;
 		}
@@ -160,8 +162,8 @@ class JTableUser extends JTable
 		// check for existing username
 		$query = 'SELECT id'
 		. ' FROM #__users '
-		. ' WHERE username = "' . $this->username . '"'
-		. ' AND id != '. $this->id;
+		. ' WHERE username = ' . $this->_db->Quote($this->username)
+		. ' AND id != '. (int) $this->id;
 		;
 		$this->_db->setQuery( $query );
 		$xid = intval( $this->_db->loadResult() );
@@ -174,8 +176,8 @@ class JTableUser extends JTable
 		// check for existing email
 		$query = 'SELECT id'
 			. ' FROM #__users '
-			. ' WHERE email = "'. $this->email . '"'
-			. ' AND id != '. $this->id
+			. ' WHERE email = '. $this->_db->Quote($this->email)
+			. ' AND id != '. (int) $this->id
 			;
 		$this->_db->setQuery( $query );
 		$xid = intval( $this->_db->loadResult() );
@@ -243,7 +245,7 @@ class JTableUser extends JTable
 		$acl->del_object( $aro_id, 'ARO', true );
 
 		$query = 'DELETE FROM '. $this->_tbl
-		. ' WHERE  '. $this->_tbl_key .' = "'. $this->$k .'"';
+		. ' WHERE '. $this->_tbl_key .' = '. (int) $this->$k
 		;
 		$this->_db->setQuery( $query );
 
@@ -252,7 +254,7 @@ class JTableUser extends JTable
 
 			// private messaging
 			$query = 'DELETE FROM #__messages_cfg'
-			. ' WHERE user_id = '. $this->$k
+			. ' WHERE user_id = '. (int) $this->$k
 			;
 			$this->_db->setQuery( $query );
 			if (!$this->_db->query()) {
@@ -260,7 +262,7 @@ class JTableUser extends JTable
 				return false;
 			}
 			$query = 'DELETE FROM #__messages'
-			. ' WHERE user_id_to = '. $this->$k
+			. ' WHERE user_id_to = '. (int) $this->$k
 			;
 			$this->_db->setQuery( $query );
 			if (!$this->_db->query()) {
@@ -292,20 +294,19 @@ class JTableUser extends JTable
 				die( 'WARNMOSUSER' );
 			}
 		}
-		// data check
-		$id = intval( $id );
 
 		// if no timestamp value is passed to functon, than current time is used
 		if ( $timeStamp ) {
 			$dateTime = date( 'Y-m-d H:i:s', $timeStamp );
 		} else {
+			// TODO: Should this be JDate?
 			$dateTime = date( 'Y-m-d H:i:s' );
 		}
 
 		// updates user lastvistdate field with date and time
 		$query = 'UPDATE '. $this->_tbl
-		. ' SET lastvisitDate = "'.$dateTime.'"'
-		. ' WHERE id = '.$id
+		. ' SET lastvisitDate = '.$this->_db->Quote($dateTime)
+		. ' WHERE id = '. (int) $id
 		;
 		$this->_db->setQuery( $query );
 		if (!$this->_db->query()) {

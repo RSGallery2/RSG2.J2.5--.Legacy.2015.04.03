@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: factory.php 7540 2007-05-29 19:31:54Z friesengeist $
+ * @version		$Id: factory.php 8827 2007-09-10 16:19:39Z jinx $
  * @package		Joomla.Framework
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
@@ -20,6 +20,35 @@
  */
 class JFactory
 {
+	/**
+	 * Get a application object
+	 *
+	 * Returns a reference to the global {@link JApplication} object, only creating it
+	 * if it doesn't already exist.
+	 *
+	 * @access public
+	 * @param	mixed	$id 		A client identifier or name.
+	 * @param	array	$config 	An optional associative array of configuration settings.
+	 * @return object JApplication
+	 */
+	function &getApplication($id = null, $config = array(), $prefix='J')
+	{
+		static $instance;
+
+		if (!is_object($instance))
+		{
+			jimport( 'joomla.application.application' );
+
+			if (!$id) {
+				JError::raiseError(500, 'Application Instantiation Error');
+			}
+
+			$instance = JApplication::getInstance($id, $config, $prefix);
+		}
+
+		return $instance;
+	}
+
 	/**
 	 * Get a configuration object
 	 *
@@ -81,8 +110,14 @@ class JFactory
 	{
 		static $instance;
 
-		if (!is_object($instance)) {
+		if (!is_object($instance))
+		{
+			//get the debug configuration setting
+			$conf =& JFactory::getConfig();
+			$debug = $conf->getValue('config.debug_lang');
+
 			$instance = JFactory::_createLanguage();
+			$instance->setDebug($debug);
 		}
 
 		return $instance;
@@ -114,16 +149,26 @@ class JFactory
 	 * Returns a reference to the global {@link JUser} object, only creating it
 	 * if it doesn't already exist.
 	 *
+	 * @param 	int 	$id 	The user to load - Can be an integer or string - If string, it is converted to ID automatically.
+	 *
 	 * @access public
 	 * @return object JUser
 	 */
-	function &getUser()
+	function &getUser($id = null)
 	{
 		jimport('joomla.user.user');
-		$session  =& JFactory::getSession();
-		$instance =& $session->get('user');
-		if (!is_a($instance, 'JUser')) {
-			$instance = new JUser();
+
+		if(is_null($id))
+		{
+			$session  =& JFactory::getSession();
+			$instance =& $session->get('user');
+			if (!is_a($instance, 'JUser')) {
+				$instance =& JUser::getInstance();
+			}
+		}
+		else
+		{
+			$instance =& JUser::getInstance($id);
 		}
 
 		return $instance;
@@ -132,26 +177,30 @@ class JFactory
 	/**
 	 * Get a cache object
 	 *
-	 * Returns a reference to the global {@link JCache} object, only creating it
-	 * if it doesn't already exist.
+	 * Returns a reference to the global {@link JCache} object
 	 *
 	 * @access public
 	 * @param string The cache group name
-	 * @param string The cache class name
+	 * @param string The handler to use
+	 * @param string The storage method
 	 * @return object JCache
 	 */
-	function &getCache($group='', $handler = 'callback', $application = 0)
+	function &getCache($group = '', $handler = 'callback', $storage = null)
 	{
 		$handler = ($handler == 'function') ? 'callback' : $handler;
 
 		$conf =& JFactory::getConfig();
 
+		if(!isset($storage)) {
+			$storage = $conf->getValue('config.cache_handler', 'file');
+		}
+
 		$options = array(
 			'defaultgroup' 	=> $group,
-			'application'	=> $application,
 			'cachebase' 	=> $conf->getValue('config.cache_path'),
-			'lifetime' 		=> $conf->getValue('config.cachetime'),
-			'language' 		=> $conf->getValue('config.language')
+			'lifetime' 		=> $conf->getValue('config.cachetime') * 60,	// minutes to seconds
+			'language' 		=> $conf->getValue('config.language'),
+			'storage'		=> $storage
 		);
 
 		jimport('joomla.cache.cache');
@@ -239,12 +288,15 @@ class JFactory
 	{
 		static $instance;
 
-		if (is_object($instance))
-			unset($instance);
+		if ( ! is_object($instance) ) {
+			$instance = JFactory::_createMailer();
+		}
 
-		$instance = JFactory::_createMailer();
+		// Create a copy of this object - do not return the original because it may be used several times
+		// PHP4 copies objects by value whereas PHP5 copies by reference
+		$copy	= (PHP_VERSION < 5) ? $instance : clone($instance);
 
-		return $instance;
+		return $copy;
 	}
 
 	/**
@@ -263,17 +315,16 @@ class JFactory
 	 {
 		$doc = null;
 
-		switch ($type)
+		switch (strtolower( $type ))
 		{
-			case 'RSS' :
-			case 'Atom' :
+			case 'rss' :
+			case 'atom' :
 			{
-				if (!is_null( $options['rssUrl'] )) 
+				if (!is_null( $options['rssUrl'] ))
 				{
 					jimport ('simplepie.simplepie');
-					$simplepie = new SimplePie();
-					$simplepie->feed_url($options['rssUrl']);
-					$simplepie->cache_location(JPATH_BASE.DS.'cache');
+					$simplepie = new SimplePie($options['rssUrl']);
+					$simplepie->set_cache_location(JPATH_BASE.DS.'cache');
 					$simplepie->init();
 					$simplepie->handle_content_type();
 					if ($simplepie->data) {
@@ -284,13 +335,13 @@ class JFactory
 				}
 			}	break;
 
-			case 'Simple' :
+			case 'simple' :
 			{
 				jimport('joomla.utilities.simplexml');
 				$doc = new JSimpleXML();
 			}	break;
 
-			case 'DOM'  :
+			case 'dom'  :
 			default :
 			{
 				if (!isset($options['lite']) || $options['lite'])
@@ -418,6 +469,8 @@ class JFactory
 		//get the editor configuration setting
 		$conf =& JFactory::getConfig();
 		$handler =  $conf->getValue('config.session_handler', 'none');
+
+		// config time is in minutes
 		$options['expire'] = ($conf->getValue('config.lifetime')) ? $conf->getValue('config.lifetime') * 60 : 900;
 
 		$session = JSession::getInstance($handler, $options);
@@ -462,6 +515,7 @@ class JFactory
 	function &_createDBO()
 	{
 		jimport('joomla.database.database');
+		jimport( 'joomla.database.table' );
 
 		$conf =& JFactory::getConfig();
 
@@ -477,13 +531,11 @@ class JFactory
 
 		$db =& JDatabase::getInstance( $options );
 
-		if ( JError::isError($db) )
-		{
+		if ( JError::isError($db) ) {
 			die("Database Error: ".$db->toString() );
 		}
 
-		if ($db->getErrorNum() > 0)
-		{
+		if ($db->getErrorNum() > 0) {
 			JError::raiseError('joomla.library:'.$db->getErrorNum(), 'JDatabase::getInstance: Could not connect to database <br/>' . $db->getErrorMsg() );
 		}
 
@@ -526,7 +578,7 @@ class JFactory
 				$mail->useSMTP($smtpauth, $smtphost, $smtpuser, $smtppass);
 				break;
 			case 'sendmail' :
-				$mail->useSendmail();
+				$mail->IsSendmail();
 				break;
 			default :
 				$mail->IsMail();

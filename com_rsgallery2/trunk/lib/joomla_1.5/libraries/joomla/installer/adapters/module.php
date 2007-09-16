@@ -59,9 +59,10 @@ class JInstallerModule extends JObject
 		 * ---------------------------------------------------------------------------------------------
 		 */
 
-		// Set the component name
+		// Set the extensions name
 		$name =& $this->manifest->getElementByPath('name');
-		$this->set('name', $name->data());
+		$name = JFilterInput::clean($name->data(), 'cmd');
+		$this->set('name', $name);
 
 		// Get the component description
 		$description = & $this->manifest->getElementByPath('description');
@@ -81,7 +82,7 @@ class JInstallerModule extends JObject
 		if ($cname = $this->manifest->attributes('client')) {
 			// Attempt to map the client to a base path
 			jimport('joomla.application.helper');
-			$client = JApplicationHelper::getClientInfo($cname, true);
+			$client =& JApplicationHelper::getClientInfo($cname, true);
 			if ($client === false) {
 				$this->parent->abort('Module Install: '.JText::_('Unknown client type').' ['.$client->name.']');
 				return false;
@@ -168,7 +169,11 @@ class JInstallerModule extends JObject
 		 */
 
 		// Check to see if a module by the same name is already installed
-		$query = 'SELECT `id`' .
+		// Shouldn't this be stopped by the above section?
+		// Commented out pending removal
+		// TODO: Remove this at a later point
+		// see http://groups.google.com/group/joomla-devel/browse_thread/thread/7ef4cd7f80c98e41
+/*		$query = 'SELECT `id`' .
 				' FROM `#__modules` ' .
 				' WHERE module = '.$db->Quote($mname) .
 				' AND client_id = '.(int)$clientId;
@@ -182,16 +187,18 @@ class JInstallerModule extends JObject
 
 		// Was there a module already installed with the same name?
 		if ($id) {
-			
+
 			if ( ! $this->parent->getOverwrite())
 			{
 				// Install failed, roll back changes
 				$this->parent->abort('Module Install: '.JText::_('Module').' "'.$mname.'" '.JText::_('already exists!'));
 				return false;
 			}
-			
-			
+
+
 		} else {
+*/
+
 			$row = & JTable::getInstance('module');
 			$row->title = $this->get('name');
 			$row->ordering = $row->getNextOrder( "position='left'" );
@@ -237,7 +244,7 @@ class JInstallerModule extends JObject
 			 * so that if we have to rollback the changes we can undo it.
 			 */
 			$this->parent->pushStep(array ('type' => 'menu', 'id' => $db->insertid()));
-		}
+//		} // TODO: Remove this re: database check removal
 
 		/**
 		 * ---------------------------------------------------------------------------------------------
@@ -284,7 +291,7 @@ class JInstallerModule extends JObject
 
 		// Get the extension root path
 		jimport('joomla.application.helper');
-		$client = JApplicationHelper::getClientInfo($row->client_id);
+		$client =& JApplicationHelper::getClientInfo($row->client_id);
 		if ($client === false) {
 			$this->parent->abort('Module Uninstall: '.JText::_('Unknown client type').' ['.$row->client_id.']');
 			return false;
@@ -318,10 +325,11 @@ class JInstallerModule extends JObject
 
 		// Do we have any module copies?
 		if (count($modules)) {
+			JArrayHelper::toInteger($modules);
 			$modID = implode(',', $modules);
 			$query = 'DELETE' .
 					' FROM #__modules_menu' .
-					' WHERE moduleid IN ("'.$modID.'")';
+					' WHERE moduleid IN ('.$modID.')';
 			$db->setQuery($query);
 			if (!$db->query()) {
 				JError::raiseWarning(100, 'Module Uninstall: '.$db->stderr(true));

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: menu.php 7122 2007-04-10 08:27:39Z jinx $
+* @version		$Id: menu.php 8031 2007-07-17 23:14:23Z jinx $
 * @package		Joomla.Framework
 * @subpackage	Table
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -88,7 +88,7 @@ class JTableMenu extends JTable
 	function check()
 	{
 		jimport('joomla.filter.output');
-		$alias = JOutputFilter::stringURLSafe($this->name);
+		$alias = JFilterOutput::stringURLSafe($this->name);
 
 		if(empty($this->alias) || $this->alias === $alias ) {
 			$this->alias = $alias;

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: error.php 7504 2007-05-26 13:29:52Z friesengeist $
+* @version		$Id: error.php 8031 2007-07-17 23:14:23Z jinx $
 * @package		Joomla.Framework
 * @subpackage	Document
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -105,10 +105,10 @@ class JDocumentError extends JDocument
 
 		// check template
 		$directory	= isset($params['directory']) ? $params['directory'] : 'templates';
-		$template	= isset($params['template']) ? JInputFilter::clean($params['template'], 'cmd') : '_system';
+		$template	= isset($params['template']) ? JFilterInput::clean($params['template'], 'cmd') : 'system';
 
 		if ( !file_exists( $directory.DS.$template.DS.$file) ) {
-			$template = '_system';
+			$template = 'system';
 		}
 
 		//set variables

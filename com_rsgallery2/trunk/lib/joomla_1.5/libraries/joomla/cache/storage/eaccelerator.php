@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: eaccelerator.php 7182 2007-04-23 17:52:47Z louis $
+ * @version		$Id: eaccelerator.php 8454 2007-08-19 07:36:36Z jinx $
  * @package		Joomla.Framework
  * @subpackage	Cache
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -40,7 +40,7 @@ class JCacheStorageEaccelerator extends JCacheStorage
 	}
 
 	/**
-	 * Get cached data from eAccelerator by id and group
+	 * Get cached data by id and group
 	 *
 	 * @access	public
 	 * @param	string	$id			The cache data id
@@ -57,7 +57,7 @@ class JCacheStorageEaccelerator extends JCacheStorage
 	}
 
 	/**
-	 * Store the data to eAccelerator by id and group
+	 * Store the data to by id and group
 	 *
 	 * @access	public
 	 * @param	string	$id		The cache data id

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: response.php 7403 2007-05-14 04:19:52Z eddieajau $
+ * @version		$Id: response.php 8323 2007-08-02 23:57:35Z jinx $
  * @package		Joomla.Framework
  * @subpackage	Environment
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -18,7 +18,7 @@
 $GLOBALS['_JRESPONSE'] = new stdClass();
 $GLOBALS['_JRESPONSE']->cachable = false;
 $GLOBALS['_JRESPONSE']->headers  = array();
-$GLOBALS['_JRESPONSE']->body	   = array();
+$GLOBALS['_JRESPONSE']->body	 = array();
 
  /**
  * JResponse Class

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: content.php 7629 2007-06-05 01:51:49Z robs $
+* @version		$Id: content.php 8031 2007-07-17 23:14:23Z jinx $
 * @package		Joomla.Framework
 * @subpackage	Table
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -112,13 +112,13 @@ class JTableContent extends JTable
 		/*
 		TODO: This filter is too rigorous,need to implement more configurable solution
 		// specific filters
-		$filter = & JInputFilter::getInstance( null, null, 1, 1 );
+		$filter = & JFilterInput::getInstance( null, null, 1, 1 );
 		$this->introtext = trim( $filter->clean( $this->introtext ) );
 		$this->fulltext =  trim( $filter->clean( $this->fulltext ) );
 		*/
 
 		jimport('joomla.filter.output');
-		$alias = JOutputFilter::stringURLSafe($this->title);
+		$alias = JFilterOutput::stringURLSafe($this->title);
 
 		if(empty($this->title)) {
 			$this->setError(JText::_('Article must have a title'));
@@ -152,21 +152,21 @@ class JTableContent extends JTable
 		if ($mapKeysToText) {
 			$query = 'SELECT name'
 			. ' FROM #__sections'
-			. ' WHERE id = '. $this->sectionid
+			. ' WHERE id = '. (int) $this->sectionid
 			;
 			$db->setQuery( $query );
 			$this->sectionid = $db->loadResult();
 
 			$query = 'SELECT name'
 			. ' FROM #__categories'
-			. ' WHERE id = '. $this->catid
+			. ' WHERE id = '. (int) $this->catid
 			;
 			$db->setQuery( $query );
 			$this->catid = $db->loadResult();
 
 			$query = 'SELECT name'
 			. ' FROM #__users'
-			. ' WHERE id = ' . $this->created_by
+			. ' WHERE id = ' . (int) $this->created_by
 			;
 			$db->setQuery( $query );
 			$this->created_by = $db->loadResult();

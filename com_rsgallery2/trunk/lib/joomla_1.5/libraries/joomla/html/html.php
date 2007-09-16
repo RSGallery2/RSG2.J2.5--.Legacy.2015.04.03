@@ -1,16 +1,16 @@
 <?php
 /**
-* @version		$Id: html.php 7748 2007-06-15 15:39:53Z jinx $
-* @package		Joomla.Framework
-* @subpackage	HTML
-* @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
-* @license		GNU/GPL, see LICENSE.php
-* Joomla! is free software. This version may have been modified pursuant
-* to the GNU General Public License, and as distributed it includes or
-* is derivative of works licensed under the GNU General Public License or
-* other free or open source software licenses.
-* See COPYRIGHT.php for copyright notices and details.
-*/
+ * @version		$Id: html.php 8860 2007-09-13 13:44:56Z jinx $
+ * @package		Joomla.Framework
+ * @subpackage	HTML
+ * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
+ * @license		GNU/GPL, see LICENSE.php
+ * Joomla! is free software. This version may have been modified pursuant
+ * to the GNU General Public License, and as distributed it includes or
+ * is derivative of works licensed under the GNU General Public License or
+ * other free or open source software licenses.
+ * See COPYRIGHT.php for copyright notices and details.
+ */
 
 /**
  * Utility class for all HTML drawing classes
@@ -22,6 +22,14 @@
  */
 class JHTML
 {
+	/**
+	 * Class loader method
+	 *
+	 * Additional arguments may be supplied and are passed to the sub-class.
+	 * Additional include paths are also able to be specified for third-party use
+	 *
+	 * @param	string	The type of helper method to load
+	 */
 	function _( $type )
 	{
 		//Initialise variables
@@ -74,13 +82,12 @@ class JHTML
 	/**
 	 * Write a <a></a> element
 	 *
-	 *  @access public
-	 * @param string 	The relative URL to use for the href attribute
-	 * @param string	The target attribute to use
-	 * @param array		An associative array of attributes to add
-	 * @since 1.5
+	 * @access	public
+	 * @param	string 	The relative URL to use for the href attribute
+	 * @param	string	The target attribute to use
+	 * @param	array	An associative array of attributes to add
+	 * @since	1.5
 	 */
-
 	function link($url, $text, $attribs = null)
 	{
 		if (is_array( $attribs )) {
@@ -93,24 +100,21 @@ class JHTML
 	/**
 	 * Write a <img></amg> element
 	 *
-	 * @access public
-	 * @param string 	The relative URL to use for the src attribute
-	 * @param string	The target attribute to use
-	 * @param array		An associative array of attributes to add
-	 * @since 1.5
+	 * @access	public
+	 * @param	string 	The relative URL to use for the src attribute
+	 * @param	string	The target attribute to use
+	 * @param	array	An associative array of attributes to add
+	 * @since	1.5
 	 */
 	function image($url, $alt, $attribs = null)
 	{
 		global $mainframe;
 
-		$src = substr( $url, 0, 4 ) != 'http' ? $mainframe->getCfg('live_site') . $url : $url;
-
 		if (is_array($attribs)) {
 			$attribs = JArrayHelper::toString( $attribs );
 		}
 
-		return '<img src="'.$src.'" alt="'.$alt.'" '.$attribs.' />';
-
+		return '<img src="'.JURI::base().$url.'" alt="'.$alt.'" '.$attribs.' />';
 	}
 
 	/**
@@ -128,26 +132,68 @@ class JHTML
 		if (is_array( $attribs )) {
 			$attribs = JArrayHelper::toString( $attribs );
 		}
+
 		return '<iframe src="'.$url.'" '.$attribs.' name="'.$name.'">'.$noFrames.'</iframe>';
+	}
+
+	/**
+	 * Write a <script></script> element
+	 *
+	 * @access	public
+	 * @param	string 	The name of the script file
+	 * * @param	string 	The relative path of the script file
+	 * @param	boolean If true, the mootools library will be loaded
+	 * @since	1.5
+	 */
+	function script($filename, $path = 'media/system/js/', $mootools = true)
+	{
+		global $mainframe;
+
+		// Include mootools framework
+		if($mootools) {
+			JHTML::_('behavior.mootools');
+		}
+
+		$base = $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
+
+		$document = &JFactory::getDocument();
+		$document->addScript( $base.$path.$filename );
+		return;
+	}
+
+	/**
+	 * Write a <link rel="stylesheet" style="text/css" /> element
+	 *
+	 * @access	public
+	 * @param	string 	The relative URL to use for the href attribute
+	 * @since	1.5
+	 */
+	function stylesheet($filename, $path = '/media/system/css/', $attribs = array())
+	{
+		global $mainframe;
+		$base = $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
+
+		$document = &JFactory::getDocument();
+		$document->addStylesheet( $base.$path.$filename, 'text/css', null, $attribs );
+		return;
 	}
 
 	/**
 	 * Returns formated date according to current local and adds time offset
 	 *
-	 * @access public
-	 * @param string date in an US English date format
-	 * @param string format optional format for strftime
-	 * @returns formated date
-	 * @see strftime
-	 * @since 1.5
+	 * @access	public
+	 * @param	string	date in an US English date format
+	 * @param	string	format optional format for strftime
+	 * @returns	string	formated date
+	 * @see		strftime
+	 * @since	1.5
 	 */
 	function date($date, $format = null, $offset = NULL)
 	{
-		if ( ! $format )
-		{
+		if ( ! $format ) {
 			$format = JText::_('DATE_FORMAT_LC1');
 		}
-		
+
 		jimport('joomla.utilities.date');
 
 		if(is_null($offset))
@@ -209,20 +255,21 @@ class JHTML
 		return $tip;
 	}
 
-	function calendar($value, $name, $format = 'y-mm-dd', $attribs = null, $control_name = '')
+	/**
+	 * Displays a calendar control field
+	 *
+	 * @param	string	The date value
+	 * @param	string	The name of the text field
+	 * @param	string	The id of the text field
+	 * @param	string	The date format
+	 * @param	array	Additional html attributes
+	 */
+	function calendar($value, $name, $id, $format = 'y-mm-dd', $attribs = null)
 	{
 		JHTML::_('behavior.calendar'); //load the calendar behavior
 
 		if (is_array($attribs)) {
 			$attribs = JArrayHelper::toString( $attribs );
-		}
-
-		// make id same as name
-		$id = $name;
-
-		if($control_name) {
-			$id   = $control_name.$name;
-			$name = $control_name.'['.$name.']';
 		}
 
 		return '<input type="text" name="'.$name.'" id="'.$id.'" value="'.htmlspecialchars($value).'" '.$attribs.' />'.
@@ -246,9 +293,17 @@ class JHTML
 			$paths = array( JPATH_LIBRARIES.DS.'joomla'.DS.'html'.DS.'html' );
 		}
 
-		if (!empty( $path ) && !in_array( $path, $paths )) {
-			array_unshift($paths, JPath::clean( $path ));
+		// force path to array
+		settype($path, 'array');
+
+		// loop through the path directories
+		foreach ($path as $dir)
+		{
+			if (!empty($dir) && !in_array($dir, $paths)) {
+				array_unshift($paths, JPath::clean( $dir ));
+			}
 		}
+
 		return $paths;
 	}
 }

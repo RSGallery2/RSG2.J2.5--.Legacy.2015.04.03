@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: authorization.php 7731 2007-06-13 01:39:46Z eddieajau $
+* @version		$Id: authorization.php 8331 2007-08-03 20:37:49Z eddieajau $
 * @package		Joomla.Framework
 * @subpackage	User
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -211,7 +211,7 @@ class JAuthorization extends gacl_api
 	 * This is a temporary function to allow 3PD's to add basic ACL checks for their
 	 * modules and components.  NOTE: this information will be compiled in the db
 	 * in future versions
-	 * 
+	 *
 	 * @param	string	The ACO section value
 	 * @param	string	The ACO value
 	 * @param	string	The ARO section value
@@ -237,9 +237,9 @@ class JAuthorization extends gacl_api
 
 	/**
 	 * Sets the check mode.
-	 * 
+	 *
 	 * Only used if the full implementation of the phpGACL library is installed and configured
-	 * 
+	 *
 	 * @param	int		0 = Joomla!, 1 = phpGACL native
 	 * @return	int		The previous value
 	 */
@@ -327,7 +327,7 @@ class JAuthorization extends gacl_api
 			. ' FROM #__core_acl_'.$type.'_groups AS g'
 			. ' INNER JOIN #__core_acl_groups_'.$type.'_map AS gm ON gm.group_id = g.id'
 			. ' INNER JOIN #__core_acl_'.$type.' AS ao ON ao.id = gm.'.$type.'_id'
-			. ' WHERE ao.value="'.$value.'"'
+			. ' WHERE ao.value='.$db->Quote($value)
 		);
 		$obj = $db->loadObject(  );
 		return $obj;
@@ -343,7 +343,7 @@ class JAuthorization extends gacl_api
 
 		if ($root_id) {
 		} else if ($root_name) {
-			$query	= "SELECT lft, rgt FROM $table WHERE name = '$root_name' ";
+			$query	= "SELECT lft, rgt FROM $table WHERE name = ".$db->Quote($root_name);
 			$db->setQuery( $query );
 			$root = $db->loadObject();
 		}
@@ -351,7 +351,7 @@ class JAuthorization extends gacl_api
 		$where = '';
 		if ($root->lft+$root->rgt <> 0) {
 			if ($inclusive) {
-				$where = " WHERE g1.lft BETWEEN $root->lft AND $root->rgt ";
+				$where = ' WHERE g1.lft BETWEEN '.(int) $root->lft.' AND '.(int) $root->rgt;
 			} else {
 				$where = ' WHERE g1.lft BETWEEN 3 AND 22 ';
 			}
@@ -458,7 +458,7 @@ class JAuthorization extends gacl_api
 		} else if (is_int( $grp_src ) && is_string($grp_tgt)) {
 			$query .= 'WHERE g1.id = '.$grp_src.' AND g2.name = '.$db->Quote($grp_tgt);
 		} else {
-			$query .= 'WHERE g1.name = '.$db->Quote($grp_src).' AND g2.id = '.$grp_tgt;
+			$query .= 'WHERE g1.name = '.$db->Quote($grp_src).' AND g2.id = '.(int) $grp_tgt;
 		}
 
 		$db->setQuery($query);
@@ -490,7 +490,7 @@ class JAuthorization extends gacl_api
 		}
 
 		$query = '
-				SELECT		g2.group_id
+				SELECT		g2.id
 				FROM		'. $table .' g1';
 
 		//FIXME-mikeb: Why is group_id in quotes?
@@ -498,17 +498,17 @@ class JAuthorization extends gacl_api
 			case 'RECURSE':
 				$query .= '
 				LEFT JOIN 	'. $table .' g2 ON g1.lft > g2.lft AND g1.lft < g2.rgt
-				WHERE		g1.id='. $group_id;
+				WHERE		g1.id='.(int) $group_id;
 				break;
 			case 'RECURSE_INCL':
 				// inclusive resurse
 				$query .= '
 				LEFT JOIN 	'. $table .' g2 ON g1.lft >= g2.lft AND g1.lft <= g2.rgt
-				WHERE		g1.id='. $group_id;
+				WHERE		g1.id='.(int) $group_id;
 				break;
 			default:
 				$query .= '
-				WHERE		g1.parent_id='. $group_id;
+				WHERE		g1.parent_id='.(int) $group_id;
 		}
 
 		$query .= '
@@ -518,8 +518,8 @@ class JAuthorization extends gacl_api
 		$this->db->setQuery( $query );
 		return $this->db->loadResultArray();
 	}
-	
-	
+
+
 	/**
 	 * Deprecated, use JAuthorisation::addACL() instead.
 	 *

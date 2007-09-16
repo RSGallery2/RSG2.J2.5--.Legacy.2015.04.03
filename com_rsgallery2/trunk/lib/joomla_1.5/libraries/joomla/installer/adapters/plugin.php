@@ -59,9 +59,10 @@ class JInstallerPlugin extends JObject
 		 * ---------------------------------------------------------------------------------------------
 		 */
 
-		// Set the component name
+		// Set the extensions name
 		$name =& $this->manifest->getElementByPath('name');
-		$this->set('name', $name->data());
+		$name = JFilterInput::clean($name->data(), 'cmd');
+		$this->set('name', $name);
 
 		// Get the component description
 		$description = & $this->manifest->getElementByPath('description');
@@ -152,14 +153,14 @@ class JInstallerPlugin extends JObject
 
 		// Was there a module already installed with the same name?
 		if ($id) {
-			
+
 			if (!$this->parent->getOverwrite())
 			{
 				// Install failed, roll back changes
 				$this->parent->abort('Plugin Install: '.JText::_('Plugin').' "'.$pname.'" '.JText::_('already exists!'));
 				return false;
 			}
-			
+
 		} else {
 			$row =& JTable::getInstance('plugin');
 			$row->name = $this->get('name');

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version $Id: loader.php 7690 2007-06-08 19:55:14Z tcp $
+* @version $Id: loader.php 8180 2007-07-23 05:52:29Z eddieajau $
 * @package		Joomla.Framework
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
@@ -26,7 +26,7 @@ class JLoader
 	 * @param string $name	The class name to look for ( dot notation ).
 	 * @param string $base	Search this directory for the class.
 	 * @param string $key	String used as a prefix to denote the full path of the file ( dot notation ).
-	 * @return void
+	 * @return boolean True if the requested class has been successfully included
 	 * @since 1.5
 	 */
 	function import( $filePath, $base = null, $key = null )
@@ -37,25 +37,21 @@ class JLoader
 		{
 			$paths = array();
 		}
-		
+
 		//$keyPath	= $key ? $key . $filePath : $filePath;
-		if ( $key )
-		{
+		if ( $key ) {
 			$keyPath = $key . $filePath;
-		}
-		else
-		{
+		} else {
 			$keyPath = $filePath;
 		}
 
+		$trs	= 1;
+
 		if (!isset($paths[$keyPath]))
 		{
-			$paths[$keyPath] = true;
-
 			$parts = explode( '.', $filePath );
 
-			if ( ! $base )
-			{
+			if ( ! $base ) {
 				$base =  dirname( __FILE__ );
 			}
 
@@ -75,59 +71,21 @@ class JLoader
 						// we need to check each file again incase one has a jimport
 						if (!isset($paths[$keyPath]))
 						{
-							require $path . DS . $file;
-							$paths[$keyPath] = true;
+							$rs	= include($path . DS . $file);
+							$paths[$keyPath] = $rs;
+							$trs =& $rs;
 						}
 					}
 				}
 				$dir->close();
 			} else {
 				$path = str_replace( '.', DS, $filePath );
-				require $base . DS . $path . '.php';
+				$trs	= include($base . DS . $path . '.php');
 			}
+
+			$paths[$keyPath] = $trs;
 		}
-		return true;
-	}
-
-	/**
-	 * A common object factory.
-	 *
-	 * Assumes that the class constructor takes only one parameter, an associative array of
-	 * construction options. Attempts to load the class automatically.
-	 *
-	 * @access public
-	 * @param string $class The class name to instantiate.
-	 * @param array $options An associative array of options (default null).
-	 * @return object An object instance.
-	 */
-	function &factory($class, $options = null)
-	{
-		JLoader::import($class);
-		$obj = new $class($options);
-		return $obj;
-	}
-
-	/**
-	 * Custom require_once function to improve preformance
-	 *
-	 * @access private
-	 * @param string $file The path to the file to include
-	 * @since 1.5
-	 * @see require_once
-	 *
-	 */
-	function _requireOnce( $file )
-	{
-		static $paths;
-
-		if (!isset($paths)) {
-			$paths = array();
-		}
-
-		if(!isset($paths[$file])) {
-				require($file);
-			$paths[$file] = true;
-		}
+		return $trs;
 	}
 }
 

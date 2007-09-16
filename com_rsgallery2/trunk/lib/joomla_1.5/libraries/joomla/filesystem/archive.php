@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: archive.php 7635 2007-06-05 11:12:24Z tcp $
+ * @version		$Id: archive.php 8468 2007-08-20 10:42:01Z eddieajau $
  * @package		Joomla.Framework
  * @subpackage	FileSystem
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -17,25 +17,28 @@
  *
  * @static
  * @package 	Joomla.Framework
- * @subpackage		FileSystem
+ * @subpackage	FileSystem
  * @since		1.5
  */
 class JArchive
 {
 	/**
-	 * @param string The name of the archive file
-	 * @param string Directory to unpack into
-	 * $return boolean for success
+	 * @param	string	The name of the archive file
+	 * @param	string	Directory to unpack into
+	 * @return	boolean	True for success
 	 */
 	function extract( $archivename, $extractdir)
 	{
 		jimport('joomla.filesystem.file');
 		jimport('joomla.filesystem.folder');
 		$untar = false;
+		$result = false;
 		$ext = JFile::getExt(strtolower($archivename));
 		// check if a tar is embedded...gzip/bzip2 can just be plain files!
-		if(JFile::getExt(JFile::stripExt(strtolower($archivename))) == 'tar') $untar = true;
-		
+		if (JFile::getExt(JFile::stripExt(strtolower($archivename))) == 'tar') {
+			$untar = true;
+		}
+
 		switch ($ext)
 		{
 			case 'zip':
@@ -55,24 +58,29 @@ class JArchive
 			case 'gz';	// This may just be an individual file (e.g. sql script)
 			case 'gzip';
 				$adapter =& JArchive::getAdapter('gzip');
-				if ($adapter) {
+				if ($adapter)
+				{
 					$config =& JFactory::getConfig();
 					$tmpfname = $config->getValue('config.tmp_path').DS.uniqid('gzip');
 					$gzresult = $adapter->extract($archivename, $tmpfname);
-					if (JError::isError($gzresult)) {
+					if (JError::isError($gzresult))
+					{
 						@unlink($tmpfname);
 						return false;
 					}
-					if($untar) {
+					if($untar)
+					{
 						// Try to untar the file
 						$tadapter =& JArchive::getAdapter('tar');
 						if ($tadapter) {
 							$result = $tadapter->extract($tmpfname, $extractdir);
 						}
-					} else {
+					}
+					else
+					{
 						$path = JPath::clean($extractdir);
 						JFolder::create($path);
-						JFile::copy($tmpfname,$path.DS.JFile::stripExt(JFile::getName(strtolower($archivename))));
+						$result = JFile::copy($tmpfname,$path.DS.JFile::stripExt(JFile::getName(strtolower($archivename))));
 					}
 					@unlink($tmpfname);
 				}
@@ -82,24 +90,29 @@ class JArchive
 			case 'bz2';	// This may just be an individual file (e.g. sql script)
 			case 'bzip2';
 				$adapter =& JArchive::getAdapter('bzip2');
-				if ($adapter) {
+				if ($adapter)
+				{
 					$config =& JFactory::getConfig();
 					$tmpfname = $config->getValue('config.tmp_path').DS.uniqid('bzip2');
 					$bzresult = $adapter->extract($archivename, $tmpfname);
-					if (JError::isError($bzresult)) {
+					if (JError::isError($bzresult))
+					{
 						@unlink($tmpfname);
 						return false;
 					}
-					if($untar) {
+					if ($untar)
+					{
 						// Try to untar the file
 						$tadapter =& JArchive::getAdapter('tar');
 						if ($tadapter) {
 							$result = $tadapter->extract($tmpfname, $extractdir);
 						}
-					} else {
+					}
+					else
+					{
 						$path = JPath::clean($extractdir);
 						JFolder::create($path);
-						JFile::copy($tmpfname,$path.DS.JFile::stripExt(JFile::getName(strtolower($archivename))));
+						$result = JFile::copy($tmpfname,$path.DS.JFile::stripExt(JFile::getName(strtolower($archivename))));
 					}
 					@unlink($tmpfname);
 				}
@@ -124,16 +137,48 @@ class JArchive
 			$adapters = array();
 		}
 
-		if (!isset($adapters[$type])) {
+		if (!isset($adapters[$type]))
+		{
 			// Try to load the adapter object
 			jimport('joomla.filesystem.archive.'.strtolower($type));
 			$class = 'JArchive'.ucfirst($type);
-			if (!class_exists($class)) {
+			if (!class_exists($class))
+			{
 				$false = false;
 				return $false;
 			}
 			$adapters[$type] = new $class();
 		}
 		return $adapters[$type];
+	}
+
+	/**
+	 * @param	string	The name of the archive
+	 * @param	mixed	The name of a single file or an array of files
+	 * @param	string	The compression for the archive
+	 * @param	string	Path to add within the archive
+	 * @param	string	Path to remove within the archive
+	 * @param	boolean	Automatically append the extension for the archive
+	 * @param	boolean	Remove for source files
+	 */
+	function create($archive, $files, $compress = 'tar', $addPath = '', $removePath = '', $autoExt = false, $cleanUp = false)
+	{
+		jimport( 'archive.tar' );
+
+		if (is_string($files)) {
+			$files = array ($files);
+		}
+		if ($autoExt) {
+			$archive .= '.'.$compress;
+		}
+
+		$tar = new Archive_Tar( $archive, $compress );
+		$tar->setErrorHandling(PEAR_ERROR_PRINT);
+		$tar->createModify( $files, $addPath, $removePath );
+
+		if ($cleanUp) {
+			JFile::delete( $files );
+		}
+		return $tar;
 	}
 }

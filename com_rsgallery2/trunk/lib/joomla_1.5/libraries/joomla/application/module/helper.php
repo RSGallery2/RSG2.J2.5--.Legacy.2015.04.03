@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: helper.php 7540 2007-05-29 19:31:54Z friesengeist $
+* @version		$Id: helper.php 8772 2007-09-08 13:28:30Z tcp $
 * @package		Joomla.Framework
 * @subpackage	Application
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -19,36 +19,49 @@ defined('JPATH_BASE') or die();
 jimport('joomla.application.component.helper');
 
 /**
-* Module helper class
-*
-* @static
-* @author		Johan Janssens <johan.janssens@joomla.org>
-* @package		Joomla.Framework
-* @subpackage	Application
-* @since		1.5
-*/
+ * Module helper class
+ *
+ * @static
+ * @author		Johan Janssens <johan.janssens@joomla.org>
+ * @package		Joomla.Framework
+ * @subpackage	Application
+ * @since		1.5
+ */
 class JModuleHelper
 {
 	/**
-	 * Get module by name
+	 * Get module by name (real, eg 'Breadcrumbs' or folder, eg 'mod_breadcrumbs')
 	 *
-	 * @access public
-	 * @param string 	$name	The name of the module
-	 * @return object	The Module object
+	 * @access	public
+	 * @param	string 	$name	The name of the module
+	 * @return	object	The Module object
 	 */
 	function &getModule($name)
 	{
-		$result = null;
-
-		$modules =& JModuleHelper::_load();
-
-		$total = count($modules);
-		for ($i = 0; $i < $total; $i++) {
+		$result		= null;
+		$modules	=& JModuleHelper::_load();
+		$total		= count($modules);
+		for ($i = 0; $i < $total; $i++)
+		{
 			if ($modules[$i]->name == $name)
 			{
 				$result =& $modules[$i];
 				break;
 			}
+		}
+		// if we didn't find it, and the name is mod_something, create a dummy object
+		if (is_null( $result ) && substr( $name, 0, 4 ) == 'mod_')
+		{
+			$result				= new stdClass;
+			$result->id			= 0;
+			$result->title		= '';
+			$result->module		= $name;
+			$result->position	= '';
+			$result->content	= '';
+			$result->showtitle	= 0;
+			$result->control	= '';
+			$result->params		= '';
+			$result->user		= 0;
 		}
 
 		return $result;
@@ -78,6 +91,19 @@ class JModuleHelper
 		return $result;
 	}
 
+	/**
+	 * Checks if a module is enabled
+	 *
+	 * @access	public
+	 * @param   string 	$module	The module name
+	 * @return	boolean
+	 */
+	function isEnabled( $module )
+	{
+		$result = &JModuleHelper::getModule( $module);
+		return (!is_null($result));
+	}
+
 	function renderModule($module, $attribs = array())
 	{
 		static $chrome;
@@ -87,7 +113,7 @@ class JModuleHelper
 		if ($mainframe->getCfg('legacy'))
 		{
 			// Include legacy globals
-			global $my, $database, $acl;
+			global $my, $database, $acl, $mosConfig_absolute_path;
 
 			// Get the task variable for local scope
 			$task = JRequest::getString('task');
@@ -125,9 +151,10 @@ class JModuleHelper
 			$lang =& JFactory::getLanguage();
 			$lang->load($module->module);
 
+			$content = '';
 			ob_start();
 			require $path;
-			$module->content = ob_get_contents();
+			$module->content = ob_get_contents().$content;
 			ob_end_clean();
 		}
 
@@ -136,7 +163,7 @@ class JModuleHelper
 			$chrome = array();
 		}
 
-		require_once (JPATH_BASE.DS.'modules'.DS.'templates'.DS.'modules.php');
+		require_once (JPATH_BASE.DS.'templates'.DS.'system'.DS.'html'.DS.'modules.php');
 		$chromePath = JPATH_BASE.DS.'templates'.DS.$mainframe->getTemplate().DS.'html'.DS.'modules.php';
 		if (!isset( $chrome[$chromePath]))
 		{
@@ -223,7 +250,7 @@ class JModuleHelper
 
 		$modules	= array();
 
-		$wheremenu = isset( $Itemid ) ? ' AND ( mm.menuid = '. $Itemid .' OR mm.menuid = 0 )' : '';
+		$wheremenu = isset( $Itemid ) ? ' AND ( mm.menuid = '. (int) $Itemid .' OR mm.menuid = 0 )' : '';
 
 		$query = 'SELECT id, title, module, position, content, showtitle, control, params'
 			. ' FROM #__modules AS m'
@@ -235,7 +262,11 @@ class JModuleHelper
 			. ' ORDER BY position, ordering';
 
 		$db->setQuery( $query );
-		$modules = $db->loadObjectList();
+
+		if (!($modules = $db->loadObjectList())) {
+			JError::raiseWarning( 'SOME_ERROR_CODE', "Error loading Modules: " . $db->getErrorMsg());
+			return false;
+		}
 
 		$total = count($modules);
 		for($i = 0; $i < $total; $i++)

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: pathway.php 7662 2007-06-06 23:22:07Z jinx $
+* @version		$Id: pathway.php 8703 2007-09-02 15:14:45Z jinx $
 * @package		Joomla.Framework
 * @subpackage	Application
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -23,14 +23,14 @@ jimport('joomla.filter.output');
  * Main example of use so far is the mod_breadcrumbs module that keeps track of
  * the user's navigated path within the Joomla application.
  *
+ * @abstract
  * @author		Louis Landry <louis.landry@joomla.org>
  * @package 	Joomla.Framework
  * @subpackage	Application
  * @since		1.5
  */
-class JPathWay extends JObject
+class JPathway extends JObject
 {
-
 	/**
 	 * Array to hold the pathway item objects
 	 * @access private
@@ -46,10 +46,56 @@ class JPathWay extends JObject
 	/**
 	 * Class constructor
 	 */
-	function __construct() 
+	function __construct($options = array())
 	{
 		//Initialise the array
 		$this->_pathway = array();
+	}
+	
+	/**
+	 * Returns a reference a JPathway object
+	 *
+	 * This method must be invoked as:
+	 * 		<pre>  $menu = &JPathway::getInstance();</pre>
+	 *
+	 * @access	public
+	 * @param   string  $client  The name of the client
+	 * @param array     $options An associative array of options
+	 * @return JPathway 	A pathway object.
+	 * @since	1.5
+	 */
+	function &getInstance($client, $options = array())
+	{
+		static $instances;
+
+		if (!isset( $instances )) {
+			$instances = array();
+		}
+		
+		if (empty($instances[$client]))
+		{
+			//Load the router object
+			$info =& JApplicationHelper::getClientInfo($client, true);
+			
+			$path = $info->path.DS.'includes'.DS.'pathway.php';
+			if(file_exists($path)) 
+			{
+				require_once $path;
+				
+				// Create a JPathway object
+				$classname = 'JPathway'.ucfirst($client);
+				$instance = new $classname($options);
+			} 
+			else 
+			{
+				$error = new JException( E_ERROR, 500, 'Unable to load pathway: '.$client);
+				return $error;
+			}
+			
+			$instances[$client] = & $instance;
+		}
+		
+		return $instances[$client];
 	}
 
 	/**
@@ -59,7 +105,7 @@ class JPathWay extends JObject
 	 * @return array Array of pathway items
 	 * @since 1.5
 	 */
-	function getPathWay()
+	function getPathway()
 	{
 		$pw = $this->_pathway;
 
@@ -74,7 +120,7 @@ class JPathWay extends JObject
 	 * @return array Array of names of pathway items
 	 * @since 1.5
 	 */
-	function getPathWayNames()
+	function getPathwayNames()
 	{
 		// Initialize variables
 		$names = array (null);
@@ -144,9 +190,9 @@ class JPathWay extends JObject
 	function _makeItem($name, $link)
 	{
 		$item = new stdClass();
-		$item->name = JOutputFilter::ampReplace(html_entity_decode($name));
+		$item->name = html_entity_decode($name);
 		$item->link = $link;
-		
+
 		return $item;
 	}
 }

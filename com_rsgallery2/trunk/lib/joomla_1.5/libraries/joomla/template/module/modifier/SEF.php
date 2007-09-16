@@ -1,7 +1,7 @@
 <?php
 /**
 * patTemplate modfifier for Search Engine Friendly URL's
-* @version		$Id: SEF.php 7074 2007-03-31 15:37:23Z jinx $
+* @version		$Id: SEF.php 8288 2007-08-01 08:40:54Z eddieajau $
 * @package		Joomla.Framework
 * @subpackage	Template
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -23,7 +23,7 @@ defined('JPATH_BASE') or die();
  */
 class patTemplate_Modifier_SEF extends patTemplate_Modifier
 {
-   /**
+	/**
 	* modify the value
 	*
 	* @access	public

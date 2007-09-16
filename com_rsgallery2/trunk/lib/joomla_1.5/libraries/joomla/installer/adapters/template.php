@@ -55,7 +55,7 @@ class JInstallerTemplate extends JObject
 		if ($cname = $root->attributes('client')) {
 			// Attempt to map the client to a base path
 			jimport('joomla.application.helper');
-			$client = JApplicationHelper::getClientInfo($cname, true);
+			$client =& JApplicationHelper::getClientInfo($cname, true);
 			if ($client === false) {
 				$this->parent->abort('Template Install: '.JText::_('Unknown client type').' ['.$cname.']');
 				return false;
@@ -69,9 +69,10 @@ class JInstallerTemplate extends JObject
 			$clientId = 0;
 		}
 
-		// Get the template name
+		// Set the extensions name
 		$name =& $root->getElementByPath('name');
-		$this->set('name', $name->data());
+		$name = JFilterInput::clean($name->data(), 'cmd');
+		$this->set('name', $name);
 
 		// Set the template root path
 		$this->parent->setPath('extension_root', $basePath.DS.'templates'.DS.strtolower(str_replace(" ", "_", $this->get('name'))));
@@ -117,8 +118,10 @@ class JInstallerTemplate extends JObject
 			return false;
 		}
 
-		// Copy media files
+		// Parse optional tags
 		$this->parent->parseFiles($root->getElementByPath('media'), $clientId);
+		$this->parent->parseLanguages($root->getElementByPath('languages'));
+		$this->parent->parseLanguages($root->getElementByPath('administration/languages'), 1);
 
 		// Get the template description
 		$description = & $root->getElementByPath('description');
@@ -158,7 +161,7 @@ class JInstallerTemplate extends JObject
 		}
 
 		// Get the template root path
-		$client = JApplicationHelper::getClientInfo( $clientId );
+		$client =& JApplicationHelper::getClientInfo( $clientId );
 		if (!$client) {
 			JError::raiseWarning(100, 'Template Uninstall: '.JText::_('Invalid application'));
 			return false;
@@ -177,6 +180,8 @@ class JInstallerTemplate extends JObject
 
 		// Remove files
 		$this->parent->removeFiles($root->getElementByPath('media'), $clientId);
+		$this->parent->removeFiles($root->getElementByPath('languages'));
+		$this->parent->removeFiles($root->getElementByPath('administration/languages'), 1);
 
 		// Delete the template directory
 		if (JFolder::exists($this->parent->getPath('extension_root'))) {

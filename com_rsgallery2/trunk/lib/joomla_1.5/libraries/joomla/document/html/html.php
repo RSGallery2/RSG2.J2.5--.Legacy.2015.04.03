@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: html.php 7598 2007-06-01 00:30:36Z jinx $
+* @version		$Id: html.php 8682 2007-08-31 18:36:45Z jinx $
 * @package		Joomla.Framework
 * @subpackage	Document
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -144,7 +144,7 @@ class JDocumentHTML extends JDocument
 	function addFavicon($href, $type = 'image/x-icon', $relation = 'shortcut icon')
 	{
 		$href = str_replace( '\\', '/', $href );
-		$this->_links[] = '<link href="'.JURI::base().$href.'" rel="'.$relation.'" type="'.$type.'"';
+		$this->_links[] = '<link href="'.$href.'" rel="'.$relation.'" type="'.$type.'"';
 	}
 
 	/**
@@ -209,15 +209,11 @@ class JDocumentHTML extends JDocument
 	{
 		// check
 		$directory	= isset($params['directory']) ? $params['directory'] : 'templates';
-		$template	= JInputFilter::clean($params['template'], 'cmd');
-		$file		= JInputFilter::clean($params['file'], 'cmd');
+		$template	= JFilterInput::clean($params['template'], 'cmd');
+		$file		= JFilterInput::clean($params['file'], 'cmd');
 
-		if ( !file_exists( $directory.DS.$template) ) {
-			$template = '_system';
-		}
-		
 		if ( !file_exists( $directory.DS.$template.DS.$file) ) {
-			$template = '_system';
+			$template = 'system';
 		}
 		
 		// Parse the template INI file if it exists for parameters and insert
@@ -227,12 +223,16 @@ class JDocumentHTML extends JDocument
 			$content = file_get_contents($directory.DS.$template.DS.'params.ini');
 			$this->params = new JParameter($content);
 		}
+		
+		// Load the language file for the template
+		$lang =& JFactory::getLanguage();
+		$lang->load( 'tpl_'.$template );
 
 		$this->template =& $template;
 
 		// load
 		$data = $this->_loadTemplate($directory.DS.$template, $file);
-
+		
 		// parse
 		$data = $this->_parseTemplate($data);
 		
@@ -253,14 +253,11 @@ class JDocumentHTML extends JDocument
 		$result = '';
 
 		$words = explode(' ', $condition);
-		for($i=0; $i < count($words); $i++)
+		for($i = 0; $i < count($words); $i+=2)
 		{
-			if($i % 2 == 0)
-			{
-				//odd parts (modules)
-				$name = strtolower($words[$i]);
-				$words[$i] = count(JModuleHelper::getModules($name));
-			}
+			// odd parts (modules)
+			$name		= strtolower($words[$i]);
+			$words[$i]	= count(JModuleHelper::getModules($name));
 		}
 
 		$str = 'return '.implode(' ', $words).';';

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: hidden.php 7074 2007-03-31 15:37:23Z jinx $
+* @version		$Id: hidden.php 8540 2007-08-24 12:36:22Z jinx $
 * @package		Joomla.Framework
 * @subpackage	Parameter
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -26,7 +26,7 @@ defined('JPATH_BASE') or die();
 
 class JElementHidden extends JElement
 {
-   /**
+	/**
 	* Element name
 	*
 	* @access	protected
@@ -39,5 +39,9 @@ class JElementHidden extends JElement
 		$class = ( $node->attributes('class') ? 'class="'.$node->attributes('class').'"' : 'class="text_area"' );
 
 		return '<input type="hidden" name="'.$control_name.'['.$name.']" id="'.$control_name.$name.'" value="'.$value.'" '.$class.' />';
+	}
+
+	function fetchTooltip($label, $description, &$xmlElement, $control_name='', $name='') {
+		return false;
 	}
 }

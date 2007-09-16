@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: atom.php 7433 2007-05-19 15:15:07Z jinx $
+ * @version		$Id: atom.php 8682 2007-08-31 18:36:45Z jinx $
  * @package		Joomla.Framework
  * @subpackage	Document
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -27,7 +27,7 @@ jimport( 'joomla.utilities.date' );
  * @author	Johan Janssens <johan.janssens@joomla.org>
  *
  * @package 	Joomla.Framework
- * @subpackage		Document
+ * @subpackage	Document
  * @see http://www.atomenabled.org/developers/syndication/atom-format-spec.php
  * @since	1.5
  */
@@ -53,7 +53,7 @@ jimport( 'joomla.utilities.date' );
 		$now	= new JDate();
 		$data	=& $this->_doc;
 
-		$feed = "<feed xmlns=\"http://www.w3.org/2005/Atom\"";
+		$feed = "<feed xmlns=\"http://www.w3.org/2005/Atom\" xml:base=\"".$data->getBase()."\"";
 		if ($data->language!="") {
 			$feed.= " xml:lang=\"".$data->language."\"";
 		}

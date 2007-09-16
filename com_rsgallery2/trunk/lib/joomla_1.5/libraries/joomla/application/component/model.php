@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: model.php 7568 2007-05-30 20:48:06Z jinx $
+* @version		$Id: model.php 8743 2007-09-04 19:14:22Z hackwar $
 * @package		Joomla.Framework
 * @subpackage	Application
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -62,13 +62,13 @@ class JModel extends JObject
 	 */
 	function __construct($config = array())
 	{
-		$this->_db	= &JFactory::getDBO();
+		$this->_db	  = &JFactory::getDBO();
 		$this->_state = new JObject();
 
 		//set the view name
 		if (empty( $this->_name ))
 		{
-			if (isset($config['name']))  {
+			if (array_key_exists('name', $config))  {
 				$this->_name = $config['name'];
 			} else {
 				$this->_name = $this->getName();
@@ -76,7 +76,7 @@ class JModel extends JObject
 		}
 
 		// set the default view search path
-		if (isset($config['table_path'])) {
+		if (array_key_exists('table_path', $config)) {
 			$this->addTablePath($config['table_path']);
 		} else if (defined( 'JPATH_COMPONENT_ADMINISTRATOR' )){
 			$this->addTablePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
@@ -161,10 +161,22 @@ class JModel extends JObject
 	}
 
 	/**
+	 * Method to set the database connector object
+	 *
+	 * @param	object	$db	A JDatabase based object
+	 * @return	void
+	 * @since	1.5
+	 */
+	function setDBO(&$db)
+	{
+		$this->_db =& $db;
+	}
+
+	/**
 	 * Method to get the model name
 	 *
 	 * The model name by default parsed using the classname, or it can be set
-	 * by passing a $config['nameÕ] in the class constructor
+	 * by passing a $config['nameï¿½] in the class constructor
 	 *
 	 * @access	public
 	 * @return	string The name of the model
@@ -178,7 +190,7 @@ class JModel extends JObject
 		{
 			$r = null;
 			if (!preg_match('/Model(.*)/i', get_class($this), $r)) {
-				JError::raiseError (500, "JModel::__construct() : Can't get or parse class name.");
+				JError::raiseError (500, "JModel::getName() : Can't get or parse class name.");
 			}
 			$name = strtolower( $r[1] );
 		}
@@ -205,7 +217,8 @@ class JModel extends JObject
 			return $table;
 		} else {
 			JError::raiseError( 0, 'Table ' . $name . ' not supported. File not found.' );
-			return null;
+			$null = null;
+            return $null;
 		}
 	}
 
@@ -255,9 +268,8 @@ class JModel extends JObject
 	 */
 	function &_getList( $query, $limitstart=0, $limit=0 )
 	{
-		$db =& JFactory::getDBO();
-		$db->setQuery( $query, $limitstart, $limit );
-		$result = $db->loadObjectList();
+		$this->_db->setQuery( $query, $limitstart, $limit );
+		$result = $this->_db->loadObjectList();
 
 		return $result;
 	}
@@ -272,11 +284,10 @@ class JModel extends JObject
 	 */
 	function _getListCount( $query )
 	{
-		$db =& JFactory::getDBO();
-		$db->setQuery( $query );
-		$db->query();
+		$this->_db->setQuery( $query );
+		$this->_db->query();
 
-		return $db->getNumRows();
+		return $this->_db->getNumRows();
 	}
 
 	/**

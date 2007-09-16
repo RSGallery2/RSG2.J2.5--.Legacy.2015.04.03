@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: pdf.php 7463 2007-05-22 12:52:23Z jinx $
+* @version		$Id: pdf.php 8563 2007-08-25 20:50:33Z jinx $
 * @package		Joomla.Framework
 * @subpackage	Document
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -27,9 +27,9 @@ defined('JPATH_BASE') or die();
 class JDocumentPDF extends JDocument
 {
 	var $_engine	= null;
-	
+
 	var $_name		= 'joomla';
-	
+
 	var $_header	= null;
 
 	var $_margin_header	= 5;
@@ -191,7 +191,7 @@ class JDocumentPDF extends JDocument
 	function getHeader() {
 		return $this->_header;
 	}
-	
+
 	/**
 	 * Render the document.
 	 *
@@ -225,14 +225,16 @@ class JDocumentPDF extends JDocument
 		// Initialize PDF Document
 		$pdf->AliasNbPages();
 		$pdf->AddPage();
-		
+
 		// Build the PDF Document string from the document buffer
 		$pdf->WriteHTML($this->getBuffer(), true);
 		$data = $pdf->Output('', 'S');
-		
+
 		// Set document type headers
 		parent::render();
+		
 		//JResponse::setHeader('Content-Length', strlen($data), true);
+	
 		JResponse::setHeader('Content-disposition', 'inline; filename="'.$this->getName().'.pdf"', true);
 
 		//Close and output PDF document

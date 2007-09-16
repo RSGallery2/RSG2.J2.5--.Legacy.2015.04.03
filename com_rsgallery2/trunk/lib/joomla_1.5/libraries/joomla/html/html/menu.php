@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: menu.php 7495 2007-05-25 22:43:33Z ian $
+* @version		$Id: menu.php 8288 2007-08-01 08:40:54Z eddieajau $
 * @package		Joomla.Framework
 * @subpackage		HTML
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -25,7 +25,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
  */
 class JHTMLMenu
 {
-   /**
+	/**
 	* Build the select list for Menu Ordering
 	*/
 	function ordering( &$row, $id )
@@ -36,8 +36,8 @@ class JHTMLMenu
 		{
 			$query = 'SELECT ordering AS value, name AS text'
 			. ' FROM #__menu'
-			. ' WHERE menutype = \''.$row->menutype
-			. '\' AND parent = '.$row->parent
+			. ' WHERE menutype = '.$db->Quote($row->menutype)
+			. ' AND parent = '.(int) $row->parent
 			. ' AND published != -2'
 			. ' ORDER BY ordering';
 			$order = JHTML::_('list.genericordering',  $query );
@@ -152,5 +152,3 @@ class JHTMLMenu
 		return $list;
 	}
 }
-
-?>

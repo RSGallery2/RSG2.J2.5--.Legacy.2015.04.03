@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: format.php 7486 2007-05-25 15:34:01Z friesengeist $
+ * @version		$Id: format.php 8031 2007-07-17 23:14:23Z jinx $
  * @package		Joomla.Framework
  * @subpackage	Registry
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -45,7 +45,7 @@ class JRegistryFormat extends JObject
 
 		if (empty ($instances[$format])) {
 			$adapter = 'JRegistryFormat'.$format;
-			$lformat = strtolower(JInputFilter::clean($format, 'word'));
+			$lformat = strtolower(JFilterInput::clean($format, 'word'));
 
 			if (file_exists(JPATH_LIBRARIES.DS.'joomla'.DS.'registry'.DS.'format'.DS.$lformat.'.php')) {
 				jimport('joomla.registry.format.'.$lformat);

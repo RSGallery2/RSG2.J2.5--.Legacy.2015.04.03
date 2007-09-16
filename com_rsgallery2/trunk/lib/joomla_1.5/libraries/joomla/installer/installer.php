@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: installer.php 7681 2007-06-08 12:38:50Z tcp $
+ * @version		$Id: installer.php 8682 2007-08-31 18:36:45Z jinx $
  * @package		Joomla.Framework
  * @subpackage	Installer
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -216,6 +216,7 @@ class JInstaller extends JObject
 				return false;
 			}
 			$adapter = new $class($this);
+			$adapter->parent =& $this;
 		}
 		$this->_adapters[$name] =& $adapter;
 		return true;
@@ -565,7 +566,7 @@ class JInstaller extends JObject
 
 		// Get the client info
 		jimport('joomla.application.helper');
-		$client = JApplicationHelper::getClientInfo($cid);
+		$client =& JApplicationHelper::getClientInfo($cid);
 
 		if (!is_a($element, 'JSimpleXMLElement') || !count($element->children())) {
 			// Either the tag does not exist or has no children therefore we return zero files processed.
@@ -694,7 +695,7 @@ class JInstaller extends JObject
 
 		// Get the client info
 		jimport('joomla.application.helper');
-		$client = JApplicationHelper::getClientInfo($cid);
+		$client =& JApplicationHelper::getClientInfo($cid);
 
 		if (!is_a($element, 'JSimpleXMLElement') || !count($element->children())) {
 			// Either the tag does not exist or has no children therefore we return zero files processed.
@@ -793,7 +794,7 @@ class JInstaller extends JObject
 
 		// Get the client info
 		jimport('joomla.application.helper');
-		$client = JApplicationHelper::getClientInfo($cid);
+		$client =& JApplicationHelper::getClientInfo($cid);
 
 		if (!is_a($element, 'JSimpleXMLElement') || !count($element->children())) {
 			// Either the tag does not exist or has no children therefore we return zero files processed.
@@ -812,7 +813,7 @@ class JInstaller extends JObject
 		 * 	Default 'media' Files are copied to the JPATH_BASE/images folder
 		 */
 		$folder = ($element->attributes('destination')) ? DS.$element->attributes('destination') : null;
-		$destination = JPath::clean($client->path.DS.'images'.$folder);
+		$destination = JPath::clean(JPATH_ROOT.DS.'media'.$folder);
 
 		/*
 		 * Here we set the folder we are going to copy the files from.
@@ -1010,7 +1011,7 @@ class JInstaller extends JObject
 
 		// Get the client info
 		jimport('joomla.application.helper');
-		$client = JApplicationHelper::getClientInfo($cid);
+		$client =& JApplicationHelper::getClientInfo($cid);
 
 		if (!is_a($element, 'JSimpleXMLElement') || !count($element->children())) {
 			// Either the tag does not exist or has no children therefore we return zero files processed.
@@ -1067,6 +1068,11 @@ class JInstaller extends JObject
 			 */
 			if ($file->name() == 'language' && $file->attributes('tag') != '') {
 				$path = $source.DS.$file->attributes('tag').DS.basename($file->data());
+
+				// If the language folder is not present, then the core pack hasn't been installed... ignore
+				if (!JFolder::exists(dirname($path))) {
+					continue;
+				}
 			} else {
 				$path = $source.DS.$file->data();
 			}
@@ -1100,7 +1106,7 @@ class JInstaller extends JObject
 	{
 		// Get the client info
 		jimport('joomla.application.helper');
-		$client = JApplicationHelper::getClientInfo($cid);
+		$client =& JApplicationHelper::getClientInfo($cid);
 
 		$path['src'] = $this->getPath('manifest');
 

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: helper.php 7698 2007-06-09 08:50:07Z tcp $
+* @version		$Id: helper.php 8743 2007-09-04 19:14:22Z hackwar $
 * @package		Joomla.Framework
 * @subpackage	Application
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -30,19 +30,16 @@ class JApplicationHelper
 	 * future versions when we start mapping applications in the database.
 	 *
 	 * @access	public
-	 * @param	int		$id	A client identifier
+	 * @param	int			$id		A client identifier
+	 * @param	boolean		$byName	If True, find the client by it's name
 	 * @return	mixed	Object describing the client or false if not known
 	 * @since	1.5
 	 */
-	function getClientInfo($id = null, $byName = false)
+	function &getClientInfo($id = null, $byName = false)
 	{
 		global $mainframe;
 
 		static $clients;
-
-		if(!isset($id)) {
-			$id = $mainframe->getClientId();
-		}
 
 		// Only create the array if it does not exist
 		if (!is_array($clients))
@@ -67,27 +64,30 @@ class JApplicationHelper
 			$obj->path	= JPATH_INSTALLATION;
 			$clients[2] = clone($obj);
 		}
+		
+		//If no client id has been passed return the whole array
+		if(is_null($id)) {
+			return $clients;
+		}
 
-		/*
-		 * Are we looking for client information by id or by name?
-		 */
+		// Are we looking for client information by id or by name?
 		if (!$byName)
 		{
-			if (!isset($clients[$id])){
-				return false;
-			} else {
+			if (isset($clients[$id])){
 				return $clients[$id];
 			}
 		}
 		else
 		{
-			foreach ($clients as $client) {
+			foreach ($clients as $client) 
+			{
 				if ($client->name == strtolower($id)) {
 					return $client;
 				}
 			}
-			return false;
 		}
+		$null = null;
+		return $null;
 	}
 
 	/**
@@ -107,7 +107,7 @@ class JApplicationHelper
 		if ( !$user_option && !$check ) {
 			$user_option = JRequest::getCmd('option');
 		} else {
-			$user_option = JInputFilter::clean($user_option, 'path');
+			$user_option = JFilterInput::clean($user_option, 'path');
 		}
 
 		$result = null;
@@ -276,19 +276,20 @@ class JApplicationHelper
 		$data['name'] = $element ? $element->data() : '';
 		$data['type'] = $element ? $xml->document->attributes("type") : '';
 
-		$element = & $xml->document->creationdate[0];
+		$element = & $xml->document->creationDate[0];
 		$data['creationdate'] = $element ? $element->data() : 'Unknown';
 
 		$element = & $xml->document->author[0];
+
 		$data['author'] = $element ? $element->data() : 'Unknown';
 
 		$element = & $xml->document->copyright[0];
 		$data['copyright'] = $element ? $element->data() : '';
 
-		$element = & $xml->document->authoremail[0];
+		$element = & $xml->document->authorEmail[0];
 		$data['authorEmail'] = $element ? $element->data() : '';
 
-		$element = & $xml->document->authorurl[0];
+		$element = & $xml->document->authorUrl[0];
 		$data['authorUrl'] = $element ? $element->data() : '';
 
 		$element = & $xml->document->version[0];

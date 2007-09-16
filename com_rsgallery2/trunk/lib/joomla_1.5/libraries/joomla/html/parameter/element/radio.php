@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: radio.php 7483 2007-05-25 12:18:24Z jinx $
+* @version		$Id: radio.php 8288 2007-08-01 08:40:54Z eddieajau $
 * @package		Joomla.Framework
 * @subpackage	Parameter
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -26,7 +26,7 @@ defined('JPATH_BASE') or die();
 
 class JElementRadio extends JElement
 {
-   /**
+	/**
 	* Element name
 	*
 	* @access	protected

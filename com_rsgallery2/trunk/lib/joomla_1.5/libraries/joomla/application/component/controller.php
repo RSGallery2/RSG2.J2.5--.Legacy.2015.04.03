@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: controller.php 7540 2007-05-29 19:31:54Z friesengeist $
+* @version		$Id: controller.php 8719 2007-09-03 16:42:31Z louis $
 * @package		Joomla.Framework
 * @subpackage	Application
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -64,14 +64,6 @@ class JController extends JObject
 	var $_taskMap 	= null;
 
 	/**
-	 * Array of class methods to fire onExecute events for.
-	 *
-	 * @var	array
-	 * @access	protected
-	 */
-	var $_eventMap 	= null;
-
-	/**
 	 * Current or most recent task to be performed.
 	 *
 	 * @var	string
@@ -86,14 +78,6 @@ class JController extends JObject
 	 * @access	protected
 	 */
 	var $_doTask 	= null;
-
-	/**
-	 * The event data object
-	 *
-	 * @var	registry
-	 * @access protected
-	 */
-	var $_eventData	= null;
 
 	/**
 	 * The set of search directories for resources (views or models).
@@ -162,7 +146,6 @@ class JController extends JObject
 		$this->_message		= null;
 		$this->_messageType = 'message';
 		$this->_taskMap		= array();
-		$this->_eventMap	= array();
 		$this->_methods		= array();
 		$this->_data		= array();
 
@@ -175,18 +158,19 @@ class JController extends JObject
 		$methods[] = 'display';
 
 		// Iterate through methods and map tasks
-		foreach ( $methods as $method ) {
+		foreach ( $methods as $method )
+		{
 			if ( substr( $method, 0, 1 ) != '_' ) {
 				$this->_methods[] = strtolower( $method );
 				// auto register public methods as tasks
 				$this->_taskMap[strtolower( $method )] = $method;
 			}
 		}
-		
+
 		//set the view name
 		if (empty( $this->_name ))
 		{
-			if (isset($config['name']))  {
+			if (array_key_exists('name', $config))  {
 				$this->_name = $config['name'];
 			} else {
 				$this->_name = $this->getName();
@@ -194,21 +178,21 @@ class JController extends JObject
 		}
 
 		// Set a base path for use by the controller
-		if (isset($config['base_path'])) {
+		if (array_key_exists('base_path', $config)) {
 			$this->_basePath	= $config['base_path'];
 		} else {
 			$this->_basePath	= JPATH_COMPONENT;
 		}
 
 		// If the default task is set, register it as such
-		if ( isset( $config['default_task'] ) ) {
+		if ( array_key_exists( 'default_task', $config ) ) {
 			$this->registerDefaultTask( $config['default_task'] );
 		} else {
 			$this->registerDefaultTask( 'display' );
 		}
 
 		// set the default model search path
-		if ( isset( $config['model_path'] ) ) {
+		if ( array_key_exists( 'model_path', $config ) ) {
 			// user-defined dirs
 			$this->_setPath( 'model', $config['model_path'] );
 		} else {
@@ -216,7 +200,7 @@ class JController extends JObject
 		}
 
 		// set the default view search path
-		if ( isset( $config['view_path'] ) ) {
+		if ( array_key_exists( 'view_path', $config ) ) {
 			// user-defined dirs
 			$this->_setPath( 'view', $config['view_path'] );
 		} else {
@@ -254,11 +238,6 @@ class JController extends JObject
 		if ($this->authorize( $doTask ))
 		{
 			$retval = $this->$doTask();
-			if (($task != 'display') && (@$this->_eventMap[$task] == true))
-			{
-				$dispatcher = &JEventDispatcher::getInstance();
-				$dispatcher->trigger('onExecute', array($this->_name, $doTask, $this->_eventData));
-			}
 			return $retval;
 		}
 		else
@@ -372,8 +351,9 @@ class JController extends JObject
 			// task is a reserved state
 			$model->setState( 'task', $this->_task );
 
-			// Get menu item information if Itemid exists
-			$menu	=& JMenu::getInstance();
+			// Lets get the application object and set menu information if its available
+			$app	= &JFactory::getApplication();
+			$menu	= &$app->getMenu();
 			if (is_object( $menu ))
 			{
 				if ($item = $menu->getActive())
@@ -426,26 +406,26 @@ class JController extends JObject
 	/**
 	 * Method to get the controller name
 	 *
-	 * The model name by default parsed using the classname, or it can be set
-	 * by passing a $config['nameÕ] in the class constructor
+	 * The dispatcher name by default parsed using the classname, or it can be set
+	 * by passing a $config['name'] in the class constructor
 	 *
 	 * @access	public
-	 * @return	string The name of the model
+	 * @return	string The name of the dispatcher
 	 * @since	1.5
 	 */
 	function getName()
 	{
 		$name = $this->_name;
-		
+
 		if (empty( $name ))
 		{
 			$r = null;
 			if ( !preg_match( '/(.*)Controller/i', get_class( $this ), $r ) ) {
-				JError::raiseError(500, "JController::__construct() : Can\'t get or parse class name.");
+				JError::raiseError(500, "JController::getName() : Cannot get or parse class name.");
 			}
 			$name = strtolower( $r[1] );
 		}
-		
+
 		return $name;
 	}
 
@@ -591,34 +571,6 @@ class JController extends JObject
 	}
 
 	/**
-	 * Set the task event data object
-	 *
-	 * @access	protected
-	 * @param	registry	The task event data object
-	 * @return	void
-	 * @since	1.5
-	 */
-	function setEventData( &$data )
-	{
-		if (is_a($data, 'JRegistry')) {
-			$this->_eventData = &$data;
-		}
-	}
-
-	/**
-	 * Register a task as an event trigger for the onExecute event
-	 *
-	 * @access	protected
-	 * @param	string	The name of the task to register
-	 * @return	void
-	 * @since	1.5
-	 */
-	function registerEvent($task)
-	{
-		$this->_eventMap[strtolower($task)] = true;
-	}
-
-	/**
 	 * Method to load and return a model object.
 	 *
 	 * @access	private
@@ -719,7 +671,7 @@ class JController extends JObject
 		return $result;
 	}
 
-   /**
+	/**
 	* Sets an entire array of search paths for resources.
 	*
 	* @access	protected
@@ -736,7 +688,7 @@ class JController extends JObject
 		$this->_addPath( $type, $path );
 	}
 
-   /**
+	/**
 	* Adds to the search path for templates and resources.
 	*
 	* @access	protected

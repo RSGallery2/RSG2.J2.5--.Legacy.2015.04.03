@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: category.php 7122 2007-04-10 08:27:39Z jinx $
+* @version		$Id: category.php 8031 2007-07-17 23:14:23Z jinx $
 * @package		Joomla.Framework
 * @subpackage	Table
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -82,8 +82,8 @@ class JTableCategory extends JTable
 		// check for existing name
 		/*$query = 'SELECT id'
 		. ' FROM #__categories '
-		. ' WHERE title = "'.$this->title.'"'
-		. ' AND section = "'.$this->section.'"'
+		. ' WHERE title = '.$this->_db->Quote($this->title)
+		. ' AND section = '.$this->_db->Quote($this->section)
 		;
 		$this->_db->setQuery( $query );
 
@@ -94,7 +94,7 @@ class JTableCategory extends JTable
 		}*/
 
 		jimport('joomla.filter.output');
-		$alias = JOutputFilter::stringURLSafe($this->title);
+		$alias = JFilterOutput::stringURLSafe($this->title);
 
 		if(empty($this->alias) || $this->alias === $alias ) {
 			$this->alias = $alias;

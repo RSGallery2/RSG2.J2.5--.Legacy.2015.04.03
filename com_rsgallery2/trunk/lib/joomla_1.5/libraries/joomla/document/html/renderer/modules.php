@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: modules.php 7387 2007-05-10 00:13:40Z friesengeist $
+* @version		$Id: modules.php 8288 2007-08-01 08:40:54Z eddieajau $
 * @package		Joomla.Framework
 * @subpackage	Document
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -25,7 +25,7 @@ defined('JPATH_BASE') or die();
  */
 class JDocumentRendererModules extends JDocumentRenderer
 {
-   /**
+	/**
 	 * Renders multiple modules script and returns the results as a string
 	 *
 	 * @access public

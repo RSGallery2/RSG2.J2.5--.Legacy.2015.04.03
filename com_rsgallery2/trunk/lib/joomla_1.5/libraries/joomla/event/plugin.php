@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: plugin.php 7497 2007-05-25 23:06:45Z ian $
+* @version		$Id: plugin.php 8505 2007-08-22 07:53:49Z tcp $
 * @package		Joomla.Framework
 * @subpackage	Event
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -21,7 +21,7 @@ jimport( 'joomla.event.handler' );
  * JPlugin Class
  *
  * @abstract
- * @author		Louis Landry <louis.landry@joomla.org>
+ * @author		Johan Janssens <johan.janssens@joomla.org>
  * @package		Joomla.Framework
  * @subpackage	Event
  * @since		1.5
@@ -37,7 +37,22 @@ class JPlugin extends JEventHandler
 	 */
 	var	$params	= null;
 
-
+	/**
+	 * The name of the plugin
+	 *
+	 * @var		sring
+	 * @access	protected
+	 */
+	var $_name	= null;
+	
+	/**
+	 * The plugin type
+	 *
+	 * @var		string
+	 * @access	protected
+	 */
+	var $_type	= null;
+	
 	/**
 	 * Constructor
 	 *
@@ -46,9 +61,54 @@ class JPlugin extends JEventHandler
 	 * This causes problems with cross-referencing necessary for the observer design pattern.
 	 *
 	 * @param object $subject The object to observe
+	 * @param array  $config  An optional associative array of configuration settings.
+	 * Recognized key values include 'name', 'group', 'params'
+	 * (this list is not meant to be comprehensive).
 	 * @since 1.5
 	 */
-	function JPlugin(& $subject) {
+	function JPlugin(& $subject, $config = array())  {
 		parent::__construct($subject);
 	}
+
+	/**
+	 * Constructor
+	 */
+	function __construct(& $subject, $config = array())
+	{
+		//Set the parameters
+		if ( isset( $config['params'] ) ) {
+			$this->params = new JParameter($config['params']);
+		}
+		
+		if ( isset( $config['name'] ) ) {
+			$this->_name = $config['name'];
+		}
+		
+		if ( isset( $config['type'] ) ) {
+			$this->_type = $config['type'];
+		}
+
+		parent::__construct($subject);
+	}
+
+	/**
+	 * Loads the plugin language file
+	 *
+	 * @access	public
+	 * @param	string 	$extension 	The extension for which a language file should be loaded
+	 * @param	string 	$basePath  	The basepath to use
+	 * @return	boolean	True, if the file has successfully loaded.
+	 * @since	1.5
+	 */
+	function loadLanguage($extension = '', $basePath = JPATH_BASE)
+	{
+		if(empty($extension)) {
+			$extension = 'plg_'.$this->_type.'_'.$this->_name;
+		}
+
+		$lang =& JFactory::getLanguage();
+		return $lang->load( strtolower($extension), $basePath);
+	}
+
+
 }

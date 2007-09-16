@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: mail.php 7571 2007-05-30 22:56:07Z friesengeist $
+ * @version		$Id: mail.php 8761 2007-09-07 04:49:31Z tcp $
  * @package		Joomla.Framework
  * @subpackage	Utilities
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -35,7 +35,7 @@ class JMail extends PHPMailer
 	function JMail()
 	{
 		 // phpmailer has an issue using the relative path for it's language files
-		 $this->SetLanguage('en', JPATH_LIBRARIES.DS.'phpmailer'.DS.'language.DS');
+		 $this->SetLanguage('joomla', JPATH_LIBRARIES.DS.'phpmailer'.DS.'language'.DS);
 	}
 
 	/**
@@ -74,12 +74,17 @@ class JMail extends PHPMailer
 	 */
 	function &Send()
 	{
+		if ( ( $this->Mailer == 'mail' ) && ! function_exists('mail') )
+		{
+			return JError::raiseNotice( 500, JText::_('MAIL_FUNCTION_DISABLED') );
+		}
+		
 		@ $result = parent::Send();
 
 		if ($result == false)
 		{
 			// TODO: Set an appropriate error number
-			$result =& JError::raiseNotice( 500, $this->ErrorInfo );
+			$result =& JError::raiseNotice( 500, JText::_($this->ErrorInfo) );
 		}
 		return $result;
 	}
@@ -398,13 +403,51 @@ class JMailHelper
 	 * @return boolean True if string has the correct format; false otherwise.
 	 * @since 1.5
 	 */
-	function isEmailAddress($email) {
-		$rBool = false;
+	function isEmailAddress($email)
+	{
+		
+		// Split the email into a local and domain
+		$atIndex	= strrpos($email, "@");
+		$domain		= substr($email, $atIndex+1);
+		$local		= substr($email, 0, $atIndex);
 
-		if (preg_match("/[\w\.\-]+@\w+[\w\.\-]*?\.\w{1,4}/", $email)) {
-			$rBool = true;
+		// Check Length of domain
+		$domainLen	= strlen($domain);
+		if ($domainLen < 1 || $domainLen > 255) {
+			return false;
 		}
-		return $rBool;
+		
+		// Check the local address
+		// We're a bit more conservative about what constitutes a "legal" address, that is, A-Za-z0-9!#$%&\'*+/=?^_`{|}~-
+		$allowed	= 'A-Za-z0-9!#&*+=?_-';
+		$regex		= "/^[$allowed][\.$allowed]{0,63}$/";
+		if ( ! preg_match($regex, $local) ) {
+			return false;
+		}
+		
+		// No problem if the domain looks like an IP address, ish
+		$regex		= '/^[0-9\.]+$/';
+		if ( preg_match($regex, $domain)) {
+			return true;
+		}
+		
+		// Check Lengths
+		$localLen	= strlen($local);
+		if ($localLen < 1 || $localLen > 64) {
+			return false;
+		}
+		
+		// Check the domain
+		$domain_array	= explode(".", $domain);
+		//$regex		= '/^[A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9]$/';
+		$regex			= '/^[A-Za-z][A-Za-z0-9-]{0,62}$/';
+		for ($i = 0; $i < sizeof($domain_array); $i++) {
+			if ( ! preg_match($regex, $domain_array[$i])) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 
 }

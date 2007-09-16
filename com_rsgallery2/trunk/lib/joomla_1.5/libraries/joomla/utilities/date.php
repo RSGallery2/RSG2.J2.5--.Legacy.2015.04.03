@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: date.php 7688 2007-06-08 19:26:58Z tcp $
+* @version		$Id: date.php 7760 2007-06-20 00:08:04Z jinx $
 * @package		Joomla.Framework
 * @subpackage	Utilities
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -221,9 +221,8 @@ class JDate extends JObject
 		$tz = date('O');
 
 		$tzOffset = ((intval(substr($tz,1,2))*60) + intval(substr($tz,-2)))*60;
-		if (substr($tz,0,1) == '-')
-		{
-		$tzOffset = -$tzOffset;
+		if (substr($tz,0,1) == '-') {
+			$tzOffset = -$tzOffset;
 		}
 
 		return $tzOffset;

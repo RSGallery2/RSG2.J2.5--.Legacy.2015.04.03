@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: registry.php 7486 2007-05-25 15:34:01Z friesengeist $
+ * @version		$Id: registry.php 8702 2007-09-02 13:27:26Z hackwar $
  * @package		Joomla.Framework
  * @subpackage	Registry
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -193,10 +193,9 @@ class JRegistry extends JObject
 		}
 
 		// Get the old value if exists so we can return it
-		@$retval =& $ns->$nodes[$i];
 		$ns->$nodes[$i] =& $value;
 
-		return $retval;
+		return $ns->$nodes[$i];
 	}
 
 	/**

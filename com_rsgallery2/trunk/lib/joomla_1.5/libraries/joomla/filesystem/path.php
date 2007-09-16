@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: path.php 7306 2007-05-03 12:46:32Z tcp $
+ * @version		$Id: path.php 8592 2007-08-27 21:19:18Z robs $
  * @package		Joomla.Framework
  * @subpackage	FileSystem
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -189,7 +189,35 @@ class JPath
 	 */
 	function isOwner($path)
 	{
-		return (getmyuid() == fileowner($path));
+		jimport('joomla.filesystem.file');
+		jimport('joomla.user.helper');
+
+		$tmp = md5(JUserHelper::genRandomPassword(16));
+		$ssp = ini_get('session.save_path');
+		$jtp = JPATH_SITE.DS.'tmp';
+
+		// Try to find a writable directory
+		$dir = is_writable('/tmp') ? '/tmp' : false;
+		$dir = (!$dir && is_writable($ssp)) ? $ssp : false;
+		$dir = (!$dir && is_writable($jtp)) ? $jtp : false;
+
+		if ($dir)
+		{
+			$test = $dir.DS.$tmp;
+
+			// Create the test file
+			JFile::write($test, '');
+
+			// Test ownership
+			$return = (fileowner($test) == fileowner($path));
+
+			// Delete the test file
+			JFile::delete($test);
+
+			return $return;
+		}
+
+		return false;
 	}
 
 	/**

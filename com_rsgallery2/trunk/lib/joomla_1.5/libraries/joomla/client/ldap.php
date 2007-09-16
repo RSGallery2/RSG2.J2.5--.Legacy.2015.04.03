@@ -1,7 +1,7 @@
 <?php
 
 /**
-* @version		$Id: ldap.php 7074 2007-03-31 15:37:23Z jinx $
+* @version		$Id: ldap.php 8567 2007-08-25 21:31:05Z jinx $
 * @package		Joomla.Framework
 * @subpackage	Client
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -235,6 +235,18 @@ class JLDAP
 			}
 		}
 		return $attributes;
+	}
+	
+	/**
+	 * Replace an entry and return a true or false result
+	 *
+	 * @param string dn The DN which contains the attribute you want to compare
+	 * @param string attribute The attribute values you want to replace
+	 * @return mixed result of comparison (true, false, -1 on error)
+	 */
+
+	function replace($dn, $attribute) {
+		return ldap_mod_replace($this->_resource, $dn, $attribute);
 	}
 
 	/**

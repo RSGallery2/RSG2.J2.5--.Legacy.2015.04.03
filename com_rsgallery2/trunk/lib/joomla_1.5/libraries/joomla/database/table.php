@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: table.php 7568 2007-05-30 20:48:06Z jinx $
+ * @version		$Id: table.php 8847 2007-09-12 13:16:03Z jinx $
  * @package		Joomla.Framework
  * @subpackage	Table
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -45,6 +45,15 @@ class JTable extends JObject
 	 */
 	var $_tbl_key	= '';
 
+	/**
+	 * Error Message
+	 * 
+	 * @var		string
+	 * @access	protected
+	 * @todo	remove the local implementation in preference of the one defined in JObject
+	 */
+	var $_error		= null;
+	
 	/**
 	 * Error number
 	 *
@@ -162,7 +171,24 @@ class JTable extends JObject
 	{
 		return $this->_tbl_key;
 	}
-
+	
+	/**
+	 * Get the most recent error message
+	 *
+	 * Use this method in preference of accessing the $_error attribute directly!
+	 * 
+	 * @param	int		Not Used
+	 * @param	boolean	Not Used
+	 * @return	string	Error message
+	 * @access	public
+	 * @since	1.5
+	 * @todo 	Change dependent code to call the API, not access $_error directly
+	 */
+	function getError($i = null, $toString = true )
+	{
+		return $this->_error;
+	}
+	
 	/**
 	 * Returns the error number
 	 *
@@ -212,7 +238,7 @@ class JTable extends JObject
 		if (!is_array( $ignore )) {
 			$ignore = explode( ' ', $ignore );
 		}
-		foreach ($this->getPublicProperties() as $k)
+		foreach ($this->getProperties() as $k => $v)
 		{
 			// internal attributes of an object are ignored
 			if (!in_array( $k, $ignore ))
@@ -327,19 +353,19 @@ class JTable extends JObject
 
 		if ($dirn < 0)
 		{
-			$sql .= ' WHERE ordering < '.$this->ordering;
-			$sql .= ($where ? '	AND '.$where : '');
+			$sql .= ' WHERE ordering < '.(int) $this->ordering;
+			$sql .= ($where ? ' AND '.$where : '');
 			$sql .= ' ORDER BY ordering DESC';
 		}
 		else if ($dirn > 0)
 		{
-			$sql .= ' WHERE ordering > '.$this->ordering;
-			$sql .= ($where ? '	AND '. $where : '');
+			$sql .= ' WHERE ordering > '.(int) $this->ordering;
+			$sql .= ($where ? ' AND '. $where : '');
 			$sql .= ' ORDER BY ordering';
 		}
 		else
 		{
-			$sql .= ' WHERE ordering = '. $this->ordering;
+			$sql .= ' WHERE ordering = '.(int) $this->ordering;
 			$sql .= ($where ? ' AND '.$where : '');
 			$sql .= ' ORDER BY ordering';
 		}
@@ -352,8 +378,8 @@ class JTable extends JObject
 		if (isset($row))
 		{
 			$query = 'UPDATE '. $this->_tbl
-			. ' SET ordering = "'. $row->ordering. '"'
-			. ' WHERE '. $this->_tbl_key .' = "'. $this->$k . '"'
+			. ' SET ordering = '. (int) $row->ordering
+			. ' WHERE '. $this->_tbl_key .' = '. $this->_db->Quote($this->$k)
 			;
 			$this->_db->setQuery( $query );
 
@@ -364,8 +390,8 @@ class JTable extends JObject
 			}
 
 			$query = 'UPDATE '.$this->_tbl
-			. ' SET ordering = "'.$this->ordering.'"'
-			. ' WHERE '.$this->_tbl_key.' = \''.$row->$k.'\''
+			. ' SET ordering = '.(int) $this->ordering
+			. ' WHERE '.$this->_tbl_key.' = '.$this->_db->Quote($row->$k)
 			;
 			$this->_db->setQuery( $query );
 
@@ -380,8 +406,8 @@ class JTable extends JObject
 		else
 		{
 			$query = 'UPDATE '. $this->_tbl
-			. ' SET ordering = "'.$this->ordering.'"'
-			. ' WHERE '. $this->_tbl_key .' = "'. $this->$k .'"'
+			. ' SET ordering = '.(int) $this->ordering
+			. ' WHERE '. $this->_tbl_key .' = '. $this->_db->Quote($this->$k)
 			;
 			$this->_db->setQuery( $query );
 
@@ -401,7 +427,7 @@ class JTable extends JObject
 	 */
 	function getNextOrder ( $where='' )
 	{
-		if (!in_array( 'ordering', $this->getPublicProperties() ))
+		if (!in_array( 'ordering', array_keys($this->getProperties()) ))
 		{
 			$this->setError( get_class( $this ).' does not support ordering' );
 			$this->setErrorNum(21);
@@ -434,7 +460,7 @@ class JTable extends JObject
 	{
 		$k = $this->_tbl_key;
 
-		if (!in_array( 'ordering', $this->getPublicProperties() ))
+		if (!in_array( 'ordering', array_keys($this->getProperties()) ))
 		{
 			$this->setError( get_class( $this ).' does not support ordering');
 			$this->setErrorNum(21);
@@ -452,7 +478,7 @@ class JTable extends JObject
 
 		$query = 'SELECT '.$this->_tbl_key.', ordering'
 		. ' FROM '. $this->_tbl
-		. ' WHERE ordering >= 1' . ( $where ? ' AND '. $where : '' )
+		. ' WHERE ordering >= 0' . ( $where ? ' AND '. $where : '' )
 		. ' ORDER BY ordering'.$order2
 		;
 		$this->_db->setQuery( $query );
@@ -471,8 +497,8 @@ class JTable extends JObject
 				{
 					$orders[$i]->ordering = $i+1;
 					$query = 'UPDATE '.$this->_tbl
-					. ' SET ordering = "'. $orders[$i]->ordering .'"'
-					. ' WHERE '. $k .' = "'. $orders[$i]->$k .'"'
+					. ' SET ordering = '. (int) $orders[$i]->ordering
+					. ' WHERE '. $k .' = '. $this->_db->Quote($orders[$i]->$k)
 					;
 					$this->_db->setQuery( $query);
 					$this->_db->query();
@@ -497,10 +523,10 @@ class JTable extends JObject
 	function canDelete( $oid=null, $joins=null )
 	{
 		$k = $this->_tbl_key;
-		if ($oid)
-		{
+		if ($oid) {
 			$this->$k = intval( $oid );
 		}
+		
 		if (is_array( $joins ))
 		{
 			$select = "$k";
@@ -514,7 +540,7 @@ class JTable extends JObject
 			$query = 'SELECT '. $select
 			. ' FROM '. $this->_tbl
 			. $join
-			. ' WHERE '. $k .' = "'. $this->$k .'"'
+			. ' WHERE '. $k .' = '. $this->_db->Quote($this->$k)
 			. ' GROUP BY '. $k
 			;
 			$this->_db->setQuery( $query );
@@ -566,8 +592,7 @@ class JTable extends JObject
 		//}
 
 		$k = $this->_tbl_key;
-		if ($oid)
-		{
+		if ($oid) {
 			$this->$k = intval( $oid );
 		}
 
@@ -597,7 +622,7 @@ class JTable extends JObject
 	 */
 	function checkout( $who, $oid = null )
 	{
-		if (!in_array( 'checked_out', $this->getPublicProperties() )) {
+		if (!in_array( 'checked_out', array_keys($this->getProperties()) )) {
 			return true;
 		}
 
@@ -630,8 +655,8 @@ class JTable extends JObject
 	function checkin( $oid=null )
 	{
 		if (!(
-			in_array( 'checked_out', $this->getPublicProperties() ) ||
-	 		in_array( 'checked_out_time', $this->getPublicProperties() )
+			in_array( 'checked_out', array_keys($this->getProperties()) ) ||
+	 		in_array( 'checked_out_time', array_keys($this->getProperties()) )
 		)) {
 			return true;
 		}
@@ -647,7 +672,7 @@ class JTable extends JObject
 		}
 
 		$query = 'UPDATE '.$this->_db->nameQuote( $this->_tbl ).
-				' SET checked_out = 0, checked_out_time = '.$this->_db->Quote($this->_db->_nullDate) .
+				' SET checked_out = 0, checked_out_time = '.$this->_db->Quote($this->_db->getNullDate()) .
 				' WHERE '.$this->_tbl_key.' = '. $this->_db->Quote($this->$k);
 		$this->_db->setQuery( $query );
 
@@ -666,7 +691,7 @@ class JTable extends JObject
 	 */
 	function hit( $oid=null, $log=false )
 	{
-		if (!in_array( 'hits', $this->getPublicProperties() )) {
+		if (!in_array( 'hits', array_keys($this->getProperties()) )) {
 			return;
 		}
 
@@ -716,27 +741,24 @@ class JTable extends JObject
 	/**
 	 * Generic save function
 	 *
-	 * @access public
-	 * @param array Source array for binding to class vars
-	 * @param string Filter for the order updating
+	 * @access	public
+	 * @param	array	Source array for binding to class vars
+	 * @param	string	Filter for the order updating
+	 * @param	mixed	An array or space separated list of fields not to bind
 	 * @returns TRUE if completely successful, FALSE if partially or not succesful.
 	 */
-	function save( $source, $order_filter='' )
+	function save( $source, $order_filter='', $ignore='' )
 	{
-		if (!$this->bind( $source ))
-		{
+		if (!$this->bind( $source, $ignore )) {
 			return false;
 		}
-		if (!$this->check())
-		{
+		if (!$this->check()) {
 			return false;
 		}
-		if (!$this->store())
-		{
+		if (!$this->store()) {
 			return false;
 		}
-		if (!$this->checkin())
-		{
+		if (!$this->checkin()) {
 			return false;
 		}
 		if ($order_filter)
@@ -747,6 +769,21 @@ class JTable extends JObject
 		$this->setError('');
 		$this->setErrorNum(0);
 		return true;
+	}
+	
+	/**
+	 * Set an error message
+	 *
+	 * Use this method in preference of accessing the $_error attribute directly!
+	 * 
+	 * @param	string $error Error message
+	 * @access	public
+	 * @since	1.5
+	 * @todo 	Change dependent code to call the API, not access $_error directly
+	 */
+	function setError($error)
+	{
+		$this->_error	= $error;
 	}
 
 	/**
@@ -770,7 +807,7 @@ class JTable extends JObject
 	 */
 	function publish( $cid=null, $publish=1, $user_id=0 )
 	{
-		JArrayHelper::toInteger( $cid, array() );
+		JArrayHelper::toInteger( $cid );
 		$user_id	= (int) $user_id;
 		$publish	= (int) $publish;
 		$k			= $this->_tbl_key;
@@ -789,10 +826,10 @@ class JTable extends JObject
 		. ' WHERE ('.$cids.')'
 		;
 
-		$checkin = in_array( 'checked_out', $this->getPublicProperties() );
+		$checkin = in_array( 'checked_out', array_keys($this->getProperties()) );
 		if ($checkin)
 		{
-			$query .= ' AND (checked_out = 0 OR checked_out = '.$user_id.')';
+			$query .= ' AND (checked_out = 0 OR checked_out = '.(int) $user_id.')';
 		}
 
 		$this->_db->setQuery( $query );

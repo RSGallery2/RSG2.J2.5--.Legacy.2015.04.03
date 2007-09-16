@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: file.php 7556 2007-05-30 14:20:48Z pasamio $
+ * @version		$Id: file.php 8513 2007-08-22 21:08:14Z pasamio $
  * @package		Joomla.Framework
  * @subpackage	FileSystem
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -86,7 +86,7 @@ class JFile
 
 		//Check src path
 		if (!is_readable($src)) {
-			JError::raiseWarning(21, 'JFile::copy: '.JText::_('Cannot find or read file: '.$src));
+			JError::raiseWarning(21, 'JFile::copy: '.JText::_('Cannot find or read file' . ": '$src'"));
 			return false;
 		}
 
@@ -138,14 +138,20 @@ class JFile
 		}
 
 		// Do NOT use ftp if it is not enabled
-		if ($FTPOptions['enabled'] == 1) {
+		if ($FTPOptions['enabled'] == 1)
+		{
 			// Connect the FTP client
 			jimport('joomla.client.ftp');
 			$ftp = & JFTP::getInstance($FTPOptions['host'], $FTPOptions['port'], null, $FTPOptions['user'], $FTPOptions['pass']);
 		}
 
-		foreach ($files as $file) {
+		foreach ($files as $file)
+		{
 			$file = JPath::clean($file);
+
+			// Try making the file writeable first. If it's read-only, it can't be deleted
+			// on Windows, even if the parent folder is writeable
+			@chmod($file, 0777);
 
 			// In case of restricted permissions we zap it one way or the other
 			// as long as the owner is either the webserver or the ftp
@@ -229,7 +235,7 @@ class JFile
 		$data = null;
 
 		if (false === $fh = fopen($filename, 'rb', $incpath)) {
-			JError::raiseWarning(21, 'JFile::read: '.JText::_('Unable to open file ').$filename);
+			JError::raiseWarning(21, 'JFile::read: '.JText::_('Unable to open file') . ": '$filename'");
 			return false;
 		}
 		clearstatcache();
@@ -322,7 +328,7 @@ class JFile
 				JError::raiseWarning(21, JText::_('WARNFS_ERR02'));
 			}
 		} else {
-			if (move_uploaded_file($src, $dest)) {
+			if (is_writeable($baseDir) && move_uploaded_file($src, $dest)) { // Short circuit to prevent file permission errors
 				if (JPath::setPermissions($dest)) {
 					$ret = true;
 				} else {
@@ -346,10 +352,10 @@ class JFile
 	{
 		return is_file(JPath::clean($file));
 	}
-	
+
 	/**
 	 * Returns the name, sans any path
-	 * 
+	 *
 	 * param string $file File path
 	 * @return string filename
 	 * @since 1.5

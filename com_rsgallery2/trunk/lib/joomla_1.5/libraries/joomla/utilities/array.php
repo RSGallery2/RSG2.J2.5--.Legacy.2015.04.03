@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: array.php 7711 2007-06-10 00:52:33Z jinx $
+ * @version		$Id: array.php 8180 2007-07-23 05:52:29Z eddieajau $
  * @package		Joomla.Framework
  * @subpackage	Utilities
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -75,7 +75,7 @@ class JArrayHelper
 		}
 		return $obj;
 	}
-	
+
 	function toString( $array = null, $inner_glue = '=', $outer_glue = ' ', $keepOuterKey = false )
 	{
 		$output = array();

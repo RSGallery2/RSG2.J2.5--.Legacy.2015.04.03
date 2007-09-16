@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: version.php 7639 2007-06-05 12:56:07Z jinx $
+ * @version		$Id: version.php 8688 2007-08-31 20:43:51Z willebil $
  * @package	Joomla.Framework
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
@@ -29,23 +29,23 @@ class JVersion
 	/** @var int Main Release Level */
 	var $RELEASE 	= '1.5';
 	/** @var string Development Status */
-	var $DEV_STATUS = 'Development';
+	var $DEV_STATUS = 'Production/Stable';
 	/** @var int Sub Release Level */
 	var $DEV_LEVEL 	= '0';
 	/** @var int build Number */
 	var $BUILD	 	= '';
 	/** @var string Codename */
-	var $CODENAME 	= 'Khepri';
+	var $CODENAME 	= 'Endeleo';
 	/** @var string Date */
-	var $RELDATE 	= '04-May-2007';
+	var $RELDATE 	= '1-September-2007';
 	/** @var string Time */
-	var $RELTIME 	= '00:00';
+	var $RELTIME 	= '15:00';
 	/** @var string Timezone */
 	var $RELTZ 		= 'GMT';
 	/** @var string Copyright Text */
 	var $COPYRIGHT 	= 'Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.';
 	/** @var string URL */
-	var $URL 		= '<a href="http://www.joomla.org">Joomla!</a> is Free Software released under the GNU/GPL License.';
+	var $URL 		= '<a href="http://www.joomla.org">Joomla!</a> is Free Software released under the GNU General Public License.';
 
 	/**
 	 *

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: database.php 7222 2007-04-29 22:16:54Z eddieajau $
+* @version		$Id: database.php 8575 2007-08-26 20:02:09Z jinx $
 * @package		Joomla.Framework
 * @subpackage	Database
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -137,9 +137,9 @@ class JDatabase extends JObject
 				$path	= "joomla.database.database.$driver";
 				jimport( $path );
 			} else {
-				$error = new JException( E_ERROR, 500, 'Unable to load Database Driver: '.$driver);
+				$error = new JException( E_ERROR, 500, 'Unable to load Database Driver:' .$driver);
 				return $error;
-				//die('Unable to load Database Driver: '.$driver);
+				//die('Unable to load Database Driver:' .$driver);
 			}
 
 			$adapter	= 'JDatabase'.$driver;
@@ -147,7 +147,7 @@ class JDatabase extends JObject
 
 			if ( $error = $instance->getErrorMsg() )
 			{
-				$error = new JException( E_ERROR, 500, 'Unable to connect to the database: '.$error);
+				$error = new JException( E_ERROR, 500, 'Unable to connect to the database:' .$error);
 				return $error;
 				//die('Unable to connect to the database: '.$error);
 			}
@@ -500,7 +500,7 @@ class JDatabase extends JObject
 		return;
 	}
 
-   /**
+	/**
 	* Execute a batch query
 	*
 	* @abstract
@@ -657,7 +657,8 @@ class JDatabase extends JObject
 	 * @param boolean If TRUE, displays the last SQL statement sent to the database
 	 * @return string A standised error message
 	 */
-	function stderr( $showSQL = false ) {
+	function stderr( $showSQL = false ) 
+	{
 		if ( $this->_errorNum != 0 ) {
 			return "DB function failed with error number $this->_errorNum"
 			."<br /><font color=\"red\">$this->_errorMsg</font>"

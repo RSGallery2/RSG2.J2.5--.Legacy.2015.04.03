@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: category.php 7286 2007-05-03 01:44:29Z jinx $
+* @version		$Id: category.php 8288 2007-08-01 08:40:54Z eddieajau $
 * @package		Joomla.Framework
 * @subpackage	Parameter
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -26,7 +26,7 @@ defined('JPATH_BASE') or die();
 
 class JElementCategory extends JElement
 {
-   /**
+	/**
 	* Element name
 	*
 	* @access	protected
@@ -58,13 +58,13 @@ class JElementCategory extends JElement
 				' FROM #__categories AS c' .
 				' LEFT JOIN #__sections AS s ON s.id=c.section' .
 				' WHERE c.published = 1' .
-				' AND s.scope = "'.$section.'"' .
+				' AND s.scope = '.$db->Quote($section).
 				' ORDER BY c.title';
 		} else {
 			$query = 'SELECT c.id, c.title' .
 				' FROM #__categories AS c' .
 				' WHERE c.published = 1' .
-				' AND c.section = "'.$section.'"' .
+				' AND c.section = '.$db->Quote($section).
 				' ORDER BY c.title';
 		}
 		$db->setQuery($query);

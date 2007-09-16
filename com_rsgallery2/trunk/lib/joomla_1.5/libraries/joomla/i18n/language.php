@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: language.php 7709 2007-06-09 19:00:07Z tcp $
+* @version		$Id: language.php 8833 2007-09-10 21:55:00Z jinx $
 * @package		Joomla.Framework
 * @subpackage	I18N
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -14,71 +14,6 @@
 
 // Check to ensure this file is within the rest of the framework
 defined('JPATH_BASE') or die();
-
-/**
- * Text  handling class
- *
- * @static
- * @package 		Joomla.Framework
- * @subpackage	I18N
- * @since		1.5
- */
-class JText
-{
-	/**
-	 * Translates a string into the current language
-	 *
-	 * @access	public
-	 * @param	string $string The string to translate
-	 * @param	boolean	$jsSafe		Make the result javascript safe
-	 * @since	1.5
-	 *
-	 */
-	function _($string, $jsSafe = false)
-	{
-		$lang =& JFactory::getLanguage();
-		return $lang->_($string, $jsSafe);
-	}
-
-	/**
-	 * Passes a string thru an sprintf
-	 *
-	 * @access	public
-	 * @param	format The format string
-	 * @param	mixed Mixed number of arguments for the sprintf function
-	 * @since	1.5
-	 */
-	function sprintf($string)
-	{
-		$lang =& JFactory::getLanguage();
-		$args = func_get_args();
-		if (count($args) > 0) {
-			$args[0] = $lang->_($args[0]);
-			return call_user_func_array('sprintf', $args);
-		}
-		return '';
-	}
-
-	/**
-	 * Passes a string thru an printf
-	 *
-	 * @access	public
-	 * @param	format The format string
-	 * @param	mixed Mixed number of arguments for the sprintf function
-	 * @since	1.5
-	 */
-	function printf($string)
-	{
-		$lang =& JFactory::getLanguage();
-		$args = func_get_args();
-		if (count($args) > 0) {
-			$args[0] = $lang->_($args[0]);
-			return call_user_func_array('printf', $args);
-		}
-		return '';
-	}
-
-}
 
 /**
  * Languages/translation handler class
@@ -233,7 +168,8 @@ class JLanguage extends JObject
 		}
 		else
 		{
-			if (defined($string)) {
+			if (defined($string)) 
+			{
 				$string = $this->_debug ? '!!'.constant($string).'!!' : constant($string);
 
 				// Store debug information
@@ -694,7 +630,7 @@ class JLanguage extends JObject
 	function getLanguagePath($basePath = JPATH_BASE, $language = null )
 	{
 		$dir = $basePath.DS.'language';
-		if (isset ($language)) {
+		if (!empty($language)) {
 			$dir .= DS.$language;
 		}
 		return $dir;
@@ -718,7 +654,7 @@ class JLanguage extends JObject
 
 		//set locale based on the language tag
 		//TODO : add function to display locale setting in configuration
-		$locale = setlocale(LC_ALL, $this->getLocale());
+		$locale = setlocale(LC_TIME, $this->getLocale());
 		return $previous;
 	}
 
@@ -823,16 +759,15 @@ class JLanguageHelper
 	 * @param	array	An array of arrays ( text, value, selected )
 	 * @since	1.5
 	 */
-	function createLanguageList($actualLanguage, $basePath = JPATH_BASE, $caching = true)
+	function createLanguageList($actualLanguage, $basePath = JPATH_BASE, $caching = false)
 	{
 		$list = array ();
 
 		// cache activation
-		$cache = & JFactory::getCache('JLanguage');
-		$cache->setCaching($caching);
-		$langs = $cache->call('JLanguage::getKnownLanguages', $basePath);
+		$langs = JLanguage::getKnownLanguages($basePath);
 
-		foreach ($langs as $lang => $metadata) {
+		foreach ($langs as $lang => $metadata)
+		{
 			$option = array ();
 
 			$option['text'] = $metadata['name'];

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: page.php 7074 2007-03-31 15:37:23Z jinx $
+* @version		$Id: page.php 8028 2007-07-17 22:01:34Z jinx $
 * @package		Joomla.Framework
 * @subpackage	Cache
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: authentication.php 7104 2007-04-08 16:17:14Z jinx $
+* @version		$Id: authentication.php 8503 2007-08-22 07:39:40Z jinx $
 * @package		Joomla.Framework
 * @subpackage	User
 * @copyright		Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -34,7 +34,7 @@ define('JAUTHENTICATE_STATUS_FAILURE', 4);
  * Authenthication class, provides an interface for the Joomla authentication system
  *
  * @author 		Louis Landry <louis.landry@joomla.org>
- * @package 		Joomla.Framework
+ * @package 	Joomla.Framework
  * @subpackage	User
  * @since		1.5
  */
@@ -50,7 +50,7 @@ class JAuthentication extends JObservable
 		$isLoaded = JPluginHelper::importPlugin('authentication');
 
 		if (!$isLoaded) {
-			JError::raiseWarning('SOME_ERROR_CODE', 'JAuthenticate::__constructor: Could not load authentication libraries.');
+			JError::raiseWarning('SOME_ERROR_CODE', 'JAuthentication::__construct: Could not load authentication libraries.');
 		}
 	}
 
@@ -59,11 +59,11 @@ class JAuthentication extends JObservable
 	 * if it doesn't already exist.
 	 *
 	 * This method must be invoked as:
-	 * 		<pre>  $auth = &JAuthenticate::getInstance();</pre>
+	 * 		<pre>  $auth = &JAuthentication::getInstance();</pre>
 	 *
 	 * @static
 	 * @access public
-	 * @return object The global JAuthenticate object
+	 * @return object The global JAuthentication object
 	 * @since 1.5
 	 */
 	function & getInstance()
@@ -86,13 +86,12 @@ class JAuthentication extends JObservable
 	 * objects to run their respective authentication routines.
 	 *
 	 * @access public
-	 * @param string 	The username.
-	 * @param string 	The password.
+	 * @param array 	Array holding the user credentials
 	 * @return mixed 	Integer userid for valid user if credentials are valid or
 	 * 					boolean false if they are not
 	 * @since 1.5
 	 */
-	function authenticate($username, $password)
+	function authenticate($credentials, $options)
 	{
 		// Initialize variables
 		$auth = false;
@@ -107,28 +106,32 @@ class JAuthentication extends JObservable
 		 * Loop through the plugins and check of the creditials can be used to authenticate
 		 * the user
 		 *
-		 * Any errors raised in the plugin should be returned via the JAuthenticateResponse
+		 * Any errors raised in the plugin should be returned via the JAuthenticationResponse
 		 * and handled appropriately.
 		 */
 		foreach($plugins as $plugin)
 		{
-			$className = 'plg'.$plugin->folder.$plugin->element;
+			$className = 'plg'.$plugin->type.$plugin->name;
 			if(class_exists($className)) {
-				$plugin = new $className($this);
+				$plugin = new $className($this, (array)$plugin);
 			}
 
 			// Try to authenticate
-			$plugin->onAuthenticate($username, $password, $response);
+			$plugin->onAuthenticate($credentials, $options, $response);
 
 			// If authentication is successfull break out of the loop
 			if($response->status === JAUTHENTICATE_STATUS_SUCCESS)
 			{
 				if(empty($response->username)) {
-					$response->username = $username;
+					$response->username = $credentials['username'];
 				}
 
 				if(empty($response->fullname)) {
-					$response->fullname = $username;
+					$response->fullname = $credentials['username'];
+				}
+				
+				if(empty($response->password)) {
+					$response->password = $credentials['password'];
 				}
 
 				break;
@@ -172,6 +175,14 @@ class JAuthenticationResponse extends JObject
 	 * @access public
 	 */
 	var $username 		= '';
+	
+	/**
+	 * Any UTF-8 string that the End User wants to use as a password.
+	 *
+	 * @var password string
+	 * @access public
+	 */
+	var $password 		= '';
 
 	/**
 	 * The email address of the End User as specified in section 3.4.1 of [RFC2822]

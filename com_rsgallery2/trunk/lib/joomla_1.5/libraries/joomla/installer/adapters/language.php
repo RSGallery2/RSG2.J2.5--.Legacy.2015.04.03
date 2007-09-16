@@ -57,13 +57,14 @@ class JInstallerLanguage extends JObject
 		// Get database connector object
 		$db =& $this->parent->getDBO();
 		$manifest =& $this->parent->getManifest();
+		$this->manifest =& $manifest->document;
 		$root =& $manifest->document;
 
 		// Get the client application target
 		if ($cname = $root->attributes('client')) {
 			// Attempt to map the client to a base path
 			jimport('joomla.application.helper');
-			$client = JApplicationHelper::getClientInfo($cname, true);
+			$client =& JApplicationHelper::getClientInfo($cname, true);
 			if ($client === false) {
 				$this->parent->abort('Language Install: '.JText::_('Unknown client type').' ['.$cname.']');
 				return false;
@@ -78,19 +79,21 @@ class JInstallerLanguage extends JObject
 		}
 
 		// Get the language name
-		$name =& $root->getElementByPath('name');
-		$this->set('name', $name->data());
+		// Set the extensions name
+		$name =& $this->manifest->getElementByPath('name');
+		$name = JFilterInput::clean($name->data(), 'cmd');
+		$this->set('name', $name);
 
 		// Get the Language tag [ISO tag, eg. en-GB]
 		$tag =& $root->getElementByPath('tag');
-		
+
 		// Check if we found the tag - if we didn't, we may be trying to install from an older language package
 		if ( ! $tag )
 		{
 			$this->parent->abort('Language Install: '.JText::_('The package did not specify a language tag.  Are you trying to install an old language package?'));
 			return false;
 		}
-		
+
 		$this->set('tag', $tag->data());
 		$folder = $tag->data();
 

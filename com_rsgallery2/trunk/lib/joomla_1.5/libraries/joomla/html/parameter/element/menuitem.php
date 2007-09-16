@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: menuitem.php 7325 2007-05-03 20:37:59Z jinx $
+* @version		$Id: menuitem.php 8288 2007-08-01 08:40:54Z eddieajau $
 * @package		Joomla.Framework
 * @subpackage	Parameter
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -26,7 +26,7 @@ defined('JPATH_BASE') or die();
 
 class JElementMenuItem extends JElement
 {
-   /**
+	/**
 	* Element name
 	*
 	* @access	protected
@@ -40,7 +40,7 @@ class JElementMenuItem extends JElement
 
 		$menuType = $this->_parent->get('menu_type');
 		if (!empty($menuType)) {
-			$where = ' WHERE menutype = "'.$menuType."'";
+			$where = ' WHERE menutype = '.$db->Quote($menuType);
 		} else {
 			$where = ' WHERE 1';
 		}
@@ -54,7 +54,7 @@ class JElementMenuItem extends JElement
 		$menuTypes = $db->loadObjectList();
 
 		if ($state = $node->attributes('state')) {
-			$where .= ' AND published = "'.$state.'"';
+			$where .= ' AND published = '.(int) $state;
 		}
 
 		// load the list of menu items

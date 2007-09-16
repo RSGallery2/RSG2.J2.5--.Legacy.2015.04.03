@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: simplexml.php 7611 2007-06-03 20:44:12Z jinx $
+* @version		$Id: simplexml.php 8827 2007-09-10 16:19:39Z jinx $
 * @package		Joomla.Framework
 * @subpackage	Utilities
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -174,7 +174,7 @@ class JSimpleXML extends JObject
 		if ( !file_exists( $path ) )  {
 			return false;
 		}
-		
+
 		//Get the XML document loaded into a variable
 		$xml = trim( file_get_contents($path) );
 		if ($xml == '')
@@ -199,7 +199,7 @@ class JSimpleXML extends JObject
 	 * @param string   	currently ignored
 	 * @return object 	JSimpleXMLElement
 	 */
-	function importDom($node, $classname = null) {
+	function importDOM($node, $classname = null) {
 		return false;
 	}
 
@@ -255,7 +255,7 @@ class JSimpleXML extends JObject
 	 */
 	function _handleError($code, $line, $col)
 	{
-		JError::raiseError( 'SOME_ERROR_CODE' , 'XML Parsing Error at '.$line.':'.$col.'. Error '.$code.': '.xml_error_string($code));
+		JError::raiseWarning( 'SOME_ERROR_CODE' , 'XML Parsing Error at '.$line.':'.$col.'. Error '.$code.': '.xml_error_string($code));
 	}
 
 	/**
@@ -520,7 +520,7 @@ class JSimpleXMLElement extends JObject
 		if(!isset($this->$name)) {
 			$this->$name = array();
 		}
-		
+
 		// set the level if not already specified
 		if ($level == null)	{
 			$level = ($this->_level + 1);
@@ -535,7 +535,7 @@ class JSimpleXMLElement extends JObject
 
 		//Add the reference to the children array member
 		$this->_children[] =& $child;
-		
+
 		//return the new child
 		return $child;
 	}
@@ -598,7 +598,7 @@ class JSimpleXMLElement extends JObject
 	}
 
 	/**
-	 * traverses the tree calling the $callback( JSimpleXMLElement 
+	 * traverses the tree calling the $callback( JSimpleXMLElement
 	 * $this, mixed $args=array() ) function with each JSimpleXMLElement.
 	 *
 	 * @param string $callback function name

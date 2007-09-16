@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: input.php 7628 2007-06-05 00:37:13Z louis $
+ * @version		$Id: input.php 8180 2007-07-23 05:52:29Z eddieajau $
  * @package		Joomla.Framework
  * @subpackage	Filter
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -16,7 +16,7 @@
 defined('JPATH_BASE') or die();
 
 /**
- * JInputFilter is a class for filtering input from any data source
+ * JFilterInout is a class for filtering input from any data source
  *
  * Forked from the php input filter library by: Daniel Morris <dan@rootcube.com>
  * Original Contributors: Gianpaolo Racca, Ghislain Picard, Marco Wandschneider, Chris Tobin and Andrew Eddie.
@@ -26,7 +26,7 @@ defined('JPATH_BASE') or die();
  * @subpackage		Filter
  * @since		1.5
  */
-class JInputFilter extends JObject
+class JFilterInput extends JObject
 {
 	var $tagsArray; // default = empty array
 	var $attrArray; // default = empty array
@@ -67,7 +67,7 @@ class JInputFilter extends JObject
 	 * Returns a reference to an input filter object, only creating it if it doesn't already exist.
 	 *
 	 * This method must be invoked as:
-	 * 		<pre>  $filter = & JInputFilter::getInstance();</pre>
+	 * 		<pre>  $filter = & JFilterInput::getInstance();</pre>
 	 *
 	 * @static
 	 * @param	array	$tagsArray	list of user-defined tags
@@ -75,7 +75,7 @@ class JInputFilter extends JObject
 	 * @param	int		$tagsMethod	WhiteList method = 0, BlackList method = 1
 	 * @param	int		$attrMethod	WhiteList method = 0, BlackList method = 1
 	 * @param	int		$xssAuto	Only auto clean essentials = 0, Allow clean blacklisted tags/attr = 1
-	 * @return	object	The JInputFilter object.
+	 * @return	object	The JFilterInput object.
 	 * @since	1.5
 	 */
 	function & getInstance($tagsArray = array(), $attrArray = array(), $tagsMethod = 0, $attrMethod = 0, $xssAuto = 1)
@@ -89,7 +89,7 @@ class JInputFilter extends JObject
 		}
 
 		if (empty ($instances[$sig])) {
-			$instances[$sig] = new JInputFilter($tagsArray, $attrArray, $tagsMethod, $attrMethod, $xssAuto);
+			$instances[$sig] = new JFilterInput($tagsArray, $attrArray, $tagsMethod, $attrMethod, $xssAuto);
 		}
 
 		return $instances[$sig];
@@ -158,6 +158,10 @@ class JInputFilter extends JObject
 				$pattern = '/^[A-Za-z0-9_-]+[A-Za-z0-9_\.-]*([\\\\\/][A-Za-z0-9_-]+[A-Za-z0-9_\.-]*)*$/';
 				preg_match($pattern, (string) $source, $matches);
 				$result = @ (string) $matches[0];
+				break;
+
+			case 'USERNAME' :
+				$result = (string) preg_replace( '/[\x00-\x1F\x7F<>"\'%&]/', '', $source );
 				break;
 
 			default :
@@ -239,6 +243,7 @@ class JInputFilter extends JObject
 		$preTag		= null;
 		$postTag	= $source;
 		$currentSpace = false;
+		$attr = '';	 // moffats: setting to null due to issues in migration system - undefined variable errors
 
 		// Is there a tag? If so it will certainly start with a '<'
 		$tagOpen_start	= strpos($source, '<');
@@ -436,7 +441,7 @@ class JInputFilter extends JObject
 			}
 
 			// Autostrip script tags
-			if (JInputFilter::checkAttribute($attrSubSet)) {
+			if (JFilterInput::checkAttribute($attrSubSet)) {
 				continue;
 			}
 

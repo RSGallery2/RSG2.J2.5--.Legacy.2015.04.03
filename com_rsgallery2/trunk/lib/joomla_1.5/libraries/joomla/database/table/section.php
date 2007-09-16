@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: section.php 7122 2007-04-10 08:27:39Z jinx $
+* @version		$Id: section.php 8031 2007-07-17 23:14:23Z jinx $
 * @package		Joomla.Framework
 * @subpackage	Table
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -78,8 +78,8 @@ class JTableSection extends JTable
 		// check for existing name
 		/*$query = "SELECT id"
 		. ' FROM #__sections "
-		. ' WHERE title = "'. $this->title .'"'
-		. ' AND scope = "' . $this->scope .'"'
+		. ' WHERE title = '. $this->_db->Quote($this->title)
+		. ' AND scope = ' . $this->_db->Quote($this->scope)
 		;
 		$this->_db->setQuery( $query );
 
@@ -90,7 +90,7 @@ class JTableSection extends JTable
 		}*/
 
 		jimport('joomla.filter.output');
-		$alias = JOutputFilter::stringURLSafe($this->title);
+		$alias = JFilterOutput::stringURLSafe($this->title);
 
 		if(empty($this->alias) || $this->alias === $alias ) {
 			$this->alias = $alias;

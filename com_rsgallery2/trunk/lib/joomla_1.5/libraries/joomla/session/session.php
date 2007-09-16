@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: session.php 7497 2007-05-25 23:06:45Z ian $
+* @version		$Id: session.php 8568 2007-08-26 10:30:33Z jinx $
 * @package		Joomla.Framework
 * @subpackage	Session
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -57,7 +57,7 @@ class JSession extends JObject
 	 */
 	var	$_store	=	null;
 
-   /**
+	/**
 	* security policy
 	*
 	* Default values:
@@ -78,10 +78,14 @@ class JSession extends JObject
 	*/
 	function __construct( $store = 'none', $options = array() )
 	{
-		JError::raiseError( '', "Who's calling session?" );
+		// Register faked "destructor" in PHP4, this needs to happen before creating the session store
+		if (version_compare(PHP_VERSION, '5') == -1) {
+			register_shutdown_function((array(&$this, '__destruct')));
+		}
+		
 		//set default sessios save handler
 		ini_set('session.save_handler', 'files');
-
+		
 		//create handler
 		$this->_store =& JSessionStorage::getInstance($store, $options);
 
@@ -99,6 +103,16 @@ class JSession extends JObject
 
 		// perform security checks
 		$this->_validate();
+	}
+	
+    /**
+	 * Session object destructor
+	 *
+	 * @access private
+	 * @since 1.5
+	 */
+	function __destruct() {
+		$this->close();
 	}
 
 	/**
@@ -249,7 +263,7 @@ class JSession extends JObject
 		return $names;
 	}
 
-   /**
+	/**
 	* Check whether this session is currently created
 	*
 	* @access public
@@ -424,7 +438,7 @@ class JSession extends JObject
 		return true;
 	}
 
-   /**
+	/**
     * restart an expired or locked session
 	*
 	* @access public
@@ -567,7 +581,7 @@ class JSession extends JObject
 		return true;
 	}
 
-   /**
+	/**
 	* Set the session timers
 	*
 	* @access protected
@@ -620,7 +634,7 @@ class JSession extends JObject
 		}
 
 		//sync the session maxlifetime
-		ini_set("session.gc_maxlifetime", $this->_expire);
+		ini_set('session.gc_maxlifetime', $this->_expire);
 
 		return true;
 	}
@@ -695,8 +709,8 @@ class JSession extends JObject
 			}
 			else if( $_SERVER['HTTP_USER_AGENT'] !== $browser )
 			{
-				$this->_state	=	'error';
-				return false;
+//				$this->_state	=	'error';
+//				return false;
 			}
 		}
 

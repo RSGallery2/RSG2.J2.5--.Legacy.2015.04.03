@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: utility.php 7127 2007-04-11 17:44:32Z louis $
+ * @version		$Id: utility.php 8176 2007-07-23 04:26:14Z eddieajau $
  * @package		Joomla.Framework
  * @subpackage	Utilities
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -94,8 +94,6 @@ class JUtility
 		$message = sprintf ( JText::_( 'MAIL_MSG_ADMIN' ), $adminName, $type, $title, $author, $url, $url, 'administrator', $type);
 		$message .= JText::_( 'MAIL_MSG') ."\n";
 
-		eval ("\$message = \"$message\";");
-
 		jimport('joomla.utilities.mail');
 
 	 	// Get a JMail instance
@@ -168,5 +166,20 @@ class JUtility
 	 */
 	function isWinOS() {
 		return strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
+	}
+
+	/**
+	 * Method to dump the structure of a variable for debugging purposes
+	 *
+	 * @param	mixed	A variable
+	 * @param	boolean	True to ensure all characters are htmlsafe
+	 * @return	string
+	 * @since	1.5
+	 * @static
+	 */
+	function dump( &$var, $htmlSafe = true )
+	{
+		$result = var_export( $var, true );
+		return '<pre>'.( $htmlSafe ? htmlspecialchars( $result ) : $result).'</pre>';
 	}
 }

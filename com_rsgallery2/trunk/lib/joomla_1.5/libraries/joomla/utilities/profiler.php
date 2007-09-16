@@ -1,7 +1,7 @@
 <?php
 
 /**
-* @version		$Id: profiler.php 7074 2007-03-31 15:37:23Z jinx $
+* @version		$Id: profiler.php 8823 2007-09-10 09:10:58Z tcp $
 * @package		Joomla.Framework
 * @subpackage	Utilities
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -96,7 +96,12 @@ class JProfiler extends JObject
 	 */
 	function mark( $label )
 	{
-		$mark = sprintf ( "\n<div>$this->_prefix %.3f $label</div>", $this->getmicrotime() - $this->_start );
+		$mark	= $this->_prefix." $label: ";
+		$mark	.= sprintf('%.3f', $this->getmicrotime() - $this->_start) . ' seconds';
+		if ( function_exists('memory_get_usage') ) {
+			$mark	.= ', '.sprintf('%0.2f', memory_get_usage() / 1048576 ).' MB';
+		}
+		
 		$this->_buffer[] = $mark;
 		return $mark;
 	}

@@ -1,7 +1,7 @@
 <?php
 /**
-* @version		$Id: calendar.php 7732 2007-06-13 12:08:11Z tcp $
-* @package		Joomla
+* @version		$Id: calendar.php 8329 2007-08-03 15:56:00Z chrisdavenport $
+* @package		Joomla.Framework
 * @subpackage	Articles
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
@@ -19,13 +19,13 @@ defined('_JEXEC') or die();
  * Renders a calendar element
  *
  * @author 		Louis Landry
- * @package 	Joomla
+ * @package 	Joomla.Framework
  * @subpackage	Articles
  * @since		1.5
  */
 class JElementCalendar extends JElement
 {
-   /**
+	/**
 	* Element name
 	* @access	protected
 	* @var		string
@@ -39,7 +39,9 @@ class JElementCalendar extends JElement
 		$format	= ( $node->attributes('format') ? $node->attributes('format') : 'y-mm-dd' );
 		$class	= $node->attributes('class') ? $node->attributes('class') : 'inputbox';
 
-		return JHTML::_('calendar', $value, $name, $format, array('class' => $class), $control_name);
+		$id   = $control_name.$name;
+		$name = $control_name.'['.$name.']';
+
+		return JHTML::_('calendar', $value, $name, $id, $format, array('class' => $class));
 	}
 }
-?>

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: document.php 7525 2007-05-28 19:11:38Z jinx $
+* @version		$Id: document.php 8773 2007-09-08 14:14:10Z jinx $
 * @package		Joomla.Framework
 * @subpackage	Document
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -43,12 +43,20 @@ class JDocument extends JObject
 	var $description = '';
 
 	/**
-	 * Document base URL
+	 * Document full URL
 	 *
 	 * @var	 string
 	 * @access  public
 	 */
 	var $link = '';
+	
+	/**
+	 * Document base URL
+	 *
+	 * @var	 string
+	 * @access  public
+	 */
+	var $base = '';
 
 	 /**
 	 * Contains the document language setting
@@ -56,7 +64,7 @@ class JDocument extends JObject
 	 * @var	 string
 	 * @access  public
 	 */
-	var $language = 'en';
+	var $language = 'en-gb';
 
 	/**
 	 * Contains the document direction setting
@@ -205,28 +213,32 @@ class JDocument extends JObject
 	{
 		parent::__construct();
 
-		if (isset($options['lineend'])) {
+		if (array_key_exists('lineend', $options)) {
 			$this->setLineEnd($options['lineend']);
 		}
 
-		if (isset($options['charset'])) {
+		if (array_key_exists('charset', $options)) {
 			$this->setCharset($options['charset']);
 		}
 
-		if (isset($options['language'])) {
+		if (array_key_exists('language', $options)) {
 			$this->setLanguage($options['language']);
 		}
 
-		 if (isset($options['direction'])) {
+		 if (array_key_exists('direction', $options)) {
 			$this->setDirection($options['direction']);
 		}
 
-		if (isset($options['tab'])) {
+		if (array_key_exists('tab', $options)) {
 			$this->setTab($options['tab']);
 		}
 
-		if (isset($options['link'])) {
+		if (array_key_exists('link', $options)) {
 			$this->setLink($options['link']);
+		}
+		
+		if (array_key_exists('base', $options)) {
+			$this->setBase($options['base']);
 		}
 	}
 
@@ -253,25 +265,43 @@ class JDocument extends JObject
 
 		if (empty($instances[$signature]))
 		{
-			$type = preg_replace('/[^A-Z0-9_\.-]/i', '', $type);
-			$path = JPATH_LIBRARIES.DS.'joomla'.DS.'document'.DS.$type.DS.$type.'.php';
+			$type	= preg_replace('/[^A-Z0-9_\.-]/i', '', $type);
+			$file	= JPATH_LIBRARIES.DS.'joomla'.DS.'document'.DS.$type.DS.$type.'.php';
+			$ntype	= null;
 
-			if (file_exists($path)) {
-				require_once $path;
-			}
-			else
-			{
-				// No call to JError::raiseError here, as it depends on JDocumentError
-				jimport('joomla.session.session');
-				JSession::close();
-				exit('Unable to load Document Type: '.$type);
+			// Check if the document type exists
+			if ( ! file_exists($file)) {
+				// Default to the raw format
+				$ntype	= $type;
+				$type	= 'raw';
 			}
 
+			// Determine the path and class
+			$path	= "joomla.document.$type.$type";
 			$class = 'JDocument'.$type;
-			$instances[$signature] = new $class($attributes);
+
+			jimport($path);
+			$instance	= new $class($attributes);
+			$instances[$signature] =& $instance;
+
+			if ( !is_null($ntype) )
+			{
+				// Set the type to the Document type originally requested
+				$instance->setType($ntype);
+			}
 		}
 
 		return $instances[$signature];
+	}
+
+	/**
+	 * Set the document type
+	 *
+	 * @access	public
+	 * @param	string $type
+	 */
+	function setType($type) {
+		$this->_type = $type;
 	}
 
 	 /**
@@ -433,12 +463,12 @@ class JDocument extends JObject
 	}
 
 	/**
-	 * Sets the global document language declaration. Default is English (en).
+	 * Sets the global document language declaration. Default is English (en-gb).
 	 *
 	 * @access public
 	 * @param   string   $lang
 	 */
-	function setLanguage($lang = "en") {
+	function setLanguage($lang = "en-gb") {
 		$this->language = strtolower($lang);
 	}
 
@@ -490,6 +520,26 @@ class JDocument extends JObject
 	 */
 	function getTitle() {
 		return $this->title;
+	}
+	
+	/**
+	 * Sets the base URI of the document
+	 *
+	 * @param	string	$base
+	 * @access   public
+	 */
+	function setBase($base) {
+		$this->base = $base;
+	}
+
+	/**
+	 * Return the base URI of the document.
+	 *
+	 * @return   string
+	 * @access   public
+	 */
+	function getBase() {
+		return $this->base;
 	}
 
 	/**

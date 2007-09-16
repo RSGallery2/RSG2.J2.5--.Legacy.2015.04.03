@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: user.php 7746 2007-06-14 02:38:42Z rmdstudio $
+ * @version		$Id: user.php 8841 2007-09-11 20:27:59Z jinx $
  * @package		Joomla.Framework
  * @subpackage	User
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -56,6 +56,12 @@ class JUser extends JObject
 	 * @var string
 	 */
 	var $password		= null;
+
+	/**
+	 * Clear password, only available when a new password is set for a user
+	 * @var string
+	 */
+	var $password_clear	= '';
 
 	/**
 	 * Description
@@ -128,12 +134,6 @@ class JUser extends JObject
 	 * @var string
 	 */
 	var $_errorMsg	= null;
-
-	/**
-	 * Clear password, only available when a new password is set for a user
-	 * @var string
-	 */
-	var $clearPW	= '';
 
 
 	/**
@@ -253,9 +253,10 @@ class JUser extends JObject
 	 */
 	function authorize( $acoSection, $aco, $axoSection = null, $axo = null )
 	{
-		$acl	= & JFactory::getACL();
 		// the native calls (Check Mode 1) work on the user id, not the user type
+		$acl	= & JFactory::getACL();
 		$value	= $acl->getCheckMode() == 1 ? $this->id : $this->usertype;
+		
 		return $acl->acl_check( $acoSection, $aco,	'users', $value, $axoSection, $axo );
 	}
 
@@ -270,7 +271,7 @@ class JUser extends JObject
 	function setLastVisit($timestamp=null)
 	{
 		// Create the user table object
-		$table 	=& JTable::getInstance( 'user');
+		$table 	=& $this->getTable();
 		$table->load($this->id);
 
 		return $table->setLastVisit($timestamp);
@@ -295,12 +296,22 @@ class JUser extends JObject
 	 * @return	object	The user table object
 	 * @since	1.5
 	 */
-	function &getTable()
+	function &getTable($type = null)
 	{
+		static $tabletype;
+		
+		//Set the default tabletype;
+		if(!isset($tabletype)) {
+			$tabletype = 'user';
+		}
+		
+		//Set a custom table type is defined
+		if(isset($type)) {
+			$tabletype = $type;
+		}
+		
 		// Create the user table object
-		$table 	=& JTable::getInstance( 'user');
-		$table->load($this->id);
-
+		$table 	=& JTable::getInstance( $tabletype);
 		return $table;
 	}
 
@@ -316,7 +327,7 @@ class JUser extends JObject
 	function setParameters($data, $path = null)
 	{
 		// Assume we are using the xml file from com_users if no other xml file has been set
-		if (is_null($path)) 
+		if (is_null($path))
 		{
 			jimport( 'joomla.application.helper' );
 			$path 	= JApplicationHelper::getPath( 'com_xml', 'com_users' );
@@ -324,17 +335,6 @@ class JUser extends JObject
 
 		$this->_params->loadSetupFile($path);
 		$this->_params->loadINI($data);
-	}
-
-	/**
-	 * Method to get JUser error message
-	 *
-	 * @access 	public
-	 * @return	string	The error message
-	 * @since	1.5
-	 */
-	function getError() {
-		return $this->_errorMsg;
 	}
 
 	/**
@@ -351,31 +351,30 @@ class JUser extends JObject
 		jimport( 'joomla.utilities.array' );
 
 		// Lets check to see if the user is new or not
-		if (empty($this->id) /*&& $array['id']*/)
+		if (empty($this->id))
 		{
-			/*
-			 * Since we have a new user, and we are going to create it... we
-			 * need to check a few things and set some defaults if we don't
-			 * already have them.
-			 */
-
-			// First the password
+			// Check the password and create the crypted password
 			if (empty($array['password'])) {
-				$array['password'] = JUserHelper::genRandomPassword();
-			} 
-			else if ($array['password'] != $array['password2']) 
-			{
-					$this->_setError( JText::_( 'PASSWORD DO NOT MATCH.' ) );
+				$array['password']  = JUserHelper::genRandomPassword();
+				$array['password2'] = $array['password'];
+			}
+
+			if ($array['password'] != $array['password2']) {
+					$this->setError( JText::_( 'PASSWORD DO NOT MATCH.' ) );
 					return false;
 			}
-			
-			$this->clearPW = JArrayHelper::getValue( $array, 'password', '', 'string' );
-			$array['password'] = JUserHelper::getCryptedPassword($array['password']);
 
-			// Next the registration timestamp
+			$this->password_clear = JArrayHelper::getValue( $array, 'password', '', 'string' );
+
+			$salt  = JUserHelper::genRandomPassword(32);
+			$crypt = JUserHelper::getCryptedPassword($array['password'], $salt);
+			$array['password'] = $crypt.':'.$salt;
+
+			// Set the registration timestamp
+			// TODO: Should this be JDate?
 			$this->set( 'registerDate', date( 'Y-m-d H:i:s' ) );
 
-			// check that username is not greater than 25 characters
+			// Check that username is not greater than 25 characters
 			$username = $this->get( 'username' );
 			if ( strlen($username) > 150 )
 			{
@@ -383,7 +382,7 @@ class JUser extends JObject
 				$this->set( 'username', $username );
 			}
 
-			// check that password is not greater than 50 characters
+			// Check that password is not greater than 50 characters
 			$password = $this->get( 'password' );
 			if ( strlen($password) > 100 )
 			{
@@ -393,17 +392,19 @@ class JUser extends JObject
 		}
 		else
 		{
-			// We are updating an existing user.. so lets get down to it.
+			// Updating an existing user
 			if (!empty($array['password']))
 			{
-				if ( $array['password'] != $array['password2'] ) 
-				{
-					$this->_setError( JText::_( 'PASSWORD DO NOT MATCH.' ) );
+				if ( $array['password'] != $array['password2'] ) {
+					$this->setError( JText::_( 'PASSWORD DO NOT MATCH.' ) );
 					return false;
 				}
-				
-				$this->clearPW = JArrayHelper::getValue( $array, 'password', '', 'string' );
-				$array['password'] = JUserHelper::getCryptedPassword($array['password']);
+
+				$this->password_clear = JArrayHelper::getValue( $array, 'password', '', 'string' );
+
+				$salt = JUserHelper::genRandomPassword(32);
+				$crypt = JUserHelper::getCryptedPassword($array['password'], $salt);
+				$array['password'] = $crypt.':'.$salt;
 			}
 			else
 			{
@@ -411,11 +412,7 @@ class JUser extends JObject
 			}
 		}
 
-		/*
-		 * NOTE
-		 * TODO
-		 * @todo: this will be deprecated as of the ACL implementation
-		 */
+		// TODO: this will be deprecated as of the ACL implementation
 		$db =& JFactory::getDBO();
 
 		$gid	= array_key_exists('gid', $array ) ? $array['gid'] : $this->get('gid');
@@ -440,13 +437,9 @@ class JUser extends JObject
 			$this->params = $params;
 		}
 
-		/*
-		 * Lets first try to bind the array to us... if that fails
-		 * then we can certainly fail the whole method as we've done absolutely
-		 * no good :)
-		 */
-		if (!$this->_bind($array, 'aid guest')) {
-			$this->_setError("Unable to bind array to user object");
+		// Bind the array
+		if (!$this->setProperties($array)) {
+			$this->setError("Unable to bind array to user object");
 			return false;
 		}
 
@@ -469,70 +462,53 @@ class JUser extends JObject
 		jimport( 'joomla.utilities.array' );
 
 		// Create the user table object
-		$table 	=& JTable::getInstance( 'user');
-		$table->bind(JArrayHelper::fromObject($this, false));
+		$table 	=& $this->getTable();
+		$this->params = $this->_params->toString();
+		$table->bind($this->getProperties());
 
-		/*
-		 * We need to get the JUser object for the current installed user, but
-		 * might very well be modifying that user... and isn't it ironic...
-		 * don't ya think?
-		 */
-		$me =& JFactory::getUser();
-
-		/*
-		 * Now that we have gotten all the field handling out of the way, time
-		 * to check and store the object.
-		 */
-		if (!$table->check())
-		{
-			$this->_setError($table->getError());
+		// Check and store the object.
+		if (!$table->check()) {
+			$this->setError($table->getError());
 			return false;
 		}
 
-		// if user is made a Super Admin group and user is NOT a Super Admin
-		if ( $this->get('gid') == 25 && $me->get('gid') != 25 )
+		// If user is made a Super Admin group and user is NOT a Super Admin
+		$my =& JFactory::getUser();
+		if ( $this->get('gid') == 25 && $my->get('gid') != 25 )
 		{
 			// disallow creation of Super Admin by non Super Admin users
-			$this->_setError(JText::_( 'WARNSUPERADMINCREATE' ));
+			$this->setError(JText::_( 'WARNSUPERADMINCREATE' ));
 			return false;
 		}
 
 		//are we creating a new user
 		$isnew = !$this->id;
 
-		// If we aren't allowed to create new and we are  about to... return true .. job done
+		// If we aren't allowed to create new users return
 		if ($isnew && $updateOnly) {
 			return true;
 		}
 
-		/*
-		 * Since we have passed all checks lets load the user plugin group and
-		 * fire the onBeforeStoreUser event.
-		 */
+		// Get the old user
+		$old = new JUser($this->id);
+
+		// Fire the onBeforeStoreUser event.
 		JPluginHelper::importPlugin( 'user' );
 		$dispatcher =& JEventDispatcher::getInstance();
-		$dispatcher->trigger( 'onBeforeStoreUser', array( get_object_vars( $table ), $isnew ) );
+		$dispatcher->trigger( 'onBeforeStoreUser', array( $old->getProperties(), $isnew ) );
 
-		/*
-		 * Time for the real thing... are you ready for the real thing?  Store
-		 * the JUserModel ... if a fail condition exists throw a warning
-		 */
-		$result = false;
+		//Store the user data in the database
 		if (!$result = $table->store()) {
-			$this->_setError($table->getError());
+			$this->setError($table->getError());
 		}
 
-		/*
-		 * If the id is not set, lets set the id for the JUser object.  This
-		 * might happen if we just inserted a new user... and need to update
-		 * this objects id value with the inserted id.
-		 */
+		// Set the id for the JUser object in case we created a new user.
 		if (empty($this->id)) {
 			$this->id = $table->get( 'id' );
 		}
 
-		// We stored the user... lets tell everyone about it.
-		$dispatcher->trigger( 'onAfterStoreUser', array( get_object_vars( $table ), $isnew, $result, $this->getError() ) );
+		// Fire the onAftereStoreUser event
+		$dispatcher->trigger( 'onAfterStoreUser', array( $this->getProperties(), $isnew, $result, $this->getError() ) );
 
 		return $result;
 	}
@@ -551,18 +527,18 @@ class JUser extends JObject
 
 		//trigger the onBeforeDeleteUser event
 		$dispatcher =& JEventDispatcher::getInstance();
-		$dispatcher->trigger( 'onBeforeDeleteUser', array( array( 'id' => $this->id ) ) );
+		$dispatcher->trigger( 'onBeforeDeleteUser', array( $this->getProperties() ) );
 
 		// Create the user table object
-		$table 	=& JTable::getInstance( 'user');
+		$table 	=& $this->getTable();
 
 		$result = false;
 		if (!$result = $table->delete($this->id)) {
-			$this->_setError($table->getError());
+			$this->setError($table->getError());
 		}
 
 		//trigger the onAfterDeleteUser event
-		$dispatcher->trigger( 'onAfterDeleteUser', array( array('id' => $this->id), $result, $this->getError()) );
+		$dispatcher->trigger( 'onAfterDeleteUser', array( $this->getProperties(), $result, $this->getError()) );
 		return $result;
 
 	}
@@ -579,11 +555,10 @@ class JUser extends JObject
 	function load($id)
 	{
 		// Create the user table object
-		$table 	=& JTable::getInstance( 'user');
+		$table 	=& $this->getTable();
 
 		 // Load the JUserModel object based on the user id or throw a warning.
-		 if(!$table->load($id))
-		 {
+		 if(!$table->load($id)) {
 			JError::raiseWarning( 'SOME_ERROR_CODE', 'JUser::_load: Unable to load user with id: '.$id );
 			return false;
 		}
@@ -594,71 +569,10 @@ class JUser extends JObject
 		 * user parameters, but for right now we'll leave it how it is.
 		 */
 		$this->_params->loadINI($table->params);
-
+		
 		// Assuming all is well at this point lets bind the data
-		$this->_bind(JArrayHelper::fromObject($table, false));
+		$this->setProperties($table->getProperties());
 
 		return true;
-	}
-
-	/**
-	* Binds a named array/hash to this object
-	*
-	* @access	protected
-	* @param	$array  mixed Either and associative array or another object
-	* @param	$ignore string	Space separated list of fields not to bind
-	* @return	boolean
-	* @since	1.5
-	*/
-	function _bind( $from, $ignore='' )
-	{
-		if (!is_array( $from ) && !is_object( $from )) {
-			$this->_setError(strtolower(get_class( $this ))."::bind failed.");
-			return false;
-		}
-
-		$fromArray  = is_array( $from );
-		$fromObject = is_object( $from );
-
-		if ($fromArray || $fromObject)
-		{
-			foreach (get_object_vars($this) as $k => $v)
-			{
-				// only bind to public variables
-				if( substr( $k, 0, 1 ) != '_' )
-				{
-					// internal attributes of an object are ignored
-					if (strpos( $ignore, $k) === false)
-					{
-						$ak = $k;
-
-						if ($fromArray && isset( $from[$ak] )) {
-							$this->$k = $from[$ak];
-						} else if ($fromObject && isset( $from->$ak )) {
-							$this->$k = $from->$ak;
-						}
-					}
-				}
-			}
-		}
-		else
-		{
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
-	 * Method to set an error message
-	 *
-	 * @access	private
-	 * @param	string	$msg	The message to append to the error message
-	 * @return	void
-	 * @since	1.5
-	 */
-	function _setError( $msg )
-	{
-		$this->_errorMsg .= $msg."\n";
 	}
 }

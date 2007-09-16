@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: error.php 7533 2007-05-29 04:17:43Z robs $
+* @version		$Id: error.php 8860 2007-09-13 13:44:56Z jinx $
 * @package		Joomla.Framework
 * @subpackage	Utilities
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -18,28 +18,35 @@ defined('JPATH_BASE') or die();
 // Import library dependencies
 jimport('joomla.i18n.language');
 
-define('JERR_PHP5', version_compare(phpversion(), '5') >= 0);
 // Error Definition: Illegal Options
-define( 'JERR_ILLEGAL_OPTIONS', 1 );
+define( 'JERROR_ILLEGAL_OPTIONS', 1 );
 // Error Definition: Callback does not exist
-define( 'JERR_CALLBACK_NOT_CALLABLE', 2 );
+define( 'JERROR_CALLBACK_NOT_CALLABLE', 2 );
 // Error Definition: Illegal Handler
-define( 'JERR_ILLEGAL_MODE', 3 );
+define( 'JERROR_ILLEGAL_MODE', 3 );
 
 /*
  * JError exception stack
  */
-$GLOBALS['_JError_Stack'] = array();
+$GLOBALS['_JERROR_STACK'] = array();
 
 /*
  * Default available error levels
  */
-$GLOBALS['_JError_Levels'] = array( E_NOTICE => 'Notice', E_WARNING => 'Warning', E_ERROR => 'Error' );
+$GLOBALS['_JERROR_LEVELS'] = array( 
+	E_NOTICE 	=> 'Notice', 
+	E_WARNING	=> 'Warning', 
+	E_ERROR 	=> 'Error' 
+);
 
 /*
  * Default error handlers
  */
-$GLOBALS['_JError_Handlers'] = array( E_NOTICE => array( 'mode' => 'message' ), E_WARNING => array( 'mode' => 'message' ), E_ERROR => array( 'mode' => 'callback', 'options' => array('JError','customErrorPage') ) );
+$GLOBALS['_JERROR_HANDLERS'] = array( 
+	E_NOTICE 	=> array( 'mode' => 'message' ), 
+	E_WARNING 	=> array( 'mode' => 'message' ), 
+	E_ERROR 	=> array( 'mode' => 'callback', 'options' => array('JError','customErrorPage') ) 
+);
 
 /**
  * Error Handling Class
@@ -88,14 +95,14 @@ class JError
 	 */
 	function & getError($unset = false)
 	{
-		if (!isset($GLOBALS['_JError_Stack'][0])) {
+		if (!isset($GLOBALS['_JERROR_STACK'][0])) {
 			$false = false;
 			return $false;
 		}
 		if ($unset) {
-			$error = array_shift($GLOBALS['_JError_Stack']);
+			$error = array_shift($GLOBALS['_JERROR_STACK']);
 		} else {
-			$error = &$GLOBALS['_JError_Stack'][0];
+			$error = &$GLOBALS['_JERROR_STACK'][0];
 		}
 		return $error;
 	}
@@ -110,7 +117,7 @@ class JError
 	 */
 	function & getErrors()
 	{
-		return $GLOBALS['_JError_Stack'];
+		return $GLOBALS['_JERROR_STACK'];
 	}
 
 	/**
@@ -148,7 +155,7 @@ class JError
 		}
 
 		//store and return the error
-		$GLOBALS['_JError_Stack'][] =& $reference;
+		$GLOBALS['_JERROR_STACK'][] =& $reference;
 		return $reference;
 	}
 
@@ -199,8 +206,8 @@ class JError
 		$reference = & JError::raise(E_NOTICE, $code, $msg, $info);
 		return $reference;
 	}
-
-   /**
+	
+	/**
 	* Method to get the current error handler settings for a specified error level.
 	*
 	* @static
@@ -210,7 +217,7 @@ class JError
 	*/
     function getErrorHandling( $level )
     {
-		return $GLOBALS['_JError_Handlers'][$level];
+		return $GLOBALS['_JERROR_HANDLERS'][$level];
     }
 
 	/**
@@ -223,7 +230,6 @@ class JError
 	 * - die
 	 * - message
 	 * - log
-	 * - trigger
 	 * - callback
 	 *
 	 * You may also set the error handling for several modes at once using PHP's bit operations.
@@ -241,11 +247,11 @@ class JError
 	 */
 	function setErrorHandling($level, $mode, $options = null)
 	{
-		$levels = $GLOBALS['_JError_Levels'];
+		$levels = $GLOBALS['_JERROR_LEVELS'];
 
 		$function = 'handle'.ucfirst($mode);
 		if (!is_callable(array ('JError',$function))) {
-			return JError::raiseError(E_ERROR, 'JError:'.JERR_ILLEGAL_MODE, 'Error Handling mode is not knwon', 'Mode: '.$mode.' is not implemented.');
+			return JError::raiseError(E_ERROR, 'JError:'.JERROR_ILLEGAL_MODE, 'Error Handling mode is not known', 'Mode: '.$mode.' is not implemented.');
 		}
 
 		foreach ($levels as $eLevel => $eTitle) {
@@ -256,7 +262,7 @@ class JError
 			// set callback options
 			if ($mode == 'callback') {
 				if (!is_array($options)) {
-					return JError::raiseError(E_ERROR, 'JError:'.JERR_ILLEGAL_OPTIONS, 'Options for callback not valid');
+					return JError::raiseError(E_ERROR, 'JError:'.JERROR_ILLEGAL_OPTIONS, 'Options for callback not valid');
 				}
 
 				if (!is_callable($options)) {
@@ -268,21 +274,43 @@ class JError
 						$tmp[1] = $options;
 					}
 
-					return JError::raiseError(E_ERROR, 'JError:'.JERR_CALLBACK_NOT_CALLABLE, 'Function is not callable', 'Function:'.$tmp[1].' scope '.$tmp[0].'.');
+					return JError::raiseError(E_ERROR, 'JError:'.JERROR_CALLBACK_NOT_CALLABLE, 'Function is not callable', 'Function:'.$tmp[1].' scope '.$tmp[0].'.');
 				}
 			}
 
 			// save settings
-			$GLOBALS['_JError_Handlers'][$eLevel] = array ('mode' => $mode);
+			$GLOBALS['_JERROR_HANDLERS'][$eLevel] = array ('mode' => $mode);
 			if ($options != null) {
-				$GLOBALS['_JError_Handlers'][$eLevel]['options'] = $options;
+				$GLOBALS['_JERROR_HANDLERS'][$eLevel]['options'] = $options;
 			}
 		}
 
 		return true;
 	}
+	
+	/** 
+  	 * Method that attaches the error handler to JError 
+  	 * 
+  	 * @access public 
+  	 * @see set_error_handler
+  	 */ 
+	function attachHandler()
+	{
+		set_error_handler(array('JError', 'customErrorHandler'));
+	}
+	
+	/** 
+  	 * Method that dettaches the error handler from JError 
+  	 * 
+  	 * @access public 
+  	 * @see restore_error_handler
+  	 */ 
+	function detachHandler()
+	{
+		restore_error_handler(); 
+	}
 
-   /**
+	/**
 	* Method to register a new error level for handling errors
 	*
 	* This allows you to add custom error levels to the built-in
@@ -299,15 +327,15 @@ class JError
 	*/
 	function registerErrorLevel( $level, $name, $handler = 'ignore' )
 	{
-		if( isset($GLOBALS['_JError_Levels'][$level]) ) {
+		if( isset($GLOBALS['_JERROR_LEVELS'][$level]) ) {
 			return false;
 		}
-		$GLOBALS['_JError_Levels'][$level] = $name;
+		$GLOBALS['_JERROR_LEVELS'][$level] = $name;
 		JError::setErrorHandling($level, $handler);
 		return true;
 	}
 
-   /**
+	/**
 	* Translate an error level integer to a human readable string
 	* e.g. E_ERROR will be translated to 'Error'
 	*
@@ -318,8 +346,8 @@ class JError
 	*/
 	function translateErrorLevel( $level )
 	{
-		if( isset($GLOBALS['_JError_Levels'][$level]) ) {
-			return $GLOBALS['_JError_Levels'][$level];
+		if( isset($GLOBALS['_JERROR_LEVELS'][$level]) ) {
+			return $GLOBALS['_JERROR_LEVELS'][$level];
 		}
 		return false;
 	}
@@ -472,8 +500,10 @@ class JError
 	{
 		static $log;
 
-		if ($log == null) {
+		if ($log == null) 
+		{
 			jimport('joomla.utilities.log');
+			// TODO: Should this be JDate?
 			$fileName = date('Y-m-d').'.error.log';
 			$options['format'] = "{DATE}\t{TIME}\t{LEVEL}\t{CODE}\t{MESSAGE}";
 			$log = & JLog::getInstance($fileName, $options);
@@ -486,40 +516,6 @@ class JError
 
 		return $error;
 	}
-
-	/**
-	 * Trigger error handler
-	 * 	- Triggers a PHP native error with the error message
-	 *
-	 * @static
-	 * @param	object	$error		Exception object to handle
-	 * @param	array	$options	Handler options
-	 * @return	object	The exception object
-	 * @since	1.5
-	 *
-	 * @see	raise()
-	 */
-    function &handleTrigger( &$error, $options )
-    {
-		switch( $error->get('level') )
-		{
-			case	E_NOTICE:
-				$level	=	E_USER_NOTICE;
-				break;
-			case	E_WARNING:
-				$level	=	E_USER_WARNING;
-				break;
-			case	E_NOTICE:
-				$level =	E_NOTICE;
-				break;
-			default:
-				$level	=	E_USER_ERROR;
-				break;
-		}
-
-		trigger_error( $error->get('message'), $level );
-		return $error;
-    }
 
  	/**
 	 * Callback error handler
@@ -580,7 +576,15 @@ class JError
 		echo '</pre>';
 		die();
 	}
+	
+	function customErrorHandler($level, $msg)
+	{
+		JError::raise($level, '', $msg);
+	}
 }
+
+//JError::attachHandler();
+
 
 /**
  * Joomla! Exception object.
@@ -599,74 +603,74 @@ class JError
  */
 class JException extends JObject
 {
-   /**
+	/**
 	* Error level
 	* @var string
 	*/
 	var	$level		= null;
 
-   /**
+	/**
 	* Error code
 	* @var string
 	*/
 	var	$code		= null;
 
-   /**
+	/**
 	* Error message
 	* @var string
 	*/
 	var	$message	= null;
 
-   /**
+	/**
 	* Additional info about the error relevant to the developer
 	*  - e.g. if a database connect fails, the dsn used
 	* @var string
 	*/
 	var	$info		= '';
 
-   /**
+	/**
 	* Name of the file the error occurred in [Available if backtrace is enabled]
 	* @var string
 	*/
 	var	$file		= null;
 
-   /**
+	/**
 	* Line number the error occurred in [Available if backtrace is enabled]
 	* @var int
 	*/
 	var	$line		= 0;
 
-   /**
+	/**
 	* Name of the method the error occurred in [Available if backtrace is enabled]
 	* @var string
 	*/
 	var	$function	= null;
 
-   /**
+	/**
 	* Name of the class the error occurred in [Available if backtrace is enabled]
 	* @var string
 	*/
 	var	$class		= null;
 
-   /**
+	/**
     * Error type
 	* @var string
 	*/
 	var	$type		= null;
 
-   /**
+	/**
 	* Arguments recieved by the method the error occurred in [Available if backtrace is enabled]
 	* @var array
 	*/
 	var	$args		= array();
 
-   /**
+	/**
 	* Backtrace information
 	* @var mixed
 	*/
 	var	$backtrace	= false;
 
-   /**
+	/**
 	* Constructor
 	* 	- used to set up the error with all needed error details.
 	*
@@ -712,7 +716,7 @@ class JException extends JObject
 		}
     }
 
-   /**
+	/**
 	* Method to get the backtrace information for an exception object
 	*
 	* @access	public
@@ -721,9 +725,17 @@ class JException extends JObject
 	*/
 	function getBacktrace( $formatted=false )
 	{
-		if ($formatted && is_array( $this->backtrace )) {
+		if (isset( $this->backtrace )) {
+			$trace = &$this->backtrace;
+		} else {
+			$trace = function_exists( 'debug_backtrace' ) ? debug_backtrace() : null;
+		}
+
+		if ($formatted && is_array( $trace ))
+		{
 			$result = '';
-			foreach( $this->backtrace as $back) {
+			foreach ($trace as $back)
+			{
 				if (isset($back['file']) && strpos($back['file'], 'error.php') === false) {
 					$result .= '<br />'.$back['file'].':'.$back['line'];
 				}

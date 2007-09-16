@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: log.php 7074 2007-03-31 15:37:23Z jinx $
+ * @version		$Id: log.php 8762 2007-09-07 05:28:57Z pasamio $
  * @package		Joomla.Framework
  * @subpackage	Utilities
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -118,9 +118,11 @@ class JLog extends JObject
 	{
 		// Set some default field values if not already set.
 		if (!isset ($entry['date'])) {
+			// TODO: Should this be JDate?
 			$entry['date'] = date("Y-m-d");
 		}
 		if (!isset ($entry['time'])) {
+			// TODO: Should this be JDate?
 			$entry['time'] = date("H:i:s");
 		}
 		if (!isset ($entry['c-ip'])) {
@@ -167,7 +169,7 @@ class JLog extends JObject
 		if (is_resource($this->_file)) {
 			return true;
 		}
-
+		// TODO: Should this be JDate?
 		$date = date("Y-m-d");
 		$time = date("H:i:s");
 		if (!file_exists($this->_path))
