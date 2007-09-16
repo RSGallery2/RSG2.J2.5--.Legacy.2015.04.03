@@ -61,7 +61,7 @@
     <filename>js_highslide/graphics/outlines/rounded-white/6.png</filename>
     <filename>js_highslide/graphics/outlines/rounded-white/7.png</filename>
     <filename>js_highslide/graphics/outlines/rounded-white/8.png</filename>
-	
+
 	<filename>lib/joomla_1.5/libraries/joomla/application/application.php</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/application/component/controller.php</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/application/component/helper.php</filename>
@@ -75,23 +75,23 @@
 	<filename>lib/joomla_1.5/libraries/joomla/application/module/index.html</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/application/pathway.php</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/application/router.php</filename>
-	<filename>lib/joomla_1.5/libraries/joomla/application/search.php</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/base/index.html</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/base/object.php</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/base/observer.php</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/base/tree.php</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/cache/cache.php</filename>
-	<filename>lib/joomla_1.5/libraries/joomla/cache/handlers/callback.php</filename>
-	<filename>lib/joomla_1.5/libraries/joomla/cache/handlers/index.html</filename>
-	<filename>lib/joomla_1.5/libraries/joomla/cache/handlers/output.php</filename>
-	<filename>lib/joomla_1.5/libraries/joomla/cache/handlers/page.php</filename>
-	<filename>lib/joomla_1.5/libraries/joomla/cache/handlers/view.php</filename>
+	<filename>lib/joomla_1.5/libraries/joomla/cache/handler/callback.php</filename>
+	<filename>lib/joomla_1.5/libraries/joomla/cache/handler/index.html</filename>
+	<filename>lib/joomla_1.5/libraries/joomla/cache/handler/output.php</filename>
+	<filename>lib/joomla_1.5/libraries/joomla/cache/handler/page.php</filename>
+	<filename>lib/joomla_1.5/libraries/joomla/cache/handler/view.php</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/cache/index.html</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/cache/storage/apc.php</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/cache/storage/eaccelerator.php</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/cache/storage/file.php</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/cache/storage/index.html</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/cache/storage/memcache.php</filename>
+	<filename>lib/joomla_1.5/libraries/joomla/cache/storage/xcache.php</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/cache/storage.php</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/client/ftp.php</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/client/helper.php</filename>
@@ -222,6 +222,7 @@
 	<filename>lib/joomla_1.5/libraries/joomla/installer/adapters/template.php</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/installer/index.html</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/installer/installer.php</filename>
+	<filename>lib/joomla_1.5/libraries/joomla/methods.php</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/registry/format/index.html</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/registry/format/ini.php</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/registry/format/php.php</filename>
@@ -237,6 +238,7 @@
 	<filename>lib/joomla_1.5/libraries/joomla/session/storage/index.html</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/session/storage/memcache.php</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/session/storage/none.php</filename>
+	<filename>lib/joomla_1.5/libraries/joomla/session/storage/xcache.php</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/session/storage.php</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/template/index.html</filename>
 	<filename>lib/joomla_1.5/libraries/joomla/template/module/function/index.html</filename>
@@ -311,23 +313,18 @@
 	<filename>lib/joomla_1.5/libraries/phputf8/utils/specials.php</filename>
 	<filename>lib/joomla_1.5/libraries/phputf8/utils/unicode.php</filename>
 	<filename>lib/joomla_1.5/libraries/phputf8/utils/validation.php</filename>
-	
-	<filename>lib/lightbox_plus/prev.gif</filename>
-	<filename>lib/lightbox_plus/loading.gif</filename>
-	<filename>lib/lightbox_plus/shrink.gif</filename>
-	<filename>lib/lightbox_plus/next.gif</filename>
-	<filename>lib/lightbox_plus/expand.gif</filename>
-	<filename>lib/lightbox_plus/overlay.png</filename>
-	<filename>lib/lightbox_plus/zzoop.gif</filename>
-	<filename>lib/lightbox_plus/lightbox.css</filename>
-	<filename>lib/lightbox_plus/close.gif</filename>
-	<filename>lib/lightbox_plus/spica.js</filename>
 	<filename>lib/lightbox_plus/blank.gif</filename>
+	<filename>lib/lightbox_plus/close.gif</filename>
+	<filename>lib/lightbox_plus/expand.gif</filename>
+	<filename>lib/lightbox_plus/lightbox.css</filename>
 	<filename>lib/lightbox_plus/lightbox_plus.js</filename>
-	
-	<filename>lib/rsgcomments/rsgcomments.class.php</filename>
-	<filename>lib/rsgcomments/rsgcomments.php</filename>
-	<filename>lib/rsgcomments/rsgcomments.css</filename>
+	<filename>lib/lightbox_plus/loading.gif</filename>
+	<filename>lib/lightbox_plus/next.gif</filename>
+	<filename>lib/lightbox_plus/overlay.png</filename>
+	<filename>lib/lightbox_plus/prev.gif</filename>
+	<filename>lib/lightbox_plus/shrink.gif</filename>
+	<filename>lib/lightbox_plus/spica.js</filename>
+	<filename>lib/lightbox_plus/zzoop.gif</filename>
 	<filename>lib/rsgcomments/emoticons/default/icon_arrow.gif</filename>
 	<filename>lib/rsgcomments/emoticons/default/icon_biggrin.gif</filename>
 	<filename>lib/rsgcomments/emoticons/default/icon_confused.gif</filename>
@@ -363,6 +360,9 @@
 	<filename>lib/rsgcomments/images/ubb_underline.gif</filename>
 	<filename>lib/rsgcomments/images/ubb_url.gif</filename>
 	<filename>lib/rsgcomments/js/client.js</filename>
+	<filename>lib/rsgcomments/rsgcomments.class.php</filename>
+	<filename>lib/rsgcomments/rsgcomments.css</filename>
+	<filename>lib/rsgcomments/rsgcomments.php</filename>
 
 	<filename>templates/tables/css/template.css</filename>
 	<filename>templates/tables/index.php</filename>
