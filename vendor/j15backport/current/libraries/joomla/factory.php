@@ -157,14 +157,11 @@ class JFactory
 	function &getUser($id = null)
 	{
 		jimport('joomla.user.user');
+		global $my;
 
 		if(is_null($id))
 		{
-			$session  =& JFactory::getSession();
-			$instance =& $session->get('user');
-			if (!is_a($instance, 'JUser')) {
-				$instance =& JUser::getInstance();
-			}
+			$instance =& JUser::getInstance( $my->id );
 		}
 		else
 		{

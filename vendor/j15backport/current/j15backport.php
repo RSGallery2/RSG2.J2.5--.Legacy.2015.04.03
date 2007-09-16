@@ -21,7 +21,7 @@ if( !defined( '_JEXEC' )){
 	define ('DS', "/");
 	define( 'JPATH_BASE', $mosConfig_absolute_path );
 	define( 'JPATH_ROOT', $mosConfig_absolute_path );
-	define( 'JPATH_LIBRARIES', JPATH_BASE . '/components/com_rsgallery2/lib/joomla_1.5/libraries' );
+	define( 'JPATH_LIBRARIES', dirname( __FILE__ ) . '/libraries' );
 	define( 'JPATH_THEMES', JPATH_ROOT . DS . 'templates' );
 }
 
@@ -40,7 +40,6 @@ if( defined( 'JEMU15' )){
 	jimport( 'joomla.environment.response'   );
 	jimport( 'joomla.application.application' );
 	jimport( 'joomla.application.helper' );
-// 	jimport( 'joomla.application.event' );
 	jimport( 'joomla.application.menu' );
 	jimport( 'joomla.database.table' );
 	jimport( 'joomla.user.user');
@@ -50,7 +49,6 @@ if( defined( 'JEMU15' )){
 	jimport( 'joomla.html.parameter' );
 	jimport( 'joomla.utilities.array' );
 	jimport( 'joomla.utilities.error' );
-// 	jimport( 'joomla.utilities.functions' );
 	jimport( 'joomla.utilities.utility' );
 	jimport( 'joomla.utilities.string' );
 	jimport( 'joomla.version' );
