@@ -68,8 +68,11 @@ class HTML_RSGALLERY{
      * @todo Move CSS to stylesheet
      */
     function showCP(){
-        
-        global $mosConfig_live_site, $rows, $rows2, $rsgConfig, $rsgVersion, $my;
+        global $mosConfig_live_site, $rows, $rows2, $rsgConfig, $rsgVersion;
+
+        // Get the current JUser object
+		$user = &JFactory::getUser();
+
         //Show Warningbox if some preconditions are not met
         galleryUtils::writeWarningBox();
         ?>
@@ -214,7 +217,7 @@ class HTML_RSGALLERY{
 
             <div id='cpanel'>
                 <?php
-                if ( $my->gid > 23 ):
+                if ( $user->get('gid') > 23 ):
                     $link = 'index2.php?option=com_rsgallery2&task=showConfig';
                     HTML_RSGALLERY::quickiconButton( $link, 'config.png',  _RSGALLERY_C_CONFIG );
                 endif;
@@ -231,7 +234,7 @@ class HTML_RSGALLERY{
                 $link = 'index2.php?option=com_rsgallery2&rsgOption=galleries';
                 HTML_RSGALLERY::quickiconButton( $link, 'categories.png', _RSGALLERY_C_CATEGORIES );
 
-                if ( $my->gid > 23 ):
+                if ( $user->get('gid') > 23 ):
                     $link = 'index2.php?option=com_rsgallery2&task=consolidate_db';
                     HTML_RSGALLERY::quickiconButton( $link, 'dbrestore.png', _RSGALLERY_C_DATABASE );
     
@@ -249,7 +252,7 @@ class HTML_RSGALLERY{
                 if( $rsgConfig->get( 'debug' )): ?>
                 <div id='rsg2-cpanelDebug'><?php echo _RSGALLERY_C_DEBUG_ON;?>
                     <?php
-                    if ( $my->gid > 23 ):
+                    if ( $user->get('gid') > 23 ):
                         $link = 'index2.php?option=com_rsgallery2&task=purgeEverything';
                         HTML_RSGALLERY::quickiconButton( $link, 'menu.png', _RSGALLERY_C_PURGE );
     

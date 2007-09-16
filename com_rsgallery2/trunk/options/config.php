@@ -22,8 +22,9 @@ switch( $task ){
     break;
 }
 
+$user = &JFactory::getUser();
 // these config functions require an admin check
-if ( $my->gid > 23 )
+if ( $user->get('gid') > 23 )
 switch( $task ){
     case 'applyConfig':
         HTML_RSGallery::RSGalleryHeader('config', _RSGALLERY_HEAD_CONFIG);
