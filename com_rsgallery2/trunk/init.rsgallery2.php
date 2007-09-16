@@ -12,9 +12,8 @@ defined( '_VALID_MOS' ) or die( 'Access Denied.' );
 // create global variables in case we are not in the global scope.
 global $rsgConfig, $rsgAccess, $rsgVersion, $rsgOption;
 
-    
-//Include file to mimic Joomla 1.5 behaviour
-require_once($mosConfig_absolute_path.'/administrator/components/com_rsgallery2/j15backport.php');
+// include j15backport to allow use of Joomla! 1.5 libraries
+require_once($mosConfig_absolute_path.'/components/com_rsgallery2/lib/j15backport/j15backport.php');
 
 //Set path globals for RSGallery2
 define('JPATH_RSGALLERY2_SITE', JPATH_ROOT. DS .'components'. DS . 'com_rsgallery2');
