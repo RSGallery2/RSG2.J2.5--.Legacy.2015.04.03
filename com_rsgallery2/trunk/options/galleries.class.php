@@ -19,7 +19,7 @@ defined( '_VALID_MOS' ) or die( 'Restricted access' );
 class rsgGalleriesItem extends mosDBTable {
     /** @var int Primary key */
     var $id = null;
-    var $parent = null;
+    var $parent = 0;
     var $name = null;
     var $description = null;
     var $published = null;
