@@ -14,7 +14,7 @@ global $rsgConfig, $rsgAccess, $rsgVersion, $rsgOption;
 
     
 //Include file to mimic Joomla 1.5 behaviour
-require_once($mosConfig_absolute_path.'/administrator/components/com_rsgallery2/joomla15.php');
+require_once($mosConfig_absolute_path.'/administrator/components/com_rsgallery2/j15backport.php');
 
 //Set path globals for RSGallery2
 define('JPATH_RSGALLERY2_SITE', JPATH_ROOT. DS .'components'. DS . 'com_rsgallery2');
