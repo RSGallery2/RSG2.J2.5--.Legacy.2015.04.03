@@ -478,7 +478,7 @@ class rsgDisplay_tables extends rsgDisplay{
     function showDisplayImage(){
         global $mosConfig_live_site, $rsgConfig, $database, $rows;
         
-        $limitstart = mrsgInstance::getInt( 'limitstart', 0);
+        $limitstart = rsgInstance::getInt( 'limitstart', 0);
         $gallery = rsgGalleryManager::get( rsgInstance::getInt( 'catid', 0) );
         $items = $gallery->itemRows();
         $image = $items[$limitstart];
