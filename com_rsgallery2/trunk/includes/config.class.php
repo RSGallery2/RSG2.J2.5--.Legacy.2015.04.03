@@ -152,48 +152,25 @@ class rsgConfig {
 
 	/**
 	 * Binds the global configuration variables to the class properties
-	 * Somehow the check on setQuery does not work, always returning to default values
-	 */
-	function _loadConfigX() {
-		global $database;
-		
-		$query = "SELECT * FROM " . $this->_configTable;
-		
-		/* This one does alsways fail!!*/
-		if( !$database->setQuery( $query ) )
-			return; // database doesn't exist, use defaults.
-			
-		$vars = $database->loadAssocList();
-		echo $vars;
-		// if a new install, db hasn't been created yet.
-		if( $vars == null ) return;
-
-		foreach ($vars as $v) {
-			$this->$v['name'] = $v['value'];
-		}
-	}
-
-	/**
-	 * Binds the global configuration variables to the class properties
 	 */
 	function _loadConfig() {
 		global $database;
-		
+
 		$query = "SELECT * FROM " . $this->_configTable;
 		$database->setQuery($query);
-		
-		$vars = $database->loadAssocList();
-		if( count($vars) < 1 ) {
-			return; // database doesn't exist, use defaults.
+
+		if( !$database->query() ){
+			// database doesn't exist, use defaults.
+			return;
 		}
 
-		// if a new install, db hasn't been created yet.
-		if( $vars == null ) return;
+		$vars = $database->loadAssocList();
 
 		foreach ($vars as $v) {
 			$this->$v['name'] = $v['value'];
 		}
 	}
+
 	/**
 	 * takes an array, binds it to the class and saves it to the database
 	 * @param array of settings

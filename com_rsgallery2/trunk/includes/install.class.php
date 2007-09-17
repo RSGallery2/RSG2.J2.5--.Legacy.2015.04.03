@@ -18,7 +18,7 @@ if( !isset( $rsgConfig )){
     require_once( $mosConfig_absolute_path . '/administrator/components/com_rsgallery2/includes/version.rsgallery2.php' );
 
     $rsgVersion = new rsgalleryVersion();
-    $rsgConfig = new rsgConfig();
+    $rsgConfig = new rsgConfig( false );
 
     // report all errors if in debug mode
     if($rsgConfig->get('debug'))
