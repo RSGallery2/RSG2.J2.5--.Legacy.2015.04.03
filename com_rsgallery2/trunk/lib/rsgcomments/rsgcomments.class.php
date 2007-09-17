@@ -274,18 +274,18 @@ function editComment( $item_id ) {
 	<form name='rsgcommentform' method='post' action='index.php?option=com_rsgallery2&rsgOption=rsgComments&task=save'>
 	<table border="0" width="100%" class="adminForm">
 	<tr>
-		<td colspan="2"><h2>** Enter comment **</h2></td>
+		<td colspan="2"><h2><?php echo _RSGALLERY_COMMENTS_ADD;?></h2></td>
 	</tr>
 	<tr>
-		<td>** Name: **</td>
+		<td><?php echo _RSGALLERY_COMMENTS_NAME;?>:</td>
 		<td><input name='tname' type='text' class='inputbox' size='40' value='<?php if (!$my->username == '') echo $my->username;?>' /></td>
 	</tr>
 	<tr>
-		<td>** Title: **</td>
+		<td><?php echo _RSGALLERY_COMMENTS_TITLE;?>:</td>
 		<td><input name='ttitle' type='text' class='inputbox' size='40'/></td>
 	</tr>
 	<tr>
-		<td>** Comment: **</td>
+		<td><?php echo _RSGALLERY_COMMENTS_COMMENT;?>:</td>
 		<td><div class='buttoncontainer'><?php rsgComments::showButtons();?></div></td>
 	</tr>
 	<tr>
@@ -293,11 +293,11 @@ function editComment( $item_id ) {
 		<td><textarea name='tcomment' class='inputbox' cols='40' rows='10'></textarea></td>
 	</tr>
 	<tr>
-		<td>&nbsp;</td>
+		<td>&nbsp;Comment security is:<?php echo $rsgConfig->get('comment_security');?></td>
 		<td>
 			<?php
 			//Implement security images only for 
-			if ( $rsgConfig->get('comment_security') == 1 ) {
+			if ( $rsgConfig->get('comment_security') ) {
 				if (file_exists(JPATH_ROOT.'/administrator/components/com_securityimages/client.php') ) {
 					include(JPATH_ROOT.'/administrator/components/com_securityimages/client.php');
 					$packageName = 'security_rsgallery2';
@@ -354,7 +354,7 @@ function showComments( $item_id ) {
 			<tr>
 				<td class="title" width="25%">Comments</td>
 				<td class="title" width="50%"># comments added</td>
-				<td class="title"><div class="addcomment"><a class="special" href="#comment2">Add comment</a></div></td>
+				<td class="title"><div class="addcomment"><a class="special" href="#comment2"><?php echo _RSGALLERY_COMMENTS_ADD;?></a></div></td>
 			</tr>
 		</table>
 		<br />

@@ -671,5 +671,11 @@ DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Created: ");
 /*new*/DEFINE("_RSGALLERY_FU_UPL_STOP_EXT",		"File upload stopped by extension");
 /*new*/DEFINE("_RSGALLERY_FU_UNKW_ERROR",		"Unknown File Error");
 
+//rsgcomments.class.php
+/*new*/DEFINE("_RSGALLERY_COMMENTS_ADD",		"Add comment");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_NAME",		"Name");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_TITLE",		"Title");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_COMMENT",		"Comment text");
+
 //stopped at gallery.class.php
 ?>
