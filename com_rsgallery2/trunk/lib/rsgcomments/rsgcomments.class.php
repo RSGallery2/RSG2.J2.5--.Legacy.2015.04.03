@@ -297,7 +297,7 @@ function editComment( $item_id ) {
 		<td>
 			<?php
 			//Implement security images only for 
-			if ( $rsgConfig->get('comment_security') ) {
+			if ( $rsgConfig->get('comment_security') == 1 ) {
 				if (file_exists(JPATH_ROOT.'/administrator/components/com_securityimages/client.php') ) {
 					include(JPATH_ROOT.'/administrator/components/com_securityimages/client.php');
 					$packageName = 'security_rsgallery2';

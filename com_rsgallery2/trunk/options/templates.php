@@ -225,7 +225,7 @@ function setDefaultTemplate( $option ) {
 	} else {
 		$msg = "Active template(".$cid[0].") could not be changed!";
 	}
-	mosRedirect( "index2.php?option=com_rsgallery2&task=templates", $msg );
+	mosRedirect( "index2.php?option=com_rsgallery2&rsgOption=templates", $msg );
 }
 
 /**
