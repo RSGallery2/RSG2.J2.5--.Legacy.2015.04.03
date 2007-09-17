@@ -57,7 +57,7 @@ class rsgDisplay_photoBox extends rsgDisplay{
 			<a href="<?php echo $original->url(); ?>" rel="lightbox" title="<?php echo $title; echo $descr;?>">
 				<img src="<?php echo $image?>" alt="<?php echo $title ?>" border="0" /><br />
 			</a>
-			<p><?php echo $desc ?></p>
+			<p><?php echo $descr; ?></p>
 		</div>
 		<?
 	}
