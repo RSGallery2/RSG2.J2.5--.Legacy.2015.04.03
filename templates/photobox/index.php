@@ -34,6 +34,6 @@ mosCommonHTML::loadOverlib();
 
 <link href="<?php echo $template_dir; ?>/css/template.css" rel="stylesheet" type="text/css" />
 
-<div id='rsg2'>
+<div class='rsg2'>
 	<?php $rsgDisplay->mainPage(); ?>
 </div>

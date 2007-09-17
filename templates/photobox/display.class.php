@@ -9,12 +9,11 @@ defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 
 class rsgDisplay_photoBox extends rsgDisplay{
 	function mainPage(){
-		foreach( $this->gallery->items() as $item ) {
-			if( is_a( $item, 'rsgItem_audio' ) ) {
-				echo 'This gallery currently only supports images';
-				return;
-			}
+		if( ! count( $this->gallery->items() )){
+			echo "Gallery {$this->gallery->name} contains 0 items";
+			return;
 		}
+
 		echo '<div id="photo-box">';
 			$this->showImages();
 		echo '<div class="desc">Click Thumbnails to View <span class="desc_right">Click Large Image To See Full</span></div>';
@@ -30,6 +29,9 @@ class rsgDisplay_photoBox extends rsgDisplay{
 		$this->gallery	 = $gallery;
 		
 		foreach ($gallery->items() as $item) {
+			if( $item->type != 'image' )
+				continue;
+
 			$thumb = $item->thumb();
 			?>
 			<a href="javascript: select_thumb('<?php echo $item->get('id'); ?>', '<?php echo $item->get('id'); ?>');"><img src="<?php echo $thumb->url(); ?>" alt="" id="thumb-id-<?php echo $item->get('id'); ?>" <?php if(!$count){?>class="selected"<?php } ?> /></a>
