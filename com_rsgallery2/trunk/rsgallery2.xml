@@ -364,6 +364,13 @@
 	<filename>lib/rsgcomments/rsgcomments.class.php</filename>
 	<filename>lib/rsgcomments/rsgcomments.css</filename>
 	<filename>lib/rsgcomments/rsgcomments.php</filename>
+	<filename>lib/rsgvoting/rsgvoting.class.php</filename>
+	<filename>lib/rsgvoting/rsgvoting.php</filename>
+	<filename>lib/rsgvoting/rsgvoting.css</filename>
+	<filename>lib/rsgvoting/images/star_empty.png</filename>
+	<filename>lib/rsgvoting/images/star_full.png</filename>
+	<filename>lib/rsgvoting/images/star_half.png</filename>
+	<filename>lib/rsgvoting/images/star_rating.png</filename>
 
 	<filename>templates/tables/css/template.css</filename>
 	<filename>templates/tables/index.php</filename>

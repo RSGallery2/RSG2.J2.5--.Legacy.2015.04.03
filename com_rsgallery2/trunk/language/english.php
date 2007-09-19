@@ -677,5 +677,11 @@ DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Created: ");
 /*new*/DEFINE("_RSGALLERY_COMMENTS_TITLE",		"Title");
 /*new*/DEFINE("_RSGALLERY_COMMENTS_COMMENT",		"Comment text");
 
+//rsgcomments.php
+/*new*/DEFINE("_RSGALLERY_COMMENTS_DISABLED",		"Commenting is disabled");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_ONLY_ONCE",		"You can only comment once on this item!");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_INCORRECT_CAPTCHA",		"Incorrect CAPTCHA check, comment is NOT saved!");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_ADD_SUCCES",		"Comment added succesfully!");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_ADD_FAIL",		"Comment could not be added!");
 //stopped at gallery.class.php
 ?>

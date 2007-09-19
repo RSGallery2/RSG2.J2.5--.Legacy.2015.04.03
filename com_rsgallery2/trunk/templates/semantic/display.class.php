@@ -475,7 +475,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		
 		if ( $rsgConfig->get("displayVoting") ) {
 			$tabs->startTab(_RSGALLERY_VOTING, 'Voting' );
-			$this->_showVoting();
+			$this->_showVotes();
 			$tabs->endTab();
 		}
 		

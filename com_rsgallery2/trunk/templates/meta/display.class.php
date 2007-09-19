@@ -58,7 +58,7 @@ class tempDisplay extends JObject{
 			case 'vote':
 				$this->addVote();
 			break;
-			
+			/**
 			case 'addcomment':
 				$this->addComment();
 			break;
@@ -66,7 +66,7 @@ class tempDisplay extends JObject{
 				$id = rsgInstance::getInt( 'id'  , null); 
 				$this->deleteComment($id);
 			break;
-			
+			*/
 			case "newusercat":
 				$this->userCat($my_id, 0);
 			break;
@@ -253,6 +253,7 @@ class tempDisplay extends JObject{
 	* Deletes a comment from the frontend. It is only accessible to Super Administrator
 	* @param int Id of comment to delete
 	*/
+	/*
 	function deleteComment($id) {
 	global $database, $my, $Itemid;
 	if ($my->usertype == 'Super Administrator')
@@ -276,10 +277,11 @@ class tempDisplay extends JObject{
 		mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid"),_RSGALLERY_COMMENT_NOT_DELETED);
 		}
 	}
-	
+	*/
 	/**
 	* Saves a comment into the database
 	*/
+	/*
 	function addComment() {
 		global $database, $rsgConfig, $Itemid;
 	
@@ -354,7 +356,7 @@ class tempDisplay extends JObject{
 			}
 		}
 
-	
+	*/
 	function userCat() {
 		global $my, $rsgConfig, $database, $Itemid;
 		$catid = rsgInstance::getInt( 'catid'  , null);	
@@ -773,6 +775,14 @@ class rsgDisplay extends tempDisplay{
 		$comment = new rsgComments();
 		$comment->showComments($id);
     	$comment->editComment($id);
+    }
+    
+    function _showVotes() {
+    	global $mainframe, $mosConfig_live_site;
+    	$css = "<link rel=\"stylesheet\" href=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/rsgvoting/rsgvoting.css\" type=\"text/css\" />";
+    	$mainframe->addCustomHeadTag($css);
+    	$voting = new rsgVoting();
+    	$voting->showVoting();
     }
 }
 

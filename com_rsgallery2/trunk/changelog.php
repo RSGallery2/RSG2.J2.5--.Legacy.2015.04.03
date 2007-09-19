@@ -31,6 +31,9 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2007-09-19 Ronald Smit
+ + Added voting class to SVN
+ 
 2007-07-05 Ronald Smit
  + Added fille joomla15.php and included this in init.rsgallery2.php
  - Removed all J15 mimicing out of init.rsgallery2.php

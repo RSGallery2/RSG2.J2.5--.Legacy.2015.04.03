@@ -58,7 +58,7 @@ function saveComment( $option ) {
 	//Check if commenting is enabled
 	$redirect_url = "index.php?option=$option&amp;Itemid=$Itemid&amp;page=inline&amp;id=$item_id&amp;catid=$catid";
 	if ($rsgConfig->get('comment') == 0) {
-		mosRedirect( $redirect_url, "** Commenting disabled for this gallery **" );
+		mosRedirect( $redirect_url, _RSGALLERY_COMMENTS_DISABLED );
 		exit();
 	}
 	
@@ -73,7 +73,7 @@ function saveComment( $option ) {
 			$result = loadResult();
 			if ($result > 0 ) {
 				//No further comments allowed, redirect
-				mosRedirect($redirect_url, "** You already commented on this item! **");
+				mosRedirect($redirect_url, _RSGALLERY_COMMENTS_ONLY_ONCE);
 			} else {
 				continue;
 			}
@@ -94,7 +94,7 @@ function saveComment( $option ) {
 		}
 		//Check if security check was OK
 		if ($checkSecurity == false ) {
-			mosRedirect( $redirect_url, "** Incorrect CAPTCHA check. Comment not saved! **" );
+			mosRedirect( $redirect_url, _RSGALLERY_COMMENTS_INCORRECT_CAPTCHA );
 			exit();
 		}	
 	}
@@ -121,9 +121,9 @@ function saveComment( $option ) {
 			")";
 	$database->setQuery( $sql );
 	if ( $database->query() ) {
-		mosRedirect( $redirect_url, "** Comment added succesfully **" );
+		mosRedirect( $redirect_url, _RSGALLERY_COMMENTS_ADD_SUCCES );
 	} else {
-		mosRedirect( $redirect_url, "** Comment could not be added! **" );
+		mosRedirect( $redirect_url, _RSGALLERY_COMMENTS_ADD_FAIL );
 		//echo $sql;
 	}
 	
