@@ -319,6 +319,23 @@ class html_rsg2_config{
 							</tr>
 						</table>
 					</fieldset>
+					<fieldset>
+						<legend>** Voting **</legend>
+						<table width="100%">
+							<tr>
+								<td>** Voting enabled **</td>
+								<td><?php echo mosHTML::yesnoRadioList('voting', '', $config->voting);?></td>
+							</tr>
+							<tr>
+								<td>** Registered users vote only **</td>
+								<td><?php echo mosHTML::yesnoRadioList('voting_registered_only', '', $config->voting_registered_only)?></td>
+							</tr>
+							<tr>
+								<td>** User can only comment once **(Not working yet!)</td>
+								<td><?php echo mosHTML::yesnoRadioList('voting_once', '', $config->voting_once)?></td>
+							</tr>
+						</table>
+					</fieldset>
 				</td>
 			</tr>
 		</table>

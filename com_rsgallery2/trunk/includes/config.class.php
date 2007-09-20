@@ -88,6 +88,11 @@ class rsgConfig {
     var $comment_security				= 1;
     var $comment_once		 			= 0;
     var $comment_allowed_public			= 1;
+    
+    //Voting system
+    var $voting					= 1;
+    var $voting_registered_only	= 1;
+    var $voting_once			= 1;
 
 	// private vars for internal use
 	var $_configTable = '#__rsgallery2_config';

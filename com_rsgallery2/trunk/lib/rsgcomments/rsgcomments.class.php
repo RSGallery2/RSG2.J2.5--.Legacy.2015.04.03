@@ -120,7 +120,7 @@ function showSmilies() {
 		?>
 		<span class='emoticonseparator'>
 			<span class='emoticon'>
-				<a href='javascript:emoticon("<?php echo $tag;?>")'><img src='<?php echo $mosConfig_live_site;?>/components/com_rsgallery2/lib/rsgcomments/emoticons/default/images/<?php echo $filename;?>' border='0' alt='' /></a>
+				<a href='javascript:emoticon("<?php echo $tag;?>")'><img src='<?php echo $mosConfig_live_site;?>/components/com_rsgallery2/lib/rsgcomments/emoticons/default/<?php echo $filename;?>' border='0' alt='' /></a>
 			</span>
 		</span>
 		<?php

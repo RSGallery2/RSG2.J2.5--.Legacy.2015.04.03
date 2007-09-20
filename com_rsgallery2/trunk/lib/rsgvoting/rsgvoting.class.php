@@ -14,47 +14,50 @@ class rsgVoting {
 
     function rsgVoting() {
     }
+    
     function showVoting( $option = "com_rsgallery2") {
-    	$id 		= rsgInstance::getInt( 'id'  , '');
-    	?>
-		<script language="javascript" type="text/javascript">
-		function saveVote(id, value) {
-			var form = document.vote;
-			var saveVote = confirm('Are you sure you want to cast a vote? (' + value + ')');
-			
-		if (saveVote) {
-			form.rating.value = value;
-			form.submit();
+    	global $rsgConfig;
+    	if ($rsgConfig->get('voting')) {
+	    	$id 		= rsgInstance::getInt( 'id'  , '');
+	    	?>
+			<script language="javascript" type="text/javascript">
+			function saveVote(id, value) {
+				var form = document.vote;
+				var saveVote = confirm('Are you sure you want to cast a vote? (' + value + ')');
+				
+			if (saveVote) {
+				form.rating.value = value;
+				form.submit();
+				}
 			}
-		}
-		</script>
-
-    	<form name="vote" method="post" action="<?php sefRelToAbs("index.php&amp;option=com_rsgallery2");?>">
-    	<table border="0" width="200">
-    	<tr>
-    		<td>Rating:</td>
-    		<td><?php echo rsgVoting::calculateAverage($id);?></td>
-       	</tr>
-    	<tr>
-    		<td>Vote:</td>
-	    	<td>
-	    	<ul class="star-rating">
-	   			<li><a href='#' onclick="saveVote(<?php echo $id;?>, 1);" title='Rate this 1 star out of 5' class="one-star">1</a></li>
-	   			<li><a href='#' onclick="saveVote(<?php echo $id;?>, 2);" title='Rate this 2 stars out of 5' class="two-stars">2</a></li>
-	   			<li><a href='#' onclick="saveVote(<?php echo $id;?>, 3);" title='Rate this 3 stars out of 5' class="three-stars">3</a></li>
-	   			<li><a href='#' onclick="saveVote(<?php echo $id;?>, 4);" title='Rate this 4 stars out of 5' class="four-stars">4</a></li>
-	   			<li><a href='#' onclick="saveVote(<?php echo $id;?>, 5);" title='Rate this 5 stars out of 5' class="five-stars">5</a></li>
-	   		</ul>
-	   		</td>
-   		</table>
-   		<input type="hidden" name="rsgOption" value="rsgVoting" />
-   		<input type="hidden" name="task" value="save" />
-   		<input type="hidden" name="rating" value="" />
-   		<input type="hidden" name="id" value="<?php echo $id;?>" />
-   		</form>
-    	<?php
-    	//Show voting
-    	
+			</script>
+	
+	    	<form name="vote" method="post" action="<?php sefRelToAbs("index.php&amp;option=com_rsgallery2");?>">
+	    	<table border="0" width="200">
+	    	<tr>
+	    		<td>Rating:</td>
+	    		<td><?php echo rsgVoting::calculateAverage($id);?></td>
+	       	</tr>
+	    	<tr>
+	    		<td>Vote:</td>
+		    	<td>
+		    	<ul class="star-rating">
+		   			<li><a href='#' onclick="saveVote(<?php echo $id;?>, 1);" title='Rate this 1 star out of 5' class="one-star">1</a></li>
+		   			<li><a href='#' onclick="saveVote(<?php echo $id;?>, 2);" title='Rate this 2 stars out of 5' class="two-stars">2</a></li>
+		   			<li><a href='#' onclick="saveVote(<?php echo $id;?>, 3);" title='Rate this 3 stars out of 5' class="three-stars">3</a></li>
+		   			<li><a href='#' onclick="saveVote(<?php echo $id;?>, 4);" title='Rate this 4 stars out of 5' class="four-stars">4</a></li>
+		   			<li><a href='#' onclick="saveVote(<?php echo $id;?>, 5);" title='Rate this 5 stars out of 5' class="five-stars">5</a></li>
+		   		</ul>
+		   		</td>
+	   		</table>
+	   		<input type="hidden" name="rsgOption" value="rsgVoting" />
+	   		<input type="hidden" name="task" value="save" />
+	   		<input type="hidden" name="rating" value="" />
+	   		<input type="hidden" name="id" value="<?php echo $id;?>" />
+	   		</form>
+	    	<?php
+	    	//Show voting
+	    }
     }
 
 	
@@ -84,6 +87,14 @@ class rsgVoting {
 	
 	function showScore() {
 		
+	}
+	
+	function checkVoted() {
+		//Check if cookie rsgvoting was set for this image!
+		
+		//If cookie rsgvoting was set to 1, user already voted for this image
+		
+		//If not, go ahead and save the vote
 	}
 }
 ?>
