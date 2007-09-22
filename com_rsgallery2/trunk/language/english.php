@@ -490,6 +490,19 @@ DEFINE("_RSGALLERY_C_NUMB_GAL_FRONT",	"Default number of galleries on frontpage"
 DEFINE("_RSGALLERY_C_FONT",				"Font");
 DEFINE("_RSGALLERY_C_WATER_TRANS",		"Watermark transparency");
 DEFINE("_RSGALLERY_C_ALLOWED_FILE",		"Allowed filetypes");
+//Commenting
+DEFINE("_RSGALLERY_COMMENTS_LABEL",			"Comments");
+DEFINE("_RSGALLERY_COMMENTS_ENABLED",		"Commenting enabled");
+DEFINE("_RSGALLERY_COMMENTS_ALLOW_PUBLIC",	"Allow public users to comment");
+DEFINE("_RSGALLERY_COMMENTS_ONLY_ONCE",		"User can only comment once");
+
+//Voting
+DEFINE("_RSGALLERY_VOTE_LABEL",				"Voting");
+DEFINE("_RSGALLERY_VOTE_ENABLED",			"Voting enabled");
+DEFINE("_RSGALLERY_VOTE_REGISTERED_ONLY",	"Registered users only");
+DEFINE("_RSGALLERY_VOTE_ONLY_ONCE",			"User can only vote once(cookie based)");
+DEFINE("_RSGALLERY_VOTE_COOKIE_PREFIX",		"Cookie prefix");
+
 
 //galleries.class.php
 //function check
@@ -683,5 +696,23 @@ DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Created: ");
 /*new*/DEFINE("_RSGALLERY_COMMENTS_INCORRECT_CAPTCHA",		"Incorrect CAPTCHA check, comment is NOT saved!");
 /*new*/DEFINE("_RSGALLERY_COMMENTS_ADD_SUCCES",		"Comment added succesfully!");
 /*new*/DEFINE("_RSGALLERY_COMMENTS_ADD_FAIL",		"Comment could not be added!");
+
+//rsgvoting.class.php
+/*new*/DEFINE("_RSGALLERY_VOTING_ARE_YOU_SURE",		"Are you sure you want to vote?");
+/*new*/DEFINE("_RSGALLERY_VOTING_RATING",		"Rating");
+/*new*/DEFINE("_RSGALLERY_VOTING_VOTE",		"Vote");
+/*new*/DEFINE("_RSGALLERY_VOTING_VOTES",		"&nbsp;votes");
+/*new*/DEFINE("_RSGALLERY_VOTING_RATE_1",		"Rate this item 1 out of 5");
+/*new*/DEFINE("_RSGALLERY_VOTING_RATE_2",		"Rate this item 2 out of 5");
+/*new*/DEFINE("_RSGALLERY_VOTING_RATE_3",		"Rate this item 3 out of 5");
+/*new*/DEFINE("_RSGALLERY_VOTING_RATE_4",		"Rate this item 4 out of 5");
+/*new*/DEFINE("_RSGALLERY_VOTING_RATE_5",		"Rate this item 5 out of 5");
+
+//rsgvoting.php
+/*new*/DEFINE("_RSGALLERY_VOTING_DISABLED",		"Voting is disabled!");
+/*new*/DEFINE("_RSGALLERY_VOTING_NOT_AUTH",		"You are not authorized to vote!");
+/*new*/DEFINE("_RSGALLERY_VOTING_ALREADY_VOTED",		"You aready voted for this item!");
+/*new*/DEFINE("_RSGALLERY_VOTING_NOT_ADDED",		"Vote could not be added to the database!");
+/*new*/DEFINE("_RSGALLERY_VOTING_ADDED",		"Vote added to database!");
 //stopped at gallery.class.php
 ?>

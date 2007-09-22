@@ -299,40 +299,44 @@ class html_rsg2_config{
 				</td>
 				<td width="50%" valign="top">
 					<fieldset>
-						<legend>** Comments **</legend>
+						<legend><?php echo _RSGALLERY_COMMENTS_LABEL;?></legend>
 						<table width="100%">
 							<tr>
-								<td>** Commenting enabled **</td>
+								<td><?php echo _RSGALLERY_COMMENTS_ENABLED;?></td>
 								<td><?php echo mosHTML::yesnoRadioList('comment', '', $config->comment);?></td>
 							</tr>
 							<tr>
-								<td>** Use <a href="http://www.waltercedric.com" target="_blank">SecurityImages component</a> **<?php echo $security_notice?></td>
+								<td>Use <a href="http://www.waltercedric.com" target="_blank">SecurityImages component</a> <?php echo $security_notice;?></td>
 								<td><?php echo mosHTML::yesnoRadioList('comment_security', '', $config->comment_security)?></td>
 							</tr>
 							<tr>
-								<td>** Allow public users to comment **</td>
+								<td><?php echo _RSGALLERY_COMMENTS_ALLOW_PUBLIC;?></td>
 								<td><?php echo mosHTML::yesnoRadioList('comment_allowed_public', '', $config->comment_allowed_public)?></td>
 							</tr>
 							<tr>
-								<td>** User can only comment once **(Not working yet!)</td>
+								<td><?php echo _RSGALLERY_COMMENTS_ONLY_ONCE;?>(Not working yet!)</td>
 								<td><?php echo mosHTML::yesnoRadioList('comment_once', '', $config->comment_once)?></td>
 							</tr>
 						</table>
 					</fieldset>
 					<fieldset>
-						<legend>** Voting **</legend>
+						<legend><?php echo _RSGALLERY_VOTE_LABEL;?></legend>
 						<table width="100%">
 							<tr>
-								<td>** Voting enabled **</td>
+								<td><?php echo _RSGALLERY_VOTE_ENABLED;?></td>
 								<td><?php echo mosHTML::yesnoRadioList('voting', '', $config->voting);?></td>
 							</tr>
 							<tr>
-								<td>** Registered users vote only **</td>
+								<td><?php echo _RSGALLERY_VOTE_REGISTERED_ONLY;?></td>
 								<td><?php echo mosHTML::yesnoRadioList('voting_registered_only', '', $config->voting_registered_only)?></td>
 							</tr>
 							<tr>
-								<td>** User can only comment once **(Not working yet!)</td>
+								<td><?php echo _RSGALLERY_VOTE_ONLY_ONCE;?></td>
 								<td><?php echo mosHTML::yesnoRadioList('voting_once', '', $config->voting_once)?></td>
+							</tr>
+							<tr>
+								<td><?php echo _RSGALLERY_VOTE_COOKIE_PREFIX;?></td>
+								<td><input type="text" name="cookie_prefix" value="<?php echo $config->cookie_prefix;?>"</td>
 							</tr>
 						</table>
 					</fieldset>

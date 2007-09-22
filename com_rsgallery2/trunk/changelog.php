@@ -31,6 +31,11 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2007-09-22 Ronald Smit
+ + Completed voting system
+ + Added backend settings for voting
+ + Added language strings for commenting and voting to front- and backend
+ 
 2007-09-19 Ronald Smit
  + Added voting class to SVN
  

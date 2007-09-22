@@ -293,7 +293,7 @@ function editComment( $item_id ) {
 		<td><textarea name='tcomment' class='inputbox' cols='40' rows='10'></textarea></td>
 	</tr>
 	<tr>
-		<td>&nbsp;Comment security is:<?php echo $rsgConfig->get('comment_security');?></td>
+		<td>&nbsp;</td>
 		<td>
 			<?php
 			//Implement security images only for 
@@ -342,11 +342,7 @@ function showComments( $item_id ) {
 	</script>
 	<?php
 	$comments = rsgComments::_getList( $item_id );
-	/*
-	echo "<pre>";
-	print_r($comments);
-	echo "</pre>";
-	*/
+
 	if (count($comments) > 0) {
 		?>
 		<div id="comment">

@@ -23,7 +23,7 @@ class rsgVoting {
 			<script language="javascript" type="text/javascript">
 			function saveVote(id, value) {
 				var form = document.vote;
-				var saveVote = confirm('Are you sure you want to cast a vote? (' + value + ')');
+				var saveVote = confirm('<?php echo _RSGALLERY_VOTING_ARE_YOU_SURE;?>');
 				
 			if (saveVote) {
 				form.rating.value = value;
@@ -35,18 +35,18 @@ class rsgVoting {
 	    	<form name="vote" method="post" action="<?php sefRelToAbs("index.php&amp;option=com_rsgallery2");?>">
 	    	<table border="0" width="200">
 	    	<tr>
-	    		<td>Rating:</td>
-	    		<td><?php echo rsgVoting::calculateAverage($id);?></td>
+	    		<td><?php echo _RSGALLERY_VOTING_RATING;?>:</td>
+	    		<td><?php echo rsgVoting::calculateAverage($id);?>&nbsp;/&nbsp;<?php echo rsgVoting::getVoteCount($id);?><?php echo _RSGALLERY_VOTING_VOTES;?></td>
 	       	</tr>
 	    	<tr>
-	    		<td>Vote:</td>
+	    		<td><?php echo _RSGALLERY_VOTING_VOTE;?>:</td>
 		    	<td>
 		    	<ul class="star-rating">
-		   			<li><a href='#' onclick="saveVote(<?php echo $id;?>, 1);" title='Rate this 1 star out of 5' class="one-star">1</a></li>
-		   			<li><a href='#' onclick="saveVote(<?php echo $id;?>, 2);" title='Rate this 2 stars out of 5' class="two-stars">2</a></li>
-		   			<li><a href='#' onclick="saveVote(<?php echo $id;?>, 3);" title='Rate this 3 stars out of 5' class="three-stars">3</a></li>
-		   			<li><a href='#' onclick="saveVote(<?php echo $id;?>, 4);" title='Rate this 4 stars out of 5' class="four-stars">4</a></li>
-		   			<li><a href='#' onclick="saveVote(<?php echo $id;?>, 5);" title='Rate this 5 stars out of 5' class="five-stars">5</a></li>
+		   			<li><a href='#' onclick="saveVote(<?php echo $id;?>, 1);" title='<?php echo _RSGALLERY_VOTING_RATE_1;?>' class="one-star">1</a></li>
+		   			<li><a href='#' onclick="saveVote(<?php echo $id;?>, 2);" title='<?php echo _RSGALLERY_VOTING_RATE_2;?>' class="two-stars">2</a></li>
+		   			<li><a href='#' onclick="saveVote(<?php echo $id;?>, 3);" title='<?php echo _RSGALLERY_VOTING_RATE_3;?>' class="three-stars">3</a></li>
+		   			<li><a href='#' onclick="saveVote(<?php echo $id;?>, 4);" title='<?php echo _RSGALLERY_VOTING_RATE_4;?>' class="four-stars">4</a></li>
+		   			<li><a href='#' onclick="saveVote(<?php echo $id;?>, 5);" title='<?php echo _RSGALLERY_VOTING_RATE_5;?>' class="five-stars">5</a></li>
 		   		</ul>
 		   		</td>
 	   		</table>
@@ -80,21 +80,67 @@ class rsgVoting {
 	}
 	
 	function calculateAverage( $id ) {
-		$avg = rsgVoting::getTotal($id) / rsgVoting::getVoteCount($id);
-   		$value = round(($avg*2), 0)/2;
-   		return $value;
+		if (rsgVoting::getVoteCount($id) > 0) {
+			$avg = rsgVoting::getTotal($id) / rsgVoting::getVoteCount($id);
+   			$value = round(($avg*2), 0)/2;
+   			return $value;
+		} else {
+			return 0;
+		}
 	}
 	
 	function showScore() {
 		
 	}
-	
-	function checkVoted() {
+	/**
+	 * Check if the user already voted for this item
+	 * @param int ID of item to vote on
+	 * @return True or False
+	 */
+	function alreadyVoted( $id ) {
+		global $rsgConfig;
 		//Check if cookie rsgvoting was set for this image!
-		
-		//If cookie rsgvoting was set to 1, user already voted for this image
-		
-		//If not, go ahead and save the vote
+		$cookie_name = $rsgConfig->get('cookie_prefix').$id;
+		if (isset($_COOKIE[$cookie_name])) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * Checks if it is allowed to vote in this gallery
+	 * @return True or False
+	 */
+	function voteAllowed() {
+		global $my, $rsgConfig;
+		//Check if voting is enabled
+		if ($rsgConfig->get('voting') < 1) {
+			return false;
+		} else {
+			$registered = $rsgConfig->get('voting_registered_only');
+			//Check if user is logged in
+			if ($my->id) {
+				$logged_in = 1;
+			} else {
+				$logged_in = 0;
+			}
+			
+			switch ($logged_in) {
+				//User is not logged in
+				case 0:
+					if ($registered == 1) {
+						return false;
+					} else {
+						return true;
+					}
+					break;
+				//User is logged in
+				case 1:
+					return true;
+					break;
+			}
+		}
 	}
 }
 ?>

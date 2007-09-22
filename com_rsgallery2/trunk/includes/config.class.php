@@ -93,6 +93,7 @@ class rsgConfig {
     var $voting					= 1;
     var $voting_registered_only	= 1;
     var $voting_once			= 1;
+    var $cookie_prefix			= "rsgvoting_";
 
 	// private vars for internal use
 	var $_configTable = '#__rsgallery2_config';
