@@ -789,7 +789,9 @@ class waterMarker extends GD2 {
         $this->imageResource= $outputProc($im, $file_name_dest, 100);
         imagedestroy($im);
         imagedestroy($im_copy);
-        imagedestroy($watermark);
+        if (isset($watermark)) {
+        	imagedestroy($watermark);
+        }
     }
      
     /**
