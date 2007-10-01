@@ -163,31 +163,36 @@ class rsgGalleryManager{
         no access checks are made, do not use outside this class!
     */
 
-    /**
-     * returns a gallery
-     * @param rsgGallery object
-     */
-    function _get( $gallery ){
-        global $database;
-
-        if( !is_numeric( $gallery )) die("gallery id is not a number: $gallery");
-        
-        $database->setQuery("SELECT * FROM #__rsgallery2_galleries ".
-                            "WHERE id = '$gallery' ".
-                            "ORDER BY ordering ASC ");
-
-        $row = $database->loadAssocList();
-        if( count($row)==0 && $gallery!=0 ){
-            die("gallery id does not exist: $gallery");
-        }
-        else if( count($row)==0 && $gallery==0 ){
-            // gallery is root, and it aint in the db, so we have to create it.
-            return rsgGalleryManager::_getRootGallery();
-        }
-        $row = $row[0];
-
-        return new rsgGallery( $row );
-    }
+	/**
+	 * returns a gallery
+	 * @param rsgGallery object
+	*/
+	function _get( $gallery ){
+		static $galleries = array();
+		
+		if( !isset( $galleries[$gallery] )){
+			global $database;
+		
+			if( !is_numeric( $gallery )) die("gallery id is not a number: $gallery");
+			
+			$database->setQuery("SELECT * FROM #__rsgallery2_galleries ".
+								"WHERE id = '$gallery' ".
+								"ORDER BY ordering ASC ");
+		
+			$row = $database->loadAssocList();
+			if( count($row)==0 && $gallery!=0 ){
+				die("gallery id does not exist: $gallery");
+			}
+			else if( count($row)==0 && $gallery==0 ){
+				// gallery is root, and it aint in the db, so we have to create it.
+				return rsgGalleryManager::_getRootGallery();
+			}
+			$row = $row[0];
+		
+			$galleries[$gallery] = new rsgGallery( $row );
+		}
+		return $galleries[$gallery];
+	}
 
     /**
      * return the top level gallery
@@ -393,6 +398,13 @@ class rsgGallery extends JObject{
 		}
 		
 		return $this->kids;
+	}
+	
+	/**
+	* returns the parent gallery item.
+	*/
+	function parent(){
+		return rsgGalleryManager::get( $this->parent );
 	}
 	
 	/**
