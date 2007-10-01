@@ -693,44 +693,59 @@ class rsgDisplay extends tempDisplay{
 
     /**
      * shows proper Joomla path
-     * contributed by Jeckel
      */
 	function showRSPathWay() {
-		global $mainframe, $database, $mosConfig_live_site, $Itemid, $option;
-		
+		global $mainframe, $mosConfig_live_site, $Itemid, $option;
+
 		// if rsg2 isn't the component being displayed, don't show pathway
 		if( $option != 'com_rsgallery2' )
 			return;
-			
+
 		$gallery = rsgInstance::getGallery();
 		$currentGallery = $gallery->id;
-	
+
 		$item = rsgInstance::getItem();
-		
+
 		$galleries = array();
-		array_push( $galleries, $gallery );
-		
+		$galleries[] = $gallery;
+
 		while ( $gallery->parent != 0) {
-			$query = 'SELECT name, parent, id FROM #__rsgallery2_galleries WHERE id = "' . $gallery->parent . '" LIMIT 1';
-			unset($gallery);	
-			
-			$database->setQuery( $query );
-			$database->loadObject($gallery);
-		
-			array_push( $galleries, $gallery );
-		}
-		
-		$galleries = array_reverse($galleries);
-		foreach( $galleries as $gallery ) {
-			if ($gallery->id == $currentGallery && empty($item)) {
-				$mainframe->appendPathWay($gallery->name);
-			} else {
-				$mainframe->appendPathWay('<a href="' . $mosConfig_live_site . '/index.php?option=com_rsgallery2&amp;Itemid='.$Itemid.'&amp;gid=' . $gallery->id . '">' . $gallery->name . '</a>');
-			}
+			$gallery = $gallery->parent();
+			$galleries[] = $gallery;
 		}
 
-		if (!empty($item)) {
-			$mainframe->appendPathWay( $item->title );
+		$galleries = array_reverse($galleries);
+// echo '<pre>';print_r( $galleries );die();
+		if( defined( JEMU15 ) ){
+			// J1.0 method
+			foreach( $galleries as $gallery ) {
+				if ( $gallery->id == $currentGallery && empty($item) ) {
+					$mainframe->appendPathWay($gallery->name);
+				} else {
+					$mainframe->appendPathWay('<a href="' . $mosConfig_live_site . '/index.php?option=com_rsgallery2&amp;Itemid='.$Itemid.'&amp;gid=' . $gallery->id . '">' . $gallery->name . '</a>');
+				}
+			}
+
+			if (!empty($item)) {
+				$mainframe->appendPathWay( $item->title );
+			}
+		}
+		else{
+			// J1.5 method
+			$pathway =& $mainframe->getPathway();
+			
+			foreach( $galleries as $gallery ) {
+				if ( $gallery->id == $currentGallery && empty($item) ) {
+					$pathway->addItem( $gallery->name );
+				} else {
+					$link = 'index.php?option=com_rsgallery2&gid=' . $gallery->id;
+					$pathway->addItem( $gallery->name, $link );
+				}
+			}
+
+			if (!empty($item)) {
+				$mainframe->appendPathWay( $item->title );
+			}
 		}
 	}
 
