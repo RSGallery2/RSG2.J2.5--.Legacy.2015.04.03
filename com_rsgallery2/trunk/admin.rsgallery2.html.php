@@ -53,7 +53,7 @@ class HTML_RSGALLERY{
         <div class="icon">
             <a href="<?php echo $link; ?>">
                 <div class="iconimage">
-                    <?php echo mosAdminMenus::imageCheck( $image, '/administrator/components/com_rsgallery2/images/', NULL, NULL, $text ); ?>
+                    <?php echo JHTML::_('image.site', $image, '/components/com_rsgallery2/images/', NULL , NULL , $text); ?>
                 </div>
                 <?php echo $text; ?></a>
         </div>

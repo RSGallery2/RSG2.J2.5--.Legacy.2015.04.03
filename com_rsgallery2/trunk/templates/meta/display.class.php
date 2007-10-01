@@ -716,7 +716,7 @@ class rsgDisplay extends tempDisplay{
 
 		$galleries = array_reverse($galleries);
 // echo '<pre>';print_r( $galleries );die();
-		if( defined( JEMU15 ) ){
+		if( defined( 'JEMU15' ) ){
 			// J1.0 method
 			foreach( $galleries as $gallery ) {
 				if ( $gallery->id == $currentGallery && empty($item) ) {
