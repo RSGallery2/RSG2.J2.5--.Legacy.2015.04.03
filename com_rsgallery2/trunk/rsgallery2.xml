@@ -380,10 +380,10 @@
 	<filename>templates/tables/html/display.php</filename>
 	<filename>templates/tables/html/thumbs.php</filename>
 	<filename>templates/tables/html/main.php</filename>
-	<filename>templates/debug_listEverything/css/template.css</filename>
-	<filename>templates/debug_listEverything/templateDetails.xml</filename>
-	<filename>templates/debug_listEverything/index.php</filename>
-	<filename>templates/debug_listEverything/display.class.php</filename>
+	<filename>templates/debug_listeverything/css/template.css</filename>
+	<filename>templates/debug_listeverything/templateDetails.xml</filename>
+	<filename>templates/debug_listeverything/index.php</filename>
+	<filename>templates/debug_listeverything/display.class.php</filename>
 	<filename>templates/meta/templateDetails.xml</filename>
 	<filename>templates/meta/index.php</filename>
 	<filename>templates/meta/display.class.php</filename>
