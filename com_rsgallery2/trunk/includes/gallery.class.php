@@ -329,6 +329,8 @@ class rsgGallery extends JObject{
 	var $url = null;
 	var $status = null;
 
+	var $_itemCount = null;
+
     function __construct( $row ){
 		global $Itemid;
 
@@ -381,11 +383,14 @@ class rsgGallery extends JObject{
 	* returns the total number of items in this gallery.
 	*/
 	function itemCount(){
-		global $database;
-		
-		$gid = $this->id;
-		$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id='$gid' AND published = '1'");
-		return $database->loadResult();
+		if( $this->_itemCount === null ){
+			global $database;
+			
+			$gid = $this->id;
+			$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id='$gid' AND published = '1'");
+			$this->_itemCount = $database->loadResult();
+		}
+		return $this->_itemCount;
 	}
 	
 	/**
