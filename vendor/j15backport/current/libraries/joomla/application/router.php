@@ -96,9 +96,8 @@ class JRouter extends JObject
 		if (empty($instances[$client]))
 		{
 			//Load the router object
-			$info =& JApplicationHelper::getClientInfo($client, true);
 
-			$path = $info->path.DS.'includes'.DS.'router.php';
+			$path = J15B_PATH.DS.'includes'.DS.'router.php';
 			if(file_exists($path))
 			{
 				require_once $path;

@@ -40,7 +40,8 @@ class JFactory
 			jimport( 'joomla.application.application' );
 
 			if (!$id) {
-				JError::raiseError(500, 'Application Instantiation Error');
+				// I believe this is safe to hardcode for now...
+				$id = 'site';
 			}
 
 			$instance = JApplication::getInstance($id, $config, $prefix);
