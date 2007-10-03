@@ -282,5 +282,4 @@ class rsgGallery extends JObject{
 
 		return $this->_pagination;
 	}
-
 }

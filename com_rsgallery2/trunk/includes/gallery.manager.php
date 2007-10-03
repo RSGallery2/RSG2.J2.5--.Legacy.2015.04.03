@@ -187,7 +187,7 @@ class rsgGalleryManager{
 	*/
 	function _get( $gallery ){
 		static $galleries = array();
-		
+
 		if( !isset( $galleries[$gallery] )){
 			global $database;
 		
@@ -199,7 +199,7 @@ class rsgGalleryManager{
 		
 			$row = $database->loadAssocList();
 			if( count($row)==0 && $gallery!=0 ){
-				die("gallery id does not exist: $gallery");
+				JError::raiseError( 1, "gallery id does not exist: $gallery" );
 			}
 			else if( count($row)==0 && $gallery==0 ){
 				// gallery is root, and it aint in the db, so we have to create it.

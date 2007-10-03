@@ -412,14 +412,33 @@ class rsgDisplay_semantic extends rsgDisplay{
 	}
     
 	/**
-		* Show page navigation for Display image
-		*/
+	 * Show page navigation for Display image
+	 */
 	function showDisplayPageNav() {
 		$gallery = rsgGalleryManager::get();
-		$pageNav = $gallery->getPagination();
+		
+		if( rsgInstance::getInt( 'id', 0 )){
+			//  if id is set then we need to set limits and gid so that page nav works properlly
+			rsgInstance::setVar( 'gid', $gallery->id );
+			rsgInstance::setVar( 'limit', 1 );
+
+			$item = $gallery->getItem();
+			rsgInstance::setVar( 'limitstart', $item->ordering );
+		}
+
+		$pageNav = $gallery->getPagination();		
+		$pageLinks = $pageNav->getPagesLinks();
+
+		if( rsgInstance::getInt( 'id', 0 )){
+			// i'm not fond of this style of hackery
+			// first we need to replace the item id with the gallery id
+			// second, the limit parameter is not being written.  this is must be a bug or something.  weird.
+			$pageLinks = str_replace( ";id={$item->id}", ";gid={$gallery->id}&amp;limit=1", $pageLinks );
+		}
+
 		?>
 		<div align="center">
-			<?php echo $pageNav->getPagesLinks(); ?>
+			<?php echo $pageLinks; ?>
 		</div>
 		<?php
 	}
