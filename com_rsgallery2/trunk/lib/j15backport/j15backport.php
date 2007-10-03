@@ -13,20 +13,21 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
 
 //Prepare for Joomla 1.5
 if( !defined( '_JEXEC' )){
-    	// indicate we are emulating Joomla 1.5
-	define( 'JEMU15', 1 );
+	// indicate we are emulating Joomla 1.5
+	define( 'J15B_EXEC', 1 );
+	define( 'J15B_PATH', dirname( __FILE__ ) );
 	
 	// setup a Joomla 1.5 environment
 	define( '_JEXEC', 1 );
 	define ('DS', "/");
 	define( 'JPATH_BASE', $mosConfig_absolute_path );
 	define( 'JPATH_ROOT', $mosConfig_absolute_path );
-	define( 'JPATH_LIBRARIES', dirname( __FILE__ ) . '/libraries' );
+	define( 'JPATH_LIBRARIES', J15B_PATH . DS . 'libraries' );
 	define( 'JPATH_THEMES', JPATH_ROOT . DS . 'templates' );
 }
 
 // joomla 1.5 lib imports
-if( defined( 'JEMU15' )){
+if( defined( 'J15B_EXEC' )){
 	if ( file_exists(JPATH_LIBRARIES . DS . 'loader.php') ) {
 		require_once(JPATH_LIBRARIES . DS . 'loader.php');
 	}
