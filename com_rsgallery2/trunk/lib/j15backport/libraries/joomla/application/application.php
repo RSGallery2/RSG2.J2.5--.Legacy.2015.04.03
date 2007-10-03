@@ -83,6 +83,9 @@ class JApplication extends JObject
 			$config['config_file'] = 'configuration.php';
 		}
 
+		/*
+		J15B: we don't need create the configuration or start the session.
+		
 		//create the configuration object
 		$this->_createConfiguration(JPATH_CONFIGURATION.DS.$config['config_file']);
 
@@ -90,6 +93,12 @@ class JApplication extends JObject
 		if($config['session'] !== false) {
 			$this->_createSession(JUtility::getHash($config['session_name']));
 		}
+		*/
+
+		// J15B: because J15B does not route the application (J1.0 does), we need to add teh URI to the router now.
+		$uri = clone(JURI::getInstance());
+		$router =& $this->getRouter();
+		$router->parse($uri);
 
 		$this->set( 'requestTime', gmdate('Y-m-d H:i') );
 	}
