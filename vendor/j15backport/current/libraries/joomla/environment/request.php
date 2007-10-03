@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: request.php 8682 2007-08-31 18:36:45Z jinx $
+ * @version		$Id: request.php 8976 2007-09-21 15:05:05Z jinx $
  * @package		Joomla.Framework
  * @subpackage	Environment
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -47,12 +47,24 @@ class JRequest
 {
 	/**
 	 * Gets the full request path
+	 * 
 	 * @return string
 	 */
 	function getURI()
 	{
 		$uri = &JFactory::getURI();
 		return $uri->toString();
+	}
+	
+	/**
+	 * Gets the request method
+	 * 
+	 * @return string
+	 */
+	function getMethod()
+	{
+		$method = strtoupper( $_SERVER['REQUEST_METHOD'] );
+		return $method;
 	}
 
 	/**

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: cache.php 8180 2007-07-23 05:52:29Z eddieajau $
+ * @version		$Id: cache.php 9092 2007-10-01 08:29:00Z tcp $
  * @package		Joomla.Framework
  * @subpackage	Cache
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -94,10 +94,8 @@ class JCache extends JObject
 	{
 		$type = strtolower(preg_replace('/[^A-Z0-9_\.-]/i', '', $type));
 
-		$path = JPATH_LIBRARIES.DS.'joomla'.DS.'cache'.DS.'handler'.DS.$type.'.php';
-		if (file_exists($path)) {
-			require_once $path;
-		} else {
+		$path = 'joomla.cache.handler.'.$type;
+		if ( @ ! jimport($path)) {
 			JError::raiseError(500, 'Unable to load Cache Handler: '.$type);
 		}
 

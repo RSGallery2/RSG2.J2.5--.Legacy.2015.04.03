@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: view.php 8760 2007-09-07 04:45:40Z tcp $
+ * @version		$Id: view.php 8969 2007-09-20 23:30:26Z jinx $
  * @package		Joomla.Framework
  * @subpackage	Application
  * @copyright Copyright (C) 2005 Open Source Matters. All rights reserved.
@@ -177,6 +177,8 @@ class JView extends JObject
 		} else {
 			$this->setLayout('default');
 		}
+		
+		$this->baseurl = JURI::base(true);
 	}
 
 	/**

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: mail.php 8761 2007-09-07 04:49:31Z tcp $
+ * @version		$Id: mail.php 8942 2007-09-17 16:02:39Z tcp $
  * @package		Joomla.Framework
  * @subpackage	Utilities
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -439,8 +439,7 @@ class JMailHelper
 		
 		// Check the domain
 		$domain_array	= explode(".", $domain);
-		//$regex		= '/^[A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9]$/';
-		$regex			= '/^[A-Za-z][A-Za-z0-9-]{0,62}$/';
+		$regex		= '/^[A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9]$/';
 		for ($i = 0; $i < sizeof($domain_array); $i++) {
 			if ( ! preg_match($regex, $domain_array[$i])) {
 				return false;

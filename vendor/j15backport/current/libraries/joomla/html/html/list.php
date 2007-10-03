@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: list.php 8288 2007-08-01 08:40:54Z eddieajau $
+* @version		$Id: list.php 8920 2007-09-15 15:49:55Z jinx $
 * @package		Joomla.Framework
 * @subpackage		HTML
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -153,7 +153,7 @@ class JHTMLList
 		} else {
 			$users = $db->loadObjectList();
 		}
-
+		
 		$users = JHTML::_('select.genericlist',   $users, $name, 'class="inputbox" size="1" '. $javascript, 'value', 'text', $active );
 
 		return $users;

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: controller.php 8719 2007-09-03 16:42:31Z louis $
+* @version		$Id: controller.php 8960 2007-09-19 23:19:22Z jinx $
 * @package		Joomla.Framework
 * @subpackage	Application
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -294,7 +294,7 @@ class JController extends JObject
 		$viewName	= JRequest::getCmd( 'view', $this->_name );
 		$viewLayout	= JRequest::getCmd( 'layout', 'default' );
 
-		$view = & $this->getView( $viewName, $viewType);
+		$view = & $this->getView( $viewName, $viewType, '', array( 'base_path'=>$this->_basePath));
 
 		// Get/Create the model
 		if ($model = & $this->getModel($viewName)) {

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: menutypes.php 7074 2007-03-31 15:37:23Z jinx $
+* @version		$Id: menutypes.php 9093 2007-10-01 09:53:23Z tcp $
 * @package		Joomla.Framework
 * @subpackage	Table
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -57,6 +57,28 @@ class JTableMenuTypes extends JTable
 		if (trim( $this->title) == '') {
 			$this->title = $this->menutype;
 		}
+
+		$db		=& JFactory::getDBO();
+		
+		// check for unique menutype for new menu copy
+		$query = 'SELECT menutype' .
+				' FROM #__menu_types';
+		if ( $this->id ) {
+			$query .= ' AND id != '.(int) $this->id;
+		}
+		
+		$db->setQuery( $query );
+		$menus = $db->loadResultArray();
+
+		foreach ( $menus as $menutype )
+		{
+			if ( $menutype == $this->menutype )
+			{
+				$this->setError("Cannot save: Duplicate menu type '$this->menutype'");
+				return false;
+			}
+		}
+
 		return true;
 	}
 }

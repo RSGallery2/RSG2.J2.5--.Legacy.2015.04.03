@@ -31,6 +31,7 @@ if( defined( 'JEMU15' )){
 		require_once(JPATH_LIBRARIES . DS . 'loader.php');
 	}
 
+	jimport( 'joomla.methods' );
 	jimport( 'joomla.base.object' );
 	jimport( 'joomla.environment.request' );
 	// Include object abstract class

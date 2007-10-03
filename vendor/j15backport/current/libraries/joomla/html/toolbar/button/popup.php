@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: popup.php 7898 2007-07-09 07:10:00Z louis $
+* @version		$Id: popup.php 9028 2007-09-26 20:46:02Z jinx $
 * @package		Joomla.Framework
 * @subpackage	HTML
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -81,6 +81,6 @@ class JButtonPopup extends JButton
 			$url = JURI::base().$url;
 		}
 
-		return $url;
+		return str_replace('&', '&amp;', $url);
 	}
 }

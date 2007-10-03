@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: user.php 8762 2007-09-07 05:28:57Z pasamio $
+* @version		$Id: user.php 9124 2007-10-03 14:17:56Z humvee $
 * @package		Joomla.Framework
 * @subpackage	Table
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -149,12 +149,12 @@ class JTableUser extends JTable
 		}
 
 
-		if (eregi( "[\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-]", $this->username) || JString::strlen( $this->username ) < 2) {
+		if (eregi( "[\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-]", $this->username) || strlen(utf8_decode($this->username )) < 2) {
 			$this->setError( JText::sprintf( 'VALID_AZ09', JText::_( 'Username' ), 2 ) );
 			return false;
 		}
 
-		if ((trim($this->email == "")) || ! JMailHelper::isEmailAddress($this->email) ) {
+		if ((trim($this->email) == "") || ! JMailHelper::isEmailAddress($this->email) ) {
 			$this->setError( JText::_( 'WARNREG_MAIL' ) );
 			return false;
 		}
@@ -168,7 +168,7 @@ class JTableUser extends JTable
 		$this->_db->setQuery( $query );
 		$xid = intval( $this->_db->loadResult() );
 		if ($xid && $xid != intval( $this->id )) {
-			$this->setError( JText::_( 'WARNREG_INUSE' ) );
+			$this->setError(  'WARNREG_INUSE'  );
 			return false;
 		}
 

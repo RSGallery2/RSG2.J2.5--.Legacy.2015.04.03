@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: registry.php 8702 2007-09-02 13:27:26Z hackwar $
+ * @version		$Id: registry.php 9109 2007-10-02 16:04:35Z jinx $
  * @package		Joomla.Framework
  * @subpackage	Registry
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -404,17 +404,20 @@ class JRegistry extends JObject
 	 */
 	function merge(&$source)
 	{
-		if (is_a($source, 'JRegistry')) {
+		if (is_a($source, 'JRegistry')) 
+		{
 			$sns = $source->getNameSpaces();
 			foreach ($sns as $ns)
 			{
-				if (!isset($this->_registry[$ns])) {
+				if (!isset($this->_registry[$ns])) 
+				{
 					// If namespace does not exist, make it and load the data
 					$this->makeNameSpace($ns);
 				}
 
 				// Load the variables into the registry's default namespace.
-				foreach ($source->toArray($ns) as $k => $v) {
+				foreach ($source->toArray($ns) as $k => $v) 
+				{
 					if ($v != null) {
 						$this->_registry[$ns]['data']->$k = $v;
 					}
@@ -496,5 +499,10 @@ class JRegistry extends JObject
 		$ns = & $this->_registry[$namespace]['data'];
 
 		return $ns;
+	}
+
+	function __clone()
+	{
+		$this->_registry = unserialize(serialize($this->_registry));
 	}
 }

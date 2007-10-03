@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: helper.php 8743 2007-09-04 19:14:22Z hackwar $
+* @version		$Id: helper.php 8961 2007-09-19 23:40:43Z jinx $
 * @package		Joomla.Framework
 * @subpackage	Application
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -63,6 +63,12 @@ class JApplicationHelper
 			$obj->name	= 'installation';
 			$obj->path	= JPATH_INSTALLATION;
 			$clients[2] = clone($obj);
+			
+			// XMLRPC Client
+			$obj->id		= 3;
+			$obj->name	= 'xmlrpc';
+			$obj->path	= JPATH_XMLRPC;
+			$clients[3] = clone($obj);
 		}
 		
 		//If no client id has been passed return the whole array

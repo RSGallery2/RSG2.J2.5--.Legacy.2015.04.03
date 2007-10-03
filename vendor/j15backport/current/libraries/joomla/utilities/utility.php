@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: utility.php 8176 2007-07-23 04:26:14Z eddieajau $
+ * @version		$Id: utility.php 9070 2007-09-28 18:21:07Z jinx $
  * @package		Joomla.Framework
  * @subpackage	Utilities
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -114,7 +114,7 @@ class JUtility
 	function getHash( $seed )
 	{
 		$conf =& JFactory::getConfig();
-		return md5( $conf->getValue('config.secret') . md5( $seed ) );
+		return md5( $conf->getValue('config.secret') .  $seed  );
 	}
 
 	/**

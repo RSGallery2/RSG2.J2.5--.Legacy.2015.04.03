@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: installer.php 8682 2007-08-31 18:36:45Z jinx $
+ * @version		$Id: installer.php 8964 2007-09-20 06:52:12Z tcp $
  * @package		Joomla.Framework
  * @subpackage	Installer
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -1156,7 +1156,7 @@ class JInstaller extends JObject
 			}
 
 			// None of the xml files found were valid install files
-			JError::raiseWarning(1, 'JInstaller::install: '.JText::_('ERRORJOSXMLSETUP'));
+			JError::raiseWarning(1, 'JInstaller::install: '.JText::_('ERRORNOTFINDJOOMLAXMLSETUPFILE'));
 			return false;
 		} else {
 			// No xml files were found in the install folder

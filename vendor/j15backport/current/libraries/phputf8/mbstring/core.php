@@ -1,6 +1,6 @@
 <?php
 /**
-* @version $Id: core.php 7692 2007-06-08 20:41:29Z tcp $
+* @version $Id: core.php 9086 2007-09-30 08:35:38Z pasamio $
 * @package utf8
 * @subpackage strings
 */
@@ -25,11 +25,13 @@ if ( !defined('UTF8_CORE') ) {
 * @subpackage strings
 */
 function utf8_strpos($str, $search, $offset = FALSE){
-    if ( $offset === FALSE ) {
-        return mb_strpos($str, $search);
-    } else {
-        return mb_strpos($str, $search, $offset);
-    }
+	if(strlen($str) && strlen($search)) {
+	    if ( $offset === FALSE ) {
+	        return mb_strpos($str, $search);
+	    } else {
+	        return mb_strpos($str, $search, $offset);
+	    }
+	} else return FALSE;
 }
 
 //--------------------------------------------------------------------

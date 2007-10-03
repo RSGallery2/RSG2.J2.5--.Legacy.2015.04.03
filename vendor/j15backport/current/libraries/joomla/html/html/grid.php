@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: grid.php 8559 2007-08-25 18:34:58Z jinx $
+* @version		$Id: grid.php 8891 2007-09-14 02:44:41Z jinx $
 * @package		Joomla.Framework
 * @subpackage	HTML
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -39,7 +39,7 @@ class JHTMLGrid
 		$html = '<a href="javascript:tableOrdering(\''.$order.'\',\''.$direction.'\',\''.$task.'\');" title="'.JText::_( 'Click to sort this column' ).'">';
 		$html .= JText::_( $title );
 		if ($order == $selected ) {
-			$html .= JHTML::_('image.administrator',  $images[$index], '/images/', NULL, NULL, '', '', 1 );
+			$html .= JHTML::_('image.administrator',  $images[$index], '/images/', NULL, NULL);
 		}
 		$html .= '</a>';
 		return $html;
@@ -146,7 +146,7 @@ class JHTMLGrid
 
 	function order( $rows, $image='filesave.png', $task="saveorder" )
 	{
-		$image = JHTML::_('image.administrator',  $image, '/images/', NULL, NULL, JText::_( 'Save Order' ), '', 1 );
+		$image = JHTML::_('image.administrator',  $image, '/images/', NULL, NULL, JText::_( 'Save Order' ) );
 		$href = '<a href="javascript:saveorder('.(count( $rows )-1).', \''.$task.'\')" title="'.JText::_( 'Save Order' ).'">'.$image.'</a>';
 		return $href;
 	}

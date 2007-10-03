@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: application.php 8840 2007-09-11 17:07:44Z jinx $
+* @version		$Id: application.php 9110 2007-10-02 16:04:45Z jinx $
 * @package		Joomla.Framework
 * @subpackage	Application
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -163,21 +163,17 @@ class JApplication extends JObject
 		// Set user specific editor
 		$user	 =& JFactory::getUser();
 		$editor	 = $user->getParam('editor', $this->getCfg('editor'));
-		$editor = JPLuginHelper::isEnabled('editors', $editor) ? $editor : $this->getCfg('editor');
+		$editor = JPluginHelper::isEnabled('editors', $editor) ? $editor : $this->getCfg('editor');
 		$config->setValue('config.editor', $editor);
-
-		// Set the database debug
-		$db =& JFactory::getDBO();
-		$db->debug( $config->get('debug_db'));
 	}
 
 	/**
-	* Route the applicaiton.
+	* Route the application.
 	*
 	* Routing is the process of examining the request environment to determine which
-	* which component should receive the request. This component optional parameters
+	* component should receive the request. The component optional parameters
 	* are then set in the request object to be processed when the application is being
-	* dispatched
+	* dispatched.
 	*
 	* @abstract
 	* @access	public
@@ -185,11 +181,11 @@ class JApplication extends JObject
 	function route()
  	{
 		// get the full request URI
-		$uri  =& JURI::getInstance();
+		$uri = clone(JURI::getInstance());
 
 		$router =& $this->getRouter();
 		$result = $router->parse($uri);
-		
+
 		JRequest::set($result, 'get', false );
  	}
 
@@ -197,8 +193,8 @@ class JApplication extends JObject
 	* Dispatch the applicaiton.
 	*
 	* Dispatching is the process of pulling the option from the request object and
-	* mapping them to a component. If the component do not exist, it handles
-	* determining a default component to dispatch
+	* mapping them to a component. If the component does not exist, it handles
+	* determining a default component to dispatch.
 	*
 	* @abstract
 	* @access	public
@@ -218,7 +214,7 @@ class JApplication extends JObject
 	* Render the application.
 	*
 	* Rendering is the process of pushing the document buffers into the template
-	* placeholders, retrieving data from the document and pushing it into the into
+	* placeholders, retrieving data from the document and pushing it into
 	* the JResponse buffer.
 	*
 	* @abstract
@@ -527,7 +523,7 @@ class JApplication extends JObject
 				{
 					jimport('joomla.utilities.simplecrypt');
 					jimport('joomla.utilities.utility');
-					
+
 					//Create the encryption key, apply extra hardening using the user agent string
 					$key = JUtility::getHash(@$_SERVER['HTTP_USER_AGENT']);
 
@@ -616,7 +612,7 @@ class JApplication extends JObject
 	 * @return	JRouter.
 	 * @since	1.5
 	 */
-	function &getRouter($name=null, $options = array())
+	function &getRouter($name = null, $options = array())
 	{
 		if(!isset($name)) {
 			$name = $this->_name;
@@ -639,7 +635,7 @@ class JApplication extends JObject
 	 * @return object JPathway.
 	 * @since 1.5
 	 */
-	function &getPathway($name=null, $options = array())
+	function &getPathway($name = null, $options = array())
 	{
 		if(!isset($name)) {
 			$name = $this->_name;
@@ -662,7 +658,7 @@ class JApplication extends JObject
 	 * @return object JMenu.
 	 * @since 1.5
 	 */
-	function &getMenu($name=null, $options = array())
+	function &getMenu($name = null, $options = array())
 	{
 		if(!isset($name)) {
 			$name = $this->_name;
@@ -1028,13 +1024,13 @@ class JApplication extends JObject
 		// Load the article data to know what section/category it is in.
 		$article =& JTable::getInstance('content');
 		$article->load($id);
-		
+
 		$needles = array(
 			'article'  => (int) $id,
-			'category' => (int) $article->catid, 
-			'section'  => (int) $article->sectionid, 
+			'category' => (int) $article->catid,
+			'section'  => (int) $article->sectionid,
 		);
-				
+
 		$item = ContentHelperRoute::_findItem($needles);
 		return $item->id;
 	}

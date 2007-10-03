@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: error.php 8031 2007-07-17 23:14:23Z jinx $
+* @version		$Id: error.php 8994 2007-09-22 23:56:15Z robs $
 * @package		Joomla.Framework
 * @subpackage	Document
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -112,6 +112,7 @@ class JDocumentError extends JDocument
 		}
 
 		//set variables
+		$this->baseurl  = JURI::base(true);
 		$this->template = $template;
 		$this->debug	= isset($params['debug']) ? $params['debug'] : false;
 		$this->message	= JText::_($this->_error->message);
