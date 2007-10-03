@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: mysqli.php 8123 2007-07-20 16:14:16Z friesengeist $
+* @version		$Id: mysqli.php 9003 2007-09-23 20:02:42Z jinx $
 * @package		Joomla.Framework
 * @subpackage	Database
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -24,11 +24,25 @@ defined('JPATH_BASE') or die();
  */
 class JDatabaseMySQLi extends JDatabase
 {
-	/** @var string The database driver name */
+	/** 
+	 *  The database driver name
+	 * 
+	 * @var string 
+	 */
 	var $name			= 'mysqli';
-	/** @var string The null/zero date string */
+	
+	/** 
+	 * The null/zero date string
+	 * 
+	 * @var string  
+	 */
 	var $_nullDate		= '0000-00-00 00:00:00';
-	/** @var string Quote for named objects */
+	
+	/** 
+	 * Quote for named objects
+	 * 
+	 * @var string  
+	 */
 	var $_nameQuote		= '`';
 
 	/**

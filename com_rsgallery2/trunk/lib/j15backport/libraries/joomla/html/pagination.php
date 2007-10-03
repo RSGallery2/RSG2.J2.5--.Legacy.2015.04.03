@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: pagination.php 8290 2007-08-01 14:03:11Z jinx $
+ * @version		$Id: pagination.php 8996 2007-09-23 12:18:35Z nurainir $
  * @package		Joomla.Framework
  * @subpackage	HTML
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -325,7 +325,7 @@ class JPagination extends JObject
 		$limits[] = JHTML::_('select.option', '0', JText::_('all'));
 
 		$selected = $this->_viewall ? 0 : $this->limit;
-		
+
 		// Build the select list
 		if ($mainframe->isAdmin()) {
 			$html = JHTML::_('select.genericlist',  $limits, 'limit', 'class="inputbox" size="1" onchange="submitform();"', 'value', 'text', $selected);
@@ -458,8 +458,12 @@ class JPagination extends JObject
 	function _item_active(&$item)
 	{
 		global $mainframe;
-		if ($mainframe->isAdmin()) {
-			return "<a title=\"".$item->text."\" onclick=\"javascript: document.adminForm.limitstart.value=".$item->base."; submitform();return false;\">".$item->text."</a>";
+		if ($mainframe->isAdmin())
+		{
+			if($item->base>0)
+				return "<a title=\"".$item->text."\" onclick=\"javascript: document.adminForm.limitstart.value=".$item->base."; submitform();return false;\">".$item->text."</a>";
+			else
+				return "<a title=\"".$item->text."\" onclick=\"javascript: document.adminForm.limitstart.value=0; submitform();return false;\">".$item->text."</a>";
 		} else {
 			return "<a title=\"".$item->text."\" href=\"".$item->link."\" class=\"pagenav\">".$item->text."</a>";
 		}
@@ -490,7 +494,7 @@ class JPagination extends JObject
 		$data->all	= new JPaginationObject(JText::_('View All'));
 		if (!$this->_viewall) {
 			$data->all->base	= '0';
-			$data->all->link	= JRoute::_("&limitstart=0");
+			$data->all->link	= JRoute::_("&limitstart=");
 		}
 
 		// Set the start and previous data objects
@@ -500,8 +504,11 @@ class JPagination extends JObject
 		if ($this->get('pages.current') > 1)
 		{
 			$page = ($this->get('pages.current') -2) * $this->limit;
+
+			$page = $page == 0 ? '' : $page; //set the empty for removal from route
+
 			$data->start->base	= '0';
-			$data->start->link	= JRoute::_("&limitstart=0");
+			$data->start->link	= JRoute::_("&limitstart=");
 			$data->previous->base	= $page;
 			$data->previous->link	= JRoute::_("&limitstart=".$page);
 		}
@@ -512,12 +519,13 @@ class JPagination extends JObject
 
 		if ($this->get('pages.current') < $this->get('pages.total'))
 		{
-			$page = $this->get('pages.current') * $this->limit;
-			$endPage = ($this->get('pages.total') -1) * $this->limit;
-			$data->next->base	= $page;
-			$data->next->link	= JRoute::_("&limitstart=".$page);
-			$data->end->base	= $endPage;
-			$data->end->link	= JRoute::_("&limitstart=".$endPage);
+			$next = $this->get('pages.current') * $this->limit;
+			$end  = ($this->get('pages.total') -1) * $this->limit;
+
+			$data->next->base	= $next;
+			$data->next->link	= JRoute::_("&limitstart=".$next);
+			$data->end->base	= $end;
+			$data->end->link	= JRoute::_("&limitstart=".$end);
 		}
 
 		$data->pages = array();
@@ -525,6 +533,9 @@ class JPagination extends JObject
 		for ($i = $this->get('pages.start'); $i <= $stop; $i ++)
 		{
 			$offset = ($i -1) * $this->limit;
+
+			$offset = $offset == 0 ? '' : $offset;  //set the empty for removal from route
+
 			$data->pages[$i] = new JPaginationObject($i);
 			if ($i != $this->get('pages.current') || $this->_viewall)
 			{

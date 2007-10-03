@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		$Id: calendar.php 8329 2007-08-03 15:56:00Z chrisdavenport $
+* @version		$Id: calendar.php 9071 2007-09-28 18:40:42Z hackwar $
 * @package		Joomla.Framework
 * @subpackage	Articles
 * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -36,7 +36,7 @@ class JElementCalendar extends JElement
 	{
 		JHTML::_('behavior.calendar'); //load the calendar behavior
 
-		$format	= ( $node->attributes('format') ? $node->attributes('format') : 'y-mm-dd' );
+		$format	= ( $node->attributes('format') ? $node->attributes('format') : '%Y-%m-%d' );
 		$class	= $node->attributes('class') ? $node->attributes('class') : 'inputbox';
 
 		$id   = $control_name.$name;

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: table.php 8847 2007-09-12 13:16:03Z jinx $
+ * @version		$Id: table.php 9011 2007-09-25 15:53:46Z jinx $
  * @package		Joomla.Framework
  * @subpackage	Table
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -125,7 +125,7 @@ class JTable extends JObject
 		$db =& JFactory::getDBO();
 		$instance = new $tableClass($db);
 		$instance->setDBO($db);
-
+		
 		return $instance;
 	}
 
@@ -633,7 +633,7 @@ class JTable extends JObject
 		jimport('joomla.utilities.date');
 		$datenow = new JDate();
 		$time = $datenow->toMysql();
-
+		
 		$query = 'UPDATE '.$this->_db->nameQuote( $this->_tbl ) .
 			' SET checked_out = '.(int)$who.', checked_out_time = '.$this->_db->Quote($time) .
 			' WHERE '.$this->_tbl_key.' = '. $this->_db->Quote($this->$k);

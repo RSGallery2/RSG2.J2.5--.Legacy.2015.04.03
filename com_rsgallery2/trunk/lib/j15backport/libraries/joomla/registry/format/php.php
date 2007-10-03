@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: php.php 7677 2007-06-08 03:46:38Z louis $
+ * @version		$Id: php.php 8896 2007-09-14 05:23:00Z jinx $
  * @package		Joomla.Framework
  * @subpackage	Registry
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -39,7 +39,8 @@ class JRegistryFormatPHP extends JRegistryFormat {
 
 		// Build the object variables string
 		$vars = '';
-		foreach (get_object_vars( $object ) as $k => $v) {
+		foreach (get_object_vars( $object ) as $k => $v) 
+		{
 			if (is_scalar($v)) {
 				$vars .= "\tvar $". $k . " = '" . addslashes($v) . "';\n";
 			} elseif (is_array($v)) {

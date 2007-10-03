@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: uri.php 8819 2007-09-10 01:51:55Z jinx $
+ * @version		$Id: uri.php 9080 2007-09-29 18:00:30Z jinx $
  * @package		Joomla.Framework
  * @subpackage	Environment
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -195,34 +195,59 @@ class JURI extends JObject
 	 *
 	 * @access	public
 	 * @static
+	 * @param	boolean $pathonly If true, prepend the scheme, host and port information. Default is false.
 	 * @return	string	The base URI string
 	 * @since	1.5
 	 */
-	function base()
+	function base($pathonly = false)
 	{
 		static $base;
-
-		// Get the base request URL if not set
+	
+		// Get the base request path
 		if (!isset($base))
 		{
-			$uri	=& JURI::getInstance();
-
-			$base = $uri->getScheme().'://';
-			$base .= $uri->getHost();
-
-			if ($port = $uri->getPort()) {
-				$base .= ':'.$port;
-			}
-
+			$uri	         =& JURI::getInstance();
+			$base['prefix'] = $uri->toString( array('scheme', 'host', 'port'));
+			
 			if (strpos(php_sapi_name(), 'cgi') !== false && !empty($_SERVER['REQUEST_URI'])) {
 				//Apache CGI
-				$base .=  rtrim(dirname($_SERVER['PHP_SELF']), '/\\').'/';
+				$base['path'] =  rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 			} else {
 				//Others
-				$base .=  rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\').'/';
+				$base['path'] =  rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
 			}
 		}
-		return $base;
+		
+		return $pathonly === false ? $base['prefix'].$base['path'].'/' : $base['path'];	
+	}
+	
+	/**
+	 * Returns the root URI for the request.
+	 *
+	 * @access	public
+	 * @static
+	 * @param	boolean $pathonly If true, prepend the scheme, host and port information. Default is false.
+	 * @return	string	The root URI string
+	 * @since	1.5
+	 */
+	function root($pathonly = false, $path = null)
+	{
+		static $root;
+		
+		// Get the scheme
+		if(!isset($root))
+		{
+			$uri	        =& JURI::getInstance();
+			$root['prefix'] = $uri->toString( array('scheme', 'host', 'port'));
+			$root['path']    = JURI::base(true);
+		}
+		
+		// Get the scheme
+		if(isset($path)) {
+			$root['path']    = $path;
+		}
+
+		return $pathonly === false ? $root['prefix'].$root['path'].'/' : $root['path'];
 	}
 
 	/**
@@ -239,13 +264,13 @@ class JURI extends JObject
 		// Get the current URL
 		if (!isset($current))
 		{
-			$uri		= & JFactory::getURI();
-			$current	= $uri->toString( array('scheme', 'host', 'port', 'path'));
+			$uri	 = & JURI::getInstance();
+			$current = $uri->toString( array('scheme', 'host', 'port', 'path'));
 		}
 
 		return $current;
 	}
-
+	
 	/**
 	 * Parse a given URI and populate the class fields
 	 *

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: menu.php 8703 2007-09-02 15:14:45Z jinx $
+ * @version		$Id: menu.php 9047 2007-09-27 13:30:30Z jinx $
  * @package		Joomla.Framework
  * @subpackage	Application
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -211,7 +211,8 @@ class JMenu extends JObject
 	 */
 	function getItems($attribute, $value, $firstonly = false)
 	{
-		$items = array ();
+		$items = null;
+		
 		foreach ($this->_items as  $item)
 		{
 			if ( ! is_object($item) )

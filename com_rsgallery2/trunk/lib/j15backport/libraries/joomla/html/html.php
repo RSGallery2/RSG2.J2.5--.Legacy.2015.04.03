@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: html.php 8860 2007-09-13 13:44:56Z jinx $
+ * @version		$Id: html.php 9117 2007-10-03 01:07:01Z jinx $
  * @package		Joomla.Framework
  * @subpackage	HTML
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -101,20 +101,22 @@ class JHTML
 	 * Write a <img></amg> element
 	 *
 	 * @access	public
-	 * @param	string 	The relative URL to use for the src attribute
+	 * @param	string 	The relative or absoluete URL to use for the src attribute
 	 * @param	string	The target attribute to use
 	 * @param	array	An associative array of attributes to add
 	 * @since	1.5
 	 */
 	function image($url, $alt, $attribs = null)
 	{
-		global $mainframe;
-
 		if (is_array($attribs)) {
 			$attribs = JArrayHelper::toString( $attribs );
 		}
-
-		return '<img src="'.JURI::base().$url.'" alt="'.$alt.'" '.$attribs.' />';
+		
+		if(strpos($url, 'http') !== 0) {
+			$url =  JURI::root(true).'/'.$url;
+		}; 
+			
+		return '<img src="'.$url.'" alt="'.$alt.'" '.$attribs.' />';
 	}
 
 	/**
@@ -141,23 +143,23 @@ class JHTML
 	 *
 	 * @access	public
 	 * @param	string 	The name of the script file
-	 * * @param	string 	The relative path of the script file
+	 * * @param	string 	The relative or absolute path of the script file
 	 * @param	boolean If true, the mootools library will be loaded
 	 * @since	1.5
 	 */
 	function script($filename, $path = 'media/system/js/', $mootools = true)
 	{
-		global $mainframe;
-
 		// Include mootools framework
 		if($mootools) {
 			JHTML::_('behavior.mootools');
 		}
-
-		$base = $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
+		
+		if(strpos($path, 'http') !== 0) {
+			$path =  JURI::root(true).'/'.$path;
+		}; 
 
 		$document = &JFactory::getDocument();
-		$document->addScript( $base.$path.$filename );
+		$document->addScript( $path.$filename );
 		return;
 	}
 
@@ -168,13 +170,14 @@ class JHTML
 	 * @param	string 	The relative URL to use for the href attribute
 	 * @since	1.5
 	 */
-	function stylesheet($filename, $path = '/media/system/css/', $attribs = array())
+	function stylesheet($filename, $path = 'media/system/css/', $attribs = array())
 	{
-		global $mainframe;
-		$base = $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
-
+		if(strpos($path, 'http') !== 0) {
+			$path =  JURI::root(true).'/'.$path;
+		}; 
+		
 		$document = &JFactory::getDocument();
-		$document->addStylesheet( $base.$path.$filename, 'text/css', null, $attribs );
+		$document->addStylesheet( $path.$filename, 'text/css', null, $attribs );
 		return;
 	}
 
@@ -222,15 +225,11 @@ class JHTML
 	 */
 	function tooltip($tooltip, $title='', $image='tooltip.png', $text='', $href='', $link=1)
 	{
-		global $mainframe;
-
 		$tooltip	= addslashes(htmlspecialchars($tooltip));
 		$title		= addslashes(htmlspecialchars($title));
 
-		$url = $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
-
 		if ( !$text ) {
-			$image 	= $url . 'includes/js/ThemeOffice/'. $image;
+			$image 	= JURI::root(true).'/includes/js/ThemeOffice/'. $image;
 			$text 	= '<img src="'. $image .'" border="0" alt="'. JText::_( 'Tooltip' ) .'"/>';
 		} else {
 			$text 	= JText::_( $text, true );
@@ -264,16 +263,24 @@ class JHTML
 	 * @param	string	The date format
 	 * @param	array	Additional html attributes
 	 */
-	function calendar($value, $name, $id, $format = 'y-mm-dd', $attribs = null)
+	function calendar($value, $name, $id, $format = '%Y-%m-%d', $attribs = null)
 	{
 		JHTML::_('behavior.calendar'); //load the calendar behavior
 
 		if (is_array($attribs)) {
 			$attribs = JArrayHelper::toString( $attribs );
 		}
+		$document =& JFactory::getDocument();
+		$document->addScriptDeclaration('window.addEvent(\'domready\', function() {Calendar.setup({
+        inputField     :    "'.$id.'",     // id of the input field
+        ifFormat       :    "'.$format.'",      // format of the input field
+        button         :    "'.$id.'_img",  // trigger for the calendar (button ID)
+        align          :    "Tl",           // alignment (defaults to "Bl")
+        singleClick    :    true
+    });});');
 
-		return '<input type="text" name="'.$name.'" id="'.$id.'" value="'.htmlspecialchars($value).'" '.$attribs.' />'.
-				 '<a href="#" onclick="return showCalendar(\''.$id.'\', \''.$format.'\');"><img class="calendar" src="images/blank.png" alt="calendar" /></a>';
+		return '<input type="text" name="'.$name.'" id="'.$id.'" value="'.htmlspecialchars($value, ENT_COMPAT, 'UTF-8').'" '.$attribs.' />'.
+				 '<img class="calendar" src="'.JURI::root(true).'/templates/system/images/calendar.png" alt="calendar" id="'.$id.'_img" />';
 	}
 
 	/**

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: factory.php 8827 2007-09-10 16:19:39Z jinx $
+ * @version		$Id: factory.php 9011 2007-09-25 15:53:46Z jinx $
  * @package		Joomla.Framework
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
@@ -268,7 +268,7 @@ class JFactory
 			$instance = JFactory::_createDBO();
 			$instance->debug($debug);
 		}
-
+		
 		return $instance;
 	}
 

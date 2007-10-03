@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: folder.php 8683 2007-08-31 20:02:02Z jinx $
+ * @version		$Id: folder.php 9065 2007-09-28 11:24:46Z tcp $
  * @package		Joomla.Framework
  * @subpackage	FileSystem
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
@@ -238,6 +238,13 @@ class JFolder
 	 */
 	function delete($path)
 	{
+		// Sanity check
+		if ( ! $path ) {
+			// Bad programmer! Bad Bad programmer!
+			JError::raiseWarning(500, 'JFolder::delete: '.JText::_('Attempt to delete base directory') );
+			return false;
+		}	
+
 		// Initialize variables
 		jimport('joomla.client.helper');
 		$FTPOptions = JClientHelper::getCredentials('ftp');
