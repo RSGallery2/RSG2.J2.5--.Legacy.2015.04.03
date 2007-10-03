@@ -337,6 +337,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		global $rsgConfig, $mosConfig_live_site;
 		
 		$item = rsgInstance::getItem();
+
 		if( $item->type != 'image' ){
 			// item is not an image, return;
 			return;
@@ -414,41 +415,11 @@ class rsgDisplay_semantic extends rsgDisplay{
 		* Show page navigation for Display image
 		*/
 	function showDisplayPageNav() {
-		$items = rsgInstance::getItems();
-		
-		if( $items ){
-			$gallery = rsgInstance::getGallery();
-			$itemCount = $gallery->itemCount();
-
-			$limit = rsgInstance::getInt( 'limit', 1 );
-			$limitstart = rsgInstance::getInt( 'limitstart' );
-			$filter_order = rsgInstance::getInt( 'filter_order' );
-			$filter_order_Dir = rsgInstance::getInt( 'filter_order_Dir' );
-		}
-		else{
-			// $items is null, and therefore could not be retrieved. obtain limits from single item instead
-			$item = rsgInstance::getItem();
-			$gallery = $item->gallery;
-			$itemCount = $item->gallery->itemCount();
-
-			$limit = 1;
-			$keys = array_keys( $item->gallery->items() );
-			$limitstart = array_search( $item->id, $keys );
-			
-			$filter_order = '';
-			$filter_order_Dir = '';
-		}
-
-		//instantiate page navigation
-		$pageNav = new mosPageNav( $itemCount, $limitstart, $limit );
-		
+		$gallery = rsgGalleryManager::get();
+		$pageNav = $gallery->getPagination();
 		?>
 		<div align="center">
-		<?php
-		// print page navigation.
-		global $Itemid;
-		echo $pageNav->writePagesLinks( "index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=inline&amp;gid=".$gallery->id );
-		?>
+			<?php echo $pageNav->getPagesLinks(); ?>
 		</div>
 		<?php
 	}

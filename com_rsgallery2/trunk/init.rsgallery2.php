@@ -53,6 +53,7 @@ require_once( JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'items' . DS .'ite
 
 // contains misc. utility functions
 require_once(JPATH_RSGALLERY2_ADMIN . DS . 'config.rsgallery2.php');
+require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'gallery.manager.php');
 require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'gallery.class.php');
 require_once(JPATH_RSGALLERY2_LIBS . DS . 'rsgcomments' . DS . 'rsgcomments.class.php');
 require_once(JPATH_RSGALLERY2_LIBS . DS . 'rsgvoting' . DS . 'rsgvoting.class.php');

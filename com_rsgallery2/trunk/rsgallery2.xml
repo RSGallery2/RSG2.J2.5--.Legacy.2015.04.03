@@ -437,6 +437,7 @@
 	<filename>includes/config.class.php</filename>
 	<filename>includes/file.utils.php</filename>
 	<filename>includes/gallery.class.php</filename>
+	<filename>includes/gallery.manager.php</filename>
 	<filename>includes/img.utils.php</filename>
 	<filename>includes/install.class.php</filename>
 	<filename>includes/instance.class.php</filename>

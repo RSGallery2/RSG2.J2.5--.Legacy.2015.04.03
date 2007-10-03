@@ -95,53 +95,32 @@ class rsgInstance extends JRequest{
 	 * Returns the selected gallery.
 	 *
 	 * @static
+	 * @deprecated Use rsgGalleryManager::get(); instead!
 	 */
 	function getGallery(){
-		$gid = rsgInstance::getInt( 'catid' );
-		$gid = rsgInstance::getInt( 'gid', $gid );
-
-		return rsgGalleryManager::get( $gid );
+		return rsgGalleryManager::get( );
 	}
 	
 	/**
 	 * Returns the selected item or the first item in the set if a set of items has been requested.
 	 *
 	 * @static
+	 * @deprecated Use rsgGallery->getItem(); instead!
 	 */
 	function getItem(){
-		$id = rsgInstance::getInt( 'id' );
-		
-		if( !$id ){
-			// there is no item set, return the first value from getItems()
-			$items = rsgInstance::getItems();
-			if( ! $items )
-				return null;
-
-			return array_shift( $items );
-		}
-
-		return rsgGalleryManager::getItem( $id );
+		$gallery = rsgInstance::getGallery();
+		return $gallery->getItem();
 	}
 	
 	/**
 	 * Returns: an array of items in the order requested
 	 * @todo default values should be obtained from config or elsewhere for limits, ordering, etc.
 	 * @static
+	 * @deprecated Use rsgGallery->items(); instead!
 	 */
 	function getItems(){
 		$gallery = rsgInstance::getGallery();
-		
-		// there are no items in root gallery or gallery id is not set
-		if( $gallery->id == 0 )
-			return null;
-
-		$limit = rsgInstance::getInt( 'limit', 999 );
-		$limitstart = rsgInstance::getInt( 'limitstart' );
-		$filter_order = rsgInstance::getVar( 'filter_order' );
-		$filter_order_Dir = rsgInstance::getVar( 'filter_order_Dir' );
-		
-		$items = $gallery->items( $filter_order, $filter_order_Dir, $limit, $limitstart );
-		return $items;
+		return $gallery->items();
 	}
 	
 	/**

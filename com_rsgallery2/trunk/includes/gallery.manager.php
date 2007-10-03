@@ -21,8 +21,12 @@ class rsgGalleryManager{
 	 *
 	 * @param id of item
 	 */
-	function getGalleryByItemID( $id ) {
+	function getGalleryByItemID( $id = null ) {
 		global $database;
+		
+		if( $id === null ){
+			$id = rsgInstance::getInt( 'id', 0 );
+		}
 		
 		if( !is_numeric( $id )) return false;
 		$query = "SELECT f.gallery_id FROM #__rsgallery2_files AS f WHERE f.id = $id";
@@ -34,9 +38,12 @@ class rsgGalleryManager{
 		}
 	}
 	
-	function getItem( $id ){
-		$gallery = rsgGalleryManager::getGalleryByItemID( $id );
-		return $gallery->getItem( $id );
+	/**
+		@deprecated Use rsgGallery->getItem() instead!
+	**/
+	function getItem( $id = null ){
+		$gallery = rsgGalleryManager::get();
+		return $gallery->getItem();
 	}
 
     /**
@@ -44,14 +51,25 @@ class rsgGalleryManager{
      * @param id of the gallery
      * @todo move published check to rsgAccess
      */
-	function get( $id ){
+	function get( $id = null ){
 		global $rsgAccess, $rsgConfig;
-	
+
+		if( $id === null ){
+			$id = rsgInstance::getInt( 'catid', 0 );
+			$id = rsgInstance::getInt( 'gid', $id );
+			
+			if( !$id ){
+				// check if an item id is set and if so return the gallery for that item id
+				if( rsgInstance::getInt( 'id', 0 ))
+					return rsgGalleryManager::getGalleryByItemID();
+			}
+		}
+
 		// since the user will never be offered the chance to view a gallery they can't, unauthorized attempts at viewing are a hacking attempt, so it is ok to print an unfriendly error.
 		$rsgAccess->checkGallery( 'view', $id ) or die("RSGallery2: Access denied to gallery $id");
-	
+
 		$gallery = rsgGalleryManager::_get( $id );
-		
+
 		// if gallery is unpublished don't show it unless ACL is enabled and users has permissions to modify (owners can view their unpublished galleries).
 		if( $gallery->get('published') < 1 ) {
 			global $my;
@@ -59,14 +77,14 @@ class rsgGalleryManager{
 			// if user is admin or superadmin then always return the gallery
 			if ( $my->gid > 23 )
 				return $gallery;
-	
+
 			if( $rsgConfig->get( 'acl_enabled' )){
 				if( !$rsgAccess->checkGallery( 'create_mod_gal', $id )) die("RSGallery2: Access denied to gallery $id");
 			}
 			else
 				die("RSGallery2: Access denied to gallery $id");
 		}
-	
+
 		return $gallery;
 	}
 
@@ -268,246 +286,4 @@ class rsgGalleryManager{
             $rsgAccess->deletePermissions( $id );
         }
     }
-}
-
-/**
-* Class representing a gallery.
-* Don't access variables directly, use get(), kids() or items()
-* @package RSGallery2
-* @author Jonah Braun <Jonah@WhaleHosting.ca>
-*/
-class rsgGallery extends JObject{
-//     variables from the db table
-	/** @var array the entire table row */
-	var $row = null;
-	
-	/** @var int Primary key */
-	var $id = null;
-	/** @var int id of parent */
-	var $parent = null;
-	/** @var string name of gallery*/
-	var $name = null;
-	/** @var string */
-	var $description = null;
-	/** @var boolean */
-	var $published = null;
-	/** @var int */
-	var $checked_out        = null;
-	/** @var datetime */
-	var $checked_out_time   = null;
-	/** @var int */
-	var $ordering = null;
-	/** @var datetime */
-	var $date = null;
-	/** @var int */
-	var $hits = null;
-	/** @var string */
-	var $params = null;
-	/** @var int */
-	var $user = null;
-	/** @var int */
-	var $uid = null;
-	/** @var string */
-	var $allowed = null;
-	/** @var int */
-	var $thumb_id = null;
-
-//     variables for sub galleries and image items
-	/** @var array representing child galleries.  generated on demand!  use kids() */
-	var $kids = null;
-	/** @var array representing images.  generated on demand!  use itemRows() */
-	var $itemRows = null;
-	/** @var array representing images.  generated on demand!  use items() */
-	var $items = null;
-
-//     misc other generated variables
-	/** @var the thumbnail object representing the gallery.  generated on demand!  use thumb() */
-	var $thumb = null;
-	/** @var string containing the html image code */
-	var $thumbHTML = null;
-	/** @var url to go to this gallery from the frontend */
-	var $url = null;
-	var $status = null;
-
-	var $_itemCount = null;
-
-    function __construct( $row ){
-		global $Itemid;
-
-		$this->row = $row;
-
-		// bind db row to this object
-		foreach ( $row as $k=>$v ){
-			$this->$k = $row[$k];
-		}
-
-		$this->thumb();
-
-		//Write status icons
-		$this->status = galleryUtils::writeGalleryStatus( $this->get('id'));
-		//Write owner name
-		$this->owner = galleryUtils::genericGetUserName( $this->get('uid') );
-
-		//Write gallery name
-		//TODO: sef is only included for frontend stuff.  perhaps this shouldn't be here?....
-		if( function_exists( 'sefRelToAbs' ) ){
-			$this->url = sefRelToAbs("index.php?option=com_rsgallery2&Itemid=$Itemid&gid=".$this->get('id'));
-			$this->galleryName = "<a class='rsg2-galleryList-title' href=\"".sefRelToAbs($this->url)."\">".htmlspecialchars(stripslashes($this->get('name')), ENT_QUOTES)."</a>";
-		}
-		else{
-			$this->url = "index.php?option=com_rsgallery2&Itemid=$Itemid&gid=".$this->get('id');
-			$this->galleryName = htmlspecialchars( stripslashes( $this->get( 'name' )));
-		}
-		
-		//Write HTML for thumbnail
-		$this->thumbHTML = "<a href=\"".$this->url."\">".galleryUtils::getThumb( $this->get('id'),0,0,"" )."</a>";
-		
-		//Write description
-		$this->description = ampReplace($this->get('description'));
-	}
-	
-	/**
-	 * @return true if there is an image within a week old
-	 * @todo rewrite the sql to use better date features
-	 */
-	function hasNewImages(){
-		global $database;
-		$lastweek  = mktime (0, 0, 0, date("m"),    date("d") - 7, date("Y"));
-		$lastweek = date("Y-m-d H:m:s",$lastweek);
-		$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE date >= '$lastweek' AND gallery_id = '{$this->id}'");
-		$database->query();
-		return (bool) $database->getNumRows();
-	}
-	
-	/**
-	* returns the total number of items in this gallery.
-	*/
-	function itemCount(){
-		if( $this->_itemCount === null ){
-			global $database;
-			
-			$gid = $this->id;
-			$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id='$gid' AND published = '1'");
-			$this->_itemCount = $database->loadResult();
-		}
-		return $this->_itemCount;
-	}
-	
-	/**
-	* returns an array of sub galleries in this gallery
-	*/
-	function kids(){
-		// check if we need to generate the list
-		if( $this->kids == null ){
-			$this->kids = rsgGalleryManager::getList( $this->get('id') );
-		}
-		
-		return $this->kids;
-	}
-	
-	/**
-	* returns the parent gallery item.
-	*/
-	function parent(){
-		return rsgGalleryManager::get( $this->parent );
-	}
-	
-	/**
-	*  returns an array of item db rows
-	* @todo make filtering, ordering and limits work.
-	* @todo image listing should be based on what the current visitor can see (owner, administrator, un/published, etc.)
-	*/
-	function itemRows( $filter_order = 'ordering', $filter_order_Dir = 'ASC', $limit = 999, $limitstart = 0 ){
-		global $database;
-		
-		$limitStatement = '';
-		if( $limit && $limitstart )
-			$limitStatement = " LIMIT $limitstart, $limit";
-
-		$filterStatement = '';
-		if( $filter_order && $filter_order_Dir )
-			" ORDER BY $filter_order $filter_order_Dir";
-
-// 		$database->setQuery( "SELECT * FROM #__rsgallery2_files".
-// 			" WHERE gallery_id='". $this->get('id') ."'".
-// 			$filterStatement . $limitStatement );
-
-		$database->setQuery( "SELECT * FROM #__rsgallery2_files".
-			" WHERE gallery_id='". $this->get('id') ."'".
-			" AND published=1");
-
-		if( !$database->query() )
-			echo $database->getErrorMsg();
-
-		$this->itemRows = $database->loadAssocList();
-		return $this->itemRows;
-	}
-
-	/**
-	*  returns an array of item objects
-	*/
-	function items( $filter_order = 'ordering', $filter_order_Dir = 'ASC', $limit = 999, $limitstart = 0 ){
-		$this->items = array();
-		$rows = $this->itemRows( $filter_order, $filter_order_Dir, $limit, $limitstart );
-		
-		foreach( $rows as $row ){
-			$this->items[$row['id']] = rsgItem::getCorrectItemObject( &$this, $row );
-		}
-		return $this->items;
-	}
-
-	/**
-	*  returns basic information for this gallery
-	*/
-	function get( $key ){
-		return $this->$key;
-	}
-	
-	/**
-	*  returns item by it's db id
-	*/
-	function getItem( $id ){
-		$items = $this->items();
-		return $items[$id];
-	}
-	
-	/**
-	*  returns the thumbnail representing this gallery
-	*/
-	function thumb( ){
-		// check if we need to find out what it is first
-		if( $this->thumb == null ){
-			if( $this->thumb_id == 0 ){
-				// thumbnail not set, use random
-				$items = $this->items();
-				if( count( $items ) == 0 )
-					return null;
-
-				shuffle( $items );
-				$this->thumb = $items[0];
-			}
-			else{
-				$this->thumb = $this->getItem( $this->thumb_id );
-			}
-		}
-		return $this->thumb;
-	}
-	
-	/**
-	 * increases the hit counter for this object
-	 * @todo doesn't work right now
-	 */
-	function hit(){
-		$query = "UPDATE #__rsgallery2_galleries SET hits = hits + 1 WHERE id = {$this->id}";
-		
-		$db = &JFactory::getDBO();
-		$db->setQuery( $query );
-		
-		if( !$db->query() ) {
-// 			$this->setError( $db->getErrorMsg() );
-			return false;
-		}
-		
-		$this->hits++;
-	}
 }
