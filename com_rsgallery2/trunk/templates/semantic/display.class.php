@@ -271,7 +271,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 					<?php if( $allowEdit ): ?>
 					<div id='rsg2-adminButtons'>
 						<a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=edit_image&amp;id=".$item->id); ?>"><img src="<?php echo $mosConfig_live_site; ?>/administrator/images/edit_f2.png" alt="" border="0" height="15" /></a>
-						<a href="#" onClick="if(window.confirm('<?php echo _RSGALLERY_DELIMAGE_TEXT;?>')) location='<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=delete_image&amp;id=".$item); ?>'"><img src="<?php echo $mosConfig_live_site; ?>/administrator/images/delete_f2.png" alt="" border="0" height="15" /></a>
+						<a href="#" onClick="if(window.confirm('<?php echo _RSGALLERY_DELIMAGE_TEXT;?>')) location='<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=delete_image&amp;id=".$item->id); ?>'"><img src="<?php echo $mosConfig_live_site; ?>/administrator/images/delete_f2.png" alt="" border="0" height="15" /></a>
 					</div>
 					<?php endif; ?>
 				</li>
