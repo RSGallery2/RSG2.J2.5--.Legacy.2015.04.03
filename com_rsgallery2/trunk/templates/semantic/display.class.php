@@ -423,7 +423,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 			rsgInstance::setVar( 'limit', 1 );
 
 			$item = $gallery->getItem();
-			rsgInstance::setVar( 'limitstart', $item->ordering );
+			rsgInstance::setVar( 'limitstart', $item->ordering-1 );
 		}
 
 		$pageNav = $gallery->getPagination();		
