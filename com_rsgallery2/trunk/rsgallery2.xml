@@ -62,6 +62,8 @@
     <filename>js_highslide/graphics/outlines/rounded-white/7.png</filename>
     <filename>js_highslide/graphics/outlines/rounded-white/8.png</filename>
 
+	<filename>lib/j15backport/includes/application.php</filename>
+	<filename>lib/j15backport/includes/router.php</filename>
 	<filename>lib/j15backport/j15backport.php</filename>
 	<filename>lib/j15backport/libraries/joomla/application/application.php</filename>
 	<filename>lib/j15backport/libraries/joomla/application/component/controller.php</filename>
