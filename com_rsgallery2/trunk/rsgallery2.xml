@@ -392,10 +392,13 @@
 	<filename>templates/meta/xml.php</filename>
 	<filename>templates/semantic/css/template.css</filename>
 	<filename>templates/semantic/display.class.php</filename>
-	<filename>templates/semantic/templateDetails.xml</filename>
-	<filename>templates/semantic/index.php</filename>
 	<filename>templates/semantic/html/exif.php</filename>
 	<filename>templates/semantic/html/gallery.php</filename>
+	<filename>templates/semantic/html/inline.php</filename>
+	<filename>templates/semantic/html/thumbs_float.php</filename>
+	<filename>templates/semantic/html/thumbs_table.php</filename>
+	<filename>templates/semantic/index.php</filename>
+	<filename>templates/semantic/templateDetails.xml</filename>
 
   </files>
  
