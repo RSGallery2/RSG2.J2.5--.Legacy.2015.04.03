@@ -18,7 +18,7 @@ defined('JPATH_BASE') or die();
 jimport( 'joomla.registry.format' );
 
 // J15B: some other extension is also duplicating this class, so we need to check for that first
-if( class_exists( 'JRegistry' )) return;
+if( ! class_exists( 'JRegistry' ))
 
 /**
  * JRegistry class

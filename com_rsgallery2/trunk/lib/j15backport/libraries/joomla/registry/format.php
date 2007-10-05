@@ -16,7 +16,7 @@
 defined('JPATH_BASE') or die();
 
 // J15B: some other extension is also duplicating this class, so we need to check for that first
-if( class_exists( 'JRegistryFormat' )) return;
+if( ! class_exists( 'JRegistryFormat' ))
 
 /**
  * Abstract Format for JRegistry
