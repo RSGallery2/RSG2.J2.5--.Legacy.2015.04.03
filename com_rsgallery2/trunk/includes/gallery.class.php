@@ -83,7 +83,7 @@ class rsgGallery extends JObject{
 		$this->thumb();
 
 		//Write status icons
-		$this->status = galleryUtils::writeGalleryStatus( $this->get('id'));
+		$this->status = galleryUtils::writeGalleryStatus( $this );
 		//Write owner name
 		$this->owner = galleryUtils::genericGetUserName( $this->get('uid') );
 
@@ -190,8 +190,8 @@ class rsgGallery extends JObject{
 	function items( ){
 		if( $this->items === null ){
 			$this->items = array();
-			$rows = $this->itemRows( $filter_order, $filter_order_Dir, $limit, $limitstart );
-			
+			$rows = $this->itemRows( );
+
 			foreach( $rows as $row ){
 				$this->items[$row['id']] = rsgItem::getCorrectItemObject( &$this, $row );
 			}

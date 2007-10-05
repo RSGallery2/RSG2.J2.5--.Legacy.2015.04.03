@@ -619,7 +619,7 @@ class rsgDisplay extends tempDisplay{
 		if( parent::mainPage() )
 			return;
 	
-		$page = rsgInstance::getVar( 'page', '' );
+		$page = rsgInstance::getWord( 'page', '' );
 
 		switch( $page ){
 			
@@ -715,7 +715,7 @@ class rsgDisplay extends tempDisplay{
 		}
 
 		$galleries = array_reverse($galleries);
-// echo '<pre>';print_r( $galleries );die();
+
 		if( defined( 'J15B_EXEC' ) ){
 			// J1.0 method
 			foreach( $galleries as $gallery ) {

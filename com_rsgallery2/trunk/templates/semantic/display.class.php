@@ -14,28 +14,9 @@ defined( '_VALID_MOS' ) or die( 'Restricted Access' );
  */
 class rsgDisplay_semantic extends rsgDisplay{
 
-	/***************************
-		pages
-	***************************/
-	
 	function inline(){
-    ?>
-<div class="rsg_sem_inl">
-	<div class="rsg_sem_inl_dispImg">
-    	<?php $this->showDisplayImage(); ?>
-	</div>
-	<div class="rsg_sem_inl_Nav">
-    	<?php $this->showDisplayPageNav(); ?>
-	</div>
-	<div class="rsg_sem_inl_ImgDetails">
-    	<?php $this->showDisplayImageDetails(); ?>
-	</div>
-	<div class="rsg_sem_inl_footer">
-    	<?php $this->showRsgFooter(); ?>
-	</div>
-</div>
-    <?php
-    }
+		$this->display( 'gallery.php' );;
+	}
 
 	/**
 	* Show main gallery page
@@ -50,8 +31,8 @@ class rsgDisplay_semantic extends rsgDisplay{
 		$this->gallery = $gallery;
 		
 		//Get values for page navigation from URL
-		$limit = rsgInstance::getInt( 'limit', $rsgConfig->get('galcountNrs') );
-		$limitstart = rsgInstance::getInt( 'limitstart', 0 );
+		$limit = rsgInstance::getInt( 'glimit', $rsgConfig->get('galcountNrs') );
+		$limitstart = rsgInstance::getInt( 'glimitstart', 0 );
 		
 		//Get number of galleries including main gallery
 		$this->kids = $gallery->kids();
@@ -214,19 +195,15 @@ class rsgDisplay_semantic extends rsgDisplay{
     }
     
 	/**
-		* Shows thumbnails for gallery
-		* @todo the html for float and thumb should be pushed out to template files in html/
-		*/ 
+	 * Shows thumbnails for gallery
+	 */
 	function showThumbs() {
-		global $my, $mosConfig_live_site, $rsgConfig, $Itemid;
-		
-		$items = rsgInstance::getItems();
-		$itemCount = $this->gallery;
+		global $my, $rsgConfig, $Itemid;
+
+		$itemCount = $this->gallery->itemCount();
 		
 		$limit = rsgInstance::getInt( 'limit', $rsgConfig->get("display_thumbs_maxPerPage") );
 		$limitstart = rsgInstance::getInt( 'limitstart' );
-		
-		$PageSize = $rsgConfig->get("display_thumbs_maxPerPage");
 		
 		//instantiate page navigation
 		$pagenav = new mosPageNav( $itemCount, $limitstart, $limit );
@@ -245,89 +222,30 @@ class rsgDisplay_semantic extends rsgDisplay{
 	
 		//Old rights management. If user is owner or user is Super Administrator, you can edit this gallery
 		if(( $my->id <> 0 ) and (( $this->gallery->uid == $my->id ) OR ( $my->usertype == 'Super Administrator' )))
-			$allowEdit = true;
+			$this->allowEdit = true;
 		else
-			$allowEdit = false;
+			$this->allowEdit = false;
 
-		switch( $rsgConfig->get( 'display_thumbs_style' )):
+		switch( $rsgConfig->get( 'display_thumbs_style' )){
 			case 'float':
-				$floatDirection = $rsgConfig->get( 'display_thumbs_floatDirection' );
-				?>
-				<ul id='rsg2-thumbsList'>
-				<?php
-				foreach( $items as $item ):
-					$thumb = $item->thumb();
-				?>
-				<li <?php echo "style='float: $floatDirection'"; ?> >
-					<a href="<?php echo sefRelToAbs( "index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=inline&amp;id=".$item->id ); ?>">
-						<!--<div class="img-shadow">-->
-						<img border="1" alt="<?php echo htmlspecialchars(stripslashes($item->descr), ENT_QUOTES); ?>" src="<?php echo $thumb->url(); ?>" />
-						<!--</div>-->
-						<div class="clr"></div>
-						<?php if($rsgConfig->get("display_thumbs_showImgName")): ?>
-							<br /><span class='rsg2_thumb_name'><?php echo htmlspecialchars(stripslashes($item->title), ENT_QUOTES); ?></span>
-						<?php endif; ?>
-					</a>
-					<?php if( $allowEdit ): ?>
-					<div id='rsg2-adminButtons'>
-						<a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=edit_image&amp;id=".$item->id); ?>"><img src="<?php echo $mosConfig_live_site; ?>/administrator/images/edit_f2.png" alt="" border="0" height="15" /></a>
-						<a href="#" onClick="if(window.confirm('<?php echo _RSGALLERY_DELIMAGE_TEXT;?>')) location='<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=delete_image&amp;id=".$item->id); ?>'"><img src="<?php echo $mosConfig_live_site; ?>/administrator/images/delete_f2.png" alt="" border="0" height="15" /></a>
-					</div>
-					<?php endif; ?>
-				</li>
-				<?php endforeach; ?>
-				</ul>
-				<div class='clr'>&nbsp;</div>
-				<?php
-				break;
+				
+				$this->display( 'thumbs_float.php' );
+			break;
 			case 'table':
-				$cols = $rsgConfig->get( 'display_thumbs_colsPerPage' );
-				$i = 0;
-				?>
-				<table id='rsg2-thumbsList'>
-				<?php foreach( $items as $item ):
-					$thumb = $item->thumb();
-					
-					if( $i % $cols== 0) echo "<tr>\n";
-				 ?>
-						<td>
-							<!--<div class="img-shadow">-->
-								<a href="<?php global $Itemid; echo sefRelToAbs( "index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=inline&amp;id=".$item->id ); ?>">
-								<img border="1" alt="<?php echo htmlspecialchars(stripslashes($item->descr), ENT_QUOTES); ?>" src="<?php echo $thumb->url(); ?>" />
-								</a>
-							<!--</div>-->
-							<div class="clr"></div>
-							<?php if($rsgConfig->get("display_thumbs_showImgName")): ?>
-							<br />
-							<span class='rsg2_thumb_name'>
-								<?php echo htmlspecialchars(stripslashes($item->title), ENT_QUOTES); ?>
-							</span>
-							<?php endif; ?>
-							<?php if( $allowEdit ): ?>
-							<div id='rsg2-adminButtons'>
-								<a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=edit_image&amp;id=".$item->id); ?>"><img src="<?php echo $mosConfig_live_site; ?>/administrator/images/edit_f2.png" alt="" border="0" height="15" /></a>
-								<a href="#" onClick="if(window.confirm('<?php echo _RSGALLERY_DELIMAGE_TEXT;?>')) location='<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=delete_image&amp;id=".$item->id); ?>'"><img src="<?php echo $mosConfig_live_site; ?>/administrator/images/delete_f2.png" alt="" border="0" height="15" /></a>
-							</div>
-							<?php endif; ?>
-						</td>
-					<?php if( ++$i % $cols == 0) echo "</tr>\n"; ?>
-				<?php endforeach; ?>
-				<?php if( $i % $cols != 0) echo "</tr>\n"; ?>
-				</table>
+				$this->display( 'thumbs_table.php' );
+			break;
+		}
+		?>
+		<div id='rsg2-pageNav'>
 				<?php
-				break;
-			endswitch;
-			?>
-			<div id='rsg2-pageNav'>
-					<?php
-					if( $numPics > $PageSize ){
-					global $Itemid;
-						echo $pagenav->writePagesLinks("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;gid=".$gid);
-						echo "<br /><br />".$pagenav->writePagesCounter();
-					}
-					?>
-			</div>
-			<?php
+				if( $itemCount > $limit ){
+				global $Itemid;
+					echo $pagenav->writePagesLinks("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;gid=".$this->gallery->id);
+					echo "<br /><br />".$pagenav->writePagesCounter();
+				}
+				?>
+		</div>
+		<?php
 	}
     
     /**

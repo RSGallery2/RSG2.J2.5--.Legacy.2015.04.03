@@ -758,35 +758,36 @@ class galleryUtils {
 	 echo "</div><div class=\"rsg2-clr\">&nbsp;</div>";
 	 }
 	 
-	 function writeGalleryStatus( $gallery_id ) {
-	 	global $rsgConfig, $mosConfig_live_site, $database, $my, $rsgAccess;
+	function writeGalleryStatus( $gallery ) {
+		global $rsgConfig, $mosConfig_live_site, $database, $my, $rsgAccess;
+		
+		// return if status is not displayed
+		if ( !$rsgConfig->get('displayStatus') )
+			return;
+		
+		$owner = "<a href=\"#\" onmouseover=\"return overlib('". _RSGALLERY_STATUS_ARE_OWNER."')\" onmouseout=\"return nd();\"><img class=\"status\" src=\"$mosConfig_live_site/components/com_rsgallery2/images/status_owner.png\" alt=\"". _RSGALLERY_STATUS_ARE_OWNER."\" width=\"15\" height=\"15\" />";
+		$upload = "<a href=\"#\" onmouseover=\"return overlib('". _RSGALLERY_STATUS_CAN_UPLOAD."')\" onmouseout=\"return nd();\"><img class=\"status\" src=\"$mosConfig_live_site/components/com_rsgallery2/images/status_upload.png\" alt=\"". _RSGALLERY_STATUS_CAN_UPLOAD."\" width=\"15\" height=\"15\" />";
+		$unpublished = "<a href=\"#\" onmouseover=\"return overlib('". _RSGALLERY_STATUS_NOT_PUBL."')\" onmouseout=\"return nd();\"><img class=\"status\" src=\"$mosConfig_live_site/components/com_rsgallery2/images/status_hidden.png\" alt=\"". _RSGALLERY_STATUS_NOT_PUBL."\" width=\"15\" height=\"15\" />";
 
-	 	$owner 			= "<a href=\"#\" onmouseover=\"return overlib('". _RSGALLERY_STATUS_ARE_OWNER."')\" onmouseout=\"return nd();\"><img class=\"status\" src=\"$mosConfig_live_site/components/com_rsgallery2/images/status_owner.png\" alt=\"". _RSGALLERY_STATUS_ARE_OWNER."\" width=\"15\" height=\"15\" /></a>";
-	 	$upload 		= "<a href=\"#\" onmouseover=\"return overlib('". _RSGALLERY_STATUS_CAN_UPLOAD."')\" onmouseout=\"return nd();\"><img class=\"status\" src=\"$mosConfig_live_site/components/com_rsgallery2/images/status_upload.png\" alt=\"". _RSGALLERY_STATUS_CAN_UPLOAD."\" width=\"15\" height=\"15\" />";
-	 	$unpublished 	= "<a href=\"#\" onmouseover=\"return overlib('". _RSGALLERY_STATUS_NOT_PUBL."')\" onmouseout=\"return nd();\"><img class=\"status\" src=\"$mosConfig_live_site/components/com_rsgallery2/images/status_hidden.png\" alt=\"". _RSGALLERY_STATUS_NOT_PUBL."\" width=\"15\" height=\"15\" />";
-	 	$html			= "";
-	 	if ( $rsgConfig->get('displayStatus') ) {
-	 		$database->setQuery( "SELECT * FROM #__rsgallery2_galleries WHERE id = '$gallery_id' LIMIT 1" );
-	 		$images = $database->loadObjectList();
-	 	
-		 	foreach ($images as $image) {
-				$uid 		= $image->uid;
-		 		$published 	= $image->published;
-			 	//Check if user is owner of the gallery
-				if ( $uid == $my->id )
-			 		$html .= $owner."</a>";
-			 	
-			 	//Check if gallery is published
-			 	if ($published == 0)
-			 		$html .= $unpublished."</a>";
-			}
-		 	
-		 	if ( $rsgAccess->checkGallery('up_mod_img', $gallery_id) )
-		 		$html .= $upload."</a>";
-		 	return $html;
-		 }
-	 }
-	 
+		$html = "";
+	
+		$uid 		= $image->uid;
+		$published 	= $image->published;
+
+		//Check if user is owner of the gallery
+		if ( $gallery->uid == $my->id )
+			$html .= $owner."</a>";
+		
+		//Check if gallery is published
+		if ($gallery->published == 0)
+			$html .= $unpublished."</a>";
+		
+		if ( $rsgAccess->checkGallery('up_mod_img', $gallery->id) )
+			$html .= $upload."</a>";
+
+		return $html;
+	}
+
 	 function getChildList( $gallery_id ) {
 	 	global $database;
 	 	$array[] = $gallery_id;
