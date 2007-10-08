@@ -771,8 +771,8 @@ class galleryUtils {
 
 		$html = "";
 	
-		$uid 		= $image->uid;
-		$published 	= $image->published;
+		$uid 		= $gallery->uid;
+		$published 	= $gallery->published;
 
 		//Check if user is owner of the gallery
 		if ( $gallery->uid == $my->id )
