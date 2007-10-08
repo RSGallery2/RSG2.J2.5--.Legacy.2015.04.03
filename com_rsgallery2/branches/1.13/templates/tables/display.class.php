@@ -392,7 +392,7 @@ class rsgDisplay_tables extends rsgDisplay{
                 <li <?php echo "style='float: $floatDirection'"; ?> >
                     <a href="<?php global $Itemid; echo sefRelToAbs( "index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=inline&amp;id=".$row->id."&amp;catid=".$row->gallery_id."&amp;limitstart=".$limitstart++ ); ?>">
                         <!--<div class="img-shadow">-->
-                        <img border="1" alt="<?php echo htmlspecialchars(stripslashes($row->descr), ENT_QUOTES); ?>" width="<?php echo $thumb_width; ?>" src="<?php echo imgUtils::getImgThumb($row->name); ?>" />
+                        <img border="1" alt="<?php echo htmlspecialchars(stripslashes($row->descr), ENT_QUOTES); ?>" src="<?php echo imgUtils::getImgThumb($row->name); ?>" />
                         <!--</div>-->
                         <div class="clr"></div>
                         <?php if($rsgConfig->get("display_thumbs_showImgName")): ?>
@@ -407,7 +407,7 @@ class rsgDisplay_tables extends rsgDisplay{
                     <?php endif; ?>
                 </li>
                 <?php endforeach; ?>
-                </ul>
+                </ul>	
                 <div class='clr'>&nbsp;</div>
                 <?php
                 break;
@@ -421,7 +421,7 @@ class rsgDisplay_tables extends rsgDisplay{
                         <td>
                             <!--<div class="img-shadow">-->
                                 <a href="<?php global $Itemid; echo sefRelToAbs( "index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=inline&amp;id=".$row->id."&amp;catid=".$row->gallery_id."&amp;limitstart=".$limitstart++ ); ?>">
-                                <img border="1" alt="<?php echo htmlspecialchars(stripslashes($row->descr), ENT_QUOTES); ?>" width="<?php echo $thumb_width; ?>" src="<?php echo imgUtils::getImgThumb($row->name); ?>" />
+                                <img border="1" alt="<?php echo htmlspecialchars(stripslashes($row->descr), ENT_QUOTES); ?>" src="<?php echo imgUtils::getImgThumb($row->name); ?>" />
                                 </a>
                             <!--</div>-->
                             <div class="clr"></div>

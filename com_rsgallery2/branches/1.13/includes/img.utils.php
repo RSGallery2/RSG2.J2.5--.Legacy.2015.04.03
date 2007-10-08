@@ -250,7 +250,7 @@ class imgUtils extends fileUtils{
 		* @return complete URL of the image
 		*/
 	function getImgDisplay($name, $local=false){
-		global $mosConfig_live_site, $rsgConfig;
+		global $mosConfig_live_site, $rsgConfig, $database;
 		
 		$locale = $local? JPATH_ROOT : $mosConfig_live_site;
 		
