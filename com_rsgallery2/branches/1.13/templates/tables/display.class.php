@@ -99,9 +99,11 @@ class rsgDisplay_tables extends rsgDisplay{
 
         //Show limitbox
         if( $pageNav ) {
+        	$catid = mosGetParam ( $_REQUEST, 'catid', 0);
+        	$catid = $catid? "&amp;catid=$catid" : '';
             ?>
             <div class="rsg2-pagenav-limitbox">
-                <?php echo $pageNav->writeLimitBox("index.php?option=com_rsgallery2&amp;Itemid=$Itemid"); ?>
+                <?php echo $pageNav->writeLimitBox("index.php?option=com_rsgallery2&amp;Itemid=$Itemid".$catid); ?>
             </div>
             <?php
         }
@@ -126,7 +128,9 @@ class rsgDisplay_tables extends rsgDisplay{
         ?>
         <div class="rsg2-pageNav">
         <?php 
-            echo $pageNav->writePagesLinks("index.php?option=com_rsgallery2&amp;Itemid=$Itemid");echo "<br>".$pageNav->writePagesCounter(); ?></div>
+        	$catid = mosGetParam ( $_REQUEST, 'catid', 0);
+        	$catid = $catid? "&amp;catid=$catid" : '';
+            echo $pageNav->writePagesLinks("index.php?option=com_rsgallery2&amp;Itemid=$Itemid".$catid);echo "<br>".$pageNav->writePagesCounter(); ?></div>
         <div class='clr'>&nbsp;</div>
         <?php
         }
