@@ -16,7 +16,7 @@
 defined('JPATH_BASE') or die();
 
 // J15B: some other extension is also duplicating this class, so we need to check for that first
-if( ! class_exists( 'JLanguage' ))
+if( ! class_exists( 'JLanguage' )){
 
 /**
  * Languages/translation handler class
@@ -828,4 +828,4 @@ class JLanguageHelper
 		return 'en-GB';
 	}
 
-}
+}}

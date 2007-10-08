@@ -91,7 +91,7 @@ class JRoute
 }
 
 // J15B: some other extension is also duplicating this class, so we need to check for that first
-if( ! class_exists( 'JText' ))
+if( ! class_exists( 'JText' )){
 
 /**
  * Text  handling class
@@ -156,4 +156,4 @@ class JText
 		return '';
 	}
 
-}
+}}
