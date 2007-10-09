@@ -32,6 +32,12 @@ Legend:
 
 ---------------- Recent ----------------
 
+---------------- 1.13.2 alpha -- svn 288 -- 2007-10-10 -------------
+
+2007-10 Jonah Braun
+ - removed width paramter from thumbnails to support different size thumbnails
+ # fixed gallery pagination in subgalleries
+
 2007-07-22 Jonah Braun
  # added image hit counter kludge.
 
