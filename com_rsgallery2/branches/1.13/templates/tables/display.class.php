@@ -900,7 +900,7 @@ class rsgDisplay_tables extends rsgDisplay{
             elseif( $page == "slideshow" ): 
             ?>
             <li>
-                <a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=inline&catid=".$catid."&id=".$_GET['id']);?>">
+                <a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=inline&catid=".$catid."&id=". mosGetParam ( $_REQUEST, 'id'  , ''));?>">
                 <?php echo _RSGALLERY_SLIDESHOW_EXIT; ?>
                 </a>
             </li>
