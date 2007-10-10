@@ -98,7 +98,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 					<div class="rsg2-galleryList-description"><?php echo $kid->description;?>
 					</div>
 				</div>
-				<div class="rsg_sub_url"><?php HTML_RSGALLERY::subGalleryList( $kid->get('id') ); ?>
+				<div class="rsg_sub_url"><?php $this->_subGalleryList( $kid ); ?>
 				</div>
 			</div>
             <?php
@@ -142,7 +142,7 @@ class rsgDisplay_semantic extends rsgDisplay{
                         <div class="rsg2-galleryList-description_box">
                             	<?php echo $kid->description;?>
 						</div>
-                        <div class="rsg_sub_url"><?php HTML_RSGALLERY::subGalleryList( $kid->get('id'), $subgalleries ); ?></span>
+                        <div class="rsg_sub_url"><?php $this->_subGalleryList( $kid ); ?></span>
                         </div>
                     </div>
                 </div>
@@ -619,6 +619,34 @@ class rsgDisplay_semantic extends rsgDisplay{
 		echo "</div><div class=\"rsg2-clr\">&nbsp;</div>";
 		}
 	}
+	
+	
+	/**
+	* list sub galleries in a gallery
+	* @param rsgGallery parent gallery
+	*/
+	function _subGalleryList( $parent ){
+		global $Itemid;
+		$kids = $parent->kids();
+
+		if( count( $kids ) == 0 ) return;
+
+		echo "Subgalleries: ";
+		
+		$kid = array_shift( $kids );
+		
+		while( true ){
+			?>
+			<a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;catid=".$kid->id); ?>">
+				<?php echo htmlspecialchars(stripslashes($kid->name), ENT_QUOTES); ?>
+				(<?php echo $kid->itemCount(); ?>)</a><?php
+
+			if( $kid = array_shift( $kids ))
+				echo ', ';
+			else
+				break;
+		}
+	}
 }
 
 
@@ -966,35 +994,6 @@ class HTML_RSGALLERY{
         
         </div>
         <?php
-    }
-
-    /**
-     * show a sub gallery
-     * @param string parent cat id
-     */
-    function subGalleryList($parent, $subgalleries = true){
-        global $database, $Itemid, $rsgAccess;
-        
-        $database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE published = 1 and parent = '$parent' ORDER BY ordering ASC");
-        $rows = $database->loadObjectList();
-        if( count( $rows ) == 0 ) return;
-        if ($subgalleries) {
-            $html = "";
-            echo "Subgalleries: ";
-            foreach( $rows as $row ) {
-                //check if viewer has the rights to view subgallery
-                if ($rsgAccess->checkGallery('view',$row->id)) {
-                    ?>
-                    <a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;catid=".$row->id); ?>">
-                        <?php echo htmlspecialchars(stripslashes($row->name), ENT_QUOTES); ?>
-                        (<?php echo galleryUtils::getFileCount($row->id); ?>)
-                    </a>
-                    <?php
-                    if ($row !== end($rows))
-                        echo ",";
-                }
-            }
-        }
     }
 
 
