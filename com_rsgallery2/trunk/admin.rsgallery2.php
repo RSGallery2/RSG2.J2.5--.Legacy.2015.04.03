@@ -22,9 +22,6 @@ require_once( $mosConfig_absolute_path .'/includes/domit/xml_domit_lite_include.
 <link href="<?php echo $mosConfig_live_site; ?>/administrator/components/com_rsgallery2/admin.rsgallery2.css" rel="stylesheet" type="text/css" />
 <?php
 
-//Load overlib routine for Tooltips
-mosCommonHTML::loadOverlib();
-
 require_once( $mainframe->getPath( 'admin_html' ) );
 
 global $opt, $catid, $uploadStep, $numberOfUploads, $e_id ;
