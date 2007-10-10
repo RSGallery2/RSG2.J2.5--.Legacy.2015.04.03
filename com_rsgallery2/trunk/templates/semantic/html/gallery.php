@@ -5,7 +5,7 @@
 if( $this->pageNav ):
 ?>
 	<div class="rsg2-pagenav-limitbox">
-		<?php echo $pageNav->writeLimitBox("index.php?option=com_rsgallery2&amp;Itemid=$Itemid"); ?>
+		<?php echo $this->pageNav->writeLimitBox("index.php?option=com_rsgallery2&amp;Itemid=$Itemid"); ?>
 	</div>
 <?php
 endif;
@@ -36,7 +36,8 @@ if( $this->pageNav ):
 ?>
 
 <div class="rsg2-pageNav">
-	<?php echo $pageNav->writePagesLinks("index.php?option=com_rsgallery2&amp;Itemid=$Itemid");echo "<br>".$pageNav->writePagesCounter(); ?>
+	<?php echo $this->pageNav->writePagesLinks("index.php?option=com_rsgallery2&amp;Itemid=$Itemid");
+		echo "<br>".$this->pageNav->writePagesCounter(); ?>
 </div>
 <div class='clr'>&nbsp;</div>
 <?php endif; ?>

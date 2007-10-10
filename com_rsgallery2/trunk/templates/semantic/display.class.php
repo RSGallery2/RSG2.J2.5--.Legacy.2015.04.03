@@ -42,11 +42,11 @@ class rsgDisplay_semantic extends rsgDisplay{
 		
 		if( $rsgConfig->get('dispLimitbox') == 1 ) {
 			if( $kidCountTotal > $limit ){
-				$this->kids = array_slice( $kids, $limitstart, $limit );
+				$this->kids = array_slice( $this->kids, $limitstart, $limit );
 				$this->pageNav = new mosPageNav( $kidCountTotal, $limitstart, $limit );
 			}
 		} elseif( $rsgConfig->get('dispLimitbox') == 2 ) {
-			$this->kids = array_slice( $kids, $limitstart, $limit );
+			$this->kids = array_slice( $this->kids, $limitstart, $limit );
 			$this->pageNav = new mosPageNav( $kidCountTotal, $limitstart, $limit );
 		}
 	
