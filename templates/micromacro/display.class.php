@@ -18,8 +18,8 @@ class rsgDisplay_microMacro extends rsgDisplay{
 		
 		$galleryThumb = $g->thumb();
 		if( $galleryThumb ){
-			$galleryThumb = imgUtils::getImgThumb( $galleryThumb['name'] );
-			$galleryThumb = "<img src='$galleryThumb' class='galleryThumb' />";
+			$galleryThumb = $galleryThumb->thumb();
+			$galleryThumb = "<img src='".$galleryThumb->url()."' class='galleryThumb' />";
 		}
 		if( $g->id == 0 )
 			$galleryThumb = '';
@@ -31,11 +31,15 @@ class rsgDisplay_microMacro extends rsgDisplay{
 $galleryThumb
 <ul class='thumbs'>
 EOD;
-		foreach( $g->itemRows() as $item ):
-			$thumb = imgUtils::getImgThumb( $item['name'] );
-			$original = imgUtils::getImgOriginal( $item['name'] );
-			$title = $item['title'];
-			$descr = $item['descr'];
+		foreach( $g->items() as $item ):
+			$thumb = $item->thumb();
+			$thumb = $thumb->url();
+			
+			$original = $item->original();
+			$original = $original->url();
+			
+			$title = $item->title;
+			$descr = $item->descr;
 			// note that we don't specify an alt parameter in the following image.  it interferes with overlib popup thumbnail
 			// if you want to add the alt param, here it is: alt='$name'
 			echo <<<EOD
