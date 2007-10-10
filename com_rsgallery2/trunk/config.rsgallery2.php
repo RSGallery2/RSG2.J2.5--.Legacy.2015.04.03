@@ -340,6 +340,7 @@ class galleryUtils {
     
     /**
      * Returns number of files within a specific gallery and it's children
+     * @deprecated use rsgGallery->itemCount() instead.
      * @param int Category id
      * @return int Number of files in category
      */
