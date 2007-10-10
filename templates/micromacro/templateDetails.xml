@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <mosinstall type="template">
-	<name>Micro Macro - First Attempt</name>
+	<name>micromacro</name>
 	<creationDate>15/02/07</creationDate>
 	<author>Jonah</author>
 	<copyright>Open Source, GPL</copyright>
 	<authorEmail>info@rsgallery2.net</authorEmail>
 	<authorUrl>rsgallery2.net</authorUrl>
-	<version>.7</version>
+	<version>.8</version>
 	<description>An attempt to most easily visualize and navigate an entire gallery tree.  Thanks to Josh Mace and Edward R. Tufte for design inspiration.  Uses overLib and Lightbox Plus.</description>
 	<files>
 		<filename>index.php</filename>

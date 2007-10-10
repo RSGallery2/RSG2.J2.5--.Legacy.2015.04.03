@@ -10,13 +10,13 @@
 defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 
 // bring in display code
-$templatePath = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'microMacro';
+$templatePath = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'micromacro';
 require_once( $templatePath . DS . 'display.class.php');
 
 $rsgDisplay = new rsgDisplay_microMacro();
 
 global $mosConfig_live_site;
-$template_dir = "$mosConfig_live_site/components/com_rsgallery2/templates/microMacro";
+$template_dir = "$mosConfig_live_site/components/com_rsgallery2/templates/micromacro";
 $lightbox_dir = "$mosConfig_live_site/components/com_rsgallery2/lib/lightbox_plus";
 
 $rsgDisplay->metadata();
