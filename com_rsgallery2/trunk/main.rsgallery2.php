@@ -20,7 +20,7 @@ function template(){
 	//Set template selection
 	$template = preg_replace( '#\W#', '', rsgInstance::getVar( 'rsgTemplate', $rsgConfig->get('template') ));
 	$template = strtolower( $template );
-	
+
 	$templateLocation = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template . DS . 'index.php';
 
 	if( !file_exists( $templateLocation ))

@@ -38,22 +38,22 @@ class rsgInstance extends JRequest{
 		// if rsg2 is already instanced then push the current instance to be pop'd later
 		if( $GLOBALS['_RSGINSTANCE'] ){
 			$stacked = true;
-			
+
 			if( count( $instanceStack ) > 9 )
 				JError::raiseError( '9', 'RSGallery2 instance stack exceeds 9.  Probable endless recursion, $instanceStack:<pre>'.print_r( $instanceStack,1).'</pre>' );
 
 			// push current instance on stack
 			array_push( $instanceStack, $GLOBALS['_RSGINSTANCE'] );
 		}
-		
+
 		$GLOBALS['_RSGINSTANCE'] = $newInstance;
-		
+
 		if( $showTemplate ){
 			// execute a frontend template based instance
 			require_once( JPATH_RSGALLERY2_SITE . DS . 'main.rsgallery2.php' );
 			rsgInstance::mainSwitch();
 		}
-		
+
 		if( $stacked )
 			$GLOBALS['_RSGINSTANCE'] = array_pop( $instanceStack );
 	}

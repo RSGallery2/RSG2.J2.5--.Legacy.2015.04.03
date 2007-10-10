@@ -15,7 +15,7 @@ defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 class rsgDisplay_semantic extends rsgDisplay{
 
 	function inline(){
-		$this->display( 'gallery.php' );;
+		$this->display( 'inline.php' );;
 	}
 
 	/**
@@ -570,24 +570,6 @@ class rsgDisplay_semantic extends rsgDisplay{
         <?php
     }
 
-    /**
-     *  write the footer
-     */
-	function showRsgFooter(){
-		global $rsgConfig, $rsgVersion;
-	
-		$hidebranding = '';
-		if( $rsgConfig->get( 'displayBranding' ) == false )
-			$hidebranding ="style='display: none'";
-			
-		?>
-		<div id='rsg2-footer' <?php echo $hidebranding; ?>>
-			<br /><br /><?php echo $rsgVersion->getShortVersion(); ?>
-		</div>
-		<div class='rsg2-clr'>&nbsp;</div>
-		<?php
-	}
-    
 	/**
 	 * Write downloadlink for image
 	 * @param int image ID

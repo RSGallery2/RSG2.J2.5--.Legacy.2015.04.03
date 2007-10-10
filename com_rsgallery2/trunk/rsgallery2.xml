@@ -391,6 +391,10 @@
 	<filename>templates/semantic/html/thumbs_table.php</filename>
 	<filename>templates/semantic/index.php</filename>
 	<filename>templates/semantic/templateDetails.xml</filename>
+	<filename>templates/slideshowone/display.class.php</filename>
+	<filename>templates/slideshowone/html/slideshow.php</filename>
+	<filename>templates/slideshowone/index.php</filename>
+	<filename>templates/slideshowone/templateDetails.xml</filename>
 
   </files>
  

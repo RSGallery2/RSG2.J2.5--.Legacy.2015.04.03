@@ -30,13 +30,6 @@ class tempDisplay extends JObject{
 		$page = rsgInstance::getWord( 'page', '' );
 	
 		switch( $page ){
-			
-			case "my_galleries":
-				HTML_RSGALLERY::RSGalleryTitleblock(null, null);
-				$this->my_galleries();
-				HTML_RSGALLERY::RSGalleryFooter();
-			break;
-			
 			case "edit_image":
 				$id = rsgInstance::getInt('id'  , null);
 				$this->edit_image($id);
@@ -46,13 +39,6 @@ class tempDisplay extends JObject{
 			break;
 			case "delete_image":
 				$this->delete_image();
-			break;
-			
-			case "slideshow":
-				$catid = rsgInstance::getInt( 'catid'  , ''); 
-				$id = rsgInstance::getInt( 'id'  , ''); 
-				$this->slideshow($id,$catid);
-				HTML_RSGALLERY::RSGalleryFooter(); 
 			break;
 			
 			case 'vote':
@@ -189,13 +175,6 @@ class tempDisplay extends JObject{
 			//No ID sent, no delete possible, back to my galleries
 			mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries"), _RSGALLERY_DELIMAGE_NOID);
 			}
-	}
-	
-	function slideshow($id,$catid) {
-		global $database;
-		$database->setQuery("SELECT * FROM #__rsgallery2_files WHERE gallery_id = '$catid' ORDER BY ordering ASC");
-		$rows = $database->LoadObjectList();
-		include(JPATH_RSGALLERY2_SITE.'/slideshow.rsgallery2.php');
 	}
 	
 	/**
@@ -618,11 +597,21 @@ class rsgDisplay extends tempDisplay{
 		// if tempDisplay handles this function let it, otherwise continue as regularily scheduled.
 		if( parent::mainPage() )
 			return;
-	
+
 		$page = rsgInstance::getWord( 'page', '' );
 
 		switch( $page ){
-			
+			case "my_galleries":
+				HTML_RSGALLERY::RSGalleryTitleblock(null, null);
+				$this->my_galleries();
+				$this->showRsgFooter();
+			break;
+
+			case 'slideshow':
+				$gallery = rsgGalleryManager::get();
+				rsgInstance::instance( array( 'rsgTemplate' => 'slideshowone', 'gid' => $gallery->id ));
+			break;
+
 			case 'inline':
 				$this->inline();
 			break;
@@ -635,7 +624,26 @@ class rsgDisplay extends tempDisplay{
 		}
 		
 	}
+
+	/**
+	 *  write the footer
+	 */
+	function showRsgFooter(){
+		global $rsgConfig, $rsgVersion;
 	
+		$hidebranding = '';
+		if( $rsgConfig->get( 'displayBranding' ) == false )
+			$hidebranding ="style='display: none'";
+			
+		?>
+		<div id='rsg2-footer' <?php echo $hidebranding; ?>>
+			<br /><br /><?php echo $rsgVersion->getShortVersion(); ?>
+		</div>
+		<div class='rsg2-clr'>&nbsp;</div>
+		<?php
+	}
+
+
 	function display( $file = null ){
 		global $rsgConfig;
 		$template = preg_replace( '#\W#', '', rsgInstance::getVar( 'rsgTemplate', $rsgConfig->get('template') ));
