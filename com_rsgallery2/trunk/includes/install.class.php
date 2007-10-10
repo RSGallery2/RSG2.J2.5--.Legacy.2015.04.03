@@ -1674,49 +1674,53 @@ class migrate_com_rsgallery extends GenericMigrator{
         	return true;
         }
     }
-    /**
-     * do the migration thing
-     * @return true on success, anything else a failure
-     */
-    function migrate(){
-        global $database, $rsgConfig;
-        // in versions prior to 1.11.0, if the config had never been saved, no variables (including the version) would exist
-        // if this is the case, we set the version to something appropiate
-        $database->setQuery( "SELECT * FROM #__rsgallery2_config" );
-        $database->query();
-        if( $database->getNumRows() == 0 )
-            $rsgConfig->set( 'version', '1.10.?' );
+	/**
+	* do the migration thing
+	* @return true on success, anything else a failure
+	*/
+	function migrate(){
+		global $database, $rsgConfig;
+		// in versions prior to 1.11.0, if the config had never been saved, no variables (including the version) would exist
+		// if this is the case, we set the version to something appropiate
+		$database->setQuery( "SELECT * FROM #__rsgallery2_config" );
+		$database->query();
+		if( $database->getNumRows() == 0 )
+			$rsgConfig->set( 'version', '1.10.?' );
 
-        // match version numbers.  each update is applied successively until finished.
-        // this will happen because there are no break statements
+		// match version numbers.  each update is applied successively until finished.
+		// this will happen because there are no break statements
 
-        switch( true ){
-            case $this->beforeVersion( '1.11.0' ):
-                $this->handleSqlFile( 'upgrade_1.10.14_to_1.11.0.sql' );
+		switch( true ){
+			case $this->beforeVersion( '1.11.0' ):
+				$this->handleSqlFile( 'upgrade_1.10.14_to_1.11.0.sql' );
 
-            case $this->beforeVersion( '1.11.1' ):
-                $this->handleSqlFile( 'upgrade_1.11.0_to_1.11.1.sql' );
+			case $this->beforeVersion( '1.11.1' ):
+				$this->handleSqlFile( 'upgrade_1.11.0_to_1.11.1.sql' );
 
-            case $this->beforeVersion( '1.11.8' ):
-                $this->handleSqlFile( 'upgrade_1.11.7_to_1.11.8.sql' );
+			case $this->beforeVersion( '1.11.8' ):
+				$this->handleSqlFile( 'upgrade_1.11.7_to_1.11.8.sql' );
 
-            case $this->beforeVersion( '1.11.11' ):
-                $this->handleSqlFile( 'upgrade_1.11.10_to_1.11.11.sql' );
+			case $this->beforeVersion( '1.11.11' ):
+				$this->handleSqlFile( 'upgrade_1.11.10_to_1.11.11.sql' );
 
-            case $this->beforeVersion( '1.12.0' ):
-                $this->handleSqlFile( 'upgrade_1.11.11_to_1.12.0.sql' );
+			case $this->beforeVersion( '1.12.0' ):
+				$this->handleSqlFile( 'upgrade_1.11.11_to_1.12.0.sql' );
 
-            case $this->beforeVersion( '1.12.2' ):
-                $this->upgradeTo_1_12_2();
-                
-			case $this->beforeVersion( '1.13.1' ):
-                $this->handleSqlFile( 'upgrade_1.12.2_to_1.13.2.sql' );
-            default:
-                // if we reach this point then everything was a success, update the version number and exit.
-                $this->updateVersionNumber();
-                return true;
-        }
-    }
+			case $this->beforeVersion( '1.12.2' ):
+				$this->upgradeTo_1_12_2();
+
+			case $this->beforeVersion( '1.13.2' ):
+				$this->handleSqlFile( 'upgrade_1.12.2_to_1.13.2.sql' );
+
+			case $this->beforeVersion( '1.14.0' ):
+				$this->handleSqlFile( 'upgrade_1.13.2_to_1.14.0.sql' );
+
+			default:
+				// if we reach this point then everything was a success, update the version number and exit.
+				$this->updateVersionNumber();
+				return true;
+		}
+	}
 
     /**
      * check if installed version is less than (before) $ver
