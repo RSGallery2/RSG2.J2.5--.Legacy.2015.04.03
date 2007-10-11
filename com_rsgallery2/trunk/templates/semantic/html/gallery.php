@@ -1,6 +1,11 @@
 <?php defined('_JEXEC') or die('Restricted access'); ?>
 
 <?php
+
+//Show introduction text
+?>
+<div class="intro_text"><?php echo $rsgConfig->get('intro_text');?></div>
+<?php
 //Show limitbox
 if( $this->pageNav ):
 ?>
