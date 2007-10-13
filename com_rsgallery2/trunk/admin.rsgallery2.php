@@ -605,7 +605,56 @@ function cancelGallery($option)
     {
     mosRedirect("index2.php?option=$option");
     }
+/**
+ * Handles the batchupload function from backend
+ * 
+ */
 
+function batch_uploadX( $option ) {
+	global $rsgConfig, $mainframe, $database;
+	$FTP_path = $rsgConfig->get('ftp_path');
+
+    //Retrieve data from submit form
+    $batchmethod 	= rsgInstance::getVar('batchmethod'	, null);
+    $uploaded 		= rsgInstance::getVar('uploaded'	, null);
+    $selcat 		= rsgInstance::getInt('selcat'		, null);
+    $zip_file 		= rsgInstance::getVar('zip_file'	, null, 'FILES');
+    $ftppath 		= rsgInstance::getVar('ftppath'		, null);
+    $xcat 			= rsgInstance::getInt('xcat'		, null);
+    
+    //Check if a gallery exists, if not link to gallery creation
+    $database->setQuery( "SELECT id FROM #__rsgallery2_galleries" );
+    $database->query();
+    if( $database->getNumRows()==0 ){
+        HTML_RSGALLERY::requestCatCreation( );
+        return;
+    }
+    
+    //Start new archive extraction
+    $batchupload = new fileHandler();
+    
+    if (isset($uploaded)) {
+    	switch ($batchmethod) {
+    		case 'zip':
+    			//Check if size does not exceed limits
+    			if ( $batchupload->checkSize($zip_file) ) {
+	                $ziplist = $batchupload->extractArchive($zip_file);
+	            } else {
+	                //Error message
+	                $mainframe->redirect( "index2.php?option=com_rsgallery2&task=batchupload", _RSGALLERY_ZIP_TO_BIG);
+	                exit;
+	            }
+	            HTML_RSGALLERY::batch_upload_2($ziplist, $batchupload->extractDir);
+    			break;
+    		case 'ftp':
+    			$ziplist = $batchupload->handleFTP($ftppath);
+    			HTML_RSGALLERY::batch_upload_2($ziplist, $batchupload->extractDir);
+    			break;
+    	}
+    } else {
+    	HTML_RSGALLERY::batch_upload($option);
+    }
+}
 /**
  * This function is called when you select batchupload from the backend. It
  * detects whether you choose ZIP or FTP and acts accordingly.

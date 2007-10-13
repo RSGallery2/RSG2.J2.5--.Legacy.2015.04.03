@@ -55,7 +55,8 @@ class HTML_RSGALLERY{
                 <div class="iconimage">
                     <?php echo JHTML::_('image.site', $image, '/components/com_rsgallery2/images/', NULL , NULL , $text); ?>
                 </div>
-                <?php echo $text; ?></a>
+                <?php echo $text; ?>
+            </a>
         </div>
         </div>
         <?php

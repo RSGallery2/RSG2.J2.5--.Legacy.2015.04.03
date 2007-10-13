@@ -54,5 +54,9 @@ if( defined( 'J15B_EXEC' )){
 	jimport( 'joomla.utilities.utility' );
 	jimport( 'joomla.utilities.string' );
 	jimport( 'joomla.version' );
+	
+	/* New in Joomla 1.5 RC-3 */
+	jimport( 'joomla.filter.output' );
+	jimport( 'joomla.event.*');
 }
 ?>

@@ -12,6 +12,9 @@ defined( '_VALID_MOS' ) or die( 'Access Denied' );
 require_once(JPATH_RSGALLERY2_ADMIN.'/includes/mimetype.php');
 require_once(JPATH_ROOT.'/includes/PEAR/PEAR.php');
 
+//Load Joomla filesystem class
+jimport('joomla.filesystem.*');
+
 /**
  * simple error class
  * built to make migration to php5 easier (hopefully)
@@ -93,13 +96,16 @@ class fileUtils{
     }
 
     /**
-     *  new and extra thought out!
+     * new and extra thought out!
+     * @todo Deprecated. Can be removed after testing
      */
-    function move_uploadedFile_to_orignalDir( $tmpName, $name ){
+    function move_uploadedFile_to_orignalDirX( $tmpName, $name ){
+       
         $parts = pathinfo( $name );
         
         // clean odd characters (including spaces)
         $basename = preg_replace('/[^a-z0-9_\-\.]/i', '_', $parts['basename']);
+
         // make sure we don't use the old name
         unset( $parts );
         unset( $name );
@@ -125,13 +131,55 @@ class fileUtils{
         }
         return $destination;
     }
+
+    /**
+     * new and extra thought out!
+     * Moves uploaded file to the original folder.
+     * This version is designed to make use of the J15 libraries
+     * Once this is finished, the old version will be deprecated
+     * 
+     * @todo Check filenames against database instead of filesystem
+     * @param string Temporary upload location as provided by $_FILES['tmp_name'] or from filename array
+     * @param string Destination location path
+     * @return True if move is succesfull
+     */
+    function move_uploadedFile_to_orignalDir( $tmpName, $name ){     
+        $parts = pathinfo( $name );
+        
+        // Clean filename
+        $basename = JFile::makeSafe($parts['basename']);
+        // make sure we don't use the old name
+        unset( $parts );
+        unset( $name );
+
+		//Get extension
+        $ext = JFile::getExt($basename);
+        
+        if ( JFile::exists( JPATH_DISPLAY . DS . $basename ) || JFile::exists( JPATH_ORIGINAL . DS . $basename )){
+            $stub = substr( $basename, 0, (strlen( $ext )+1)*-1 );
+    
+            // if file exists, add a number, test, increment, test...  similar to what filemanagers will do
+            $i=0;
+            do {
+                $basename=$stub . "-" . ++$i . "." . $ext;
+            } while( JFile::exists( JPATH_DISPLAY . DS . $basename ) || JFile::exists( JPATH_ORIGINAL . DS . $basename ));
+        }
+        
+        $destination = JPATH_ORIGINAL . DS . $basename;
+        if ( !JFile::copy( $tmpName, $destination )) {
+            if( !JFile::upload( $tmpName, $destination )){
+            	return new imageUploadError( $basename, _RSGALLERY_FU_UNABLE_COPY."$tmpName"._RSGALLERY_FU_IMAGE_TO."$destination" );
+            }
+        }
+
+        return $destination;
+    }
     
 	function determineHandle( $filename ){
 		require_once( JPATH_RSGALLERY2_ADMIN.'/includes/audio.utils.php' );
 		require_once( JPATH_RSGALLERY2_ADMIN.'/includes/video.utils.php' );
 	
-		$ext = strtolower(substr(strrchr($filename, "."), 1));
-	
+		$ext = strtolower(JFile::getExt($filename));
 		if( in_array( $ext, imgUtils::allowedFileTypes() ))
 			return 'imgUtils';
 		else if( in_array( $ext, videoUtils::allowedFileTypes() ))
@@ -172,7 +220,9 @@ class fileHandler {
             );
         $this->extractDir = "";
     }
-    
+    /**
+     * Check if OS is Windows
+     */
     function is_win() {
         if ( substr(PHP_OS, 0, 3) == 'WIN' )
             return true;
@@ -218,16 +268,16 @@ class fileHandler {
     /**
      * Checks the size of an uploaded ZIP-file and checks it against the upload_max_filesize in php.ini
      * @param array File array from form post method
-     * @return int 1 if size is within the upload limit, 0 if not
+     * @return boolean True if size is within the upload limit, false if not
      */
     function checkSize($zip_file) {
         //Check if file does not exceed upload_max_filesize in php.ini
         $max_size = ini_get('upload_max_filesize')*1024000;
         $real_size = $zip_file['size'];
         if ($real_size > $max_size || $real_size == 0) {
-            return 0;
+            return false;
         } else {
-            return 1;
+            return true;
         }
     }
     
@@ -238,9 +288,11 @@ class fileHandler {
      */
     function checkFileType($filename) {
         //Retrieve extension    
+        $file_ext = JFile::getExt($filename);
+        /*
         $file_array = array_reverse(explode(".", $filename));
         $file_ext = strtolower($file_array[0]);
-        
+        */
         if ($file_ext == 'zip') {
             $imagetype = 'zip';
         } else {
@@ -329,6 +381,7 @@ class fileHandler {
     /**
      * Deletes complete directories, including contents. 
      * Idea from Joomla installer class
+     * Deprecated, use JFolder::delete() instead
      */
     function deldir( $dir ) {
         $current_dir = opendir( $dir );
@@ -347,6 +400,55 @@ class fileHandler {
         closedir( $current_dir );
         return rmdir( $dir );
     }
+    /**
+     * Extracts uploaded archive to designated folder
+     * This function will replace handleZIP in the future and allows for all archive formats
+     * 
+     * @param	array 	Archive tmp path from upload form
+     * @param 	string	Absolute path to destination folder, defaults to joomla /media folder
+     * @return	array	Array with filenames
+     */
+    function extractArchive($archive, $destination = '') {
+    	global $rsgConfig;
+    	
+    	//Create unique install directory
+        $tmpdir         = uniqid( 'rsginstall_' );
+        
+        //Store dirname for cleanup at the end.
+        $this->extractDir = $tmpdir;
+        
+        //Clean paths for archive extraction
+    	$archivename 	= JPath::clean( $archive['tmp_name'] );
+    	if (!$destination) {
+            $extractdir = JPath::clean( JPATH_ROOT.DS . 'media' . DS . $tmpdir . DS );
+    	} else {
+            $extractdir = JPath::clean($destination . DS . $tmpdir . DS);
+		}
+		
+		//Unpack archive
+		$result = JArchive::extract($archivename, $extractdir);
+		if ( $result === false ) {
+			return false;
+		}
+		
+		/*
+		 * Try to find the correct directory.  In case the files are inside a
+		 * subdirectory detect this and set the directory to the correct path.
+		 *
+		 * List all the items in the directory.  If there is only one, and
+		 * it is a folder, then we will set that folder to be the folder.
+		 */
+		
+		$archivelist = array_merge(JFolder::files($extractdir, ''), JFolder::folders($extractdir, ''));
+
+		if (count($archivelist) == 1)
+		{
+			if (JFolder::exists($extractdir.DS.$archivelist[0]))
+			{
+				$extractdir = JPath::clean($extractdir.DS.$archivelist[0]);
+			}
+		}
+    }
     
     /**
      * Picks up a ZIP-file from a form and extracts it to a designated directory
@@ -356,7 +458,7 @@ class fileHandler {
      */
     function handleZIP($zip_file, $destination = '' ) {
         global $rsgConfig;
-        include(JPATH_ROOT.'/administrator/includes/pcl/pclzip.lib.php');
+        include_once(JPATH_ROOT.'/administrator/includes/pcl/pclzip.lib.php');
         
         $maxImages = $rsgConfig->get('uu_maxImages');
         
@@ -367,9 +469,9 @@ class fileHandler {
         $this->extractDir = $tmpdir;
         
         if (!$destination)
-            $extractDir = mosPathName( JPATH_ROOT.DS . 'media' . DS . $tmpdir . DS );
+            $extractDir = JPath::clean( JPATH_ROOT.DS . 'media' . DS . $tmpdir . DS );
         else
-            $extractDir = mosPathName($destination . DS . $tmpdir . DS);
+            $extractDir = JPath::clean($destination . DS . $tmpdir . DS);
 
         //Create new zipfile
         $tzipfile = new PclZip($zip_file['tmp_name']);
@@ -378,7 +480,7 @@ class fileHandler {
         $zip_list = $tzipfile->extract(  PCLZIP_OPT_PATH, $extractDir, PCLZIP_OPT_REMOVE_ALL_PATH);
 
         //Create image array from $ziplist
-        $ziplist = mosReadDirectory( $extractDir );
+        $ziplist = JFolder::files( $extractDir );
         foreach($ziplist as $file) {
             if ( is_dir($extractDir . $file) ) {
                 continue;
@@ -400,7 +502,7 @@ class fileHandler {
     }
     
     /**
-     * Copies all files from a map to the /media map.
+     * Copies all files from a folder to the /media folder.
      * It will NOT delete the media from the FTP-location
      * @param string Absolute path to the sourcefolder
      * @param string Absolute path to destination folder, defaults to Joomla /media folder
@@ -413,9 +515,9 @@ class fileHandler {
         
         //Set destinatiopn
         if (!$destination)
-            $copyDir = mosPathName( JPATH_ROOT.DS . 'media' . DS . $tmpdir . DS );
+            $copyDir = JPath::clean( JPATH_ROOT.DS . 'media' . DS . $tmpdir . DS );
         else
-            $copyDir = mosPathName($destination . DS . $tmpdir . DS);
+            $copyDir = JPath::clean($destination . DS . $tmpdir . DS);
             
         mkdir( $copyDir );
         
@@ -423,7 +525,7 @@ class fileHandler {
         $this->extractDir = $tmpdir;
         
         //Check for trailing slash in source path and add one if necessary
-        $source = mosPathName($source);
+        $source = JPath::clean($source);
          
         //check source directory
         if (!file_exists( $source ) OR !is_dir ( $source )) {
