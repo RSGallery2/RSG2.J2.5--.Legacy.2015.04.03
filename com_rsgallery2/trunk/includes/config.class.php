@@ -34,6 +34,7 @@ class rsgConfig {
 	var $keepOriginalImage	= true;
 	var $jpegQuality        = '85';
 	var $image_width		= '400';  //todo: rename to imgWidth_display
+	var $resize_portrait_by_height = true;
     var $thumb_style        = 1; //0 = proportional, 1 = square
 	var $thumb_width        = '80';  //todo: rename to imgWidth_thumb
 	var $imageMagick_path	= '';

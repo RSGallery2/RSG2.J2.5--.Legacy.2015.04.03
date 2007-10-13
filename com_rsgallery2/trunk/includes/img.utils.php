@@ -104,93 +104,104 @@ class imgUtils extends fileUtils{
         }
     }
 
-    /**
-     * Takes an image file, moves the file and adds database entry
-     * @param the verified REAL name of the local file including path
-     * @param name of file according to user/browser or just the name excluding path
-     * @param desired category
-     * @param title of image, if empty will be created from $imgName
-     * @param description of image, if empty will remain empty
-     * @return returns true if successfull otherwise returns an ImageUploadError
-     */
-    function importImage($imgTmpName, $imgName, $imgCat, $imgTitle='', $imgDesc='') {
-        global $database, $my, $rsgConfig;
-        
-        //First move uploaded file to original directory
-        $destination = fileUtils::move_uploadedFile_to_orignalDir( $imgTmpName, $imgName );
-        
-        if( is_a( $destination, imageUploadError ) )
-            return $destination;
+	/**
+	* Takes an image file, moves the file and adds database entry
+	* @param the verified REAL name of the local file including path
+	* @param name of file according to user/browser or just the name excluding path
+	* @param desired category
+	* @param title of image, if empty will be created from $imgName
+	* @param description of image, if empty will remain empty
+	* @return returns true if successfull otherwise returns an ImageUploadError
+	*/
+	function importImage($imgTmpName, $imgName, $imgCat, $imgTitle='', $imgDesc='') {
+		global $database, $my, $rsgConfig;
+		
+		//First move uploaded file to original directory
+		$destination = fileUtils::move_uploadedFile_to_orignalDir( $imgTmpName, $imgName );
+		
+		if( is_a( $destination, imageUploadError ) )
+			return $destination;
 
-        $parts = pathinfo( $destination );
-        // fill $imgTitle if empty
-        if( $imgTitle == '' ) 
-            $imgTitle = substr( $parts['basename'], 0, -( strlen( $parts['extension'] ) + ( $parts['extension'] == '' ? 0 : 1 )));
+		$parts = pathinfo( $destination );
+		// fill $imgTitle if empty
+		if( $imgTitle == '' ) 
+			$imgTitle = substr( $parts['basename'], 0, -( strlen( $parts['extension'] ) + ( $parts['extension'] == '' ? 0 : 1 )));
 
-        // replace names with the new name we will actually use
-        $parts = pathinfo( $destination );
-        $newName = $parts['basename'];
-        $imgName = $parts['basename'];
-        
-        //Get details of the original image.
-        $width = getimagesize( $destination );
-        if( !$width ){
-            imgUtils::deleteImage( $newName );
-            return new imageUploadError( $destination, "not an image OR can't read $destination" );
-        } else {
-            //the actual image width
-            $width = $width[0];
-        }
-        //Destination becomes original image, just for readability
-        $original_image = $destination;
-        
-        // if original is wider than display, create a display image
-        if( $width > $rsgConfig->get('image_width') ) {
-            $result = imgUtils::makeDisplayImage( $original_image, $newName, $rsgConfig->get('image_width') );
-            if( PEAR::isError( $result )){
-                imgUtils::deleteImage( $newName );
-                return new imageUploadError( $imgName, "error creating display image: " . $result->getMessage() );
-            }
-        } else {
-            $result = imgUtils::makeDisplayImage( $original_image, $newName, $width );
-            if( PEAR::isError( $result )){
-                imgUtils::deleteImage( $newName );
-                return new imageUploadError( $imgName, "error creating display image: " . $result->getMessage() );
-                }
-        }
-           
-        // if original is wider than thumb, create a thumb image
-        if( $width > $rsgConfig->get('thumb_width') ){
-            $result = imgUtils::makeThumbImage( $original_image, $newName );
-            if( PEAR::isError( $result )){
-                imgUtils::deleteImage( $newName );
-                return new imageUploadError( $imgName, "error creating thumb image: " . $result->getMessage() );
-            }
-        }
+		// replace names with the new name we will actually use
+		$parts = pathinfo( $destination );
+		$newName = $parts['basename'];
+		$imgName = $parts['basename'];
 
-        // determine ordering
-        $database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id = '$imgCat'");
-        $ordering = $database->loadResult() + 1;
-        
-        //Store image details in database
-        $imgDesc = mysql_real_escape_string($imgDesc);
-        $imgTitle = mysql_real_escape_string($imgTitle);
-        $database->setQuery("INSERT INTO #__rsgallery2_files".
-                " (title, name, descr, gallery_id, date, ordering, userid) VALUES".
-                " ('$imgTitle', '$newName', '$imgDesc', '$imgCat', now(), '$ordering', '$my->id')");
-        
-        if (!$database->query()){
-            imgUtils::deleteImage( $newName );
-            return new imageUploadError( $imgName, $database->stderr(true) );
-        }
-        
-        //check if original image needs to be kept, otherwise delete it.
-        if ( !$rsgConfig->get('keepOriginalImage') ) {
-            unlink( imgUtils::getImgOriginal( $newName, true ) );
-        }
-            
-        return true;
-    }
+		//Get details of the original image.
+		$imgdata = getimagesize( $destination );
+		if( !$imgdata ){
+			imgUtils::deleteImage( $newName );
+			return new imageUploadError( $destination, "not an image OR can't read $destination" );
+		}
+		// the actual image sizes
+		$width  = $imgdata[0];
+		$height = $imgdata[1];
+		// get configured display width
+		$width_cfg = $rsgConfig->get('image_width');
+
+		if( $rsgConfig->get('resize_portrait_by_height') ){
+			// recalculate display width if it is a standing (portrait) photo
+			if ( $height > $width  &&  $height > $width_cfg) {
+					$width_cfg = $width * $width_cfg / $height;
+			}
+		}
+
+		//Destination becomes original image, just for readability
+		$original_image = $destination;
+
+		// if original is wider than display, create a display image
+		if( $width > $width_cfg ) {
+			$result = imgUtils::makeDisplayImage( $original_image, $newName, $width_cfg );
+			if( PEAR::isError( $result )){
+				imgUtils::deleteImage( $newName );
+				return new imageUploadError( $imgName, "error creating display image: " . $result->getMessage() );
+			}
+		}
+		else {
+			$result = imgUtils::makeDisplayImage( $original_image, $newName, $width );
+			if( PEAR::isError( $result )){
+				imgUtils::deleteImage( $newName );
+				return new imageUploadError( $imgName, "error creating display image: " . $result->getMessage() );
+				}
+		}
+		
+		// if original is wider than thumb, create a thumb image
+		if( $width > $rsgConfig->get('thumb_width') ){
+			$result = imgUtils::makeThumbImage( $original_image, $newName );
+			if( PEAR::isError( $result )){
+				imgUtils::deleteImage( $newName );
+				return new imageUploadError( $imgName, "error creating thumb image: " . $result->getMessage() );
+			}
+		}
+
+		// determine ordering
+		$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id = '$imgCat'");
+		$ordering = $database->loadResult() + 1;
+		
+		//Store image details in database
+		$imgDesc = mysql_real_escape_string($imgDesc);
+		$imgTitle = mysql_real_escape_string($imgTitle);
+		$database->setQuery("INSERT INTO #__rsgallery2_files".
+				" (title, name, descr, gallery_id, date, ordering, userid) VALUES".
+				" ('$imgTitle', '$newName', '$imgDesc', '$imgCat', now(), '$ordering', '$my->id')");
+		
+		if (!$database->query()){
+			imgUtils::deleteImage( $newName );
+			return new imageUploadError( $imgName, $database->stderr(true) );
+		}
+		
+		//check if original image needs to be kept, otherwise delete it.
+		if ( !$rsgConfig->get('keepOriginalImage') ) {
+			unlink( imgUtils::getImgOriginal( $newName, true ) );
+		}
+			
+		return true;
+	}
 
     /**
       * deletes all elements of image on disk and in database

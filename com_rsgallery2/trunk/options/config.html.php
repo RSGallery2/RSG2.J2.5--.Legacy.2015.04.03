@@ -222,6 +222,10 @@ class html_rsg2_config{
 								<td><input class="text_area" type="text" name="image_width" size="10" value="<?php echo $config->image_width;?>"/></td>
 							</tr>
 							<tr>
+								<td><?php echo "Resize portrait images by height using Display Picture Width:" ?></td>
+								<td><?php echo mosHTML::yesnoRadioList('resize_portrait_by_height', '', $config->resize_portrait_by_height);?></td>
+							</tr>
+							<tr>
 								<td><?php echo _RSGALLERY_C_TMPL_THUMB_WIDTH ?></td>
 								<td><input class="text_area" type="text" name="thumb_width" size="10" value="<?php echo $config->thumb_width;?>"/></td>
 							</tr>
