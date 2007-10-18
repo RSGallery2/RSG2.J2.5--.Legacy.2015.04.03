@@ -340,7 +340,7 @@ class fileHandler {
      * @todo Check if user is Super Administrator. Limits do not count for him
      */
     function checkMaxImages($zip = false, $zip_count = '' ) {
-    global $database, $rsgConfig;
+    global $my, $database, $rsgConfig;
         $maxImages = $rsgConfig->get('uu_maxImages');
         
         //Check if maximum number of images is exceeded

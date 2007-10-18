@@ -50,7 +50,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 			$this->pageNav = new mosPageNav( $kidCountTotal, $limitstart, $limit );
 		}
 	
-		$this->display( 'gallery.php' );;
+		$this->display( 'gallery.php' );
 		
 		//Show page navigation if selected in backend
 	}
@@ -721,8 +721,8 @@ class HTML_RSGALLERY{
             <td><?php echo _RSGALLERY_CATLEVEL;?></td>
             <td>
                 <?php //galleryUtils::showCategories(NULL, $my->id, 'parent');?>
-                <?php //galleryUtils::galleriesSelectList( $parent, 'parent', false );?>
-                <?php galleryUtils::createGalSelectList( NULL, $listName='parent', true );?>
+                <?php echo galleryUtils::galleriesSelectList( $parent, 'parent', false );?>
+                <?php //galleryUtils::createGalSelectList( NULL, $listName='parent', true );?>
             </td>
         </tr>
         <tr>
@@ -817,7 +817,7 @@ class HTML_RSGALLERY{
 
     function showFrontUpload()
         {
-        global $rsgConfig, $mosConfig_live_site, $mosConfig_absolute_path, $i_file, $conversiontype, $my, $Itemid;
+        global $rsgConfig, $mosConfig_live_site, $mosConfig_absolute_path, $my, $Itemid;
         
         //Load frontend toolbar class
         require_once( $GLOBALS['mosConfig_absolute_path'] . '/includes/HTML_toolbar.php' );
@@ -831,7 +831,7 @@ class HTML_RSGALLERY{
             }
             
             // do field validation
-            if (form.i_cat.value == "0") {
+            if (form.i_cat.value == "-1") {
                 alert( "<?php echo _RSGALLERY_UPLOAD_ALERT_CAT; ?>" );
             } else if (form.i_file.value == "") {
                 alert( "<?php echo _RSGALLERY_UPLOAD_ALERT_FILE; ?>" );
@@ -841,7 +841,7 @@ class HTML_RSGALLERY{
         }
         
     </script>
-        <form name="uploadform" id="uploadform" method="post" action="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=doFrontUpload"); ?>" enctype="multipart/form-data">
+        <form name="uploadform" id="uploadform" method="post" action="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=saveUpload"); ?>" enctype="multipart/form-data">
         <table border="0" width="100%">
             <tr>
                 <td colspan="2"><h3><?php echo _RSGALLERY_ADD_IMAGE;?></h3></td>
@@ -876,11 +876,14 @@ class HTML_RSGALLERY{
                         <td><?php echo _RSGALLERY_USERUPLOAD_CATEGORY; ?></td>
                         <td>
                             <?php 
+                            echo galleryUtils::galleriesSelectList(null, 'i_cat', false);
+                            /*
                             if (!$rsgConfig->get('acl_enabled')) {
                                 galleryUtils::showCategories(NULL, $my->id, 'i_cat');
                             } else {
                                 galleryUtils::showUserGalSelectList('up_mod_img', 'i_cat');
                             }
+                            */
                             ?>
                         </td>
                     </tr>

@@ -67,9 +67,7 @@ class tempDisplay extends JObject{
 				$this->delusercat($catid);
 			break;
 			
-			case "doFrontUpload":
-				$this->doFrontUpload();
-			break;
+			
 			
 			default:
 				// we don't handle any of these pages
@@ -493,6 +491,125 @@ class tempDisplay extends JObject{
 			}
 	}
 	
+
+}// end tempDisplay
+
+class rsgDisplay extends tempDisplay{
+	
+	function mainPage(){
+		// if tempDisplay handles this function let it, otherwise continue as regularily scheduled.
+		if( parent::mainPage() )
+			return;
+
+		$page = rsgInstance::getWord( 'page', '' );
+
+		switch( $page ){
+			case "my_galleries":
+				HTML_RSGALLERY::RSGalleryTitleblock(null, null);
+				$this->my_galleries();
+				$this->showRsgFooter();
+			break;
+
+			case 'slideshow':
+				$gallery = rsgGalleryManager::get();
+				rsgInstance::instance( array( 'rsgTemplate' => 'slideshowone', 'gid' => $gallery->id ));
+			break;
+
+			case 'inline':
+				$this->inline();
+			break;
+			case 'viewChangelog':
+				$this->viewChangelog();
+			break;
+			/*
+			case "doFrontUpload":
+				$this->doFrontUpload();
+			break;
+			*/
+			case 'saveUpload':
+				$this->saveUpload();
+				break;
+			default:
+				$this->showMainGalleries();
+				$this->showThumbs();
+		}
+		
+	}
+
+	/**
+	 *  write the footer
+	 */
+	function showRsgFooter(){
+		global $rsgConfig, $rsgVersion;
+	
+		$hidebranding = '';
+		if( $rsgConfig->get( 'displayBranding' ) == false )
+			$hidebranding ="style='display: none'";
+			
+		?>
+		<div id='rsg2-footer' <?php echo $hidebranding; ?>>
+			<br /><br /><?php echo $rsgVersion->getShortVersion(); ?>
+		</div>
+		<div class='rsg2-clr'>&nbsp;</div>
+		<?php
+	}
+
+
+	function display( $file = null ){
+		global $rsgConfig;
+		$template = preg_replace( '#\W#', '', rsgInstance::getVar( 'rsgTemplate', $rsgConfig->get('template') ));
+		$templateDir = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template . DS . 'html';
+	
+		$file = preg_replace('/[^A-Z0-9_\.-]/i', '', $file);
+		
+		include $templateDir . DS . $file;
+	}
+
+	function showRSTopBar(){
+	
+	}
+	function showRandom(){
+	
+	}
+	function showLatest(){
+	
+	}
+	
+	/**
+		set Itemid for proper pathway and linking.
+		contributed by Jeckel
+	**/
+	function setItemid(){
+		global $Itemid;
+		
+		if (! isset($Itemid) || empty($Itemid) || $Itemid == '99999999') {
+			$query = "SELECT id"
+				. "\n FROM #__menu"
+				. "\n WHERE published = 1"
+				. "\n AND access <= ".$GLOBALS['my']->gid
+				. "\n AND link = 'index.php?option=".$_REQUEST['option']."'"
+				. "\n ORDER BY link"
+				;
+			$GLOBALS['database']->setQuery( $query );
+			$mitems = $GLOBALS['database']->loadObjectList();
+			if (count($mitems) > 0)
+				$Itemid = $mitems[0]->id;
+		}
+	}
+
+	function viewChangelog() {
+		global $mosConfig_absolute_path, $rsgConfig;
+	
+		if( !$rsgConfig->get('debug')){
+			echo _RSGALLERY_FEAT_INDEBUG;
+			return;
+		}
+		
+		echo '<pre style="text-align: left;">';
+		readfile( $mosConfig_absolute_path . '/administrator/components/com_rsgallery2/changelog.php' );
+		echo '</pre>';
+	}
+
 	function doFrontUpload() {
 		global $rsgAccess, $rsgConfig, $my, $database, $mosConfig_absolute_path, $Itemid;
 		
@@ -589,116 +706,95 @@ class tempDisplay extends JObject{
 			}//end else
 	} //end frontupload
 
-}// end tempDisplay
-
-class rsgDisplay extends tempDisplay{
-	
-	function mainPage(){
-		// if tempDisplay handles this function let it, otherwise continue as regularily scheduled.
-		if( parent::mainPage() )
-			return;
-
-		$page = rsgInstance::getWord( 'page', '' );
-
-		switch( $page ){
-			case "my_galleries":
-				HTML_RSGALLERY::RSGalleryTitleblock(null, null);
-				$this->my_galleries();
-				$this->showRsgFooter();
-			break;
-
-			case 'slideshow':
-				$gallery = rsgGalleryManager::get();
-				rsgInstance::instance( array( 'rsgTemplate' => 'slideshowone', 'gid' => $gallery->id ));
-			break;
-
-			case 'inline':
-				$this->inline();
-			break;
-			case 'viewChangelog':
-				$this->viewChangelog();
-			break;
-			default:
-				$this->showMainGalleries();
-				$this->showThumbs();
-		}
+	function saveUpload() {
+		global $rsgConfig, $rsgAccess, $database, $Itemid, $mosConfig_absolute_path;
+		jimport('joomla.filesystem.file');
+		//Get category ID to check rights
+		$i_cat = rsgInstance::getVar( 'i_cat'  , '');
 		
-	}
-
-	/**
-	 *  write the footer
-	 */
-	function showRsgFooter(){
-		global $rsgConfig, $rsgVersion;
-	
-		$hidebranding = '';
-		if( $rsgConfig->get( 'displayBranding' ) == false )
-			$hidebranding ="style='display: none'";
+		//Get maximum number of images to upload
+		$max_images = $rsgConfig->get('uu_maxImages');
+		
+		//Check if user can upload in this gallery
+		if ( !$rsgAccess->checkGallery('up_mod_img', $i_cat) ) die('Unauthorized upload attempt!');
+		
+		//Check if number of images is not exceeded
+		$count = 0;
+		if ($count > $max_images) {
+			//Notify user and redirect
+		} else {
+			//Go ahead and upload
+			$upload = new fileHandler();
 			
-		?>
-		<div id='rsg2-footer' <?php echo $hidebranding; ?>>
-			<br /><br /><?php echo $rsgVersion->getShortVersion(); ?>
-		</div>
-		<div class='rsg2-clr'>&nbsp;</div>
-		<?php
-	}
+			//Get parameters from form
+			$i_file = rsgInstance::getVar( 'i_file'  , $_FILES); 
+			$i_file = $i_file['i_file'];
+			$i_cat = rsgInstance::getInt( 'i_cat'  , ''); 
+			$title = rsgInstance::getVar( 'title'  , ''); 
+			$descr = rsgInstance::getVar( 'descr'  , ''); 
+			$uploader = rsgInstance::getVar( 'uploader'  , ''); 
+			
+			//Get filetype
+			$file_ext = $upload->checkFileType($i_file['name']);
 
-
-	function display( $file = null ){
-		global $rsgConfig;
-		$template = preg_replace( '#\W#', '', rsgInstance::getVar( 'rsgTemplate', $rsgConfig->get('template') ));
-		$templateDir = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template . DS . 'html';
-	
-		$file = preg_replace('/[^A-Z0-9_\.-]/i', '', $file);
-		
-		include $templateDir . DS . $file;
-	}
-
-	function showRSTopBar(){
-	
-	}
-	function showRandom(){
-	
-	}
-	function showLatest(){
-	
-	}
-	
-	/**
-		set Itemid for proper pathway and linking.
-		contributed by Jeckel
-	**/
-	function setItemid(){
-		global $Itemid;
-		
-		if (! isset($Itemid) || empty($Itemid) || $Itemid == '99999999') {
-			$query = "SELECT id"
-				. "\n FROM #__menu"
-				. "\n WHERE published = 1"
-				. "\n AND access <= ".$GLOBALS['my']->gid
-				. "\n AND link = 'index.php?option=".$_REQUEST['option']."'"
-				. "\n ORDER BY link"
-				;
-			$GLOBALS['database']->setQuery( $query );
-			$mitems = $GLOBALS['database']->loadObjectList();
-			if (count($mitems) > 0)
-				$Itemid = $mitems[0]->id;
+			//Check whether directories are there and writable
+			$check = $upload->preHandlerCheck();
+			if ($check !== true ) {
+				mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries"), $check);
+			}
+			
+			switch ($file_ext) {
+				case 'zip':
+            		if ($upload->checkSize($i_file) == 1) {
+                		$ziplist = $upload->handleZIP($i_file);
+                		
+                		//Set extract dir
+                		$extractdir = JPATH_ROOT . DS . "media" . DS . $upload->extractDir . DS;
+                		
+                		//Import images into right folder
+                		for ($i = 0; $i<sizeof($ziplist); $i++) {
+                			$import = imgUtils::importImage($extractdir . $ziplist[$i], $ziplist[$i], $i_cat);
+                		}
+                		
+                		//Clean mediadir
+                		fileHandler::cleanMediaDir( $upload->extractDir );
+                		
+                		//Redirect
+                		mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries"), _RSGALLERY_ALERT_UPLOADOK );
+                		
+            		} else {
+                		//Error message
+                		mosRedirect( "index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries", _RSGALLERY_ZIP_TO_BIG);
+            		}
+					break;
+				case 'image':
+					//Check if image is too big
+					if ($i_file['error'] == 1)
+						mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries"), '*Image size is too big for upload!*' );
+					
+					$file_name = $i_file['name'];
+					if ( move_uploaded_file($i_file['tmp_name'], $mosConfig_absolute_path."/media/".$file_name) ) {
+						//Import into database and copy to the right places
+						$imported = imgUtils::importImage($mosConfig_absolute_path."/media/".$file_name, $file_name, $i_cat, $title, $descr);
+						
+						if ($imported == 1) {
+							if (file_exists($mosConfig_absolute_path."/media/".$file_name))
+								unlink($mosConfig_absolute_path."/media/".$file_name);
+						} else {
+							mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries"), 'Importing image failed! Notify RSGallery2. This should never happen!');
+						}
+						mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries"), _RSGALLERY_ALERT_UPLOADOK );
+					} else {
+						mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries"), _RSGALLERY_ALERT_NOWRITE );
+					}
+					break;
+				case 'error':
+					mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries"), _RSGALLERY_ALERT_WRONGFORMAT );
+					break;
+			}
 		}
-	}
 
-	function viewChangelog() {
-		global $mosConfig_absolute_path, $rsgConfig;
-	
-		if( !$rsgConfig->get('debug')){
-			echo _RSGALLERY_FEAT_INDEBUG;
-			return;
-		}
-		
-		echo '<pre style="text-align: left;">';
-		readfile( $mosConfig_absolute_path . '/administrator/components/com_rsgallery2/changelog.php' );
-		echo '</pre>';
 	}
-
     /**
      * shows proper Joomla path
      */

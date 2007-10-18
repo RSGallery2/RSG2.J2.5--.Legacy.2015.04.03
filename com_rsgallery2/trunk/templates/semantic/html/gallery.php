@@ -46,7 +46,9 @@ foreach( $this->kids as $kid ):
 </div>
 <?php
 endforeach;
-
+?>
+<div class="clr"></div>
+<?php
 if( $this->pageNav ):
 ?>
 
