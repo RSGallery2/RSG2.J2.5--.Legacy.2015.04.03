@@ -34,7 +34,6 @@ $rsgDisplay->metadata();
 $rsgDisplay->showRSPathWay();
 
 //Load overlib routine for Tooltips
-// this doesn't work anymore in J1.5 legacy mode...
 mosCommonHTML::loadOverlib();
 
 //include page navigation
@@ -43,6 +42,6 @@ require_once(JPATH_ROOT.'/includes/pageNavigation.php');
 
 <link href="<?php echo $template_dir ?>/css/template.css" rel="stylesheet" type="text/css" />
 
-<div id="rsg2">
+<div class="rsg2">
 	<?php $rsgDisplay->mainPage(); ?>
 </div>

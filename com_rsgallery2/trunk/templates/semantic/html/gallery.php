@@ -41,7 +41,8 @@ foreach( $this->kids as $kid ):
 		<div class="rsg2-galleryList-description"><?php echo $kid->description;?>
 		</div>
 	</div>
-	<div class="rsg_sub_url_single"><?php $this->_subGalleryList( $kid ); ?>
+	<div class="rsg_sub_url_single">
+		<?php $this->_subGalleryList( $kid ); ?>
 	</div>
 </div>
 <?php

@@ -1,15 +1,9 @@
-/* Style introtext with this css tag*/
-div.intro_text {
-	
-}
 
 /* Style My Galleries link on frontpage */
 div.rsg2-mygalleries {
 	float:right;	
 }
-#rsg2-galleryTitle{
-}
-#rsg2{
+.rsg2{
 	width:100%;
 	margin:0;
 	padding:0;
@@ -52,30 +46,22 @@ div.rsg2-mygalleries {
 	position:relative;
 	float:left;
 }
-.rsg2-galleryList-thumb_box{
-	position:relative;
-	float:left;
-	padding-left: 5px;
-}
 .rsg2-galleryList-text_box{
 	position:relative;
 	float:right;
 }
 .rsg2-galleryList-description_box{
 	width:100%;
-	position:relative;
 	float:left;
 	padding-top:5px;
 }
 .rsg_sub_url{
 	width:100%;
-	position:relative;
 	float:left;
 	padding-top:5px;
 }
 .rsg_sub_url_single{
 	width:90%;
-	position:relative;
 	float:left;
 	padding-top:5px;
 }
@@ -157,8 +143,6 @@ ul#rsg2-galleryList{
 .rsg2-galleryList-status{
     text-align: right;
 	float:right;
-	position:relative;
-	height:30px;
 }
 
 .rsg2-galleryList-item{
@@ -174,18 +158,9 @@ ul#rsg2-galleryList{
 }
 .rsg2-galleryList-thumb{
     float: left;
-	position:relative;
     margin: 0 5px 5px 0;
-	vertical-align:top;
-	width:15%;
-	padding:0;
 }
 .rsg2-galleryList-text{
-	float:left;
-	text-align:left;
-	position:relative;
-	width:80%;
-	padding:0;
 }
 .rsg2-galleryList-thumb_double{
     float: left;
