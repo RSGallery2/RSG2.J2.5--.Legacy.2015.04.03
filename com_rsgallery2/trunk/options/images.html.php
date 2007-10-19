@@ -302,6 +302,7 @@ class html_rsg2_images {
 		</table>
 
 		<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
+		<input type="hidden" name="name" value="<?php echo $row->name; ?>" />
 		<input type="hidden" name="option" value="<?php echo $option;?>" />
 		<input type="hidden" name="rsgOption" value="<?php echo $rsgOption;?>" />
 		<input type="hidden" name="task" value="" />
