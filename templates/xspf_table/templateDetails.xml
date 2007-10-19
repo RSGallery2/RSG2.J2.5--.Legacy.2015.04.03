@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <mosinstall type="template">
-	<name>XSPF</name>
+	<name>xspf_table</name>
 	<creationDate>June 2007</creationDate>
 	<author>rsgallery2.net</author>
 	<copyright>Open Source, GPL</copyright>
