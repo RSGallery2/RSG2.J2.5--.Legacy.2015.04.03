@@ -857,7 +857,12 @@ class rsgDisplay extends tempDisplay{
 		insert meta data into head
 	**/
 	function metadata(){
-		global $mainframe;
+		global $mainframe, $option;
+
+		// if rsg2 isn't the component being displayed, don not append meta data
+		if( $option != 'com_rsgallery2' )
+			return;
+
 		$mainframe->setPageTitle( ' '. $this->gallery->get('name') );
 		$mainframe->appendMetaTag( 'description', $this->gallery->get('description') );
 	}
