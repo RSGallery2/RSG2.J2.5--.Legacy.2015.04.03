@@ -63,6 +63,7 @@ class rsgConfig {
 	var $dispLimitbox				= 1; //0 = never; 1 = If more galleries then limit; 2 = always
 	var $galcountNrs				= 5;
 	var $template					= 'semantic';
+	/* var $gallery_sort_order			= 'order_id';*/ //'order_id' = ordering by DB ordering field; 'desc' = Last uploaded first; 'asc' = Last uploaded last
 
     // user uploads
 	var $uu_enabled         = 0;

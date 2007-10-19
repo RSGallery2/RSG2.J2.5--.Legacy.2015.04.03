@@ -228,7 +228,6 @@ class rsgDisplay_semantic extends rsgDisplay{
 
 		switch( $rsgConfig->get( 'display_thumbs_style' )){
 			case 'float':
-				
 				$this->display( 'thumbs_float.php' );
 			break;
 			case 'table':

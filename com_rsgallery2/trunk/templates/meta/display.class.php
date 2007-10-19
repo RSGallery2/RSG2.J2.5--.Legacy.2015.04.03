@@ -609,7 +609,8 @@ class rsgDisplay extends tempDisplay{
 		readfile( $mosConfig_absolute_path . '/administrator/components/com_rsgallery2/changelog.php' );
 		echo '</pre>';
 	}
-
+	
+	/*
 	function doFrontUpload() {
 		global $rsgAccess, $rsgConfig, $my, $database, $mosConfig_absolute_path, $Itemid;
 		
@@ -705,10 +706,10 @@ class rsgDisplay extends tempDisplay{
 				}//end switch
 			}//end else
 	} //end frontupload
+	*/
 
 	function saveUpload() {
 		global $rsgConfig, $rsgAccess, $database, $Itemid, $mosConfig_absolute_path;
-		jimport('joomla.filesystem.file');
 		//Get category ID to check rights
 		$i_cat = rsgInstance::getVar( 'i_cat'  , '');
 		
@@ -727,8 +728,7 @@ class rsgDisplay extends tempDisplay{
 			$upload = new fileHandler();
 			
 			//Get parameters from form
-			$i_file = rsgInstance::getVar( 'i_file'  , $_FILES); 
-			$i_file = $i_file['i_file'];
+			$i_file = rsgInstance::getVar( 'i_file', null, 'files', 'array'); 
 			$i_cat = rsgInstance::getInt( 'i_cat'  , ''); 
 			$title = rsgInstance::getVar( 'title'  , ''); 
 			$descr = rsgInstance::getVar( 'descr'  , ''); 
@@ -748,7 +748,7 @@ class rsgDisplay extends tempDisplay{
             		if ($upload->checkSize($i_file) == 1) {
                 		$ziplist = $upload->handleZIP($i_file);
                 		
-                		//Set extract dir
+                		//Set extract dir for uninstall purposes
                 		$extractdir = JPATH_ROOT . DS . "media" . DS . $upload->extractDir . DS;
                 		
                 		//Import images into right folder
@@ -764,7 +764,7 @@ class rsgDisplay extends tempDisplay{
                 		
             		} else {
                 		//Error message
-                		mosRedirect( "index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries", _RSGALLERY_ZIP_TO_BIG);
+                		mosRedirect( sefRelToAbs( "index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries"), _RSGALLERY_ZIP_TO_BIG);
             		}
 					break;
 				case 'image':
@@ -909,6 +909,4 @@ class rsgDisplay extends tempDisplay{
     	$voting->showVoting();
     }
 }
-
-
 ?>
