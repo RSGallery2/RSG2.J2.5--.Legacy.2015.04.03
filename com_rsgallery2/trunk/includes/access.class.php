@@ -94,7 +94,7 @@ class rsgAccess extends JObject{
 		} else {	
 			// first check if user is the owner.  if so we can assume user has access to do anything
 			if( $my->id ){  // check that user is logged in
-				$sql = "SELECT uid FROM {$this->_galTable} WHERE id = '$gallery_id'";
+				$sql = "SELECT uid FROM $this->_table WHERE id = '$gallery_id'";
 				$database->setQuery( $sql );
 				if ( $my->id === $database->loadResult() )
 					return 1;
@@ -184,7 +184,7 @@ class rsgAccess extends JObject{
 		switch ($type) {
 			case 'public':
 				//Select all gallery_id's where the requested action is allowed for the logged in usertype(public)
-				$sql = "SELECT gallery_id FROM #__rsgallery2_acl WHERE public_".$action." = 1";
+				$sql = "SELECT gallery_id FROM $this->_table WHERE public_".$action." = 1";
 				break;
 			case "registered":
 		    case "author":
@@ -192,12 +192,12 @@ class rsgAccess extends JObject{
 		    case "publisher":
 		    case "manager":
 		    	////Select all gallery_id's where the requested action is allowed for the logged in usertype(registered, author, editor, publisher, manager)
-		    	$sql = "SELECT gallery_id FROM #__rsgallery2_acl WHERE registered_".$action." = 1";
+		    	$sql = "SELECT gallery_id FROM $this->_table WHERE registered_".$action." = 1";
 		    	break;
 		    case "administrator":
 		    case "super administrator":
 		    	//Select them all, 'cause you're the man!'
-		    	$sql = "SELECT gallery_id FROM #__rsgallery2_acl";
+		    	$sql = "SELECT gallery_id FROM $this->_table";
 		    	break;
 		}
 		$database->setQuery($sql);
@@ -285,7 +285,7 @@ class rsgAccess extends JObject{
 	 function deletePermissions( $gallery_id ) {
         global $database;
         
-	 	$sql = "DELETE FROM #__rsgallery2_acl WHERE gallery_id = '$gallery_id'";
+	 	$sql = "DELETE FROM $this->_table WHERE gallery_id = '$gallery_id'";
 	 	$database->setQuery($sql);
 	 	if ($database->query())
 	 		return true;
