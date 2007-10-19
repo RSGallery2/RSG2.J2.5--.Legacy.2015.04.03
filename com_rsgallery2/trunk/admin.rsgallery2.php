@@ -18,6 +18,9 @@ rsgInstance::instance( 'request', false );
 // XML library
 require_once( $mosConfig_absolute_path .'/includes/domit/xml_domit_lite_include.php' );
 
+//Load overlib routine for Tooltips
+mosCommonHTML::loadOverlib();
+
 ?>
 <link href="<?php echo $mosConfig_live_site; ?>/administrator/components/com_rsgallery2/admin.rsgallery2.css" rel="stylesheet" type="text/css" />
 <?php
