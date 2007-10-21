@@ -27,6 +27,7 @@ class tempDisplay extends JObject{
 	}
 	
 	function mainPage(){
+		global $my;
 		$page = rsgInstance::getWord( 'page', '' );
 	
 		switch( $page ){
@@ -40,7 +41,7 @@ class tempDisplay extends JObject{
 			case "delete_image":
 				$this->delete_image();
 			break;
-			
+			/*
 			case 'vote':
 				$this->addVote();
 			break;
@@ -54,7 +55,7 @@ class tempDisplay extends JObject{
 			break;
 			*/
 			case "newusercat":
-				$this->userCat($my_id, 0);
+				$this->userCat($my->id, 0);
 			break;
 			case "editusercat":
 				$this->usercat();
@@ -66,16 +67,12 @@ class tempDisplay extends JObject{
 				$catid = rsgInstance::getInt( 'catid'  , null);
 				$this->delusercat($catid);
 			break;
-			
-			
-			
 			default:
 				// we don't handle any of these pages
 				return false;
 		}
 		// we handled the page, let rsgDisplay know.
 		return true;
-		
 	}
 	
 	/**
