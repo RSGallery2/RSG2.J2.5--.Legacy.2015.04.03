@@ -33,8 +33,8 @@ $rsgDisplay->metadata();
 // append to Joomla's pathway
 $rsgDisplay->showRSPathWay();
 
-//Load overlib routine for Tooltips
-mosCommonHTML::loadOverlib();
+//Load Tooltips
+JHTML::_('behavior.tooltip');
 
 //include page navigation
 require_once(JPATH_ROOT.'/includes/pageNavigation.php');

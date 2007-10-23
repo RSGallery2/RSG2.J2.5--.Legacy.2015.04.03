@@ -766,9 +766,16 @@ class galleryUtils {
 		if ( !$rsgConfig->get('displayStatus') )
 			return;
 		
-		$owner = "<a href=\"#\" onmouseover=\"return overlib('". _RSGALLERY_STATUS_ARE_OWNER."')\" onmouseout=\"return nd();\"><img class=\"status\" src=\"$mosConfig_live_site/components/com_rsgallery2/images/status_owner.png\" alt=\"". _RSGALLERY_STATUS_ARE_OWNER."\" width=\"15\" height=\"15\" />";
-		$upload = "<a href=\"#\" onmouseover=\"return overlib('". _RSGALLERY_STATUS_CAN_UPLOAD."')\" onmouseout=\"return nd();\"><img class=\"status\" src=\"$mosConfig_live_site/components/com_rsgallery2/images/status_upload.png\" alt=\"". _RSGALLERY_STATUS_CAN_UPLOAD."\" width=\"15\" height=\"15\" />";
-		$unpublished = "<a href=\"#\" onmouseover=\"return overlib('". _RSGALLERY_STATUS_NOT_PUBL."')\" onmouseout=\"return nd();\"><img class=\"status\" src=\"$mosConfig_live_site/components/com_rsgallery2/images/status_hidden.png\" alt=\"". _RSGALLERY_STATUS_NOT_PUBL."\" width=\"15\" height=\"15\" />";
+		$owner = JHTML::tooltip(_RSGALLERY_STATUS_ARE_OWNER, 
+				null, 
+				'../../../components/com_rsgallery2/images/status_owner.png',null,null,0);
+		$upload = JHTML::tooltip(_RSGALLERY_STATUS_CAN_UPLOAD, 
+				null, 
+				'../../../components/com_rsgallery2/images/status_upload.png',null,null,0);
+		
+		$unpublished = JHTML::tooltip(_RSGALLERY_STATUS_NOT_PUBL, 
+				null, 
+				'../../../components/com_rsgallery2/images/status_hidden.png',null,null,0);
 
 		$html = "";
 	
@@ -777,14 +784,14 @@ class galleryUtils {
 
 		//Check if user is owner of the gallery
 		if ( $gallery->uid == $my->id )
-			$html .= $owner."</a>";
+			$html .= $owner;
 		
 		//Check if gallery is published
 		if ($gallery->published == 0)
-			$html .= $unpublished."</a>";
+			$html .= $unpublished;
 		
 		if ( $rsgAccess->checkGallery('up_mod_img', $gallery->id) )
-			$html .= $upload."</a>";
+			$html .= $upload;
 
 		return $html;
 	}
@@ -831,7 +838,7 @@ class galleryUtils {
 	function subText($text, $length= 20, $tail="...") {
 		$text = trim($text);
 		$txtl = strlen($text);
-		$tail = "<a href=\"#\" onmouseover=\"return overlib('".ampReplace($text)."')\" onmouseout=\"return nd();\">".$tail."</a>";
+		$tail = JHTML::tooltip(ampReplace($text), null, null, $tail, null, 0);
 		if($txtl > $length) {
 			for($i=1;$text[$length-$i]!=" ";$i++) {
 				if($i == $length) {

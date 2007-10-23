@@ -19,26 +19,8 @@ class html_rsg2_images {
 
 	function showImages( $option, &$rows, &$lists, &$search, &$pageNav ) {
 		global $my, $rsgOption, $option, $rsgConfig, $mosConfig_live_site;
-
-		mosCommonHTML::loadOverlib();
-		
 		?>
-		<script language="Javascript">
-        function showInfo(name, title, description, type) {
-        	if (type == 'image') {
-        		var src = '<?php echo $mosConfig_live_site.$rsgConfig->get('imgPath_display'); ?>/'+name+'.jpg';
-                var html=name;
-                html = '<table width="250" border="0"><tr><td colspan="3"><img border="1" src="'+src+'" name="imagelib" alt="No preview available" width="250" /></td></tr><tr><td><strong>Filename:</strong></td><td>'+name+'</td></tr><tr><td valign="top"><strong>Description:</strong></td><td>'+description+'</td></tr></table>';
-                return overlib(html, CAPTION, title);	
-        	} else if (type == 'audio'){
-        		var html = name;
-        		html = '<table width="250" border="0"><tr><td><strong>Filename:</strong></td><td>'+name+'</td></tr><tr><td valign="top"><strong>Description:</strong></td><td>'+description+'</td></tr></table>';
-        		return overlib(html, CAPTION, title);
-        	}
-        }
-        </script>
-        
-		<form action="index2.php" method="post" name="adminForm">
+ 		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
 		<tr>
 			<th><?php echo _RSGALLERY_IMG_IMG_MANAGE?></th>
@@ -105,11 +87,12 @@ class html_rsg2_images {
 					} else {
 						$type = 'image';
 					}
-					?>
-					<a href="<?php echo $link; ?>" title="<?php echo _RSGALLERY_IMG_EDIT_IMG?>" onmouseover="showInfo('<?php echo $row->name;?>', '<?php echo $row->title;?>', '<?php echo $row->descr;?>', '<?php echo $type?>')" onmouseout="return nd();">
-					<?php echo $row->title; ?>&nbsp;(<?php echo $row->name;?>)
-					</a>
-					<?php
+					echo JHTML::tooltip('<img src="'.JURI::root().$rsgConfig->get('imgPath_thumb').'/'.$row->name.'.jpg" alt="'.$row->name.'" />',
+					 _RSGALLERY_IMG_EDIT_IMG,
+					 $row->name,
+					 $row->title.'&nbsp;'.$row->name,
+					 $link,
+					1);
 				}
 				?>
 				</td>
@@ -168,9 +151,8 @@ class html_rsg2_images {
 		global $rsgOption, $mosConfig_live_site;
 		mosMakeHtmlSafe( $row, ENT_QUOTES, 'descr' );
 		
-		mosCommonHTML::loadOverlib();
 		?>
-		<script language="javascript" type="text/javascript">
+		<script type="text/javascript">
 		function submitbutton(pressbutton) {
 			var form = document.adminForm;
 			if (pressbutton == 'cancel') {
@@ -324,9 +306,8 @@ class html_rsg2_images {
 		global $rsgOption, $mosConfig_live_site;
 		//mosMakeHtmlSafe( $row, ENT_QUOTES, 'descr' );
 		
-		mosCommonHTML::loadOverlib();
 		?>
-		<script language="javascript" type="text/javascript">
+		<script type="text/javascript">
 		function submitbutton(pressbutton) {
 			var form = document.adminForm;
 			if (pressbutton == 'cancel') {
@@ -344,7 +325,7 @@ class html_rsg2_images {
 			}
 		}
 		</script>
-		<script language="JavaScript" type="text/javascript" src="<?php echo $mosConfig_live_site;?>/administrator/components/com_rsgallery2/includes/script.js"></script>
+		<script type="text/javascript" src="<?php echo $mosConfig_live_site;?>/administrator/components/com_rsgallery2/includes/script.js"></script>
 		<form action="index2.php" method="post" name="adminForm" id="adminForm" enctype="multipart/form-data">
 		<table class="adminheading">
 		<tr>

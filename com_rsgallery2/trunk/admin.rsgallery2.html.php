@@ -691,7 +691,7 @@ class HTML_RSGALLERY{
         {
         global $database, $option, $mosConfig_live_site, $rsgConfig;
         ?>
-                <script>
+                <script type="script/javascript">
                 function submitbutton(pressbutton){
                     if (pressbutton != 'cancel'){
                         submitform( pressbutton );
@@ -756,7 +756,7 @@ class HTML_RSGALLERY{
      */
     function showUploadStep1(){
         ?>
-        <script language="javascript" type="text/javascript">
+        <script type="text/javascript">
         function submitbutton( pressbutton ) {
         var form = document.form;
         if ( pressbutton == 'controlPanel' ) {
@@ -936,19 +936,7 @@ class HTML_RSGALLERY{
     */
     function viewImages( $option, &$rows, &$clist, &$clist2, &$search, &$pageNav, &$cats, &$cat_ordering_min, &$cat_ordering_max) {
         global $mosConfig_live_site, $rsgConfig ;
-
-        mosCommonHTML::loadOverlib();
         ?>
-        <script language="Javascript">
-        <!--
-        function showInfo(name) {
-                var src = '<?php echo $mosConfig_live_site.$rsgConfig->get('imgPath_display'); ?>/'+name+'.jpg';
-                var html=name;
-                html = '<br /><img border="1" src="'+src+'" name="imagelib" alt="<?php echo _RSGALLERY_NO_PREVIEW?>" width="250" />';
-                return overlib(html, CAPTION, name);
-        }
-        //-->
-        </script>
         <br />
         <form action="index2.php" method="post" name="adminForm">
         <table cellpadding="4" cellspacing="0" border="0" width="100%">
@@ -1007,10 +995,10 @@ class HTML_RSGALLERY{
                 <td width="20">
                 <input type="checkbox" id="cb<?php echo $i;?>" name="cid[]" value="<?php echo $row->xid; ?>" onclick="isChecked(this.checked);" />
                 </td>
-                <td width="25%">
-                    <a href="index2.php?option=com_rsgallery2&task=edit_image&e_id=<?php echo $row->xid;?>"
-                       onmouseover="showInfo('<?php echo $row->fname;?>')" 
-                       onmouseout="return nd();"><?php echo $row->title;?></a>
+                <td width="25%"><?php echo JHTML::tooltip('<img src="'.JURI::root().$rsgConfig->get('imgPath_thumb').$row->name.'.jpg" alt="'.$row->name.'" />',
+										   $row->title, null,
+										   $row->title,
+										   "index2.php?option=com_rsgallery2&task=edit_image&e_id=".$row->xid,1); ?>
                 </td>
                 <td width="25%"><?php echo $row->fname; ?></td>
                 <td width="15%"><?php echo  htmlspecialchars(stripslashes($row->name), ENT_QUOTES); ?></td>

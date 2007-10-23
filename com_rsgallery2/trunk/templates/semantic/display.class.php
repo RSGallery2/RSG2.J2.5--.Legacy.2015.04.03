@@ -1279,7 +1279,7 @@ class HTML_RSGALLERY{
             <?php
             foreach ($images as $image)
                 {
-                global $Itemid;
+                global $Itemid,$rsgConfig;
                ?>
                 <tr>
                     <td>
@@ -1287,12 +1287,13 @@ class HTML_RSGALLERY{
                         if (!$rsgAccess->checkGallery('up_mod_img', $image->gallery_id)) {
                             echo $image->name;
                         } else {
-                            ?>
-                            <a href="index.php?option=com_rsgallery2&Itemid=<?php echo $Itemid;?>&page=edit_image&id=<?php echo $image->id;?>">
-                            <?php echo $image->name;?>
-                            </a>
-                            <?php
-                        }
+						 echo JHTML::tooltip('<img src="'.JURI::root().$rsgConfig->get('imgPath_thumb').'/'.$image->name.'.jpg" alt="'.$image->name.'" />',
+						 _RSGALLERY_EDIT_IMAGE,
+						 $image->name,
+						 $image->title.'&nbsp;'.$image->name,
+						 "index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=edit_image&id=".$image->id,
+						1);
+}
                         ?>
                     </td>
                     <td><?php echo galleryUtils::getCatnameFromId($image->gallery_id)?></td>
