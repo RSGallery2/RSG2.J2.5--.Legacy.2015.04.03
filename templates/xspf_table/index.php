@@ -31,40 +31,11 @@ mosCommonHTML::loadOverlib();
 //include page navigation
 require_once(JPATH_ROOT.'/includes/pageNavigation.php');
 
-
 $rsgDisplay->metadata();
 // append to Joomla's pathway
 $rsgDisplay->showRSPathWay();
 ?>
-
-<!-- <link href="<?php //echo $template_dir ?>/css/template.css" rel="stylesheet" type="text/css" /> -->
-<style type="text/css" media="screen">
-	.xspf_semantic {
-	}
-		.xspf_semantic .xspf_semantic_gallery_title {
-		}
-		.xspf_semantic .xspf_semantic_gallery_desc {
-		}
-		.xspf_semantic ul.xspf_semantic_item {
-			list-style-type: none;
-		}
-			.xspf_semantic .xspf_semantic_item li.xspf_semantic_item_title {
-				background: none;
-			}
-			.xspf_semantic .xspf_semantic_item li.xspf_semantic_item_desc {
-				background: none;
-			}
-			.xspf_semantic .xspf_semantic_item li.xspf_semantic_item_player {
-				background: none;
-			}
-			.xspf_semantic .xspf_semantic_item li.xspf_semantic_item_download {
-				background: none;
-				border: none;
-			}
-				.xspf_semantic .xspf_semantic_item li.xspf_semantic_item_download img {
-					border: none;
-				}
-</style>
+<link href="<?php echo $template_dir ?>/css/xspf_semantic.css" rel="stylesheet" type="text/css" />
 <div class="xspf_semantic">
 <?php   
 	// show the main page being requested

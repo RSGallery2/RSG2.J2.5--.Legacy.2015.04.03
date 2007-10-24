@@ -38,17 +38,18 @@ class rsgDisplay_xspf_table extends rsgDisplay{
 
 	function itemsDisplay($audio_clips) {
 		?>
-		<h4 class="xspf_semantic_gallery_title"><?php echo $this->gallery->name?></h4>
+		<h2 class="xspf_semantic_gallery_title"><?php echo $this->gallery->name?></h2>
 		<?php if($this->gallery->description){?><p class="xspf_semantic_gallery_desc"><?php echo $this->gallery->description?></p><?php }?>
 		<?php
 		$player = $this->getPlayer('slim');
 		foreach($audio_clips as $audio_clip){
 			?>
 			<ul class="xspf_semantic_item">
-				<li class="xspf_semantic_item_title"><?php echo $audio_clip['title'];?></li>
+				<li class="xspf_semantic_item_title"><h3><?php echo $audio_clip['title'];?></h3></li>
 				<li class="xspf_semantic_item_player"><?php $this->showPlayer($audio_clip['location'], $audio_clip['title'], $player)?></li>
-				<?php if($audio_clip['descr']){?><li class="xspf_semantic_item_desc"><?php echo $audio_clip['descr'];?></li><?php }?>
 				<li class="xspf_semantic_item_download"><?php $this->_writeDownloadLink( $audio_clip['id'] );?></li>
+				<?php if($audio_clip['descr']){?><li class="xspf_semantic_item_desc"><?php echo $audio_clip['descr'];?></li><?php }?>
+				<li class="xspf_semantic_item_spacer" style="clear: right; background: none;">&nbsp;</li>
 			</ul>
 			<?php		
 		}
@@ -129,6 +130,3 @@ EOD;
 		}
 	}
 }
-
-
-

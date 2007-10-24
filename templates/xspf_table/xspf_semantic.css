@@ -1,0 +1,37 @@
+.xspf_semantic {
+}
+	.xspf_semantic .xspf_semantic_gallery_title {
+	}
+	.xspf_semantic .xspf_semantic_gallery_desc {
+	}
+	.xspf_semantic ul.xspf_semantic_item {
+		list-style-type: none;
+		clear: both;
+	}
+	.xspf_semantic ul.xspf_semantic_item li {
+		padding: 0;
+	}
+		.xspf_semantic .xspf_semantic_item li.xspf_semantic_item_title {
+			background: none;
+		}
+			.xspf_semantic .xspf_semantic_item li.xspf_semantic_item_title img {
+				border: none;
+			}
+		.xspf_semantic .xspf_semantic_item li.xspf_semantic_item_desc {
+			background: none;
+			font-style: italic;
+		}
+		.xspf_semantic .xspf_semantic_item li.xspf_semantic_item_player {
+			background: none;
+		}
+		.xspf_semantic .xspf_semantic_item li.xspf_semantic_item_download {
+			background: none;
+			border: none;
+			float: right;
+		}
+		.xspf_semantic .xspf_semantic_item li.xspf_semantic_item_spacer {
+			margin-bottom: 20px;
+			border-bottom: 1px solid #ccc;
+			clear: right;
+			width: 100%;
+		}
