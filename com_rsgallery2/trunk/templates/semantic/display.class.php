@@ -1272,7 +1272,7 @@ class HTML_RSGALLERY{
                 var yesno = confirm ('<?php echo _RSGALLERY_DELIMAGE_TEXT;?>');
                 if (yesno == true)
                 {
-                    location = "<?php echo $mosConfig_live_site;?>/index.php?option=com_rsgallery2&page=delete_image&id="+id;
+                    location = "<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;page=delete_image&amp;id=");?>"+id;
                 }
             }
             </script>
@@ -1326,7 +1326,7 @@ class HTML_RSGALLERY{
                             <?php
                         } else {
                         ?>
-                        <a href="index.php?option=com_rsgallery2&Itemid=<?php echo $Itemid;?>&page=edit_image&id=<?php echo $image->id;?>">
+                        <a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=edit_image&amp;id=$image->id");?>">
                         <div align="center">
                             <img src="<?php echo $mosConfig_live_site;?>/components/com_rsgallery2/images/edit.png" alt="" width="15" height="15" border="0">
                         </div>
@@ -1347,7 +1347,7 @@ class HTML_RSGALLERY{
             }
             ?>
             <tr>
-                <th colspan="4"><div align="center"><?php global $Itemid; echo $pageNav->writePagesLinks("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=my_galleries");echo "<br>".$pageNav->writePagesCounter(); ?></div></th>
+                <th colspan="4"><div align="center"><?php global $Itemid; echo $pageNav->writePagesLinks();echo "<br>".$pageNav->writePagesCounter(); ?></div></th>
             </tr>
             </table>
             <?php
