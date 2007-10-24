@@ -7,7 +7,10 @@ $i = 0;
 ?>
 
 <table id='rsg2-thumbsList'>
-	<?php foreach( $this->gallery->items as $item ):
+	<?php foreach( $this->gallery->items() as $item ):
+		if( $item->type != 'image' )
+			continue;  // we only handle images
+
 		$thumb = $item->thumb();
 		
 		if( $i % $cols== 0) echo "<tr>\n";

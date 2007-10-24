@@ -7,6 +7,9 @@ global $Itemid;
 
 <ul id='rsg2-thumbsList'>
 	<?php foreach( $this->gallery->items as $item ):
+		if( $item->type != 'image' )
+			continue;  // we only handle images
+
 		$thumb = $item->thumb(); ?>
 		
 	<li <?php echo "style='float: $floatDirection'"; ?> >
