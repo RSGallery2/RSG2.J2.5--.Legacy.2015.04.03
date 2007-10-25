@@ -21,7 +21,14 @@ if( !defined( '_JEXEC' )){
 	define( '_JEXEC', 1 );
 	define ('DS', "/");
 	define( 'JPATH_BASE', $mosConfig_absolute_path );
-	define( 'JPATH_ROOT', $mosConfig_absolute_path );
+	define( 'JPATH_ROOT', JPATH_BASE );
+	define( 'JPATH_SITE', JPATH_BASE );
+	
+	// these next two are not implemented, but the constants are expected, so we'll define them
+	define( 'JPATH_INSTALLATION', JPATH_BASE );
+	define( 'JPATH_XMLRPC', JPATH_BASE );
+	
+	define( 'JPATH_ADMINISTRATOR', JPATH_SITE .DS. 'administrator' );
 	define( 'JPATH_LIBRARIES', J15B_PATH . DS . 'libraries' );
 	define( 'JPATH_THEMES', JPATH_ROOT . DS . 'templates' );
 }
@@ -59,4 +66,3 @@ if( defined( 'J15B_EXEC' )){
 	jimport( 'joomla.filter.output' );
 	jimport( 'joomla.event.*');
 }
-?>

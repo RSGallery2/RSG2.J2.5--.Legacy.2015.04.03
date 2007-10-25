@@ -379,7 +379,8 @@ class JRouterSite extends JRouter
 		// Get the itemid form the URI
 		$itemid = $uri->getVar('Itemid');
 
-		if(is_null($itemid))
+		// we aren't getting involved with the menus, so if you don't have the Itemid, your out of luck
+		if(false)
 		{
 			if($option = $uri->getVar('option'))
 			{
