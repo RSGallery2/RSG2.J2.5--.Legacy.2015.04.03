@@ -325,7 +325,11 @@ class html_rsg2_images {
 			}
 		}
 		</script>
-		<script type="text/javascript" src="<?php echo $mosConfig_live_site;?>/administrator/components/com_rsgallery2/includes/script.js"></script>
+		<?php 
+		//translated text into javascript -> javascript to .php file
+		/*<script type="text/javascript" src="<?php echo $mosConfig_live_site;?>/administrator/components/com_rsgallery2/includes/script.php"></script>*/
+		require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'script.php');
+		?>
 		<form action="index2.php" method="post" name="adminForm" id="adminForm" enctype="multipart/form-data">
 		<table class="adminheading">
 		<tr>

@@ -751,5 +751,19 @@ DEFINE("_RSGALLERY_VOTING_NOT_AUTH",		"You are not authorized to vote!");
 DEFINE("_RSGALLERY_VOTING_ALREADY_VOTED",		"You aready voted for this item!");
 DEFINE("_RSGALLERY_VOTING_NOT_ADDED",		"Vote could not be added to the database!");
 DEFINE("_RSGALLERY_VOTING_ADDED",		"Vote added to database!");
+
+//templates.php
+//function viewTemplates
+/*new*/DEFINE("_RSGALLERY_TPL_INST",	"Install new RSGTemplate <small><small>[ Site ]</small></small>");
+// more to do here, but to come
+
+//templates.html.php
+/*new*/DEFINE("_RSGALLERY_TEMPLATES_NAME",	"Name");
+/*new*/DEFINE("_RSGALLERY_TEMPLATES_ACTIVE",	"Active");
+/*new*/DEFINE("_RSGALLERY_TEMPLATES_AUTHOR",	"Author");
+/*new*/DEFINE("_RSGALLERY_TEMPLATES_VERSION",	"Version");
+/*new*/DEFINE("_RSGALLERY_TEMPLATES_DATE",	"Date");
+/*new*/DEFINE("_RSGALLERY_TEMPLATES_AUTH_URL",	"Author URL");
+
 //stopped at gallery.class.php
 ?>

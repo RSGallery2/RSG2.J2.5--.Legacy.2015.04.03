@@ -66,25 +66,25 @@ class html_rsg2_templates{
 			<th width="5%">#</th>
 			<th width="5%">&nbsp;</th>
 			<th width="25%" class="title">
-			Name
+			<?php echo _RSGALLERY_TEMPLATES_NAME?>
 			</th>
 			<th width="5%">
-			Active
+			<?php echo _RSGALLERY_TEMPLATES_ACTIVE?>
 			</th>
 			<th width="5%">&nbsp;
 			
 			</th>
 			<th width="20%" align="left">
-			Author
+			<?php echo _RSGALLERY_TEMPLATES_AUTHOR?>
 			</th>
 			<th width="5%" align="center">
-			Version
+			<?php echo _RSGALLERY_TEMPLATES_VERSION?>
 			</th>
 			<th width="10%" align="center">
-			Date
+			<?php echo _RSGALLERY_TEMPLATES_DATE?>
 			</th>
 			<th width="20%" align="left">
-			Author URL
+			<?php echo _RSGALLERY_TEMPLATES_AUTH_URL?>
 			</th>
 		</tr>
 		<?php

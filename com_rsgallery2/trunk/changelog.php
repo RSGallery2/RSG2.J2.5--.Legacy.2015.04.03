@@ -31,6 +31,10 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2007-10-29 Daniel Tulp
+ ^ change script.js to script.php for language constant usage
+ + added language constants
+
 2007-09-22 Ronald Smit
  + Completed voting system
  + Added backend settings for voting

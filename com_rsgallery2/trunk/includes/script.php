@@ -1,3 +1,4 @@
+<script type="text/javascript">
 // Set the "inside" HTML of an element.
 function setInnerHTML(element, toValue)
 {
@@ -100,7 +101,8 @@ function addAttachment() {
     if (allowed_attachments <= 0)
     return alert("Sorry, you aren't allowed to post any more attachments.");
 
-    setOuterHTML(document.getElementById("moreAttachments"), '<br />Title:&nbsp;<input class="text" type="text" id="title" name="title[]" value="" size="50" maxlength="250" /><br /><br />File:&nbsp;&nbsp;<input type="file" size="48" id="images" name="images[]" /><br /><hr /><span id="moreAttachments"></span>');
+    setOuterHTML(document.getElementById("moreAttachments"), '<br /><?php echo _RSGALLERY_TITLE?>:&nbsp;<input class="text" type="text" id="title" name="title[]" value="" size="50" maxlength="250" /><br /><br /><?php echo _RSGALLERY_IMG_FILE?>:&nbsp;&nbsp;<input type="file" size="48" id="images" name="images[]" /><br /><hr /><span id="moreAttachments"></span>');
     allowed_attachments = allowed_attachments - 1;
 return true;
 }
+</script>

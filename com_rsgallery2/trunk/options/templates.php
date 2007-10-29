@@ -156,7 +156,9 @@ function viewTemplates( $option ) {
 	$userfile 	= rsgInstance::getVar('userfile', dirname( __FILE__ ) );
 	$userfile 	= mosPathName( $userfile );
 	
-	HTML_RSGallery::showInstallForm( 'Install new RSGTemplate <small><small>[ Site ]</small></small>', $option, $userfile, '<a href="index2.php?option=com_rsgallery2&task=templates">Back to Templates</a>');
+	//HTML_RSGallery::showInstallForm( _RSGALLERY_TPL_INST, $option, $userfile, '<a href="index2.php?option=com_rsgallery2&task=templates">Back to Templates</a>');
+	//Back to templates not necessary right? (daniel)
+	HTML_RSGallery::showInstallForm( _RSGALLERY_TPL_INST, $option, $userfile);
 	html_rsg2_templates::showTemplates( $rows, $pageNav, $option );
 }
 
