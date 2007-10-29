@@ -1,6 +1,6 @@
 <?php
 /**
-* Dutch language file for RSGallery - (06-08-2007)
+* Dutch language file for RSGallery - (28-10-2007)
 * @version $Id$
 * @package RSGallery2
 * @copyright (C) 2003 - 2007 RSGallery2
@@ -549,6 +549,18 @@ DEFINE("_RSGALLERY_C_NUMB_GAL_FRONT",			"Standaard aantal gallerijen op hoofdpag
 DEFINE("_RSGALLERY_C_FONT",				"Lettertype");
 DEFINE("_RSGALLERY_C_WATER_TRANS",			"Transparant Watermerk");
 DEFINE("_RSGALLERY_C_ALLOWED_FILE",			"Toegestaande bestands type");
+//Commenting
+DEFINE("_RSGALLERY_COMMENTS_LABEL",			"Commentaren");
+DEFINE("_RSGALLERY_COMMENTS_ENABLED",		"Commentaar toegestaan");
+DEFINE("_RSGALLERY_COMMENTS_ALLOW_PUBLIC",	"Sta openbare gebruikers toe om commentaar te geven");
+DEFINE("_RSGALLERY_COMMENTS_ONLY_ONCE",		"Gebruikers kunnen maar 1 maal commentaar geven");
+
+//Voting
+DEFINE("_RSGALLERY_VOTE_LABEL",				"Stemmen");
+DEFINE("_RSGALLERY_VOTE_ENABLED",			"Stemmen toegestaan");
+DEFINE("_RSGALLERY_VOTE_REGISTERED_ONLY",	"Alleen geregistreerde gebruikers");
+DEFINE("_RSGALLERY_VOTE_ONLY_ONCE",			"Gebruikers kunnen maar 1 maal stemmen (d.m.v. cookie)");
+DEFINE("_RSGALLERY_VOTE_COOKIE_PREFIX",		"Cookie prefix");
 
 //galleries.class.php
 
@@ -751,5 +763,35 @@ DEFINE("_RSGALLERY_FU_FAIL_WRITE_DISK",			"Kan bestand niet naar schijf schrijve
 DEFINE("_RSGALLERY_FU_UPL_STOP_EXT",			"Bestand upload gestopt");
 DEFINE("_RSGALLERY_FU_UNKW_ERROR",			"Onbekende bestands fout");
 
+//rsgcomments.class.php
+DEFINE("_RSGALLERY_COMMENTS_ADD",			"Commentaar toevoegen");
+DEFINE("_RSGALLERY_COMMENTS_NAME",			"Naam");
+DEFINE("_RSGALLERY_COMMENTS_TITLE",			"Titel");
+DEFINE("_RSGALLERY_COMMENTS_COMMENT",		"Commentaar tekst");
+
+//rsgcomments.php
+DEFINE("_RSGALLERY_COMMENTS_DISABLED",		"Commentaar staat uit");
+DEFINE("_RSGALLERY_COMMENTS_ONLY_ONCE",		"U kunt maar 1 maal commentaar geven op deze afbeelding!");
+DEFINE("_RSGALLERY_COMMENTS_INCORRECT_CAPTCHA",		"Verkeerde CAPTCHA controle, het commentaar is NIET opgeslagen!");
+DEFINE("_RSGALLERY_COMMENTS_ADD_SUCCES",		"Commentaar succesvol toegevoegd!");
+DEFINE("_RSGALLERY_COMMENTS_ADD_FAIL",		"Commentaar kon niet worden toegevoegd!");
+
+//rsgvoting.class.php
+DEFINE("_RSGALLERY_VOTING_ARE_YOU_SURE",		"Weet u zeker dat u wilt stemmen?");
+DEFINE("_RSGALLERY_VOTING_RATING",			"Classificatie");
+DEFINE("_RSGALLERY_VOTING_VOTE",			"Stem");
+DEFINE("_RSGALLERY_VOTING_VOTES",			"&nbsp;stemmen");
+DEFINE("_RSGALLERY_VOTING_RATE_1",			"Waardeer dit op een score van 1 op 5");
+DEFINE("_RSGALLERY_VOTING_RATE_2",			"Waardeer dit op een score van 2 op 5");
+DEFINE("_RSGALLERY_VOTING_RATE_3",			"Waardeer dit op een score van 3 op 5");
+DEFINE("_RSGALLERY_VOTING_RATE_4",			"Waardeer dit op een score van 4 op 5");
+DEFINE("_RSGALLERY_VOTING_RATE_5",			"Waardeer dit op een score van 5 op 5");
+
+//rsgvoting.php
+DEFINE("_RSGALLERY_VOTING_DISABLED",		"Stemmen staat uit!");
+DEFINE("_RSGALLERY_VOTING_NOT_AUTH",		"U bent niet gemachtigd om te stemmen!");
+DEFINE("_RSGALLERY_VOTING_ALREADY_VOTED",		"U hebt al gestemd op deze afbeelding!");
+DEFINE("_RSGALLERY_VOTING_NOT_ADDED",		"De stem kon niet aan het gegevensbestand worden toegevoegd!");
+DEFINE("_RSGALLERY_VOTING_ADDED",			"Stem aan gegevensbestand wordt toegevoegd!");
 //stopped at gallery.class.php
 ?>

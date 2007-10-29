@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Danish languagefile for RSGallery
+* Danish languagefile for RSGallery 2007-05-09/JHT
 * @version $Id$
 * @package RSGallery2
 * @copyright (C) 2003 - 2006 RSGallery2
@@ -11,6 +11,10 @@
 defined( '_VALID_MOS' ) or die( 'Restricted access' );
 
 //rsgallery2.html.php
+//RSShowPictures
+DEFINE("_RSGALLERY_MAGIC_NOTIMP",		"Magic er ikke implementeret endnu");
+//showMyGalleries
+DEFINE("_RSGALLERY_FEAT_NOTIMP",		"Feature er ikke implementeret endnu");
 //function showUserGallery
 DEFINE("_RSGALLERY_MAKECAT_ALERT_NAME"		,"Du SKAL give kategorien et navn");
 DEFINE("_RSGALLERY_MAKECAT_ALERT_DESCR"		,"Du skal lave en beskrivelse");
@@ -75,7 +79,7 @@ DEFINE("_RSGALLERY_SUB_GALLERIES",			"Undergallerier:");
 DEFINE("_RSGALLERY_DELIMAGE_TEXT"			,"Er du sikker på du vil slette dette billede?");
 //function showMyGalleries
 DEFINE("_RSGALLERY_USER_MY_GAL",			"Mine gallerier");
-DEFINE("_RSGALLERY_MY_IMAGES_CATEGORY",		"Kategori");
+DEFINE("_RSGALLERY_MY_IMAGES_CATEGORY",		"Galleri");
 DEFINE("_RSGALLERY_MY_IMAGES_PUBLISHED",	"Publiceret");
 DEFINE("_RSGALLERY_MY_IMAGES_DELETE",		"Slet");
 DEFINE("_RSGALLERY_MY_IMAGES_EDIT",			"Rediger");
@@ -83,9 +87,9 @@ DEFINE("_RSGALLERY_MY_IMAGES_PERMISSIONS",	"Rettigheder");
 DEFINE("_RSGALLERY_NO_USER_GAL",			"Der er ingen brugergallerier");
 DEFINE("_RSGALLERY_DELCAT_TEXT"				,"Er du sikker på du vil slette dette galleri?\\nHvis der stadig er billeder i galleriet, bliver disse også slettet.");
 //function showMyImages
-DEFINE("_RSGALLERY_MY_IMAGES"			,"Mine billeder");
+DEFINE("_RSGALLERY_MY_IMAGES",				"Mine billeder");
 DEFINE("_RSGALLERY_MY_IMAGES_NAME",			"Navn");
-DEFINE("_RSGALLERY_NOIMG_USER",				"Ingen billeder i brugernes kategorier");
+DEFINE("_RSGALLERY_NOIMG_USER",				"Ingen billeder i brugernes gallerier");
 //function RSGalleryUserInfo
 DEFINE("_RSGALLERY_USER_INFO",				"Brugerinformation");
 DEFINE("_RSGALLERY_USER_INFO_NAME",			"Brugernavn");
@@ -95,6 +99,7 @@ DEFINE("_RSGALLERY_USER_INFO_CREATED",				"dannet)");
 DEFINE("_RSGALLERY_USER_INFO_MAX_IMG",		"Højst tilladte antal billeder");
 DEFINE("_RSGALLERY_USER_INFO_UPL",			"uploadet)");
 //function myGalleries
+DEFINE("_RSGALLERY_USERGAL_DISABLED",		"bruger gallerier er slået fra af administrator.");
 //function showRandom
 DEFINE("_RSGALLERY_RANDOM_TITLE"				,"Tilfældige billeder");
 //function showLatest
@@ -103,8 +108,12 @@ DEFINE("_RSGALLERY_LATEST_TITLE"			,"Nyeste billeder");
 //rsgallery2.php
 //function my_galleries
 DEFINE("_RSGALLERY_NO_USERCATS"             ,"Funktionen brugergallerier er slået fra af administrator");
+DEFINE("_RSGALLERY_MYGAL_NOT_AUTH",			"Uautoriseret forsøg på adgang til Mine Gallerier!");
 //function save_image
 DEFINE("_RSGALLERY_SAVE_SUCCESS",		    "Detaljerne er gemt med succes");
+DEFINE("_RSGALLERY_ERROR_SAVE",				"Fejl: ");
+//function viewChangelog
+DEFINE("_RSGALLERY_FEAT_INDEBUG",		"Feature kun tilgængelig i Debug mode.");
 //function delete_image
 DEFINE("_RSGALLERY_USERIMAGE_NOTOWNER"		,"Du er ikke ejeren af dette billede - du dirigeres om til hovedsiden");
 DEFINE("_RSGALLERY_DELIMAGE_OK"				,"Billedet er slettet");
@@ -141,13 +150,13 @@ DEFINE("_RSGALLERY_TAB_GALLERIES",			"Gallerier");
 DEFINE("_RSGALLERY_MOST_RECENT_GAL",		"Senest tilføjede gallerier");
 DEFINE("_RSGALLERY_GALLERY",				"Galleri");
 DEFINE("_RSGALLERY_USER",					"Bruger");
-DEFINE("_RSGALLERY_ID",			    	"ID");
+DEFINE("_RSGALLERY_ID",			   		 	"ID");
 DEFINE("_RSGALLERY_TAB_IMAGES",				"Billeder");
 DEFINE("_RSGALLERY_MOST_RECENT_IMG", 		"Senest tilføjede billeder");
 DEFINE("_RSGALLERY_DATE",					"Dato");
 DEFINE("_RSGALLERY_CREDITS",				"Credits");
 DEFINE("_RSGALLERY_INSTALLED_VERSION",		"Installeret version");
-/*new*/DEFINE("_RSGALLERY_LICENSE",			"Licens");
+DEFINE("_RSGALLERY_LICENSE",				"Licens");
 //Cpanel
 DEFINE("_RSGALLERY_C_CONFIG",			"Konfiguration");
 DEFINE("_RSGALLERY_C_UPLOAD",			"Upload");
@@ -184,6 +193,7 @@ DEFINE("_RSGALLERY_BATCH_DELETE",	"Slet");
 DEFINE("_RSGALLERY_BATCH_TITLE",		"Titel");
 DEFINE("_RSGALLERY_BATCH_GAL",		"Galleri");
 DEFINE("_RSGALLERY_BATCH_UPLOAD",	"Upload");
+DEFINE("_RSGALLERY_BATCH_FTP_PATH_OVERL",	"Vær sikker på at FTP stien er i web-roden. Den kan ikke være på en anden server! Check også at der afsluttes med en skråstreg");
 //function editImage
 DEFINE("_RSGALLERY_PROP_TITLE",		"Rediger billedegenskaber");
 DEFINE("_RSGALLERY_TITLE",				"Titel");
@@ -239,6 +249,10 @@ DEFINE("_RSGALLERY_IMAGECAT",			"Galleri");
 DEFINE("_RSGALLERY_IMAGEHITS",		"Hits");
 DEFINE("_RSGALLERY_IMAGEDATE",		"Dato uploadet");
 DEFINE("_RSGALLERY_REORDER",			"Ændre rækkefølge");
+//function showTemplates
+DEFINE("_RSGALLERY_TEMP_MANG",				"Template Manager");
+DEFINE("_RSGALLERY_RSG_NAME",				"RSGallery2");
+DEFINE("_RSGALLERY_TEMP_PREV",				"Afprøv Template");
 //function consolidateDbGo
 DEFINE("_RSGALLERY_CONSDB_IN_DB",			"I<br>database");
 DEFINE("_RSGALLERY_CONSDB_DISP",			"Vis<br>folder");
@@ -250,6 +264,11 @@ DEFINE("_RSGALLERY_CONSDB_CREATE_IMG",		"[&nbsp;Dan manglende billeder&nbsp;]");
 DEFINE("_RSGALLERY_CONSDB_CREATE_DB",		"[&nbsp;Dan database post&nbsp;]");
 DEFINE("_RSGALLERY_CONSDB_DELETE_IMG",		"[&nbsp;Slet billeder&nbsp;]");
 DEFINE("_RSGALLERY_CONSDB_NO_INCOS",		"Ingen inkonsistens i databasen");
+DEFINE("_RSGALLERY_CONSDB_NOTICE",	"&nbsp;<span style='text-size: 14px;font-weight:bold;'>BEMÆRK</span>:<br />Konsolider Database funktionen er stort set operationel. Featuren 'Opret Database Entry' er også tilføjet.<br />Men bemærk at du ikke kan tilføje multible entries til databasen. For nuværende, må du tilføje dem en ad gangen!");
+DEFINE("_RSGALLERY_NOT_WORKING",		"Virker ikke endnu");
+DEFINE("_RSGALLERY_DEL_FROM_SYSTEM",		"Slet fra filsystem");
+DEFINE("_RSGALLERY_CREATE_MISSING_IMG",		"Opret manglende billeder");
+DEFINE("_RSGALLERY_CREATE_DB_ENTRIES",		"Opret database entries");
 
 //admin.rsgallery2.php
 DEFINE("_RSGALLERY_HEAD_CONFIG",		"Konfiguration");
@@ -262,7 +281,9 @@ DEFINE("_RSGALLERY_HEAD_CONSDB",		"Konsolider database");
 DEFINE("_RSGALLERY_HEAD_LOG",		"Ændringslog");
 DEFINE("_RSGALLERY_HEAD_CONF_VARIA",		"Konfigurer variable");
 DEFINE("_RSGALLERY_HEAD_CONF_RAW_EDIT",		"Konfigurer Rå redigering");
+DEFINE("_RSGALLERY_HEAD_MISS_IMG_CREATE",	"Manglende billeder oprettet");
 //function config_rawEdit_save
+DEFINE("_RSGALLERY_CONF_SAVED",				"Konfiguration gemt");
 DEFINE("_RSGALLERY_CONF_SAVE_ERROR",		"Fejl ved forsøg på at gemme konfiguration");
 DEFINE("_RSGALLERY_CONF_CREATE_DIR",		"Opret billedfoldere er ikke implementeret endnu.");
 //function RSInstall
@@ -325,6 +346,10 @@ DEFINE("_RSGALLERY_MAKE_WRITABLE",			"Gør filen ikke-skrivbar efter den er gemt"
 DEFINE("_RSGALLERY_OVERWRITE_WRITABLE",		"Overskriv skrivebeskyttelsen når der gemmes");
 
 //config.rsgallery2.php
+//function toString
+DEFINE("_RSGALLERY_CONF_ERROR_UPLOAD",		" - Fejl Billed Upload : ");
+//function showCategories
+DEFINE("_RSGALLERY_SELECT_GAL_DROP_BOX",		"- Vælg galleri -");
 //function galleriesSelectList
 DEFINE("_RSGALLERY_SELECT_GAL_TOP",		"Top");
 //function newImages
@@ -352,6 +377,7 @@ DEFINE("_RSGALLERY_TOOL_IMG",				"Billeder");
 DEFINE("_RSGALLERY_TOOL_UP",				"Upload");
 DEFINE("_RSGALLERY_TOOL_NEXT",				"Næste");
 DEFINE("_RSGALLERY_TOOL_DELETE",			"Slet");
+DEFINE("_RSGALLERY_TOOL_CONFIRM_DEL",		"Bekræft Sletning");
 
 //config.html
 DEFINE("_RSGALLERY_C_TMPL_VERSION",			"Version:");
@@ -402,9 +428,24 @@ DEFINE("_RSGALLERY_C_TMPL_ONLY_REGISTERED",	"Kun registrerede brugere");
 DEFINE("_RSGALLERY_C_TMPL_U_CREATE_GAL",	"Kan brugere oprette gallerier?");
 DEFINE("_RSGALLERY_C_TMPL_U_MAX_GAL",		"Maksimalt antal gallerier en bruger kan have:");
 DEFINE("_RSGALLERY_C_TMPL_U_MAX_IMG",		"Maksimalt antal billeder en bruger kan have:");
+DEFINE("_RSGALLERY_C_TMPL_SHOW_IMGNAME",	"Vis billed-navn under thumbnail:");
+DEFINE("_RSGALLERY_C_TMPL_ACL_SETINGS",		"Adgangs-kontrol indstillinger");
+DEFINE("_RSGALLERY_C_TMPL_ACL_ENABLE",		"Aktiver Adgangs-kontrol");
+DEFINE("_RSGALLERY_C_TMPL_SHOW_MYGAL",		"Vis Mine Gallerier");
+DEFINE("_RSGALLERY_C_TMPL_USER_SET",		"Bruger-specifikke indstillinger");
+DEFINE("_RSGALLERY_C_DISP_STATUS_ICON",		"Vis Status Ikoner");
+DEFINE("_RSGALLERY_C_GEN_SET",			"Generelle indstillinger");
+DEFINE("_RSGALLERY_C_HTML_ROOT",			"HTML-root er");
+DEFINE("_RSGALLERY_C_DISP_LIMIB",		"Vis galleri begrænsninger");
+DEFINE("_RSGALLERY_C_NUMB_GAL_FRONT",	"Standard antal gallerier på forsiden");
+DEFINE("_RSGALLERY_C_FONT",				"Font");
+DEFINE("_RSGALLERY_C_WATER_TRANS",		"Vandmærke gennemsigtighed");
+DEFINE("_RSGALLERY_C_ALLOWED_FILE",		"Tilladte filtyper");
+
 //galleries.class.php
 //function check
 DEFINE("_RSGALLERY_GAL_EXIST_ERROR",		"Der eksisterer allerede et galleri med det navn. Prøv venligst igen.");
+
 //galleries.html.php
 //function show
 DEFINE("_RSGALLERY_GAL_MANAGE",			"Galleri håndtering");
@@ -422,6 +463,20 @@ DEFINE("_RSGALLERY_GAL_THUMB",			"Galleri miniature");
 DEFINE("_RSGALLERY_GAL_ORDERING",		"Rækkefølge");
 DEFINE("_RSGALLERY_GAL_PUBLISHED",		"Publiceret");
 DEFINE("_RSGALLERY_GAL_PARAMETERS",		"Parametre");
+DEFINE("_RSGALLERY_GAL_OWNER",	"Ejer");
+DEFINE("_RSGALLERY_GAL_PERMS",	"Rettigheder");
+DEFINE("_RSGALLERY_GAL_DEF_PERM_CREATE",	"Standard rettigheder oprettet. <br />Efter oprettelsen af galleriet, kan du returnere for at rette disse rettigheder for galleriet.");
+DEFINE("_RSGALLERY_GAL_NO_PERM_FOUND",	"Ingen rettigheder fundet for dette galleri. Klik på <strong>GEM</strong> knappen i toolbaren ovenover for at oprette standard rettigheder. Efter det, så returner og sæt korrekte rettigheder.");
+DEFINE("_RSGALLERY_GAL_USERTYPE",		"Brugertype");
+DEFINE("_RSGALLERY_GAL_VIEW_GAL",		"Vis<br/>Galleri</span>");
+DEFINE("_RSGALLERY_GAL_UPL_EDIT_IMG",	"Upload/Rediger<br/>billeder</span>");
+DEFINE("_RSGALLERY_GAL_DEL_IMG",			"Slet Billede</span>");
+DEFINE("_RSGALLERY_GAL_MOD_GAL",			"Modificer<br/>Galleri</span>");
+DEFINE("_RSGALLERY_GAL_DEL_GAL",			"Slet<br/>Galleri</span>");
+DEFINE("_RSGALLERY_GAL_ACL_PUB",			"Offentligt</span>");
+DEFINE("_RSGALLERY_GAL_ACL_REG",			"For Registrerede</span>");
+DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",	"&nbsp;Vælg/Fravælg Alle");
+DEFINE("_RSGALLERY_GAL_ORDER",	"Rækkefølge");
 
 //install.class.php
 //function echo_values
@@ -491,137 +546,9 @@ DEFINE("_RSGALLERY_MIGRATION_NO_SYSTEMS",		"Ingen andre gallerier er installeret
 //function doMigration
 DEFINE("_RSGALLERY_MIGRATION_NOT_VALID",		"er ikke en tilladt migreringstype.");
 
-
-
-// ***** Fra den gamle sprogfil ***** \\
-
-//Admin Control panel
-DEFINE("_RSGALLERY_C_CAPTIONS",			"Importer billedtekster");
-
-//config screen
-DEFINE("_RSGALLERY_ALLOWED_FILETYPES",		"Tilladte filtyper");
-DEFINE("_RSGALLERY_FILETYPES_DESCR",		"Skriv de filtyper, der er tilladt. Adskil med et komma (,).");
-DEFINE("_RSGALLERY_THUMBPATH",			    "Sti til galleriets miniaturebilleder");
-
-//Admin 
-DEFINE("_RSGALLERY_ADMIN_TITLE",		"RSGallery administrator");
-DEFINE("_RSGALLERY_VERSION_LONG",		"RSGallery2 1.10.3 Alpha");
-DEFINE("_RSGALLERY_VERSION_SHORT",      "1.10.3a");
-DEFINE("_RSGALLERY_TAB1_CONFIG",	"Admin konfiguration");
-DEFINE("_RSGALLERY_TAB2_CONFIG",	"Fremtræden");
-DEFINE("_RSGALLERY_TAB3_CONFIG",	"Stylesheet");
-DEFINE("_RSGALLERY_TAB4_CONFIG",	"Bruger uploads");
-DEFINE("_RSGALLERY_THUMB_GEN",		"Thumbnail generator");
-DEFINE("_RSGALLERY_THUMB_WIDTH",		"Thumbnail bredde");
-DEFINE("_RSGALLERY_THUMB_QUAL",		"Thumbnail kvalitet");
-DEFINE("_RSGALLERY_INLINE",			"Inline/popup");
-DEFINE("_RSGALLERY_IMAGEPATH",		"Galleri underbibliotek (under Joomla! roden)");
-DEFINE("_RSGALLERY_FTPPATH",      	"FTP sti");
-DEFINE("_RSGALLERY_AUTO_DETECTED",	"auto-detected  Version: ");
-DEFINE("_RSGALLERY_NETPBMPATH",		"NETPBM sti");
-DEFINE("_RSGALLERY_IMAGEMAGICKPATH","ImageMagick sti");
-DEFINE("_RSGALLERY_NUMCOLUMNS",		"Antal kolonner");
-DEFINE("_RSGALLERY_NUMPICS",			"Antal billeder");
-DEFINE("_RSGALLERY_PICWIDTH",			"Bredde på et fuldstørrelse billede");
-DEFINE("_RSGALLERY_RESIZEPIC",    	"Ændring af størrelse");
-DEFINE("_RSGALLERY_FRONTMENU",		"Frontmenu");
-DEFINE("_RSGALLERY_INTROTEXT",		"Introtext");
-DEFINE("_RSGALLERY_CATDESCR",			"Description");
-DEFINE("_RSGALLERY_NEWCAT",			"Nyt galleri");
-DEFINE("_RSGALLERY_UPLOAD_TITLE",	"Upload");
-DEFINE("_RSGALLERY_FORM_INGALLERY",	"I galleri");
-DEFINE("_RSGALLERY_UPLOAD_FORM_THUMB","Thumbnail");
-DEFINE("_RSGALLERY_TAB_1",			   "Beskrivelse");
-DEFINE("_RSGALLERY_TAB_2",			   "Stem");
-DEFINE("_RSGALLERY_TAB_3",			   "Kommentarer");
-DEFINE("_RSGALLERY_TAB_4",			   "EXIF-information");
-DEFINE("_RSGALLERY_VOTES",			 	"Stem");
-DEFINE("_RSGALLERY_RATING_NOTSELECT",	"Vælg venligst en værdi");
-DEFINE("_RSGALLERY_SHOWDETAILS", 		"Vis billed-detaljer");
-DEFINE("_RSGALLERY_UPLOAD_BUTTON_DESC","Gem-knap virker ikke, brug denne istedet!!");
-DEFINE("_RSGALLERY_YES",					"Ja");
-DEFINE("_RSGALLERY_NO",						"Nej");
-
-//admin.rsgallery.php
-DEFINE("_RSGALLERY_ALERT_NOCAT",			"Intet galleri valgt!\\nDer returneres til foregående skærmbillede.");
-DEFINE("_RSGALLERY_ALERT_UPLOADTHUMBOK",	"Thumbnail uploadet!");
-
-//rsgallery.php
-DEFINE("_RSGALLERY_GALLERY_PICK",			"Vælg et galleri");
-DEFINE("_RSGALLERY_GALLERY_TEXT",			"Skriv din introtekst her");
-DEFINE("_RSGALLERY_NUMBEROFPICS",			"# billeder");
-DEFINE("_RSGALLERY_BACKBUTTON",				"Tilbage");
-DEFINE("_RSGALLERY_IMGS",					" billede(r) fundet - ");
-DEFINE("_RSGALLERY_PAGE",					" Side ");
-DEFINE("_RSGALLERY_OF",						" af ");
-
-//slideshow.rsgallery.php
-DEFINE("_RSGALLERY_SETSPEED"					,"Definer hastighed først!");
-
-//New
-DEFINE("_RSGALLERY_NOT_LOGGED_IN_COMMENT"	,"Venligst login for at tilføje en kommentar.");
-DEFINE("_RSGALLERY_NOT_LOGGED_IN_VOTE"		,"Venligst login for at stemme.");
-DEFINE("_RSGALLERY_USERUPLOAD_TEXT",
-"Du skal sikre dig, at du har oprettet et galleri. Din fil uploades automatisk til serveren og der oprettes thumbnail.".
-" Dette galleri er kun tilgængelig for dig, når du er logged ind. For at gøre det offentligt, må du ændre indstillingerne.".
-" <br/>Du kan uploade enkelt-filer".
-" såvel som ZIP-filer.<br/><br/>");
-
-DEFINE("_RSGALLERY_SUBCAT"						,"Underkategorier");
-DEFINE("_RSGALLERY_CREATED_BY"				,"Galleri oprettet af ");
-DEFINE("_RSGALLERY_MAX_IMAGES"				,"Maximum antal billeder per galleri");
-DEFINE("_RSGALLERY_MAX_USERCAT"				,"Maximum antal gallerier per user");
-DEFINE("_RSGALLERY_USERGAL_HEADER"			,"Bruger gallerier");
-DEFINE("_RSGALLERY_USERCAT_NOTOWNER"		,"Du er ikke ejeren af dette galleri, returnerer til hoved-skærmbilledet");
-DEFINE("_RSGALLERY_USERCAT_HEADER"			,"Bruger gallerier");
-DEFINE("_RSGALLERY_USERCAT_EDIT"			,"Rediger");
-DEFINE("_RSGALLERY_USERCAT_DELETE"			,"Slet");
-DEFINE("_RSGALLERY_USERCAT_ACL"				,"Adgangskontrol");
-DEFINE("_RSGALLERY_NEW_7DAYS"				,"Nyeste fra de sidste 7 dage");
-DEFINE("_RSGALLERY_UPLOAD_ALERT_TITLE"		,"Då skal angive en titel til billedet for at uploade.");
-DEFINE("_RSGALLERY_MAXWIDTHPOPUP"			,"Maximal bredde af popup");
-DEFINE("_RSGALLERY_SHOWFULLDESC"			,"Vis fuldstændig beskrivelse i galleri visning.");
-
-// New for beta2
-DEFINE("_RSGALLERY_USER_PROPERTIES"		,"Bruger indstillinger");
-DEFINE("_RSGALLERY_USERNAME"			,"Navn");
-DEFINE("_RSGALLERY_ACL_FOR"				,"Adgangskontrol liste for ");
-DEFINE("_RSGALLERY_ACL_METHOD"			,"Adgangskontrol type");
-
-DEFINE("_RSGALLERY_ACL_REGISTERED"		,"Registreret(1)");
-DEFINE("_RSGALLERY_ACL_VISITORS"		,"Offentlig(2)");
-DEFINE("_RSGALLERY_ACL_SELECTED"		,"Tilrettet(3)");
-
-/********************
-changed from hard coded 28th of april 2006 
-please move to correct places after every laguage file has been modified
-*******************/
-
-//Changed form _RSGALLERY_ACL_OWNER to _RSGALLERY_ACL_OWNER_ONLY
-DEFINE("_RSGALLERY_ACL_OWNER_ONLY"		,"Owner only(0)");
-
-//Added
-DEFINE("_RSGALLERY_ACL_CATEGORY_DETAILS",	"Adgangskontrol");
-DEFINE("_RSGALLERY_ACL_ATEGORY_DETAILS",	"Kategori detaljer");
-DEFINE("_RSGALLERY_ACL_CATEGORY_NAME",		"Kategori navn");
-DEFINE("_RSGALLERY_ACL_OWNER",				"Ejer");
-DEFINE("_RSGALLERY_ACL_CURRENT_ACL",		"Nuværende adgangsniveau");
-DEFINE("_RSGALLERY_USERGALLERIES",			"bruger gallerier");
-DEFINE("_RSGALLERY_WELCOME",				"Velkommen,");
-
-/*
-* newly added language constants as of 20th of January 2007
-* these will be moved to the correct location when most translations have been completed
-* easiest would be for you to translate and place in the correct position in the file afterwards
-* this way your file will already have the correct order
-*/
-
 //uninstall.rsgallery2.php
 //function com_uninstall
-DEFINE("_RSGALLERY_UNINSTALL_OK",		"Uninstall udført");
-
-//toolbar.rsgallery2.html.php
-DEFINE("_RSGALLERY_TOOL_CONFIRM_DEL",		"Bekræft sletning");
+DEFINE("_RSGALLERY_UNINSTALL_OK",		"Afinstallation udført");
 
 //slideshow.rsgallery2.php
 DEFINE("_RSGALLERY_SLIDE_START",		"Start");
@@ -629,46 +556,34 @@ DEFINE("_RSGALLERY_SLIDE_STOP",			"Stop");
 DEFINE("_RSGALLERY_SLIDE_NEXT",			"Næste");
 DEFINE("_RSGALLERY_SLIDE_PREV",			"Forrige");
 
-//rsgallery2.php
-//function my_galleries
-DEFINE("_RSGALLERY_MYGAL_NOT_AUTH",		"Uautoriseret access forsøg til Mine Gallerier!");
+//images.html.php
+//function showImages
+DEFINE("_RSGALLERY_IMG_IMG_MANAGE",			"Billed Håndtering");
+DEFINE("_RSGALLERY_IMG_FILTER",				"Filter:");
+DEFINE("_RSGALLERY_IMG_TITLE",				"Titel (filnavn)");
+DEFINE("_RSGALLERY_IMG_ORDER",				"Rækkefølge");
+DEFINE("_RSGALLERY_IMG_DATE_TIME",			"Dato & tid");
+DEFINE("_RSGALLERY_IMG_EDIT_IMG",			"Rediger Billeder");
+//function editImage
+DEFINE("_RSGALLERY_IMG_IMAGE",			"Billede");
+DEFINE("_RSGALLERY_IMG_DETAILS",			"Detaljer");
+DEFINE("_RSGALLERY_IMG_ORDERING",			"Rækkefølge'");
+DEFINE("_RSGALLERY_IMG_IMG_PREV",			"Afprøv Billede");
+DEFINE("_RSGALLERY_IMG_PARAMETERS",			"Parametre");
+//function uploadImage
+DEFINE("_RSGALLERY_IMG_SELECT_GAL",			"You skal vælge et galleri.");/*javascript alert*/
+DEFINE("_RSGALLERY_IMG_NO_FILE_SELECT",		"Ingen fil valgt i et eller flere felter.");/*javascript alert*/
+DEFINE("_RSGALLERY_IMG_UPLOAD",			"Upload");
+DEFINE("_RSGALLERY_IMG_UPL_DETAILS",			"Upload detaljer");
+DEFINE("_RSGALLERY_IMG_UPL_GALLERY",			"Upload Galleri");
+DEFINE("_RSGALLERY_IMG_GEN_DESCR",			"Generel Beskrivelse");
+DEFINE("_RSGALLERY_IMG_IMG_FILES",			"Billed-filer");
+DEFINE("_RSGALLERY_IMG_IMAGES",			"Billeder");
+DEFINE("_RSGALLERY_IMG_FILE",			"Fil");
+DEFINE("_RSGALLERY_IMG_MORE",			"(flere billeder)");
 
-//function save_image
-DEFINE("_RSGALLERY_ERROR_SAVE",		"Fejl: ");
-
-//function viewChangelog
-DEFINE("_RSGALLERY_FEAT_INDEBUG",		"Feature kun tilgængelig i Debug mode.");
-
-//rsgallery2.html.php
-//RSShowPictures
-DEFINE("_RSGALLERY_MAGIC_NOTIMP",		"Magic er ikke implementeret endnu");
-
-//showMyGalleries
-DEFINE("_RSGALLERY_FEAT_NOTIMP",		"Feature er ikke implementeret endnu");
-
-//function myGalleries
-DEFINE("_RSGALLERY_USERGAL_DISABLED",		"Bruger gallerier er slået fra af Administrator.");
-
-//config.rsgallery2.php
-//function toString
-DEFINE("_RSGALLERY_CONF_ERROR_UPLOAD",		" - Fejl Billed Upload : ");
-//function showCategories
-DEFINE("_RSGALLERY_SELECT_GAL_DROP_BOX",		"- Vælg galleri -");
-
-//config.html
-DEFINE("_RSGALLERY_C_TMPL_SHOW_IMGNAME",	"Vis billed-navn under thumbnail:");
-DEFINE("_RSGALLERY_C_TMPL_ACL_SETINGS",		"Adgangskontrol indstillinger");
-DEFINE("_RSGALLERY_C_TMPL_ACL_ENABLE",		"Aktiver Adgangskontrol");
-DEFINE("_RSGALLERY_C_TMPL_SHOW_MYGAL",		"Vis mine gallerier");
-DEFINE("_RSGALLERY_C_TMPL_USER_SET",		"Brugerspecifikke indstillinger");
-DEFINE("_RSGALLERY_C_DISP_STATUS_ICON",		"* Vis status-ikoner *");
-
-//admin.rsgallery2.php
-//function consolidateDbGo
-DEFINE("_RSGALLERY_NOT_WORKING",		"Virker ikke endnu");
-DEFINE("_RSGALLERY_DEL_FROM_SYSTEM",		"Slet fra filsystem");
-DEFINE("_RSGALLERY_CREATE_MISSING_IMG",		"Opret manglende billeder");
-DEFINE("_RSGALLERY_CREATE_DB_ENTRIES",		"Opret database entries");
-
+//access.class.php
+//function checkGallery
+DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"Ingen rettigheder fundet, standard rettigheder oprettet. Prøv venligst igen.");
 
 ?>

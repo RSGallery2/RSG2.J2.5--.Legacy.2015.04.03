@@ -391,7 +391,7 @@ function showComments( $item_id ) {
 		<div id="comment">
 		<table width="100%" class="comment_table">
 			<tr>
-				<td class="title"><span class='posttitle'>** No comments entered yet **</span></td>
+				<td class="title"><span class='posttitle'><?php echo _RSGALLERY_COMMENTS_NOCOMM?></span></td>
 			</tr>
 		</table>
 		</div>

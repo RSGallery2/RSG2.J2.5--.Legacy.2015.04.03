@@ -115,7 +115,7 @@ DEFINE("_RSGALLERY_ERROR_SAVE",		"Hiba: ");
 //function viewChangelog
 DEFINE("_RSGALLERY_FEAT_INDEBUG",			"Ez a funkció csak hibakeresõ módban érhetõ el.");
 //function delete_image
-DEFINE("_RSGALLERY_USERIMAGE_NOTOWNER",		"Nem Ön a tulajdonosa ennek a képnek, visszavisszük Önt a fõoldalra");
+DEFINE("_RSGALLERY_USERIMAGE_NOTOWNER",		"Nem Ön a tulajdonosa ennek a képnek, visszairányítjuk a fõoldalra");
 DEFINE("_RSGALLERY_DELIMAGE_OK",			"A képet töröltük.");
 DEFINE("_RSGALLERY_DELIMAGE_NOID",			"Nincs megadva az azonosító. Kérjük, hogy vegye fel a kapcsolatot a komponens fejlesztõjével");
 //function addVote
@@ -131,7 +131,7 @@ DEFINE("_RSGALLERY_COMMENT_NOT_ADDED",		"A vélemény hozzáadása nem sikerült!");
 //function makeusercat
 DEFINE("_RSGALLERY_ALERT_CATDETAILSOK",		"Frissítettük a galéria tulajdonságait!");
 DEFINE("_RSGALLERY_ALERT_CATDETAILSNOTOK",	"Nem tudtuk frissíteni a galéria tulajdonságait!");
-DEFINE("_RSGALLERY_MAX_USERCAT_ALERT",		"Már létrehozta az engedélyezett számú galériát, visszavisszük a fõoldalra");
+DEFINE("_RSGALLERY_MAX_USERCAT_ALERT",		"Már létrehozta az engedélyezett számú galériát, visszairányítjuk a fõoldalra");
 DEFINE("_RSGALLERY_ALERT_NEWCAT",			"Létrehoztuk az új galériát!");
 DEFINE("_RSGALLERY_ALERT_NONEWCAT",			"Nem tudtuk létrehozni a galériát!\\nVissza fogjuk Önt vinni az elõzõ oldalra.");
 //function delUserCat
@@ -171,10 +171,16 @@ DEFINE("_RSGALLERY_C_PURGE",				"Mind kiürítése/törlése");
 DEFINE("_RSGALLERY_C_REALLY_UNINSTALL",		"TÉNYLEGES eltávolítás - Törli az összes képet, könyvtárat, eldobja az összes táblát. Csak Linux alatt az alapértelmezett könyvtárakkal.");
 DEFINE("_RSGALLERY_C_VIEW_CONFIG",			"Beállítások - Nézet");
 DEFINE("_RSGALLERY_C_EDIT_CONFIG",			"Beállítások - Nyers szerkesztés");
+//function showInstallForm
+DEFINE("_RSGALLERY_INST_UPL_PCK_FILE",		"Csomagfájl feltöltése");
+DEFINE("_RSGALLERY_INST_PCK_FILE",		"Csomagfájl:");
+//function showInstallMessage
+DEFINE("_RSGALLERY_INST_MES_CONTINUE",	"Folytatás ...");
 //function requestCatCreation
 DEFINE("_RSGALLERY_C_CAT_FIRST",			"Elõbb hozzon létre egy kategóriát!");
 //function batch_upload
 DEFINE("_RSGALLERY_BATCH_NO_ZIP",			"A ZIP-feltöltést választotta, viszont nem jelölte ki a fájlt");
+DEFINE("_RSGALLERY_BACTCH_NOT_VALID_ZIP",		" nem érvényes archív formátum. Csak a ZIP fájlok feltöltése engedélyezett!");
 DEFINE("_RSGALLERY_BATCH_GAL_FIRST",		"Kérjük, hogy elõbb válassza ki a kategóriát");
 DEFINE("_RSGALLERY_BATCH_NO_FTP",			"Az FTP-feltöltést választotta, viszont nem adta meg az FTP-útvonalat");
 DEFINE("_RSGALLERY_BATCH_STEP1",			"1. lépés");
@@ -239,11 +245,13 @@ DEFINE("_RSGALLERY_UPLOAD_NUMBER",			"A feltöltendõ képek száma");
 //function showUploadStep3
 DEFINE("_RSGALLERY_BATCH_STEP3",			"3. lépés");
 DEFINE("_RSGALLERY_UPLOAD_FORM_IMAGE",		"Kép");
-DEFINE("_RSGALLERY_CATNAME",				"Galéria neve");
+DEFINE("_RSGALLERY_CATNAME",				"A galéria neve");
 DEFINE("_RSGALLERY_UPLOAD_FORM_FILE",		"Fájl");
 //function viewImages
+DEFINE("_RSGALLERY_NO_PREVIEW ",		    "A képet nem tekintheti meg elõnézetben");
 DEFINE("_RSGALLERY_DELETE",					"Törlés");
-DEFINE("_RSGALLERY_MOVETO",					"Áthelyezés ide");
+DEFINE("_RSGALLERY_MOVETO",					"Áthelyezés");
+DEFINE("_RSGALLERY_COPYIMAGE",				"Másolás");
 DEFINE("_RSGALLERY_NUMDISPLAY",				"Tételek #");
 DEFINE("_RSGALLERY_SEARCH",					"Keresés");
 DEFINE("_RSGALLERY_IMAGENAME",				"Név");
@@ -252,6 +260,14 @@ DEFINE("_RSGALLERY_IMAGECAT",				"Galéria");
 DEFINE("_RSGALLERY_IMAGEHITS",				"Találatok");
 DEFINE("_RSGALLERY_IMAGEDATE",				"Feltöltve");
 DEFINE("_RSGALLERY_REORDER",				"Átrendezés");
+DEFINE("_RSGALLERY_SEL_TO_DEL",		"Jelölje ki a törlendõ elemeket a listában");
+DEFINE("_RSGALLERY_SURE_DEL",		"Biztosan törölni akarja a kijelölt elemeket? ");
+DEFINE("_RSGALLERY_SEL_TO_MOVE",		"Jelölje ki az áthelyezendõ elemeket a listában");
+DEFINE("_RSGALLERY_SEL_GAL_TO_MOVE",	"Válassza ki a listából azt a galériát, melybe át kívánja helyezni a képeket");
+DEFINE("_RSGALLERY_SURE_MOVE",		"Biztosan át akarja helyezni a kijelölt elemeket?");
+DEFINE("_RSGALLERY_ORDER_UP",		"Fel");
+DEFINE("_RSGALLERY_ORDER_DOWN",		"Le");
+
 //function showTemplates
 DEFINE("_RSGALLERY_TEMP_MANG",				"Sablonkezelõ");
 DEFINE("_RSGALLERY_RSG_NAME",				"RSGallery2");
@@ -272,10 +288,13 @@ DEFINE("_RSGALLERY_NOT_WORKING",		"Még nem mûködik");
 DEFINE("_RSGALLERY_DEL_FROM_SYSTEM",		"Törlés a fájlrendszerbõl");
 DEFINE("_RSGALLERY_CREATE_MISSING_IMG",		"Hiányzó képek létrehozása");
 DEFINE("_RSGALLERY_CREATE_DB_ENTRIES",		"Adatbázis-bejegyzések létrehozása");
+DEFINE("_RSGALLERY_CONSDB_IMG_IN_FLDR",		"A mappában lévõ kép");
+DEFINE("_RSGALLERY_CONSDB_IMG__NOT_IN_FLDR",		"NEM a mappában lévõ kép");
+DEFINE("_RSGALLERY_ ",		"");
 
 //admin.rsgallery2.php
-DEFINE("_RSGALLERY_HEAD_CONFIG",		"Beállítások");
-DEFINE("_RSGALLERY_HEAD_CPANEL",		"Kezelõpult");
+DEFINE("_RSGALLERY_HEAD_CONFIG",		"beállításai");
+DEFINE("_RSGALLERY_HEAD_CPANEL",		"kezelõpult");
 DEFINE("_RSGALLERY_HEAD_EDIT",		"Szerkesztés");
 DEFINE("_RSGALLERY_HEAD_UPLOAD",		"Feltöltés");
 DEFINE("_RSGALLERY_HEAD_MIGRATE",		"Telepítés és áttelepítés");
@@ -296,6 +315,10 @@ DEFINE("_RSGALLERY_PURGE_IMG",				"a képbejegyzések kiürítése az adatbázisból ké
 DEFINE("_RSGALLERY_PURGE_GAL",				"a galériák kiürítése az adatbázisból kész.");
 DEFINE("_RSGALLERY_PURGE_CONFIG",			"a beállítások kiürítése az adatbázisból kész.");
 DEFINE("_RSGALLERY_PURGE_COMMENTS",			"a vélemények kiürítése az adatbázisból kész.");
+DEFINE("_RSGALLERY_PURGE_THUMB",		"bélyegképek eltávolítása.");
+DEFINE("_RSGALLERY_PURGE_DISPLAY",	"megjelenített képek eltávolítása.");
+DEFINE("_RSGALLERY_PURGE_ORIGINAL",	"eredeti képek eltávolítása.");
+DEFINE("_RSGALLERY_PURGE_PURGED",	"a kiürítés befejezõdött.");
 //function reallyUninstall
 DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Az rm -r használatával megkíséreltük eltávolítani a $mosConfig_absolute_path/images/rsgallery könyvtárat");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"A #__rsgallery2_files tábla ELDOBÁSA kész");
@@ -307,6 +330,15 @@ DEFINE("_RSGALLERY_REAL_UNINST_DONE",		"Kész.  Távolítson el a fentiek közül min
 DEFINE("_RSGALLERY_ALERT_IMGDELETEOK",		"A kép(ek) törlése sikerült!");
 //function c_delete
 DEFINE("_RSGALLERY_ALERT_IMGDELETENOTOK",	"Nem került(ek) törlésre a kép(ek)!");
+//function copy_image
+DEFINE("_RSGALLERY_ALERT_COPYOK",			"Az elem(ek) másolása sikerült!");
+DEFINE("_RSGALLEY_ALERT_REST_COPYDOK",		"A többi elem másolása sikerült!");
+//function c_create
+DEFINE("_RSGALLERY_CC_NO_FILE_INFO",		"Nem található fájlinformáció. Ez soha nem történhet meg!");
+//function db_create
+DEFINE("_RSGALLERY_DB_CREATE_NO_GAL",		"Nem választotta ki a galériát, melybe a képeket kívánja helyezni!");
+DEFINE("_RSGALLERY_DB_CREATE_IMG_SUCCES ",		"Sikerült a képek hozzáadása az adatbázishoz!");
+DEFINE("_RSGALLERY_DB_CREATE_IMG_FAIL",		"NEM sikerült a képek hozzáadása az adatbázishoz!");
 //function save_batchupload
 DEFINE("_RSGALLERY_ALERT_NOCATSELECTED",	"Kérjük, hogy válassza ki az ÖSSZES kép galériáját!\\n(Azokét a képekét is, melyek törlésre kerülnek.\\nnA következõ verziókban javítani fogjuk ezt a funkciót!)");
 DEFINE("_RSGALLERY_ZIP_TO_BIG",				"Túl nagy a ZIP fájl!");
@@ -337,7 +369,7 @@ DEFINE("_RSGALLERY_CONSOLIDATE_DB",
 " Amíg a felhasználó nem erõsíti meg a döntését, addig nem történik változtatás.<br/>");
 DEFINE("_RSGALLERY_PROCEED","Folytatás");
 //function editTemplateCSS
-DEFINE("_RSGALLERY_EDITCSS_FAIL_NOOPEN",	"Sikertelen mûvelet: Nem nyitható meg");
+DEFINE("_RSGALLERY_EDITCSS_FAIL_NOOPEN",	"Sikertelen mûvelet: Nem nyitható meg a fájl: ");
 DEFINE("_RSGALLERY_EDITCSS_NOT_WRITABLE",	"Sikertelen mûvelet: A fájl nem írható.");
 DEFINE("_RSGALLERY_EDITCSS_FAIL_NOTWRITING","Sikertelen mûvelet: Nem sikerült megnyitni írásra a fájlt.");
 //function editCSSSource
@@ -347,6 +379,11 @@ DEFINE("_RSGALLERY_ISWRITABLE_WRITABLE",	"írható");
 DEFINE("_RSGALLERY_ISWRITABLE_UNWRITABLE",	"írásvédett");
 DEFINE("_RSGALLERY_MAKE_WRITABLE",			"Írásvédetté tétel mentés után");
 DEFINE("_RSGALLERY_OVERWRITE_WRITABLE",		"Az írásvédelem hatálytalanítása mentéskor");
+//function uploadFile
+DEFINE("_RSGALLERY_ERMSG_FAILD_CHMOD",	"Nem sikerült módosítani a feltöltött fájl engedélyeit.");
+DEFINE("_RSGALLERY_ERMSG_FAILD_MOVE_MEDIA",	"Nem sikerült áthelyezni a feltöltött fájlt a <code>/media</code> könyvtárba.");
+DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_WRITE",	"A feltöltés nem sikerült, mert a <code>/media</code> könyvtár nem írható.");
+DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_EXIST",	"A feltöltés nem sikerült, mert a <code>/media</code> könyvtár nem létezik.");
 
 //config.rsgallery2.php
 //function toString
@@ -355,8 +392,12 @@ DEFINE("_RSGALLERY_CONF_ERROR_UPLOAD",		" - Képfeltöltési hiba : ");
 DEFINE("_RSGALLERY_SELECT_GAL_DROP_BOX",		"- Válasszon galériát -");
 //function galleriesSelectList
 DEFINE("_RSGALLERY_SELECT_GAL_TOP",		"Felsõ");
+//function showRating
+DEFINE("_RSGALLERY_RATE_NONE",		"Nincs értékelés");
 //function newImages
 DEFINE("_RSGALLERY_NEW",				"Új!");
+//function latestCats
+DEFINE("_RSGALLERY_NO_NEW_ENT",		"Nincs új bejegyzés");
 //function writeWarningBox
 DEFINE("_RSGALLERY_NO_IMGLIBRARY",			"Egy kép függvénytárat sem sikerült találni! Kérjük, hogy lépjen kapcsolatba a tárhelyszolgáltatójával, és kérje meg, hogy telepítsék a GD2 függvénytárat, vagy nézzen körül a fórumban az ImageMagick vagy a NETPBM telepítésével kapcsolatban!");
 DEFINE("_RSGALLERY_NOT_WRITABLE",			" NEM írható!");
@@ -385,10 +426,11 @@ DEFINE("_RSGALLERY_TOOL_UP",				"Feltöltés");
 DEFINE("_RSGALLERY_TOOL_NEXT",				"Következõ");
 DEFINE("_RSGALLERY_TOOL_DELETE",			"Törlés");
 DEFINE("_RSGALLERY_TOOL_CONFIRM_DEL",		"Eltávolítás megerõsítése");
+DEFINE("_RSGALLERY_TOOL_RES_HITS",	"Találatok nullázása");
 
 //config.html
 DEFINE("_RSGALLERY_C_TMPL_VERSION",			"Verzió:");
-DEFINE("_RSGALLERY_C_TMPL_INTRO_TEXT",		"Bevezetõ szöveg:");
+DEFINE("_RSGALLERY_C_TMPL_INTRO_TEXT",		"Bevezetõ:");
 DEFINE("_RSGALLERY_C_TMPL_DEBUG",			"Hibakeresés:");
 DEFINE("_RSGALLERY_C_TMPL_IMG_MANIP",		"Képfeldolgozás");
 DEFINE("_RSGALLERY_C_TMPL_DISP_WIDTH",		"A megjelenített kép szélessége:");
@@ -442,7 +484,7 @@ DEFINE("_RSGALLERY_C_TMPL_SHOW_MYGAL",		"A Galériáim megjelenítése");
 DEFINE("_RSGALLERY_C_TMPL_USER_SET",		"Felhasználó-specifikus beállítások");
 DEFINE("_RSGALLERY_C_DISP_STATUS_ICON",		"* Állapotikonok megjelenítése *");
 DEFINE("_RSGALLERY_C_GEN_SET",			"Általános beállítások");
-DEFINE("_RSGALLERY_C_HTML_ROOT",			"A HTML-gyökér a következõ:");
+DEFINE("_RSGALLERY_C_HTML_ROOT",			"HTML-gyökér:");
 DEFINE("_RSGALLERY_C_DISP_LIMIB",		"A galéria korlátpanel megjelenítése");
 DEFINE("_RSGALLERY_C_NUMB_GAL_FRONT",	"A címlapon látható galériák száma");
 DEFINE("_RSGALLERY_C_FONT",				"Betûtípus");
@@ -456,10 +498,11 @@ DEFINE("_RSGALLERY_GAL_EXIST_ERROR",		"Már van ilyen nevû galéria. Kérjük, hogy 
 //galleries.html.php
 //function show
 DEFINE("_RSGALLERY_GAL_MANAGE",			"Galériakezelõ");
-DEFINE("_RSGALLERY_GAL_MAX_LEVELS",		"Max. szintek");
+DEFINE("_RSGALLERY_GAL_MAX_LEVELS",		"Szintek #");
 DEFINE("_RSGALLERY_GAL_FILTER",			"Szûrõ");
 DEFINE("_RSGALLERY_GAL_NAME",			"Név");
 DEFINE("_RSGALLERY_GAL_REORDER",			"Átrendezés");
+DEFINE("_RSGALLERY_GAL_COUNT",			"Elemek #");
 DEFINE("_RSGALLERY_GAL_HITS",			"Találatok");
 //function edit
 DEFINE("_RSGALLERY_GAL_GAL",				"Galéria");
@@ -507,7 +550,7 @@ DEFINE("_RSGALLERY_INSTALL_DIR_NOTCREATED",		"nem hozható létre a következõ köny
 DEFINE("_RSGALLERY_DELGAL_PROCES",				"Feldolgozandó: ");
 DEFINE("_RSGALLERY_DELGAL_OK",					"A könyvtárszerkezet törlése befejezõdött!");
 DEFINE("_RSGALLERY_DELGAL_NOTOK",				"A régi könyvtárszerkezet törlése sikerült.");
-DEFINE("_RSGALLERY_DELGAL_NO_OLD_DIR",			"Nem található a régi könyvtárszerkezet. Folytassuk");
+DEFINE("_RSGALLERY_DELGAL_NO_OLD_DIR",			"Nem található a régi könyvtárszerkezet. Folytatjuk");
 //function checkDirPerms
 DEFINE("_RSGALLERY_PERMS_NOT_EXIST",				" Nem létezik. Kérjük, hogy FTP-n hozza létre kézzel, és ellenõrizze az engedélyeket");
 DEFINE("_RSGALLERY_PERMS_NOT_SET",				" megtalálható, de a megfelelõ engedélyek (777) beállítása nem sikerült.\nAz engedélyek beállítása jelenleg ");
@@ -567,6 +610,7 @@ DEFINE("_RSGALLERY_SLIDE_PREV",			"Elõzõ");
 //function showImages
 DEFINE("_RSGALLERY_IMG_IMG_MANAGE",			"Képkezelõ");
 DEFINE("_RSGALLERY_IMG_FILTER",				"Szûrõ:");
+DEFINE("_RSGALLERY_IMG_CPY_MV_GAL",			"Másolás/Áthelyezés:");
 DEFINE("_RSGALLERY_IMG_TITLE",				"Cím (fájlnév)");
 DEFINE("_RSGALLERY_IMG_ORDER",				"Sorrend");
 DEFINE("_RSGALLERY_IMG_DATE_TIME",			"Dátum és idõ");
@@ -577,6 +621,7 @@ DEFINE("_RSGALLERY_IMG_DETAILS",			"Részletek");
 DEFINE("_RSGALLERY_IMG_ORDERING",			"Rendezés");
 DEFINE("_RSGALLERY_IMG_IMG_PREV",			"Kép elõnézete");
 DEFINE("_RSGALLERY_IMG_PARAMETERS",			"Paraméterek");
+DEFINE("_RSGALLERY_IMG_LINKS",			"A képre mutató hivatkozások");
 //function uploadImage
 DEFINE("_RSGALLERY_IMG_SELECT_GAL",			"Ki kell választania egy galériát.");/*javascript alert*/
 DEFINE("_RSGALLERY_IMG_NO_FILE_SELECT",		"Egy fájlt sem jelölt ki egy vagy több mezõben.");/*javascript alert*/
@@ -595,7 +640,36 @@ DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"Nem található engedély, ezért az alapé
 
 //tables/display.class.php
 //function _showGalleryDetails
-/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"Tulajdonos: ");
-/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"Méret: ");
-/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Készült: ");
+DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"Tulajdonos: ");
+DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"Méret: ");
+DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Készült: ");
+
+//file.utils.php
+//function importImage
+DEFINE("_RSGALLERY_FU_NOT_SUP_TYPE",		" nem támogatott fájltípus.");
+//function move_uploadedFile_to_orignalDir
+DEFINE("_RSGALLERY_FU_UNABLE_COPY",		"nem másolható ");
+DEFINE("_RSGALLERY_FU_IMAGE_TO",		" kép a következõ mappába: ");
+//function preHandlerCheck
+DEFINE("_RSGALLERY_FU_NOT_WRITABLE",		" létezik, de nem írható!");
+DEFINE("_RSGALLERY_FU_NOT_EXIST",		" nem létezik!");
+//function cleanMediaDir
+DEFINE("_RSGALLERY_FU_APPARENTLY",		"Úgy látszik, hogy a(z) ");
+DEFINE("_RSGALLERY_FU_DOESNT_EXIST",		"nem létezik");
+//function handleFTP
+DEFINE("_RSGALLERY_FU_FTP_DIR_NOT_EXIST",		" nem létezik, vagy nem könyvtár az Ön kiszolgálóján. Ellenõrozze az elérési utat.");
+DEFINE("_RSGALLERY_FU_NO_VALID_IMG",		"Nem található érvényes kép a(z) ");
+DEFINE("_RSGALLERY_FU_PLEASE_CHECK_PATH",		"könyvárban. Ellenõrizze az elérési utat.");
+DEFINE("_RSGALLERY_FU_NO_FILES",		"Egy feldolgozandó fájl sem található!");
+DEFINE("_RSGALLERY_FU_MAX_FILESIZE",		"A feltöltött fájl mérete túllépi az upload_max_filesize utasításban engedélyezettet ");
+DEFINE("_RSGALLERY_FU_IN_PINI",		" a php.ini fájlban.");
+DEFINE("_RSGALLERY_FU_MAX_FILESIZE_FORM",		"A feltöltött fájl mérete túllépi a HTML ûrlapban megadott MAX_FILE_SIZE utasítás által engedélyezettet.");
+DEFINE("_RSGALLERY_FU_PARTIAL_UPL",		"A fájl csak részben került feltöltésre.");
+DEFINE("_RSGALLERY_FU_NO_UPL",		"Egy fájl sem került feltöltésre.");
+DEFINE("_RSGALLERY_FU_MISS_TEMP_DIR",		"Hiányzik az ideiglenes mappa.");
+DEFINE("_RSGALLERY_FU_FAIL_WRITE_DISK",		"Nem sikerült a fájl írása a lemezre");
+DEFINE("_RSGALLERY_FU_UPL_STOP_EXT",		"A bõvítmény leállította a fájl feltöltését");
+DEFINE("_RSGALLERY_FU_UNKW_ERROR",		"Ismeretlen fájlhiba");
+
+//stopped at gallery.class.php
 ?>
