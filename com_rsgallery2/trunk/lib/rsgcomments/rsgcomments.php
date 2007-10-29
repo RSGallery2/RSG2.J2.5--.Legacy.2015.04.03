@@ -149,6 +149,6 @@ function deleteComments( $option ) {
 			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 		}
 	}
-	mosRedirect( "index.php?option=$option&amp;page=inline&amp;id=$item_id&amp;catid=$catid", "** Comment deleted succesfully **" );
+	mosRedirect( "index.php?option=$option&amp;page=inline&amp;id=$item_id&amp;catid=$catid", _RSGALLERY_COMMENTS_COMMDEL );
 }
 ?>

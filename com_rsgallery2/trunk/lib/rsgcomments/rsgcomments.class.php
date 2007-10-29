@@ -79,31 +79,31 @@ function showButtons() {
 	</div>
 	<div style='float: left;'>
 	<select name='menuColor' class='select' onchange='fontColor()'>
-	  	<option>-color-</option>
-		<option>aqua</option>
-		<option>black</option>
-		<option>blue</option>
-		<option>fuchsia</option>
-		<option>gray</option>
-		<option>green</option>
-		<option>lime</option>
-		<option>maroon</option>
-		<option>navy</option>
-		<option>olive</option>
-		<option>purple</option>
-		<option>red</option>
-		<option>silver</option>
-		<option>teal</option>
-		<option>white</option>
-		<option>yellow</option>
+	  	<option><?php echo _RSGALLERY_COMMENTS_COLOR?></option>
+		<option><?php echo _RSGALLERY_COMMENTS_AQUA?></option>
+		<option><?php echo _RSGALLERY_COMMENTS_BLACK?></option>
+		<option><?php echo _RSGALLERY_COMMENTS_BLUE?></option>
+		<option><?php echo _RSGALLERY_COMMENTS_FUCHSIA?></option>
+		<option><?php echo _RSGALLERY_COMMENTS_GRAY?></option>
+		<option><?php echo _RSGALLERY_COMMENTS_GREEN?></option>
+		<option><?php echo _RSGALLERY_COMMENTS_LIME?></option>
+		<option><?php echo _RSGALLERY_COMMENTS_MAROON?></option>
+		<option><?php echo _RSGALLERY_COMMENTS_NAVY?></option>
+		<option><?php echo _RSGALLERY_COMMENTS_OLIVE?></option>
+		<option><?php echo _RSGALLERY_COMMENTS_PURPLE?></option>
+		<option><?php echo _RSGALLERY_COMMENTS_RED?></option>
+		<option><?php echo _RSGALLERY_COMMENTS_SILVER?></option>
+		<option><?php echo _RSGALLERY_COMMENTS_TEAL?></option>
+		<option><?php echo _RSGALLERY_COMMENTS_WHITE?></option>
+		<option><?php echo _RSGALLERY_COMMENTS_YELLOW?></option>
 	</select>&nbsp;
 	<select name='menuSize' class='select' onchange='fontSize()'>
-		<option>-size-</option>
-		<option>tiny</option>
-		<option>small</option>
-		<option>medium</option>
-		<option>large</option>
-		<option>huge</option>
+		<option><?php echo _RSGALLERY_COMMENTS_SIZE?></option>
+		<option><?php echo _RSGALLERY_COMMENTS_TINY?></option>
+		<option><?php echo _RSGALLERY_COMMENTS_SMALL?></option>
+		<option><?php echo _RSGALLERY_COMMENTS_MEDIUM?></option>
+		<option><?php echo _RSGALLERY_COMMENTS_LARGE?></option>
+		<option><?php echo _RSGALLERY_COMMENTS_HUGE?></option>
 	</select>
 	</div>
 	<?php
@@ -194,7 +194,7 @@ function parseQuoteElement($html) {
             "/\[quote=(.+?)\](.+?)\[\/quote\]/is");
         $replacements = array(
 						"<div class='quote'><div class='genmed'><b>Quote</b></div><div class='quotebody'>\\1</div></div>",
-            			"<div class='quote'><div class='genmed'><b>\\1 ** Wrote **</b></div><div class='quotebody'>\\2</div></div>"
+            			"<div class='quote'><div class='genmed'><b>\\1"._RSGALLERY_COMMENTS_QUOTE_WROTE."</b></div><div class='quotebody'>\\2</div></div>"
             			);
         while ($quotes > 0) {
             $html = preg_replace($patterns, $replacements, $html);
@@ -274,10 +274,10 @@ function editComment( $item_id ) {
 	<form name='rsgcommentform' method='post' action='index.php?option=com_rsgallery2&rsgOption=rsgComments&task=save'>
 	<table border="0" width="100%" class="adminForm">
 	<tr>
-		<td colspan="2"><h2><?php echo _RSGALLERY_COMMENTS_ADD;?></h2></td>
+		<td colspan="2"><h2><?php echo _RSGALLERY_COMMENT_ADD;?></h2></td>
 	</tr>
 	<tr>
-		<td><?php echo _RSGALLERY_COMMENTS_NAME;?>:</td>
+		<td><?php echo _RSGALLERY_COMMENT_NAME;?>:</td>
 		<td><input name='tname' type='text' class='inputbox' size='40' value='<?php if (!$my->username == '') echo $my->username;?>' /></td>
 	</tr>
 	<tr>
@@ -285,7 +285,7 @@ function editComment( $item_id ) {
 		<td><input name='ttitle' type='text' class='inputbox' size='40'/></td>
 	</tr>
 	<tr>
-		<td><?php echo _RSGALLERY_COMMENTS_COMMENT;?>:</td>
+		<td><?php echo _RSGALLERY_COMMENT_COMMENT;?>:</td>
 		<td><div class='buttoncontainer'><?php rsgComments::showButtons();?></div></td>
 	</tr>
 	<tr>
@@ -306,7 +306,7 @@ function editComment( $item_id ) {
 					echo getSecurityImageField($packageName)."<br/>";
 					echo getSecurityImageTextHelp()."<br/>";
 				} else {
-					echo "SecurityImages selected in backend, but component not installed! Notify the webmaster";
+					echo _RSGALLERY_COMMENTS_SEC_IMG_MISS;
 				}
 			}
 			?>
@@ -333,7 +333,7 @@ function showComments( $item_id ) {
 	?>
 	<script language="javascript" type="text/javascript">
 	function delComment(id, item_id, catid) {
-		var delCom = confirm('Are you sure you want to delete the comment?(' + id + ')');
+		var delCom = confirm('<?php echo _RSGALLERY_DELETE_COMMENT?>(' + id + ')');
 		
 		if (delCom) {
 			window.location = "index.php?option=com_rsgallery2&rsgOption=rsgComments&task=delete&id="+id+"&item_id="+item_id+"&catid="+catid;
@@ -348,9 +348,9 @@ function showComments( $item_id ) {
 		<div id="comment">
 		<table width="100%" class="comment_table">
 			<tr>
-				<td class="title" width="25%">Comments</td>
-				<td class="title" width="50%"># comments added</td>
-				<td class="title"><div class="addcomment"><a class="special" href="#comment2"><?php echo _RSGALLERY_COMMENTS_ADD;?></a></div></td>
+				<td class="title" width="25%"><?php echo _RSGALLERY_COMMENTS?></td>
+				<td class="title" width="50%"><?php echo _RSGALLERY_COMMENTS_NUM_COMM_ADD?></td>
+				<td class="title"><div class="addcomment"><a class="special" href="#comment2"><?php echo _RSGALLERY_COMMENT_ADD;?></a></div></td>
 			</tr>
 		</table>
 		<br />
@@ -374,7 +374,7 @@ function showComments( $item_id ) {
 				//Not my favorite way of checking for Admin or Super Admin but $my->gid is only working in backend.
 				if ( $my->id == $comment['user_id'] OR $my->usertype == "Super Administrator" OR $my->usertype == "Administrator" ) {
 					?>
-					<div style="float:right;"><a href="javascript:void(0);" onclick="delComment(<?php echo $comment['id'];?>, <?php echo $comment['item_id'];?>, <?php echo $catid;?>);">Delete</a></div>
+					<div style="float:right;"><a href="javascript:void(0);" onclick="delComment(<?php echo $comment['id'];?>, <?php echo $comment['item_id'];?>, <?php echo $catid;?>);"><?php echo _RSGALLERY_DELETE_COMMENT?></a></div>
 					<?php
 				}
 				?>

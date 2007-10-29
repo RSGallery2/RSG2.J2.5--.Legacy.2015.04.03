@@ -41,7 +41,7 @@ DEFINE("_RSGALLERY_FILENAME",				"Filename");
 DEFINE("_RSGALLERY_UPLOAD_FORM_TITLE",		"Title");
 DEFINE("_RSGALLERY_UPLOAD_THUMB",			"Thumb:");
 //function RSGalleryInline
-DEFINE("_RSGALLERY_COMMENT_DELETE",			"Are you sure you want to delete this comment?");
+/*moved DEFINE("_RSGALLERY_COMMENT_DELETE",			"Are you sure you want to delete this comment?");*/
 DEFINE("_RSGALLERY_NOIMG",					"No images in gallery");
 DEFINE("_RSGALLERY_SLIDESHOW",		        "Slideshow");
 DEFINE("_RSGALLERY_CATHITS",				"Hits");
@@ -51,20 +51,20 @@ DEFINE("_RSGALLERY_VOTES_NR",				"Votes");
 DEFINE("_RSGALLERY_VOTES_AVG",				"Average Vote");
 DEFINE("_RSGALLERY_NO_RATINGS",				"No Ratings Yet!");
 DEFINE("_RSGALLERY_VOTE",			   		"Vote");
-DEFINE("_RSGALLERY_VERYGOOD",				"&nbsp;Very Good&nbsp;");
-DEFINE("_RSGALLERY_GOOD",					"&nbsp;Good&nbsp;");
-DEFINE("_RSGALLERY_OK",					    "&nbsp;Ok&nbsp;");
-DEFINE("_RSGALLERY_BAD",					"&nbsp;Bad&nbsp;");
-DEFINE("_RSGALLERY_VERYBAD",				"&nbsp;Very Bad&nbsp;");
-DEFINE("_RSGALLERY_COMMENTS",			   	"Comments");
-DEFINE("_RSGALLERY_NO_COMMENTS",			"No Comments Yet!");
-DEFINE("_RSGALLERY_COMMENT_DATE",   		"Date");
-DEFINE("_RSGALLERY_COMMENT_BY",     		"By");
-DEFINE("_RSGALLERY_COMMENT_TEXT",   		"Comment");
-DEFINE("_RSGALLERY_DELETE_COMMENT",			"Delete Comment");
-DEFINE("_RSGALLERY_COMMENT_ADD",			"Add Comment");
-DEFINE("_RSGALLERY_COMMENT_NAME",   		"Your Name");
-DEFINE("_RSGALLERY_COMMENT_ADD_TEXT",   	"Your Comment");
+/*deleted DEFINE("_RSGALLERY_VERYGOOD",				"&nbsp;Very Good&nbsp;");*/
+/*deleted DEFINE("_RSGALLERY_GOOD",					"&nbsp;Good&nbsp;");*/
+/*deleted DEFINE("_RSGALLERY_OK",					    "&nbsp;Ok&nbsp;");*/
+/*deleted DEFINE("_RSGALLERY_BAD",					"&nbsp;Bad&nbsp;");*/
+/*deleted DEFINE("_RSGALLERY_VERYBAD",				"&nbsp;Very Bad&nbsp;");*/
+/*moved DEFINE("_RSGALLERY_COMMENTS",			   	"Comments");*/
+/*deleted DEFINE("_RSGALLERY_NO_COMMENTS",			"No Comments Yet!");*/
+/*deleted DEFINE("_RSGALLERY_COMMENT_DATE",   		"Date");*/
+/*deleted DEFINE("_RSGALLERY_COMMENT_BY",     		"By");*/
+/*deleted DEFINE("_RSGALLERY_COMMENT_TEXT",   		"Comment");*/
+/*moved DEFINE("_RSGALLERY_DELETE_COMMENT",			"Delete Comment");*/
+/*moved DEFINE("_RSGALLERY_COMMENT_ADD",			"Add Comment");*/
+/*moved DEFINE("_RSGALLERY_COMMENT_NAME",   		"Your Name");*/
+/*moved DEFINE("_RSGALLERY_COMMENT_ADD_TEXT",   	"Your Comment");*/
 DEFINE("_RSGALLERY_EXIF",					"EXIF");
 //function RSGalleryTitleblock
 DEFINE("_RSGALLERY_MAIN_GALLERY_PAGE",		"Main gallery page");
@@ -172,15 +172,15 @@ DEFINE("_RSGALLERY_C_REALLY_UNINSTALL",		"REALLY Uninstall - Deletes all images,
 DEFINE("_RSGALLERY_C_VIEW_CONFIG",			"Config - View");
 DEFINE("_RSGALLERY_C_EDIT_CONFIG",			"Config - Raw Edit");
 //function showInstallForm
-/*new*/DEFINE("_RSGALLERY_INST_UPL_PCK_FILE",		"Upload Package File");
-/*new*/DEFINE("_RSGALLERY_INST_PCK_FILE",		"Package File:");
+DEFINE("_RSGALLERY_INST_UPL_PCK_FILE",		"Upload Package File");
+DEFINE("_RSGALLERY_INST_PCK_FILE",		"Package File:");
 //function showInstallMessage
-/*new*/DEFINE("_RSGALLERY_INST_MES_CONTINUE",	"Continue ...");
+DEFINE("_RSGALLERY_INST_MES_CONTINUE",	"Continue ...");
 //function requestCatCreation
 DEFINE("_RSGALLERY_C_CAT_FIRST",			"Create a category first!");
 //function batch_upload
 DEFINE("_RSGALLERY_BATCH_NO_ZIP",			"ZIP-upload selected but no file chosen");
-/*new*/DEFINE("_RSGALLERY_BACTCH_NOT_VALID_ZIP",		" is not a valid archive format. Only ZIP-files are allowed!");
+DEFINE("_RSGALLERY_BACTCH_NOT_VALID_ZIP",		" is not a valid archive format. Only ZIP-files are allowed!");
 DEFINE("_RSGALLERY_BATCH_GAL_FIRST",		"Please choose a category first");
 DEFINE("_RSGALLERY_BATCH_NO_FTP",			"FTP upload chosen but no FTP-path provided");
 DEFINE("_RSGALLERY_BATCH_STEP1",			"Step 1");
@@ -248,7 +248,7 @@ DEFINE("_RSGALLERY_UPLOAD_FORM_IMAGE",		"Image");
 DEFINE("_RSGALLERY_CATNAME",				"Gallery name");
 DEFINE("_RSGALLERY_UPLOAD_FORM_FILE",		"File");
 //function viewImages
-/*new*/DEFINE("_RSGALLERY_NO_PREVIEW ",		"No preview available");
+DEFINE("_RSGALLERY_NO_PREVIEW ",		"No preview available");
 DEFINE("_RSGALLERY_DELETE",					"Delete");
 DEFINE("_RSGALLERY_MOVETO",					"Move To");
 DEFINE("_RSGALLERY_COPYIMAGE",				"Copy");
@@ -288,9 +288,9 @@ DEFINE("_RSGALLERY_NOT_WORKING",		"Not working yet");
 DEFINE("_RSGALLERY_DEL_FROM_SYSTEM",		"Delete from filesystem");
 DEFINE("_RSGALLERY_CREATE_MISSING_IMG",		"Create missing images");
 DEFINE("_RSGALLERY_CREATE_DB_ENTRIES",		"Create database entries");
-/*new*/DEFINE("_RSGALLERY_CONSDB_IMG_IN_FLDR",		"Image in folder");
-/*new*/DEFINE("_RSGALLERY_CONSDB_IMG__NOT_IN_FLDR",		"Image NOT in folder");
-/*new*/DEFINE("_RSGALLERY_ ",		"");
+DEFINE("_RSGALLERY_CONSDB_IMG_IN_FLDR",		"Image in folder");
+DEFINE("_RSGALLERY_CONSDB_IMG__NOT_IN_FLDR",		"Image NOT in folder");
+DEFINE("_RSGALLERY_ ",		"");
 
 //admin.rsgallery2.php
 DEFINE("_RSGALLERY_HEAD_CONFIG",		"Configuration");
@@ -315,10 +315,10 @@ DEFINE("_RSGALLERY_PURGE_IMG",				"purged image entries from database.");
 DEFINE("_RSGALLERY_PURGE_GAL",				"purged galleries from database.");
 DEFINE("_RSGALLERY_PURGE_CONFIG",			"purged config from database.");
 DEFINE("_RSGALLERY_PURGE_COMMENTS",			"purged comments from database.");
-/*new*/DEFINE("_RSGALLERY_PURGE_THUMB",		"removing thumb images.");
-/*new*/DEFINE("_RSGALLERY_PURGE_DISPLAY",	"removing display images.");
-/*new*/DEFINE("_RSGALLERY_PURGE_ORIGINAL",	"removing original images.");
-/*new*/DEFINE("_RSGALLERY_PURGE_PURGED",	"purged.");
+DEFINE("_RSGALLERY_PURGE_THUMB",		"removing thumb images.");
+DEFINE("_RSGALLERY_PURGE_DISPLAY",	"removing display images.");
+DEFINE("_RSGALLERY_PURGE_ORIGINAL",	"removing original images.");
+DEFINE("_RSGALLERY_PURGE_PURGED",	"purged.");
 //function reallyUninstall
 DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Used rm -r to attempt to remove $mosConfig_absolute_path/images/rsgallery");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"DROPed #__rsgallery2_files");
@@ -334,11 +334,11 @@ DEFINE("_RSGALLERY_ALERT_IMGDELETENOTOK",	"Image(s) were not deleted!");
 DEFINE("_RSGALLERY_ALERT_COPYOK",			"Item(s) copied successfully!");
 DEFINE("_RSGALLEY_ALERT_REST_COPYDOK",		"Rest of the items copied successfully!");
 //function c_create
-/*new*/DEFINE("_RSGALLERY_CC_NO_FILE_INFO",		"No fileinformation found. This should never happen!");
+DEFINE("_RSGALLERY_CC_NO_FILE_INFO",		"No fileinformation found. This should never happen!");
 //function db_create
-/*new*/DEFINE("_RSGALLERY_DB_CREATE_NO_GAL",		"No gallery chosen to place image in!");
-/*new*/DEFINE("_RSGALLERY_DB_CREATE_IMG_SUCCES ",		"Images succesfully added to the database!");
-/*new*/DEFINE("_RSGALLERY_DB_CREATE_IMG_FAIL",		"Images could NOT be added to the database!");
+DEFINE("_RSGALLERY_DB_CREATE_NO_GAL",		"No gallery chosen to place image in!");
+DEFINE("_RSGALLERY_DB_CREATE_IMG_SUCCES ",		"Images succesfully added to the database!");
+DEFINE("_RSGALLERY_DB_CREATE_IMG_FAIL",		"Images could NOT be added to the database!");
 //function save_batchupload
 DEFINE("_RSGALLERY_ALERT_NOCATSELECTED",	"Please select gallery for ALL images!\\n(Also for images that will be deleted.\\nnThis will be corrected in future version!)");
 DEFINE("_RSGALLERY_ZIP_TO_BIG",				"ZIP-file is too big!");
@@ -393,11 +393,11 @@ DEFINE("_RSGALLERY_SELECT_GAL_DROP_BOX",		"- Select gallery -");
 //function galleriesSelectList
 DEFINE("_RSGALLERY_SELECT_GAL_TOP",		"Top");
 //function showRating
-/*new*/DEFINE("_RSGALLERY_RATE_NONE",		"No rating");
+DEFINE("_RSGALLERY_RATE_NONE",		"No rating");
 //function newImages
 DEFINE("_RSGALLERY_NEW",				"New!");
 //function latestCats
-/*new*/DEFINE("_RSGALLERY_NO_NEW_ENT",		"No new entries");
+DEFINE("_RSGALLERY_NO_NEW_ENT",		"No new entries");
 //function writeWarningBox
 DEFINE("_RSGALLERY_NO_IMGLIBRARY",			"There was no available image libray detected! Please contact your hosting provider to install GD2 or check the forums to install either ImageMagick or NETPBM!");
 DEFINE("_RSGALLERY_NOT_WRITABLE",			" is NOT writable!");
@@ -659,60 +659,97 @@ DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Created: ");
 
 //file.utils.php
 //function importImage
-/*new*/DEFINE("_RSGALLERY_FU_NOT_SUP_TYPE",		" not a supported file type.");
+DEFINE("_RSGALLERY_FU_NOT_SUP_TYPE",		" not a supported file type.");
 //function move_uploadedFile_to_orignalDir
-/*new*/DEFINE("_RSGALLERY_FU_UNABLE_COPY",		"could not copy ");
-/*new*/DEFINE("_RSGALLERY_FU_IMAGE_TO",		" image to: ");
+DEFINE("_RSGALLERY_FU_UNABLE_COPY",		"could not copy ");
+DEFINE("_RSGALLERY_FU_IMAGE_TO",		" image to: ");
 //function preHandlerCheck
-/*new*/DEFINE("_RSGALLERY_FU_NOT_WRITABLE",		" exists, but is not Writable!");
-/*new*/DEFINE("_RSGALLERY_FU_NOT_EXIST",		" does not exist!");
+DEFINE("_RSGALLERY_FU_NOT_WRITABLE",		" exists, but is not Writable!");
+DEFINE("_RSGALLERY_FU_NOT_EXIST",		" does not exist!");
 //function cleanMediaDir
-/*new*/DEFINE("_RSGALLERY_FU_APPARENTLY",		"Apparently ");
-/*new*/DEFINE("_RSGALLERY_FU_DOESNT_EXIST",		"does not exit");
+DEFINE("_RSGALLERY_FU_APPARENTLY",		"Apparently ");
+DEFINE("_RSGALLERY_FU_DOESNT_EXIST",		"does not exit");
 //function handleFTP
-/*new*/DEFINE("_RSGALLERY_FU_FTP_DIR_NOT_EXIST",		" does not exist or is no directory on your server. Please check the path.");
-/*new*/DEFINE("_RSGALLERY_FU_NO_VALID_IMG",		"No valid images found in ");
-/*new*/DEFINE("_RSGALLERY_FU_PLEASE_CHECK_PATH",		". Please check the path.");
-/*new*/DEFINE("_RSGALLERY_FU_NO_FILES",		"No files found to process!");
-/*new*/DEFINE("_RSGALLERY_FU_MAX_FILESIZE",		"The uploaded file exceeds the upload_max_filesize directive ");
-/*new*/DEFINE("_RSGALLERY_FU_IN_PINI",		" in php.ini.");
-/*new*/DEFINE("_RSGALLERY_FU_MAX_FILESIZE_FORM",		"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.");
-/*new*/DEFINE("_RSGALLERY_FU_PARTIAL_UPL",		"The uploaded file was only partially uploaded.");
-/*new*/DEFINE("_RSGALLERY_FU_NO_UPL",		"No file was uploaded.");
-/*new*/DEFINE("_RSGALLERY_FU_MISS_TEMP_DIR",		"Missing a temporary folder.");
-/*new*/DEFINE("_RSGALLERY_FU_FAIL_WRITE_DISK",		"Failed to write file to disk");
-/*new*/DEFINE("_RSGALLERY_FU_UPL_STOP_EXT",		"File upload stopped by extension");
-/*new*/DEFINE("_RSGALLERY_FU_UNKW_ERROR",		"Unknown File Error");
+DEFINE("_RSGALLERY_FU_FTP_DIR_NOT_EXIST",		" does not exist or is no directory on your server. Please check the path.");
+DEFINE("_RSGALLERY_FU_NO_VALID_IMG",		"No valid images found in ");
+DEFINE("_RSGALLERY_FU_PLEASE_CHECK_PATH",		". Please check the path.");
+DEFINE("_RSGALLERY_FU_NO_FILES",		"No files found to process!");
+DEFINE("_RSGALLERY_FU_MAX_FILESIZE",		"The uploaded file exceeds the upload_max_filesize directive ");
+DEFINE("_RSGALLERY_FU_IN_PINI",		" in php.ini.");
+DEFINE("_RSGALLERY_FU_MAX_FILESIZE_FORM",		"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.");
+DEFINE("_RSGALLERY_FU_PARTIAL_UPL",		"The uploaded file was only partially uploaded.");
+DEFINE("_RSGALLERY_FU_NO_UPL",		"No file was uploaded.");
+DEFINE("_RSGALLERY_FU_MISS_TEMP_DIR",		"Missing a temporary folder.");
+DEFINE("_RSGALLERY_FU_FAIL_WRITE_DISK",		"Failed to write file to disk");
+DEFINE("_RSGALLERY_FU_UPL_STOP_EXT",		"File upload stopped by extension");
+DEFINE("_RSGALLERY_FU_UNKW_ERROR",		"Unknown File Error");
 
 //rsgcomments.class.php
-/*new*/DEFINE("_RSGALLERY_COMMENTS_ADD",		"Add comment");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_NAME",		"Name");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_TITLE",		"Title");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_COMMENT",		"Comment text");
+//function showButtons
+/*new*/DEFINE("_RSGALLERY_COMMENTS_COLOR",	"-color-");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_AQUA",	"aqua");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_BLACK",	"black");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_BLUE",	"blue");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_FUCHSIA",	"fuchsia");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_GRAY",	"gray");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_GREEN",	"green");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_LIME",	"lime");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_MAROON",	"maroon");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_NAVY",	"navy");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_OLIVE",	"olive");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_PURPLE",	"purple");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_RED",	"red");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_SILVER",	"silver");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_TEAL",	"teal");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_WHITE",	"white");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_YELLOW",	"yellow");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_SIZE",	"-size-");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_TINY",	"tiny");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_SMALL",	"small");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_MEDIUM",	"medium");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_LARGE",	"large");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_HUGE",	"huge");
+//function parseQuoteElement
+/*new*/DEFINE("_RSGALLERY_COMMENTS_QUOTE_WROTE", "Wrote");
+//function editComment
+/*moved*/DEFINE("_RSGALLERY_COMMENT_ADD",		"Add comment");
+/*moved*/DEFINE("_RSGALLERY_COMMENT_NAME",		"Name");
+/*moved*/DEFINE("_RSGALLERY_COMMENTS_TITLE",		"Title");
+/*moved*/DEFINE("_RSGALLERY_COMMENT_COMMENT",		"Comment text");
+//function showComments
+/*moved*/DEFINE("_RSGALLERY_COMMENT_DELETE",	"Are you sure you want to delete the comment?");
+/*moved*/DEFINE("_RSGALLERY_COMMENTS",	"Comments");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_NUM_COMM_ADD",	"# comments added");
+/*new*/DEFINE("_RSGALLERY_DELETE_COMMENT",			"Delete Comment");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_SEC_IMG_MISS", "SecurityImages selected in backend, but component not installed! Notify the webmaster");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_NOCOMM",	"No comments yet!");
 
 //rsgcomments.php
-/*new*/DEFINE("_RSGALLERY_COMMENTS_DISABLED",		"Commenting is disabled");
-/*new*///DEFINE("_RSGALLERY_COMMENTS_ONLY_ONCE",		"You can only comment once on this item!");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_INCORRECT_CAPTCHA",		"Incorrect CAPTCHA check, comment is NOT saved!");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_ADD_SUCCES",		"Comment added succesfully!");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_ADD_FAIL",		"Comment could not be added!");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_COMMDEL",		"Comment deleted succesfully");
+
+//rsgcomments.php
+DEFINE("_RSGALLERY_COMMENTS_DISABLED",		"Commenting is disabled");
+/*double deleted DEFINE("_RSGALLERY_COMMENTS_ONLY_ONCE",		"You can only comment once on this item!");*/
+DEFINE("_RSGALLERY_COMMENTS_INCORRECT_CAPTCHA",		"Incorrect CAPTCHA check, comment is NOT saved!");
+DEFINE("_RSGALLERY_COMMENTS_ADD_SUCCES",		"Comment added succesfully!");
+DEFINE("_RSGALLERY_COMMENTS_ADD_FAIL",		"Comment could not be added!");
 
 //rsgvoting.class.php
-/*new*/DEFINE("_RSGALLERY_VOTING_ARE_YOU_SURE",		"Are you sure you want to vote?");
-/*new*/DEFINE("_RSGALLERY_VOTING_RATING",		"Rating");
-/*new*/DEFINE("_RSGALLERY_VOTING_VOTE",		"Vote");
-/*new*/DEFINE("_RSGALLERY_VOTING_VOTES",		"&nbsp;votes");
-/*new*/DEFINE("_RSGALLERY_VOTING_RATE_1",		"Rate this item 1 out of 5");
-/*new*/DEFINE("_RSGALLERY_VOTING_RATE_2",		"Rate this item 2 out of 5");
-/*new*/DEFINE("_RSGALLERY_VOTING_RATE_3",		"Rate this item 3 out of 5");
-/*new*/DEFINE("_RSGALLERY_VOTING_RATE_4",		"Rate this item 4 out of 5");
-/*new*/DEFINE("_RSGALLERY_VOTING_RATE_5",		"Rate this item 5 out of 5");
+DEFINE("_RSGALLERY_VOTING_ARE_YOU_SURE",		"Are you sure you want to vote?");
+DEFINE("_RSGALLERY_VOTING_RATING",		"Rating");
+DEFINE("_RSGALLERY_VOTING_VOTE",		"Vote");
+DEFINE("_RSGALLERY_VOTING_VOTES",		"&nbsp;votes");
+DEFINE("_RSGALLERY_VOTING_RATE_1",		"Rate this item 1 out of 5");
+DEFINE("_RSGALLERY_VOTING_RATE_2",		"Rate this item 2 out of 5");
+DEFINE("_RSGALLERY_VOTING_RATE_3",		"Rate this item 3 out of 5");
+DEFINE("_RSGALLERY_VOTING_RATE_4",		"Rate this item 4 out of 5");
+DEFINE("_RSGALLERY_VOTING_RATE_5",		"Rate this item 5 out of 5");
 
 //rsgvoting.php
-/*new*/DEFINE("_RSGALLERY_VOTING_DISABLED",		"Voting is disabled!");
-/*new*/DEFINE("_RSGALLERY_VOTING_NOT_AUTH",		"You are not authorized to vote!");
-/*new*/DEFINE("_RSGALLERY_VOTING_ALREADY_VOTED",		"You aready voted for this item!");
-/*new*/DEFINE("_RSGALLERY_VOTING_NOT_ADDED",		"Vote could not be added to the database!");
-/*new*/DEFINE("_RSGALLERY_VOTING_ADDED",		"Vote added to database!");
+DEFINE("_RSGALLERY_VOTING_DISABLED",		"Voting is disabled!");
+DEFINE("_RSGALLERY_VOTING_NOT_AUTH",		"You are not authorized to vote!");
+DEFINE("_RSGALLERY_VOTING_ALREADY_VOTED",		"You aready voted for this item!");
+DEFINE("_RSGALLERY_VOTING_NOT_ADDED",		"Vote could not be added to the database!");
+DEFINE("_RSGALLERY_VOTING_ADDED",		"Vote added to database!");
 //stopped at gallery.class.php
 ?>
