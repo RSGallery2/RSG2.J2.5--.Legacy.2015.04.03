@@ -64,7 +64,7 @@ class html_rsg2_galleries{
 			<th width="2%"><?php echo _RSGALLERY_GAL_ORDER?></th>
 			<th width="2%">
 			<a href="javascript: saveorder( <?php echo count( $rows )-1; ?> )">
-				<img src="images/filesave.png" border="0" width="16" height="16" alt="Save Order" />
+				<img src="images/filesave.png" width="16" height="16" alt="Save Order" />
 			</a>
 			</th>
 			<th width="4%"><?php echo _RSGALLERY_GAL_COUNT?></th>
@@ -107,7 +107,7 @@ class html_rsg2_galleries{
                 </td>
                 <td align="center">
                 <a href="javascript: void(0);" onclick="return listItemTask('cb<?php echo $i;?>','<?php echo $task;?>')">
-                <img src="images/<?php echo $img;?>" width="12" height="12" border="0" alt="<?php echo $alt; ?>" />
+                <img src="images/<?php echo $img;?>" width="12" height="12"  alt="<?php echo $alt; ?>" />
                 </a>
                 </td>
                 <td>

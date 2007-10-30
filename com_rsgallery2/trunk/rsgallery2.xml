@@ -64,6 +64,34 @@
 
 	<filename>lib/j15backport/includes/application.php</filename>
 	<filename>lib/j15backport/includes/router.php</filename>
+
+	<filename>lib/j15backport/includes/media/index.html</filename>
+	<filename>lib/j15backport/includes/media/system/index.html</filename>
+	<filename>lib/j15backport/includes/media/system/css/calendar-jos.css</filename>
+	<filename>lib/j15backport/includes/media/system/css/modal.css</filename>
+	<filename>lib/j15backport/includes/media/system/css/mootree.css</filename>
+	<filename>lib/j15backport/includes/media/system/css/index.html</filename>
+	<filename>lib/j15backport/includes/media/system/images/index.html</filename>
+	<filename>lib/j15backport/includes/media/system/images/closebox.png</filename>
+	<filename>lib/j15backport/includes/media/system/images/mootree.gif</filename>
+	<filename>lib/j15backport/includes/media/system/images/mootree_loader.gif</filename>
+	<filename>lib/j15backport/includes/media/system/swf/uploader.swf</filename>
+	<filename>lib/j15backport/includes/media/system/js/index.html</filename>
+	<filename>lib/j15backport/includes/media/system/js/calendar.js</filename>
+	<filename>lib/j15backport/includes/media/system/js/calendar-setup.js</filename>
+	<filename>lib/j15backport/includes/media/system/js/caption.js</filename>
+	<filename>lib/j15backport/includes/media/system/js/combobox.js</filename>
+	<filename>lib/j15backport/includes/media/system/js/modal.js</filename>
+	<filename>lib/j15backport/includes/media/system/js/mootools.js</filename>
+	<filename>lib/j15backport/includes/media/system/js/mootools-uncompressed.js</filename>
+	<filename>lib/j15backport/includes/media/system/js/mootree.js</filename>
+	<filename>lib/j15backport/includes/media/system/js/mootree_packed.js</filename>
+	<filename>lib/j15backport/includes/media/system/js/openid.js</filename>
+	<filename>lib/j15backport/includes/media/system/js/swf.js</filename>
+	<filename>lib/j15backport/includes/media/system/js/switcher.js</filename>
+	<filename>lib/j15backport/includes/media/system/js/tabs.js</filename>
+	<filename>lib/j15backport/includes/media/system/js/uploader.js</filename>
+	<filename>lib/j15backport/includes/media/system/js/validate.js</filename>
 	<filename>lib/j15backport/j15backport.php</filename>
 	<filename>lib/j15backport/libraries/joomla/application/application.php</filename>
 	<filename>lib/j15backport/libraries/joomla/application/component/controller.php</filename>
