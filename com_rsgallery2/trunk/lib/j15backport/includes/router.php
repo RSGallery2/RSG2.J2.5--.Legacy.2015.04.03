@@ -108,41 +108,11 @@ class JRouterSite extends JRouter
 	{
 		$vars   = array();
 
-		// we don't need to do any menu stuff
-// 		$menu =& JSite::getMenu(true);
-
-		//Handle an empty URL (special case)
-		if(!$uri->getVar('Itemid') && !$uri->getVar('option'))
-		{
-			$item = $menu->getDefault();
-
-			//Set the information in the request
-			$vars = $item->query;
-
-			//Get the itemid
-			$vars['Itemid'] = $item->id;
-
-			// Set the active menu item
-// 			$menu->setActive($vars['Itemid']);
-
-			return $vars;
-		}
-
 		//Get the variables from the uri
 		$this->setVars($uri->getQuery(true));
 
 		//Get the itemid, if it hasn't been set force it to null
 		$this->setVar('Itemid', JRequest::getInt('Itemid', null));
-
-		//Only an Itemid ? Get the full information from the itemid
-		if(count($this->getVars()) == 1)
-		{
-			$item = $menu->getItem($this->getVar('Itemid'));
-			$vars = $vars + $item->query;
-		}
-
-		// Set the active menu item
-// 		$menu->setActive($this->getVar('Itemid'));
 
 		return $vars;
 	}
