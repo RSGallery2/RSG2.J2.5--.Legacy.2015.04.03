@@ -199,8 +199,10 @@ class tempDisplay extends JObject{
 					{
 					?>
 					<script type="text/javascript">
+						//<![CDATA[
 						alert("<?php echo _RSGALLERY_THANK_VOTING; ?>");
-						location = '<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=".$Itemid."&amp;page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$limitstart); ?>';
+						location = '<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$limitstart, false); ?>';
+						//]]>
 					</script>
 					<?php
 					//mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$limitstart),_RSGALLERY_THANK_VOTING);
@@ -209,8 +211,10 @@ class tempDisplay extends JObject{
 					{
 					?>
 					<script type="text/javascript">
+						//<![CDATA[
 						alert("<?php echo _RSGALLERY_VOTING_FAILED; ?>");
-						location = '<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=".$Itemid."&amp;page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$limitstart); ?>';
+						location = '<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$limitstart, false); ?>';
+						//]]>
 					</script>
 					<?php
 					//mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$limitstart),_RSGALLERY_VOTING_FAILED);
@@ -280,8 +284,10 @@ class tempDisplay extends JObject{
 			//Back to image
 			?>
 			<script type="text/javascript">
+				//<![CDATA[
 				alert("<?php echo _RSGALLERY_COMMENT_FIELD_CHECK; ?>");
-				location = '<?php echo sefRelToAbs("index.php?option=com_rsgallery2&page=inline&Itemid=".$Itemid."&id=".$id."&catid=".$catid."&limitstart=".$limitstart); ?>';
+				location = '<?php echo JRoute::_("index.php?option=com_rsgallery2&page=inline&Itemid=".$Itemid."&id=".$id."&catid=".$catid."&limitstart=".$limitstart, false); ?>';
+				//]]>
 			</script>
 			<?php
 			}
@@ -296,8 +302,10 @@ class tempDisplay extends JObject{
 				{
 				?>
 				<script type="text/javascript">
+					//<![CDATA[
 					alert("<?php echo _RSGALLERY_COMMENT_ADDED; ?>");
-					location = '<?php echo sefRelToAbs("index.php?option=com_rsgallery2&page=inline&Itemid=".$Itemid."&id=".$picid."&catid=".$catid."&limitstart=".$limitstart); ?>';
+					location = '<?php echo JRoute::_("index.php?option=com_rsgallery2&page=inline&Itemid=".$Itemid."&id=".$picid."&catid=".$catid."&limitstart=".$limitstart, false); ?>';
+					// ]]>
 				</script>
 				<?php
 				//Retrieve comment count and increment it, thanks to Allan Kissack
@@ -311,8 +319,10 @@ class tempDisplay extends JObject{
 						{
 						?>
 						<script type="text/javascript">
+							//<![CDATA[
 							alert("<?php echo _RSGALLERY_COMMENT_COUNT_NOT_ADDED; ?>");
-							location = '<?php echo sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$ordering); ?>';
+							location = '<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$ordering, false); ?>';
+							 // ]]>
 						</script>
 						<?php
 						}
@@ -322,8 +332,10 @@ class tempDisplay extends JObject{
 				{
 				?>
 				<script type="text/javascript">
+					//<![CDATA[
 					alert("<?php echo _RSGALLERY_COMMENT_NOT_ADDED; ?>");
-					location = '<?php echo sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=inline&id=".$id."&catid=".$catid."&limitstart=".$limitstart); ?>';
+					location = '<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=inline&id=".$id."&catid=".$catid."&limitstart=".$limitstart, false); ?>';
+					// ]]>
 				</script>
 				<?php
 				}
@@ -397,8 +409,10 @@ class tempDisplay extends JObject{
 				if ($userCatTotal >= $maxcats) {
 					?>
 					<script type="text/javascript">
+					//<![CDATA[
 					alert('<?php echo _RSGALLERY_MAX_USERCAT_ALERT;?>');
-					location = '<?php echo sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries"); ?>';
+					location = '<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries", false); ?>';
+					//]]>
 					</script>
 					<?php
 					//mosRedirect('index.php?option=com_rsgallery2&page=my_galleries',_RSGALLERY_MAX_USERCAT_ALERT);
@@ -626,8 +640,10 @@ class rsgDisplay extends tempDisplay{
 		if ($count >= $rsgConfig->get('uu_maxImages') ) {
 			?>
 			<script type="text/javascript">
+			//<![CDATA[
 			alert('<?php echo _RSGALLERY_MAX_USERIMAGES_ALERT;?>');
-			location = '<?php echo sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries"); ?>';
+			location = '<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries",false); ?>';
+			//]]>
 			</script>
 			<?php
 		} else {
@@ -861,7 +877,7 @@ class rsgDisplay extends tempDisplay{
 			return;
 
 		$mainframe->setPageTitle( ' '. $this->gallery->get('name') );
-		$mainframe->appendMetaTag( 'description', $this->gallery->get('description') );
+		$mainframe->appendMetaTag( 'description',  htmlspecialchars(strip_tags($this->gallery->get('description')),ENT_QUOTES) );
 	}
 
 	/***************************

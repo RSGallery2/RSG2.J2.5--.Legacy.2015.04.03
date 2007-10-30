@@ -317,7 +317,7 @@ class galleryUtils {
 	        $imgatt.=" class=\"RSgalthumb\" ";
 	    //If no thumb, show default image.
 	    if ( galleryUtils::getFileCount($catid) == 0 ) {
-	        $thumb_html = "<img $imgatt src=\"".$mosConfig_live_site."/components/com_rsgallery2/images/no_pics.gif\" alt=\"No pictures in gallery\" border=\"1\" />";
+	        $thumb_html = "<img $imgatt src=\"".$mosConfig_live_site."/components/com_rsgallery2/images/no_pics.gif\" alt=\"No pictures in gallery\" />";
 	    } else {
 	    	//Select thumb setting for specific gallery("Random" or "Specific thumb")
 	        $sql = "SELECT thumb_id FROM #__rsgallery2_galleries WHERE id = '$catid'";
@@ -333,7 +333,7 @@ class galleryUtils {
 	            //Specific thumbnail
 	            $thumb_name = galleryUtils::getFileNameFromId($thumb_id);
 	        }
-	        $thumb_html = "<img $imgatt src=\"".imgUtils::getImgThumb($thumb_name)."\" alt=\"\" border=\"0\" />";
+	        $thumb_html = "<img $imgatt src=\"".imgUtils::getImgThumb($thumb_name)."\" alt=\"\" />";
 	    }
 	    return $thumb_html;
     }

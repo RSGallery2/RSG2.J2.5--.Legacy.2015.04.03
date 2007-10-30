@@ -20,7 +20,7 @@ class rsgVoting {
     	if ($rsgConfig->get('voting')) {
 	    	$id 		= rsgInstance::getInt( 'id'  , '');
 	    	?>
-			<script language="javascript" type="text/javascript">
+			<script  type="text/javascript">
 			function saveVote(id, value) {
 				var form = document.vote;
 				var saveVote = confirm('<?php echo _RSGALLERY_VOTING_ARE_YOU_SURE;?>');

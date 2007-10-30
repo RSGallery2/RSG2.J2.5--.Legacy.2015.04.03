@@ -163,7 +163,7 @@ class html_rsg2_config{
 		// this is why the templates were broken up, so i could call $tabs->func*() between them
 		$tabs = new mosTabs(1);
 		?>
-		<script language="javascript" type="text/javascript">
+		<script  type="text/javascript">
 				function submitbutton(pressbutton) {
 					<?php getEditorContents( 'editor1', 'intro_text' ) ; ?>
 					submitform( pressbutton );

@@ -20,7 +20,7 @@ class rsgItem_audio extends rsgItem{
 	var $original = null;
 
 	function __construct( $type, $mimetype, &$gallery, $row){
-		parent::__construct( $type, $mimetype, &$gallery, $row );
+		parent::__construct( $type, $mimetype, $gallery, $row );
 		
 		$this->_determineResources();
 	}

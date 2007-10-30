@@ -27,7 +27,7 @@ $rsgDisplay = new rsgDisplay_semantic();
 $rsgDisplay->setItemid();
 
 global $mosConfig_live_site;
-$template_dir = $mosConfig_live_site . DS ."components" . DS . "com_rsgallery2". DS . "templates" . DS . $rsgConfig->get('template');
+$template_dir = $mosConfig_live_site . "/components/com_rsgallery2/templates/" . $rsgConfig->get('template');
 
 $rsgDisplay->metadata();
 // append to Joomla's pathway
@@ -38,9 +38,10 @@ JHTML::_('behavior.tooltip');
 
 //include page navigation
 require_once(JPATH_ROOT.'/includes/pageNavigation.php');
-?>
 
-<link href="<?php echo $template_dir ?>/css/template.css" rel="stylesheet" type="text/css" />
+$doc =& JFActory::getDocument();
+$doc->addStyleSheet($template_dir."/css/template.css","text/css");
+?>
 
 <div class="rsg2">
 	<?php $rsgDisplay->mainPage(); ?>

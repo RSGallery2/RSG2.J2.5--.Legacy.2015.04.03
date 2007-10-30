@@ -399,7 +399,16 @@ class JDocument extends JObject
 	 * @access   public
 	 */
 	function addScript($url, $type="text/javascript") {
-		$this->_scripts[$url] = $type;
+
+		// this works for J1.0
+		global $mainframe;
+		$html = "<script type=\"".$type."\" src=\"".$url."\"></script>";
+		if (!in_array($html, $mainframe->_head['custom']))
+		{
+			$mainframe->addCustomHeadTag($html);
+		};
+
+//		$this->_scripts[$url] = $type;
 	}
 
 	/**
@@ -411,12 +420,21 @@ class JDocument extends JObject
 	 * @return   void
 	 */
 	function addScriptDeclaration($content, $type = 'text/javascript') {
-		if (!isset($this->_script[strtolower($type)])) {
+
+		// this works for J1.0
+		global $mainframe;
+		$html = "<script type=\"".$type."\">".$content."</script>";
+		if (!in_array($html, $mainframe->_head['custom']))
+		{
+			$mainframe->addCustomHeadTag($html);
+		};
+		
+/*		if (!isset($this->_script[strtolower($type)])) {
 			$this->_script[strtolower($type)] = $content;
 		} else {
 			$this->_script[strtolower($type)] .= chr(13).$content;
 		}
-	}
+*/	}
 
 	/**
 	 * Adds a linked stylesheet to the page
@@ -428,10 +446,18 @@ class JDocument extends JObject
 	 */
 	function addStyleSheet($url, $type = 'text/css', $media = null, $attribs = array())
 	{
-		$this->_styleSheets[$url]['mime']		= $type;
+		// this works for J1.0
+		global $mainframe;
+		$html = "<style type=\"text/javascript\" src=\"".$url."\"></style>";
+		if (!in_array($html, $mainframe->_head['custom']))
+		{
+			$mainframe->addCustomHeadTag($html);
+		};
+
+/*		$this->_styleSheets[$url]['mime']		= $type;
 		$this->_styleSheets[$url]['media']		= $media;
 		$this->_styleSheets[$url]['attribs']	= $attribs;
-	}
+*/	}
 
 	 /**
 	 * Adds a stylesheet declaration to the page
@@ -442,12 +468,21 @@ class JDocument extends JObject
 	 * @return   void
 	 */
 	function addStyleDeclaration($content, $type = 'text/css') {
-		if (!isset($this->_script[strtolower($type)])) {
+
+		// this works for J1.0
+		global $mainframe;
+		$html = "<style type=\"".$type."\" >".$content."</style>";
+		if (!in_array($html, $mainframe->_head['custom']))
+		{
+			$mainframe->addCustomHeadTag($html);
+		};
+
+/*		if (!isset($this->_script[strtolower($type)])) {
 			$this->_script[strtolower($type)] = $content;
 		} else {
 			$this->_script[strtolower($type)] .= chr(13).$content;
 		}
-	}
+*/	}
 
 	 /**
 	 * Sets the document charset

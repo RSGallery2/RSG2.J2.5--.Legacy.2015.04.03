@@ -51,9 +51,9 @@ class JHTMLBehavior
 		$konkcheck = strpos (strtolower($_SERVER['HTTP_USER_AGENT']), "konqueror");
 
 		if ($debug || $konkcheck) {
-			JHTML::script('mootools-uncompressed.js', 'media/system/js/', false);
+			JHTML::script('mootools-uncompressed.js', 'components/com_rsgallery2/lib/j15backport/includes/media/system/js/' , false);
 		} else {
-			JHTML::script('mootools.js', 'media/system/js/', false);
+			JHTML::script('mootools.js', 'components/com_rsgallery2/lib/j15backport/includes/media/system/js/' , false);
 		}
 		$loaded = true;
 		return;
@@ -188,7 +188,7 @@ class JHTMLBehavior
 	
 		// Setup options object
 		$opt['url']					= (isset($params['targetURL'])) ? $params['targetURL'] : null ;
-		$opt['swf']					= (isset($params['swf'])) ? $params['swf'] : JURI::root(true).'/media/system/swf/uploader.swf';
+		$opt['swf']					= (isset($params['swf'])) ? $params['swf'] : JURI::root(true).'components/com_rsgallery2/lib/j15backport/includes/media/system/swf/uploader.swf';
 		$opt['multiple']			= (isset($params['multiple']) && !($params['multiple'])) ? '\\false' : '\\true';
 		$opt['queued']				= (isset($params['queued']) && !($params['queued'])) ? '\\false' : '\\true';
 		$opt['queueList']			= (isset($params['queueList'])) ? $params['queueList'] : 'upload-queue';
@@ -278,9 +278,9 @@ class JHTMLBehavior
 	function calendar()
 	{
 		$document =& JFactory::getDocument();
-		JHTML::stylesheet('calendar-jos.css', 'media/system/css/', array(' title' => JText::_( 'green' ) ,' media' => 'all' ));
-		JHTML::script( 'calendar.js', 'media/system/js/' );
-		JHTML::script( 'calendar-setup.js', 'media/system/js/' );
+		JHTML::stylesheet('calendar-jos.css', null, array(' title' => JText::_( 'green' ) ,' media' => 'all' ));
+		JHTML::script( 'calendar.js' );
+		JHTML::script( 'calendar-setup.js' );
 
 		$translation = JHTMLBehavior::_calendartranslation();
 		if($translation) {

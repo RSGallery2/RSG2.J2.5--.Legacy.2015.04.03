@@ -147,8 +147,9 @@ class JHTML
 	 * @param	boolean If true, the mootools library will be loaded
 	 * @since	1.5
 	 */
-	function script($filename, $path = 'media/system/js/', $mootools = true)
+	function script($filename, $path = 'components/com_rsgallery2/lib/j15backport/includes/media/system/js/', $mootools = true)
 	{
+	
 		// Include mootools framework
 		if($mootools) {
 			JHTML::_('behavior.mootools');
@@ -157,7 +158,7 @@ class JHTML
 		if(strpos($path, 'http') !== 0) {
 			$path =  JURI::root(true).'/'.$path;
 		}; 
-
+		
 		$document = &JFactory::getDocument();
 		$document->addScript( $path.$filename );
 		return;
@@ -170,7 +171,7 @@ class JHTML
 	 * @param	string 	The relative URL to use for the href attribute
 	 * @since	1.5
 	 */
-	function stylesheet($filename, $path = 'media/system/css/', $attribs = array())
+	function stylesheet($filename, $path = 'components/com_rsgallery2/lib/j15backport/includes/media/system/css/', $attribs = array())
 	{
 		if(strpos($path, 'http') !== 0) {
 			$path =  JURI::root(true).'/'.$path;
@@ -230,7 +231,7 @@ class JHTML
 
 		if ( !$text ) {
 			$image 	= JURI::root(true).'/includes/js/ThemeOffice/'. $image;
-			$text 	= '<img src="'. $image .'" border="0" alt="'. JText::_( 'Tooltip' ) .'"/>';
+			$text 	= '<img src="'. $image .'" alt="'. JText::_( 'Tooltip' ) .'"/>';
 		} else {
 			$text 	= JText::_( $text, true );
 		}

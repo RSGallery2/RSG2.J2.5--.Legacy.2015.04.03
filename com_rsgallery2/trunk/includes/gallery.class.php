@@ -193,7 +193,7 @@ class rsgGallery extends JObject{
 			$rows = $this->itemRows( );
 
 			foreach( $rows as $row ){
-				$this->items[$row['id']] = rsgItem::getCorrectItemObject( &$this, $row );
+				$this->items[$row['id']] = rsgItem::getCorrectItemObject( $this, $row );
 			}
 		}
 		return $this->items;

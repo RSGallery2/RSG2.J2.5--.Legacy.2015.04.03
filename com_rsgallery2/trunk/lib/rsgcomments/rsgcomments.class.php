@@ -246,9 +246,13 @@ function parse( $html ) {
  * Shows the form for the 
  */
 function editComment( $item_id ) {
-	global $rsgConfig, $my, $mainframe, $mosConfig_live_site, $mosConfig_absolute_path;/* $mosConfig_absolute_path is only there to accomodate SecurityImages for now*/
+	global $rsgConfig, $my, $mosConfig_live_site, $mosConfig_absolute_path;/* $mosConfig_absolute_path is only there to accomodate SecurityImages for now*/
+	$doc =& JFActory::getDocument();
+	$doc->addScript(JPATH_BASE."/components/com_rsgallery2/lib/rsgcomments/js/client.js");
+	$doc->addStyleSheet(JPATH_BASE."/components/com_rsgallery2/lib/rsgcomments/rsgcomments.css");
+	
 	?>
-	<script language="javascript" type="text/javascript">
+	<script type="text/javascript">
         function submitbutton(pressbutton) {
             var form = document.rsgcommentform;
             if (pressbutton == 'cancel') {
@@ -269,9 +273,7 @@ function editComment( $item_id ) {
         }
     </script>
     
-	<link rel="stylesheet" href="<?php echo $mosConfig_live_site;?>/components/com_rsgallery2/lib/rsgcomments/rsgcomments.css" type="text/css" />
-	<script type='text/javascript' src='<?php echo $mosConfig_live_site;?>/components/com_rsgallery2/lib/rsgcomments/js/client.js'></script>
-	<form name='rsgcommentform' method='post' action='index.php?option=com_rsgallery2&rsgOption=rsgComments&task=save'>
+	<form name="rsgcommentform" method="post" action="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&rsgOption=rsgComments&task=save");?>">
 	<table border="0" width="100%" class="adminForm">
 	<tr>
 		<td colspan="2"><h2><?php echo _RSGALLERY_COMMENT_ADD;?></h2></td>
@@ -331,14 +333,16 @@ function editComment( $item_id ) {
 function showComments( $item_id ) {
 	global $database, $my, $Itemid;
 	?>
-	<script language="javascript" type="text/javascript">
+	<script type="text/javascript">
+	//<![CDATA[
 	function delComment(id, item_id, catid) {
 		var delCom = confirm('<?php echo _RSGALLERY_DELETE_COMMENT?>(' + id + ')');
 		
 		if (delCom) {
-			window.location = "index.php?option=com_rsgallery2&rsgOption=rsgComments&task=delete&id="+id+"&item_id="+item_id+"&catid="+catid;
+			window.location = "<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=rsgComments&task=delete", false); ?>&id="+id+"&item_id="+item_id+"&catid="+catid;
 		}
 	}
+	//]]>
 	</script>
 	<?php
 	$comments = rsgComments::_getList( $item_id );

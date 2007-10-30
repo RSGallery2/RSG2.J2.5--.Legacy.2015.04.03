@@ -19,7 +19,7 @@ if( !defined( '_JEXEC' )){
 	
 	// setup a Joomla 1.5 environment
 	define( '_JEXEC', 1 );
-	define ('DS', "/");
+	define ('DS', DIRECTORY_SEPARATOR);
 	define( 'JPATH_BASE', $mosConfig_absolute_path );
 	define( 'JPATH_ROOT', JPATH_BASE );
 	define( 'JPATH_SITE', JPATH_BASE );
