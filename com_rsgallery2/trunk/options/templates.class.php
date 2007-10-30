@@ -10,7 +10,7 @@
 
 defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 
-require_once( $mosConfig_absolute_path .'/administrator/components/com_installer/installer.class.php' );
+require_once( JPATH_ADMINISTRATOR .'/components/com_rsgallery2/options/templates.installer.php' );
 
 /**
 * RSGTemplate installer, based on the Joomla installer
