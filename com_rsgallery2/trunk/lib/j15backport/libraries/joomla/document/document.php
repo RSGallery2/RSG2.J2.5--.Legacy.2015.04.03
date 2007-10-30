@@ -448,7 +448,7 @@ class JDocument extends JObject
 	{
 		// this works for J1.0
 		global $mainframe;
-		$html = "<style type=\"text/javascript\" src=\"".$url."\"></style>";
+		$html = "<link rel=\"stylesheet\" type=\"".$type."\" href=\"".$url."\"></link>";
 		if (!in_array($html, $mainframe->_head['custom']))
 		{
 			$mainframe->addCustomHeadTag($html);

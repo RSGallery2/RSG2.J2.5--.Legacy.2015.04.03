@@ -45,7 +45,7 @@ class galleryUtils {
                 if ($cat->id == $catid && empty($imgid)) {
                     $mainframe->appendPathWay($cat->name);
                 } else {
-                    $mainframe->appendPathWay('<a href="' . $mosConfig_live_site . '/index.php?option=com_rsgallery2&amp;Itemid='.$Itemid.'&amp;catid=' . $cat->id . '">' . $cat->name . '</a>');
+					$mainframe->appendPathWay('<a href="' .JRoute::_( $mosConfig_live_site . '/index.php?option=com_rsgallery2&Itemid='.$Itemid.'&catid=' . $cat->id ). '">' . $cat->name . '</a>');
                 }    // if
             }    // foreach
         }    // if
@@ -738,7 +738,7 @@ class galleryUtils {
 	 	if ($type == 'button')
 	 		{
 	 		?>
-	 		<a href="<?php echo sefRelToAbs('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>">
+	 		<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>">
 	 		<img height="20" width="20" src="<?php echo $mosConfig_live_site;?>/administrator/images/download_f2.png" alt="<?php echo _RSGALLERY_DOWNLOAD?>">
 	 		<?php
 	 		if ($showtext == true) {
@@ -753,7 +753,7 @@ class galleryUtils {
 	 	else
 	 		{
 	 		?>
-	 		<a href="<?php echo sefRelToAbs('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>"><?php echo _RSGALLERY_DOWNLOAD?></a>
+	 		<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>"><?php echo _RSGALLERY_DOWNLOAD?></a>
 	 		<?php
 	 		}
 	 echo "</div><div class=\"rsg2-clr\">&nbsp;</div>";

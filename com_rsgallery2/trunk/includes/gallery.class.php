@@ -90,11 +90,11 @@ class rsgGallery extends JObject{
 		//Write gallery name
 		//TODO: sef is only included for frontend stuff.  perhaps this shouldn't be here?....
 		if( function_exists( 'sefRelToAbs' ) ){
-			$this->url = sefRelToAbs("index.php?option=com_rsgallery2&Itemid=$Itemid&gid=".$this->get('id'));
+			$this->url = JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&gid=".$this->get('id'));
 			$this->galleryName = "<a class='rsg2-galleryList-title' href=\"".$this->url."\">".htmlspecialchars(stripslashes($this->get('name')), ENT_QUOTES)."</a>";
 		}
 		else{
-			$this->url = "index.php?option=com_rsgallery2&Itemid=$Itemid&gid=".$this->get('id');
+			$this->url = JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&gid=".$this->get('id'));
 			$this->galleryName = htmlspecialchars( stripslashes( $this->get( 'name' )));
 		}
 		
