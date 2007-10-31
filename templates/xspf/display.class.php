@@ -11,7 +11,7 @@ defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 /**
  * Template class for RSGallery2
  */
-class rsgDisplay_xspf_table extends rsgDisplay{
+class rsgDisplay_xspf extends rsgDisplay{
 	function mainPage(){
 		$this->showGalleries();
 	}

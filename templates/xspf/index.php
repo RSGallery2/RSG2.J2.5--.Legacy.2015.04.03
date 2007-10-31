@@ -16,13 +16,13 @@ defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 
 // bring in display code
 require_once( JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'semantic' . DS . 'display.class.php');
-$templatePath = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'xspf_table';
+$templatePath = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'xspf';
 require_once( $templatePath . DS . 'display.class.php');
 
-$rsgDisplay = new rsgDisplay_xspf_table();
+$rsgDisplay = new rsgDisplay_xspf();
 
 global $mosConfig_live_site;
-$template_dir = "$mosConfig_live_site/components/com_rsgallery2/templates/xspf_table";
+$template_dir = "$mosConfig_live_site/components/com_rsgallery2/templates/xspf";
 
 //include page navigation
 require_once(JPATH_ROOT.'/includes/pageNavigation.php');

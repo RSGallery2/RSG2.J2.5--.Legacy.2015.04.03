@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <mosinstall type="template">
-	<name>xspf_table</name>
+	<name>xspf</name>
 	<creationDate>June 2007</creationDate>
 	<author>rsgallery2.net</author>
 	<copyright>Open Source, GPL</copyright>
@@ -9,11 +9,12 @@
 	<version>0.1.3</version>
 	<description></description>
 	<files>
-		<filename>index.php</filename>
-		<filename>display.class.php</filename>
-		<filename>templateDetails.xml</filename>
 		<filename>css/template.css</filename>
-		<filename>html/item.php</filename>
+		<filename>display.class.php</filename>
 		<filename>html/gallery.php</filename>
+		<filename>html/item.php</filename>
+		<filename>index.php</filename>
+		<filename>templateDetails.xml</filename>
+		<filename>xml.php</filename>
 	</files>
 </mosinstall>
