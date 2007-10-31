@@ -12,5 +12,8 @@
 		<filename>index.php</filename>
 		<filename>display.class.php</filename>
 		<filename>templateDetails.xml</filename>
+		<filename>css/template.css</filename>
+		<filename>html/item.php</filename>
+		<filename>html/gallery.php</filename>
 	</files>
 </mosinstall>

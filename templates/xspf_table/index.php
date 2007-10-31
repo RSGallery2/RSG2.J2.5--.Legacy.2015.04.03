@@ -22,11 +22,7 @@ require_once( $templatePath . DS . 'display.class.php');
 $rsgDisplay = new rsgDisplay_xspf_table();
 
 global $mosConfig_live_site;
-$template_dir = "$mosConfig_live_site/components/com_rsgallery2/templates/". $rsgConfig->get('template');
-
-//Load overlib routine for Tooltips
-mosCommonHTML::loadOverlib();
-
+$template_dir = "$mosConfig_live_site/components/com_rsgallery2/templates/xspf_table";
 
 //include page navigation
 require_once(JPATH_ROOT.'/includes/pageNavigation.php');
@@ -34,9 +30,12 @@ require_once(JPATH_ROOT.'/includes/pageNavigation.php');
 $rsgDisplay->metadata();
 // append to Joomla's pathway
 $rsgDisplay->showRSPathWay();
+
+$doc =& JFActory::getDocument();
+$doc->addStyleSheet($template_dir."/css/template.css","text/css");
+
 ?>
-<link href="<?php echo $template_dir ?>/css/xspf_semantic.css" rel="stylesheet" type="text/css" />
-<div class="xspf_semantic">
+<div class="rsg2_xspf">
 <?php   
 	// show the main page being requested
 	$rsgDisplay->mainPage();
