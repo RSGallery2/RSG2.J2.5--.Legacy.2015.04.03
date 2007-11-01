@@ -60,9 +60,10 @@ class rsgDisplay_semantic extends rsgDisplay{
 	***************************/
 	
 	function _showGalleryDetails( $kid ) {
-		global $rsgConfig;
+		global $rsgConfig, $Itemid;
 		?>
 		<div class="rsg_gallery_details"><div class="rsg2_details">
+		<a href='<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;page=slideshow&amp;gid=".$kid->get('id')."&amp;Itemid=".$Itemid); ?>'><?php echo _RSGALLERY_SLIDESHOW; ?></a><br />
 		<?php echo _RSGALLERY_TMPL_GAL_DETAILS_OWNER." "; echo $kid->owner;?><br />
 		<?php echo _RSGALLERY_TMPL_GAL_DETAILS_SIZE." "; echo galleryUtils::getFileCount($kid->get('id')). _RSGALLERY_IMAGES;?><br />
 		<?php echo _RSGALLERY_TMPL_GAL_DETAILS_DATE." "; echo mosFormatDate( $kid->date,"%d-%m-%Y" );?><br />
