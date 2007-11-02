@@ -188,14 +188,9 @@ class menuRSGallery {
     
     function image_batchUpload()
         {
-        mosMenuBar::startTable();
-        mosMenuBar::custom('batchupload','next_f2.png','next_f2.png',_RSGALLERY_TOOL_NEXT, false);
-        //mosMenuBar::save('save_image');
-        //mosMenuBar::cancel();
-        //mosMenuBar::back();
-        mosMenuBar::spacer();
+/*        mosMenuBar::startTable();
         mosMenuBar::help('screen.rsgallery2', true);
-        mosMenuBar::endTable();
+        mosMenuBar::endTable();*/
         }
     
     function image_upload()
