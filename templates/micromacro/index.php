@@ -17,7 +17,6 @@ $rsgDisplay = new rsgDisplay_microMacro();
 
 global $mosConfig_live_site;
 $template_dir = "$mosConfig_live_site/components/com_rsgallery2/templates/micromacro";
-$lightbox_dir = "$mosConfig_live_site/components/com_rsgallery2/lib/lightbox_plus";
 
 $rsgDisplay->metadata();
 // append to Joomla's pathway
@@ -25,22 +24,27 @@ $rsgDisplay->showRSPathWay();
 
 //Load overlib routine for Tooltips
 mosCommonHTML::loadOverlib();
-?>
-<script language="Javascript">
+
+$doc =& JFActory::getDocument();
+
+$doc->addStyleSheet($template_dir."/css/lightbox.css","text/css");
+$doc->addStyleSheet($template_dir."/css/template.css","text/css");
+
+$doc->addScript( $template_dir."/js/prototype.js" );
+$doc->addScript( $template_dir."/js/scriptaculous.js?load=effects" );
+$doc->addScript( $template_dir."/js/lightbox.js" );
+
+$specOverlib = <<<EOD
 function showInfo(name, title, description, src) {
 		var html=name;
-		html = '<div class="popup"><img src="'+src+'" /><div>'+title+'</div></div>';
+		html = '<img src="'+src+'" class="popup2" />';
 // 		return overlib(html, CAPTION, title);
 		return overlib(html, FULLHTML);
 }
-</script>
+EOD;
 
-<?php // lightbox_plus popup image display ?>
-<link href="<?php echo $lightbox_dir; ?>/lightbox.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<?php echo $lightbox_dir; ?>/spica.js"></script>
-<script type="text/javascript" src="<?php echo $lightbox_dir; ?>/lightbox_plus.js"></script>
-
-<link href="<?php echo $template_dir; ?>/css/template.css" rel="stylesheet" type="text/css" />
+$doc->addScriptDeclaration( $specOverlib );
+?>
 
 <div id='rsg2'>
 	<?php $rsgDisplay->mainPage(); ?>

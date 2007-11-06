@@ -12,18 +12,37 @@ class rsgDisplay_microMacro extends rsgDisplay{
 		$this->printGallery( $this->gallery );
 	}
 	
-	function printGallery( $g ){
-		$name = $g->name;
-		$description = $g->description;
+	function getGalleryThumbHTML( $g ){
+		$gid = $g->id;
+		if( $gid == 0 )
+			return;
 		
 		$galleryThumb = $g->thumb();
-		if( $galleryThumb ){
-			$galleryThumb = $galleryThumb->thumb();
-			$galleryThumb = "<img src='".$galleryThumb->url()."' class='galleryThumb' />";
-		}
-		if( $g->id == 0 )
-			$galleryThumb = '';
 		
+		if( !$galleryThumb )
+			return;
+		
+		if( $galleryThumb->type != 'image' )
+			return;
+		
+		$galleryDisplay = $galleryThumb->display();
+		$galleryThumb = $galleryThumb->thumb();
+		$galleryThumbURL = $galleryThumb->url();
+
+		return <<<EOD
+<a class='galleryThumb' target='_blank' href='/index2.php?option=com_rsgallery2&rsgTemplate=slideshowone&gid=$gid'>
+	<img src='$galleryThumbURL' />
+	<div class='slideshowlink'>slideshow</div>
+</a>
+EOD;
+	}
+	
+	function printGallery( $g ){
+		$name = stripslashes($g->name);
+		$description = $g->description;
+		$gid = $g->id;
+		
+		$galleryThumb = $this->getGalleryThumbHTML( $g );
 		echo <<<EOD
 <div>
 <h2>$name</h2>
@@ -31,9 +50,16 @@ class rsgDisplay_microMacro extends rsgDisplay{
 $galleryThumb
 <ul class='thumbs'>
 EOD;
+
+		if( $g->itemCount() > 1 )
 		foreach( $g->items() as $item ):
+			if( $item->type != 'image' )
+				continue;
 			$thumb = $item->thumb();
 			$thumb = $thumb->url();
+			
+			$display = $item->display();
+			$display = $display->url();
 			
 			$original = $item->original();
 			$original = $original->url();
@@ -44,7 +70,7 @@ EOD;
 			// if you want to add the alt param, here it is: alt='$name'
 			echo <<<EOD
 <li>
-	<a href="$original" rel="lightbox" title='$title<br/>$descr' onmouseover="showInfo('$title', '$title', '$title', '$thumb')" onmouseout="return nd();">
+	<a href="$display" rel="lightbox[$gid]" title='$title' onmouseover="showInfo('$title', '$title', '$title', '$thumb')" onmouseout="return nd();">
 		<img src='$thumb' width='20' height='20' />
 	</a>
 </li>
