@@ -1,15 +1,16 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<mosinstall version="1.0.0" type="mambot" group="content">
-	<name>RSG2 Display</name>
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="content">
+	<name>RSGallery2 Display</name>
 	<author>Jonathan DeLaigle</author>
-	<creationDate>May 20007</creationDate>
-	<copyright>(C) 2007 Morris DigitalWorks. All rights reserved.</copyright>
-	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-	<authorUrl>morrisdigitalworks.com</authorUrl>
-	<version>0.1.2</version>
+	<creationDate>November 2007</creationDate>
+	<copyright>(C) 2007 Ground Level Solutions. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail></authorEmail>
+	<authorUrl>www.groundlevelsolutions.us</authorUrl>
+	<version>0.2.0</version>
 	<description>Usage: {rsg2_display: GID, Template}</description>
 	<files>
-		<filename mambot="plg_rsg2_display">plg_rsg2_display.php</filename>
+		<filename plugin="plg_rsg2_display">plg_rsg2_display.php</filename>
 	</files>
 	<params/>
-</mosinstall>
+</install>
