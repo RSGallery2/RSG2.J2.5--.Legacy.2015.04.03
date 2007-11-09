@@ -669,49 +669,49 @@ function batch_uploadX( $option ) {
  */
  
 function batch_upload($option) {
-    global $database, $mosConfig_live_site, $rsgConfig;
-    $FTP_path = $rsgConfig->get('ftp_path');
-
-    //Retrieve data from submit form
-    $batchmethod = rsgInstance::getVar('batchmethod'  , null);
-    $uploaded = rsgInstance::getVar('uploaded'  , null);
-    $selcat = rsgInstance::getInt('selcat'  , null);
-    $zip_file = rsgInstance::getVar('zip_file'  , null, 'FILES');
-    $ftppath = rsgInstance::getVar('ftppath'  , null);
-    $xcat = rsgInstance::getInt('xcat'  , null);
-    
-    //Check if a gallery exists, if not link to gallery creation
-    $database->setQuery( "SELECT id FROM #__rsgallery2_galleries" );
-    $database->query();
-    if( $database->getNumRows()==0 ){
-        HTML_RSGALLERY::requestCatCreation( );
-        return;
-    }
-    
-    //New instance of fileHandler
-    $uploadfile = new fileHandler();
-    
-    if (isset($uploaded)) {
-        if ($batchmethod == "zip") {
-        	//Check if file is really a ZIP-file
-    		if (!eregi( '.zip$', $zip_file['name'] )) {
-    			mosRedirect( "index2.php?option=com_rsgallery2&task=batchupload", $zip_file['name']._RSGALLERY_BACTCH_NOT_VALID_ZIP);
-    		} else {
-    			//Valid ZIP-file, continue
-	            if ($uploadfile->checkSize($zip_file) == 1) {
-	                $ziplist = $uploadfile->handleZIP($zip_file);
-	            } else {
-	                //Error message
-	                mosRedirect( "index2.php?option=com_rsgallery2&task=batchupload", _RSGALLERY_ZIP_TO_BIG);
-	            }
-    		}
-        } else {
-            $ziplist = $uploadfile->handleFTP($ftppath);
-        }
-        HTML_RSGALLERY::batch_upload_2($ziplist, $uploadfile->extractDir);
-    } else {
-        HTML_RSGALLERY::batch_upload($option);
-    }
+	global $database, $mosConfig_live_site, $rsgConfig;
+	$FTP_path = $rsgConfig->get('ftp_path');
+	
+	//Retrieve data from submit form
+	$batchmethod = rsgInstance::getVar('batchmethod'  , null);
+	$uploaded = rsgInstance::getVar('uploaded'  , null);
+	$selcat = rsgInstance::getInt('selcat'  , null);
+	$zip_file = rsgInstance::getVar('zip_file'  , null, 'FILES');
+	$ftppath = rsgInstance::getVar('ftppath'  , null);
+	$xcat = rsgInstance::getInt('xcat'  , null);
+	
+	//Check if a gallery exists, if not link to gallery creation
+	$database->setQuery( "SELECT id FROM #__rsgallery2_galleries" );
+	$database->query();
+	if( $database->getNumRows()==0 ){
+		HTML_RSGALLERY::requestCatCreation( );
+		return;
+	}
+	
+	//New instance of fileHandler
+	$uploadfile = new fileHandler();
+	
+	if (isset($uploaded)) {
+		if ($batchmethod == "zip") {
+			//Check if file is really a ZIP-file
+			if (!eregi( '.zip$', $zip_file['name'] )) {
+				mosRedirect( "index2.php?option=com_rsgallery2&task=batchupload", $zip_file['name']._RSGALLERY_BACTCH_NOT_VALID_ZIP);
+			} else {
+				//Valid ZIP-file, continue
+				if ($uploadfile->checkSize($zip_file) == 1) {
+					$ziplist = $uploadfile->handleZIP($zip_file);
+				} else {
+					//Error message
+					mosRedirect( "index2.php?option=com_rsgallery2&task=batchupload", _RSGALLERY_ZIP_TO_BIG);
+				}
+			}
+		} else {
+			$ziplist = $uploadfile->handleFTP($ftppath);
+		}
+		HTML_RSGALLERY::batch_upload_2($ziplist, $uploadfile->extractDir);
+	} else {
+		HTML_RSGALLERY::batch_upload($option);
+	}
 }//End function
 
 function consolidateDbInform($option){

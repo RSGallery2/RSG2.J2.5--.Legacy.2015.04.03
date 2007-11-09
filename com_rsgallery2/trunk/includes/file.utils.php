@@ -13,7 +13,11 @@ require_once(JPATH_RSGALLERY2_ADMIN.'/includes/mimetype.php');
 require_once(JPATH_ROOT.'/includes/PEAR/PEAR.php');
 
 //Load Joomla filesystem class
+jimport('joomla.base.tree');
+jimport('joomla.filesystem.folder');
+jimport('joomla.filesystem.file');
 jimport('joomla.filesystem.*');
+
 
 /**
  * simple error class

@@ -586,23 +586,11 @@ class HTML_RSGALLERY{
         $xcat = rsgInstance::getInt('xcat'  , null);
         $batchmethod = rsgInstance::getVar('batchmethod'  , null);
         ?>
-                <script>
-                function submitbutton(pressbutton){
-                    if (pressbutton != 'cancel'){
-                        submitform( pressbutton );
-                        return;
-                    } else {
-                        window.history.go(-1);
-                        return;
-                    }
-                }
-                </script>
-
+        <form action="index2.php" method="post" name="adminForm">
         <table class="adminform">
         <tr>
             <th colspan="5" class="sectionname"><font size="4"><?php echo _RSGALLERY_BATCH_STEP2;?></font></th>
         </tr>
-        <form name="adminForm" method="post" action="index2.php?option=com_rsgallery2&task=save_batchupload">
         <tr>
         <?php
 		
@@ -675,12 +663,15 @@ class HTML_RSGALLERY{
                 }
             }
             ?>
-            <input type="hidden" name="teller" value="<?php echo $i;?>" />
-            <input type="hidden" name="extractdir" value="<?php echo $extractDir;?>" />
-            <tr>
-                <td colspan="5" align="center"><br /><br /><div align="center"><input type="submit" name="submit" value="<?php echo _RSGALLERY_BATCH_UPLOAD?>" /></div></td>
-            </tr>
-            </table></form>
+			</table>
+
+			<input type="hidden" name="teller" value="<?php echo $i;?>" />
+			<input type="hidden" name="extractdir" value="<?php echo $extractDir;?>" />
+
+			<input type="hidden" name="option" value="com_rsgallery2" />
+			<input type="hidden" name="task" value="save_batchupload" />
+
+			</form>
         <?php
         }
 
