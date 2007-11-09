@@ -183,8 +183,12 @@ function zoom(dim1, dim2){
         document.images["stage"].height  = oH;
     }
 }
-// -->
 
+// start slideshow right away
+
+t = setTimeout("runSS(" + f.currSlide.value + ")", f.delay.value * 1000);
+
+// -->
 </script>
 
 </div>

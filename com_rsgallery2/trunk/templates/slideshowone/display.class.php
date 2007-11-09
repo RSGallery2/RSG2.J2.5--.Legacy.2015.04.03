@@ -26,11 +26,6 @@ class rsgDisplay_slideshowone extends rsgDisplay{
 
 			$display = $item->display();
 
-			if ($k == 0){
-				$name = $row->name;
-			}
-			$name = imgUtils::getImgNameDisplay($row->name);
-			$id = $row->id;
 			$text .= "SLIDES[".$k."] = ['". $display->url() ."', '{$item->title}'];\n";
 			$k++;
 		}
