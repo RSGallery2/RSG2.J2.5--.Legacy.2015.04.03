@@ -26,7 +26,7 @@ class rsgDisplay_superclean extends rsgDisplay{
 			$descr = $item['descr'];
 			
 			echo <<<EOD
-<a href="$original" rel="lightbox" title='$name' onmouseover="showInfo('$name', '$name', '$name', '$thumb')" onmouseout="return nd();">
+<a href="$original" rel="lightbox" title='$name<br/>$descr' onmouseover="showInfo('$name', '$name', '$name', '$thumb')" onmouseout="return nd();">
 	<img src='$thumb' />
 </a>
 EOD;

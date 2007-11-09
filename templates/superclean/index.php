@@ -25,23 +25,28 @@ $rsgDisplay->showRSPathWay();
 
 //Load overlib routine for Tooltips
 mosCommonHTML::loadOverlib();
-?>
-<script language="Javascript">
+
+$doc =& JFActory::getDocument();
+
+$doc->addStyleSheet($template_dir."/css/template.css","text/css");
+$doc->addStyleSheet($lightbox_dir."/lightbox.css","text/css");
+
+$doc->addScript( $lightbox_dir."/spica.js" );
+$doc->addScript( $lightbox_dir."/lightbox_plus.js" );
+
+$specOverlib = <<<EOD
 function showInfo(name, title, description, src) {
 		var html=name;
 		html = '<div class="popup"><img src="'+src+'" /><div>'+title+'</div></div>';
 // 		return overlib(html, CAPTION, title);
 		return overlib(html, FULLHTML);
 }
-</script>
+EOD;
 
-<?php // lightbox_plus popup image display ?>
-<link href="<?php echo $lightbox_dir; ?>/lightbox.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<?php echo $lightbox_dir; ?>/spica.js"></script>
-<script type="text/javascript" src="<?php echo $lightbox_dir; ?>/lightbox_plus.js"></script>
-
-<link href="<?php echo $template_dir; ?>/css/template.css" rel="stylesheet" type="text/css" />
+$doc->addScriptDeclaration( $specOverlib );
+?>
 
 <div class='rsg2'>
 	<?php $rsgDisplay->mainPage(); ?>
+	<div style="clear: left;"></div>
 </div>
