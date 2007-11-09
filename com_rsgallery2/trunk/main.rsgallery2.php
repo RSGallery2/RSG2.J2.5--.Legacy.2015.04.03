@@ -26,7 +26,7 @@ function template(){
 	if( !file_exists( $templateLocation ))
 		JError::raiseError( '', "Template $template does not exist." );
 	else
-		require_once( $templateLocation );
+		require( $templateLocation );
 }
 
 function xmlFile(){
