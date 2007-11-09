@@ -11,6 +11,6 @@
 	<files>
 		<filename>index.php</filename>
 		<filename>display.class.php</filename>
-		<filename>templateDetails.css</filename>
+		<filename>templateDetails.xml</filename>
 	</files>
 </mosinstall>
