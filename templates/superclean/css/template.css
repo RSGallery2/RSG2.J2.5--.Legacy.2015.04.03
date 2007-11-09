@@ -1,15 +1,15 @@
-#rsg2{
+.rsg2{
 	margin: auto;
 	padding: 2px;
 }
 
 
-#rsg2 a{
+.rsg2 a{
 	display: block;
 	float: left;
 	
 	margin: 7px;
 }
-#rsg2 a img{
+.rsg2 a img{
 	border: none;
 }

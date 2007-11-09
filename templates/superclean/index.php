@@ -10,13 +10,13 @@
 defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 
 // bring in display code
-$templatePath = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'superClean';
+$templatePath = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'superclean';
 require_once( $templatePath . DS . 'display.class.php');
 
-$rsgDisplay = new rsgDisplay_superClean();
+$rsgDisplay = new rsgDisplay_superclean();
 
 global $mosConfig_live_site;
-$template_dir = "$mosConfig_live_site/components/com_rsgallery2/templates/superClean";
+$template_dir = "$mosConfig_live_site/components/com_rsgallery2/templates/superclean";
 $lightbox_dir = "$mosConfig_live_site/components/com_rsgallery2/lib/lightbox_plus";
 
 $rsgDisplay->metadata();
@@ -42,6 +42,6 @@ function showInfo(name, title, description, src) {
 
 <link href="<?php echo $template_dir; ?>/css/template.css" rel="stylesheet" type="text/css" />
 
-<div id='rsg2'>
+<div class='rsg2'>
 	<?php $rsgDisplay->mainPage(); ?>
 </div>

@@ -7,7 +7,7 @@
  */
 defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 
-class rsgDisplay_superClean extends rsgDisplay{
+class rsgDisplay_superclean extends rsgDisplay{
 	function mainPage(){
 		echo '<div id="rsg2">';
 		$this->showThumbs( $this->gallery );
