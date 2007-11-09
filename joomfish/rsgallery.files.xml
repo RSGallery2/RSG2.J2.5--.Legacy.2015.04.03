@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<joomfish type="contentelement">
+  <name>RSGalleryFiles</name>
+  <author>Geraint Edwards</author>
+  <version>1.0</version>
+  <description>Definition for RS Gallery Files</description>
+  <reference>
+  	<table name="rsgallery2_files">
+  		<field type="referenceid" name="id" translate="0">ID</field>
+		<field type="titletext" name="title" translate="1">Title</field>
+		<field type="textarea" name="descr" translate="1">Description</field>
+  	</table>
+  </reference>
+</joomfish>
