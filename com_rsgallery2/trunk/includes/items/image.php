@@ -66,9 +66,9 @@ class rsgItem_image extends rsgItem{
 	function _determineResources(){
 		global $rsgConfig;
 		
-		$thumb = $rsgConfig->get('imgPath_thumb') . DS . imgUtils::getImgNameThumb( $this->name );
-		$display = $rsgConfig->get('imgPath_display') . DS . imgUtils::getImgNameDisplay( $this->name );
-		$original = $rsgConfig->get('imgPath_original') . DS . $this->name;
+		$thumb = $rsgConfig->get('imgPath_thumb') ."/" . imgUtils::getImgNameThumb( $this->name );
+		$display = $rsgConfig->get('imgPath_display') . "/" . imgUtils::getImgNameDisplay( $this->name );
+		$original = $rsgConfig->get('imgPath_original') . "/" . $this->name;
 		
 		if( file_exists( JPATH_ROOT . $original )){
 			// original image exists

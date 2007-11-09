@@ -15,7 +15,7 @@ defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 class rsgDisplay_semantic extends rsgDisplay{
 
 	function inline(){
-		$this->display( 'inline.php' );;
+		$this->display( 'inline.php' );
 	}
 
 	/**
