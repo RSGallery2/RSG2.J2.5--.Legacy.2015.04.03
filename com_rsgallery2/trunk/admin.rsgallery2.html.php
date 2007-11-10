@@ -623,7 +623,7 @@ class HTML_RSGALLERY{
                         <td colspan="2" align="right"><?php echo _RSGALLERY_BATCH_DELETE;?> #<?php echo $i - 1;?>: <input type="checkbox" name="delete[<?php echo $i - 1;?>]" value="true" /></td>
                     </tr>
                     <tr>
-                        <td align="center" colspan="2"><img src="<?php echo $mosConfig_live_site. DS . "media" . DS . $extractDir . DS . $filename;?>" alt="" border="1" width="100" align="center" /></td>
+                        <td align="center" colspan="2"><img src="<?php echo $mosConfig_live_site . "/media/" . $extractDir . "/" . $filename;?>" alt="" border="1" width="100" align="center" /></td>
                     </tr>
                     <input type="hidden" value="<?php echo $filename;?>" name="filename[]" />
                     <tr>
