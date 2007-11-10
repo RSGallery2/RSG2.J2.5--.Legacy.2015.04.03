@@ -58,17 +58,47 @@ class rsgDisplay_semantic extends rsgDisplay{
     /***************************
 		non page public functions
 	***************************/
-	
+	/**
+	 * Shows the gallery details block when set in the backend
+	 */
 	function _showGalleryDetails( $kid ) {
 		global $rsgConfig, $Itemid;
-		?>
-		<div class="rsg_gallery_details"><div class="rsg2_details">
-		<a href='<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;page=slideshow&amp;gid=".$kid->get('id')."&amp;Itemid=".$Itemid); ?>'><?php echo _RSGALLERY_SLIDESHOW; ?></a><br />
-		<?php echo _RSGALLERY_TMPL_GAL_DETAILS_OWNER." "; echo $kid->owner;?><br />
-		<?php echo _RSGALLERY_TMPL_GAL_DETAILS_SIZE." "; echo galleryUtils::getFileCount($kid->get('id')). _RSGALLERY_IMAGES;?><br />
-		<?php echo _RSGALLERY_TMPL_GAL_DETAILS_DATE." "; echo mosFormatDate( $kid->date,"%d-%m-%Y" );?><br />
-		</div></div>
-		<?php
+		$slideshow 	= $rsgConfig->get('displaySlideshow');
+		$owner 		= $rsgConfig->get('showGalleryOwner');
+		$size 		= $rsgConfig->get('showGallerySize');
+		$date 		= $rsgConfig->get('showGalleryDate');
+		
+		//Check if items need to be shown
+		if ( ($slideshow + $owner + $size + $date) > 0 ) {
+			?>
+			<div class="rsg_gallery_details">
+			<div class="rsg2_details">
+			<?php
+			if ($slideshow) {
+				?>
+				<a href='<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;page=slideshow&amp;gid=".$kid->get('id')."&amp;Itemid=".$Itemid); ?>'><?php echo _RSGALLERY_SLIDESHOW; ?></a><br />
+				<?php
+			}
+			
+			if ($owner) {
+				echo _RSGALLERY_TMPL_GAL_DETAILS_OWNER." "; echo $kid->owner;?><br />
+				<?php
+			} 
+			
+			if ($size) {
+				echo _RSGALLERY_TMPL_GAL_DETAILS_SIZE." "; echo galleryUtils::getFileCount($kid->get('id')). _RSGALLERY_IMAGES;?><br />
+			<?php
+			}
+			
+			if ($date) {
+				echo _RSGALLERY_TMPL_GAL_DETAILS_DATE." "; echo mosFormatDate( $kid->date,"%d-%m-%Y" );?><br />
+				<?php
+			}
+			?>
+			</div>
+			</div>
+			<?php
+		}
 	}
     
     /***************************

@@ -2,6 +2,12 @@
 div.intro_text {
 	
 }
+/* Style gallery details block here */
+.rsg2_details {
+	font-size: smaller;
+	font-weight: bold;
+	color: silver;
+}
 
 /* Style My Galleries link on frontpage */
 div.rsg2-mygalleries {

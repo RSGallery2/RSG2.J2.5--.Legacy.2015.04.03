@@ -56,13 +56,16 @@ class rsgConfig {
 	var $displayVoting	            = 1;
 	var $displayComments	        = 1;
 	var $displayEXIF		        = 1;
-	var $displaySlideshow 			= true;
+	var $displaySlideshow 			= 1;
 	var $displayDownload			= true;
 	var $displayPopup				= 1; //0 = Off; 1 = Normal; 2 = Fancy;
 	var $displayStatus				= 1;
 	var $dispLimitbox				= 1; //0 = never; 1 = If more galleries then limit; 2 = always
 	var $galcountNrs				= 5;
 	var $template					= 'semantic';
+	var $showGalleryOwner			= 1;
+	var $showGallerySize			= 1;
+	var $showGalleryDate			= 1;
 	/* var $gallery_sort_order			= 'order_id';*/ //'order_id' = ordering by DB ordering field; 'desc' = Last uploaded first; 'asc' = Last uploaded last
 
     // user uploads
