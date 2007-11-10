@@ -392,15 +392,15 @@ class html_rsg2_config{
 						<td><?php echo mosHTML::yesnoRadioList('displaySlideshow', '', $config->displaySlideshow)?></td>
 					</tr>
 					<tr>
-						<td><?php echo "** Display Owner information **"; ?></td>
+						<td><?php echo _RSGALLERY_C_TMPL_DISP_OWNER; ?></td>
 						<td><?php echo mosHTML::yesnoRadioList('showGalleryOwner', '', $config->showGalleryOwner)?></td>
 					</tr>
 					<tr>
-						<td><?php echo "** Display number of items in gallery **";?></td>
+						<td><?php echo _RSGALLERY_C_TMPL_DISP_ITEMS;?></td>
 						<td><?php echo mosHTML::yesnoRadioList('showGallerySize', '', $config->showGallerySize)?></td>
 					</tr>
 					<tr>
-						<td><?php echo "** Display created date **";?></td>
+						<td><?php echo _RSGALLERY_C_TMPL_DISP_DATE;?></td>
 						<td><?php echo mosHTML::yesnoRadioList('showGalleryDate', '', $config->showGalleryDate)?></td>
 					</tr>
 					</table>
