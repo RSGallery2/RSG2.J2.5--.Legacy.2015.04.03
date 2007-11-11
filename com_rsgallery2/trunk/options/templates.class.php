@@ -95,6 +95,6 @@ class rsgInstallerTemplate extends mosInstallerRSG2 {
 	* return to method
 	*/
 	function returnTo( $option ) {
-		return "index2.php?option=com_rsgallery2&task=templates";
+		return "index2.php?option=com_rsgallery2&rsgOption=templates";
 	}
 }

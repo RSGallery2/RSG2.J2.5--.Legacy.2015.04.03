@@ -156,7 +156,7 @@ function viewTemplates( $option ) {
 	$userfile 	= rsgInstance::getVar('userfile', dirname( __FILE__ ) );
 	$userfile 	= mosPathName( $userfile );
 	
-	//HTML_RSGallery::showInstallForm( _RSGALLERY_TPL_INST, $option, $userfile, '<a href="index2.php?option=com_rsgallery2&task=templates">Back to Templates</a>');
+	//HTML_RSGallery::showInstallForm( _RSGALLERY_TPL_INST, $option, $userfile, '<a href="index2.php?option=com_rsgallery2&rsgOption=templates">Back to Templates</a>');
 	//Back to templates not necessary right? (daniel)
 	HTML_RSGallery::showInstallForm( _RSGALLERY_TPL_INST, $option, $userfile);
 	html_rsg2_templates::showTemplates( $rows, $pageNav, $option );
@@ -275,7 +275,7 @@ function removeTemplate( $option ) {
 
 		editTemplateMainSource( $content, $option, $template);
 	} else {
-		mosRedirect( 'index2.php?option='. $option.'&task=templates', _RSGALLERY_EDITCSS_FAIL_NOOPEN. $template_path );
+		mosRedirect( 'index2.php?option='. $option.'&rsgOption=templates', _RSGALLERY_EDITCSS_FAIL_NOOPEN. $template_path );
 	}
 }
 
@@ -284,7 +284,7 @@ function saveTemplateMain( $option, $template) {
 	global $mosConfig_absolute_path;
 	$filecontent 	= rsgInstance::getVar('filecontent', '', _MOS_ALLOWHTML );
 	if ( !$filecontent ) {
-		mosRedirect( 'index2.php?option='. $option .'&task=templates'.'&client='. $client, 'Operation failed: Content empty.' );
+		mosRedirect( 'index2.php?option='. $option .'&rsgOption=templates'.'&client='. $client, 'Operation failed: Content empty.' );
 	}
 
 	$main_file = JPATH_RSGALLERY2_SITE.'/templates/' . $template . '/index.php';
@@ -296,7 +296,7 @@ function saveTemplateMain( $option, $template) {
 
 	clearstatcache();
 	if ( is_writable( $main_file ) == false ) {
-		mosRedirect( 'index2.php?option='. $option .'&task=templates', 'Operation failed: '. $main_file .' is not writable.' );
+		mosRedirect( 'index2.php?option='. $option .'&rsgOption=templates', 'Operation failed: '. $main_file .' is not writable.' );
 	}
 
 	if ( $fp = fopen ($main_file, 'w' ) ) {
@@ -308,10 +308,10 @@ function saveTemplateMain( $option, $template) {
 			if (rsgInstance::getVar('disable_write',0))
 				@chmod($main_file, $oldperms & 0777555);
 		} // if
-		mosRedirect( 'index2.php?option='. $option .'&task=templates', 'Changes to main view of '. $template .' template saved.' );
+		mosRedirect( 'index2.php?option='. $option .'&rsgOption=templates', 'Changes to main view of '. $template .' template saved.' );
 	} else {
 		if ($enable_write) @chmod($main_file, $oldperms);
-		mosRedirect( 'index2.php?option='. $option .'&task=templates', 'Operation failed: Failed to open file for writing.' );
+		mosRedirect( 'index2.php?option='. $option .'&rsgOption=templates', 'Operation failed: Failed to open file for writing.' );
 	}
 
 }
@@ -382,7 +382,7 @@ function editTemplateMainSource($content, $option, $template) {
 
 		editTemplateThumbsSource( $content, $option, $template);
 	} else {
-		mosRedirect( 'index2.php?option='. $option.'&task=templates', _RSGALLERY_EDITCSS_FAIL_NOOPEN. $template_path );
+		mosRedirect( 'index2.php?option='. $option.'&rsgOption=templates', _RSGALLERY_EDITCSS_FAIL_NOOPEN. $template_path );
 	}
 }
 
@@ -391,7 +391,7 @@ function saveTemplateThumbs( $option, $template) {
 	global $mosConfig_absolute_path;
 	$filecontent 	= rsgInstance::getVar( 'filecontent', '', _MOS_ALLOWHTML );
 	if ( !$filecontent ) {
-		mosRedirect( 'index2.php?option='. $option .'&task=templates'.'&client='. $client, 'Operation failed: Content empty.' );
+		mosRedirect( 'index2.php?option='. $option .'&rsgOption=templates'.'&client='. $client, 'Operation failed: Content empty.' );
 	}
 
 	$thumbs_file = JPATH_RSGALLERY2_SITE.'/templates/' . $template . '/thumbs.php';
@@ -403,7 +403,7 @@ function saveTemplateThumbs( $option, $template) {
 
 	clearstatcache();
 	if ( is_writable( $thumbs_file ) == false ) {
-		mosRedirect( 'index2.php?option='. $option .'&task=templates', 'Operation failed: '. $thumbs_file .' is not writable.' );
+		mosRedirect( 'index2.php?option='. $option .'&rsgOption=templates', 'Operation failed: '. $thumbs_file .' is not writable.' );
 	}
 
 	if ( $fp = fopen ($thumbs_file, 'w' ) ) {
@@ -415,10 +415,10 @@ function saveTemplateThumbs( $option, $template) {
 			if (rsgInstance::getVar('disable_write',0))
 				@chmod($thumbs_file, $oldperms & 0777555);
 		} // if
-		mosRedirect( 'index2.php?option='. $option .'&task=templates', 'Changes to display view of '. $template .' template saved.' );
+		mosRedirect( 'index2.php?option='. $option .'&rsgOption=templates', 'Changes to display view of '. $template .' template saved.' );
 	} else {
 		if ($enable_write) @chmod($thumbs_file, $oldperms);
-		mosRedirect( 'index2.php?option='. $option .'&task=templates', 'Operation failed: Failed to open file for writing.' );
+		mosRedirect( 'index2.php?option='. $option .'&rsgOption=templates', 'Operation failed: Failed to open file for writing.' );
 	}
 
 }
@@ -487,7 +487,7 @@ function editTemplateThumbsSource($content, $option, $template) {
 
 		editTemplateDisplaySource( $content, $option, $template);
 	} else {
-		mosRedirect( 'index2.php?option='. $option.'&task=templates', _RSGALLERY_EDITCSS_FAIL_NOOPEN. $template_path );
+		mosRedirect( 'index2.php?option='. $option.'&rsgOption=templates', _RSGALLERY_EDITCSS_FAIL_NOOPEN. $template_path );
 	}
 }
 
@@ -496,7 +496,7 @@ function saveTemplateDisplay( $option, $template) {
 	global $mosConfig_absolute_path;
 	$filecontent 	= rsgInstance::getVar( 'filecontent', '', _MOS_ALLOWHTML );
 	if ( !$filecontent ) {
-		mosRedirect( 'index2.php?option='. $option .'&task=templates'.'&client='. $client, 'Operation failed: Content empty.' );
+		mosRedirect( 'index2.php?option='. $option .'&rsgOption=templates'.'&client='. $client, 'Operation failed: Content empty.' );
 	}
 
 	$display_file = JPATH_RSGALLERY2_SITE.'/templates/' . $template . '/display.class.php';
@@ -508,7 +508,7 @@ function saveTemplateDisplay( $option, $template) {
 
 	clearstatcache();
 	if ( is_writable( $display_file ) == false ) {
-		mosRedirect( 'index2.php?option='. $option .'&task=templates', 'Operation failed: '. $display_file .' is not writable.' );
+		mosRedirect( 'index2.php?option='. $option .'&rsgOption=templates', 'Operation failed: '. $display_file .' is not writable.' );
 	}
 
 	if ( $fp = fopen ($display_file, 'w' ) ) {
@@ -520,10 +520,10 @@ function saveTemplateDisplay( $option, $template) {
 			if (rsgInstance::getVar('disable_write',0))
 				@chmod($display_file, $oldperms & 0777555);
 		} // if
-		mosRedirect( 'index2.php?option='. $option .'&task=templates', 'Changes to display view of '. $template .' template saved.' );
+		mosRedirect( 'index2.php?option='. $option .'&rsgOption=templates', 'Changes to display view of '. $template .' template saved.' );
 	} else {
 		if ($enable_write) @chmod($display_file, $oldperms);
-		mosRedirect( 'index2.php?option='. $option .'&task=templates', 'Operation failed: Failed to open file for writing.' );
+		mosRedirect( 'index2.php?option='. $option .'&rsgOption=templates', 'Operation failed: Failed to open file for writing.' );
 	}
 
 }
@@ -592,7 +592,7 @@ function editTemplateCSS( $option ) {
 
 		editCSSSource( $content, $option, $template);
 	} else {
-		mosRedirect( 'index2.php?option='. $option.'&task=templates', _RSGALLERY_EDITCSS_FAIL_NOOPEN. $file );
+		mosRedirect( 'index2.php?option='. $option.'&rsgOption=templates', _RSGALLERY_EDITCSS_FAIL_NOOPEN. $file );
 	}
 }
 
@@ -601,7 +601,7 @@ function saveTemplateCSS( $option, $template) {
 	$filecontent 	= rsgInstance::getVar( 'filecontent', '' );
 
 	if ( !$filecontent ) {
-		mosRedirect( 'index2.php?option='. $option.'&task=templates', 'Operation failed: Content empty.' );
+		mosRedirect( 'index2.php?option='. $option.'&rsgOption=templates', 'Operation failed: Content empty.' );
 	}
 	$file = JPATH_RSGALLERY2_SITE.'/templates/' . $template . '/css/template.css';
 
@@ -614,7 +614,7 @@ function saveTemplateCSS( $option, $template) {
 
 	clearstatcache();
 	if ( is_writable( $file ) == false ) {
-		mosRedirect( 'index2.php?option='. $option .'&task=templates', _RSGALLERY_EDITCSS_NOT_WRITABLE );
+		mosRedirect( 'index2.php?option='. $option .'&rsgOption=templates', _RSGALLERY_EDITCSS_NOT_WRITABLE );
 	}
 
 	if ($fp = fopen ($file, 'w')) {
@@ -626,10 +626,10 @@ function saveTemplateCSS( $option, $template) {
 			if (rsgInstance::getVar('disable_write',0))
 				@chmod($file, $oldperms & 0777555);
 		} // if
-		mosRedirect( 'index2.php?option='. $option .'&task=templates' );
+		mosRedirect( 'index2.php?option='. $option .'&rsgOption=templates' );
 	} else {
 		if ($enable_write) @chmod($file, $oldperms);
-		mosRedirect( 'index2.php?option='. $option .'&task=templates', _RSGALLERY_EDITCSS_FAIL_NOTWRITING );
+		mosRedirect( 'index2.php?option='. $option .'&rsgOption=templates', _RSGALLERY_EDITCSS_FAIL_NOTWRITING );
 	}
 
 }
