@@ -20,7 +20,10 @@ class menu_rsg2_templates{
 		mosMenuBar::spacer();
 		//mosMenuBar::assign();
 		mosMenuBar::spacer();
-		mosMenuBar::deleteList();
+
+		// deleting isn't working at the moment.  removing button for release.
+// 		mosMenuBar::deleteList();
+
 		mosMenuBar::spacer();/*
 		mosMenuBar::editHtmlX( 'edit_main', 'Main' );
 		mosMenuBar::spacer();
