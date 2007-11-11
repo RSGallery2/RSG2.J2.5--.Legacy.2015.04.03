@@ -17,7 +17,7 @@ require_once( JPATH_ADMINISTRATOR .'/components/com_rsgallery2/options/templates
 * @package RSGallery2
 * @author Ronald Smit <ronald.smit@rsdev.nl>
 */
-class rsgInstallerTemplate extends mosInstaller {
+class rsgInstallerTemplate extends mosInstallerRSG2 {
 	/**
 	* Custom install method
 	* @param boolean True if installing from directory

@@ -21,7 +21,7 @@ defined( '_VALID_MOS' ) or die( 'Restricted access' );
 * @subpackage Installer
 * @abstract
 */
-class mosInstaller {
+class mosInstallerRSG2 {
 	// name of the XML file with installation information
 	var $i_installfilename	= "";
 	var $i_installarchive	= "";
@@ -476,6 +476,7 @@ class mosInstaller {
 	}
 }
 
+if( !function_exists( 'cleanupInstall' ) ){
 function cleanupInstall( $userfile_name, $resultdir) {
 	global $mosConfig_absolute_path;
 
@@ -483,6 +484,7 @@ function cleanupInstall( $userfile_name, $resultdir) {
 		deldir( $resultdir );
 		unlink( mosPathName( $mosConfig_absolute_path . '/media/' . $userfile_name, false ) );
 	}
+}
 }
 
 if( !function_exists( 'deldir' ) ){
