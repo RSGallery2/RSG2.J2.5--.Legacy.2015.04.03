@@ -26,7 +26,7 @@ $_MAMBOTS->registerFunction( 'onSearch', 'botSearchRSGallery2' );
 * @param string ordering option, newest|oldest|popular|alpha|category
 */
 function botSearchRSGallery2( $text, $phrase='', $ordering='' ) {
-	global $database, $my, $mosConfig_live_site;
+	global $database, $my, $mosConfig_live_site, $Itemid;
 	
 	$query = "SELECT * FROM #__rsgallery2_config WHERE `name` = 'imagepath'";
 	$database->setQuery( $query );
@@ -109,7 +109,7 @@ function botSearchRSGallery2( $text, $phrase='', $ordering='' ) {
 		default:
 			$order = 'a.date DESC';
 	}
-	
+
 	$linkurl = $mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline";
 	$link = $mosConfig_live_site."/".$imagedir."";
 	
@@ -117,7 +117,7 @@ function botSearchRSGallery2( $text, $phrase='', $ordering='' ) {
 	. "\n a.descr AS text,"
 	. "\n a.date AS created,"
 	. "\n '0' AS browsernav,"
-	. "\n CONCAT('$linkurl','&id=',a.id,'&catid=',a.gallery_id,'&limitstart=',a.ordering-1) AS href"
+	. "\n CONCAT('$linkurl','&id=',a.id,'&Itemid=','$Itemid',a.ordering-1) AS href"
 	. "\n FROM #__rsgallery2_files AS a"
 	. "\n INNER JOIN #__rsgallery2_galleries"
 	. "\n ON a.gallery_id=#__rsgallery2_galleries.id"
@@ -125,6 +125,7 @@ function botSearchRSGallery2( $text, $phrase='', $ordering='' ) {
 	. "\n AND #__rsgallery2_galleries.published = 1"
 	. "\n ORDER BY $order"
 	;
+
 	$database->setQuery( $query, 0, $limit );
 	
 	$rows = $database->loadObjectList();
