@@ -31,6 +31,12 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+---------------- 1.14.0 alpha -- svn 364 -- 2007-11-12 -------------
+
+2007 Jonah Braun
+ + Significant updates to core functionality.
+ ! Was too lazy to update changelog this release cycle.  Will do better in the future.
+
 2007-10-29 Daniel Tulp
  ^ change script.js to script.php for language constant usage
  + added language constants
@@ -63,6 +69,7 @@ Legend:
  - removed JPATH_RSGALLERY2_TEMPLATE, multiple templates can now be used on the same page.
 
 ---------------- 1.13.1 alpha -- svn 41 -- 2007-05-24 -------------
+
 2007-05-24 Daniel Tulp
  ^ Added language definitions to english.php
  ^ Replaced hardcoded strings with language definitions
