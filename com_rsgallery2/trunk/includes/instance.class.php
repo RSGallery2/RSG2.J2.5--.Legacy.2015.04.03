@@ -75,8 +75,7 @@ class rsgInstance extends JRequest{
 						xmlFile();
 						break;
 					case "downloadfile":
-						$id = rsgInstance::getInt('id' , null);
-						downloadFile($id);
+						downloadFile();
 						break;
 					default:
 						// require the base class rsgDisplay

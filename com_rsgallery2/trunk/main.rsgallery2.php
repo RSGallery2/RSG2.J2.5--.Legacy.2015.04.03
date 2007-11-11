@@ -59,15 +59,11 @@ function downloadFile($id) {
 	//Clean and delete current output buffer 
 	ob_end_clean();
 	
-	//Get filename from image ID
-	$filename = galleryUtils::getFileNameFromId($id);
+	$gallery = rsgGalleryManager::getGalleryByItemID();
+	$item = $gallery->getItem();
+	$original = $item->original();
+	$file = $original->filePath();
 	
-	//Set correct path for image to download
-	if ( $rsgConfig->get('keepOriginalImage') == false ) {
-		$file = JPATH_ROOT.$rsgConfig->get('imgPath_display'). DS .$filename;
-	} else {
-		$file = JPATH_ROOT.$rsgConfig->get('imgPath_original'). DS .$filename;
-	}
 	//Open up the file
 	if ( $fd = fopen($file, "r") ) {
 	    $fsize 		= filesize($file);
