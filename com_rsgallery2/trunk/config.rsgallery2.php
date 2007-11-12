@@ -314,7 +314,7 @@ class galleryUtils {
 	    if ($class != "")
 	    	$imgatt .=" class=\"$class\" ";
 	    else
-	        $imgatt.=" class=\"RSgalthumb\" ";
+	        $imgatt.=" class=\".rsg2-galleryList-thumb\" ";
 	    //If no thumb, show default image.
 	    if ( galleryUtils::getFileCount($catid) == 0 ) {
 	        $thumb_html = "<img $imgatt src=\"".$mosConfig_live_site."/components/com_rsgallery2/images/no_pics.gif\" alt=\"No pictures in gallery\" />";
