@@ -31,11 +31,16 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
----------------- 1.14.0 alpha -- svn 364 -- 2007-11-12 -------------
+---------------- 1.14.0 alpha -- svn 369 -- 2007-11-12 -------------
 
 2007 Jonah Braun
- + Significant updates to core functionality.
- ! Was too lazy to update changelog this release cycle.  Will do better in the future.
+ + Major updates to core functionality
+ ^ Items are generic and no longer assumed as images.  Basic support for MP3 added.
+ + Many objects are now cached resulting in a significant performance boost
+ + Templating is more robust and powerful
+ - Removed and deprecated much legacy funcitonality in favor of the new API
+ ^ Forked J1.5 backport code to the J15Backort project
+ ! Thanks to the many other contributers from the community
 
 2007-10-29 Daniel Tulp
  ^ change script.js to script.php for language constant usage
