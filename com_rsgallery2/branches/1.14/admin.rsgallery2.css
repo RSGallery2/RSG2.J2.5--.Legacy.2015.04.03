@@ -1,0 +1,68 @@
+#rsg2-thisform {
+    background-color: #F7F8F9;
+    border: solid 1px #d5d5d5;
+    padding: 3px;
+/*     width: 98%; */
+/*     border-collapse: collapse; */
+}
+
+table#rsg2-config_rawEdit{
+}
+table#rsg2-config_rawEdit input{
+    width: 200px;
+}
+
+#rsg2-infoTabs{
+    float: right;
+    width: 45%;
+}
+
+div.iconimage img {
+	border: none;
+	}
+#rsg2-credits h3{
+    width: 60%;
+    margin-bottom: .8ex;
+    margin-top: 1ex;
+    border-bottom: 1px solid #c64934;
+}
+#rsg2-credits dt{
+    margin-top: 1.3ex;
+}
+#rsg2-credits dd{
+    margin-top: .3ex;
+}
+#rsg2-credits dd a{
+    margin-left: 1ex;
+    color: #888;
+    font-size: smaller;
+}
+
+#rsg2-cpanelDebug{
+    clear: left;
+}
+#rsg2-cpanelDebug div.icon a{
+    border: 1px dashed #d00;
+}
+
+#cpanel{
+    margin-right: 45%;
+}
+div.main{
+text-align:left;
+}
+.icon{
+/*     float:left; */
+/*     width: 120px; */
+/*     padding: 10px; */
+}
+
+/* utility selectors */
+.rsg2-clr{
+    clear:both;
+    line-height:0px;
+}
+
+.rsg2-footer{
+	font-size: 11px;
+}
