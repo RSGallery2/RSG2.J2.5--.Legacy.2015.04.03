@@ -31,7 +31,7 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
----------------- 1.14.0 alpha -- svn 370 -- 2007-11-12 -------------
+---------------- 1.14.0 alpha -- svn 374 -- 2007-11-12 -------------
 
 2007 Jonah Braun
  + Major updates to core functionality
