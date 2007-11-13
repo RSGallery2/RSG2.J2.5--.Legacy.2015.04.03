@@ -222,10 +222,10 @@ function setDefaultTemplate( $option ) {
 	
 	$cid = rsgInstance::getVar( 'cid', array(0) );
 
-	if ( $rsgConfig->saveConfig($rsgConfig->set("template", $cid[0]) ) ) {
-		$msg = "Active template set succesfully (".$cid[0].")";
+	if ( $rsgConfig->saveConfig($rsgConfig->set("template", $cid) ) ) {
+		$msg = "Active template set succesfully (".$cid.")";
 	} else {
-		$msg = "Active template(".$cid[0].") could not be changed!";
+		$msg = "Active template(".$cid.") could not be changed!";
 	}
 	mosRedirect( "index2.php?option=com_rsgallery2&rsgOption=templates", $msg );
 }
@@ -235,18 +235,15 @@ function setDefaultTemplate( $option ) {
 * @param
 */
 function removeTemplate( $option ) {
-	$cid = rsgInstance::getInt('cid', array(0) );
-	if (!is_array( $cid )) {
-		$cid = array(0);
-	}
-	
+	$cid = rsgInstance::getVar('cid', '' );
+
 	$installer 	= new rsgInstallerTemplate();
 	$result 	= false;
 	//Check if template is not default template
-	if ($cid[0] == 'default') {
+	if ($cid == 'semantic') {
 		$msg = " - Cannot delete default template! ";
 	} else {
-		$result = $installer->uninstall( $cid[0], $option );
+		$result = $installer->uninstall( $cid, $option );
 	}
 
 	$msg .= $installer->getError();

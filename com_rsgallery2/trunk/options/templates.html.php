@@ -104,7 +104,7 @@ class html_rsg2_templates{
 					<?php
 				} else {
 					?>
-					<input type="radio" id="cb<?php echo $i;?>" name="cid[]" value="<?php echo $row->directory; ?>" onClick="isChecked(this.checked);" />
+					<input type="radio" id="cb<?php echo $i;?>" name="cid" value="<?php echo $row->directory; ?>" onClick="isChecked(this.checked);" />
 					<?php
 				}
 				?>
