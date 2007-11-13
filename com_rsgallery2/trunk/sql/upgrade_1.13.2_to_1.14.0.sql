@@ -4,4 +4,4 @@
 
 # template Tables has been deprecated in favor of Semantic
 
-UPDATE TABLE `#__rsgallery2_config` SET `value` = 'semantic' WHERE `name` = 'template';
+UPDATE `#__rsgallery2_config` SET `value` = 'semantic' WHERE `name` = 'template';
