@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <mosinstall type="template">
 	<name>superclean</name>
-	<creationDate>15/02/07</creationDate>
-	<author>Jonah</author>
+	<creationDate>2007</creationDate>
+	<author>Josiah</author>
 	<copyright>Open Source, GPL</copyright>
-	<authorEmail>info@rsgallery2.net</authorEmail>
-	<authorUrl>rsgallery2.net</authorUrl>
-	<version>0.3</version>
+	<authorEmail>info@whalehosting.ca</authorEmail>
+	<authorUrl>whalehosting.ca</authorUrl>
+	<version>0.4</version>
 	<description>Only thumbnails with full image popups.  Galleries one level down from linked gallery are collapsed.  No gallery or image details shown.</description>
 	<files>
 		<filename>index.php</filename>
