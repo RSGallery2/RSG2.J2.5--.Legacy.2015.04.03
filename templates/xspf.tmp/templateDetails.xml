@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="template">
+	<name>xspf</name>
+	<creationDate>June 2007</creationDate>
+	<author>Trinity Web Hosting</author>
+	<copyright>Open Source, GPL</copyright>
+	<authorEmail>info@trinitywebhosting.com</authorEmail>
+	<authorUrl>trinitywebhosting.com</authorUrl>
+	<version>1.0</version>
+	<description></description>
+	<files>
+		<filename>css/template.css</filename>
+		<filename>display.class.php</filename>
+		<filename>html/gallery.php</filename>
+		<filename>html/item.php</filename>
+		<filename>index.php</filename>
+		<filename>templateDetails.xml</filename>
+		<filename>xml.php</filename>
+	</files>
+</mosinstall>
