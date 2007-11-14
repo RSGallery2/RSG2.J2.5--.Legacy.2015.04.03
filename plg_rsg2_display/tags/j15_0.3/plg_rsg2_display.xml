@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="content">
+	<name>RSGallery2 Display</name>
+	<author>Jonathan DeLaigle</author>
+	<creationDate>November 2007</creationDate>
+	<copyright>(C) 2007 Ground Level Solutions. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail></authorEmail>
+	<authorUrl>www.groundlevelsolutions.us</authorUrl>
+	<version>0.3</version>
+	<description>Usage: {rsg2_display: GID, Template}</description>
+	<files>
+		<filename plugin="plg_rsg2_display">plg_rsg2_display.php</filename>
+	</files>
+	<params/>
+</install>
