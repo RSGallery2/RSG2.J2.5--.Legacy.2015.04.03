@@ -282,7 +282,7 @@ class galleryUtils {
 
     // assemble menu items to the array
     $mitems     = array();
-    $mitems[] 	= mosHTML::makeOption( '-1', _RSGALLERY_SELECT_GAL );
+    $mitems[] 	= mosHTML::makeOption( '0', _RSGALLERY_SELECT_GAL );
     //$mitems[] = mosHTML::makeOption( '-1', _RSGALLERY_ALL_GAL );
 
     foreach ( $list as $item ) {
