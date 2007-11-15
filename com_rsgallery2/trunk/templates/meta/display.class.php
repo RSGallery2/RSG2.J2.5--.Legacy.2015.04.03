@@ -8,20 +8,13 @@
  */
 defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 
-
-/**
- * this temporary class holds functions that need to be moved to proper classes
- * but they work here for now, so we'll leave them here
- */
+/*
 class tempDisplay extends JObject{
 	var $gallery;
 	var $items;
 	var $item;
 	var $limitstart;
 
-	/**
-		@todo move this constructor back to rsgDisplay when all functions have been moved out of tempDisplay
-	**/
 	function __construct(){
 		$this->gallery = rsgInstance::getGallery();
 	}
@@ -62,10 +55,6 @@ class tempDisplay extends JObject{
 		return true;
 	}
 	
-	/**
-	* Adds a vote to the database
-	* @todo Make sure everone can only vote once.
-	*/
 	function addVoteX() {
 		global $database, $Itemid;
 	
@@ -117,15 +106,15 @@ class tempDisplay extends JObject{
 			}
 		}
 }// end tempDisplay
-
-class rsgDisplay extends tempDisplay{
+*/
+class rsgDisplay{
+	
+	function __construct(){
+		$this->gallery = rsgInstance::getGallery();
+	}
 	
 	function mainPage(){
-		// if tempDisplay handles this function let it, otherwise continue as regularily scheduled.
-		/*
-		if( parent::mainPage() )
-			return;
-		*/
+
 		$page = rsgInstance::getWord( 'page', '' );
 
 		switch( $page ){
@@ -347,6 +336,157 @@ class rsgDisplay extends tempDisplay{
     	$mainframe->addCustomHeadTag($css);
     	$voting = new rsgVoting();
     	$voting->showVoting();
+    }
+    
+    /**
+     * Shows random images
+     * @todo: Rewrite to work within template system
+     */
+    function showRandom2($rows, $style = "hor") {
+        global $mosConfig_live_site;
+        if ($style == "vert") {
+            ?>
+            <ul id='rsg2-galleryList'>
+                <li class='rsg2-galleryList-item' >
+                    <table class="table_border" cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <td><?php echo _RSGALLERY_RANDOM_TITLE;?></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <?php
+                    foreach($rows as $row) {
+                        $l_start = $row->ordering - 1;
+                        ?>
+                        <tr>
+                        <td align="center">
+                            <div align="center">
+                                <a href="<?php echo sefRelToAbs($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$l_start);?>">
+                                <img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>" />
+                                </a>
+                            </div>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                    </table>
+                </li>
+            </ul>
+            <?php
+        } else {
+            ?>
+            <ul id='rsg2-galleryList'>
+                <li class='rsg2-galleryList-item' >
+                    <table class="table_border" cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <td colspan="3"><?php echo _RSGALLERY_RANDOM_TITLE;?></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <?php
+                        foreach($rows as $row)
+                            {
+                            $l_start = $row->ordering - 1;
+                            ?>
+                            <td align="center">
+                            <div align="center">
+                            <a href="<?php echo sefRelToAbs($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$l_start);?>">
+                            <img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>"  />
+                            </a>
+                            </div>
+                            </td>
+                            <?php
+                            }
+                        ?>
+                    </tr>
+                    <tr>
+                        <td colspan="3">&nbsp;</td>
+                    </tr>
+                    </table>
+                </li>
+            </ul>
+            <?php
+        }
+    }
+    /**
+     * Shows latest images
+     * @todo: Rewrite to work within template system
+     */
+	function showLatest2($rows, $style = "hor") {
+        global $mosConfig_live_site;
+        if ($style == "vert") {
+            ?>
+            <ul id='rsg2-galleryList'>
+                <li class='rsg2-galleryList-item' >
+                    <table class="table_border" cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <td><?php echo _RSGALLERY_RANDOM_TITLE;?></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <?php
+                    foreach($rows as $row) {
+                        $l_start = $row->ordering - 1;
+                        ?>
+                        <tr>
+                        <td align="center"><div align="center">
+                            <a href="<?php echo sefRelToAbs($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$l_start);?>">
+                            <img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>"  />
+                            </a></div>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                    </table>
+                </li>
+            </ul>
+            <?php
+        } else {
+            ?>
+            <ul id='rsg2-galleryList'>
+                <li class='rsg2-galleryList-item' >
+                    <table class="table_border" cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <td colspan="3"><?php echo _RSGALLERY_LATEST_TITLE;?></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <?php
+                        foreach($rows as $row)
+                            {
+                            $l_start = $row->ordering - 1;
+                            ?>
+                            <td align="center"><div align="center">
+                            <a href="<?php echo sefRelToAbs($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$l_start);?>">
+                            <img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>"  />
+                            </a></div>
+                            </td>
+                            <?php
+                            }
+                        ?>
+                    </tr>
+                    <tr>
+                        <td colspan="3">&nbsp;</td>
+                    </tr>
+                    </table>
+                </li>
+            </ul>
+            <?php
+        }
     }
 }
 ?>
