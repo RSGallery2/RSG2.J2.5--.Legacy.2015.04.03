@@ -713,7 +713,7 @@ DEFINE("_RSGALLERY_FU_UNKW_ERROR",		"Unbekannter Datei-Fehler");
 /*new*/DEFINE("_RSGALLERY_COMMENTS_SMALL",	"klein");
 /*new*/DEFINE("_RSGALLERY_COMMENTS_MEDIUM",	"mittel");
 /*new*/DEFINE("_RSGALLERY_COMMENTS_LARGE",	"gro&szlig;");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_HUGE",	"rie&szlig;ig"");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_HUGE",	"rie&szlig;ig");
 //function parseQuoteElement
 /*new*/DEFINE("_RSGALLERY_COMMENTS_QUOTE_WROTE", "Schreibe");
 //function editComment
