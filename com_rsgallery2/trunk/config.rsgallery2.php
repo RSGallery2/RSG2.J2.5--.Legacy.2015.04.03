@@ -282,8 +282,8 @@ class galleryUtils {
 
     // assemble menu items to the array
     $mitems     = array();
-    $mitems[] 	= mosHTML::makeOption( '0', _RSGALLERY_SELECT_GAL );
-    //$mitems[] = mosHTML::makeOption( '-1', _RSGALLERY_ALL_GAL );
+    $mitems[] 	= mosHTML::makeOption( '-1', _RSGALLERY_SELECT_GAL );
+    $mitems[] 	= mosHTML::makeOption( '0', '- Top Gallery -' );
 
     foreach ( $list as $item ) {
         $mitems[] = mosHTML::makeOption( $item->id, '&nbsp;&nbsp;&nbsp;'. $item->treename );

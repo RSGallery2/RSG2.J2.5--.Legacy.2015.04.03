@@ -90,7 +90,7 @@ class html_rsg2_images {
 					echo JHTML::tooltip('<img src="'.JURI::root().$rsgConfig->get('imgPath_thumb').'/'.$row->name.'.jpg" alt="'.$row->name.'" />',
 					 _RSGALLERY_IMG_EDIT_IMG,
 					 $row->name,
-					 $row->title.'&nbsp;'.$row->name,
+					 $row->title.'&nbsp;('.$row->name.')',
 					 $link,
 					1);
 				}

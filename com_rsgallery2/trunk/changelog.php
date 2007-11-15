@@ -31,6 +31,11 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2007-11-15 Ronald Smit
+ ^ Step one of the complete rewrite of My Galleries.
+ ^ Moved all My Galleries related code into new library, called mygalleries
+ ! Not finished yet. Marked all obsolete functions with X, deleting will follow after testing.
+
 ---------------- 1.14.0 alpha -- svn 374 -- 2007-11-12 -------------
 
 2007 Jonah Braun

@@ -255,7 +255,7 @@ class rsgAccess extends JObject{
 				return true;
 			else
 				return false;
-			}
+		}
 	}
 
 	/**
@@ -361,6 +361,4 @@ class rsgAccess extends JObject{
     	$array_complete = array_combine($this->allActions, $newArr);
     	return $array_complete;	 	
 	 }
-	 
-	
 }//end class

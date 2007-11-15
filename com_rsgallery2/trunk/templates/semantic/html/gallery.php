@@ -3,12 +3,7 @@
 <?php
 //Show My Galleries link
 if ($rsgConfig->get('show_mygalleries')) {
-	?>
-	<div class="rsg2-mygalleries">
-		<a class="rsg2-mygalleries_link" href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;page=my_galleries");?>">My Galleries</a>
-	</div>
-	<div class="clr"></div>
-	<?php
+	echo $this->showRsgHeader();
 }
 
 
