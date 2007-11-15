@@ -143,10 +143,6 @@ function saveItem() {
 	}
 }
 
-function upload( $option ) {
-	echo "Upload here";
-}
-
 function saveUploadedItem() {
 	global $rsgConfig, $rsgAccess, $database, $Itemid, $mosConfig_absolute_path;
 	//Set redirect URL
@@ -325,5 +321,60 @@ function saveCat() {
 		}
 	}
 	//mosRedirect( sefRelToAbs( $redirect ) );
+}
+
+function deleteCat() {
+	global $database, $my, $mosConfig_absolute_path, $rsgConfig, $Itemid;
+	//Get values from URL
+	$catid = rsgInstance::getInt( 'catid'  , null);
+	
+	//Set redirect URL
+	$redirect = "index.php?option=com_rsgallery2&amp;rsgOption=myGalleries&amp;Itemid=".$Itemid;
+	
+	//Get category details
+	$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE id = '$catid'");
+	$rows = $database->LoadObjectList();
+	foreach ($rows as $row) {
+		$uid = $row->uid;
+		$parent = $row->parent;
+	}
+		
+	//Check if gallery has children
+	$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_galleries WHERE parent = '$catid'");
+	$count = $database->loadResult();
+	if ($count > 0) {
+		mosRedirect( sefRelToAbs( $redirect ),_RSGALLERY_USERCAT_SUBCATS);
+	}
+	
+	//No children from here, so lets continue
+	if ($uid == $my->id OR $my->usertype == 'Super Administrator') {
+		//Delete images
+		$database->setQuery("SELECT name FROM #__rsgallery2_files WHERE gallery_id = '$catid'");
+		$result = $database->loadResultArray();
+		$error = 0;
+		foreach ($result as $filename) {
+			if ( !imgUtils::deleteImage($filename) ) 
+				$error++;
+		}
+		
+		//Error checking
+		if ($error == 0) {
+			//Gallery can be deleted
+			$database->setQuery("DELETE FROM #__rsgallery2_galleries WHERE id = '$catid'");
+			if ( !$database->query() ) {
+				//Error message, gallery could not be deleted
+				mosRedirect( sefRelToAbs( $redirect ),_RSGALLERY_ALERT_CATDELNOTOK);
+			} else {
+				//Ok, goto mainpage
+				mosRedirect( sefRelToAbs( $redirect ),_RSGALLERY_ALERT_CATDELOK);
+			}
+		} else {
+			//There were errors. Gallery will not be deleted
+			mosRedirect( sefRelToAbs( $redirect ),_RSGALLERY_ALERT_CATDELNOTOK);
+		}
+	} else {
+		//Abort and return to mainscreen
+		mosRedirect( sefRelToAbs( $redirect ),_RSGALLERY_USERCAT_NOTOWNER);
+	}
 }
 ?>

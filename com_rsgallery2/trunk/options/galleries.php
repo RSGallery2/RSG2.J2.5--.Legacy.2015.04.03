@@ -171,6 +171,7 @@ function edit( $option, $id ) {
         // initialise new record
         $row->published = 1;
         $row->order     = 0;
+        $row->uid		= $my->id;
     }
 
     // build the html select list for ordering
