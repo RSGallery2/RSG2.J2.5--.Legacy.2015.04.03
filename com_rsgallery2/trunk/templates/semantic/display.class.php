@@ -31,8 +31,8 @@ class rsgDisplay_semantic extends rsgDisplay{
 		$this->gallery = $gallery;
 		
 		//Get values for page navigation from URL
-		$limit = rsgInstance::getInt( 'glimit', $rsgConfig->get('galcountNrs') );
-		$limitstart = rsgInstance::getInt( 'glimitstart', 0 );
+		$limit = rsgInstance::getInt( 'limit', $rsgConfig->get('galcountNrs') );
+		$limitstart = rsgInstance::getInt( 'limitstart', 0 );
 		
 		//Get number of galleries including main gallery
 		$this->kids = $gallery->kids();
@@ -76,7 +76,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 			<?php
 			if ($slideshow) {
 				?>
-				<a href='<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;page=slideshow&amp;gid=".$kid->get('id')."&amp;Itemid=".$Itemid); ?>'><?php echo _RSGALLERY_SLIDESHOW; ?></a><br />
+				<a href='<?php echo JROUTE::_("index.php?option=com_rsgallery2&page=slideshow&gid=".$kid->get('id')."&Itemid=".$Itemid); ?>'><?php echo _RSGALLERY_SLIDESHOW; ?></a><br />
 				<?php
 			}
 			
@@ -297,16 +297,13 @@ class rsgDisplay_semantic extends rsgDisplay{
 			$doc =& JFActory::getDocument();
 			$doc->addStyleSheet(JPATH_BASE."/components/com_rsgallery2/js_highslide/highslide.css");
 			$doc->addScript(JPATH_BASE."/components/com_rsgallery2/js_highslide/highslide.js");
-			?>
-			<script type="text/javascript">    
-				hs.graphicsDir = '<?php echo $mosConfig_live_site;?>/components/com_rsgallery2/js_highslide/graphics/';
+			$doc->addScriptDeclaration("
+				hs.graphicsDir = '".$mosConfig_live_site."/components/com_rsgallery2/js_highslide/graphics/';
 				hs.showCredits = false;
 				hs.outlineType = 'drop-shadow';
 				window.onload = function() {
 					hs.preloadImages();
-				}
-			</script>
-			<?php
+				} " );
 		}
 		?>
 		<table border="0" cellspacing="0" cellpadding="0" width="100%">
@@ -459,8 +456,10 @@ class rsgDisplay_semantic extends rsgDisplay{
         global $rsgConfig;
         
         return;
+		
         ?>
-        <script type="text/javascript">
+  <!--
+      <script type="text/javascript">
 			//<![CDATA[
             function deleteComment(id) {
                 var yesno = confirm ('<?php echo _RSGALLERY_COMMENT_DELETE;?>');
@@ -473,7 +472,7 @@ class rsgDisplay_semantic extends rsgDisplay{
         <table width="100%" border="0" cellpadding="0" cellspacing="1" class="adminForm">
         <tr><td>
             <table width="100%" cellpadding="2" cellspacing="1">
-                <form method="post" action="<?php global $Itemid; echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=vote"); ?>">
+                <form method="post" action="<?php global $Itemid; echo JROUTE::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=vote"); ?>">
                 <tr>
                         <td colspan="1" width="100"><strong><?php echo _RSGALLERY_VOTES_NR; ?>:</strong></td>
                         <td colspan="4"><?php echo $this->item['votes']; ?></td>
@@ -501,6 +500,7 @@ class rsgDisplay_semantic extends rsgDisplay{
             </table>
         </td></tr>
         </table>
+-->
         <?php
     }
     
@@ -570,7 +570,7 @@ class rsgDisplay_semantic extends rsgDisplay{
         <div style="float:right; text-align:right;">
         <ul id='rsg2-navigation'>
             <li>
-                <a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=".$Itemid); ?>">
+                <a href="<?php echo JROUTE::_("index.php?option=com_rsgallery2&Itemid=".$Itemid); ?>">
                 <?php echo _RSGALLERY_MAIN_GALLERY_PAGE; ?>
                 </a>
             </li>
@@ -578,7 +578,7 @@ class rsgDisplay_semantic extends rsgDisplay{
             if ( !$my->id == "" && $page != "my_galleries" && $rsgConfig->get('show_mygalleries') == 1):
             ?>
             <li>
-                <a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries");?>">
+                <a href="<?php echo JROUTE::_("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries");?>">
                 <?php echo _RSGALLERY_MY_GALLERIES; ?>
                 </a>
             </li>
@@ -586,7 +586,7 @@ class rsgDisplay_semantic extends rsgDisplay{
             elseif( $page == "slideshow" ): 
             ?>
             <li>
-                <a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=inline&catid=".$catid."&id=".$_GET['id']);?>">
+                <a href="<?php echo JROUTE::_("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=inline&catid=".$catid."&id=".$_GET['id']);?>">
                 <?php echo _RSGALLERY_SLIDESHOW_EXIT; ?>
                 </a>
             </li>
@@ -615,7 +615,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		echo "<div class=\"rsg2-toolbar\">";
 		if ($type == 'button') {
 			?>
-			<a href="<?php echo sefRelToAbs('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>">
+			<a href="<?php echo JROUTE::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>">
 			<img height="20" width="20" src="<?php echo $mosConfig_live_site;?>/administrator/images/download_f2.png" alt="<?php echo _RSGALLERY_DOWNLOAD?>">
 			<?php
 			if ($showtext == true) {
@@ -628,7 +628,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 			<?php
 		} else {
 			?>
-			<a href="<?php echo sefRelToAbs('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>"><?php echo _RSGALLERY_DOWNLOAD?></a>
+			<a href="<?php echo JROUTE::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>"><?php echo _RSGALLERY_DOWNLOAD?></a>
 			<?php
 		}
 		echo "</div><div class=\"rsg2-clr\">&nbsp;</div>";
@@ -652,7 +652,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		
 		while( true ){
 			?>
-			<a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;catid=".$kid->id); ?>">
+			<a href="<?php echo JROUTE::_("index.php?option=com_rsgallery2&Itemid=$Itemid&catid=".$kid->id); ?>">
 				<?php echo htmlspecialchars(stripslashes($kid->name), ENT_QUOTES); ?>
 				(<?php echo $kid->itemCount(); ?>)</a><?php
 
@@ -677,8 +677,8 @@ class HTML_RSGALLERY{
     global $my, $rsgConfig, $mosConfig_live_site, $Itemid;
     //Load frontend toolbar class
     require_once( $GLOBALS['mosConfig_absolute_path'] . '/includes/HTML_toolbar.php' );
-    ?>
-    <script type="text/javascript">
+	$doc =& JFActory::getDocument();
+	$doc->addScriptDeclaration("
         function submitbutton(pressbutton) {
             var form = document.form1;
             if (pressbutton == 'cancel') {
@@ -687,19 +687,18 @@ class HTML_RSGALLERY{
             }
         
         // do field validation
-        if (form.catname1.value == "") {
-            alert( "<?php echo _RSGALLERY_MAKECAT_ALERT_NAME; ?>" );
+        if (form.catname1.value == '') {
+            alert( '"._RSGALLERY_MAKECAT_ALERT_NAME."' );
         }
-        else if (form.description.value == ""){
-            alert( "<?php echo _RSGALLERY_MAKECAT_ALERT_DESCR; ?>" );
+        else if (form.description.value == ''){
+            alert( '"._RSGALLERY_MAKECAT_ALERT_DESCR."' );
         }
         else{
-            <?php //getEditorContents( 'editor1', 'description' ) ; ?>
-            form.submit();
+            ".getEditorContents( 'editor1', 'description' )."
+			form.submit();
         }
-        }
-    </script>
-    <?php
+        }");
+		
     if ($rows) {
         foreach ($rows as $row){
             $catname        = $row->name;
@@ -723,7 +722,7 @@ class HTML_RSGALLERY{
         $parent         = "";
     }
     ?>
-        <form name="form1" id="form1" method="post" action="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=makeusercat"); ?>">
+        <form name="form1" id="form1" method="post" action="<?php echo JROUTE::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=makeusercat"); ?>">
         <table width="100%">
         <tr>
             <td colspan="2"><h3><?php echo _RSGALLERY_CREATE_GALLERY; ?></h3></td>
@@ -794,7 +793,7 @@ class HTML_RSGALLERY{
         }
         echo "<h3>"._RSGALLERY_EDIT_IMAGE."</h3>";
         ?>
-        <form name="form1" method="post" action="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&Itemid=$Itemid&page=save_image"); ?>">
+        <form name="form1" method="post" action="<?php echo JROUTE::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=save_image"); ?>">
         <input type="hidden" name="id" value="<?php echo $id; ?>" />
         <input type="hidden" name="catid" value="<?php echo $catid; ?>" />
         <table width="100%">
@@ -854,8 +853,8 @@ class HTML_RSGALLERY{
         
         //Load frontend toolbar class
         require_once( $GLOBALS['mosConfig_absolute_path'] . '/includes/HTML_toolbar.php' );
-        ?>
-        <script  type="text/javascript">
+		$doc =& JFActory::getDocument();
+		$doc->addScriptDeclaration("
         function submitbutton2(pressbutton) {
             var form = document.uploadform;
             if (pressbutton == 'cancel') {
@@ -864,17 +863,18 @@ class HTML_RSGALLERY{
             }
             
             // do field validation
-            if (form.i_cat.value == "-1") {
-                alert( "<?php echo _RSGALLERY_UPLOAD_ALERT_CAT; ?>" );
-            } else if (form.i_file.value == "") {
-                alert( "<?php echo _RSGALLERY_UPLOAD_ALERT_FILE; ?>" );
+            if (form.i_cat.value == '-1') {
+                alert( '"._RSGALLERY_UPLOAD_ALERT_CAT."' );
+            } else if (form.i_file.value == '') {
+                alert( '"._RSGALLERY_UPLOAD_ALERT_FILE."' );
             } else {
                 form.submit();
             }
         }
+		");
         
-    </script>
-        <form name="uploadform" id="uploadform" method="post" action="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=saveUpload"); ?>" enctype="multipart/form-data">
+?>
+        <form name="uploadform" id="uploadform" method="post" action="<?php echo JROUTE::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=saveUpload"); ?>" enctype="multipart/form-data">
         <table border="0" width="100%">
             <tr>
                 <td colspan="2"><h3><?php echo _RSGALLERY_ADD_IMAGE;?></h3></td>
@@ -909,7 +909,7 @@ class HTML_RSGALLERY{
                         <td><?php echo _RSGALLERY_USERUPLOAD_CATEGORY; ?></td>
                         <td>
                             <?php 
-                            echo galleryUtils::galleriesSelectList(null, 'i_cat', false);
+							echo galleryUtils::galleriesSelectList(null, 'i_cat', false);
                             /*
                             if (!$rsgConfig->get('acl_enabled')) {
                                 galleryUtils::showCategories(NULL, $my->id, 'i_cat');
@@ -974,7 +974,7 @@ class HTML_RSGALLERY{
         <div style="float:right; text-align:right;">
         <ul id='rsg2-navigation'>
             <li>
-                <a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=".$Itemid); ?>">
+                <a href="<?php echo JROUTE::_("index.php?option=com_rsgallery2&Itemid=".$Itemid); ?>">
                 <?php echo _RSGALLERY_MAIN_GALLERY_PAGE; ?>
                 </a>
             </li>
@@ -982,7 +982,7 @@ class HTML_RSGALLERY{
             if ( !$my->id == "" && $page != "my_galleries" && $rsgConfig->get('show_mygalleries') == 1):
             ?>
             <li>
-                <a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries");?>">
+                <a href="<?php echo JROUTE::_("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries");?>">
                 <?php echo _RSGALLERY_MY_GALLERIES; ?>
                 </a>
             </li>
@@ -990,7 +990,7 @@ class HTML_RSGALLERY{
             elseif( $page == "slideshow" ): 
             ?>
             <li>
-                <a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=inline&catid=".$catid."&id=".$_GET['id']);?>">
+                <a href="<?php echo JROUTE::_("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=inline&catid=".$catid."&id=".$_GET['id']);?>">
                 <?php echo _RSGALLERY_SLIDESHOW_EXIT; ?>
                 </a>
             </li>
@@ -1081,7 +1081,7 @@ class HTML_RSGALLERY{
                 <ul id='rsg2-thumbsList'>
                 <?php foreach( $rows as $row ): ?>
                 <li <?php echo "style='float: $floatDirection'"; ?> >
-                    <a href="<?php global $Itemid; echo sefRelToAbs( "index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=inline&amp;id=".$row->id."&amp;catid=".$row->gallery_id."&amp;limitstart=".$limitstart++ ); ?>">
+                    <a href="<?php global $Itemid; echo JROUTE::_( "index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$limitstart++ ); ?>">
                         <!--<div class="img-shadow">-->
                         <img border="1" alt="<?php echo htmlspecialchars(stripslashes($row->descr), ENT_QUOTES); ?>" src="<?php echo imgUtils::getImgThumb($row->name); ?>" />
                         <!--</div>-->
@@ -1092,8 +1092,8 @@ class HTML_RSGALLERY{
                     </a>
                     <?php if( $allowEdit ): ?>
                     <div id='rsg2-adminButtons'>
-                        <a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=edit_image&amp;id=".$row->id); ?>"><img src="<?php echo $mosConfig_live_site; ?>/administrator/images/edit_f2.png" alt=""  height="15" /></a>
-                        <a href="#" onClick="if(window.confirm('<?php echo _RSGALLERY_DELIMAGE_TEXT;?>')) location='<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=delete_image&amp;id=".$row->id); ?>'"><img src="<?php echo $mosConfig_live_site; ?>/administrator/images/delete_f2.png" alt=""  height="15" /></a>
+                        <a href="<?php echo JROUTE::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=edit_image&id=".$row->id); ?>"><img src="<?php echo $mosConfig_live_site; ?>/administrator/images/edit_f2.png" alt=""  height="15" /></a>
+                        <a href="#" onClick="if(window.confirm('<?php echo _RSGALLERY_DELIMAGE_TEXT;?>')) location='<?php echo JROUTE::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=delete_image&id=".$row->id); ?>'"><img src="<?php echo $mosConfig_live_site; ?>/administrator/images/delete_f2.png" alt=""  height="15" /></a>
                     </div>
                     <?php endif; ?>
                 </li>
@@ -1111,7 +1111,7 @@ class HTML_RSGALLERY{
                     <?php if( $i % $cols== 0) echo "<tr>\n"; ?>
                         <td>
                             <!--<div class="img-shadow">-->
-                                <a href="<?php global $Itemid; echo sefRelToAbs( "index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=inline&amp;id=".$row->id."&amp;catid=".$row->gallery_id."&amp;limitstart=".$limitstart++ ); ?>">
+                                <a href="<?php global $Itemid; echo JROUTE::_( "index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$limitstart++ ); ?>">
                                 <img border="1" alt="<?php echo htmlspecialchars(stripslashes($row->descr), ENT_QUOTES); ?>" src="<?php echo imgUtils::getImgThumb($row->name); ?>" />
                                 </a>
                             <!--</div>-->
@@ -1124,8 +1124,8 @@ class HTML_RSGALLERY{
                             <?php endif; ?>
                             <?php if( $allowEdit ): ?>
                             <div id='rsg2-adminButtons'>
-                                <a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=edit_image&amp;id=".$row->id); ?>"><img src="<?php echo $mosConfig_live_site; ?>/administrator/images/edit_f2.png" alt=""  height="15" /></a>
-                                <a href="#" onClick="if(window.confirm('<?php echo _RSGALLERY_DELIMAGE_TEXT;?>')) location='<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=delete_image&amp;id=".$row->id); ?>'"><img src="<?php echo $mosConfig_live_site; ?>/administrator/images/delete_f2.png" alt=""  height="15" /></a>
+                                <a href="<?php echo JROUTE::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=edit_image&id=".$row->id); ?>"><img src="<?php echo $mosConfig_live_site; ?>/administrator/images/edit_f2.png" alt=""  height="15" /></a>
+                                <a href="#" onClick="if(window.confirm('<?php echo _RSGALLERY_DELIMAGE_TEXT;?>')) location='<?php echo JROUTE::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=delete_image&id=".$row->id); ?>'"><img src="<?php echo $mosConfig_live_site; ?>/administrator/images/delete_f2.png" alt=""  height="15" /></a>
                             </div>
                             <?php endif; ?>
                         </td>
@@ -1193,19 +1193,20 @@ class HTML_RSGALLERY{
                 foreach ($rows as $row)
                     {
                     global $Itemid;
-                    ?>
-                    <script type="text/javascript">
+					$doc =& JFActory::getDocument();
+					$doc->addScriptDeclaration("
 						//<![CDATA[
 						function deletePres(catid)
 						{
-							var yesno = confirm ("<?php echo _RSGALLERY_DELCAT_TEXT;?>");
+							var yesno = confirm ('"._RSGALLERY_DELCAT_TEXT."');
 							if (yesno == true)
 							{
-								location = "<?php echo JRoute::_("index.php?option=com_rsgallery2&page=delusercat&catid=", false);?>"+catid;
+								location = '".JRoute::_("index.php?option=com_rsgallery2&page=delusercat&catid=", false)."' + catid;
 							}
 						}
 						//]]>
-                    </script>
+						");
+						?>
                     <tr>
                         <td><?php echo $row->name;?></td>
                         <?php
@@ -1216,14 +1217,15 @@ class HTML_RSGALLERY{
                             
                         <td><div align="center"><img src="<?php echo $mosConfig_live_site;?>/administrator/images/<?php echo $img;?>" alt="" width="12" height="12" ></div></td>
                         <td><a href="javascript:deletePres(<?php echo $row->id;?>);"><div align="center"><img src="<?php echo $mosConfig_live_site;?>/administrator/images/publish_x.png" alt="" width="12" height="12" ></a></div></td>
-                        <td><a href="<?php echo sefRelToAbs('index.php?option=com_rsgallery2&page=editusercat&catid='.$row->id);?>"><div align="center"><img src="<?php echo $mosConfig_live_site;?>/administrator/images/edit_f2.png" alt="" width="18" height="18" ></a></div></td>
+                        <td><a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&page=editusercat&catid='.$row->id);?>"><div align="center"><img src="<?php echo $mosConfig_live_site;?>/administrator/images/edit_f2.png" alt="" width="18" height="18" ></a></div></td>
                         <td><a href="#" onclick="alert('Feature not implemented yet')"><div align="center"><img src="<?php echo $mosConfig_live_site;?>/administrator/images/users.png" alt="" width="22" height="22"></div></td>
                     </tr>
                     <?php
+					
                     $sql2 = "SELECT * FROM #__rsgallery2_galleries WHERE parent = $row->id ORDER BY ordering ASC";
                     $database->setQuery($sql2);
                     $rows2 = $database->loadObjectList();
-                    global $Itemid;
+
                     foreach ($rows2 as $row2)
                         {
                         if ($row2->published == 1)
@@ -1231,38 +1233,11 @@ class HTML_RSGALLERY{
                         else
                             $img = "publish_r.png";?>
                         <tr>
-                            <td>
-                                <img src="<?php echo $mosConfig_live_site;?>/administrator/components/com_rsgallery2/images/sub_arrow.png" alt="" width="12" height="12" >
-                                &nbsp;
-                                <?php echo $row2->name;?>
-                            </td>
-                            <td>
-                                <div align="center">
-                                    <img src="<?php echo $mosConfig_live_site;?>/administrator/images/<?php echo $img;?>" alt="" width="12" height="12" >
-                                </div>
-                            </td>
-                            <td>
-                                <a href="javascript:deletePres(<?php echo $row2->id;?>);">
-                                <!--<a href="<?php echo sefRelToAbs('index.php?option=com_rsgallery2&Itemid=$Itemid&page=delusercat&catid='.$row2->id);?>">-->
-                                    <div align="center">
-                                    <img src="<?php echo $mosConfig_live_site;?>/administrator/images/publish_x.png" alt="" width="12" height="12" >
-                                    </div>
-                                </a>
-                            </td>
-                            <td>
-                                <a href="<?php echo sefRelToAbs('index.php?option=com_rsgallery2&Itemid=$Itemid&page=editusercat&catid='.$row2->id);?>">
-                                <div align="center">
-                                    <img src="<?php echo $mosConfig_live_site;?>/administrator/images/edit_f2.png" alt="" width="18" height="18" >
-                                </div>
-                                </a>
-                            </td>
-                            <td>
-                                <a href="#" onclick="alert('<?php echo _RSGALLERY_FEAT_NOTIMP?>')">
-                                <div align="center">
-                                    <img src="<?php echo $mosConfig_live_site;?>/administrator/images/users.png" alt="" width="22" height="22" >
-                                </div>
-                                </a>
-                            </td>
+                            <td><img src="<?php echo $mosConfig_live_site;?>/administrator/components/com_rsgallery2/images/sub_arrow.png" alt="" width="12" height="12" >&nbsp;<?php echo $row2->name;?></td>
+                            <td><div align="center"><img src="<?php echo $mosConfig_live_site;?>/administrator/images/<?php echo $img;?>" alt="" width="12" height="12" ></ ></div></td>
+                            <td><a href="javascript:deletePres(<?php echo $row2->id;?>);"><div align="center"><img src="<?php echo $mosConfig_live_site;?>/administrator/images/publish_x.png" alt="" width="12" height="12" ></div></a></td>
+                            <td><a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&page=editusercat&catid='.$row2->id);?>"><div align="center"><img src="<?php echo $mosConfig_live_site;?>/administrator/images/edit_f2.png" alt="" width="18" height="18" ></div></a></td>
+                            <td><a href="#" onclick="alert('<?php echo _RSGALLERY_FEAT_NOTIMP?>')"><div align="center"><img src="<?php echo $mosConfig_live_site;?>/administrator/images/users.png" alt="" width="22" height="22" ></div></a></td>
                         </tr>
                         <?php
                         }
@@ -1301,20 +1276,22 @@ class HTML_RSGALLERY{
         <?php
         if (count($images) > 0)
             {
-             ?>
-            <script type="text/javascript">
-					//<![CDATA[
+				
+			$doc =& JFActory::getDocument();
+			$doc->addScriptDeclaration("
+				//<![CDATA[
 				function deleteImage(id)
 				{
 					var yesno = confirm ('<?php echo _RSGALLERY_DELIMAGE_TEXT;?>');
 					if (yesno == true)
 					{
-						location = "<?php echo JRoute::_("index.php?option=com_rsgallery2&page=delete_image&id=", false);?>"+id;
+						location = '".JRoute::_("index.php?option=com_rsgallery2&page=delete_image&id=", false)."' + id;
 					}
 				}
 				//]]>
-            </script>
-            <?php
+				");
+
+
             foreach ($images as $image)
                 {
                 global $Itemid,$rsgConfig;
@@ -1364,7 +1341,7 @@ class HTML_RSGALLERY{
                             <?php
                         } else {
                         ?>
-                        <a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=edit_image&amp;id=$image->id");?>">
+                        <a href="<?php echo JROUTE::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=edit_image&id=$image->id");?>">
                         <div align="center">
                             <img src="<?php echo $mosConfig_live_site;?>/components/com_rsgallery2/images/edit.png" alt="" width="15" height="15" >
                         </div>
@@ -1385,10 +1362,11 @@ class HTML_RSGALLERY{
             }
             ?>
             <tr>
-                <th colspan="4"><div align="center"><?php global $Itemid; echo $pageNav->writePagesLinks();echo "<br>".$pageNav->writePagesCounter(); ?></div></th>
+                <th colspan="4"><div align="center"><?php global $Itemid; echo $pageNav->writePagesLinks("index.php?option=com_rsgallery2&amp;page=my_galleries");echo "<br>".$pageNav->writePagesCounter(); ?></div></th>
             </tr>
             </table>
-            <?php
+     
+	<?php
     }
     /**
      * Displays details about the logged in user and the privileges he/she has
@@ -1442,7 +1420,7 @@ class HTML_RSGALLERY{
         {
         global $rsgConfig, $my, $database, $mosConfig_live_site;
         if (!$rsgConfig->get('show_mygalleries'))
-            mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid"),_RSGALLERY_USERGAL_DISABLED);
+            mosRedirect( JROUTE::_("index.php?option=com_rsgallery2"),_RSGALLERY_USERGAL_DISABLED);
         ?>
         <h2><?php echo _RSGALLERY_USER_MY_GAL;?></h2>
         
@@ -1489,7 +1467,7 @@ class HTML_RSGALLERY{
                         <tr>
                         <td align="center">
                             <div align="center">
-                                <a href="<?php echo sefRelToAbs($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$l_start);?>">
+                                <a href="<?php echo JROUTE::_($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$l_start);?>">
                                 <img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>" />
                                 </a>
                             </div>
@@ -1524,7 +1502,7 @@ class HTML_RSGALLERY{
                             ?>
                             <td align="center">
                             <div align="center">
-                            <a href="<?php echo sefRelToAbs($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$l_start);?>">
+                            <a href="<?php echo JROUTE::_($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$l_start);?>">
                             <img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>"  />
                             </a>
                             </div>
@@ -1562,7 +1540,7 @@ class HTML_RSGALLERY{
                         ?>
                         <tr>
                         <td align="center"><div align="center">
-                            <a href="<?php echo sefRelToAbs($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$l_start);?>">
+                            <a href="<?php echo JROUTE::_($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$l_start);?>">
                             <img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>"  />
                             </a></div>
                         </td>
@@ -1595,7 +1573,7 @@ class HTML_RSGALLERY{
                             $l_start = $row->ordering - 1;
                             ?>
                             <td align="center"><div align="center">
-                            <a href="<?php echo sefRelToAbs($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$l_start);?>">
+                            <a href="<?php echo JROUTE::_($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$l_start);?>">
                             <img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>"  />
                             </a></div>
                             </td>
