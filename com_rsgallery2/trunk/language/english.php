@@ -751,7 +751,7 @@ DEFINE("_RSGALLERY_VOTING_RATE_5",		"Rate this item 5 out of 5");
 //rsgvoting.php
 DEFINE("_RSGALLERY_VOTING_DISABLED",		"Voting is disabled!");
 DEFINE("_RSGALLERY_VOTING_NOT_AUTH",		"You are not authorized to vote!");
-DEFINE("_RSGALLERY_VOTING_ALREADY_VOTED",		"You aready voted for this item!");
+DEFINE("_RSGALLERY_VOTING_ALREADY_VOTED",		"You already voted for this item!");
 DEFINE("_RSGALLERY_VOTING_NOT_ADDED",		"Vote could not be added to the database!");
 DEFINE("_RSGALLERY_VOTING_ADDED",		"Vote added to database!");
 

@@ -4,11 +4,12 @@
 * German (informal) languagefile for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2007 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
-* @author woelzen[at]gmx[dot]de (modified June 15. 2007)
+* @author woelzen[at]gmx[dot]de (modified 15.11.2007)
 * RSGallery is Free Software
 **/
+
 defined( '_VALID_MOS' ) or die( 'Restricted access' );
 
 //rsgallery2.html.php
@@ -157,7 +158,7 @@ DEFINE("_RSGALLERY_MOST_RECENT_IMG", 		"Vor Kurzem hinzugef&uuml;gte Bilder");
 DEFINE("_RSGALLERY_DATE",					"Datum");
 DEFINE("_RSGALLERY_CREDITS",				"Credits");
 DEFINE("_RSGALLERY_INSTALLED_VERSION",		"Installierte Version");
-/*new*/DEFINE("_RSGALLERY_LICENSE",			"Lizenz");
+DEFINE("_RSGALLERY_LICENSE",			"Lizenz");
 //Cpanel
 DEFINE("_RSGALLERY_C_CONFIG",				"Konfiguration");
 DEFINE("_RSGALLERY_C_UPLOAD",				"Upload");
@@ -172,10 +173,16 @@ DEFINE("_RSGALLERY_C_PURGE",				"Alles l&ouml;schen");
 DEFINE("_RSGALLERY_C_REALLY_UNINSTALL",		"WIRKLICH deinstallieren - L&ouml;scht alle Bilder und VerzeichnisseDeletes. Alle Tabellen werden verworfen. Nur unter Linux mit standard Verzeichnissen.");
 DEFINE("_RSGALLERY_C_VIEW_CONFIG",			"Konfiguration - Anschauen");
 DEFINE("_RSGALLERY_C_EDIT_CONFIG",			"Konfiguration - Raw bearbeiten");
+//function showInstallForm
+DEFINE("_RSGALLERY_INST_UPL_PCK_FILE",		"Upload Paket-Datei");
+DEFINE("_RSGALLERY_INST_PCK_FILE",		"Paket-Datei:");
+//function showInstallMessage
+DEFINE("_RSGALLERY_INST_MES_CONTINUE",	"Fortfahren ...");
 //function requestCatCreation
 DEFINE("_RSGALLERY_C_CAT_FIRST",			"Bitte erste eine Kategorie erstellen!");
 //function batch_upload
 DEFINE("_RSGALLERY_BATCH_NO_ZIP",			"ZIP-Upload gew&auml;hlt aber noch keine Datei angegeben");
+DEFINE("_RSGALLERY_BACTCH_NOT_VALID_ZIP",		" ist kein g&uuml;ltiges Archiv-Format. Nur ZIP-Dateien sind zul&auml;ssig!");
 DEFINE("_RSGALLERY_BATCH_GAL_FIRST",		"Bitte zuerst eine Kategorie w&auml;hlen");
 DEFINE("_RSGALLERY_BATCH_NO_FTP",			"FTP-Upload gew&auml;hlt aber noch keinen FTP-Pfad angegeben");
 DEFINE("_RSGALLERY_BATCH_STEP1",			"Schritt 1");
@@ -194,44 +201,44 @@ DEFINE("_RSGALLERY_BATCH_DELETE",	"L&ouml;schen");
 DEFINE("_RSGALLERY_BATCH_TITLE",		"Titel");
 DEFINE("_RSGALLERY_BATCH_GAL",		"Galerie");
 DEFINE("_RSGALLERY_BATCH_UPLOAD",	"Upload");
-/*new*/DEFINE("_RSGALLERY_BATCH_FTP_PATH_OVERL",	"Bitte versichere dich, dass der FTP-Pfad im WebRoot liegt. Es kann nicht auf einem anderen Server sein! Es muss zudem mit einem End-Slash versehen werden.");
+DEFINE("_RSGALLERY_BATCH_FTP_PATH_OVERL",	"Bitte versichere dich, dass der FTP-Pfad im WebRoot liegt. Es kann nicht auf einem anderen Server sein! Es muss zudem mit einem End-Slash versehen werden.");
 //function editImage
 DEFINE("_RSGALLERY_PROP_TITLE",				"Bildeigenschaften &auml;ndern");
 DEFINE("_RSGALLERY_TITLE",					"Titel");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_TABLE",		"Tabelle");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_FLOAT",		"Float");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_MAGIC",		"Magic(Noch nicht unterst&uuml;tzt!)");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_L2R",		"links nach rechts");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_R2L",		"rechts nach links");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_PROP",		"proportional");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_SQUARE",		"quadratisch");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_DEFAULT_SIZE",		"Standardgr&ouml;&szlig;e");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_REZ_LARGE",		"gro&szlig;e Bilder verkleinern");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_REZ_SMALL",		"kleine Bilder vergr&ouml;&szlig;ern");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_REZ_2FIT",		"Bilder in Gr&ouml;&szlig;e anpassen");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_TL",		"oben links");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_TC",		"oben mitte");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_TR",		"oben rechts");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_L",		"links");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_C",		"mittig");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_R",		"rechts");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_BL",		"unten links");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_BC",		"unten mitte");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_BR",		"unten rechts");
-/*new*/DEFINE("_RSGALLERY_CONF_POPUP_STYLE",		"Popup Style");
-/*new*/DEFINE("_RSGALLERY_CONF_POPUP_NO",		"Kein Popup");
-/*new*/DEFINE("_RSGALLERY_CONF_POPUP_NORMAL",		"Normales Popup");
-/*new*/DEFINE("_RSGALLERY_CONF_POPUP_FANCY",		"Fancy Popup (Fehler bei IE6!)");
+DEFINE("_RSGALLERY_CONF_OPTION_TABLE",		"Tabelle");
+DEFINE("_RSGALLERY_CONF_OPTION_FLOAT",		"Float");
+DEFINE("_RSGALLERY_CONF_OPTION_MAGIC",		"Magic(Noch nicht unterst&uuml;tzt!)");
+DEFINE("_RSGALLERY_CONF_OPTION_L2R",		"links nach rechts");
+DEFINE("_RSGALLERY_CONF_OPTION_R2L",		"rechts nach links");
+DEFINE("_RSGALLERY_CONF_OPTION_PROP",		"proportional");
+DEFINE("_RSGALLERY_CONF_OPTION_SQUARE",		"quadratisch");
+DEFINE("_RSGALLERY_CONF_OPTION_DEFAULT_SIZE",		"Standardgr&ouml;&szlig;e");
+DEFINE("_RSGALLERY_CONF_OPTION_REZ_LARGE",		"gro&szlig;e Bilder verkleinern");
+DEFINE("_RSGALLERY_CONF_OPTION_REZ_SMALL",		"kleine Bilder vergr&ouml;&szlig;ern");
+DEFINE("_RSGALLERY_CONF_OPTION_REZ_2FIT",		"Bilder in Gr&ouml;&szlig;e anpassen");
+DEFINE("_RSGALLERY_CONF_OPTION_TL",		"oben links");
+DEFINE("_RSGALLERY_CONF_OPTION_TC",		"oben mitte");
+DEFINE("_RSGALLERY_CONF_OPTION_TR",		"oben rechts");
+DEFINE("_RSGALLERY_CONF_OPTION_L",		"links");
+DEFINE("_RSGALLERY_CONF_OPTION_C",		"mittig");
+DEFINE("_RSGALLERY_CONF_OPTION_R",		"rechts");
+DEFINE("_RSGALLERY_CONF_OPTION_BL",		"unten links");
+DEFINE("_RSGALLERY_CONF_OPTION_BC",		"unten mitte");
+DEFINE("_RSGALLERY_CONF_OPTION_BR",		"unten rechts");
+DEFINE("_RSGALLERY_CONF_POPUP_STYLE",		"Popup Style");
+DEFINE("_RSGALLERY_CONF_POPUP_NO",		"Kein Popup");
+DEFINE("_RSGALLERY_CONF_POPUP_NORMAL",		"Normales Popup");
+DEFINE("_RSGALLERY_CONF_POPUP_FANCY",		"Fancy Popup (Fehler bei IE6!)");
 //function showconfig
 DEFINE("_RSGALLERY_FREETYPE_INSTALLED",		"(Freetype library installiert, Wasserzeichen sind m&ouml;glich)");
 DEFINE("_RSGALLERY_FREETYPE_NOTINSTALLED",	"(Freetype library NICHT installiert! Wasserzeichen funktionieren nicht)");
-/*new*/DEFINE("_RSGALLERY_CONF_GENERALTAB",		"Allgemein");
-/*new*/DEFINE("_RSGALLERY_CONF_IMAGESTAB",		"Bilder");
-/*new*/DEFINE("_RSGALLERY_CONF_DISPLAY",		"Anzeige");
-/*new*/DEFINE("_RSGALLERY_CONF_USERS",		"Benutzer");
-/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_NEV",		"Niemals");
-/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_LIMIT",	"Wenn mehr Galerien als Limit");
-/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_ALW",		"Immer");
+DEFINE("_RSGALLERY_CONF_GENERALTAB",		"Allgemein");
+DEFINE("_RSGALLERY_CONF_IMAGESTAB",		"Bilder");
+DEFINE("_RSGALLERY_CONF_DISPLAY",		"Anzeige");
+DEFINE("_RSGALLERY_CONF_USERS",		"Benutzer");
+DEFINE("_RSGALLERY_CONF_LIMIT_NEV",		"Niemals");
+DEFINE("_RSGALLERY_CONF_LIMIT_LIMIT",	"Nur wenn mehr Galerien als Limit");
+DEFINE("_RSGALLERY_CONF_LIMIT_ALW",		"Immer");
 //function showUploadStep1
 DEFINE("_RSGALLERY_PICK",					"W&auml;hle eine Galerie");
 //function showUploadStep2
@@ -239,7 +246,7 @@ DEFINE("_RSGALLERY_BATCH_STEP2",			"Schritt 2");
 DEFINE("_RSGALLERY_UPLOAD_NUMBER",			"Anzahl Uploads");
 //function showUploadStep3
 DEFINE("_RSGALLERY_BATCH_STEP3",			"Schritt 3");
-/*new*/DEFINE("_RSGALLERY_UPLOAD_FORM_IMAGE",		"Bild");
+DEFINE("_RSGALLERY_UPLOAD_FORM_IMAGE",		"Bild");
 DEFINE("_RSGALLERY_CATNAME",				"Galeriename");
 DEFINE("_RSGALLERY_UPLOAD_FORM_FILE",		"Datei");
 //function viewImages
@@ -247,24 +254,26 @@ DEFINE("_RSGALLERY_DELETE",					"L&ouml;schen");
 DEFINE("_RSGALLERY_MOVETO",					"Verschieben nach");
 DEFINE("_RSGALLERY_NUMDISPLAY",				"Anazeige #");
 DEFINE("_RSGALLERY_SEARCH",					"Suche");
+DEFINE("_RSGALLERY_NUMDISPLAY",				"Anzeige #");
+DEFINE("_RSGALLERY_SEARCH",					"Suche");
 DEFINE("_RSGALLERY_IMAGENAME",				"Name");
 DEFINE("_RSGALLERY_IMAGEFILE",				"Dateiname");
 DEFINE("_RSGALLERY_IMAGECAT",				"Galerie");
 DEFINE("_RSGALLERY_IMAGEHITS",				"Treffer");
 DEFINE("_RSGALLERY_IMAGEDATE",				"Upload-Datum");
 DEFINE("_RSGALLERY_REORDER",				"Neu ordnen");
-/*new*/DEFINE("_RSGALLERY_SEL_TO_DEL",		"Bitte w&auml;hle aus der Liste, was gel&ouml;scht werden soll");
-/*new*/DEFINE("_RSGALLERY_SURE_DEL",		"Bist du dir sicher, da&szlig; du die gew&auml;hlten Items l&ouml;schen m&ouml;chtest?");
-/*new*/DEFINE("_RSGALLERY_SEL_TO_MOVE",		"Bitte w&auml;hle aus der Liste, was verschoben werden soll");
-/*new*/DEFINE("_RSGALLERY_SEL_GAL_TO_MOVE",	"Bitte w&auml;hle aus der Liste, in welche Galerie die Bilder verschoben werden sollen");
-/*new*/DEFINE("_RSGALLERY_SURE_MOVE",		"Bist du dir sicher, da&szlig; du die gew&auml;hlten Items verschieben m&ouml;chtest?");
-/*new*/DEFINE("_RSGALLERY_ORDER_UP",		"Nach oben");
-/*new*/DEFINE("_RSGALLERY_ORDER_DOWN",		"Nach unten");
+DEFINE("_RSGALLERY_SEL_TO_DEL",		"Zu L&ouml;schendes bitte aus der Liste ausw&auml;hlen");
+DEFINE("_RSGALLERY_SURE_DEL",		"Bist du sicher, dass du die ausgew&auml;hlten Objekte l&ouml;schen m&ouml;chtest? ");
+DEFINE("_RSGALLERY_SEL_TO_MOVE",		"Zu Verschiebendes bitte aus der Liste ausw&auml;hlen");
+DEFINE("_RSGALLERY_SEL_GAL_TO_MOVE",	"Bitte w&auml;hle die Galerie, in welche du die Bilder verschieben m&ouml;chtest");
+DEFINE("_RSGALLERY_SURE_MOVE",		"Bist du sicher, dass du die ausgew&auml;hlten Objekte verschieben m&ouml;chtest?");
+DEFINE("_RSGALLERY_ORDER_UP",		"Hoch schieben");
+DEFINE("_RSGALLERY_ORDER_DOWN",		"Runter schieben");
 
 //function showTemplates
-/*new*/DEFINE("_RSGALLERY_TEMP_MANG",				"Template-Verwaltung");
-/*new*/DEFINE("_RSGALLERY_RSG_NAME",				"RSGallery2");
-/*new*/DEFINE("_RSGALLERY_TEMP_PREV",				"Template-Vorschau");
+DEFINE("_RSGALLERY_TEMP_MANG",				"Template-Verwaltung");
+DEFINE("_RSGALLERY_RSG_NAME",				"RSGallery2");
+DEFINE("_RSGALLERY_TEMP_PREV",				"Template-Vorschau");
 //function consolidateDbGo
 DEFINE("_RSGALLERY_CONSDB_IN_DB",			"In<br>Datenbank");
 DEFINE("_RSGALLERY_CONSDB_DISP",			"Anzeige<br>Ordner");
@@ -276,24 +285,27 @@ DEFINE("_RSGALLERY_CONSDB_CREATE_IMG",		"[&nbsp;Erstelle fehlende Bilder&nbsp;]"
 DEFINE("_RSGALLERY_CONSDB_CREATE_DB",		"[&nbsp;Datenbankeintrag erzeugen&nbsp;]");
 DEFINE("_RSGALLERY_CONSDB_DELETE_IMG",		"[&nbsp;Bilder l&ouml;schen&nbsp;]");
 DEFINE("_RSGALLERY_CONSDB_NO_INCOS",		"Keine Inkonsistenzen in der Datenbank");
-/*new*/DEFINE("_RSGALLERY_CONSDB_NOTICE",	"&nbsp;<span style='text-size: 14px;font-weight:bold;'>HINWEIS</span>:<br />Das Feature f&uuml;r das Zusammenf&uuml;hren von Datenbanken ist gr&ouml;&szlig;tenteils funnktionsf&auml;hig. Das Feature 'Datenbankeintrag erstellen' wurde ebenfall hinzugef&uuml;gt.<br />Beachten Sie, da&szlig; Sie nicht mehrere Eintr&auml;ge hinzuf&uuml;gen k&ouml;nnen. Bis jetzt m&uuml;ssen Sie jeden Eintrag einzeln hinzuf&uuml;gen!");
+DEFINE("_RSGALLERY_CONSDB_NOTICE",	"&nbsp;<span style='text-size: 14px;font-weight:bold;'>HINWEIS</span>:<br />Das Feature f&uuml;r das Zusammenf&uuml;hren von Datenbanken ist gr&ouml;&szlig;tenteils funnktionsf&auml;hig. Das Feature 'Datenbankeintrag erstellen' wurde ebenfall hinzugef&uuml;gt.<br />Beachten Sie, da&szlig; Sie nicht mehrere Eintr&auml;ge hinzuf&uuml;gen k&ouml;nnen. Bis jetzt m&uuml;ssen Sie jeden Eintrag einzeln hinzuf&uuml;gen!");
 DEFINE("_RSGALLERY_NOT_WORKING",		"Funktioniert noch nicht");
 DEFINE("_RSGALLERY_DEL_FROM_SYSTEM",		"Vom Dateisystem l&ouml;schen");
 DEFINE("_RSGALLERY_CREATE_MISSING_IMG",		"Erzeuge fehlende Bilder");
 DEFINE("_RSGALLERY_CREATE_DB_ENTRIES",		"Erzeuge Datenbankeintr&auml;ge");
+DEFINE("_RSGALLERY_CONSDB_IMG_IN_FLDR",		"Bild im Ordner");
+DEFINE("_RSGALLERY_CONSDB_IMG__NOT_IN_FLDR",		"Bild NICHT im Ordner");
+DEFINE("_RSGALLERY_ ",		"");
 
 //admin.rsgallery2.php
-/*new*/DEFINE("_RSGALLERY_HEAD_CONFIG",		"Konfiguration");
-/*new*/DEFINE("_RSGALLERY_HEAD_CPANEL",		"Control Panel");
-/*new*/DEFINE("_RSGALLERY_HEAD_EDIT",		"Bearbeiten");
-/*new*/DEFINE("_RSGALLERY_HEAD_UPLOAD",		"Upload");
-/*new*/DEFINE("_RSGALLERY_HEAD_MIGRATE",		"Installieren and migrieren");
-/*new*/DEFINE("_RSGALLERY_HEAD_UPLOAD_ZIP",		"Upload ZIP-Datei");
-/*new*/DEFINE("_RSGALLERY_HEAD_CONSDB",		"Datenbank zusammenf&uuml;hren");
-/*new*/DEFINE("_RSGALLERY_HEAD_LOG",		"&Auml;nderungen");
-/*new*/DEFINE("_RSGALLERY_HEAD_CONF_VARIA",		"Konfigurationsvariabeln");
-/*new*/DEFINE("_RSGALLERY_HEAD_CONF_RAW_EDIT",		"Konfiguration Raw Edit");
-/*new*/DEFINE("_RSGALLERY_HEAD_MISS_IMG_CREATE",	"Fehlende Bidler erzeugt");
+DEFINE("_RSGALLERY_HEAD_CONFIG",		"Konfiguration");
+DEFINE("_RSGALLERY_HEAD_CPANEL",		"Control Panel");
+DEFINE("_RSGALLERY_HEAD_EDIT",		"Bearbeiten");
+DEFINE("_RSGALLERY_HEAD_UPLOAD",		"Upload");
+DEFINE("_RSGALLERY_HEAD_MIGRATE",		"Installieren and migrieren");
+DEFINE("_RSGALLERY_HEAD_UPLOAD_ZIP",		"Upload ZIP-Datei");
+DEFINE("_RSGALLERY_HEAD_CONSDB",		"Datenbank zusammenf&uuml;hren");
+DEFINE("_RSGALLERY_HEAD_LOG",		"&Auml;nderungen");
+DEFINE("_RSGALLERY_HEAD_CONF_VARIA",		"Konfigurationsvariabeln");
+DEFINE("_RSGALLERY_HEAD_CONF_RAW_EDIT",		"Konfiguration Raw Edit");
+DEFINE("_RSGALLERY_HEAD_MISS_IMG_CREATE",	"Fehlende Bidler erzeugt");
 //function config_rawEdit_save
 DEFINE("_RSGALLERY_CONF_SAVED",				"Konfiguration gespeichert");
 DEFINE("_RSGALLERY_CONF_SAVE_ERROR",		"Fehler beim Speichern der Konfiguration");
@@ -305,17 +317,30 @@ DEFINE("_RSGALLERY_PURGE_IMG",				"Bildereintr&auml;ge in Datenbank bereinigt.")
 DEFINE("_RSGALLERY_PURGE_GAL",				"Galerien in Datenbank bereinigt.");
 DEFINE("_RSGALLERY_PURGE_CONFIG",			"Konfiguration in Datenbank bereinigt.");
 DEFINE("_RSGALLERY_PURGE_COMMENTS",			"Kommentare in Datenbank bereinigt.");
+DEFINE("_RSGALLERY_PURGE_THUMB",		"l&ouml;sche Thumb-Bild.");
+DEFINE("_RSGALLERY_PURGE_DISPLAY",	"l&ouml;sche Anzeige-Bilder.");
+DEFINE("_RSGALLERY_PURGE_ORIGINAL",	"l&ouml;sche Original-Bilder.");
+DEFINE("_RSGALLERY_PURGE_PURGED",	"bereinigt.");
 //function reallyUninstall
 DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Used rm -r to attempt to remove $mosConfig_absolute_path/images/rsgallery");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"DROPed #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"DROPed #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"DROPed #__rsgallery2_config");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_COM",	"DROPed #__rsgallery2_comments");
-DEFINE("_RSGALLERY_REAL_UNINST_DONE",		"Abgeschlossen.  Bitte im Fall eines Fehlers Obiges von Hand entfernen.  Du solltest RSGallery2 jetzt deinstallieren oder es k&ouml;nnen Fehler auftreten.");
+DEFINE("_RSGALLERY_REAL_UNINST_DONE",		"Abgeschlossen. Bitte im Fall eines Fehlers Obiges von Hand entfernen.  Du solltest RSGallery2 jetzt deinstallieren oder es k&ouml;nnen Fehler auftreten.");
 //function deleteImage
 DEFINE("_RSGALLERY_ALERT_IMGDELETEOK",		"Bild(er) erfolgreich entfernt!");
 //function c_delete
 DEFINE("_RSGALLERY_ALERT_IMGDELETENOTOK",	"Bild(er) wurden nicht gel&ouml;scht!");
+//function copy_image
+DEFINE("_RSGALLERY_ALERT_COPYOK",			"Objekt(e) erfolgreich kopiert!");
+DEFINE("_RSGALLEY_ALERT_REST_COPYDOK",		"Restlichen Objekte erfolgreich kopiert!");
+//function c_create
+DEFINE("_RSGALLERY_CC_NO_FILE_INFO",		"Keine Dateiinformationen gefunden. Das sollte niemals passieren!");
+//function db_create
+DEFINE("_RSGALLERY_DB_CREATE_NO_GAL",		"Keine Galerie ge&auml;hlt um Bilder einzuf&uuml;gen!");
+DEFINE("_RSGALLERY_DB_CREATE_IMG_SUCCES ",		"Bilder erfolgreich in die Datenbank aufgenommen!");
+DEFINE("_RSGALLERY_DB_CREATE_IMG_FAIL",		"Bilder konnten NICHT in die Datenbank aufgenommen werden!");
 //function save_batchupload
 DEFINE("_RSGALLERY_ALERT_NOCATSELECTED",	"Bitte Galerie f&uuml;r ALLE Bilder ausw&auml;hlen!\\n(Auch f&uuml; Bilder die gel&ouml;scht werden sollen.\\nnDies wird in einer zuk&uuml;nftigen Versionen behoben sein!)");
 DEFINE("_RSGALLERY_ZIP_TO_BIG",				"ZIP-Datei ist zu gro&szlig;!");
@@ -357,10 +382,10 @@ DEFINE("_RSGALLERY_ISWRITABLE_UNWRITABLE",	"Unbeschreibbar");
 DEFINE("_RSGALLERY_MAKE_WRITABLE",			"Nach dem Speichern unbeschreibbar machen");
 DEFINE("_RSGALLERY_OVERWRITE_WRITABLE",		"Schreibschutz w&auml;hrend dem Speichern &uuml;berschreiben");
 //function uploadFile
-/*new*/DEFINE("_RSGALLERY_ERMSG_FAILD_CHMOD",	"Die Zugriffsrechte der hochgeladenen Dateien konnten nicht ge&auml;ndert werden.");
-/*new*/DEFINE("_RSGALLERY_ERMSG_FAILD_MOVE_MEDIA",	"Die hochgeladenen Dateien konnten nicht in das <code>/media</code> Verzeichnis verschoben werden.");
-/*new*/DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_WRITE",	"Der Upload schlug fehl, da das <code>/media</code> Verzeichnis keine Schreibrechte hat.");
-/*new*/DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_EXIST",	"Der Upload schlug fehl, da das <code>/media</code> Verzeichnis nicht existiert.");
+DEFINE("_RSGALLERY_ERMSG_FAILD_CHMOD",	"Berechtigungs-&Auml;nderung der hochgeladenen Datei fehlgeschlagen.");
+DEFINE("_RSGALLERY_ERMSG_FAILD_MOVE_MEDIA",	"Fehler beim Verschieben der hochgeladenen Datei in das <code>/media</code> Verzeichnis.");
+DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_WRITE",	"Upload fehlgeschlagen, da das <code>/media</code> Verzeichnis nicht beschreibbar ist.");
+DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_EXIST",	"Upload fehlgeschlagen, da das <code>/media</code> Verzeichnis nicht existiert.");
 
 //config.rsgallery2.php
 //function toString
@@ -368,9 +393,13 @@ DEFINE("_RSGALLERY_CONF_ERROR_UPLOAD",		" - Fehler beim Hochladen des Bildes : "
 //function showCategories
 DEFINE("_RSGALLERY_SELECT_GAL_DROP_BOX",		"- W&auml;hle die Galerie -");
 //function galleriesSelectList
-/*new*/DEFINE("_RSGALLERY_SELECT_GAL_TOP",		"Oben");
+DEFINE("_RSGALLERY_SELECT_GAL_TOP",		"Oben");
+//function showRating
+DEFINE("_RSGALLERY_RATE_NONE",		"Keine Bewertung");
 //function newImages
-/*new*/DEFINE("_RSGALLERY_NEW",				"Neu!");
+DEFINE("_RSGALLERY_NEW",				"Neu!");
+//function latestCats
+DEFINE("_RSGALLERY_NO_NEW_ENT",		"Keine neuen Eintr&auml;ge");
 //function writeWarningBox
 DEFINE("_RSGALLERY_NO_IMGLIBRARY",			"Es konnte kein verf&uuml;gbares Bild in der Sammlung gefunden werden! Bitte deinen Hosting Provider GD2 zu installieren oder pr&uuml;fe die Foren, um entweder ImageMagick oder NETPBM zu installieren!");
 DEFINE("_RSGALLERY_NOT_WRITABLE",			" ist NICHT beschreibbar!");
@@ -380,9 +409,9 @@ DEFINE("_RSGALLERY_REFRESH",				"Neu laden");
 //function writeDownloadLink
 DEFINE("_RSGALLERY_DOWNLOAD",				"Download");
 //function writeGalleryStatus
-/*new*/DEFINE("_RSGALLERY_STATUS_ARE_OWNER",	"Du bist der Besitzer dieser Galerie");
-/*new*/DEFINE("_RSGALLERY_STATUS_CAN_UPLOAD",	"Du kannst in dieser Galerie hochladen ");
-/*new*/DEFINE("_RSGALLERY_STATUS_NOT_PUBL",		"Diese Galerie ist NICHT ver&ouml;ffentlicht");
+DEFINE("_RSGALLERY_STATUS_ARE_OWNER",	"Du bist der Besitzer dieser Galerie");
+DEFINE("_RSGALLERY_STATUS_CAN_UPLOAD",	"Du kannst in diese Galerie hochladen");
+DEFINE("_RSGALLERY_STATUS_NOT_PUBL",		"Diese Galerie wurde NICHT ver&ouml;ffentlicht");
 
 //install.rsgallery2.php
 //function com_install
@@ -399,7 +428,7 @@ DEFINE("_RSGALLERY_TOOL_UP",				"Upload");
 DEFINE("_RSGALLERY_TOOL_NEXT",				"Weiter");
 DEFINE("_RSGALLERY_TOOL_DELETE",			"L&ouml;schen");
 DEFINE("_RSGALLERY_TOOL_CONFIRM_DEL",		"Entfernen best&auml;tigen");
-/*new*/DEFINE("_RSGALLERY_TOOL_RES_HITS",	"Treffer zur&uuml;ck setzen");
+DEFINE("_RSGALLERY_TOOL_RES_HITS",	"Treffer zur&uuml;cksetzen");
 
 //config.html
 DEFINE("_RSGALLERY_C_TMPL_VERSION",			"Version:");
@@ -438,6 +467,9 @@ DEFINE("_RSGALLERY_C_TMPL_FLOATDIRECTION",	"Richtung (funktioniert nur bei float
 DEFINE("_RSGALLERY_C_TMPL_COLS_PERPAGE",	"Anzahl der Thumbnailspalten (nur bei Tabellen):");
 DEFINE("_RSGALLERY_C_TMPL_THUMBS_PERPAGE",	"Thumbnails pro Seite:");
 DEFINE("_RSGALLERY_C_TMPL_DISP_SLIDE",		"Zeige Diashow");
+/*NEW*/DEFINE("_RSGALLERY_C_TMPL_DISP_OWNER",		"Zeige Besitzer Information");
+/*NEW*/DEFINE("_RSGALLERY_C_TMPL_DISP_ITEMS",		"Zeige Objekt-Anzahl in der Galerie");
+/*NEW*/DEFINE("_RSGALLERY_C_TMPL_DISP_DATE",		"Zeige Erstellungs-Datum");
 DEFINE("_RSGALLERY_C_TMPL_IMG_DISP",		"Anzeige Optionen");
 DEFINE("_RSGALLERY_C_TMPL_RESIZE_OPT",		"Resize Option");
 DEFINE("_RSGALLERY_C_TMPL_DISP_DESCR",		"Zeige Beschreibung");
@@ -456,117 +488,131 @@ DEFINE("_RSGALLERY_C_TMPL_ACL_ENABLE",		"Aktiviere Zugangskontrolle");
 DEFINE("_RSGALLERY_C_TMPL_SHOW_MYGAL",		"Zeige Meine Galerien");
 DEFINE("_RSGALLERY_C_TMPL_USER_SET",		"Benutzerspezifische Einstellungen");
 DEFINE("_RSGALLERY_C_DISP_STATUS_ICON",		"Zeige Statussymbole");
-/*new*/DEFINE("_RSGALLERY_C_GEN_SET",			"Allgemeine Einstellungen");
-/*new*/DEFINE("_RSGALLERY_C_HTML_ROOT",			"HTML-root ist");
-/*new*/DEFINE("_RSGALLERY_C_DISP_LIMIB",		"Zeige die Galerie Limitbox");
-/*new*/DEFINE("_RSGALLERY_C_NUMB_GAL_FRONT",	"Anzahl der auf der Titelseite angezeigten Galerien");
-/*new*/DEFINE("_RSGALLERY_C_FONT",				"Schrift");
-/*new*/DEFINE("_RSGALLERY_C_WATER_TRANS",		"Transparenz des Wasserzeichens");
-/*new*/DEFINE("_RSGALLERY_C_ALLOWED_FILE",		"Erlaubte Dateitypen");
+DEFINE("_RSGALLERY_C_GEN_SET",			"Allgemeine Einstellungen");
+DEFINE("_RSGALLERY_C_HTML_ROOT",			"HTML-root ist");
+DEFINE("_RSGALLERY_C_DISP_LIMIB",		"Zeige die Galerie Limitbox");
+DEFINE("_RSGALLERY_C_NUMB_GAL_FRONT",	"Anzahl der auf der Titelseite angezeigten Galerien");
+DEFINE("_RSGALLERY_C_FONT",				"Schrift");
+DEFINE("_RSGALLERY_C_WATER_TRANS",		"Transparenz des Wasserzeichens");
+DEFINE("_RSGALLERY_C_ALLOWED_FILE",		"Erlaubte Dateitypen");
+//Commenting
+DEFINE("_RSGALLERY_COMMENTS_LABEL",			"Kommentare");
+DEFINE("_RSGALLERY_COMMENTS_ENABLED",		"Kommentieren erlaubt");
+DEFINE("_RSGALLERY_COMMENTS_ALLOW_PUBLIC",	"Erlaube &ouml;ffentlichen Benutzern zu kommentieren");
+DEFINE("_RSGALLERY_COMMENTS_ONLY_ONCE",		"Benutzer darf nur einmal kommentieren");
+
+//Voting
+DEFINE("_RSGALLERY_VOTE_LABEL",				"Abstimmung");
+DEFINE("_RSGALLERY_VOTE_ENABLED",			"Abstimmung aktiviert");
+DEFINE("_RSGALLERY_VOTE_REGISTERED_ONLY",	"Nur registrierte Benutzer");
+DEFINE("_RSGALLERY_VOTE_ONLY_ONCE",			"Benutzer darf nur einmal abstimmen (Cookie basiert)");
+DEFINE("_RSGALLERY_VOTE_COOKIE_PREFIX",		"Cookie-Prefix");
+
 
 //galleries.class.php
 //function check
-/*new*/DEFINE("_RSGALLERY_GAL_EXIST_ERROR",		"Es gibt bereits eine Galerie mit diesem Namen, bitte noch einmal probieren.");
+DEFINE("_RSGALLERY_GAL_EXIST_ERROR",		"Es gibt bereits eine Galerie mit diesem Namen, bitte noch einmal probieren.");
 
 //galleries.html.php
 //function show
-/*new*/DEFINE("_RSGALLERY_GAL_MANAGE",			"Galerie Manager");
-/*new*/DEFINE("_RSGALLERY_GAL_MAX_LEVELS",		"Max Levels");
-/*new*/DEFINE("_RSGALLERY_GAL_FILTER",			"Filter");
-/*new*/DEFINE("_RSGALLERY_GAL_NAME",			"Name");
-/*new*/DEFINE("_RSGALLERY_GAL_REORDER",			"Neu ordnen");
-/*new*/DEFINE("_RSGALLERY_GAL_HITS",			"Treffer");
+DEFINE("_RSGALLERY_GAL_MANAGE",			"Galerie Manager");
+DEFINE("_RSGALLERY_GAL_MAX_LEVELS",		"Max Levels");
+DEFINE("_RSGALLERY_GAL_FILTER",			"Filter");
+DEFINE("_RSGALLERY_GAL_NAME",			"Name");
+DEFINE("_RSGALLERY_GAL_REORDER",			"Neu ordnen");
+DEFINE("_RSGALLERY_GAL_COUNT",			"# Objekte");
+DEFINE("_RSGALLERY_GAL_HITS",			"Treffer");
 //function edit
-/*new*/DEFINE("_RSGALLERY_GAL_GAL",				"Galerie");
-/*new*/DEFINE("_RSGALLERY_GAL_DETAILS",			"Details");
-/*new*/DEFINE("_RSGALLERY_GAL_DESCR",			"Beschreibung");
-/*new*/DEFINE("_RSGALLERY_GAL_PARENT",			"Parent Item");
-/*new*/DEFINE("_RSGALLERY_GAL_THUMB",			"Galerie Thumbnail");
-/*new*/DEFINE("_RSGALLERY_GAL_ORDERING",		"Anordnung");
-/*new*/DEFINE("_RSGALLERY_GAL_PUBLISHED",		"Ver&ouml;ffentlicht");
-/*new*/DEFINE("_RSGALLERY_GAL_PARAMETERS",		"Parameter");
-/*new*/DEFINE("_RSGALLERY_GAL_OWNER",	"Besitzer");
-/*new*/DEFINE("_RSGALLERY_GAL_PERMS",	"Berechtigungen");
-/*new*/DEFINE("_RSGALLERY_GAL_DEF_PERM_CREATE",	"Standardberechtigungen wurden erzeugt. <br />Nachdem die Galerie erstellt wurde, kannst du zur&uuml;ck kommen, um die Berechtigungen zu &auml;ndern.");
-/*new*/DEFINE("_RSGALLERY_GAL_NO_PERM_FOUND",	"Keine Berechtigungen f&uuml;r diese Galerie gefunden. Bitte klicken Sie auf den <strong>SPEICHERN</strong> Knopf in der Toolbar dar&uuml;ber um eine Standarderlaubnis zu erzeugen. Komm danach hierher zur&uuml;ck, und setze die Berchtigungen.");
-/*new*/DEFINE("_RSGALLERY_GAL_USERTYPE",		"Benutzertyp");
-/*new*/DEFINE("_RSGALLERY_GAL_VIEW_GAL",		"Zeige<br/>Galerie</span>");
-/*new*/DEFINE("_RSGALLERY_GAL_UPL_EDIT_IMG",	"Hochladen/Editieren<br/>Bilder</span>");
-/*new*/DEFINE("_RSGALLERY_GAL_DEL_IMG",			"L&ouml;sche Bilder</span>");
-/*new*/DEFINE("_RSGALLERY_GAL_MOD_GAL",			"Modifiziere<br/>Galerie</span>");
-/*new*/DEFINE("_RSGALLERY_GAL_DEL_GAL",			"L&ouml;sche<br/>Galerie</span>");
-/*new*/DEFINE("_RSGALLERY_GAL_ACL_PUB",			"&Ouml;ffentlich</span>");
-/*new*/DEFINE("_RSGALLERY_GAL_ACL_REG",			"Registrierte</span>");
-/*new*/DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",	"&nbsp;Alle an/abw&auml;hlen");
-/*new*/DEFINE("_RSGALLERY_GAL_ORDER",	"Sortieren");
+DEFINE("_RSGALLERY_GAL_GAL",				"Galerie");
+DEFINE("_RSGALLERY_GAL_DETAILS",			"Details");
+DEFINE("_RSGALLERY_GAL_DESCR",			"Beschreibung");
+DEFINE("_RSGALLERY_GAL_PARENT",			"Parent Item");
+DEFINE("_RSGALLERY_GAL_THUMB",			"Galerie Thumbnail");
+DEFINE("_RSGALLERY_GAL_ORDERING",		"Anordnung");
+DEFINE("_RSGALLERY_GAL_PUBLISHED",		"Ver&ouml;ffentlicht");
+DEFINE("_RSGALLERY_GAL_PARAMETERS",		"Parameter");
+DEFINE("_RSGALLERY_GAL_OWNER",	"Besitzer");
+DEFINE("_RSGALLERY_GAL_PERMS",	"Berechtigungen");
+DEFINE("_RSGALLERY_GAL_DEF_PERM_CREATE",	"Standardberechtigungen wurden erzeugt. <br />Nachdem die Galerie erstellt wurde, kannst du zur&uuml;ck kommen, um die Berechtigungen zu &auml;ndern.");
+DEFINE("_RSGALLERY_GAL_NO_PERM_FOUND",	"Keine Berechtigungen f&uuml;r diese Galerie gefunden. Bitte klicken Sie auf den <strong>SPEICHERN</strong> Knopf in der Toolbar dar&uuml;ber um eine Standarderlaubnis zu erzeugen. Komm danach hierher zur&uuml;ck, und setze die Berchtigungen.");
+DEFINE("_RSGALLERY_GAL_USERTYPE",		"Benutzertyp");
+DEFINE("_RSGALLERY_GAL_VIEW_GAL",		"Zeige<br/>Galerie</span>");
+DEFINE("_RSGALLERY_GAL_UPL_EDIT_IMG",	"Hochladen/Editieren<br/>Bilder</span>");
+DEFINE("_RSGALLERY_GAL_DEL_IMG",			"L&ouml;sche Bilder</span>");
+DEFINE("_RSGALLERY_GAL_MOD_GAL",			"Modifiziere<br/>Galerie</span>");
+DEFINE("_RSGALLERY_GAL_DEL_GAL",			"L&ouml;sche<br/>Galerie</span>");
+DEFINE("_RSGALLERY_GAL_ACL_PUB",			"&Ouml;ffentlich</span>");
+DEFINE("_RSGALLERY_GAL_ACL_REG",			"Registrierte</span>");
+DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",	"&nbsp;Alle an/abw&auml;hlen");
+DEFINE("_RSGALLERY_GAL_ORDER",	"Sortieren");
 
 //install.class.php
 //function echo_values
-/*new*/DEFINE("_RSGALLERY_INSTALL_THUMBDIR",			"Thumbverzeichnis ist:");
+DEFINE("_RSGALLERY_INSTALL_THUMBDIR",			"Thumbverzeichnis ist:");
 //function changeMenuIcon
-/*new*/DEFINE("_RSGALLERY_INSTALL_MENU_ICON_OK",		"Men&uuml;bild erfolgreich ge&auml;ndert");
-/*new*/DEFINE("_RSGALLERY_INSTALL_MENU_ICON_ERROR",		"Men&uuml;bild konnte nicht ge&auml;ndert werden");
+DEFINE("_RSGALLERY_INSTALL_MENU_ICON_OK",		"Men&uuml;bild erfolgreich ge&auml;ndert");
+DEFINE("_RSGALLERY_INSTALL_MENU_ICON_ERROR",		"Men&uuml;bild konnte nicht ge&auml;ndert werden");
 //function createDirStructure
-/*new*/DEFINE("_RSGALLERY_INSTALL_DIR_EXISTS",			" existiert bereits");
-/*new*/DEFINE("_RSGALLERY_ISNTALL_IS_CREATED",			" wurde erstellt");
-/*new*/DEFINE("_RSGALLERY_INSTALL_NOT_CREATED",			" konnte nicht erstellt werden");
+DEFINE("_RSGALLERY_INSTALL_DIR_EXISTS",			" existiert bereits");
+DEFINE("_RSGALLERY_ISNTALL_IS_CREATED",			" wurde erstellt");
+DEFINE("_RSGALLERY_INSTALL_NOT_CREATED",			" konnte nicht erstellt werden");
 //function createTableStructure
-/*new*/DEFINE("_RSGALLERY_ISNTALL_DB_OK",				"Tabellen in Datenbank erfolgreich angelegt.");
+DEFINE("_RSGALLERY_ISNTALL_DB_OK",				"Tabellen in Datenbank erfolgreich angelegt.");
 //function copyFiles
-/*new*/DEFINE("_RSGALLERY_INSTALL_FILE_COPY_FROM",		"Datei kopiert von ");
-/*new*/DEFINE("_RSGALLERY_INSTALL_FILE_COPY_TO",		" nach ");
-/*new*/DEFINE("_RSGALLERY_INSTALL_FILE_NOTCOPY_FROM",	"kann Datei nicht kopieren von ");
-/*new*/DEFINE("_RSGALLERY_INSTALL_DIR_CREATED",			"Verzeichnis erstellt: ");
-/*new*/DEFINE("_RSGALLERY_INSTALL_DIR_NOTCREATED",		"kann Verzeichnis nicht erstellen ");
+DEFINE("_RSGALLERY_INSTALL_FILE_COPY_FROM",		"Datei kopiert von ");
+DEFINE("_RSGALLERY_INSTALL_FILE_COPY_TO",		" nach ");
+DEFINE("_RSGALLERY_INSTALL_FILE_NOTCOPY_FROM",	"kann Datei nicht kopieren von ");
+DEFINE("_RSGALLERY_INSTALL_DIR_CREATED",			"Verzeichnis erstellt: ");
+DEFINE("_RSGALLERY_INSTALL_DIR_NOTCREATED",		"kann Verzeichnis nicht erstellen ");
 //function deleteGalleryDir
-/*new*/DEFINE("_RSGALLERY_DELGAL_PROCES",				"Fortschritt: ");
-/*new*/DEFINE("_RSGALLERY_DELGAL_OK",					"Verzeichnisstruktur gel&ouml;scht!");
-/*new*/DEFINE("_RSGALLERY_DELGAL_NOTOK",				"L&ouml;schen der alten Verzeichnisstruktur fehlgeschlagen.");
-/*new*/DEFINE("_RSGALLERY_DELGAL_NO_OLD_DIR",			"Konnte keine alte Verzeichnisstruktur finden. Weiter geht's");
+DEFINE("_RSGALLERY_DELGAL_PROCES",				"Fortschritt: ");
+DEFINE("_RSGALLERY_DELGAL_OK",					"Verzeichnisstruktur gel&ouml;scht!");
+DEFINE("_RSGALLERY_DELGAL_NOTOK",				"L&ouml;schen der alten Verzeichnisstruktur fehlgeschlagen.");
+DEFINE("_RSGALLERY_DELGAL_NO_OLD_DIR",			"Konnte keine alte Verzeichnisstruktur finden. Weiter geht's");
 //function checkDirPerms
-/*new*/DEFINE("_RSGALLERY_PERMS_NOT_EXIST",				" Existiert nicht. Bitte manuell per FTP erstellen und Zugriffsrechte kontrollieren");
-/*new*/DEFINE("_RSGALLERY_PERMS_NOT_SET",				" wurde gefunden, korrekte Zugriffsrechte (777) konnten nicht gesetzt werden.\nZugriffsrechte stehen  momentan auf ");
-/*new*/DEFINE("_RSGALLERY_PERMS_NOT_SET_TRY_FTP",		".<br />Bitte die Zugriffsrechte per FTP korrigieren.");
-/*new*/DEFINE("_RSGALLERY_PERMS_OK",					" wurde gefunden, Zugriffsrechte sind OK.");
+DEFINE("_RSGALLERY_PERMS_NOT_EXIST",				" Existiert nicht. Bitte manuell per FTP erstellen und Zugriffsrechte kontrollieren");
+DEFINE("_RSGALLERY_PERMS_NOT_SET",				" wurde gefunden, korrekte Zugriffsrechte (777) konnten nicht gesetzt werden.\nZugriffsrechte stehen  momentan auf ");
+DEFINE("_RSGALLERY_PERMS_NOT_SET_TRY_FTP",		".<br />Bitte die Zugriffsrechte per FTP korrigieren.");
+DEFINE("_RSGALLERY_PERMS_OK",					" wurde gefunden, Zugriffsrechte sind OK.");
 //function installComplete
-/*new*/DEFINE("_RSGALLERY_INSTALL_COMPLETE",			"Die Installation von RSGallery ist fertig");
-/*new*/DEFINE("_RSGALLERY_INSTALL_STATUS_MSGS",			"Sofern es irgendwelche beachtenswerten Statusnachrichten gibt, diese bitte sofort ber&uuml;cksichtigen. Erst danach zum Control Panel wechseln.");
+DEFINE("_RSGALLERY_INSTALL_COMPLETE",			"Die Installation von RSGallery ist fertig");
+DEFINE("_RSGALLERY_INSTALL_STATUS_MSGS",			"Sofern es irgendwelche beachtenswerten Statusnachrichten gibt, diese bitte sofort ber&uuml;cksichtigen. Erst danach zum Control Panel wechseln.");
 //function deleteTable
-/*new*/DEFINE("_RSGALLERY_TABLEDEL_OK",					" wurde gel&ouml;scht");
-/*new*/DEFINE("_RSGALLERY_TABLEDEL_NOTOK",				" konnte nicht gel&ouml;scht werden.<br />Bitte manuell l&ouml;schen.");
+DEFINE("_RSGALLERY_TABLEDEL_OK",					" wurde gel&ouml;scht");
+DEFINE("_RSGALLERY_TABLEDEL_NOTOK",				" konnte nicht gel&ouml;scht werden.<br />Bitte manuell l&ouml;schen.");
 //function migrateOldFiles
-/*new*/DEFINE("_RSGALLERY_MIGRATE_NOT_ALL",			"Es konnten leider nicht alle Dateiinformationen in die RSGallery2 migriert werden. Unbekannte Ursache(");
-/*new*/DEFINE("_RSGALLERY_MIGRATE_OUT_OF",			" von ");
-/*new*/DEFINE("_RSGALLERY_MIGRATE_ENTRIES_OK",		" Eintr&auml;ge verarbeitet)");
-/*new*/DEFINE("_RSGALLERY_MIGRATE_ALL",				"Alle Dateiinformationen erfolgreich in die RSGallery2 Datenbank migriert(");
+DEFINE("_RSGALLERY_MIGRATE_NOT_ALL",			"Es konnten leider nicht alle Dateiinformationen in die RSGallery2 migriert werden. Unbekannte Ursache(");
+DEFINE("_RSGALLERY_MIGRATE_OUT_OF",			" von ");
+DEFINE("_RSGALLERY_MIGRATE_ENTRIES_OK",		" Eintr&auml;ge verarbeitet)");
+DEFINE("_RSGALLERY_MIGRATE_ALL",				"Alle Dateiinformationen erfolgreich in die RSGallery2 Datenbank migriert(");
 //function migrateOldCats
-/*new*/DEFINE("_RSGALLERY_MIGRATE_NOT_ALL_GAL",		"Nicht alle Galerieinformationen konnten in die RSGallery2 Datenbank migriert werden. Unbekannte Ursache(");
-/*new*/DEFINE("_RSGALLERY_MIGRATE_ALL_GAL",			"Alle Galerieinformationen in die RSGallery2 Datenbank migriert(");
-/*new*/DEFINE("_RSGALLERY_MIGRATE_ALL_FILES",		"Dateien erfolgreich in neue Struktur kopiert");
-/*new*/DEFINE("_RSGALLERY_MIGRATE_NOTALL_FILES",		"Fehler beim Versuch Dateien in die neue Struktur zu kopieren");
-/*new*/DEFINE("_RSGALLERY_MIGRATE_ZOOM_OK",		"Migration von Zoom Gallery abgeschlossen. Bitte zum Control Panel wechseln.");
+DEFINE("_RSGALLERY_MIGRATE_NOT_ALL_GAL",		"Nicht alle Galerieinformationen konnten in die RSGallery2 Datenbank migriert werden. Unbekannte Ursache(");
+DEFINE("_RSGALLERY_MIGRATE_ALL_GAL",			"Alle Galerieinformationen in die RSGallery2 Datenbank migriert(");
+DEFINE("_RSGALLERY_MIGRATE_ALL_FILES",		"Dateien erfolgreich in neue Struktur kopiert");
+DEFINE("_RSGALLERY_MIGRATE_NOTALL_FILES",		"Fehler beim Versuch Dateien in die neue Struktur zu kopieren");
+DEFINE("_RSGALLERY_MIGRATE_ZOOM_OK",		"Migration von Zoom Gallery abgeschlossen. Bitte zum Control Panel wechseln.");
 //function upgradeInstall
-/*new*/DEFINE("_RSGALLERY_UPGRADE_RSG",		"Aktuallisierung von RSGallery");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_REC_FULL",		"Komponente gefunden, allerdings keine Versionsinformationen verf&uuml;gbar.<br />Vollinstallation wird empfohlen.");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF",		"Originaldateien erfolgreich transferiert");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF_ERROR",		"Fehler beim Transfer der Originaldateien in die neue Struktur.\nBitte per FTP kontrollieren!");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF",		"Thumb-Dateien erfolgreich transferiert");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF_ERROR",		"Fehler beim Transferieren der Thumb-Dateien in die neue Struktur.<br />Bitte per FTP kontrollieren!");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE",		"Anzeigebilder erfolgreich erstellt.");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE_ERROR",		"Fehler beim Erstellen einiger oder aller Anzeigebilder. <br />Bitte die Entwickler dieser Komponente kontaktieren.");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_TABLE",		"Tabelle ");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_OK",		" wurde erfolgreich ge&auml;ndert");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_ERROR",		" wurde NICHT erfolgreich ge&auml;ndert");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_OK",		" wurde erfolgreich umbenannt");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_ERROR",		"");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_DUMMY_ERROR",		"Fehler beim Erstellen der Dummy Tabellen. Deinstallation von RSGallery 2.0 beta 5 funktioniert evtl. nicht.");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_NOT_POSSIBLE",		"Upgrade nicht m&ouml;glich. Kein aktuallisierbares RSGallery gefunden\nVollinstallation empfohlen.");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_SUCCESS",		"Upgrade auf RSGallery2 ist abgeschlossen.\nDas alte RSGallery kann jetzt sicher deinstalliert werden");
+DEFINE("_RSGALLERY_UPGRADE_RSG",		"Aktuallisierung von RSGallery");
+DEFINE("_RSGALLERY_UPGRADE_REC_FULL",		"Komponente gefunden, allerdings keine Versionsinformationen verf&uuml;gbar.<br />Vollinstallation wird empfohlen.");
+DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF",		"Originaldateien erfolgreich transferiert");
+DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF_ERROR",		"Fehler beim Transfer der Originaldateien in die neue Struktur.\nBitte per FTP kontrollieren!");
+DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF",		"Thumb-Dateien erfolgreich transferiert");
+DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF_ERROR",		"Fehler beim Transferieren der Thumb-Dateien in die neue Struktur.<br />Bitte per FTP kontrollieren!");
+DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE",		"Anzeigebilder erfolgreich erstellt.");
+DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE_ERROR",		"Fehler beim Erstellen einiger oder aller Anzeigebilder. <br />Bitte die Entwickler dieser Komponente kontaktieren.");
+DEFINE("_RSGALLERY_UPGRADE_TABLE",		"Tabelle ");
+DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_OK",		" wurde erfolgreich ge&auml;ndert");
+DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_ERROR",		" wurde NICHT erfolgreich ge&auml;ndert");
+DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_OK",		" wurde erfolgreich umbenannt");
+DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_ERROR",		"");
+DEFINE("_RSGALLERY_UPGRADE_DUMMY_ERROR",		"Fehler beim Erstellen der Dummy Tabellen. Deinstallation von RSGallery 2.0 beta 5 funktioniert evtl. nicht.");
+DEFINE("_RSGALLERY_UPGRADE_NOT_POSSIBLE",		"Upgrade nicht m&ouml;glich. Kein aktuallisierbares RSGallery gefunden\nVollinstallation empfohlen.");
+DEFINE("_RSGALLERY_UPGRADE_SUCCESS",		"Upgrade auf RSGallery2 ist abgeschlossen.\nDas alte RSGallery kann jetzt sicher deinstalliert werden");
 //function showMigrationOptions
-/*new*/DEFINE("_RSGALLERY_MIGRATION",		"Migration");
-/*new*/DEFINE("_RSGALLERY_MIGRATION_NO_SYSTEMS",		"Keine anderen Galeriesysteme installiert");
+DEFINE("_RSGALLERY_MIGRATION",		"Migration");
+DEFINE("_RSGALLERY_MIGRATION_NO_SYSTEMS",		"Keine anderen Galeriesysteme installiert");
 //function doMigration
-/*new*/DEFINE("_RSGALLERY_MIGRATION_NOT_VALID",		"ist kein g&uuml;ltiger Migrationstyp.");
+DEFINE("_RSGALLERY_MIGRATION_NOT_VALID",		"ist kein g&uuml;ltiger Migrationstyp.");
 
 //uninstall.rsgallery2.php
 //function com_uninstall
@@ -580,37 +626,149 @@ DEFINE("_RSGALLERY_SLIDE_PREV",			"Zur&uuml;ck");
 
 //images.html.php
 //function showImages
-/*new*/DEFINE("_RSGALLERY_IMG_IMG_MANAGE",			"Bilder-Verwaltung");
-/*new*/DEFINE("_RSGALLERY_IMG_FILTER",				"Filter:");
-/*new*/DEFINE("_RSGALLERY_IMG_TITLE",				"Titel (Dateiname)");
-/*new*/DEFINE("_RSGALLERY_IMG_ORDER",				"Anordnung");
-/*new*/DEFINE("_RSGALLERY_IMG_DATE_TIME",			"Datum & Zeit");
-/*new*/DEFINE("_RSGALLERY_IMG_EDIT_IMG",			"Bilder bearbeiten");
+DEFINE("_RSGALLERY_IMG_IMG_MANAGE",			"Bilder-Verwaltung");
+DEFINE("_RSGALLERY_IMG_FILTER",				"Filter:");
+DEFINE("_RSGALLERY_IMG_TITLE",				"Titel (Dateiname)");
+DEFINE("_RSGALLERY_IMG_ORDER",				"Anordnung");
+DEFINE("_RSGALLERY_IMG_DATE_TIME",			"Datum & Zeit");
+DEFINE("_RSGALLERY_IMG_EDIT_IMG",			"Bilder bearbeiten");
+DEFINE("_RSGALLERY_IMG_EDIT_IMG",			"Bearbeite Bilder");
 //function editImage
-/*new*/DEFINE("_RSGALLERY_IMG_IMAGE",			"Bild");
-/*new*/DEFINE("_RSGALLERY_IMG_DETAILS",			"Details");
-/*new*/DEFINE("_RSGALLERY_IMG_ORDERING",			"Anordnen");
-/*new*/DEFINE("_RSGALLERY_IMG_IMG_PREV",			"Bild-Vorschau");
-/*new*/DEFINE("_RSGALLERY_IMG_PARAMETERS",			"Parameter");
+DEFINE("_RSGALLERY_IMG_IMAGE",			"Bild");
+DEFINE("_RSGALLERY_IMG_DETAILS",			"Details");
+DEFINE("_RSGALLERY_IMG_ORDERING",			"Anordnen");
+DEFINE("_RSGALLERY_IMG_IMG_PREV",			"Bild-Vorschau");
+DEFINE("_RSGALLERY_IMG_PARAMETERS",			"Parameter");
+DEFINE("_RSGALLERY_IMG_LINKS",			"Verweist auf Bild");
 //function uploadImage
-/*new*/DEFINE("_RSGALLERY_IMG_SELECT_GAL",			"Du musst eine Galerie auswählen.");/*javascript alert*/
-/*new*/DEFINE("_RSGALLERY_IMG_NO_FILE_SELECT",		"Keine Dateien in einem oder mehreren Feldern ausgewählt.");/*javascript alert*/
-/*new*/DEFINE("_RSGALLERY_IMG_UPLOAD",			"Upload");
-/*new*/DEFINE("_RSGALLERY_IMG_UPL_DETAILS",			"Upload-Details");
-/*new*/DEFINE("_RSGALLERY_IMG_UPL_GALLERY",			"Upload-Galerie");
-/*new*/DEFINE("_RSGALLERY_IMG_GEN_DESCR",			"Allgemeine Beschreibung");
-/*new*/DEFINE("_RSGALLERY_IMG_IMG_FILES",			"Bild-Dateien");
-/*new*/DEFINE("_RSGALLERY_IMG_IMAGES",			"Bilder");
-/*new*/DEFINE("_RSGALLERY_IMG_FILE",			"Datei");
-/*new*/DEFINE("_RSGALLERY_IMG_MORE",			"(mehr Bilder)");
+DEFINE("_RSGALLERY_IMG_SELECT_GAL",			"Du musst eine Galerie auswählen.");/*javascript alert*/
+DEFINE("_RSGALLERY_IMG_NO_FILE_SELECT",		"Keine Dateien in einem oder mehreren Feldern ausgewählt.");/*javascript alert*/
+DEFINE("_RSGALLERY_IMG_UPLOAD",			"Upload");
+DEFINE("_RSGALLERY_IMG_UPL_DETAILS",			"Upload-Details");
+DEFINE("_RSGALLERY_IMG_UPL_GALLERY",			"Upload-Galerie");
+DEFINE("_RSGALLERY_IMG_GEN_DESCR",			"Allgemeine Beschreibung");
+DEFINE("_RSGALLERY_IMG_IMG_FILES",			"Bild-Dateien");
+DEFINE("_RSGALLERY_IMG_IMAGES",			"Bilder");
+DEFINE("_RSGALLERY_IMG_FILE",			"Datei");
+DEFINE("_RSGALLERY_IMG_MORE",			"(mehr Bilder)");
 
 //access.class.php
 //function checkGallery
-/*new*/DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"Keine Berechtigungen gefunden, es wurden die Standard-Berechtigungen erstellt. Bitte noch einmal probieren.");
+DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"Keine Berechtigungen gefunden, es wurden die Standard-Berechtigungen erstellt. Bitte noch einmal probieren.");
 
 //tables/display.class.php
 //function _showGalleryDetails
-/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"Besitzer: ");
-/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"Gr&ouml;&szlig;e: ");
-/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Erstellt: ");
+DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"Besitzer: ");
+DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"Gr&ouml;&szlig;e: ");
+DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Erstellt: ");
+
+//file.utils.php
+//function importImage
+DEFINE("_RSGALLERY_FU_NOT_SUP_TYPE",		" kein unterst&uuml;tzter Dateityp.");
+//function move_uploadedFile_to_orignalDir
+DEFINE("_RSGALLERY_FU_UNABLE_COPY",		"Kopieren nicht m&ouml;glich ");
+DEFINE("_RSGALLERY_FU_IMAGE_TO",		" Bild nach: ");
+//function preHandlerCheck
+DEFINE("_RSGALLERY_FU_NOT_WRITABLE",		" existiert, aber ist nicht beschreibbar!");
+DEFINE("_RSGALLERY_FU_NOT_EXIST",		" existiert nicht!");
+//function cleanMediaDir
+DEFINE("_RSGALLERY_FU_APPARENTLY",		"Anscheinend ");
+DEFINE("_RSGALLERY_FU_DOESNT_EXIST",		"existiert nicht");
+//function handleFTP
+DEFINE("_RSGALLERY_FU_FTP_DIR_NOT_EXIST",		" existiert nicht oder ist kein Verzeichnis auf Ihrem Server. Bitte den Pfad kontrollieren.");
+DEFINE("_RSGALLERY_FU_NO_VALID_IMG",		"Keine g&uuml;ltigen Bilder gefunden unter ");
+DEFINE("_RSGALLERY_FU_PLEASE_CHECK_PATH",		". Bitte den Pfad pr&uuml;fen.");
+DEFINE("_RSGALLERY_FU_NO_FILES",		"Keine Dateien zum Verarbeiten gefunden!");
+DEFINE("_RSGALLERY_FU_MAX_FILESIZE",		"Die hochgeladene Datei &uuml;berschreitet die upload_max_filesize Richtlinie ");
+DEFINE("_RSGALLERY_FU_IN_PINI",		" in der php.ini.");
+DEFINE("_RSGALLERY_FU_MAX_FILESIZE_FORM",		"Die hochgeladene Datei &uuml;berschreitet die MAX_FILE_SIZE Richtlinie, die im HTML-Formular festgelegt wurde.");
+DEFINE("_RSGALLERY_FU_PARTIAL_UPL",		"Die hochgeladene Datei wurde nur teilweise hochgeladen.");
+DEFINE("_RSGALLERY_FU_NO_UPL",		"Keine Datei wurde hochgeladen.");
+DEFINE("_RSGALLERY_FU_MISS_TEMP_DIR",		"Tempor&auml;rer Ordner nicht vorhanden.");
+DEFINE("_RSGALLERY_FU_FAIL_WRITE_DISK",		"Datei konnte nicht geschrieben werden");
+DEFINE("_RSGALLERY_FU_UPL_STOP_EXT",		"Datei-Upload durch Erweiterung gestoppt");
+DEFINE("_RSGALLERY_FU_UNKW_ERROR",		"Unbekannter Datei-Fehler");
+
+//rsgcomments.class.php
+//function showButtons
+/*new*/DEFINE("_RSGALLERY_COMMENTS_COLOR",	"-Farbe-");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_AQUA",	"aqua");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_BLACK",	"schwarz");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_BLUE",	"blau");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_FUCHSIA",	"purpurrot");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_GRAY",	"grau");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_GREEN",	"gr&uuml;n");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_LIME",	"hellgr&uuml;n");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_MAROON",	"rotbraun");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_NAVY",	"marineblau");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_OLIVE",	"olive");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_PURPLE",	"lila");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_RED",	"rot");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_SILVER",	"silber");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_TEAL",	"mint");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_WHITE",	"wei&szlig;");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_YELLOW",	"gelb");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_SIZE",	"-Gr&ouml;&szlig;e-");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_TINY",	"winzig");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_SMALL",	"klein");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_MEDIUM",	"mittel");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_LARGE",	"gro&szlig;");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_HUGE",	"rie&szlig;ig"");
+//function parseQuoteElement
+/*new*/DEFINE("_RSGALLERY_COMMENTS_QUOTE_WROTE", "Schreibe");
+//function editComment
+/*moved*/DEFINE("_RSGALLERY_COMMENT_ADD",		"Kommentar hinzuf&uuml;gen");
+/*moved*/DEFINE("_RSGALLERY_COMMENT_NAME",		"Name");
+/*moved*/DEFINE("_RSGALLERY_COMMENTS_TITLE",		"Titel");
+/*moved*/DEFINE("_RSGALLERY_COMMENT_COMMENT",		"Kommentar-Text");
+//function showComments
+/*moved*/DEFINE("_RSGALLERY_COMMENT_DELETE",	"Bist du sicher, dass du den Kommentar l&ouml;schen m&ouml;chtest?");
+/*moved*/DEFINE("_RSGALLERY_COMMENTS",	"Comments");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_NUM_COMM_ADD",	"# Kommentare hinzugef&uuml;gt");
+/*new*/DEFINE("_RSGALLERY_DELETE_COMMENT",			"L&ouml;sche Kommentar");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_SEC_IMG_MISS", "Sicherheits-Bilder im BackEnd ausgew&auml;hlt, aber Komponente nicht installiert! Bitte den Webmaster informieren");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_NOCOMM",	"Noch keine Kommentare!");
+
+//rsgcomments.php
+/*new*/DEFINE("_RSGALLERY_COMMENTS_COMMDEL",		"Kommentar erfolgreich gel&ouml;scht");
+
+//rsgcomments.php
+DEFINE("_RSGALLERY_COMMENTS_DISABLED",		"Kommentare sind deaktiviert");
+/*double deleted DEFINE("_RSGALLERY_COMMENTS_ONLY_ONCE",		"Sie k&ouml;nnen hierf&uuml;r nur einmal abstimmen!");*/
+DEFINE("_RSGALLERY_COMMENTS_INCORRECT_CAPTCHA",		"Ung&uuml;ltige CAPTCHA-Kontrolle, Kommentar NICHT gespeichert!");
+DEFINE("_RSGALLERY_COMMENTS_ADD_SUCCES",		"Kommentar erfolgreich hinzugef&uuml;gt!");
+DEFINE("_RSGALLERY_COMMENTS_ADD_FAIL",		"Kommentar konnte nicht hinzugef&uuml;gt werden!");
+
+//rsgvoting.class.php
+DEFINE("_RSGALLERY_VOTING_ARE_YOU_SURE",		"Bist du sicher, dass du abstimmen willest?");
+DEFINE("_RSGALLERY_VOTING_RATING",		"Bewertung");
+DEFINE("_RSGALLERY_VOTING_VOTE",		"Stimme");
+DEFINE("_RSGALLERY_VOTING_VOTES",		"&nbsp;Stimmen");
+DEFINE("_RSGALLERY_VOTING_RATE_1",		"Bewerte dieses Objekt mit 1 von 5");
+DEFINE("_RSGALLERY_VOTING_RATE_2",		"Bewerte dieses Objekt mit 2 von 5");
+DEFINE("_RSGALLERY_VOTING_RATE_3",		"Bewerte dieses Objekt mit 3 von 5");
+DEFINE("_RSGALLERY_VOTING_RATE_4",		"Bewerte dieses Objekt mit 4 von 5");
+DEFINE("_RSGALLERY_VOTING_RATE_5",		"Bewerte dieses Objekt mit 5 von 5");
+
+//rsgvoting.php
+DEFINE("_RSGALLERY_VOTING_DISABLED",		"Abstimmung ist deaktiviert!");
+DEFINE("_RSGALLERY_VOTING_NOT_AUTH",		"Du bist nicht berechtigt abzustimmen!");
+DEFINE("_RSGALLERY_VOTING_ALREADY_VOTED",		"Du hast bereits f&uuml;r dieses Objekt abgestimmt!");
+DEFINE("_RSGALLERY_VOTING_NOT_ADDED",		"Stimme konnte der Datenbank nicht hinzugef&uuml;gt werden!");
+DEFINE("_RSGALLERY_VOTING_ADDED",		"Stimme der Datenbank hinzugef&uuml;gt!");
+
+//templates.php
+//function viewTemplates
+/*new*/DEFINE("_RSGALLERY_TPL_INST",	"Install new RSGTemplate <small><small>[ Site ]</small></small>");
+// more to do here, but to come
+
+//templates.html.php
+/*new*/DEFINE("_RSGALLERY_TEMPLATES_NAME",	"Name");
+/*new*/DEFINE("_RSGALLERY_TEMPLATES_ACTIVE",	"Aktiv");
+/*new*/DEFINE("_RSGALLERY_TEMPLATES_AUTHOR",	"Author");
+/*new*/DEFINE("_RSGALLERY_TEMPLATES_VERSION",	"Version");
+/*new*/DEFINE("_RSGALLERY_TEMPLATES_DATE",	"Datum");
+/*new*/DEFINE("_RSGALLERY_TEMPLATES_AUTH_URL",	"Author URL");
+
+//stopped at gallery.class.php
 ?>
