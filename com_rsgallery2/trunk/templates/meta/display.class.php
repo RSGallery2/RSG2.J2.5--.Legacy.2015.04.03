@@ -181,14 +181,6 @@ class rsgDisplay{
 		}
 	}
 	
-	function showRandom(){
-
-	}
-	
-	function showLatest(){
-	
-	}
-	
 	/**
 		set Itemid for proper pathway and linking.
 		contributed by Jeckel
@@ -337,20 +329,42 @@ class rsgDisplay{
     	$voting = new rsgVoting();
     	$voting->showVoting();
     }
-    
     /**
-     * Shows random images
-     * @todo: Rewrite to work within template system
+     * Shows either random or latest images, depending on parameter
+     * @param String Type of images. Options are 'latest' or 'random'
+     * @param Int Number of images to show. Defaults to 3
+     * @param String Style, options are 'vert' or 'hor'.(Vertical or horizontal)
+     * @return HTML representation of image block.
      */
-    function showRandom2($rows, $style = "hor") {
-        global $mosConfig_live_site;
-        if ($style == "vert") {
-            ?>
-            <ul id='rsg2-galleryList'>
+    function showImages($type="latest", $number = 3, $style = "hor") {
+    	global $database, $mosConfig_live_site;
+    	
+    	switch ($type) {
+    		case 'random':
+    			$database->setQuery("SELECT file.date, file.gallery_id, file.ordering, file.id, file.name, file.descr".
+                        " FROM #__rsgallery2_files as file, #__rsgallery2_galleries as gal".
+                        " WHERE file.gallery_id=gal.id and gal.published=1".
+                        " ORDER BY rand() limit $number");
+    			$rows = $database->loadObjectList();
+    			$title = _RSGALLERY_RANDOM_TITLE;
+    			break;
+    		case 'latest':
+    			$database->setQuery("SELECT file.date, file.gallery_id, file.ordering, file.id, file.name, file.descr".
+                        " FROM #__rsgallery2_files as file, #__rsgallery2_galleries as gal".
+                        " WHERE file.gallery_id=gal.id and gal.published=1".
+                        " ORDER BY file.date DESC LIMIT $number");
+    			$rows = $database->loadObjectList();
+    			$title = _RSGALLERY_LATEST_TITLE;
+    			break;
+    	}
+    	
+    	if ($style == "vert") {
+    	?>
+    	     <ul id='rsg2-galleryList'>
                 <li class='rsg2-galleryList-item' >
                     <table class="table_border" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
-                        <td><?php echo _RSGALLERY_RANDOM_TITLE;?></td>
+                        <td><?php echo $title;?></td>
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
@@ -365,6 +379,7 @@ class rsgDisplay{
                                 <a href="<?php echo sefRelToAbs($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$l_start);?>">
                                 <img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>" />
                                 </a>
+                                <div id="rsg_thumb_details"><?php echo mosFormatDate($row->date);?></div>
                             </div>
                         </td>
                         </tr>
@@ -384,7 +399,7 @@ class rsgDisplay{
                 <li class='rsg2-galleryList-item' >
                     <table class="table_border" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
-                        <td colspan="3"><?php echo _RSGALLERY_RANDOM_TITLE;?></td>
+                        <td colspan="3"><?php echo $title;?></td>
                     </tr>
                     <tr>
                         <td colspan="3">&nbsp;</td>
@@ -400,6 +415,7 @@ class rsgDisplay{
                             <a href="<?php echo sefRelToAbs($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$l_start);?>">
                             <img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>"  />
                             </a>
+                            <div id="rsg_thumb_details"><?php echo mosFormatDate($row->date);?></div>
                             </div>
                             </td>
                             <?php
@@ -415,78 +431,81 @@ class rsgDisplay{
             <?php
         }
     }
-    /**
-     * Shows latest images
-     * @todo: Rewrite to work within template system
-     */
-	function showLatest2($rows, $style = "hor") {
-        global $mosConfig_live_site;
-        if ($style == "vert") {
+    
+	/**
+	 * Write downloadlink for image
+	 * @param int image ID
+	 * @param string Text below button
+	 * @param string Button or HTML link (button/link)
+	 * @return HTML for downloadlink
+	 */
+	function _writeDownloadLink($id, $showtext = true, $type = 'button') {
+		global $rsgConfig, $mosConfig_live_site;
+		if ( $rsgConfig->get('displayDownload') ) {
+			echo "<div class=\"rsg2-toolbar\">";
+			if ($type == 'button') {
+				?>
+				<a href="<?php echo sefRelToAbs('index.php?option=com_rsgallery2&amp;task=downloadfile&amp;id='.$id);?>">
+				<img height="20" width="20" src="<?php echo $mosConfig_live_site;?>/administrator/images/download_f2.png" alt="<?php echo _RSGALLERY_DOWNLOAD?>">
+				<?php
+				if ($showtext == true) {
+					?>
+					<br /><span style="font-size:smaller;"><?php echo _RSGALLERY_DOWNLOAD?></span>
+					<?php
+				}
+				?>
+				</a>
+				<?php
+			} else {
+				?>
+				<a href="<?php echo sefRelToAbs('index.php?option=com_rsgallery2&amp;task=downloadfile&amp;id='.$id);?>"><?php echo _RSGALLERY_DOWNLOAD?></a>
+				<?php
+			}
+			echo "</div><div class=\"rsg2-clr\">&nbsp;</div>";
+		}
+	}    
+    /*
+    function showRSTopBar() {
+        global $my, $mosConfig_live_site, $rsgConfig, $Itemid;
+        $catid =rsgInstance::getInt( 'catid', 0 );
+        $Itemid = rsgInstance::getInt( 'Itemid', 0 );
+        $page = rsgInstance::getVar( 'page'  , null);
+        ?>
+        <div style="float:right; text-align:right;">
+        <ul id='rsg2-navigation'>
+            <li>
+                <a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=".$Itemid); ?>">
+                <?php echo _RSGALLERY_MAIN_GALLERY_PAGE; ?>
+                </a>
+            </li>
+            <?php 
+            if ( !$my->id == "" && $page != "my_galleries" && $rsgConfig->get('show_mygalleries') == 1):
             ?>
-            <ul id='rsg2-galleryList'>
-                <li class='rsg2-galleryList-item' >
-                    <table class="table_border" cellspacing="0" cellpadding="0" border="0" width="100%">
-                    <tr>
-                        <td><?php echo _RSGALLERY_RANDOM_TITLE;?></td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <?php
-                    foreach($rows as $row) {
-                        $l_start = $row->ordering - 1;
-                        ?>
-                        <tr>
-                        <td align="center"><div align="center">
-                            <a href="<?php echo sefRelToAbs($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$l_start);?>">
-                            <img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>"  />
-                            </a></div>
-                        </td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <?php
-                    }
-                    ?>
-                    </table>
-                </li>
-            </ul>
+            <li>
+                <a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=".$Itemid."&amp;rsgOption=myGalleries");?>">
+                <?php echo _RSGALLERY_MY_GALLERIES; ?>
+                </a>
+            </li>
             <?php
-        } else {
+            elseif( $page == "slideshow" ): 
             ?>
-            <ul id='rsg2-galleryList'>
-                <li class='rsg2-galleryList-item' >
-                    <table class="table_border" cellspacing="0" cellpadding="0" border="0" width="100%">
-                    <tr>
-                        <td colspan="3"><?php echo _RSGALLERY_LATEST_TITLE;?></td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <?php
-                        foreach($rows as $row)
-                            {
-                            $l_start = $row->ordering - 1;
-                            ?>
-                            <td align="center"><div align="center">
-                            <a href="<?php echo sefRelToAbs($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$l_start);?>">
-                            <img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>"  />
-                            </a></div>
-                            </td>
-                            <?php
-                            }
-                        ?>
-                    </tr>
-                    <tr>
-                        <td colspan="3">&nbsp;</td>
-                    </tr>
-                    </table>
-                </li>
-            </ul>
-            <?php
-        }
+            <li>
+                <a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=inline&catid=".$catid."&id=".$_GET['id']);?>">
+                <?php echo _RSGALLERY_SLIDESHOW_EXIT; ?>
+                </a>
+            </li>
+        <?php endif; ?>
+        </ul>
+        </div>
+        <div style="float:left;">
+        <?php if( isset( $catid )): ?>
+            <h2 id='rsg2-galleryTitle'><?php htmlspecialchars(stripslashes(galleryUtils::getCatNameFromId($catid)), ENT_QUOTES) ?></h2>
+        <?php elseif( $page != "my_galleries" ): ?>
+            <h2 id='rsg2-galleryTitle'><?php echo _RSGALLERY_COMPONENT_TITLE ?></h2>
+        <?php endif; ?>
+        </div>
+        <?php
     }
+	*/
 }
 ?>

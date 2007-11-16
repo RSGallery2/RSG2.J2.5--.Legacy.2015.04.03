@@ -45,6 +45,11 @@ endforeach;
 ?>
 <div class="clr"></div>
 <?php
+//Show block with random images 
+$this->showImages("random", 3);
+//Show block with latest images
+$this->showImages("latest", 3);
+
 if( $this->pageNav ):
 ?>
 
