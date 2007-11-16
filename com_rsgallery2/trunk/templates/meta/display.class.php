@@ -337,8 +337,8 @@ class rsgDisplay{
      * @return HTML representation of image block.
      */
     function showImages($type="latest", $number = 3, $style = "hor") {
-    	global $database, $mosConfig_live_site;
-    	
+    	global $database, $mosConfig_live_site, $Itemid;
+
     	switch ($type) {
     		case 'random':
     			$database->setQuery("SELECT file.date, file.gallery_id, file.ordering, file.id, file.name, file.descr".
@@ -372,11 +372,12 @@ class rsgDisplay{
                     <?php
                     foreach($rows as $row) {
                         $l_start = $row->ordering - 1;
+                        $url = $mosConfig_live_site."/index.php?option=com_rsgallery2&amp;page=inline&Itemid=".$Itemid."&id=".$row->id;
                         ?>
                         <tr>
                         <td align="center">
                             <div align="center">
-                                <a href="<?php echo sefRelToAbs($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$l_start);?>">
+                            	<a href="<?php echo sefRelToAbs($url);?>">
                                 <img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>" />
                                 </a>
                                 <div class="rsg2_details"><?php echo mosFormatDate($row->date);?></div>
@@ -409,12 +410,13 @@ class rsgDisplay{
                         foreach($rows as $row)
                             {
                             $l_start = $row->ordering - 1;
+                            $url = $mosConfig_live_site."/index.php?option=com_rsgallery2&amp;page=inline&Itemid=".$Itemid."&id=".$row->id;
                             ?>
                             <td align="center">
                             <div align="center">
-                            <a href="<?php echo sefRelToAbs($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$l_start);?>">
-                            <img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>"  />
-                            </a>
+                            	<a href="<?php echo sefRelToAbs($url);?>">
+                            	<img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>"  />
+                            	</a>
                             <div class="rsg2_details">Uploaded:&nbsp;<?php echo mosFormatDate($row->date, "%d-%m-%Y");?></div>
                             </div>
                             </td>

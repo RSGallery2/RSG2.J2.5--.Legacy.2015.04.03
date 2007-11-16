@@ -2,7 +2,10 @@
 div.intro_text {
 	
 }
-
+/* General style for all images within the rsg2 container */
+div.rsg2 img {
+	border: none;
+}
 /* Style form labels with this tag */
 div.rsg2_exif_container .rsg2_label {
 	font-weight: bold;
