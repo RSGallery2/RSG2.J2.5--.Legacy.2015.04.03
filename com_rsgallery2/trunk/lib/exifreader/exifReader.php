@@ -354,7 +354,55 @@ class phpExifReader {
     // Caching ralated variables
     var $caching = true; /* Should cacheing of image thumnails be allowed? */
     var $cacheDir = ""; /* Checkout constructor for default path. */
-
+    
+	// Exif tags used
+	var $exifTags = array(
+				"resolutionUnit" 		=> "xxxx",
+			    "FileName" 				=> "Filename",
+			    "FileSize" 				=> "Filesize",
+			    "FileDateTime" 			=> "File Date",
+			    "FlashUsed" 			=> "Flash used",
+			    "imageDesc" 			=> "Image description",                              
+			    "make" 					=> "Camera make",
+			    "model" 				=> "Camera model",
+			    "xResolution" 			=> "X Resolution",
+			    "yResolution" 			=> "Y Resolution",
+			    "software" 				=> "Software used",
+			    "fileModifiedDate" 		=> "File modified date",
+			    "YCbCrPositioning" 		=> "xxxx",
+			    "exposureTime" 			=> "Exposure time",
+			    "fnumber" 				=> "f-Number",
+			    "exposure" 				=> "Exposure",
+			    "isoEquiv" 				=> "ISO equivalent",
+			    "exifVersion" 			=> "EXIF version",
+			    "DateTime" 				=> "Date & time",
+			    "dateTimeDigitized" 	=> "Date ",
+			    "componentConfig" 		=> "xxxx",
+			    "jpegQuality" 			=> "Jpeg quality",
+			    "exposureBias" 			=> "xxxx",
+			    "aperture" 				=> "Aperture",
+			    "meteringMode" 			=> "xxxx",
+			    "whiteBalance" 			=> "White balance",
+			    "flashUsed" 			=> "Flash used",
+			    "focalLength" 			=> "Focal lenght",
+			    "makerNote" 			=> "Maker note",
+			    "subSectionTime" 		=> "xxxx",
+			    "flashpixVersion" 		=> "xxxx",
+			    "colorSpace" 			=> "xxxx",
+			    "Width" 				=> "Width",
+			    "Height" 				=> "Height",
+			    "GPSLatitudeRef" 		=> "xxxx",
+			    "Thumbnail" 			=> "Thumbnail",
+			    "ThumbnailSize" 		=> "Thumbnail size",
+			    "sourceType" 			=> "Source type",
+			    "sceneType" 			=> "Scene type",
+			    "compressScheme" 		=> "Compress scheme",
+			    "IsColor" 				=> "Color or B&W",
+			    "Process" 				=> "Process",
+			    "resolution" 			=> "REsolution",
+			    "color" 				=> "Color",
+			    "jpegProcess" 			=> "Jpeg process"
+	);
     /**
      * Constructor
      * @param string File name to be parsed.
@@ -391,7 +439,7 @@ class phpExifReader {
           // Prepare the ame of thumbnail
           if(is_dir($this->cacheDir)) {
             $this->thumbnail = $this->cacheDir."/".basename($this->file);
-            $this->thumbnailURL = "cache_thumbs/".basename($this->file);
+            $this->thumbnailURL = ".cache_thumbs/".basename($this->file);
           }
       }
 
@@ -403,7 +451,6 @@ class phpExifReader {
       $this->currSection = 0;
 
       $this->processFile();
-      
     }
 
     /**
@@ -1669,6 +1716,7 @@ class phpExifReader {
 
         return $retArr;
     }
+
 	/**
 	 * This will format the EXIF data the way the users want it to appear
 	 * @param string Type, full list or selection.('full'/'selection')
@@ -1676,20 +1724,41 @@ class phpExifReader {
 	 */
 	function showFormattedEXIF($type = "full") {
 		$exifdata = $this->getImageInfo();
-		return $exifdata;
 		
 		switch ($type) {
 			case 'selection':
 				
 				break;
 			case 'full':
-				$exif = $exifdata;
+				phpExifReader::_showFullEXIF($exifdata);
 				break;
 		}
-		
-		return $exif;
 	}
-	
+
+	function _showFullEXIF( $data ) {
+		?>
+		<div class="rsg2_exif_container">
+		<table class="adminlist" border="1">
+		<tr>
+			<th>Setting</th>
+			<th>Value</th>
+		</tr>
+		<?php
+		foreach ($data as $key=>$value) {
+			if ( !is_array($value) ) {
+			?>
+			<tr>
+				<td><span class="rsg2_label"><?php echo $key;?></span></td>
+				<td><?php echo $value;?></td>
+			</tr>
+			<?php
+			}
+		}
+		?>
+		</table>
+		</div>
+		<?php
+	}
 	/**
 	*
 	*/

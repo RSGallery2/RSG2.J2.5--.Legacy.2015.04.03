@@ -343,7 +343,7 @@ class rsgDisplay{
     		case 'random':
     			$database->setQuery("SELECT file.date, file.gallery_id, file.ordering, file.id, file.name, file.descr".
                         " FROM #__rsgallery2_files as file, #__rsgallery2_galleries as gal".
-                        " WHERE file.gallery_id=gal.id and gal.published=1".
+                        " WHERE file.gallery_id=gal.id and gal.published=1 AND file.published=1".
                         " ORDER BY rand() limit $number");
     			$rows = $database->loadObjectList();
     			$title = _RSGALLERY_RANDOM_TITLE;
@@ -351,7 +351,7 @@ class rsgDisplay{
     		case 'latest':
     			$database->setQuery("SELECT file.date, file.gallery_id, file.ordering, file.id, file.name, file.descr".
                         " FROM #__rsgallery2_files as file, #__rsgallery2_galleries as gal".
-                        " WHERE file.gallery_id=gal.id and gal.published=1".
+                        " WHERE file.gallery_id=gal.id AND gal.published=1 AND file.published=1".
                         " ORDER BY file.date DESC LIMIT $number");
     			$rows = $database->loadObjectList();
     			$title = _RSGALLERY_LATEST_TITLE;
@@ -379,7 +379,7 @@ class rsgDisplay{
                                 <a href="<?php echo sefRelToAbs($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$l_start);?>">
                                 <img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>" />
                                 </a>
-                                <div id="rsg_thumb_details"><?php echo mosFormatDate($row->date);?></div>
+                                <div class="rsg2_details"><?php echo mosFormatDate($row->date);?></div>
                             </div>
                         </td>
                         </tr>
@@ -415,7 +415,7 @@ class rsgDisplay{
                             <a href="<?php echo sefRelToAbs($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$l_start);?>">
                             <img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>"  />
                             </a>
-                            <div id="rsg_thumb_details"><?php echo mosFormatDate($row->date);?></div>
+                            <div class="rsg2_details">Uploaded:&nbsp;<?php echo mosFormatDate($row->date, "%d-%m-%Y");?></div>
                             </div>
                             </td>
                             <?php
