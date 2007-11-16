@@ -476,7 +476,7 @@ class rsgDisplay{
 		
 		$exif = new phpExifReader($filename);
 		echo "<pre>";
-    	print_r($exif->getImageInfo());
+    	print_r($exif->showFormattedEXIF());
  		echo "</pre>";
 	}    
     /*

@@ -354,7 +354,6 @@ class phpExifReader {
     // Caching ralated variables
     var $caching = true; /* Should cacheing of image thumnails be allowed? */
     var $cacheDir = ""; /* Checkout constructor for default path. */
-    var $cacheURL = "";
 
     /**
      * Constructor
@@ -404,6 +403,7 @@ class phpExifReader {
       $this->currSection = 0;
 
       $this->processFile();
+      
     }
 
     /**
@@ -1669,7 +1669,27 @@ class phpExifReader {
 
         return $retArr;
     }
-
+	/**
+	 * This will format the EXIF data the way the users want it to appear
+	 * @param string Type, full list or selection.('full'/'selection')
+	 * @result HTML output for EXIF overview
+	 */
+	function showFormattedEXIF($type = "full") {
+		$exifdata = $this->getImageInfo();
+		return $exifdata;
+		
+		switch ($type) {
+			case 'selection':
+				
+				break;
+			case 'full':
+				$exif = $exifdata;
+				break;
+		}
+		
+		return $exif;
+	}
+	
 	/**
 	*
 	*/

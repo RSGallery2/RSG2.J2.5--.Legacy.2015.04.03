@@ -401,6 +401,10 @@
 	<filename>lib/rsgvoting/images/star_full.png</filename>
 	<filename>lib/rsgvoting/images/star_half.png</filename>
 	<filename>lib/rsgvoting/images/star_rating.png</filename>
+	<filename>lib/exifreader/exifReader.php</filename>
+	<filename>lib/mygalleries/mygalleries.class.php</filename>
+	<filename>lib/mygalleries/mygalleries.css</filename>
+	<filename>lib/mygalleries/mygalleries.php</filename>
 
 	<filename>templates/debug_listeverything/css/template.css</filename>
 	<filename>templates/debug_listeverything/templateDetails.xml</filename>
