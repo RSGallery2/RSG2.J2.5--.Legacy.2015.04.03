@@ -463,6 +463,21 @@ class rsgDisplay{
 			}
 			echo "</div><div class=\"rsg2-clr\">&nbsp;</div>";
 		}
+	}
+	
+	/**
+	 * Provides unformatted EXIF data for the current item
+	 * @result Array with EXIF values
+	 */
+	function _showEXIF() {
+		require_once(JPATH_ROOT . DS . "components" . DS . "com_rsgallery2" . DS . "lib" . DS . "exifreader" . DS . "exifReader.php");
+		$image = rsgInstance::getItem();
+		$filename = JPATH_ROOT . $image->original()->name;
+		
+		$exif = new phpExifReader($filename);
+		echo "<pre>";
+    	print_r($exif->getImageInfo());
+ 		echo "</pre>";
 	}    
     /*
     function showRSTopBar() {

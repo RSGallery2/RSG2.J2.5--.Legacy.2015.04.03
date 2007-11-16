@@ -505,7 +505,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 	/**
 	 * shows exif data for the current item
 	 */
-	function _showEXIF( ) {
+	function X_showEXIF( ) {
 		$image = rsgInstance::getItem();
 
 		// EXIF only available for images
@@ -522,7 +522,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 
 		$this->display('exif.php');
 	}
-
+	
 	/**
 	* list sub galleries in a gallery
 	* @param rsgGallery parent gallery
