@@ -312,22 +312,30 @@ class rsgDisplay{
      * Shows the comments screen
      */
     function _showComments() {
-    	global $mainframe, $mosConfig_live_site;
-    	$id = rsgInstance::getVar( 'id'  , '');
-    	$css = "<link rel=\"stylesheet\" href=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/rsgcomments/rsgcomments.css\" type=\"text/css\" />";
-		$mainframe->addCustomHeadTag($css);
-    	
-		$comment = new rsgComments();
-		$comment->showComments($id);
-    	$comment->editComment($id);
+    	global $mainframe, $mosConfig_live_site, $rsgConfig;
+    	if ($rsgConfig->get('comment')) {
+    		$id = rsgInstance::getVar( 'id'  , '');
+    		$css = "<link rel=\"stylesheet\" href=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/rsgcomments/rsgcomments.css\" type=\"text/css\" />";
+			$mainframe->addCustomHeadTag($css);
+		
+			$comment = new rsgComments();
+			$comment->showComments($id);
+			$comment->editComment($id);
+		} else {
+			echo "** Commenting is disabled **";
+		}
     }
     
     function _showVotes() {
-    	global $mainframe, $mosConfig_live_site;
-    	$css = "<link rel=\"stylesheet\" href=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/rsgvoting/rsgvoting.css\" type=\"text/css\" />";
-    	$mainframe->addCustomHeadTag($css);
-    	$voting = new rsgVoting();
-    	$voting->showVoting();
+    	global $mainframe, $mosConfig_live_site, $rsgConfig;
+    	if ($rsgConfig->get('voting')) {
+    		$css = "<link rel=\"stylesheet\" href=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/rsgvoting/rsgvoting.css\" type=\"text/css\" />";
+    		$mainframe->addCustomHeadTag($css);
+    		$voting = new rsgVoting();
+    		$voting->showVoting();
+    	} else {
+    		echo "** Voting is disabled **";
+    	}
     }
     /**
      * Shows either random or latest images, depending on parameter
@@ -337,8 +345,13 @@ class rsgDisplay{
      * @return HTML representation of image block.
      */
     function showImages($type="latest", $number = 3, $style = "hor") {
-    	global $database, $mosConfig_live_site, $Itemid;
-
+    	global $database, $mosConfig_live_site, $Itemid, $rsgConfig;
+		if ( $type == "latest" AND !$rsgConfig->get('displayLatest') ) {
+			return;
+		} elseif ( $type == "random" AND !$rsgConfig->get('displayRandom') ) {
+			return;
+		}
+		
     	switch ($type) {
     		case 'random':
     			$database->setQuery("SELECT file.date, file.gallery_id, file.ordering, file.id, file.name, file.descr".
@@ -477,7 +490,7 @@ class rsgDisplay{
 		$filename = JPATH_ROOT . $image->original()->name;
 		
 		$exif = new phpExifReader($filename);
-		$exif->showFormattedEXIF( $type );
+		$exif->showFormattedEXIF();
  	}    
     /*
     function showRSTopBar() {
