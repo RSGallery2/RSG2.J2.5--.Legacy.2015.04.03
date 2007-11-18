@@ -346,6 +346,8 @@ class rsgDisplay{
      */
     function showImages($type="latest", $number = 3, $style = "hor") {
     	global $database, $mosConfig_live_site, $Itemid, $rsgConfig;
+		
+		//Check if backend permits showing these images
 		if ( $type == "latest" AND !$rsgConfig->get('displayLatest') ) {
 			return;
 		} elseif ( $type == "random" AND !$rsgConfig->get('displayRandom') ) {

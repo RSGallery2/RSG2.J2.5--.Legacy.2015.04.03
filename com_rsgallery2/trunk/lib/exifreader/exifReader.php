@@ -1683,7 +1683,6 @@ class phpExifReader {
 		//Retrieve the selected EXIF tags from config and create array
 		$exifdata = $rsgConfig->get('exifTags');
 		$exifdata = explode("|", $exifdata);
-
 		?>
 		<div class="rsg2_exif_container">
 		<table class="adminlist" border="1">
@@ -1692,8 +1691,8 @@ class phpExifReader {
 			<th>Value</th>
 		</tr>
 		<?php
-		foreach ($exifdata as $key=>$value) {
-			if (in_array($value, $data)) {
+		foreach ($exifdata as $value) {
+			if (array_key_exists($value, $data)) {
 				?>
 				<tr>
 					<td><span class="rsg2_label"><?php echo $value;?></span></td>
