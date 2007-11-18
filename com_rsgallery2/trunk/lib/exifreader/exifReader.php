@@ -354,55 +354,7 @@ class phpExifReader {
     // Caching ralated variables
     var $caching = true; /* Should cacheing of image thumnails be allowed? */
     var $cacheDir = ""; /* Checkout constructor for default path. */
-    
-	// Exif tags used
-	var $exifTags = array(
-				"resolutionUnit" 		=> "xxxx",
-			    "FileName" 				=> "Filename",
-			    "FileSize" 				=> "Filesize",
-			    "FileDateTime" 			=> "File Date",
-			    "FlashUsed" 			=> "Flash used",
-			    "imageDesc" 			=> "Image description",                              
-			    "make" 					=> "Camera make",
-			    "model" 				=> "Camera model",
-			    "xResolution" 			=> "X Resolution",
-			    "yResolution" 			=> "Y Resolution",
-			    "software" 				=> "Software used",
-			    "fileModifiedDate" 		=> "File modified date",
-			    "YCbCrPositioning" 		=> "xxxx",
-			    "exposureTime" 			=> "Exposure time",
-			    "fnumber" 				=> "f-Number",
-			    "exposure" 				=> "Exposure",
-			    "isoEquiv" 				=> "ISO equivalent",
-			    "exifVersion" 			=> "EXIF version",
-			    "DateTime" 				=> "Date & time",
-			    "dateTimeDigitized" 	=> "Date ",
-			    "componentConfig" 		=> "xxxx",
-			    "jpegQuality" 			=> "Jpeg quality",
-			    "exposureBias" 			=> "xxxx",
-			    "aperture" 				=> "Aperture",
-			    "meteringMode" 			=> "xxxx",
-			    "whiteBalance" 			=> "White balance",
-			    "flashUsed" 			=> "Flash used",
-			    "focalLength" 			=> "Focal lenght",
-			    "makerNote" 			=> "Maker note",
-			    "subSectionTime" 		=> "xxxx",
-			    "flashpixVersion" 		=> "xxxx",
-			    "colorSpace" 			=> "xxxx",
-			    "Width" 				=> "Width",
-			    "Height" 				=> "Height",
-			    "GPSLatitudeRef" 		=> "xxxx",
-			    "Thumbnail" 			=> "Thumbnail",
-			    "ThumbnailSize" 		=> "Thumbnail size",
-			    "sourceType" 			=> "Source type",
-			    "sceneType" 			=> "Scene type",
-			    "compressScheme" 		=> "Compress scheme",
-			    "IsColor" 				=> "Color or B&W",
-			    "Process" 				=> "Process",
-			    "resolution" 			=> "REsolution",
-			    "color" 				=> "Color",
-			    "jpegProcess" 			=> "Jpeg process"
-	);
+	
     /**
      * Constructor
      * @param string File name to be parsed.
@@ -413,10 +365,11 @@ class phpExifReader {
       if(!empty($file)) {
         $this->file = $file;
       }
-
+	
       /**
       * Initialize some variables. Avoid lots of errors with fulll error_reporting
       */
+
       $this->ExifImageLength       = 0;
       $this->ImageInfo['h']["resolutionUnit"] = 0;
 
@@ -1722,19 +1675,46 @@ class phpExifReader {
 	 * @param string Type, full list or selection.('full'/'selection')
 	 * @result HTML output for EXIF overview
 	 */
-	function showFormattedEXIF($type = "full") {
-		$exifdata = $this->getImageInfo();
+	function showFormattedEXIF() {
+		global $rsgConfig;
+		//Retrieve EXIF data
+		$data = $this->getImageInfo();
 		
-		switch ($type) {
-			case 'selection':
-				
-				break;
-			case 'full':
-				phpExifReader::_showFullEXIF($exifdata);
-				break;
-		}
-	}
+		//Retrieve the selected EXIF tags from config and create array
+		$exifdata = $rsgConfig->get('exifTags');
+		$exifdata = explode("|", $exifdata);
 
+		?>
+		<div class="rsg2_exif_container">
+		<table class="adminlist" border="1">
+		<tr>
+			<th>Setting</th>
+			<th>Value</th>
+		</tr>
+		<?php
+		foreach ($exifdata as $key=>$value) {
+			if (in_array($value, $data)) {
+				?>
+				<tr>
+					<td><span class="rsg2_label"><?php echo $value;?></span></td>
+					<td><?php echo $data[$value];?></td>
+				</tr>
+				<?php
+			} else {
+				?>
+				<tr>
+					<td><span class="rsg2_label"><?php echo $value;?></span></td>
+					<td>** No value available **</td>
+				</tr>
+				<?php
+			}
+		}
+		?>
+		</table>
+		</div>
+		<?php
+	}
+	/*
 	function _showFullEXIF( $data ) {
 		?>
 		<div class="rsg2_exif_container">
@@ -1759,6 +1739,7 @@ class phpExifReader {
 		</div>
 		<?php
 	}
+	*/
 	/**
 	*
 	*/
@@ -1786,6 +1767,5 @@ class phpExifReader {
     function getDiffTime() {
             return ($this->getmicrotime() - $this->timeStart);
     }
-
 } // end of class
 ?>

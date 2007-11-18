@@ -66,6 +66,7 @@ class rsgConfig {
 	var $showGalleryOwner			= 1;
 	var $showGallerySize			= 1;
 	var $showGalleryDate			= 1;
+	var $exifTags					= 'FileName|FileDateTime|resolution';
 	/* var $gallery_sort_order			= 'order_id';*/ //'order_id' = ordering by DB ordering field; 'desc' = Last uploaded first; 'asc' = Last uploaded last
 
     // user uploads
@@ -189,11 +190,14 @@ class rsgConfig {
 	 */
 	function saveConfig( $config=null ) {
 		global $database;
+		$exifTags = rsgInstance::getVar('exifTags'  , '');
 		
 		//bind array to class
         if( $config !== null)
 		  $this->_bind($config);
 
+		$this->exifTags = implode("|", $exifTags);
+		
 		$vars = $this->getPublicVars();
 		foreach ( $vars as $name ){
 			//Checks if the value exists and overrides it if present, inserting if not

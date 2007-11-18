@@ -31,6 +31,9 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2007-11-18 Ronald Smit
+ + Added EXIF configurable support to front- and backend, without need to have EXIF compiled into PHP
+
 2007-11-15 Ronald Smit
  - Cleaned out display.class.php of both meta and semantic.
  ! Ready to remove tempDisplay from metatemplate. Last testing.

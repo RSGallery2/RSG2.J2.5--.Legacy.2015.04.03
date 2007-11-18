@@ -477,10 +477,8 @@ class rsgDisplay{
 		$filename = JPATH_ROOT . $image->original()->name;
 		
 		$exif = new phpExifReader($filename);
-		echo "<pre>";
-    	print_r($exif->showFormattedEXIF());
- 		echo "</pre>";
-	}    
+		$exif->showFormattedEXIF( $type );
+ 	}    
     /*
     function showRSTopBar() {
         global $my, $mosConfig_live_site, $rsgConfig, $Itemid;

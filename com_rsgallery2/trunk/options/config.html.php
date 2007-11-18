@@ -15,6 +15,8 @@ defined( '_VALID_MOS' ) or die( 'Restricted Access' );
  * @package RSGallery2
  */
 class html_rsg2_config{
+    
+    
     /**
      * raw configuration editor, debug only
      */
@@ -44,9 +46,73 @@ class html_rsg2_config{
      * @todo get rid of patTemplate!!!
     **/
 	function showconfig( &$lists ){
-		global $rsgConfig;
+		global $rsgConfig, $mainframe, $mosConfig_live_site;
+
 		$config = $rsgConfig;
 		
+		//Exif tags
+		$exifTagsArray = array(
+				"resolutionUnit" 		=> "Resolution unit",
+			    "FileName" 				=> "Filename",
+			    "FileSize" 				=> "Filesize",
+			    "FileDateTime" 			=> "File Date",
+			    "FlashUsed" 			=> "Flash used",
+			    "imageDesc" 			=> "Image description",                              
+			    "make" 					=> "Camera make",
+			    "model" 				=> "Camera model",
+			    "xResolution" 			=> "X Resolution",
+			    "yResolution" 			=> "Y Resolution",
+			    "software" 				=> "Software used",
+			    "fileModifiedDate" 		=> "File modified date",
+			    "YCbCrPositioning" 		=> "YCbCrPositioning",
+			    "exposureTime" 			=> "Exposure time",
+			    "fnumber" 				=> "f-Number",
+			    "exposure" 				=> "Exposure",
+			    "isoEquiv" 				=> "ISO equivalent",
+			    "exifVersion" 			=> "EXIF version",
+			    "DateTime" 				=> "Date & time",
+			    "dateTimeDigitized" 	=> "Original date",
+			    "componentConfig" 		=> "Component config",
+			    "jpegQuality" 			=> "Jpeg quality",
+			    "exposureBias" 			=> "Exposure bias",
+			    "aperture" 				=> "Aperture",
+			    "meteringMode" 			=> "Metering Mode",
+			    "whiteBalance" 			=> "White balance",
+			    "flashUsed" 			=> "Flash used",
+			    "focalLength" 			=> "Focal lenght",
+			    "makerNote" 			=> "Maker note",
+			    "subSectionTime" 		=> "Subsection time",
+			    "flashpixVersion" 		=> "Flashpix version",
+			    "colorSpace" 			=> "Color Space",
+			    "Width" 				=> "Width",
+			    "Height" 				=> "Height",
+			    "GPSLatitudeRef" 		=> "GPS Latitude reference",
+			    "Thumbnail" 			=> "Thumbnail",
+			    "ThumbnailSize" 		=> "Thumbnail size",
+			    "sourceType" 			=> "Source type",
+			    "sceneType" 			=> "Scene type",
+			    "compressScheme" 		=> "Compress scheme",
+			    "IsColor" 				=> "Color or B&W",
+			    "Process" 				=> "Process",
+			    "resolution" 			=> "Resolution",
+			    "color" 				=> "Color",
+			    "jpegProcess" 			=> "Jpeg process"
+		);
+		//Format selected items
+		$exifSelected = explode("|", $config->exifTags);
+		foreach ($exifSelected as $select) {
+			$exifSelect[] = mosHTML::makeOption($select,$select);
+		}
+		//Format values for dropdownbox
+		foreach ($exifTagsArray as $key=>$value) {
+			$exif[] = mosHTML::makeOption($key,$key);
+		}
+		/*
+		echo "<pre>";
+		print_r($exifSelected);
+		print_r($exifTagsArray);
+		echo "</pre>";
+		*/
 		// front display
 		$display_thumbs_style[] = mosHTML::makeOption('table',_RSGALLERY_CONF_OPTION_TABLE);
 		$display_thumbs_style[] = mosHTML::makeOption('float',_RSGALLERY_CONF_OPTION_FLOAT);
@@ -355,7 +421,7 @@ class html_rsg2_config{
 		?>
 		<table border="0" width="100%">
 			<tr>
-				<td width="50%" valign="top">
+				<td width="40%" valign="top">
 					<fieldset>
 					<legend><?php echo _RSGALLERY_C_TMPL_FRONT_PAGE?></legend>
 					<table width="100%">
@@ -406,7 +472,86 @@ class html_rsg2_config{
 					</table>
 					</fieldset>
 				</td>
-				<td width="50%" valign="top">
+				<td width="30%" valign="top">
+					<fieldset>
+					<legend><?php echo _RSGALLERY_C_TMPL_IMG_DISP?></legend>
+					<table width="100%">
+					<tr>
+						<td width="40%"><?php echo _RSGALLERY_CONF_POPUP_STYLE?></td>
+						<td><?php echo mosHTML::selectList( $displayPopup, 'displayPopup', '', 'value', 'text', $config->displayPopup )?></td>
+					</tr>
+					<tr>
+						<td><?php echo _RSGALLERY_C_TMPL_RESIZE_OPT?></td>
+						<td><?php echo mosHTML::selectList( $resizeOptions, 'display_img_dynamicResize', '', 'value', 'text', $config->display_img_dynamicResize )?></td>
+					</tr>
+					<tr>
+						<td><?php echo _RSGALLERY_C_TMPL_DISP_DESCR?></td>
+						<td><?php echo mosHTML::yesnoRadioList('displayDesc', '', $config->displayDesc)?></td>
+					</tr>
+					<tr>
+						<td><?php echo _RSGALLERY_C_TMPL_DISP_HITS?></td>
+						<td><?php echo mosHTML::yesnoRadioList('displayHits', '', $config->displayHits)?></td>
+					</tr>
+					<tr>
+						<td><?php echo _RSGALLERY_C_TMPL_DISP_VOTE?></td>
+						<td><?php echo mosHTML::yesnoRadioList('displayVoting', '', $config->displayVoting)?></td>
+					</tr>
+					<tr>
+						<td><?php echo _RSGALLERY_C_TMPL_DISP_COMM?></td>
+						<td><?php echo mosHTML::yesnoRadioList('displayComments', '', $config->displayComments)?></td>
+					</tr>
+					</table>
+					</fieldset>
+				</td>
+				<td width="30%" valign="top">
+					<fieldset>
+					<legend><?php echo "** EXIF settings **";?></legend>
+					<table width="100%">
+					<tr>
+						<td><?php echo _RSGALLERY_C_TMPL_DISP_EXIF?></td>
+						<td><?php echo mosHTML::yesnoRadioList('displayEXIF', '', $config->displayEXIF)?></td>
+					</tr>
+					<tr>
+						<td valign="top"><?php echo "** Select EXIF tags to display **";?></td>
+						<td valign="top">
+							<label class="examples"></label>
+							<?php echo mosHTML::selectList( $exif, 'exifTags[]', 'MULTIPLE size="15"', 'value', 'text', $exifSelect );?>
+						</td>
+					</tr>
+					</table>
+					</fieldset>
+				</td>
+			</tr>
+			<tr>
+				<td width="40%" valign="top">
+					<fieldset>
+					<legend><?php echo _RSGALLERY_C_TMPL_GAL_VIEW?></legend>
+					<table width="100%">
+					<tr>
+						<td width="40%"><?php echo _RSGALLERY_C_TMPL_THUMB_STYLE?></td>
+						<td><?php echo mosHTML::selectList( $display_thumbs_style, 'display_thumbs_style', '', 'value', 'text', $config->display_thumbs_style );?></td>
+					</tr>
+					<tr>
+						<td><?php echo _RSGALLERY_C_TMPL_FLOATDIRECTION?></td>
+						<td><?php echo mosHTML::selectList( $display_thumbs_floatDirection, 'display_thumbs_floatDirection', '', 'value', 'text', $config->display_thumbs_floatDirection )?></td>
+					</tr>
+					<tr>
+						<td><?php echo _RSGALLERY_C_TMPL_COLS_PERPAGE?></td>
+						<td><?php echo mosHTML::integerSelectList(1, 19, 1, 'display_thumbs_colsPerPage', '', $config->display_thumbs_colsPerPage)?></td>
+					</tr>
+					<tr>
+						<td><?php echo _RSGALLERY_C_TMPL_THUMBS_PERPAGE?></td>
+						<td><input class="text_area" type="text" name="display_thumbs_maxPerPage" size="10" value="<?php echo $config->display_thumbs_maxPerPage?>"/></td>
+					</tr>
+					<tr>
+						<td><?php echo _RSGALLERY_C_TMPL_SHOW_IMGNAME?></td>
+						<td><?php echo mosHTML::yesnoRadioList( 'display_thumbs_showImgName','', $config->display_thumbs_showImgName )?></td>
+					</tr>
+					
+					</table>
+					</fieldset>
+				</td>
+				<td colspan="2" valign="top">
 					<fieldset>
 					<legend><?php echo _RSGALLERY_C_TMPL_WATERMARK?></legend>
 					<table width="100%">
@@ -455,70 +600,7 @@ class html_rsg2_config{
 					</tr>
 					</table>
 					</fieldset>
-				</td>
-			</tr>
-			<tr>
-				<td width="50%" valign="top">
-					<fieldset>
-					<legend><?php echo _RSGALLERY_C_TMPL_GAL_VIEW?></legend>
-					<table width="100%">
-					<tr>
-						<td width="40%"><?php echo _RSGALLERY_C_TMPL_THUMB_STYLE?></td>
-						<td><?php echo mosHTML::selectList( $display_thumbs_style, 'display_thumbs_style', '', 'value', 'text', $config->display_thumbs_style );?></td>
-					</tr>
-					<tr>
-						<td><?php echo _RSGALLERY_C_TMPL_FLOATDIRECTION?></td>
-						<td><?php echo mosHTML::selectList( $display_thumbs_floatDirection, 'display_thumbs_floatDirection', '', 'value', 'text', $config->display_thumbs_floatDirection )?></td>
-					</tr>
-					<tr>
-						<td><?php echo _RSGALLERY_C_TMPL_COLS_PERPAGE?></td>
-						<td><?php echo mosHTML::integerSelectList(1, 19, 1, 'display_thumbs_colsPerPage', '', $config->display_thumbs_colsPerPage)?></td>
-					</tr>
-					<tr>
-						<td><?php echo _RSGALLERY_C_TMPL_THUMBS_PERPAGE?></td>
-						<td><input class="text_area" type="text" name="display_thumbs_maxPerPage" size="10" value="<?php echo $config->display_thumbs_maxPerPage?>"/></td>
-					</tr>
-					<tr>
-						<td><?php echo _RSGALLERY_C_TMPL_SHOW_IMGNAME?></td>
-						<td><?php echo mosHTML::yesnoRadioList( 'display_thumbs_showImgName','', $config->display_thumbs_showImgName )?></td>
-					</tr>
-					
-					</table>
-					</fieldset>
-				</td>
-				<td width="50%" valign="top">
-					<fieldset>
-					<legend><?php echo _RSGALLERY_C_TMPL_IMG_DISP?></legend>
-					<table width="100%">
-					<tr>
-						<td width="40%"><?php echo _RSGALLERY_CONF_POPUP_STYLE?></td>
-						<td><?php echo mosHTML::selectList( $displayPopup, 'displayPopup', '', 'value', 'text', $config->displayPopup )?></td>
-					</tr>
-					<tr>
-						<td><?php echo _RSGALLERY_C_TMPL_RESIZE_OPT?></td>
-						<td><?php echo mosHTML::selectList( $resizeOptions, 'display_img_dynamicResize', '', 'value', 'text', $config->display_img_dynamicResize )?></td>
-					</tr>
-					<tr>
-						<td><?php echo _RSGALLERY_C_TMPL_DISP_DESCR?></td>
-						<td><?php echo mosHTML::yesnoRadioList('displayDesc', '', $config->displayDesc)?></td>
-					</tr>
-					<tr>
-						<td><?php echo _RSGALLERY_C_TMPL_DISP_HITS?></td>
-						<td><?php echo mosHTML::yesnoRadioList('displayHits', '', $config->displayHits)?></td>
-					</tr>
-					<tr>
-						<td><?php echo _RSGALLERY_C_TMPL_DISP_VOTE?></td>
-						<td><?php echo mosHTML::yesnoRadioList('displayVoting', '', $config->displayVoting)?></td>
-					</tr>
-					<tr>
-						<td><?php echo _RSGALLERY_C_TMPL_DISP_COMM?></td>
-						<td><?php echo mosHTML::yesnoRadioList('displayComments', '', $config->displayComments)?></td>
-					</tr>
-					<tr>
-						<td><?php echo _RSGALLERY_C_TMPL_DISP_EXIF?></td>
-						<td><?php echo mosHTML::yesnoRadioList('displayEXIF', '', $config->displayEXIF)?></td>
-					</tr>
-					</table>
+
 				</td>
 			</tr>
 		</table>
