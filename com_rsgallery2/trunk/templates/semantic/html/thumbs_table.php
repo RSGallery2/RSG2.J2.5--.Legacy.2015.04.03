@@ -21,7 +21,7 @@ $i = 0;
 					<img alt="<?php echo htmlspecialchars(stripslashes($item->descr), ENT_QUOTES); ?>" src="<?php echo $thumb->url(); ?>" />
 					</a>
 				<!--</div>-->
-				<div class="clr"></div>
+				<div class="rsg2-clr"></div>
 				<?php if($rsgConfig->get("display_thumbs_showImgName")): ?>
 				<br />
 				<span class='rsg2_thumb_name'>

@@ -259,7 +259,7 @@ text-align:right;
 }
 
 /* utility selector, this is common in many templates, but we can't count on it being there */
-.clr{
+.rsg2-clr{
     clear: both;
     line-height: 0px;
 }

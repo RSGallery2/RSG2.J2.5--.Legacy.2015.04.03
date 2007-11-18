@@ -43,7 +43,7 @@ foreach( $this->kids as $kid ):
 <?php
 endforeach;
 ?>
-<div class="clr"></div>
+<div class="rsg2-clr"></div>
 <?php
 //Show block with random images 
 $this->showImages("random", 3);
@@ -57,5 +57,5 @@ if( $this->pageNav ):
 	<?php echo $this->pageNav->writePagesLinks("index.php?option=com_rsgallery2&amp;Itemid=$Itemid");
 		echo "<br>".$this->pageNav->writePagesCounter(); ?>
 </div>
-<div class='clr'>&nbsp;</div>
+<div class='rsg2-clr'>&nbsp;</div>
 <?php endif; ?>

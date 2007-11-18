@@ -384,7 +384,7 @@ class myGalleries {
                         <!--<div class="img-shadow">-->
                         <img border="1" alt="<?php echo htmlspecialchars(stripslashes($row->descr), ENT_QUOTES); ?>" src="<?php echo imgUtils::getImgThumb($row->name); ?>" />
                         <!--</div>-->
-                        <span class="clr"></span>
+                        <span class="rsg2-clr"></span>
                         <?php if($rsgConfig->get("display_thumbs_showImgName")): ?>
                             <br /><span class='rsg2_thumb_name'><?php echo htmlspecialchars(stripslashes($row->title), ENT_QUOTES); ?></span>
                         <?php endif; ?>
@@ -398,7 +398,7 @@ class myGalleries {
                 </li>
                 <?php endforeach; ?>
                 </ul>
-                <div class='clr'>&nbsp;</div>
+                <div class='rsg2-clr'>&nbsp;</div>
                 <?php
                 break;
             case 'table':
@@ -414,7 +414,7 @@ class myGalleries {
                                 <img border="1" alt="<?php echo htmlspecialchars(stripslashes($row->descr), ENT_QUOTES); ?>" src="<?php echo imgUtils::getImgThumb($row->name); ?>" />
                                 </a>
                             <!--</div>-->
-                            <div class="clr"></div>
+                            <div class="rsg2-clr"></div>
                             <?php if($rsgConfig->get("display_thumbs_showImgName")): ?>
                             <br />
                             <span class='rsg2_thumb_name'>

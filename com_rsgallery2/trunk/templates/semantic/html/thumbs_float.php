@@ -17,7 +17,7 @@ global $Itemid;
 			<!--<div class="img-shadow">-->
 			<img alt="<?php echo htmlspecialchars(stripslashes($item->descr), ENT_QUOTES); ?>" src="<?php echo $thumb->url(); ?>" />
 			<!--</div>-->
-			<span class="clr"></span>
+			<span class="rsg2-clr"></span>
 			<?php if($rsgConfig->get("display_thumbs_showImgName")): ?>
 				<br /><span class='rsg2_thumb_name'><?php echo htmlspecialchars(stripslashes($item->title), ENT_QUOTES); ?></span>
 			<?php endif; ?>
@@ -31,4 +31,4 @@ global $Itemid;
 	</li>
 	<?php endforeach; ?>
 </ul>
-<div class='clr'>&nbsp;</div>
+<div class='rsg2-clr'>&nbsp;</div>

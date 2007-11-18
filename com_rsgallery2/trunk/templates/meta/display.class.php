@@ -176,7 +176,7 @@ class rsgDisplay{
 			<div class="rsg2-mygalleries">
 				<a class="rsg2-mygalleries_link" href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;rsgOption=myGalleries");?>">My Galleries</a>
 			</div>
-			<div class="clr"></div>
+			<div class="rsg2-clr"></div>
 			<?php
 		}
 	}
