@@ -295,8 +295,8 @@ class rsgDisplay_semantic extends rsgDisplay{
 	
 		if( $rsgConfig->get('displayPopup') == 2 ){
 			$doc =& JFActory::getDocument();
-			$doc->addStyleSheet(JPATH_BASE."/components/com_rsgallery2/js_highslide/highslide.css");
-			$doc->addScript(JPATH_BASE."/components/com_rsgallery2/js_highslide/highslide.js");
+			$doc->addStyleSheet($mosConfig_live_site."/components/com_rsgallery2/js_highslide/highslide.css");
+			$doc->addScript($mosConfig_live_site."/components/com_rsgallery2/js_highslide/highslide.js");
 			$doc->addScriptDeclaration("
 				hs.graphicsDir = '".$mosConfig_live_site."/components/com_rsgallery2/js_highslide/graphics/';
 				hs.showCredits = false;
