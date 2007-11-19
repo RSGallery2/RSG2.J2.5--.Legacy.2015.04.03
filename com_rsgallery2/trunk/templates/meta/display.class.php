@@ -393,7 +393,7 @@ class rsgDisplay{
                         <td align="center">
                             <div align="center">
                             	<a href="<?php echo sefRelToAbs($url);?>">
-                                <img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>" />
+                                <img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>" width="<?php echo $rsgConfig->get('thumb_width');?>" />
                                 </a>
                                 <div class="rsg2_details"><?php echo mosFormatDate($row->date);?></div>
                             </div>
@@ -430,7 +430,7 @@ class rsgDisplay{
                             <td align="center">
                             <div align="center">
                             	<a href="<?php echo sefRelToAbs($url);?>">
-                            	<img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>"  />
+                            	<img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>" width="<?php echo $rsgConfig->get('thumb_width');?>"  />
                             	</a>
                             <div class="rsg2_details">Uploaded:&nbsp;<?php echo mosFormatDate($row->date, "%d-%m-%Y");?></div>
                             </div>

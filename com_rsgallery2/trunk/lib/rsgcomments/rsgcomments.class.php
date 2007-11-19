@@ -248,8 +248,8 @@ function parse( $html ) {
 function editComment( $item_id ) {
 	global $rsgConfig, $my, $mosConfig_live_site, $mosConfig_absolute_path;/* $mosConfig_absolute_path is only there to accomodate SecurityImages for now*/
 	$doc =& JFActory::getDocument();
-	$doc->addScript(JPATH_BASE."/components/com_rsgallery2/lib/rsgcomments/js/client.js");
-	$doc->addStyleSheet(JPATH_BASE."/components/com_rsgallery2/lib/rsgcomments/rsgcomments.css");
+	$doc->addScript($mosConfig_live_site."/components/com_rsgallery2/lib/rsgcomments/js/client.js");
+	$doc->addStyleSheet($mosConfig_live_site."/components/com_rsgallery2/lib/rsgcomments/rsgcomments.css");
 	
 	?>
 	<script type="text/javascript">
