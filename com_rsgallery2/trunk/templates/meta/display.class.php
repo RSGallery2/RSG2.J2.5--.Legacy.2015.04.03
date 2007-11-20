@@ -413,12 +413,12 @@ class rsgDisplay{
                     <?php
                     foreach($rows as $row) {
                         $l_start = $row->ordering - 1;
-				$url = JRoute::_( $mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id);
+				$url = JRoute::_("/index.php?option=com_rsgallery2&page=inline&id=".$row->id);
                         ?>
                         <tr>
                         <td align="center">
                             <div align="center">
-                            	<a href="<?php echo JRoute::_($url);?>">
+                            	<a href="<?php echo $url;?>">
                                 <img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>" width="<?php echo $rsgConfig->get('thumb_width');?>" />
                                 </a>
                                 <div class="rsg2_details"><?php echo mosFormatDate($row->date);?></div>
@@ -451,11 +451,11 @@ class rsgDisplay{
                         foreach($rows as $row)
                             {
                             $l_start = $row->ordering - 1;
-				$url = Jroute::_($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id);
+				$url = JRoute::_("/index.php?option=com_rsgallery2&page=inline&id=".$row->id);
                             ?>
                             <td align="center">
                             <div align="center">
-                            	<a href="<?php echo JRoute::_($url);?>">
+                            	<a href="<?php echo $url;?>">
                             	<img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>" width="<?php echo $rsgConfig->get('thumb_width');?>"  />
                             	</a>
                             <div class="rsg2_details">Uploaded:&nbsp;<?php echo mosFormatDate($row->date, "%d-%m-%Y");?></div>
