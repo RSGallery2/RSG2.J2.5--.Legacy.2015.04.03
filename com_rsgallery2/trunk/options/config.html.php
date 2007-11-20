@@ -124,6 +124,14 @@ class html_rsg2_config{
 		$thumb_style[] = mosHTML::makeOption('0',_RSGALLERY_CONF_OPTION_PROP);
 		$thumb_style[] = mosHTML::makeOption('1',_RSGALLERY_CONF_OPTION_SQUARE);
 		
+		$thum_order[] = mosHTML::makeOption('default',_RSGALLERY_CONF_OPTION_ORDER_DEFAULT);
+		$thum_order[] = mosHTML::makeOption('date',_RSGALLERY_CONF_OPTION_ORDER_DATE);
+		$thum_order[] = mosHTML::makeOption('name',_RSGALLERY_CONF_OPTION_ORDER_NAME);
+		$thum_order[] = mosHTML::makeOption('rating',_RSGALLERY_CONF_OPTION_ORDER_RATING);
+		$thum_order[] = mosHTML::makeOption('hits',_RSGALLERY_CONF_OPTION_ORDER_HITS);
+		
+		$thum_order_direction[] = mosHTML::makeOption('ASC',_RSGALLERY_CONF_OPTION_ORDER_DIRECTION_ASCENDING);
+		$thum_order_direction[] = mosHTML::makeOption('DESC',_RSGALLERY_CONF_OPTION_ORDER_DIRECTION_DESCENDING);
 		
 		$resizeOptions[] = mosHTML::makeOption('0',_RSGALLERY_CONF_OPTION_DEFAULT_SIZE);
 		$resizeOptions[] = mosHTML::makeOption('1',_RSGALLERY_CONF_OPTION_REZ_LARGE);
@@ -502,6 +510,20 @@ class html_rsg2_config{
 					</tr>
 					</table>
 					</fieldset>
+
+					<fieldset>
+					<legend><?php echo _RSGALLERY_C_DISP_IMG_ORDER?></legend>
+					<table width="100%">
+					<tr>
+						<td><?php echo _RSGALLERY_C_DISP_IMG_ORDER_BY?></td>
+						<td><?php echo mosHTML::selectList($thum_order, 'filter_order','','value', 'text', $config->filter_order)?></td>
+					</tr>
+					<tr>
+						<td><?php echo _RSGALLERY_C_DISP_IMG_ORDER_DIRECTION?></td>
+						<td><?php echo mosHTML::selectList($thum_order_direction, 'filter_order_Dir','','value', 'text', $config->filter_order_Dir)?></td>
+					</tr>
+					</table>
+					</filedset>
 				</td>
 				<td width="30%" valign="top">
 					<fieldset>

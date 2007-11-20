@@ -326,7 +326,7 @@ class galleryUtils {
 	        $list = galleryUtils::getChildList( $catid );
 	        if ( $thumb_id == 0 ) {
 	            //Random thumbnail
-	            $sql = "SELECT name FROM #__rsgallery2_files WHERE gallery_id IN ($list) ORDER BY rand() LIMIT 1";
+	            $sql = "SELECT name FROM #__rsgallery2_files WHERE gallery_id IN ($list) AND published=1 ORDER BY rand() LIMIT 1";
 	            $database->setQuery($sql);
 	            $thumb_name = $database->loadResult();
 	        } else {
@@ -497,7 +497,7 @@ class galleryUtils {
     global $database;
     $lastweek  = mktime (0, 0, 0, date("m"),    date("d") - 7, date("Y"));
     $lastweek = date("Y-m-d H:m:s",$lastweek);
-    $database->setQuery("SELECT * FROM #__rsgallery2_files WHERE date >= '$lastweek' AND gallery_id = '$xid'");
+    $database->setQuery("SELECT * FROM #__rsgallery2_files WHERE date >= '$lastweek' AND published=1 AND gallery_id = '$xid'");
     $rows = $database->loadObjectList();
     if (count($rows) > 0)
         {
@@ -603,7 +603,7 @@ class galleryUtils {
 
     $lastweek  = mktime (0, 0, 0, date("m"),    date("d") - 7, date("Y"));
     $lastweek = date("Y-m-d H:m:s",$lastweek);
-    $database->setQuery("SELECT * FROM #__rsgallery2_files WHERE date >= '$lastweek' ORDER BY id DESC LIMIT 0,5");
+    $database->setQuery("SELECT * FROM #__rsgallery2_files WHERE date >= '$lastweek' and published=1 ORDER BY id DESC LIMIT 0,5");
     $rows = $database->loadObjectList();
     if (count($rows) > 0)
         {

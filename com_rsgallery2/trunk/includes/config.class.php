@@ -67,6 +67,10 @@ class rsgConfig {
 	var $showGallerySize			= 1;
 	var $showGalleryDate			= 1;
 	var $exifTags					= 'FileName|FileDateTime|resolution';
+	
+	var $filter_order				= 'ordering';
+	var $filter_order_Dir			= 'ASC';
+	
 	/* var $gallery_sort_order			= 'order_id';*/ //'order_id' = ordering by DB ordering field; 'desc' = Last uploaded first; 'asc' = Last uploaded last
 
     // user uploads

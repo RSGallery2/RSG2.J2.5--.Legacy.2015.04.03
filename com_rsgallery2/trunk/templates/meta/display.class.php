@@ -413,7 +413,7 @@ class rsgDisplay{
                     <?php
                     foreach($rows as $row) {
                         $l_start = $row->ordering - 1;
-				$url = JRoute::_( $mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&Itemid=".$Itemid."&id=".$row->id);
+				$url = JRoute::_( $mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id);
                         ?>
                         <tr>
                         <td align="center">
@@ -451,7 +451,7 @@ class rsgDisplay{
                         foreach($rows as $row)
                             {
                             $l_start = $row->ordering - 1;
-				$url = Jroute::_($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&Itemid=".$Itemid."&id=".$row->id);
+				$url = Jroute::_($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&id=".$row->id);
                             ?>
                             <td align="center">
                             <div align="center">

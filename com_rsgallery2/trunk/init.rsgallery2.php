@@ -32,8 +32,8 @@ define('JPATH_ORIGINAL', JPATH_ROOT.$rsgConfig->get('imgPath_original') );
 define('JPATH_DISPLAY', JPATH_ROOT.$rsgConfig->get('imgPath_display') );
 define('JPATH_THUMB', JPATH_ROOT.$rsgConfig->get('imgPath_thumb') );
 
-$rsgOptions_path = JPATH_RSGALLERY2_ADMIN.'/options/';
-$rsgClasses_path = JPATH_RSGALLERY2_ADMIN.'/includes/';
+$rsgOptions_path = JPATH_RSGALLERY2_ADMIN .DS. 'options' .DS;
+$rsgClasses_path = JPATH_RSGALLERY2_ADMIN .DS. 'includes' . DS;
     
 require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'version.rsgallery2.php');
 $rsgVersion = new rsgalleryVersion();

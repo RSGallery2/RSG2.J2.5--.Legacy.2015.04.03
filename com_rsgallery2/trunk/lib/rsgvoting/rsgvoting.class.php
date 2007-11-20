@@ -19,7 +19,8 @@ class rsgVoting {
     	global $rsgConfig;
     	if ($rsgConfig->get('voting')) {
 	    	$id 		= rsgInstance::getInt( 'id'  , '');
-	    	?>
+	    	
+			?>
 			<script  type="text/javascript">
 			function saveVote(id, value) {
 				var form = document.vote;
@@ -32,7 +33,7 @@ class rsgVoting {
 			}
 			</script>
 	
-	    	<form name="vote" method="post" action="<?php sefRelToAbs("index.php&amp;option=com_rsgallery2");?>">
+	    	<form name="vote" method="post" action="<?php JRoute::_("index.php&option=com_rsgallery2");?>">
 	    	<table border="0" width="200">
 	    	<tr>
 	    		<td><?php echo _RSGALLERY_VOTING_RATING;?>:</td>

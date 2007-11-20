@@ -273,7 +273,7 @@ function editComment( $item_id ) {
         }
     </script>
     
-	<form name="rsgcommentform" method="post" action="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&rsgOption=rsgComments&task=save");?>">
+	<form name="rsgcommentform" method="post" action="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=rsgComments&task=save");?>">
 	<table border="0" width="100%" class="adminForm">
 	<tr>
 		<td colspan="2"><h2><?php echo _RSGALLERY_COMMENT_ADD;?></h2></td>

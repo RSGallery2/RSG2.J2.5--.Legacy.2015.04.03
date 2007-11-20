@@ -88,15 +88,8 @@ class rsgGallery extends JObject{
 		$this->owner = galleryUtils::genericGetUserName( $this->get('uid') );
 
 		//Write gallery name
-		//TODO: sef is only included for frontend stuff.  perhaps this shouldn't be here?....
-		if( function_exists( 'sefRelToAbs' ) ){
-			$this->url = JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&gid=".$this->get('id'));
-			$this->galleryName = "<a class='rsg2-galleryList-title' href=\"".$this->url."\">".htmlspecialchars(stripslashes($this->get('name')), ENT_QUOTES)."</a>";
-		}
-		else{
-			$this->url = JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&gid=".$this->get('id'));
-			$this->galleryName = htmlspecialchars( stripslashes( $this->get( 'name' )));
-		}
+		$this->url = JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&gid=".$this->get('id'));
+		$this->galleryName = htmlspecialchars( stripslashes( $this->get( 'name' )));
 		
 		//Write HTML for thumbnail
 		$this->thumbHTML = "<a href=\"".$this->url."\">".galleryUtils::getThumb( $this->get('id'),0,0,"" )."</a>";
@@ -156,21 +149,21 @@ class rsgGallery extends JObject{
 	* @todo image listing should be based on what the current visitor can see (owner, administrator, un/published, etc.)
 	*/
 	function itemRows( ){
+		
 		if( $this->_itemRows === null ){
+
+			global $rsgConfig;
+
 			$db = &JFactory::getDBO();
 			
-			$limit = rsgInstance::getInt( 'limit', 0 );
+			$limit = rsgInstance::getInt( 'limit', $rsgConfig->get("display_thumbs_maxPerPage") );
 			$limitstart = rsgInstance::getInt( 'limitstart', 0 );
-			$filter_order = rsgInstance::getWord( 'filter_order', 'ordering' );
-			$filter_order_Dir = rsgInstance::getWord( 'filter_order_Dir', 'ASC' );
+			$filter_order = rsgInstance::getWord( 'filter_order',  $rsgConfig->get("filter_order") );
+			$filter_order_Dir = rsgInstance::getWord( 'filter_order_Dir', $rsgConfig->get("filter_order_Dir"));
 	
 			$where = ' WHERE gallery_id = '. $this->get('id') . ' AND published = 1 ';
 	
-			if ($filter_order == 'ordering'){
-				$orderby 	= ' ORDER BY ordering ';
-			} else {
-				$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir.' , ordering ';
-			}
+			$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir;
 	
 			$query = ' SELECT * FROM #__rsgallery2_files '
 				. $where
@@ -223,6 +216,24 @@ class rsgGallery extends JObject{
 
 		$items = $this->items();
 		return $items[$id];
+	}
+	
+	function indexOfItem($id = null){
+	
+		if( $id === null ){
+			$id = rsgInstance::getInt( 'id', null );
+			if( $id === null ){
+				return 0;
+			}
+		}
+		
+		if (!array_key_exists($id, $this->items))
+			return 0;
+
+		$keys = array_keys($this->items);
+		$index = array_search($id, $keys);
+		return $index;
+		
 	}
 	
 	/**
