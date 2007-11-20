@@ -76,7 +76,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 			<?php
 			if ($slideshow) {
 				?>
-				<a href='<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;page=slideshow&amp;gid=".$kid->get('id')."&amp;Itemid=".$Itemid); ?>'><?php echo _RSGALLERY_SLIDESHOW; ?></a><br />
+				<a href='<?php echo JRoute::_("index.php?option=com_rsgallery2&page=slideshow&gid=".$kid->get('id')."&Itemid=".$Itemid); ?>'><?php echo _RSGALLERY_SLIDESHOW; ?></a><br />
 				<?php
 			}
 			
@@ -471,7 +471,7 @@ class rsgDisplay_semantic extends rsgDisplay{
         <table width="100%" border="0" cellpadding="0" cellspacing="1" class="adminForm">
         <tr><td>
             <table width="100%" cellpadding="2" cellspacing="1">
-                <form method="post" action="<?php global $Itemid; echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=vote"); ?>">
+                <form method="post" action="<?php global $Itemid; echo JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=vote"); ?>">
                 <tr>
                         <td colspan="1" width="100"><strong><?php echo _RSGALLERY_VOTES_NR; ?>:</strong></td>
                         <td colspan="4"><?php echo $this->item['votes']; ?></td>
@@ -539,7 +539,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		
 		while( true ){
 			?>
-			<a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;catid=".$kid->id); ?>">
+			<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&catid=".$kid->id); ?>">
 				<?php echo htmlspecialchars(stripslashes($kid->name), ENT_QUOTES); ?>
 				(<?php echo $kid->itemCount(); ?>)</a><?php
 

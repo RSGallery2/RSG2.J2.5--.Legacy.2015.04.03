@@ -25,7 +25,8 @@ class rsgInstallerTemplate extends mosInstallerRSG2 {
 	function install( $p_fromdir = null ) {
 		global $mosConfig_absolute_path,$database;
 
-		if (!$this->preInstallCheck( $p_fromdir, 'template' )) {
+		if (!($this->preInstallCheck( $p_fromdir, 'template' ) or
+			  $this->preInstallCheck( $p_fromdir, 'rsgTemplate' ))) {
 			return false;
 		}
 

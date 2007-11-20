@@ -84,7 +84,7 @@ class tempDisplay extends JObject{
 						//]]>
 					</script>
 					<?php
-					//mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$limitstart),_RSGALLERY_THANK_VOTING);
+					//mosRedirect( JRoute::_("index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$limitstart),_RSGALLERY_THANK_VOTING);
 					}
 				else
 					{
@@ -96,21 +96,40 @@ class tempDisplay extends JObject{
 						//]]>
 					</script>
 					<?php
-					//mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$limitstart),_RSGALLERY_VOTING_FAILED);
+					//mosRedirect( JRoute::_("index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$limitstart),_RSGALLERY_VOTING_FAILED);
 					}
 				}
 			}
 		else
 			{
-			//mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$limitstart),_RSGALLERY_RATING_NOTSELECT);
+			//mosRedirect( JRoute::_("index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$limitstart),_RSGALLERY_RATING_NOTSELECT);
 			}
 		}
 }// end tempDisplay
 */
 class rsgDisplay{
 	
+	var $params = null;
+	
 	function __construct(){
+		global $rsgConfig;
+		
 		$this->gallery = rsgInstance::getGallery();
+
+		$template = $rsgConfig->get('template');
+
+		// load parameters
+		jimport('joomla.filesystem.file');
+		// Read the ini file
+		$ini	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'params.ini';
+		if (JFile::exists($ini)) {
+			$content = JFile::read($ini);
+		} else {
+			$content = null;
+		}
+		$xml	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template .DS.'templateDetails.xml';
+		$this->params = new JParameter($content, $xml, 'template');
+		
 	}
 	
 	function mainPage(){
@@ -160,8 +179,15 @@ class rsgDisplay{
 		$templateDir = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template . DS . 'html';
 	
 		$file = preg_replace('/[^A-Z0-9_\.-]/i', '', $file);
-		
-		include $templateDir . DS . $file;
+
+		if(!defined("J15B_EXEC") ) {
+			// add this for page size listbox handling in J1.5
+			echo '<form action="'.JRoute::_("index.php?option=com_rsgallery2").'" method="post">';
+			include $templateDir . DS . $file;
+			echo '</form>';
+		} else {
+			include $templateDir . DS . $file;
+		}
 	}
 
 	/**
@@ -174,7 +200,7 @@ class rsgDisplay{
 		if (!$rsgOption == 'mygalleries' AND !$gid) {
 			?>
 			<div class="rsg2-mygalleries">
-				<a class="rsg2-mygalleries_link" href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;rsgOption=myGalleries");?>">My Galleries</a>
+				<a class="rsg2-mygalleries_link" href="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries");?>">My Galleries</a>
 			</div>
 			<div class="rsg2-clr"></div>
 			<?php
@@ -247,7 +273,7 @@ class rsgDisplay{
 				if ( $gallery->id == $currentGallery && empty($item) ) {
 					$mainframe->appendPathWay($gallery->name);
 				} else {
-					$mainframe->appendPathWay('<a href="' . $mosConfig_live_site . '/index.php?option=com_rsgallery2&amp;Itemid='.$Itemid.'&amp;gid=' . $gallery->id . '">' . $gallery->name . '</a>');
+					$mainframe->appendPathWay('<a href="' . JRoute::_($mosConfig_live_site . '/index.php?option=com_rsgallery2&Itemid='.$Itemid.'&gid=' . $gallery->id) . '">' . $gallery->name . '</a>');
 				}
 			}
 
@@ -387,12 +413,12 @@ class rsgDisplay{
                     <?php
                     foreach($rows as $row) {
                         $l_start = $row->ordering - 1;
-                        $url = $mosConfig_live_site."/index.php?option=com_rsgallery2&amp;page=inline&Itemid=".$Itemid."&id=".$row->id;
+				$url = JRoute::_( $mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&Itemid=".$Itemid."&id=".$row->id);
                         ?>
                         <tr>
                         <td align="center">
                             <div align="center">
-                            	<a href="<?php echo sefRelToAbs($url);?>">
+                            	<a href="<?php echo JRoute::_($url);?>">
                                 <img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>" width="<?php echo $rsgConfig->get('thumb_width');?>" />
                                 </a>
                                 <div class="rsg2_details"><?php echo mosFormatDate($row->date);?></div>
@@ -425,11 +451,11 @@ class rsgDisplay{
                         foreach($rows as $row)
                             {
                             $l_start = $row->ordering - 1;
-                            $url = $mosConfig_live_site."/index.php?option=com_rsgallery2&amp;page=inline&Itemid=".$Itemid."&id=".$row->id;
+				$url = Jroute::_($mosConfig_live_site."/index.php?option=com_rsgallery2&page=inline&Itemid=".$Itemid."&id=".$row->id);
                             ?>
                             <td align="center">
                             <div align="center">
-                            	<a href="<?php echo sefRelToAbs($url);?>">
+                            	<a href="<?php echo JRoute::_($url);?>">
                             	<img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>" width="<?php echo $rsgConfig->get('thumb_width');?>"  />
                             	</a>
                             <div class="rsg2_details">Uploaded:&nbsp;<?php echo mosFormatDate($row->date, "%d-%m-%Y");?></div>
@@ -462,7 +488,7 @@ class rsgDisplay{
 			echo "<div class=\"rsg2-toolbar\">";
 			if ($type == 'button') {
 				?>
-				<a href="<?php echo sefRelToAbs('index.php?option=com_rsgallery2&amp;task=downloadfile&amp;id='.$id);?>">
+				<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>">
 				<img height="20" width="20" src="<?php echo $mosConfig_live_site;?>/administrator/images/download_f2.png" alt="<?php echo _RSGALLERY_DOWNLOAD?>">
 				<?php
 				if ($showtext == true) {
@@ -475,7 +501,7 @@ class rsgDisplay{
 				<?php
 			} else {
 				?>
-				<a href="<?php echo sefRelToAbs('index.php?option=com_rsgallery2&amp;task=downloadfile&amp;id='.$id);?>"><?php echo _RSGALLERY_DOWNLOAD?></a>
+				<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>"><?php echo _RSGALLERY_DOWNLOAD?></a>
 				<?php
 			}
 			echo "</div><div class=\"rsg2-clr\">&nbsp;</div>";
@@ -504,7 +530,7 @@ class rsgDisplay{
         <div style="float:right; text-align:right;">
         <ul id='rsg2-navigation'>
             <li>
-                <a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=".$Itemid); ?>">
+                <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&amp;Itemid=".$Itemid); ?>">
                 <?php echo _RSGALLERY_MAIN_GALLERY_PAGE; ?>
                 </a>
             </li>
@@ -512,7 +538,7 @@ class rsgDisplay{
             if ( !$my->id == "" && $page != "my_galleries" && $rsgConfig->get('show_mygalleries') == 1):
             ?>
             <li>
-                <a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=".$Itemid."&amp;rsgOption=myGalleries");?>">
+                <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&amp;Itemid=".$Itemid."&amp;rsgOption=myGalleries");?>">
                 <?php echo _RSGALLERY_MY_GALLERIES; ?>
                 </a>
             </li>
@@ -520,7 +546,7 @@ class rsgDisplay{
             elseif( $page == "slideshow" ): 
             ?>
             <li>
-                <a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=inline&catid=".$catid."&id=".$_GET['id']);?>">
+                <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=inline&catid=".$catid."&id=".$_GET['id']);?>">
                 <?php echo _RSGALLERY_SLIDESHOW_EXIT; ?>
                 </a>
             </li>

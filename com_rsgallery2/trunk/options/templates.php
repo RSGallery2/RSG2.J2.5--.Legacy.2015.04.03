@@ -105,7 +105,8 @@ function viewTemplates( $option ) {
 			if ($root->getTagName() != 'mosinstall') {
 				continue;
 			}
-			if ($root->getAttribute( 'type' ) != 'template') {
+			if (!($root->getAttribute( 'type' ) == 'rsgTemplate' or
+				  $root->getAttribute( 'type' ) == 'template')) {
 				continue;
 			}
 

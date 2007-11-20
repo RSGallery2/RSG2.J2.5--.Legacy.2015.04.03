@@ -56,9 +56,12 @@ switch( $rsgOption ) {
     case 'config':
         require_once( $rsgOptions_path . 'config.php' );
     break;
-    case 'templates':
-        require_once( $rsgOptions_path . 'templates.php' );
-    break;
+    case 'templateManager':
+        require_once( $rsgOptions_path . 'templateManager'.DS.'admin.templates.php' );
+	break;
+	case 'template':
+		require_once( $rsgOptions_path . 'templates.php' );
+		break;
 }
 
 /**

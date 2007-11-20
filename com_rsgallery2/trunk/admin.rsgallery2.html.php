@@ -246,7 +246,11 @@ class HTML_RSGALLERY{
 				$link = 'index2.php?option=com_rsgallery2&task=edit_css';
 				HTML_RSGALLERY::quickiconButton( $link, 'cssedit.png', _RSGALLERY_C_CSS_EDIT);
 				*/
-				$link = 'index2.php?option=com_rsgallery2&rsgOption=templates';
+				if (defined( 'J15B_EXEC'))
+					$link = 'index2.php?option=com_rsgallery2&rsgOption=template';
+				else
+					$link = 'index2.php?option=com_rsgallery2&rsgOption=templateManager';
+								
 				HTML_RSGALLERY::quickiconButton( $link, 'template.png', _RSGALLERY_TEMP_MANG);
 
                 // if debug is on, display advanced options
