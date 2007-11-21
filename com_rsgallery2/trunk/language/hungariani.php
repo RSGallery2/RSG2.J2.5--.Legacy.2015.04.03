@@ -2,7 +2,7 @@
 
 /**
 * Hungarian (informal) languagefile for RSGallery
-* @version 1.13.1 alpha created on May 25, 2007
+* @version 1.14.0 alpha created on November 14, 2007
 * @package RSGallery2
 * @copyright (C) 2003 - 2006 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -51,20 +51,6 @@ DEFINE("_RSGALLERY_VOTES_NR",				"Értékelések");
 DEFINE("_RSGALLERY_VOTES_AVG",				"Átlagos értékelés");
 DEFINE("_RSGALLERY_NO_RATINGS",				"Még senki sem értékelte ezt a képet!");
 DEFINE("_RSGALLERY_VOTE",					"Szavazás");
-DEFINE("_RSGALLERY_VERYGOOD",				"&nbsp;Kitűnő&nbsp;");
-DEFINE("_RSGALLERY_GOOD",					"&nbsp;Jó&nbsp;");
-DEFINE("_RSGALLERY_OK",						"&nbsp;Közepes&nbsp;");
-DEFINE("_RSGALLERY_BAD",					"&nbsp;Elégséges&nbsp;");
-DEFINE("_RSGALLERY_VERYBAD",				"&nbsp;Elégtelen&nbsp;");
-DEFINE("_RSGALLERY_COMMENTS",			   	"Vélemények");
-DEFINE("_RSGALLERY_NO_COMMENTS",			"Még senki nem mondta el a véleményét!");
-DEFINE("_RSGALLERY_COMMENT_DATE",			"Dátum");
-DEFINE("_RSGALLERY_COMMENT_BY",				"Írta");
-DEFINE("_RSGALLERY_COMMENT_TEXT",			"Vélemény");
-DEFINE("_RSGALLERY_DELETE_COMMENT",			"Vélemény törlése");
-DEFINE("_RSGALLERY_COMMENT_ADD",			"Küldés");
-DEFINE("_RSGALLERY_COMMENT_NAME",			"Név");
-DEFINE("_RSGALLERY_COMMENT_ADD_TEXT",		"Az Ön véleménye");
 DEFINE("_RSGALLERY_EXIF",					"EXIF");
 //function RSGalleryTitleblock
 DEFINE("_RSGALLERY_MAIN_GALLERY_PAGE",		"Galéria főoldal");
@@ -250,7 +236,7 @@ DEFINE("_RSGALLERY_UPLOAD_FORM_FILE",		"Fájl");
 //function viewImages
 DEFINE("_RSGALLERY_NO_PREVIEW ",		    "A képet nem tekintheted meg előnézetben");
 DEFINE("_RSGALLERY_DELETE",					"Törlés");
-DEFINE("_RSGALLERY_MOVETO",					"Áthelyezés ide");
+DEFINE("_RSGALLERY_MOVETO",					"Áthelyezés");
 DEFINE("_RSGALLERY_COPYIMAGE",				"Másolás");
 DEFINE("_RSGALLERY_NUMDISPLAY",				"Tételek #");
 DEFINE("_RSGALLERY_SEARCH",					"Keresés");
@@ -414,7 +400,7 @@ DEFINE("_RSGALLERY_STATUS_NOT_PUBL",		"Ez a galéria NINCS közzétéve");
 //install.rsgallery2.php
 //function com_install
 DEFINE("_RSGALLERY_MIGRATING_FROM",			"Áttelepítés az RSGallery2 ");
-DEFINE("_RSGALLERY_INSTALL_SUCCESS",		"Sikerült!  Most már ezt használod: RSGallery2 ");
+DEFINE("_RSGALLERY_INSTALL_SUCCESS",		"Sikerült!  Most már a következő verziót használod: RSGallery2 ");
 DEFINE("_RSGALLERY_INSTALL_FAIL",			"Hiba: ");
 
 //toolbar.rsgallery2.html.php
@@ -465,6 +451,9 @@ DEFINE("_RSGALLERY_C_TMPL_FLOATDIRECTION",	"Irány (csak a körbefuttatás eset�
 DEFINE("_RSGALLERY_C_TMPL_COLS_PERPAGE",	"A bélyegképoszlopok száma (csak táblázat esetén):");
 DEFINE("_RSGALLERY_C_TMPL_THUMBS_PERPAGE",	"A bélyegképek oldalankénti száma:");
 DEFINE("_RSGALLERY_C_TMPL_DISP_SLIDE",		"A diavetítés megjelenítése");
+DEFINE("_RSGALLERY_C_TMPL_DISP_OWNER",		"A tulajdonos adatainak megjelenítése");
+DEFINE("_RSGALLERY_C_TMPL_DISP_ITEMS",		"A galériában lévő tételek számának megjelenítése");
+DEFINE("_RSGALLERY_C_TMPL_DISP_DATE",		"A létrehozás dátumának megjelenítése");
 DEFINE("_RSGALLERY_C_TMPL_IMG_DISP",		"Kép megjelenítése");
 DEFINE("_RSGALLERY_C_TMPL_RESIZE_OPT",		"Átméretezési lehetőség");
 DEFINE("_RSGALLERY_C_TMPL_DISP_DESCR",		"A leírás megjelenítése");
@@ -490,6 +479,19 @@ DEFINE("_RSGALLERY_C_NUMB_GAL_FRONT",	"A címlapon látható galériák száma")
 DEFINE("_RSGALLERY_C_FONT",				"Betűtípus");
 DEFINE("_RSGALLERY_C_WATER_TRANS",		"Vízjel átlátszósága");
 DEFINE("_RSGALLERY_C_ALLOWED_FILE",		"Engedélyezett fájltípusok");
+//Commenting
+DEFINE("_RSGALLERY_COMMENTS_LABEL",			"Vélemények");
+DEFINE("_RSGALLERY_COMMENTS_ENABLED",		"A véleménynyilvánítás engedélyezett");
+DEFINE("_RSGALLERY_COMMENTS_ALLOW_PUBLIC",	"A véleménynyilvánítás engedélyezése mindenki számára");
+DEFINE("_RSGALLERY_COMMENTS_ONLY_ONCE",		"Egy felhasználó csak egyszer nyilváníthat véleményt a képről");
+
+//Voting
+DEFINE("_RSGALLERY_VOTE_LABEL",				"Értékelés");
+DEFINE("_RSGALLERY_VOTE_ENABLED",			"Az értékelés engedélyezett");
+DEFINE("_RSGALLERY_VOTE_REGISTERED_ONLY",	"Csak a regisztrált felhasználók számára");
+DEFINE("_RSGALLERY_VOTE_ONLY_ONCE",			"Egy felhasználó csak egyszer értékelhet (cookie-alapú)");
+DEFINE("_RSGALLERY_VOTE_COOKIE_PREFIX",		"A cookie előtagja");
+
 
 //galleries.class.php
 //function check
@@ -670,6 +672,87 @@ DEFINE("_RSGALLERY_FU_MISS_TEMP_DIR",		"Hiányzik az ideiglenes mappa.");
 DEFINE("_RSGALLERY_FU_FAIL_WRITE_DISK",		"Nem sikerült a fájl írása a lemezre");
 DEFINE("_RSGALLERY_FU_UPL_STOP_EXT",		"A bővítmény leállította a fájl feltöltését");
 DEFINE("_RSGALLERY_FU_UNKW_ERROR",		"Ismeretlen fájlhiba");
+
+//rsgcomments.class.php
+//function showButtons
+DEFINE("_RSGALLERY_COMMENTS_COLOR",	"-szín-");
+DEFINE("_RSGALLERY_COMMENTS_AQUA",	"cián");
+DEFINE("_RSGALLERY_COMMENTS_BLACK",	"fekete");
+DEFINE("_RSGALLERY_COMMENTS_BLUE",	"kék");
+DEFINE("_RSGALLERY_COMMENTS_FUCHSIA",	"lila");
+DEFINE("_RSGALLERY_COMMENTS_GRAY",	"szürke");
+DEFINE("_RSGALLERY_COMMENTS_GREEN",	"zöld");
+DEFINE("_RSGALLERY_COMMENTS_LIME",	"zöld");
+DEFINE("_RSGALLERY_COMMENTS_MAROON",	"sötétvörös");
+DEFINE("_RSGALLERY_COMMENTS_NAVY",	"sötétkék");
+DEFINE("_RSGALLERY_COMMENTS_OLIVE",	"okkersárga");
+DEFINE("_RSGALLERY_COMMENTS_PURPLE",	"sötétlila");
+DEFINE("_RSGALLERY_COMMENTS_RED",	"piros");
+DEFINE("_RSGALLERY_COMMENTS_SILVER",	"ezüst");
+DEFINE("_RSGALLERY_COMMENTS_TEAL",	"sötétcián");
+DEFINE("_RSGALLERY_COMMENTS_WHITE",	"fehér");
+DEFINE("_RSGALLERY_COMMENTS_YELLOW",	"sárga");
+DEFINE("_RSGALLERY_COMMENTS_SIZE",	"-méret-");
+DEFINE("_RSGALLERY_COMMENTS_TINY",	"nagyon kicsi");
+DEFINE("_RSGALLERY_COMMENTS_SMALL",	"kicsi");
+DEFINE("_RSGALLERY_COMMENTS_MEDIUM",	"közepes");
+DEFINE("_RSGALLERY_COMMENTS_LARGE",	"nagy");
+DEFINE("_RSGALLERY_COMMENTS_HUGE",	"nagyon nagy");
+//function parseQuoteElement
+DEFINE("_RSGALLERY_COMMENTS_QUOTE_WROTE", "Írta");
+//function editComment
+DEFINE("_RSGALLERY_COMMENT_ADD",		"Vélemény");
+DEFINE("_RSGALLERY_COMMENT_NAME",		"Név");
+DEFINE("_RSGALLERY_COMMENTS_TITLE",		"Cím");
+DEFINE("_RSGALLERY_COMMENT_COMMENT",		"A vélemény szövege");
+//function showComments
+DEFINE("_RSGALLERY_COMMENT_DELETE",	"Biztosan törölni akarod a véleményt?");
+DEFINE("_RSGALLERY_COMMENTS",	"Vélemények");
+DEFINE("_RSGALLERY_COMMENTS_NUM_COMM_ADD",	"Beküldött vélemények #");
+DEFINE("_RSGALLERY_DELETE_COMMENT",			"Vélemény törlése");
+DEFINE("_RSGALLERY_COMMENTS_SEC_IMG_MISS", "Az adminisztrációban engedélyezték a SecurityImages bővítményt, viszont nem történt meg a komponens telepítése! Értesítsd a webmestert");
+DEFINE("_RSGALLERY_COMMENTS_NOCOMM",	"Még senki sem írta meg a véleményét erről a képről!");
+
+//rsgcomments.php
+DEFINE("_RSGALLERY_COMMENTS_COMMDEL",		"A vélemény törlése sikerült");
+
+//rsgcomments.php
+DEFINE("_RSGALLERY_COMMENTS_DISABLED",		"A véleménynyilvánítás letiltott");
+/*double deleted DEFINE("_RSGALLERY_COMMENTS_ONLY_ONCE",		"Csak egyszer nyilváníthatsz véleményt erről a képről!");*/
+DEFINE("_RSGALLERY_COMMENTS_INCORRECT_CAPTCHA",		"Helytelen CAPTCHA ellenőrzés, a véleményedet NEM mentettük!");
+DEFINE("_RSGALLERY_COMMENTS_ADD_SUCCES",		"A vélemény beküldése sikerült!");
+DEFINE("_RSGALLERY_COMMENTS_ADD_FAIL",		"A vélemény beküldése nem sikerült!");
+
+//rsgvoting.class.php
+DEFINE("_RSGALLERY_VOTING_ARE_YOU_SURE",		"Biztos, hogy akarod értékelni a képet?");
+DEFINE("_RSGALLERY_VOTING_RATING",		"Értékelés");
+DEFINE("_RSGALLERY_VOTING_VOTE",		"Értékelem");
+DEFINE("_RSGALLERY_VOTING_VOTES",		"&nbsp;szavazat");
+DEFINE("_RSGALLERY_VOTING_RATE_1",		"A kép értékelése 1 / 5-re");
+DEFINE("_RSGALLERY_VOTING_RATE_2",		"A kép értékelése 2 / 5-re");
+DEFINE("_RSGALLERY_VOTING_RATE_3",		"A kép értékelése 3 / 5-re");
+DEFINE("_RSGALLERY_VOTING_RATE_4",		"A kép értékelése 4 / 5-re");
+DEFINE("_RSGALLERY_VOTING_RATE_5",		"A kép értékelése 5 / 5-re");
+
+//rsgvoting.php
+DEFINE("_RSGALLERY_VOTING_DISABLED",		"Az értékelés letiltott!");
+DEFINE("_RSGALLERY_VOTING_NOT_AUTH",		"Az értékelés a számodra nem engedélyezett!");
+DEFINE("_RSGALLERY_VOTING_ALREADY_VOTED",		"Te értékelted már ezt a képet!");
+DEFINE("_RSGALLERY_VOTING_NOT_ADDED",		"Nem sikerült az értékelés tárolása az adatbázisban!");
+DEFINE("_RSGALLERY_VOTING_ADDED",		"Az értékelés tárolása az adatbázisban sikerült!");
+
+//templates.php
+//function viewTemplates
+DEFINE("_RSGALLERY_TPL_INST",	"Új RSGTemplate <small><small>[ Webhely ]</small></small> telepítése");
+// more to do here, but to come
+
+//templates.html.php
+DEFINE("_RSGALLERY_TEMPLATES_NAME",	"Név");
+DEFINE("_RSGALLERY_TEMPLATES_ACTIVE",	"Aktív");
+DEFINE("_RSGALLERY_TEMPLATES_AUTHOR",	"Szerző");
+DEFINE("_RSGALLERY_TEMPLATES_VERSION",	"Verzió");
+DEFINE("_RSGALLERY_TEMPLATES_DATE",	"Dátum");
+DEFINE("_RSGALLERY_TEMPLATES_AUTH_URL",	"A szerző weblapja");
 
 //stopped at gallery.class.php
 ?>

@@ -1,6 +1,6 @@
 <?php
 /**
-* Dutch language file for RSGallery - (28-10-2007)
+* Dutch language file for RSGallery 1.14.0 - (22-11-2007) 
 * @version $Id$
 * @package RSGallery2
 * @copyright (C) 2003 - 2007 RSGallery2
@@ -524,6 +524,9 @@ DEFINE("_RSGALLERY_C_TMPL_FLOATDIRECTION",		"Richting (Werkt alleen met zweven):
 DEFINE("_RSGALLERY_C_TMPL_COLS_PERPAGE",		"Aantal kolommen met Thumbnails (alleen bij tabel):");
 DEFINE("_RSGALLERY_C_TMPL_THUMBS_PERPAGE",		"Thumbnails per Pagina:");
 DEFINE("_RSGALLERY_C_TMPL_DISP_SLIDE",			"Vertoning Slideshow");
+DEFINE("_RSGALLERY_C_TMPL_DISP_OWNER",	  		"Vertoon eigenaars informatie");
+DEFINE("_RSGALLERY_C_TMPL_DISP_ITEMS",			"Vertoon aantal afbeeldingen in gallerij");
+DEFINE("_RSGALLERY_C_TMPL_DISP_DATE",			"Vertoon aanmaak datum");
 DEFINE("_RSGALLERY_C_TMPL_IMG_DISP",			"Afbeelding weergave");
 DEFINE("_RSGALLERY_C_TMPL_RESIZE_OPT",			"Resize Optie");
 DEFINE("_RSGALLERY_C_TMPL_DISP_DESCR",			"laat omschrijving zien");
@@ -764,10 +767,47 @@ DEFINE("_RSGALLERY_FU_UPL_STOP_EXT",			"Bestand upload gestopt");
 DEFINE("_RSGALLERY_FU_UNKW_ERROR",			"Onbekende bestands fout");
 
 //rsgcomments.class.php
+//function showButtons
+DEFINE("_RSGALLERY_COMMENTS_COLOR",	"-Kleur-");
+DEFINE("_RSGALLERY_COMMENTS_AQUA",	"aqua");
+DEFINE("_RSGALLERY_COMMENTS_BLACK",	"zwart");
+DEFINE("_RSGALLERY_COMMENTS_BLUE",	"blauw");
+DEFINE("_RSGALLERY_COMMENTS_FUCHSIA","fuchsia");
+DEFINE("_RSGALLERY_COMMENTS_GRAY",	"grijs");
+DEFINE("_RSGALLERY_COMMENTS_GREEN",	"groen");
+DEFINE("_RSGALLERY_COMMENTS_LIME",	"lime");
+DEFINE("_RSGALLERY_COMMENTS_MAROON",	"kastanjebruin");
+DEFINE("_RSGALLERY_COMMENTS_NAVY",	"marine");
+DEFINE("_RSGALLERY_COMMENTS_OLIVE",	"olijf");
+DEFINE("_RSGALLERY_COMMENTS_PURPLE",	"paars");
+DEFINE("_RSGALLERY_COMMENTS_RED",	"rood");
+DEFINE("_RSGALLERY_COMMENTS_SILVER",	"zilver");
+DEFINE("_RSGALLERY_COMMENTS_TEAL",	"groenblauw");
+DEFINE("_RSGALLERY_COMMENTS_WHITE",	"wit");
+DEFINE("_RSGALLERY_COMMENTS_YELLOW",	"geel");
+DEFINE("_RSGALLERY_COMMENTS_SIZE",	"-grootte-");
+DEFINE("_RSGALLERY_COMMENTS_TINY",	"uiterst klein");
+DEFINE("_RSGALLERY_COMMENTS_SMALL",	"klein");
+DEFINE("_RSGALLERY_COMMENTS_MEDIUM",	"middel");
+DEFINE("_RSGALLERY_COMMENTS_LARGE",	"groot");
+DEFINE("_RSGALLERY_COMMENTS_HUGE",	"enorm");
+//function parseQuoteElement
+DEFINE("_RSGALLERY_COMMENTS_QUOTE_WROTE", "schreef");
+//function editComment
 DEFINE("_RSGALLERY_COMMENTS_ADD",			"Commentaar toevoegen");
 DEFINE("_RSGALLERY_COMMENTS_NAME",			"Naam");
 DEFINE("_RSGALLERY_COMMENTS_TITLE",			"Titel");
 DEFINE("_RSGALLERY_COMMENTS_COMMENT",		"Commentaar tekst");
+//function showComments
+DEFINE("_RSGALLERY_COMMENT_DELETE",	"Weet u zeker dat u het commentaar wilt verwijderen?");
+DEFINE("_RSGALLERY_COMMENTS",	"Commentaren");
+DEFINE("_RSGALLERY_COMMENTS_NUM_COMM_ADD",	"# toegevoegde commentaren");
+DEFINE("_RSGALLERY_DELETE_COMMENT",			"Verwijder commentaar");
+DEFINE("_RSGALLERY_COMMENTS_SEC_IMG_MISS", "SecurityImages staan aan maar het component is niet geïnstalleerde Waarschuw de webmaster");
+DEFINE("_RSGALLERY_COMMENTS_NOCOMM",	"Nog geen commentaar!");
+
+//rsgcomments.php
+DEFINE("_RSGALLERY_COMMENTS_COMMDEL",		"Commentaar succesvol verwijderd");
 
 //rsgcomments.php
 DEFINE("_RSGALLERY_COMMENTS_DISABLED",		"Commentaar staat uit");
@@ -793,5 +833,17 @@ DEFINE("_RSGALLERY_VOTING_NOT_AUTH",		"U bent niet gemachtigd om te stemmen!");
 DEFINE("_RSGALLERY_VOTING_ALREADY_VOTED",		"U hebt al gestemd op deze afbeelding!");
 DEFINE("_RSGALLERY_VOTING_NOT_ADDED",		"De stem kon niet aan het gegevensbestand worden toegevoegd!");
 DEFINE("_RSGALLERY_VOTING_ADDED",			"Stem aan gegevensbestand wordt toegevoegd!");
+//templates.php
+//function viewTemplates
+DEFINE("_RSGALLERY_TPL_INST",	"Installeer nieuwe RSGTemplate <small><small>[ Site ]</small></small>");
+// more to do here, but to come
+
+//templates.html.php
+DEFINE("_RSGALLERY_TEMPLATES_NAME",	"Naam");
+DEFINE("_RSGALLERY_TEMPLATES_ACTIVE",	"Actief");
+DEFINE("_RSGALLERY_TEMPLATES_AUTHOR",	"Auteur");
+DEFINE("_RSGALLERY_TEMPLATES_VERSION",	"Versie");
+DEFINE("_RSGALLERY_TEMPLATES_DATE",	"Datum");
+DEFINE("_RSGALLERY_TEMPLATES_AUTH_URL",	"Auteur URL");
 //stopped at gallery.class.php
 ?>
