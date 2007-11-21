@@ -33,7 +33,7 @@ class rsgVoting {
 			}
 			</script>
 	
-	    	<form name="vote" method="post" action="<?php JRoute::_("index.php&option=com_rsgallery2");?>">
+	    	<form name="vote" method="post" action="<?php echo JRoute::_('index.php?option=com_rsgallery2&page=inline&id='.$id);?>">
 	    	<table border="0" width="200">
 	    	<tr>
 	    		<td><?php echo _RSGALLERY_VOTING_RATING;?>:</td>

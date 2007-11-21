@@ -40,16 +40,18 @@ class JRoute
 	 */
 	function _($url, $xhtml = true, $ssl = 0)
 	{
+
+		$url = sefRelToAbs($url);
 		// Get the router
-		$app	= &JFactory::getApplication();
-		$router = &$app->getRouter();
-	
-		// Build route
-		if ($router) 
-		{	
-			$uri = &$router->build($url);
-			$url = $uri->toString(array('path', 'query', 'fragment'));
-		}
+//		$app	= &JFactory::getApplication();
+//		$router = &$app->getRouter();
+//	
+//		// Build route
+//		if ($router) 
+//		{	
+//			$uri = &$router->build($url);
+//			$url = $uri->toString(array('path', 'query', 'fragment'));
+//		}
 		
 		/*
 		 * Get the secure/unsecure URLs.
