@@ -484,30 +484,29 @@
     <filename>language/swedish.php</filename>
     <filename>language/traditional_chinese.php</filename>
 	
-    <filename>options/config.php</filename>
-    <filename>options/config.html.php</filename>
-    <filename>options/galleries.php</filename>
-    <filename>options/galleries.class.php</filename>
-    <filename>options/galleries.item.xml</filename>
-    <filename>options/galleries.html.php</filename>
-    <filename>options/images.php</filename>
-    <filename>options/images.class.php</filename>
-    <filename>options/images.item.xml</filename>
-    <filename>options/images.html.php</filename>
-	  <filename>options/templates.php</filename>
-	  <filename>options/templates.class.php</filename>
-	  <filename>options/templates.html.php</filename>
-	  <filename>options/templates.installer.php</filename>
-    <filename>options/templateManager/index.html</filename>
-    <filename>options/templateManager/admin.templates.php</filename>
-    <filename>options/templateManager/admin.templates.html.php</filename>
-    <filename>options/templateManager/controller.php</filename>
-    <filename>options/templateManager/toolbar.templates.php</filename>
-    <filename>options/templateManager/toolbar.templates.html.php</filename>
-    <filename>options/templateManager/helpers/index.html</filename>
-    <filename>options/templateManager/helpers/JInstallerRSGTemplate.php</filename>
-    <filename>options/templateManager/helpers/template.php</filename>
-    <filename>options/templateManager/helpers/index.html</filename>
+	<filename>options/config.html.php</filename>
+	<filename>options/config.php</filename>
+	<filename>options/galleries.class.php</filename>
+	<filename>options/galleries.html.php</filename>
+	<filename>options/galleries.item.xml</filename>
+	<filename>options/galleries.php</filename>
+	<filename>options/images.class.php</filename>
+	<filename>options/images.html.php</filename>
+	<filename>options/images.item.xml</filename>
+	<filename>options/images.php</filename>
+	<filename>options/templateManager/admin.templates.html.php</filename>
+	<filename>options/templateManager/admin.templates.php</filename>
+	<filename>options/templateManager/controller.php</filename>
+	<filename>options/templateManager/helpers/index.html</filename>
+	<filename>options/templateManager/helpers/JInstallerRSGTemplate.php</filename>
+	<filename>options/templateManager/helpers/template.php</filename>
+	<filename>options/templateManager/index.html</filename>
+	<filename>options/templateManager/toolbar.templates.html.php</filename>
+	<filename>options/templateManager/toolbar.templates.php</filename>
+	<filename>options/templates.class.php</filename>
+	<filename>options/templates.html.php</filename>
+	<filename>options/templates.installer.php</filename>
+	<filename>options/templates.php</filename>
 
     <filename>sql/rsgallery2.sql</filename>
     <filename>sql/upgrade_1.11.0_to_1.11.1.sql</filename>
