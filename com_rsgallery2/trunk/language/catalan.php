@@ -7,6 +7,7 @@
 * @copyright (C) 2003 - 2006 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * @author   Alex Buil Bruna  <alex-dot-buil-dot-bruna AT-gmail-dot-com> --- 2007-08-28 v0.1
+* col·laboracio translate templates+vots+comentaris Bartomeu Tortell Frontera <tomtortell at-gmail-dot-com> --- 2007-11-20
 * RSGallery is Free Software
 **/
 
@@ -456,7 +457,7 @@ DEFINE("_RSGALLERY_C_TMPL_DISP_RAND",		"Visualitzar aleatòriament");
 DEFINE("_RSGALLERY_C_TMPL_DISP_LATEST",		"Visualitzar les darreres imatges");
 DEFINE("_RSGALLERY_C_TMPL_DISP_BRAND",		"Visualitzar les marques");
 DEFINE("_RSGALLERY_C_TMPL_DISP_DOWN",		"Mostrar l'enllaç de descàrrega");
-DEFINE("_RSGALLERY_C_TMPL_WATERMARK",		"Marqua d'aigua de la imatge. Amb errors, no utilitzeu en llocs de producció.");
+DEFINE("_RSGALLERY_C_TMPL_WATERMARK",		"Marca d'aigua de la imatge. Amb errors, no utilitzeu en llocs de producció.");
 DEFINE("_RSGALLERY_C_TMPL_DISP_WTRMRK",		"Mostrar marques d'aigua");
 DEFINE("_RSGALLERY_C_TMPL_WTRMRK_TEXT",		"Text de les marques d'aigua");
 DEFINE("_RSGALLERY_C_TMPL_WTRMRK_FONTSIZE",	"Tamany de la font de les marques d'aigua");
@@ -468,6 +469,9 @@ DEFINE("_RSGALLERY_C_TMPL_FLOATDIRECTION",	"Direcció (només funciona per flotant
 DEFINE("_RSGALLERY_C_TMPL_COLS_PERPAGE",	"Número de miniatures per columna (només per taula) :");
 DEFINE("_RSGALLERY_C_TMPL_THUMBS_PERPAGE",	"Miniatures per pàgina:");
 DEFINE("_RSGALLERY_C_TMPL_DISP_SLIDE",		"Mostrar diaporama");
+/*NEW*/DEFINE("_RSGALLERY_C_TMPL_DISP_OWNER",		"Mostreu informació del propietari");
+/*NEW*/DEFINE("_RSGALLERY_C_TMPL_DISP_ITEMS",		"Mostreu nombre d'objectes a la galeria");
+/*NEW*/DEFINE("_RSGALLERY_C_TMPL_DISP_DATE",		"Mostreu la data de creacio");
 DEFINE("_RSGALLERY_C_TMPL_IMG_DISP",		"Mostrar imatge");
 DEFINE("_RSGALLERY_C_TMPL_RESIZE_OPT",		"Opció de redimensionament");
 DEFINE("_RSGALLERY_C_TMPL_DISP_DESCR",		"Mostrar descripció");
@@ -493,6 +497,18 @@ DEFINE("_RSGALLERY_C_NUMB_GAL_FRONT",	"Número de galeries a la pàgina principal"
 DEFINE("_RSGALLERY_C_FONT",				"Font");
 DEFINE("_RSGALLERY_C_WATER_TRANS",		"Transparència de ls marques d'aigua");
 DEFINE("_RSGALLERY_C_ALLOWED_FILE",		"Tipus de fitxer permesos");
+//Commenting
+DEFINE("_RSGALLERY_COMMENTS_LABEL",			"Comentaris");
+DEFINE("_RSGALLERY_COMMENTS_ENABLED",		"Comentaris habilitats");
+DEFINE("_RSGALLERY_COMMENTS_ALLOW_PUBLIC",	"Permetre fer comentaris als visitants anònims");
+DEFINE("_RSGALLERY_COMMENTS_ONLY_ONCE",		"Els usuaris només poden enviar un comentari");
+
+//Voting
+DEFINE("_RSGALLERY_VOTE_LABEL",				"Votar");
+DEFINE("_RSGALLERY_VOTE_ENABLED",			"Votar habilitat");
+DEFINE("_RSGALLERY_VOTE_REGISTERED_ONLY",	"Només usuaris registrats");
+DEFINE("_RSGALLERY_VOTE_ONLY_ONCE",			"Els usuaris només poden votar un cop(basat en cookie)");
+DEFINE("_RSGALLERY_VOTE_COOKIE_PREFIX",		"Prefix de la Cookie");
 
 //galleries.class.php
 //function check
@@ -673,6 +689,88 @@ DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Data de creació: ");
 /*new*/DEFINE("_RSGALLERY_FU_FAIL_WRITE_DISK",		"Error en esciure el fitxer al disc");
 /*new*/DEFINE("_RSGALLERY_FU_UPL_STOP_EXT",		"La pujada del fitxer s'ha aturat degut a una extensió");
 /*new*/DEFINE("_RSGALLERY_FU_UNKW_ERROR",		"Error de fitxer desconegut");
+
+//rsgcomments.class.php
+//function showButtons
+/*new*/DEFINE("_RSGALLERY_COMMENTS_COLOR",	"-color-");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_AQUA",	"aqua");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_BLACK",	"negre");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_BLUE",	"blau");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_FUCHSIA",	"fuchsia");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_GRAY",	"gris");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_GREEN",	"verd");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_LIME",	"llima");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_MAROON",	"maroon");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_NAVY",	"navy");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_OLIVE",	"oliva");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_PURPLE",	"purpura");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_RED",	"vermell");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_SILVER",	"plata");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_TEAL",	"teal");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_WHITE",	"blanc");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_YELLOW",	"groc");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_SIZE",	"-grandaria-");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_TINY",	"reduit");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_SMALL",	"petit");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_MEDIUM",	"mitja");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_LARGE",	"gran");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_HUGE",	"enorme");
+//function parseQuoteElement
+/*new*/DEFINE("_RSGALLERY_COMMENTS_QUOTE_WROTE", "Wrote");
+//function editComment
+/*moved*/DEFINE("_RSGALLERY_COMMENT_ADD",		"Afegir comentari");
+/*moved*/DEFINE("_RSGALLERY_COMMENT_NAME",		"Nom");
+/*moved*/DEFINE("_RSGALLERY_COMMENTS_TITLE",		"Titol");
+/*moved*/DEFINE("_RSGALLERY_COMMENT_COMMENT",		"Texte del comentari");
+//function showComments
+/*moved*/DEFINE("_RSGALLERY_COMMENT_DELETE",	"Esteu segur que voleu esborrar el comentari?");
+/*moved*/DEFINE("_RSGALLERY_COMMENTS",	"Comentaris");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_NUM_COMM_ADD",	"afegits # comentaris");
+/*new*/DEFINE("_RSGALLERY_DELETE_COMMENT",			"Delete Comment");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_SEC_IMG_MISS", "SecurityImages seleccionat al panell d'administració, pero el component no es troba instal·lat not installed! Comunica-ho al webmaster");
+/*new*/DEFINE("_RSGALLERY_COMMENTS_NOCOMM",	"Encara no hi ha comentaris!");
+
+//rsgcomments.php
+/*new*/DEFINE("_RSGALLERY_COMMENTS_COMMDEL",		"Comentari esborrat amb èxit");
+
+//rsgcomments.php
+DEFINE("_RSGALLERY_COMMENTS_DISABLED",		"Els comentaris es troben deshabilitats");
+/*double deleted DEFINE("_RSGALLERY_COMMENTS_ONLY_ONCE",		"You can only comment once on this item!");*/
+DEFINE("_RSGALLERY_COMMENTS_INCORRECT_CAPTCHA",		"Comprovacio CAPTCHA incorrecte, el comentari no s'ha guardat!");
+DEFINE("_RSGALLERY_COMMENTS_ADD_SUCCES",		"Comentari afegit amb exit!");
+DEFINE("_RSGALLERY_COMMENTS_ADD_FAIL",		"El comentari no s'ha pogut afegir!");
+
+//rsgvoting.class.php
+DEFINE("_RSGALLERY_VOTING_ARE_YOU_SURE",		"Esteu segur que voleu votar?");
+DEFINE("_RSGALLERY_VOTING_RATING",		"Valoracio");
+DEFINE("_RSGALLERY_VOTING_VOTE",		"Vot");
+DEFINE("_RSGALLERY_VOTING_VOTES",		"&nbsp;vots");
+DEFINE("_RSGALLERY_VOTING_RATE_1",		"Valora aquest article 1 sobre 5");
+DEFINE("_RSGALLERY_VOTING_RATE_2",		"Valora aquest article 2 sobre 5");
+DEFINE("_RSGALLERY_VOTING_RATE_3",		"Valora aquest article 3 sobre 5");
+DEFINE("_RSGALLERY_VOTING_RATE_4",		"Valora aquest article 4 sobre 5");
+DEFINE("_RSGALLERY_VOTING_RATE_5",		"Valora aquest article 5 sobre 5");
+
+//rsgvoting.php
+DEFINE("_RSGALLERY_VOTING_DISABLED",		"Votar es troba deshabilitat!");
+DEFINE("_RSGALLERY_VOTING_NOT_AUTH",		"No esteu autoritzat/da a votar!");
+DEFINE("_RSGALLERY_VOTING_ALREADY_VOTED",		"Ja heu votat per aquest article!");
+DEFINE("_RSGALLERY_VOTING_NOT_ADDED",		"No s'ha pogut afegir el vot a la base de dades!");
+DEFINE("_RSGALLERY_VOTING_ADDED",		"Vot afegit a la base de dades!");
+
+//templates.php
+//function viewTemplates
+/*new*/DEFINE("_RSGALLERY_TPL_INST",	"Instal·la una nova RSGTemplate <small><small>[ Site ]</small></small>");
+// more to do here, but to come
+
+//templates.html.php
+/*new*/DEFINE("_RSGALLERY_TEMPLATES_NAME",	"Nom");
+/*new*/DEFINE("_RSGALLERY_TEMPLATES_ACTIVE",	"Actiu");
+/*new*/DEFINE("_RSGALLERY_TEMPLATES_AUTHOR",	"Autor");
+/*new*/DEFINE("_RSGALLERY_TEMPLATES_VERSION",	"Versio");
+/*new*/DEFINE("_RSGALLERY_TEMPLATES_DATE",	"Data");
+/*new*/DEFINE("_RSGALLERY_TEMPLATES_AUTH_URL",	"Adressa de l'Autor-URL");
+
 
 //stopped at gallery.class.php
 ?>
