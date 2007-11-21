@@ -294,16 +294,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 // 		$this->writeSLideShowLink();
 	
 		if( $rsgConfig->get('displayPopup') == 2 ){
-			$doc =& JFActory::getDocument();
-			$doc->addStyleSheet($mosConfig_live_site."/components/com_rsgallery2/js_highslide/highslide.css");
-			$doc->addScript($mosConfig_live_site."/components/com_rsgallery2/js_highslide/highslide.js");
-			$doc->addScriptDeclaration("
-				hs.graphicsDir = '".$mosConfig_live_site."/components/com_rsgallery2/js_highslide/graphics/';
-				hs.showCredits = false;
-				hs.outlineType = 'drop-shadow';
-				window.onload = function() {
-					hs.preloadImages();
-				} " );
+			// highslide has been removed
 		}
 		?>
 		<table border="0" cellspacing="0" cellpadding="0" width="100%">
@@ -321,23 +312,12 @@ class rsgDisplay_semantic extends rsgDisplay{
 							$this->_showImageBox( $item->name, $item->descr );
 							break;
 						//Normal popup
+						case 2:
 						case 1:
 							if ($rsgConfig->get('watermark')) {
 								?><a href="<?php echo waterMarker::showMarkedImage( $item->name, 'original' ); ?>" target="_blank"><?php
 							} else {
 								?><a href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>" target="_blank"><?php
-							}
-							$this->_showImageBox( $item->name, $item->descr );
-							?>
-							</a>
-							<?php
-							break;
-						//Highslide popup
-						case 2:
-							if ($rsgConfig->get('watermark')) {
-								?><a href="<?php echo waterMarker::showMarkedImage( $item->name, 'original'); ?>" class="highslide" onclick="return hs.expand(this)"><?php
-							} else {
-								?><a href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>" class="highslide" onclick="return hs.expand(this)"><?php
 							}
 							$this->_showImageBox( $item->name, $item->descr );
 							?>
