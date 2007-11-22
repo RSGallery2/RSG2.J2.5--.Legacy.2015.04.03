@@ -1,6 +1,9 @@
 <?php defined('_JEXEC') or die('Restricted access'); ?>
 
 <?php
+
+global $ItemId;
+
 //Show My Galleries link
 if ($rsgConfig->get('show_mygalleries')) {
 	echo $this->showRsgHeader();
@@ -15,7 +18,9 @@ if ($rsgConfig->get('show_mygalleries')) {
 if( $this->pageNav ):
 ?>
 	<div class="rsg2-pagenav-limitbox">
-		<?php echo $this->pageNav->writeLimitBox("index.php?option=com_rsgallery2&amp;Itemid=$Itemid"); ?>
+		<?php //TODO: replace "limit" with "glimit" to sepparate image and gallery navigation
+		echo $this->pageNav->writeLimitBox("index.php?option=com_rsgallery2&amp;Itemid=$ItemId"); 
+		?>
 	</div>
 <?php
 endif;
@@ -54,7 +59,8 @@ if( $this->pageNav ):
 ?>
 
 <div class="rsg2-pageNav">
-	<?php echo $this->pageNav->writePagesLinks("index.php?option=com_rsgallery2&amp;Itemid=$Itemid");
+	<?php //TODO: replace "limit" with "glimit" to sepparate image and gallery navigation
+		echo $this->pageNav->writePagesLinks("index.php?option=com_rsgallery2&amp;ItemId=$ItemId");
 		echo "<br>".$this->pageNav->writePagesCounter(); ?>
 </div>
 <div class='rsg2-clr'>&nbsp;</div>
