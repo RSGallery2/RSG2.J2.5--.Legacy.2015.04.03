@@ -124,7 +124,7 @@ class html_rsg2_config{
 		$thumb_style[] = mosHTML::makeOption('0',_RSGALLERY_CONF_OPTION_PROP);
 		$thumb_style[] = mosHTML::makeOption('1',_RSGALLERY_CONF_OPTION_SQUARE);
 		
-		$thum_order[] = mosHTML::makeOption('default',_RSGALLERY_CONF_OPTION_ORDER_DEFAULT);
+		$thum_order[] = mosHTML::makeOption('ordering',_RSGALLERY_CONF_OPTION_ORDER_DEFAULT);
 		$thum_order[] = mosHTML::makeOption('date',_RSGALLERY_CONF_OPTION_ORDER_DATE);
 		$thum_order[] = mosHTML::makeOption('name',_RSGALLERY_CONF_OPTION_ORDER_NAME);
 		$thum_order[] = mosHTML::makeOption('rating',_RSGALLERY_CONF_OPTION_ORDER_RATING);

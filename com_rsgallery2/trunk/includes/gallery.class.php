@@ -156,7 +156,7 @@ class rsgGallery extends JObject{
 
 			$db = &JFactory::getDBO();
 			
-			$limit = rsgInstance::getInt( 'limit', $rsgConfig->get("display_thumbs_maxPerPage") );
+			$limit = rsgInstance::getInt( 'limit', 0 );
 			$limitstart = rsgInstance::getInt( 'limitstart', 0 );
 			$filter_order = rsgInstance::getWord( 'filter_order',  $rsgConfig->get("filter_order") );
 			$filter_order_Dir = rsgInstance::getWord( 'filter_order_Dir', $rsgConfig->get("filter_order_Dir"));
@@ -178,7 +178,7 @@ class rsgGallery extends JObject{
 	}
 
 	/**
-	*  returns an array of item objects
+	*  returns an array of all item objects
 	*/
 	function items( ){
 		if( $this->items === null ){
@@ -192,6 +192,21 @@ class rsgGallery extends JObject{
 		return $this->items;
 	}
 
+
+	/**
+	* returns an array of item objects viewable with the current pagination
+	*/
+	function currentItems( ){
+		if( $this->items === null )
+			$this->items();
+		
+		$length = $rsgConfig->get("display_thumbs_maxPerPage");
+		$current = rsgInstance::getInt( 'id', 0 );
+
+		$start = $this->indexOfItem($current) / $length;
+		return array_slice($this->items, $start, $length, true);
+		
+	}
 	/**
 	*  returns basic information for this gallery
 	*/
