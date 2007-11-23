@@ -182,7 +182,7 @@ class rsgDisplay{
 
 		if(!defined("J15B_EXEC") ) {
 			// add this for page size listbox handling in J1.5
-			echo '<form action="'.JRoute::_("index.php?option=com_rsgallery2").'" method="post">';
+			echo '<form action="'.JRoute::_("index.php?option=com_rsgallery2&gid=".$this->gallery->id).'" method="post">';
 			include $templateDir . DS . $file;
 			echo '</form>';
 		} else {
@@ -413,7 +413,7 @@ class rsgDisplay{
                     <?php
                     foreach($rows as $row) {
                         $l_start = $row->ordering - 1;
-				$url = JRoute::_("/index.php?option=com_rsgallery2&page=inline&id=".$row->id);
+				$url = JRoute::_("index.php?option=com_rsgallery2&page=inline&id=".$row->id);
                         ?>
                         <tr>
                         <td align="center">
@@ -451,7 +451,7 @@ class rsgDisplay{
                         foreach($rows as $row)
                             {
                             $l_start = $row->ordering - 1;
-				$url = JRoute::_("/index.php?option=com_rsgallery2&page=inline&id=".$row->id);
+				$url = JRoute::_("index.php?option=com_rsgallery2&page=inline&id=".$row->id);
                             ?>
                             <td align="center">
                             <div align="center">

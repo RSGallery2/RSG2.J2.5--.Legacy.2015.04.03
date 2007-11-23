@@ -156,8 +156,6 @@ class rsgGallery extends JObject{
 
 			$db = &JFactory::getDBO();
 			
-			$limit = rsgInstance::getInt( 'limit', 0 );
-			$limitstart = rsgInstance::getInt( 'limitstart', 0 );
 			$filter_order = rsgInstance::getWord( 'filter_order',  $rsgConfig->get("filter_order") );
 			$filter_order_Dir = rsgInstance::getWord( 'filter_order_Dir', $rsgConfig->get("filter_order_Dir"));
 	
@@ -170,7 +168,7 @@ class rsgGallery extends JObject{
 				. $orderby;
 
 			// limits should be handled by the db, but this appears to be borked
-			$db->setQuery( $query, $limitstart, $limit );
+			$db->setQuery( $query);//, $limitstart, $limit );
 
 			$this->_itemRows = $db->loadAssocList( 'id' );
 		}
@@ -199,14 +197,17 @@ class rsgGallery extends JObject{
 	function currentItems(){
 
 		global $rsgConfig;
-
+		
 		if( $this->items === null )
 			$this->items();
 		
 		$length = $rsgConfig->get("display_thumbs_maxPerPage");
-		$current = rsgInstance::getInt( 'id', 0 );
 
-		$start = $this->indexOfItem($current) / $length;
+		$current = $this->indexOfItem(rsgInstance::getInt( 'id', 0 ));
+		$current = rsgInstance::getInt( 'limitstart', $current );
+
+		// calculate page from current position
+		$start =  floor($current  / $length) * $length;
 		return array_slice($this->items, $start, $length, true);
 		
 	}

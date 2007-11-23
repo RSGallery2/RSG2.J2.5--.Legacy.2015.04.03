@@ -31,9 +31,8 @@ class rsgDisplay_semantic extends rsgDisplay{
 		$this->gallery = $gallery;
 		
 		//Get values for page navigation from URL
-		$limit = rsgInstance::getInt( 'limit', $rsgConfig->get('galcountNrs') );
-		$limitstart = rsgInstance::getInt( 'limitstart', 0 );
-		
+		$limit = rsgInstance::getInt( 'limitg', $rsgConfig->get('galcountNrs') );
+		$limitstart = rsgInstance::getInt( 'limitstartg', 0 );
 		//Get number of galleries including main gallery
 		$this->kids = $gallery->kids();
 		$kidCountTotal = count( $gallery->kids() );
@@ -43,16 +42,36 @@ class rsgDisplay_semantic extends rsgDisplay{
 		if( $rsgConfig->get('dispLimitbox') == 1 ) {
 			if( $kidCountTotal > $limit ){
 				$this->kids = array_slice( $this->kids, $limitstart, $limit );
-				$this->pageNav = new mosPageNav( $kidCountTotal, $limitstart, $limit );
+				$this->pageNav = new JPagination($kidCountTotal, $limitstart, $limit );
 			}
 		} elseif( $rsgConfig->get('dispLimitbox') == 2 ) {
 			$this->kids = array_slice( $this->kids, $limitstart, $limit );
-			$this->pageNav = new mosPageNav( $kidCountTotal, $limitstart, $limit );
+			$this->pageNav = new JPagination( $kidCountTotal, $limitstart, $limit );
 		}
 	
 		$this->display( 'gallery.php' );
 		
 		//Show page navigation if selected in backend
+	}
+
+	function getGalleryLimitBox(){
+		$pagelinks = $this->pageNav->getLimitBox("index.php?option=com_rsgallery2");
+		$pagelinks = str_replace("\"limit", "\"limitg", $pagelinks);
+		return $pagelinks; 
+	}
+
+	function getGalleryPageLinks(){
+		$pagelinks = $this->pageNav->getPagesLinks("index.php?option=com_rsgallery2");
+		$pagelinks = str_replace ("&amp;limit=","&amp;limitg=", $pagelinks);
+		$pagelinks = str_replace ("&amp;limitstart=","&amp;limitstartg=", $pagelinks);
+		if($this->pageNav->limitstart >= $this->pageNav->limit){
+			$pagelinks = str_replace("&amp;limitstartg=".$this->pageNav->limit, "", $pagelinks);
+		}
+		return $pagelinks;
+	
+	}
+	function getGalleryPagesCounter(){
+		return $this->pageNav->getPagesCounter();
 	}
 
     /***************************
@@ -233,7 +252,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 
 		$itemCount = $this->gallery->itemCount();
 		
-		$limit = rsgInstance::getInt( 'limit', $rsgConfig->get("display_thumbs_maxPerPage") );
+		$limit = $rsgConfig->get("display_thumbs_maxPerPage") ;
 		$limitstart = rsgInstance::getInt( 'limitstart' );
 		
 		//instantiate page navigation
@@ -270,7 +289,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 				<?php
 				if( $itemCount > $limit ){
 				global $Itemid;
-					echo $pagenav->writePagesLinks("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;gid=".$this->gallery->id);
+					echo $pagenav->writePagesLinks("index.php?option=com_rsgallery2&gid=".$this->gallery->id);
 					echo "<br /><br />".$pagenav->writePagesCounter();
 				}
 				?>

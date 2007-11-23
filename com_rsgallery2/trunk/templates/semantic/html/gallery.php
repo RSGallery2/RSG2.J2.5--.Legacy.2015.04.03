@@ -18,9 +18,7 @@ if ($rsgConfig->get('show_mygalleries')) {
 if( $this->pageNav ):
 ?>
 	<div class="rsg2-pagenav-limitbox">
-		<?php //TODO: replace "limit" with "glimit" to sepparate image and gallery navigation
-		echo $this->pageNav->writeLimitBox("index.php?option=com_rsgallery2&amp;Itemid=$ItemId"); 
-		?>
+		<?php echo $this->getGalleryLimitBox(); ?>
 	</div>
 <?php
 endif;
@@ -50,18 +48,22 @@ endforeach;
 ?>
 <div class="rsg2-clr"></div>
 <?php
-//Show block with random images 
-$this->showImages("random", 3);
-//Show block with latest images
-$this->showImages("latest", 3);
+if($this->gallery->id == 0){
 
+	// show random and latest only in the top gallery 
+	
+	//Show block with random images 
+	$this->showImages("random", 3);
+	//Show block with latest images
+	$this->showImages("latest", 3);
+}
 if( $this->pageNav ):
 ?>
 
 <div class="rsg2-pageNav">
-	<?php //TODO: replace "limit" with "glimit" to sepparate image and gallery navigation
-		echo $this->pageNav->writePagesLinks("index.php?option=com_rsgallery2&amp;ItemId=$ItemId");
-		echo "<br>".$this->pageNav->writePagesCounter(); ?>
+	<?php echo $this->getGalleryPageLinks(); ?>
+	<br/>
+	<?php echo $this->getGalleryPagesCounter(); ?>
 </div>
 <div class='rsg2-clr'>&nbsp;</div>
 <?php endif; ?>
