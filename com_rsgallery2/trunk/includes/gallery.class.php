@@ -195,9 +195,7 @@ class rsgGallery extends JObject{
 	* returns an array of item objects viewable with the current pagination
 	*/
 	function currentItems(){
-
 		global $rsgConfig;
-		
 		if( $this->items === null )
 			$this->items();
 		

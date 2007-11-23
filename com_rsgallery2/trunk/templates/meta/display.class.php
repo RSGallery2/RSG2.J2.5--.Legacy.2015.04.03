@@ -107,7 +107,7 @@ class tempDisplay extends JObject{
 		}
 }// end tempDisplay
 */
-class rsgDisplay{
+class rsgDisplay extends JObject{
 	
 	var $params = null;
 	

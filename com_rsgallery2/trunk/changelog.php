@@ -31,6 +31,12 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2007-11-23 Ronald Smit
+ + Added Maintenance section to the backend
+ + Added Optimize tables, Regenerate thumbs and Consolidate database.
+ ! Consolidate Database is not complete yet.
+ ! Language strings not added yet.
+
 2007-11-18 Ronald Smit
  + Added EXIF configurable support to front- and backend, without need to have EXIF compiled into PHP
 

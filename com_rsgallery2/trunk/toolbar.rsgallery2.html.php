@@ -10,7 +10,17 @@
 // ensure this file is being included by a parent file
 defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
 
-
+class menu_rsg2_maintenance{
+	
+	function regenerateThumbs() {
+        mosMenuBar::startTable();
+       	mosMenuBar::custom('executeRegenerateImages','next_f2.png','next_f2.png','** Regenerate **', false);
+        mosMenuBar::spacer();
+        mosMenuBar::help('screen.rsgallery2', true);
+        mosMenuBar::endTable();
+	}
+	
+}
 class menu_rsg2_templates{
 	
     function templates()

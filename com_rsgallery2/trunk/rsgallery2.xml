@@ -507,17 +507,19 @@
 	<filename>options/templates.html.php</filename>
 	<filename>options/templates.installer.php</filename>
 	<filename>options/templates.php</filename>
-
-	<filename>sql/rsgallery2.sql</filename>
-	<filename>sql/upgrade_1.11.0_to_1.11.1.sql</filename>
-	<filename>sql/upgrade_1.11.7_to_1.11.8.sql</filename>
-	<filename>sql/upgrade_1.10.14_to_1.11.0.sql</filename>
-	<filename>sql/upgrade_1.11.10_to_1.11.11.sql</filename>
-	<filename>sql/upgrade_1.11.11_to_1.12.0.sql</filename>
-	<filename>sql/upgrade_1.12.1_to_1.12.2.sql</filename>
-	<filename>sql/upgrade_1.12.2_to_1.13.2.sql</filename>
+    <filename>options/maintenance.class.php</filename>
+	<filename>options/maintenance.html.php</filename>
+	<filename>options/maintenance.class.php</filename>
+    
+    <filename>sql/rsgallery2.sql</filename>
+    <filename>sql/upgrade_1.11.0_to_1.11.1.sql</filename>
+    <filename>sql/upgrade_1.11.7_to_1.11.8.sql</filename>
+    <filename>sql/upgrade_1.10.14_to_1.11.0.sql</filename>
+    <filename>sql/upgrade_1.11.10_to_1.11.11.sql</filename>
+    <filename>sql/upgrade_1.11.11_to_1.12.0.sql</filename>
+    <filename>sql/upgrade_1.12.1_to_1.12.2.sql</filename>
+    <filename>sql/upgrade_1.12.2_to_1.13.2.sql</filename>
 	<filename>sql/upgrade_1.13.2_to_1.14.0.sql</filename>
-
     <filename>fonts/arial.ttf</filename>
 </files>
     <images>
@@ -540,6 +542,9 @@
       <filename>images/rsg2_menu.png</filename>
 	  <filename>images/cssedit.png</filename>
 	  <filename>images/template.png</filename>
+	  <filename>images/db_optimize.png</filename>
+	  <filename>images/maintenance.png</filename>
+	  <filename>images/blockdevice.png</filename>
     </images>
 </administration>
 </mosinstall>

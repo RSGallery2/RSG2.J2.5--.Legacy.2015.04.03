@@ -62,6 +62,9 @@ switch( $rsgOption ) {
 	case 'template':
 		require_once( $rsgOptions_path . 'templates.php' );
 		break;
+	case 'maintenance':
+    	require_once( $rsgOptions_path . 'maintenance.php' );
+    break;
 }
 
 /**
@@ -254,26 +257,6 @@ switch ( rsgInstance::getVar('task', null ) ){
         break;
 }
 
-function uploadWatermark() {
-	//Catch variables from form
-	$filename 	= rsgInstance::getVar('watermark', null, 'FILES');
-	echo "<pre>";
-	print_r($filename);
-	echo "</pre>";
-}
-	/*
-	//Check if image is png, if not, abort.
-	if ( !strtolower( $filename['type'] ) == 'image/png') {
-		mosRedirect('index2.php?option=com_rsgallery2&page=showConfig', 'Watermark is not a PNG image!');
-	}
-	//Move uploaded file to images/rsgallery/watermark.png
-	if ( !move_uploaded_file($filename['tmp_name'], JPATH_ROOT . DS . 'images' . DS . 'rsgallery' . DS . 'watermark.png') ) {
-		mosRedirect('index2.php?option=com_rsgallery2&page=showConfig', 'Watermark upload failed');
-	} else {
-		mosRedirect('index2.php?option=com_rsgallery2&page=showConfig', 'Watermark uploaded succesfully');
-	}
-	*/
-
 /**
 * @param string The name of the php (temporary) uploaded file
 * @param string The name of the file to put in the temp directory
@@ -303,17 +286,7 @@ function uploadFile( $filename, $userfile_name, $msg ) {
 	return false;
 }
 
-
-
-function test() {
-	global $rsgAccess, $my;
-	$rsgAccess->actionPermitted('del_img');
-}
-
-
 function viewChangelog(){
-    //global $mosConfig_absolute_path;
-    
     echo '<pre>';
     readfile( JPATH_RSGALLERY2_ADMIN.'/changelog.php' );
     echo '</pre>';
@@ -323,8 +296,9 @@ function viewChangelog(){
  * This function is called during step 2 of the RSGallery installation. It
  * outputs the HTML allowing the user to select between a "fresh" install,
  * or an "upgrade" install.
+ * @todo: Depreciated, delete
  */
-function RSInstall() {
+function RSInstallX() {
     global $opt, $mosConfig_live_site;
     require_once(JPATH_RSGALLERY2_ADMIN.'/includes/install.class.php');
     
@@ -439,7 +413,7 @@ function processAdminSqlQueryVerbosely( $query, $successMsg ){
     }
 }
 
-function c_delete() {
+function c_deleteX() {
 global $database;
     $cid    = rsgInstance::getInt( 'cid', null);
 	//Dani�l: "should this conditional be sill here?"
@@ -466,7 +440,7 @@ global $database;
  * Used in the consolidate database function
  * Creates images based on an image id or an image name
  */
-function c_create() {
+function c_createX() {
 	global $rsgConfig, $database;
 	//Check if id or name is set
 	if ( isset( $_REQUEST['id'] ) ) {
@@ -504,7 +478,7 @@ function c_create() {
 /**
  * Creates DB records for images in system without DB entries
  */
-function db_create() {
+function db_createX() {
 	global $database;
 	$name = rsgInstance::getVar('name'  , null);
     $gallery_id = rsgInstance::getInt('gallery_id'  , null);
@@ -616,7 +590,7 @@ function cancelGallery($option)
  * 
  */
 
-function batch_uploadX( $option ) {
+function batch_uploadXX( $option ) {
 	global $rsgConfig, $mainframe, $database;
 	$FTP_path = $rsgConfig->get('ftp_path');
 
@@ -676,12 +650,12 @@ function batch_upload($option) {
 	$FTP_path = $rsgConfig->get('ftp_path');
 	
 	//Retrieve data from submit form
-	$batchmethod = rsgInstance::getVar('batchmethod'  , null);
-	$uploaded = rsgInstance::getVar('uploaded'  , null);
-	$selcat = rsgInstance::getInt('selcat'  , null);
-	$zip_file = rsgInstance::getVar('zip_file'  , null, 'FILES');
-	$ftppath = rsgInstance::getVar('ftppath'  , null);
-	$xcat = rsgInstance::getInt('xcat'  , null);
+	$batchmethod 	= rsgInstance::getVar('batchmethod', null);
+	$uploaded 		= rsgInstance::getVar('uploaded', null);
+	$selcat 		= rsgInstance::getInt('selcat', null);
+	$zip_file 		= rsgInstance::getVar('zip_file', null, 'FILES'); 
+	$ftppath 		= rsgInstance::getVar('ftppath', null);
+	$xcat 			= rsgInstance::getInt('xcat', null);
 	
 	//Check if a gallery exists, if not link to gallery creation
 	$database->setQuery( "SELECT id FROM #__rsgallery2_galleries" );
@@ -717,7 +691,7 @@ function batch_upload($option) {
 	}
 }//End function
 
-function consolidateDbInform($option){
+function consolidateDbInformX($option){
     // inform user of purpose of this function, then provide a proceed button
 	?>
     <script language="Javascript">
@@ -759,7 +733,7 @@ function consolidateDbInform($option){
  * @param array mixed case mixed or upper case values
  * @return array lower case values
  */
-function arrayToLower($array) {
+function arrayToLowerX($array) {
     $array = explode("|", strtolower(implode("|",$array)));
     return $array;
 }
@@ -769,7 +743,7 @@ function arrayToLower($array) {
  * @param string Directory from Joomla root
  * @return array Array with filenames
  */
-function getFilenameArray($dir){
+function getFilenameArrayX($dir){
     global $rsgConfig;
     
     //Load all image names from filesystem in array
@@ -805,7 +779,7 @@ function getFilenameArray($dir){
     return $names_fs;
     
 }
-function consolidateDbGo($option)
+function consolidateDbGoX($option)
     {
     global $database, $rsgConfig;
 

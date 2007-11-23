@@ -219,31 +219,35 @@ class HTML_RSGALLERY{
             <div id='cpanel'>
                 <?php
                 if ( $user->get('gid') > 23 ):
-                    $link = 'index2.php?option=com_rsgallery2&task=showConfig';
+                    $link = 'index2.php?option=com_rsgallery2&amp;task=showConfig';
                     HTML_RSGALLERY::quickiconButton( $link, 'config.png',  _RSGALLERY_C_CONFIG );
                 endif;
 
-                $link = 'index2.php?option=com_rsgallery2&rsgOption=images&task=upload';
+                $link = 'index2.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=upload';
                 HTML_RSGALLERY::quickiconButton( $link, 'upload.png', _RSGALLERY_C_UPLOAD );
 
-                $link = 'index2.php?option=com_rsgallery2&task=batchupload';
+                $link = 'index2.php?option=com_rsgallery2&amp;task=batchupload';
                 HTML_RSGALLERY::quickiconButton( $link, 'upload_zip.png', _RSGALLERY_C_UPLOAD_ZIP );
                 
-                $link = 'index2.php?option=com_rsgallery2&rsgOption=images&task=view_images';
+                $link = 'index2.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=view_images';
                 HTML_RSGALLERY::quickiconButton( $link, 'mediamanager.png', _RSGALLERY_C_IMAGES );
 
-                $link = 'index2.php?option=com_rsgallery2&rsgOption=galleries';
+                $link = 'index2.php?option=com_rsgallery2&amp;rsgOption=galleries';
                 HTML_RSGALLERY::quickiconButton( $link, 'categories.png', _RSGALLERY_C_CATEGORIES );
 
                 if ( $user->get('gid') > 23 ):
-                    $link = 'index2.php?option=com_rsgallery2&task=consolidate_db';
+                    /*
+                    $link = 'index2.php?option=com_rsgallery2&amp;task=consolidate_db';
                     HTML_RSGALLERY::quickiconButton( $link, 'dbrestore.png', _RSGALLERY_C_DATABASE );
-    
-                    $link = 'index2.php?option=com_rsgallery2&task=install&opt=migration';
+    				*/
+    				$link = 'index2.php?option=com_rsgallery2&amp;rsgOption=maintenance';
+					HTML_RSGALLERY::quickiconButton( $link, 'maintenance.png', '** Maintenance **');
+    				
+                    $link = 'index2.php?option=com_rsgallery2&amp;task=install&amp;opt=migration';
                     HTML_RSGALLERY::quickiconButton( $link, 'dbrestore.png', _RSGALLERY_C_MIGRATION );
                 endif;
 				/*
-				$link = 'index2.php?option=com_rsgallery2&task=edit_css';
+				$link = 'index2.php?option=com_rsgallery2&amp;task=edit_css';
 				HTML_RSGALLERY::quickiconButton( $link, 'cssedit.png', _RSGALLERY_C_CSS_EDIT);
 				*/
 				if (defined( 'J15B_EXEC'))
@@ -253,22 +257,24 @@ class HTML_RSGALLERY{
 								
 				HTML_RSGALLERY::quickiconButton( $link, 'template.png', _RSGALLERY_TEMP_MANG);
 
+				
+				
                 // if debug is on, display advanced options
                 if( $rsgConfig->get( 'debug' )): ?>
                 <div id='rsg2-cpanelDebug'><?php echo _RSGALLERY_C_DEBUG_ON;?>
                     <?php
                     if ( $user->get('gid') > 23 ):
-                        $link = 'index2.php?option=com_rsgallery2&task=purgeEverything';
+                        $link = 'index2.php?option=com_rsgallery2&amp;task=purgeEverything';
                         HTML_RSGALLERY::quickiconButton( $link, 'menu.png', _RSGALLERY_C_PURGE );
     
-                        $link = 'index2.php?option=com_rsgallery2&task=reallyUninstall';
+                        $link = 'index2.php?option=com_rsgallery2&amp;task=reallyUninstall';
                         HTML_RSGALLERY::quickiconButton( $link, 'menu.png', _RSGALLERY_C_REALLY_UNINSTALL );
         
-                        $link = 'index2.php?option=com_rsgallery2&task=config_rawEdit';
+                        $link = 'index2.php?option=com_rsgallery2&amp;task=config_rawEdit';
                         HTML_RSGALLERY::quickiconButton( $link, 'menu.png', _RSGALLERY_C_EDIT_CONFIG );
                     endif;
                     
-                    $link = 'index2.php?option=com_rsgallery2&task=config_dumpVars';
+                    $link = 'index2.php?option=com_rsgallery2&amp;task=config_dumpVars';
                     HTML_RSGALLERY::quickiconButton( $link, 'menu.png', _RSGALLERY_C_VIEW_CONFIG );
                     ?>
                     <div class='rsg2-clr'>&nbsp;</div>
@@ -337,7 +343,7 @@ class HTML_RSGALLERY{
 	* @param string
 	* @param string
 	*/
-	function showInstallMessage( $message, $title, $url ) {
+	function showInstallMessageX( $message, $title, $url ) {
 		global $PHP_SELF;
 		?>
 		<table class="adminheading">
@@ -417,7 +423,7 @@ class HTML_RSGALLERY{
         <table class="adminheading">
           <tr>
             <td><!--<img src="<?php echo $mosConfig_live_site?>/administrator/components/com_rsgallery2/images/rsg2-logo.png" border=0 />--></td>
-            <th class='<?php echo $type; ?>'>RSGallery <?php echo $text; ?></th>
+            <th class='<?php echo $type; ?>'>RSGallery2 <?php echo $text; ?></th>
           </tr>
         </table>
         <?php
@@ -682,7 +688,7 @@ class HTML_RSGALLERY{
     /**
      * Inserts the HTML content for the image information editing screen.
      */
-    function editImage($option, $e_id, &$rows)
+    function editImageX($option, $e_id, &$rows)
         {
         global $database, $option, $mosConfig_live_site, $rsgConfig;
         ?>
@@ -929,7 +935,7 @@ class HTML_RSGALLERY{
     * the Admin back-end.
     * @todo Make name in JS use the naming functions from our imgLib
     */
-    function viewImages( $option, &$rows, &$clist, &$clist2, &$search, &$pageNav, &$cats, &$cat_ordering_min, &$cat_ordering_max) {
+    function viewImagesX( $option, &$rows, &$clist, &$clist2, &$search, &$pageNav, &$cats, &$cat_ordering_min, &$cat_ordering_max) {
         global $mosConfig_live_site, $rsgConfig ;
         ?>
         <br />
@@ -1060,7 +1066,7 @@ if ($row->fordering > $cat_ordering_min[$row->gallery_id]) { ?>
     }
     
     
-    function consolidateDbGo($db_name, $file_display, $file_original, $file_thumb, $files_total) {
+    function consolidateDbGoX($db_name, $file_display, $file_original, $file_thumb, $files_total) {
     global $mosConfig_live_site, $rsgConfig;
     require_once( JPATH_RSGALLERY2_ADMIN.'/config.rsgallery2.php' );
     $file_diff = array_diff($files_total, $db_name);

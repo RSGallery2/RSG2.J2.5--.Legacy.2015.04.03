@@ -609,11 +609,14 @@ class GD2 extends genericImageLib{
             return new PEAR_Error( "error cropping image: $source" );
         
         // write the image
-        if( !imagejpeg( $thumb2, $target, $rsgConfig->get('jpegQuality')))
+        if( !imagejpeg( $thumb2, $target, $rsgConfig->get('jpegQuality'))) {
             return new PEAR_Error( "error writing target image: $target" );
-        //Free up memory
-        imagedestroy($thumb);
-        imagedestroy($thumb2);
+        } else {
+        	//Free up memory
+        	imagedestroy($thumb);
+        	imagedestroy($thumb2);
+        	return true;
+        }
     }
     
     /**

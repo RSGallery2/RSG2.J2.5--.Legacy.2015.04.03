@@ -89,8 +89,6 @@ function config_rawEdit( $save=false ){
 function saveConfig(){
     global $rsgConfig;
     $rsgConfig = new rsgConfig();
-    //$exifTags = rsgInstance::getVar('exifTags'  , '');
-    //print_r($exifTags);
     
     if( $rsgConfig->saveConfig( $_REQUEST )){
             HTML_RSGALLERY::printAdminMsg(_RSGALLERY_CONF_SAVED);

@@ -64,6 +64,15 @@ switch( $rsgOption ){
 			break;
 		}
 	break;
+	case 'maintenance':
+		switch ( $task ) {
+		case 'regenerateThumbs':
+			menu_rsg2_maintenance::regenerateThumbs( $option );
+			break;
+		default:
+			menuRSGallery::simple();
+			break;
+		}
 }
 
 // only use the legacy task switch if rsgOption is not used.
