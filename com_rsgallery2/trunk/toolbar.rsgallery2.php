@@ -53,7 +53,7 @@ switch( $rsgOption ){
             break;
         }
     break;
-    case 'templates':
+    case 'template':
 		switch ( $task ) {
 			case 'templates':
 			case 'remove':
@@ -73,6 +73,7 @@ switch( $rsgOption ){
 			menuRSGallery::simple();
 			break;
 		}
+	break;
 }
 
 // only use the legacy task switch if rsgOption is not used.

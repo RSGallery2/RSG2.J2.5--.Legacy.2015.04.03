@@ -21,6 +21,7 @@ class menu_rsg2_maintenance{
 	}
 	
 }
+
 class menu_rsg2_templates{
 	
     function templates()

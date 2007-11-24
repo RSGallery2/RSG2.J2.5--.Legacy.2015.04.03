@@ -151,7 +151,7 @@ class html_rsg2_templates{
 		</table>
 		<?php echo $pageNav->getListFooter(); ?>
 
-		<input type="hidden" name="rsgOption" value="templates" />
+		<input type="hidden" name="rsgOption" value="template" />
 		<input type="hidden" name="option" value="<?php echo $option;?>" />
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="boxchecked" value="0" />
