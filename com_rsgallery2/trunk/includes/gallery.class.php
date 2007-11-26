@@ -167,7 +167,7 @@ class rsgGallery extends JObject{
 				. $where
 				. $orderby;
 
-			// limits should be handled by the db, but this appears to be borked
+			// limit handling was borked but I had this fixed.  we can use it again....
 			$db->setQuery( $query);//, $limitstart, $limit );
 
 			$this->_itemRows = $db->loadAssocList( 'id' );
