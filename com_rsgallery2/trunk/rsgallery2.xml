@@ -538,7 +538,7 @@
 	<filename>options/templates.php</filename>
     <filename>options/maintenance.class.php</filename>
 	<filename>options/maintenance.html.php</filename>
-	<filename>options/maintenance.class.php</filename>
+	<filename>options/maintenance.php</filename>
     
     <filename>sql/rsgallery2.sql</filename>
     <filename>sql/upgrade_1.11.0_to_1.11.1.sql</filename>

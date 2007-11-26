@@ -171,7 +171,7 @@ switch ( rsgInstance::getVar('task', null ) ){
 	break;
 
 //     image tasks
-/*
+
     case "edit_image":
         HTML_RSGallery::RSGalleryHeader('edit', _RSGALLERY_HEAD_EDIT);
         editImageX($option, $cid[0]);
@@ -220,7 +220,7 @@ switch ( rsgInstance::getVar('task', null ) ){
     case "images_orderdown":
         orderRSGallery( $cid[0], 1, $option, $task );
         break;
-*/
+
 //  special/debug tasks
     case 'viewChangelog':
         HTML_RSGallery::RSGalleryHeader('viewChangelog', _RSGALLERY_HEAD_LOG);
