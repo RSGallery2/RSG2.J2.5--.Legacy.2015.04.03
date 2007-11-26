@@ -31,6 +31,11 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2007-11-26 Ronald Smit
+ + Added new slideshow option, called slideshow_parth
+ + Added switch in backend to select the slideshow option.
+ ^ Cleaned out some obsolete backend stuff
+
 2007-11-23 Ronald Smit
  + Added Maintenance section to the backend
  + Added Optimize tables, Regenerate thumbs and Consolidate database.

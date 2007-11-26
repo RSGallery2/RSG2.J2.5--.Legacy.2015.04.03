@@ -57,6 +57,7 @@ class rsgConfig {
 	var $displayComments	        = 1;
 	var $displayEXIF		        = 1;
 	var $displaySlideshow 			= 1;
+	var $current_slideshow			= "slideshow_parth";
 	var $displayDownload			= true;
 	var $displayPopup				= 1; //0 = Off; 1 = Normal; 2 = Fancy;
 	var $displayStatus				= 1;

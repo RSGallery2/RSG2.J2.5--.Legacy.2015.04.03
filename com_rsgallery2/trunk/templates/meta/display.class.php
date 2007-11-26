@@ -8,105 +8,6 @@
  */
 defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 
-/*
-class tempDisplay extends JObject{
-	var $gallery;
-	var $items;
-	var $item;
-	var $limitstart;
-
-	function __construct(){
-		$this->gallery = rsgInstance::getGallery();
-	}
-	
-	function mainPageX(){
-		global $my;
-		$page = rsgInstance::getWord( 'page', '' );
-	
-		switch( $page ){
-			case "edit_image":
-				$id = rsgInstance::getInt('id'  , null);
-				$this->edit_image($id);
-			break;
-			case "save_image":
-				$this->save_image();
-			break;
-			case "delete_image":
-				$this->delete_image();
-			break;
-			case "newusercat":
-				$this->userCat($my->id, 0);
-			break;
-			case "editusercat":
-				$this->usercat();
-			break;
-			case "makeusercat":
-				$this->makeusercat(NULL);
-			break;
-			case "delusercat":
-				$catid = rsgInstance::getInt( 'catid'  , null);
-				$this->delusercat($catid);
-			break;
-			default:
-				// we don't handle any of these pages
-				return false;
-		}
-		// we handled the page, let rsgDisplay know.
-		return true;
-	}
-	
-	function addVoteX() {
-		global $database, $Itemid;
-	
-		$picid = rsgInstance::getInt( 'picid'  , null);
-		$limitstart = rsgInstance::getInt( 'limitstart'  , null);
-		$vote = rsgInstance::getVar( 'vote'  , null);
-			
-		if ($vote)
-			{
-			//Retrieve values
-			$database->setQuery("SELECT * FROM #__rsgallery2_files WHERE id = '$picid'");
-			$rows = $database->loadObjectList();
-			foreach ($rows as $row)
-				{
-				$votes = $row->votes + 1;
-				$rating = $row->rating + $vote;
-				$ordering = $row->ordering - 1;
-				//Store new values
-				$database->setQuery("UPDATE #__rsgallery2_files SET votes = '$votes', rating = '$rating' WHERE id = '$row->id'");
-				if ($database->query())
-					{
-					?>
-					<script type="text/javascript">
-						//<![CDATA[
-						alert("<?php echo _RSGALLERY_THANK_VOTING; ?>");
-						location = '<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$limitstart, false); ?>';
-						//]]>
-					</script>
-					<?php
-					//mosRedirect( JRoute::_("index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$limitstart),_RSGALLERY_THANK_VOTING);
-					}
-				else
-					{
-					?>
-					<script type="text/javascript">
-						//<![CDATA[
-						alert("<?php echo _RSGALLERY_VOTING_FAILED; ?>");
-						location = '<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$limitstart, false); ?>';
-						//]]>
-					</script>
-					<?php
-					//mosRedirect( JRoute::_("index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$limitstart),_RSGALLERY_VOTING_FAILED);
-					}
-				}
-			}
-		else
-			{
-			//mosRedirect( JRoute::_("index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$limitstart),_RSGALLERY_RATING_NOTSELECT);
-			}
-		}
-}// end tempDisplay
-*/
 class rsgDisplay extends JObject{
 	
 	var $params = null;
@@ -133,13 +34,13 @@ class rsgDisplay extends JObject{
 	}
 	
 	function mainPage(){
-
+		global $rsgConfig;
 		$page = rsgInstance::getWord( 'page', '' );
 
 		switch( $page ){
 			case 'slideshow':
 				$gallery = rsgGalleryManager::get();
-				rsgInstance::instance( array( 'rsgTemplate' => 'slideshowone', 'gid' => $gallery->id ));
+				rsgInstance::instance( array( 'rsgTemplate' => $rsgConfig->get('current_slideshow'), 'gid' => $gallery->id ));
 			break;
 			case 'inline':
 				$this->inline();
@@ -147,13 +48,29 @@ class rsgDisplay extends JObject{
 			case 'viewChangelog':
 				$this->viewChangelog();
 			break;
+			case 'test':
+				$this->test();
+				break;
 			default:
 				$this->showMainGalleries();
 				$this->showThumbs();
 		}
-		
 	}
 
+	function test() {
+		
+		echo "test code goes here!";
+		$folders = JFolder::folders('components/com_rsgallery2/templates');
+		foreach ($folders as $folder) {
+			if (preg_match("/slideshow/i", $folder)) {
+				$folderlist[] = $folder;
+			}
+		}
+		echo "<pre>";
+		print_r($folderlist);
+		echo "</pre>";
+		
+	}
 	/**
 	 *  write the footer
 	 */

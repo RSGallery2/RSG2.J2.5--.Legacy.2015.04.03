@@ -107,12 +107,15 @@ class html_rsg2_config{
 		foreach ($exifTagsArray as $key=>$value) {
 			$exif[] = mosHTML::makeOption($key,$key);
 		}
-		/*
-		echo "<pre>";
-		print_r($exifSelected);
-		print_r($exifTagsArray);
-		echo "</pre>";
-		*/
+		
+		//Format values for slideshow dropdownbox
+		$folders = JFolder::folders(JPATH_RSGALLERY2_SITE. DS . '/templates');
+		foreach ($folders as $folder) {
+			if (preg_match("/slideshow/i", $folder)) {
+				$current_slideshow[] = mosHTML::makeOption($folder,$folder);
+			}
+		}
+		
 		// front display
 		$display_thumbs_style[] = mosHTML::makeOption('table',_RSGALLERY_CONF_OPTION_TABLE);
 		$display_thumbs_style[] = mosHTML::makeOption('float',_RSGALLERY_CONF_OPTION_FLOAT);
@@ -464,6 +467,10 @@ class html_rsg2_config{
 					<tr>
 						<td><?php echo _RSGALLERY_C_TMPL_DISP_SLIDE?></td>
 						<td><?php echo mosHTML::yesnoRadioList('displaySlideshow', '', $config->displaySlideshow)?></td>
+					</tr>
+					<tr>
+						<td><?php echo "** Select slideshow **";?></td>
+						<td><?php echo mosHTML::selectList($current_slideshow, 'current_slideshow','','value', 'text', $config->current_slideshow);?></td>
 					</tr>
 					<tr>
 						<td><?php echo _RSGALLERY_C_TMPL_DISP_OWNER; ?></td>
