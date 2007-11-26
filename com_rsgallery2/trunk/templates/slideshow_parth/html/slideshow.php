@@ -16,6 +16,11 @@ $mainframe->AddCustomHeadTag($js2);
 #myGallery, #myGallerySet, #flickrGallery
 {
 	width: <?php echo $rsgConfig->get('image_width');?>px;
+	
+}
+.jdGallery .slideElement
+{
+	background-color: #000;
 }
 </style>
 <script type="text/javascript">
