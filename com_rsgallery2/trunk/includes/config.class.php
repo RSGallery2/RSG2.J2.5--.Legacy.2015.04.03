@@ -197,10 +197,10 @@ class rsgConfig {
 		global $database;
 		
 		//bind array to class
-        if( $config !== null)
-		  $this->_bind($config);
-
-		$this->exifTags = implode("|", $config['exifTags']);
+		if( $config !== null){
+			$this->_bind($config);
+			$this->exifTags = implode("|", $config['exifTags']);
+		}
 		
 		$vars = $this->getPublicVars();
 		foreach ( $vars as $name ){

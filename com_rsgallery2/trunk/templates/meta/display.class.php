@@ -432,7 +432,7 @@ class rsgDisplay extends JObject{
 	function _showEXIF() {
 		require_once(JPATH_ROOT . DS . "components" . DS . "com_rsgallery2" . DS . "lib" . DS . "exifreader" . DS . "exifReader.php");
 		$image = rsgInstance::getItem();
-		$filename = JPATH_ROOT . $image->original()->name;
+		$filename = JPATH_ROOT . $image->original->name;
 		
 		$exif = new phpExifReader($filename);
 		$exif->showFormattedEXIF();
