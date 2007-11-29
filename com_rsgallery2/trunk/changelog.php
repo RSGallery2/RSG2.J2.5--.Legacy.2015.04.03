@@ -42,6 +42,15 @@ Legend:
  ! Consolidate Database is not complete yet.
  ! Language strings not added yet.
 
+2007-11-23 John Caprez
+ # Gallery and item page navigation running parallely are handled propperly now
+ 
+2007-11-20 John Caprez
+ + New template manager for J1.5 (J1.0 will have same template manager as before)
+ ^ Updated most links to have & replaced by &amp;
+ + Added option to order thumbnails by date/name/rating/hits/default ascending or descending
+ # unpublished items do not appear in random, latest and gallery thumb anymore
+  
 2007-11-18 Ronald Smit
  + Added EXIF configurable support to front- and backend, without need to have EXIF compiled into PHP
 
@@ -53,6 +62,12 @@ Legend:
  ^ Step one of the complete rewrite of My Galleries.
  ^ Moved all My Galleries related code into new library, called mygalleries
  ! Not finished yet. Marked all obsolete functions with X, deleting will follow after testing.
+
+2007-11-15 John Caprez
+ # Corrected SQL query to match data type when adding or editing gallery in front end.
+
+2007-11-14 John Caprez
+ # Recognition of file extension is now case insensitive. caused "wrong file format" error. 
 
 ---------------- 1.14.0 alpha -- svn 374 -- 2007-11-12 -------------
 
@@ -66,10 +81,28 @@ Legend:
  ^ Moved J1.5 backport code to the J15Backort project
  ! Thanks to the many other contributers from the community
 
+2007-10-30 John Caprez
+ ^ Made semantic template XHTML compliant.
+ ^ Modified j15backport to allow script and style inclusion to head section (XHTML compliance)
+ ! Style inclusion is buggy in J1.5RC3 wil be fixed in J1.5RC4
+ + Added mootools files to j15backport include folder
+ ^ Using mootools instead of overlib for tooltips
+ - Various PHP warnings
+
 2007-10-29 Daniel Tulp
  ^ change script.js to script.php for language constant usage
  + added language constants
+ 
+2007-10-20 John Caprez
+ ^ process all url in semantic template with sefRelToAbs
+ 
+2007-10-20 John Caprez
+ # Fixed double sefRelToAbs on gallery name url
 
+2007-10-19 John Caprez
+ - removed border attribute from images for XHTML compliance
+ # fixed access check for registered users
+ 
 2007-09-22 Ronald Smit
  + Completed voting system
  + Added backend settings for voting
