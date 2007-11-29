@@ -97,9 +97,9 @@ class TemplatesView
 ?>
 					</td>
 					<td><?php 
-					$img_path = JURI::root().'com_rsgallery2'.'/templates/'.$row->directory.'/template_thumbnail.png'; 
+					$img_path = $mosConfig_live_site.'com_rsgallery2'.'/templates/'.$row->directory.'/template_thumbnail.png'; 
 					
-					echo JHTML::tooltip('<img style="border:0;" src="'.$img_path.'" alt="'.JText::_( 'No preview available' ).'"/>',
+					echo JHTML::tooltip('<img src="'.$img_path.'" alt="'.JText::_( 'No preview available' ).'"/>',
 										$row->name,
 										null,
 										$row->name,
