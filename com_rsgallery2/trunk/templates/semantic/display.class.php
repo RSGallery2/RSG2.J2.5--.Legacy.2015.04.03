@@ -41,10 +41,12 @@ class rsgDisplay_semantic extends rsgDisplay{
 		
 		if( $rsgConfig->get('dispLimitbox') == 1 ) {
 			if( $kidCountTotal > $limit ){
+				jimport('joomla.html.pagination');
 				$this->kids = array_slice( $this->kids, $limitstart, $limit );
 				$this->pageNav = new JPagination($kidCountTotal, $limitstart, $limit );
 			}
 		} elseif( $rsgConfig->get('dispLimitbox') == 2 ) {
+			jimport('joomla.html.pagination');
 			$this->kids = array_slice( $this->kids, $limitstart, $limit );
 			$this->pageNav = new JPagination( $kidCountTotal, $limitstart, $limit );
 		}

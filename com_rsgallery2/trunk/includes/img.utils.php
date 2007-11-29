@@ -119,7 +119,7 @@ class imgUtils extends fileUtils{
         //First move uploaded file to original directory
         $destination = fileUtils::move_uploadedFile_to_orignalDir( $imgTmpName, $imgName );
         
-        if( is_a( $destination, imageUploadError ) )
+        if( is_a( $destination, 'imageUploadError' ) )
             return $destination;
 
         $parts = pathinfo( $destination );

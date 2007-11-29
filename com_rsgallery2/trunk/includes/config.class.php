@@ -199,7 +199,8 @@ class rsgConfig {
 		//bind array to class
 		if( $config !== null){
 			$this->_bind($config);
-			$this->exifTags = implode("|", $config['exifTags']);
+			if(array_key_exists('exifTags', $config))
+				$this->exifTags = implode("|", $config['exifTags']);
 		}
 		
 		$vars = $this->getPublicVars();
