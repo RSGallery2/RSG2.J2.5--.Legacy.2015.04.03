@@ -337,6 +337,38 @@ class HTML_RSGALLERY{
 		<?php
 	}
 
+	/**
+	* @param string
+	* @param string
+	* @param string
+	*/
+	function showInstallMessage( $message, $title, $url ) {
+		global $PHP_SELF;
+		?>
+		<table class="adminheading">
+		<tr>
+			<th class="install">
+			<?php echo $title; ?>
+			</th>
+		</tr>
+		</table>
+
+		<table class="adminform">
+		<tr>
+			<td align="left">
+			<strong><?php echo $message; ?></strong>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+			[&nbsp;<a href="<?php echo $url;?>" style="font-size: 16px; font-weight: bold"><?php echo _RSGALLERY_INST_MES_CONTINUE?></a>&nbsp;]
+			</td>
+		</tr>
+		</table>
+		<?php
+	}
+
+
     /**
      * if there are no categories and a user has requested an action that
      * requires a category, this is the error message to display
