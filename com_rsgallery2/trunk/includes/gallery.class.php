@@ -203,7 +203,7 @@ class rsgGallery extends JObject{
 
 		$current = $this->indexOfItem(rsgInstance::getInt( 'id', 0 ));
 		$current = rsgInstance::getInt( 'limitstart', $current );
-
+		
 		// calculate page from current position
 		$start =  floor($current  / $length) * $length;
 		return array_slice($this->items, $start, $length, true);
@@ -222,12 +222,17 @@ class rsgGallery extends JObject{
 	function getItem( $id = null ){
 		if( $id === null ){
 			$id = rsgInstance::getInt( 'id', null );
-
+			
 			if( $id === null ){
-				// there is no item set, return the first value from getItems()
-				$items = $this->items();
-
-				return array_shift( $items );
+				$id = rsgInstance::getInt( 'limitstart', null );
+			
+				if($id !== null) 
+					$id++;
+				else {
+					// there is no item set, return the first value from getItems()
+					$items = $this->items();
+					return array_shift( $items );
+				}
 			}
 		}
 
