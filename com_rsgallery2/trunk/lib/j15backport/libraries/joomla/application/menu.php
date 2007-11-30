@@ -63,9 +63,9 @@ class JMenu extends JObject
 
 		foreach ($this->_items as $k => $item)
 		{
-			if ($item->home) {
-				$this->_default = $item->id;
-			}
+//			if ($item->home) {
+//				$this->_default = $item->id;
+//			}
 		}
 	}
 	
@@ -94,7 +94,7 @@ class JMenu extends JObject
 			//Load the router object
 			$info =& JApplicationHelper::getClientInfo($client, true);
 			
-			$path = $info->path.DS.'includes'.DS.'menu.php';
+			$path = J15B_PATH.DS.'includes'.DS.'menu.php';
 			if(file_exists($path)) 
 			{
 				require_once $path;

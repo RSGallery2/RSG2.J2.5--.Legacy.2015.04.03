@@ -40,58 +40,52 @@ class JRoute
 	 */
 	function _($url, $xhtml = true, $ssl = 0)
 	{
-		if(!function_exists("sefRelToAbs")){
-			return $url;
+//		Get the router
+		jimport("joomla.application.router");
+		$router = &JRouter::getInstance("Site");
+		$router->_parseRawRoute(JFactory::getURI());
+		$uri = &$router->build($url);
+		$url = $uri->toString(array('path', 'query', 'fragment'));
+		
+
+		/*
+		 * Get the secure/unsecure URLs.
+		
+		 * If the first 5 characters of the BASE are 'https', then we are on an ssl connection over
+		 * https and need to set our secure URL to the current request URL, if not, and the scheme is
+		 * 'http', then we need to do a quick string manipulation to switch schemes.
+		 */
+		
+		$base = JURI::base(); //get base URL
+		
+		if ( substr( $base, 0, 5 ) == 'https' )
+		{
+			$secure 	= $base;
+			$unsecure	= 'http'.substr( $base, 5 );
 		}
-		else{
+		elseif ( substr( $base, 0, 4 ) == 'http' )
+		{
+			$secure		= 'https'.substr( $base, 4 );
+			$unsecure	= $base;
+		}
+		
+		// Ensure that proper secure URL is used if ssl flag set secure
+		if ($ssl == 1) {
+			$url = $secure.$url;
+		}
+		
+		// Ensure that unsecure URL is used if ssl flag is set to unsecure
+		if ($ssl == -1) {
+			$url = $unsecure.$url;
+		}
+		if($xhtml) {
+			$url = str_replace( '&', '&amp;', $url );
+		}
+		
+		if(function_exists("sefRelToAbs"))
 			$url= sefRelToAbs($url);
-			
-			
-			// Get the router
-			//		$app	= &JFactory::getApplication();
-			//		$router = &$app->getRouter();
-			//	
-			//		// Build route
-			//		if ($router) 
-			//		{	
-			//			$uri = &$router->build($url);
-			//			$url = $uri->toString(array('path', 'query', 'fragment'));
-			//		}
-			
-			/*
-			 * Get the secure/unsecure URLs.
-			
-			 * If the first 5 characters of the BASE are 'https', then we are on an ssl connection over
-			 * https and need to set our secure URL to the current request URL, if not, and the scheme is
-			 * 'http', then we need to do a quick string manipulation to switch schemes.
-			 */
-			
-			$base = JURI::base(); //get base URL
-			
-			if ( substr( $base, 0, 5 ) == 'https' )
-			{
-				$secure 	= $base;
-				$unsecure	= 'http'.substr( $base, 5 );
-			}
-			elseif ( substr( $base, 0, 4 ) == 'http' )
-			{
-				$secure		= 'https'.substr( $base, 4 );
-				$unsecure	= $base;
-			}
-			
-			// Ensure that proper secure URL is used if ssl flag set secure
-			if ($ssl == 1) {
-				$url = $secure.$url;
-			}
-			
-			// Ensure that unsecure URL is used if ssl flag is set to unsecure
-			if ($ssl == -1) {
-				$url = $unsecure.$url;
-			}
-			if($xhtml) {
-				$url = str_replace( '&', '&amp;', $url );
-			}
-		}		
+		
+		
 		return $url;
 
 	}

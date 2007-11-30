@@ -344,13 +344,13 @@ class JRouterSite extends JRouter
 		$uri =& parent::_createURI($url);
 
 		// Set URI defaults
+		require_once(J15B_PATH.DS.'includes'.DS.'application.php');
 		$menu =& JSite::getMenu();
 
 		// Get the itemid form the URI
 		$itemid = $uri->getVar('Itemid');
 
-		// we aren't getting involved with the menus, so if you don't have the Itemid, your out of luck
-		if(false)
+		if(is_null($itemid))
 		{
 			if($option = $uri->getVar('option'))
 			{

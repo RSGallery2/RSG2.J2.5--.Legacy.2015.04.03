@@ -24,8 +24,9 @@
 
 	<filename>lib/j15backport/includes/application.php</filename>
 	<filename>lib/j15backport/includes/router.php</filename>
+  <filename>lib/j15backport/includes/menu.php</filename>
 
-	<filename>lib/j15backport/includes/media/index.html</filename>
+  <filename>lib/j15backport/includes/media/index.html</filename>
 	<filename>lib/j15backport/includes/media/system/index.html</filename>
 	<filename>lib/j15backport/includes/media/system/css/calendar-jos.css</filename>
 	<filename>lib/j15backport/includes/media/system/css/modal.css</filename>
