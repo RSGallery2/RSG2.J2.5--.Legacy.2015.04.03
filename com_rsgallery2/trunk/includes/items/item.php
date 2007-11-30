@@ -66,11 +66,11 @@ class rsgItem extends JObject{
 	function hit(){
 		$query = "UPDATE #__rsgallery2_files SET hits = hits + 1 WHERE id = {$this->id}";
 		
-		$db = &JFactory::getDBO();
-		$db->setQuery( $query );
+		global $database;
+		$database->setQuery( $query );
 		
-		if( !$db->query() ) {
-			$this->setError( $db->getErrorMsg() );
+		if( !$database->query() ) {
+			$this->setError( $database->getErrorMsg() );
 			return false;
 		}
 		

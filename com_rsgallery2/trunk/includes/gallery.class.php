@@ -154,7 +154,7 @@ class rsgGallery extends JObject{
 
 			global $rsgConfig;
 
-			$db = &JFactory::getDBO();
+			global $database;
 			
 			$filter_order = rsgInstance::getWord( 'filter_order',  $rsgConfig->get("filter_order") );
 			$filter_order_Dir = rsgInstance::getWord( 'filter_order_Dir', $rsgConfig->get("filter_order_Dir"));
@@ -168,9 +168,9 @@ class rsgGallery extends JObject{
 				. $orderby;
 
 			// limit handling was borked but I had this fixed.  we can use it again....
-			$db->setQuery( $query);//, $limitstart, $limit );
+			$database->setQuery( $query);//, $limitstart, $limit );
 
-			$this->_itemRows = $db->loadAssocList( 'id' );
+			$this->_itemRows = $database->loadAssocList( 'id' );
 		}
 		return $this->_itemRows;
 	}
@@ -287,10 +287,10 @@ class rsgGallery extends JObject{
 	function hit(){
 		$query = "UPDATE #__rsgallery2_galleries SET hits = hits + 1 WHERE id = {$this->id}";
 		
-		$db = &JFactory::getDBO();
-		$db->setQuery( $query );
+		global $database;
+		$database->setQuery( $query );
 		
-		if( !$db->query() ) {
+		if( !$database->query() ) {
 // 			$this->setError( $db->getErrorMsg() );
 			return false;
 		}
