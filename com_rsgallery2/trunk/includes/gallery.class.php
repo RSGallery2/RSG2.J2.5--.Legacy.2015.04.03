@@ -206,7 +206,7 @@ class rsgGallery extends JObject{
 		
 		// calculate page from current position
 		$start =  floor($current  / $length) * $length;
-		return array_slice_preserve_keys($this->items, $start, $length);
+		return $this->array_slice_preserve_keys($this->items, $start, $length);
 		
 	}
 	/**
