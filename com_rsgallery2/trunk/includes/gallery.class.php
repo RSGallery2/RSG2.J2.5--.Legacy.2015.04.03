@@ -206,7 +206,7 @@ class rsgGallery extends JObject{
 		
 		// calculate page from current position
 		$start =  floor($current  / $length) * $length;
-		return array_slice($this->items, $start, $length, true);
+		return array_slice_preserve_keys($this->items, $start, $length);
 		
 	}
 	/**
@@ -315,4 +315,44 @@ class rsgGallery extends JObject{
 
 		return $this->_pagination;
 	}
+	
+	
+	/**
+	 * array_slice with preserve_keys for every php version (taken form http://www.php.net/array_slice )
+	 *
+	 * @param array $array Input array
+	 * @param int $offset Start offset
+	 * @param int $length Length
+	 * @return array
+	 */
+	function array_slice_preserve_keys($array, $offset, $length = null)
+	{
+		// PHP >= 5.0.2 is able to do this itself
+		if((int)str_replace('.', '', phpversion()) >= 502)
+			return(array_slice($array, $offset, $length, true));
+
+		// prepare input variables
+		$result = array();
+		$i = 0;
+		if($offset < 0)
+			$offset = count($array) + $offset;
+		if($length > 0)
+			$endOffset = $offset + $length;
+		else if($length < 0)
+			$endOffset = count($array) + $length;
+		else
+			$endOffset = count($array);
+	   
+		// collect elements
+		foreach($array as $key=>$value)
+		{
+			if($i >= $offset && $i < $endOffset)
+				$result[$key] = $value;
+			$i++;
+		}
+	   
+		// return
+		return($result);
+	}
+
 }
