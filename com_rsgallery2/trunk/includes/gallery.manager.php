@@ -43,7 +43,7 @@ class rsgGalleryManager{
 	**/
 	function getItem( $id = null ){
 		$gallery = rsgGalleryManager::get();
-		return $gallery->getItem();
+		return $gallery->getItem($id);
 	}
 
     /**
