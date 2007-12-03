@@ -220,24 +220,22 @@ class rsgGallery extends JObject{
 	*  returns item by it's db id
 	*/
 	function getItem( $id = null ){
-		if( $id === null ){
-			$id = rsgInstance::getInt( 'id', null );
-			
-			if( $id === null ){
-				$id = rsgInstance::getInt( 'limitstart', null );
-			
-				if($id !== null) 
-					$id++;
-				else {
-					// there is no item set, return the first value from getItems()
-					$items = $this->items();
-					return array_shift( $items );
-				}
-			}
-		}
-
 		$items = $this->items();
-		return $items[$id];
+
+		if( $id !== null )
+			return $items[$this->indexOfItem($id)];
+		
+		$id = rsgInstance::getInt( 'id', null );
+		if( $id !== null )
+			return $items[$this->indexOfItem($id)];
+
+		$id = rsgInstance::getInt( 'limitstart', null );
+		if($id !== null) 
+			return $items[$id];
+
+		// there is no item set, return the first value from getItems()
+		return array_shift( $items );
+		
 	}
 	
 	function indexOfItem($id = null){
