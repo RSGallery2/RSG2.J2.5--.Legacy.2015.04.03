@@ -31,6 +31,14 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+
+2007-12-03 John Caprez
+ # consistent pagination troughout all frontend 
+
+2007-12-01 John Caprez
+ # special char issue solved
+ # improved PHP4 compatability
+
 2007-11-26 Ronald Smit
  + Added new slideshow option, called slideshow_parth
  + Added switch in backend to select the slideshow option.

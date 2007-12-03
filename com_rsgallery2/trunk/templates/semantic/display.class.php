@@ -258,7 +258,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		$limitstart = rsgInstance::getInt( 'limitstart' );
 		
 		//instantiate page navigation
-		$pagenav = new mosPageNav( $itemCount, $limitstart, $limit );
+		$pagenav = new JPagination( $itemCount, $limitstart, $limit );
 		
 		// increase the gallery hit counter
 		$this->gallery->hit();
@@ -291,8 +291,8 @@ class rsgDisplay_semantic extends rsgDisplay{
 				<?php
 				if( $itemCount > $limit ){
 				global $Itemid;
-					echo $pagenav->writePagesLinks("index.php?option=com_rsgallery2&gid=".$this->gallery->id);
-					echo "<br /><br />".$pagenav->writePagesCounter();
+					echo $pagenav->getPagesLinks();
+					echo "<br /><br />".$pagenav->getPagesCounter();
 				}
 				?>
 		</div>
