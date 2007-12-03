@@ -229,7 +229,7 @@ class rsgGallery extends JObject{
 			return $this->items[$id];
 		
 		$id = rsgInstance::getInt( 'limitstart', 0 );
-		return array_pop(array_slice($this->items, $id, 1, true));
+		return array_pop(array_slice($this->items, $id, 1));
 					
 
 	}
