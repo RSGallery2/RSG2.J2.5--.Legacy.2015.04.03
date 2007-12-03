@@ -143,7 +143,7 @@ class html_rsg2_config{
 		
 		$displayPopup[] = mosHTML::makeOption('0',_RSGALLERY_CONF_POPUP_NO);
 		$displayPopup[] = mosHTML::makeOption('1',_RSGALLERY_CONF_POPUP_NORMAL);
-		$displayPopup[] = mosHTML::makeOption('2',_RSGALLERY_CONF_POPUP_FANCY);
+		//$displayPopup[] = mosHTML::makeOption('2',_RSGALLERY_CONF_POPUP_FANCY);//
 		
 		//Number of galleries dropdown field
 		$dispLimitbox[] = mosHTML::makeOption('0',_RSGALLERY_CONF_LIMIT_NEV);
