@@ -31,7 +31,11 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
-
+ + Cleaned up admin.rsgallery2.php
+ ^ Changed Control Panel to actually use the config class.
+ + Removed batchupload from admin.rsgalelry2.php and moved to images.php
+ ! I tagged a lot of functions to delete. After review they will be cleaned up.
+ 
 2007-12-03 John Caprez
  # consistent pagination troughout all frontend 
 
