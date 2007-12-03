@@ -18,6 +18,7 @@ $mainframe->AddCustomHeadTag($js2);
 	width: <?php echo $rsgConfig->get('image_width');?>px;
 	
 }
+/* Background color for the slideshow element */
 .jdGallery .slideElement
 {
 	background-color: #000;

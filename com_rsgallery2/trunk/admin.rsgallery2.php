@@ -46,25 +46,25 @@ $rsgOption = rsgInstance::getVar('rsgOption', null );
 switch( $rsgOption ) {
     case 'galleries':
         require_once( $rsgOptions_path . 'galleries.php' );
-    break;
+    	break;
     case 'images':
         require_once( $rsgOptions_path . 'images.php' );
-    break;
+    	break;
     case 'comments':
         require_once( $rsgOptions_path . 'comments.php' );
-    break;
+   		break;
     case 'config':
         require_once( $rsgOptions_path . 'config.php' );
-    break;
+    	break;
     case 'templateManager':
         require_once( $rsgOptions_path . 'templateManager'.DS.'admin.templates.php' );
-	break;
+		break;
 	case 'template':
 		require_once( $rsgOptions_path . 'templates.php' );
 		break;
 	case 'maintenance':
     	require_once( $rsgOptions_path . 'maintenance.php' );
-    break;
+    	break;
 }
 
 /**
@@ -112,28 +112,6 @@ switch ( rsgInstance::getVar('task', null) ){
         RSInstall();
         HTML_RSGallery::RSGalleryFooter();
         break;
-/*
-    case "regen_thumbs":
-        HTML_RSGallery::RSGalleryHeader();
-        HTML_RSGALLERY::printAdminMsg( "Feature not implemented. To follow.\n\n\nRonald Smit", true );
-        HTML_RSGallery::RSGalleryFooter();
-        break;
-    case "consolidate_db":
-        HTML_RSGallery::RSGalleryHeader('dbrestore',_RSGALLERY_HEAD_CONSDB);
-        consolidateDbInform($option);
-        HTML_RSGallery::RSGalleryFooter();
-        break;
-    case "consolidate_db_go":
-        HTML_RSGallery::RSGalleryHeader('dbrestore',_RSGALLERY_HEAD_CONSDB);
-        consolidateDbGo($option);
-        HTML_RSGallery::RSGalleryFooter();
-        break;
-    case "import_captions":
-        HTML_RSGallery::RSGalleryHeader('generic', 'Import Captions');
-        import_captions();
-        HTML_RSGallery::RSGalleryFooter();
-        break;
-*/
 }
 
 // only use the legacy task switch if rsgOption is not used.
@@ -141,10 +119,12 @@ if( $rsgOption == '' )
 switch ( rsgInstance::getVar('task', null ) ){
     // config tasks
     // this is just a kludge until all links and form vars to configuration functions have been updated to use $rsgOption = 'config';
+    /*
     case 'config_dumpVars':
     case 'applyConfig':
     case 'saveConfig':
     case "showConfig":
+    */
     case 'config_rawEdit_apply':
     case 'config_rawEdit_save':
     case 'config_rawEdit':
@@ -178,20 +158,21 @@ switch ( rsgInstance::getVar('task', null ) ){
         HTML_RSGallery::RSGalleryFooter();
         break;
 
-    case "upload":
+    case "uploadX":
         HTML_RSGallery::RSGalleryHeader('browser', _RSGALLERY_HEAD_UPLOAD);
         showUpload();
         HTML_RSGallery::RSGalleryFooter();
         break;
 
-    case "batchupload":
+    case "batchuploadX":
         HTML_RSGallery::RSGalleryHeader('', _RSGALLERY_HEAD_UPLOAD_ZIP);
         batch_upload($option, $task);
         HTML_RSGallery::RSGalleryFooter();
         break;
-    case "save_batchupload":
+    case "save_batchuploadX":
         save_batchupload();
         break;
+    /*
     case "view_images":
         HTML_RSGallery::RSGalleryHeader();
         viewImagesX($option);
@@ -209,7 +190,7 @@ switch ( rsgInstance::getVar('task', null ) ){
         viewImagesX($option);
         HTML_RSGallery::RSGalleryFooter();
         break;
-
+	*/
 
     //image and category tasks
     case "categories_orderup":
@@ -227,31 +208,6 @@ switch ( rsgInstance::getVar('task', null ) ){
         viewChangelog();
         HTML_RSGallery::RSGalleryFooter();
         break;
-/*
-    case 'c_delete':
-        HTML_RSGallery::RSGalleryHeader('dbrestore', _RSGALLERY_HEAD_CONSDB);
-        c_delete();
-        consolidateDbGo($option);
-        HTML_RSGallery::RSGalleryFooter();
-        break;
-    case 'c_create':
-        HTML_RSGallery::RSGalleryHeader('dbrestore', _RSGALLERY_HEAD_CONSDB);
-        c_create($id);
-        HTML_RSGALLERY::printAdminMsg(_RSGALLERY_HEAD_MISS_IMG_CREATE);
-        consolidateDbGo($option);
-        HTML_RSGallery::RSGalleryFooter();
-        break;
-    case 'db_create':
-    	db_create();
-    	break;
-    case 'upload_watermark':
-    	uploadWatermark();
-    	break;
-    case 'test':
-    	test();
-    	break;
-//     default - the control panel
-*/
     case "controlPanel":
     default:
         HTML_RSGallery::RSGalleryHeader('cpanel', _RSGALLERY_HEAD_CPANEL);
@@ -265,7 +221,7 @@ switch ( rsgInstance::getVar('task', null ) ){
 * @param string The name of the file to put in the temp directory
 * @param string The message to return
 */
-function uploadFile( $filename, $userfile_name, $msg ) {
+function uploadFileX( $filename, $userfile_name, $msg ) {
 	global $mosConfig_absolute_path;
 	$baseDir = mosPathName( $mosConfig_absolute_path . '/media' );
 
@@ -374,7 +330,7 @@ function processAdminSqlQueryVerbosely( $query, $successMsg ){
     }
 }
 
-function save_batchupload() {
+function save_batchuploadX() {
     global $database, $mosConfig_live_site, $rsgConfig;
     
     //Try to bypass max_execution_time as set in php.ini
@@ -454,7 +410,7 @@ function cancelGallery($option) {
  * @todo Check FTP handling bit
  */
  
-function batch_upload($option) {
+function batch_uploadX($option) {
 	global $database, $mosConfig_live_site, $rsgConfig;
 	$FTP_path = $rsgConfig->get('ftp_path');
 	

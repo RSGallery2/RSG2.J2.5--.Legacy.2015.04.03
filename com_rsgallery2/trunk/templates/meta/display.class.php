@@ -33,6 +33,9 @@ class rsgDisplay extends JObject{
 		
 	}
 	
+	/**
+	 * Switch for the main page, when not handled by rsgOption
+	 */
 	function mainPage(){
 		global $rsgConfig;
 		$page = rsgInstance::getWord( 'page', '' );
@@ -56,7 +59,10 @@ class rsgDisplay extends JObject{
 				$this->showThumbs();
 		}
 	}
-
+	
+	/**
+	 * Debug only
+	 */
 	function test() {
 		
 		echo "test code goes here!";
@@ -89,7 +95,9 @@ class rsgDisplay extends JObject{
 		<?php
 	}
 
-
+	/**
+	 * 
+	 */
 	function display( $file = null ){
 		global $rsgConfig;
 		$template = preg_replace( '#\W#', '', rsgInstance::getVar( 'rsgTemplate', $rsgConfig->get('template') ));
@@ -125,9 +133,9 @@ class rsgDisplay extends JObject{
 	}
 	
 	/**
-		set Itemid for proper pathway and linking.
-		contributed by Jeckel
-	**/
+	 * set Itemid for proper pathway and linking.
+	 * contributed by Jeckel
+	 */
 	function setItemid(){
 		global $Itemid;
 		
@@ -146,6 +154,9 @@ class rsgDisplay extends JObject{
 		}
 	}
 
+	/**
+	 * Shows contents of changelog.php in preformatted layout
+	 */
 	function viewChangelog() {
 		global $mosConfig_absolute_path, $rsgConfig;
 	
@@ -218,8 +229,8 @@ class rsgDisplay extends JObject{
 	}
 
 	/**
-		insert meta data into head
-	**/
+	 * insert meta data into head
+	 */
 	function metadata(){
 		global $mainframe, $option;
 
@@ -269,6 +280,9 @@ class rsgDisplay extends JObject{
 		}
     }
     
+    /**
+     * Shows the voting screen
+     */
     function _showVotes() {
     	global $mainframe, $mosConfig_live_site, $rsgConfig;
     	if ($rsgConfig->get('voting')) {
@@ -280,12 +294,14 @@ class rsgDisplay extends JObject{
     		echo "** Voting is disabled **";
     	}
     }
+    
     /**
      * Shows either random or latest images, depending on parameter
      * @param String Type of images. Options are 'latest' or 'random'
      * @param Int Number of images to show. Defaults to 3
      * @param String Style, options are 'vert' or 'hor'.(Vertical or horizontal)
      * @return HTML representation of image block.
+     * @todo Rewrite to make use of RSGallery2 framework instead of straight SQL
      */
     function showImages($type="latest", $number = 3, $style = "hor") {
     	global $database, $mosConfig_live_site, $Itemid, $rsgConfig;
@@ -330,7 +346,7 @@ class rsgDisplay extends JObject{
                     <?php
                     foreach($rows as $row) {
                         $l_start = $row->ordering - 1;
-				$url = JRoute::_("index.php?option=com_rsgallery2&page=inline&id=".$row->id);
+						$url = JRoute::_("index.php?option=com_rsgallery2&page=inline&id=".$row->id);
                         ?>
                         <tr>
                         <td align="center">
@@ -432,7 +448,7 @@ class rsgDisplay extends JObject{
 	function _showEXIF() {
 		require_once(JPATH_ROOT . DS . "components" . DS . "com_rsgallery2" . DS . "lib" . DS . "exifreader" . DS . "exifReader.php");
 		$image = rsgInstance::getItem();
-		$filename = JPATH_ROOT . $image->original->name;
+		$filename = JPATH_ROOT . $image->original()->name;
 		
 		$exif = new phpExifReader($filename);
 		$exif->showFormattedEXIF();

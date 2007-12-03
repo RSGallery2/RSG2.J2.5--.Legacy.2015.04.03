@@ -690,6 +690,7 @@ class html_rsg2_config{
 		$tabs->endTab();
 		?>
 		<input type="hidden" name="option" value="com_rsgallery2" />
+		<input type="hidden" name="rsgOption" value="config" />
 		<input type="hidden" name="task" value="" />
 		</form>
 		<!-- Fix for Firefox browser -->

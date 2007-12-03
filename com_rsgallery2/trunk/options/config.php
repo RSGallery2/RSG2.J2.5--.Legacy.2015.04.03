@@ -14,7 +14,9 @@ require_once( $rsgOptions_path . 'config.html.php' );
 
 // anyone can use these config functions
 switch( $task ){
-    case '';
+    case 'cancel';
+    	cancelConfig($option);
+		break;
     case 'config_dumpVars':
         HTML_RSGallery::RSGalleryHeader('viewChangelog', _RSGALLERY_HEAD_CONF_VARIA);
         config_dumpVars();
@@ -156,5 +158,7 @@ function showConfig(){
 
     html_rsg2_config::showconfig( $lists );
 }
-
+function cancelConfig( $option ) {
+    mosRedirect("index2.php?option=$option");
+}
 ?>

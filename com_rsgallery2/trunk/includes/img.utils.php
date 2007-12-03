@@ -513,8 +513,16 @@ class GD2 extends genericImageLib{
             return new PEAR_Error( "GD2 doesn't support reading image type $type" );
         
         // determine target height
-        $targetHeight = ( $targetWidth / $sourceWidth ) * $sourceHeight;
+        //$targetHeight = ( $targetWidth / $sourceWidth ) * $sourceHeight;
         
+        // determine target height, contributed by lorant, let's try this
+        if( $sourceWidth > $sourceHeight ) {
+             $targetHeight = ( $targetWidth / $sourceWidth ) * $sourceHeight;
+        } else {
+             $targetHeight = $targetWidth;
+             $targetWidth = ( $targetHeight / $sourceHeight ) * $sourceWidth;
+        } 
+               
         // load source image file into a resource
         $loadImg = "imagecreatefrom" . $type;
         $sourceImg = $loadImg( $source );

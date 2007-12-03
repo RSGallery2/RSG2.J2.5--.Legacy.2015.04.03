@@ -33,6 +33,12 @@ switch( $rsgOption ){
             case 'upload':
             	menu_rsg2_images::upload( $option );
             	break;
+            case "batchupload":
+        		menuRSGallery::image_batchUpload();
+        		break;
+        	case 'save_batchupload':
+        		menuRSGallery::images_show();
+        		break;
             default:
                 menu_rsg2_images::show( $option );
             break;
@@ -73,7 +79,14 @@ switch( $rsgOption ){
 			menuRSGallery::simple();
 			break;
 		}
-	break;
+	case 'config':
+		switch ( $task ) {
+			case 'applyConfig':
+			case "showConfig":
+				menuRSGallery::config_show();
+        		break;
+		}
+		break;
 }
 
 // only use the legacy task switch if rsgOption is not used.
@@ -94,15 +107,10 @@ switch ($task){
     case "delete_image":
     case "move_image":
     case "save_image":
-    case "save_batchupload":
     case "view_images":
     case "images_orderup":
     case "images_orderdown":
         menuRSGallery::images_show();
-        break;
-
-    case "batchupload":
-        menuRSGallery::image_batchUpload();
         break;
 
     case 'applyConfig':

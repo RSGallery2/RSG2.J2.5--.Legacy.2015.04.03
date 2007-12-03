@@ -41,7 +41,6 @@ class rsg2_maintenance {
     	} else {
     		return true;
     	}
-    
     }
 }
 

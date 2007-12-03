@@ -219,14 +219,14 @@ class HTML_RSGALLERY{
             <div id='cpanel'>
                 <?php
                 if ( $user->get('gid') > 23 ):
-                    $link = 'index2.php?option=com_rsgallery2&amp;task=showConfig';
+                    $link = 'index2.php?option=com_rsgallery2&amp;rsgOption=config&amp;task=showConfig';
                     HTML_RSGALLERY::quickiconButton( $link, 'config.png',  _RSGALLERY_C_CONFIG );
                 endif;
 
                 $link = 'index2.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=upload';
                 HTML_RSGALLERY::quickiconButton( $link, 'upload.png', _RSGALLERY_C_UPLOAD );
 
-                $link = 'index2.php?option=com_rsgallery2&amp;task=batchupload';
+                $link = 'index2.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=batchupload';
                 HTML_RSGALLERY::quickiconButton( $link, 'upload_zip.png', _RSGALLERY_C_UPLOAD_ZIP );
                 
                 $link = 'index2.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=view_images';
@@ -444,7 +444,7 @@ class HTML_RSGALLERY{
      * RS 29-10-2005 NEW FUNCTION
      * Inserts the HTML content for the first screen of the batch upload process.
      */
-    function batch_upload($option)
+    function batch_uploadX($option)
         {
         global $rsgConfig, $task;
         $FTP_path = $rsgConfig->get('ftp_path');
@@ -585,7 +585,7 @@ class HTML_RSGALLERY{
     /**
      * Inserts the HTML content for the second screen of the batch upload process.
      */
-    function batch_upload_2( $ziplist, $extractDir )
+    function batch_upload_2X	( $ziplist, $extractDir )
         {
         global $mosConfig_live_site, $database;
         

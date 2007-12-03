@@ -13,6 +13,7 @@ defined( '_VALID_MOS' ) or die( 'Restricted access' );
 
 require_once( $rsgOptions_path . 'images.html.php' );
 require_once( $rsgOptions_path . 'images.class.php' );
+require_once( JPATH_RSGALLERY2_ADMIN . DS . 'admin.rsgallery2.html.php' );
 
 $cid = josGetArrayInts( 'cid' );
 
@@ -20,7 +21,17 @@ switch ($task) {
 	case 'new':
 		editImage( $option, 0 );
 		break;
+	
+	case 'batchupload':
+		HTML_RSGallery::RSGalleryHeader('', _RSGALLERY_HEAD_UPLOAD_ZIP);
+		batchupload($option);
+		HTML_RSGallery::RSGalleryFooter();
+		break;
 		
+	case 'save_batchupload':
+		save_batchupload();
+        break;
+        
 	case 'upload':
 		uploadImage( $option );
 		break;
@@ -99,7 +110,7 @@ switch ($task) {
 function showImages( $option ) {
 	global $database, $mainframe, $mosConfig_list_limit;
 
-	$gallery_id 		= intval( $mainframe->getUserStateFromRequest( "gallery_id{$option}", 'gallery_id', 0 ) );
+	$gallery_id = intval( $mainframe->getUserStateFromRequest( "gallery_id{$option}", 'gallery_id', 0 ) );
 	$limit 		= intval( $mainframe->getUserStateFromRequest( "viewlistlimit", 'limit', $mosConfig_list_limit ) );
 	$limitstart = intval( $mainframe->getUserStateFromRequest( "view{$option}limitstart", 'limitstart', 0 ) );
 	$search 	= $mainframe->getUserStateFromRequest( "search{$option}", 'search', '' );
@@ -560,4 +571,115 @@ function copyImage( $cid, $option ) {
 	}
 }
 
+function batchupload($option) {
+	global $database, $mosConfig_live_site, $rsgConfig;
+	$FTP_path = $rsgConfig->get('ftp_path');
+	
+	//Retrieve data from submit form
+	$batchmethod 	= rsgInstance::getVar('batchmethod', null);
+	$uploaded 		= rsgInstance::getVar('uploaded', null);
+	$selcat 		= rsgInstance::getInt('selcat', null);
+	$zip_file 		= rsgInstance::getVar('zip_file', null, 'FILES'); 
+	$ftppath 		= rsgInstance::getVar('ftppath', null);
+	$xcat 			= rsgInstance::getInt('xcat', null);
+	
+	//Check if a gallery exists, if not link to gallery creation
+	$database->setQuery( "SELECT id FROM #__rsgallery2_galleries" );
+	$database->query();
+	if( $database->getNumRows()==0 ){
+		html_rsg2_images::requestCatCreation( );
+		return;
+	}
+	
+	//New instance of fileHandler
+	$uploadfile = new fileHandler();
+	
+	if (isset($uploaded)) {
+		if ($batchmethod == "zip") {
+			//Check if file is really a ZIP-file
+			if (!eregi( '.zip$', $zip_file['name'] )) {
+				mosRedirect( "index2.php?option=com_rsgallery2&task=batchupload", $zip_file['name']._RSGALLERY_BACTCH_NOT_VALID_ZIP);
+			} else {
+				//Valid ZIP-file, continue
+				if ($uploadfile->checkSize($zip_file) == 1) {
+					$ziplist = $uploadfile->handleZIP($zip_file);
+				} else {
+					//Error message
+					mosRedirect( "index2.php?option=com_rsgallery2&task=batchupload", _RSGALLERY_ZIP_TO_BIG);
+				}
+			}
+		} else {
+			$ziplist = $uploadfile->handleFTP($ftppath);
+		}
+		html_rsg2_images::batchupload_2($ziplist, $uploadfile->extractDir);
+	} else {
+		html_rsg2_images::batchupload($option);
+	}
+}//End function
+
+function save_batchupload() {
+    global $database, $mosConfig_live_site, $rsgConfig;
+    
+    //Try to bypass max_execution_time as set in php.ini
+    set_time_limit(0);
+    
+    $FTP_path = $rsgConfig->get('ftp_path');
+
+    $teller 	= rsgInstance::getInt('teller'  , null);
+    $delete 	= rsgInstance::getVar('delete'  , null);
+    $filename 	= rsgInstance::getVar('filename'  , null);
+    $ptitle 	= rsgInstance::getVar('ptitle'  , null);
+    $descr 		= rsgInstance::getVar('descr'  , array(0));
+	$extractdir = rsgInstance::getVar('extractdir'  , null);
+	
+    //Check if all categories are chosen
+    if (isset($_REQUEST['category']))
+        $category = rsgInstance::getVar('category'  , null);
+    else
+        $category = array(0);
+
+    if ( in_array("0",$category) ) {
+        mosRedirect("index2.php?option=com_rsgallery2&task=batchupload", _RSGALLERY_ALERT_NOCATSELECTED);
+	}
+
+     for($i=0;$i<$teller;$i++) {
+        //If image is marked for deletion, delete and continue with next iteration
+        if (isset($delete[$i]) AND ($delete[$i] == 'true')) {
+            //Delete file from server
+            unlink(JPATH_ROOT.DS."media".DS.$extractdir.DS.$filename[$i]);
+            continue;
+        } else {
+            //Setting variables for importImage()
+            $imgTmpName = JPATH_ROOT.DS."media".DS.$extractdir.DS.$filename[$i];
+            $imgName 	= $filename[$i];
+            $imgCat	 	= $category[$i];
+            $imgTitle 	= $ptitle[$i];
+            $imgDesc 	= $descr[$i];
+            
+            //Import image
+            $e = imgUtils::importImage($imgTmpName, $imgName, $imgCat, $imgTitle, $imgDesc);
+            
+            //Check for errors
+            if ( $e !== true ) {
+                $errors[] = $e;
+            }
+        }
+    }
+    //Clean up mediadir
+    fileHandler::cleanMediaDir( $extractdir );
+    
+    // Error handling
+    if (isset($errors )) {
+        if ( count( $errors ) == 0) {
+            echo _RSGALLERY_ALERT_UPLOADOK;
+        } else {
+            foreach( $errors as $err ) {
+                echo $err->toString();
+            }
+        }
+    } else {
+        //Everything went smoothly, back to Control Panel
+        mosRedirect("index2.php?option=com_rsgallery2", _RSGALLERY_ALERT_UPLOADOK);
+    }
+}
 ?>

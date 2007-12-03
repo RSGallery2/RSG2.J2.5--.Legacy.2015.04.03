@@ -407,5 +407,239 @@ class html_rsg2_images {
 		</form>
 		<?php
 	}
+	
+	function batchupload($option) {
+        global $rsgConfig, $task, $rsgOption;
+        $FTP_path = $rsgConfig->get('ftp_path');
+        $size = round( ini_get('upload_max_filesize') * 1.024 );
+        ?>
+        <script language="javascript" type="text/javascript">
+        <!--
+        function submitbutton(pressbutton) {
+            var form = document.adminForm;
+ 
+            for (i=0;i<document.forms[0].batchmethod.length;i++) {
+                if (document.forms[0].batchmethod[i].checked) {
+                    upload_method = document.forms[0].batchmethod[i].value;
+                    }
+            }
+            
+            for (i=0;i<document.forms[0].selcat.length;i++) {
+                if (document.forms[0].selcat[i].checked) {
+                    selcat_method = document.forms[0].selcat[i].value;
+                    }
+            }
+        if (pressbutton == 'controlPanel') {
+        	location = "index2.php?option=com_rsgallery2";
+        	return;
+        }
+        if (pressbutton == 'batchupload')
+            {
+            // do field validation
+            if (upload_method == 'zip')
+                {
+                if (form.zip_file.value == '')
+                    {
+                    alert( "<?php echo _RSGALLERY_BATCH_NO_ZIP;?>" );
+                    }        
+               else if (form.xcat.value == '0' & selcat_method == '1')
+                    {
+                    alert("<?php echo _RSGALLERY_BATCH_GAL_FIRST;?>");
+                    }
+                else
+                    {
+                    form.submit();
+                    }
+                }
+            else if (upload_method == 'ftp')
+            	{
+            	if (form.ftppath.value == '')
+            		{
+            		alert( "<?php echo _RSGALLERY_BATCH_NO_FTP;?>" );	
+            		}
+            	else if (form.xcat.value == '0' & selcat_method == '1')
+            		{
+					alert("<?php echo _RSGALLERY_BATCH_GAL_FIRST;?>");
+            		}
+            	else
+            		{
+            		form.submit();
+            		}
+            	}
+            }
+        }
+        //-->
+        </script>
+        <form name="adminForm" action="index2.php" method="post" enctype="multipart/form-data">
+        <table width="100%">
+        <tr>
+            <td width="300">&nbsp;</td>
+            <td>
+                <table class="adminform">
+                <tr>
+                    <th colspan="3"><font size="4"><?php echo _RSGALLERY_BATCH_STEP1;?></font></th>
+                </tr>
+                <tr>
+                    <td width="200"><strong><?php echo _RSGALLERY_BATCH_METHOD;?></strong>
+                    <?php
+                    echo mosToolTip( _RSGALLERY_BATCH_METHOD_TIP, _RSGALLERY_BATCH_METHOD );
+                    ?>
+                    </td>
+                    <td width="200">
+                        <input type="radio" value="zip" name="batchmethod" CHECKED/>
+                        <?php echo _RSGALLERY_BATCH_ZIPFILE; ?> :</td>
+                    <td>
+                        <input type="file" name="zip_file" size="20" />
+                        <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
+                        <?php echo _RSGALLERY_BATCH_UPLOAD_LIMIT . $size ._RSGALLERY_BATCH_IN_PHPINI;?>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        <input type="radio" value="ftp" name="batchmethod" />
+                        <?php echo _RSGALLERY_BATCH_FTP_PATH;?> :</td>
+                    <td>
+
+                        <input type="text" name="ftppath" value="<?php echo $FTP_path; ?>" size="30" /><?php echo mosToolTip( _RSGALLERY_BATCH_FTP_PATH_OVERL, _RSGALLERY_BATCH_FTP_PATH );//echo _RSGALLERY_BATCH_DONT_FORGET_SLASH;?>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">&nbsp;<br /></td>
+                </tr>
+                <tr>
+                <td valign="top"><strong><?php echo _RSGALLERY_BATCH_CATEGORY;?></strong></td>
+                    <td valign="top">
+                        <input type="radio" name="selcat" value="1" CHECKED/>&nbsp;&nbsp;<?php echo _RSGALLERY_BATCH_YES_IMAGES_IN;?>:&nbsp;
+                    </td>
+                    <td valign="top">
+                        <?php echo galleryUtils::galleriesSelectList( null, 'xcat', false );?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="2"><input type="radio" name="selcat" value="0" />&nbsp;&nbsp;<?php echo _RSGALLERY_BATCH_NO_SPECIFY; ?></td>
+                </tr>
+                <tr>
+                    <td colspan="3">&nbsp;<br /></td>
+                </tr>
+                <tr class="row1">
+                    <th colspan="3">
+                        <div align="center" style="visibility: hidden;">
+                        <input type="button" name="something" value="<?php echo _RSGALLERY_BATCH_NEXT;?>" onClick="submitbutton('batchupload');" />
+                        </div>
+                        </th>
+                </tr>
+                </table>
+            </td>
+            <td width="300">&nbsp;</td>
+        </tr>
+        </table>
+        <input type="hidden" name="uploaded" value="1" />
+        <input type="hidden" name="option" value="com_rsgallery2" />
+        <input type="hidden" name="rsgOption" value="<?php echo $rsgOption;?>" />
+        <input type="hidden" name="task" value="batchupload" />
+        <input type="hidden" name="boxchecked" value="0" />
+        </form>
+        <?php
+        }
+
+	function batchupload_2( $ziplist, $extractDir ){
+        global $mosConfig_live_site, $database, $rsgOption;
+        
+        //Get variables from form
+        $selcat 		= rsgInstance::getInt('selcat'  , null);
+        $ftppath 		= rsgInstance::getVar('ftppath'  , null);
+        $xcat 			= rsgInstance::getInt('xcat'  , null);
+        $batchmethod 	= rsgInstance::getVar('batchmethod'  , null);
+        ?>
+        <form action="index2.php" method="post" name="adminForm">
+        <table class="adminform">
+        <tr>
+            <th colspan="5" class="sectionname"><font size="4"><?php echo _RSGALLERY_BATCH_STEP2;?></font></th>
+        </tr>
+        <tr>
+        <?php
+		
+        // Initialize k (the column reference) to zero.
+        $k = 0;
+        $i = 0;
+
+        foreach ($ziplist as $filename) {
+        	$k++;
+        	//Check if filename is dir
+        	if ( is_dir(JPATH_ROOT. DS . 'media' . DS . $extractDir . DS . $filename) ) {
+        		continue;
+        	} else {
+        		//Check if file is allowed
+        		$allowed_ext = array("gif","jpg","png");
+        		$ext = fileHandler::getImageType( JPATH_ROOT. DS . 'media' . DS . $extractDir . DS . $filename );
+        		if ( !in_array($ext, $allowed_ext) ) {
+        			continue;
+        		} else {
+        			$i++;
+        		}
+        	}
+            ?>
+            <td align="center" valign="top" bgcolor="#CCCCCC">
+                <table class="adminform" border="0" cellspacing="1" cellpadding="1">
+                    <tr>
+                        <th colspan="2">&nbsp;</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="right"><?php echo _RSGALLERY_BATCH_DELETE;?> #<?php echo $i - 1;?>: <input type="checkbox" name="delete[<?php echo $i - 1;?>]" value="true" /></td>
+                    </tr>
+                    <tr>
+                        <td align="center" colspan="2"><img src="<?php echo $mosConfig_live_site . "/media/" . $extractDir . "/" . $filename;?>" alt="" border="1" width="100" align="center" /></td>
+                    </tr>
+                    <input type="hidden" value="<?php echo $filename;?>" name="filename[]" />
+                    <tr>
+                        <td><?php echo _RSGALLERY_BATCH_TITLE;?></td>
+                        <td>
+                            <input type="text" name="ptitle[]" size="15" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><?php echo _RSGALLERY_BATCH_GAL;?></td>
+                        <td><?php
+                            if ($selcat == 1 && $xcat !== '0')
+                                {
+                                ?>
+                                <input type="text" name="cat_text" value="<?php echo htmlspecialchars(stripslashes(galleryUtils::getCatnameFromId($xcat)));?>" readonly />
+                                <input type="hidden" name="category[]" value="<?php echo $xcat;?>" />
+                                <?php
+                                }
+                            else
+                                {
+								echo galleryUtils::galleriesSelectList( null, 'category[]', false );
+                                }
+                                ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><?php echo _RSGALLERY_DESCR;?></td>
+                        <td><textarea cols="15" rows="2" name="descr[]"></textarea></td>
+                    </tr>
+                </table>
+            </td>
+            <?php
+            if ($k == 5)
+                {
+                echo "</tr><tr>";
+                $k = 0;
+                }
+            }
+            ?>
+			</table>
+
+			<input type="hidden" name="teller" value="<?php echo $i;?>" />
+			<input type="hidden" name="extractdir" value="<?php echo $extractDir;?>" />
+			<input type="hidden" name="option" value="com_rsgallery2" />
+			<input type="hidden" name="task" value="save_batchupload" />
+
+			</form>
+        <?php
+	}
 }
 ?>
