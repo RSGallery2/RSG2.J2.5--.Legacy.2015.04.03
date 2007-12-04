@@ -258,6 +258,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		$limitstart = rsgInstance::getInt( 'limitstart' );
 		
 		//instantiate page navigation
+		jimport("joomla.html.pagination");
 		$pagenav = new JPagination( $itemCount, $limitstart, $limit );
 		
 		// increase the gallery hit counter
