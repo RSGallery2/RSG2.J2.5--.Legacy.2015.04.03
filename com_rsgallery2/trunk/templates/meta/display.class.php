@@ -29,7 +29,7 @@ class rsgDisplay extends JObject{
 			$content = null;
 		}
 		$xml	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template .DS.'templateDetails.xml';
-		$this->params = new JParameter($content, $xml, 'template');
+		$this->params = new JParameter($content, $xml, 'rsgTemplate');
 		
 	}
 	
@@ -448,7 +448,7 @@ class rsgDisplay extends JObject{
 	function _showEXIF() {
 		require_once(JPATH_ROOT . DS . "components" . DS . "com_rsgallery2" . DS . "lib" . DS . "exifreader" . DS . "exifReader.php");
 		$image = rsgInstance::getItem();
-		$filename = JPATH_ROOT . $image->original()->name;
+		$filename = JPATH_ROOT . $image->original->name;
 		
 		$exif = new phpExifReader($filename);
 		$exif->showFormattedEXIF();
