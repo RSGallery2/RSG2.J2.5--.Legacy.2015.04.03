@@ -7,18 +7,19 @@
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
-defined( '_VALID_MOS' ) or die( 'Access Denied.' );
+defined( '_JEXEC' ) or die( 'Access Denied.' );
 
 // create global variables in case we are not in the global scope.
-global $rsgConfig, $rsgAccess, $rsgVersion, $rsgOption;
+global $rsgConfig, $rsgAccess, $rsgVersion, $rsgOption, $mainframe ;
 
-// include j15backport to allow use of Joomla! 1.5 libraries
-require_once($mosConfig_absolute_path.'/components/com_rsgallery2/lib/j15backport/j15backport.php');
 
 //Set path globals for RSGallery2
 define('JPATH_RSGALLERY2_SITE', JPATH_ROOT. DS .'components'. DS . 'com_rsgallery2');
 define('JPATH_RSGALLERY2_ADMIN', JPATH_ROOT. DS .'administrator' . DS . 'components' . DS . 'com_rsgallery2');
 define('JPATH_RSGALLERY2_LIBS',JPATH_ROOT. DS . 'components' . DS . 'com_rsgallery2' . DS . 'lib');
+
+$app =JFactory::getApplication();
+define('JURI_SITE', $app->isSite() ? JURI::base() : $mainframe->getSiteURL());
 
 // check if this file has been included yet.
 if( isset( $rsgConfig )) return;
@@ -58,9 +59,10 @@ require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'gallery.class.php'
 require_once(JPATH_RSGALLERY2_LIBS . DS . 'rsgcomments' . DS . 'rsgcomments.class.php');
 require_once(JPATH_RSGALLERY2_LIBS . DS . 'rsgvoting' . DS . 'rsgvoting.class.php');
 
+$lang =& JFactory::getLanguage();
 //Check for language files, if not found, default to english
-if (file_exists(JPATH_RSGALLERY2_ADMIN.'/language/'.$mosConfig_lang.'.php')){
-    include_once(JPATH_RSGALLERY2_ADMIN.'/language/'.$mosConfig_lang.'.php');
+if (file_exists(JPATH_RSGALLERY2_ADMIN.'/language/'.$lang->get("backwardlang","english").'.php')){
+	include_once(JPATH_RSGALLERY2_ADMIN.'/language/'.$lang->get("backwardlang","english").'.php');
 } else {
     include_once(JPATH_RSGALLERY2_ADMIN.'/language/english.php');
 }

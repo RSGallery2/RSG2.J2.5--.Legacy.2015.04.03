@@ -1,6 +1,6 @@
 <?php
 
-defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 /**
  * Class to determine correct mimetype for uploaded files
  * @version $Id$

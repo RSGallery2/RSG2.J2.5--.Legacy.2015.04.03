@@ -9,7 +9,7 @@
 * @author Stefan Frick - stefan.frick@gmail.com, updated to version 1.13.0 by Christer Toivonen, christer.toivonen@gmail.com
 * RSGallery is Free Software
 **/
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 //Created by Christer 2007-05-20
 //display.class.php
 setlocale(LC_ALL,"sv_SE");
@@ -294,7 +294,7 @@ DEFINE("_RSGALLERY_PURGE_GAL",				"album rensade i databasen.");
 DEFINE("_RSGALLERY_PURGE_CONFIG",			"konfigurationen rensad i databasen.");
 DEFINE("_RSGALLERY_PURGE_COMMENTS",			"kommentarer rensade i databasen.");
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Använde rm -r för att försöka radera $mosConfig_absolute_path/images/rsgallery");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Använde rm -r för att försöka radera JPATH_SITE/images/rsgallery");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"Tog bort #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"Tog bort #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"Tog bort #__rsgallery2_config");

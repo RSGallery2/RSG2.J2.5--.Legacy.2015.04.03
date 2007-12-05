@@ -5,7 +5,7 @@
  * @copyright (C) 2003 - 2006 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
-defined( '_VALID_MOS' ) or die( 'Restricted Access' );
+defined( '_JEXEC' ) or die( 'Restricted Access' );
 
 /**
  * Template class for RSGallery2
@@ -15,7 +15,7 @@ defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 class rsgDisplay_slideshowone extends rsgDisplay{
 
 	function showSlideShow(){
-		global $rsgConfig, $mosConfig_live_site;
+		global $rsgConfig;
 		
 		$gallery = rsgGalleryManager::get();
 		

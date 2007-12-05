@@ -8,7 +8,7 @@
 * RSGallery2 is Free Software
 */
 
-defined( '_VALID_MOS' ) or die( 'Access Denied' );
+defined( '_JEXEC' ) or die( 'Access Denied' );
 
 /**
 * Image utilities class
@@ -30,7 +30,8 @@ class audioUtils extends fileUtils{
      * @return returns true if successfull otherwise returns an ImageUploadError
      */
     function importImage($tmpName, $name, $cat, $title='', $desc='') {
-        global $database, $my, $rsgConfig;
+        global $database, $rsgConfig;
+		$my =& JFactory::getUser();
 
         $destination = fileUtils::move_uploadedFile_to_orignalDir( $tmpName, $name );
         
@@ -64,9 +65,9 @@ class audioUtils extends fileUtils{
     }
     
      function getAudio($name, $local=false){
-        global $mosConfig_live_site, $rsgConfig;
+        global  $rsgConfig;
         
-        $locale = $local? JPATH_ROOT : $mosConfig_live_site;
+        $locale = $local? JPATH_ROOT : JURI_SITE;
         
         // if thumb image exists return that, otherwise the original image width <= $thumb_width so we return the original image instead.
         if( file_exists( JPATH_ROOT.$rsgConfig->get('imgPath_original') . '/' . audioUtils::getAudioName( $name ))){

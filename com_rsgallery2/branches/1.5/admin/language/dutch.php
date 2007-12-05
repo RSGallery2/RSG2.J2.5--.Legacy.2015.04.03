@@ -9,7 +9,7 @@
 * RSGallery is Free Software
 **/
 
-defined( '_VALID_MOS' ) or die( 'Beperkte toegang' );
+defined( '_JEXEC' ) or die( 'Beperkte toegang' );
 
 //rsgallery2.html.php
 
@@ -360,7 +360,7 @@ DEFINE("_RSGALLERY_PURGE_ORIGINAL",			"verwijder originele afbeeldingen.");
 DEFINE("_RSGALLERY_PURGE_PURGED",			"Definitief Verwijderen.");
 
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",			"Gebruik RM -r om te proberen $mosConfig_absolute_path/images/rsgallery te verwijderen");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",			"Gebruik RM -r om te proberen JPATH_SITE/images/rsgallery te verwijderen");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",		"Verwijderd #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",		"Verwijderd #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",		"Verwijderd #__rsgallery2_config");

@@ -17,7 +17,7 @@
 */
 
 //Admin Control panel
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 DEFINE("_RSGALLERY_C_CONFIG",			"Configuración");
 

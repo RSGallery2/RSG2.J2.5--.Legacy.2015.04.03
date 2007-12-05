@@ -9,7 +9,7 @@
 */
 
 // no direct access
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 /**
  * Handles HTML screens for image option 
@@ -18,7 +18,8 @@ defined( '_VALID_MOS' ) or die( 'Restricted access' );
 class html_rsg2_images {
 
 	function showImages( $option, &$rows, &$lists, &$search, &$pageNav ) {
-		global $my, $rsgOption, $option, $rsgConfig, $mosConfig_live_site;
+		global $rsgOption, $option, $rsgConfig;
+		$my = JFactory::getUser();
 		?>
  		<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
@@ -66,7 +67,7 @@ class html_rsg2_images {
 			$img 	= $row->published ? 'publish_g.png' : 'publish_x.png';
 			$alt 	= $row->published ? 'Published' : 'Unpublished';
 
-			$checked 	= mosCommonHTML::CheckedOutProcessing( $row, $i );
+			$checked 	= JHTML::_('grid.checkedout', $row, $i );
 
 			$row->cat_link 	= 'index2.php?option=com_rsgallery2&rsgOption=galleries&task=editA&hidemainmenu=1&id='. $row->gallery_id;
 			?>
@@ -82,12 +83,13 @@ class html_rsg2_images {
 				if ( $row->checked_out && ( $row->checked_out != $my->id ) ) {
 					echo $row->title;
 				} else {
-					if (is_a( rsgGalleryManager::getItem( $row->id ), 'rsgItem_audio' ) ) {
+					$gallery = rsgGalleryManager::getGalleryByItemID($row->id);
+					if (is_a( $gallery->getItem($row->id), 'rsgItem_audio' ) ) {
 						$type = 'audio';
 					} else {
 						$type = 'image';
 					}
-					echo JHTML::tooltip('<img src="'.$mosConfig_live_site.$rsgConfig->get('imgPath_thumb').'/'.$row->name.'.jpg" alt="'.$row->name.'" />',
+					echo JHTML::tooltip('<img src="'.JURI_SITE.$rsgConfig->get('imgPath_thumb').'/'.$row->name.'.jpg" alt="'.$row->name.'" />',
 					 _RSGALLERY_IMG_EDIT_IMG,
 					 $row->name,
 					 $row->title.'&nbsp;('.$row->name.')',
@@ -148,8 +150,11 @@ class html_rsg2_images {
 	* @param string The option
 	*/
 	function editImage( &$row, &$lists, &$params, $option ) {
-		global $rsgOption, $mosConfig_live_site;
-		mosMakeHtmlSafe( $row, ENT_QUOTES, 'descr' );
+		global $rsgOption;
+		jimport("joomla.filter.output");
+				
+		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES, 'descr' );
+		$editor =& JFactory::getEditor();
 		
 		?>
 		<script type="text/javascript">
@@ -166,7 +171,7 @@ class html_rsg2_images {
 			} else if (form.gallery_id.value == "0"){
 				alert( "You must select a category." );
 			} else {
-				<?php getEditorContents( 'editor1', 'descr' ) ; ?>
+				<?php echo $editor->save( 'editor1' ) ; ?>
 				submitform( pressbutton );
 			}
 		}
@@ -205,7 +210,7 @@ class html_rsg2_images {
 					<td>
 						<?php
 						// parameters : areaname, content, hidden field, width, height, rows, cols
-                    	editorArea( 'editor1',  $row->descr , 'descr', '100%;', '200', '10', '20' ) ; ?>
+						echo $editor->display('editor1',  $row->descr , '100%', '200', '10', '20' ) ; ?>
 					</td>
 				</tr>
 				<tr>
@@ -232,7 +237,7 @@ class html_rsg2_images {
 						$original	= $item->original();
 						if (is_a( $item, 'rsgItem_audio' ) ) {
 							?>
-							<object type="application/x-shockwave-flash" width="400" height="15" data="<?php echo $mosConfig_live_site ?>/components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=<?php echo $row->name?>&song_url=<?php echo audioUtils::getAudio($row->name)?>"><param name="movie" value="<?php echo $mosConfig_live_site ?>/components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=<?php echo $item->title;?>&song_url=<?php echo $original->url();?>" /></object>
+							<object type="application/x-shockwave-flash" width="400" height="15" data="<?php echo JURI_SITE ?>/components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=<?php echo $row->name?>&song_url=<?php echo audioUtils::getAudio($row->name)?>"><param name="movie" value="<?php echo JURI_SITE ?>/components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=<?php echo $item->title;?>&song_url=<?php echo $original->url();?>" /></object>
 							<?php
 						} else {
 							$thumb 		= $item->thumb();
@@ -303,7 +308,7 @@ class html_rsg2_images {
 	* @param string The option
 	*/
 	function uploadImage( $lists, $option ) {
-		global $rsgOption, $mosConfig_live_site;
+		global $rsgOption;
 		//mosMakeHtmlSafe( $row, ENT_QUOTES, 'descr' );
 		
 		?>
@@ -327,7 +332,7 @@ class html_rsg2_images {
 		</script>
 		<?php 
 		//translated text into javascript -> javascript to .php file
-		/*<script type="text/javascript" src="<?php echo $mosConfig_live_site;?>/administrator/components/com_rsgallery2/includes/script.php"></script>*/
+		/*<script type="text/javascript" src="<?php echo JURI_SITE;?>/administrator/components/com_rsgallery2/includes/script.php"></script>*/
 		require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'script.php');
 		?>
 		<form action="index2.php" method="post" name="adminForm" id="adminForm" enctype="multipart/form-data">

@@ -1,7 +1,7 @@
 <?php defined('_JEXEC') or die('Restricted access'); ?>
 
 <?php
-global $mosConfig_live_site;
+global $mainframe;
 
 $firstImage = $this->gallery->getItem();
 $firstImage = $firstImage->display();
@@ -15,16 +15,16 @@ $firstImage = $firstImage->display();
 
 
 <a href="javascript:;" onclick="startSS()">
-	<img src="<?php echo $mosConfig_live_site;?>/components/com_rsgallery2/images/start.jpg" alt="<?php echo _RSGALLERY_SLIDE_START ?>" width="24" height="24" border="0">
+	<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/start.jpg" alt="<?php echo _RSGALLERY_SLIDE_START ?>" width="24" height="24" border="0">
 </a>
 <a href="javascript:;" onclick="stopSS()">
-	<img src="<?php echo $mosConfig_live_site;?>/components/com_rsgallery2/images/stop.jpg" alt="<?php echo _RSGALLERY_SLIDE_STOP ?>" width="24" height="24" border="0">
+	<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/stop.jpg" alt="<?php echo _RSGALLERY_SLIDE_STOP ?>" width="24" height="24" border="0">
 </a>
 <a href="javascript:;" onclick="prevSS()">
-	<img src="<?php echo $mosConfig_live_site;?>/components/com_rsgallery2/images/previous.jpg" alt="<?php echo _RSGALLERY_SLIDE_PREV ?>" width="24" height="24" border="0">
+	<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/previous.jpg" alt="<?php echo _RSGALLERY_SLIDE_PREV ?>" width="24" height="24" border="0">
 </a>
 <a href="javascript:;" onclick="nextSS()">
-	<img src="<?php echo $mosConfig_live_site;?>/components/com_rsgallery2/images/next.jpg" alt="<?php echo _RSGALLERY_SLIDE_NEXT ?>" width="24" height="24" border="0">
+	<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/next.jpg" alt="<?php echo _RSGALLERY_SLIDE_NEXT ?>" width="24" height="24" border="0">
 </a>
 
 <div style="visibility:hidden;">

@@ -9,13 +9,12 @@
 */
 
 // no direct access
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 require_once( $rsgOptions_path . 'images.html.php' );
 require_once( $rsgOptions_path . 'images.class.php' );
-require_once( JPATH_RSGALLERY2_ADMIN . DS . 'admin.rsgallery2.html.php' );
 
-$cid = josGetArrayInts( 'cid' );
+$cid = JRequest::getVar("cid", array(), 'default', 'array' );
 
 switch ($task) {
 	case 'new':
@@ -108,9 +107,11 @@ switch ($task) {
 * @param database A database connector object
 */
 function showImages( $option ) {
-	global $database, $mainframe, $mosConfig_list_limit;
+	global  $mainframe, $mosConfig_list_limit;
 
-	$gallery_id = intval( $mainframe->getUserStateFromRequest( "gallery_id{$option}", 'gallery_id', 0 ) );
+	$database = JFactory::getDBO();
+	
+	$gallery_id 		= intval( $mainframe->getUserStateFromRequest( "gallery_id{$option}", 'gallery_id', 0 ) );
 	$limit 		= intval( $mainframe->getUserStateFromRequest( "viewlistlimit", 'limit', $mosConfig_list_limit ) );
 	$limitstart = intval( $mainframe->getUserStateFromRequest( "view{$option}limitstart", 'limitstart', 0 ) );
 	$search 	= $mainframe->getUserStateFromRequest( "search{$option}", 'search', '' );
@@ -133,8 +134,8 @@ function showImages( $option ) {
 	$database->setQuery( $query );
 	$total = $database->loadResult();
 
-	require_once( $GLOBALS['mosConfig_absolute_path'] . '/administrator/includes/pageNavigation.php' );
-	$pageNav = new mosPageNav( $total, $limitstart, $limit  );
+	require_once( JPATH_ADMINISTRATOR . '/includes/pageNavigation.php' );
+	$pageNav = new JPagination( $total, $limitstart, $limit  );
 
 	$query = "SELECT a.*, cc.name AS category, u.name AS editor"
 	. "\n FROM #__rsgallery2_files AS a"
@@ -163,8 +164,9 @@ function showImages( $option ) {
 * @param integer The unique id of the record to edit (0 if new)
 */
 function editImage( $option, $id ) {
-	global $database, $my, $mosConfig_absolute_path;
-
+	$my = JFactory::getUser();
+	$database = JFactory::getDBO();
+	
 	$lists = array();
 
 	$row = new rsgImagesItem( $database );
@@ -173,7 +175,7 @@ function editImage( $option, $id ) {
 
 	// fail if checked out not by 'me'
 	if ($row->isCheckedOut( $my->id )) {
-		mosRedirect( "index2.php?option=$option&rsgOption=$rsgOption", "The module $row->title is currently being edited by another administrator." );
+		$mainframe->redirect( "index2.php?option=$option&rsgOption=$rsgOption", "The module $row->title is currently being edited by another administrator." );
 	}
 
 	if ($id) {
@@ -192,15 +194,15 @@ function editImage( $option, $id ) {
 	. "\n WHERE gallery_id = " . (int) $row->gallery_id
 	. "\n ORDER BY ordering"
 	;
-	$lists['ordering'] 			= mosAdminMenus::SpecificOrdering( $row, $id, $query, 1 );
+	$lists['ordering'] 			= JHTML::_('list.specificordering', $row, $id, $query, 1 );
 
 	// build list of categories
 	$lists['gallery_id']			= galleryUtils::galleriesSelectList( $row->gallery_id, 'gallery_id', true );
 	// build the html select list
-	$lists['published'] 		= mosHTML::yesnoRadioList( 'published', 'class="inputbox"', $row->published );
+	$lists['published'] 		= JHTML::_("select.booleanlist", 'published', 'class="inputbox"', $row->published );
 
-	$file 	= $mosConfig_absolute_path .'/administrator/components/com_rsgallery2/options/images.item.xml';
-	$params = new mosParameters( $row->params, $file, 'component' );
+	$file 	= JPATH_SITE .'/administrator/components/com_rsgallery2/options/images.item.xml';
+	$params = new JParameter( $row->params, $file);
 
 	html_rsg2_images::editImage( $row, $lists, $params, $option );
 }
@@ -210,7 +212,9 @@ function editImage( $option, $id ) {
 * @param database A database connector object
 */
 function saveImage( $option, $redirect = true ) {
-	global $database, $my, $rsgOption;
+	global  $rsgOption, $mainframe;
+	$database =& JFactory::getDBO();
+	$my =& JFactory::getUser();
 
 	$row = new rsgImagesItem( $database );
 	if (!$row->bind( $_POST )) {
@@ -237,10 +241,10 @@ function saveImage( $option, $redirect = true ) {
 		exit();
 	}
 	$row->checkin();
-	$row->updateOrder( "gallery_id = " . (int) $row->gallery_id );
+	$row->reorder( "gallery_id = " . (int) $row->gallery_id );
 	
 	if ($redirect)
-		mosRedirect( "index2.php?option=$option&rsgOption=$rsgOption" );
+		$mainframe->redirect( "index2.php?option=$option&rsgOption=$rsgOption" );
 }
 
 /**
@@ -249,12 +253,14 @@ function saveImage( $option, $redirect = true ) {
 * @param string The current url option
 */
 function removeImages( $cid, $option ) {
-	global $database, $rsgOption, $rsgConfig;
+	global  $rsgOption, $rsgConfig, $mainframe;
+	$database =& JFactory::getDBO();
 	
 	if (!is_array( $cid ) || count( $cid ) < 1) {
 		echo "<script> alert('Select an item to delete'); window.history.go(-1);</script>\n";
 		exit;
 	}
+	
 	//Delete images from filesystem
 	if (count( $cid )) {
 		//Delete images from filesystem
@@ -265,11 +271,11 @@ function removeImages( $cid, $option ) {
         	$original 	= JPATH_ROOT.$rsgConfig->get('imgPath_original') . '/' . $name;
         
         	if( file_exists( $thumb ))
-            	if( !unlink( $thumb )) return new PEAR_Error( "error deleting thumb image: " . $thumb );
-        	if( file_exists( $display ))
-            	if( !unlink( $display )) return new PEAR_Error( "error deleting display image: " . $display );
-        	if( file_exists( $original ))
-            	if( !unlink( $original )) return new PEAR_Error( "error deleting original image: " . $original );
+            	if( !JFile::delete( $thumb )) return new PEAR_Error( "error deleting thumb image: " . $thumb );
+			if( file_exists( $display ))
+				if( !JFile::delete( $display )) return new PEAR_Error( "error deleting display image: " . $display );
+			if( file_exists( $original ))
+				if( !JFile::delete( $original )) return new PEAR_Error( "error deleting original image: " . $original );
 		}
 		
 		//Delete from database
@@ -283,12 +289,13 @@ function removeImages( $cid, $option ) {
 		}
 	}
 
-	mosRedirect( "index2.php?option=$option&rsgOption=$rsgOption", _RSGALLERY_ALERT_IMGDELETEOK );
+	$mainframe->redirect( "index2.php?option=$option&rsgOption=$rsgOption", _RSGALLERY_ALERT_IMGDELETEOK );
 }
 
 
 function moveImages( $cid, $option ) {
-	global $database;
+	global $mainframe;
+	$database =& JFactory::getDBO();
 	
 	$new_id = rsgInstance::getInt( 'move_id', '' );
 	if ($new_id == 0) {
@@ -309,7 +316,7 @@ function moveImages( $cid, $option ) {
 			exit();
 		}
 	}
-	mosRedirect( "index2.php?option=$option&rsgOption=images", '' );
+	$mainframe->redirect( "index2.php?option=$option&rsgOption=images", '' );
 	
 }
 /**
@@ -319,7 +326,9 @@ function moveImages( $cid, $option ) {
 * @param string The current url option
 */
 function publishImages( $cid=null, $publish=1,  $option ) {
-	global $database, $my, $rsgOption;
+	global  $rsgOption, $mainframe;
+	$database = JFactory::getDBO();
+	$my =& JFactory::getUser();
 
 	if (!is_array( $cid ) || count( $cid ) < 1) {
 		$action = $publish ? 'publish' : 'unpublish';
@@ -344,21 +353,22 @@ function publishImages( $cid=null, $publish=1,  $option ) {
 		$row = new rsgImagesItem( $database );
 		$row->checkin( $cid[0] );
 	}
-	mosRedirect( "index2.php?option=com_rsgallery2&rsgOption=$rsgOption" );
+	$mainframe->redirect( "index2.php?option=com_rsgallery2&rsgOption=$rsgOption" );
 }
 /**
 * Moves the order of a record
 * @param integer The increment to reorder by
 */
 function orderImages( $uid, $inc, $option ) {
-	global $database, $rsgOption;
+	global  $rsgOption, $mainframe;
+	$database = JFactory::getDBO();
 	$row = new rsgImagesItem( $database );
 	$row->load( (int)$uid );
-	$row->updateOrder();
+	$row->reorder();
 	$row->move( $inc, "published >= 0" );
-	$row->updateOrder();
+	$row->reorder();
 
-	mosRedirect( "index2.php?option=$option&rsgOption=$rsgOption" );
+	$mainframe->redirect( "index2.php?option=$option&rsgOption=$rsgOption" );
 }
 
 /**
@@ -366,18 +376,19 @@ function orderImages( $uid, $inc, $option ) {
 * @param string The current url option
 */
 function cancelImage( $option ) {
-	global $database, $rsgOption;
+	global $rsgOption, $mainframe;
+	$database = JFactory::getDBO();
 	$row = new rsgImagesItem( $database );
 	$row->bind( $_POST );
 	$row->checkin();
-	mosRedirect( "index2.php?option=$option&rsgOption=$rsgOption" );
+	$mainframe->redirect( "index2.php?option=$option&rsgOption=$rsgOption" );
 }
 
 /**
  * Uploads single images
  */
 function uploadImage( $option ) {
-	global $database;
+	$database =& JFactory::getDBO();
 	//Check if there are galleries created
 	$database->setQuery( "SELECT id FROM #__rsgallery2_galleries" );
     $database->query();
@@ -392,7 +403,7 @@ function uploadImage( $option ) {
 }
 
 function saveUploadedImage( $option ) {
-	global $id, $rsgOption;
+	global $id, $rsgOption, $mainframe;
 	$title = rsgInstance::getVar('title'  , '');  
 	$descr = rsgInstance::getVar('descr'  , ''); 
 	$gallery_id = rsgInstance::getInt('gallery_id'  , '');
@@ -425,7 +436,7 @@ function saveUploadedImage( $option ) {
 	}
 	//Error handling if necessary
 	if ( count( $errors ) == 0){
-		mosRedirect( "index2.php?option=$option&rsgOption=$rsgOption", _RSGALLERY_ALERT_UPLOADOK );
+		$mainframe->redirect( "index2.php?option=$option&rsgOption=$rsgOption", _RSGALLERY_ALERT_UPLOADOK );
 	} else {
 		//Show error message for each error encountered
 		foreach( $errors as $e ) {
@@ -444,7 +455,8 @@ function saveUploadedImage( $option ) {
  * @todo Warn user with alert before actually deleting
  */
 function resetHits ( &$cid ) {
-	global $database;
+	global $mainframe;
+	$database =& JFactory::getDBO();
 
 	$total		= count( $cid );
 	/*
@@ -464,14 +476,15 @@ function resetHits ( &$cid ) {
 		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 	}
 
-	mosRedirect( "index2.php?option=com_rsgallery2&rsgOption=images", '*Hits reset to zero succesfull*' );
+	$mainframe->redirect( "index2.php?option=com_rsgallery2&rsgOption=images", '*Hits reset to zero succesfull*' );
 }
 
 function saveOrder( &$cid ) {
-	global $database;
+	global $mainframe;
+	$database =& JFactory::getDBO();
 
 	$total		= count( $cid );
-	$order 		= josGetArrayInts( 'order' );
+	$order 		= JRequest::getVar("order", array(), 'default', 'array' );
 
 	$row 		= new rsgImagesItem( $database );
 	
@@ -501,19 +514,21 @@ function saveOrder( &$cid ) {
 	// execute updateOrder for each group
 	foreach ( $conditions as $cond ) {
 		$row->load( $cond[0] );
-		$row->updateOrder( $cond[1] );
+		$row->reorder( $cond[1] );
 	} // foreach
 
 	// clean any existing cache files
-	mosCache::cleanCache( 'com_rsgallery2' );
+	$cache =& JFactory::getCache();
+	$cache->clean( 'com_rsgallery2' );
 
 	$msg 	= 'New ordering saved';
-	mosRedirect( 'index2.php?option=com_rsgallery2&rsgOption=images', $msg );
+	$mainframe->redirect( 'index2.php?option=com_rsgallery2&rsgOption=images', $msg );
 } // saveOrder
 
 function copyImage( $cid, $option ) {	
-	global $database;
-	
+	global $mainframe;
+	$database =& JFactory::getDBO();
+
 	//For each error that is found, store error message in array
 	$errors = array();
 	
@@ -527,27 +542,27 @@ function copyImage( $cid, $option ) {
     $tmpdir	= uniqid( 'rsgcopy_' );
     
     //Get full path to copy directory
-	$copyDir = mosPathName( JPATH_ROOT.DS . 'media' . DS . $tmpdir . DS );
-    if( !mkdir( $copyDir ) ) {
+	$copyDir = JPath::clean( JPATH_ROOT.DS . 'media' . DS . $tmpdir . DS );
+    if( !JFolder::create($copyDir ) ) {
     		$errors[] = 'Unable to create temp directory ' . $copyDir; 
     } else {
 	    foreach( $cid as $id ) {
-	    	$item = rsgGalleryManager::getItem( $id );
+			$gallery = rsgGalleryManager::getGalleryByItemID($id);
+	    	$item = $gallery->getItem( $id );
 	    	$original = $item->original();
 	    	$source = $original->filePath();
-	    	
 	    	$destination = $copyDir . $item->name;
 	    	
 	    	if( is_dir($copyDir) ) {
 	    		if( file_exists( $source ) ) {
 	    			
-	    			if(!copy( $source, $destination)){
+	    			if(!JFile::copy( $source, $destination)){
 	    				$errors[] = 'The file could not be copied!';
 	    			} else {
 						//Actually importing the image
-						$e = fileUtils::importImage($destination, $item->name, $cat_id, $item->title, $descr);
+						$e = fileUtils::importImage($destination, $item->name, $cat_id, $item->title, $item->description);
 						if ( $e !== true )	$errors[] = $e;
-						if(!unlink($destination)) $errors[] = 'Unable to delete the file' . $item->name;
+						if(!JFile::delete($destination)) $errors[] = 'Unable to delete the file' . $item->name;
 					}
 				}
 			}
@@ -558,7 +573,7 @@ function copyImage( $cid, $option ) {
 
 	//Error handling if necessary
 	if ( count( $errors ) == 0){
-		mosRedirect( "index2.php?option=$option&rsgOption=images", _RSGALLERY_ALERT_COPYOK );
+		$mainframe->redirect( "index2.php?option=$option&rsgOption=images", _RSGALLERY_ALERT_COPYOK );
 	} else {
 		//Show error message for each error encountered
 		foreach( $errors as $e ) {

@@ -11,7 +11,7 @@
 * RSGallery is Free Software
 **/
 
-defined( '_VALID_MOS' ) or die( 'Accés restringit' );
+defined( '_JEXEC' ) or die( 'Accés restringit' );
 
 //rsgallery2.html.php
 //RSShowPictures
@@ -323,7 +323,7 @@ DEFINE("_RSGALLERY_PURGE_COMMENTS",			"comentaris purgats de la base de dades.")
 /*new*/DEFINE("_RSGALLERY_PURGE_ORIGINAL",	"esborrant imatges originals.");
 /*new*/DEFINE("_RSGALLERY_PURGE_PURGED",	"purgades.");
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Utilitzat rm -r per intentar esborrar $mosConfig_absolute_path/images/rsgallery");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Utilitzat rm -r per intentar esborrar JPATH_SITE/images/rsgallery");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"DROPed #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"DROPed #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"DROPed #__rsgallery2_config");

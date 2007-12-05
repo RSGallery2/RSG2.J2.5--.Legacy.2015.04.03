@@ -8,7 +8,7 @@
 **/
 
 // ensure this file is being included by a parent file
-defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 
 // RSG2 is a metacomponent.  joomla calls components options, RSG2 calls it's components rsgOptions
 if( isset( $_REQUEST['rsgOption'] ))
@@ -46,7 +46,7 @@ switch( $rsgOption ){
 	break;
     case 'galleries':
         switch( $task ){
-            case 'new':
+            case 'add':
             case 'edit':
             case 'editA':
                 menu_rsg2_galleries::edit( $option );

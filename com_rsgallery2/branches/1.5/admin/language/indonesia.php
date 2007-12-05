@@ -9,7 +9,7 @@
 * @author Oskar Shaja <oskarshaja@gmail.com>
 * RSGallery is Free Software
 **/
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 //rsgallery2.html.php
 //RSShowPictures
@@ -298,7 +298,7 @@ DEFINE("_RSGALLERY_PURGE_GAL",				"gallery di dalam database dibersihkan.");
 DEFINE("_RSGALLERY_PURGE_CONFIG",			"konfigurasi di dalam database dibersihkan.");
 DEFINE("_RSGALLERY_PURGE_COMMENTS",			"komentar di dalam database dibersihkan.");
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Coba gunakan perintah rm -r untuk menghapus $mosConfig_absolute_path/images/rsgallery");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Coba gunakan perintah rm -r untuk menghapus JPATH_SITE/images/rsgallery");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"DROPed #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"DROPed #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"DROPed #__rsgallery2_config");

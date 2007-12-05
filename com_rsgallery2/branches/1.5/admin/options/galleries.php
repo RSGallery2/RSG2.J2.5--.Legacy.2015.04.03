@@ -8,15 +8,15 @@
 * RSGallery is Free Software
 */
 
-defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 
 require_once( $rsgOptions_path . 'galleries.html.php' );
 require_once( $rsgOptions_path . 'galleries.class.php' );
 
-$cid = josGetArrayInts( 'cid' );
-
+$cid = JRequest::getVar( 'cid' , array(), 'default', 'array' );
+echo($task);
 switch( $task ){
-    case 'new':
+    case 'add':
         edit( $option, 0 );
         break;
 
@@ -75,8 +75,8 @@ switch( $task ){
  * @param database A database connector object
  */
 function show(){
-    global $database, $mainframe, $mosConfig_list_limit, $option;
-
+    global $mainframe, $mosConfig_list_limit, $option;
+	$database =& JFactory::getDBO();
     $limit      = $mainframe->getUserStateFromRequest( "viewlistlimit", 'limit', $mosConfig_list_limit );
     $limitstart = $mainframe->getUserStateFromRequest( "view{$option}limitstart", 'limitstart', 0 );
     $levellimit = $mainframe->getUserStateFromRequest( "view{$option}limit", 'levellimit', 10 );
@@ -117,7 +117,7 @@ function show(){
         $children[$pt] = $list;
     }
     // second pass - get an indent list of the items
-    $list = mosTreeRecurse( 0, '', array(), $children, max( 0, $levellimit-1 ) );
+    $list = JHTML::_('menu.treerecurse',  0, '', array(), $children, max( 0, $levellimit-1 ) );
     // eventually only pick out the searched items.
     if ($search) {
         $list1 = array();
@@ -134,11 +134,10 @@ function show(){
     }
 
     $total = count( $list );
+	jimport("joomla.html.pagination");
+    $pageNav = new JPagination( $total, $limitstart, $limit  );
 
-    require_once( $GLOBALS['mosConfig_absolute_path'] . '/administrator/includes/pageNavigation.php' );
-    $pageNav = new mosPageNav( $total, $limitstart, $limit  );
-
-    $lists['levellist'] = mosHTML::integerSelectList( 1, 20, 1, 'levellimit', 'size="1" onchange="document.adminForm.submit();"', $levellimit );
+    $lists['levellist'] = JHTML::_("Select.integerlist", 1, 20, 1, 'levellimit', 'size="1" onchange="document.adminForm.submit();"', $levellimit );
 
     // slice out elements based on limits
     $list = array_slice( $list, $pageNav->limitstart, $pageNav->limit );
@@ -152,8 +151,10 @@ function show(){
  * @param integer The unique id of the record to edit (0 if new)
  */
 function edit( $option, $id ) {
-    global $database, $my, $rsgOptions_path;
-
+	global $rsgOptions_path, $mainframe;
+	$database =& JFactory::getDBO();
+	$my =& JFactory::getUser();
+	
     $lists = array();
 
     $row = new rsgGalleriesItem( $database );
@@ -162,7 +163,7 @@ function edit( $option, $id ) {
 
     // fail if checked out not by 'me'
     if ($row->isCheckedOut( $my->id )) {
-        mosRedirect( 'index2.php?option='. $option, 'The module $row->title is currently being edited by another administrator.' );
+        $mainframe->redirect( 'index2.php?option='. $option, 'The module $row->title is currently being edited by another administrator.' );
     }
 
     if ($id) {
@@ -181,16 +182,16 @@ function edit( $option, $id ) {
     ;
 
 	// build list of users
-	$lists['uid'] 			= mosAdminMenus::UserSelect( 'uid', $row->uid, 1, NULL, 'name', 0 );
+	$lists['uid'] 			= JHTML::_('list.users', 'uid', $row->uid, 1, NULL, 'name', 0 );
     // build the html select list for ordering
-    $lists['ordering']          = mosAdminMenus::SpecificOrdering( $row, $id, $query, 1 );
+    $lists['ordering']          = JHTML::_('list.specificordering', $row, $id, $query, 1 );
     // build the html select list for paraent item
     $lists['parent']        = galleryParentSelectList( $row );
     // build the html select list
-    $lists['published']         = mosHTML::yesnoRadioList( 'published', 'class="inputbox"', $row->published );
+    $lists['published']         = JHTML::_("select.booleanlist", 'published', 'class="inputbox"', $row->published );
 
     $file   = $rsgOptions_path .'galleries.item.xml';
-    $params = new mosParameters( $row->params, $file, 'component' );
+    $params = new JParameter( $row->params, $file );
 
     html_rsg2_galleries::edit( $row, $lists, $params, $option );
 }
@@ -201,8 +202,11 @@ function edit( $option, $id ) {
  * @param database A database connector object
  */
 function save( $option ) {
-    global $database, $my, $rsgOption, $rsgAccess, $rsgConfig;
-
+    global $rsgOption, $rsgAccess, $rsgConfig, $mainframe;
+	
+	$my =& JFactory::getUser();
+	$database =& JFactory::getDBO();
+	
     $row = new rsgGalleriesItem( $database );
     if (!$row->bind( $_POST )) {
         echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
@@ -230,7 +234,7 @@ function save( $option ) {
         exit();
     }
     $row->checkin();
-    $row->updateOrder( );
+    $row->reorder( );
     
     //If acl is enabled, set permissions array and save them to the DB
     if ( $rsgConfig->get('acl_enabled') ) {
@@ -238,7 +242,7 @@ function save( $option ) {
     	$rsgAccess->savePermissions($perms, $row->id);
     }
 	
-    mosRedirect( "index2.php?option=$option&rsgOption=$rsgOption" );
+    $mainframe->redirect( "index2.php?option=$option&rsgOption=$rsgOption" );
 }
 
 
@@ -264,12 +268,12 @@ function removeWarn( $cid, $option ) {
 * @param string The current url option
 */
 function removeReal( $cid, $option ) {
-    global $rsgOption, $rsgConfig;
+	global $rsgOption, $rsgConfig, $mainframe;
 
     $result = rsgGalleryManager::deleteArray( $cid );
 
     if( !$rsgConfig->get( 'debug' ))
-        mosRedirect( "index2.php?option=$option&rsgOption=$rsgOption" );
+        $mainframe->redirect( "index2.php?option=$option&rsgOption=$rsgOption" );
 }
 
 /**
@@ -279,7 +283,9 @@ function removeReal( $cid, $option ) {
 * @param string The current url option
 */
 function publish( $cid=null, $publish=1,  $option ) {
-    global $database, $my, $rsgOption;
+	global $rsgOption, $mainframe;
+	$database =& JFactory::getDBO();
+	$my =& JFactory::getUser();
 
     $catid = rsgInstance::getInt( 'catid', array(0) );
 
@@ -306,19 +312,20 @@ function publish( $cid=null, $publish=1,  $option ) {
         $row = new rsgGalleriesItem( $database );
         $row->checkin( $cid[0] );
     }
-    mosRedirect( "index2.php?option=$option&rsgOption=$rsgOption" );
+    $mainframe->redirect( "index2.php?option=$option&rsgOption=$rsgOption" );
 }
 /**
 * Moves the order of a record
 * @param integer The increment to reorder by
 */
 function order( $uid, $inc, $option ) {
-    global $database, $rsgOption;
-    $row = new rsgGalleriesItem( $database );
+	global $rsgOption, $mainframe;
+	$database =& JFactory::getDBO();
+	$row = new rsgGalleriesItem( $database );
     $row->load( $uid );
     $row->move( $inc, "published >= 0" );
 
-    mosRedirect( "index2.php?option=$option&rsgOption=$rsgOption" );
+    $mainframe->redirect( "index2.php?option=$option&rsgOption=$rsgOption" );
 }
 
 /**
@@ -326,15 +333,18 @@ function order( $uid, $inc, $option ) {
 * @param string The current url option
 */
 function cancel( $option ) {
-    global $database, $rsgOption;
-    $row = new rsgGalleriesItem( $database );
+	global $rsgOption, $mainframe;
+    
+	$database =& JFactory::getDBO();
+	$row = new rsgGalleriesItem( $database );
     $row->bind( $_POST );
     $row->checkin();
-    mosRedirect( "index2.php?option=$option&rsgOption=$rsgOption" );
+    $mainframe->redirect( "index2.php?option=$option&rsgOption=$rsgOption" );
 }
 
 function saveOrder( &$cid ) {
-	global $database;
+	global $mainframe;
+	$database =& JFactory::getDBO();
 
 	$total		= count( $cid );
 	$order 		= josGetArrayInts( 'order' );
@@ -375,7 +385,7 @@ function saveOrder( &$cid ) {
 	mosCache::cleanCache( 'com_rsgallery2' );
 
 	$msg 	= 'New ordering saved';
-	mosRedirect( 'index2.php?option=com_rsgallery2&rsgOption=galleries', $msg );
+	$mainframe->redirect( 'index2.php?option=com_rsgallery2&rsgOption=galleries', $msg );
 } // saveOrder
 
 ?>

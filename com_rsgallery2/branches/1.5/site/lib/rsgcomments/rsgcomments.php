@@ -8,7 +8,7 @@
 * RSGallery is Free Software
 */
 
-defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 
 require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgcomments' . DS . 'rsgcomments.class.php' );
 
@@ -30,11 +30,11 @@ switch( $task ){
  * @param string The current url option
  */
 function test( $option ) {
-	global $Itemid, $mainframe, $database, $mosConfig_live_site, $mosConfig_absolute_path;
+	global $Itemid;
 	$id	= rsgInstance::getInt('id'  , '');
 	$item_id 	= rsgInstance::getInt('item_id'  , '');
 	$catid 		= rsgInstance::getInt('catid'  , '');
-	$redirect_url = "index.php?option=$option&amp;Itemid=$Itemid&amp;page=inline&amp;id=$item_id&amp;catid=$catid";
+	$redirect_url = JRoute::_("index.php?option=".$option."&page=inline&id=".$item_id."&catid=".$catid);
 	echo "Here we will delete comment number ".$id."\\n and redirect to ".$redirect_url;
 }
 
@@ -44,8 +44,9 @@ function test( $option ) {
  * @todo Implement system to allow only one comment per user.
  */
 function saveComment( $option ) {
-	global $Itemid, $database, $my, $rsgConfig, $Itemid, $mosConfig_absolute_path;
-	
+	global $rsgConfig,$mainframe;
+	$my = JFactory::getUser();
+	$database = JFactory::getDBO();
 	
 	//Retrieve parameters
 	$user_ip	= $_SERVER['REMOTE_ADDR'];
@@ -56,9 +57,9 @@ function saveComment( $option ) {
 	$item_id 	= rsgInstance::getInt( 'item_id'  , '');
 	$catid 		= rsgInstance::getInt( 'catid'  , '');
 	//Check if commenting is enabled
-	$redirect_url = "index.php?option=$option&amp;Itemid=$Itemid&amp;page=inline&amp;id=$item_id&amp;catid=$catid";
+	$redirect_url = JRoute::_("index.php?option=".$option."&page=inline&id=".$item_id."&catid=".$catid);
 	if ($rsgConfig->get('comment') == 0) {
-		mosRedirect( $redirect_url, _RSGALLERY_COMMENTS_DISABLED );
+		$mainframe->redirect($redirect_url, _RSGALLERY_COMMENTS_DISABLED );
 		exit();
 	}
 	
@@ -73,7 +74,7 @@ function saveComment( $option ) {
 			$result = loadResult();
 			if ($result > 0 ) {
 				//No further comments allowed, redirect
-				mosRedirect($redirect_url, _RSGALLERY_COMMENTS_ONLY_ONCE);
+				$mainframe->redirect($redirect_url, _RSGALLERY_COMMENTS_ONLY_ONCE);
 			} else {
 				continue;
 			}
@@ -94,7 +95,7 @@ function saveComment( $option ) {
 		}
 		//Check if security check was OK
 		if ($checkSecurity == false ) {
-			mosRedirect( $redirect_url, _RSGALLERY_COMMENTS_INCORRECT_CAPTCHA );
+			$mainframe->redirect( $redirect_url, _RSGALLERY_COMMENTS_INCORRECT_CAPTCHA );
 			exit();
 		}	
 	}
@@ -121,9 +122,9 @@ function saveComment( $option ) {
 			")";
 	$database->setQuery( $sql );
 	if ( $database->query() ) {
-		mosRedirect( $redirect_url, _RSGALLERY_COMMENTS_ADD_SUCCES );
+		$mainframe->redirect( $redirect_url, _RSGALLERY_COMMENTS_ADD_SUCCES );
 	} else {
-		mosRedirect( $redirect_url, _RSGALLERY_COMMENTS_ADD_FAIL );
+		$mainframe->redirect( $redirect_url, _RSGALLERY_COMMENTS_ADD_FAIL );
 		//echo $sql;
 	}
 	
@@ -135,7 +136,7 @@ function saveComment( $option ) {
 * @param string The current url option
 */
 function deleteComments( $option ) {
-	global $database;
+	$database =& JFactory::getDBO();
 	
 	//Get parameters
 	$id			= rsgInstance::getInt( 'id', '' );
@@ -149,6 +150,6 @@ function deleteComments( $option ) {
 			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 		}
 	}
-	mosRedirect( "index.php?option=$option&amp;page=inline&amp;id=$item_id&amp;catid=$catid", _RSGALLERY_COMMENTS_COMMDEL );
+	$mainframe->redirect("index.php?option=".$option."&page=inline&id=".$item_id."&catid=".$catid, _RSGALLERY_COMMENTS_COMMDEL );
 }
 ?>

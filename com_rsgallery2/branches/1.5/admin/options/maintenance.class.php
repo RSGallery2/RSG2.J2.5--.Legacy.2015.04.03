@@ -8,7 +8,7 @@
 * RSGallery is Free Software
 */
 
-defined( '_VALID_MOS' ) or die( 'Restricted Access' );
+defined( '_JEXEC' ) or die( 'Restricted Access' );
 
 /**
  * Maintenance class for RSGallery2
@@ -41,14 +41,15 @@ class rsg2_maintenance {
     	} else {
     		return true;
     	}
+    
     }
 }
 
 class rsg2_consolidate extends rsg2_maintenance {
 	
 	function consolidateDB() {
-	    global $database, $rsgConfig;
-	
+	    global  $rsgConfig;
+		$database =& JFactory::getDBO();
 	    //Load all image names from DB in array
 	    $sql = "SELECT name FROM #__rsgallery2_files";
 	    $database->setQuery($sql);

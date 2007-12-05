@@ -9,7 +9,7 @@
 * @author boboras <boboras@gmail.com>
 * RSGallery is Free Software
 **/
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 //rsgallery2.html.php
 //function showUserGallery
@@ -273,7 +273,7 @@ DEFINE("_RSGALLERY_PURGE_GAL",				"purgadas as galerias na base de datos.");
 DEFINE("_RSGALLERY_PURGE_CONFIG",			"purgada a configuración na base de datos.");
 DEFINE("_RSGALLERY_PURGE_COMMENTS",			"purgados os comentarios na base de datos.");
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Usado rm -r para intentar eliminar $mosConfig_absolute_path/images/rsgallery");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Usado rm -r para intentar eliminar JPATH_SITE/images/rsgallery");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"Eliminado #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"Eliminado #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"Eliminado #__rsgallery2_config");

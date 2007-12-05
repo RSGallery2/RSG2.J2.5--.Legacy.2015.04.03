@@ -10,7 +10,7 @@
 * RSGallery is Free Software
 **/
 
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 //rsgallery2.html.php
 //function showUserGallery
@@ -276,7 +276,7 @@ DEFINE("_RSGALLERY_PURGE_GAL",				"izbrisani galerije iz baze podataka.");
 DEFINE("_RSGALLERY_PURGE_CONFIG",			"izbrisani postavke iz baze podataka.");
 DEFINE("_RSGALLERY_PURGE_COMMENTS",			"izbrisani komentari iz baze bodataka.");
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Koristim rm -r za pokušaj brisanja $mosConfig_absolute_path/images/rsgallery");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Koristim rm -r za pokušaj brisanja JPATH_SITE/images/rsgallery");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"Izbrisano #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"Izbrisano #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"Izbrisano #__rsgallery2_config");

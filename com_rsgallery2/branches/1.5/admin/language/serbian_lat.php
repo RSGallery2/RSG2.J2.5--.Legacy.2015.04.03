@@ -9,7 +9,7 @@
 * @author Nebojša Pantić  < nebojsa.pantic@krypton.co.yuThis e-mail address is being protected from spam bots, you need JavaScript enabled to view it >
 * RSGallery is Free Software
 **/
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 //rsgallery2.html.php
 //RSShowPictures
@@ -321,7 +321,7 @@ DEFINE("_RSGALLERY_PURGE_COMMENTS",			"Očišćeni kometari iz baze podataka.");
 /*new*/DEFINE("_RSGALLERY_PURGE_ORIGINAL",	"uklanjam originalne slike.");
 /*new*/DEFINE("_RSGALLERY_PURGE_PURGED",	"očišćeno.");
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Korišćen rm -r u pokušaju uklanjanja $mosConfig_absolute_path/images/rsgallery");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Korišćen rm -r u pokušaju uklanjanja JPATH_SITE/images/rsgallery");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"DROPed #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"DROPed #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"DROPed #__rsgallery2_config");

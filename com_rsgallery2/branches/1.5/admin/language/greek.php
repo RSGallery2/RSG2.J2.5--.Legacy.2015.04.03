@@ -9,7 +9,7 @@
 * @author George Andreadakis gand@sch.gr http://www.ανδρεαδακης.gr
 * RSGallery is Free Software
 **/
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 //rsgallery2.html.php
 //function showUserGallery
@@ -321,7 +321,7 @@ DEFINE("_RSGALLERY_PURGE_COMMENTS",			"Η βάση δεδομένων εκκαθ
 /*new*/DEFINE("_RSGALLERY_PURGE_ORIGINAL",	"εκκαθάριση πρωτότυπων εικόνων.");
 /*new*/DEFINE("_RSGALLERY_PURGE_PURGED",	"εκκαθαρίστηκαν.");
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Χρησιμοποίηση rm -r για να μην διαγραφεί το  $mosConfig_absolute_path/images/rsgallery");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Χρησιμοποίηση rm -r για να μην διαγραφεί το  JPATH_SITE/images/rsgallery");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"ΔΙΕΓΡΑΦΗΣΑΝ #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"ΔΙΕΓΡΑΦΗΣΑΝ #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"ΔΙΕΓΡΑΦΗΣΑΝ #__rsgallery2_config");

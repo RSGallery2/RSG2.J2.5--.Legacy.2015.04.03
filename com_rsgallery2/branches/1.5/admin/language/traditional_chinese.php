@@ -8,7 +8,7 @@
 * @license http: //www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 **/
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 //rsgallery2.html.php
 //RSShowPictures
@@ -320,7 +320,7 @@ DEFINE("_RSGALLERY_PURGE_DISPLAY", "展示圖刪除中.");
 DEFINE("_RSGALLERY_PURGE_ORIGINAL", "原圖刪除中.");
 DEFINE("_RSGALLERY_PURGE_PURGED", "已消除.");
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR", "已使用 rm -r 嘗試移除 $mosConfig_absolute_path/images/rsgallery");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR", "已使用 rm -r 嘗試移除 JPATH_SITE/images/rsgallery");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES", "已刪除 #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL", "已刪除 #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF", "已刪除 #__rsgallery2_config");

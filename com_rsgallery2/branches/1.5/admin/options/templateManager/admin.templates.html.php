@@ -97,7 +97,7 @@ class TemplatesView
 ?>
 					</td>
 					<td><?php 
-					$img_path = $mosConfig_live_site.'com_rsgallery2'.'/templates/'.$row->directory.'/template_thumbnail.png'; 
+					$img_path = JURI_SITE.'com_rsgallery2'.'/templates/'.$row->directory.'/template_thumbnail.png'; 
 					
 					echo JHTML::tooltip('<img src="'.$img_path.'" alt="'.JText::_( 'No preview available' ).'"/>',
 										$row->name,
@@ -158,7 +158,7 @@ class TemplatesView
 	{
 		global $mainframe;
 
-		$url =$mainframe->getSiteURL();
+		$url =JURI_SITE;
 		$doc =&JFactory::getDocument();
 		$doc->addStyleDeclaration("
 					.previewFrame {

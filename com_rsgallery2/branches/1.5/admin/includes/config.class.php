@@ -8,7 +8,7 @@
  */
 
 // no direct access
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 /**
  * Generic Config class
@@ -149,8 +149,34 @@ class rsgConfig {
 			$this->_error = strtolower(get_class( $this )).'::bind failed.';
 			return false;
 		} else {
-			return mosBindArrayToObject( $array, $this, $ignore );
+			return $this->mosBindArrayToObject( $array, $this, $ignore );
 		}
+	}
+	function mosBindArrayToObject( $array, &$obj, $ignore='', $prefix=NULL, $checkSlashes=true )
+	{
+		if (!is_array( $array ) || !is_object( $obj )) {
+			return (false);
+		}
+		foreach (get_object_vars($obj) as $k => $v)
+		{
+			if( substr( $k, 0, 1 ) != '_' )
+			{
+				// internal attributes of an object are ignored
+				if (strpos( $ignore, $k) === false)
+				{
+					if ($prefix) {
+						$ak = $prefix . $k;
+					} else {
+						$ak = $k;
+					}
+					if (isset($array[$ak])) {
+						$obj->$k = ($checkSlashes && get_magic_quotes_gpc()) ?  stripslashes( $array[$ak] ) : $array[$ak];
+					}
+				}
+			}
+		}
+
+		return true;
 	}
 
 	/**
@@ -171,7 +197,7 @@ class rsgConfig {
 	 * Binds the global configuration variables to the class properties
 	 */
 	function _loadConfig() {
-		global $database;
+		$database =& JFactory::getDBO();
 
 		$query = "SELECT * FROM " . $this->_configTable;
 		$database->setQuery($query);
@@ -194,7 +220,7 @@ class rsgConfig {
 	 * @return false if fail
 	 */
 	function saveConfig( $config=null ) {
-		global $database;
+		$database =& JFactory::getDBO();
 		
 		//bind array to class
 		if( $config !== null){

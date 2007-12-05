@@ -9,7 +9,7 @@
 * @author Superlativ Media <www.superlativ.no>
 * RSGallery is Free Software
 **/
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 //rsgallery2.html.php
 //RSShowPictures
@@ -295,7 +295,7 @@ DEFINE("_RSGALLERY_PURGE_GAL",				"slettet gallerier fra database.");
 DEFINE("_RSGALLERY_PURGE_CONFIG",			"slettet konfigurasjon fra database.");
 DEFINE("_RSGALLERY_PURGE_COMMENTS",			"slettet kommentarer fra database.");
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Used rm -r to attempt to remove $mosConfig_absolute_path/images/rsgallery");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Used rm -r to attempt to remove JPATH_SITE/images/rsgallery");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"DROPed #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"DROPed #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"DROPed #__rsgallery2_config");

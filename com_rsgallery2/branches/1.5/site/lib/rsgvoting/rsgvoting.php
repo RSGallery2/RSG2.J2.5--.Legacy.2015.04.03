@@ -7,7 +7,7 @@
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
-defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 
 require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgvoting' . DS . 'rsgvoting.class.php' );
 
@@ -36,7 +36,7 @@ function saveVote( $option ) {
 	global $my, $rsgConfig, $database;
 	
 	if ( $rsgConfig->get('voting') < 1 ) {
-		mosRedirect("index.php?option=com_rsgallery2", _RSGALLERY_VOTING_DISABLED);
+		$mainframe->redirect("index.php?option=com_rsgallery2", _RSGALLERY_VOTING_DISABLED);
 	} else {
 		$rating 	= rsgInstance::getInt('rating', '');
 		$id 		= rsgInstance::getInt('id', '');
@@ -44,12 +44,12 @@ function saveVote( $option ) {
 		$Itemid		= rsgInstance::getInt('Itemid', '');
 		//Check if user can vote
 		if (!$vote->voteAllowed() ) {
-			mosRedirect("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=inline&amp;id=$id", _RSGALLERY_VOTING_NOT_AUTH);
+			$mainframe->redirect("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id", _RSGALLERY_VOTING_NOT_AUTH);
 		}
 		
 		//Check if user has already voted for this image
 		if ($vote->alreadyVoted($id)) {
-		 	mosRedirect("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=inline&amp;id=$id",_RSGALLERY_VOTING_ALREADY_VOTED);
+		 	$mainframe->redirect("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id",_RSGALLERY_VOTING_ALREADY_VOTED);
 		}
 		
 		//All checks OK, store vote in DB
@@ -65,7 +65,7 @@ function saveVote( $option ) {
 			//Store cookie on system
 			setcookie($rsgConfig->get('cookie_prefix').$id, $my->id, time()+60*60*24*365, "/");
 		}
-		mosRedirect("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=inline&amp;id=$id", $msg);
+		$mainframe->redirect("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id", $msg);
 	}
 }
 ?>

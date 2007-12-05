@@ -6,7 +6,7 @@
  * @copyright (C) 2003 - 2006 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
-defined( '_VALID_MOS' ) or die( 'Restricted Access' );
+defined( '_JEXEC' ) or die( 'Restricted Access' );
 
 class rsgDisplay extends JObject{
 	
@@ -105,14 +105,7 @@ class rsgDisplay extends JObject{
 	
 		$file = preg_replace('/[^A-Z0-9_\.-]/i', '', $file);
 
-		if(!defined("J15B_EXEC") ) {
-			// add this for page size listbox handling in J1.5
-			echo '<form action="'.JRoute::_("index.php?option=com_rsgallery2&gid=".$this->gallery->id).'" method="post">';
-			include $templateDir . DS . $file;
-			echo '</form>';
-		} else {
-			include $templateDir . DS . $file;
-		}
+		include $templateDir . DS . $file;
 	}
 
 	/**
@@ -133,22 +126,25 @@ class rsgDisplay extends JObject{
 	}
 	
 	/**
-	 * set Itemid for proper pathway and linking.
-	 * contributed by Jeckel
-	 */
+		set Itemid for proper pathway and linking.
+		contributed by Jeckel
+	**/
 	function setItemid(){
 		global $Itemid;
+		$my = JFactory::getUser();
+		$database = JFactory::getDBO();
+		
 		
 		if (! isset($Itemid) || empty($Itemid) || $Itemid == '99999999') {
 			$query = "SELECT id"
 				. "\n FROM #__menu"
 				. "\n WHERE published = 1"
-				. "\n AND access <= ".$GLOBALS['my']->gid
+				. "\n AND access <= ".$my->gid
 				. "\n AND link = 'index.php?option=".$_REQUEST['option']."'"
 				. "\n ORDER BY link"
 				;
 			$GLOBALS['database']->setQuery( $query );
-			$mitems = $GLOBALS['database']->loadObjectList();
+			$mitems = $database->loadObjectList();
 			if (count($mitems) > 0)
 				$Itemid = $mitems[0]->id;
 		}
@@ -158,7 +154,7 @@ class rsgDisplay extends JObject{
 	 * Shows contents of changelog.php in preformatted layout
 	 */
 	function viewChangelog() {
-		global $mosConfig_absolute_path, $rsgConfig;
+		global $rsgConfig;
 	
 		if( !$rsgConfig->get('debug')){
 			echo _RSGALLERY_FEAT_INDEBUG;
@@ -166,7 +162,7 @@ class rsgDisplay extends JObject{
 		}
 		
 		echo '<pre style="text-align: left;">';
-		readfile( $mosConfig_absolute_path . '/administrator/components/com_rsgallery2/changelog.php' );
+		readfile( JPATH_SITE . '/administrator/components/com_rsgallery2/changelog.php' );
 		echo '</pre>';
 	}
 	
@@ -174,7 +170,7 @@ class rsgDisplay extends JObject{
      * shows proper Joomla path
      */
 	function showRSPathWay() {
-		global $mainframe, $mosConfig_live_site, $Itemid, $option;
+		global $mainframe, $mainframe, $Itemid, $option;
 
 		// if rsg2 isn't the component being displayed, don't show pathway
 		if( $option != 'com_rsgallery2' )
@@ -195,42 +191,25 @@ class rsgDisplay extends JObject{
 
 		$galleries = array_reverse($galleries);
 
-		if( defined( 'J15B_EXEC' ) ){
-			// J1.0 method
-			foreach( $galleries as $gallery ) {
-				if ( $gallery->id == $currentGallery && empty($item) ) {
-					$mainframe->appendPathWay($gallery->name);
-				} else {
-					$mainframe->appendPathWay('<a href="' . JRoute::_($mosConfig_live_site . '/index.php?option=com_rsgallery2&Itemid='.$Itemid.'&gid=' . $gallery->id) . '">' . $gallery->name . '</a>');
-				}
-			}
-
-			if (!empty($item)) {
-				$mainframe->appendPathWay( $item->title );
+		$pathway =& $mainframe->getPathway();
+		
+		foreach( $galleries as $gallery ) {
+			if ( $gallery->id == $currentGallery && empty($item) ) {
+				$pathway->addItem( $gallery->name );
+			} else {
+				$link = 'index.php?option=com_rsgallery2&gid=' . $gallery->id;
+				$pathway->addItem( $gallery->name, $link );
 			}
 		}
-		else{
-			// J1.5 method
-			$pathway =& $mainframe->getPathway();
-			
-			foreach( $galleries as $gallery ) {
-				if ( $gallery->id == $currentGallery && empty($item) ) {
-					$pathway->addItem( $gallery->name );
-				} else {
-					$link = 'index.php?option=com_rsgallery2&gid=' . $gallery->id;
-					$pathway->addItem( $gallery->name, $link );
-				}
-			}
 
-			if (!empty($item)) {
-				$mainframe->appendPathWay( $item->title );
-			}
+		if (!empty($item)) {
+			$mainframe->appendPathWay( $item->title );
 		}
 	}
 
 	/**
-	 * insert meta data into head
-	 */
+		insert meta data into head
+	**/
 	function metadata(){
 		global $mainframe, $option;
 
@@ -266,10 +245,10 @@ class rsgDisplay extends JObject{
      * Shows the comments screen
      */
     function _showComments() {
-    	global $mainframe, $mosConfig_live_site, $rsgConfig;
+    	global $mainframe, $mainframe, $rsgConfig;
     	if ($rsgConfig->get('comment')) {
     		$id = rsgInstance::getVar( 'id'  , '');
-    		$css = "<link rel=\"stylesheet\" href=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/rsgcomments/rsgcomments.css\" type=\"text/css\" />";
+    		$css = "<link rel=\"stylesheet\" href=\"".JURI_SITE."/components/com_rsgallery2/lib/rsgcomments/rsgcomments.css\" type=\"text/css\" />";
 			$mainframe->addCustomHeadTag($css);
 		
 			$comment = new rsgComments();
@@ -280,13 +259,10 @@ class rsgDisplay extends JObject{
 		}
     }
     
-    /**
-     * Shows the voting screen
-     */
     function _showVotes() {
-    	global $mainframe, $mosConfig_live_site, $rsgConfig;
+    	global $mainframe, $mainframe, $rsgConfig;
     	if ($rsgConfig->get('voting')) {
-    		$css = "<link rel=\"stylesheet\" href=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/rsgvoting/rsgvoting.css\" type=\"text/css\" />";
+    		$css = "<link rel=\"stylesheet\" href=\"".JURI_SITE."/components/com_rsgallery2/lib/rsgvoting/rsgvoting.css\" type=\"text/css\" />";
     		$mainframe->addCustomHeadTag($css);
     		$voting = new rsgVoting();
     		$voting->showVoting();
@@ -294,17 +270,15 @@ class rsgDisplay extends JObject{
     		echo "** Voting is disabled **";
     	}
     }
-    
     /**
      * Shows either random or latest images, depending on parameter
      * @param String Type of images. Options are 'latest' or 'random'
      * @param Int Number of images to show. Defaults to 3
      * @param String Style, options are 'vert' or 'hor'.(Vertical or horizontal)
      * @return HTML representation of image block.
-     * @todo Rewrite to make use of RSGallery2 framework instead of straight SQL
      */
     function showImages($type="latest", $number = 3, $style = "hor") {
-    	global $database, $mosConfig_live_site, $Itemid, $rsgConfig;
+    	global $database, $mainframe, $Itemid, $rsgConfig;
 		
 		//Check if backend permits showing these images
 		if ( $type == "latest" AND !$rsgConfig->get('displayLatest') ) {
@@ -346,7 +320,7 @@ class rsgDisplay extends JObject{
                     <?php
                     foreach($rows as $row) {
                         $l_start = $row->ordering - 1;
-						$url = JRoute::_("index.php?option=com_rsgallery2&page=inline&id=".$row->id);
+				$url = JRoute::_("index.php?option=com_rsgallery2&page=inline&id=".$row->id);
                         ?>
                         <tr>
                         <td align="center">
@@ -354,7 +328,7 @@ class rsgDisplay extends JObject{
                             	<a href="<?php echo $url;?>">
                                 <img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>" width="<?php echo $rsgConfig->get('thumb_width');?>" />
                                 </a>
-                                <div class="rsg2_details"><?php echo mosFormatDate($row->date);?></div>
+                                <div class="rsg2_details"><?php echo JHTML::_("date",$row->date);?></div>
                             </div>
                         </td>
                         </tr>
@@ -391,7 +365,7 @@ class rsgDisplay extends JObject{
                             	<a href="<?php echo $url;?>">
                             	<img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>" width="<?php echo $rsgConfig->get('thumb_width');?>"  />
                             	</a>
-                            <div class="rsg2_details">Uploaded:&nbsp;<?php echo mosFormatDate($row->date, "%d-%m-%Y");?></div>
+                            <div class="rsg2_details">Uploaded:&nbsp;<?php echo JHTML::_("date",$row->date, "%d-%m-%Y");?></div>
                             </div>
                             </td>
                             <?php
@@ -416,13 +390,13 @@ class rsgDisplay extends JObject{
 	 * @return HTML for downloadlink
 	 */
 	function _writeDownloadLink($id, $showtext = true, $type = 'button') {
-		global $rsgConfig, $mosConfig_live_site;
+		global $rsgConfig, $mainframe;
 		if ( $rsgConfig->get('displayDownload') ) {
 			echo "<div class=\"rsg2-toolbar\">";
 			if ($type == 'button') {
 				?>
 				<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>">
-				<img height="20" width="20" src="<?php echo $mosConfig_live_site;?>/administrator/images/download_f2.png" alt="<?php echo _RSGALLERY_DOWNLOAD?>">
+				<img height="20" width="20" src="<?php echo JURI_SITE;?>/administrator/images/download_f2.png" alt="<?php echo _RSGALLERY_DOWNLOAD?>">
 				<?php
 				if ($showtext == true) {
 					?>
@@ -448,14 +422,14 @@ class rsgDisplay extends JObject{
 	function _showEXIF() {
 		require_once(JPATH_ROOT . DS . "components" . DS . "com_rsgallery2" . DS . "lib" . DS . "exifreader" . DS . "exifReader.php");
 		$image = rsgInstance::getItem();
-		$filename = JPATH_ROOT . $image->original()->name;
+		$filename = JPATH_ROOT . $image->original->name;
 		
 		$exif = new phpExifReader($filename);
 		$exif->showFormattedEXIF();
  	}    
     /*
     function showRSTopBar() {
-        global $my, $mosConfig_live_site, $rsgConfig, $Itemid;
+        global $my, $mainframe, $rsgConfig, $Itemid;
         $catid =rsgInstance::getInt( 'catid', 0 );
         $Itemid = rsgInstance::getInt( 'Itemid', 0 );
         $page = rsgInstance::getVar( 'page'  , null);
@@ -463,7 +437,7 @@ class rsgDisplay extends JObject{
         <div style="float:right; text-align:right;">
         <ul id='rsg2-navigation'>
             <li>
-                <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&amp;Itemid=".$Itemid); ?>">
+                <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=".$Itemid); ?>">
                 <?php echo _RSGALLERY_MAIN_GALLERY_PAGE; ?>
                 </a>
             </li>
@@ -471,7 +445,7 @@ class rsgDisplay extends JObject{
             if ( !$my->id == "" && $page != "my_galleries" && $rsgConfig->get('show_mygalleries') == 1):
             ?>
             <li>
-                <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&amp;Itemid=".$Itemid."&amp;rsgOption=myGalleries");?>">
+                <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=".$Itemid."&rsgOption=myGalleries");?>">
                 <?php echo _RSGALLERY_MY_GALLERIES; ?>
                 </a>
             </li>

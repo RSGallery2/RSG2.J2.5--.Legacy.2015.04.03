@@ -8,7 +8,7 @@
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 **/
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 //function showUserGallery
 DEFINE("_RSGALLERY_MAKECAT_ALERT_NAME",		"Musíte zadať názov kategórie.");
@@ -229,7 +229,7 @@ DEFINE("_RSGALLERY_PURGE_GAL",				"vymazané galérie z databázy.");
 DEFINE("_RSGALLERY_PURGE_CONFIG",			"vamazaná konfigurácia z databázy.");
 DEFINE("_RSGALLERY_PURGE_COMMENTS",			"vymazané komentáre z databázy.");
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Užívateľ rm -r sa pokúša o vymazanie $mosConfig_absolute_path/images/rsgallery");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Užívateľ rm -r sa pokúša o vymazanie JPATH_SITE/images/rsgallery");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"DROPed #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"DROPed #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"DROPed #__rsgallery2_config");

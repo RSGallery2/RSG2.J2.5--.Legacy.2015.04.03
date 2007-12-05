@@ -8,7 +8,7 @@
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 **/
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 //rsgallery2.html.php
 //RSShowPictures
@@ -294,7 +294,7 @@ DEFINE("_RSGALLERY_PURGE_GAL",				"udrenset gallerier fra databasen.");
 DEFINE("_RSGALLERY_PURGE_CONFIG",			"udrenset konfiguration fra databasen.");
 DEFINE("_RSGALLERY_PURGE_COMMENTS",			"udrenset kommentarer fra databasen.");
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Brugte rm -r i forsøget på at fjerne $mosConfig_absolute_path/images/rsgallery");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Brugte rm -r i forsøget på at fjerne JPATH_SITE/images/rsgallery");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"SLETTET #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"SLETTET #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"SLETTET #__rsgallery2_config");

@@ -7,8 +7,9 @@
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
-defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
-global $mainframe, $my;
+defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
+global $mainframe;
+
 $css = "<link rel=\"stylesheet\" href=\"".JURI::root()."/components/com_rsgallery2/lib/mygalleries/mygalleries.css\" type=\"text/css\" />";
 $mainframe->addCustomHeadTag($css);
 
@@ -19,7 +20,7 @@ require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'mygalleries' . DS . 'my
 $cid	= rsgInstance::getInt('cid', array(0) );
 $task   = rsgInstance::getVar('task', '' );
 $id		= rsgInstance::getInt('id','' );
-
+$option = rsgInstance::getCmd("option");
 
 switch( $task ){
     case 'saveUploadedItem':
@@ -52,12 +53,12 @@ switch( $task ){
 }
 
 function showMyGalleries( $option ) {
-	global $my, $rsgConfig, $database;
+	global $rsgConfig, $mainframe;
+	$my = JFactory::getUser();
+	$database = JFactory::getDBO();
 	
 	//Check if My Galleries is enabled in config, if not .............. 
 	if ( !$rsgConfig->get('show_mygalleries') ) die(_RSGALLERY_MYGAL_NOT_AUTH);
-	
-	require_once(JPATH_ROOT. "/includes/pageNavigation.php");
 	
 	//Set limits for pagenav
 	$limit      = trim(rsgInstance::getInt( 'limit', 10 ) );
@@ -68,7 +69,7 @@ function showMyGalleries( $option ) {
 	$total = $database->loadResult();
 	
 	//New instance of mosPageNav
-	$pageNav = new mosPageNav( $total, $limitstart, $limit );
+	$pageNav = new JPagination( $total, $limitstart, $limit );
 	
 	$database->setQuery("SELECT * FROM #__rsgallery2_files" .
 						" WHERE userid = '$my->id'" .
@@ -83,8 +84,7 @@ function showMyGalleries( $option ) {
 		myGalleries::viewMyGalleriesPage($rows, $images, $pageNav);
 	} else {
 		//Not logged in, back to main page
-		global $Itemid;
-		mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid"),_RSGALLERY_NO_USERCATS );
+		$mainframe->redirect("index.php?option=com_rsgallery2",_RSGALLERY_NO_USERCATS );
 	}	
 }
 
@@ -92,7 +92,9 @@ function showMyGalleries( $option ) {
  * Deletes an item through the frontend My Galleries part
  */
 function deleteItem() {
-	global $my, $database, $Itemid, $rsgAccess;
+	global $Itemid, $rsgAccess, $mainframe;
+	$my = JFactory::getUser();
+	$database = JFactory::getDBO();
 	$id = rsgInstance::getInt( 'id'  , '');
 	if ($id) {		
 		//Get gallery id
@@ -102,18 +104,18 @@ function deleteItem() {
 		if ($rsgAccess->checkGallery('del_img', $gallery_id )) {
 			$filename 	= galleryUtils::getFileNameFromId($id);
 			imgUtils::deleteImage($filename);
-			mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=".$Itemid), _RSGALLERY_DELIMAGE_OK );
+			$mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=myGalleries", _RSGALLERY_DELIMAGE_OK );
 		} else {
-			mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=".$Itemid),_RSGALLERY_USERIMAGE_NOTOWNER );
+			$mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=myGalleries",_RSGALLERY_USERIMAGE_NOTOWNER );
 		}
 	} else {
 		//No ID sent, no delete possible, back to my galleries
-		mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=".$Itemid), _RSGALLERY_DELIMAGE_NOID );
+		$mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=myGalleries", _RSGALLERY_DELIMAGE_NOID );
 	}
 }
 
 function editItem() {
-	global $database;
+	$database = JFactory::getDBO();
 	$id = rsgInstance::getInt('id'  , null);
 	if ($id) {
 		$database->setQuery("SELECT * FROM #__rsgallery2_files WHERE id = '$id'");
@@ -123,7 +125,8 @@ function editItem() {
 }
 
 function saveItem() {
-	global $database;
+	global $mainframe;
+	$database = JFactory::getDBO();
 	$id 	= rsgInstance::getInt( 'id'  , '');
 	$title 	= rsgInstance::getVar( 'title'  , '');
 	$descr 	= rsgInstance::getVar( 'descr'  , '');
@@ -137,16 +140,17 @@ function saveItem() {
 
 	if ($database->query()) {
 		global $Itemid;
-		mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&amp;rsgOption=myGalleries&amp;Itemid=$Itemid"), _RSGALLERY_SAVE_SUCCESS );
+		$mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=myGalleries", _RSGALLERY_SAVE_SUCCESS );
 	} else {
 		echo _RSGALLERY_ERROR_SAVE.mysql_error();
 	}
 }
 
 function saveUploadedItem() {
-	global $rsgConfig, $rsgAccess, $database, $Itemid, $mosConfig_absolute_path;
+	global $rsgConfig, $rsgAccess, $Itemid, $mainframe;
+	$database = JFactory::getDBO();
 	//Set redirect URL
-	$redirect = "index.php?option=com_rsgallery2&amp;rsgOption=myGalleries&amp;Itemid=".$Itemid;
+	$redirect = "index.php?option=com_rsgallery2&rsgOption=myGalleries&";
 	
 	//Get category ID to check rights
 	$i_cat = rsgInstance::getVar( 'i_cat'  , '');
@@ -178,7 +182,7 @@ function saveUploadedItem() {
 		//Check whether directories are there and writable
 		$check = $upload->preHandlerCheck();
 		if ($check !== true ) {
-			mosRedirect( sefRelToAbs( $redirect ), $check);
+			$mainframe->redirect( $redirect , $check);
 		}
 		
 		switch ($file_ext) {
@@ -198,17 +202,17 @@ function saveUploadedItem() {
             		fileHandler::cleanMediaDir( $upload->extractDir );
             		
             		//Redirect
-            		mosRedirect( sefRelToAbs( $redirect ), _RSGALLERY_ALERT_UPLOADOK );
+            		$mainframe->redirect( $redirect , _RSGALLERY_ALERT_UPLOADOK );
             		
         		} else {
             		//Error message
-            		mosRedirect( sefRelToAbs( $redirect ), _RSGALLERY_ZIP_TO_BIG);
+            		$mainframe->redirect( $redirect , _RSGALLERY_ZIP_TO_BIG);
         		}
 				break;
 			case 'image':
 				//Check if image is too big
 				if ($i_file['error'] == 1)
-					mosRedirect( sefRelToAbs( $redirect ), '*Image size is too big for upload!*' );
+					$mainframe->redirect( $redirect , '*Image size is too big for upload!*' );
 				
 				$file_name = $i_file['name'];
 				if ( move_uploaded_file($i_file['tmp_name'], JPATH_ROOT . DS ."media" . DS . $file_name) ) {
@@ -219,22 +223,25 @@ function saveUploadedItem() {
 						if (file_exists( JPATH_ROOT . DS ."media" . DS . $file_name ))
 							unlink( JPATH_ROOT . DS ."media" . DS . $file_name );
 					} else {
-						mosRedirect( sefRelToAbs( $redirect ), 'Importing image failed! Notify RSGallery2. This should never happen!');
+						$mainframe->redirect( $redirect , 'Importing image failed! Notify RSGallery2. This should never happen!');
 					}
-					mosRedirect( sefRelToAbs( $redirect ), _RSGALLERY_ALERT_UPLOADOK );
+					$mainframe->redirect( $redirect , _RSGALLERY_ALERT_UPLOADOK );
 				} else {
-					mosRedirect( sefRelToAbs( $redirect ), _RSGALLERY_ALERT_NOWRITE );
+					$mainframe->redirect( $redirect , _RSGALLERY_ALERT_NOWRITE );
 				}
 				break;
 			case 'error':
-				mosRedirect( sefRelToAbs( $redirect ), _RSGALLERY_ALERT_WRONGFORMAT );
+				$mainframe->redirect( $redirect , _RSGALLERY_ALERT_WRONGFORMAT );
 				break;
 		}
 	}
 }
 
 function editCat() {
-	global $my, $rsgConfig, $database, $Itemid;
+	global $rsgConfig, $Itemid;
+	$my = JFactory::getUser();
+	$database = JFactory::getDBO();
+	
 	$catid = rsgInstance::getInt( 'catid'  , null);
 	
 	if ($catid) {
@@ -246,7 +253,7 @@ function editCat() {
 		//Check if maximum number of usercats are already made
 		$count = galleryUtils::userCategoryTotal($my->id);
 		if ($count >= $rsgConfig->get('uu_maxCat') ) {
-			mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries"), _RSGALLERY_MAX_USERCAT_ALERT );
+			$mainframe->redirect("index.php?option=com_rsgallery2&page=my_galleries", _RSGALLERY_MAX_USERCAT_ALERT );
 		} else {
 			//New category
 			myGalleries::editCat();
@@ -255,12 +262,15 @@ function editCat() {
 }
 
 function saveCat() {
-	global $rsgConfig, $database, $my, $Itemid;
+	global $rsgConfig, $Itemid, $mainframe;
+	$my = JFactory::getUser();
+	$database = JFactory::getDBO();
+
 	//If gallery creation is disabled, unauthorized attempts die here.
 	if (!$rsgConfig->get('uu_createCat')) die ("User category creation is disabled by administrator.");
 	
 	//Set redirect URL
-	$redirect = "index.php?option=com_rsgallery2&amp;rsgOption=myGalleries&amp;Itemid=".$Itemid;
+	$redirect = "index.php?option=com_rsgallery2&rsgOption=myGalleries&";
 	
 	$parent 		= rsgInstance::getVar( 'parent'  , 0);
 	$id 			= rsgInstance::getInt( 'catid'  , null);
@@ -279,10 +289,10 @@ function saveCat() {
 			"WHERE id = '$id' ");
 		if ($database->query()) {
 			echo "Query gelukt";
-			mosRedirect( sefRelToAbs( $redirect ), _RSGALLERY_ALERT_CATDETAILSOK );
+			$mainframe->redirect( $redirect , _RSGALLERY_ALERT_CATDETAILSOK );
 		} else {
 			echo "Query failed: ".mysql_error();
-			mosRedirect( sefRelToAbs( $redirect ), _RSGALLERY_ALERT_CATDETAILSNOTOK );
+			$mainframe->redirect( $redirect , _RSGALLERY_ALERT_CATDETAILSNOTOK );
 		}
 	} else {
 		//New category
@@ -294,11 +304,11 @@ function saveCat() {
 				<script type="text/javascript">
 				//<![CDATA[
 				alert('<?php echo _RSGALLERY_MAX_USERCAT_ALERT;?>');
-				location = '<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries", false); ?>';
+				location = '<?php echo JRoute::_("index.php?option=com_rsgallery2&page=my_galleries", false); ?>';
 				//]]>
 				</script>
 				<?php
-			//mosRedirect( $redirect ,_RSGALLERY_MAX_USERCAT_ALERT);
+			//$mainframe->redirect( $redirect ,_RSGALLERY_MAX_USERCAT_ALERT);
 		} else {
 			//Create ordering, start at last position
 			$database->setQuery("SELECT MAX(ordering) FROM #__rsgallery2_galleries WHERE uid = '$my->id'");
@@ -314,22 +324,25 @@ function saveCat() {
 				$gallery_id = $database->loadResult();
 				$acl = new rsgAccess();
 				if ( $acl->createDefaultPermissions($gallery_id) )
-					mosRedirect( sefRelToAbs( $redirect ), _RSGALLERY_ALERT_NEWCAT );
+					$mainframe->redirect( $redirect , _RSGALLERY_ALERT_NEWCAT );
 			} else {
-				mosRedirect( sefRelToAbs( $redirect ), _RSGALLERY_ALERT_NONEWCAT );
+				$mainframe->redirect( $redirect , _RSGALLERY_ALERT_NONEWCAT );
 			}
 		}
 	}
-	//mosRedirect( sefRelToAbs( $redirect ) );
+	//$mainframe->redirect( $redirect  );
 }
 
 function deleteCat() {
-	global $database, $my, $mosConfig_absolute_path, $rsgConfig, $Itemid;
+	global $rsgConfig, $mainframe;
+	$my = JFactory::getUser();
+	$database = JFactory::getDBO();
+
 	//Get values from URL
 	$catid = rsgInstance::getInt( 'catid'  , null);
 	
 	//Set redirect URL
-	$redirect = "index.php?option=com_rsgallery2&amp;rsgOption=myGalleries&amp;Itemid=".$Itemid;
+	$redirect = "index.php?option=com_rsgallery2&rsgOption=myGalleries";
 	
 	//Get category details
 	$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE id = '$catid'");
@@ -343,7 +356,7 @@ function deleteCat() {
 	$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_galleries WHERE parent = '$catid'");
 	$count = $database->loadResult();
 	if ($count > 0) {
-		mosRedirect( sefRelToAbs( $redirect ),_RSGALLERY_USERCAT_SUBCATS);
+		$mainframe->redirect( $redirect ,_RSGALLERY_USERCAT_SUBCATS);
 	}
 	
 	//No children from here, so lets continue
@@ -363,18 +376,18 @@ function deleteCat() {
 			$database->setQuery("DELETE FROM #__rsgallery2_galleries WHERE id = '$catid'");
 			if ( !$database->query() ) {
 				//Error message, gallery could not be deleted
-				mosRedirect( sefRelToAbs( $redirect ),_RSGALLERY_ALERT_CATDELNOTOK);
+				$mainframe->redirect( $redirect ,_RSGALLERY_ALERT_CATDELNOTOK);
 			} else {
 				//Ok, goto mainpage
-				mosRedirect( sefRelToAbs( $redirect ),_RSGALLERY_ALERT_CATDELOK);
+				$mainframe->redirect( $redirect ,_RSGALLERY_ALERT_CATDELOK);
 			}
 		} else {
 			//There were errors. Gallery will not be deleted
-			mosRedirect( sefRelToAbs( $redirect ),_RSGALLERY_ALERT_CATDELNOTOK);
+			$mainframe->redirect( $redirect ,_RSGALLERY_ALERT_CATDELNOTOK);
 		}
 	} else {
 		//Abort and return to mainscreen
-		mosRedirect( sefRelToAbs( $redirect ),_RSGALLERY_USERCAT_NOTOWNER);
+		$mainframe->redirect( $redirect ,_RSGALLERY_USERCAT_NOTOWNER);
 	}
 }
 ?>

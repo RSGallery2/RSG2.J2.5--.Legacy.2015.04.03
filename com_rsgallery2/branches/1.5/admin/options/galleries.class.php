@@ -9,14 +9,14 @@
 **/
 
 // no direct access
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 /**
 * Category database table class
 * @package RSGallery2
 * @author Jonah Braun <Jonah@WhaleHosting.ca>
 */
-class rsgGalleriesItem extends mosDBTable {
+class rsgGalleriesItem extends JTable {
     /** @var int Primary key */
     var $id = null;
     var $parent = 0;
@@ -38,7 +38,7 @@ class rsgGalleriesItem extends mosDBTable {
     * @param database A database connector object
     */
     function rsgGalleriesItem( &$db ) {
-        $this->mosDBTable( '#__rsgallery2_galleries', 'id', $db );
+		parent::__construct('#__rsgallery2_galleries', 'id', $db );
     }
     /** 
      * overloaded check function 
@@ -46,8 +46,18 @@ class rsgGalleriesItem extends mosDBTable {
     function check() {
         // filter malicious code
         $ignoreList = array( 'params','description' );
-        $this->filter( $ignoreList );
-
+		
+		$ignore = is_array( $ignoreList );
+		
+		$filter = & JFilterInput::getInstance();
+		foreach ($this->getProperties() as $k => $v)
+		{
+			if ($ignore && in_array( $k, $ignoreList ) ) {
+				continue;
+			}
+			$this->$k = $filter->clean( $this->$k );
+		}
+		
         /** check for valid name */
         if (trim( $this->name ) == '') {
             $this->_error = _RSGALLERY_CATNAME;
@@ -57,8 +67,8 @@ class rsgGalleriesItem extends mosDBTable {
         /** check for existing name */
         $query = "SELECT id"
         . "\n FROM #__rsgallery2_galleries"
-        . "\n WHERE name = '$this->name'"
-        . "\n AND parent = $this->parent"
+        . "\n WHERE name = '".$this->name."'"
+        . "\n AND parent = ".$this->parent
         ;
         $this->_db->setQuery( $query );
 
@@ -78,7 +88,7 @@ class rsgGalleriesItem extends mosDBTable {
  * @return HTML Selectlist
  */
 function galleryParentSelectList( &$row ) {
-    global $database;
+    $database =& JFactory::getDBO();
 
     $id = '';
     if ( $row->id ) {
@@ -111,17 +121,17 @@ function galleryParentSelectList( &$row ) {
     }
 
     // second pass - get an indent list of the items
-    $list = mosTreeRecurse( 0, '', array(), $children, 9999, 0, 0 );
+    $list = JHTML::_('menu.treerecurse', 0, '', array(), $children, 9999, 0, 0 );
 
     // assemble menu items to the array
     $mitems     = array();
-    $mitems[]   = mosHTML::makeOption( '0', _RSGALLERY_SELECT_GAL_TOP );
+    $mitems[]   = JHTMLSelect::option( '0', _RSGALLERY_SELECT_GAL_TOP );
 
     foreach ( $list as $item ) {
-        $mitems[] = mosHTML::makeOption( $item->id, '&nbsp;&nbsp;&nbsp;'. $item->treename );
+        $mitems[] = JHTMLSelect::option( $item->id, '&nbsp;&nbsp;&nbsp;'. $item->treename );
     }
 
-    $output = mosHTML::selectList( $mitems, 'parent', 'class="inputbox" size="10"', 'value', 'text', $row->parent );
+    $output = JHTML::_("select.genericlist", $mitems, 'parent', 'class="inputbox" size="10"', 'value', 'text', $row->parent );
 
     return $output;
 }
@@ -132,7 +142,7 @@ function galleryParentSelectList( &$row ) {
  * @return array Array with Gallery ID's from children
  */
 function subList( $gallery_id ) {
-	global $database;
+	$database =& JFactory::getDBO();
 	$sql = "SELECT id FROM #__rsgallery2_galleries WHERE parent = '$gallery_id'";
 	$database->setQuery( $sql );
 	$result = $database->loadResultArray();

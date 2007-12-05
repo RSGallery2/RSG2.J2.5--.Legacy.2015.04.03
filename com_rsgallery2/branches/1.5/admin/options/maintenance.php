@@ -9,12 +9,12 @@
 */
 
 // no direct access
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 require_once( $rsgOptions_path . 'maintenance.html.php' );
 require_once( $rsgOptions_path . 'maintenance.class.php' );
 
-$cid = josGetArrayInts( 'cid' );
+$cid = JRequest::getVar("cid", array(), 'default', 'array' );
 $task = rsgInstance::getVar( 'task', null);
 
 switch ($task) {
@@ -89,11 +89,11 @@ function regenerateImages() {
  * Perhaps by sampling the oldest thumb from the gallery and checking dimensions against current setting. 
  */
 function executeRegenerateImages() {
-	global $rsgConfig;
+	global $rsgConfig, $mainframe;
 	$error = 0;
 	$gid = rsgInstance::getVar( 'gid', array());
 	if ( empty($gid) ) {
-		mosRedirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=regenerateThumbs", "** No gallery selected **");
+		$mainframe->redirect("index2.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs", "** No gallery selected **");
 		return;
 	}
 
@@ -101,7 +101,7 @@ function executeRegenerateImages() {
     	if ($id > 0) {
     		//Check if resize is really needed. It takes a lot of resources when changing thumbs when dimensions did not change!
     		if ( !rsg2_maintenance::thumbSizeChanged($id) ) {
-				mosRedirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=regenerateThumbs", "** Thumbnail size did not change. Regeneration NOT needed. **");
+				$mainframe->redirect("index2.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs", "** Thumbnail size did not change. Regeneration NOT needed. **");
 				return;
 			} else {
 				$gallery = rsgGalleryManager::_get($id);
@@ -121,7 +121,7 @@ function executeRegenerateImages() {
     } else {
     	$msg = "** Regeneration completed succesfully. **";
     }
-    mosRedirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=regenerateThumbs", $msg);
+	$mainframe->redirect("index2.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs", $msg);
 }
 
 
@@ -131,6 +131,7 @@ function consolidateDB() {
 }
 
 function createImages() {
+	global $mainframe;
 	//Check if id or name is set
 	if ( isset( $_REQUEST['id'] ) ) {
 		$id = rsgInstance::getInt( 'id', null);
@@ -139,7 +140,7 @@ function createImages() {
 	elseif ( isset($_REQUEST['name'] ) ) {
 		$name    = rsgInstance::getVar( 'name', null);
 	} else {
-		mosRedirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance", _RSGALLERY_CC_NO_FILE_INFO);
+		$mainframe->redirect("index2.php?option=com_rsgallery2&rsgOption=maintenance", _RSGALLERY_CC_NO_FILE_INFO);
 	}
 	
 	//Just for readability of code
@@ -149,7 +150,7 @@ function createImages() {
 	
 	//If only thumb exists, no generation possible so redirect.
 	if (!file_exists($original) AND !file_exists($display) AND file_exists($thumb) ) {
-		mosRedirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB", "** Only thumb is available, so no other images can be generated! **");
+		$mainframe->redirect("index2.php?option=com_rsgallery2&rsgOption=maintenance&task=consolidateDB", "** Only thumb is available, so no other images can be generated! **");
 		return;
 	}
 	//Go make images
@@ -169,11 +170,12 @@ function createImages() {
 	        imgUtils::makeThumbImage($display);
 	    }
 	}
-	mosRedirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB","$name succesfully created!");
+	$mainframe->redirect("index2.php?option=com_rsgallery2&rsgOption=maintenance&task=consolidateDB","$name succesfully created!");
 }
 
 function deleteImages() {
-global $database;
+	global $mainframe;
+	$database =& JFactory::getDBO();
 	$name = rsgInstance::getVar('name', null);
     
     //Check if file is in database
@@ -185,7 +187,7 @@ global $database;
     	//Delete from database
     	imgUtils::deleteImage( $name );
     }
-    mosRedirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB", _RSGALLERY_ALERT_IMGDELETEOK);
+	$mainframe->redirect("index2.php?option=com_rsgallery2&rsgOption=maintenance&task=consolidateDB", _RSGALLERY_ALERT_IMGDELETEOK);
 }
 
 function createDbEntries() {
@@ -200,7 +202,10 @@ function createDbEntries() {
  * Creates images based on an image id or an image name
  */
 function regenerateImage() {
-	global $rsgConfig, $database;
+	global $mainframe;
+	global $rsgConfig;
+	$database =& JFactory::getDBO();
+	
 	//Check if id or name is set
 	if ( isset( $_REQUEST['id'] ) ) {
 		$id = rsgInstance::getInt( 'id', null);
@@ -209,7 +214,7 @@ function regenerateImage() {
 	elseif ( isset($_REQUEST['name'] ) ) {
 		$name    = rsgInstance::getVar( 'name', null);
 	} else {
-		mosRedirect("index2.php?option=com_rsgallery2&task=batchupload", _RSGALLERY_CC_NO_FILE_INFO);
+		$mainframe->redirect("index2.php?option=com_rsgallery2&task=batchupload", _RSGALLERY_CC_NO_FILE_INFO);
 	}
 	
 	//Just for readability of code
@@ -239,7 +244,9 @@ function regenerateImage() {
  * Checks database for problems and optimizes tables
  */
 function optimizeDB() {
-	global $database;
+	global $mainframe;
+	$database =& JFactory::getDBO();
+	
 	require_once(JPATH_ROOT . DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "includes" . DS . "install.class.php");
 	$install = new rsgInstall();
 	$tables = $install->tablelistNew;
@@ -247,6 +254,6 @@ function optimizeDB() {
 		$database->setQuery("OPTIMIZE $table");
 		$database->query();
 	}
-	mosRedirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance","** Tables optimized succesfully! **");
+	$mainframe->redirect("index2.php?option=com_rsgallery2&rsgOption=maintenance","** Tables optimized succesfully! **");
 }
 ?>

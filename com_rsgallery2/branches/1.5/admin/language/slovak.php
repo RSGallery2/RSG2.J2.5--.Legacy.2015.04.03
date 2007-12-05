@@ -8,7 +8,7 @@
 * @author Disney (admin@agglo.sk)
 * RSGallery is Free Software
 **/
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 //rsgallery2.html.php
 //function showUserGallery
@@ -274,7 +274,7 @@ DEFINE("_RSGALLERY_PURGE_GAL",				"galérie z databázy uvoµnené.");
 DEFINE("_RSGALLERY_PURGE_CONFIG",			"nastavenia z databázy uvoµnené.");
 DEFINE("_RSGALLERY_PURGE_COMMENTS",			"komentáre z databázy uvoµnené.");
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Na odstránenie $mosConfig_absolute_path/images/rsgallery skúsil pou¾i» rm -r");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Na odstránenie JPATH_SITE/images/rsgallery skúsil pou¾i» rm -r");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"Uvoµnil #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"Uvoµnil #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"Uvoµnil #__rsgallery2_config");

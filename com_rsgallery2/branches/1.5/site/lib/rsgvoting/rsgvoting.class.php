@@ -8,7 +8,7 @@
 * RSGallery is Free Software
 */
 
-defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 
 class rsgVoting {
 
@@ -36,7 +36,7 @@ class rsgVoting {
 	    	<form name="vote" method="post" action="<?php echo JRoute::_('index.php?option=com_rsgallery2&page=inline&id='.$id);?>">
 	    	<table border="0" width="200">
 	    	<tr>
-	    		<td><?php echo _RSGALLERY_VOTING_RATING;?>:</td>
+	    		<td><?php echo _RSGALLERY_VOTING_RATING; ?>:</td>
 	    		<td><?php echo rsgVoting::calculateAverage($id);?>&nbsp;/&nbsp;<?php echo rsgVoting::getVoteCount($id);?><?php echo _RSGALLERY_VOTING_VOTES;?></td>
 	       	</tr>
 	    	<tr>
@@ -63,7 +63,7 @@ class rsgVoting {
 
 	
 	function getTotal( $id ) {
-		global $database;
+		$database =& JFactory::getDBO();
 		$sql = "SELECT rating FROM #__rsgallery2_files WHERE id = '$id'";
 		$database->setQuery($sql);
 		$total = $database->loadResult();
@@ -72,7 +72,7 @@ class rsgVoting {
 	}
 	
 	function getVoteCount( $id ) {
-		global $database;
+		$database =& JFactory::getDBO();
 		$sql = "SELECT votes FROM #__rsgallery2_files WHERE id = '$id'";
 		$database->setQuery($sql);
 		$votes = $database->loadResult();

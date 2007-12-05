@@ -7,7 +7,7 @@
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
-defined( '_VALID_MOS' ) or die( 'Access Denied.' );
+defined( '_JEXEC' ) or die( 'Access Denied.' );
 
 /**
 * Class representing a gallery.
@@ -95,7 +95,8 @@ class rsgGallery extends JObject{
 		$this->thumbHTML = "<a href=\"".$this->url."\">".galleryUtils::getThumb( $this->get('id'),0,0,"" )."</a>";
 		
 		//Write description
-		$this->description = ampReplace($this->get('description'));
+		jimport('joomla.filter.output');
+		$this->description = JFilterOutput::ampReplace($this->get('description'));
 	}
 	
 	/**
@@ -103,7 +104,7 @@ class rsgGallery extends JObject{
 	 * @todo rewrite the sql to use better date features
 	 */
 	function hasNewImages(){
-		global $database;
+		$database =& JFactory::getDBO();
 		$lastweek  = mktime (0, 0, 0, date("m"),    date("d") - 7, date("Y"));
 		$lastweek = date("Y-m-d H:m:s",$lastweek);
 		$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE date >= '$lastweek' AND gallery_id = '{$this->id}'");
@@ -116,7 +117,7 @@ class rsgGallery extends JObject{
 	*/
 	function itemCount(){
 		if( $this->_itemCount === null ){
-			global $database;
+			$database =& JFactory::getDBO();
 			
 			$gid = $this->id;
 			$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id='$gid' AND published = '1'");
@@ -151,15 +152,18 @@ class rsgGallery extends JObject{
 	function itemRows( ){
 		
 		if( $this->_itemRows === null ){
-
+			
 			global $rsgConfig;
-
-			global $database;
+			$my =& JFactory::getUser();
+			
+			$database =& JFactory::getDBO();
 			
 			$filter_order = rsgInstance::getWord( 'filter_order',  $rsgConfig->get("filter_order") );
 			$filter_order_Dir = rsgInstance::getWord( 'filter_order_Dir', $rsgConfig->get("filter_order_Dir"));
 	
-			$where = ' WHERE gallery_id = '. $this->get('id') . ' AND published = 1 ';
+			$where = ' WHERE gallery_id = '. $this->get('id');
+			if($my->get('gid') != 25)
+				$where .= ' AND published = 1 ';
 	
 			$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir;
 	
@@ -230,12 +234,11 @@ class rsgGallery extends JObject{
 		
 		$id = rsgInstance::getInt( 'limitstart', 0 );
 		return array_pop(array_slice($this->items, $id, 1));
-					
 
 	}
 	
 	function indexOfItem($id = null){
-	
+		
 		if( $id === null ){
 			$id = rsgInstance::getInt( 'id', null );
 			if( $id === null ){
@@ -245,7 +248,7 @@ class rsgGallery extends JObject{
 		
 		if (!array_key_exists($id, $this->items))
 			return 0;
-
+		
 		$keys = array_keys($this->items);
 		$index = array_search($id, $keys);
 		return $index;
@@ -281,7 +284,7 @@ class rsgGallery extends JObject{
 	function hit(){
 		$query = "UPDATE #__rsgallery2_galleries SET hits = hits + 1 WHERE id = {$this->id}";
 		
-		global $database;
+		$database =& JFactory::getDBO();
 		$database->setQuery( $query );
 		
 		if( !$database->query() ) {

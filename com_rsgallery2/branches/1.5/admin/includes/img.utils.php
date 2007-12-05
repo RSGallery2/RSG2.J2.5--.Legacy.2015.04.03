@@ -8,7 +8,7 @@
 * RSGallery2 is Free Software
 */
 
-defined( '_VALID_MOS' ) or die( 'Access Denied' );
+defined( '_JEXEC' ) or die( 'Access Denied' );
 
 /**
 * Image utilities class
@@ -114,8 +114,10 @@ class imgUtils extends fileUtils{
      * @return returns true if successfull otherwise returns an ImageUploadError
      */
     function importImage($imgTmpName, $imgName, $imgCat, $imgTitle='', $imgDesc='') {
-        global $database, $my, $rsgConfig;
-        
+        global $rsgConfig;
+		$my =& JFactory::getUser();
+		$database =& JFactory::getDBO();
+		
         //First move uploaded file to original directory
         $destination = fileUtils::move_uploadedFile_to_orignalDir( $imgTmpName, $imgName );
         
@@ -186,7 +188,7 @@ class imgUtils extends fileUtils{
         
         //check if original image needs to be kept, otherwise delete it.
         if ( !$rsgConfig->get('keepOriginalImage') ) {
-            unlink( imgUtils::getImgOriginal( $newName, true ) );
+            JFile::delete( imgUtils::getImgOriginal( $newName, true ) );
         }
             
         return true;
@@ -198,20 +200,22 @@ class imgUtils extends fileUtils{
       * @return true if success or PEAR_Error if error
       */
     function deleteImage($name){
-        global $database, $rsgConfig;
-        
+        global  $rsgConfig;
+
+		$database =& JFactory::getDBO();
+		
         $thumb      = JPATH_THUMB . DS . imgUtils::getImgNameThumb( $name );
         $display    = JPATH_DISPLAY . DS . imgUtils::getImgNameDisplay( $name );
         $original   = JPATH_ORIGINAL . DS . $name;
         
         if( file_exists( $thumb ))
-            if( !unlink( $thumb ))
+            if( !JFile::delete( $thumb ))
                 return new PEAR_Error( "error deleting thumb image: " . $thumb );
         if( file_exists( $display ))
-            if( !unlink( $display ))
+			if( !JFile::delete( $display ))
                 return new PEAR_Error( "error deleting display image: " . $display );
         if( file_exists( $original ))
-            if( !unlink( $original ))
+			if( !JFile::delete( $original ))
                 return new PEAR_Error( "error deleting original image: " . $original );
         
         $database->setQuery("SELECT gallery_id FROM #__rsgallery2_files WHERE name = '$name'");
@@ -232,9 +236,9 @@ class imgUtils extends fileUtils{
       * @return complete URL of the image
       */
     function getImgOriginal($name, $local=false){
-        global $mosConfig_live_site, $rsgConfig;
+        global  $rsgConfig, $mainframe ;
         
-        $locale = $local? JPATH_ROOT : $mosConfig_live_site;
+		$locale = $local? JPATH_ROOT : JURI_SITE;
         
         // if original image exists return that, otherwise $keepOriginalImage is false and and we return the display image instead.
         if( file_exists( JPATH_ROOT.$rsgConfig->get('imgPath_original') . '/' . $name )){
@@ -250,9 +254,9 @@ class imgUtils extends fileUtils{
       * @return complete URL of the image
       */
     function getImgDisplay($name, $local=false){
-        global $mosConfig_live_site, $rsgConfig;
+		global  $rsgConfig,$mainframe;
         
-        $locale = $local? JPATH_ROOT : $mosConfig_live_site;
+        $locale = $local? JPATH_ROOT : JURI_SITE;
         
         // if display image exists return that, otherwise the original image width <= $display_width so we return the original image instead.
         if( file_exists( JPATH_ROOT.$rsgConfig->get('imgPath_display') . '/' . imgUtils::getImgNameDisplay( $name ))){
@@ -268,9 +272,8 @@ class imgUtils extends fileUtils{
       * @return complete URL of the image
       */
     function getImgThumb($name, $local=false){
-        global $mosConfig_live_site, $rsgConfig;
-        
-        $locale = $local? JPATH_ROOT : $mosConfig_live_site;
+        global  $rsgConfig, $mainframe;
+        $locale = $local? JPATH_ROOT : JURI_SITE;
         
         // if thumb image exists return that, otherwise the original image width <= $thumb_width so we return the original image instead.
         if( file_exists( JPATH_ROOT.$rsgConfig->get('imgPath_thumb') . '/' . imgUtils::getImgNameThumb( $name ))){
@@ -330,7 +333,7 @@ class imgUtils extends fileUtils{
      * @todo Also offer the possiblity to select thumbs from subgalleries
      */
     function showThumbNames($id, $current_id, $selectname = 'thumb_id') {
-        global $database;
+        $database =& JFactory::getDBO();
         $list = galleryUtils::getChildList( $id );
         //$sql = "SELECT name, id FROM #__rsgallery2_files WHERE gallery_id in ($list)";
         $sql = "SELECT a.name, a.id, b.name as gname FROM #__rsgallery2_files AS a " .
@@ -815,7 +818,7 @@ class waterMarker extends GD2 {
      * @param boolean Shadow text yes or no
      */
     function showMarkedImage($imagename, $imagetype = 'display', $font="arial.ttf", $shadow = true){
-    global $rsgConfig, $mosConfig_live_site;
+    global $rsgConfig, $mainframe;
         if ( $imagetype == 'display')
             $imagepath = JPATH_DISPLAY . DS . $imagename.".jpg";
         else
@@ -831,9 +834,9 @@ class waterMarker extends GD2 {
         $imark->mark($imagetype); //draw watermark
         $rand = rand();
         if ($imagetype == 'original')
-            echo $mosConfig_live_site."/media/original_temp.jpg?".$rand;
+            echo JURI_SITE."/media/original_temp.jpg?".$rand;
         else
-            echo $mosConfig_live_site."/media/display_temp.jpg?".$rand;
+            echo JURI_SITE."/media/display_temp.jpg?".$rand;
     }
 }//END CLASS WATERMARKER
 ?>
