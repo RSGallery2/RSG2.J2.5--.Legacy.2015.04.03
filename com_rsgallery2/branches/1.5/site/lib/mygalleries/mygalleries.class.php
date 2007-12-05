@@ -28,7 +28,7 @@ class myGalleries {
 		$database = JFactory::getDBO();
 
         if (!$rsgConfig->get('show_mygalleries'))
-            $mainframe->redirect( JRoute::_($this->myg_url),_RSGALLERY_USERGAL_DISABLED);
+            $mainframe->redirect( $this->myg_url,_RSGALLERY_USERGAL_DISABLED);
         ?>
         <h2><?php echo _RSGALLERY_USER_MY_GAL;?></h2>
 

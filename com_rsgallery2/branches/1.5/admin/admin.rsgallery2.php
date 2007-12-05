@@ -7,22 +7,22 @@
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
-defined( '_VALID_MOS' ) or die( 'Access Denied.' );
+defined( '_JEXEC' ) or die( 'Access Denied.' );
 
 // initialize RSG2 core functionality
-require_once( $mosConfig_absolute_path.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
+require_once( JPATH_SITE.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
 
 // instantate user variables but don't show a frontend template
 rsgInstance::instance( 'request', false );
 
 // XML library
-require_once( $mosConfig_absolute_path .'/includes/domit/xml_domit_lite_include.php' );
+require_once( JPATH_SITE .'/includes/domit/xml_domit_lite_include.php' );
 
 //Load Tooltips
 JHTML::_('behavior.tooltip');
 
 ?>
-<link href="<?php echo $mosConfig_live_site; ?>/administrator/components/com_rsgallery2/admin.rsgallery2.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo JURI_SITE; ?>/administrator/components/com_rsgallery2/admin.rsgallery2.css" rel="stylesheet" type="text/css" />
 <?php
 
 require_once( $mainframe->getPath( 'admin_html' ) );
@@ -39,6 +39,7 @@ $id     = rsgInstance::getInt('id', 0 );
 
 $rsgOption = rsgInstance::getVar('rsgOption', null );
 
+$my = JFactory::getUser();
 
 /**
  * this is the new $rsgOption switch.  each option will have a switch for $task within it.
@@ -72,15 +73,15 @@ switch( $rsgOption ) {
  * this probably only works with Joomla <1.5
  */
 if( $rsgOption != '' ){
-    $option = "<a href='$mosConfig_live_site"
-        . "/administrator/index2.php?option=com_rsgallery2'>"
+    $option = '<a href="'.JURI_SITE
+        . '/administrator/index2.php?option=com_rsgallery2">'
         . "RSGallery2</a> / ";
     if( $task == '' ){
         $option .= "$rsgOption";
     }
     else{
-        $option .= "<a href='$mosConfig_live_site"
-        . "/administrator/index2.php?option=com_rsgallery2&rsgOption=$rsgOption'>"
+        $option .= '<a href="'.JURI_SITE
+        . '/administrator/index2.php?option=com_rsgallery2&rsgOption=$rsgOption">'
         . "$rsgOption</a>";
     }
 }
@@ -119,12 +120,10 @@ if( $rsgOption == '' )
 switch ( rsgInstance::getVar('task', null ) ){
     // config tasks
     // this is just a kludge until all links and form vars to configuration functions have been updated to use $rsgOption = 'config';
-    /*
     case 'config_dumpVars':
     case 'applyConfig':
     case 'saveConfig':
     case "showConfig":
-    */
     case 'config_rawEdit_apply':
     case 'config_rawEdit_save':
     case 'config_rawEdit':
@@ -192,6 +191,7 @@ switch ( rsgInstance::getVar('task', null ) ){
         break;
 	*/
 
+
     //image and category tasks
     case "categories_orderup":
     case "images_orderup":
@@ -222,13 +222,13 @@ switch ( rsgInstance::getVar('task', null ) ){
 * @param string The message to return
 */
 function uploadFileX( $filename, $userfile_name, $msg ) {
-	global $mosConfig_absolute_path;
-	$baseDir = mosPathName( $mosConfig_absolute_path . '/media' );
+	
+	$baseDir = JPATH_SITE . '/media' ;
 
 	if (file_exists( $baseDir )) {
 		if (is_writable( $baseDir )) {
 			if (move_uploaded_file( $filename, $baseDir . $userfile_name )) {
-				if (mosChmod( $baseDir . $userfile_name )) {
+				if (JFTP::chmod( $baseDir . $userfile_name )) {
 					return true;
 				} else {
 					$msg = _RSGALLERY_ERMSG_FAILD_CHMOD;
@@ -294,9 +294,9 @@ function purgeEverything(){
  * @todo This is a quick hack.  make it work on all OS and with non default directories.
  */
 function reallyUninstall(){
-    global $mosConfig_absolute_path;
     
-    passthru( "rm -r $mosConfig_absolute_path/images/rsgallery");
+    
+    passthru( "rm -r ".JPATH_SITE."/images/rsgallery");
     HTML_RSGALLERY::printAdminMsg( _RSGALLERY_REAL_UNINST_DIR );
 
     processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_acl', _RSGALLERY_REAL_UNINST_DROP_GAL );
@@ -316,7 +316,7 @@ function reallyUninstall(){
  * @return boolean value indicating success
  */
 function processAdminSqlQueryVerbosely( $query, $successMsg ){
-    global $database;
+    $database =& JFactory::getDBO();
     
     $database->setQuery( $query );
     $database->query();
@@ -331,7 +331,7 @@ function processAdminSqlQueryVerbosely( $query, $successMsg ){
 }
 
 function save_batchuploadX() {
-    global $database, $mosConfig_live_site, $rsgConfig;
+    global $database, $mainframe, $rsgConfig;
     
     //Try to bypass max_execution_time as set in php.ini
     set_time_limit(0);
@@ -352,7 +352,7 @@ function save_batchuploadX() {
         $category = array(0);
 
     if ( in_array("0",$category) ) {
-        mosRedirect("index2.php?option=com_rsgallery2&task=batchupload", _RSGALLERY_ALERT_NOCATSELECTED);
+        $mainframe->redirect("index2.php?option=com_rsgallery2&task=batchupload", _RSGALLERY_ALERT_NOCATSELECTED);
 	}
 
      for($i=0;$i<$teller;$i++) {
@@ -392,12 +392,12 @@ function save_batchuploadX() {
         }
     } else {
         //Everything went smoothly, back to Control Panel
-        mosRedirect("index2.php?option=com_rsgallery2", _RSGALLERY_ALERT_UPLOADOK);
+        $mainframe->redirect("index2.php?option=com_rsgallery2", _RSGALLERY_ALERT_UPLOADOK);
     }
 }
 
 function cancelGallery($option) {
-    mosRedirect("index2.php?option=$option");
+    $mainframe->redirect("index2.php?option=$option");
 }
 
 /**
@@ -411,7 +411,7 @@ function cancelGallery($option) {
  */
  
 function batch_uploadX($option) {
-	global $database, $mosConfig_live_site, $rsgConfig;
+	global $database, $mainframe, $rsgConfig;
 	$FTP_path = $rsgConfig->get('ftp_path');
 	
 	//Retrieve data from submit form
@@ -437,14 +437,14 @@ function batch_uploadX($option) {
 		if ($batchmethod == "zip") {
 			//Check if file is really a ZIP-file
 			if (!eregi( '.zip$', $zip_file['name'] )) {
-				mosRedirect( "index2.php?option=com_rsgallery2&task=batchupload", $zip_file['name']._RSGALLERY_BACTCH_NOT_VALID_ZIP);
+				$mainframe->redirect( "index2.php?option=com_rsgallery2&task=batchupload", $zip_file['name']._RSGALLERY_BACTCH_NOT_VALID_ZIP);
 			} else {
 				//Valid ZIP-file, continue
 				if ($uploadfile->checkSize($zip_file) == 1) {
 					$ziplist = $uploadfile->handleZIP($zip_file);
 				} else {
 					//Error message
-					mosRedirect( "index2.php?option=com_rsgallery2&task=batchupload", _RSGALLERY_ZIP_TO_BIG);
+					$mainframe->redirect( "index2.php?option=com_rsgallery2&task=batchupload", _RSGALLERY_ZIP_TO_BIG);
 				}
 			}
 		} else {
