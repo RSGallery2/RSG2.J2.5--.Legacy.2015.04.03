@@ -82,7 +82,8 @@ class html_rsg2_images {
 				if ( $row->checked_out && ( $row->checked_out != $my->id ) ) {
 					echo $row->title;
 				} else {
-					if (is_a( rsgGalleryManager::getItem( $row->id ), 'rsgItem_audio' ) ) {
+					$gallery = rsgGalleryManager::getGalleryByItemID($row->id);
+					if (is_a( $gallery->getItem($row->id), 'rsgItem_audio' ) ) {
 						$type = 'audio';
 					} else {
 						$type = 'image';

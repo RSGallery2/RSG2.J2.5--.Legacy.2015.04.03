@@ -36,6 +36,10 @@ Legend:
  + Removed batchupload from admin.rsgalelry2.php and moved to images.php
  ! I tagged a lot of functions to delete. After review they will be cleaned up.
  
+2007-12-05 John Caprez
+ # fixed bug in commenting
+ ^ italian language file
+
 2007-12-03 John Caprez
  # consistent pagination troughout all frontend 
 

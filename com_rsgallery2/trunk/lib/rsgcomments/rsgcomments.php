@@ -14,6 +14,8 @@ require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgcomments' . DS . 'rs
 
 $cid    = rsgInstance::getInt('cid', array(0) );
 $task    = rsgInstance::getVar('task', '' );
+$option    = rsgInstance::getVar('option', '' );
+
 switch( $task ){
     case 'save':
     	//test( $option );
@@ -56,7 +58,7 @@ function saveComment( $option ) {
 	$item_id 	= rsgInstance::getInt( 'item_id'  , '');
 	$catid 		= rsgInstance::getInt( 'catid'  , '');
 	//Check if commenting is enabled
-	$redirect_url = "index.php?option=$option&amp;Itemid=$Itemid&amp;page=inline&amp;id=$item_id&amp;catid=$catid";
+	$redirect_url = "index.php?option=".$option."&page=inline&id=".$item_id;
 	if ($rsgConfig->get('comment') == 0) {
 		mosRedirect( $redirect_url, _RSGALLERY_COMMENTS_DISABLED );
 		exit();
@@ -149,6 +151,6 @@ function deleteComments( $option ) {
 			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 		}
 	}
-	mosRedirect( "index.php?option=$option&amp;page=inline&amp;id=$item_id&amp;catid=$catid", _RSGALLERY_COMMENTS_COMMDEL );
+	mosRedirect( "index.php?option=$option&page=inline&id=$item_id&catid=$catid", _RSGALLERY_COMMENTS_COMMDEL );
 }
 ?>
