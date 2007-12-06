@@ -153,14 +153,18 @@ class rsgGallery extends JObject{
 		if( $this->_itemRows === null ){
 
 			global $rsgConfig;
-
 			global $database;
+			$my =& JFactory::getUser();
+			
 			
 			$filter_order = rsgInstance::getWord( 'filter_order',  $rsgConfig->get("filter_order") );
 			$filter_order_Dir = rsgInstance::getWord( 'filter_order_Dir', $rsgConfig->get("filter_order_Dir"));
 	
-			$where = ' WHERE gallery_id = '. $this->get('id') . ' AND published = 1 ';
-	
+			$where = ' WHERE gallery_id = '. $this->get('id');
+
+			if($my->get('gid') != 25)
+				$where .= ' AND published = 1 ';
+			
 			$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir;
 	
 			$query = ' SELECT * FROM #__rsgallery2_files '

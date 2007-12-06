@@ -531,12 +531,12 @@ class fileHandler {
         //check source directory
         if (!file_exists( $source ) OR !is_dir ( $source )) {
             echo $source._RSGALLERY_FU_FTP_DIR_NOT_EXIST;
-            mosRedirect('index2.php?option=com_rsgallery2&task=batchupload', $source._RSGALLERY_FU_FTP_DIR_NOT_EXIST);
+            mosRedirect('index2.php?option=com_rsgallery2&rsgOption=images&task=batchupload', $source._RSGALLERY_FU_FTP_DIR_NOT_EXIST);
         }
         //Read files from FTP-directory
         $files = mosReadDirectory($source, '');
         if (!$files) {
-            mosRedirect('index2.php?option=com_rsgallery2&task=batchupload', _RSGALLERY_FU_NO_VALID_IMG.$source._RSGALLERY_FU_PLEASE_CHECK_PATH);
+            mosRedirect('index2.php?option=com_rsgallery2&rsgOption=images&task=batchupload', _RSGALLERY_FU_NO_VALID_IMG.$source._RSGALLERY_FU_PLEASE_CHECK_PATH);
         }
         
         //Create imagelist from FTP-directory

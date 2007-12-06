@@ -637,6 +637,7 @@ class html_rsg2_images {
 			<input type="hidden" name="teller" value="<?php echo $i;?>" />
 			<input type="hidden" name="extractdir" value="<?php echo $extractDir;?>" />
 			<input type="hidden" name="option" value="com_rsgallery2" />
+			<input type="hidden" name="rsgOption" value="images" />
 			<input type="hidden" name="task" value="save_batchupload" />
 
 			</form>

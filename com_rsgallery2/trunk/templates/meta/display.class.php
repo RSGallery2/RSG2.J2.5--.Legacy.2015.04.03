@@ -201,7 +201,7 @@ class rsgDisplay extends JObject{
 				if ( $gallery->id == $currentGallery && empty($item) ) {
 					$mainframe->appendPathWay($gallery->name);
 				} else {
-					$mainframe->appendPathWay('<a href="' . JRoute::_($mosConfig_live_site . '/index.php?option=com_rsgallery2&Itemid='.$Itemid.'&gid=' . $gallery->id) . '">' . $gallery->name . '</a>');
+					$mainframe->appendPathWay('<a href="' . JRoute::_('index.php?option=com_rsgallery2&Itemid='.$Itemid.'&gid=' . $gallery->id) . '">' . $gallery->name . '</a>');
 				}
 			}
 

@@ -444,7 +444,7 @@
     <menu>RSGallery2</menu>
 	<submenu>
 		<menu link="option=com_rsgallery2">Control Panel</menu>
-		<menu link="option=com_rsgallery2&amp;task=batchupload">Batch Upload</menu>
+		<menu link="option=com_rsgallery2&amp;rsgOption=images&amp;task=batchupload">Batch Upload</menu>
 		<menu link="option=com_rsgallery2&amp;rsgOption=images&amp;task=upload">Upload</menu>
 		<menu link="option=com_rsgallery2&amp;rsgOption=galleries">Galleries</menu>
 		<menu link="option=com_rsgallery2&amp;rsgOption=images">Images</menu>

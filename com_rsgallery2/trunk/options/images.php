@@ -598,14 +598,14 @@ function batchupload($option) {
 		if ($batchmethod == "zip") {
 			//Check if file is really a ZIP-file
 			if (!eregi( '.zip$', $zip_file['name'] )) {
-				mosRedirect( "index2.php?option=com_rsgallery2&task=batchupload", $zip_file['name']._RSGALLERY_BACTCH_NOT_VALID_ZIP);
+				mosRedirect( "index2.php?option=com_rsgallery2&rsgOption=images&task=batchupload", $zip_file['name']._RSGALLERY_BACTCH_NOT_VALID_ZIP);
 			} else {
 				//Valid ZIP-file, continue
 				if ($uploadfile->checkSize($zip_file) == 1) {
 					$ziplist = $uploadfile->handleZIP($zip_file);
 				} else {
 					//Error message
-					mosRedirect( "index2.php?option=com_rsgallery2&task=batchupload", _RSGALLERY_ZIP_TO_BIG);
+					mosRedirect( "index2.php?option=com_rsgallery2&rsgOption=images&task=batchupload", _RSGALLERY_ZIP_TO_BIG);
 				}
 			}
 		} else {
@@ -639,7 +639,7 @@ function save_batchupload() {
         $category = array(0);
 
     if ( in_array("0",$category) ) {
-        mosRedirect("index2.php?option=com_rsgallery2&task=batchupload", _RSGALLERY_ALERT_NOCATSELECTED);
+		mosRedirect("index2.php?option=com_rsgallery2&rsgOption=images&task=batchupload", _RSGALLERY_ALERT_NOCATSELECTED);
 	}
 
      for($i=0;$i<$teller;$i++) {

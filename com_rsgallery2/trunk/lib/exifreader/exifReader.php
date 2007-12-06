@@ -400,6 +400,7 @@ class phpExifReader {
       if(!file_exists($this->file)) {
          $this->errno = 1;
          $this->errstr = "File '".$this->file."' does not exists!";
+			return;
       }
       $this->currSection = 0;
 
