@@ -447,7 +447,7 @@
 		<menu link="option=com_rsgallery2&amp;rsgOption=images&amp;task=batchupload">Batch Upload</menu>
 		<menu link="option=com_rsgallery2&amp;rsgOption=images&amp;task=upload">Upload</menu>
 		<menu link="option=com_rsgallery2&amp;rsgOption=galleries">Galleries</menu>
-		<menu link="option=com_rsgallery2&amp;rsgOption=images">Images</menu>
+		<menu link="option=com_rsgallery2&amp;rsgOption=images">Items</menu>
 	</submenu>
     <files>
 <!-- files in main directory, alphabetical order -->
