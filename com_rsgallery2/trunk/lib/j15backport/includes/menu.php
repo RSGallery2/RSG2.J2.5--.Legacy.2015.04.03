@@ -68,7 +68,6 @@ class JMenuSite extends JMenu
 			$menus[$key]->tree   = $parent_tree;
 
 			//Create route
-			echo $parent_route;
 			$route = $parent_route.$menus[$key]->link;
 			$menus[$key]->route  = $route;
 			
