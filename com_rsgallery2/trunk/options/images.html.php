@@ -228,7 +228,8 @@ class html_rsg2_images {
 					<td>
 						<div align="center">
 						<?php
-						$item = rsgGalleryManager::getItem( $row->id );
+						$gallery = rsgGalleryManager::getGalleryByItemID($row->id);
+						$item = $gallery->getItem( $row->id );
 						
 						$original	= $item->original();
 						if (is_a( $item, 'rsgItem_audio' ) ) {

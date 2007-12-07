@@ -532,7 +532,8 @@ function copyImage( $cid, $option ) {
     		$errors[] = 'Unable to create temp directory ' . $copyDir; 
     } else {
 	    foreach( $cid as $id ) {
-	    	$item = rsgGalleryManager::getItem( $id );
+			$gallery = rsgGalleryManager::getGalleryByItemID($id);
+	    	$item = $gallery->getItem( $id );
 	    	$original = $item->original();
 	    	$source = $original->filePath();
 	    	

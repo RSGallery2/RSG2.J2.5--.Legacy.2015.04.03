@@ -6,8 +6,9 @@ $css1 = "<link rel=\"stylesheet\" href=\"components/com_rsgallery2/templates/sli
 $mainframe->AddCustomHeadTag($css1);
 $css2 = "<link rel=\"stylesheet\" href=\"components/com_rsgallery2/templates/slideshow_parth/css/template.css\" type=\"text/css\" media=\"screen\" charset=\"utf-8\" />";
 $mainframe->AddCustomHeadTag($css2);
-$js1 = "<script src=\"components/com_rsgallery2/templates/slideshow_parth/js/mootools.v1.11.js\" type=\"text/javascript\"></script>";
-$mainframe->AddCustomHeadTag($js1);
+
+JHTML::_("behavior.mootools");
+
 $js2 = "<script src=\"components/com_rsgallery2/templates/slideshow_parth/js/jd.gallery.js\" type=\"text/javascript\"></script>";
 $mainframe->AddCustomHeadTag($js2);
 ?>
