@@ -217,11 +217,12 @@ switch ( rsgInstance::getVar('task', null ) ){
 }
 
 /**
+* Function, used to upload template files
 * @param string The name of the php (temporary) uploaded file
 * @param string The name of the file to put in the temp directory
 * @param string The message to return
 */
-function uploadFileX( $filename, $userfile_name, $msg ) {
+function uploadFile( $filename, $userfile_name, $msg ) {
 	global $mosConfig_absolute_path;
 	$baseDir = mosPathName( $mosConfig_absolute_path . '/media' );
 
