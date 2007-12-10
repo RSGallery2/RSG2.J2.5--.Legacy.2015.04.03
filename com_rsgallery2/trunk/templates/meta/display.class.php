@@ -384,14 +384,14 @@ class rsgDisplay extends JObject{
                         foreach($rows as $row)
                             {
                             $l_start = $row->ordering - 1;
-				$url = JRoute::_("index.php?option=com_rsgallery2&page=inline&id=".$row->id);
+							$url = JRoute::_("index.php?option=com_rsgallery2&page=inline&id=".$row->id);
                             ?>
                             <td align="center">
                             <div align="center">
                             	<a href="<?php echo $url;?>">
                             	<img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>" width="<?php echo $rsgConfig->get('thumb_width');?>"  />
                             	</a>
-                            <div class="rsg2_details">Uploaded:&nbsp;<?php echo mosFormatDate($row->date, "%d-%m-%Y");?></div>
+								<div class="rsg2_details"><?php echo _RSGALLERY_TMPL_GAL_UPLOADED ?>&nbsp;<?php echo mosFormatDate($row->date, "%d-%m-%Y");?></div>
                             </div>
                             </td>
                             <?php
