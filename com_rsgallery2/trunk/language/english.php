@@ -673,6 +673,7 @@ DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"No permissions were found, so default 
 DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"Owner: ");
 DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"Size: ");
 DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Created: ");
+/*new*/DEFINE("_RSGALLERY_TMPL_GAL_SUBGALLERIES",	"Subgalleries: ");
 
 //file.utils.php
 //function importImage

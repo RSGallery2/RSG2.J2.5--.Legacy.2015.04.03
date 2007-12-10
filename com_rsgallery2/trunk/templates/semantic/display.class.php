@@ -534,8 +534,8 @@ class rsgDisplay_semantic extends rsgDisplay{
 		$kids = $parent->kids();
 
 		if( count( $kids ) == 0 ) return;
-
-		echo "Subgalleries: ";
+		
+		echo _RSGALLERY_TMPL_GAL_SUBGALLERIES;
 		
 		$kid = array_shift( $kids );
 		

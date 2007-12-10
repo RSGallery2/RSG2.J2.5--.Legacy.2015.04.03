@@ -149,7 +149,7 @@ class JPagination extends JObject
 		// Initialize variables
 		$html = null;
 		if ($this->get('pages.total') > 0) {
-			$html .= JText::_('Page')." ".$this->get('pages.current')." ".JText::_('of')." ".$this->get('pages.total');
+			$html .= _PN_PAGE." ".$this->get('pages.current')." "._PN_OF." ".$this->get('pages.total');
 		}
 		return $html;
 	}
@@ -498,8 +498,8 @@ class JPagination extends JObject
 		}
 
 		// Set the start and previous data objects
-		$data->start	= new JPaginationObject(JText::_('Start'));
-		$data->previous	= new JPaginationObject(JText::_('Prev'));
+		$data->start	= new JPaginationObject(_PN_START);
+		$data->previous	= new JPaginationObject(_PN_PREVIOUS);
 
 		if ($this->get('pages.current') > 1)
 		{
@@ -514,8 +514,8 @@ class JPagination extends JObject
 		}
 
 		// Set the next and end data objects
-		$data->next	= new JPaginationObject(JText::_('Next'));
-		$data->end	= new JPaginationObject(JText::_('End'));
+		$data->next	= new JPaginationObject(_PN_NEXT);
+		$data->end	= new JPaginationObject(_PN_END);
 
 		if ($this->get('pages.current') < $this->get('pages.total'))
 		{
