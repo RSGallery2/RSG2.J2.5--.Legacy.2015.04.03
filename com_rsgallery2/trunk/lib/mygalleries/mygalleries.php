@@ -47,11 +47,11 @@ switch( $task ){
     	deleteCat();
     	break;
 	default:
-		showMyGalleries( $option );
+		showMyGalleries();
 		break;
 }
 
-function showMyGalleries( $option ) {
+function showMyGalleries() {
 	global $my, $rsgConfig, $database;
 	
 	//Check if My Galleries is enabled in config, if not .............. 
