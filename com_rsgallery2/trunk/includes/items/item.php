@@ -123,7 +123,7 @@ class rsgResource extends JObject{
 	 */
 	function url(){
 		global $mosConfig_live_site;
-		return $mosConfig_live_site . "/" . $this->name;
+		return $mosConfig_live_site . $this->name;
 	}
 	
 	/**
