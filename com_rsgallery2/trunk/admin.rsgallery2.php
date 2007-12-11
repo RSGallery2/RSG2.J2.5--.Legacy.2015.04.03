@@ -267,7 +267,8 @@ function purgeEverything(){
     processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_galleries', _RSGALLERY_PURGE_GAL );
     processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_config', _RSGALLERY_PURGE_CONFIG );
     processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_comments', _RSGALLERY_PURGE_COMMENTS );
-
+	processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_acl', '** Access Control Data deleted **' );
+    
     // remove thumbnails
     HTML_RSGALLERY::printAdminMsg( _RSGALLERY_PURGE_THUMB );
     foreach ( glob( $fullPath_thumb.'*' ) as $filename ) {

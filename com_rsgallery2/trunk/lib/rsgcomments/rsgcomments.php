@@ -151,6 +151,6 @@ function deleteComments( $option ) {
 			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 		}
 	}
-	mosRedirect( "index.php?option=$option&page=inline&id=$item_id&catid=$catid", _RSGALLERY_COMMENTS_COMMDEL );
+	mosRedirect( "index.php?option=$option&amp;page=inline&amp;id=$item_id&amp;catid=$catid", _RSGALLERY_COMMENTS_COMMDEL );
 }
 ?>

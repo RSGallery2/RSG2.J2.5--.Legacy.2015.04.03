@@ -67,7 +67,8 @@ class rsgInstall {
             new migrate_com_akogallery,
             //this class is used for automatic, not manual migrations:
             //new migrate_com_rsgallery,
-            new migrate_com_zoom_251_RC1,
+            new migrate_com_zoom_251_RC4,
+            new migrate_com_ponygallery_ml_241
         );
 
         if( $rsgConfig->get( 'debug' )){
@@ -575,7 +576,7 @@ class rsgInstall {
      * @param integer Autoincrement ID for the table
      * @return integer Highest value for ID in table
      */
-    function maxId($tablename = "#__rsgallery2_cats", $id = "id") {
+    function maxId($tablename = "#__rsgallery2_galleries", $id = "id") {
         global $database;
         $sql = "SELECT MAX($id) FROM $tablename";
         $database->setQuery($sql);
@@ -595,43 +596,37 @@ class rsgInstall {
      * @param integer Highest value in new table
      */
     function migrateOldFiles($old_table, $old_image_name, $old_image_filename, $old_image_date, $old_description, $old_uid, $old_catid, $max_id) {
-    global $database;
-    $error = 0;
-    $file = 0;
-    $sql = "SELECT * FROM $old_table";
-    $database->setQuery($sql);
-    $old = $database->loadObjectList();
-    foreach ($old as $row)
-        {
-        $filename   = $row->$old_image_filename;
-        $imagename  = $row->$old_image_name;
-        $date       = $row->$old_image_date;
-        $descr      = $row->$old_description;
-        $uid        = $row->$old_uid;
-        $catid      = $row->$old_catid + $max_id;
-        $sql2 = "INSERT INTO #__rsgallery2_files ".
-                "(name, descr, title, date, userid, gallery_id) VALUES ".
-                "('$filename', '$descr', '$imagename', '$date', '$uid', '$catid')";
-        $database->setQuery($sql2);
-        if (!$database->query())
-            {
-            $error++;
-            }
-        else
-            {
-            $file++;
-            }
-        }
-    $total = $error + $file;
-    if ($error > 0)
-        {
-        $this->writeInstallMsg(_RSGALLERY_MIGRATE_NOT_ALL."<strong>$file</strong>"._RSGALLERY_MIGRATE_OUT_OF."<strong>$total</strong>"._RSGALLERY_MIGRATE_ENTRIES_OK,"error");
-        }
-    else
-        {
-        $this->writeInstallMsg(_RSGALLERY_MIGRATE_ALL."<strong>$file</strong>"._RSGALLERY_MIGRATE_ENTRIES_OK,"ok");
-        }
-    }
+	    global $database;
+	    $error = 0;
+	    $file = 0;
+	    $sql = "SELECT * FROM $old_table";
+	    $database->setQuery($sql);
+	    $old = $database->loadObjectList();
+	    foreach ($old as $row)
+	        {
+	        $filename   = $row->$old_image_filename;
+	        $imagename  = $row->$old_image_name;
+	        $date       = $row->$old_image_date;
+	        $descr      = $row->$old_description;
+	        $uid        = $row->$old_uid;
+	        $catid      = $row->$old_catid + $max_id;
+	        $sql2 = "INSERT INTO #__rsgallery2_files ".
+	                "(name, descr, title, date, userid, gallery_id) VALUES ".
+	                "('$filename', '$descr', '$imagename', '$date', '$uid', '$catid')";
+	        $database->setQuery($sql2);
+	        if (!$database->query()) {
+	            $error++;
+	        } else {
+	            $file++;
+	        }
+		}
+	    $total = $error + $file;
+	    if ($error > 0) {
+	        $this->writeInstallMsg(_RSGALLERY_MIGRATE_NOT_ALL."<strong>$file</strong>"._RSGALLERY_MIGRATE_OUT_OF."<strong>$total</strong>"._RSGALLERY_MIGRATE_ENTRIES_OK,"error");
+		} else{
+	        $this->writeInstallMsg(_RSGALLERY_MIGRATE_ALL."<strong>$file</strong>"._RSGALLERY_MIGRATE_ENTRIES_OK,"ok");
+		}
+	}
     /**
      * Function migrates category information of other gallery systems to RSGallery2
      *
@@ -642,44 +637,7 @@ class rsgInstall {
      * @param string Old Description field name
      */
     function migrateOldCats($old_table, $old_catid = "id", $old_catname = "catname", $old_parent_id = "parent_id", $old_descr_name = "description", $max_id) {
-    global $database;
-    $error = 0;
-    $file = 0;
-    $sql = "SELECT $old_catid,$old_catname,$old_parent_id,$old_descr_name FROM $old_table ORDER BY $old_catname ASC";
-    $database->setQuery($sql);
-    $old = $database->loadObjectList();
-    foreach ($old as $row)
-        {
-        $id             = $row->$old_catid + $max_id;
-        $catname        = $row->$old_catname;
-        if ($row->$old_parent_id == 0)
-            $parent_id  = 0;
-        else
-            $parent_id  = $row->$old_parent_id + $max_id;
-        $description    = $row->$old_descr_name;
-        
-        $sql2 = "INSERT INTO #__rsgallery2_cats ".
-                "(id, catname, parent, description) VALUES ".
-                "('$id','$catname','$parent_id','$description')";
-        $database->setQuery($sql2);
-        if (!$database->query())
-            {
-            $error++;
-            }
-        else
-            {
-            $file++;
-            }
-        }
-    $total = $error + $file;
-    if ($error > 0)
-        {
-        $this->writeInstallMsg(_RSGALLERY_MIGRATE_NOT_ALL_GAL."<strong>$file</strong>"._RSGALLERY_MIGRATE_OUT_OF."<strong>$processed</strong>"._RSGALLERY_MIGRATE_ENTRIES_OK,"error");
-        }
-    else
-        {
-        $this->writeInstallMsg(_RSGALLERY_MIGRATE_ALL_GAL."<strong>$file</strong>"._RSGALLERY_MIGRATE_ENTRIES_OK,"ok");
-        }
+
     }
     
     function migrateOldComments($old_table = "#__zoom_comments", $old_comment = "cmtcontent", $old_img_id = "imgid") {
@@ -727,62 +685,50 @@ class rsgInstall {
      * @param string Base directory of Zoom images
      */
     function copyZoomImages($basedir) {
-    global $mosConfig_absolute_path, $rsgConfig;
-    $errorcount = 0;
-    /** 
-     * Set timelimit to avoid time out errors due to restrictions 
-     * in php.ini's 'max_execution_time' which defaults to 30 in
-     * most installations.
-     */
-    set_time_limit(120);
-    if (is_dir($basedir))
-        {
-        if ($handle = opendir($basedir))
-            {
-            while (($dirname = readdir($handle)) !== false)
-                {
-                //Find subdirs and if so, go there and read the files
-                if (is_dir($basedir.$dirname) && $dirname !== "." && $dirname !== "..")
-                    {
-                    //echo "<strong>$dirname</strong><br>";
-                    
-                    if($handle2 = opendir($basedir.$dirname."/"))
-                        {
-                        while (($filename = readdir($handle2)) !== false)
-                            {
-                            $ext = $this->getExtension($filename);
-                            if (!is_dir($basedir.$dirname."/".$filename) && ($filename !== ".") && ($filename !== "..") && (in_array($ext, $this->allowedExt)))
-                                {
-                                $from   = $basedir.$dirname."/".$filename;
-                                $to     = $mosConfig_absolute_path.$this->dirOriginal."/".$filename;
-                                if (!copy($from, $to))
-                                    {
-                                    $errorcount++;
-                                    }
-                                else
-                                    {
-                                    //Create thumb and display image
-                                    imgUtils::makeThumbImage( $from );
-                                    imgUtils::makeDisplayImage( $from );
-                                    }
-                                }
-                            }
-                        closedir($handle2);
-                        }
-                    }
-                }
-            closedir($handle);
-            }
-        }
-    if ($errorcount > 0)
-        {
-        return false;
-        }
-    else
-        {
-        return true;
-        }
-    }
+	    global $mosConfig_absolute_path, $rsgConfig;
+	    $errorcount = 0;
+	    /** 
+	     * Set timelimit to avoid time out errors due to restrictions 
+	     * in php.ini's 'max_execution_time' which defaults to 30 in
+	     * most installations.
+	     */
+	    set_time_limit(120);
+	    if (is_dir($basedir)) {
+	        if ($handle = opendir($basedir)) {
+	            while (($dirname = readdir($handle)) !== false) {
+	                //Find subdirs and if so, go there and read the files
+	                if (is_dir($basedir.$dirname) && $dirname !== "." && $dirname !== "..") {
+	                    //echo "<strong>$dirname</strong><br>";
+	                    
+	                    if($handle2 = opendir($basedir.$dirname."/")) {
+	                        while (($filename = readdir($handle2)) !== false) {
+	                            $ext = $this->getExtension($filename);
+	                            if (!is_dir($basedir.$dirname."/".$filename) && ($filename !== ".") && ($filename !== "..") && (in_array($ext, $this->allowedExt))) {
+	                                $from   = $basedir.$dirname."/".$filename;
+	                                $to     = $mosConfig_absolute_path.$this->dirOriginal."/".$filename;
+	                                if (!copy($from, $to)) {
+	                                    $errorcount++;
+									} else {
+	                                    //Create thumb and display image
+	                                    imgUtils::makeThumbImage( $from );
+	                                    imgUtils::makeDisplayImage( $from );
+	                                }
+								}
+	                        }
+						closedir($handle2);
+						}
+					}
+				}
+			closedir($handle);
+			}
+		}
+	    
+	    if ($errorcount > 0) {
+	        return false;
+		} else {
+	        return true;
+	    }
+	}
 
     function upgradeInstall() {
     global $rsgConfig, $database, $mosConfig_absolute_path;
@@ -1118,9 +1064,9 @@ class rsgInstall {
      */
     function showMigrationOptions() {
         global $mosConfig_absolute_path, $mosConfig_live_site;
-        
+
         $i = 0;
-        echo "<h3>"._RSGALLERY_MIGRATION."</h3>";
+
         foreach( $this->galleryList as $component ){
             if( $component->detect() ){
                 ?>
@@ -1129,7 +1075,7 @@ class rsgInstall {
                 <table class="adminlist" border="1">
                 <tr>
                     <td width="75%"><strong><?php echo $component->getName(); ?></strong> is installed</td>
-                    <td><a href="index2.php?option=com_rsgallery2&task=install&opt=migration&type=<? echo $component->getTechName(); ?>"><img src="<?php echo $mosConfig_live_site;?>/administrator/images/install.png" alt="" width="24" height="24" border="0" align="middle">&nbsp;Migrate</a></td>
+                    <td><a href="index2.php?option=com_rsgallery2&rsgOption=maintenance&task=doMigration&type=<? echo $component->getTechName(); ?>"><img src="<?php echo $mosConfig_live_site;?>/administrator/images/install.png" alt="" width="24" height="24" border="0" align="middle">&nbsp;Migrate</a></td>
                 </tr>
                 </table>
                 </td></tr></table>
@@ -1314,7 +1260,124 @@ class GenericMigrator{
         }
         return($ret);
     }
-}
+    
+	/**
+     * Function migrates gallery information of other gallery systems to RSGallery2
+     *
+     * @param string Old gallery tablename
+     * @param string Old ID field name
+     * @param string Old Category field name
+     * @param string Old Parent ID field name
+     * @param string Old Description field name
+     */
+	function migrateGalleries($old_table, $old_catid = "id", $old_catname = "catname", $old_parent_id = "parent_id", $old_descr_name = "description", $max_id) {
+		global $database;
+	    //Set variables
+	    $error = 0;
+	    $file = 0;
+	    
+	    //Select all category details from other gallery system
+	    $sql = "SELECT $old_catid, $old_catname, $old_parent_id, $old_descr_name FROM $old_table ORDER BY $old_catname ASC";
+	    $database->setQuery($sql);
+	    $old = $database->loadObjectList();
+	    
+	    foreach ($old as $row) {
+			//Create new category ID
+	        $id             = $row->$old_catid + $max_id;
+	        $catname        = $row->$old_catname;
+	        $description    = $row->$old_descr_name;
+	        
+	        if ($row->$old_parent_id == 0) {
+	            $parent_id  = 0;
+	        } else {
+	            $parent_id  = $row->$old_parent_id + $max_id;
+	        }
+	        
+	        //Insert values into RSGallery2 gallery table
+	        $sql2 = "INSERT INTO #__rsgallery2_galleries ".
+	                "(id, name, parent, description, published) VALUES ".
+	                "('$id','$catname','$parent_id','$description', '1')";
+	        $database->setQuery($sql2);
+			//Count errors and migrated files
+	        if (!$database->query()) {
+	            $error++;
+	        } else {
+	            $file++;
+	        }
+		}
+		
+	    $total = $error + $file;
+	    if ($error > 0) {
+	        rsgInstall::writeInstallMsg(_RSGALLERY_MIGRATE_NOT_ALL_GAL."<strong>$file</strong>"._RSGALLERY_MIGRATE_OUT_OF."<strong>$processed</strong>"._RSGALLERY_MIGRATE_ENTRIES_OK,"error");
+		} else {
+	        rsgInstall::writeInstallMsg(_RSGALLERY_MIGRATE_ALL_GAL."<strong>$file</strong>"._RSGALLERY_MIGRATE_ENTRIES_OK,"ok");
+	    }
+    }
+    
+	/**
+     * Migrates item information of other gallery systems to RSGallery2
+     * 
+     * @param string Old files tablename
+     * @param string Old image name
+     * @param string Old image filename
+     * @param timestamp Old image date
+     * @param string Old description
+     * @param integer Old User ID
+     * @param integer Old category ID
+     * @param integer Highest value in new table
+     */
+    function migrateItems($old_table, $old_image_name, $old_image_filename, $old_image_date, $old_description, $old_uid, $old_catid, $max_id, $prefix) {
+	    global $database;
+	    //Set variables
+	    $error = 0;
+	    $file = 0;
+	    
+	    //GEt all information from images table
+	    $sql = "SELECT * FROM $old_table";
+	    $database->setQuery($sql);
+	    $old = $database->loadObjectList();
+	    
+	    foreach ($old as $row) {
+	        $filename   = $prefix.$row->$old_image_filename;
+	        $imagename  = $row->$old_image_name;
+	        $date       = $row->$old_image_date;
+	        $descr      = $row->$old_description;
+	        $uid        = $row->$old_uid;
+	        $catid      = $row->$old_catid + $max_id;
+	        
+	        //Insert data into RSGallery2 files table
+	        $sql2 = "INSERT INTO #__rsgallery2_files ".
+	                "(name, descr, title, date, userid, gallery_id) VALUES ".
+	                "('$filename', '$descr', '$imagename', '$date', '$uid', '$catid')";
+	        $database->setQuery($sql2);
+	        
+	        //Error and file counting
+	        if (!$database->query()) {
+	            $error++;
+	        } else {
+	            $file++;
+	        }
+		}
+	    $total = $error + $file;
+	    if ($error > 0) {
+	        rsgInstall::writeInstallMsg(_RSGALLERY_MIGRATE_NOT_ALL."<strong>$file</strong>"._RSGALLERY_MIGRATE_OUT_OF."<strong>$total</strong>"._RSGALLERY_MIGRATE_ENTRIES_OK,"error");
+		} else{
+	        rsgInstall::writeInstallMsg(_RSGALLERY_MIGRATE_ALL."<strong>$file</strong>"._RSGALLERY_MIGRATE_ENTRIES_OK,"ok");
+		}
+	}
+
+	/**
+     * Migrates comment information of other gallery systems to RSGallery2
+     * 
+     * @param string Old commments tablename
+     * @param string Old comment text
+     * @todo Make this work. As images get new Image ID's this means the comments don't match when migrated.
+     */	
+	function migrateComments($old_table = "#__zoom_comments", $old_comment = "cmtcontent", $old_img_id = "imgid") {
+    	global $database;
+    	return true;
+    }
+}//end class
 
 /**
  * test migrator - always succesfull
@@ -1572,7 +1635,108 @@ class migrate_com_akogallery extends GenericMigrator{
         }
     }
 }
+/**
+ * Pony Gallery ML version 2.4.1 migrator
+ * @package RSGallery2
+ */
+class migrate_com_ponygallery_ml_241 extends genericMigrator {
+	/**
+     * @return string containing the technical name.  no spaces, special characters, etc allowed as this will be used in GET/POST.  advisable to use the class name.  we would just use get_class(), but it's implementation is differs in PHP 4 and 5.
+     */
+    function getTechName(){
+        return 'com_ponygallery_ml_241';
+    }
 
+    
+    /**
+     * @return string containing a user friendly name and version(s) of which gallery this class migrates
+     */
+    function getName(){
+        return 'Pony Gallery ML 2.4.1';
+    }
+
+    /**
+     * detect if the gallery version this class handles is installed
+     * @return true or false
+    **/
+    function detect(){
+        
+        if( rsgInstall::componentInstalled( "com_ponygallery" )){
+            include_once(JPATH_SITE . DS . "components" . DS . "com_ponygallery" . DS . "language" . DS . "english.php");
+			$version = explode(",", _PONYGALLERY_VERSION);
+            if ( $version[0] == "Version 2.4.1" )
+            	return true;
+        }
+
+        // component not installed or wrong version.
+        return false;
+    }
+/**
+ * Copies original images from Pony Gallery to the RSGallery2 file structure
+ * and then creates display and thumb images.
+ * @param string full path to the original Pony Images
+ * @return True id succesfull, false if not
+ */
+function copyImages($basedir, $prefix){
+        global $database, $rsgConfig;
+        
+        $sql = "SELECT * FROM #__ponygallery";
+        $database->setQuery( $sql );
+        $result = $database->loadObjectList();
+        $i = 0;
+        foreach ($result as $image) {
+        	$source 		= $basedir . $image->imgfilename;
+        	$destination	= JPATH_ORIGINAL . DS . $prefix.$image->imgfilename;
+
+			//First move image to original folder
+        	$newpath = fileUtils::move_uploadedFile_to_orignalDir($source, $destination);
+        	if ($newpath) {
+        		imgUtils::makeDisplayImage($newpath, '', $rsgConfig->get('image_width'));
+        		imgUtils::makeThumbImage($newpath);
+        	} else {
+        		$i++;
+        	}
+        }
+		if ($i > 0) {
+			return false;
+		} else {
+			return true;
+		}
+    }
+    
+    function migrate() {
+
+    	//Set basedir to original images
+	    include_once(JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_ponygallery" . DS ."config.ponygallery.php");
+	    $basedir = JPATH_SITE . $ag_pathoriginalimages . DS;
+	    
+	    //Set prefix for images to avoid duplicate filenames
+	    $prefix = "pony_";
+	    
+	    //Show start message
+	    rsgInstall::writeInstallMsg("Start migrating ".$this->getName(),"ok");
+
+	    //Define Max ID in #__rsgallery2_galleries
+	    $max_id = rsgInstall::maxId();
+
+	    //Migrate categories to RSGallery2 DB
+	    $this->migrateGalleries("#__ponygallery_catg", "cid", "name", "parent", "description", $max_id);
+	    
+	    //Migrate files into RSGallery2 DB
+	    $this->migrateItems("#__ponygallery", "imgtitle", "imgfilename", "imgdate", "imgtext", "imgauthor", "catid", $max_id, $prefix);
+
+	    //Migrate comments into RSGallery2 DB
+	    //$this->migrateComments("#__ponygallery_comments", "cmttext", "cmtid");
+		
+	    if ($this->copyImages($basedir, $prefix)) {
+	        rsgInstall::writeInstallMsg(_RSGALLERY_MIGRATE_ALL_FILES,"ok");
+	    } else {
+	        rsgInstall::writeInstallMsg(_RSGALLERY_MIGRATE_NOTALL_FILES,"error");
+	    }
+	    rsgInstall::installComplete("Migration of ".$this->getName()." completed");
+	    
+    }
+}
 /**
 * zoom gallery migrator
 * @package RSGallery2
@@ -1618,13 +1782,94 @@ class migrate_com_zoom_251_RC1 extends GenericMigrator{
      * @return true on success, anything else a failure
      */
     function migrate(){
+    
     }
 }
 
 /**
-* rsgallery migrator
+* zoom gallery migrator
 * @package RSGallery2
 */
+class migrate_com_zoom_251_RC4 extends GenericMigrator{
+
+    /**
+     * @return string containing the technical name.  no spaces, special characters, etc allowed as this will be used in GET/POST.  advisable to use the class name.  we would just use get_class(), but it's implementation is differs in PHP 4 and 5.
+     */
+    function getTechName(){
+        return 'com_zoom_251_RC4';
+    }
+
+    
+    /**
+     * @return string containing a user friendly name and version(s) of which gallery this class migrates
+     */
+    function getName(){
+        return 'ZOOM Gallery 2.5.1 RC4';
+    }
+
+    /**
+     * detect if the gallery version this class handles is installed
+     * @return true or false
+    **/
+    function detect(){
+        global $mosConfig_absolute_path;
+        //$comdir = $mosConfig_absolute_path."/administrator/components/com_zoom";
+        
+        if( rsgInstall::componentInstalled( "com_zoom" )){
+            include_once(JPATH_SITE . DS . "components/com_zoom/etc/zoom_config.php");
+
+            if ( $zoomConfig['version'] == "2.5.1 RC4" ) {
+            	return true;
+            }
+        }
+
+        // component not installed or wrong version.
+        return false;
+    }
+
+    /**
+     * do the migration thing
+     * @return true on success, anything else a failure
+     */
+    function migrate(){
+	    global $mosConfig_absolute_path;
+	    
+	    //Set basedir from config file
+	    include_once(JPATH_SITE. DS . "components/com_zoom/etc/zoom_config.php");
+	    $basedir = JPATH_SITE . DS .$zoomConfig['imagepath'];
+	    
+	    //Write version is OK
+	    $this->writeInstallMsg("OK, right version (".$zoomConfig['version'].") is installed. Let's migrate!","ok");
+			    
+	    //Determine max ID for proper ID transfer to database
+	    $max_id = $this->maxId();
+	    
+	    //Create RSGallery2 table structure, WHY do this!!!!
+	    //$this->createTableStructure();
+	    
+	    //Migrate categories to RSGallery2 DB
+	    $this->migrateGalleries("#__zoom", "catid", "catname", "subcat_id", "catdescr", $max_id);
+	    
+	    //Migrate files into RSGallery2 DB
+	    $this->migrateItems("#__zoomfiles", "imgname", "imgfilename", "imgdate", "imgdescr", "uid", "catid", $max_id);
+	    
+	    //Migrate comments into RSGallery2 DB
+	    $this->migrateComments();//Obsolete for now
+	    
+
+	    if ($this->copyImages($basedir)) {
+	        $this->writeInstallMsg(_RSGALLERY_MIGRATE_ALL_FILES,"ok");
+	    } else {
+	        $this->writeInstallMsg(_RSGALLERY_MIGRATE_NOTALL_FILES,"error");
+	    }
+	    $this->installComplete(_RSGALLERY_MIGRATE_ZOOM_OK);
+	}
+}
+
+/**
+ * rsgallery migrator
+ * @package RSGallery2
+ */
 class migrate_com_rsgallery extends GenericMigrator{
     /* public functions */
     
@@ -1640,23 +1885,6 @@ class migrate_com_rsgallery extends GenericMigrator{
      */
     function getName(){
         return 'RSGallery2 1.10.2+';
-    }
-
-    /**
-     * detect if the gallery version this class handles is installed
-     * @return true or false
-     * @todo: Deprecated
-     */
-    function detectX(){
-        global $database;
-        
-        if( strpos( implode( '', $database->getTableList()), 'rsgallery2_config' ) === false ){
-            // rsgallery2_config table does not exist
-            return false;
-        }
-
-        // if #__rsgallery2_config exists, then we can handle the upgrade
-        return true;
     }
 
 	/**

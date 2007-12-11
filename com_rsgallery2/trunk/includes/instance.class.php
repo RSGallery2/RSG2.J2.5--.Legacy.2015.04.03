@@ -72,6 +72,9 @@ class rsgInstance extends JRequest{
 			case 'myGalleries':
 				require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'mygalleries' . DS . 'mygalleries.php');
 				break;
+			case'search':
+				require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgsearch' . DS . 'search.php');
+				break;
 			default:
 				switch( rsgInstance::getVar( 'task', '' ) ){
 					case 'xml':

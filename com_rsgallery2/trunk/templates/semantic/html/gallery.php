@@ -8,7 +8,8 @@ global $ItemId;
 if ($rsgConfig->get('show_mygalleries')) {
 	echo $this->showRsgHeader();
 }
-
+//show search box
+$this->showSearchBox();
 
 //Show introduction text
 ?>

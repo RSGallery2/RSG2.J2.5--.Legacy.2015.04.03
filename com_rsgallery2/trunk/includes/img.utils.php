@@ -108,7 +108,7 @@ class imgUtils extends fileUtils{
      * Takes an image file, moves the file and adds database entry
      * @param the verified REAL name of the local file including path
      * @param name of file according to user/browser or just the name excluding path
-     * @param desired category
+     * @param desired category ID
      * @param title of image, if empty will be created from $imgName
      * @param description of image, if empty will remain empty
      * @return returns true if successfull otherwise returns an ImageUploadError

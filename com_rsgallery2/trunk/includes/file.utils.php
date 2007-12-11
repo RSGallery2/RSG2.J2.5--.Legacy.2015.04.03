@@ -137,10 +137,8 @@ class fileUtils{
     }
 
     /**
-     * new and extra thought out!
-     * Moves uploaded file to the original folder.
-     * This version is designed to make use of the J15 libraries
-     * Once this is finished, the old version will be deprecated
+     * Moves file to the original folder.
+     * It checks whether a filename already exists and renames when necessary
      * 
      * @todo Check filenames against database instead of filesystem
      * @param string Temporary upload location as provided by $_FILES['tmp_name'] or from filename array

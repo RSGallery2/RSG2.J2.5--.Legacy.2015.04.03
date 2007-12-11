@@ -453,6 +453,25 @@ class rsgDisplay extends JObject{
 		$exif = new phpExifReader($filename);
 		$exif->showFormattedEXIF();
  	}    
+    
+    function showSearchBox() {
+    	global $Itemid, $mainframe, $mosConfig_live_site;
+    	$css = "<link rel=\"stylesheet\" href=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/rsgsearch/rsgsearch.css\" type=\"text/css\" />";
+    	$mainframe->addCustomHeadTag($css);
+    	?>
+
+    	<div align="right">
+    	<form name="rsg2_search" method="post" action="index.php">
+    		<?php echo "** Search: **";?>
+    		<input type="text" name="searchtext" class="searchbox" onblur="if(this.value=='') this.value='<?php echo  "** keywords **" ;?>';" onfocus="if(this.value=='<?php echo  "** keywords **" ;?>') this.value='';" value='<?php echo  "** keywords **" ;?>' />
+			<input type="hidden" name="option" value="com_rsgallery2" />
+			<input type="hidden" name="rsgOption" value="search" />
+			<input type="hidden" name="task" value="showResults" />
+			<input type="hidden" name="Itemid" value="<?php echo $Itemid ;?>" />
+    	</form>
+    	</div>
+    	<?php
+    }
     /*
     function showRSTopBar() {
         global $my, $mosConfig_live_site, $rsgConfig, $Itemid;

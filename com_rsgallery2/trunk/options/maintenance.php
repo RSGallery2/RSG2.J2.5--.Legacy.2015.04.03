@@ -46,6 +46,17 @@ switch ($task) {
 	case 'optimizeDB':
 		optimizeDB();
 		break;
+	
+	/* Migration calls */
+	case 'showMigration':
+		HTML_RSGALLERY::RSGalleryHeader('cpanel', '** Migration options **');
+		showMigration();
+		HTML_RSGALLERY::RSGalleryFooter();
+		break;
+	case 'doMigration':
+		doMigration();
+		break;
+		
 	case 'test':
 		test();
 		break;
@@ -68,6 +79,46 @@ function test() {
     echo "<pre>";
     var_dump($imgname);
     echo "</pre>";
+}
+
+/**
+ * Shows Migration main screen
+ * It shows detected gallerysystem and offers a migration option
+ */
+function showMigration() {
+    global $mosConfig_live_site;
+    require_once(JPATH_RSGALLERY2_ADMIN.'/includes/install.class.php');
+    
+    //Initialize new install instance
+    $rsgInstall = new rsgInstall();
+
+    if (isset($_REQUEST['type']))
+        $type = mosGetParam ( $_REQUEST, 'type'  , '');
+    else
+        $type = NULL;
+
+
+	if( $type=='' ) {
+		$rsgInstall->showMigrationOptions();	
+	} else {
+        $result = $rsgInstall->doMigration( $type );
+        if( $result !==true ) {
+            echo $result;
+            HTML_RSGallery::showCP();
+    	} else {
+        	echo _RSGALLERY_MIGR_OK;
+        	HTML_RSGallery::showCP();
+    	}
+	}
+}
+
+function doMigration() {
+	$type  	= rsgInstance::getVar('type', null);
+	require_once(JPATH_RSGALLERY2_ADMIN.'/includes/install.class.php');
+	
+	$migrate_class = "migrate_".$type; 
+	$migrate = new $migrate_class;
+	$migrate->migrate();
 }
 
 /**

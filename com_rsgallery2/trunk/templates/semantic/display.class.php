@@ -326,7 +326,6 @@ class rsgDisplay_semantic extends rsgDisplay{
 			<tr>
 				<td>
 				<div align="center">
-					<div id="highslide-container">
 					<?php
 					switch ($rsgConfig->get('displayPopup')) {
 						//No popup
@@ -348,7 +347,6 @@ class rsgDisplay_semantic extends rsgDisplay{
 							break;
 					}
 					?>
-					</div>
 				</div>
 				</td>
 			</tr>

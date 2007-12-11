@@ -366,6 +366,9 @@
 	<filename>lib/mygalleries/mygalleries.class.php</filename>
 	<filename>lib/mygalleries/mygalleries.css</filename>
 	<filename>lib/mygalleries/mygalleries.php</filename>
+	<filename>lib/rsgsearch/search.php</filename>
+	<filename>lib/rsgsearch/search.css</filename>
+	<filename>lib/rsgsearch/search.html.php</filename>
 
 	<filename>templates/debug_listeverything/css/template.css</filename>
 	<filename>templates/debug_listeverything/templateDetails.xml</filename>
@@ -437,6 +440,7 @@
 	<filename>images/status_hidden.png</filename>
 	<filename>images/shadow.gif</filename>
 	<filename>images/shadowAlpha.png</filename>
+	<filename>images/search.png</filename>
   </images>
     <installfile>install.rsgallery2.php</installfile>
     <uninstallfile>uninstall.rsgallery2.php</uninstallfile>

@@ -31,6 +31,14 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2007-12-11 Ronald Smit
+ + Started repairing Migration Option
+ + Added Migration for Pony Gallery ML 2.4.1
+ + Added Basic Search option for images
+ ^ Cleaned up some code
+ ! Only Pony Gallery Migration is working! Rest will follow
+
+2007-12-07 Ronald Smit
  + Cleaned up admin.rsgallery2.php
  ^ Changed Control Panel to actually use the config class.
  + Removed batchupload from admin.rsgalelry2.php and moved to images.php

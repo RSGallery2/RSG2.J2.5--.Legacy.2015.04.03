@@ -867,5 +867,39 @@ class galleryUtils {
 		}
 		return $notice;
 	}
+	
+	/**
+	 * Higlights text based on keywords
+	 * @param string Text to search in.
+	 * @param strinf Keywords to search for
+	 */
+	function highlight_keywords($string, $keywords, $color = "yellow") {
+    if ($keywords != "" || $keywords != NULL) {
+        $words = explode(" ", $keywords);
+        foreach ($words as $word) {
+            $position = 0;
+            while ($position !== false) {
+                $position = strpos(strtolower($string), strtolower($word), $position);
+                if ($position !== false) {
+                    $replace_string = substr($string, $position, strlen($word));
+                    if ($position == 0) {
+                        if (!ctype_alnum($string{strlen($word)})) {
+                            $replace_string = "<span style=\"background-color: yellow;\">" . $replace_string . "</span>";
+                            $string = substr_replace($string, $replace_string, $position, strlen($word));
+                        }
+                    } elseif (!ctype_alnum($string{$position - 1}) && strlen($string) == $position + strlen($word)) {
+                        $replace_string = "<span style=\"background-color: yellow;\">" . $replace_string . "</span>";
+                        $string = substr_replace($string, $replace_string, $position, strlen($word));
+                    } elseif (!ctype_alnum($string{$position - 1}) && !ctype_alnum($string{$position+strlen($word)})) {
+                        $replace_string = "<span style=\"background-color: yellow;\">" . $replace_string . "</span>";
+                        $string = substr_replace($string, $replace_string, $position, strlen($word));
+                    }
+                    $position = $position + strlen($replace_string);
+                }
+            } 
+        }
+    }
+    return $string;
+}
 }//end class
 ?>
