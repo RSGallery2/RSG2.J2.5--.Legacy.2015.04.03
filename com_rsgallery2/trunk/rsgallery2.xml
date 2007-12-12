@@ -367,7 +367,7 @@
 	<filename>lib/mygalleries/mygalleries.css</filename>
 	<filename>lib/mygalleries/mygalleries.php</filename>
 	<filename>lib/rsgsearch/search.php</filename>
-	<filename>lib/rsgsearch/search.css</filename>
+	<filename>lib/rsgsearch/rsgsearch.css</filename>
 	<filename>lib/rsgsearch/search.html.php</filename>
 
 	<filename>templates/debug_listeverything/css/template.css</filename>
