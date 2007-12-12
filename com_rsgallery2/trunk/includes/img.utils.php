@@ -470,7 +470,7 @@ class ImageMagick extends genericImageLib{
     
         @exec($impath.'convert -version',  $output, $status);
         if(!$status){
-            if(preg_match("/imagemagick[\t]+([0-9\.]+)/i",$output[0],$matches)){
+            if(preg_match("/imagemagick[ \t]+([0-9\.]+)/i",$output[0],$matches)){
                 return $matches[0];
             } else {
                 return false;
