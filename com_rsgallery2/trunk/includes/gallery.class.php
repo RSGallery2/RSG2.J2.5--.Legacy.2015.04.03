@@ -106,7 +106,7 @@ class rsgGallery extends JObject{
 		global $database;
 		$lastweek  = mktime (0, 0, 0, date("m"),    date("d") - 7, date("Y"));
 		$lastweek = date("Y-m-d H:m:s",$lastweek);
-		$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE date >= '$lastweek' AND gallery_id = '{$this->id}' AND published = '1'");
+		$database->setQuery("SELECT * FROM #__rsgallery2_files WHERE date >= '$lastweek' AND gallery_id = '{$this->id}' AND published = '1'");
 		$database->query();
 		return (bool) $database->getNumRows();
 	}
