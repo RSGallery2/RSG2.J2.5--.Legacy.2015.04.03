@@ -675,6 +675,7 @@ class TemplatesController
 			$config =& JFactory::getConfig();
 			$package['packagefile'] = $config->getValue('config.tmp_path').DS.$package['packagefile'];
 		}
+		jimport('joomla.installer.helper');
 		JInstallerHelper::cleanupInstall($package['packagefile'], $package['extractdir']);
 		$mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=templateManager&task=chooseInstall', $msg);
 	}
@@ -753,6 +754,7 @@ class TemplatesController
 		$uploaded = JFile::upload($tmp_src, $tmp_dest);
 		
 		// Unpack the downloaded package file
+		jimport('joomla.installer.helper');
 		$package = JInstallerHelper::unpack($tmp_dest);
 		
 		return $package;
@@ -778,6 +780,7 @@ class TemplatesController
 		}
 		
 		// Detect the package type
+		jimport('joomla.installer.helper');
 		$type = JInstallerHelper::detectType($p_dir);
 		
 		// Did you give us a valid package?
@@ -816,6 +819,7 @@ class TemplatesController
 		}
 		
 		// Download the package at the URL given
+		jimport('joomla.installer.helper');
 		$p_file = JInstallerHelper::downloadPackage($url);
 		
 		// Was the package downloaded?
