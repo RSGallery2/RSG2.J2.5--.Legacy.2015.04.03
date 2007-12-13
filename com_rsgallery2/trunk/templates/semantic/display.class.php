@@ -307,7 +307,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		global $rsgConfig, $mosConfig_live_site;
 		
 		$item = rsgInstance::getItem();
-
+		
 		if( $item->type != 'image' ){
 			// item is not an image, return;
 			return;
@@ -315,6 +315,9 @@ class rsgDisplay_semantic extends rsgDisplay{
 		
 // 		$this->writeSLideShowLink();
 	
+		// increase hit counter
+		$item->hit();
+		
 		if( $rsgConfig->get('displayPopup') == 2 ){
 			// highslide has been removed
 		}
