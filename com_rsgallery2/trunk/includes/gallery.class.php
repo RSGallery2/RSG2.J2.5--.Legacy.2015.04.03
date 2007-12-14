@@ -329,7 +329,7 @@ class rsgGallery extends JObject{
 	function array_slice_preserve_keys($array, $offset, $length = null)
 	{
 		// PHP >= 5.0.2 is able to do this itself
-		if((int)str_replace('.', '', phpversion()) >= 502)
+		if((int)substr(str_replace('.', '', phpversion()), 0, 3) >= 502)
 			return(array_slice($array, $offset, $length, true));
 
 		// prepare input variables
