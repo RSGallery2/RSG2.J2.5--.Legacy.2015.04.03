@@ -83,10 +83,12 @@ class html_rsg2_images {
 					echo $row->title;
 				} else {
 					$gallery = rsgGalleryManager::getGalleryByItemID($row->id);
-					if (is_a( $gallery->getItem($row->id), 'rsgItem_audio' ) ) {
-						$type = 'audio';
-					} else {
-						$type = 'image';
+					if($gallery !== null){
+						if (is_a( $gallery->getItem($row->id), 'rsgItem_audio' ) ) {
+							$type = 'audio';
+						} else {
+							$type = 'image';
+						}
 					}
 					echo JHTML::tooltip('<img src="'.$mosConfig_live_site.$rsgConfig->get('imgPath_thumb').'/'.$row->name.'.jpg" alt="'.$row->name.'" />',
 					 _RSGALLERY_IMG_EDIT_IMG,
