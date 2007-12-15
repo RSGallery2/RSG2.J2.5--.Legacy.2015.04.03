@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Polish languagefile for RSGallery 1.12.2
+* Polish languagefile for RSGallery2 1.14.0 Alpha - SVN 378
 * @version $Id$
 * @package RSGallery2
 * @copyright (C) 2003 - 2006 RSGallery2
@@ -142,7 +142,7 @@ DEFINE("_RSGALLERY_ALERT_CATDELOK",			"Galeria skasowana!");
 DEFINE("_RSGALLERY_MAX_USERIMAGES_ALERT",   "Wczytano maksymalnie dozwolon± liczbê zdjêæ. Aby za³adowaæ nowe skasuj kilka z istniej±cych.");
 DEFINE("_RSGALLERY_BATCH_ERROR_SIZE",		"Plik ZIP jest zbyt du¿y. Maksymalny rozmiar (zdefiniowany w php.ini) jest ");
 DEFINE("_RSGALLERY_ALERT_UPLOADOK",			"Zdjêcie za³adowane pomy¶lnie!");
-DEFINE("_RSGALLERY_ALERT_NOWRITE",			"£adowanie nie powiod³o siê\\nPowrót do strony z ³adowaniem zdjêæ");
+DEFINE("_RSGALLERY_ALERT_NOWRITE",			"úadowanie nie powiod³o siê\\nPowrót do strony z ³adowaniem zdjêæ");
 DEFINE("_RSGALLERY_ALERT_WRONGFORMAT",		"Z³y format zdjêcia\\nPowrót do strony z ³adowaniem zdjêæ");
 
 //admin.rsgallery2.html.php
@@ -214,9 +214,9 @@ DEFINE("_RSGALLERY_CONF_OPTION_TR",		"Góra prawa");
 DEFINE("_RSGALLERY_CONF_OPTION_L",		"Lewa");
 DEFINE("_RSGALLERY_CONF_OPTION_C",		"Centralnie");
 DEFINE("_RSGALLERY_CONF_OPTION_R",		"Prawa");
-DEFINE("_RSGALLERY_CONF_OPTION_BL",		"Dól lewy");
+DEFINE("_RSGALLERY_CONF_OPTION_BL",		"Dó³ lewy");
 DEFINE("_RSGALLERY_CONF_OPTION_BC",		"Dó³ srodek");
-DEFINE("_RSGALLERY_CONF_OPTION_BR",		"Dól prawy");
+DEFINE("_RSGALLERY_CONF_OPTION_BR",		"Dó³ prawy");
 DEFINE("_RSGALLERY_CONF_POPUP_STYLE",		"Popup style");
 DEFINE("_RSGALLERY_CONF_POPUP_NO",		"No popup");
 DEFINE("_RSGALLERY_CONF_POPUP_NORMAL",		"Normal popup");
@@ -226,7 +226,7 @@ DEFINE("_RSGALLERY_FREETYPE_INSTALLED",		"(Freetype biblioteka zainstalowana, zn
 DEFINE("_RSGALLERY_FREETYPE_NOTINSTALLED",	"(Freetype biblioteka nie zainstalowany ! Znak wodny nie jest mo¿liwy)");
 DEFINE("_RSGALLERY_CONF_GENERALTAB",		"Globalnie");
 DEFINE("_RSGALLERY_CONF_IMAGESTAB",		"Zdjêcia");
-DEFINE("_RSGALLERY_CONF_DISPLAY",		"Wyswietlanie");
+DEFINE("_RSGALLERY_CONF_DISPLAY",		"Wy¶wietlanie");
 DEFINE("_RSGALLERY_CONF_USERS",		"Prawa dostêpu");
 DEFINE("_RSGALLERY_CONF_LIMIT_NEV",		"Nigdy");
 DEFINE("_RSGALLERY_CONF_LIMIT_LIMIT",	"Je¶li wiêcej galerii wtedy limit");
@@ -253,7 +253,7 @@ DEFINE("_RSGALLERY_IMAGEHITS",				"Ilo¶æ wej¶æ");
 DEFINE("_RSGALLERY_IMAGEDATE",				"Data za³adowania");
 DEFINE("_RSGALLERY_REORDER",				"Uporz±dkuj");
 //function showTemplates
-/*new*/DEFINE("_RSGALLERY_TEMP_MANG",				"Zarz±dzaj Temlatkami ");
+/*new*/DEFINE("_RSGALLERY_TEMP_MANG",				"Zarz±dzaj Templatkami ");
 /*new*/DEFINE("_RSGALLERY_RSG_NAME",				"RSGallery2");
 /*new*/DEFINE("_RSGALLERY_TEMP_PREV",				"Przegl±danie Templatek");
 //function consolidateDbGo
@@ -302,7 +302,7 @@ DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"DROPed #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"DROPed #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"DROPed #__rsgallery2_config");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_COM",	"DROPed #__rsgallery2_comments");
-DEFINE("_RSGALLERY_REAL_UNINST_DONE",		"Wykonane. Rêcznie usuñ wszystko powy¿ej je¶li by³ b³±d.  Powiniene¶ teraz odinstalowaæ RSGallery2 lub you will recieve errors.");
+DEFINE("_RSGALLERY_REAL_UNINST_DONE",		"Wykonane. Rêcznie usuñ wszystko powy¿ej je¶li by³ b³±d.  Powiniene¶ teraz odinstalowaæ RSGallery2 lub otrzymasz b³êdy.");
 //function deleteImage
 DEFINE("_RSGALLERY_ALERT_IMGDELETEOK",		"Zdjêcie(a) skasowane pomy¶lnie!");
 //function c_delete
@@ -332,8 +332,8 @@ DEFINE("_RSGALLERY_CONSOLIDATE_DB",
 " w utworzonych katalogach galerii, a nastêpnie generuje raport dotycz±cy wykrytych ró¿nic.  U¿ytkownik ma".
 " mo¿liwo¶æ dodawania lub usuwania wej¶æ do bazy danych lub dodawania i usuwania zdjêæ wchodz±cych w sk³ad ".
 " galerii.<br/><br/>Funkcja mo¿e byæ u¿yta równie¿ aby dodaæ lub usun±æ zdjêcia do galerii.".
-" Przyk³adowo: u¿ytkownik za³aduje zdjêcia z wykorzystaniem kana³u FTP do podkatalogu w galerii.".
-" Przywo³uje wówczas t± funkcjê aby uaktualniæ bazê danych.<br/><br/>Wybierz 'Potwierd¼' lub 'Anuluj' poni¿ej.".
+" Przyk-adowo: u¿ytkownik za³aduje zdjêcia z wykorzystaniem kana-u FTP do podkatalogu w galerii.".
+" Przywo-uje wówczas t± funkcjê aby uaktualniæ bazê danych.<br/><br/>Wybierz 'Potwierd¼' lub 'Anuluj' poni¿ej.".
 " Wprowadzone zmiany nast±pi± dopiero po potwierdzeniu przez u¿ytkownika.<br/>");
 DEFINE("_RSGALLERY_PROCEED",				"Kontynuuj");
 //function editTemplateCSS
@@ -362,7 +362,7 @@ DEFINE("_RSGALLERY_NO_IMGLIBRARY",			"Nie znaleziono dostêpnych bibliotek obrazó
 DEFINE("_RSGALLERY_NOT_WRITABLE",			" zabezpieczony przed zapisem!");
 DEFINE("_RSGALLERY_FOLDER_NOTEXIST",		" NIE istnieje! Proszê ten katalog utworzyæ oraz upewnij siê ¿e jego prawa zapisu CHMOD maj± warto¶ci 0755!");
 DEFINE("_RSGALLERY_ERROR_SETTINGS",			"Poni¿sze ustawienia uniemo¿liwiaj± bezb³êdn± pracê RSGallery2:");
-DEFINE("_RSGALLERY_REFRESH",				"Od¶wierz");
+DEFINE("_RSGALLERY_REFRESH",				"Od¶wie¿");
 //function writeDownloadLink
 DEFINE("_RSGALLERY_DOWNLOAD",				"Pobierz");
 //function writeGalleryStatus
@@ -451,7 +451,7 @@ DEFINE("_RSGALLERY_C_DISP_STATUS_ICON",		"Wy¶wietl ikonê statusu");
 
 //galleries.class.php
 //function check
-DEFINE("_RSGALLERY_GAL_EXIST_ERROR",		"Galeria o takiej nazwie istnieje. Prosze spróbuj jeszcze raz z inn¹ nazw¹.");
+DEFINE("_RSGALLERY_GAL_EXIST_ERROR",		"Galeria o takiej nazwie istnieje. Prosze spróbuj jeszcze raz z inn± nazw±.");
 
 //galleries.html.php
 //function show
@@ -514,7 +514,7 @@ DEFINE("_RSGALLERY_PERMS_NOT_SET",				" was found, but correct permissions(777) 
 DEFINE("_RSGALLERY_PERMS_NOT_SET_TRY_FTP",		".<br />Please try to correct these permissions though FTP.");
 DEFINE("_RSGALLERY_PERMS_OK",					" was found, permissions are OK.");
 //function installComplete
-DEFINE("_RSGALLERY_INSTALL_COMPLETE",			"Instalacja RSGallery jest kompletna");
+DEFINE("_RSGALLERY_INSTALL_COMPLETE",			"Instalacja RSGallery jest ukoñczona");
 DEFINE("_RSGALLERY_INSTALL_STATUS_MSGS",			"If there are any status messages that need attention, please do so now, before going to the Control Panel.");
 //function deleteTable
 DEFINE("_RSGALLERY_TABLEDEL_OK",					" is deleted");
@@ -579,7 +579,7 @@ DEFINE("_RSGALLERY_SLIDE_PREV",			"Poprzedni");
 /*new*/DEFINE("_RSGALLERY_IMG_PARAMETERS",			"Parametry");
 //function uploadImage
 /*new*/DEFINE("_RSGALLERY_IMG_SELECT_GAL",			"Musisz wybraæ galeriê.");/*javascript alert*/
-/*new*/DEFINE("_RSGALLERY_IMG_NO_FILE_SELECT",		"Nie wybrano plków w jednym lub wiêcej z pól.");/*javascript alert*/
+/*new*/DEFINE("_RSGALLERY_IMG_NO_FILE_SELECT",		"Nie wybrano plików w jednym lub wiêcej z pól.");/*javascript alert*/
 /*new*/DEFINE("_RSGALLERY_IMG_UPLOAD",			"Za³aduj");
 /*new*/DEFINE("_RSGALLERY_IMG_UPL_DETAILS",			"£aduje szczegó³y");
 /*new*/DEFINE("_RSGALLERY_IMG_UPL_GALLERY",			"£adujê Galleriê");
@@ -598,4 +598,91 @@ DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"No permissions were found, so default 
 /*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"Autor: ");
 /*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"Ilo¶æ: ");
 /*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Utworzony: ");
+
+// added by mxm ;]
+// voting
+DEFINE("_RSGALLERY_VOTING_RATING", "Ocena: ");
+DEFINE("_RSGALLERY_VOTING_VOTE", "G³osuj: ");
+DEFINE("_RSGALLERY_VOTING_VOTES", " oddanych g³osów");
+DEFINE("_RSGALLERY_VOTING_ARE_YOU_SURE", "Jeste¶ pewien?");
+DEFINE("_RSGALLERY_VOTING_NOT_AUTH", "Brak mo¿liwosci oceniania.");
+//admin backend
+DEFINE("_RSGALLERY_CONF_OPTION_ORDER_DEFAULT", "domyslny");
+DEFINE("_RSGALLERY_CONF_OPTION_ORDER_DATE", "data");
+DEFINE("_RSGALLERY_CONF_OPTION_ORDER_NAME", "nazwa");
+DEFINE("_RSGALLERY_CONF_OPTION_ORDER_RATING", "ocena");
+DEFINE("_RSGALLERY_CONF_OPTION_ORDER_HITS", "ilo¶æ ods³on");
+
+DEFINE("_RSGALLERY_COMMENTS_TITLE", "Tytul");
+DEFINE("_RSGALLERY_COMMENT_COMMENT", "Komentarz");
+DEFINE("_RSGALLERY_COMMENTS_COLOR", "kolor");
+
+// nie potrafiê nazwaæ niektórych kolorów... ;]
+DEFINE("_RSGALLERY_COMMENTS_AQUA", "aqua");
+DEFINE("_RSGALLERY_COMMENTS_BLACK", "czarny");
+DEFINE("_RSGALLERY_COMMENTS_BLUE", "niebieski");
+DEFINE("_RSGALLERY_COMMENTS_FUCHSIA", "fuchsia");
+DEFINE("_RSGALLERY_COMMENTS_GRAY", "szary");
+DEFINE("_RSGALLERY_COMMENTS_GREEN", "zielony");
+DEFINE("_RSGALLERY_COMMENTS_LIME", "lime");
+DEFINE("_RSGALLERY_COMMENTS_MAROON", "maroon");
+DEFINE("_RSGALLERY_COMMENTS_NAVY", "granatowy");
+DEFINE("_RSGALLERY_COMMENTS_OLIVE", "oliwkowy");
+DEFINE("_RSGALLERY_COMMENTS_PURPLE", "purpurowy");
+DEFINE("_RSGALLERY_COMMENTS_RED", "czerwony");
+DEFINE("_RSGALLERY_COMMENTS_SILVER", "srebrny");
+DEFINE("_RSGALLERY_COMMENTS_TEAL", "teal");
+DEFINE("_RSGALLERY_COMMENTS_WHITE", "bia³y");
+DEFINE("_RSGALLERY_COMMENTS_YELLOW", "¿ó³ty");
+
+// rozmiar czcionki komentarza
+DEFINE("_RSGALLERY_COMMENTS_SIZE", "rozmiar");
+DEFINE("_RSGALLERY_COMMENTS_TINY", "malutki");
+DEFINE("_RSGALLERY_COMMENTS_SMALL", "ma³y");
+DEFINE("_RSGALLERY_COMMENTS_MEDIUM", "¶redni");
+DEFINE("_RSGALLERY_COMMENTS_LARGE", "du¿y");
+DEFINE("_RSGALLERY_COMMENTS_HUGE", "olbrzymi");
+
+DEFINE("_RSGALLERY_COMMENTS_SEC_IMG_MISS", "W ustawieniach wybrano SecurityImages, ale komponent jest nie zainstalowany! Zawiadom webmastera"); 
+DEFINE("_RSGALLERY_COMMENTS_NOCOMM", "Jeszcze nikt nie skomentowa³...");
+
+// backend: templatki
+DEFINE("_RSGALLERY_TPL_INST", "Zainstaluj now± templatkê");
+DEFINE("_RSGALLERY_INST_UPL_PCK_FILE", "Upload pliku");
+DEFINE("_RSGALLERY_INST_PCK_FILE", "Plik:"); 
+        
+DEFINE("_RSGALLERY_TEMPLATES_NAME", "Nazwa");  	 
+DEFINE("_RSGALLERY_TEMPLATES_ACTIVE", "Aktywna");  	   	 
+DEFINE("_RSGALLERY_TEMPLATES_AUTHOR", "Autor");  	 
+DEFINE("_RSGALLERY_TEMPLATES_VERSION", "Wersja");  	 
+DEFINE("_RSGALLERY_TEMPLATES_DATE", "Data");  	 
+DEFINE("_RSGALLERY_TEMPLATES_AUTH_URL", "Strona autora");
+
+// backend: konfiguracja -> zdjêcia
+
+DEFINE("_RSGALLERY_COMMENTS_LABEL", "Komentarze");
+DEFINE("_RSGALLERY_COMMENTS_ENABLED", "Komentowania w³±czone");
+DEFINE("_RSGALLERY_COMMENTS_ALLOW_PUBLIC", "Niezarejestrowani mog± komentowaæ");
+DEFINE("_RSGALLERY_COMMENTS_ONLY_ONCE", "Mo¿na komentowaæ tylko raz");
+
+DEFINE("_RSGALLERY_VOTE_LABEL", "Oceny");
+DEFINE("_RSGALLERY_VOTE_ENABLED", "Ocenianie w³±czone");
+DEFINE("_RSGALLERY_VOTE_REGISTERED_ONLY", "Tylko zarejestrowani mog± oceniaæ");
+DEFINE("_RSGALLERY_VOTE_ONLY_ONCE", "Ocenianie tylko raz");
+DEFINE("_RSGALLERY_VOTE_COOKIE_PREFIX", "Przedrostek cookies");  
+
+// backend: konfiguracja -> wy¶wietlanie
+DEFINE("_RSGALLERY_C_TMPL_DISP_OWNER", "Wy¶wietl w³a¶ciciela");
+DEFINE("_RSGALLERY_C_TMPL_DISP_ITEMS", "Wy¶wietl ilo¶æ obrazków");
+DEFINE("_RSGALLERY_C_TMPL_DISP_DATE", "Wy¶wietl datê stworzenia");
+
+// backend: zarz±dzanie obrazkami
+DEFINE("_RSGALLERY_IMG_CPY_MV_GAL", "");
+DEFINE("_RSGALLERY_COPYIMAGE", "Kopiuj");
+DEFINE("_RSGALLERY_TOOL_RES_HITS", "Reset licznika");
+
+// backend: zarz±dzanie galeriami 
+DEFINE("_RSGALLERY_GAL_COUNT", "Ilo¶æ obrazków");
+
+
 ?>
