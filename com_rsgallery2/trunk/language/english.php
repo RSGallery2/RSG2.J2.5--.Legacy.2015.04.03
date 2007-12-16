@@ -226,7 +226,7 @@ DEFINE("_RSGALLERY_CONF_OPTION_BR",		"Bottom right");
 DEFINE("_RSGALLERY_CONF_POPUP_STYLE",		"Popup style");
 DEFINE("_RSGALLERY_CONF_POPUP_NO",		"No popup");
 DEFINE("_RSGALLERY_CONF_POPUP_NORMAL",		"Normal popup");
-DEFINE("_RSGALLERY_CONF_POPUP_FANCY",		"Fancy popup (Errors in IE6!)");
+/*new*/DEFINE("_RSGALLERY_CONF_POPUP_LIGHTBOX",		"Lightbox++ popup");
 //function showconfig
 DEFINE("_RSGALLERY_FREETYPE_INSTALLED",		"(Freetype library installed, watermark is possible)");
 DEFINE("_RSGALLERY_FREETYPE_NOTINSTALLED",	"(Freetype library NOT installed! Watermark does not work)");
@@ -783,6 +783,13 @@ DEFINE("_RSGALLERY_VOTING_ADDED",		"Vote added to database!");
 /*new*/DEFINE("_RSGALLERY_TEMPLATES_VERSION",	"Version");
 /*new*/DEFINE("_RSGALLERY_TEMPLATES_DATE",	"Date");
 /*new*/DEFINE("_RSGALLERY_TEMPLATES_AUTH_URL",	"Author URL");
+
+//rsgsearch.html.php
+/*new*/DEFINE("_RSGALLERY_SEARCH_RESULTS_TITLE",	"RSGallery2 Search Results");
+/*new*/DEFINE("_RSGALLERY_SEARCH_RESULTS_NUMBER1",	"There are ");
+/*new*/DEFINE("_RSGALLERY_SEARCH_RESULTS_NUMBER2",	" results for ");
+/*new*/DEFINE("_RSGALLERY_SEARCH_LABEL",			"Search");
+/*new*/DEFINE("_RSGALLERY_SEARCH_KEYWORDS",			"Keywords");
 
 //stopped at gallery.class.php
 ?>

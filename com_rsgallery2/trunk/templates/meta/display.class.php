@@ -276,7 +276,7 @@ class rsgDisplay extends JObject{
 			$comment->showComments($id);
 			$comment->editComment($id);
 		} else {
-			echo "** Commenting is disabled **";
+			echo _RSGALLERY_COMMENTS_DISABLED;
 		}
     }
     
@@ -291,7 +291,7 @@ class rsgDisplay extends JObject{
     		$voting = new rsgVoting();
     		$voting->showVoting();
     	} else {
-    		echo "** Voting is disabled **";
+    		echo _RSGALLERY_VOTING_DISABLED;
     	}
     }
     
@@ -422,7 +422,7 @@ class rsgDisplay extends JObject{
 			if ($type == 'button') {
 				?>
 				<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>">
-				<img height="20" width="20" src="<?php echo $mosConfig_live_site;?>/administrator/images/download_f2.png" alt="<?php echo _RSGALLERY_DOWNLOAD?>">
+				<img height="20" width="20" src="<?php echo $mosConfig_live_site;?>/administrator/images/download_f2.png" alt="<?php echo _RSGALLERY_DOWNLOAD;?>">
 				<?php
 				if ($showtext == true) {
 					?>
@@ -434,7 +434,7 @@ class rsgDisplay extends JObject{
 				<?php
 			} else {
 				?>
-				<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>"><?php echo _RSGALLERY_DOWNLOAD?></a>
+				<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>"><?php echo _RSGALLERY_DOWNLOAD;?></a>
 				<?php
 			}
 			echo "</div><div class=\"rsg2-clr\">&nbsp;</div>";
@@ -462,8 +462,8 @@ class rsgDisplay extends JObject{
 
     	<div align="right">
     	<form name="rsg2_search" method="post" action="index.php">
-    		<?php echo "** Search: **";?>
-    		<input type="text" name="searchtext" class="searchbox" onblur="if(this.value=='') this.value='<?php echo  "** keywords **" ;?>';" onfocus="if(this.value=='<?php echo  "** keywords **" ;?>') this.value='';" value='<?php echo  "** keywords **" ;?>' />
+    		<?php echo _RSGALLERY_SEARCH_LABEL;?>
+    		<input type="text" name="searchtext" class="searchbox" onblur="if(this.value=='') this.value='<?php echo _RSGALLERY_SEARCH_KEYWORDS;?>';" onfocus="if(this.value=='<?php echo _RSGALLERY_SEARCH_KEYWORDS;?>') this.value='';" value='<?php echo _RSGALLERY_SEARCH_KEYWORDS;?>' />
 			<input type="hidden" name="option" value="com_rsgallery2" />
 			<input type="hidden" name="rsgOption" value="search" />
 			<input type="hidden" name="task" value="showResults" />

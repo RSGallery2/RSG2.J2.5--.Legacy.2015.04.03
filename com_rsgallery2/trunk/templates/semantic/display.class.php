@@ -304,22 +304,28 @@ class rsgDisplay_semantic extends rsgDisplay{
      * Shows main image
      */
 	function showDisplayImage(){
-		global $rsgConfig, $mosConfig_live_site;
+		global $rsgConfig, $mosConfig_live_site, $mainframe;
 		
 		$item = rsgInstance::getItem();
-		
+
 		if( $item->type != 'image' ){
 			// item is not an image, return;
 			return;
 		}
-		
-// 		$this->writeSLideShowLink();
 	
 		// increase hit counter
 		$item->hit();
 		
 		if( $rsgConfig->get('displayPopup') == 2 ){
-			// highslide has been removed
+			//Lightbox++ implemented. This also works with video files!!
+			$js1 = "<script src=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/lightbox++/js/prototype.js\" type=\"text/javascript\"></script>";
+    		$mainframe->addCustomHeadTag($js1);
+			$js2 = "<script src=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/lightbox++/js/scriptaculous.js?load=effects\" type=\"text/javascript\"></script>";
+    		$mainframe->addCustomHeadTag($js2);
+			$js3 = "<script src=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/lightbox++/js/lightbox++.js\" type=\"text/javascript\"></script>";
+    		$mainframe->addCustomHeadTag($js3);
+			$css = "<link rel=\"stylesheet\" href=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/lightbox++/css/lightbox.css\" media=\"screen\" type=\"text/css\" />";
+    		$mainframe->addCustomHeadTag($css);
 		}
 		?>
 		<table border="0" cellspacing="0" cellpadding="0" width="100%">
@@ -336,12 +342,23 @@ class rsgDisplay_semantic extends rsgDisplay{
 							$this->_showImageBox( $item->name, $item->descr );
 							break;
 						//Normal popup
-						case 2:
 						case 1:
 							if ($rsgConfig->get('watermark')) {
 								?><a href="<?php echo waterMarker::showMarkedImage( $item->name, 'original' ); ?>" target="_blank"><?php
 							} else {
 								?><a href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>" target="_blank"><?php
+							}
+							$this->_showImageBox( $item->name, $item->descr );
+							?>
+							</a>
+							<?php
+							break;
+						//Lightbox++ popup
+						case 2:
+							if ($rsgConfig->get('watermark')) {
+								?><a rel="lightbox" title="<?php echo $item->name;?>" href="<?php echo waterMarker::showMarkedImage( $item->name, 'original' ); ?>"><?php
+							} else {
+								?><a rel="lightbox" title="<?php echo $item->name;?>" href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>"><?php
 							}
 							$this->_showImageBox( $item->name, $item->descr );
 							?>

@@ -369,8 +369,24 @@
 	<filename>lib/rsgsearch/search.php</filename>
 	<filename>lib/rsgsearch/rsgsearch.css</filename>
 	<filename>lib/rsgsearch/search.html.php</filename>
-
-	<filename>templates/debug_listeverything/css/template.css</filename>
+	<filename>lib/lightbox++/index.html</filename>
+	<filename>lib/lightbox++/css/lightbox.css</filename>
+	<filename>lib/lightbox++/images/blank.gif</filename>
+	<filename>lib/lightbox++/images/close.gif</filename>
+	<filename>lib/lightbox++/images/closelabel.gif</filename>
+	<filename>lib/lightbox++/images/lightbox.jpg</filename>
+	<filename>lib/lightbox++/images/loading.gif</filename>
+	<filename>lib/lightbox++/images/next.gif</filename>
+	<filename>lib/lightbox++/images/nextlabel.gif</filename>
+	<filename>lib/lightbox++/images/overlay.png</filename>
+	<filename>lib/lightbox++/images/prev.gif</filename>
+	<filename>lib/lightbox++/images/prevlabel.gif</filename>
+	<filename>lib/lightbox++/js/effects.js</filename>
+	<filename>lib/lightbox++/js/lightbox++.js</filename>
+	<filename>lib/lightbox++/js/prototype.js</filename>
+	<filename>lib/lightbox++/scriptaculous.js</filename>
+	
+	<filename>templates/debug_listeverything/xss/template.css</filename>
 	<filename>templates/debug_listeverything/templateDetails.xml</filename>
 	<filename>templates/debug_listeverything/index.php</filename>
 	<filename>templates/debug_listeverything/display.class.php</filename>

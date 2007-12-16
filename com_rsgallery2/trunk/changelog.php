@@ -31,6 +31,10 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2007-12-16 Ronald Smit
+ + Added language strings
+ + Added Lightbox++ popup to replace Highslide
+ 
 2007-12-11 Ronald Smit
  + Started repairing Migration Option
  + Added Migration for Pony Gallery ML 2.4.1
