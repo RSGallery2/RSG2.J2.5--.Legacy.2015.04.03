@@ -356,9 +356,9 @@ class rsgDisplay_semantic extends rsgDisplay{
 						//Lightbox++ popup
 						case 2:
 							if ($rsgConfig->get('watermark')) {
-								?><a rel="lightbox" title="<?php echo $item->name."<p>".$item->descr."</p>";?>" href="<?php echo waterMarker::showMarkedImage( $item->name, 'original' ); ?>"><?php
+								?><a rel="lightbox" title="<?php echo $item->title."<p>".$item->descr."</p>";?>" href="<?php echo waterMarker::showMarkedImage( $item->name, 'original' ); ?>"><?php
 							} else {
-								?><a rel="lightbox" title="<?php echo $item->name."<p>".$item->descr."</p>";?>" href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>"><?php
+								?><a rel="lightbox" title="<?php echo $item->title."<p>".$item->descr."</p>";?>" href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>"><?php
 							}
 							$this->_showImageBox( $item->name, $item->descr );
 							?>

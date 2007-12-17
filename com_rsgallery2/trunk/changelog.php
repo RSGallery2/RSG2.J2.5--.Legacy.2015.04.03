@@ -34,6 +34,7 @@ Legend:
 2007-12-17 Ronald Smit
  + Added Zoom Gallery Migrator
  + Added description to lightbox++ popup
+ + Added border and dropshadow to thumbs
  
 2007-12-16 Ronald Smit
  + Added language strings

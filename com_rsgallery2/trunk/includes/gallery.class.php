@@ -92,7 +92,7 @@ class rsgGallery extends JObject{
 		$this->galleryName = htmlspecialchars( stripslashes( $this->get( 'name' )));
 		
 		//Write HTML for thumbnail
-		$this->thumbHTML = "<a href=\"".$this->url."\">".galleryUtils::getThumb( $this->get('id'),0,0,"" )."</a>";
+		$this->thumbHTML = "<div class=\"img-shadow\"><a href=\"".$this->url."\">".galleryUtils::getThumb( $this->get('id'),0,0,"" )."</a></div>";
 		
 		//Write description
 		$this->description = ampReplace($this->get('description'));

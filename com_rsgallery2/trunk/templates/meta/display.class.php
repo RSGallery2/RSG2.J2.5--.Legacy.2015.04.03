@@ -350,10 +350,13 @@ class rsgDisplay extends JObject{
                         ?>
                         <tr>
                         <td align="center">
-                            <div align="center">
+                            <div class="shadow-box">
+                            	<div class="img-shadow">
                             	<a href="<?php echo $url;?>">
                                 <img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>" width="<?php echo $rsgConfig->get('thumb_width');?>" />
                                 </a>
+                            	</div>
+                                <div class="rsg2-clr"></div>
                                 <div class="rsg2_details"><?php echo mosFormatDate($row->date);?></div>
                             </div>
                         </td>
@@ -387,10 +390,13 @@ class rsgDisplay extends JObject{
 							$url = JRoute::_("index.php?option=com_rsgallery2&page=inline&id=".$row->id);
                             ?>
                             <td align="center">
-                            <div align="center">
+                            <div class="shadow-box">
+                            	<div class="img-shadow">
                             	<a href="<?php echo $url;?>">
                             	<img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>" width="<?php echo $rsgConfig->get('thumb_width');?>"  />
                             	</a>
+                            	</div>
+                            	<div class="rsg2-clr"></div>
 								<div class="rsg2_details"><?php echo _RSGALLERY_TMPL_GAL_UPLOADED ?>&nbsp;<?php echo mosFormatDate($row->date, "%d-%m-%Y");?></div>
                             </div>
                             </td>

@@ -6,7 +6,7 @@ $cols = $rsgConfig->get( 'display_thumbs_colsPerPage' );
 $i = 0;
 ?>
 
-<table id='rsg2-thumbsList'>
+<table id='rsg2-thumbsList' border="0">
 	<?php foreach( $this->gallery->currentItems() as $item ):
 		if( $item->type != 'image' )
 			continue;  // we only handle images
@@ -16,11 +16,13 @@ $i = 0;
 		if( $i % $cols== 0) echo "<tr>\n";
 		?>
 			<td>
-				<!--<div class="img-shadow">-->
-					<a href="<?php echo JRoute::_( "index.php?option=com_rsgallery2&page=inline&id=".$item->id ); ?>">
-					<img alt="<?php echo htmlspecialchars(stripslashes($item->descr), ENT_QUOTES); ?>" src="<?php echo $thumb->url(); ?>" />
-					</a>
-				<!--</div>-->
+				<div class="shadow-box">
+				<div class="img-shadow">
+				<a href="<?php echo JRoute::_( "index.php?option=com_rsgallery2&page=inline&id=".$item->id ); ?>">
+					<img src="<?php echo $thumb->url();?>" alt="<?php echo htmlspecialchars(stripslashes($item->descr), ENT_QUOTES); ?>"/>
+				</a>
+				</div>
+				</div>
 				<div class="rsg2-clr"></div>
 				<?php if($rsgConfig->get("display_thumbs_showImgName")): ?>
 				<br />

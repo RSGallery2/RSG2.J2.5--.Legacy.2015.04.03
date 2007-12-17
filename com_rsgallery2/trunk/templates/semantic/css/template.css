@@ -3,9 +3,10 @@ div.intro_text {
 	
 }
 /* General style for all images within the rsg2 container */
-div.rsg2 img {
+/*div.rsg2 img {
 	border: none;
 }
+*/
 /* Style form labels with this tag */
 div.rsg2_exif_container .rsg2_label {
 	font-weight: bold;
@@ -96,11 +97,11 @@ img.status{
     border: none;
 }
 
-/* Thumbs shadow css */
+/* Thumbs shadow css. If you don't want shadow, comment out the next 3 CSS-declarations */
 .img-shadow {
   float:left;
-  background: url(images/shadowAlpha.png) no-repeat bottom right !important;
-  background: url(images/shadow.gif) no-repeat bottom right;
+  background: url(../../../images/shadowAlpha.png) no-repeat bottom right !important;
+  background: url(../../../images/shadow.gif) no-repeat bottom right;
   margin: 10px 0 0 10px !important;
   margin: 10px 0 0 5px;
   }
@@ -113,7 +114,22 @@ img.status{
   margin: -6px 6px 6px -6px;
   padding: 4px;
   }
+
+.shadow-box {
+	margin-left: auto;
+	margin-right: auto;
+	width: 120px;	
+}
+
 /* end Thumbs shadow */
+
+/* uncomment the next tag if you have commented out the previous 3 tags */
+/*
+.img-shadow img {
+	border:none;
+}
+*/
+
 .rsg2_slideshow{
 width:100%;
 text-align:center;
@@ -121,6 +137,9 @@ text-align:center;
  margin:0;
 }
 
+#rsg2-adminButtons img {
+	border: none;
+}
 .rsg2-toolbar {
     text-align: center;
     padding-bottom: 5px;

@@ -11,10 +11,15 @@
 defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
 
 require_once( $rsgOptions_path . 'search.html.php' );
-//require_once( $rsgOptions_path . 'search.class.php' );
 
 $cid = josGetArrayInts( 'cid' );
 $task = rsgInstance::getVar( 'task', null);
+
+//Load stylesheet from current template
+global $mosConfig_live_site, $rsgConfig;
+$template_dir = $mosConfig_live_site . "/components/com_rsgallery2/templates/" . $rsgConfig->get('template');
+$doc =& JFactory::getDocument();
+$doc->addStyleSheet($template_dir."/css/template.css","text/css");
 
 switch ($task) {
 	case 'showResults':

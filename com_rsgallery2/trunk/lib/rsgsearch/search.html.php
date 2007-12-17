@@ -43,9 +43,11 @@ class html_rsg2_search {
 				<table width="100%" border="0">
 				<tr>
 					<td width="<?php echo $rsgConfig->get('thumb_width');?>">
+					<div class="img-shadow">
 						<a href="index.php?option=com_rsgallery2&page=inline&id=<?php echo $match->item_id;?>">
 						<img border="0" src="<?php echo $mosConfig_live_site.$rsgConfig->get('imgPath_thumb') . "/" . imgUtils::getImgNameThumb($match->itemname);?>" alt="image" />
 						</a>
+					</div>
 					</td>
 					<td valign="top">
 						<a href="index.php?option=com_rsgallery2&page=inline&id=<?php echo $match->item_id;?>">
