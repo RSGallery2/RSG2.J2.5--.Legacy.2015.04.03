@@ -384,7 +384,7 @@
 	<filename>lib/lightbox++/js/effects.js</filename>
 	<filename>lib/lightbox++/js/lightbox++.js</filename>
 	<filename>lib/lightbox++/js/prototype.js</filename>
-	<filename>lib/lightbox++/scriptaculous.js</filename>
+	<filename>lib/lightbox++/js/scriptaculous.js</filename>
 	
 	<filename>templates/debug_listeverything/xss/template.css</filename>
 	<filename>templates/debug_listeverything/templateDetails.xml</filename>

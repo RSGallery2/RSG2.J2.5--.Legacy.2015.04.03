@@ -66,7 +66,8 @@ class rsgInstall {
         $this->galleryList  = array(
             new migrate_com_akogallery,
             new migrate_com_zoom_251_RC4,
-            new migrate_com_ponygallery_ml_241
+            new migrate_com_ponygallery_ml_241,
+            new migrate_com_easygallery_10B5
         );
 
         if( $rsgConfig->get( 'debug' )){
@@ -1802,6 +1803,230 @@ class migrate_com_zoom_251_RC4 extends GenericMigrator{
 		}
 	}
 }
+
+/**
+* Easy Gallery migrator
+* @package RSGallery2
+* @author Ronald Smit <ronald.smit@rsdev.nl>
+*/
+class migrate_com_easygallery_10B5 extends GenericMigrator{
+
+    /**
+     * @return string containing the technical name.  no spaces, special characters, etc allowed as this will be used in GET/POST.  advisable to use the class name.  we would just use get_class(), but it's implementation is differs in PHP 4 and 5.
+     */
+    function getTechName(){
+        return 'com_easygallery_10B5';
+    }
+
+    
+    /**
+     * @return string containing a user friendly name and version(s) of which gallery this class migrates
+     */
+    function getName(){
+        return 'Easy Gallery 1.0 beta 5';
+    }
+
+    /**
+     * detect if the gallery version this class handles is installed
+     * @return true or false
+    **/
+    function detect(){
+        global $mosConfig_absolute_path;
+        
+        if( rsgInstall::componentInstalled( "com_easygallery" )){
+			return true;
+        } else {
+        	// component not installed or wrong version.
+        	return false;
+        }
+    }
+
+	function migrate() {
+		global $database;
+		//Set basedir from config file
+	    include_once(JPATH_SITE. DS . "administrator/components/com_easygallery/configuration.php");
+	    $basedir = JPATH_SITE .$eg_original_path;
+
+	    //Set prefix
+	    $prefix = "easy_";
+
+	    //Write version is OK
+	    rsgInstall::writeInstallMsg("OK, right version is installed. Let's migrate!","ok");
+	    
+	    //Determine max ID for proper ID transfer to database
+	    $max_id = rsgInstall::maxId();
+	    
+	    //Create RSGallery2 table structure, WHY do this!!!!
+	    //$this->createTableStructure();
+	    
+	    //Migrate categories to RSGallery2 DB
+	    $this->migrateGalleries("#__categories", "id", "title", "parent_id", "description", $max_id);
+	    
+	    //Migrate files into RSGallery2 DB
+	    $this->migrateItems("#__easygallery", "name", "path", "0000-00-00 00:00:00", "description", 0, "cid", $max_id, $prefix);
+	    
+	    //Migrate comments into RSGallery2 DB
+	    //$this->migrateComments();//Obsolete for now
+	    
+	    if ($this->copyImages($basedir, $prefix)) {
+	        rsgInstall::writeInstallMsg(_RSGALLERY_MIGRATE_ALL_FILES,"ok");
+	    } else {
+	        rsgInstall::writeInstallMsg(_RSGALLERY_MIGRATE_NOTALL_FILES,"error");
+	    }
+	    rsgInstall::installComplete("Migration of ".$this->getName()." completed");
+	}
+	
+	/**
+     * Function migrates gallery information of Easy Gallery to RSGallery2
+     * Easy Gallery uses Joomla #__categories table for the storage of category information,
+     * so a custom migrateGalleries() function is necessary here.
+     * 
+     * @param string Old gallery tablename
+     * @param string Old ID field name
+     * @param string Old Category field name
+     * @param string Old Parent ID field name
+     * @param string Old Description field name
+     */
+	function migrateGalleries($old_table, $old_catid = "id", $old_catname = "catname", $old_parent_id = "parent_id", $old_descr_name = "description", $max_id) {
+		global $database;
+	    //Set variables
+	    $error = 0;
+	    $file = 0;
+	    
+	    //Select all category details from other gallery system
+	    $sql = "SELECT $old_catid, $old_catname, $old_parent_id, $old_descr_name " .
+	    		"FROM $old_table " .
+	    		"WHERE section = 'com_easygallery'" .
+	    		"ORDER BY $old_catname ASC";
+	    $database->setQuery($sql);
+	    $old = $database->loadObjectList();
+	    
+	    foreach ($old as $row) {
+			//Create new category ID
+	        $id             = $row->$old_catid + $max_id;
+	        $catname        = $row->$old_catname;
+	        $description    = $row->$old_descr_name;
+	        
+	        if ($row->$old_parent_id == 0) {
+	            $parent_id  = 0;
+	        } else {
+	            $parent_id  = $row->$old_parent_id + $max_id;
+	        }
+	        
+	        //Insert values into RSGallery2 gallery table
+	        $sql2 = "INSERT INTO #__rsgallery2_galleries ".
+	                "(id, name, parent, description, published) VALUES ".
+	                "('$id','$catname','$parent_id','$description', '1')";
+	        $database->setQuery($sql2);
+			//Count errors and migrated files
+	        if (!$database->query()) {
+	            $error++;
+	        } else {
+	            $file++;
+	        }
+		}
+		
+	    $total = $error + $file;
+	    if ($error > 0) {
+	        rsgInstall::writeInstallMsg(_RSGALLERY_MIGRATE_NOT_ALL_GAL."<strong>$file</strong>"._RSGALLERY_MIGRATE_OUT_OF."<strong>$processed</strong>"._RSGALLERY_MIGRATE_ENTRIES_OK,"error");
+		} else {
+	        rsgInstall::writeInstallMsg(_RSGALLERY_MIGRATE_ALL_GAL."<strong>$file</strong>"._RSGALLERY_MIGRATE_ENTRIES_OK,"ok");
+	    }
+    }
+    
+    /**
+     * Migrates item information of Easy Gallery to RSGallery2
+     * Easy Gallery stores the filename, including the path in one field.
+     * We need to retrieve the filename, without the path to be able to
+     * store the filename in the DB
+     * 
+     * @param string Old files tablename
+     * @param string Old image name
+     * @param string Old image filename
+     * @param timestamp Old image date
+     * @param string Old description
+     * @param integer Old User ID
+     * @param integer Old category ID
+     * @param integer Highest value in new table
+     */
+    function migrateItems($old_table, $old_image_name, $old_image_filename, $old_image_date, $old_description, $old_uid, $old_catid, $max_id, $prefix) {
+	    global $database;
+	    //Set variables
+	    $error = 0;
+	    $file = 0;
+	    
+	    //Get all information from images table
+	    $sql = "SELECT * FROM $old_table";
+	    $database->setQuery($sql);
+	    $old = $database->loadObjectList();
+	    
+	    foreach ($old as $row) {
+	        //Retrieve correct filename, without path information
+	        $filename 	= array_reverse( explode("/", $row->$old_image_filename) );
+	        $filename   = $prefix.$filename[0];
+	        $imagename  = $row->$old_image_name;
+	        $date       = $row->$old_image_date;
+	        $descr      = $row->$old_description;
+	        $uid        = $row->$old_uid;
+	        $catid      = $row->$old_catid + $max_id;
+	        
+	        //Insert data into RSGallery2 files table
+	        $sql2 = "INSERT INTO #__rsgallery2_files ".
+	                "(name, descr, title, date, userid, gallery_id) VALUES ".
+	                "('$filename', '$descr', '$imagename', '$date', '$uid', '$catid')";
+	        $database->setQuery($sql2);
+	        
+	        //Error and file counting
+	        if (!$database->query()) {
+	            $error++;
+	        } else {
+	            $file++;
+	        }
+		}
+	    $total = $error + $file;
+	    if ($error > 0) {
+	        rsgInstall::writeInstallMsg(_RSGALLERY_MIGRATE_NOT_ALL."<strong>$file</strong>"._RSGALLERY_MIGRATE_OUT_OF."<strong>$total</strong>"._RSGALLERY_MIGRATE_ENTRIES_OK,"error");
+		} else{
+	        rsgInstall::writeInstallMsg(_RSGALLERY_MIGRATE_ALL."<strong>$file</strong>"._RSGALLERY_MIGRATE_ENTRIES_OK,"ok");
+		}
+	}
+	
+	/**
+	 * Copies original images from Pony Gallery to the RSGallery2 file structure
+	 * and then creates display and thumb images.
+	 * @param string full path to the original Pony Images
+	 * @return True id succesfull, false if not
+	 */
+	function copyImages($basedir, $prefix = "easy_"){
+        global $database, $rsgConfig;
+        
+        $sql = "SELECT * FROM #__easygallery";
+        $database->setQuery( $sql );
+        $result = $database->loadObjectList();
+        $i = 0;
+        foreach ($result as $image) {
+        	$source 		= $basedir ."/" . $image->path;
+        	$filename = array_reverse( explode("/", $image->path) );
+        	$destination	= JPATH_ORIGINAL . "/" . $prefix.$filename[0];
+
+			//First move image to original folder
+			
+        	$newpath = fileUtils::move_uploadedFile_to_orignalDir($source, $destination);
+        	if ($newpath) {
+        		imgUtils::makeDisplayImage($newpath, '', $rsgConfig->get('image_width'));
+        		imgUtils::makeThumbImage($newpath);
+        	} else {
+        		$i++;
+        	}
+        }
+		if ($i > 0) {
+			return false;
+		} else {
+			return true;
+		}
+    }
+}
+
 /**
  * rsgallery migrator
  * @package RSGallery2
