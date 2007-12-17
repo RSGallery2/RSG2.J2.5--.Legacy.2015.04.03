@@ -31,6 +31,10 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2007-12-17 Ronald Smit
+ + Added Zoom Gallery Migrator
+ + Added description to lightbox++ popup
+ 
 2007-12-16 Ronald Smit
  + Added language strings
  + Added Lightbox++ popup to replace Highslide

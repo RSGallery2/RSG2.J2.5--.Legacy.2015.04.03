@@ -65,8 +65,6 @@ class rsgInstall {
         // initialize migrators here
         $this->galleryList  = array(
             new migrate_com_akogallery,
-            //this class is used for automatic, not manual migrations:
-            //new migrate_com_rsgallery,
             new migrate_com_zoom_251_RC4,
             new migrate_com_ponygallery_ml_241
         );
@@ -175,7 +173,7 @@ class rsgInstall {
         DEPRECIATED: use GenericMigrator:: instead
     * @param string
     */
-    function split_sql($sql) {
+    function split_sqlX($sql) {
         $sql = trim($sql);
         $sql = ereg_replace("\n#[^\n]*\n", "\n", $sql);
     
@@ -595,7 +593,7 @@ class rsgInstall {
      * @param integer Old category ID
      * @param integer Highest value in new table
      */
-    function migrateOldFiles($old_table, $old_image_name, $old_image_filename, $old_image_date, $old_description, $old_uid, $old_catid, $max_id) {
+    function migrateOldFilesX($old_table, $old_image_name, $old_image_filename, $old_image_date, $old_description, $old_uid, $old_catid, $max_id) {
 	    global $database;
 	    $error = 0;
 	    $file = 0;
@@ -636,15 +634,15 @@ class rsgInstall {
      * @param string Old Parent ID field name
      * @param string Old Description field name
      */
-    function migrateOldCats($old_table, $old_catid = "id", $old_catname = "catname", $old_parent_id = "parent_id", $old_descr_name = "description", $max_id) {
+    function migrateOldCatsX($old_table, $old_catid = "id", $old_catname = "catname", $old_parent_id = "parent_id", $old_descr_name = "description", $max_id) {
 
     }
     
-    function migrateOldComments($old_table = "#__zoom_comments", $old_comment = "cmtcontent", $old_img_id = "imgid") {
+    function migrateOldCommentsX($old_table = "#__zoom_comments", $old_comment = "cmtcontent", $old_img_id = "imgid") {
     global $database;
     }
     
-    function migrateFromZoom() {
+    function migrateFromZoomX() {
     global $mosConfig_absolute_path;
     
     if ($this->componentInstalled("com_zoom"))
@@ -678,59 +676,7 @@ class rsgInstall {
         }
     }
 
-    /**
-     * Copies all images from Zoom gallery system to images/original
-     * Because zoom stores every gallery in a different subdir we need
-     * to traverse through all subdirs of the basedir and pick out all image files.
-     * @param string Base directory of Zoom images
-     */
-    function copyZoomImages($basedir) {
-	    global $mosConfig_absolute_path, $rsgConfig;
-	    $errorcount = 0;
-	    /** 
-	     * Set timelimit to avoid time out errors due to restrictions 
-	     * in php.ini's 'max_execution_time' which defaults to 30 in
-	     * most installations.
-	     */
-	    set_time_limit(120);
-	    if (is_dir($basedir)) {
-	        if ($handle = opendir($basedir)) {
-	            while (($dirname = readdir($handle)) !== false) {
-	                //Find subdirs and if so, go there and read the files
-	                if (is_dir($basedir.$dirname) && $dirname !== "." && $dirname !== "..") {
-	                    //echo "<strong>$dirname</strong><br>";
-	                    
-	                    if($handle2 = opendir($basedir.$dirname."/")) {
-	                        while (($filename = readdir($handle2)) !== false) {
-	                            $ext = $this->getExtension($filename);
-	                            if (!is_dir($basedir.$dirname."/".$filename) && ($filename !== ".") && ($filename !== "..") && (in_array($ext, $this->allowedExt))) {
-	                                $from   = $basedir.$dirname."/".$filename;
-	                                $to     = $mosConfig_absolute_path.$this->dirOriginal."/".$filename;
-	                                if (!copy($from, $to)) {
-	                                    $errorcount++;
-									} else {
-	                                    //Create thumb and display image
-	                                    imgUtils::makeThumbImage( $from );
-	                                    imgUtils::makeDisplayImage( $from );
-	                                }
-								}
-	                        }
-						closedir($handle2);
-						}
-					}
-				}
-			closedir($handle);
-			}
-		}
-	    
-	    if ($errorcount > 0) {
-	        return false;
-		} else {
-	        return true;
-	    }
-	}
-
-    function upgradeInstall() {
+    function upgradeInstallX() {
     global $rsgConfig, $database, $mosConfig_absolute_path;
         $imagepath_old = $mosConfig_absolute_path."/images/gallery";
         /**
@@ -1638,6 +1584,7 @@ class migrate_com_akogallery extends GenericMigrator{
 /**
  * Pony Gallery ML version 2.4.1 migrator
  * @package RSGallery2
+ * @author Ronald Smit <ronald.smit@rsdev.nl>
  */
 class migrate_com_ponygallery_ml_241 extends genericMigrator {
 	/**
@@ -1677,7 +1624,7 @@ class migrate_com_ponygallery_ml_241 extends genericMigrator {
  * @param string full path to the original Pony Images
  * @return True id succesfull, false if not
  */
-function copyImages($basedir, $prefix){
+function copyImages($basedir, $prefix = "pony_"){
         global $database, $rsgConfig;
         
         $sql = "SELECT * FROM #__ponygallery";
@@ -1710,7 +1657,7 @@ function copyImages($basedir, $prefix){
 	    include_once(JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_ponygallery" . DS ."config.ponygallery.php");
 	    $basedir = JPATH_SITE . $ag_pathoriginalimages . DS;
 	    
-	    //Set prefix for images to avoid duplicate filenames
+	    //Set prefix
 	    $prefix = "pony_";
 	    
 	    //Show start message
@@ -1728,7 +1675,7 @@ function copyImages($basedir, $prefix){
 	    //Migrate comments into RSGallery2 DB
 	    //$this->migrateComments("#__ponygallery_comments", "cmttext", "cmtid");
 		
-	    if ($this->copyImages($basedir, $prefix)) {
+	    if ($this->copyImages($basedir)) {
 	        rsgInstall::writeInstallMsg(_RSGALLERY_MIGRATE_ALL_FILES,"ok");
 	    } else {
 	        rsgInstall::writeInstallMsg(_RSGALLERY_MIGRATE_NOTALL_FILES,"error");
@@ -1737,58 +1684,11 @@ function copyImages($basedir, $prefix){
 	    
     }
 }
-/**
-* zoom gallery migrator
-* @package RSGallery2
-*/
-class migrate_com_zoom_251_RC1 extends GenericMigrator{
-
-    /**
-     * @return string containing the technical name.  no spaces, special characters, etc allowed as this will be used in GET/POST.  advisable to use the class name.  we would just use get_class(), but it's implementation is differs in PHP 4 and 5.
-     */
-    function getTechName(){
-        return 'com_zoom_251_RC1';
-    }
-
-    
-    /**
-     * @return string containing a user friendly name and version(s) of which gallery this class migrates
-     */
-    function getName(){
-        return 'ZOOM Gallery 2.5.1 RC1';
-    }
-
-    /**
-     * detect if the gallery version this class handles is installed
-     * @return true or false
-    **/
-    function detect(){
-        global $mosConfig_absolute_path;
-        $comdir = $mosConfig_absolute_path."/administrator/components/com_zoom";
-        
-        if( rsgInstall::componentInstalled( "com_zoom" )){
-            include_once($mosConfig_absolute_path."/components/com_zoom/etc/zoom_config.php");
-
-            if ( $zoomConfig['version'] == "2.5.1 RC1" )
-            	return true;
-        }
-
-        // component not installed or wrong version.
-        return false;
-    }
-
-    /**
-     * do the migration thing
-     * @return true on success, anything else a failure
-     */
-    function migrate(){
-    
-    }
-}
 
 /**
-* zoom gallery migrator
+* Zoom Gallery 2.5.1 RC4 migrator
 * @package RSGallery2
+* @author Ronald Smit <ronald.smit@rsdev.nl>
 */
 class migrate_com_zoom_251_RC4 extends GenericMigrator{
 
@@ -1813,7 +1713,6 @@ class migrate_com_zoom_251_RC4 extends GenericMigrator{
     **/
     function detect(){
         global $mosConfig_absolute_path;
-        //$comdir = $mosConfig_absolute_path."/administrator/components/com_zoom";
         
         if( rsgInstall::componentInstalled( "com_zoom" )){
             include_once(JPATH_SITE . DS . "components/com_zoom/etc/zoom_config.php");
@@ -1836,13 +1735,16 @@ class migrate_com_zoom_251_RC4 extends GenericMigrator{
 	    
 	    //Set basedir from config file
 	    include_once(JPATH_SITE. DS . "components/com_zoom/etc/zoom_config.php");
-	    $basedir = JPATH_SITE . DS .$zoomConfig['imagepath'];
+	    $basedir = JPATH_SITE . "/" .$zoomConfig['imagepath'];
+	    
+	    //Set prefix
+	    $prefix = "zoom_";
 	    
 	    //Write version is OK
-	    $this->writeInstallMsg("OK, right version (".$zoomConfig['version'].") is installed. Let's migrate!","ok");
+	    rsgInstall::writeInstallMsg("OK, right version (".$zoomConfig['version'].") is installed. Let's migrate!","ok");
 			    
 	    //Determine max ID for proper ID transfer to database
-	    $max_id = $this->maxId();
+	    $max_id = rsgInstall::maxId();
 	    
 	    //Create RSGallery2 table structure, WHY do this!!!!
 	    //$this->createTableStructure();
@@ -1851,21 +1753,55 @@ class migrate_com_zoom_251_RC4 extends GenericMigrator{
 	    $this->migrateGalleries("#__zoom", "catid", "catname", "subcat_id", "catdescr", $max_id);
 	    
 	    //Migrate files into RSGallery2 DB
-	    $this->migrateItems("#__zoomfiles", "imgname", "imgfilename", "imgdate", "imgdescr", "uid", "catid", $max_id);
+	    $this->migrateItems("#__zoomfiles", "imgname", "imgfilename", "imgdate", "imgdescr", "uid", "catid", $max_id, $prefix);
 	    
 	    //Migrate comments into RSGallery2 DB
-	    $this->migrateComments();//Obsolete for now
+	    //$this->migrateComments();//Obsolete for now
 	    
-
-	    if ($this->copyImages($basedir)) {
-	        $this->writeInstallMsg(_RSGALLERY_MIGRATE_ALL_FILES,"ok");
+		
+	    if ($this->copyImages($basedir, $prefix)) {
+	        rsgInstall::writeInstallMsg(_RSGALLERY_MIGRATE_ALL_FILES,"ok");
 	    } else {
-	        $this->writeInstallMsg(_RSGALLERY_MIGRATE_NOTALL_FILES,"error");
+	        rsgInstall::writeInstallMsg(_RSGALLERY_MIGRATE_NOTALL_FILES,"error");
 	    }
-	    $this->installComplete(_RSGALLERY_MIGRATE_ZOOM_OK);
+	    rsgInstall::installComplete("Migration of ".$this->getName()." completed");
+	}
+	
+	function copyImages($basedir, $prefix = "zoom_") {
+		global $database, $rsgConfig;
+		
+		//Set error count
+		$i = 0;
+		
+		//Retrieve image names and folder from database
+		$sql = "SELECT * FROM #__zoomfiles as a, #__zoom as b " .
+				"WHERE a.catid = b.catid " .
+				"ORDER BY a.catid ASC";
+		$database->setQuery( $sql );
+		$result = $database->loadObjectList();
+
+		//Copy images and create display and thumb
+		foreach ($result as $image) {
+			$source 		= $basedir . $image->catdir . "/" . $image->imgfilename;
+			$destination 	= JPATH_ORIGINAL . "/" . $prefix.$image->imgfilename;
+
+			//First move image to original folder
+        	$newpath = fileUtils::move_uploadedFile_to_orignalDir($source, $destination);
+        	if ($newpath) {
+        		imgUtils::makeDisplayImage($newpath, '', $rsgConfig->get('image_width'));
+        		imgUtils::makeThumbImage($newpath);
+        	} else {
+        		$i++;
+        	}
+		}
+		//Handle errors
+		if ($i > 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 }
-
 /**
  * rsgallery migrator
  * @package RSGallery2

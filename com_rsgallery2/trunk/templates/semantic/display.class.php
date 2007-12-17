@@ -208,7 +208,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 	/**
 	 * @todo this alternate gallery view needs to be moved to an html file and added as a template parameter
 	 */
-    function _showCustom( $kids, $cols, $gubgalleries ) {
+    function _showCustom( $kids, $cols, $subgalleries ) {
         echo "<h2>For testing purposes only!</h2>";
         $width = 100/$cols."%"; 
         ?>
@@ -312,12 +312,12 @@ class rsgDisplay_semantic extends rsgDisplay{
 			// item is not an image, return;
 			return;
 		}
-	
+
 		// increase hit counter
 		$item->hit();
 		
 		if( $rsgConfig->get('displayPopup') == 2 ){
-			//Lightbox++ implemented. This also works with video files!!
+			//Lightbox++ scripts and CSS in document head
 			$js1 = "<script src=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/lightbox++/js/prototype.js\" type=\"text/javascript\"></script>";
     		$mainframe->addCustomHeadTag($js1);
 			$js2 = "<script src=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/lightbox++/js/scriptaculous.js?load=effects\" type=\"text/javascript\"></script>";
@@ -356,9 +356,9 @@ class rsgDisplay_semantic extends rsgDisplay{
 						//Lightbox++ popup
 						case 2:
 							if ($rsgConfig->get('watermark')) {
-								?><a rel="lightbox" title="<?php echo $item->name;?>" href="<?php echo waterMarker::showMarkedImage( $item->name, 'original' ); ?>"><?php
+								?><a rel="lightbox" title="<?php echo $item->name."<p>".$item->descr."</p>";?>" href="<?php echo waterMarker::showMarkedImage( $item->name, 'original' ); ?>"><?php
 							} else {
-								?><a rel="lightbox" title="<?php echo $item->name;?>" href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>"><?php
+								?><a rel="lightbox" title="<?php echo $item->name."<p>".$item->descr."</p>";?>" href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>"><?php
 							}
 							$this->_showImageBox( $item->name, $item->descr );
 							?>
