@@ -32,7 +32,8 @@ Legend:
 
 ---------------- Recent ----------------
 2007-12-20 Jonah Braun
- # Fixed uninstalling rsgTemplates
+ # Fixed uninstalling rsgTemplates in J1.5
+ # Cleaned up misc issues with the Template Manager in J1.0
 
 2007-12-17 Ronald Smit
  + Added Zoom Gallery Migrator
