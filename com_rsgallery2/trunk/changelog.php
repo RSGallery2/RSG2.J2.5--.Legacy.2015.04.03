@@ -31,6 +31,9 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2007-12-20 Jonah Braun
+ # Fixed uninstalling rsgTemplates
+
 2007-12-17 Ronald Smit
  + Added Zoom Gallery Migrator
  + Added description to lightbox++ popup

@@ -150,11 +150,6 @@ class JInstallerRSGTemplate extends JObject
 		}
 		
 		// Get the template root path
-		$client =& JApplicationHelper::getClientInfo( $clientId );
-		if (!$client) {
-			JError::raiseWarning(100, JText::_('Template').' '.JText::_('Uninstall').': '.JText::_('Invalid application'));
-			return false;
-		}
 		$this->parent->setPath('extension_root', JPATH_RSGALLERY2_SITE .DS.'templates'.DS.$name);
 		$this->parent->setPath('source', $this->parent->getPath('extension_root'));
 		

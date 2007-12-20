@@ -9,6 +9,8 @@
 // Check to ensure this file is within the rest of the framework
 defined('_JEXEC') or die('Direct Access to this location is not allowed.');
 
+jimport( 'joomla.installer.installer' );
+
 class TemplatesController
 {
 	/**
@@ -681,6 +683,7 @@ class TemplatesController
 	}
 	
 	function removeTemplate(){
+		global $mainframe;
 		
 		$cid		= JRequest::getVar('cid', array(), 'method', 'array');
 		$cid		= array(JFilterInput::clean(@$cid[0], 'cmd'));
@@ -690,15 +693,15 @@ class TemplatesController
 		if (!$cid[0]) {
 			return JError::raiseWarning( 500, 'Template not specified' );
 		}
-		
+
 		require_once(JPATH_RSGALLERY2_ADMIN .DS. 'options' . DS. 'templateManager'. DS. 'helpers' .DS. 'JInstallerRSGTemplate.php');
 		// Get an installer instance
 		$installer =& JInstaller::getInstance();
-		
+
 		// set custom Adapter for JInstaller
 		$installer->SetAdapter("rsgTemplate", new JInstallerRSGTemplate($installer));
-		
-		if(!$installer->uninstall($template, -1)){
+
+		if(!$installer->uninstall('rsgTemplate', $template)){
 			// There was an error removing the package
 			$msg = JText::sprintf('UNINSTALLEXT', JText::_($package['type']), JText::_('Error'));
 			$result = false;
@@ -707,7 +710,7 @@ class TemplatesController
 			$msg = JText::sprintf('UNINSTALLEXT', JText::_($package['type']), JText::_('Success'));
 			$result = true;
 		}
-		
+
 		$mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=templateManager', $msg);
 	}
 	
