@@ -59,6 +59,52 @@ switch( $rsgOption ){
             break;
         }
     break;
+	
+	case 'templateManager':
+	
+		switch ($task)
+		{
+			case 'view'   :
+			case 'preview':
+				menu_rsg2_templateManager::_VIEW();
+				break;
+
+			case 'edit_source':
+			case 'edit_display':
+					menu_rsg2_templateManager::_EDIT_SOURCE();
+					break;
+				
+				case 'edit':
+					menu_rsg2_templateManager::_EDIT();
+					break;
+				
+				case 'choose_css':
+					menu_rsg2_templateManager::_CHOOSE_CSS();
+					break;
+				
+				case 'edit_css':
+					menu_rsg2_templateManager::_EDIT_CSS();
+					break;
+				
+				case 'choose_override':
+					menu_rsg2_templateManager::_CHOOSE_OVERRIDE();
+					break;
+				
+				case 'edit_override':
+					menu_rsg2_templateManager::_EDIT_OVERRIDE();
+					break;
+				
+				case 'doInstall':
+				case 'showInstall':
+					menu_rsg2_templateManager::_INSTALL();
+					break;
+				default:
+					menu_rsg2_templateManager::_DEFAULT();
+					break;
+			}
+		break;
+	
+	
     case 'template':
 		switch ( $task ) {
 			case 'templates':

@@ -6,8 +6,18 @@
  * @package RSGallery2
  */
 
+if(defined('J15B_EXEC')){
+	require_once( $mosConfig_absolute_path.DS."administrator".DS."includes".DS."menubar.html.php");
+	require_once( $mainframe->getPath( 'toolbar_default' ) );
+	
+	
+	}
+else
+{
 // Check to ensure this file is within the rest of the framework
 defined('_JEXEC') or die('Direct Access to this location is not allowed.');
+
+
 
 class TOOLBAR_templates
 {
@@ -71,5 +81,6 @@ class TOOLBAR_templates
 	function _INSTALL(){
 		JToolBarHelper::title( JText::_( 'RSGallery 2 Template Installer' ), 'thememanager' );
 	}
+}
 }
 ?>

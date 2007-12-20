@@ -23,7 +23,7 @@ class TemplatesView
 	*/
 	function showTemplates(& $rows, & $page, $option)
 	{
-		global $mainframe;
+		global $mainframe,$mosConfig_live_site;
 
 		$limitstart = JRequest :: getVar('limitstart', '0', '', 'int');
 
@@ -35,7 +35,7 @@ class TemplatesView
 
 		JHTML::_('behavior.tooltip');
 ?>
-		<form action="index.php" method="post" name="adminForm" id="adminForm">
+		<form action="index2.php" method="post" name="adminForm" id="adminForm">
 
 			<table class="adminlist">
 			<thead>
@@ -98,12 +98,11 @@ class TemplatesView
 					</td>
 					<td><?php 
 					$img_path = $mosConfig_live_site.'com_rsgallery2'.'/templates/'.$row->directory.'/template_thumbnail.png'; 
-					
 					echo JHTML::tooltip('<img src="'.$img_path.'" alt="'.JText::_( 'No preview available' ).'"/>',
 										$row->name,
 										null,
 										$row->name,
-										JRoute::_('index.php?option=com_rsgallery2&rsgOption=templateManager&task=edit&cid[]='.$row->directory, false),
+										'index2.php?option=com_rsgallery2&rsgOption=templateManager&task=edit&cid[]='.$row->directory,
 										1);
 					?>
 						</td>
@@ -149,7 +148,8 @@ class TemplatesView
 	<input type="hidden" name="rsgOption" value="templateManager" />
 	<input type="hidden" name="task" value="" />
 	<input type="hidden" name="boxchecked" value="0" />
-	</form>
+		<input type="hidden" name="hidemainmenu" value="0" />
+		</form>
 	<?php
 
 	}
@@ -176,12 +176,12 @@ class TemplatesView
 					<?php echo JText::_( 'Site Preview' ); ?>
 				</th>
 				<th width="50%" style="text-align:right">
-					<?php echo JHTML::_('link', $url.'index.php?option=com_rsgallery2&rsgTemplate='.$template, JText::_( 'Open in new window' ), array('target' => '_blank')); ?>
+					<?php echo JHTML::_('link', $url.'index2.php?option=com_rsgallery2&rsgTemplate='.$template, JText::_( 'Open in new window' ), array('target' => '_blank')); ?>
 				</th>
 			</tr>
 			<tr>
 				<td width="100%" valign="top" colspan="2">
-					<?php echo JHTML::_('iframe', $url.'index.php?option=com_rsgallery2&rsgTemplate='.$template,'previewFrame',  array('class' => 'previewFrame')) ?>
+					<?php echo JHTML::_('iframe', $url.'index2.php?option=com_rsgallery2&rsgTemplate='.$template,'previewFrame',  array('class' => 'previewFrame')) ?>
 				</td>
 			</tr>
 		</table>
@@ -200,7 +200,7 @@ class TemplatesView
 
 		JHTML::_('behavior.tooltip');
 ?>
-		<form action="index.php" method="post" name="adminForm">
+		<form action="index2.php" method="post" name="adminForm">
 
 		<?php if($ftp): ?>
 		<fieldset title="<?php echo JText::_('DESCFTPTITLE'); ?>" class="adminform">
@@ -297,7 +297,7 @@ class TemplatesView
 	{
 		JRequest::setVar( 'hidemainmenu', 1 );
 ?>
-		<form action="index.php" method="post" name="adminForm">
+		<form action="index2.php" method="post" name="adminForm">
 
 		<table cellpadding="1" cellspacing="1" border="0" width="100%">
 		<tr>
@@ -329,7 +329,7 @@ class TemplatesView
 					<input type="radio" id="cb<?php echo $i;?>" name="filename" value="<?php echo htmlspecialchars( $file ); ?>" onClick="isChecked(this.checked);" />
 				</td>
 				<td width="85%">
-			<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=templateManager&task=edit_css&id='.$template.'&filename='.$file); ?>"><?php echo $file ?></a>
+			<a href="<?php echo JRoute::_('index2.php?option=com_rsgallery2&rsgOption=templateManager&task=edit_css&id='.$template.'&filename='.$file); ?>"><?php echo $file ?></a>
 				</td>
 				<td width="10%">
 					<?php echo is_writable($t_dir.DS.$file) ? '<span style="color:green;"> '. JText::_( 'Writable' ) .'</span>' : '<span style="color:red"> '. JText::_( 'Unwritable' ) .'</span>' ?>
@@ -356,7 +356,7 @@ class TemplatesView
 	{
 		JRequest::setVar( 'hidemainmenu', 1 );
 		?>
-		<form action="index.php" method="post" name="adminForm">
+		<form action="index2.php" method="post" name="adminForm">
 		
 		<table cellpadding="1" cellspacing="1" border="0" width="100%">
 		<tr>
@@ -388,7 +388,7 @@ class TemplatesView
 			<input type="radio" id="cb<?php echo $i;?>" name="filename" value="<?php echo htmlspecialchars( $file ); ?>" onClick="isChecked(this.checked);" />
 			</td>
 			<td width="85%">
-			<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=templateManager&task=edit_override&id='.$template.'&filename='.$file); ?>"><?php echo $file ?></a>
+			<a href="<?php echo JRoute::_('index2.php?option=com_rsgallery2&rsgOption=templateManager&task=edit_override&id='.$template.'&filename='.$file); ?>"><?php echo $file ?></a>
 			</td>
 			<td width="10%">
 			<?php echo is_writable($t_dir.DS.$file) ? '<span style="color:green;"> '. JText::_( 'Writable' ) .'</span>' : '<span style="color:red"> '. JText::_( 'Unwritable' ) .'</span>' ?>
@@ -431,7 +431,7 @@ class TemplatesView
 		}
 		$file_path = JPATH_RSGALLERY2_SITE .DS. 'templates' .DS. $filename;
 ?>
-		<form action="index.php" method="post" name="adminForm">
+		<form action="index2.php" method="post" name="adminForm">
 
 	
 		<?php TemplatesView::_writeFTPHeader($ftp); ?>
@@ -535,7 +535,7 @@ class TemplatesView
 			}
 		');
 		?>
-		<form enctype="multipart/form-data" action="index.php" method="post" name="adminForm">
+		<form enctype="multipart/form-data" action="index2.php" method="post" name="adminForm">
 
 			<?php
 			  TemplatesView::_writeFTPHeader(&$ftp); 

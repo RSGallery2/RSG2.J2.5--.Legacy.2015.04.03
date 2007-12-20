@@ -37,7 +37,7 @@ $rsgDisplay->showRSPathWay();
 JHTML::_('behavior.tooltip');
 
 //include page navigation
-require_once(JPATH_ROOT.'/includes/pageNavigation.php');
+//require_once(JPATH_ROOT.'/includes/pageNavigation.php');
 
 $doc =& JFactory::getDocument();
 $doc->addStyleSheet($template_dir."/css/template.css","text/css");

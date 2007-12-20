@@ -392,7 +392,7 @@ class JInstaller extends JObject
 			}
 		}
 		if (is_object($this->_adapters[$type])) {
-			$this->_adapters[$type]->uninstall($identifier, $cid);
+			return $this->_adapters[$type]->uninstall($identifier, $cid);
 		}
 	}
 

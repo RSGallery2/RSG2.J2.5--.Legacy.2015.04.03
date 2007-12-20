@@ -135,18 +135,14 @@ class JInstallerRSGTemplate extends JObject
 	 * @access	public
 	 * @param	int		$path		The template name
 	 * @param	int		$clientId	The id of the client
-	 * @return	boolean	True on success
+	 * @return	string	True on success
 	 * @since	1.5
 	 */
 	function uninstall( $name, $clientId )
 	{
-		// Initialize variables
-		$retval	= true;
-		
 		// For a template the id will be the template name which represents the subfolder of the templates folder that the template resides in.
 		if (!$name) {
-			JError::raiseWarning(100, JText::_('Template').' '.JText::_('Uninstall').': '.JText::_('Template id is empty, cannot uninstall files'));
-			return false;
+			return 'Template id is empty, cannot uninstall files';
 		}
 		
 		// Get the template root path
@@ -157,20 +153,18 @@ class JInstallerRSGTemplate extends JObject
 		if (!is_a($manifest, 'JSimpleXML')) {
 			// Make sure we delete the folders
 			JFolder::delete($this->parent->getPath('extension_root'));
-			JError::raiseWarning(100, 'Template Uninstall: Package manifest file invalid or not found');
-			return false;
+			return  'Template Uninstall: Package manifest file invalid or not found';
 		}
 		$root =& $manifest->document;
 		
 		
 		// Delete the template directory
 		if (JFolder::exists($this->parent->getPath('extension_root'))) {
-			$retval = JFolder::delete($this->parent->getPath('extension_root'));
+			JFolder::delete($this->parent->getPath('extension_root'));
+			return "uninstall successfull";
 		} else {
-			JError::raiseWarning(100, JText::_('Template').' '.JText::_('Uninstall').': '.JText::_('Directory does not exist, cannot remove files'));
-			$retval = false;
+			return 'Directory does not exist, cannot remove files';
 		}
-		return $retval;
 		
 	}
 }

@@ -27,28 +27,8 @@ $fileType = JRequest::getCmd('fileType');
 // Import file dependencies
 require_once ($templateManager_path  . 'helpers'.DS.'template.php');
 require_once ($templateManager_path  . 'controller.php');
-require_once ($templateManager_path  . 'toolbar.templates.php');
+//require_once ($templateManager_path  . 'toolbar.templates.php');
 
-if (!class_exists("JToolBarHelper")) {
-	require_once(J15B_PATH .DS.'includes'.DS.'adminToolbar.php');
-}
-
-// set sub menu item
-switch($task)
-{
-	case 'showInstall' :
-	case 'doInstall' :
-	{
-		JSubMenuHelper::addEntry(JText::_('Manage'), 'index.php?option=com_rsgallery2&rsgOption=templateManager');
-		JSubMenuHelper::addEntry(JText::_('Install'), 'index.php?option=com_rsgallery2&rsgOption=templateManager&task=showInstall',true);
-		break;
-	}
-	default:{
-		JSubMenuHelper::addEntry(JText::_('Manage'), 'index.php?option=com_rsgallery2&rsgOption=templateManager', true);
-		JSubMenuHelper::addEntry(JText::_('Install'), 'index.php?option=com_rsgallery2&rsgOption=templateManager&task=showInstall');
-		break;
-	}
-}
 
 // main control switch
 switch ($task)
@@ -136,5 +116,10 @@ switch ($task)
 		TemplatesController::viewTemplates();
 		break;
 }
+
+
+global $J15BErrorMessage;
+if($J15BErrorMessage != "")
+	mosRedirect('index2.php?option=com_rsgallery2&rsgOption=templateManager', $J15BErrorMessage);
 
 ?>

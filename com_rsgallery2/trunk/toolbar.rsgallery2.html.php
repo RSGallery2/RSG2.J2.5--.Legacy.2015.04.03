@@ -55,6 +55,89 @@ class menu_rsg2_templates{
         }
 }
 
+class menu_rsg2_templateManager
+{
+	function _DEFAULT()
+	{
+		mosMenuBar::startTable();
+		mosMenuBar::custom('showInstall', 'install.png', 'install_f2.png', 'Install', false, false);
+		mosMenuBar::spacer();
+		mosMenuBar::makeDefault();
+		mosMenuBar::deleteList( '', 'remove', 'Uninstall' );
+		mosMenuBar::editListX( 'edit', 'Edit' );
+		mosMenuBar::endTable();
+	}
+	function _VIEW(){
+		
+		mosMenuBar::startTable();
+		mosMenuBar::back();
+		mosMenuBar::endTable();
+	}
+	
+	function _EDIT_SOURCE(){
+		
+		mosMenuBar::startTable();
+		mosMenuBar::save( 'save_file' );
+		mosMenuBar::apply( 'apply_file' );
+		mosMenuBar::spacer();
+		mosMenuBar::cancel('edit');
+		mosMenuBar::endTable();
+	}
+	
+	function _EDIT(){
+		mosMenuBar::startTable();
+		mosMenuBar::custom('preview', 'preview.png', 'preview_f2.png', 'Preview', false, false);
+		mosMenuBar::spacer();
+		mosMenuBar::custom( 'edit_source', 'html.png', 'html_f2.png', 'Edit HTML', false, false );
+		mosMenuBar::custom( 'edit_display', 'html.png', 'html_f2.png', 'Edit Display', false, false );
+		mosMenuBar::spacer();
+		mosMenuBar::custom( 'choose_override', 'html.png', 'html.png', 'Edit Override', false, false );
+		mosMenuBar::custom( 'choose_css', 'css.png', 'css_f2.png', 'Edit CSS', false, false );
+		mosMenuBar::spacer();
+		mosMenuBar::save( 'save' );
+		mosMenuBar::apply();
+		mosMenuBar::cancel( 'cancel', 'Close' );
+		mosMenuBar::endTable();
+	}
+	
+	function _CHOOSE_CSS(){
+		mosMenuBar::startTable();
+		mosMenuBar::custom( 'edit_css', 'edit.png', 'edit_f2.png', 'Edit', true );
+		mosMenuBar::cancel('edit');
+		mosMenuBar::endTable();
+	}
+	function _EDIT_CSS(){
+		mosMenuBar::startTable();
+		mosMenuBar::save( 'save_file' );
+		mosMenuBar::apply( 'apply_file');
+		mosMenuBar::spacer();
+		mosMenuBar::cancel('choose_css');
+		mosMenuBar::endTable();
+	}
+	
+	function _CHOOSE_OVERRIDE(){
+		mosMenuBar::startTable();
+		mosMenuBar::custom( 'edit_override', 'edit.png', 'edit_f2.png', 'Edit', true );
+		mosMenuBar::spacer();
+		mosMenuBar::cancel('edit');
+		mosMenuBar::endTable();
+	}
+	
+	function _EDIT_OVERRIDE(){
+		mosMenuBar::startTable();
+		mosMenuBar::save( 'save_file' );
+		mosMenuBar::apply( 'apply_file');
+		mosMenuBar::spacer();
+		mosMenuBar::cancel('choose_override');
+		mosMenuBar::endTable();
+	}
+	function _INSTALL(){
+		mosMenuBar::startTable();
+		mosMenuBar::cancel( 'cancel', 'Close' );
+		mosMenuBar::endTable();
+	}
+}
+
 class menu_rsg2_images{
     function upload() {
     	mosMenuBar::startTable();
