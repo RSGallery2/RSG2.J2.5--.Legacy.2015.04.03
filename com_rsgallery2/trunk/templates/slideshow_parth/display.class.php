@@ -20,6 +20,10 @@ class rsgDisplay_slideshow_parth extends rsgDisplay{
 		
 		$gallery = rsgGalleryManager::get();
 		
+		// show nothing if there are no items
+		if( ! $gallery->itemCount() )
+			return;
+		
 		$k = 0;
 		$text = "";
 		foreach ($gallery->items() as $item){

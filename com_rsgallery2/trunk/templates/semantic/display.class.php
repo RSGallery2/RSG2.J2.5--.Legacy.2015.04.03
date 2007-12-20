@@ -84,7 +84,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 	 */
 	function _showGalleryDetails( $kid ) {
 		global $rsgConfig, $Itemid;
-		$slideshow 	= $rsgConfig->get('displaySlideshow');
+		$slideshow = $rsgConfig->get('displaySlideshow') && $kid->itemCount() > 1;
 		$owner 		= $rsgConfig->get('showGalleryOwner');
 		$size 		= $rsgConfig->get('showGallerySize');
 		$date 		= $rsgConfig->get('showGalleryDate');

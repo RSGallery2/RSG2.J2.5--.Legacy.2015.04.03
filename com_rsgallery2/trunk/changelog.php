@@ -33,7 +33,7 @@ Legend:
 ---------------- Recent ----------------
 2007-12-20 Jonah Braun
  # Fixed uninstalling rsgTemplates in J1.5
- # Cleaned up misc issues with the Template Manager in J1.0
+ ^ Slideshow option only shows when more than one item is present.
 
 2007-12-17 Ronald Smit
  + Added Zoom Gallery Migrator
