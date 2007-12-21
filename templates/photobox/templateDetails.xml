@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<mosinstall type="template">
+<mosinstall type="rsgTemplate">
 	<name>photoBox</name>
 	<creationDate>05/21/07</creationDate>
 	<author>Jonathan DeLaigle and Tobby </author>

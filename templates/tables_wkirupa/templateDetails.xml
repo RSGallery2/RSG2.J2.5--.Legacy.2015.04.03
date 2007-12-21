@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<mosinstall type="template">
+<mosinstall type="rsgTemplate">
 	<name>Tables Kirupa Flash XML Gallery</name>
 	<creationDate>15/02/07</creationDate>
 	<author>rsgallery2.net</author>

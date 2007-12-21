@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<mosinstall type="template">
+<mosinstall type="rsgTemplate">
 	<name>FrogJS</name>
 	<creationDate>25/05/07</creationDate>
 	<author>Daniel Tulp</author>

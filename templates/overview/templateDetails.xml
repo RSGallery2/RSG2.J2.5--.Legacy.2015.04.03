@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<mosinstall type="template">
+<mosinstall type="rsgTemplate">
 	<name>Overview</name>
 	<creationDate>Summer 2007</creationDate>
 	<author>Jonah Braun</author>
