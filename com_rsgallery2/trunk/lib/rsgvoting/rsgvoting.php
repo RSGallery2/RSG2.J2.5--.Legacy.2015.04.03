@@ -44,12 +44,12 @@ function saveVote( $option ) {
 		$Itemid		= rsgInstance::getInt('Itemid', '');
 		//Check if user can vote
 		if (!$vote->voteAllowed() ) {
-			mosRedirect("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=inline&amp;id=$id", _RSGALLERY_VOTING_NOT_AUTH);
+			mosRedirect("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id", _RSGALLERY_VOTING_NOT_AUTH);
 		}
 		
 		//Check if user has already voted for this image
 		if ($vote->alreadyVoted($id)) {
-		 	mosRedirect("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=inline&amp;id=$id",_RSGALLERY_VOTING_ALREADY_VOTED);
+		 	mosRedirect("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id",_RSGALLERY_VOTING_ALREADY_VOTED);
 		}
 		
 		//All checks OK, store vote in DB
@@ -65,7 +65,7 @@ function saveVote( $option ) {
 			//Store cookie on system
 			setcookie($rsgConfig->get('cookie_prefix').$id, $my->id, time()+60*60*24*365, "/");
 		}
-		mosRedirect("index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=inline&amp;id=$id", $msg);
+		mosRedirect("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id", $msg);
 	}
 }
 ?>

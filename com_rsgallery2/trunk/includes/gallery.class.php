@@ -80,6 +80,8 @@ class rsgGallery extends JObject{
 			$this->$k = $row[$k];
 		}
 
+		$this->params = $this->explode_assoc("=", "\n", $this->params);
+		
 		$this->thumb();
 
 		//Write status icons
@@ -213,12 +215,19 @@ class rsgGallery extends JObject{
 		return $this->array_slice_preserve_keys($this->items, $start, $length);
 		
 	}
+
 	/**
 	*  returns basic information for this gallery
 	*/
-	function get( $key ){
-		return $this->$key;
+	function get( $key , $default = null){
+		
+		if(!property_exists($this, $key) || $this->$key == null)
+			return $default;
+		else
+			return $this->$key;
 	}
+
+	
 	
 	/**
 	*  returns item by it's db id
@@ -329,7 +338,7 @@ class rsgGallery extends JObject{
 	function array_slice_preserve_keys($array, $offset, $length = null)
 	{
 		// PHP >= 5.0.2 is able to do this itself
-		if((int)substr(str_replace('.', '', phpversion()), 0, 3) >= 502)
+		if(version_compare(phpversion(),"5.0.2",">="))
 			return(array_slice($array, $offset, $length, true));
 
 		// prepare input variables
@@ -354,6 +363,18 @@ class rsgGallery extends JObject{
 	   
 		// return
 		return($result);
+	}
+
+	function explode_assoc($glue1, $glue2, $array)
+	{
+	  $array2=explode($glue2, $array);
+	  foreach($array2 as  $val)
+	  {
+				$pos=strpos($val,$glue1);
+				$key=substr($val,0,$pos);
+				$array3[$key] =substr($val,$pos+1,strlen($val));
+	  }
+	  return $array3;
 	}
 
 }

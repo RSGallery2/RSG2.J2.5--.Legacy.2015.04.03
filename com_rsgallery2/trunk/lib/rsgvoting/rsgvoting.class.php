@@ -115,32 +115,35 @@ class rsgVoting {
 	 */
 	function voteAllowed() {
 		global $my, $rsgConfig;
+		$gallery = rsgGalleryManager::get();
+		$gallery_vote = $gallery->get('params', array('voting_vote'=>'global') );
+		$gallery_vote = $gallery_vote['voting_vote'];
+
 		//Check if voting is enabled
-		if ($rsgConfig->get('voting') < 1) {
+		if ($rsgConfig->get('voting') < 1 ||
+			$gallery_vote == 'off') {
 			return false;
 		} else {
-			$registered = $rsgConfig->get('voting_registered_only');
+			
+			if($gallery_vote == 'global')
+				$registered = $rsgConfig->get('voting_registered_only');
+			else
+				$registered = ($gallery_vote == 'registered') ? 1 : 0;
+				
+						
 			//Check if user is logged in
 			if ($my->id) {
-				$logged_in = 1;
+				//User is logged in
+				return true;
 			} else {
-				$logged_in = 0;
+				//User is not logged in
+				if ($registered == 1 ) {
+					return false;
+				} else {
+					return true;
+				}
 			}
 			
-			switch ($logged_in) {
-				//User is not logged in
-				case 0:
-					if ($registered == 1) {
-						return false;
-					} else {
-						return true;
-					}
-					break;
-				//User is logged in
-				case 1:
-					return true;
-					break;
-			}
 		}
 	}
 }

@@ -284,8 +284,20 @@ class rsgDisplay extends JObject{
      * Shows the voting screen
      */
     function _showVotes() {
-    	global $mainframe, $mosConfig_live_site, $rsgConfig;
-    	if ($rsgConfig->get('voting')) {
+    	global $mainframe, $mosConfig_live_site, $rsgConfig ,$my;
+		$gallery = rsgGalleryManager::get();
+		$vote_view = $gallery->get('params', array('voting_view'=>'global') );
+		$vote_view = $vote_view['voting_view'];
+
+		if($vote_view == 'global')
+			// use global setting for viewing vote
+			$vote_view = $rsgConfig->get('voting');
+		else
+			// use per gallery setting for viewing vote
+			$vote_view = ($vote_view == 'anyone') ? true : $my->id ;
+		
+		
+		if ($vote_view) {
     		$css = "<link rel=\"stylesheet\" href=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/rsgvoting/rsgvoting.css\" type=\"text/css\" />";
     		$mainframe->addCustomHeadTag($css);
     		$voting = new rsgVoting();

@@ -31,6 +31,13 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+
+2007-12-26 John Caprez
+ + added new template installer for J1.0 (template parameters are accessible through $this->params)
+ # fixed some css issues
+ + added voting permissions by gallery
+
+
 2007-12-20 Jonah Braun
  # Fixed uninstalling rsgTemplates in J1.5
  ^ Slideshow option only shows when more than one item is present.
