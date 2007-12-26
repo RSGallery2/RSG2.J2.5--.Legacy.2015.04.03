@@ -267,8 +267,12 @@ class rsgDisplay extends JObject{
      */
     function _showComments() {
     	global $mainframe, $mosConfig_live_site, $rsgConfig;
-    	if ($rsgConfig->get('comment')) {
-    		$id = rsgInstance::getVar( 'id'  , '');
+
+		if ($rsgConfig->get('comment')) {
+			$gallery = rsgGalleryManager::get();
+			$item = $gallery->getItem($id);
+			$id = $item->id;
+			
     		$css = "<link rel=\"stylesheet\" href=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/rsgcomments/rsgcomments.css\" type=\"text/css\" />";
 			$mainframe->addCustomHeadTag($css);
 		

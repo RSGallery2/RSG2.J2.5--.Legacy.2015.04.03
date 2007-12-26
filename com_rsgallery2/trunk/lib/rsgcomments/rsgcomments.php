@@ -36,7 +36,7 @@ function test( $option ) {
 	$id	= rsgInstance::getInt('id'  , '');
 	$item_id 	= rsgInstance::getInt('item_id'  , '');
 	$catid 		= rsgInstance::getInt('catid'  , '');
-	$redirect_url = "index.php?option=$option&amp;Itemid=$Itemid&amp;page=inline&amp;id=$item_id&amp;catid=$catid";
+	$redirect_url = "index.php?option=$option&Itemid=$Itemid&page=inline&id=$item_id&catid=$catid";
 	echo "Here we will delete comment number ".$id."\\n and redirect to ".$redirect_url;
 }
 
@@ -151,6 +151,6 @@ function deleteComments( $option ) {
 			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 		}
 	}
-	mosRedirect( "index.php?option=$option&amp;page=inline&amp;id=$item_id&amp;catid=$catid", _RSGALLERY_COMMENTS_COMMDEL );
+	mosRedirect( "index.php?option=$option&page=inline&id=$item_id&catid=$catid", _RSGALLERY_COMMENTS_COMMDEL );
 }
 ?>
