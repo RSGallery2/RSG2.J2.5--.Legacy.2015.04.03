@@ -464,6 +464,7 @@ class TemplatesView
 
 	function _writeFTPHeader(& $ftp)
 	{
+		return;
 		if($ftp): ?>
 			<fieldset title="<?php echo JText::_('DESCFTPTITLE'); ?>">
 			<legend><?php echo JText::_('DESCFTPTITLE'); ?></legend>
@@ -551,7 +552,7 @@ class TemplatesView
 				</td>
 				<td>
 					<input class="input_box" id="install_package" name="install_package" type="file" size="57" />
-					<input class="button" type="button" value="<?php echo JText::_( 'Upload File' ); ?> &amp; <?php echo JText::_( 'Install' ); ?>" onclick="submitbutton()" />
+					<input class="button" type="button" value="<?php echo JText::_( 'Upload File' ); ?> &amp; <?php echo JText::_( 'Install' ); ?>" onclick="form.submit()" />
 				</td>
 			</tr>
 			</table>

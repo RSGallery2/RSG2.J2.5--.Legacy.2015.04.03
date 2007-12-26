@@ -664,11 +664,11 @@ class TemplatesController
 		// Install the package
 		if (!$installer->install($package['dir'])) {
 			// There was an error installing the package
-			$msg = JText::sprintf('INSTALLEXT', JText::_($package['type']), JText::_('Error'));
+			$msg = 'Error';
 			$result = false;
 		} else {
 			// Package installed sucessfully
-			$msg = JText::sprintf('INSTALLEXT', JText::_($package['type']), JText::_('Success'));
+			$msg = 'Success';
 			$result = true;
 		}
 			

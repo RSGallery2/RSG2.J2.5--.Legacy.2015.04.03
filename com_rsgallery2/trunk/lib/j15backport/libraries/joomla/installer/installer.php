@@ -313,10 +313,10 @@ class JInstaller extends JObject
 		$version	= $root->attributes('version');
 		$rootName	= $root->name();
 		$config		= &JFactory::getConfig();
-		if ((version_compare($version, '1.5', '<') || $rootName == 'mosinstall') && !$config->getValue('config.legacy')) {
-			$this->abort(JText::_('MUSTENABLELEGACY'));
-			return false;
-		}
+//		if ((version_compare($version, '1.5', '<') || $rootName == 'mosinstall') && !$config->getValue('config.legacy')) {
+//			$this->abort(JText::_('MUSTENABLELEGACY'));
+//			return false;
+//		}
 
 		$type = $root->attributes('type');
 
