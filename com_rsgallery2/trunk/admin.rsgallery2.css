@@ -88,7 +88,17 @@ div.rsg2-text {
 	font-size: smaller;
 
 }
+.tool-tip{
+	background-color:#fff;
+	padding:0.5em;
+	border:1px solid #aaa;
+}
 
+.tool-tip .tool-title{
+border-bottom:1px solid #aaa;
+padding-bottom:0.5em;
+margin-bottom:0.5em;
+}
 #cpanel div.icon-bar   { margin: 3px; }
 #cpanel div.icon-bar a { 
 	display: block; float: left;

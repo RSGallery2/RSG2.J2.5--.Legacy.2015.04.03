@@ -111,6 +111,9 @@ switch ($task)
 		TemplatesController::removeTemplate();
 		break;
 		
+	case "closeManager":		
+		mosRedirect('index2.php?option=com_rsgallery2');
+	
 	case "cancel":		
 	default :
 		TemplatesController::viewTemplates();

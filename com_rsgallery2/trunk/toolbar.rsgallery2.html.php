@@ -60,11 +60,14 @@ class menu_rsg2_templateManager
 	function _DEFAULT()
 	{
 		mosMenuBar::startTable();
-		mosMenuBar::custom('showInstall', 'install.png', 'install_f2.png', 'Install', false, false);
+		mosMenuBar::custom('showInstall', 'install.png', 'install.png', 'Install', false, false);
+		mosMenuBar::deleteList( '', 'remove', 'Uninstall' );
 		mosMenuBar::spacer();
 		mosMenuBar::makeDefault();
-		mosMenuBar::deleteList( '', 'remove', 'Uninstall' );
+		mosMenuBar::spacer();
 		mosMenuBar::editListX( 'edit', 'Edit' );
+		mosMenuBar::spacer();
+		mosMenuBar::cancel( 'closeManager', 'Close' );
 		mosMenuBar::endTable();
 	}
 	function _VIEW(){
