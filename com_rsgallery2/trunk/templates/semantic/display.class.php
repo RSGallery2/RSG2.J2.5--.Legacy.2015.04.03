@@ -288,7 +288,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 			break;
 		}
 		?>
-		<div id='rsg2-pageNav'>
+		<div class="rsg2-pageNav">
 				<?php
 				if( $itemCount > $limit ){
 				global $Itemid;

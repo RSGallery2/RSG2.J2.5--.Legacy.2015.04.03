@@ -354,7 +354,7 @@ class myGalleries {
 
         $thumbNumber = 0;
         ?>
-        <div id='rsg2-pageNav'>
+        <div class="rsg2-pageNav">
                 <?php
                 /*
                 if( $numPics > $PageSize ){
@@ -377,7 +377,7 @@ class myGalleries {
             case 'float':
                 $floatDirection = $rsgConfig->get( 'display_thumbs_floatDirection' );
                 ?>
-                <ul id='rsg2-thumbsList'>
+                <ul id="rsg2-thumbsList">
                 <?php foreach( $rows as $row ): ?>
                 <li <?php echo "style='float: $floatDirection'"; ?> >
                     <a href="<?php global $Itemid; echo sefRelToAbs( "index.php?option=com_rsgallery2&amp;Itemid=$Itemid&amp;page=inline&amp;id=".$row->id."&amp;catid=".$row->gallery_id."&amp;limitstart=".$limitstart++ ); ?>">
@@ -446,7 +446,7 @@ class myGalleries {
                 break;
             endswitch;
             ?>
-            <div id='rsg2-pageNav'>
+            <div class="rsg2-pageNav">
                     <?php
                     if( $numPics > $PageSize ){
                     global $Itemid;
