@@ -221,7 +221,7 @@ class rsgGallery extends JObject{
 	*/
 	function get( $key , $default = null){
 		
-		if(!isset($this->$key) || $this->$key == null)
+		if(!isset($this->$key))
 			return $default;
 		else
 			return $this->$key;

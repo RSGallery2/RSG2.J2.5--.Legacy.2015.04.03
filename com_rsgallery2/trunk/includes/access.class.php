@@ -121,7 +121,8 @@ class rsgAccess extends JObject{
 			
 			// check user type for access
 			$type = rsgAccess::returnUserType();
-			if($this->levelMaping[$type] == "admin")
+			$type = $this->levelMaping[$type];
+			if($type == "admin")
 				// admins are allowed to do everything
 				return 1;
 			else{
