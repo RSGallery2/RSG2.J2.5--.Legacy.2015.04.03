@@ -217,11 +217,11 @@ class html_rsg2_galleries{
 	
 		function selectAll() {
 			if(document.adminForm.checkbox0.checked) {
-				for (i = 0; i < 10; i++) {
+				for (i = 0; i < 12; i++) {
 					document.getElementById('p' + i).checked=true;
 				}
 			} else {
-				for (i = 0; i < 10; i++) {
+				for (i = 0; i < 12; i++) {
 					document.getElementById('p' + i).checked=false;
 				}
 			}
@@ -357,6 +357,8 @@ class html_rsg2_galleries{
 									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_DEL_IMG?></td>
 									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_MOD_GAL?></td>
 									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_DEL_GAL?></td>
+									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_VOTE_VIEW?></td>
+									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_VOTE_VOTE?></td>
 								</tr>
 								<tr>
 									<td><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_ACL_PUB?></td>
@@ -365,6 +367,8 @@ class html_rsg2_galleries{
 									<td><input id="p2" type="checkbox" name="perm[2]" value="1" <?php if ($perms->public_del_img == 1) echo "CHECKED";?>></td>
 									<td><input id="p3" type="checkbox" name="perm[3]" value="1" <?php if ($perms->public_create_mod_gal == 1) echo "CHECKED";?>></td>
 									<td><input id="p4" type="checkbox" name="perm[4]" value="1" <?php if ($perms->public_del_gal == 1) echo "CHECKED";?>></td>
+									<td><input id="p5" type="checkbox" name="perm[5]" value="1" <?php if ($perms->public_vote_view == 1) echo "CHECKED";?>></td>
+									<td><input id="p6" type="checkbox" name="perm[6]" value="1" <?php if ($perms->public_vote_vote == 1) echo "CHECKED";?>></td>
 								</tr>
 								<tr>
 									<td><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_ACL_REG?></td>
@@ -373,6 +377,8 @@ class html_rsg2_galleries{
 									<td><input id="p7" type="checkbox" name="perm[7]" value="1" <?php if ($perms->registered_del_img == 1) echo "CHECKED";?>></td>
 									<td><input id="p8" type="checkbox" name="perm[8]" value="1" <?php if ($perms->registered_create_mod_gal == 1) echo "CHECKED";?>></td>
 									<td><input id="p9" type="checkbox" name="perm[9]" value="1" <?php if ($perms->registered_del_gal == 1) echo "CHECKED";?>></td>
+									<td><input id="p10" type="checkbox" name="perm[10]" value="1" <?php if ($perms->registered_vote_view == 1) echo "CHECKED";?>></td>
+									<td><input id="p11" type="checkbox" name="perm[11]" value="1" <?php if ($perms->registered_vote_vote == 1) echo "CHECKED";?>></td>
 								</tr>
 								<tr>
 									<td colspan="6"><input type="checkbox" name="checkbox0" value="true" onClick='selectAll()'><?php echo _RSGALLERY_GAL_SEL_DESEL_ALL?></td>

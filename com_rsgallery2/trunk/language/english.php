@@ -553,6 +553,8 @@ DEFINE("_RSGALLERY_GAL_UPL_EDIT_IMG",	"Upload/Edit<br/>images</span>");
 DEFINE("_RSGALLERY_GAL_DEL_IMG",			"Delete Image</span>");
 DEFINE("_RSGALLERY_GAL_MOD_GAL",			"Modify<br/>Gallery</span>");
 DEFINE("_RSGALLERY_GAL_DEL_GAL",			"Delete<br/>Gallery</span>");
+/*new*/DEFINE("_RSGALLERY_GAL_VOTE_VIEW",			"View<br/>Votes</span>");
+/*new*/DEFINE("_RSGALLERY_GAL_VOTE_VOTE",			"Make<br/>Vote</span>");
 DEFINE("_RSGALLERY_GAL_ACL_PUB",			"Public</span>");
 DEFINE("_RSGALLERY_GAL_ACL_REG",			"Registered</span>");
 DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",	"&nbsp;Select/Deselect All");

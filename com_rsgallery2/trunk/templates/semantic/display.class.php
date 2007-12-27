@@ -413,7 +413,9 @@ class rsgDisplay_semantic extends rsgDisplay{
 	 * Shows details of image
 	 */
 	function showDisplayImageDetails() {
-		global $rsgConfig;
+		global $rsgConfig, $rsgAccess;
+		
+		$gallery = rsgGalleryManager::get();
 
 		// if no details need to be displayed then exit
 		
@@ -429,7 +431,8 @@ class rsgDisplay_semantic extends rsgDisplay{
 			$tabs->endTab();
 		}
 		
-		if ( $rsgConfig->get("displayVoting") ) {
+		if ( $rsgConfig->get("displayVoting") &&
+			 $rsgAccess->checkGallery("vote_view", $gallery->id) ) {
 			$tabs->startTab(_RSGALLERY_VOTING, 'Voting' );
 			$this->_showVotes();
 			$tabs->endTab();

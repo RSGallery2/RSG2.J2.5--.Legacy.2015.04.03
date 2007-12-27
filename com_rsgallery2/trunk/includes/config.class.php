@@ -102,7 +102,6 @@ class rsgConfig {
     
     //Voting system
     var $voting					= 1;
-    var $voting_registered_only	= 1;
     var $voting_once			= 1;
     var $cookie_prefix			= "rsgvoting_";
 

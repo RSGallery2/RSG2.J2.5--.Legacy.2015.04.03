@@ -408,10 +408,6 @@ class html_rsg2_config{
 								<td><?php echo mosHTML::yesnoRadioList('voting', '', $config->voting);?></td>
 							</tr>
 							<tr>
-								<td><?php echo _RSGALLERY_VOTE_REGISTERED_ONLY;?></td>
-								<td><?php echo mosHTML::yesnoRadioList('voting_registered_only', '', $config->voting_registered_only)?></td>
-							</tr>
-							<tr>
 								<td><?php echo _RSGALLERY_VOTE_ONLY_ONCE;?></td>
 								<td><?php echo mosHTML::yesnoRadioList('voting_once', '', $config->voting_once)?></td>
 							</tr>
