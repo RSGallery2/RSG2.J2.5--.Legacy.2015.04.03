@@ -136,10 +136,10 @@ class galleryUtils {
      * @param integer ID of selected gallery
      * @return HTML to show selectbox
      */
-    function showUserGalSelectList($action = '', $select_name = 'catid', $gallery_id = null) {
-    	global $rsgAccess, $database, $my;
-    	
-    	//Get gallery Id's where action is permitted and write to string
+	function showUserGalSelectList($action = '', $select_name = 'catid', $gallery_id = null) {
+		global $rsgAccess, $database, $my;
+		
+		//Get gallery Id's where action is permitted and write to string
 		$galleries = $rsgAccess->actionPermitted($action);
 		
 		//Get parent galleries from database
@@ -152,35 +152,40 @@ class galleryUtils {
 		$rows = $database->loadObjectList();
 		
 		//Write first entry for selectbox
-		$dropdown_html = "<select name=\"$select_name\"><option value=\"0\" SELECTED>"._RSGALLERY_SELECT_GAL_DROP_BOX."</option>\n";
-	
+		$dropdown_html = "<select name=\"$select_name\"><option value=\"0\">"._RSGALLERY_SELECT_GAL_DROP_BOX."</option>\n";
+		
 		//Check whether there are children in the database and add them to the HTML string
-	    foreach ($rows as $row) {
+		foreach ($rows as $row) {
 			$id = $row->id;
 			$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE parent = '$id' ORDER BY ordering ASC");
 			$rows2 = $database->loadObjectList();
-	
+			
 			if (!isset($id)) $id=0;
 			
-	        $dropdown_html .= "<option value=\"$row->id\"";
-	        if (!in_array($row->id, $galleries))
-	        	$dropdown_html .= " DISABLED>";
-	        elseif ($row->id == $gallery_id)
-	            $dropdown_html .= " SELECTED>";
-	        else
-	            $dropdown_html .= ">";
-	        $dropdown_html .=  $row->name."</option>\n";
-	
-			foreach($rows2 as $row2)
-				{
+			$dropdown_html .= "<option value=\"$row->id\"";
+			if (!in_array($id, $galleries))
+				$dropdown_html .= " DISABLED>";
+			elseif ($id == $gallery_id)
+				$dropdown_html .= " SELECTED>";
+			else
+				$dropdown_html .= ">";
+			
+			$dropdown_html .=  $row->name."</option>\n";
+			
+			foreach($rows2 as $row2){
+				$dropdown_html .= "<option value=\"$row2->id\"";
 				if (!in_array($row2->id, $galleries))
-	        		$dropdown_html .= "<option value=\"$row2->id\" DISABLED>&nbsp;|--&nbsp;$row2->name</option>\n";
-	            else
-	            	$dropdown_html .= "<option value=\"$row2->id\">&nbsp;|--&nbsp;$row2->name</option>\n";
-				}
+					$dropdown_html .= " DISABLED>";
+				elseif ($row2->id == $gallery_id)
+					$dropdown_html .= " SELECTED>";
+				else
+					$dropdown_html .= ">";
+				
+				$dropdown_html .=  "&nbsp;|--&nbsp;".$row2->name."</option>\n";
 			}
-	        echo $dropdown_html."</select>";
 		}
+		echo $dropdown_html."</select>";
+	}
 
     /**
      * build the select list to choose a parent gallery for a specific user

@@ -75,7 +75,7 @@ function showMyGalleries() {
 						" ORDER BY date DESC" .
 						" LIMIT $pageNav->limitstart, $pageNav->limit");
 	$images = $database->loadObjectList();
-	$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE parent = 0 AND uid = '$my->id'");
+	$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE uid = '$my->id'");
 	$rows = $database->loadObjectList();
 	
 	if($my->id) {

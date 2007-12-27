@@ -109,7 +109,7 @@ class rsgAccess extends JObject{
 			if( $my->id ){  // check that user is logged in
 				$sql = "SELECT uid FROM #__rsgallery2_galleries WHERE id = '$gallery_id'";
 				$database->setQuery( $sql );
-				if ( $my->id === $database->loadResult() )
+				if ( $my->id == $database->loadResult() )
 					return 1;
 			}
 			
@@ -174,7 +174,7 @@ class rsgAccess extends JObject{
 	 * @return array Array with selected gallery_id's
 	 */
 	function actionPermitted($action) {
-		global $database;
+		global $database,$my;
 		//Check usertype of the logged in user
 		$type = rsgAccess::returnUserType();
 		
@@ -185,6 +185,15 @@ class rsgAccess extends JObject{
 		$sql = "SELECT gallery_id FROM $this->_table WHERE ".$type." = 1";
 		$database->setQuery($sql);
 		$galleries = $database->loadResultArray();
+		
+		// check if user is logged in
+		if( $my->id ){  
+			// if so add tables owned by users to list
+			$sql = "SELECT id FROM #__rsgallery2_galleries WHERE uid = '$my->id'";
+			$database->setQuery( $sql );
+			$galleries = array_merge($galleries, $database->loadResultArray());	
+		}
+		
 		return $galleries;
 	}
 	

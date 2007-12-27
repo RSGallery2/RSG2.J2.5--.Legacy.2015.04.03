@@ -717,16 +717,38 @@ class myGalleries {
             $limitstart     = $row->ordering - 1;
             $catid          = $row->gallery_id;
         }
+		?>
+    <script type="text/javascript">
+        function submitbutton(pressbutton) {
+            var form = document.form1;
+            if (pressbutton == 'cancel') {
+                form.reset();
+                history.back();
+                return;
+            }
+        <?php getEditorContents( 'editor1', 'description' ) ; ?>
+        // do field validation
+        if (form.catid.value == "0") {
+            alert( "<?php echo _RSGALLERY_MAKECAT_ALERT_NAME; ?>" );
+        }
+        else if (form.descr.value == ""){
+            alert( "<?php echo _RSGALLERY_MAKECAT_ALERT_DESCR; ?>" );
+        }
+        else{
+            form.submit();
+        }
+        }
+    </script>
+    <?php
         echo "<h3>"._RSGALLERY_EDIT_IMAGE."</h3>";
         ?>
         <form name="form1" method="post" action="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;rsgOption=myGalleries&amp;task=saveItem&amp;Itemid=$Itemid"); ?>">
         <input type="hidden" name="id" value="<?php echo $id; ?>" />
-        <input type="hidden" name="catid" value="<?php echo $catid; ?>" />
         <table width="100%">
             <tr>
                 <td align="right">
-                    <img onClick="form1.submit();" src="<?php echo $mosConfig_live_site; ?>/administrator/images/save.png" alt="<?php echo _RSGALLERY_TOOL_UP ?>"  name="upload" onMouseOver="document.upload.src='<?php echo $mosConfig_live_site; ?>/administrator/images/save_f2.png';" onMouseOut="document.upload.src='<?php echo $mosConfig_live_site; ?>/administrator/images/save.png';" />&nbsp;&nbsp;
-                    <img onClick="history.back();" src="<?php echo $mosConfig_live_site; ?>/administrator/images/cancel.png" alt="<?php echo _RSGALLERY_CANCEL; ?>"  name="cancel" onMouseOver="document.cancel.src='<?php echo $mosConfig_live_site; ?>/administrator/images/cancel_f2.png';" onMouseOut="document.cancel.src='<?php echo $mosConfig_live_site; ?>/administrator/images/cancel.png';" />
+                    <img onClick="submitbutton('upload');" src="<?php echo $mosConfig_live_site; ?>/administrator/images/save.png" alt="<?php echo _RSGALLERY_TOOL_UP ?>"  name="upload" onMouseOver="document.upload.src='<?php echo $mosConfig_live_site; ?>/administrator/images/save_f2.png';" onMouseOut="document.upload.src='<?php echo $mosConfig_live_site; ?>/administrator/images/save.png';" />&nbsp;&nbsp;
+                    <img onClick="submitbutton('cancel');" src="<?php echo $mosConfig_live_site; ?>/administrator/images/cancel.png" alt="<?php echo _RSGALLERY_CANCEL; ?>"  name="cancel" onMouseOver="document.cancel.src='<?php echo $mosConfig_live_site; ?>/administrator/images/cancel_f2.png';" onMouseOut="document.cancel.src='<?php echo $mosConfig_live_site; ?>/administrator/images/cancel.png';" />
                 </td>
             </tr>
         </table>
@@ -752,10 +774,10 @@ class myGalleries {
             <tr>
                 <td align="left" valign="top"><?PHP echo _RSGALLERY_EDIT_DESCRIPTION; ?></td>
                 <td align="left" colspan="2">
-                    <textarea cols="25" rows="5" name="descr"><?php echo htmlspecialchars(stripslashes($description)); ?></textarea>
+                    <!--<textarea cols="25" rows="5" name="descr"><?php echo htmlspecialchars(stripslashes($description)); ?></textarea>-->
                     <?php
                     // parameters : areaname, content, hidden field, width, height, rows, cols
-                    //editorArea( 'editor1',  $description, 'descr', '100%;', '500', '75', '50' );
+                    editorArea( 'editor1',  $description, 'descr', '100%;', '500', '75', '50' );
                     ?>
                 </td>
             </tr>
@@ -780,7 +802,7 @@ function editCat($rows = null) {
                 history.back();
                 return;
             }
-        
+        <?php getEditorContents( 'editor1', 'description' ) ; ?>
         // do field validation
         if (form.catname1.value == "") {
             alert( "<?php echo _RSGALLERY_MAKECAT_ALERT_NAME; ?>" );
@@ -789,7 +811,6 @@ function editCat($rows = null) {
             alert( "<?php echo _RSGALLERY_MAKECAT_ALERT_DESCR; ?>" );
         }
         else{
-            <?php getEditorContents( 'editor1', 'description' ) ; ?>
             form.submit();
         }
         }
