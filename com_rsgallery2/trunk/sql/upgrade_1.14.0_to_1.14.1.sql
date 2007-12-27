@@ -3,8 +3,8 @@
 #
 
 # add more permissions to acl table
-ALTER TABLE `#__rsgallery2_acl` ADD `public_vote_view` TINYINT( 1 ) NOT NULL DEFAULT '1';
-ALTER TABLE `#__rsgallery2_acl` ADD `public_vote_vote` TINYINT( 1 ) NOT NULL DEFAULT '0';
+ALTER TABLE `#__rsgallery2_acl` ADD `public_vote_view` TINYINT( 1 ) NOT NULL DEFAULT '1' AFTER `public_del_gal` ;
+ALTER TABLE `#__rsgallery2_acl` ADD `public_vote_vote` TINYINT( 1 ) NOT NULL DEFAULT '0' AFTER `public_vote_view` ;
 
-ALTER TABLE `#__rsgallery2_acl` ADD `registered_vote_view` TINYINT( 1 ) NOT NULL DEFAULT '1';
-ALTER TABLE `#__rsgallery2_acl` ADD `registered_vote_vote` TINYINT( 1 ) NOT NULL DEFAULT '1';
+ALTER TABLE `#__rsgallery2_acl` ADD `registered_vote_view` TINYINT( 1 ) NOT NULL DEFAULT '1' AFTER `registered_del_gal`;
+ALTER TABLE `#__rsgallery2_acl` ADD `registered_vote_vote` TINYINT( 1 ) NOT NULL DEFAULT '1' AFTER `registered_vote_view`;

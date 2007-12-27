@@ -372,13 +372,13 @@ class html_rsg2_galleries{
 								</tr>
 								<tr>
 									<td><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_ACL_REG?></td>
-									<td><input id="p5" type="checkbox" name="perm[5]" value="1" <?php if ($perms->registered_view == 1) echo "CHECKED";?>></td>
-									<td><input id="p6" type="checkbox" name="perm[6]" value="1" <?php if ($perms->registered_up_mod_img == 1) echo "CHECKED";?>></td>
-									<td><input id="p7" type="checkbox" name="perm[7]" value="1" <?php if ($perms->registered_del_img == 1) echo "CHECKED";?>></td>
-									<td><input id="p8" type="checkbox" name="perm[8]" value="1" <?php if ($perms->registered_create_mod_gal == 1) echo "CHECKED";?>></td>
-									<td><input id="p9" type="checkbox" name="perm[9]" value="1" <?php if ($perms->registered_del_gal == 1) echo "CHECKED";?>></td>
-									<td><input id="p10" type="checkbox" name="perm[10]" value="1" <?php if ($perms->registered_vote_view == 1) echo "CHECKED";?>></td>
-									<td><input id="p11" type="checkbox" name="perm[11]" value="1" <?php if ($perms->registered_vote_vote == 1) echo "CHECKED";?>></td>
+									<td><input id="p7" type="checkbox" name="perm[7]" value="1" <?php if ($perms->registered_view == 1) echo "CHECKED";?>></td>
+									<td><input id="p8" type="checkbox" name="perm[8]" value="1" <?php if ($perms->registered_up_mod_img == 1) echo "CHECKED";?>></td>
+									<td><input id="p9" type="checkbox" name="perm[9]" value="1" <?php if ($perms->registered_del_img == 1) echo "CHECKED";?>></td>
+									<td><input id="p10" type="checkbox" name="perm[10]" value="1" <?php if ($perms->registered_create_mod_gal == 1) echo "CHECKED";?>></td>
+									<td><input id="p11" type="checkbox" name="perm[11]" value="1" <?php if ($perms->registered_del_gal == 1) echo "CHECKED";?>></td>
+									<td><input id="p12" type="checkbox" name="perm[12]" value="1" <?php if ($perms->registered_vote_view == 1) echo "CHECKED";?>></td>
+									<td><input id="p13" type="checkbox" name="perm[13]" value="1" <?php if ($perms->registered_vote_vote == 1) echo "CHECKED";?>></td>
 								</tr>
 								<tr>
 									<td colspan="6"><input type="checkbox" name="checkbox0" value="true" onClick='selectAll()'><?php echo _RSGALLERY_GAL_SEL_DESEL_ALL?></td>

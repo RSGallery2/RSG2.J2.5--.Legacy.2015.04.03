@@ -84,7 +84,7 @@ function showMyGalleries() {
 	} else {
 		//Not logged in, back to main page
 		global $Itemid;
-		mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid"),_RSGALLERY_NO_USERCATS );
+		mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&Itemid=$Itemid"),_RSGALLERY_NO_USERCATS );
 	}	
 }
 
@@ -137,7 +137,7 @@ function saveItem() {
 
 	if ($database->query()) {
 		global $Itemid;
-		mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&amp;rsgOption=myGalleries&amp;Itemid=$Itemid"), _RSGALLERY_SAVE_SUCCESS );
+		mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid"), _RSGALLERY_SAVE_SUCCESS );
 	} else {
 		echo _RSGALLERY_ERROR_SAVE.mysql_error();
 	}
@@ -146,7 +146,7 @@ function saveItem() {
 function saveUploadedItem() {
 	global $rsgConfig, $rsgAccess, $database, $Itemid, $mosConfig_absolute_path;
 	//Set redirect URL
-	$redirect = "index.php?option=com_rsgallery2&amp;rsgOption=myGalleries&amp;Itemid=".$Itemid;
+	$redirect = "index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=".$Itemid;
 	
 	//Get category ID to check rights
 	$i_cat = rsgInstance::getVar( 'i_cat'  , '');

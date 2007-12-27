@@ -38,7 +38,7 @@ class rsgAccess extends JObject{
 				);
 		$this->levels = array(
 				'public',
-				'registrered'
+				'registered'
 				);
 		$this->levelMaping = array(				// map user types 
 				'public' => 'public',
@@ -55,10 +55,9 @@ class rsgAccess extends JObject{
 		$this->allActions = array();
 		foreach ($this->levels as $level) {
 			foreach ($this->actions	as $action) {
-				$this->allActions = $level.'_'.$action; 
+				$this->allActions[] = $level.'_'.$action; 
 			}
 		}				
-		
 		$this->_table = "#__rsgallery2_acl";
 	}
 	
@@ -202,9 +201,7 @@ class rsgAccess extends JObject{
 		if ( rsgAccess::arePermissionsSet($gallery_id) ) {
 			
 			$parent_id = galleryUtils::getParentId($gallery_id);	
-			$sql = "UPDATE $this->_table SET ".
-				"gallery_id = '$gallery_id', ".
-				"parent_id = '$parent_id', ";
+			$sql = "UPDATE $this->_table SET ";
 			
 			// assemble actions and add them to sql query 							
 			foreach ($this->levels as $level) {
@@ -214,7 +211,6 @@ class rsgAccess extends JObject{
 			}
 			$sql = substr($sql, 0, - 2);
 			$sql .= " WHERE gallery_id = '$gallery_id'";
-			
 			$database->setQuery($sql);
 			if ( $database->query() )
 				return true;
@@ -325,8 +321,8 @@ class rsgAccess extends JObject{
 				return $c;
 			}
 		}
-		
-		$array2 = array_pad(array(), 10, 0);
+		$arrayLength = count($this->levels) * count($this->actions);
+		$array2 = array_pad(array(), $arrayLength, 0);
 		$newArr = $array + $array2;
 		ksort($newArr);
 		$array_complete = array_combine($this->allActions, $newArr);
