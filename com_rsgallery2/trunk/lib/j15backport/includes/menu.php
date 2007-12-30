@@ -58,11 +58,11 @@ class JMenuSite extends JMenu
 			//Get parent information
 			$parent_route = '';
 			$parent_tree  = array();
-			if($parent = $menus[$key]->parent) {
-				$parent_route = $menus[$parent]->link.'/';
+			if(($parent = $menus[$key]->parent) && (isset($menus[$parent]))) {
+				$parent_route = $menus[$parent]->route.'/';
 				$parent_tree  = $menus[$parent]->tree;
 			}
-
+			
 			//Create tree
 			array_push($parent_tree, $menus[$key]->id);
 			$menus[$key]->tree   = $parent_tree;
