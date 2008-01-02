@@ -270,7 +270,7 @@ class rsgDisplay extends JObject{
 
 		if ($rsgConfig->get('comment')) {
 			$gallery = rsgGalleryManager::get();
-			$item = $gallery->getItem($id);
+			$item = $gallery->getItem();
 			$id = $item->id;
 			
     		$css = "<link rel=\"stylesheet\" href=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/rsgcomments/rsgcomments.css\" type=\"text/css\" />";
