@@ -31,12 +31,14 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2008-01-03 John Caprez
+ + added WYSIWYG editor in MyGallery
+ # fixed permissions for gallery creation in MyGallery
 
 2007-12-26 John Caprez
  + added new template installer for J1.0 (template parameters are accessible through $this->params)
  # fixed some css issues
- + added voting permissions by gallery
-
+ + added voting permissions by gallery (see sql/upgrade_1.14.0_to_1.14.1.sql for neccesary database changes)
 
 2007-12-20 Jonah Braun
  # Fixed uninstalling rsgTemplates in J1.5
