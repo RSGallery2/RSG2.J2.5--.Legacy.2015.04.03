@@ -36,10 +36,6 @@ class rsgVoting {
 	    	<form name="vote" method="post" action="<?php echo JRoute::_('index.php?option=com_rsgallery2&page=inline&id='.$id);?>">
 	    	<table border="0" width="200">
 	    	<tr>
-	    		<td><?php echo _RSGALLERY_VOTING_RATING;?>:</td>
-	    		<td><?php echo rsgVoting::calculateAverage($id);?>&nbsp;/&nbsp;<?php echo rsgVoting::getVoteCount($id);?><?php echo _RSGALLERY_VOTING_VOTES;?></td>
-	       	</tr>
-	    	<tr>
 	    		<td><?php echo _RSGALLERY_VOTING_VOTE;?>:</td>
 		    	<td>
 		    	<ul class="star-rating">
@@ -91,7 +87,15 @@ class rsgVoting {
 	}
 	
 	function showScore() {
-		
+	    	$id 		= rsgInstance::getInt( 'id'  , '');
+		?>		
+	    	<table border="0" width="200">
+	    	<tr>
+	    		<td><?php echo _RSGALLERY_VOTING_RATING;?>:</td>
+	    		<td><?php echo rsgVoting::calculateAverage($id);?>&nbsp;/&nbsp;<?php echo rsgVoting::getVoteCount($id);?><?php echo _RSGALLERY_VOTING_VOTES;?></td>
+	       	</tr>
+			</table>
+		<?php
 	}
 	/**
 	 * Check if the user already voted for this item

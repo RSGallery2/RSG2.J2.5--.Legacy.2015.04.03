@@ -537,6 +537,7 @@ class fileHandler {
             mosRedirect('index2.php?option=com_rsgallery2&rsgOption=images&task=batchupload', _RSGALLERY_FU_NO_VALID_IMG.$source._RSGALLERY_FU_PLEASE_CHECK_PATH);
         }
         
+		$list[] = array();
         //Create imagelist from FTP-directory
         foreach($files as $file) {
             if ( is_dir($source . $file) ) {

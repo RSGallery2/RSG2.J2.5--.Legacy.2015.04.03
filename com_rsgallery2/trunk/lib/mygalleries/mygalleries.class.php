@@ -26,7 +26,7 @@ class myGalleries {
         global $rsgConfig, $my, $database;
         if (!$rsgConfig->get('show_mygalleries'))
             //mosRedirect( sefRelToAbs("index.php?option=com_rsgallery2&amp;Itemid=$Itemid"),_RSGALLERY_USERGAL_DISABLED);
-            mosRedirect( sefRelToAbs($this->myg_url),_RSGALLERY_USERGAL_DISABLED);
+            mosRedirect( $this->myg_url,_RSGALLERY_USERGAL_DISABLED);
         ?>
         <h2><?php echo _RSGALLERY_USER_MY_GAL;?></h2>
 
@@ -65,7 +65,7 @@ class myGalleries {
 	                form.reset();
 	                return;
 	            }
-	        
+	        <?php getEditorContents( 'editor1', 'description' ) ; ?>
 	        // do field validation
 	        if (form.parent.value == "-1") {
 	            alert( "<?php echo "** You need to select a parent gallery **"; ?>" );
@@ -76,7 +76,6 @@ class myGalleries {
 	            alert( "<?php echo _RSGALLERY_MAKECAT_ALERT_DESCR; ?>" );
 	        }
 	        else{
-	            <?php //getEditorContents( 'editor1', 'description' ) ; ?>
 	            form.submit();
 	        }
 	        }
@@ -135,9 +134,14 @@ class myGalleries {
         <tr>
             <td><?php echo _RSGALLERY_CATLEVEL;?></td>
             <td>
-                <?php //galleryUtils::showCategories(NULL, $my->id, 'parent');?>
-                <?php echo galleryUtils::galleriesSelectList( $parent, 'parent', false );?>
-                <?php //galleryUtils::createGalSelectList( NULL, $listName='parent', true );?>
+				<?php
+                if (!$rsgConfig->get('acl_enabled')) {
+                    galleryUtils::showCategories(NULL, $my->id, 'parent');
+                } else {
+                    galleryUtils::showUserGalSelectList('up_mod_img', 'parent');
+                }
+
+				?>
             </td>
         </tr>
         <tr>
@@ -147,10 +151,10 @@ class myGalleries {
         <tr>
             <td><?php echo _RSGALLERY_DESCR; ?></td>
             <td align="left">
-                <textarea cols="20" rows="5" name="description"><?php echo htmlspecialchars(stripslashes($description)); ?></textarea>
+                <!--<textarea cols="20" rows="5" name="description"><?php echo htmlspecialchars(stripslashes($description)); ?></textarea>-->
                 <?php
                 // parameters : areaname, content, hidden field, width, height, rows, cols
-                //editorArea( 'editor1',  $description , 'description', '200', '300', '10', '10' ) ; ?>
+                    editorArea( 'editor1',  $description, 'description', '100%;', '300', '75', '50' ); ?>
             </td>
         </tr>
         <tr>
@@ -217,7 +221,7 @@ class myGalleries {
                 form.reset();
                 return;
             }
-            
+            <?php getEditorContents( 'editor1', 'descr' ) ; ?>
             // do field validation
             if (form.i_cat.value == "-1") {
                 alert( "<?php echo _RSGALLERY_UPLOAD_ALERT_CAT; ?>" );
@@ -266,14 +270,14 @@ class myGalleries {
                         <td><?php echo _RSGALLERY_USERUPLOAD_CATEGORY; ?></td>
                         <td>
                             <?php 
-                            echo galleryUtils::galleriesSelectList(null, 'i_cat', false);
-                            /*
+                            /*echo galleryUtils::galleriesSelectList(null, 'i_cat', false);*/
+                            
                             if (!$rsgConfig->get('acl_enabled')) {
                                 galleryUtils::showCategories(NULL, $my->id, 'i_cat');
                             } else {
                                 galleryUtils::showUserGalSelectList('up_mod_img', 'i_cat');
                             }
-                            */
+                            
                             ?>
                         </td>
                     </tr>
@@ -288,7 +292,9 @@ class myGalleries {
                     </tr>
                     <tr>
                         <td><?php echo _RSGALLERY_DESCR ?></td>
-                        <td align="left"><textarea cols="35" rows="3" name="descr"></textarea></td>
+                        <td align="left">
+							<?php editorArea( 'editor1',  '', 'descr', '100%;', '300', '75', '50' ); ?>
+						</td>
                     </tr>
                     <?php
                     if ($rsgConfig->get('graphicsLib') == '')

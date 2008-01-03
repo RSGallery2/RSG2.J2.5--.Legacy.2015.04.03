@@ -288,24 +288,21 @@ class rsgDisplay extends JObject{
      * Shows the voting screen
      */
     function _showVotes() {
-    	global $mainframe, $mosConfig_live_site, $rsgConfig ,$my;
-		$gallery = rsgGalleryManager::get();
-		$vote_view = $gallery->get('params', array('voting_view'=>'global') );
-		$vote_view = $vote_view['voting_view'];
+    	global $mainframe, $mosConfig_live_site, $rsgConfig ,$my, $rsgAccess;
 
-		if($vote_view == 'global')
-			// use global setting for viewing vote
-			$vote_view = $rsgConfig->get('voting');
-		else
-			// use per gallery setting for viewing vote
-			$vote_view = ($vote_view == 'anyone') ? true : $my->id ;
-		
+		$gallery = rsgGalleryManager::get();
+		$vote_view = $rsgConfig->get('voting') && 
+					($rsgAccess->checkGallery("vote_view", $gallery->id) || 
+					 $rsgAccess->checkGallery("vote_vote", $gallery->id) ) ;
 		
 		if ($vote_view) {
     		$css = "<link rel=\"stylesheet\" href=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/rsgvoting/rsgvoting.css\" type=\"text/css\" />";
     		$mainframe->addCustomHeadTag($css);
     		$voting = new rsgVoting();
-    		$voting->showVoting();
+			if($rsgAccess->checkGallery("vote_view", $gallery->id))
+				$voting->showScore();
+			if($rsgAccess->checkGallery("vote_vote", $gallery->id))
+    			$voting->showVoting();
     	} else {
     		echo _RSGALLERY_VOTING_DISABLED;
     	}
