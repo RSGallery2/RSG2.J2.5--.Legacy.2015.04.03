@@ -328,7 +328,7 @@ class rsgDisplay extends JObject{
 		
     	switch ($type) {
     		case 'random':
-    			$database->setQuery("SELECT file.date, file.gallery_id, file.ordering, file.id, file.name, file.descr".
+    			$database->setQuery("SELECT file.date, file.gallery_id, file.ordering, file.id, file.name, file.title".
                         " FROM #__rsgallery2_files as file, #__rsgallery2_galleries as gal".
                         " WHERE file.gallery_id=gal.id and gal.published=1 AND file.published=1".
                         " ORDER BY rand() limit $number");
@@ -336,7 +336,7 @@ class rsgDisplay extends JObject{
     			$title = _RSGALLERY_RANDOM_TITLE;
     			break;
     		case 'latest':
-    			$database->setQuery("SELECT file.date, file.gallery_id, file.ordering, file.id, file.name, file.descr".
+				$database->setQuery("SELECT file.date, file.gallery_id, file.ordering, file.id, file.name, file.title".
                         " FROM #__rsgallery2_files as file, #__rsgallery2_galleries as gal".
                         " WHERE file.gallery_id=gal.id AND gal.published=1 AND file.published=1".
                         " ORDER BY file.date DESC LIMIT $number");
@@ -366,7 +366,7 @@ class rsgDisplay extends JObject{
                             <div class="shadow-box">
                             	<div class="img-shadow">
                             	<a href="<?php echo $url;?>">
-                                <img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>" width="<?php echo $rsgConfig->get('thumb_width');?>" />
+								<img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->title;?>" width="<?php echo $rsgConfig->get('thumb_width');?>" />
                                 </a>
                             	</div>
                                 <div class="rsg2-clr"></div>
@@ -406,7 +406,7 @@ class rsgDisplay extends JObject{
                             <div class="shadow-box">
                             	<div class="img-shadow">
                             	<a href="<?php echo $url;?>">
-                            	<img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->descr;?>" width="<?php echo $rsgConfig->get('thumb_width');?>"  />
+								<img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->title;?>" width="<?php echo $rsgConfig->get('thumb_width');?>"  />
                             	</a>
                             	</div>
                             	<div class="rsg2-clr"></div>

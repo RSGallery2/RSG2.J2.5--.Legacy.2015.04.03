@@ -431,9 +431,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 			$tabs->endTab();
 		}
 		
-		if ( $rsgConfig->get("displayVoting") &&
-			 ($rsgAccess->checkGallery("vote_view", $gallery->id) ||
-			  $rsgAccess->checkGallery("vote_vote", $gallery->id)) ){
+		if ( $rsgConfig->get("displayVoting") ){
 			$tabs->startTab(_RSGALLERY_VOTING, 'Voting' );
 			$this->_showVotes();
 			$tabs->endTab();
@@ -472,80 +470,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		<?php
 		endif;
 	}
-    
-    /**
-     * @todo work with the new rsgCommenting system
-     */
-    function _showVoting() {
-        global $rsgConfig;
-        
-        return;
-		
-        ?>
-        <script type="text/javascript">
-			//<![CDATA[
-            function deleteComment(id) {
-                var yesno = confirm ('<?php echo _RSGALLERY_COMMENT_DELETE;?>');
-                if (yesno == true) {
-                    location = '<?php JRoute::_("index.php?option=com_rsgallery2&page=delete_comment&id=", false);?>'+id+'';
-                }
-            }
-			//]]>
-            </script>
-        <table width="100%" border="0" cellpadding="0" cellspacing="1" class="adminForm">
-        <tr><td>
-            <table width="100%" cellpadding="2" cellspacing="1">
-                <form method="post" action="<?php global $Itemid; echo JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=vote"); ?>">
-                <tr>
-                        <td colspan="1" width="100"><strong><?php echo _RSGALLERY_VOTES_NR; ?>:</strong></td>
-                        <td colspan="4"><?php echo $this->item['votes']; ?></td>
-                </tr>
-                <tr>
-                    <td colspan="1"><strong><?php echo _RSGALLERY_VOTES_AVG; ?>:</strong></td>
-                    <td colspan="4"><?php if ($this->item['votes'] > 0) echo galleryUtils::showRating( $this->item['id'] );else echo _RSGALLERY_NO_RATINGS; ?></td>
-                </tr>
-                <tr>
-                    <input type="hidden" name="picid" value="<?php echo $this->item['id']; ?>" />
-                    <input type="hidden" name="limitstart" value="<?php echo $this->limitstart; ?>" />
-                    <td valign="top"><strong><?php echo _RSGALLERY_VOTE; ?>:</strong></td>
-                    <td colspan="4">
-                        <input type="radio" name="vote" value="1" /><?php echo _RSGALLERY_VERYBAD; ?><br />
-                        <input type="radio" name="vote" value="2" /><?php echo _RSGALLERY_BAD; ?><br />
-                        <input type="radio" name="vote" value="3" CHECKED/><?php echo _RSGALLERY_OK; ?><br />
-                        <input type="radio" name="vote" value="4" /><?php echo _RSGALLERY_GOOD; ?><br />
-                        <input type="radio" name="vote" value="5" /><?php echo _RSGALLERY_VERYGOOD; ?>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="5" align="center"><input class="button" type="submit" name="submit" value="<?php echo _RSGALLERY_VOTE;?>" /></td>
-                </tr>
-                </form>
-            </table>
-        </td></tr>
-        </table>
-        <?php
-    }
-    
-	/**
-	 * shows exif data for the current item
-	 */
-	function X_showEXIF( ) {
-		$image = rsgInstance::getItem();
 
-		// EXIF only available for images
-		if( $image->type != 'image' )
-			return;
-
-		$exif = $image->exif();
-
-		// no exif found display nothing.
-		if( !$exif )
-			return;
-
-		$this->exif = $exif;
-
-		$this->display('exif.php');
-	}
 	
 	/**
 	* list sub galleries in a gallery
