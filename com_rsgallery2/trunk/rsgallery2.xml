@@ -482,84 +482,84 @@
 <!-- files in sub directories, alphabetical order  -->
     <filename>help/screen.rsgallery2.html</filename>
 	
-	<filename>includes/access.class.php</filename>
-	<filename>includes/audio.utils.php</filename>
-	<filename>includes/config.class.php</filename>
-	<filename>includes/file.utils.php</filename>
-	<filename>includes/gallery.class.php</filename>
-	<filename>includes/gallery.manager.php</filename>
-	<filename>includes/img.utils.php</filename>
-	<filename>includes/install.class.php</filename>
-	<filename>includes/instance.class.php</filename>
-	<filename>includes/items/audio.php</filename>
-	<filename>includes/items/image.php</filename>
-	<filename>includes/items/item.php</filename>
-	<filename>includes/mimetype.php</filename>
-	<filename>includes/script.php</filename>
-	<filename>includes/version.rsgallery2.php</filename>
-	<filename>includes/video.utils.php</filename>
-	
+    <filename>includes/access.class.php</filename>
+	  <filename>includes/audio.utils.php</filename>
+	  <filename>includes/config.class.php</filename>
+	  <filename>includes/file.utils.php</filename>
+	  <filename>includes/gallery.class.php</filename>
+	  <filename>includes/gallery.manager.php</filename>
+	  <filename>includes/img.utils.php</filename>
+	  <filename>includes/install.class.php</filename>
+	  <filename>includes/instance.class.php</filename>
+	  <filename>includes/items/audio.php</filename>
+	  <filename>includes/items/image.php</filename>
+	  <filename>includes/items/item.php</filename>
+	  <filename>includes/mimetype.php</filename>
+	  <filename>includes/script.php</filename>
+	  <filename>includes/version.rsgallery2.php</filename>
+	  <filename>includes/video.utils.php</filename>
+  	
     <filename>language/brazilian_portuguese.php</filename>
-	<filename>language/bulgarian.php</filename>
-	<filename>language/catalan.php</filename>
-	<filename>language/croation.php</filename>
-	<filename>language/czech1250.php</filename>
-	<filename>language/czechiso.php</filename>
-	<filename>language/czechutf8.php</filename>
-	<filename>language/danish.php</filename>
+	  <filename>language/bulgarian.php</filename>
+	  <filename>language/catalan.php</filename>
+	  <filename>language/croation.php</filename>
+	  <filename>language/czech1250.php</filename>
+	  <filename>language/czechiso.php</filename>
+	  <filename>language/czechutf8.php</filename>
+	  <filename>language/danish.php</filename>
     <filename>language/dutch.php</filename>
     <filename>language/english.php</filename>
     <filename>language/french.php</filename>
-	<filename>language/galician.php</filename>
+	  <filename>language/galician.php</filename>
     <filename>language/german.php</filename>
     <filename>language/germani.php</filename>
-	<filename>language/greek.php</filename>
-	<filename>language/hebrew.php</filename>
+	  <filename>language/greek.php</filename>
+	  <filename>language/hebrew.php</filename>
     <filename>language/hungarian.php</filename>
     <filename>language/hungariani.php</filename>
     <filename>language/hungariani-ISO-8859-2.php</filename>
     <filename>language/hungarian-ISO-8859-2.php</filename>
-	<filename>language/italian.php</filename>
-	<filename>language/latvian.php</filename>
-	<filename>language/norwegian.php</filename>
-	<filename>language/polish-utf8.php</filename>
+	  <filename>language/italian.php</filename>
+	  <filename>language/latvian.php</filename>
+	  <filename>language/norwegian.php</filename>
+	  <filename>language/polish-utf8.php</filename>
     <filename>language/polish.php</filename>
     <filename>language/russian.php</filename>
-	<filename>language/simplified_chinese.php</filename>
-	<filename>language/slovak.php</filename>
-	<filename>language/slovak-utf8.php</filename>
+	  <filename>language/simplified_chinese.php</filename>
+	  <filename>language/slovak.php</filename>
+	  <filename>language/slovak-utf8.php</filename>
     <filename>language/spanish.php</filename>
     <filename>language/spanish_iso-8859-1.php</filename>
     <filename>language/spanish_iso-8859-2.php</filename>
     <filename>language/swedish.php</filename>
     <filename>language/traditional_chinese.php</filename>
 	
-	<filename>options/config.html.php</filename>
-	<filename>options/config.php</filename>
-	<filename>options/galleries.class.php</filename>
-	<filename>options/galleries.html.php</filename>
-	<filename>options/galleries.item.xml</filename>
-	<filename>options/galleries.php</filename>
-	<filename>options/images.class.php</filename>
-	<filename>options/images.html.php</filename>
-	<filename>options/images.item.xml</filename>
-	<filename>options/images.php</filename>
-	<filename>options/templateManager/admin.templates.html.php</filename>
-	<filename>options/templateManager/admin.templates.php</filename>
-	<filename>options/templateManager/controller.php</filename>
-	<filename>options/templateManager/helpers/index.html</filename>
-	<filename>options/templateManager/helpers/JInstallerRSGTemplate.php</filename>
-	<filename>options/templateManager/helpers/template.php</filename>
-	<filename>options/templateManager/index.html</filename>
-	<filename>options/templateManager/toolbar.templates.html.php</filename>
-	<filename>options/templateManager/toolbar.templates.php</filename>
-	<filename>options/templates.class.php</filename>
-	<filename>options/templates.html.php</filename>
-	<filename>options/templates.installer.php</filename>
-	<filename>options/templates.php</filename>
+	  <filename>options/config.html.php</filename>
+	  <filename>options/config.php</filename>
+	  <filename>options/galleries.class.php</filename>
+	  <filename>options/galleries.html.php</filename>
+	  <filename>options/galleries.item.xml</filename>
+	  <filename>options/galleries.php</filename>
+	  <filename>options/images.class.php</filename>
+	  <filename>options/images.html.php</filename>
+	  <filename>options/images.item.xml</filename>
+	  <filename>options/images.php</filename>
+	  <filename>options/templateManager/admin.templates.html.php</filename>
+	  <filename>options/templateManager/admin.templates.php</filename>
+	  <filename>options/templateManager/controller.php</filename>
+	  <filename>options/templateManager/helpers/index.html</filename>
+	  <filename>options/templateManager/helpers/JInstallerRSGTemplate.php</filename>
+	  <filename>options/templateManager/helpers/template.php</filename>
+	  <filename>options/templateManager/index.html</filename>
+	  <filename>options/templateManager/toolbar.templates.html.php</filename>
+	  <filename>options/templateManager/toolbar.templates.php</filename>
+	  <filename>options/templates.class.php</filename>
+	  <filename>options/templates.html.php</filename>
+	  <filename>options/templates.installer.php</filename>
+	  <filename>options/templates.php</filename>
     <filename>options/maintenance.class.php</filename>
-	<filename>options/maintenance.html.php</filename>
-	<filename>options/maintenance.php</filename>
+	  <filename>options/maintenance.html.php</filename>
+	  <filename>options/maintenance.php</filename>
     
     <filename>sql/rsgallery2.sql</filename>
     <filename>sql/upgrade_1.11.0_to_1.11.1.sql</filename>
@@ -569,7 +569,8 @@
     <filename>sql/upgrade_1.11.11_to_1.12.0.sql</filename>
     <filename>sql/upgrade_1.12.1_to_1.12.2.sql</filename>
     <filename>sql/upgrade_1.12.2_to_1.13.2.sql</filename>
-	<filename>sql/upgrade_1.13.2_to_1.14.0.sql</filename>
+	  <filename>sql/upgrade_1.13.2_to_1.14.0.sql</filename>
+    <filename>sql/upgrade_1.14.0_to_1.14.1.sql</filename>
     <filename>fonts/arial.ttf</filename>
 </files>
     <images>
