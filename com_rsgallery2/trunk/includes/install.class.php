@@ -155,7 +155,7 @@ class rsgInstall {
         $errors = array();
     
         $query = fread( fopen( $sqlDir . $sqlfile, 'r' ), filesize( $sqlDir . $sqlfile ) );
-        $pieces  = $this->split_sql($query);
+        $pieces  = GenericMigrator::split_sql($query);
     
         for ($i=0; $i<count($pieces); $i++) {
             $pieces[$i] = trim($pieces[$i]);
