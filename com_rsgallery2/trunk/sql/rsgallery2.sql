@@ -80,10 +80,14 @@ CREATE TABLE IF NOT EXISTS `#__rsgallery2_acl` (
   `public_del_img` tinyint(1) NOT NULL default '0',
   `public_create_mod_gal` tinyint(1) NOT NULL default '0',
   `public_del_gal` tinyint(1) NOT NULL default '0',
+  `public_vote_view` tinyint( 1 ) NOT NULL default '1',
+  `public_vote_vote` tinyint( 1 ) NOT NULL default '0',
   `registered_view` tinyint(1) NOT NULL default '1',
   `registered_up_mod_img` tinyint(1) NOT NULL default '1',
   `registered_del_img` tinyint(1) NOT NULL default '0',
   `registered_create_mod_gal` tinyint(1) NOT NULL default '1',
   `registered_del_gal` tinyint(1) NOT NULL default '0',
+  `registered_vote_view` tinyint( 1 ) NOT NULL default '1',
+  `registered_vote_vote` tinyint( 1 ) NOT NULL default '1',
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
