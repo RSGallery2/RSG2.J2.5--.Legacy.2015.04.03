@@ -105,14 +105,7 @@ class rsgDisplay extends JObject{
 	
 		$file = preg_replace('/[^A-Z0-9_\.-]/i', '', $file);
 
-		if(!defined("J15B_EXEC") ) {
-			// add this for page size listbox handling in J1.5
-			echo '<form action="'.JRoute::_("index.php?option=com_rsgallery2&gid=".$this->gallery->id).'" method="post">';
-			include $templateDir . DS . $file;
-			echo '</form>';
-		} else {
-			include $templateDir . DS . $file;
-		}
+		include $templateDir . DS . $file;
 	}
 
 	/**
@@ -242,6 +235,31 @@ class rsgDisplay extends JObject{
 		$mainframe->appendMetaTag( 'description',  htmlspecialchars(strip_tags($this->gallery->get('description')),ENT_QUOTES) );
 	}
 
+	function getGalleryLimitBox(){
+		$pagelinks = $this->pageNav->getLimitBox("index.php?option=com_rsgallery2");
+		$pagelinks = str_replace("\"limit", "\"limitg", $pagelinks);
+		// add this for page nav handling in J1.5
+		if(!defined("J15B_EXEC") ){
+			$pagelinks = '<form action="'.JRoute::_("index.php?option=com_rsgallery2&gid=".$this->gallery->id).'" method="post">' .
+				$pagelinks . 
+				'</form>';
+		}
+		return $pagelinks; 
+	}
+	function getGalleryPageLinks(){
+		$pagelinks = $this->pageNav->getPagesLinks("index.php?option=com_rsgallery2");
+		$pagelinks = str_replace ("&amp;limit=","&amp;limitg=", $pagelinks);
+		$pagelinks = str_replace ("&amp;limitstart=","&amp;limitstartg=", $pagelinks);
+		if($this->pageNav->limitstart >= $this->pageNav->limit){
+			$pagelinks = str_replace("&amp;limitstartg=".$this->pageNav->limit, "", $pagelinks);
+		}
+		return $pagelinks;
+		
+	}
+	function getGalleryPagesCounter(){
+		return $this->pageNav->getPagesCounter();
+	}
+	
 	/***************************
 		private functions
 	***************************/
@@ -441,7 +459,7 @@ class rsgDisplay extends JObject{
 			if ($type == 'button') {
 				?>
 				<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>">
-				<img height="20" width="20" src="<?php echo $mosConfig_live_site;?>/administrator/images/download_f2.png" alt="<?php echo _RSGALLERY_DOWNLOAD;?>">
+				<img height="20" width="20" src="<?php echo $mosConfig_live_site;?>/administrator/images/download_f2.png" alt="<?php echo _RSGALLERY_DOWNLOAD;?>" />
 				<?php
 				if ($showtext == true) {
 					?>

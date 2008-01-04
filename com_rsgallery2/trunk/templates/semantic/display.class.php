@@ -56,25 +56,6 @@ class rsgDisplay_semantic extends rsgDisplay{
 		//Show page navigation if selected in backend
 	}
 
-	function getGalleryLimitBox(){
-		$pagelinks = $this->pageNav->getLimitBox("index.php?option=com_rsgallery2");
-		$pagelinks = str_replace("\"limit", "\"limitg", $pagelinks);
-		return $pagelinks; 
-	}
-
-	function getGalleryPageLinks(){
-		$pagelinks = $this->pageNav->getPagesLinks("index.php?option=com_rsgallery2");
-		$pagelinks = str_replace ("&amp;limit=","&amp;limitg=", $pagelinks);
-		$pagelinks = str_replace ("&amp;limitstart=","&amp;limitstartg=", $pagelinks);
-		if($this->pageNav->limitstart >= $this->pageNav->limit){
-			$pagelinks = str_replace("&amp;limitstartg=".$this->pageNav->limit, "", $pagelinks);
-		}
-		return $pagelinks;
-	
-	}
-	function getGalleryPagesCounter(){
-		return $this->pageNav->getPagesCounter();
-	}
 
     /***************************
 		non page public functions
@@ -402,6 +383,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 			$pageLinks = str_replace( ";id={$item->id}", ";gid={$gallery->id}&amp;limit=1", $pageLinks );
 		}
 
+		
 		?>
 		<div align="center">
 			<?php echo $pageLinks; ?>

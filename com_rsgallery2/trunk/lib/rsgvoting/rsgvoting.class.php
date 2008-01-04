@@ -23,7 +23,7 @@ class rsgVoting {
 			?>
 			<script  type="text/javascript">
 			function saveVote(id, value) {
-				var form = document.vote;
+				var form = document.rsgvoteform;
 				var saveVote = confirm('<?php echo _RSGALLERY_VOTING_ARE_YOU_SURE;?>');
 				
 			if (saveVote) {
@@ -33,7 +33,7 @@ class rsgVoting {
 			}
 			</script>
 	
-	    	<form name="vote" method="post" action="<?php echo JRoute::_('index.php?option=com_rsgallery2&page=inline&id='.$id);?>">
+	    	<form name="rsgvoteform" method="post" action="<?php echo JRoute::_('index.php?option=com_rsgallery2&page=inline&id='.$id);?>">
 	    	<table border="0" width="200">
 	    	<tr>
 	    		<td><?php echo _RSGALLERY_VOTING_VOTE;?>:</td>
@@ -46,6 +46,7 @@ class rsgVoting {
 		   			<li><a href='#' onclick="saveVote(<?php echo $id;?>, 5);" title='<?php echo _RSGALLERY_VOTING_RATE_5;?>' class="five-stars">5</a></li>
 		   		</ul>
 		   		</td>
+			</tr>
 	   		</table>
 	   		<input type="hidden" name="rsgOption" value="rsgVoting" />
 	   		<input type="hidden" name="task" value="save" />
