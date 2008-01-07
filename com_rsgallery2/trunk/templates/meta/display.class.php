@@ -231,7 +231,12 @@ class rsgDisplay extends JObject{
 		if( $option != 'com_rsgallery2' )
 			return;
 
-		$mainframe->setPageTitle( ' '. $this->gallery->get('name') );
+		$title = $this->gallery->get('name');
+		$item = rsgInstance::getItem();
+		if ($item != null)
+			$title .= ' - ' . $item->title;		
+		
+		$mainframe->setPageTitle( ' '. $title );
 		$mainframe->appendMetaTag( 'description',  htmlspecialchars(strip_tags($this->gallery->get('description')),ENT_QUOTES) );
 	}
 

@@ -394,7 +394,7 @@ function uploadImage( $option ) {
 function saveUploadedImage( $option ) {
 	global $id, $rsgOption;
 	$title = rsgInstance::getVar('title'  , '');  
-	$descr = rsgInstance::getVar('descr'  , ''); 
+	$descr = rsgInstance::getString('descr'  , ''); 
 	$gallery_id = rsgInstance::getInt('gallery_id'  , '');
 	$files = rsgInstance::getVar('images','', 'FILES');
 
