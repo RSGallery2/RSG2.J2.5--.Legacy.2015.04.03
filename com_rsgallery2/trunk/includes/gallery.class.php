@@ -244,11 +244,8 @@ class rsgGallery extends JObject{
 		if( $id !== null )
 			return $this->items[$id];
 			
-		$id = rsgInstance::getInt( 'limitstart', null );
-		if( $id !== null )
-			return array_pop(array_slice($this->items, $id, 1));
-		
-		return null;				
+		$id = rsgInstance::getInt( 'limitstart', 0 );
+		return array_pop(array_slice($this->items, $id, 1));
 
 	}
 	
