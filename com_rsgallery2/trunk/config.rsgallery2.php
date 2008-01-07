@@ -127,66 +127,62 @@ class galleryUtils {
         echo $dropdown_html."</select>";
 	}
     
-    /**
-     * Show gallery select list according to the permissions of the logged in user
-     * @todo This goes wrong when an action on a  subgallery is permitted, but not on the parent gallery.
-     * @todo This only supports 2 levels of galleries. Joomla form items do not support DISABLED in select box
-     * @param string Action type
-     * @param string Name of the select box, defaults to 'catid'
-     * @param integer ID of selected gallery
-     * @return HTML to show selectbox
-     */
+	/**
+	 * Show gallery select list according to the permissions of the logged in user
+	 * @param string Action type
+	 * @param string Name of the select box, defaults to 'catid'
+	 * @param integer ID of selected gallery
+	 * @return HTML to show selectbox
+	 */
 	function showUserGalSelectList($action = '', $select_name = 'catid', $gallery_id = null) {
 		global $rsgAccess, $database, $my;
 		
 		//Get gallery Id's where action is permitted and write to string
 		$galleries = $rsgAccess->actionPermitted($action);
 		
-		//Get parent galleries from database
-		if( $my->id ){
-			$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE parent = '0' ORDER BY ordering ASC");
-		}
-		else{
-			$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE parent = '0' AND uid = '{$my->id}' ORDER BY ordering ASC");
-		}
-		$rows = $database->loadObjectList();
-		
-		//Write first entry for selectbox
-		$dropdown_html = "<select name=\"$select_name\"><option value=\"0\">"._RSGALLERY_SELECT_GAL_DROP_BOX."</option>\n";
-		
-		//Check whether there are children in the database and add them to the HTML string
-		foreach ($rows as $row) {
-			$id = $row->id;
-			$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE parent = '$id' ORDER BY ordering ASC");
-			$rows2 = $database->loadObjectList();
-			
-			if (!isset($id)) $id=0;
-			
-			$dropdown_html .= "<option value=\"$row->id\"";
-			if (!in_array($id, $galleries))
-				$dropdown_html .= " DISABLED>";
-			elseif ($id == $gallery_id)
-				$dropdown_html .= " SELECTED>";
-			else
-				$dropdown_html .= ">";
-			
-			$dropdown_html .=  $row->name."</option>\n";
-			
-			foreach($rows2 as $row2){
-				$dropdown_html .= "<option value=\"$row2->id\"";
-				if (!in_array($row2->id, $galleries))
-					$dropdown_html .= " DISABLED>";
-				elseif ($row2->id == $gallery_id)
-					$dropdown_html .= " SELECTED>";
-				else
-					$dropdown_html .= ">";
-				
-				$dropdown_html .=  "&nbsp;|--&nbsp;".$row2->name."</option>\n";
-			}
-		}
+		$dropdown_html = "<select name=\"$select_name\"><option value=\"0\" SELECTED>"._RSGALLERY_SELECT_GAL_DROP_BOX."</option>\n";
+		$dropdown_html .= galleryUtils::addToGalSelectList(0, 0, $gallery_id, $galleries);
 		echo $dropdown_html."</select>";
 	}
 
+	/**
+	 * Add galleries to the gallery select list according to the permissions of the logged in user
+	 * @param level in gallery tree
+	 * @param integer ID of current node in gallery tree
+	 * @param integer ID of selected gallery
+	 * @param list of permitted galleries
+	 * @return HTML to add
+	 */
+	function addToGalSelectList($level, $galid, $gallery_id, $galleries) {
+		// provided by Klaas on Dec.13.2007
+		global $database, $my;
+		
+		$dropdown_html = "";
+		$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE parent = '$galid' ORDER BY ordering ASC");
+		$rows = $database->loadObjectList();
+		foreach ($rows as $row) {
+			$dropdown_html .= "<option value=\"$row->id\"";
+			// Disable when action not allowed or user not owner
+			if (!in_array($row->id, $galleries))
+				$dropdown_html .= " DISABLED>";
+			elseif ($my->id && $row->uid != $my->id)
+				$dropdown_html .= " DISABLED>";
+			elseif ($row->id == $gallery_id)
+				$dropdown_html .= " SELECTED>";
+			else
+				$dropdown_html .= ">";
+			$indent = "";
+			for ($i = 0; $i < $level; $i++) {
+				$indent .= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+			}
+			if ($level)
+				$indent .= "|--&nbsp;";
+			$dropdown_html .=  $indent.$row->name."</option>\n";
+			$dropdown_html .=  galleryUtils::addToGalSelectList($level + 1, $row->id, $gallery_id, $galleries);
+		}
+		return $dropdown_html;
+	}
+	
     /**
      * build the select list to choose a parent gallery for a specific user
      * @param int current gallery id
