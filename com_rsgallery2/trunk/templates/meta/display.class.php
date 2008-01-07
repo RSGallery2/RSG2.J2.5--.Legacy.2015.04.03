@@ -232,12 +232,16 @@ class rsgDisplay extends JObject{
 			return;
 
 		$title = $this->gallery->get('name');
+		$description = htmlspecialchars(strip_tags($this->gallery->get('description')), ENT_QUOTES );
+		
 		$item = rsgInstance::getItem();
-		if ($item != null)
-			$title .= ' - ' . $item->title;		
+		if ($item != null){
+			$title .= ' - ' . $item->title;
+			$description .= ' -  ' . htmlspecialchars(strip_tags($item->descr), ENT_QUOTES );
+		}
 		
 		$mainframe->setPageTitle( ' '. $title );
-		$mainframe->appendMetaTag( 'description',  htmlspecialchars(strip_tags($this->gallery->get('description')),ENT_QUOTES) );
+		$mainframe->appendMetaTag( 'description',  $description );
 	}
 
 	function getGalleryLimitBox(){
