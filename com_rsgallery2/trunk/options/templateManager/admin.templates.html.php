@@ -75,43 +75,41 @@ class TemplatesView
 			$row = & $rows[$i];
 
 			$author_info = @ $row->authorEmail . '<br />' . @ $row->authorUrl;
-?>
-				<tr class="<?php echo 'row'. $k; ?>">
-					<td>
-						<?php echo $page->getRowOffset( $i ); ?>
-					</td>
-					<td width="5">
-					<?php
+			?>
+			<tr class="<?php echo 'row'. $k; ?>">
+				<td>
+					<?php echo $page->getRowOffset( $i ); ?>
+				</td>
+				<td width="5">
+				<?php
 
 			if ( JTable::isCheckedOut($user->get ('id'), $row->checked_out )) {
-?>
-							&nbsp;
-							<?php
-
+				?>
+				&nbsp;
+				<?php
 			} else {
-?>
-							<input type="radio" id="cb<?php echo $i;?>" name="cid[]" value="<?php echo $row->directory; ?>" onclick="isChecked(this.checked);" />
-							<?php
-
+				?>
+				<input type="radio" id="cb<?php echo $i;?>" name="cid[]" value="<?php echo $row->directory; ?>" onclick="isChecked(this.checked);" />
+				<?php
 			}
-?>
-					</td>
-					<td><?php 
-					$img_path = $mosConfig_live_site.'com_rsgallery2'.'/templates/'.$row->directory.'/template_thumbnail.png'; 
-					echo JHTML::tooltip('<img src="'.$img_path.'" alt="'.JText::_( 'No preview available' ).'"/>',
-										$row->name,
-										null,
-										$row->name,
-										'index2.php?option=com_rsgallery2&rsgOption=templateManager&task=edit&cid[]='.$row->directory,
-										1);
-					?>
-						</td>
-						<td align="center">
-							<?php
+			?>
+			</td>
+			<td><?php 
+			$img_path = $mosConfig_live_site.'com_rsgallery2'.'/templates/'.$row->directory.'/template_thumbnail.png'; 
+			echo JHTML::tooltip('<img src="'.$img_path.'" alt="'.JText::_( 'No preview available' ).'"/>',
+								$row->name,
+								null,
+								$row->name,
+								'index2.php?option=com_rsgallery2&rsgOption=templateManager&task=edit&cid[]='.$row->directory,
+								1);
+			?>
+				</td>
+				<td align="center">
+					<?php
 
 				if ($row->published == 1) {
 ?>
-								<img src="templates/khepri/images/menu/icon-16-default.png" alt="<?php echo JText::_( 'Default' ); ?>" />
+								<img src="images/tick.png" alt="<?php echo JText::_( 'Default' ); ?>" />
 								<?php
 
 				} else {
