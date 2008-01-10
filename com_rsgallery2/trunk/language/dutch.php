@@ -256,7 +256,8 @@ DEFINE("_RSGALLERY_CONF_OPTION_BR",			"Rechts beneden");
 DEFINE("_RSGALLERY_CONF_POPUP_STYLE",		"Popup Stijl");
 DEFINE("_RSGALLERY_CONF_POPUP_NO",			"Geen popup");
 DEFINE("_RSGALLERY_CONF_POPUP_NORMAL",		"Normale popup");
-DEFINE("_RSGALLERY_CONF_POPUP_FANCY",		"Chique popup (Geeft fouten in IE6!)");
+/* DEFINE("_RSGALLERY_CONF_POPUP_FANCY",		"Chique popup (Geeft fouten in IE6!)"); */
+/*new*/DEFINE("_RSGALLERY_CONF_POPUP_LIGHTBOX",		"Lightbox++ popup");
 
 
 //function showconfig
@@ -861,5 +862,12 @@ DEFINE("_RSGALLERY_TEMPLATES_AUTHOR",	"Auteur");
 DEFINE("_RSGALLERY_TEMPLATES_VERSION",	"Versie");
 DEFINE("_RSGALLERY_TEMPLATES_DATE",	"Datum");
 DEFINE("_RSGALLERY_TEMPLATES_AUTH_URL",	"Auteur URL");
+
+//rsgsearch.html.php
+/*new*/DEFINE("_RSGALLERY_SEARCH_RESULTS_TITLE",	"RSGallery2 zoekresultaten");
+/*new*/DEFINE("_RSGALLERY_SEARCH_RESULTS_NUMBER1",	"Er zijn ");
+/*new*/DEFINE("_RSGALLERY_SEARCH_RESULTS_NUMBER2",	" resutaten voor ");
+/*new*/DEFINE("_RSGALLERY_SEARCH_LABEL",			"Zoeken");
+/*new*/DEFINE("_RSGALLERY_SEARCH_KEYWORDS",			"zoekwoord");
 //stopped at gallery.class.php
 ?>

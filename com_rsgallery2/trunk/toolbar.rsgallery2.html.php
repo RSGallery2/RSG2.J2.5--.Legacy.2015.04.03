@@ -60,7 +60,8 @@ class menu_rsg2_templateManager
 	function _DEFAULT()
 	{
 		mosMenuBar::startTable();
-		mosMenuBar::custom('showInstall', 'install.png', 'install.png', 'Install', false, false);
+		mosMenuBar::custom('showInstall', '../components/com_rsgallery2/images/rsg2-install.png', '../components/com_rsgallery2/images/rsg2-install.png','Install', false, false);
+		mosMenuBar::spacer();
 		mosMenuBar::deleteList( '', 'remove', 'Uninstall' );
 		mosMenuBar::spacer();
 		mosMenuBar::makeDefault();
