@@ -331,13 +331,18 @@ class imgUtils extends fileUtils{
      */
     function showThumbNames($id, $current_id, $selectname = 'thumb_id') {
         global $database;
-        $list = galleryUtils::getChildList( $id );
+		
+		if( $id==null ){
+			echo 'No images in gallery yet.';
+			return;
+		}
+		
+		$list = galleryUtils::getChildList( $id );
         //$sql = "SELECT name, id FROM #__rsgallery2_files WHERE gallery_id in ($list)";
         $sql = "SELECT a.name, a.id, b.name as gname FROM #__rsgallery2_files AS a " .
             "LEFT JOIN #__rsgallery2_galleries AS b ON a.gallery_id = b.id " .
             "WHERE gallery_id IN ($list) " .
             "ORDER BY gname, a.id ASC";
-
         $database->setQuery($sql);
         $list = $database->loadObjectList();
 
