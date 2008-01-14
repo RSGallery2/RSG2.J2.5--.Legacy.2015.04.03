@@ -164,6 +164,7 @@ DEFINE("_RSGALLERY_C_UPLOAD_ZIP",			"Batch upload");
 DEFINE("_RSGALLERY_C_IMAGES",				"Manage Items");
 DEFINE("_RSGALLERY_C_CATEGORIES",			"Manage Galleries");
 DEFINE("_RSGALLERY_C_DATABASE",				"Consolidate database");
+/*new*/DEFINE("_RSGALLERY_C_MAINTENANCE",	"Maintenance");
 DEFINE("_RSGALLERY_C_MIGRATION",			"Migration options");
 DEFINE("_RSGALLERY_C_CSS_EDIT",				"Edit CSS");
 DEFINE("_RSGALLERY_C_DEBUG_ON",				"Advanced Debug Options.  Debug mode is set in the <a href='index2.php?option=com_rsgallery2&task=showConfig'>configuration</a>.");
@@ -792,6 +793,23 @@ DEFINE("_RSGALLERY_VOTING_ADDED",		"Vote added to database!");
 /*new*/DEFINE("_RSGALLERY_SEARCH_RESULTS_NUMBER2",	" results for ");
 /*new*/DEFINE("_RSGALLERY_SEARCH_LABEL",			"Search");
 /*new*/DEFINE("_RSGALLERY_SEARCH_KEYWORDS",			"Keywords");
+
+//maintenance.html.php
+/*new*/DEFINE("_RSGALLERY_MAINT_HEADER",	"Maintenance");
+/*new*/DEFINE("_RSGALLERY_MAINT_CONSOLDB",	"Consolidate Database");
+/*new*/DEFINE("_RSGALLERY_MAINT_CONSOLDB_TXT",	"This option will perform a complete check on the database and filesystem, to see if there are any discrepancies.");
+/*new*/DEFINE("_RSGALLERY_MAINT_REGEN",	"Regenerate Thumbnails");
+/*new*/DEFINE("_RSGALLERY_MAINT_REGEN_TXT",	"This option will regenerate thumbnails, based on the current settings of thumbnail dimensions. If you have changed these recently, this is probably a good idea.");
+/*new*/DEFINE("_RSGALLERY_MAINT_OPTDB",	"Optimize Database");
+/*new*/DEFINE("_RSGALLERY_MAINT_OPTDB_TXT",	"This option will perform a complete check on the RSGallery2 database tables, optimizing them when needed.");
+/*new*/DEFINE("_RSGALLERY_MAINT_REGEN_BUTTON",	"Regenerate");
+/*new*/DEFINE("_RSGALLERY_MAINT_OPTIMIZE_SUCCESS",	"Tables optimized succesfully");
+/*new*/DEFINE("_RSGALLERY_MAINT_NO_GALLERY_SELECTED",	"No gallery selected");
+/*new*/DEFINE("_RSGALLERY_MAINT_NO_THUMBSIZE_CHANGE",	"Thumbnail size did not change. Regeneration NOT needed");
+/*new*/DEFINE("_RSGALLERY_MAINT_REGEN_ERRORS",	"Errors were found when regenerating. Please check the thumbs");
+/*new*/DEFINE("_RSGALLERY_MAINT_REGEN_NO_ERRORS",	"Regeneration completed succesfully");
+/*new*/DEFINE("_RSGALLERY_MAINT_REGEN_ONLY_THUMB",	"Only thumb is available, so no other images can be generated!");
+/*new*/DEFINE("_RSGALLERY_MAINT_REGEN_SUCCESS",	" succesfully created");
 
 //stopped at gallery.class.php
 ?>

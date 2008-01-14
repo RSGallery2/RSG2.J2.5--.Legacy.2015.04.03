@@ -23,16 +23,13 @@ class html_rsg2_maintenance {
 		<div id='cpanel'>
 			<?php
 			$link = 'index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB';
-			$text = "This option will perform a complete check on the database and filesystem, to see if there are any discrepancies.";
-			html_rsg2_maintenance::quickiconBar( $link, 'blockdevice.png', "Consolidate Database", $text );
+			html_rsg2_maintenance::quickiconBar( $link, 'blockdevice.png', _RSGALLERY_MAINT_CONSOLDB, _RSGALLERY_MAINT_CONSOLDB_TXT );
 
 			$link = 'index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=regenerateThumbs';
-			$text = "This option will regenerate thumbnails, based on the current settings of thumbnail dimensions. If you have changed these recently, this is probably a good idea.";
-			html_rsg2_maintenance::quickiconBar( $link, 'menu.png', "Regenerate Thumbnails", $text );
+			html_rsg2_maintenance::quickiconBar( $link, 'menu.png', _RSGALLERY_MAINT_REGEN, _RSGALLERY_MAINT_REGEN_TXT );
 
 			$link = 'index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=optimizeDB';
-			$text = "This option will perform a complete check on the RSGallery2 database tables, optimizing them when needed.";
-			html_rsg2_maintenance::quickiconBar( $link, 'db_optimize.png', "Optimize Database", $text );
+			html_rsg2_maintenance::quickiconBar( $link, 'db_optimize.png', _RSGALLERY_MAINT_OPTDB, _RSGALLERY_MAINT_OPTDB_TXT );
 		?>
 		</div>
 		<div class='rsg2-clr'>&nbsp;</div>
@@ -115,7 +112,7 @@ class html_rsg2_maintenance {
 		<?php
 	}
 	
-	function consolidateDbInform($option){
+	function consolidateDbInformX($option){
 	    // inform user of purpose of this function, then provide a proceed button
 		?>
 	    <script language="Javascript">
@@ -159,12 +156,19 @@ class html_rsg2_maintenance {
 	    ?>
 	    <script language="Javascript">
 	    function db_create() {
+	    	alert('Database creation does not work yet!');
+	    }
+	    
+	    function db_createX() {
 	    	var form = document.adminForm;
+				form.t_id.value = t_id;
+				form.g_id.value = g_id;
 				form.submit();
 	    }
 	    </script>
 	    <form method="post" action="index2.php?option=com_rsgallery2&rsgOption=maintenance&task=createDbEntries" name="adminForm">
-	    
+	    <input type="hidden" name="t_id" value="" />
+	    <input type="hidden" name="g_id" value="" />
 	    <table width="100%" border="0">
 	    	<tr>
 	    	<td width="15%">&nbsp;</td>
@@ -175,7 +179,8 @@ class html_rsg2_maintenance {
 				    	<div style="clear: both; margin: 3px; margin-top: 10px; padding: 5px 15px; display: block; float: left; border: 1px solid #cc0000; background: #ffffcc; text-align: left; width: 80%;">
 		    				<p style="color: #CC0000;">
 		    				<img src="<?php echo $mosConfig_live_site;?>/includes/js/ThemeOffice/warning.png" alt="Warning icon" />
-							<?php echo _RSGALLERY_CONSDB_NOTICE?>
+							NOTICE:<br />Experimental at this stage. Single image regeneration works. <br /> Database entries do NOT work!.
+							<?php //echo _RSGALLERY_CONSDB_NOTICE;?>
 							</p>
 						</div>
 						<div class='rsg2-clr'>&nbsp;</div>
@@ -186,7 +191,7 @@ class html_rsg2_maintenance {
 			        <th><?php echo _RSGALLERY_FILENAME;?></th>
 			        <th align="center"><?php echo _RSGALLERY_CONSDB_IN_DB;?></th>
 			        <th align="center"><?php echo _RSGALLERY_CONSDB_DISP;?></th>
-			        <th align="center"><?php echo _RSGALLERY_CONSDB_ORIG;?></th>
+		        	<th align="center"><?php echo _RSGALLERY_CONSDB_ORIG;?></th>
 			        <th align="center"><?php echo _RSGALLERY_CONSDB_THUMB;?></th>
 			        <th>&nbsp;</th>
 			        <th>Image</th>
@@ -216,7 +221,6 @@ class html_rsg2_maintenance {
 			            $html .= $no;
 			            $display = false;
 					}
-					
 			        if (in_array($name, $file_original )) {
 			            $i++;
 			            $html .= $yes;
@@ -226,7 +230,6 @@ class html_rsg2_maintenance {
 			            $html .= $no;
 			            $original = false;
 					}
-					
 			        if (in_array($name, $file_thumb )) {
 			            $i++;
 			            $html .= $yes;
@@ -270,7 +273,7 @@ class html_rsg2_maintenance {
 			        $t++;
 			        $y = 0;
 			        
-			        $html2 = "<tr><td><input type=\"checkbox\" id=\"cb$t\" name=\"xid[]\" value=\"$diff\" onclick=\"isChecked(this.checked);\" /></td><td><font color=\"#FF0000\">$diff</font></td>$no";
+			        $html2 = "<tr><td><input type=\"checkbox\" id=\"cb$t\" name=\"xid[]\" value=\"$t\" onclick=\"isChecked(this.checked);\" /></td><td><font color=\"#FF0000\">$diff</font></td>$no";
 			        if (in_array($diff, $file_display ))
 			            {
 			            $y++;
@@ -319,8 +322,8 @@ class html_rsg2_maintenance {
 			            	<img src="<?php echo imgUtils::getImgThumb( $diff );?>" name="image" width="<?php echo $rsgConfig->get('thumb_width')?>" />
 			            </td>
 			            <td align="center">
-			                <a href="javascript:void();" onClick="javascript:db_create();"><?php echo _RSGALLERY_CONSDB_CREATE_DB?></a><br />
-			                <a href="index2.php?option=com_rsgallery2&task=c_delete&name=<?php echo $diff;?>"><?php echo _RSGALLERY_CONSDB_DELETE_IMG?></a>&nbsp;
+			                <a href="javascript:void();" onClick="javascript:db_create();"><?php echo _RSGALLERY_CONSDB_CREATE_DB;?></a><br />
+			                <a href="index2.php?option=com_rsgallery2&task=c_delete&name=<?php echo $diff;?>"><?php echo _RSGALLERY_CONSDB_DELETE_IMG;?></a>&nbsp;
 			                <?php
 			                if ($original2 == true AND $display2 == true AND $thumb2 == true)
 			                    {
@@ -350,6 +353,7 @@ class html_rsg2_maintenance {
 			        	<a href="index2.php?option=com_rsgallery2&rsgOption=maintenance&task=consolidateDB">Refresh</a>
 			        </th>
 			    </tr>
+			    <!--
 			    <tr>
 			    	<td colspan="2"><input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo (count( $db_name ) + count( $file_diff )); ?>);" /></td>
 			    	<td colspan="5"> With selection:<br /> 
@@ -359,6 +363,7 @@ class html_rsg2_maintenance {
 			    	</td>
 			
 			    </tr>
+			    -->
 			    </table>
 	    </td>
 	    <td width="15%">&nbsp;</td>

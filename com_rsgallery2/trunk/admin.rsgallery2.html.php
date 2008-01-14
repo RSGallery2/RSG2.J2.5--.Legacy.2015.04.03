@@ -241,7 +241,7 @@ class HTML_RSGALLERY{
                     HTML_RSGALLERY::quickiconButton( $link, 'dbrestore.png', _RSGALLERY_C_DATABASE );
     				*/
     				$link = 'index2.php?option=com_rsgallery2&amp;rsgOption=maintenance';
-					HTML_RSGALLERY::quickiconButton( $link, 'maintenance.png', '** Maintenance **');
+					HTML_RSGALLERY::quickiconButton( $link, 'maintenance.png', _RSGALLERY_C_MAINTENANCE);
     				
                     $link = 'index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=showMigration';
                     HTML_RSGALLERY::quickiconButton( $link, 'dbrestore.png', _RSGALLERY_C_MIGRATION );

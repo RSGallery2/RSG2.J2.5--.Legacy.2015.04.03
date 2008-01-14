@@ -20,7 +20,7 @@ $task = rsgInstance::getVar( 'task', null);
 switch ($task) {
 	/* Regenerate thumbs calls */
 	case 'regenerateThumbs':
-		HTML_RSGALLERY::RSGalleryHeader('cpanel', '** Regenerate thumbnails **');
+		HTML_RSGALLERY::RSGalleryHeader('cpanel', _RSGALLERY_MAINT_REGEN);
 		regenerateImages();
 		HTML_RSGALLERY::RSGalleryFooter();
 		break;
@@ -49,7 +49,7 @@ switch ($task) {
 	
 	/* Migration calls */
 	case 'showMigration':
-		HTML_RSGALLERY::RSGalleryHeader('cpanel', '** Migration options **');
+		HTML_RSGALLERY::RSGalleryHeader('cpanel', _RSGALLERY_C_MIGRATION);
 		showMigration();
 		HTML_RSGALLERY::RSGalleryFooter();
 		break;
@@ -61,7 +61,7 @@ switch ($task) {
 		test();
 		break;
 	default:
-		HTML_RSGALLERY::RSGalleryHeader('cpanel', '** Maintenance **');
+		HTML_RSGALLERY::RSGalleryHeader('cpanel', _RSGALLERY_MAINT_HEADER);
 		showMaintenanceCP( $option );
 		HTML_RSGALLERY::RSGalleryFooter();
 		break;
@@ -144,7 +144,7 @@ function executeRegenerateImages() {
 	$error = 0;
 	$gid = rsgInstance::getVar( 'gid', array());
 	if ( empty($gid) ) {
-		mosRedirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=regenerateThumbs", "** No gallery selected **");
+		mosRedirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=regenerateThumbs", _RSGALLERY_MAINT_NO_GALLERY_SELECTED);
 		return;
 	}
 
@@ -152,7 +152,7 @@ function executeRegenerateImages() {
     	if ($id > 0) {
     		//Check if resize is really needed. It takes a lot of resources when changing thumbs when dimensions did not change!
     		if ( !rsg2_maintenance::thumbSizeChanged($id) ) {
-				mosRedirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=regenerateThumbs", "** Thumbnail size did not change. Regeneration NOT needed. **");
+				mosRedirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=regenerateThumbs", _RSGALLERY_MAINT_NO_THUMBSIZE_CHANGE);
 				return;
 			} else {
 				$gallery = rsgGalleryManager::_get($id);
@@ -168,9 +168,9 @@ function executeRegenerateImages() {
     	}
     }
     if ($error > 0) {
-    	$msg = "** Errors were found when regenerating. Please check the thumbs. **";
+    	$msg = _RSGALLERY_MAINT_REGEN_ERRORS;
     } else {
-    	$msg = "** Regeneration completed succesfully. **";
+    	$msg = _RSGALLERY_MAINT_REGEN_NO_ERRORS;
     }
     mosRedirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=regenerateThumbs", $msg);
 }
@@ -200,7 +200,7 @@ function createImages() {
 	
 	//If only thumb exists, no generation possible so redirect.
 	if (!file_exists($original) AND !file_exists($display) AND file_exists($thumb) ) {
-		mosRedirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB", "** Only thumb is available, so no other images can be generated! **");
+		mosRedirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB", _RSGALLERY_MAINT_REGEN_ONLY_THUMB);
 		return;
 	}
 	//Go make images
@@ -220,7 +220,7 @@ function createImages() {
 	        imgUtils::makeThumbImage($display);
 	    }
 	}
-	mosRedirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB","$name succesfully created!");
+	mosRedirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB",$name._RSGALLERY_MAINT_REGEN_SUCCESS);
 }
 
 function deleteImages() {
@@ -241,9 +241,12 @@ global $database;
 
 function createDbEntries() {
 	$name = rsgInstance::getVar('name'  , null);
+	$t_id = rsgInstance::getVar('t_id'  , null);
     $gid = rsgInstance::getInt('gallery_id'  , null);
+    echo "<pre>";
     print_r($name);
-    echo "We are going to create an entry for $name in $gid.";
+    echo "</pre>";
+    echo "We are going to create an entry for $name in $t_id.";
 }
 
 /**
@@ -298,6 +301,6 @@ function optimizeDB() {
 		$database->setQuery("OPTIMIZE $table");
 		$database->query();
 	}
-	mosRedirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance","** Tables optimized succesfully! **");
+	mosRedirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance",_RSGALLERY_MAINT_OPTIMIZE_SUCCESS);
 }
 ?>

@@ -31,6 +31,10 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2008-14-01 Ronald Smit
+ + Cleaned up maintenance section
+ + Added language strings for maintenance section in english.php
+ 
 2008-01-03 John Caprez
  + added WYSIWYG editor in MyGallery
  # fixed permissions for gallery creation in MyGallery
