@@ -14,7 +14,7 @@ class menu_rsg2_maintenance{
 	
 	function regenerateThumbs() {
         mosMenuBar::startTable();
-       	mosMenuBar::custom('executeRegenerateImages','next_f2.png','next_f2.png','** Regenerate **', false);
+       	mosMenuBar::custom('executeRegenerateImages','next_f2.png','next_f2.png',_RSGALLERY_MAINT_REGEN_BUTTON, false);
         mosMenuBar::spacer();
         mosMenuBar::help('screen.rsgallery2', true);
         mosMenuBar::endTable();

@@ -57,12 +57,7 @@ class html_rsg2_search {
 							[<?php echo _RSGALLERY_USERCAT_NAME;?>:<a href="<?php echo $mosConfig_live_site."/index.php?option=com_rsgallery2&amp;gid=".$match->gallery_id."&amp;Itemid=".$Itemid;?>"><?php echo $match->name;?></a>]
 							<?php
 							if ($match->userid > 0) {
-								?>
-								[<?php echo _RSGALLERY_GAL_OWNER;?>:<a href="">
-								<?php 
-								echo galleryUtils::genericGetUsername($match->userid);?>
-							</a>]
-							<?php
+								echo "["._RSGALLERY_GAL_OWNER.":&nbsp;".galleryUtils::genericGetUsername($match->userid)."]";
 							}
 						?>
 						</p>
