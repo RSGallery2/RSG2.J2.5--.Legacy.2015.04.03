@@ -1,6 +1,6 @@
 <?php
 /**
-* Dutch language file for RSGallery - (12-12-2007) 
+* Dutch language file for RSGallery - (15-01-2008) 
 * @version $Id$
 * @package RSGallery2
 * @copyright (C) 2003 - 2007 RSGallery2
@@ -189,6 +189,7 @@ DEFINE("_RSGALLERY_C_UPLOAD_ZIP",			"Groepsupload");
 DEFINE("_RSGALLERY_C_IMAGES",				"Beheer Afbeeldingen");
 DEFINE("_RSGALLERY_C_CATEGORIES",			"Beheer Galerijen");
 DEFINE("_RSGALLERY_C_DATABASE",				"Raadpleeg database");
+DEFINE("_RSGALLERY_C_MAINTENANCE",			"Onderhoud");
 DEFINE("_RSGALLERY_C_MIGRATION",			"Migratie Opties");
 DEFINE("_RSGALLERY_C_CSS_EDIT",				"Bewerk CSS");
 DEFINE("_RSGALLERY_C_DEBUG_ON",				"Geavanceerde Debug Opties.  Debug mode wordt aangezet in <a href='index2.php?option=com_rsgallery2&task=showConfig'>configuration</a>.");
@@ -196,7 +197,6 @@ DEFINE("_RSGALLERY_C_PURGE",				"Purge/Verwijder alles");
 DEFINE("_RSGALLERY_C_REALLY_UNINSTALL",		"ECHT deïnstalleren - Verwijderd alle afbeeldingen, mappen en database tabellen. Alleen op Linux met standaard mappen.");
 DEFINE("_RSGALLERY_C_VIEW_CONFIG",			"Instellingen - bekijken");
 DEFINE("_RSGALLERY_C_EDIT_CONFIG",			"Instellingen - aanpassen");
-
 //function showInstallForm
 DEFINE("_RSGALLERY_INST_UPL_PCK_FILE",		"Upload Package bestand");
 DEFINE("_RSGALLERY_INST_PCK_FILE",			"Package bestand:");
@@ -256,8 +256,7 @@ DEFINE("_RSGALLERY_CONF_OPTION_BR",			"Rechts beneden");
 DEFINE("_RSGALLERY_CONF_POPUP_STYLE",		"Popup Stijl");
 DEFINE("_RSGALLERY_CONF_POPUP_NO",			"Geen popup");
 DEFINE("_RSGALLERY_CONF_POPUP_NORMAL",		"Normale popup");
-/* DEFINE("_RSGALLERY_CONF_POPUP_FANCY",		"Chique popup (Geeft fouten in IE6!)"); */
-/*new*/DEFINE("_RSGALLERY_CONF_POPUP_LIGHTBOX",		"Lightbox++ popup");
+DEFINE("_RSGALLERY_CONF_POPUP_LIGHTBOX",		"Lightbox++ popup");
 
 
 //function showconfig
@@ -614,6 +613,8 @@ DEFINE("_RSGALLERY_GAL_UPL_EDIT_IMG",		"Upload/bewerken<br/>afbeedlingen</span>"
 DEFINE("_RSGALLERY_GAL_DEL_IMG",			"afbeeldingen verwijderen</span>");
 DEFINE("_RSGALLERY_GAL_MOD_GAL",			"Aanpassen <br/>Gallerij</span>");
 DEFINE("_RSGALLERY_GAL_DEL_GAL",			"Verwijderen<br/>Gallerij</span>");
+DEFINE("_RSGALLERY_GAL_VOTE_VIEW",			"Bekijk<br/>stem</span>");
+DEFINE("_RSGALLERY_GAL_VOTE_VOTE",			"Maak<br/>stem</span>");
 DEFINE("_RSGALLERY_GAL_ACL_PUB",			"Openbaar</span>");
 DEFINE("_RSGALLERY_GAL_ACL_REG",			"Geregistreerd</span>");
 DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",		"&nbsp;Selecteer/Deselecteer alles");
@@ -850,6 +851,7 @@ DEFINE("_RSGALLERY_VOTING_NOT_AUTH",		"U bent niet gemachtigd om te stemmen!");
 DEFINE("_RSGALLERY_VOTING_ALREADY_VOTED",		"U hebt al gestemd op deze afbeelding!");
 DEFINE("_RSGALLERY_VOTING_NOT_ADDED",		"De stem kon niet aan het gegevensbestand worden toegevoegd!");
 DEFINE("_RSGALLERY_VOTING_ADDED",			"Stem aan gegevensbestand wordt toegevoegd!");
+
 //templates.php
 //function viewTemplates
 DEFINE("_RSGALLERY_TPL_INST",	"Installeer nieuwe RSGTemplate <small><small>[ Site ]</small></small>");
@@ -864,10 +866,28 @@ DEFINE("_RSGALLERY_TEMPLATES_DATE",	"Datum");
 DEFINE("_RSGALLERY_TEMPLATES_AUTH_URL",	"Auteur URL");
 
 //rsgsearch.html.php
-/*new*/DEFINE("_RSGALLERY_SEARCH_RESULTS_TITLE",	"RSGallery2 zoekresultaten");
-/*new*/DEFINE("_RSGALLERY_SEARCH_RESULTS_NUMBER1",	"Er zijn ");
-/*new*/DEFINE("_RSGALLERY_SEARCH_RESULTS_NUMBER2",	" resutaten voor ");
-/*new*/DEFINE("_RSGALLERY_SEARCH_LABEL",			"Zoeken");
-/*new*/DEFINE("_RSGALLERY_SEARCH_KEYWORDS",			"zoekwoord");
+DEFINE("_RSGALLERY_SEARCH_RESULTS_TITLE",	"RSGallery2 zoekresultaten");
+DEFINE("_RSGALLERY_SEARCH_RESULTS_NUMBER1",	"Er zijn ");
+DEFINE("_RSGALLERY_SEARCH_RESULTS_NUMBER2",	" resutaten voor ");
+DEFINE("_RSGALLERY_SEARCH_LABEL",			"Zoeken");
+DEFINE("_RSGALLERY_SEARCH_KEYWORDS",			"zoekwoord");
+DEFINE("_RSGALLERY_C_MAINTENANCE",	"Onderhoud");
+
+//maintenance.html.php
+DEFINE("_RSGALLERY_MAINT_HEADER",	"Onderhoud");
+DEFINE("_RSGALLERY_MAINT_CONSOLDB",	"Controleer database");
+DEFINE("_RSGALLERY_MAINT_CONSOLDB_TXT",	"Deze optie zal een complete controle uitvoeren op de database en de afbeeldingen, om vast te stellen of er onvolkomenheden zijn. Indien dat het geval is kunt u ze verwijderen, creeren of toevoegen aan de database.");
+DEFINE("_RSGALLERY_MAINT_REGEN",	"Recreer thumbs");
+DEFINE("_RSGALLERY_MAINT_REGEN_TXT",	"Deze optie zal nieuwe thumbnails aanmaken, uitgaande van de huidige instellingen van de thumbnail grootte. Als je deze recentelijk hebt aangepast is het verstandig om dit te doen.");
+DEFINE("_RSGALLERY_MAINT_OPTDB",	"Optimaliseer Database");
+DEFINE("_RSGALLERY_MAINT_OPTDB_TXT",	"Deze optie zal de gehele database controleren en optimaliseren.");
+DEFINE("_RSGALLERY_MAINT_REGEN_BUTTON",	"Herstellen");
+DEFINE("_RSGALLERY_MAINT_OPTIMIZE_SUCCESS",	"Tabellen geoptimaliseerd");
+DEFINE("_RSGALLERY_MAINT_NO_GALLERY_SELECTED",	"Geen galerij geselecteerd");
+DEFINE("_RSGALLERY_MAINT_NO_THUMBSIZE_CHANGE",	"Dimensies van de thumbnail zijn niet gewijzigd. Herstellen is NIET nodig");
+DEFINE("_RSGALLERY_MAINT_REGEN_ERRORS",	"Herstellen van de thumbnails genereerde fouten. Voer een handmatige controle op de afbeeldingen uit.");
+DEFINE("_RSGALLERY_MAINT_REGEN_NO_ERRORS",	"Herstellen van thumbnails gelukt");
+DEFINE("_RSGALLERY_MAINT_REGEN_ONLY_THUMB",	"Alleen de thumnbnail is aanwezig. Overige afbeeldingen kunnen niet worden hersteld.!");
+DEFINE("_RSGALLERY_MAINT_REGEN_SUCCESS",	" succesvol hersteld!");
 //stopped at gallery.class.php
 ?>
