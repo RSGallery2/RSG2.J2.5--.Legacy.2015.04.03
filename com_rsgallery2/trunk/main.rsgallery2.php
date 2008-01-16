@@ -24,7 +24,7 @@ function template(){
 	$templateLocation = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template . DS . 'index.php';
 
 	if( !file_exists( $templateLocation ))
-		JError::raiseError( '', "Template $template does not exist." );
+		echo 'Template "$template" does not exist.<br/>Please select an existing template in the Template Manager.' ;
 	else
 		require( $templateLocation );
 }

@@ -184,9 +184,9 @@ function zoom(dim1, dim2){
     }
 }
 
-// start slideshow right away
+// start slideshow right once dom is ready (uses mootools)
 
-t = setTimeout("runSS(" + f.currSlide.value + ")", f.delay.value * 1000);
+Window.onDomReady(function() {runSS( f.currSlide.value ); });
 
 // -->
 </script>
