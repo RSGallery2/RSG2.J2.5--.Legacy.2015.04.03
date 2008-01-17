@@ -6,7 +6,7 @@
 * @package RSGallery2
 * @copyright (C) 2003 - 2007 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
-* @author woelzen[at]gmx[dot]de (modified 15.11.2007)
+* @author woelzen[at]gmx[dot]de (modified 17.01.2008)
 * RSGallery is Free Software
 **/
 
@@ -166,6 +166,7 @@ DEFINE("_RSGALLERY_C_UPLOAD_ZIP",			"Stapel-Upload");
 DEFINE("_RSGALLERY_C_IMAGES",				"Bilder verwalten");
 DEFINE("_RSGALLERY_C_CATEGORIES",			"Galerien verwalten");
 DEFINE("_RSGALLERY_C_DATABASE",				"Datenbanken zusammenf&uuml;hren");
+DEFINE("_RSGALLERY_C_MAINTENANCE",			"Wartungsarbeiten");
 DEFINE("_RSGALLERY_C_MIGRATION",			"Optionen f&uuml;r Daten&uuml;bernahme");
 DEFINE("_RSGALLERY_C_CSS_EDIT",				"CSS bearbeiten");
 DEFINE("_RSGALLERY_C_DEBUG_ON",				"Erweiterte Debug-Optionen.  Debug-Modus wird hier ge&auml;ndert <a href='index2.php?option=com_rsgallery2&task=showConfig'>Konfiguration</a>.");
@@ -228,7 +229,7 @@ DEFINE("_RSGALLERY_CONF_OPTION_BR",		"unten rechts");
 DEFINE("_RSGALLERY_CONF_POPUP_STYLE",		"Popup Style");
 DEFINE("_RSGALLERY_CONF_POPUP_NO",		"Kein Popup");
 DEFINE("_RSGALLERY_CONF_POPUP_NORMAL",		"Normales Popup");
-DEFINE("_RSGALLERY_CONF_POPUP_FANCY",		"Fancy Popup (Fehler bei IE6!)");
+DEFINE("_RSGALLERY_CONF_POPUP_LIGHTBOX",		"Lightbox++ Popup");
 //function showconfig
 DEFINE("_RSGALLERY_FREETYPE_INSTALLED",		"(Freetype library installiert, Wasserzeichen sind m&ouml;glich)");
 DEFINE("_RSGALLERY_FREETYPE_NOTINSTALLED",	"(Freetype library NICHT installiert! Wasserzeichen funktionieren nicht)");
@@ -239,6 +240,8 @@ DEFINE("_RSGALLERY_CONF_USERS",		"Benutzer");
 DEFINE("_RSGALLERY_CONF_LIMIT_NEV",		"Niemals");
 DEFINE("_RSGALLERY_CONF_LIMIT_LIMIT",	"Nur wenn mehr Galerien als Limit");
 DEFINE("_RSGALLERY_CONF_LIMIT_ALW",		"Immer");
+
+
 //function showUploadStep1
 DEFINE("_RSGALLERY_PICK",					"W&auml;hle eine Galerie");
 //function showUploadStep2
@@ -467,9 +470,9 @@ DEFINE("_RSGALLERY_C_TMPL_FLOATDIRECTION",	"Richtung (funktioniert nur bei float
 DEFINE("_RSGALLERY_C_TMPL_COLS_PERPAGE",	"Anzahl der Thumbnailspalten (nur bei Tabellen):");
 DEFINE("_RSGALLERY_C_TMPL_THUMBS_PERPAGE",	"Thumbnails pro Seite:");
 DEFINE("_RSGALLERY_C_TMPL_DISP_SLIDE",		"Zeige Diashow");
-/*NEW*/DEFINE("_RSGALLERY_C_TMPL_DISP_OWNER",		"Zeige Besitzer Information");
-/*NEW*/DEFINE("_RSGALLERY_C_TMPL_DISP_ITEMS",		"Zeige Objekt-Anzahl in der Galerie");
-/*NEW*/DEFINE("_RSGALLERY_C_TMPL_DISP_DATE",		"Zeige Erstellungs-Datum");
+DEFINE("_RSGALLERY_C_TMPL_DISP_OWNER",		"Zeige Besitzer Information");
+DEFINE("_RSGALLERY_C_TMPL_DISP_ITEMS",		"Zeige Objekt-Anzahl in der Galerie");
+DEFINE("_RSGALLERY_C_TMPL_DISP_DATE",		"Zeige Erstellungs-Datum");
 DEFINE("_RSGALLERY_C_TMPL_IMG_DISP",		"Anzeige Optionen");
 DEFINE("_RSGALLERY_C_TMPL_RESIZE_OPT",		"Resize Option");
 DEFINE("_RSGALLERY_C_TMPL_DISP_DESCR",		"Zeige Beschreibung");
@@ -495,6 +498,18 @@ DEFINE("_RSGALLERY_C_NUMB_GAL_FRONT",	"Anzahl der auf der Titelseite angezeigten
 DEFINE("_RSGALLERY_C_FONT",				"Schrift");
 DEFINE("_RSGALLERY_C_WATER_TRANS",		"Transparenz des Wasserzeichens");
 DEFINE("_RSGALLERY_C_ALLOWED_FILE",		"Erlaubte Dateitypen");
+
+DEFINE("_RSGALLERY_C_DISP_IMG_ORDER",		"Bilderanordnung");
+DEFINE("_RSGALLERY_C_DISP_IMG_ORDER_BY",		"Ordne Bilder nach");
+DEFINE("_RSGALLERY_C_DISP_IMG_ORDER_DIRECTION",		"Sortierreihenfolge");
+DEFINE("_RSGALLERY_CONF_OPTION_ORDER_DEFAULT",		"Standard");
+DEFINE("_RSGALLERY_CONF_OPTION_ORDER_DATE",		"Datum");
+DEFINE("_RSGALLERY_CONF_OPTION_ORDER_NAME",		"Name");
+DEFINE("_RSGALLERY_CONF_OPTION_ORDER_RATING",		"Bewertung");
+DEFINE("_RSGALLERY_CONF_OPTION_ORDER_HITS",		"Treffer");
+DEFINE("_RSGALLERY_CONF_OPTION_ORDER_DIRECTION_ASCENDING",		"Aufsteigend");
+DEFINE("_RSGALLERY_CONF_OPTION_ORDER_DIRECTION_DESCENDING",		"Absteigend");
+
 //Commenting
 DEFINE("_RSGALLERY_COMMENTS_LABEL",			"Kommentare");
 DEFINE("_RSGALLERY_COMMENTS_ENABLED",		"Kommentieren erlaubt");
@@ -516,7 +531,7 @@ DEFINE("_RSGALLERY_GAL_EXIST_ERROR",		"Es gibt bereits eine Galerie mit diesem N
 //galleries.html.php
 //function show
 DEFINE("_RSGALLERY_GAL_MANAGE",			"Galerie Manager");
-DEFINE("_RSGALLERY_GAL_MAX_LEVELS",		"Max Levels");
+DEFINE("_RSGALLERY_GAL_MAX_LEVELS",		"Max Stufen");
 DEFINE("_RSGALLERY_GAL_FILTER",			"Filter");
 DEFINE("_RSGALLERY_GAL_NAME",			"Name");
 DEFINE("_RSGALLERY_GAL_REORDER",			"Neu ordnen");
@@ -541,7 +556,9 @@ DEFINE("_RSGALLERY_GAL_UPL_EDIT_IMG",	"Hochladen/Editieren<br/>Bilder</span>");
 DEFINE("_RSGALLERY_GAL_DEL_IMG",			"L&ouml;sche Bilder</span>");
 DEFINE("_RSGALLERY_GAL_MOD_GAL",			"Modifiziere<br/>Galerie</span>");
 DEFINE("_RSGALLERY_GAL_DEL_GAL",			"L&ouml;sche<br/>Galerie</span>");
-DEFINE("_RSGALLERY_GAL_ACL_PUB",			"&Ouml;ffentlich</span>");
+DEFINE("_RSGALLERY_GAL_VOTE_VIEW",			"Zeige<br/>Stimmen</span>");
+DEFINE("_RSGALLERY_GAL_VOTE_VOTE",			"Erzeuge<br/>Stimme</span>");
+RSGALLERY_GAL_ACL_PUB",			"&Ouml;ffentlich</span>");
 DEFINE("_RSGALLERY_GAL_ACL_REG",			"Registrierte</span>");
 DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",	"&nbsp;Alle an/abw&auml;hlen");
 DEFINE("_RSGALLERY_GAL_ORDER",	"Sortieren");
@@ -661,6 +678,8 @@ DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"Keine Berechtigungen gefunden, es wurd
 DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"Besitzer: ");
 DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"Gr&ouml;&szlig;e: ");
 DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Erstellt: ");
+DEFINE("_RSGALLERY_TMPL_GAL_SUBGALLERIES",	"Untergalerien: ");
+DEFINE("_RSGALLERY_TMPL_GAL_UPLOADED",	"Hochgeladen");
 
 //file.utils.php
 //function importImage
@@ -691,31 +710,31 @@ DEFINE("_RSGALLERY_FU_UNKW_ERROR",		"Unbekannter Datei-Fehler");
 
 //rsgcomments.class.php
 //function showButtons
-/*new*/DEFINE("_RSGALLERY_COMMENTS_COLOR",	"-Farbe-");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_AQUA",	"aqua");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_BLACK",	"schwarz");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_BLUE",	"blau");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_FUCHSIA",	"purpurrot");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_GRAY",	"grau");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_GREEN",	"gr&uuml;n");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_LIME",	"hellgr&uuml;n");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_MAROON",	"rotbraun");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_NAVY",	"marineblau");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_OLIVE",	"olive");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_PURPLE",	"lila");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_RED",	"rot");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_SILVER",	"silber");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_TEAL",	"mint");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_WHITE",	"wei&szlig;");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_YELLOW",	"gelb");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_SIZE",	"-Gr&ouml;&szlig;e-");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_TINY",	"winzig");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_SMALL",	"klein");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_MEDIUM",	"mittel");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_LARGE",	"gro&szlig;");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_HUGE",	"rie&szlig;ig");
+DEFINE("_RSGALLERY_COMMENTS_COLOR",	"-Farbe-");
+DEFINE("_RSGALLERY_COMMENTS_AQUA",	"aqua");
+DEFINE("_RSGALLERY_COMMENTS_BLACK",	"schwarz");
+DEFINE("_RSGALLERY_COMMENTS_BLUE",	"blau");
+DEFINE("_RSGALLERY_COMMENTS_FUCHSIA",	"purpurrot");
+DEFINE("_RSGALLERY_COMMENTS_GRAY",	"grau");
+DEFINE("_RSGALLERY_COMMENTS_GREEN",	"gr&uuml;n");
+DEFINE("_RSGALLERY_COMMENTS_LIME",	"hellgr&uuml;n");
+DEFINE("_RSGALLERY_COMMENTS_MAROON",	"rotbraun");
+DEFINE("_RSGALLERY_COMMENTS_NAVY",	"marineblau");
+DEFINE("_RSGALLERY_COMMENTS_OLIVE",	"olive");
+DEFINE("_RSGALLERY_COMMENTS_PURPLE",	"lila");
+DEFINE("_RSGALLERY_COMMENTS_RED",	"rot");
+DEFINE("_RSGALLERY_COMMENTS_SILVER",	"silber");
+DEFINE("_RSGALLERY_COMMENTS_TEAL",	"mint");
+DEFINE("_RSGALLERY_COMMENTS_WHITE",	"wei&szlig;");
+DEFINE("_RSGALLERY_COMMENTS_YELLOW",	"gelb");
+DEFINE("_RSGALLERY_COMMENTS_SIZE",	"-Gr&ouml;&szlig;e-");
+DEFINE("_RSGALLERY_COMMENTS_TINY",	"winzig");
+DEFINE("_RSGALLERY_COMMENTS_SMALL",	"klein");
+DEFINE("_RSGALLERY_COMMENTS_MEDIUM",	"mittel");
+DEFINE("_RSGALLERY_COMMENTS_LARGE",	"gro&szlig;");
+DEFINE("_RSGALLERY_COMMENTS_HUGE",	"rie&szlig;ig");
 //function parseQuoteElement
-/*new*/DEFINE("_RSGALLERY_COMMENTS_QUOTE_WROTE", "Schreibe");
+DEFINE("_RSGALLERY_COMMENTS_QUOTE_WROTE", "Schreibe");
 //function editComment
 /*moved*/DEFINE("_RSGALLERY_COMMENT_ADD",		"Kommentar hinzuf&uuml;gen");
 /*moved*/DEFINE("_RSGALLERY_COMMENT_NAME",		"Name");
@@ -724,13 +743,13 @@ DEFINE("_RSGALLERY_FU_UNKW_ERROR",		"Unbekannter Datei-Fehler");
 //function showComments
 /*moved*/DEFINE("_RSGALLERY_COMMENT_DELETE",	"Sind Sie sicher, dass Sie den Kommentar l&ouml;schen m&ouml;chten?");
 /*moved*/DEFINE("_RSGALLERY_COMMENTS",	"Comments");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_NUM_COMM_ADD",	"# Kommentare hinzugef&uuml;gt");
-/*new*/DEFINE("_RSGALLERY_DELETE_COMMENT",			"L&ouml;sche Kommentar");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_SEC_IMG_MISS", "Sicherheits-Bilder im BackEnd ausgew&auml;hlt, aber Komponente nicht installiert! Bitte den Webmaster informieren");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_NOCOMM",	"Noch keine Kommentare!");
+DEFINE("_RSGALLERY_COMMENTS_NUM_COMM_ADD",	"# Kommentare hinzugef&uuml;gt");
+DEFINE("_RSGALLERY_DELETE_COMMENT",			"L&ouml;sche Kommentar");
+DEFINE("_RSGALLERY_COMMENTS_SEC_IMG_MISS", "Sicherheits-Bilder im BackEnd ausgew&auml;hlt, aber Komponente nicht installiert! Bitte den Webmaster informieren");
+DEFINE("_RSGALLERY_COMMENTS_NOCOMM",	"Noch keine Kommentare!");
 
 //rsgcomments.php
-/*new*/DEFINE("_RSGALLERY_COMMENTS_COMMDEL",		"Kommentar erfolgreich gel&ouml;scht");
+DEFINE("_RSGALLERY_COMMENTS_COMMDEL",		"Kommentar erfolgreich gel&ouml;scht");
 
 //rsgcomments.php
 DEFINE("_RSGALLERY_COMMENTS_DISABLED",		"Kommentare sind deaktiviert");
@@ -759,16 +778,40 @@ DEFINE("_RSGALLERY_VOTING_ADDED",		"Stimme der Datenbank hinzugef&uuml;gt!");
 
 //templates.php
 //function viewTemplates
-/*new*/DEFINE("_RSGALLERY_TPL_INST",	"Install new RSGTemplate <small><small>[ Site ]</small></small>");
+DEFINE("_RSGALLERY_TPL_INST",	"Installiere neues RSGTemplate <small><small>[ Seite ]</small></small>");
 // more to do here, but to come
 
 //templates.html.php
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_NAME",	"Name");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_ACTIVE",	"Aktiv");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_AUTHOR",	"Author");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_VERSION",	"Version");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_DATE",	"Datum");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_AUTH_URL",	"Author URL");
+DEFINE("_RSGALLERY_TEMPLATES_NAME",	"Name");
+DEFINE("_RSGALLERY_TEMPLATES_ACTIVE",	"Aktiv");
+DEFINE("_RSGALLERY_TEMPLATES_AUTHOR",	"Author");
+DEFINE("_RSGALLERY_TEMPLATES_VERSION",	"Version");
+DEFINE("_RSGALLERY_TEMPLATES_DATE",	"Datum");
+DEFINE("_RSGALLERY_TEMPLATES_AUTH_URL",	"Author URL");
+
+//rsgsearch.html.php
+DEFINE("_RSGALLERY_SEARCH_RESULTS_TITLE",	"RSGallery2 Suchergebnisse");
+DEFINE("_RSGALLERY_SEARCH_RESULTS_NUMBER1",	"Es gibt ");
+DEFINE("_RSGALLERY_SEARCH_RESULTS_NUMBER2",	" Ergebnisse f&uuml;r ");
+DEFINE("_RSGALLERY_SEARCH_LABEL",			"Suche");
+DEFINE("_RSGALLERY_SEARCH_KEYWORDS",			"Schl&uuml;sselw&ouml;rter");
+
+//maintenance.html.php
+DEFINE("_RSGALLERY_MAINT_HEADER",	"Wartungsarbeit");
+DEFINE("_RSGALLERY_MAINT_CONSOLDB",	"Datenbank zusammenf&uuml;hren");
+DEFINE("_RSGALLERY_MAINT_CONSOLDB_TXT",	"Diese Option wird eine komplette Kontrolle der Datenbank und des Dateisystems durchf&uuml;hren, um zu sehen ob es Unstimmigkeiten gibt.");
+DEFINE("_RSGALLERY_MAINT_REGEN",	"Regeneriere Thumbnails");
+DEFINE("_RSGALLERY_MAINT_REGEN_TXT",	"Diese Option wird die Thumbnails regenerieren, basierend auf den aktuellen Einstellungen der Thumbnail-Abmessungen. Wenn Sie diese k&uuml;rzlich ge&auml;ndert haben, ist dies eine n&uuml;tzliche Funktion.");
+DEFINE("_RSGALLERY_MAINT_OPTDB",	"Datenbank optimieren");
+DEFINE("_RSGALLERY_MAINT_OPTDB_TXT",	"Diese Option f&uuml;hrt eine Kontrolle der gesamten RSGallery2 Datenbank-Tabellen durch und optimiert diese wenn n&ouml;tig.");
+DEFINE("_RSGALLERY_MAINT_REGEN_BUTTON",	"Regeneriere");
+DEFINE("_RSGALLERY_MAINT_OPTIMIZE_SUCCESS",	"Tabellen erfolgreich optimiert");
+DEFINE("_RSGALLERY_MAINT_NO_GALLERY_SELECTED",	"Keine Galerie ausgew&auml;hlt");
+DEFINE("_RSGALLERY_MAINT_NO_THUMBSIZE_CHANGE",	"Thumbnail-Gr&ouml;&szlig;e wurde nicht ge&auml;ndert. Regeneration NICHT notwendig");
+DEFINE("_RSGALLERY_MAINT_REGEN_ERRORS",	"Beim Regenerieren traten Fehler auf. Bitte die Thumbs pr&uuml;fen");
+DEFINE("_RSGALLERY_MAINT_REGEN_NO_ERRORS",	"Regeneration erfolgreich abgeschlossen");
+DEFINE("_RSGALLERY_MAINT_REGEN_ONLY_THUMB",	"Nur Thumbnail verf&uuml;gbar. Es k&ouml;nnen keine anderen Bilder regeneriert werden!");
+DEFINE("_RSGALLERY_MAINT_REGEN_SUCCESS",	" erfolgreich erzeugt");
 
 //stopped at gallery.class.php
 ?>
