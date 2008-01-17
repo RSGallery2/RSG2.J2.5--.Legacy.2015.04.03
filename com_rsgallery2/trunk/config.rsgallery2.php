@@ -134,13 +134,13 @@ class galleryUtils {
 	 * @param integer ID of selected gallery
 	 * @return HTML to show selectbox
 	 */
-	function showUserGalSelectList($action = '', $select_name = 'catid', $gallery_id = null) {
+	function showUserGalSelectList($action = '', $select_name = 'catid', $gallery_id = null, $js = '') {
 		global $rsgAccess, $database, $my;
 		
 		//Get gallery Id's where action is permitted and write to string
 		$galleries = $rsgAccess->actionPermitted($action);
 		
-		$dropdown_html = "<select name=\"$select_name\"><option value=\"0\" SELECTED>"._RSGALLERY_SELECT_GAL_DROP_BOX."</option>\n";
+		$dropdown_html = "<select name=\"$select_name\" $js><option value=\"0\" SELECTED>"._RSGALLERY_SELECT_GAL_DROP_BOX."</option>\n";
 		$dropdown_html .= galleryUtils::addToGalSelectList(0, 0, $gallery_id, $galleries);
 		echo $dropdown_html."</select>";
 	}
