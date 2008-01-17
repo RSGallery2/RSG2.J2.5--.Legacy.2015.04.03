@@ -303,10 +303,15 @@ function editComment( $item_id ) {
 				if (file_exists(JPATH_ROOT.'/administrator/components/com_securityimages/client.php') ) {
 					include(JPATH_ROOT.'/administrator/components/com_securityimages/client.php');
 					$packageName = 'security_rsgallery2';
-					echo getSecurityImageTextHeader()." *<br />";
-					echo insertSecurityImage($packageName)."<br />";
-					echo getSecurityImageField($packageName)."<br/>";
-					echo getSecurityImageTextHelp()."<br/>";
+					
+					// check if security image is turned of by com_securityimage
+					$imageTag = insertSecurityImage($packageName);
+					if($imageTag != ''){
+						echo getSecurityImageTextHeader()." *<br />";
+						echo $imageTag."<br />";
+						echo getSecurityImageField($packageName)."<br/>";
+						echo getSecurityImageTextHelp()."<br/>";
+					}
 				} else {
 					echo _RSGALLERY_COMMENTS_SEC_IMG_MISS;
 				}
