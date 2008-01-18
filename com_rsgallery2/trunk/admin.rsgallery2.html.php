@@ -131,10 +131,11 @@ class HTML_RSGALLERY{
     <dl>
         <dt>Architect</dt>
         	<dd><b>Jonah Braun</b> <a href='http://whalehosting.ca/' target='_blank'>Whale Hosting Inc.</a></dd>
-        <dt>Lead Developers</dt>
+        <dt>Lead Developer</dt>
         	<dd><b>Ronald Smit</b> <a href='http://www.rsdev.nl/' target='_blank'>RSDevelopment</a></dd>
         <dt>Developers</dt>
         	<dd><b>Dani&#235;l Tulp</b> <a href='http://design.danieltulp.nl/' target='_blank'>DT^2</a></dd>
+        	<dd><b>John Caprez</b></dd>
         <dt>Community Liaison</dt>
         	<dd><b>Dani&#235;l Tulp</b> <a href='http://design.danieltulp.nl/' target='_blank'>DT^2</a></dd>
     </dl>
@@ -148,48 +149,55 @@ class HTML_RSGALLERY{
     <dl>
         <dt>Brazilian Portuguese</dt> <dd><b>Helio Wakasugui</b></dd>
         <dt>Czech</dt> 
-			<dd>David Zirhut <a href='http://www.joomlaportal.cz/'>joomlaportal.za</a></dd>
+			<dd><b>David Zirhut</b> <a href='http://www.joomlaportal.cz/'>joomlaportal.za</a></dd>
 			<dd><b>Felix 'eFix' Lauda</b></dd>
         <dt>Dutch</dt>
-			<dd>Tomislav Ribicic</dd>
-        	<dd>Dani&#235;l Tulp <a href='http://design.danieltulp.nl' target='_blank'></a></dd>
+			<dd><b>Tomislav Ribicic</b></dd>
+        	<dd><b>Dani&#235;l Tulp</b> <a href='http://design.danieltulp.nl' target='_blank'></a></dd>
 			<dd><b>Bas</b><a href='http://www.fantasea.nl' target='_blank'>http://www.fantasea.nl</a></dd>
         <dt>French</dt><dd><b>Fabien de Silvestre</b></dd>
         <dt>German</dt> <dd><b>woelzen</b><a href='http://conseil.silvestre.fr' target='_blank'>http://conseil.silvestre.fr</a></dd>
 		<dt>Greek</dt><dd><b>Charis Argyropoulos</b><a href='http://www.symenox.gr' target='_blank'>http://www.symenox.gr</a></dd>
         <dt>Hungarian</dt> 
 			<dd><b>SOFT-TRANS</b> <a href='http://www.soft-trans.hu' target='_blank'>SOFT-TRANS</a></dd>
+		<dt>Italian</dt><dd><b>Michele Monaco</b><a href='http://www.mayavoyage.com' target='_blank'>Maya Voyages</a>
         <dt>Norwegian</dt> 
-			<dd>Ronny Tjelle</dd>
+			<dd><b>Ronny Tjelle</b></dd>
             <dd><b>Steinar Vikholt</b></dd>
         <dt>Polish</dt> 
 			<dd><b>Zbyszek Rosiek</b></dd>
         <dt>Russian</dt>
 			<dd><b>Ragnaar</b></dd>
         <dt>Spanish</dt> 
-			<dd><b>Ebävs</b> <a href='http://www.ebavs.net/' target='_blank'>ebävs.net</a></dd>
+			<dd><b>Eb&auml;vs</b> <a href='http://www.ebavs.net/' target='_blank'>eb&auml;vs.net</a></dd>
         <dt>Traditional Chinese</dt>
-			<dd>Sun Yu<a href='http://www.meto.com.tw' target='_blank'>Meto</a></dd>
-			<dd><b>Mike Ho</b> mikeho1980 <a href='http://www.dogneighbor.com' target='_blank'>http://www.dogneighbor.com</a></dd>
-		<dt>Italian</dt><dd><b>Michele Monaco</b><a href='http://www.mayavoyage.com' target='_blank'>Maya Voyages</a>
+			<dd><b>Sun Yu</b><a href='http://www.meto.com.tw' target='_blank'>Meto</a></dd>
+			<dd><b>Mike Ho</b> <a href='http://www.dogneighbor.com' target='_blank'>http://www.dogneighbor.com</a></dd>
     </dl>
 
     <h3>Legacy</h3>
     <dl>
         <dt>Creator</dt>
-        	<dd><b>Ronald Smit</b></dd>
+        	<dd>Ronald Smit</dd>
         <dt>RSGallery 1.x</dt>
-        	<dd><b>Andy "Troozers" Stewart</b></dd>
-            <dd><b>Richard Foster</b></dd>
+        	<dd>Andy "Troozers" Stewart</dd>
+            <dd>Richard Foster</dd>
 		<dt>RSGallery2 2005</dt>
-			<dd><b>Dani&#235;l Tulp</b></dd>
-			<dd><b>Jonah Braun</b></dd>
-			<dd><b>Tomislav Ribicic</b></dd>
+			<dd>Dani&#235;l Tulp</dd>
+			<dd>Jonah Braun</dd>
+			<dd>Tomislav Ribicic</dd>
 		<dt>RSGallery2 2006</dt>
-			<dd><b>Dani&#235;l Tulp</b></dd>
-			<dd><b>Jonah Braun</b></dd>
-			<dd><b>Ronald Smit</b></dd>
-			<dd><b>Tomislav Ribicic</b></dd>
+			<dd>Dani&#235;l Tulp</dd>
+			<dd>Jonah Braun</dd>
+			<dd>Ronald Smit</dd>
+			<dd>Tomislav Ribicic</dd>
+		<dt>RSGallery2 2007</dt>
+			<dd>Dani&#235;l Tulp</dd>
+			<dd>John Caprez</dd>
+			<dd>Jonah Braun</dd>
+			<dd>Jonathan DeLaigle</dd>
+			<dd>Margo Adams</dd>
+			<dd>Ronald Smit</dd>
     </dl>
 </div>
                         <?php
