@@ -470,7 +470,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		
 		while( true ){
 			?>
-			<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&catid=".$kid->id); ?>">
+			<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&gid=".$kid->id); ?>">
 				<?php echo htmlspecialchars(stripslashes($kid->name), ENT_QUOTES); ?>
 				(<?php echo $kid->itemCount(); ?>)</a><?php
 
