@@ -164,15 +164,12 @@ class galleryUtils {
 			$dropdown_html .= "<option value=\"$row->id\"";
 			// Disable when action not allowed or user not owner
 			if (!in_array($row->id, $galleries))
-				$dropdown_html .= " DISABLED>";
-			elseif ($my->id && galleryUtils::isUserType('Super Administrator'))
-				$dropdown_html .= " SELECTED>";
-			elseif ($my->id && $row->uid != $my->id)
-				$dropdown_html .= " DISABLED>";
-			elseif ($row->id == $gallery_id)
-				$dropdown_html .= " SELECTED>";
-			else
-				$dropdown_html .= ">";
+				$dropdown_html .= " DISABLED";
+
+			if ($row->id == $gallery_id)
+				$dropdown_html .= " SELECTED";
+			
+			$dropdown_html .= " >";
 			$indent = "";
 			for ($i = 0; $i < $level; $i++) {
 				$indent .= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";

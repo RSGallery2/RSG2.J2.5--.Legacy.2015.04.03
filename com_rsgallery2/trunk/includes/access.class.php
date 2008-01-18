@@ -180,18 +180,29 @@ class rsgAccess extends JObject{
 		
 		//Get action based on that usertype 
 		$type = $this->levelMaping[$type];
-		$type = ($type == "admin") ? "1" : $type."_".$action;
 		
-		$sql = "SELECT gallery_id FROM $this->_table WHERE ".$type." = 1";
-		$database->setQuery($sql);
-		$galleries = $database->loadResultArray();
-		
-		// check if user is logged in
-		if( $my->id ){  
-			// if so add tables owned by users to list
-			$sql = "SELECT id FROM #__rsgallery2_galleries WHERE uid = '$my->id'";
+		if ($type == 'admin'){
+			// all actions permitted for admin users
+			$sql = "SELECT id FROM #__rsgallery2_galleries ";
 			$database->setQuery( $sql );
-			$galleries = array_merge($galleries, $database->loadResultArray());	
+			$galleries = $database->loadResultArray();
+		}
+		else{
+			// get galleries where action is permitted for the user group
+			$type = $type."_".$action;
+
+			$sql = "SELECT gallery_id FROM $this->_table WHERE ".$type." = 1";
+			$database->setQuery($sql);
+			$galleries = $database->loadResultArray();
+			
+			// check if user is logged in
+			if( $my->id ){
+				// if so add galleries owned by users to list
+				$sql = "SELECT id FROM #__rsgallery2_galleries WHERE uid = '$my->id'";
+				$database->setQuery( $sql );
+				$galleries = array_merge($galleries, $database->loadResultArray());	
+			}
+			
 		}
 		
 		return $galleries;
