@@ -32,12 +32,12 @@ Legend:
 
 ---------------- Recent ----------------
 
----------------- 1.14.1 alpha -- svn ??? -- 2008-01-?? -------------
+---------------- 1.14.1 alpha -- svn 584 -- 2008-01-18 -------------
 
 2008-01-14 Ronald Smit
  + Cleaned up maintenance section
  + Added language strings for maintenance section in english.php
- 
+
 2008-01-03 John Caprez
  + added WYSIWYG editor in MyGallery
  # fixed permissions for gallery creation in MyGallery
