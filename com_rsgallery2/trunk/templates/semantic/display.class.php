@@ -50,7 +50,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 			$this->kids = array_slice( $this->kids, $limitstart, $limit );
 			$this->pageNav = new JPagination( $kidCountTotal, $limitstart, $limit );
 		}
-	
+
 		$this->display( 'gallery.php' );
 		
 		//Show page navigation if selected in backend

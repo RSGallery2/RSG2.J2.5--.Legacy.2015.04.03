@@ -165,6 +165,8 @@ class galleryUtils {
 			// Disable when action not allowed or user not owner
 			if (!in_array($row->id, $galleries))
 				$dropdown_html .= " DISABLED>";
+			elseif ($my->id && galleryUtils::isUserType('Super Administrator'))
+				$dropdown_html .= " SELECTED>";
 			elseif ($my->id && $row->uid != $my->id)
 				$dropdown_html .= " DISABLED>";
 			elseif ($row->id == $gallery_id)
@@ -875,32 +877,41 @@ class galleryUtils {
 	 * @param strinf Keywords to search for
 	 */
 	function highlight_keywords($string, $keywords, $color = "yellow") {
-    if ($keywords != "" || $keywords != NULL) {
-        $words = explode(" ", $keywords);
-        foreach ($words as $word) {
-            $position = 0;
-            while ($position !== false) {
-                $position = strpos(strtolower($string), strtolower($word), $position);
-                if ($position !== false) {
-                    $replace_string = substr($string, $position, strlen($word));
-                    if ($position == 0) {
-                        if (!ctype_alnum($string{strlen($word)})) {
-                            $replace_string = "<span style=\"background-color: yellow;\">" . $replace_string . "</span>";
-                            $string = substr_replace($string, $replace_string, $position, strlen($word));
-                        }
-                    } elseif (!ctype_alnum($string{$position - 1}) && strlen($string) == $position + strlen($word)) {
-                        $replace_string = "<span style=\"background-color: yellow;\">" . $replace_string . "</span>";
-                        $string = substr_replace($string, $replace_string, $position, strlen($word));
-                    } elseif (!ctype_alnum($string{$position - 1}) && !ctype_alnum($string{$position+strlen($word)})) {
-                        $replace_string = "<span style=\"background-color: yellow;\">" . $replace_string . "</span>";
-                        $string = substr_replace($string, $replace_string, $position, strlen($word));
-                    }
-                    $position = $position + strlen($replace_string);
-                }
-            } 
-        }
-    }
-    return $string;
-}
+	    if ($keywords != "" || $keywords != NULL) {
+	        $words = explode(" ", $keywords);
+	        foreach ($words as $word) {
+	            $position = 0;
+	            while ($position !== false) {
+	                $position = strpos(strtolower($string), strtolower($word), $position);
+	                if ($position !== false) {
+	                    $replace_string = substr($string, $position, strlen($word));
+	                    if ($position == 0) {
+	                        if (!ctype_alnum($string{strlen($word)})) {
+	                            $replace_string = "<span style=\"background-color: yellow;\">" . $replace_string . "</span>";
+	                            $string = substr_replace($string, $replace_string, $position, strlen($word));
+	                        }
+	                    } elseif (!ctype_alnum($string{$position - 1}) && strlen($string) == $position + strlen($word)) {
+	                        $replace_string = "<span style=\"background-color: yellow;\">" . $replace_string . "</span>";
+	                        $string = substr_replace($string, $replace_string, $position, strlen($word));
+	                    } elseif (!ctype_alnum($string{$position - 1}) && !ctype_alnum($string{$position+strlen($word)})) {
+	                        $replace_string = "<span style=\"background-color: yellow;\">" . $replace_string . "</span>";
+	                        $string = substr_replace($string, $replace_string, $position, strlen($word));
+	                    }
+	                    $position = $position + strlen($replace_string);
+	                }
+	            } 
+	        }
+	    }
+	    return $string;
+	}
+
+	function isUserType($type = "Super Administrator") {
+		global $my;
+		if ($my->usertype == $type) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }//end class
 ?>
