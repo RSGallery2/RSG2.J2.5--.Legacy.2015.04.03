@@ -8,7 +8,7 @@
 * RSGallery2 is Free Software
 */
 
-defined( '_VALID_MOS' ) or die( 'Access Denied' );
+defined( '_JEXEC' ) or die( 'Access Denied' );
 require_once(JPATH_RSGALLERY2_ADMIN.'/includes/mimetype.php');
 require_once(JPATH_ROOT.'/includes/PEAR/PEAR.php');
 
@@ -371,7 +371,7 @@ class fileHandler {
         $mediadir = JPATH_ROOT. DS ."media". DS. $extractDir;
 
         if (file_exists( $mediadir )) {
-            fileHandler::deldir( mosPathName($mediadir) );
+            fileHandler::deldir( JPath::clean($mediadir) );
         } else {
             echo _RSGALLERY_FU_APPARENTLY."<strong>$mediadir</strong>"._RSGALLERY_FU_DOESNT_EXIST;
         }
@@ -388,7 +388,7 @@ class fileHandler {
         while ($entryname = readdir( $current_dir )) {
             if ($entryname != '.' and $entryname != '..') {
                 if (is_dir( $dir . $entryname )) {
-                    fileHandler::deldir( mosPathName( $dir . $entryname ) );
+                    fileHandler::deldir( JPath::clean( $dir . $entryname ) );
                 } else {
                     @chmod($dir . $entryname, 0777);
                     unlink( $dir . $entryname );
@@ -529,15 +529,14 @@ class fileHandler {
         //check source directory
         if (!file_exists( $source ) OR !is_dir ( $source )) {
             echo $source._RSGALLERY_FU_FTP_DIR_NOT_EXIST;
-            mosRedirect('index2.php?option=com_rsgallery2&rsgOption=images&task=batchupload', $source._RSGALLERY_FU_FTP_DIR_NOT_EXIST);
+            $mainframe->redirect('index2.php?option=com_rsgallery2&task=batchupload', $source._RSGALLERY_FU_FTP_DIR_NOT_EXIST);
         }
         //Read files from FTP-directory
-        $files = mosReadDirectory($source, '');
+        $files = JFolder::filesy($source, '');
         if (!$files) {
-            mosRedirect('index2.php?option=com_rsgallery2&rsgOption=images&task=batchupload', _RSGALLERY_FU_NO_VALID_IMG.$source._RSGALLERY_FU_PLEASE_CHECK_PATH);
+            $mainframe->redirect('index2.php?option=com_rsgallery2&task=batchupload', _RSGALLERY_FU_NO_VALID_IMG.$source._RSGALLERY_FU_PLEASE_CHECK_PATH);
         }
         
-		$list[] = array();
         //Create imagelist from FTP-directory
         foreach($files as $file) {
             if ( is_dir($source . $file) ) {

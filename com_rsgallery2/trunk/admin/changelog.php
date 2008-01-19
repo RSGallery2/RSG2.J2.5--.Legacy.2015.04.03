@@ -9,7 +9,7 @@
 **/
 
 // no direct access
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
 
 Check for the latest version of RSGallery2 at http://rsgallery2.net/

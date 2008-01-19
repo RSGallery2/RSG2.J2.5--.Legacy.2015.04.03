@@ -8,7 +8,7 @@
 * RSGallery is Free Software
 */
 
-defined( '_VALID_MOS' ) or die( 'Restricted Access' );
+defined( '_JEXEC' ) or die( 'Restricted Access' );
 
 require_once( $rsgOptions_path . 'config.html.php' );
 
@@ -136,25 +136,25 @@ function showConfig(){
     $graphicsLib = array();
 
     $result = GD2::detect();
-    if( $result )
-        $graphicsLib[] = mosHTML::makeOption( 'gd2', $result );
-    else
-        $graphicsLib[] = mosHTML::makeOption( 'gd2', _RSGALLERY_CONF_NOGD2 );
+	if( $result )
+		$graphicsLib[] = JHTML::_("select.option", 'gd2', $result );
+	else
+		$graphicsLib[] = JHTML::_("select.option", 'gd2', _RSGALLERY_CONF_NOGD2 );
 
     $result = ImageMagick::detect();
     if( $result )
-        $graphicsLib[] = mosHTML::makeOption( 'imagemagick', $result );
+        $graphicsLib[] = JHTML::_("select.option", 'imagemagick', $result );
     else
-        $graphicsLib[] = mosHTML::makeOption( 'imagemagick', _RSAGALLERY_CONF_NOIMGMAGICK );
+        $graphicsLib[] = JHTML::_("select.option", 'imagemagick', _RSAGALLERY_CONF_NOIMGMAGICK );
 
     $result = Netpbm::detect();
     if( $result )
-        $graphicsLib[] = mosHTML::makeOption( 'netpbm', $result );
+        $graphicsLib[] = JHTML::_("select.option", 'netpbm', $result );
     else
-        $graphicsLib[] = mosHTML::makeOption( 'netpbm', _RSAGALLERY_CONF_NONETPBM );
+        $graphicsLib[] = JHTML::_("select.option", 'netpbm', _RSAGALLERY_CONF_NONETPBM );
     
     
-    $lists['graphicsLib'] = mosHTML::selectList( $graphicsLib, 'graphicsLib', '', 'value', 'text', $rsgConfig->graphicsLib );
+    $lists['graphicsLib'] = JHTML::_("select.genericlist",$graphicsLib, 'graphicsLib', '', 'value', 'text', $rsgConfig->graphicsLib );
 
     html_rsg2_config::showconfig( $lists );
 }

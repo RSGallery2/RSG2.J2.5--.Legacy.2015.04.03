@@ -1,6 +1,6 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-global $mainframe, $rsgConfig, $Itemid;
+global $mainframe, $rsgConfig;
 //Add stylesheets and scripts to header
 $css1 = "<link rel=\"stylesheet\" href=\"components/com_rsgallery2/templates/slideshow_parth/css/jd.gallery.css\" type=\"text/css\" media=\"screen\" charset=\"utf-8\" />";
 $mainframe->AddCustomHeadTag($css1);

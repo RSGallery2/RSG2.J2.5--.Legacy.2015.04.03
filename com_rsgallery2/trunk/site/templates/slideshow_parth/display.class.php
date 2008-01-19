@@ -16,7 +16,7 @@ defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 class rsgDisplay_slideshow_parth extends rsgDisplay{
 
 	function showSlideShow(){
-		global $Itemid, $rsgConfig, $mosConfig_live_site;
+		global $rsgConfig, $mosConfig_live_site;
 		
 		$gallery = rsgGalleryManager::get();
 		

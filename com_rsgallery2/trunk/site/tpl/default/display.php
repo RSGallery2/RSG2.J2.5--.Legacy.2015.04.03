@@ -7,10 +7,10 @@
 * RSGallery is Free Software
 */
 
-defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
-global $mosConfig_live_site;
+defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
+global $mainframe;
 ?>
-<link rel="stylesheet" href="<?php echo $mosConfig_live_site; ?>/components/com_rsgallery2/tpl/<?php echo $rsgConfig->get('template'); ?>/css/template_css.css" type="text/css" />
+<link rel="stylesheet" href="<?php echo JURI_SITE; ?>/components/com_rsgallery2/tpl/<?php echo $rsgConfig->get('template'); ?>/css/template_css.css" type="text/css" />
 <table width="100%">
 <tr>
 	<td>

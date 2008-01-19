@@ -8,7 +8,7 @@
 * RSGallery2 is Free Software
 */
 
-defined( '_VALID_MOS' ) or die( 'Access Denied' );
+defined( '_JEXEC' ) or die( 'Access Denied' );
 
 /**
 * Image utilities class
@@ -30,7 +30,8 @@ class videoUtils extends fileUtils{
      * @return returns true if successfull otherwise returns an ImageUploadError
      */
     function importImage($tmpName, $name, $cat, $title='', $desc='') {
-        global $database, $my, $rsgConfig;
+        global $database, $rsgConfig;
+		$my =& JFactory::getUser();
 
         $destination = fileUtils::move_uploadedFile_to_orignalDir( $tmpName, $name );
         

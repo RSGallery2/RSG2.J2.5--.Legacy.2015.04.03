@@ -1,788 +1,494 @@
 <?php
 /**
-* Slovak language file for RSGallery
+* Slovak languagefile for RSGallery
 * @version $Id$
 * @package RSGallery2
 * @copyright (C) 2003 - 2006 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
-* @author Michal Kubovcak, Obrazok s.r.o. <kubovcak@obrazok.sk>, 2007
+* @author Disney (admin@agglo.sk)
 * RSGallery is Free Software
 **/
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 //rsgallery2.html.php
-//RSShowPictures
-DEFINE("_RSGALLERY_MAGIC_NOTIMP",		"Magic zatiaƒæ neimplementovan√Ω");
-//showMyGalleries
-DEFINE("_RSGALLERY_FEAT_NOTIMP",		"Znak zatiaƒæ neimplementovan√Ω");
 //function showUserGallery
-DEFINE("_RSGALLERY_MAKECAT_ALERT_NAME",		"Mus√≠≈° zada≈• n√°zov gal√©rie.");
-DEFINE("_RSGALLERY_MAKECAT_ALERT_DESCR",	"Mus√≠≈° zada≈• popis.");
-DEFINE("_RSGALLERY_CREATE_GALLERY",			"Vytvor gal√©riu");
-DEFINE("_RSGALLERY_SAVE",					"Ulo≈æ");
-DEFINE("_RSGALLERY_CANCEL",					"Zru≈°");
-DEFINE("_RSGALLERY_CATLEVEL",				"Top gal√©ria");
-DEFINE("_RSGALLERY_USERCAT_NAME",			"N√°zov gal√©rie");
-DEFINE("_RSGALLERY_DESCR",					"Popis gal√©rie");
-DEFINE("_RSGALLERY_CATPUBLISHED",			"Publikovan√°");
+DEFINE("_RSGALLERY_MAKECAT_ALERT_NAME",		"MusÌte zadaª n·zov galÈrie.");
+DEFINE("_RSGALLERY_MAKECAT_ALERT_DESCR",	"MusÌte zadaª popis.");
+DEFINE("_RSGALLERY_CREATE_GALLERY",			"Vytvoriª GalÈriu");
+DEFINE("_RSGALLERY_SAVE",					"Uloæiª");
+DEFINE("_RSGALLERY_CANCEL",					"Zruπiª");
+DEFINE("_RSGALLERY_CATLEVEL",				"Top galÈria");
+DEFINE("_RSGALLERY_USERCAT_NAME",			"N·zov galÈrie");
+DEFINE("_RSGALLERY_DESCR",					"Popis");
+DEFINE("_RSGALLERY_CATPUBLISHED",			"PublikovanÈ");
 //function edit_image
-DEFINE("_RSGALLERY_EDIT_IMAGE",				"Edituj fotku");
-DEFINE("_RSGALLERY_CAT_NAME",				"N√°zov kateg√≥rie");
-DEFINE("_RSGALLERY_EDIT_FILENAME",			"N√°zov s√∫boru");
+DEFINE("_RSGALLERY_EDIT_IMAGE",				"Upraviª obr·zok");
+DEFINE("_RSGALLERY_CAT_NAME",				"N·zov kategÛrie");
+DEFINE("_RSGALLERY_EDIT_FILENAME",			"Meno s˙boru");
 DEFINE("_RSGALLERY_EDIT_TITLE",			    "Titulok");
 DEFINE("_RSGALLERY_EDIT_DESCRIPTION",		"Popis");
 //function showFrontUpload
-DEFINE("_RSGALLERY_UPLOAD_ALERT_CAT",		"Mus√≠≈° vybra≈• gal√©riu.");
-DEFINE("_RSGALLERY_UPLOAD_ALERT_FILE",		"Mus√≠≈° vybra≈• s√∫bor, ktor√Ω chce≈° nahra≈•.");
-DEFINE("_RSGALLERY_ADD_IMAGE",				"Pridaj fotku");
-DEFINE("_RSGALLERY_USERUPLOAD_TITLE",		"U≈æ√≠vateƒæsk√© nahr√°vanie");
-DEFINE("_RSGALLERY_USERUPLOAD_CATEGORY",	"Gal√©ria");
-DEFINE("_RSGALLERY_FILENAME",				"N√°zov s√∫boru");
+DEFINE("_RSGALLERY_UPLOAD_ALERT_CAT",		"MusÌte zvoliª galÈriu.");
+DEFINE("_RSGALLERY_UPLOAD_ALERT_FILE",		"MusÌte zadaª s˙bor, ktor˝ chcete nahraª.");
+DEFINE("_RSGALLERY_ADD_IMAGE",				"Pridaª obr·zok");
+DEFINE("_RSGALLERY_USERUPLOAD_TITLE",		"UæÌvateµskÈ nahranie");
+DEFINE("_RSGALLERY_USERUPLOAD_CATEGORY",	"GalÈria");
+DEFINE("_RSGALLERY_FILENAME",				"Meno s˙boru");
 DEFINE("_RSGALLERY_UPLOAD_FORM_TITLE",		"Titulok");
-DEFINE("_RSGALLERY_UPLOAD_THUMB",			"N√°hƒæad:");
+DEFINE("_RSGALLERY_UPLOAD_THUMB",			"Obr·zok n·hµadu (thumb)");
 //function RSGalleryInline
-/*moved DEFINE("_RSGALLERY_COMMENT_DELETE",			"Are you sure you want to delete this comment?");*/
-DEFINE("_RSGALLERY_NOIMG",					"≈Ωiadne fotky v gal√©ri√≠");
-DEFINE("_RSGALLERY_SLIDESHOW",		        "Slideshow - prezent√°cia");
-DEFINE("_RSGALLERY_CATHITS",				"Poƒçet zobrazen√≠");
-DEFINE("_RSGALLERY_NODESCR",				"Bez popisu");
+DEFINE("_RSGALLERY_COMMENT_DELETE",			"Ste si ist˝, æe chcete zmazaª tento koment·r?");
+DEFINE("_RSGALLERY_NOIMG",					"GalÈria neobsahuje æiadne obr·zky.");
+DEFINE("_RSGALLERY_SLIDESHOW",		        "Premietanie");
+DEFINE("_RSGALLERY_CATHITS",				"ZobrazenÌ");
+DEFINE("_RSGALLERY_NODESCR",				"bez popisu");
 DEFINE("_RSGALLERY_VOTING",					"Hlasovanie");
-DEFINE("_RSGALLERY_VOTES_NR",				"Poƒçet hlasov");
+DEFINE("_RSGALLERY_VOTES_NR",				"Hlasov spolu");
 DEFINE("_RSGALLERY_VOTES_AVG",				"Priemer");
-DEFINE("_RSGALLERY_NO_RATINGS",				"Zatiaƒæ nehodnoten√©!");
-DEFINE("_RSGALLERY_VOTE",			   		"Hlasuj");
-/*deleted DEFINE("_RSGALLERY_VERYGOOD",				"&nbsp;Very Good&nbsp;");*/
-/*deleted DEFINE("_RSGALLERY_GOOD",					"&nbsp;Good&nbsp;");*/
-/*deleted DEFINE("_RSGALLERY_OK",					    "&nbsp;Ok&nbsp;");*/
-/*deleted DEFINE("_RSGALLERY_BAD",					"&nbsp;Bad&nbsp;");*/
-/*deleted DEFINE("_RSGALLERY_VERYBAD",				"&nbsp;Very Bad&nbsp;");*/
-/*moved DEFINE("_RSGALLERY_COMMENTS",			   	"Comments");*/
-/*deleted DEFINE("_RSGALLERY_NO_COMMENTS",			"No Comments Yet!");*/
-/*deleted DEFINE("_RSGALLERY_COMMENT_DATE",   		"Date");*/
-/*deleted DEFINE("_RSGALLERY_COMMENT_BY",     		"By");*/
-/*deleted DEFINE("_RSGALLERY_COMMENT_TEXT",   		"Comment");*/
-/*moved DEFINE("_RSGALLERY_DELETE_COMMENT",			"Delete Comment");*/
-/*moved DEFINE("_RSGALLERY_COMMENT_ADD",			"Add Comment");*/
-/*moved DEFINE("_RSGALLERY_COMMENT_NAME",   		"Your Name");*/
-/*moved DEFINE("_RSGALLERY_COMMENT_ADD_TEXT",   	"Your Comment");*/
+DEFINE("_RSGALLERY_NO_RATINGS",				"Zatiaµ nikto nehodnotil.");
+DEFINE("_RSGALLERY_VOTE",			   		"Hlasovaª");
+DEFINE("_RSGALLERY_VERYGOOD",				"&nbsp;V˝bornÈd&nbsp;");
+DEFINE("_RSGALLERY_GOOD",					"&nbsp;DobrÈ&nbsp;");
+DEFINE("_RSGALLERY_OK",					    "&nbsp;PriemernÈ&nbsp;");
+DEFINE("_RSGALLERY_BAD",					"&nbsp;ZlÈ&nbsp;");
+DEFINE("_RSGALLERY_VERYBAD",				"&nbsp;Veµmi zlÈ&nbsp;");
+DEFINE("_RSGALLERY_COMMENTS",			   	"Koment·re");
+DEFINE("_RSGALLERY_NO_COMMENTS",			"Zatiaµ æiadne koment·re.");
+DEFINE("_RSGALLERY_COMMENT_DATE",   		"D·tum");
+DEFINE("_RSGALLERY_COMMENT_BY",     		"Nahral");
+DEFINE("_RSGALLERY_COMMENT_TEXT",   		"Koment·r");
+DEFINE("_RSGALLERY_DELETE_COMMENT",			"Zmazaª koment·r");
+DEFINE("_RSGALLERY_COMMENT_ADD",			"Pridaª koment·r");
+DEFINE("_RSGALLERY_COMMENT_NAME",   		"Vaπe meno");
+DEFINE("_RSGALLERY_COMMENT_ADD_TEXT",   	"V·π koment·r");
 DEFINE("_RSGALLERY_EXIF",					"EXIF");
 //function RSGalleryTitleblock
-DEFINE("_RSGALLERY_MAIN_GALLERY_PAGE",		"Hlavn√° str√°nka gal√©rie");
-DEFINE("_RSGALLERY_MY_GALLERIES",			"Moje gal√©rie");
-DEFINE("_RSGALLERY_SLIDESHOW_EXIT",			"Ukonƒçi≈• prezent√°ciu");
-DEFINE("_RSGALLERY_COMPONENT_TITLE",		"Gal√©ria");
+DEFINE("_RSGALLERY_MAIN_GALLERY_PAGE",		"Hlavn· strana galÈrie");
+DEFINE("_RSGALLERY_MY_GALLERIES",			"Moje galÈrie");
+DEFINE("_RSGALLERY_SLIDESHOW_EXIT",			"Vypn˙ª premietanie");
+DEFINE("_RSGALLERY_COMPONENT_TITLE",		"GalÈria");
 //function subGalleryList
-DEFINE("_RSGALLERY_IMAGES",					" ");
-DEFINE("_RSGALLERY_SUB_GALLERIES",			"Subgal√©rie:");
+DEFINE("_RSGALLERY_IMAGES",					"Obr·zky");
+DEFINE("_RSGALLERY_SUB_GALLERIES",			"PodgalÈrie:");
 //function RSGalleryList
 //function RSShowPictures
-DEFINE("_RSGALLERY_DELIMAGE_TEXT"			,"Naozaj zmaza≈• fotku?");
+DEFINE("_RSGALLERY_DELIMAGE_TEXT"			,"Ste si ist˝, æe chcete odstr·niª tento obr·zok?");
 //function showMyGalleries
-DEFINE("_RSGALLERY_USER_MY_GAL",			"Moje gal√©rie");
-DEFINE("_RSGALLERY_MY_IMAGES_CATEGORY",		"Gal√©ria");
-DEFINE("_RSGALLERY_MY_IMAGES_PUBLISHED",	"Publikovan√°");
-DEFINE("_RSGALLERY_MY_IMAGES_DELETE",		"Zma≈æ");
-DEFINE("_RSGALLERY_MY_IMAGES_EDIT",			"Edituj");
-DEFINE("_RSGALLERY_MY_IMAGES_PERMISSIONS",	"U≈æ√≠vateƒæsk√° √∫rove≈à");
-DEFINE("_RSGALLERY_NO_USER_GAL",			"Neboli vytvoren√© ≈æiadne u≈æ√≠vateƒæsk√© gal√©rie");
-DEFINE("_RSGALLERY_DELCAT_TEXT",			"Naozaj zmaza≈• t√∫to gal√©riu?\\nAk obsahuje nejak√© fotky, tieto bud√∫ zmazan√© tie≈æ.");
+DEFINE("_RSGALLERY_USER_MY_GAL",			"Moje galÈrie");
+DEFINE("_RSGALLERY_MY_IMAGES_CATEGORY",		"GalÈria");
+DEFINE("_RSGALLERY_MY_IMAGES_PUBLISHED",	"PublikovanÈ");
+DEFINE("_RSGALLERY_MY_IMAGES_DELETE",		"Zmazaª");
+DEFINE("_RSGALLERY_MY_IMAGES_EDIT",			"Upraviª");
+DEFINE("_RSGALLERY_MY_IMAGES_PERMISSIONS",	"Pr·va");
+DEFINE("_RSGALLERY_NO_USER_GAL",			"Nie s˙ vytvorenÈ æiadne uæÌvateµskÈ galÈrie.");
+DEFINE("_RSGALLERY_DELCAT_TEXT",			"Naozaj chcete zmazaª t˙to galÈriu vπetky obr·zky, ktorÈ obsahuje?");
 //function showMyImages
-DEFINE("_RSGALLERY_MY_IMAGES",				"Moje fotky");
-DEFINE("_RSGALLERY_MY_IMAGES_NAME",			"N√°zov");
-DEFINE("_RSGALLERY_NOIMG_USER",				"≈Ωiadne fotky v u≈æ√≠vateƒæsk√Ωch gal√©ri√°ch");
+DEFINE("_RSGALLERY_MY_IMAGES",				"Moje obr·zky");
+DEFINE("_RSGALLERY_MY_IMAGES_NAME",			"Meno");
+DEFINE("_RSGALLERY_NOIMG_USER",				"Æiadne obr·zky v uæÌvateµsk˝ch galÈri·ch.");
 //function RSGalleryUserInfo
-DEFINE("_RSGALLERY_USER_INFO",				"Inform√°cie o u≈æ√≠vateƒæovi");
-DEFINE("_RSGALLERY_USER_INFO_NAME",			"U≈æ√≠vateƒæsk√© meno");
-DEFINE("_RSGALLERY_USER_INFO_ACL",			"√örove≈à u≈æ√≠vateƒæa");
-DEFINE("_RSGALLERY_USER_INFO_MAX_GAL",		"Max. u≈æ√≠vateƒæsk√Ωch gal√©ri√≠");
-DEFINE("_RSGALLERY_USER_INFO_CREATED",				"vytvoren√©)");
-DEFINE("_RSGALLERY_USER_INFO_MAX_IMG",		"Max. fotiek povolen√Ωch");
-DEFINE("_RSGALLERY_USER_INFO_UPL",			"nahrat√©)");
+DEFINE("_RSGALLERY_USER_INFO",				"Podrobnosti o uæÌvateµovi");
+DEFINE("_RSGALLERY_USER_INFO_NAME",			"UæÌvateµskÈ meno");
+DEFINE("_RSGALLERY_USER_INFO_ACL",			"UæÌvateµsk· ˙roveÚ");
+DEFINE("_RSGALLERY_USER_INFO_MAX_GAL",		"Maximlny poËet pouæÌvateµsk˝ch galÈriÌ");
+DEFINE("_RSGALLERY_USER_INFO_CREATED",		"vytvorenÈ)");
+DEFINE("_RSGALLERY_USER_INFO_MAX_IMG",		"Maxim·lny poËet obr·zkov");
+DEFINE("_RSGALLERY_USER_INFO_UPL",			"nahranÈ)");
 //function myGalleries
-DEFINE("_RSGALLERY_USERGAL_DISABLED",		"U≈æ√≠vateƒæsk√© gal√©rie boli vypnut√© administr√°torom.");
 //function showRandom
-DEFINE("_RSGALLERY_RANDOM_TITLE",			"N√°hodn√© fotky");
+DEFINE("_RSGALLERY_RANDOM_TITLE",			"N·hodne vybratÈ obr·zky");
 //function showLatest
-DEFINE("_RSGALLERY_LATEST_TITLE",			"Najnov≈°ie fotky");
+DEFINE("_RSGALLERY_LATEST_TITLE",			"Najnovπie obr·zky");
 
 //rsgallery2.php
 //function my_galleries
-DEFINE("_RSGALLERY_NO_USERCATS",            "U≈æ√≠vateƒæsk√© gal√©rie s√∫ vypnut√© administr√°torom");
-DEFINE("_RSGALLERY_MYGAL_NOT_AUTH",			"Neautorizovan√Ω pr√≠stup do Mojich gal√©ri√≠!");
+DEFINE("_RSGALLERY_NO_USERCATS",            "UæÌvateµskÈ galÈrie s˙ vypnutÈ administr·torom");
 //function save_image
-DEFINE("_RSGALLERY_SAVE_SUCCESS",		    "Detaily √∫spe≈°ne ulo≈æen√©");
-DEFINE("_RSGALLERY_ERROR_SAVE",				"Chyba: ");
-//function viewChangelog
-DEFINE("_RSGALLERY_FEAT_INDEBUG",			"Znak pr√≠stupn√Ω len v Debug m√≥de.");
+DEFINE("_RSGALLERY_SAVE_SUCCESS",		    "Popis ˙speπne uloæen˝");
 //function delete_image
-DEFINE("_RSGALLERY_USERIMAGE_NOTOWNER",		"Niesi vlastn√≠kom tejto fotky, nasp√§≈• na z√°kladn√∫ obrazovku");
-DEFINE("_RSGALLERY_DELIMAGE_OK",			"Fotka vymazan√°");
-DEFINE("_RSGALLERY_DELIMAGE_NOID",			"Neposkytnut√© ID. Kontaktuj v√Ωvoj√°ra komponentu");
+DEFINE("_RSGALLERY_USERIMAGE_NOTOWNER",		"Nie ste vlastnÌk tohto obr·zku");
+DEFINE("_RSGALLERY_DELIMAGE_OK",			"Obr·zok bol zmazan˝");
+DEFINE("_RSGALLERY_DELIMAGE_NOID",			"Obr·zok nem· ID. Kontaktujte v˝voj·rov RSGallery");
 //function addVote
-DEFINE("_RSGALLERY_THANK_VOTING",			"Vƒèaka za Va≈°e hodnotenie");
-DEFINE("_RSGALLERY_VOTING_FAILED",			"Hlasovanie ne√∫spe≈°n√©");
+DEFINE("_RSGALLERY_THANK_VOTING",			"œakujeme za v·π hlas!");
+DEFINE("_RSGALLERY_VOTING_FAILED",			"Hlasovanie zlyhalo");
 //function deleteComment
-DEFINE("_RSGALLERY_COMMENT_DELETED",		"Koment√°r √∫spe≈°ne vymazan√Ω!");
-DEFINE("_RSGALLERY_COMMENT_NOT_DELETED",	"Koment√°r sa ned√° vymaza≈•");
+DEFINE("_RSGALLERY_COMMENT_DELETED",		"Koment·r ˙speπne zmazan˝");
+DEFINE("_RSGALLERY_COMMENT_NOT_DELETED",	"Koment·r nemohol byª zmazan˝");
 //function addComment
-DEFINE("_RSGALLERY_COMMENT_FIELD_CHECK",	"Zadaj n√°zov a/alebo koment√°r!");
-DEFINE("_RSGALLERY_COMMENT_ADDED",			"Koment√°r √∫spe≈°ne pridan√Ω!");
-DEFINE("_RSGALLERY_COMMENT_NOT_ADDED",		"Koment√°r nepridan√Ω!");
+DEFINE("_RSGALLERY_COMMENT_FIELD_CHECK",	"ProsÌm vyplÚte Vaπe meno a V·π koment·r");
+DEFINE("_RSGALLERY_COMMENT_ADDED",			"Koment·r ˙speπne pridan˝");
+DEFINE("_RSGALLERY_COMMENT_NOT_ADDED",		"Koment·r nebol pridan˝");
 //function makeusercat
-DEFINE("_RSGALLERY_ALERT_CATDETAILSOK",		"Detaily gal√©rie aktualizovan√©!");
-DEFINE("_RSGALLERY_ALERT_CATDETAILSNOTOK",	"Nemo≈æno aktualizova≈• detaily gal√©rie!");
-DEFINE("_RSGALLERY_MAX_USERCAT_ALERT",		"Dosiahnut√Ω maxim√°lny poƒçet gal√©ri√≠, nasp√§≈• na z√°kladn√∫ obrazovku");
-DEFINE("_RSGALLERY_ALERT_NEWCAT",			"Nov√° gal√©ria vytvoren√°!");
-DEFINE("_RSGALLERY_ALERT_NONEWCAT",			"Nemo≈æno vytvori≈• gal√©riu!\\nVraciame sa na predch√°dzaj√∫cu obrazovku.");
+DEFINE("_RSGALLERY_ALERT_CATDETAILSOK",		"Detaily galÈrie boli zmenenÈ");
+DEFINE("_RSGALLERY_ALERT_CATDETAILSNOTOK",	"Detaily galÈrie sa nepodarilo zmeniª");
+DEFINE("_RSGALLERY_MAX_USERCAT_ALERT",		"•utujeme, bol dosiahnut˝ maxim·lny poËet galÈriÌ");
+DEFINE("_RSGALLERY_ALERT_NEWCAT",			"GalÈria bola ˙speπne vytvoren·");
+DEFINE("_RSGALLERY_ALERT_NONEWCAT",			"Nepodarilo sa vytvoriª galÈriu");
 //function delUserCat
-DEFINE("_RSGALLERY_USERCAT_SUBCATS",        "T√°to gal√©ria obsahuje podkateg√≥rie a nemo≈æno ju vymaza≈•. Ak ju chce≈° vymaza≈•, mus√≠≈° najprv vymaza≈• alebo presun√∫≈• tieto podkateg√≥rie");
-DEFINE("_RSGALLERY_ALERT_CATDELNOTOK",		"Gal√©riu nemo≈æno vymaza≈•!");
-DEFINE("_RSGALLERY_ALERT_CATDELOK",			"Gal√©ria vymazan√°!");
+DEFINE("_RSGALLERY_USERCAT_SUBCATS",        "T·to galÈria obsahuje podgalÈrie a preto nemÙæe byª zmazan·. Ak chcete galÈriu odstr·niª, najprv premiestniªe alebo zmaæte podgalÈrie");
+DEFINE("_RSGALLERY_ALERT_CATDELNOTOK",		"GalÈria nemohla byª zmazan·");
+DEFINE("_RSGALLERY_ALERT_CATDELOK",			"GalÈria bola ˙speπne zmazan·");
 //function doFrontUpload
-DEFINE("_RSGALLERY_MAX_USERIMAGES_ALERT",   "Dosiahnut√© maximum nahrat√Ωch fotiek. Najprv nejak√© vyma≈æ.");
-DEFINE("_RSGALLERY_BATCH_ERROR_SIZE",		"ZIP-s√∫bor je pr√≠li≈° veƒæk√Ω. Limit na nahr√°vanie(definovan√Ω v php.ini) je ");
-DEFINE("_RSGALLERY_ALERT_UPLOADOK",			"Polo≈æka √∫spe≈°ne nahrat√°!");
-DEFINE("_RSGALLERY_ALERT_NOWRITE",			"Nahr√°vanie zlyhalo.\\nNasp√§≈• na obrazovku nahr√°vania");
-DEFINE("_RSGALLERY_ALERT_WRONGFORMAT",		"Nespr√°vny form√°t fotky.\\nIdeme nasp√§≈• na obrazovku nahr√°vania");
+DEFINE("_RSGALLERY_MAX_USERIMAGES_ALERT",   "Bol dosiahnut˝ maxim·lny poËet nahran˝ch obr·zkov. Vymaæte prosÌm nejakÈ obr·zky");
+DEFINE("_RSGALLERY_BATCH_ERROR_SIZE",		"BalÌk ZIP je pre nahranie prÌliπ veµk˝. V·π limit pre nahranie (zadan˝ v php.ini) je ");
+DEFINE("_RSGALLERY_ALERT_UPLOADOK",			"Obr·zok bol ˙speπne nahran˝");
+DEFINE("_RSGALLERY_ALERT_NOWRITE",			"Nahranie obr·zku zlyhalo");
+DEFINE("_RSGALLERY_ALERT_WRONGFORMAT",		"Nespr·vny form·t obr·zku");
 
 //admin.rsgallery2.html.php
-DEFINE("_RSGALLERY_TAB_GALLERIES",			"Gal√©rie");
-DEFINE("_RSGALLERY_MOST_RECENT_GAL",		"Najnov≈°ie pridan√© gal√©rie");
-DEFINE("_RSGALLERY_GALLERY",				"Gal√©ria");
-DEFINE("_RSGALLERY_USER",					"U≈æ√≠vateƒæ");
+DEFINE("_RSGALLERY_TAB_GALLERIES",			"GalÈrie");
+DEFINE("_RSGALLERY_MOST_RECENT_GAL",		"Najnovπie galÈrie");
+DEFINE("_RSGALLERY_GALLERY",				"GalÈria");
+DEFINE("_RSGALLERY_USER",					"UæÌvateµ");
 DEFINE("_RSGALLERY_ID",						"ID");
-DEFINE("_RSGALLERY_TAB_IMAGES",				"Polo≈æky");
-DEFINE("_RSGALLERY_MOST_RECENT_IMG", 		"Najnov≈°ie pridan√© polo≈æky");
-DEFINE("_RSGALLERY_DATE",					"D√°tum");
-DEFINE("_RSGALLERY_CREDITS",				"Kredity");
-DEFINE("_RSGALLERY_INSTALLED_VERSION",		"In≈°talovan√° verzia");
-DEFINE("_RSGALLERY_LICENSE",				"Licencia");
+DEFINE("_RSGALLERY_TAB_IMAGES",				"Obr·zky");
+DEFINE("_RSGALLERY_MOST_RECENT_IMG", 		"Najnovπie obr·zky");
+DEFINE("_RSGALLERY_DATE",					"D·tum");
+DEFINE("_RSGALLERY_CREDITS",				"Credits");
+DEFINE("_RSGALLERY_INSTALLED_VERSION",		"Inπtalovan· verzia");
+/*new*/DEFINE("_RSGALLERY_LICENSE",			"Licencia");
 //Cpanel
-DEFINE("_RSGALLERY_C_CONFIG",				"Konfigur√°cia");
-DEFINE("_RSGALLERY_C_UPLOAD",				"Nahr√°vanie");
-DEFINE("_RSGALLERY_C_UPLOAD_ZIP",			"D√°vkov√© (ZIP) nahr√°vanie");
-DEFINE("_RSGALLERY_C_IMAGES",				"Spr√°va polo≈æiek");
-DEFINE("_RSGALLERY_C_CATEGORIES",			"Spr√°va gal√©ri√≠");
-DEFINE("_RSGALLERY_C_DATABASE",				"Konsolid√°cia datab√°zy");
-DEFINE("_RSGALLERY_C_MIGRATION",			"Nastavenia migr√°cie");
-DEFINE("_RSGALLERY_C_CSS_EDIT",				"Edit√°cia CSS");
-DEFINE("_RSGALLERY_C_DEBUG_ON",				"Pokroƒçil√© nastavenia vylaƒèovania.  Vylaƒèovac√≠ m√≥d je <a href='index2.php?option=com_rsgallery2&task=showConfig'>nastaven√Ω takto</a>.");
-DEFINE("_RSGALLERY_C_PURGE",				"Vymaza≈•/zlikvidova≈• v≈°etko");
-DEFINE("_RSGALLERY_C_REALLY_UNINSTALL",		"NAOZAJ odin≈°talova≈• - vyma≈æe v≈°etky fotky, adres√°re, vyƒçist√≠ v≈°etky tabuƒæky. Len na Linuxe so z√°kladn√Ωm adres√°rom.");
-DEFINE("_RSGALLERY_C_VIEW_CONFIG",			"Konfigur√°cia - Prehƒæad");
-DEFINE("_RSGALLERY_C_EDIT_CONFIG",			"Konfigur√°cia - Hrub√°/Raw edit√°cia");
-//function showInstallForm
-DEFINE("_RSGALLERY_INST_UPL_PCK_FILE",		"Nahraj Package s√∫bor");
-DEFINE("_RSGALLERY_INST_PCK_FILE",		"Package s√∫bor:");
-//function showInstallMessage
-DEFINE("_RSGALLERY_INST_MES_CONTINUE",	"Pokraƒçuj ...");
+DEFINE("_RSGALLERY_C_CONFIG",				"Konfigur·cia");
+DEFINE("_RSGALLERY_C_UPLOAD",				"Nahranie obr·zku");
+DEFINE("_RSGALLERY_C_UPLOAD_ZIP",			"Nahranie balÌku ZIP");
+DEFINE("_RSGALLERY_C_IMAGES",				"Spravovaª obr·zky");
+DEFINE("_RSGALLERY_C_CATEGORIES",			"Spravovaª kategÛrie");
+DEFINE("_RSGALLERY_C_DATABASE",				"Skonsolidovaª datab·zu");
+DEFINE("_RSGALLERY_C_MIGRATION",			"Nastavenia migr·cie");
+DEFINE("_RSGALLERY_C_CSS_EDIT",				"Upraviª CSS s˙bor");
+DEFINE("_RSGALLERY_C_DEBUG_ON",				"RozπÌrenÈ moænosti ladenia. MÛd ladenia je nastaven˝ v <a href='index2.php?option=com_rsgallery2&task=showConfig'>konfigur·ciÌ</a>.");
+DEFINE("_RSGALLERY_C_PURGE",				"Uvoµniª/zmazaª vπetko");
+DEFINE("_RSGALLERY_C_REALLY_UNINSTALL",		"NAOZAJ odinπtalovaª - odstr·niª vπetky obr·zky, adres·re, uvoµniª vπetky tabuµky. Len na Linuxe s v˝chodzÌmi adres·rmi.");
+DEFINE("_RSGALLERY_C_VIEW_CONFIG",			"Konfigur·cia - zobraziª");
+DEFINE("_RSGALLERY_C_EDIT_CONFIG",			"Konfigur·cia - RAW ˙prava");
 //function requestCatCreation
-DEFINE("_RSGALLERY_C_CAT_FIRST",			"Najprv vytvor kateg√≥riu!");
+DEFINE("_RSGALLERY_C_CAT_FIRST",			"Vytvorte najprv kategÛriu");
 //function batch_upload
-DEFINE("_RSGALLERY_BATCH_NO_ZIP",			"Nahratie ZIP vybrat√©, ale ≈æiaden s√∫bor zvolen√Ω");
-DEFINE("_RSGALLERY_BACTCH_NOT_VALID_ZIP",		" nieje platn√Ω arch√≠vny form√°t. Povolen√© s√∫ iba ZIP-s√∫bory!");
-DEFINE("_RSGALLERY_BATCH_GAL_FIRST",		"Najprv vyber kateg√≥riu");
-DEFINE("_RSGALLERY_BATCH_NO_FTP",			"FTP nahr√°vanie vybrat√©, ale ≈æiadna FTP-cesta zadan√°");
+DEFINE("_RSGALLERY_BATCH_NO_ZIP",			"Nebol zvolen˝ æiadny balÌk ZIP pre nahranie");
+DEFINE("_RSGALLERY_BATCH_GAL_FIRST",		"ProsÌm vyberte najprv galÈriu");
+DEFINE("_RSGALLERY_BATCH_NO_FTP",			"Nebola zadan· æiadna FTP cesta pre nahranie");
 DEFINE("_RSGALLERY_BATCH_STEP1",			"Krok 1");
-DEFINE("_RSGALLERY_BATCH_METHOD",			"Vyber ako nahra≈•");
-DEFINE("_RSGALLERY_BATCH_METHOD_TIP",		"Vyber, ƒçi nahra≈• jeden s√∫bor, ZIP-s√∫bor, alebo cel√Ω adres√°r");
-DEFINE("_RSGALLERY_BATCH_ZIPFILE",			"ZIP-s√∫bor");
-DEFINE("_RSGALLERY_BATCH_UPLOAD_LIMIT",		"Limit nahr√°vania je ");
-DEFINE("_RSGALLERY_BATCH_IN_PHPINI",		" MB (nastaven√© v php.ini)");
-DEFINE("_RSGALLERY_BATCH_FTP_PATH",			"FTPcesta");
-DEFINE("_RSGALLERY_BATCH_DONT_FORGET_SLASH","(vr√°tane poƒçiatoƒçn√©ho a koneƒçn√©ho lom√≠tka)");
-DEFINE("_RSGALLERY_BATCH_CATEGORY",			"Vyber gal√©riu");
-DEFINE("_RSGALLERY_BATCH_YES_IMAGES_IN",	"√Åno, v≈°etko do");
-DEFINE("_RSGALLERY_BATCH_NO_SPECIFY",		"Nie, ≈°pecifikuj gal√©riu po fotk√°ch v kroku 2");
-DEFINE("_RSGALLERY_BATCH_NEXT",				"ƒéal≈°ia -->");
-DEFINE("_RSGALLERY_BATCH_DELETE",	"Vyma≈æ");
-DEFINE("_RSGALLERY_BATCH_TITLE",		"Titulok");
-DEFINE("_RSGALLERY_BATCH_GAL",		"Gal√©ria");
-DEFINE("_RSGALLERY_BATCH_UPLOAD",	"Nahraj");
-DEFINE("_RSGALLERY_BATCH_FTP_PATH_OVERL",	"Skontroluj FTP-cestu, ƒçi je v ≈°trukt√∫re webu. Nesmie by≈• na inom serveri! A zakonƒçi lom√≠tkom.");
+DEFINE("_RSGALLERY_BATCH_METHOD",			"Zvoµte metÛdu nahrania");
+DEFINE("_RSGALLERY_BATCH_METHOD_TIP",		"Zvoµte, Ëi chcete nahraª jeden s˙bor, balÌk ZIP alebo cel˝ adres·r.");
+DEFINE("_RSGALLERY_BATCH_ZIPFILE",			"BalÌk ZIP");
+DEFINE("_RSGALLERY_BATCH_UPLOAD_LIMIT",		"Limit veµkosti pre nahranie je ");
+DEFINE("_RSGALLERY_BATCH_IN_PHPINI",		" MB (nastaven˝ v php.ini)");
+DEFINE("_RSGALLERY_BATCH_FTP_PATH",			"FTP cesta");
+DEFINE("_RSGALLERY_BATCH_DONT_FORGET_SLASH","(Vr·tane zaËiatoËnÈho a koneËnÈho lomÌtka)");
+DEFINE("_RSGALLERY_BATCH_CATEGORY",			"Zvoµte galÈriu");
+DEFINE("_RSGALLERY_BATCH_YES_IMAGES_IN",	"Vπetky obr·zky nahraª do zloæky: ");
+DEFINE("_RSGALLERY_BATCH_NO_SPECIFY",		"Zvoliª cieµ nahrania pre kaæd˝ obr·zok individu·lne v kroku 2");
+DEFINE("_RSGALLERY_BATCH_NEXT",				"œalej -->");
+/*new*/DEFINE("_RSGALLERY_BATCH_DELETE",	"Vymazaª");
+/*new*/DEFINE("_RSGALLERY_BATCH_TITLE",		"Titul");
+/*new*/DEFINE("_RSGALLERY_BATCH_GAL",		"GalÈria");
+/*new*/DEFINE("_RSGALLERY_BATCH_UPLOAD",	"Nahranie");
 //function editImage
-DEFINE("_RSGALLERY_PROP_TITLE",				"Edituj popis fotky");
-DEFINE("_RSGALLERY_TITLE",					"Titulok");
-DEFINE("_RSGALLERY_CONF_OPTION_TABLE",		"Tabuƒæka");
-DEFINE("_RSGALLERY_CONF_OPTION_FLOAT",		"Pl√°vaj√∫c");
-DEFINE("_RSGALLERY_CONF_OPTION_MAGIC",		"Magic(zatiaƒæ nepodporovan√©!)");
-DEFINE("_RSGALLERY_CONF_OPTION_L2R",		"Z ƒæava do prava");
-DEFINE("_RSGALLERY_CONF_OPTION_R2L",		"Z prava do ƒæava");
-DEFINE("_RSGALLERY_CONF_OPTION_PROP",		"Proporcion√°lne");
-DEFINE("_RSGALLERY_CONF_OPTION_SQUARE",		"≈†tvorec");
-DEFINE("_RSGALLERY_CONF_OPTION_DEFAULT_SIZE",		"Z√°kladn√° veƒækos≈•");
-DEFINE("_RSGALLERY_CONF_OPTION_REZ_LARGE",		"Zmen≈°i≈• v√§ƒç≈°ie fotky");
-DEFINE("_RSGALLERY_CONF_OPTION_REZ_SMALL",		"Zv√§ƒç≈°i≈• men≈°ie fotky");
-DEFINE("_RSGALLERY_CONF_OPTION_REZ_2FIT",		"Prisp√¥sobi≈• veƒækos≈•");
-DEFINE("_RSGALLERY_CONF_OPTION_TL",		"Vƒæavo hore");
-DEFINE("_RSGALLERY_CONF_OPTION_TC",		"Hore v strede");
-DEFINE("_RSGALLERY_CONF_OPTION_TR",		"Vpravo hore");
-DEFINE("_RSGALLERY_CONF_OPTION_L",		"Vƒæavo");
-DEFINE("_RSGALLERY_CONF_OPTION_C",		"V strede");
+DEFINE("_RSGALLERY_PROP_TITLE",				"Upraviª vlastnosti obr·zku");
+DEFINE("_RSGALLERY_TITLE",					"Titul");
+DEFINE("_RSGALLERY_CONF_OPTION_TABLE",		"Tabuµka");
+DEFINE("_RSGALLERY_CONF_OPTION_FLOAT",		"Pohybliv˝");
+DEFINE("_RSGALLERY_CONF_OPTION_MAGIC",		"Magic (zatiaµ nepodporovanÈ!)");
+DEFINE("_RSGALLERY_CONF_OPTION_L2R",		"Zµava doprava");
+DEFINE("_RSGALLERY_CONF_OPTION_R2L",		"Sprava doµava");
+DEFINE("_RSGALLERY_CONF_OPTION_PROP",		"ProporËne");
+DEFINE("_RSGALLERY_CONF_OPTION_SQUARE",		"©tvorec");
+DEFINE("_RSGALLERY_CONF_OPTION_DEFAULT_SIZE",	"V˝chodzia veµkosª");
+DEFINE("_RSGALLERY_CONF_OPTION_REZ_LARGE",		"Zmenπiª v‰Ëπie obr·zky");
+DEFINE("_RSGALLERY_CONF_OPTION_REZ_SMALL",		"Zv‰Ëπiª menπie obr·zky");
+DEFINE("_RSGALLERY_CONF_OPTION_REZ_2FIT",		"Upraviª veµkosª pre prispÙsobenie");
+DEFINE("_RSGALLERY_CONF_OPTION_TL",		"Hore vµavo");
+DEFINE("_RSGALLERY_CONF_OPTION_TC",		"Hore na stred");
+DEFINE("_RSGALLERY_CONF_OPTION_TR",		"Hore vpravo");
+DEFINE("_RSGALLERY_CONF_OPTION_L",		"Vµavo");
+DEFINE("_RSGALLERY_CONF_OPTION_C",		"Na stred");
 DEFINE("_RSGALLERY_CONF_OPTION_R",		"Vpravo");
-DEFINE("_RSGALLERY_CONF_OPTION_BL",		"Dolu vƒæavo");
-DEFINE("_RSGALLERY_CONF_OPTION_BC",		"V strede dolu");
-DEFINE("_RSGALLERY_CONF_OPTION_BR",		"Vpravo dolu");
-DEFINE("_RSGALLERY_CONF_POPUP_STYLE",		"≈†t√Ωl vyskakovania (popup) okien");
-DEFINE("_RSGALLERY_CONF_POPUP_NO",		"Bez vyskakovania (popup)");
-DEFINE("_RSGALLERY_CONF_POPUP_NORMAL",		"Norm√°lne vyskakovanie (popup)");
-DEFINE("_RSGALLERY_CONF_POPUP_FANCY",		"Efektn√© vyskakovanie (popup), rob√≠ chyby v IE6!");
+DEFINE("_RSGALLERY_CONF_OPTION_BL",		"Dolu vµavo");
+DEFINE("_RSGALLERY_CONF_OPTION_BC",		"Dolu na stred");
+DEFINE("_RSGALLERY_CONF_OPTION_BR",		"Dolu vpravo");
+DEFINE("_RSGALLERY_CONF_POPUP_STYLE",	"©t˝l vyskakovania");
+DEFINE("_RSGALLERY_CONF_POPUP_NO",		"Æiadne vyskakovanie");
+DEFINE("_RSGALLERY_CONF_POPUP_NORMAL",	"ObyËajnÈ vyskakovanie");
+DEFINE("_RSGALLERY_CONF_POPUP_FANCY",	"EfektnÈ vyskakovanie (Chyby v IE6!)");
 //function showconfig
-DEFINE("_RSGALLERY_FREETYPE_INSTALLED",		"(Freetype knihov≈àa in≈°talovan√°, vodoznak mo≈æn√Ω)");
-DEFINE("_RSGALLERY_FREETYPE_NOTINSTALLED",	"(Freetype knihov≈àa NIEJE in≈°talovan√°! Vodoznak nedostupn√Ω)");
-DEFINE("_RSGALLERY_CONF_GENERALTAB",		"V≈°eobecne");
-DEFINE("_RSGALLERY_CONF_IMAGESTAB",			"Fotky");
-DEFINE("_RSGALLERY_CONF_DISPLAY",			"Zobrazenie");
-DEFINE("_RSGALLERY_CONF_USERS",				"Opr√°vnenia");
-DEFINE("_RSGALLERY_CONF_LIMIT_NEV",		"Nikdy");
-DEFINE("_RSGALLERY_CONF_LIMIT_LIMIT",	"Pokiaƒæ viacero gal√©ri√≠, tak limitovan√©");
-DEFINE("_RSGALLERY_CONF_LIMIT_ALW",		"V≈ædy");
-
-
+DEFINE("_RSGALLERY_FREETYPE_INSTALLED",		"(Freetype kniænica je nainπtalovan·, vodotlaË je dostupn·)");
+DEFINE("_RSGALLERY_FREETYPE_NOTINSTALLED",	"(Freetype kniænica nie je nainπtalovan·, vodotlaË nefunguje)");
+DEFINE("_RSGALLERY_CONF_GENERALTAB",		"HlavnÈ");
+DEFINE("_RSGALLERY_CONF_IMAGESTAB",		"Obr·zky");
+DEFINE("_RSGALLERY_CONF_DISPLAY",		"Zobrazenie");
+DEFINE("_RSGALLERY_CONF_USERS",		"Pr·va");
 //function showUploadStep1
-DEFINE("_RSGALLERY_PICK",					"Vyber gal√©riu");
+DEFINE("_RSGALLERY_PICK",					"Zvoµte galÈriu");
 //function showUploadStep2
 DEFINE("_RSGALLERY_BATCH_STEP2",			"Krok 2");
-DEFINE("_RSGALLERY_UPLOAD_NUMBER",			"Poƒçet nahr√°van√≠");
+DEFINE("_RSGALLERY_UPLOAD_NUMBER",			"PoËet nahranÌ");
 //function showUploadStep3
 DEFINE("_RSGALLERY_BATCH_STEP3",			"Krok 3");
-DEFINE("_RSGALLERY_UPLOAD_FORM_IMAGE",		"Fotka");
-DEFINE("_RSGALLERY_CATNAME",				"N√°zov gal√©rie");
-DEFINE("_RSGALLERY_UPLOAD_FORM_FILE",		"S√∫bor");
+DEFINE("_RSGALLERY_UPLOAD_FORM_IMAGE",		"Obr·zok");
+DEFINE("_RSGALLERY_CATNAME",				"GalÈria");
+DEFINE("_RSGALLERY_UPLOAD_FORM_FILE",		"S˙bor");
 //function viewImages
-DEFINE("_RSGALLERY_NO_PREVIEW ",		"N√°hƒæad nedostupn√Ω");
-DEFINE("_RSGALLERY_DELETE",					"Vyma≈æ");
-DEFINE("_RSGALLERY_MOVETO",					"Presu≈à do");
-DEFINE("_RSGALLERY_COPYIMAGE",				"Kop√≠ruj");
-DEFINE("_RSGALLERY_NUMDISPLAY",				"Zobraz #");
-DEFINE("_RSGALLERY_SEARCH",					"Vyhƒæadaj");
-DEFINE("_RSGALLERY_IMAGENAME",				"N√°zov");
-DEFINE("_RSGALLERY_IMAGEFILE",				"N√°zov s√∫boru");
-DEFINE("_RSGALLERY_IMAGECAT",				"Gal√©ria");
-DEFINE("_RSGALLERY_IMAGEHITS",				"Zobrazenia");
-DEFINE("_RSGALLERY_IMAGEDATE",				"D√°tum nahratia");
-DEFINE("_RSGALLERY_REORDER",				"Preskup");
-DEFINE("_RSGALLERY_SEL_TO_DEL",		"Vyber, ƒço vymaza≈•");
-DEFINE("_RSGALLERY_SURE_DEL",		"Urƒçite vymaza≈•? ");
-DEFINE("_RSGALLERY_SEL_TO_MOVE",		"Vyber, ƒço presun√∫≈•");
-DEFINE("_RSGALLERY_SEL_GAL_TO_MOVE",	"Vyber gal√©riu do ktorej fotky presun√∫≈•");
-DEFINE("_RSGALLERY_SURE_MOVE",		"Urƒçite presun√∫≈•?");
-DEFINE("_RSGALLERY_ORDER_UP",		"Presu≈à hore");
-DEFINE("_RSGALLERY_ORDER_DOWN",		"Presu≈à dolu");
-
-//function showTemplates
-DEFINE("_RSGALLERY_TEMP_MANG",				"Spr√°va ≈°abl√≥n");
-DEFINE("_RSGALLERY_RSG_NAME",				"RSGallery2");
-DEFINE("_RSGALLERY_TEMP_PREV",				"N√°hƒæad ≈°abl√≥ny");
+DEFINE("_RSGALLERY_DELETE",					"Zmazaª");
+DEFINE("_RSGALLERY_MOVETO",					"Premiestniª do");
+DEFINE("_RSGALLERY_NUMDISPLAY",				"Zobraziª #ID");
+DEFINE("_RSGALLERY_SEARCH",					"Vyhµadaª");
+DEFINE("_RSGALLERY_IMAGENAME",				"N·zov");
+DEFINE("_RSGALLERY_IMAGEFILE",				"Meno s˙boru");
+DEFINE("_RSGALLERY_IMAGECAT",				"GalÈria");
+DEFINE("_RSGALLERY_IMAGEHITS",				"ZobrazenÌ");
+DEFINE("_RSGALLERY_IMAGEDATE",				"NahranÈ");
+DEFINE("_RSGALLERY_REORDER",				"Znovu usporiadaª");
 //function consolidateDbGo
-DEFINE("_RSGALLERY_CONSDB_IN_DB",			"V<br>datab√°ze");
-DEFINE("_RSGALLERY_CONSDB_DISP",			"Zobraz<br>adres√°r");
-DEFINE("_RSGALLERY_CONSDB_ORIG",			"P√¥vodn√Ω<br>adres√°r");
-DEFINE("_RSGALLERY_CONSDB_THUMB",			"N√°hƒæady (thumb)<br>adres√°r");
+DEFINE("_RSGALLERY_CONSDB_IN_DB",			"V<br>datab·zi");
+DEFINE("_RSGALLERY_CONSDB_DISP",			"Zobraziª<br>zloæku");
+DEFINE("_RSGALLERY_CONSDB_ORIG",			"PÙvodn·<br>zloæka");
+DEFINE("_RSGALLERY_CONSDB_THUMB",			"Zloæka<br>n·hµadu");
 DEFINE("_RSGALLERY_CONSDB_ACT",				"Akcia");
-DEFINE("_RSGALLERY_CONSDB_DELETE_DB",		"[&nbsp;Vyma≈æ z datab√°zy&nbsp;]");
-DEFINE("_RSGALLERY_CONSDB_CREATE_IMG",		"[&nbsp;Vytvor ch√Ωbaj√∫ce fotky&nbsp;]");
-DEFINE("_RSGALLERY_CONSDB_CREATE_DB",		"[&nbsp;Vytvor datab√°zov√∫ polo≈æku&nbsp;]");
-DEFINE("_RSGALLERY_CONSDB_DELETE_IMG",		"[&nbsp;Vyma≈æ fotky&nbsp;]");
-DEFINE("_RSGALLERY_CONSDB_NO_INCOS",		"Na serveri nies√∫ ≈æiadne nezrovnalosti medzi datab√°zou a ≈°trukt√∫rou s√∫borov");
-DEFINE("_RSGALLERY_CONSDB_NOTICE",	"&nbsp;<span style='text-size: 14px;font-weight:bold;'>OZNAM</span>:<br />N√°stroj konsolid√°cie datab√°z je z funkƒçn√Ω. N√°stroj 'Vytvor datab√°zov√∫ polo≈æku' je taktie≈æ pridan√Ω.<br />Naraz v≈°ak nemo≈æno prid√°va≈• viacero polo≈æiek. Treba ich prid√°va≈• po jednej!");
-DEFINE("_RSGALLERY_NOT_WORKING",		"Zatiaƒæ nefunguje");
-DEFINE("_RSGALLERY_DEL_FROM_SYSTEM",		"Vyma≈æ zo s√∫borov√©ho syst√©mu");
-DEFINE("_RSGALLERY_CREATE_MISSING_IMG",		"Vytvor ch√Ωbaj√∫ce fotky");
-DEFINE("_RSGALLERY_CREATE_DB_ENTRIES",		"Vytvor datab√°zov√© polo≈æky");
-DEFINE("_RSGALLERY_CONSDB_IMG_IN_FLDR",		"Fotka v adres√°ri");
-DEFINE("_RSGALLERY_CONSDB_IMG__NOT_IN_FLDR",		"Fotka MIMO adres√°ra");
-DEFINE("_RSGALLERY_ ",		"");
+DEFINE("_RSGALLERY_CONSDB_DELETE_DB",		"[&nbsp;Odstr·niª z datab·ze&nbsp;]");
+DEFINE("_RSGALLERY_CONSDB_CREATE_IMG",		"[&nbsp;Vytvoriª ch˝baj˙ce obr·zky&nbsp;]");
+DEFINE("_RSGALLERY_CONSDB_CREATE_DB",		"[&nbsp;Vytvoriª z·znamy v datab·zi&nbsp;]");
+DEFINE("_RSGALLERY_CONSDB_DELETE_IMG",		"[&nbsp;Zmazaª obr·zky&nbsp;]");
+DEFINE("_RSGALLERY_CONSDB_NO_INCOS",		"V datab·zi neboli n·jdenÈ æiadne nezrovnalosti");
 
 //admin.rsgallery2.php
-DEFINE("_RSGALLERY_HEAD_CONFIG",		"Konfigur√°cia");
-DEFINE("_RSGALLERY_HEAD_CPANEL",		"Control Panel");
-DEFINE("_RSGALLERY_HEAD_EDIT",		"Edituj");
-DEFINE("_RSGALLERY_HEAD_UPLOAD",		"Nahraj");
-DEFINE("_RSGALLERY_HEAD_MIGRATE",		"Nain≈°taluj a migruj");
-DEFINE("_RSGALLERY_HEAD_UPLOAD_ZIP",		"Nahraj ZIP-s√∫bor");
-DEFINE("_RSGALLERY_HEAD_CONSDB",		"Konsoliduj/zjedno≈• datab√°zu");
-DEFINE("_RSGALLERY_HEAD_LOG",		"Changelog");
-DEFINE("_RSGALLERY_HEAD_CONF_VARIA",		"Konfigur√°cia - premenn√©");
-DEFINE("_RSGALLERY_HEAD_CONF_RAW_EDIT",		"Konfigur√°cia - Raw editovanie");
-DEFINE("_RSGALLERY_HEAD_MISS_IMG_CREATE",	"Ch√Ωbaj√∫ce fotky vytvoren√©");
+DEFINE("_RSGALLERY_HEAD_CONFIG",		"Konfigur·cia");
+DEFINE("_RSGALLERY_HEAD_CPANEL",		"Ovl·dacÌ panel");
+DEFINE("_RSGALLERY_HEAD_EDIT",			"Upraviª");
+DEFINE("_RSGALLERY_HEAD_UPLOAD",		"Nahraª");
+DEFINE("_RSGALLERY_HEAD_MIGRATE",		"Inπtal·cia a migr·cia");
+DEFINE("_RSGALLERY_HEAD_UPLOAD_ZIP",	"Upload ZIP-file");
+DEFINE("_RSGALLERY_HEAD_CONSDB",		"Skonsolidovaª datab·zu");
+DEFINE("_RSGALLERY_HEAD_LOG",			"Zoznam zmien");
+DEFINE("_RSGALLERY_HEAD_CONF_VARIA",		"Konfigur·cia - premennÈ");
+DEFINE("_RSGALLERY_HEAD_CONF_RAW_EDIT",		"Konfigur·cia - RAW ˙prava");
 //function config_rawEdit_save
-DEFINE("_RSGALLERY_CONF_SAVED",				"Konfigur√°cia ulo≈æen√°");
-DEFINE("_RSGALLERY_CONF_SAVE_ERROR",		"Chba pri ukladan√≠ konfigur√°cie");
-DEFINE("_RSGALLERY_CONF_CREATE_DIR",		"Vytv√°ranie adres√°rov pre fotky zatiaƒæ neimplementovan√©.");
+DEFINE("_RSGALLERY_CONF_SAVED",				"Konfigur·cia bola uloæen·");
+DEFINE("_RSGALLERY_CONF_SAVE_ERROR",		"Konfigur·cia nebola uloæen·");
+DEFINE("_RSGALLERY_CONF_CREATE_DIR",		"Vytv·ranie adres·rov nie je zatiaµ implementovanÈ");
 //function RSInstall
-DEFINE("_RSGALLERY_MIGR_OK",				"migr√°cia √∫spe≈°n√°");
+DEFINE("_RSGALLERY_MIGR_OK",				"migr·cia ˙speπn·");
 //function purgeEverything
-DEFINE("_RSGALLERY_PURGE_IMG",				"vyƒçisten√© polo≈æky fotiek z datab√°zy.");
-DEFINE("_RSGALLERY_PURGE_GAL",				"vyƒçisten√© gal√©rie z datab√°zy.");
-DEFINE("_RSGALLERY_PURGE_CONFIG",			"vyƒçisten√© nastavenia z datab√°zy.");
-DEFINE("_RSGALLERY_PURGE_COMMENTS",			"vyƒçisten√© koment√°re z datab√°zy.");
-DEFINE("_RSGALLERY_PURGE_THUMB",		"odstra≈àuj√∫c n√°hƒæady fotiek (thumbs).");
-DEFINE("_RSGALLERY_PURGE_DISPLAY",	"odstra≈àuj√∫c zobrazen√© fotky.");
-DEFINE("_RSGALLERY_PURGE_ORIGINAL",	"odstra≈àuj√∫c p√¥vodn√© fotky.");
-DEFINE("_RSGALLERY_PURGE_PURGED",	"vyƒçisten√©.");
+DEFINE("_RSGALLERY_PURGE_IMG",				"z·znamy z datab·zy uvoµnenÈ.");
+DEFINE("_RSGALLERY_PURGE_GAL",				"galÈrie z datab·zy uvoµnenÈ.");
+DEFINE("_RSGALLERY_PURGE_CONFIG",			"nastavenia z datab·zy uvoµnenÈ.");
+DEFINE("_RSGALLERY_PURGE_COMMENTS",			"koment·re z datab·zy uvoµnenÈ.");
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Pou≈æi rm -r na odstr√°nenie $mosConfig_absolute_path/images/rsgallery");
-DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"Uvoƒænen√© #__rsgallery2_files");
-DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"Uvoƒænen√© #__rsgallery2_galleries");
-DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"Uvoƒænen√© #__rsgallery2_config");
-DEFINE("_RSGALLERY_REAL_UNINST_DROP_COM",	"Uvoƒænen√© #__rsgallery2_comments");
-DEFINE("_RSGALLERY_REAL_UNINST_DONE",		"Hotovo.  Ak nastala nejak√° chyba, v≈°etko odstr√°≈à manu√°lne.  Mal by si odin≈°talova≈• RSGallery2 , inak bude≈° dost√°va≈• chybov√© hl√°≈°ky.");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Na odstr·nenie JPATH_SITE/images/rsgallery sk˙sil pouæiª rm -r");
+DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"Uvoµnil #__rsgallery2_files");
+DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"Uvoµnil #__rsgallery2_galleries");
+DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"Uvoµnil #__rsgallery2_config");
+DEFINE("_RSGALLERY_REAL_UNINST_DROP_COM",	"Uvoµnil #__rsgallery2_comments");
+DEFINE("_RSGALLERY_REAL_UNINST_DONE",		"DokonËenÈ.  Manu·lne odstr·nte zbytok, ak nastala nejak· chyba.  Mali by ste odinπtalovaª RSGallery2, inak sa objavia chyby");
 //function deleteImage
-DEFINE("_RSGALLERY_ALERT_IMGDELETEOK",		"Fotka(y) √∫spe≈°ne vymazan√°(√©)!");
+DEFINE("_RSGALLERY_ALERT_IMGDELETEOK",		"Obr·zky ˙speπne zmazanÈ");
 //function c_delete
-DEFINE("_RSGALLERY_ALERT_IMGDELETENOTOK",	"Fotka(y) nevymazan√°(√©)!");
-//function copy_image
-DEFINE("_RSGALLERY_ALERT_COPYOK",			"Polo≈æka(y) √∫spe≈°ne skop√≠rovan√°(√©)!");
-DEFINE("_RSGALLEY_ALERT_REST_COPYDOK",		"Zvy≈°ok polo≈æiek √∫spe≈°ne skop√≠rovan√Ωch!");
-//function c_create
-DEFINE("_RSGALLERY_CC_NO_FILE_INFO",		"Neboli n√°jden√© ≈æiadne inform√°cie o s√∫bore. Toto by sa nemalo st√°va≈•!");
-//function db_create
-DEFINE("_RSGALLERY_DB_CREATE_NO_GAL",		"Nebola n√°jden√° gal√©ria pre t√∫to fotku!");
-DEFINE("_RSGALLERY_DB_CREATE_IMG_SUCCES ",		"Fotky √∫spe≈°ne pridan√© do datab√°zy!");
-DEFINE("_RSGALLERY_DB_CREATE_IMG_FAIL",		"Nemo≈æno prida≈• fotky do datab√°zy!");
+DEFINE("_RSGALLERY_ALERT_IMGDELETENOTOK",	"Obr·zky neboli zmazanÈ");
 //function save_batchupload
-DEFINE("_RSGALLERY_ALERT_NOCATSELECTED",	"Vyber gal√©riu pre v≈°etky fotky!\\n(Aj pre fotky, ƒço bud√∫ vymazan√©.\\nnN√°prava v bud√∫cej verzii!)");
-DEFINE("_RSGALLERY_ZIP_TO_BIG",				"ZIP-s√∫bor pr√≠li≈° veƒæk√Ω!");
+DEFINE("_RSGALLERY_ALERT_NOCATSELECTED",	"ProsÌm vyberte galÈriu pre V©ETY obr·zky!\n(Aj pre obr·zky ktorÈ maj˙ byª zmazanÈ.\nToto bude opravenÈ v niektorej z ÔalπÌch verzii)");
+DEFINE("_RSGALLERY_ZIP_TO_BIG",				"BalÌk ZIP je prÌliπ veµk˝");
 //function myPreExtractCallBack
-DEFINE("_RSGALLERY_NOT_ALLOWED_FILETYPE",	"je nepovolen√Ω typ s√∫boru, bude zmazan√Ω!");
-DEFINE("_RSGALLERY_BATCH_ERROR_FTP1",		"Adres√°r, ktor√Ω si vybral, neexistuje.\\n Ideme nasp√§≈• na str√°nku nahr√°vania.");
+DEFINE("_RSGALLERY_NOT_ALLOWED_FILETYPE",	"nie je povolen˝ form·t s˙boru a bude zmazan˝.");
+DEFINE("_RSGALLERY_BATCH_ERROR_FTP1",		"Vami zvolen˝ adres·r neexistuje.");
 //function showUpload
-DEFINE("_RSGALLEY_ALERT_REST_UPLOADOK",		"zvy≈°n√© s√∫bory boli v poriadku nahrat√©.");
+DEFINE("_RSGALLEY_ALERT_REST_UPLOADOK",		"OstatnÈ s˙bory boli nahranÈ v poriadku");
 //function saveImage
-DEFINE("_RSGALLERY_ALERT_IMAGEDETAILSOK",	"Detaily aktualizovan√© v poriadku!");
-DEFINE("_RSGALLERY_ALERT_IMAGEDETAILSNOTOK","Detaily neboli aktualizovan√©!");
+DEFINE("_RSGALLERY_ALERT_IMAGEDETAILSOK",	"Detaily upravenÈ ˙speπne");
+DEFINE("_RSGALLERY_ALERT_IMAGEDETAILSNOTOK","Detaily neboli upravenÈ");
 //function showConfig
-DEFINE("_RSGALLERY_CONF_NOGD2",				"GD2 nebolo n√°jden√©");
-DEFINE("_RSAGALLERY_CONF_NOIMGMAGICK",		"ImageMagick nebolo n√°jden√©");
-DEFINE("_RSAGALLERY_CONF_NONETPBM",			"netPBM nebolo n√°jden√©");
+DEFINE("_RSGALLERY_CONF_NOGD2",				"GD2 nen·jdenÈ");
+DEFINE("_RSAGALLERY_CONF_NOIMGMAGICK",		"ImageMagick nen·jdenÈ");
+DEFINE("_RSAGALLERY_CONF_NONETPBM",			"netPBM nen·jdenÈ");
 //function viewImages
-DEFINE("_RSGALLERY_VIEW_GAL",				"Zobrazi≈• gal√©riu");
-DEFINE("_RSGALLERY_ALL_GAL",				"- cel√∫ gal√©riu");
-DEFINE("_RSGALLERY_SELECT_GAL",				"Vyber gal√©riu");
+DEFINE("_RSGALLERY_VIEW_GAL",				"Zobraziª galÈriu");
+DEFINE("_RSGALLERY_ALL_GAL",				"- Vπetky galÈrie");
+DEFINE("_RSGALLERY_SELECT_GAL",				"Vybraª galÈriu");
 //function consolidateDbInform
 DEFINE("_RSGALLERY_CONSOLIDATE_DB",
-"Funkcia 'Konsolid√°cia datab√°zy' vykon√° porovnanie tabuliek datab√°zy RSGallery a s√∫borov".
-" fotografi√≠ v adres√°roch gal√©ri√≠. Potom vygeneruje zoznam rozdielov.  N√°sledne bude≈° ma≈•".
-" mo≈ænos≈• prid√°va≈•, ƒçi vymaz√°va≈• polo≈æky datab√°zy, alebo s√∫bory na disku, aby bola zachovan√° konzistencia".
-" gal√©ri√≠.<br/><br/>Funkciu je potrebn√© spusti≈• pri ka≈ædej manipul√°ci√≠ so s√∫bormi".
-" nach√°dzaj√∫cimi sa v adres√°roch gal√©ri√≠.  Napr. ak pomocou FTP prid√°≈° nov√© s√∫bory do podadres√°ra nejakej gal√©rie,".
-" n√°sledne treba spusti≈• t√∫to funkciu za √∫ƒçelom aktualiz√°cie datab√°zy.<br/><br/>Vyber 'Pokraƒçuj' alebo 'Zru≈°'.  ≈Ωiadne".
-" zmeny nenastan√∫, pokiaƒæ ich najprv nepotvrd√≠≈°.<br/>");
-DEFINE("_RSGALLERY_PROCEED",				"Pokraƒçuj");
+"Funkcia 'Skonsolidovaª datab·zu' vykon· kontrolu tabuliek datab·ze RSGallery a fyzick˝ch s˙borov".
+" obr·zkov v adres·ri galÈrie, a vygeneruje spr·vu o n·jden˝ch nezrovnalostiach.  Potom budete maª na v˝ber".
+" pridaª alebo zmazaª prÌsluπnÈ poloæky datab·ze alebo fyzickÈ s˙bory obr·zkov a zachovaª t˝m konzistenciu".
+" galÈriÌ.<br/><br/>T·to funkcia by tieæ mala byª spusten· po pridanÌ alebo zmazanÌ ak˝chkoµvek s˙borov obr·zkov".
+" v adres·ri galÈrie.  NaprÌklad mÙæete nahraª novÈ obr·zky cez FTP do adres·ra galÈrie".
+" a n·sledne spustiª t˙to funkciu pre ich pridanie do datab·ze.<br/><br/>ProsÌm vyberte 'Spustiª' alebo 'Zruπiª'.".
+" Æiadne zmeny nebud˙ vykonanÈ bez v·πho s˙hlasu.<br/>");
+DEFINE("_RSGALLERY_PROCEED",				"Spustiª");
 //function editTemplateCSS
-DEFINE("_RSGALLERY_EDITCSS_FAIL_NOOPEN",	"Oper√°cia zlyhala: Nemo≈æno otvori≈•");
-DEFINE("_RSGALLERY_EDITCSS_NOT_WRITABLE",	"Oper√°cia zlyhala: Subor nieje zapisovateƒæn√Ω.");
-DEFINE("_RSGALLERY_EDITCSS_FAIL_NOTWRITING","Oper√°cia zlyhala: S√∫bor sa ned√° otvori≈• pre z√°pis.");
+DEFINE("_RSGALLERY_EDITCSS_FAIL_NOOPEN",	"Zlyhanie: ned· sa otvoriª");
+DEFINE("_RSGALLERY_EDITCSS_NOT_WRITABLE",	"Zlyhanie: S˙bor nie je zapisovateµn˝.");
+DEFINE("_RSGALLERY_EDITCSS_FAIL_NOTWRITING","Zlyhanie: S˙bor sa ned· otvoriª pre zapisovanie.");
 //function editCSSSource
-DEFINE("_RSGALLERY_EDITCSS_TITLE",			"RSgallery2 CSS Editor");
+DEFINE("_RSGALLERY_EDITCSS_TITLE",			"RSgallery2 CSS ˙prava");
 DEFINE("_RSGALLERY_ISWRITABLE",				"RSgallery2.css je :");
-DEFINE("_RSGALLERY_ISWRITABLE_WRITABLE",	"Zapisovateƒæn√Ω");
-DEFINE("_RSGALLERY_ISWRITABLE_UNWRITABLE",	"Nezapisovateƒæn√Ω");
-DEFINE("_RSGALLERY_MAKE_WRITABLE",			"Po ulo≈æen√≠ oznaƒçi≈• ako nezapisovateƒæn√Ω");
-DEFINE("_RSGALLERY_OVERWRITE_WRITABLE",		"Pri ukladan√≠ ob√≠s≈• ochranu z√°pisu");
-//function uploadFile
-DEFINE("_RSGALLERY_ERMSG_FAILD_CHMOD",	"Zmena kompetenci√≠ zlyhala.");
-DEFINE("_RSGALLERY_ERMSG_FAILD_MOVE_MEDIA",	"Zlyhal presun nahrat√©ho s√∫boru do adres√°ra <code>/media</code>.");
-DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_WRITE",	"Nahr√°vanie zlyhalo, keƒè≈æe adres√°r <code>/media</code> nieje zapisovateƒæn√Ω.");
-DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_EXIST",	"Nahr√°vanie zlyholo, keƒè≈æe adres√°r <code>/media</code> neexistuje.");
+DEFINE("_RSGALLERY_ISWRITABLE_WRITABLE",	"Zapisovateµn˝");
+DEFINE("_RSGALLERY_ISWRITABLE_UNWRITABLE",	"Nezapisovateµn˝");
+DEFINE("_RSGALLERY_MAKE_WRITABLE",			"Po uloæenÌ oznaËiª ako nezapisovateµn˝");
+DEFINE("_RSGALLERY_OVERWRITE_WRITABLE",		"ObÌsª ochranu zapisovania");
 
 //config.rsgallery2.php
-//function toString
-DEFINE("_RSGALLERY_CONF_ERROR_UPLOAD",		" - Chyba nahr√°vania fotky : ");
-//function showCategories
-DEFINE("_RSGALLERY_SELECT_GAL_DROP_BOX",		"- Vyber gal√©riu -");
 //function galleriesSelectList
 DEFINE("_RSGALLERY_SELECT_GAL_TOP",		"Top");
-//function showRating
-DEFINE("_RSGALLERY_RATE_NONE",		"≈Ωiaden rating");
 //function newImages
-DEFINE("_RSGALLERY_NEW",				"Nov√°!");
-//function latestCats
-DEFINE("_RSGALLERY_NO_NEW_ENT",		"≈Ωiadne nov√© polo≈æky");
+DEFINE("_RSGALLERY_NEW",				"NOV…");
 //function writeWarningBox
-DEFINE("_RSGALLERY_NO_IMGLIBRARY",			"Nebola detekovan√° ≈æiadna pou≈æiteƒæn√° kni≈ænica fotiek! Kontaktuj svojho poskytovateƒæa hostingu, aby in≈°taloval GD2 alebo si pozri nejak√© f√≥rum kv√¥li in≈°tal√°ci√≠ ImageMagick alebo NETPBM!");
-DEFINE("_RSGALLERY_NOT_WRITABLE",			" NIEJE zapisovateƒæn√Ω/√°!");
-DEFINE("_RSGALLERY_FOLDER_NOTEXIST",		" NEEXISTUJE! Vytvor adres√°r a nastav CHMOD na 0755!");
-DEFINE("_RSGALLERY_ERROR_SETTINGS",			"Nasledovn√© nastavenia br√°nia fungovaniu RSGallery2 bez ch√Ωb:");
-DEFINE("_RSGALLERY_REFRESH",				"Obnov");
+DEFINE("_RSGALLERY_NO_IMGLIBRARY",			"Nebola n·jden· æiadna kompatibiln· kniænica obr·zkov! ProsÌm kontaktujte v·πho hosting providera ohµadne inπtal·cie GD2 alebo nainπtalujte ImageMagick resp. NETPBM");
+DEFINE("_RSGALLERY_NOT_WRITABLE",			" nie je zapisovateµn˝");
+DEFINE("_RSGALLERY_FOLDER_NOTEXIST",		" neexistuje. ProsÌm vytvorte t˙to poloæku a uistite sa, æe m· nastavenÈ pr·va (CHMOD) na 0755.");
+DEFINE("_RSGALLERY_ERROR_SETTINGS",			"Nasleduj˙ce nastavenia spÙsobuj˙ chyby RSGallery2:");
+DEFINE("_RSGALLERY_REFRESH",				"Obnoviª");
 //function writeDownloadLink
-DEFINE("_RSGALLERY_DOWNLOAD",				"Prevezmi");
-//function writeGalleryStatus
-DEFINE("_RSGALLERY_STATUS_ARE_OWNER",	"Toto je Tvoja gal√©ria");
-DEFINE("_RSGALLERY_STATUS_CAN_UPLOAD",	"Do tejto gal√©rie m√¥≈æe≈° nahr√°va≈•");
-DEFINE("_RSGALLERY_STATUS_NOT_PUBL",		"T√°to gal√©ria nieje publikovan√°");
+DEFINE("_RSGALLERY_DOWNLOAD",				"Stiahnuª");
 
 //install.rsgallery2.php
 //function com_install
-DEFINE("_RSGALLERY_MIGRATING_FROM",			"Migr√°cia z RSGallery2 ");
-DEFINE("_RSGALLERY_INSTALL_SUCCESS",		"√öspech.  Pou≈æ√≠va≈° RSGallery2 ");
-DEFINE("_RSGALLERY_INSTALL_FAIL",			"Zlyhanie: ");
+DEFINE("_RSGALLERY_MIGRATING_FROM",			"Migrujem z RSGallery2 ");
+DEFINE("_RSGALLERY_INSTALL_SUCCESS",		"⁄speπne dokonËenÈ.  Teraz beæÌ RSGallery2 ");
+DEFINE("_RSGALLERY_INSTALL_FAIL",			"Chyba: ");
 
 //toolbar.rsgallery2.html.php
-DEFINE("_RSGALLERY_TOOL_CLOSE",				"Zavri");
-DEFINE("_RSGALLERY_TOOL_PANEL",				"CPanel");
-DEFINE("_RSGALLERY_TOOL_GAL",				"Gal√©rie");
-DEFINE("_RSGALLERY_TOOL_IMG",				"Fotky");
-DEFINE("_RSGALLERY_TOOL_UP",				"Nahraj");
-DEFINE("_RSGALLERY_TOOL_NEXT",				"ƒéalej");
-DEFINE("_RSGALLERY_TOOL_DELETE",			"Vyma≈æ");
-DEFINE("_RSGALLERY_TOOL_CONFIRM_DEL",		"Potvrƒè odstr√°nenie");
-DEFINE("_RSGALLERY_TOOL_RES_HITS",	"Vynuluj");
+DEFINE("_RSGALLERY_TOOL_CLOSE",				"Zavrieª");
+DEFINE("_RSGALLERY_TOOL_PANEL",				"Ovl·dacÌ panel");
+DEFINE("_RSGALLERY_TOOL_GAL",				"GalÈrie");
+DEFINE("_RSGALLERY_TOOL_IMG",				"Obr·zky");
+DEFINE("_RSGALLERY_TOOL_UP",				"Nahraª");
+DEFINE("_RSGALLERY_TOOL_NEXT",				"œalπÌ");
+DEFINE("_RSGALLERY_TOOL_DELETE",			"Zmazaª");
 
 //config.html
 DEFINE("_RSGALLERY_C_TMPL_VERSION",			"Verzia:");
-DEFINE("_RSGALLERY_C_TMPL_INTRO_TEXT",		"√övodn√Ω text:");
+DEFINE("_RSGALLERY_C_TMPL_INTRO_TEXT",		"Intro text:");
 DEFINE("_RSGALLERY_C_TMPL_DEBUG",			"Ladenie:");
-DEFINE("_RSGALLERY_C_TMPL_IMG_MANIP",		"Manipul√°cia s fotkou");
-DEFINE("_RSGALLERY_C_TMPL_DISP_WIDTH",		"Zobraz ≈°√≠rku fotky:");
-DEFINE("_RSGALLERY_C_TMPL_THUMB_WIDTH",		"≈†√≠rka n√°hƒæadu:");
-DEFINE("_RSGALLERY_C_TMPL_THUMBNAIL_STYLE",		"≈†t√Ωl n√°hƒæadu:");
-DEFINE("_RSGALLERY_C_TMPL_JPEG_QUALITY",	"Percentu√°lna kvalita JPEG");
-DEFINE("_RSGALLERY_C_TMPL_GRAPH_LIB",		"Kni≈ænica grafiky");
-DEFINE("_RSGALLERY_C_TMPL_NOTE_GLIB_PATH",	"Oznam:</span> Pokiaƒæ nepotrebuje≈° niƒç extra, nechaj nasledovn√© polia voƒæn√©");
+DEFINE("_RSGALLERY_C_TMPL_IMG_MANIP",		"Manipul·cia s obr·zkom:");
+DEFINE("_RSGALLERY_C_TMPL_DISP_WIDTH",		"Zobraziª sÌrku obr·zka:");
+DEFINE("_RSGALLERY_C_TMPL_THUMB_WIDTH",		"©Ìrka n·hµadu (thumbnailu):");
+DEFINE("_RSGALLERY_C_TMPL_THUMBNAIL_STYLE",		"©t˝l n·hµadu (thumbnailu):");
+DEFINE("_RSGALLERY_C_TMPL_JPEG_QUALITY",	"JPEG Kvalita v %");
+DEFINE("_RSGALLERY_C_TMPL_GRAPH_LIB",		"Grafick· kniænica");
+DEFINE("_RSGALLERY_C_TMPL_NOTE_GLIB_PATH",	"Pozn·mka:</span> Ak nem·te æiadne problÈmy, nechajte nasleduj˙ce polia pr·zdne.");
 DEFINE("_RSGALLERY_C_TMPL_IMGMAGICK_PATH",	"ImageMagick cesta:");
 DEFINE("_RSGALLERY_C_TMPL_NETPBM_PATH",		"Netpbm cesta:");
 DEFINE("_RSGALLERY_C_TMPL_FTP_PATH",		"FTP cesta:");
-DEFINE("_RSGALLERY_C_TMPL_IMG_STORAGE",		"Ukladanie fotiek");
-DEFINE("_RSGALLERY_C_TMPL_KEEP_ORIG",		"Ponechaj origin√°lnu fotku:");
-DEFINE("_RSGALLERY_C_TMPL_ORIG_PATH",		"P√¥vodn√° cesta k fotke:");
-DEFINE("_RSGALLERY_C_TMPL_DISP_PATH",		"Zobraz cestu k fotke:");
-DEFINE("_RSGALLERY_C_TMPL_THUMB_PATH",		"Cesta k n√°hƒæadu:");
-DEFINE("_RSGALLERY_C_TMPL_CREATE_DIR",		"Ak e≈°te neexistuj√∫, vytvor adres√°re:");
-DEFINE("_RSGALLERY_C_TMPL_FRONT_PAGE",		"Titulka");
-DEFINE("_RSGALLERY_C_TMPL_DISP_RAND",		"Zobraz n√°hodne");
-DEFINE("_RSGALLERY_C_TMPL_DISP_LATEST",		"Zobraz najnov≈°ie");
-DEFINE("_RSGALLERY_C_TMPL_DISP_BRAND",		"Zobraz oznaƒçenie");
-DEFINE("_RSGALLERY_C_TMPL_DISP_DOWN",		"Zobraz linku na prevzatie");
-DEFINE("_RSGALLERY_C_TMPL_WATERMARK",		"Vodoznak fotky");
-DEFINE("_RSGALLERY_C_TMPL_DISP_WTRMRK",		"Zobraz vodoznak");
-DEFINE("_RSGALLERY_C_TMPL_WTRMRK_TEXT",		"Text vodoznaku");
-DEFINE("_RSGALLERY_C_TMPL_WTRMRK_FONTSIZE",	"Veƒækos≈• fontu vodoznaku");
-DEFINE("_RSGALLERY_C_TMPL_WTRMRK_ANGLE",	"Sklon textu vodoznaku");
-DEFINE("_RSGALLERY_C_TMPL_WTRMRK_POS",		"Umiestnenie vodoznaku");
-DEFINE("_RSGALLERY_C_TMPL_GAL_VIEW",		"Zobrazenie gal√©rie");
-DEFINE("_RSGALLERY_C_TMPL_THUMB_STYLE",		"≈†t√Ωl n√°hƒæadu:<br>Pou≈æi 'pl√°vaj√∫c' pre ≈°abl√≥ny s premenlivou ≈°√≠rkou.");
-DEFINE("_RSGALLERY_C_TMPL_FLOATDIRECTION",	"Smer (funguje len so ≈°t√Ωlom 'pl√°vaj√∫c'):");
-DEFINE("_RSGALLERY_C_TMPL_COLS_PERPAGE",	"Poƒçet stƒ∫pcov n√°hƒæadov (len pre tabuƒæky):");
-DEFINE("_RSGALLERY_C_TMPL_THUMBS_PERPAGE",	"Poƒçet n√°hƒæadov na stranu:");
-DEFINE("_RSGALLERY_C_TMPL_DISP_SLIDE",		"Zobraz prezent√°ciu");
-/*NEW*/DEFINE("_RSGALLERY_C_TMPL_DISP_OWNER",		"Zobraz info o vlastn√≠kovi");
-/*NEW*/DEFINE("_RSGALLERY_C_TMPL_DISP_ITEMS",		"Zobraz poƒçet polo≈æiek gal√©rie");
-/*NEW*/DEFINE("_RSGALLERY_C_TMPL_DISP_DATE",		"Zobraz d√°tum vytvorenia");
-DEFINE("_RSGALLERY_C_TMPL_IMG_DISP",		"Zobrazenie fotky");
-DEFINE("_RSGALLERY_C_TMPL_RESIZE_OPT",		"Mo≈ænos≈• √∫pravy rozmerov");
-DEFINE("_RSGALLERY_C_TMPL_DISP_DESCR",		"Zobraz popis");
-DEFINE("_RSGALLERY_C_TMPL_DISP_HITS",		"Zobraz poƒçet zobrazen√≠");
-DEFINE("_RSGALLERY_C_TMPL_DISP_VOTE",		"Zobraz hlasovanie");
-DEFINE("_RSGALLERY_C_TMPL_DISP_COMM",		"Zobraz koment√°re");
-DEFINE("_RSGALLERY_C_TMPL_DISP_EXIF",		"Zobraz EXIF d√°ta");
-DEFINE("_RSGALLERY_C_TMPL_ENABLE_U_UP",		"Umo≈æni≈• nahr√°vanie pre u≈æ√≠vateƒæov?");
-DEFINE("_RSGALLERY_C_TMPL_ONLY_REGISTERED",	"Len registrovan√≠ u≈æ√≠vatelia");
-DEFINE("_RSGALLERY_C_TMPL_U_CREATE_GAL",	"M√¥≈æe u≈æ√≠vateƒæ vytv√°ra≈• gal√©rie?");
-DEFINE("_RSGALLERY_C_TMPL_U_MAX_GAL",		"Maxim√°lny poƒçet gal√©ri√≠ na u≈æ√≠vateƒæa:");
-DEFINE("_RSGALLERY_C_TMPL_U_MAX_IMG",		"Maxim√°lny poƒçet fotiek na u≈æ√≠vateƒæa:");
-DEFINE("_RSGALLERY_C_TMPL_SHOW_IMGNAME",	"Pod n√°hƒæadom zobraz n√°zov fotky:");
-DEFINE("_RSGALLERY_C_TMPL_ACL_SETINGS",		"Nastavenia opr√°vnenia pr√≠stupu");
-DEFINE("_RSGALLERY_C_TMPL_ACL_ENABLE",		"Aktivuj nastavenia opr√°vnenia pr√≠stupu");
-DEFINE("_RSGALLERY_C_TMPL_SHOW_MYGAL",		"Uk√°≈æ Moje gal√©rie");
-DEFINE("_RSGALLERY_C_TMPL_USER_SET",		"≈†pecifick√© nastavenia u≈æ√≠vateƒæa");
-DEFINE("_RSGALLERY_C_DISP_STATUS_ICON",		"Zobraz ikony statusu");
-DEFINE("_RSGALLERY_C_GEN_SET",			"V≈°eobecn√© nastavenia");
-DEFINE("_RSGALLERY_C_HTML_ROOT",			"Hlavn√Ω HTML adres√°r je");
-DEFINE("_RSGALLERY_C_DISP_LIMIB",		"Zobraz limitbox gal√©rie");
-DEFINE("_RSGALLERY_C_NUMB_GAL_FRONT",	"Prednastaven√Ω poƒçet gal√©ri√≠ na titulke");
-DEFINE("_RSGALLERY_C_FONT",				"Font");
-DEFINE("_RSGALLERY_C_WATER_TRANS",		"Priehƒæadnos≈• vodoznaku");
-DEFINE("_RSGALLERY_C_ALLOWED_FILE",		"Povolen√© typy s√∫borov");
-
-/*NEW*/DEFINE("_RSGALLERY_C_DISP_IMG_ORDER",		"Poradie fotiek");
-/*NEW*/DEFINE("_RSGALLERY_C_DISP_IMG_ORDER_BY",		"Zoraƒè fotky podƒæa");
-/*NEW*/DEFINE("_RSGALLERY_C_DISP_IMG_ORDER_DIRECTION",		"Smer zoradenia");
-/*NEW*/DEFINE("_RSGALLERY_CONF_OPTION_ORDER_DEFAULT",		"Z√°kladn√©");
-/*NEW*/DEFINE("_RSGALLERY_CONF_OPTION_ORDER_DATE",		"D√°tum");
-/*NEW*/DEFINE("_RSGALLERY_CONF_OPTION_ORDER_NAME",		"N√°zov");
-/*NEW*/DEFINE("_RSGALLERY_CONF_OPTION_ORDER_RATING",		"Hodnotenie");
-/*NEW*/DEFINE("_RSGALLERY_CONF_OPTION_ORDER_HITS",		"Poƒçet zobrazen√≠");
-/*NEW*/DEFINE("_RSGALLERY_CONF_OPTION_ORDER_DIRECTION_ASCENDING",		"Vzostupne");
-/*NEW*/DEFINE("_RSGALLERY_CONF_OPTION_ORDER_DIRECTION_DESCENDING",		"Zostupne");
-
-//Commenting
-DEFINE("_RSGALLERY_COMMENTS_LABEL",			"Koment√°re");
-DEFINE("_RSGALLERY_COMMENTS_ENABLED",		"Koment√°re povolen√©");
-DEFINE("_RSGALLERY_COMMENTS_ALLOW_PUBLIC",	"Povoƒæ koment√°re verejnosti (neregistrovan√Ωm)");
-DEFINE("_RSGALLERY_COMMENTS_ONLY_ONCE",		"U≈æ√≠vateƒæ m√¥≈æe posla≈• iba jeden koment√°r");
-
-//Voting
-DEFINE("_RSGALLERY_VOTE_LABEL",				"Hodnotenie");
-DEFINE("_RSGALLERY_VOTE_ENABLED",			"Hodnotenie povolen√©");
-DEFINE("_RSGALLERY_VOTE_REGISTERED_ONLY",	"Len pre registrovan√Ωch u≈æ√≠vateƒæov");
-DEFINE("_RSGALLERY_VOTE_ONLY_ONCE",			"U≈æ√≠vateƒæ m√¥≈æe hodnoti≈• iba raz (kontrola cookies)");
-DEFINE("_RSGALLERY_VOTE_COOKIE_PREFIX",		"Cookie predpona");
-
-
+DEFINE("_RSGALLERY_C_TMPL_IMG_STORAGE",		"Ukladanie obr·zkov:");
+DEFINE("_RSGALLERY_C_TMPL_KEEP_ORIG",		"Uchovaª pÙvodn˝ obr·zok:");
+DEFINE("_RSGALLERY_C_TMPL_ORIG_PATH",		"Cesta k origin·lnemu obr·zku");
+DEFINE("_RSGALLERY_C_TMPL_DISP_PATH",		"Zobraziª cestu k obr·zku:");
+DEFINE("_RSGALLERY_C_TMPL_THUMB_PATH",		"Cesta k n·hµadu (thumbnailu):");
+DEFINE("_RSGALLERY_C_TMPL_CREATE_DIR",		"Vytv·raª adres·re ak neexistuj˙:");
+DEFINE("_RSGALLERY_C_TMPL_FRONT_PAGE",		"Tituln· str·nka");
+DEFINE("_RSGALLERY_C_TMPL_DISP_RAND",		"Zobraziª n·hodnÈ");
+DEFINE("_RSGALLERY_C_TMPL_DISP_LATEST",		"Zobraziª najnovπie");
+DEFINE("_RSGALLERY_C_TMPL_DISP_BRAND",		"Zobraziª oznaËenie");
+DEFINE("_RSGALLERY_C_TMPL_DISP_DOWN",		"Zobraziª hyperlink pre stiahnutie");
+DEFINE("_RSGALLERY_C_TMPL_WATERMARK",		"VodotlaË obr·zku");
+DEFINE("_RSGALLERY_C_TMPL_DISP_WTRMRK",		"Zobraziª vodotlaË");
+DEFINE("_RSGALLERY_C_TMPL_WTRMRK_TEXT",		"Text vodotlaËe");
+DEFINE("_RSGALLERY_C_TMPL_WTRMRK_FONTSIZE",	"Veµkosª textu vodotlaËe");
+DEFINE("_RSGALLERY_C_TMPL_WTRMRK_ANGLE",	"Uhol textu vodotlaËe");
+DEFINE("_RSGALLERY_C_TMPL_WTRMRK_POS",		"Poloha vodotlaËe");
+DEFINE("_RSGALLERY_C_TMPL_GAL_VIEW",		"Zobrazenie galÈrie");
+DEFINE("_RSGALLERY_C_TMPL_THUMB_STYLE",		"©t˝l n·hµadu (thumbnailu):<br>Pouæite 'pl·vaj˙ci' pre template s premenlivou πÌrkou.");
+DEFINE("_RSGALLERY_C_TMPL_FLOATDIRECTION",	"Smer (pracuje len s pl·vaj˙cou πÌrkou):");
+DEFINE("_RSGALLERY_C_TMPL_COLS_PERPAGE",	"PoËet stÂpcov n·hµadov (thumbnailov) (pracuje len s tabuµkou):");
+DEFINE("_RSGALLERY_C_TMPL_THUMBS_PERPAGE",	"N·hµadov (thumbnailov) na jednej str·nke:");
+DEFINE("_RSGALLERY_C_TMPL_DISP_SLIDE",		"Zobraziª premietanie");
+DEFINE("_RSGALLERY_C_TMPL_IMG_DISP",		"Zobraziª obr·zok");
+DEFINE("_RSGALLERY_C_TMPL_RESIZE_OPT",		"Moænosª ˙pravy rozmerov");
+DEFINE("_RSGALLERY_C_TMPL_DISP_DESCR",		"Zobraziª popis");
+DEFINE("_RSGALLERY_C_TMPL_DISP_HITS",		"Zobraziª poËet zobrazenÌ");
+DEFINE("_RSGALLERY_C_TMPL_DISP_VOTE",		"Zobraziª hlasovanie");
+DEFINE("_RSGALLERY_C_TMPL_DISP_COMM",		"Zobraziª koment·re");
+DEFINE("_RSGALLERY_C_TMPL_DISP_EXIF",		"Zobraziª EXIF D·ta");
+DEFINE("_RSGALLERY_C_TMPL_ENABLE_U_UP",		"Zapn˙ª uæÌvateµskÈ nahrania?");
+DEFINE("_RSGALLERY_C_TMPL_ONLY_REGISTERED",	"Len pre registrovan˝ch pouæÌvateµov");
+DEFINE("_RSGALLERY_C_TMPL_U_CREATE_GAL",	"MÙæe uæÌvateµ vytv·raª galÈrie?");
+DEFINE("_RSGALLERY_C_TMPL_U_MAX_GAL",		"Maximum galÈriÌ vytvoren˝ch jedn˝m uæÌvateµom:");
+DEFINE("_RSGALLERY_C_TMPL_U_MAX_IMG",		"Maximum obr·zkov od jednÈho uæÌvateµa:");
 //galleries.class.php
 //function check
-DEFINE("_RSGALLERY_GAL_EXIST_ERROR",		"U≈æ existuje gal√©ria s rovnak√Ωm n√°zvom, sk√∫s znova.");
-
+DEFINE("_RSGALLERY_GAL_EXIST_ERROR",	"Uæ existuje galÈria s rovnak˝m n·zvom, sk˙ste in˝ n·zov.");
 //galleries.html.php
 //function show
-DEFINE("_RSGALLERY_GAL_MANAGE",			"Spr√°va gal√©ri√≠");
-DEFINE("_RSGALLERY_GAL_MAX_LEVELS",		"Max. √∫rovne");
+DEFINE("_RSGALLERY_GAL_MANAGE",			"ManaæÈr galÈriÌ");
+DEFINE("_RSGALLERY_GAL_MAX_LEVELS",		"Maximum ˙rovnÌ");
 DEFINE("_RSGALLERY_GAL_FILTER",			"Filter");
-DEFINE("_RSGALLERY_GAL_NAME",			"N√°zov");
-DEFINE("_RSGALLERY_GAL_REORDER",		"Preskup");
-DEFINE("_RSGALLERY_GAL_COUNT",			"# polo≈æky");
-DEFINE("_RSGALLERY_GAL_HITS",			"Poƒçet zobrazen√≠");
+DEFINE("_RSGALLERY_GAL_NAME",			"N·zov");
+DEFINE("_RSGALLERY_GAL_REORDER",		"Znovu zoradiª");
+DEFINE("_RSGALLERY_GAL_HITS",			"ZobrazenÌ");
 //function edit
-DEFINE("_RSGALLERY_GAL_GAL",				"Gal√©ria");
-DEFINE("_RSGALLERY_GAL_DETAILS",			"Detaily");
+DEFINE("_RSGALLERY_GAL_GAL",			"GalÈria");
+DEFINE("_RSGALLERY_GAL_DETAILS",		"Detaily");
 DEFINE("_RSGALLERY_GAL_DESCR",			"Popis");
-DEFINE("_RSGALLERY_GAL_PARENT",			"Matersk√° polo≈æka");
-DEFINE("_RSGALLERY_GAL_THUMB",			"N√°hƒæad gal√©rie");
-DEFINE("_RSGALLERY_GAL_ORDERING",		"Usporiadanie");
-DEFINE("_RSGALLERY_GAL_PUBLISHED",		"Publikovan√°");
+DEFINE("_RSGALLERY_GAL_PARENT",			"Nadraden· poloæka");
+DEFINE("_RSGALLERY_GAL_THUMB",			"N·hµad (thumbnail)");
+DEFINE("_RSGALLERY_GAL_ORDERING",		"Poradie");
+DEFINE("_RSGALLERY_GAL_PUBLISHED",		"PublikovanÈ");
 DEFINE("_RSGALLERY_GAL_PARAMETERS",		"Parametre");
-DEFINE("_RSGALLERY_GAL_OWNER",	"Vlastn√≠k");
-DEFINE("_RSGALLERY_GAL_PERMS",	"Pr√°va");
-DEFINE("_RSGALLERY_GAL_DEF_PERM_CREATE",	"Z√°kladn√© pr√°va vytvoren√©. <br />Po vytvoren√≠ gal√©rie sa m√¥≈æe≈° vr√°ti≈• k definovaniu konkr√©tnych pr√°v.");
-DEFINE("_RSGALLERY_GAL_NO_PERM_FOUND",	"Neboli n√°jden√© pr√°va pre t√∫to gal√©riu. Klikni na tlaƒçidlo <strong>Ulo≈æ</strong> na hornom paneli n√°strojov a nastav z√°kladn√© pr√°va. Nesk√¥r sa vr√°≈• a nastav konkr√©tne pr√°va tu.");
-DEFINE("_RSGALLERY_GAL_USERTYPE",		"Typ u≈æ√≠vateƒæa");
-DEFINE("_RSGALLERY_GAL_VIEW_GAL",		"Zobraz<br/>Gal√©riu</span>");
-DEFINE("_RSGALLERY_GAL_UPL_EDIT_IMG",	"Nahraj/Edit<br/>fotky</span>");
-DEFINE("_RSGALLERY_GAL_DEL_IMG",			"Vyma≈æ fotku</span>");
-DEFINE("_RSGALLERY_GAL_MOD_GAL",			"Uprav<br/>gal√©riu</span>");
-DEFINE("_RSGALLERY_GAL_DEL_GAL",			"Vyma≈æ<br/>gal√©riu</span>");
-DEFINE("_RSGALLERY_GAL_ACL_PUB",			"Verejn√°</span>");
-DEFINE("_RSGALLERY_GAL_ACL_REG",			"Registrovan√°</span>");
-DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",	"&nbsp;Oznaƒç/odznaƒç v≈°etko");
-DEFINE("_RSGALLERY_GAL_ORDER",	"Poradie");
 
 //install.class.php
 //function echo_values
-DEFINE("_RSGALLERY_INSTALL_THUMBDIR",			"Adres√°r n√°hƒæadov je:");
+DEFINE("_RSGALLERY_INSTALL_THUMBDIR",			"Adres·r n·hµadov (thumbnailov):");
 //function changeMenuIcon
-DEFINE("_RSGALLERY_INSTALL_MENU_ICON_OK",		"Menu obr√°zok RSGallery2 √∫spe≈°ne zmenen√Ω");
-DEFINE("_RSGALLERY_INSTALL_MENU_ICON_ERROR",		"Menu obr√°zok nemo≈æno zmeni≈•");
+DEFINE("_RSGALLERY_INSTALL_MENU_ICON_OK",		"Obr·zok menu galÈrie bol ˙speπne zmenen˝");
+DEFINE("_RSGALLERY_INSTALL_MENU_ICON_ERROR",	"Obr·zok menu galÈrie nebol zmenen˝");
 //function createDirStructure
-DEFINE("_RSGALLERY_INSTALL_DIR_EXISTS",			" u≈æ existuje");
-DEFINE("_RSGALLERY_ISNTALL_IS_CREATED",			" vytvoren√Ω");
-DEFINE("_RSGALLERY_INSTALL_NOT_CREATED",			" nemo≈æno vytvori≈•");
+DEFINE("_RSGALLERY_INSTALL_DIR_EXISTS",			" uæ existuje");
+DEFINE("_RSGALLERY_ISNTALL_IS_CREATED",			" bol vytvoren˝");
+DEFINE("_RSGALLERY_INSTALL_NOT_CREATED",		" sa nepodarilo vyvoriª");
 //function createTableStructure
-DEFINE("_RSGALLERY_ISNTALL_DB_OK",				"Datab√°zov√© tabuƒæky √∫spe≈°ne vytvoren√©.");
+DEFINE("_RSGALLERY_ISNTALL_DB_OK",				"Tabuµky datab·ze ˙speπne vytvorenÈ.");
 //function copyFiles
-DEFINE("_RSGALLERY_INSTALL_FILE_COPY_FROM",		"S√∫bor skop√≠rovan√Ω z ");
+DEFINE("_RSGALLERY_INSTALL_FILE_COPY_FROM",		"S˙bor nakopÌrovan˝ z ");
 DEFINE("_RSGALLERY_INSTALL_FILE_COPY_TO",		" do ");
-DEFINE("_RSGALLERY_INSTALL_FILE_NOTCOPY_FROM",	"s√∫bor nemo≈æno kop√≠rova≈• z ");
-DEFINE("_RSGALLERY_INSTALL_DIR_CREATED",			"Adres√°r vytvoren√Ω: ");
-DEFINE("_RSGALLERY_INSTALL_DIR_NOTCREATED",		"nemo≈æno vytvori≈• adres√°r ");
+DEFINE("_RSGALLERY_INSTALL_FILE_NOTCOPY_FROM",	"nepodarilo sa nakopÌrovaª s˙bor z ");
+DEFINE("_RSGALLERY_INSTALL_DIR_CREATED",		"Adres·r vytvoren˝: ");
+DEFINE("_RSGALLERY_INSTALL_DIR_NOTCREATED",		"nepodarilo sa vytvoriª adres·r ");
 //function deleteGalleryDir
 DEFINE("_RSGALLERY_DELGAL_PROCES",				"Pracujem: ");
-DEFINE("_RSGALLERY_DELGAL_OK",					"≈†trukt√∫ra adres√°rov vymazan√°!");
-DEFINE("_RSGALLERY_DELGAL_NOTOK",				"Vymaz√°vanie starej adres√°rovej ≈°trukt√∫ry zlyhalo.");
-DEFINE("_RSGALLERY_DELGAL_NO_OLD_DIR",			"Nebola n√°jden√° ≈æiadna star√° adres√°rov√° ≈°trukt√∫ra. Pokraƒçuj");
+DEFINE("_RSGALLERY_DELGAL_OK",					"Adres·rov· πtrukt˙ra zmazan·!");
+DEFINE("_RSGALLERY_DELGAL_NOTOK",				"Zmazanie starej adres·rovej πtrukt˙ry zlyhalo.");
+DEFINE("_RSGALLERY_DELGAL_NO_OLD_DIR",			"Æiadna star· adres·rov· πtrukt˙ra nebola n·jdenÈ. PokraËujem ...");
 //function checkDirPerms
-DEFINE("_RSGALLERY_PERMS_NOT_EXIST",				" Neexistuje. Vytvor manu√°lne cez FTP a skontroluj pr√°va");
-DEFINE("_RSGALLERY_PERMS_NOT_SET",				" bol n√°jden√Ω, ale korektn√© pr√°va (777) sa nedaj√∫ nastavi≈•.\nPr√°va s√∫ teraz nastaven√© na ");
-DEFINE("_RSGALLERY_PERMS_NOT_SET_TRY_FTP",		".<br />Sk√∫s nastavi≈• pr√°va cez FTP.");
-DEFINE("_RSGALLERY_PERMS_OK",					" bol n√°jden√Ω, pr√°va s√∫ OK.");
+DEFINE("_RSGALLERY_PERMS_NOT_EXIST",			" neexistuje. ProsÌm vytvorte manu·lne cez FTP a skontrolujte pr·va (CHMOD)");
+DEFINE("_RSGALLERY_PERMS_NOT_SET",				" bol n·jden˝, ale spr·vne pr·va (777) sa nepodarilo nastaviª.\nPr·va s˙ teraz nastavenÈ na ");
+DEFINE("_RSGALLERY_PERMS_NOT_SET_TRY_FTP",		".<br />Pok˙ste sa nastaviª pr·va cez FTP");
+DEFINE("_RSGALLERY_PERMS_OK",					" bol n·jden˝, pr·va s˙ v poriadku.");
 //function installComplete
-DEFINE("_RSGALLERY_INSTALL_COMPLETE",			"In≈°tal√°cia RSGallery dokonƒçen√°");
-DEFINE("_RSGALLERY_INSTALL_STATUS_MSGS",			"Ak niektor√© hl√°≈°ky statusu vy≈æaduj√∫ akciu, vykonaj n√°pravu predt√Ωm ako vst√∫pi≈° do Control Panelu.");
+DEFINE("_RSGALLERY_INSTALL_COMPLETE",			"Inπtal·cia RSGallery 2 je kompletn·");
+DEFINE("_RSGALLERY_INSTALL_STATUS_MSGS",		"Ak sa vyskytli nejakÈ dÙleæitÈ stavovÈ hl·πky, prosÌm vykonajte vπetko teraz, pred vst˙penÌm do Control Panelu");
 //function deleteTable
-DEFINE("_RSGALLERY_TABLEDEL_OK",					" vymazan√Ω");
-DEFINE("_RSGALLERY_TABLEDEL_NOTOK",				" nemo≈æno vymaza≈•.<br />Vyma≈æ manu√°lne.");
+DEFINE("_RSGALLERY_TABLEDEL_OK",				" bol zmazan˝");
+DEFINE("_RSGALLERY_TABLEDEL_NOTOK",				" Nemohol byª zmazan˝.<br />Odstr·Úte manu·ln.");
 //function migrateOldFiles
-DEFINE("_RSGALLERY_MIGRATE_NOT_ALL",			"Z nezn√°mych pr√≠ƒçin neboli v≈°etky inform√°cie o s√∫boroch premigrovan√© do datab√°zy RSGallery2(");
-DEFINE("_RSGALLERY_MIGRATE_OUT_OF",			" z ");
-DEFINE("_RSGALLERY_MIGRATE_ENTRIES_OK",		" polo≈æiek spracovan√Ωch)");
-DEFINE("_RSGALLERY_MIGRATE_ALL",				"V≈°etky inform√°cie o s√∫boroch boli premigrovan√© do datab√°zy RSGallery2(");
+DEFINE("_RSGALLERY_MIGRATE_NOT_ALL",			"Nie vπetky inform·cie o s˙boroch migrovali do datab·ze RSGallery2, a to z nezn·mych prÌËin");
+DEFINE("_RSGALLERY_MIGRATE_OUT_OF",				" z ");
+DEFINE("_RSGALLERY_MIGRATE_ENTRIES_OK",			" poloæiek spracovan˝ch)");
+DEFINE("_RSGALLERY_MIGRATE_ALL",				"Vπetky inform·cie o s˙boroch migrovali do datab·ze RSGallery2");
 //function migrateOldCats
-DEFINE("_RSGALLERY_MIGRATE_NOT_ALL_GAL",		"Z nezn√°mych pr√≠ƒçin neboli v≈°etky inform√°cie o gal√©ri√°ch premigrovan√© do datab√°zy RSGallery2(");
-DEFINE("_RSGALLERY_MIGRATE_ALL_GAL",			"V≈°etky inform√°cie o gal√©ri√°ch boli premigrovan√© do datab√°zy RSGallery2(");
-DEFINE("_RSGALLERY_MIGRATE_ALL_FILES",		"S√∫bory √∫spe≈°ne skop√≠rovan√© do novej ≈°trukt√∫ry");
-DEFINE("_RSGALLERY_MIGRATE_NOTALL_FILES",		"Pri kop√≠rovan√≠ s√∫borov do novej ≈°trukt√∫ry sa vyskytli chyby");
-DEFINE("_RSGALLERY_MIGRATE_ZOOM_OK",		"migr√°cia Zoom Gallery ukonƒçen√°. Choƒè do Control Panelu.");
+DEFINE("_RSGALLERY_MIGRATE_NOT_ALL_GAL",		"Nie vπetky inform·cie o galÈri·ch migrovali do datab·ze RSGallery2, a to z nezn·mych prÌËin");
+DEFINE("_RSGALLERY_MIGRATE_ALL_GAL",			"Vπetky inform·cie o s˙boroch migrovali do datab·ze RSGallery2");
+DEFINE("_RSGALLERY_MIGRATE_ALL_FILES",			"S˙bory boli ˙speπne nakoprovanÈ do novej πtrukt˙ry");
+DEFINE("_RSGALLERY_MIGRATE_NOTALL_FILES",		"Pri kopÌrovanÌ s˙borov do novej πtrukt˙ry sa vyskytli chyby");
+DEFINE("_RSGALLERY_MIGRATE_ZOOM_OK",			"Migr·cia Zoom galrie prebehla ˙speπne. Otvorte ovl·dacÌ panel.");
 //function upgradeInstall
-DEFINE("_RSGALLERY_UPGRADE_RSG",		"Aktualizuj z RSGallery");
-DEFINE("_RSGALLERY_UPGRADE_REC_FULL",		"Komponent n√°jden√Ω, av≈°ak bez inform√°cie o verzii.<br />Odpor√∫ƒçame pln√∫ in≈°tal√°ciu.");
-DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF",		"Origin√°lne s√∫bory √∫spe≈°ne presunut√©");
-DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF_ERROR",		"Pri presune origin√°lnych s√∫borov do novej ≈°trukt√∫ry sa vyskytli chyby.\nSkontroluj cez FTP");
-DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF",		"S√∫bory n√°hƒæadov √∫spe≈°ne presunut√©");
-DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF_ERROR",		"Pri presune s√∫borov n√°hƒæadov do novej ≈°trukt√∫ry sa vyskytli chyby.<br />Skontroluj cez FTP");
-DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE",		"Zobrazovan√© obr√°zky √∫spe≈°ne vytvoren√©.");
-DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE_ERROR",		"Chyba pri vytv√°ran√≠ niektor√Ωch alebo v≈°etk√Ωch zobrazovan√Ωch obr√°zkov.<br />Kontaktuj v√Ωvoj√°rov tohoto komponentu.");
-DEFINE("_RSGALLERY_UPGRADE_TABLE",		"Tabuƒæka ");
-DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_OK",		" √∫spe≈°ne vymenen√°");
-DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_ERROR",		" nevymenen√°");
-DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_OK",		" √∫spe≈°ne premenovan√°");
-DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_ERROR",		"");
-DEFINE("_RSGALLERY_UPGRADE_DUMMY_ERROR",		"Pri vytv√°ran√≠ 'dummy' tabuliek sa vyskytla chyba. Odin≈°talovanie RSGallery 2.0 nemus√≠ fungova≈•.");
-DEFINE("_RSGALLERY_UPGRADE_NOT_POSSIBLE",		"Aktualiz√°cia nemo≈æn√°. Nebola n√°jden√° aktualizovateƒæn√° RSGallery \nOdpor√∫ƒçame nov√∫ pln√∫ in≈°tal√°ciu.");
-DEFINE("_RSGALLERY_UPGRADE_SUCCESS",		"Aktualiz√°cia RSGallery2 dokonƒçen√°.\nTeraz m√¥≈æe≈° bezpeƒçne odin≈°talova≈• star√∫ RSGallery");
+DEFINE("_RSGALLERY_UPGRADE_RSG",				"Upgrade z RSGallery");
+DEFINE("_RSGALLERY_UPGRADE_REC_FULL",			"Komponent n·jden˝, ale nebola zisten· verzia.<br />Pln· inπtal·cia je doporuËen·.");
+DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF",		"PÙvodnÈ s˙bory ˙speπne premiestnenÈ");
+DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF_ERROR",	"Pri premiestÚovanÌ pÙvodn˝ch s˙borov do novej πtrukt˙ry nastali chyby.\nProsÌm skontrolujte cez FTP");
+DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF",		"N·hµady (humbnaily) ˙speπne premiestnenÈ");
+DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF_ERROR",		"Pri premiestÚovanÌ s˙borov n·hµadov (thumbnailov) do novej πtrukt˙ry nastali chyby.\nProsÌm skontrolujte cez FTP");
+DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE",		"ZobrazovanÈ obr·zky ˙speπne vytvorenÈ.");
+DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE_ERROR",		"Nepodarilo sa vytvoriª niektorÈ alebo vπetky zobrazovanÈ obr·zky.<br />ProsÌm kontaktujte v˝voj·rov RSGallery.");
+DEFINE("_RSGALLERY_UPGRADE_TABLE",		"Table ");
+DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_OK",		" bol ˙speπne zmemen˝");
+DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_ERROR",		" sa nepodarilo zmeniª");
+DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_OK",		" bol ˙speπne premenovan˝");
+DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_ERROR",		" sa nepodarilo premenovaª");
+DEFINE("_RSGALLERY_UPGRADE_DUMMY_ERROR",		"Vytvorenie napodobenÌn tabuliek zlyhalo. Odinπtalovanie RSGallery 2.0 beta 5 nemusÌ pracovaª.");
+DEFINE("_RSGALLERY_UPGRADE_NOT_POSSIBLE",		"Upgrade nie je moæn˝. N·jden· RSGallery nie je upgradovateµn·.\nPln· inπtal·cia je doporuËen·.");
+DEFINE("_RSGALLERY_UPGRADE_SUCCESS",		"Upgrade na RSGallery2 bol ˙speπn˝.\nTeraz mÙæete bezpeËne odinπtalovaª star˙ RSGallery");
 //function showMigrationOptions
-DEFINE("_RSGALLERY_MIGRATION",		"Migr√°cia");
-DEFINE("_RSGALLERY_MIGRATION_NO_SYSTEMS",		"≈Ωiadne in√© gal√©riov√© syst√©my neboli n√°jden√©");
+DEFINE("_RSGALLERY_MIGRATION",		"Migr·cia");
+DEFINE("_RSGALLERY_MIGRATION_NO_SYSTEMS",		"Æiadne inÈ galÈrie neboli n·jdenÈ");
 //function doMigration
-DEFINE("_RSGALLERY_MIGRATION_NOT_VALID",		"nieje vhodn√Ω typ pre migr√°ciu.");
-
-//uninstall.rsgallery2.php
-//function com_uninstall
-DEFINE("_RSGALLERY_UNINSTALL_OK",		"√öspe≈°ne odin≈°talovan√©");
-
-//slideshow.rsgallery2.php
-DEFINE("_RSGALLERY_SLIDE_START",		"≈†tart");
-DEFINE("_RSGALLERY_SLIDE_STOP",			"Stop");
-DEFINE("_RSGALLERY_SLIDE_NEXT",			"ƒéalej");
-DEFINE("_RSGALLERY_SLIDE_PREV",			"Sp√§≈•");
-
-//images.html.php
-//function showImages
-DEFINE("_RSGALLERY_IMG_IMG_MANAGE",			"Spr√°va polo≈æiek");
-DEFINE("_RSGALLERY_IMG_FILTER",				"Filter:");
-DEFINE("_RSGALLERY_IMG_CPY_MV_GAL",			"Kop√≠ruj/presu≈à:");
-DEFINE("_RSGALLERY_IMG_TITLE",				"Titulok (n√°zov s√∫boru)");
-DEFINE("_RSGALLERY_IMG_ORDER",				"Poradie");
-DEFINE("_RSGALLERY_IMG_DATE_TIME",			"D√°tum a ƒças");
-DEFINE("_RSGALLERY_IMG_EDIT_IMG",			"Edituj fotku");
-//function editImage
-DEFINE("_RSGALLERY_IMG_IMAGE",			"Polo≈æka");
-DEFINE("_RSGALLERY_IMG_DETAILS",		"Detaily");
-DEFINE("_RSGALLERY_IMG_ORDERING",		"Usporiadanie");
-DEFINE("_RSGALLERY_IMG_IMG_PREV",		"Zobraz polo≈æku");
-DEFINE("_RSGALLERY_IMG_PARAMETERS",		"Parametre");
-DEFINE("_RSGALLERY_IMG_LINKS",			"Linky k fotke");
-//function uploadImage
-DEFINE("_RSGALLERY_IMG_SELECT_GAL",			"Mus√≠≈° vybra≈• gal√©riu.");/*javascript alert*/
-DEFINE("_RSGALLERY_IMG_NO_FILE_SELECT",		"V jednom alebo viacer√Ωch poliach nebol vybrat√Ω ≈æiaden s√∫bor.");/*javascript alert*/
-DEFINE("_RSGALLERY_IMG_UPLOAD",				"Nahraj");
-DEFINE("_RSGALLERY_IMG_UPL_DETAILS",		"Detaily nahr√°vania");
-DEFINE("_RSGALLERY_IMG_UPL_GALLERY",		"Gal√©ria nahr√°vania");
-DEFINE("_RSGALLERY_IMG_GEN_DESCR",			"Generick√Ω popis");
-DEFINE("_RSGALLERY_IMG_IMG_FILES",			"S√∫bory polo≈æky");
-DEFINE("_RSGALLERY_IMG_IMAGES",				"Polo≈æka");
-DEFINE("_RSGALLERY_IMG_FILE",				"S√∫bor");
-DEFINE("_RSGALLERY_IMG_MORE",				"(viac s√∫borov)");
-
-//access.class.php
-//function checkGallery
-DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"Neboli n√°jden√© ≈æiadne opr√°vnenia, tak≈æe boli vytvoren√© z√°kladn√©. Sk√∫s znovu.");
-
-//tables/display.class.php
-//function _showGalleryDetails
-DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"Vlastn√≠k: ");
-DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"Poƒçet fotiek v gal√©rii: ");
-DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Vytvoren√©: ");
-/*new*/DEFINE("_RSGALLERY_TMPL_GAL_SUBGALLERIES",	"Subgal√©rie: ");
-/*new*/DEFINE("_RSGALLERY_TMPL_GAL_UPLOADED",	"Nahrat√©");
-
-//file.utils.php
-//function importImage
-DEFINE("_RSGALLERY_FU_NOT_SUP_TYPE",		" nepodporovan√Ω typ s√∫boru.");
-//function move_uploadedFile_to_orignalDir
-DEFINE("_RSGALLERY_FU_UNABLE_COPY",		"nemo≈æno kop√≠rova≈• ");
-DEFINE("_RSGALLERY_FU_IMAGE_TO",		" fotku do: ");
-//function preHandlerCheck
-DEFINE("_RSGALLERY_FU_NOT_WRITABLE",		" existuje, ale nieje zapisovateƒæ√Ω!");
-DEFINE("_RSGALLERY_FU_NOT_EXIST",		" neexistuje!");
-//function cleanMediaDir
-DEFINE("_RSGALLERY_FU_APPARENTLY",		"Oƒçividne ");
-DEFINE("_RSGALLERY_FU_DOESNT_EXIST",		"neexistuje");
-//function handleFTP
-DEFINE("_RSGALLERY_FU_FTP_DIR_NOT_EXIST",		" neexistuje, alebo na Va≈°om serveri nieje ≈æiaden adres√°r. Prever cestu.");
-DEFINE("_RSGALLERY_FU_NO_VALID_IMG",		"Neboli n√°jden√© ≈æiadne fotky v ");
-DEFINE("_RSGALLERY_FU_PLEASE_CHECK_PATH",		". Prever cestu.");
-DEFINE("_RSGALLERY_FU_NO_FILES",		"Neboli n√°jden√© ≈æiadne s√∫bory na spracovanie!");
-DEFINE("_RSGALLERY_FU_MAX_FILESIZE",		"Nahr√°van√Ω s√∫bor presahuje povolen√© maximum");
-DEFINE("_RSGALLERY_FU_IN_PINI",		" definovan√© v php.ini.");
-DEFINE("_RSGALLERY_FU_MAX_FILESIZE_FORM",		"Nahr√°van√Ω s√∫bor presahuje MAX_FILE_SIZE direkt√≠vu ≈°pecifikovan√∫ v HTML formul√°ri.");
-DEFINE("_RSGALLERY_FU_PARTIAL_UPL",		"Nahr√°van√Ω s√∫bor bol nahrat√Ω len ƒçiastoƒçne.");
-DEFINE("_RSGALLERY_FU_NO_UPL",		"Nebol nahrat√Ω ≈æiaden s√∫bor.");
-DEFINE("_RSGALLERY_FU_MISS_TEMP_DIR",		"Ch√Ωba doƒçasn√Ω adres√°r.");
-DEFINE("_RSGALLERY_FU_FAIL_WRITE_DISK",		"Zlyhal z√°pis s√∫boru na disk");
-DEFINE("_RSGALLERY_FU_UPL_STOP_EXT",		"Nahr√°vanie s√∫boru bolo zastaven√© kv√¥li pr√≠pone");
-DEFINE("_RSGALLERY_FU_UNKW_ERROR",		"Nezn√°ma chyba");
-
-//rsgcomments.class.php
-//function showButtons
-/*new*/DEFINE("_RSGALLERY_COMMENTS_COLOR",	"-farba-");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_AQUA",	"aqua");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_BLACK",	"ƒçierna");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_BLUE",	"modr√°");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_FUCHSIA",	"fuchsia");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_GRAY",	"≈°ed√°");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_GREEN",	"zelen√°");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_LIME",	"limetkov√°");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_MAROON",	"ga≈°tanov√°");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_NAVY",	"navy-modr√°");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_OLIVE",	"olivov√°");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_PURPLE",	"purpurov√°");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_RED",	"ƒçerven√°");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_SILVER",	"strieborn√°");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_TEAL",	"modro-zelen√°");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_WHITE",	"biela");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_YELLOW",	"≈ælt√°");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_SIZE",	"-veƒækos≈•-");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_TINY",	"maliƒçk√°");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_SMALL",	"mal√°");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_MEDIUM",	"stredn√°");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_LARGE",	"veƒæk√°");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_HUGE",	"veƒæmi veƒæk√°");
-//function parseQuoteElement
-/*new*/DEFINE("_RSGALLERY_COMMENTS_QUOTE_WROTE", "Nap√≠sal");
-//function editComment
-/*moved*/DEFINE("_RSGALLERY_COMMENT_ADD",		"Pridaj koment√°r");
-/*moved*/DEFINE("_RSGALLERY_COMMENT_NAME",		"Meno");
-/*moved*/DEFINE("_RSGALLERY_COMMENTS_TITLE",		"Titulka");
-/*moved*/DEFINE("_RSGALLERY_COMMENT_COMMENT",		"Text koment√°ra");
-//function showComments
-/*moved*/DEFINE("_RSGALLERY_COMMENT_DELETE",	"Urƒçite vymaza≈• koment√°r?");
-/*moved*/DEFINE("_RSGALLERY_COMMENTS",	"Koment√°re");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_NUM_COMM_ADD",	"# koment√°rov pridan√Ωch");
-/*new*/DEFINE("_RSGALLERY_DELETE_COMMENT",			"Vyma≈æ koment√°r");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_SEC_IMG_MISS", "Bezpeƒçnostn√© obr√°zky boli vybran√© v backende, ale komponent in≈°talovan√Ω nebol! Kontaktuj webmastera");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_NOCOMM",	"Zatiaƒæ ≈æiadne koment√°re!");
-
-//rsgcomments.php
-/*new*/DEFINE("_RSGALLERY_COMMENTS_COMMDEL",		"Koment√°r √∫spe≈°ne vymazan√Ω");
-
-//rsgcomments.php
-DEFINE("_RSGALLERY_COMMENTS_DISABLED",		"Komentovanie nieje umo≈ænen√©");
-/*double deleted DEFINE("_RSGALLERY_COMMENTS_ONLY_ONCE",		"You can only comment once on this item!");*/
-DEFINE("_RSGALLERY_COMMENTS_INCORRECT_CAPTCHA",		"Nespr√°vny CAPTCHA, koment√°r NIEJE ulo≈æen√Ω!");
-DEFINE("_RSGALLERY_COMMENTS_ADD_SUCCES",		"Koment√°r √∫spe≈°ne pridan√Ω!");
-DEFINE("_RSGALLERY_COMMENTS_ADD_FAIL",		"Nemo≈æno prida≈• koment√°r!");
-
-//rsgvoting.class.php
-DEFINE("_RSGALLERY_VOTING_ARE_YOU_SURE",		"Naozaj chce≈° hodnoti≈•?");
-DEFINE("_RSGALLERY_VOTING_RATING",		"Hodnotenie");
-DEFINE("_RSGALLERY_VOTING_VOTE",		"Ohodno≈•");
-DEFINE("_RSGALLERY_VOTING_VOTES",		"&nbsp;hlasy");
-DEFINE("_RSGALLERY_VOTING_RATE_1",		"Ohodno≈• od 1 do 5");
-DEFINE("_RSGALLERY_VOTING_RATE_2",		"Ohodno≈• od 1 do 5");
-DEFINE("_RSGALLERY_VOTING_RATE_3",		"Ohodno≈• od 1 do 5");
-DEFINE("_RSGALLERY_VOTING_RATE_4",		"Ohodno≈• od 1 do 5");
-DEFINE("_RSGALLERY_VOTING_RATE_5",		"Ohodno≈• od 1 do 5");
-
-//rsgvoting.php
-DEFINE("_RSGALLERY_VOTING_DISABLED",		"Hodnotenie vypnut√©!");
-DEFINE("_RSGALLERY_VOTING_NOT_AUTH",		"Nem√°≈° opr√°vnenie hodnoti≈•!");
-DEFINE("_RSGALLERY_VOTING_ALREADY_VOTED",		"U≈æ si hodnotil!");
-DEFINE("_RSGALLERY_VOTING_NOT_ADDED",		"Hodnotenie nemo≈æno prida≈• do datab√°zy!");
-DEFINE("_RSGALLERY_VOTING_ADDED",		"Hodnotenie pridan√© do datab√°zy!");
-
-//templates.php
-//function viewTemplates
-/*new*/DEFINE("_RSGALLERY_TPL_INST",	"Nain≈°taluj RSGTemplate nanovo <small><small>[ Site ]</small></small>");
-// more to do here, but to come
-
-//templates.html.php
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_NAME",	"N√°zov");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_ACTIVE",	"Akt√≠vna");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_AUTHOR",	"Autor");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_VERSION",	"Verzia");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_DATE",	"D√°tum");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_AUTH_URL",	"URL autora");
-
-//stopped at gallery.class.php
+DEFINE("_RSGALLERY_MIGRATION_NOT_VALID",		" nie je spr·vny typ migr·cie.");
 ?>

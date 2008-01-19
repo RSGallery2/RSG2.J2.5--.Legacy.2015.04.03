@@ -7,10 +7,10 @@
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
-defined( '_VALID_MOS' ) or die( 'Access Denied.' );
+defined( '_JEXEC' ) or die( 'Access Denied.' );
 
 // initialize RSG2 core functionality
-require_once( $mosConfig_absolute_path.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
+require_once( JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "init.rsgallery2.php" );
 
 // createa new instance of RSGallery2
 rsgInstance::instance();

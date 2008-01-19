@@ -9,7 +9,7 @@
 * RSGallery is Free Software
 */
 
-defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 
 
 /**
@@ -69,7 +69,7 @@ class HTML_RSGALLERY{
      * @todo Move CSS to stylesheet
      */
     function showCP(){
-        global $mosConfig_live_site, $rows, $rows2, $rsgConfig, $rsgVersion;
+        global  $rows, $rows2, $rsgConfig, $rsgVersion;
 
         // Get the current JUser object
 		$user = &JFactory::getUser();
@@ -82,10 +82,11 @@ class HTML_RSGALLERY{
                 <table width="100%">
                     <tr>
                         <td>
-                        <?php
-                        $tabs = new mosTabs(0);
-                        $tabs->startPane( 'recent' );
-                        $tabs->startTab( _RSGALLERY_TAB_GALLERIES, 'Categories' );
+<?php
+						jimport("joomla.html.pane");
+                        $tabs =& JPane::getInstance("Tabs");
+                        echo $tabs->startPane( 'recent',"recent" );
+                        echo $tabs->startPanel( _RSGALLERY_TAB_GALLERIES, 'Categories' );
                         ?>
                         <table class="adminlist" width="500">
                             <tr>
@@ -102,8 +103,8 @@ class HTML_RSGALLERY{
                             </tr>
                         </table>
                         <?php
-                        $tabs->endTab();
-                        $tabs->startTab( _RSGALLERY_TAB_IMAGES, 'Images' );
+                        echo $tabs->endPanel();
+                        echo $tabs->startPanel( _RSGALLERY_TAB_IMAGES, 'Images' );
                         ?>
                         <table class="adminlist" width="500">
                             <tr>
@@ -121,8 +122,8 @@ class HTML_RSGALLERY{
                             </tr>
                         </table>
                         <?php
-                        $tabs->endTab();
-                        $tabs->startTab(_RSGALLERY_CREDITS, 'Credits' );
+                        echo $tabs->endPanel();
+                        echo $tabs->startPanel(_RSGALLERY_CREDITS, 'Credits' );
                         ?>
 
                         
@@ -201,8 +202,8 @@ class HTML_RSGALLERY{
     </dl>
 </div>
                         <?php
-                        $tabs->endTab();
-                        $tabs->endPane();
+                        echo $tabs->endPanel();
+                        echo $tabs->endPane();
                         ?>
                         </td>
                             </tr>
@@ -227,42 +228,35 @@ class HTML_RSGALLERY{
             <div id='cpanel'>
                 <?php
                 if ( $user->get('gid') > 23 ):
-                    $link = 'index2.php?option=com_rsgallery2&amp;rsgOption=config&amp;task=showConfig';
+                    $link = 'index2.php?option=com_rsgallery2&task=showConfig';
                     HTML_RSGALLERY::quickiconButton( $link, 'config.png',  _RSGALLERY_C_CONFIG );
                 endif;
 
-                $link = 'index2.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=upload';
+                $link = 'index2.php?option=com_rsgallery2&rsgOption=images&task=upload';
                 HTML_RSGALLERY::quickiconButton( $link, 'upload.png', _RSGALLERY_C_UPLOAD );
 
-                $link = 'index2.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=batchupload';
+                $link = 'index2.php?option=com_rsgallery2&task=batchupload';
                 HTML_RSGALLERY::quickiconButton( $link, 'upload_zip.png', _RSGALLERY_C_UPLOAD_ZIP );
                 
-                $link = 'index2.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=view_images';
+                $link = 'index2.php?option=com_rsgallery2&rsgOption=images&task=view_images';
                 HTML_RSGALLERY::quickiconButton( $link, 'mediamanager.png', _RSGALLERY_C_IMAGES );
 
-                $link = 'index2.php?option=com_rsgallery2&amp;rsgOption=galleries';
+                $link = 'index2.php?option=com_rsgallery2&rsgOption=galleries';
                 HTML_RSGALLERY::quickiconButton( $link, 'categories.png', _RSGALLERY_C_CATEGORIES );
 
                 if ( $user->get('gid') > 23 ):
                     /*
-                    $link = 'index2.php?option=com_rsgallery2&amp;task=consolidate_db';
+                    $link = 'index2.php?option=com_rsgallery2&task=consolidate_db';
                     HTML_RSGALLERY::quickiconButton( $link, 'dbrestore.png', _RSGALLERY_C_DATABASE );
     				*/
-    				$link = 'index2.php?option=com_rsgallery2&amp;rsgOption=maintenance';
-					HTML_RSGALLERY::quickiconButton( $link, 'maintenance.png', _RSGALLERY_C_MAINTENANCE);
+    				$link = 'index2.php?option=com_rsgallery2&rsgOption=maintenance';
+					HTML_RSGALLERY::quickiconButton( $link, 'maintenance.png', '** Maintenance **');
     				
-                    $link = 'index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=showMigration';
+                    $link = 'index2.php?option=com_rsgallery2&task=install&opt=migration';
                     HTML_RSGALLERY::quickiconButton( $link, 'dbrestore.png', _RSGALLERY_C_MIGRATION );
                 endif;
-				/*
-				$link = 'index2.php?option=com_rsgallery2&amp;task=edit_css';
-				HTML_RSGALLERY::quickiconButton( $link, 'cssedit.png', _RSGALLERY_C_CSS_EDIT);
-				*/
-				//if (defined( 'J15B_EXEC'))
-				//	$link = 'index2.php?option=com_rsgallery2&rsgOption=template';
-				//else
-					$link = 'index2.php?option=com_rsgallery2&rsgOption=templateManager';
-								
+
+				$link = 'index2.php?option=com_rsgallery2&rsgOption=templateManager';
 				HTML_RSGALLERY::quickiconButton( $link, 'template.png', _RSGALLERY_TEMP_MANG);
 
 				
@@ -272,17 +266,17 @@ class HTML_RSGALLERY{
                 <div id='rsg2-cpanelDebug'><?php echo _RSGALLERY_C_DEBUG_ON;?>
                     <?php
                     if ( $user->get('gid') > 23 ):
-                        $link = 'index2.php?option=com_rsgallery2&amp;task=purgeEverything';
+                        $link = 'index2.php?option=com_rsgallery2&task=purgeEverything';
                         HTML_RSGALLERY::quickiconButton( $link, 'menu.png', _RSGALLERY_C_PURGE );
     
-                        $link = 'index2.php?option=com_rsgallery2&amp;task=reallyUninstall';
+                        $link = 'index2.php?option=com_rsgallery2&task=reallyUninstall';
                         HTML_RSGALLERY::quickiconButton( $link, 'menu.png', _RSGALLERY_C_REALLY_UNINSTALL );
         
-                        $link = 'index2.php?option=com_rsgallery2&amp;task=config_rawEdit';
+                        $link = 'index2.php?option=com_rsgallery2&task=config_rawEdit';
                         HTML_RSGALLERY::quickiconButton( $link, 'menu.png', _RSGALLERY_C_EDIT_CONFIG );
                     endif;
                     
-                    $link = 'index2.php?option=com_rsgallery2&amp;task=config_dumpVars';
+                    $link = 'index2.php?option=com_rsgallery2&task=config_dumpVars';
                     HTML_RSGALLERY::quickiconButton( $link, 'menu.png', _RSGALLERY_C_VIEW_CONFIG );
                     ?>
                     <div class='rsg2-clr'>&nbsp;</div>
@@ -425,11 +419,11 @@ class HTML_RSGALLERY{
      * Inserts the HTML placed at the top of all RSGallery Admin pages.
      */
     function RSGalleryHeader($type='', $text=''){
-        global $mosConfig_live_site;
+        global $mainframe;
         ?>
         <table class="adminheading">
           <tr>
-            <td><!--<img src="<?php echo $mosConfig_live_site?>/administrator/components/com_rsgallery2/images/rsg2-logo.png" border=0 />--></td>
+            <td><!--<img src="<?php echo JURI_SITE?>/administrator/components/com_rsgallery2/images/rsg2-logo.png" border=0 />--></td>
             <th class='<?php echo $type; ?>'>RSGallery2 <?php echo $text; ?></th>
           </tr>
         </table>
@@ -527,7 +521,7 @@ class HTML_RSGALLERY{
                 <tr>
                     <td width="200"><strong><?php echo _RSGALLERY_BATCH_METHOD;?></strong>
                     <?php
-                    echo mosToolTip( _RSGALLERY_BATCH_METHOD_TIP, _RSGALLERY_BATCH_METHOD );
+                    echo JHTML::tooltip( _RSGALLERY_BATCH_METHOD_TIP, _RSGALLERY_BATCH_METHOD );
                     ?>
                     </td>
                     <td width="200">
@@ -547,7 +541,7 @@ class HTML_RSGALLERY{
                         <?php echo _RSGALLERY_BATCH_FTP_PATH;?> :</td>
                     <td>
 
-                        <input type="text" name="ftppath" value="<?php echo $FTP_path; ?>" size="30" /><?php echo mosToolTip( _RSGALLERY_BATCH_FTP_PATH_OVERL, _RSGALLERY_BATCH_FTP_PATH );//echo _RSGALLERY_BATCH_DONT_FORGET_SLASH;?>
+                        <input type="text" name="ftppath" value="<?php echo $FTP_path; ?>" size="30" /><?php echo JHTML::tooltip( _RSGALLERY_BATCH_FTP_PATH_OVERL, _RSGALLERY_BATCH_FTP_PATH );//echo _RSGALLERY_BATCH_DONT_FORGET_SLASH;?>
                     </td>
                 </tr>
                 <tr>
@@ -595,7 +589,7 @@ class HTML_RSGALLERY{
      */
     function batch_upload_2X	( $ziplist, $extractDir )
         {
-        global $mosConfig_live_site, $database;
+        global  $database;
         
         //Get variables from form
         $selcat = rsgInstance::getInt('selcat'  , null);
@@ -640,7 +634,7 @@ class HTML_RSGALLERY{
                         <td colspan="2" align="right"><?php echo _RSGALLERY_BATCH_DELETE;?> #<?php echo $i - 1;?>: <input type="checkbox" name="delete[<?php echo $i - 1;?>]" value="true" /></td>
                     </tr>
                     <tr>
-                        <td align="center" colspan="2"><img src="<?php echo $mosConfig_live_site . "/media/" . $extractDir . "/" . $filename;?>" alt="" border="1" width="100" align="center" /></td>
+                        <td align="center" colspan="2"><img src="<?php echo JURI_SITE . "/media/" . $extractDir . "/" . $filename;?>" alt="" border="1" width="100" align="center" /></td>
                     </tr>
                     <input type="hidden" value="<?php echo $filename;?>" name="filename[]" />
                     <tr>
@@ -779,7 +773,7 @@ class HTML_RSGALLERY{
                     <?php echo _RSGALLERY_UPLOAD_NUMBER ;?>
                     </td>
                     <td>
-                    <?php echo mosHTML::integerSelectList( 1, 25, 1, 'numberOfUploads', 'onChange="form.submit()"', 1 ); ?>
+                    <?php echo JHTML::_("select.integerlist", 1, 25, 1, 'numberOfUploads', 'onChange="form.submit()"', 1 ); ?>
                     </td>
                 </tr>
                 <tr>

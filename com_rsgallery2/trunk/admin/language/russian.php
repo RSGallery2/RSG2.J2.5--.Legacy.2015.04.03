@@ -9,7 +9,7 @@
 * @author Evgeniy Tokarev <tokarev.e@gmail.com>
 * RSGallery is Free Software
 **/
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 //rsgallery2.html.php
 //RSShowPictures
@@ -297,7 +297,7 @@ DEFINE("_RSGALLERY_PURGE_GAL",				"галереи удалены из базы.");
 DEFINE("_RSGALLERY_PURGE_CONFIG",			"конфигурация удалена из базы.");
 DEFINE("_RSGALLERY_PURGE_COMMENTS",			"комментарии удалены из базы.");
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Использован ключ rm -r при попытке удаления $mosConfig_absolute_path/images/rsgallery");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Использован ключ rm -r при попытке удаления JPATH_SITE/images/rsgallery");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"Удалена таблица #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"Удалена таблица #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"Удалена таблица #__rsgallery2_config");

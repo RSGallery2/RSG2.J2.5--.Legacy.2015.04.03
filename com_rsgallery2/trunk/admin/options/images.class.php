@@ -9,14 +9,14 @@
 */
 
 // no direct access
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 /**
 * Image database table class
 * @package RSGallery2
 * @author Ronald Smit <ronald.smit@rsdev.nl>
 */
-class rsgImagesItem extends mosDBTable {
+class rsgImagesItem extends JTable {
 	/** @var int Primary key */
 	var $id					= null;
 	/** @var int */
@@ -53,14 +53,25 @@ class rsgImagesItem extends mosDBTable {
 	/**
 	* @param database A database connector object
 	*/
-	function rsgImagesItem( &$db ) {
-		$this->mosDBTable( '#__rsgallery2_files', 'id', $db );
+	function __construct( &$db ) {
+		parent::__construct( '#__rsgallery2_files', 'id', $db );
 	}
 	/** overloaded check function */
 	function check() {
 		// filter malicious code
 		$ignoreList = array( 'params','descr' );
-		$this->filter( $ignoreList );
+
+		$ignore = is_array( $ignoreList );
+		
+		$filter = & JFilterInput::getInstance();
+		foreach ($this->getProperties() as $k => $v)
+		{
+			if ($ignore && in_array( $k, $ignoreList ) ) {
+				continue;
+			}
+			$this->$k = $filter->clean( $this->$k );
+		}
+
 
 		/** check for valid name */
 		if (trim( $this->title ) == '') {

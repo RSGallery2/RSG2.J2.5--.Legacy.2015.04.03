@@ -120,9 +120,4 @@ switch ($task)
 		break;
 }
 
-
-global $J15BErrorMessage;
-if($J15BErrorMessage != "")
-	mosRedirect('index2.php?option=com_rsgallery2&rsgOption=templateManager', $J15BErrorMessage);
-
 ?>

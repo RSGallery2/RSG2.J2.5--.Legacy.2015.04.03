@@ -5,7 +5,7 @@
  * @copyright (C) 2003 - 2006 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
-defined( '_VALID_MOS' ) or die( 'Restricted Access' );
+defined( '_JEXEC' ) or die( 'Restricted Access' );
 
 /**
  * Template class for RSGallery2
@@ -93,7 +93,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 			}
 			
 			if ($date) {
-				echo _RSGALLERY_TMPL_GAL_DETAILS_DATE." "; echo mosFormatDate( $kid->date,"%d-%m-%Y" );?><br />
+				echo _RSGALLERY_TMPL_GAL_DETAILS_DATE." "; echo JHTML::_("date", $kid->date,"%d-%m-%Y" );?><br />
 				<?php
 			}
 			?>
@@ -231,8 +231,9 @@ class rsgDisplay_semantic extends rsgDisplay{
 	 * Shows thumbnails for gallery
 	 */
 	function showThumbs() {
-		global $my, $rsgConfig, $Itemid;
-
+		global $rsgConfig, $Itemid;
+		$my = JFactory::getUser();
+		
 		$itemCount = $this->gallery->itemCount();
 		
 		$limit = $rsgConfig->get("display_thumbs_maxPerPage") ;
@@ -253,7 +254,6 @@ class rsgDisplay_semantic extends rsgDisplay{
 			// no items to display, so we can return;
 			return;
 		}
-	
 		//Old rights management. If user is owner or user is Super Administrator, you can edit this gallery
 		if(( $my->id <> 0 ) and (( $this->gallery->uid == $my->id ) OR ( $my->usertype == 'Super Administrator' )))
 			$this->allowEdit = true;
@@ -285,7 +285,7 @@ class rsgDisplay_semantic extends rsgDisplay{
      * Shows main image
      */
 	function showDisplayImage(){
-		global $rsgConfig, $mosConfig_live_site, $mainframe;
+		global $rsgConfig, $mainframe;
 		
 		$item = rsgInstance::getItem();
 
@@ -403,34 +403,37 @@ class rsgDisplay_semantic extends rsgDisplay{
 		
 		if (! ( $rsgConfig->get("displayDesc") || $rsgConfig->get("displayVoting") || $rsgConfig->get("displayComments") || $rsgConfig->get("displayEXIF") ))
 			return;
-	
-		$tabs = new mosTabs(0);
-		$tabs->startPane( 'tabs' );
+
+		jimport("joomla.html.pane");
+		
+		$tabs =& JPane::getInstance("Tabs",array("useCookies" => true));
+		echo $tabs->startPane( 'tabs' );
 		
 		if ( $rsgConfig->get("displayDesc") ) {
-			$tabs->startTab(_RSGALLERY_DESCR, 'rs-description' );
+			echo $tabs->startPanel(_RSGALLERY_DESCR, 'rs-description' );
 			$this->_showDescription(); 
-			$tabs->endTab();
+			echo $tabs->endPanel();
 		}
 		
-		if ( $rsgConfig->get("displayVoting") ){
-			$tabs->startTab(_RSGALLERY_VOTING, 'Voting' );
+		if ( $rsgConfig->get("displayVoting") ) {
+			echo $tabs->startPanel(_RSGALLERY_VOTING, 'Voting' );
 			$this->_showVotes();
-			$tabs->endTab();
+			echo $tabs->endPanel();
 		}
 		
 		if ( $rsgConfig->get("displayComments") ) {
-			$tabs->startTab(_RSGALLERY_COMMENTS, 'Comments' );
+			echo $tabs->startPanel(_RSGALLERY_COMMENTS, 'Comments' );
 			$this->_showComments();
-			$tabs->endTab();
+			echo $tabs->endPanel();
 		}
 	
 		if ($rsgConfig->get("displayEXIF") ) {
-			$tabs->startTab(_RSGALLERY_EXIF, 'EXIF' );
+			echo $tabs->startPanel(_RSGALLERY_EXIF, 'EXIF' );
 			$this->_showEXIF();
-			$tabs->endTab();
+			echo $tabs->endPanel();
 		}
-		$tabs->endPane();
+		echo $tabs->endPanel();
+		
 	}
 
     /**
@@ -470,7 +473,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		
 		while( true ){
 			?>
-			<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&gid=".$kid->id); ?>">
+			<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&gatid=".$kid->id); ?>">
 				<?php echo htmlspecialchars(stripslashes($kid->name), ENT_QUOTES); ?>
 				(<?php echo $kid->itemCount(); ?>)</a><?php
 

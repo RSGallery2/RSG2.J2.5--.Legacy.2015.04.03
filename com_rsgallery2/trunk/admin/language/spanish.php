@@ -14,7 +14,7 @@
 
 **/
 
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 //rsgallery2.html.php
 //function showUserGallery
@@ -293,7 +293,7 @@ DEFINE("_RSGALLERY_PURGE_GAL",				"Galer&iacute;as eliminadas de la base de dato
 DEFINE("_RSGALLERY_PURGE_CONFIG",			"Configuraci&oacute;n eliminada de la base de datos.");
 DEFINE("_RSGALLERY_PURGE_COMMENTS",			"Comentarios eliminados de la base de datos.");
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Se utiliz&oacute; rm -r para tratar de borrar $mosConfig_absolute_path/images/rsgallery");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Se utiliz&oacute; rm -r para tratar de borrar JPATH_SITE/images/rsgallery");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"#__rsgallery2_files eliminada");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"#__rsgallery2_galleries eliminada");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"#__rsgallery2_config eliminada");

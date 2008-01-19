@@ -8,7 +8,7 @@
 * @author eFiX (xfbi@quick.cz)
 * RSGallery is Free Software
 **/
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 //rsgallery2.html.php
 //function showUserGallery
@@ -275,7 +275,7 @@ DEFINE("_RSGALLERY_PURGE_GAL",				"galerie z databáze uvolněné.");
 DEFINE("_RSGALLERY_PURGE_CONFIG",			"nastavení z databáze uvolněné.");
 DEFINE("_RSGALLERY_PURGE_COMMENTS",			"komentáře z databáze uvolněné.");
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Na odstranění $mosConfig_absolute_path/images/rsgallery zkus použít rm -r");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Na odstranění JPATH_SITE/images/rsgallery zkus použít rm -r");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"Uvolnil #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"Uvolnil #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"Uvolnil #__rsgallery2_config");

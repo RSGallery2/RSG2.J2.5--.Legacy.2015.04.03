@@ -9,7 +9,7 @@
 * @author merdan nouryev<nouryev@yahoo.com>
 * RSGallery is Free Software
 **/
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 //rsgallery2.html.php
 //function showUserGallery
@@ -279,7 +279,7 @@ DEFINE("_RSGALLERY_PURGE_GAL",				"galeri girdileri veritabanından temizlendi."
 DEFINE("_RSGALLERY_PURGE_CONFIG",			"yapılandırma veritabanından temizlendi.");
 DEFINE("_RSGALLERY_PURGE_COMMENTS",			"yorum veritabanından temizlendi.");
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"$mosConfig_absolute_path/images/rsgallery kaldırma sınaması için rm -r kullanıldı");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"JPATH_SITE/images/rsgallery kaldırma sınaması için rm -r kullanıldı");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"DROPed #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"DROPed #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"DROPed #__rsgallery2_config");

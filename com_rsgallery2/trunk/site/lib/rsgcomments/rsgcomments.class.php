@@ -7,7 +7,7 @@
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
-defined( '_VALID_MOS' ) or die( 'Access Denied.' );
+defined( '_JEXEC' ) or die( 'Access Denied.' );
 /**
  * Class for the comments plugin
  * @author Ronald Smit <ronald.smit@rsdev.nl>
@@ -24,7 +24,7 @@ class rsgComments {
  */
  
  function rsgComments() {
-	global $mosConfig_live_site;
+	global $mainframe;
  	$this->_buttons = array(
 		"b" 	=> "ubb_bold.gif",
 		"i" 	=> "ubb_italicize.gif",
@@ -56,7 +56,7 @@ class rsgComments {
 		":idea:" 		=> "icon_idea.gif",
 		":arrow:" 		=> "icon_arrow.gif"
 		);	
-	$this->_emoticons_path 		= $mosConfig_live_site."/components/com_rsgallery2/lib/rsgcomments/emoticons/default/";
+	$this->_emoticons_path 		= JURI_SITE."/components/com_rsgallery2/lib/rsgcomments/emoticons/default/";
 	$this->_support_emoticons 	= 1; //Need to retrieve this from Control Panel Settings
 	$this->_support_pictures	= 1; //Need to retrieve this from Control Panel Settings
 	$this->_support_UBBcode		= 1; //Need to retrieve this from Control Panel Settings
@@ -66,13 +66,13 @@ class rsgComments {
  * Shows toolbar for BBCode editor
  */
 function showButtons() {
-	global $mosConfig_live_site;
+	global $mainframe;
 	//Define codes and corresponding images for toolbar
 
 	echo "<div style='float: left;'>";
 	foreach ($this->_buttons as $tag => $filename) {
 		?>
-		<a href='javascript:insertUBBTag("<?php echo $tag;?>")'><img border='0' src='<?php echo $mosConfig_live_site;?>/components/com_rsgallery2/lib/rsgcomments/images/<?php echo $filename;?>' class='buttonBB' name='bb' alt='[<?php echo $tag;?>]' /></a>&nbsp;
+		<a href='javascript:insertUBBTag("<?php echo $tag;?>")'><img border='0' src='<?php echo JURI_SITE;?>/components/com_rsgallery2/lib/rsgcomments/images/<?php echo $filename;?>' class='buttonBB' name='bb' alt='[<?php echo $tag;?>]' /></a>&nbsp;
 		<?php
 	}
 	?>
@@ -113,14 +113,14 @@ function showButtons() {
  * Shows block of smilies for BBCode editor
  */
 function showSmilies() {
-	global $mosConfig_live_site;
+	global $mainframe;
 	
 	$i = 0;
 	foreach ($this->_emoticons as $tag => $filename) {
 		?>
 		<span class='emoticonseparator'>
 			<span class='emoticon'>
-				<a href='javascript:emoticon("<?php echo $tag;?>")'><img src='<?php echo $mosConfig_live_site;?>/components/com_rsgallery2/lib/rsgcomments/emoticons/default/<?php echo $filename;?>' border='0' alt='' /></a>
+				<a href='javascript:emoticon("<?php echo $tag;?>")'><img src='<?php echo JURI_SITE;?>/components/com_rsgallery2/lib/rsgcomments/emoticons/default/<?php echo $filename;?>' border='0' alt='' /></a>
 			</span>
 		</span>
 		<?php
@@ -229,7 +229,7 @@ function parseCodeElement($html) {
  * Parse a BB-encoded message to HTML
  */
 function parse( $html ) {
-        global $mosConfig_absolute_path;
+        
 		//$html = $this->_comment;
         if ($this->_support_emoticons) $html = $this->parseEmoticons($html);
         if ($this->_support_pictures) $html = $this->parseImgElement($html);
@@ -246,10 +246,11 @@ function parse( $html ) {
  * Shows the form for the 
  */
 function editComment( $item_id ) {
-	global $rsgConfig, $my, $mosConfig_live_site, $mosConfig_absolute_path;/* $mosConfig_absolute_path is only there to accomodate SecurityImages for now*/
+	global $rsgConfig, $mainframe ;
+	$my =& JFactory::getUser();/* JPATH_SITE is only there to accomodate SecurityImages for now*/
 	$doc =& JFactory::getDocument();
-	$doc->addScript($mosConfig_live_site."/components/com_rsgallery2/lib/rsgcomments/js/client.js");
-	$doc->addStyleSheet($mosConfig_live_site."/components/com_rsgallery2/lib/rsgcomments/rsgcomments.css");
+	$doc->addScript(JURI_SITE."/components/com_rsgallery2/lib/rsgcomments/js/client.js");
+	$doc->addStyleSheet(JURI_SITE."/components/com_rsgallery2/lib/rsgcomments/rsgcomments.css");
 	
 	?>
 	<script type="text/javascript">
@@ -336,7 +337,8 @@ function editComment( $item_id ) {
 }
 
 function showComments( $item_id ) {
-	global $database, $my, $Itemid;
+	global $database, $Itemid;
+	$my =& JFactory::getUser();
 	?>
 	<script type="text/javascript">
 	//<![CDATA[
@@ -376,7 +378,7 @@ function showComments( $item_id ) {
 			<tr>
 				<td valign="top" width="100"><span class="postusername"><?php echo galleryUtils::genericGetUsername( $comment['user_id'] );?></span></td>
 				<td valign="top" class="content_area">
-				<?php echo mosFormatDate($comment['datetime']);?>
+				<?php echo JHTML::_("date",$comment['datetime']);?>
 				<hr />
 				<?php echo rsgComments::parse( $comment['comment'] );?>
 				<?php
@@ -413,7 +415,7 @@ function showComments( $item_id ) {
  * @param id
  */
 function _get( $id ){
-    global $database;
+    $database =& JFactory::getDBO();
 	//Check value type
     if( !is_numeric( $id )) die("item id is not a number: $id");
     
@@ -438,7 +440,7 @@ function _get( $id ){
  * @param int item_id
  */
 function _getList( $item_id ) {
-	global $database;
+	$database =& JFactory::getDBO();
 	
 	$result = array();
 	$sql = "SELECT * FROM #__rsgallery2_comments " .

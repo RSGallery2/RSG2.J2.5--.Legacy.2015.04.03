@@ -9,13 +9,13 @@
 */
 
 // no direct access
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 global $rsgConfig;
 if( !isset( $rsgConfig )){
-    global $mosConfig_absolute_path;
-    require_once( $mosConfig_absolute_path . '/administrator/components/com_rsgallery2/includes/config.class.php' );
-    require_once( $mosConfig_absolute_path . '/administrator/components/com_rsgallery2/includes/version.rsgallery2.php' );
+    
+    require_once( JPATH_SITE . '/administrator/components/com_rsgallery2/includes/config.class.php' );
+    require_once( JPATH_SITE . '/administrator/components/com_rsgallery2/includes/version.rsgallery2.php' );
 
     $rsgVersion = new rsgalleryVersion();
     $rsgConfig = new rsgConfig( false );
@@ -50,8 +50,13 @@ class rsgInstall {
     
     /** Constructor */
     function rsgInstall(){
-        global $rsgConfig;
+		global $rsgConfig, $mainframe;
         
+		if (!defined("JURI_SITE")){
+			$app =JFactory::getApplication();
+			define('JURI_SITE', $app->isSite() ? JURI::base() : $mainframe->getSiteURL());
+		}
+		
         $this->galleryDir   = '/images/rsgallery';
         $this->dirOriginal  = '/images/rsgallery/original';
         $this->dirThumbs    = '/images/rsgallery/thumb';
@@ -84,7 +89,7 @@ class rsgInstall {
      * Changes Menu icon in backend to RSGallery2 logo
      */
     function changeMenuIcon() {
-    global $database;
+    $database =& JFactory::getDBO();
 	$database->setQuery("UPDATE #__components SET admin_menu_img='../administrator/components/com_rsgallery2/images/rsg2_menu.png' WHERE admin_menu_link='option=com_rsgallery2'");
 	if ($database->query())
         {
@@ -100,19 +105,19 @@ class rsgInstall {
      * Creates the default gallery directory structure
      */
     function createDirStructure() {
-        global $mosConfig_absolute_path;
+        
         $dirs = array($this->galleryDir, $this->dirOriginal, $this->dirThumbs, $this->dirDisplay);
         $count = 0;
         
         foreach ($dirs as $dir) {
-        if (file_exists($mosConfig_absolute_path.$dir) && is_dir($mosConfig_absolute_path.$dir))
+        if (file_exists(JPATH_SITE.$dir) && is_dir(JPATH_SITE.$dir))
             {
             // Dir already exists, next
             $this->writeInstallMsg("<strong>$dir</strong>"._RSGALLERY_INSTALL_DIR_EXISTS,"ok");
             }
         else
             {
-            if(@mkdir($mosConfig_absolute_path.$dir, 0777))
+            if(@mkdir(JPATH_SITE.$dir, 0777))
                 {
                 $this->writeInstallMsg("<strong>$dir</strong>"._RSGALLERY_ISNTALL_IS_CREATED,"ok");
                 $count++;
@@ -150,8 +155,9 @@ class rsgInstall {
     * @return array containing errors
     */
     function populate_db( $sqlfile='rsgallery2.sql') {
-        global $database, $mosConfig_absolute_path;
-        $sqlDir = $mosConfig_absolute_path . '/administrator/components/com_rsgallery2/sql/';
+        $database =& JFactory::getDBO();
+		
+        $sqlDir = JPATH_SITE . '/administrator/components/com_rsgallery2/sql/';
         $errors = array();
     
         $query = fread( fopen( $sqlDir . $sqlfile, 'r' ), filesize( $sqlDir . $sqlfile ) );
@@ -215,7 +221,7 @@ class rsgInstall {
      * @todo Do a check on allowed filetypes, so only gif, jpeg and png are fed to the image convertor
      */
     function createImages($dir, $type = "display") {
-    global $rsgConfig, $mosConfig_absolute_path;
+    global $rsgConfig;
     /** 
      * Set timelimit to avoid time out errors due to restrictions 
      * in php.ini's 'max_execution_time' which defaults to 30 in
@@ -243,7 +249,7 @@ class rsgInstall {
                 {
                 if (!is_dir($dir.$filename) && $filename !== "." && $filename !== ".." && $filename !== "Thumbs.db")
                     {
-                    if(imgUtils::resizeImage($dir."/".$filename, $mosConfig_absolute_path.$this->dirDisplay."/".$filename, $rsgConfig->get('image_width')))
+                    if(imgUtils::resizeImage($dir."/".$filename, JPATH_SITE.$this->dirDisplay."/".$filename, $rsgConfig->get('image_width')))
                         {
                         continue;
                         }
@@ -454,7 +460,7 @@ class rsgInstall {
      * @return True or False
      */
     function componentInstalled($component){
-    global $database;
+    $database =& JFactory::getDBO();
     $sql = "SELECT COUNT(1) FROM #__components as a WHERE a.option = '$component'";
     $database->setQuery($sql);
     $result = $database->loadResult($sql);
@@ -476,7 +482,7 @@ class rsgInstall {
      */
      function writeInstallMsg($msg, $type = NULL)
         {
-        global $mosConfig_live_site;
+        global $mainframe;
         if ($type == "ok")
             {
             $icon = "tick.png";
@@ -494,7 +500,7 @@ class rsgInstall {
         <table width="500"><tr><td>
         <table class="adminlist" border="1">
         <tr>
-            <td width="40"><img src="<?php echo $mosConfig_live_site;?>/administrator/images/<?php echo $icon;?>" alt="" border="0"></td>
+            <td width="40"><img src="<?php echo JURI_SITE;?>/administrator/images/<?php echo $icon;?>" alt="" border="0"></td>
             <?php if( $type=='error' ): ?>
                 <td><pre><?php print_r( $msg );?></pre></td>
             <?php else: ?>
@@ -511,7 +517,7 @@ class rsgInstall {
       * Shows the "Installation complete" box with a link to the controlpanel
       */
      function installComplete($msg = _RSGALLERY_INSTALL_COMPLETE){
-     global $mosConfig_live_site;
+     global $mainframe;
      ?>
      <div align="center">
         <table width="500"><tr><td>
@@ -524,7 +530,7 @@ class rsgInstall {
                 <br>
                 
                 <a href="index2.php?option=com_rsgallery2">
-                    <img align="absmiddle" src="<?php echo $mosConfig_live_site;?>/administrator/images/cpanel.png" alt="" width="48" height="48" border="0">&nbsp;
+                    <img align="absmiddle" src="<?php echo JURI_SITE;?>/administrator/images/cpanel.png" alt="" width="48" height="48" border="0">&nbsp;
                     <h2><?php echo _RSGALLERY_HEAD_CPANEL?></h2>
                 </a>
                 </div>
@@ -542,7 +548,7 @@ class rsgInstall {
      */
     function deleteTable($table)
         {
-        global $database;
+        $database =& JFactory::getDBO();
         $sql = "DROP TABLE IF EXISTS `$table`";
         $database->setQuery($sql);
         if ($database->query())
@@ -575,8 +581,8 @@ class rsgInstall {
      * @param integer Autoincrement ID for the table
      * @return integer Highest value for ID in table
      */
-    function maxId($tablename = "#__rsgallery2_galleries", $id = "id") {
-        global $database;
+    function maxId($tablename = "#__rsgallery2_cats", $id = "id") {
+        $database =& JFactory::getDBO();
         $sql = "SELECT MAX($id) FROM $tablename";
         $database->setQuery($sql);
         $max_id = $database->loadResult();
@@ -648,11 +654,11 @@ class rsgInstall {
     
     if ($this->componentInstalled("com_zoom"))
         {
-        include_once($mosConfig_absolute_path."/components/com_zoom/etc/zoom_config.php");
+        include_once(JPATH_SITE."/components/com_zoom/etc/zoom_config.php");
         //First check if the right version is installed
         if ($zoomConfig['version'] == "2.5.1 RC1" OR $zoomConfig['version'] == "2.5.1 RC2")
             {
-            $basedir = $mosConfig_absolute_path."/".$zoomConfig['imagepath'];
+            $basedir = JPATH_SITE."/".$zoomConfig['imagepath'];
             $this->writeInstallMsg("OK, right version (".$zoomConfig['version'].") is installed. Let's migrate!","ok");
             $max_id = $this->maxId();
             $this->createTableStructure();
@@ -694,17 +700,17 @@ class rsgInstall {
         if ($this->ComponentInstalled("com_rsgallery"))
             {
             //Yes, component is installed
-            $config_file = $mosConfig_absolute_path."/administrator/components/com_rsgallery/language/english.php";
+            $config_file = JPATH_SITE."/administrator/components/com_rsgallery/language/english.php";
             if (file_exists($config_file))
                 {
                 //Supress notices on duplicate definitions with @, as we loaded the new english.php already
-                @include_once($mosConfig_absolute_path."/administrator/components/com_rsgallery/language/english.php");
+                @include_once(JPATH_SITE."/administrator/components/com_rsgallery/language/english.php");
                 $version = _RSGALLERY_VERSION;
                 }
             else
                 {
                 //Well, component is installed, but no version information can be established
-                mosRedirect("index2.php?option=com_rsgallery2&task=install",_RSGALLERY_UPGRADE_REC_FULL);
+                $mainframe->redirect("index2.php?option=com_rsgallery2&task=install",_RSGALLERY_UPGRADE_REC_FULL);
                 }
             /**
              * 2. Then we need to create the new directory structure.
@@ -714,7 +720,7 @@ class rsgInstall {
             /**
              * 3a. Full pics need to move to /images/rsgallery/original
              */
-            if ($this->copyFiles($imagepath_old,$mosConfig_absolute_path.$this->dirOriginal,0777,false))
+            if ($this->copyFiles($imagepath_old,JPATH_SITE.$this->dirOriginal,0777,false))
                 {
                 $this->writeInstallMsg(_RSGALLERY_UPGRADE_FILES_TRANF,"ok");
                 }
@@ -726,7 +732,7 @@ class rsgInstall {
             /**
              * 3b. Thumbs need to move to /images/rsgallery/thumb
              */
-            if ($this->copyFiles($imagepath_old."/thumbs",$mosConfig_absolute_path.$this->dirThumbs,0777,false))
+            if ($this->copyFiles($imagepath_old."/thumbs",JPATH_SITE.$this->dirThumbs,0777,false))
                 {
                 $this->writeInstallMsg(_RSGALLERY_UPGRADE_THUMB_TRANF,"ok");
                 }
@@ -738,7 +744,7 @@ class rsgInstall {
             /**
              * 4. Display images need to be generated
              */
-            if($this->createImages($mosConfig_absolute_path.$this->dirOriginal, "display"))
+            if($this->createImages(JPATH_SITE.$this->dirOriginal, "display"))
                 {
                 $this->writeInstallMsg(_RSGALLERY_UPGRADE_DISP_CREATE,"ok");
                 }
@@ -899,15 +905,15 @@ class rsgInstall {
                 {
                 /** Revert changes, remove new structure and content */
                 $exceptions = array(".","..");
-                $this->deleteGalleryDir($mosConfig_absolute_path.$this->galleryDir, $exceptions, $output=false);
+                $this->deleteGalleryDir(JPATH_SITE.$this->galleryDir, $exceptions, $output=false);
                 //Abort upgrade. Gallery structure present but no version information could be retrieved
-                mosRedirect("index2.php?option=com_rsgallery2&task=install",_RSGALLERY_UPGRADE_NOT_POSSIBLE);
+                $mainframe->redirect("index2.php?option=com_rsgallery2&task=install",_RSGALLERY_UPGRADE_NOT_POSSIBLE);
                 }
             }
         else
             {
             //No, component is not installed
-            mosRedirect("index2.php?option=com_rsgallery2&task=install",_RSGALLERY_UPGRADE_NOT_POSSIBLE);
+            $mainframe->redirect("index2.php?option=com_rsgallery2&task=install",_RSGALLERY_UPGRADE_NOT_POSSIBLE);
             }
         /**
          * 8. Finally a check if everything went OK (rights, etc)
@@ -917,7 +923,7 @@ class rsgInstall {
     }
 
     function showInstallOptions(){
-        global $mosConfig_live_site;
+        global $mainframe;
         ?>
         <table width="100%">
         <tr>
@@ -933,7 +939,7 @@ class rsgInstall {
                 <tr>
                     <td>
                     <div style=font-size:12px;font-weight:bold;>
-                    <img style="float:left;margin:7px;" src="<?php echo $mosConfig_live_site;?>/administrator/images/install.png" alt="" border="0">&nbsp;
+                    <img style="float:left;margin:7px;" src="<?php echo JURI_SITE;?>/administrator/images/install.png" alt="" border="0">&nbsp;
                     <a href="index2.php?option=com_rsgallery2&task=install&opt=fresh">Fresh install</a>
                     </div>
                     Installs a complete new RSGallery2. All original images, directories and database entries will be lost. Typical choice for a first install or if you want a completely fresh installation.
@@ -942,7 +948,7 @@ class rsgInstall {
                 <tr>
                     <td>
                     <div style=font-size:12px;font-weight:bold;>
-                    <img style="float:left;margin:7px;" src="<?php echo $mosConfig_live_site;?>/administrator/images/categories.png" alt="" border="0">&nbsp;
+                    <img style="float:left;margin:7px;" src="<?php echo JURI_SITE;?>/administrator/images/categories.png" alt="" border="0">&nbsp;
                     <a href="index2.php?option=com_rsgallery2&task=install&opt=upgrade">Upgrade</a>
                     </div>
                     Upgrade from RSGallery 2.0 beta 5 only. This upgrade only works if the old database tables are still on the server and the '<strong>gallery</strong>' and '<strong>gallery/thumbs</strong>' directory still exist. If not, choose <a href="index2.php?option=com_rsgallery2&task=install&opt=fresh">Fresh install</a>.
@@ -950,7 +956,7 @@ class rsgInstall {
                 </tr>
                 <tr>
                     <td><div style=font-size:12px;font-weight:bold;>
-                    <img style="float:left;margin:7px;" src="<?php echo $mosConfig_live_site;?>/administrator/images/menu.png" alt="" border="0">&nbsp;
+                    <img style="float:left;margin:7px;" src="<?php echo JURI_SITE;?>/administrator/images/menu.png" alt="" border="0">&nbsp;
                     <a href="index2.php?option=com_rsgallery2&task=install&opt=migration">Migration</a>
                     </div>
                     Migrate your other galleries to RSGallery2. This option will detect any other gallery component in your installation and will offer you the possibility to import the images into the new RSGallery2.<br>(Currently supported are: <strong>Zoom Media Gallery</strong>, <strong>Akogallery</strong> and .......)
@@ -959,7 +965,7 @@ class rsgInstall {
                 <tr>
                     <td>
                     <div style=font-size:12px;font-weight:bold;>
-                    <img style="float:left;margin:15px;" src="<?php echo $mosConfig_live_site;?>/administrator/images/next_f2.png" alt="" border="0">&nbsp;
+                    <img style="float:left;margin:15px;" src="<?php echo JURI_SITE;?>/administrator/images/next_f2.png" alt="" border="0">&nbsp;
                     <a href="index2.php?option=com_rsgallery2">Do Nothing</a>
                     </div>
                     Choose this if you are upgrading from a recent RSGallery2 installation.  This option will preserve your existing RSGallery2 galleries and take you to the control panel.  Clicking "Continue" below does same but takes you back to Component Installers.
@@ -981,11 +987,12 @@ class rsgInstall {
     }
 
     function freshInstall() {
-        global $database, $mosConfig_live_site, $mosConfig_absolute_path, $rsgConfig;
+        global $mainframe, $rsgConfig;
+		$database =& JFactory::getDBO();
         echo "<h2>Fresh install</h2>";
         //Delete images and directories if exist
         $exceptions = array(".", "..");
-        $this->deleteGalleryDir($mosConfig_absolute_path.$this->galleryDir, $exceptions, false);
+        $this->deleteGalleryDir(JPATH_SITE.$this->galleryDir, $exceptions, false);
 
         //Delete database tables
         foreach ($this->tablelistNew as $table)
@@ -1010,8 +1017,7 @@ class rsgInstall {
      *
      */
     function showMigrationOptions() {
-        global $mosConfig_absolute_path, $mosConfig_live_site;
-
+        
         $i = 0;
 
         foreach( $this->galleryList as $component ){
@@ -1022,7 +1028,7 @@ class rsgInstall {
                 <table class="adminlist" border="1">
                 <tr>
                     <td width="75%"><strong><?php echo $component->getName(); ?></strong> is installed</td>
-                    <td><a href="index2.php?option=com_rsgallery2&rsgOption=maintenance&task=doMigration&type=<? echo $component->getTechName(); ?>"><img src="<?php echo $mosConfig_live_site;?>/administrator/images/install.png" alt="" width="24" height="24" border="0" align="middle">&nbsp;Migrate</a></td>
+                    <td><a href="index2.php?option=com_rsgallery2&rsgOption=maintenance&task=doMigration&type=<? echo $component->getTechName(); ?>"><img src="<?php echo JURI_SITE;?>/administrator/images/install.png" alt="" width="24" height="24" border="0" align="middle">&nbsp;Migrate</a></td>
                 </tr>
                 </table>
                 </td></tr></table>
@@ -1057,7 +1063,9 @@ class rsgInstall {
      * @return True or False
      */
     function tableExists($table) {
-    global $database,$mosConfig_dbprefix;
+    global $mosConfig_dbprefix;
+	$database =& JFactory::getDBO();
+		
     $table = substr($table, 3);
     $sql = "SHOW TABLES LIKE '$mosConfig_dbprefix$table'";
     $database->setQuery($sql);
@@ -1152,8 +1160,9 @@ class GenericMigrator{
      * @return array containing errors
      */
     function runSqlFile( $sqlfile ) {
-        global $database, $mosConfig_absolute_path;
-        $sqlDir = $mosConfig_absolute_path . '/administrator/components/com_rsgallery2/sql/';
+		$database =& JFactory::getDBO();
+        $sqlDir = JPATH_SITE . '/administrator/components/com_rsgallery2/sql/';
+
         $errors = array();
     
         $query = fread( fopen( $sqlDir . $sqlfile, 'r' ), filesize( $sqlDir . $sqlfile ) );
@@ -1218,7 +1227,7 @@ class GenericMigrator{
      * @param string Old Description field name
      */
 	function migrateGalleries($old_table, $old_catid = "id", $old_catname = "catname", $old_parent_id = "parent_id", $old_descr_name = "description", $max_id) {
-		global $database;
+		$database = JFactory::getDBO();
 	    //Set variables
 	    $error = 0;
 	    $file = 0;
@@ -1403,15 +1412,15 @@ class migrate_com_akogallery extends GenericMigrator{
      * @return true on success, anything else a failure
      */
     function migrate() {
-        global $mosConfig_absolute_path;
-        $comconfig = $mosConfig_absolute_path."/administrator/components/com_akogallery/config.akogallery.php";
+        
+        $comconfig = JPATH_SITE."/administrator/components/com_akogallery/config.akogallery.php";
 
         if (! file_exists($comconfig))
             return ( "Config file for AKOGallery does not exist" );
         else
             include_once( $comconfig );
 
-        $imgDir = $mosConfig_absolute_path . $ag_pathimages;
+        $imgDir = JPATH_SITE . $ag_pathimages;
 
         if( !is_dir( $imgDir )) {
             return 'Image Directory does not exist.';
@@ -1444,7 +1453,7 @@ class migrate_com_akogallery extends GenericMigrator{
      */
     function migrateCategories(){
         
-        global $database;
+        $database =& JFactory::getDBO();
         $objects = 0;
         $error = 0;
         
@@ -1517,7 +1526,7 @@ class migrate_com_akogallery extends GenericMigrator{
         /*
         for every entry in $this->imgTable call imgUtils::importImage() with the info from $this->imgTable, $this->$commentTable and full path to image using $imgDir
         */
-        global $database;
+        $database =& JFactory::getDBO();
         
         $selectSQL = "SELECT imgfilename, imgtitle, catid FROM $this->imgTable";
         $database->setQuery( $selectSQL );
@@ -1545,7 +1554,7 @@ class migrate_com_akogallery extends GenericMigrator{
 
 
     function migrateComments() {
-        global $database;
+        $database =& JFactory::getDBO();
         $error = 0;
         $objects = 0;
 
@@ -1713,10 +1722,11 @@ class migrate_com_zoom_251_RC4 extends GenericMigrator{
      * @return true or false
     **/
     function detect(){
-        global $mosConfig_absolute_path;
+        
+        $comdir = JPATH_SITE."/administrator/components/com_zoom";
         
         if( rsgInstall::componentInstalled( "com_zoom" )){
-            include_once(JPATH_SITE . DS . "components/com_zoom/etc/zoom_config.php");
+            include_once(JPATH_SITE."/components/com_zoom/etc/zoom_config.php");
 
             if ( $zoomConfig['version'] == "2.5.1 RC4" ) {
             	return true;
@@ -1769,7 +1779,8 @@ class migrate_com_zoom_251_RC4 extends GenericMigrator{
 	}
 	
 	function copyImages($basedir, $prefix = "zoom_") {
-		global $database, $rsgConfig;
+		global $rsgConfig;
+		$database = JFactory::getDBO();
 		
 		//Set error count
 		$i = 0;
@@ -1888,7 +1899,7 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
      * @param string Old Description field name
      */
 	function migrateGalleries($old_table, $old_catid = "id", $old_catname = "catname", $old_parent_id = "parent_id", $old_descr_name = "description", $max_id) {
-		global $database;
+		$database = JFactory::getDBO();
 	    //Set variables
 	    $error = 0;
 	    $file = 0;
@@ -1998,7 +2009,8 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
 	 * @return True id succesfull, false if not
 	 */
 	function copyImages($basedir, $prefix = "easy_"){
-        global $database, $rsgConfig;
+        global $rsgConfig;
+        $database = JFactory::getDBO();
         
         $sql = "SELECT * FROM #__easygallery";
         $database->setQuery( $sql );
@@ -2053,8 +2065,9 @@ class migrate_com_rsgallery extends GenericMigrator{
      * @return true or false
      */
     function detect(){
-        global $database, $mosConfig_dbprefix;
-        
+        global $mosConfig_dbprefix;
+		$database =& JFactory::getDBO();
+		
         if( in_array( $mosConfig_dbprefix.'rsgallery2_config', $database->getTableList() ) === false ){
             // rsgallery2_config table does not exist
             return false;
@@ -2068,7 +2081,9 @@ class migrate_com_rsgallery extends GenericMigrator{
 	* @return true on success, anything else a failure
 	*/
 	function migrate(){
-		global $database, $rsgConfig;
+		global $rsgConfig;
+		$database =& JFactory::getDBO();
+		
 		// in versions prior to 1.11.0, if the config had never been saved, no variables (including the version) would exist
 		// if this is the case, we set the version to something appropiate
 		$database->setQuery( "SELECT * FROM #__rsgallery2_config" );
@@ -2168,8 +2183,9 @@ class migrate_com_rsgallery extends GenericMigrator{
      * @todo this needs to be tested
      */
     function upgradeTo_1_12_2(){
-        global $database, $mosConfig_dbprefix;
-
+        global $mosConfig_dbprefix;
+		$database =& JFactory::getDBO();
+		
         if( $mosConfig_dbprefix == 'jos_' )
             return;  // prefix is jos, so it doesn't matter.
 

@@ -7,14 +7,14 @@
 * RSGallery is Free Software
 */
 
-defined( '_VALID_MOS' ) or die( 'Restricted Access' );
+defined( '_JEXEC' ) or die( 'Restricted Access' );
 
 // bring in display code
 $templatePath = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'debug_listeverything';
 require_once( $templatePath . DS . 'display.class.php');
 
-global $mosConfig_live_site;
-$template_dir = "$mosConfig_live_site/components/com_rsgallery2/templates/debug_listeverything";
+global $mainframe;
+$template_dir = "JURI_SITE/components/com_rsgallery2/templates/debug_listeverything";
 ?>
 <link href="<?php echo $template_dir ?>/css/template.css" rel="stylesheet" type="text/css" />
 <?php

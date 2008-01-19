@@ -7,7 +7,7 @@
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
-defined( '_VALID_MOS' ) or die( 'Access Denied.' );
+defined( '_JEXEC' ) or die( 'Access Denied.' );
 
 /**
  * this is the primary and default function
@@ -24,7 +24,7 @@ function template(){
 	$templateLocation = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template . DS . 'index.php';
 
 	if( !file_exists( $templateLocation ))
-		echo 'Template "$template" does not exist.<br/>Please select an existing template in the Template Manager.' ;
+		JError::raiseError( '', "Template $template does not exist.<br/>Please select an existing template in the Template Manager." );
 	else
 		require( $templateLocation );
 }

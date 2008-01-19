@@ -6,10 +6,11 @@
 * @package RSGallery2
 * @copyright (C) 2003 - 2006 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
-* @author Stefan Frick - stefan.frick@gmail.com, updated to version 1.14.0 by Peter Aspling - peter.aspling@gmail.com
+* @author Stefan Frick - stefan.frick@gmail.com, updated to version 1.13.0 by Christer Toivonen, christer.toivonen@gmail.com
 * RSGallery is Free Software
 **/
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
+//Created by Christer 2007-05-20
 //display.class.php
 setlocale(LC_ALL,"sv_SE");
 DEFINE("_RSGALLERY_SPECIAL_DISPLAY_Owner",	"Ägare");
@@ -153,7 +154,6 @@ DEFINE("_RSGALLERY_MOST_RECENT_IMG", 		"Senast tillagda bilder");
 DEFINE("_RSGALLERY_DATE",					"Datum");
 DEFINE("_RSGALLERY_CREDITS",				"Tack till:");
 DEFINE("_RSGALLERY_INSTALLED_VERSION",		"Installerad version");
-/*new*/DEFINE("_RSGALLERY_LICENSE",			"Licens");
 
 DEFINE("_RSGALLERY_LICENSE",			"Licens");
 //Cpanel
@@ -227,9 +227,6 @@ DEFINE("_RSGALLERY_CONF_GENERALTAB",		"Allmänt");
 DEFINE("_RSGALLERY_CONF_IMAGESTAB",		"Bilder");
 DEFINE("_RSGALLERY_CONF_DISPLAY",		"Visa");
 DEFINE("_RSGALLERY_CONF_USERS",		"Rättigheter");
-/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_NEV",		"Aldrig");
-/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_LIMIT",	"Mer gallerier än begränsningen");
-/*new*/DEFINE("_RSGALLERY_CONF_LIMIT_ALW",		"Alltid");
 //function showUploadStep1
 DEFINE("_RSGALLERY_PICK",					"Välj ett album");
 //function showUploadStep2
@@ -251,18 +248,10 @@ DEFINE("_RSGALLERY_IMAGECAT",				"Album");
 DEFINE("_RSGALLERY_IMAGEHITS",				"Träffar");
 DEFINE("_RSGALLERY_IMAGEDATE",				"Datum för uppladdning");
 DEFINE("_RSGALLERY_REORDER",				"Ordna om");
-/*new*/DEFINE("_RSGALLERY_SEL_TO_DEL",		"Vänligen välj från listan för att ta bort");
-/*new*/DEFINE("_RSGALLERY_SURE_DEL",		"Är du säker att du vill ta bort vaälda bilder? ");
-/*new*/DEFINE("_RSGALLERY_SEL_TO_MOVE",		"Vänligen välj bilder i listan som du vill flytta");
-/*new*/DEFINE("_RSGALLERY_SEL_GAL_TO_MOVE",	"Vänligen välj det galleri i listan som du vill flyta bilderna till");
-/*new*/DEFINE("_RSGALLERY_SURE_MOVE",		"Ärdu säker att du vill flytta valda bilder?");
-/*new*/DEFINE("_RSGALLERY_ORDER_UP",		"Fytta Upp");
-/*new*/DEFINE("_RSGALLERY_ORDER_DOWN",		"Flytta Ner");
-
 //function showTemplates
-/*new*/DEFINE("_RSGALLERY_TEMP_MANG",				"Mallhanterare");
-/*new*/DEFINE("_RSGALLERY_RSG_NAME",				"RSGallery2");
-/*new*/DEFINE("_RSGALLERY_TEMP_PREV",				"Förhandsgranska mall");
+DEFINE("_RSGALLERY_TEMP_MANG",				"Mallhanterare");
+DEFINE("_RSGALLERY_RSG_NAME",				"RSGallery2");
+DEFINE("_RSGALLERY_TEMP_PREV",				"Förhandsgranska mall");
 //function consolidateDbGo
 DEFINE("_RSGALLERY_CONSDB_IN_DB",			"I<br>databasen");
 DEFINE("_RSGALLERY_CONSDB_DISP",			"Visa<br>mapp");
@@ -282,17 +271,17 @@ DEFINE("_RSGALLERY_CREATE_DB_ENTRIES",		"Skapa databasposter");
 
 
 //admin.rsgallery2.php
-/*new*/DEFINE("_RSGALLERY_HEAD_CONFIG",		"Konfiguration");
-/*new*/DEFINE("_RSGALLERY_HEAD_CPANEL",		"Kontrollpanel");
-/*new*/DEFINE("_RSGALLERY_HEAD_EDIT",		"Redigera");
-/*new*/DEFINE("_RSGALLERY_HEAD_UPLOAD",		"Ladda upp");
-/*new*/DEFINE("_RSGALLERY_HEAD_MIGRATE",		"Installera och Migrera");
-/*new*/DEFINE("_RSGALLERY_HEAD_UPLOAD_ZIP",		"Ladda upp ZIP-fil");
-/*new*/DEFINE("_RSGALLERY_HEAD_CONSDB",		"Konsolidera databas");
-/*new*/DEFINE("_RSGALLERY_HEAD_LOG",		"Ändringslogg");
-/*new*/DEFINE("_RSGALLERY_HEAD_CONF_VARIA",		"Konfiguration - Variabler");
-/*new*/DEFINE("_RSGALLERY_HEAD_CONF_RAW_EDIT",		"Konfiguration direktredigering");
-/*new*/DEFINE("_RSGALLERY_HEAD_MISS_IMG_CREATE",	"Saknade bilder skapade");
+DEFINE("_RSGALLERY_HEAD_CONFIG",		"Konfiguration");
+DEFINE("_RSGALLERY_HEAD_CPANEL",		"Kontrollpanel");
+DEFINE("_RSGALLERY_HEAD_EDIT",		"Redigera");
+DEFINE("_RSGALLERY_HEAD_UPLOAD",		"Ladda upp");
+DEFINE("_RSGALLERY_HEAD_MIGRATE",		"Installera och Migrera");
+DEFINE("_RSGALLERY_HEAD_UPLOAD_ZIP",		"Ladda upp ZIP-fil");
+DEFINE("_RSGALLERY_HEAD_CONSDB",		"Konsolidera databas");
+DEFINE("_RSGALLERY_HEAD_LOG",		"Ändringslogg");
+DEFINE("_RSGALLERY_HEAD_CONF_VARIA",		"Konfiguration - Variabler");
+DEFINE("_RSGALLERY_HEAD_CONF_RAW_EDIT",		"Konfiguration direktredigering");
+DEFINE("_RSGALLERY_HEAD_MISS_IMG_CREATE",	"Saknade bilder skapade");
 //function config_rawEdit_save
 DEFINE("_RSGALLERY_CONF_SAVED",				"Konfigurationen sparad");
 DEFINE("_RSGALLERY_CONF_SAVE_ERROR",		"Det gick inte att spara konfigurationen");
@@ -305,7 +294,7 @@ DEFINE("_RSGALLERY_PURGE_GAL",				"album rensade i databasen.");
 DEFINE("_RSGALLERY_PURGE_CONFIG",			"konfigurationen rensad i databasen.");
 DEFINE("_RSGALLERY_PURGE_COMMENTS",			"kommentarer rensade i databasen.");
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Använde rm -r för att försöka radera $mosConfig_absolute_path/images/rsgallery");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Använde rm -r för att försöka radera JPATH_SITE/images/rsgallery");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"Tog bort #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"Tog bort #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"Tog bort #__rsgallery2_config");
@@ -355,24 +344,8 @@ DEFINE("_RSGALLERY_ISWRITABLE_WRITABLE",	"Skrivbar");
 DEFINE("_RSGALLERY_ISWRITABLE_UNWRITABLE",	"Skrivskyddad");
 DEFINE("_RSGALLERY_MAKE_WRITABLE",			"Sätt skrivskydd när den sparats");
 DEFINE("_RSGALLERY_OVERWRITE_WRITABLE",		"Åsidosätt skrivskydd medan den sparas");
-//function uploadFile
-/*new*/DEFINE("_RSGALLERY_ERMSG_FAILD_CHMOD",	"Det blev fel när du försökte ändra rättigheter på den uppladdade filen.");
-/*new*/DEFINE("_RSGALLERY_ERMSG_FAILD_MOVE_MEDIA",	"Det blev fel när du försökte flytta den uppladdade filen till <code>/media</code> directory.");
-/*new*/DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_WRITE",	"Uppladdningen blev fel för att <code>/media</code> mappen inte är skrivbar.");
-/*new*/DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_EXIST",	"Uppladdningen blev fel för att <code>/media</code> mappen inte finns.");
+
 //config.rsgallery2.php
-//function toString
-DEFINE("_RSGALLERY_CONF_ERROR_UPLOAD",		" - Fel Bild Uppladdning : ");
-//function showCategories
-DEFINE("_RSGALLERY_SELECT_GAL_DROP_BOX",		"- Väl Galleri -");
-//function galleriesSelectList
-DEFINE("_RSGALLERY_SELECT_GAL_TOP",		"Topp");
-//function showRating
-DEFINE("_RSGALLERY_RATE_NONE",		"Ingen röstning");
-//function newImages
-DEFINE("_RSGALLERY_NEW",				"Nytt!");
-//function latestCats
-DEFINE("_RSGALLERY_NO_NEW_ENT",		"Inga nya bilder");
 //function galleriesSelectList
 DEFINE("_RSGALLERY_SELECT_GAL_TOP",		"Topp");
 //function newImages
@@ -385,10 +358,7 @@ DEFINE("_RSGALLERY_ERROR_SETTINGS",			"Följande inställningar hindrar RSGallery2
 DEFINE("_RSGALLERY_REFRESH",				"Uppdatera");
 //function writeDownloadLink
 DEFINE("_RSGALLERY_DOWNLOAD",				"Ladda ner");
-//function writeGalleryStatus
-/*nytt*/DEFINE("_RSGALLERY_STATUS_ARE_OWNER",	"Du är ägare av detta galleri");
-/*nytt*/DEFINE("_RSGALLERY_STATUS_CAN_UPLOAD",	"Du kan ladda upp bilder till detta galleri");
-/*nytt*/DEFINE("_RSGALLERY_STATUS_NOT_PUBL",		"Detta galleri är INTE publicerat");
+
 //install.rsgallery2.php
 //function com_install
 DEFINE("_RSGALLERY_MIGRATING_FROM",			"Migrering from RSGallery2 ");
@@ -403,7 +373,7 @@ DEFINE("_RSGALLERY_TOOL_IMG",				"bilder");
 DEFINE("_RSGALLERY_TOOL_UP",				"Ladda upp");
 DEFINE("_RSGALLERY_TOOL_NEXT",				"Nästa");
 DEFINE("_RSGALLERY_TOOL_DELETE",			"Radera");
-/*nytt*/DEFINE("_RSGALLERY_TOOL_RES_HITS",			"Ta bort träffar");
+
 //config.html
 DEFINE("_RSGALLERY_C_TMPL_VERSION",			"Version:");
 DEFINE("_RSGALLERY_C_TMPL_INTRO_TEXT",		"Introducerande text:");
@@ -644,81 +614,5 @@ DEFINE("_RSGALLERY_USERGAL_DISABLED",		"Användaralbumen har stängts av administr
 DEFINE("_RSGALLERY_CONF_ERROR_UPLOAD",		" - Fel vid uppladdning : ");
 //function showCategories
 DEFINE("_RSGALLERY_SELECT_GAL_DROP_BOX",		"- Välj album -");
-
-/*New in version RSGallery2 1.14.0 Alpha*/
-//tables/display.class.php
-//function _showGalleryDetails
-/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"&Auml;gare: ");
-/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"Antal: ");
-/*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Datum: ");
-
-//rsgcomments.class.php
-//function showButtons
-/*new*/DEFINE("_RSGALLERY_COMMENTS_COLOR",	"-F&auml;rg-");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_AQUA",	"aqua");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_BLACK",	"svart");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_BLUE",	"bl&aring;");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_FUCHSIA",	"magenta");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_GRAY",	"gr&aring;");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_GREEN",	"gr&ouml;n");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_LIME",	"lime");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_MAROON",	"m&ouml;rk brun");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_NAVY",	"m&ouml;rkbl&aring;");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_OLIVE",	"oliv");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_PURPLE",	"lila");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_RED",	"r&ouml;d");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_SILVER",	"silver");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_TEAL",	"teal");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_WHITE",	"vit");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_YELLOW",	"gul");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_SIZE",	"-storlek-");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_TINY",	"mycket liten");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_SMALL",	"liten");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_MEDIUM",	"mellan");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_LARGE",	"stor");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_HUGE",	"mycket stor");
-//function parseQuoteElement
-/*new*/DEFINE("_RSGALLERY_COMMENTS_QUOTE_WROTE", "Skrev");
-//function editComment
-/*moved*/DEFINE("_RSGALLERY_COMMENT_ADD",		"Lägg till kommentar");
-/*moved*/DEFINE("_RSGALLERY_COMMENT_NAME",		"Namn");
-/*moved*/DEFINE("_RSGALLERY_COMMENTS_TITLE",		"Titel");
-/*moved*/DEFINE("_RSGALLERY_COMMENT_COMMENT",		"Kommentar text");
-//function showComments
-/*moved*/DEFINE("_RSGALLERY_COMMENT_DELETE",	"Är du säker att du vill ta bort kommenaren?");
-/*moved*/DEFINE("_RSGALLERY_COMMENTS",	"Kommentarer");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_NUM_COMM_ADD",	"# kommantaren tillagd");
-/*new*/DEFINE("_RSGALLERY_DELETE_COMMENT",			"Ta bort kommentar");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_SEC_IMG_MISS", "SecurityImages selected in backend, but component not installed! Notify the webmaster");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_NOCOMM",	"Inga kommantarer ännu!");
-
-//rsgcomments.php
-/*new*/DEFINE("_RSGALLERY_COMMENTS_COMMDEL",		"Kommentaren är nu bortagen");
-
-//rsgcomments.php
-DEFINE("_RSGALLERY_COMMENTS_DISABLED",		"Kommentarer är ej aktivt");
-/*double deleted DEFINE("_RSGALLERY_COMMENTS_ONLY_ONCE",		"You can only comment once on this item!");*/
-DEFINE("_RSGALLERY_COMMENTS_INCORRECT_CAPTCHA",		"Incorrect CAPTCHA check, comment is NOT saved!");
-DEFINE("_RSGALLERY_COMMENTS_ADD_SUCCES",		"Kommantaren tillagd!");
-DEFINE("_RSGALLERY_COMMENTS_ADD_FAIL",		"Kommanteren kunde inte läggastill!");
-
-//rsgvoting.class.php
-DEFINE("_RSGALLERY_VOTING_ARE_YOU_SURE",		"Är du säker att du vill rösta?");
-DEFINE("_RSGALLERY_VOTING_RATING",		"Ranking");
-DEFINE("_RSGALLERY_VOTING_VOTE",		"Rösta");
-DEFINE("_RSGALLERY_VOTING_VOTES",		"&nbsp;röstningar");
-DEFINE("_RSGALLERY_VOTING_RATE_1",		"Ranka denna bild från 1 till 5");
-DEFINE("_RSGALLERY_VOTING_RATE_2",		"Ranka denna bild från 2 till 5");
-DEFINE("_RSGALLERY_VOTING_RATE_3",		"Ranka denna bild från 3 till 5");
-DEFINE("_RSGALLERY_VOTING_RATE_4",		"Ranka denna bild från 4 till 5");
-DEFINE("_RSGALLERY_VOTING_RATE_5",		"Ranka denna bild från 5 till 5");
-
-//rsgvoting.php
-DEFINE("_RSGALLERY_VOTING_DISABLED",		"Kommentarer är ej aktivt!");
-DEFINE("_RSGALLERY_VOTING_NOT_AUTH",		"Du har inte rättigheter att rösta!");
-DEFINE("_RSGALLERY_VOTING_ALREADY_VOTED",		"Du har redan röstat på denna bild!");
-DEFINE("_RSGALLERY_VOTING_NOT_ADDED",		"Din röst kunde inte läggas till i databasen!");
-DEFINE("_RSGALLERY_VOTING_ADDED",		"Rösten tillagd i databasen!");
-
 
 ?>

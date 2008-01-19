@@ -9,7 +9,7 @@
 */
 
 // no direct access
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 /**
  * Handles HTML screens for image option 
@@ -44,13 +44,12 @@ class html_rsg2_maintenance {
       * @param string Text to show in button
       */
 	function quickiconBar( $link, $image, $title, $text ) {
-	    global $mosConfig_live_site;
 	    ?>
 	    <div style="float:left;">
 	    <div class="icon-bar">
 	        <a href="<?php echo $link; ?>">
 	            <div class="iconimage">
-	                <div class="rsg2-icon"><img src="<?php echo $mosConfig_live_site;?>/administrator/components/com_rsgallery2/images/<?php echo $image;?>" alt="alternate text" /></div>
+	                <div class="rsg2-icon"><img src="<?php echo JURI_SITE;?>/administrator/components/com_rsgallery2/images/<?php echo $image;?>" alt="alternate text" /></div>
 					<div class="rsg2-text">
 						<span class="maint-title"><?php echo $title;?></span>
 						<span class="maint-text"><?php echo $text;?></span></div>
@@ -150,7 +149,7 @@ class html_rsg2_maintenance {
 	}
 	
 	function consolidateDB($db_name, $file_display, $file_original, $file_thumb, $files_total) {
-	    global $mosConfig_live_site, $rsgConfig;
+	    global $rsgConfig;
 	    require_once( JPATH_RSGALLERY2_ADMIN.'/config.rsgallery2.php' );
 	    $file_diff = array_diff($files_total, $db_name);
 	    ?>
@@ -178,7 +177,7 @@ class html_rsg2_maintenance {
 			    	<td colspan="9" align="center">
 				    	<div style="clear: both; margin: 3px; margin-top: 10px; padding: 5px 15px; display: block; float: left; border: 1px solid #cc0000; background: #ffffcc; text-align: left; width: 80%;">
 		    				<p style="color: #CC0000;">
-		    				<img src="<?php echo $mosConfig_live_site;?>/includes/js/ThemeOffice/warning.png" alt="Warning icon" />
+		    				<img src="<?php echo JURI_SITE;?>/includes/js/ThemeOffice/warning.png" alt="Warning icon" />
 							NOTICE:<br />Experimental at this stage. Single image regeneration works. <br /> Database entries do NOT work!.
 							<?php //echo _RSGALLERY_CONSDB_NOTICE;?>
 							</p>
@@ -201,8 +200,8 @@ class html_rsg2_maintenance {
 			        <td colspan="9">&nbsp;</td>
 			    </tr>
 			    <?php
-			    $yes    = "<td align=\"center\"><img src=\"$mosConfig_live_site/images/tick.png\" alt=\""._RSGALLERY_CONSDB_IMG_IN_FLDR."\" border=\"0\"></td>";
-			    $no     = "<td align=\"center\"><img src=\"$mosConfig_live_site/images/publish_x.png\" alt=\""._RSGALLERY_CONSDB_IMG__NOT_IN_FLDR."\" border=\"0\"></td>";
+			    $yes    = "<td align=\"center\"><img src=\"".JURI_SITE."/images/tick.png\" alt=\""._RSGALLERY_CONSDB_IMG_IN_FLDR."\" border=\"0\"></td>";
+				$no     = "<td align=\"center\"><img src=\"".JURI_SITE."/images/publish_x.png\" alt=\""._RSGALLERY_CONSDB_IMG__NOT_IN_FLDR."\" border=\"0\"></td>";
 			    $z = 0;
 			    $c = 0;
 			    //Check database and crossreference against filesystem

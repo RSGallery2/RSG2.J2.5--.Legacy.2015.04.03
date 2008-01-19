@@ -8,7 +8,7 @@
 * @author eFiX (xfbi@quick.cz)
 * RSGallery is Free Software
 **/
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 //rsgallery2.html.php
 //function showUserGallery
@@ -163,17 +163,6 @@ DEFINE("_RSGALLERY_C_PURGE",				"Uvolnit/Smazat všechno");
 DEFINE("_RSGALLERY_C_REALLY_UNINSTALL",		"OPRAVDU odinstalovat - odstranit všechny obrázky, adresáøe, uvolnit všechny tabulky. Pouze na Linuxu s výchozími adresáøi.");
 DEFINE("_RSGALLERY_C_VIEW_CONFIG",			"Configurace - Prohlížet");
 DEFINE("_RSGALLERY_C_EDIT_CONFIG",			"Configurace - Raw úprava");
-//function showInstallForm
-/*new*/DEFINE("_RSGALLERY_INST_UPL_PCK_FILE",		"Nahrát package file");
-/*new*/DEFINE("_RSGALLERY_INST_PCK_FILE",		"Package File:");
-//function showInstallMessage
-/*new*/DEFINE("_RSGALLERY_INST_MES_CONTINUE",	"Continue ...");
-//function requestCatCreation
-DEFINE("_RSGALLERY_C_CAT_FIRST",			"Nejdøíve založte kategorii!");
-//function batch_upload
-DEFINE("_RSGALLERY_BATCH_NO_ZIP",			"Vybrán ZIP upload, ale nebyl vybrán soubor");
-/*new*/DEFINE("_RSGALLERY_BACTCH_NOT_VALID_ZIP",		" není platný archivní format. Pouze ZIP soubory povoleny!");
-
 //function requestCatCreation
 DEFINE("_RSGALLERY_C_CAT_FIRST",			"Nejprve vytvoøte kategorii!");
 //function batch_upload
@@ -241,10 +230,8 @@ DEFINE("_RSGALLERY_UPLOAD_FORM_IMAGE",		"Obrázek");
 DEFINE("_RSGALLERY_CATNAME",				"Galerie");
 DEFINE("_RSGALLERY_UPLOAD_FORM_FILE",		"Soubor");
 //function viewImages
-/*new*/DEFINE("_RSGALLERY_NO_PREVIEW ",		"Náhled není dostupný");
 DEFINE("_RSGALLERY_DELETE",					"Smazat");
 DEFINE("_RSGALLERY_MOVETO",					"Pøemístit do");
-DEFINE("_RSGALLERY_COPYIMAGE",				"Kopírovat");
 DEFINE("_RSGALLERY_NUMDISPLAY",				"Zobrazit #ID");
 DEFINE("_RSGALLERY_SEARCH",					"Vyhledat");
 DEFINE("_RSGALLERY_IMAGENAME",				"Název");
@@ -253,11 +240,6 @@ DEFINE("_RSGALLERY_IMAGECAT",				"Galerie");
 DEFINE("_RSGALLERY_IMAGEHITS",				"Zobrazení");
 DEFINE("_RSGALLERY_IMAGEDATE",				"Nahrané");
 DEFINE("_RSGALLERY_REORDER",				"Znovu uspoøádat");
-
-//function showTemplates
-DEFINE("_RSGALLERY_TEMP_MANG",				"Template Manager");
-DEFINE("_RSGALLERY_RSG_NAME",				"RSGallery2");
-DEFINE("_RSGALLERY_TEMP_PREV",				"Preview Template");
 //function consolidateDbGo
 DEFINE("_RSGALLERY_CONSDB_IN_DB",			"V<br>databázi");
 DEFINE("_RSGALLERY_CONSDB_DISP",			"Zobrazit<br>složku");
@@ -269,14 +251,6 @@ DEFINE("_RSGALLERY_CONSDB_CREATE_IMG",		"[&nbsp;Vytvoøit chybìjící obrázky&nbsp;
 DEFINE("_RSGALLERY_CONSDB_CREATE_DB",		"[&nbsp;Vytvoøit záznamy v databázi&nbsp;]");
 DEFINE("_RSGALLERY_CONSDB_DELETE_IMG",		"[&nbsp;Smazat obrázky&nbsp;]");
 DEFINE("_RSGALLERY_CONSDB_NO_INCOS",		"V databázi nebyly nalezeny žádné nesrovnalosti");
-DEFINE("_RSGALLERY_CONSDB_NOTICE",	"&nbsp;<span style='text-size: 14px;font-weight:bold;'>NOTICE</span>:<br />The Consolidate Database feature is mostly operational. The feature 'Create Database Entry' is also added.<br />Notice however that you cannot add Multiple entries to the database. For now, you'll have to add them one by one!");
-DEFINE("_RSGALLERY_NOT_WORKING",		"Not working yet");
-DEFINE("_RSGALLERY_DEL_FROM_SYSTEM",		"Delete from filesystem");
-DEFINE("_RSGALLERY_CREATE_MISSING_IMG",		"Create missing images");
-DEFINE("_RSGALLERY_CREATE_DB_ENTRIES",		"Create database entries");
-/*new*/DEFINE("_RSGALLERY_CONSDB_IMG_IN_FLDR",		"Image in folder");
-/*new*/DEFINE("_RSGALLERY_CONSDB_IMG__NOT_IN_FLDR",		"Image NOT in folder");
-/*new*/DEFINE("_RSGALLERY_ ",		"");
 
 //admin.rsgallery2.php
 DEFINE("_RSGALLERY_HEAD_CONFIG",		"Konfigurace");
@@ -300,13 +274,8 @@ DEFINE("_RSGALLERY_PURGE_IMG",				"záznamy z databáze uvolnìné.");
 DEFINE("_RSGALLERY_PURGE_GAL",				"galerie z databáze uvolnìné.");
 DEFINE("_RSGALLERY_PURGE_CONFIG",			"nastavení z databáze uvolnìné.");
 DEFINE("_RSGALLERY_PURGE_COMMENTS",			"komentáøe z databáze uvolnìné.");
-/*new*/DEFINE("_RSGALLERY_PURGE_THUMB",		"removing thumb images.");
-/*new*/DEFINE("_RSGALLERY_PURGE_DISPLAY",	"removing display images.");
-/*new*/DEFINE("_RSGALLERY_PURGE_ORIGINAL",	"removing original images.");
-/*new*/DEFINE("_RSGALLERY_PURGE_PURGED",	"purged.");
-
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Na odstranìní $mosConfig_absolute_path/images/rsgallery zkus použít rm -r");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Na odstranìní JPATH_SITE/images/rsgallery zkus použít rm -r");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"Uvolnil #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"Uvolnil #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"Uvolnil #__rsgallery2_config");
@@ -316,16 +285,6 @@ DEFINE("_RSGALLERY_REAL_UNINST_DONE",		"Dokonèeno.  Pokud nastala nìjaká chyba, 
 DEFINE("_RSGALLERY_ALERT_IMGDELETEOK",		"Obrázky úspešnì smazány");
 //function c_delete
 DEFINE("_RSGALLERY_ALERT_IMGDELETENOTOK",	"Obrázky nebyly smazány");
-//function copy_image
-DEFINE("_RSGALLERY_ALERT_COPYOK",			"Item(s) copied successfully!");
-DEFINE("_RSGALLEY_ALERT_REST_COPYDOK",		"Rest of the items copied successfully!");
-//function c_create
-/*new*/DEFINE("_RSGALLERY_CC_NO_FILE_INFO",		"No fileinformation found. This should never happen!");
-//function db_create
-/*new*/DEFINE("_RSGALLERY_DB_CREATE_NO_GAL",		"No gallery chosen to place image in!");
-/*new*/DEFINE("_RSGALLERY_DB_CREATE_IMG_SUCCES ",		"Images succesfully added to the database!");
-/*new*/DEFINE("_RSGALLERY_DB_CREATE_IMG_FAIL",		"Images could NOT be added to the database!");
-
 //function save_batchupload
 DEFINE("_RSGALLERY_ALERT_NOCATSELECTED",	"Prosím vyberte galerii pro VŠECHNY obrázky!\n(I pro obrázky které mají být smazány.\nToto bude opraveno v nìkteré z dalších verzí)");
 DEFINE("_RSGALLERY_ZIP_TO_BIG",				"Balík ZIP je pøíliš velký");
@@ -372,11 +331,6 @@ DEFINE("_RSGALLERY_OVERWRITE_WRITABLE",		"Obejít ochranu zápisu");
 DEFINE("_RSGALLERY_SELECT_GAL_TOP",		"Top");
 //function newImages
 DEFINE("_RSGALLERY_NEW",				"NOVÉ");
-//function latestCats
-/*new*/DEFINE("_RSGALLERY_NO_NEW_ENT",		"Nic nového");
-//function showRating
-/*new*/DEFINE("_RSGALLERY_RATE_NONE",		"Bez hodnocení");
-
 //function writeWarningBox
 DEFINE("_RSGALLERY_NO_IMGLIBRARY",			"Nebyla nalezena žádná kompatibilní knihovna obrázkù! Prosím kontaktujte vašeho hosting providera ohlednì instalace GD2 nebo nainstalujte ImageMagick resp. NETPBM");
 DEFINE("_RSGALLERY_NOT_WRITABLE",			" není zapisovatelný");
@@ -450,35 +404,6 @@ DEFINE("_RSGALLERY_C_TMPL_ONLY_REGISTERED",	"Jen pro registrované uživatele");
 DEFINE("_RSGALLERY_C_TMPL_U_CREATE_GAL",	"Mùže uživatel vytváøet galerie?");
 DEFINE("_RSGALLERY_C_TMPL_U_MAX_GAL",		"Maximum galerií vytvoøených jedním uživatelem:");
 DEFINE("_RSGALLERY_C_TMPL_U_MAX_IMG",		"Maximum obrázkù od jednoho uživatele:");
-DEFINE("_RSGALLERY_C_TMPL_SHOW_IMGNAME",	"Show image name below thumbnail:");
-DEFINE("_RSGALLERY_C_TMPL_ACL_SETINGS",		"Access Control Settings");
-DEFINE("_RSGALLERY_C_TMPL_ACL_ENABLE",		"Enable Access Control");
-DEFINE("_RSGALLERY_C_TMPL_SHOW_MYGAL",		"Show My Galleries");
-DEFINE("_RSGALLERY_C_TMPL_USER_SET",		"User specific settings");
-DEFINE("_RSGALLERY_C_DISP_STATUS_ICON",		"Display Status Icons");
-DEFINE("_RSGALLERY_C_GEN_SET",			"General settings");
-DEFINE("_RSGALLERY_C_HTML_ROOT",			"HTML-root is");
-DEFINE("_RSGALLERY_C_DISP_LIMIB",		"Display gallery limitbox");
-DEFINE("_RSGALLERY_C_NUMB_GAL_FRONT",	"Default number of galleries on frontpage");
-DEFINE("_RSGALLERY_C_FONT",				"Font");
-DEFINE("_RSGALLERY_C_WATER_TRANS",		"Watermark transparency");
-DEFINE("_RSGALLERY_C_ALLOWED_FILE",		"Allowed filetypes");
-//Commenting
-DEFINE("_RSGALLERY_COMMENTS_LABEL",			"Comments");
-DEFINE("_RSGALLERY_COMMENTS_ENABLED",		"Commenting enabled");
-DEFINE("_RSGALLERY_COMMENTS_ALLOW_PUBLIC",	"Allow public users to comment");
-DEFINE("_RSGALLERY_COMMENTS_ONLY_ONCE",		"User can only comment once");
-
-//Voting
-DEFINE("_RSGALLERY_VOTE_LABEL",				"Voting");
-DEFINE("_RSGALLERY_VOTE_ENABLED",			"Voting enabled");
-DEFINE("_RSGALLERY_VOTE_REGISTERED_ONLY",	"Registered users only");
-DEFINE("_RSGALLERY_VOTE_ONLY_ONCE",			"User can only vote once(cookie based)");
-DEFINE("_RSGALLERY_VOTE_COOKIE_PREFIX",		"Cookie prefix");
-
-
-
-
 //galleries.class.php
 //function check
 DEFINE("_RSGALLERY_GAL_EXIST_ERROR",	"Už existuje galerie se stejným názvem, zkuste jiný název.");
@@ -499,20 +424,6 @@ DEFINE("_RSGALLERY_GAL_THUMB",			"Náhled");
 DEFINE("_RSGALLERY_GAL_ORDERING",		"Poøadí");
 DEFINE("_RSGALLERY_GAL_PUBLISHED",		"Publikované");
 DEFINE("_RSGALLERY_GAL_PARAMETERS",		"Parametry");
-DEFINE("_RSGALLERY_GAL_OWNER",	"Založil");
-DEFINE("_RSGALLERY_GAL_PERMS",	"Práva");
-DEFINE("_RSGALLERY_GAL_DEF_PERM_CREATE",	"Default permissions are created. <br />After creating the gallery, you can come back to edit the gallery permissions.");
-DEFINE("_RSGALLERY_GAL_NO_PERM_FOUND",	"No permissions found for this gallery. Click on the <strong>SAVE</strong> button in the toolbar above to create default permissions. After that, come back here and set permissions.");
-DEFINE("_RSGALLERY_GAL_USERTYPE",		"Usertype");
-DEFINE("_RSGALLERY_GAL_VIEW_GAL",		"View<br/>Gallery</span>");
-DEFINE("_RSGALLERY_GAL_UPL_EDIT_IMG",	"Upload/Edit<br/>images</span>");
-DEFINE("_RSGALLERY_GAL_DEL_IMG",			"Delete Image</span>");
-DEFINE("_RSGALLERY_GAL_MOD_GAL",			"Modify<br/>Gallery</span>");
-DEFINE("_RSGALLERY_GAL_DEL_GAL",			"Delete<br/>Gallery</span>");
-DEFINE("_RSGALLERY_GAL_ACL_PUB",			"Public</span>");
-DEFINE("_RSGALLERY_GAL_ACL_REG",			"Registered</span>");
-DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",	"&nbsp;Select/Deselect All");
-DEFINE("_RSGALLERY_GAL_ORDER",	"Order");
 
 //install.class.php
 //function echo_values
@@ -582,6 +493,12 @@ DEFINE("_RSGALLERY_MIGRATION_NO_SYSTEMS",		"Žádné jiné galerie nebyly nalezeny")
 //function doMigration
 DEFINE("_RSGALLERY_MIGRATION_NOT_VALID",		" není správný typ migrace.");
 
+/*
+* newly added language constants as of 20th of January 2007
+* these will be moved to the correct location when most translations have been completed
+* easiest would be for you to translate and place in the correct position in the file afterwards
+* this way your file will already have the correct order
+*/
 
 //uninstall.rsgallery2.php
 //function com_uninstall
@@ -595,41 +512,6 @@ DEFINE("_RSGALLERY_SLIDE_START",		"Spustit");
 DEFINE("_RSGALLERY_SLIDE_STOP",			"Zastavit");
 DEFINE("_RSGALLERY_SLIDE_NEXT",			"Následující");
 DEFINE("_RSGALLERY_SLIDE_PREV",			"Pøedchozí");
-
-//images.html.php
-//function showImages
-DEFINE("_RSGALLERY_IMG_IMG_MANAGE",			"Item Manager");
-DEFINE("_RSGALLERY_IMG_FILTER",				"Filter:");
-DEFINE("_RSGALLERY_IMG_CPY_MV_GAL",			"Copy/Move:");
-DEFINE("_RSGALLERY_IMG_TITLE",				"Title (filename)");
-DEFINE("_RSGALLERY_IMG_ORDER",				"Order");
-DEFINE("_RSGALLERY_IMG_DATE_TIME",			"Date & time");
-DEFINE("_RSGALLERY_IMG_EDIT_IMG",			"Edit Images");
-
-//function editImage
-DEFINE("_RSGALLERY_IMG_IMAGE",			"Item");
-DEFINE("_RSGALLERY_IMG_DETAILS",		"Details");
-DEFINE("_RSGALLERY_IMG_ORDERING",		"Ordering");
-DEFINE("_RSGALLERY_IMG_IMG_PREV",		"Item preview");
-DEFINE("_RSGALLERY_IMG_PARAMETERS",		"Parameters");
-DEFINE("_RSGALLERY_IMG_LINKS",			"Links to image");
-
-//function uploadImage
-DEFINE("_RSGALLERY_IMG_SELECT_GAL",			"Musíte vybrat galerii.");/*javascript alert*/
-DEFINE("_RSGALLERY_IMG_NO_FILE_SELECT",		"No file was selected in one or more fields.");/*javascript alert*/
-DEFINE("_RSGALLERY_IMG_UPLOAD",				"Upload");
-DEFINE("_RSGALLERY_IMG_UPL_DETAILS",		"Upload details");
-DEFINE("_RSGALLERY_IMG_UPL_GALLERY",		"Upload Gallery");
-DEFINE("_RSGALLERY_IMG_GEN_DESCR",			"Generic Description");
-DEFINE("_RSGALLERY_IMG_IMG_FILES",			"Item files");
-DEFINE("_RSGALLERY_IMG_IMAGES",				"Items");
-DEFINE("_RSGALLERY_IMG_FILE",				"File");
-DEFINE("_RSGALLERY_IMG_MORE",				"(more files)");
-
-//access.class.php
-//function checkGallery
-DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"No permissions were found, so default permissions were created. Please try again.");
-
 
 //rsgallery2.php
 //function my_galleries
@@ -671,319 +553,4 @@ DEFINE("_RSGALLERY_NOT_WORKING",		"Ještì nefunguje");
 DEFINE("_RSGALLERY_DEL_FROM_SYSTEM",		"Vymazat soubory ze souborového systému");
 DEFINE("_RSGALLERY_CREATE_MISSING_IMG",		"Vytvoøit chybìjící obrázky");
 DEFINE("_RSGALLERY_CREATE_DB_ENTRIES",		"Vytvoøit položky v databázi");
-
-
-/*new*/DEFINE("_RSGALLERY_CONSDB_IMG_IN_FLDR",		"Image in folder");
-/*new*/DEFINE("_RSGALLERY_CONSDB_IMG__NOT_IN_FLDR",		"Image NOT in folder");
-/*new*/DEFINE("_RSGALLERY_ ",		"");
-
-//admin.rsgallery2.php
-DEFINE("_RSGALLERY_HEAD_CONFIG",		"Configuration");
-DEFINE("_RSGALLERY_HEAD_CPANEL",		"Control Panel");
-DEFINE("_RSGALLERY_HEAD_EDIT",		"Edit");
-DEFINE("_RSGALLERY_HEAD_UPLOAD",		"Upload");
-DEFINE("_RSGALLERY_HEAD_MIGRATE",		"Install and Migrate");
-DEFINE("_RSGALLERY_HEAD_UPLOAD_ZIP",		"Upload ZIP-file");
-DEFINE("_RSGALLERY_HEAD_CONSDB",		"Consolidate database");
-DEFINE("_RSGALLERY_HEAD_LOG",		"Changelog");
-DEFINE("_RSGALLERY_HEAD_CONF_VARIA",		"Configuration Variables");
-DEFINE("_RSGALLERY_HEAD_CONF_RAW_EDIT",		"Configuration Raw Edit");
-DEFINE("_RSGALLERY_HEAD_MISS_IMG_CREATE",	"Missing images created");
-//function config_rawEdit_save
-DEFINE("_RSGALLERY_CONF_SAVED",				"Configuration Saved");
-DEFINE("_RSGALLERY_CONF_SAVE_ERROR",		"Error Saving Configuration");
-DEFINE("_RSGALLERY_CONF_CREATE_DIR",		"Creating Image directories not Implemented yet.");
-//function RSInstall
-DEFINE("_RSGALLERY_MIGR_OK",				"migration successful");
-//function purgeEverything
-DEFINE("_RSGALLERY_PURGE_IMG",				"purged image entries from database.");
-DEFINE("_RSGALLERY_PURGE_GAL",				"purged galleries from database.");
-DEFINE("_RSGALLERY_PURGE_CONFIG",			"purged config from database.");
-DEFINE("_RSGALLERY_PURGE_COMMENTS",			"purged comments from database.");
-/*new*/DEFINE("_RSGALLERY_PURGE_THUMB",		"removing thumb images.");
-/*new*/DEFINE("_RSGALLERY_PURGE_DISPLAY",	"removing display images.");
-/*new*/DEFINE("_RSGALLERY_PURGE_ORIGINAL",	"removing original images.");
-/*new*/DEFINE("_RSGALLERY_PURGE_PURGED",	"purged.");
-//function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Used rm -r to attempt to remove $mosConfig_absolute_path/images/rsgallery");
-DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"DROPed #__rsgallery2_files");
-DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"DROPed #__rsgallery2_galleries");
-DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"DROPed #__rsgallery2_config");
-DEFINE("_RSGALLERY_REAL_UNINST_DROP_COM",	"DROPed #__rsgallery2_comments");
-DEFINE("_RSGALLERY_REAL_UNINST_DONE",		"Done.  Manually remove anything above if there is an error.  You should uninstall RSGallery2 right NOW or you will recieve errors.");
-//function deleteImage
-DEFINE("_RSGALLERY_ALERT_IMGDELETEOK",		"Image(s) deleted succesfully!");
-//function c_delete
-DEFINE("_RSGALLERY_ALERT_IMGDELETENOTOK",	"Image(s) were not deleted!");
-//function copy_image
-DEFINE("_RSGALLERY_ALERT_COPYOK",			"Item(s) copied successfully!");
-DEFINE("_RSGALLEY_ALERT_REST_COPYDOK",		"Rest of the items copied successfully!");
-//function c_create
-/*new*/DEFINE("_RSGALLERY_CC_NO_FILE_INFO",		"No fileinformation found. This should never happen!");
-//function db_create
-/*new*/DEFINE("_RSGALLERY_DB_CREATE_NO_GAL",		"No gallery chosen to place image in!");
-/*new*/DEFINE("_RSGALLERY_DB_CREATE_IMG_SUCCES ",		"Images succesfully added to the database!");
-/*new*/DEFINE("_RSGALLERY_DB_CREATE_IMG_FAIL",		"Images could NOT be added to the database!");
-//function save_batchupload
-DEFINE("_RSGALLERY_ALERT_NOCATSELECTED",	"Please select gallery for ALL images!\\n(Also for images that will be deleted.\\nnThis will be corrected in future version!)");
-DEFINE("_RSGALLERY_ZIP_TO_BIG",				"ZIP-file is too big!");
-//function myPreExtractCallBack
-DEFINE("_RSGALLERY_NOT_ALLOWED_FILETYPE",	"is not an allowed filetype, it will be deleted!");
-DEFINE("_RSGALLERY_BATCH_ERROR_FTP1",		"The directory you have chosen, does not exist.\\n You will be taken back to the upload screen.");
-//function showUpload
-DEFINE("_RSGALLEY_ALERT_REST_UPLOADOK",		"the rest of your files were uploaded fine");
-//function saveImage
-DEFINE("_RSGALLERY_ALERT_IMAGEDETAILSOK",	"Details updated succesfully!");
-DEFINE("_RSGALLERY_ALERT_IMAGEDETAILSNOTOK","Details not updated!");
-//function showConfig
-DEFINE("_RSGALLERY_CONF_NOGD2",				"GD2 not detected");
-DEFINE("_RSAGALLERY_CONF_NOIMGMAGICK",		"ImageMagick not detected");
-DEFINE("_RSAGALLERY_CONF_NONETPBM",			"netPBM not detected");
-//function viewImages
-DEFINE("_RSGALLERY_VIEW_GAL",				"View Gallery");
-DEFINE("_RSGALLERY_ALL_GAL",				"- All Galleries");
-DEFINE("_RSGALLERY_SELECT_GAL",				"Select Gallery");
-//function editTemplateCSS
-DEFINE("_RSGALLERY_EDITCSS_FAIL_NOOPEN",	"Operation Failed: Could not open");
-DEFINE("_RSGALLERY_EDITCSS_NOT_WRITABLE",	"Operation failed: The file is not writable.");
-DEFINE("_RSGALLERY_EDITCSS_FAIL_NOTWRITING","Operation failed: Failed to open file for writing.");
-//function editCSSSource
-DEFINE("_RSGALLERY_EDITCSS_TITLE",			"RSgallery2 CSS Editor");
-DEFINE("_RSGALLERY_ISWRITABLE",				"RSgallery2.css is :");
-DEFINE("_RSGALLERY_ISWRITABLE_WRITABLE",	"Writeable");
-DEFINE("_RSGALLERY_ISWRITABLE_UNWRITABLE",	"Unwriteable");
-DEFINE("_RSGALLERY_MAKE_WRITABLE",			"Make unwriteable after saving");
-DEFINE("_RSGALLERY_OVERWRITE_WRITABLE",		"Override write protection while saving");
-//function uploadFile
-DEFINE("_RSGALLERY_ERMSG_FAILD_CHMOD",	"Failed to change the permissions of the uploaded file.");
-DEFINE("_RSGALLERY_ERMSG_FAILD_MOVE_MEDIA",	"Failed to move uploaded file to <code>/media</code> directory.");
-DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_WRITE",	"Upload failed as <code>/media</code> directory is not writable.");
-DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_EXIST",	"Upload failed as <code>/media</code> directory does not exist.");
-
-//config.rsgallery2.php
-//function toString
-DEFINE("_RSGALLERY_CONF_ERROR_UPLOAD",		" - Error Image Upload : ");
-//function showCategories
-DEFINE("_RSGALLERY_SELECT_GAL_DROP_BOX",		"- Select gallery -");
-//function galleriesSelectList
-DEFINE("_RSGALLERY_SELECT_GAL_TOP",		"Top");
-//function showRating
-/*new*/DEFINE("_RSGALLERY_RATE_NONE",		"No rating");
-//function newImages
-DEFINE("_RSGALLERY_NEW",				"New!");
-//function latestCats
-/*new*/DEFINE("_RSGALLERY_NO_NEW_ENT",		"No new entries");
-//function writeWarningBox
-DEFINE("_RSGALLERY_NO_IMGLIBRARY",			"There was no available image libray detected! Please contact your hosting provider to install GD2 or check the forums to install either ImageMagick or NETPBM!");
-DEFINE("_RSGALLERY_NOT_WRITABLE",			" is NOT writable!");
-DEFINE("_RSGALLERY_FOLDER_NOTEXIST",		" does NOT exist! Please create this folder and make sure you CHMOD the folder to 0755!");
-DEFINE("_RSGALLERY_ERROR_SETTINGS",			"The following settings prevent RSGallery2 from working without errors:");
-DEFINE("_RSGALLERY_REFRESH",				"Refresh");
-//function writeDownloadLink
-DEFINE("_RSGALLERY_DOWNLOAD",				"Download");
-//function writeGalleryStatus
-DEFINE("_RSGALLERY_STATUS_ARE_OWNER",	"You are the owner of this gallery");
-DEFINE("_RSGALLERY_STATUS_CAN_UPLOAD",	"You can upload in this gallery");
-DEFINE("_RSGALLERY_STATUS_NOT_PUBL",		"This gallery is NOT published");
-
-//install.rsgallery2.php
-//function com_install
-DEFINE("_RSGALLERY_MIGRATING_FROM",			"Migrating from RSGallery2 ");
-DEFINE("_RSGALLERY_INSTALL_SUCCESS",		"Success.  Now using RSGallery2 ");
-DEFINE("_RSGALLERY_INSTALL_FAIL",			"Failure: ");
-
-//toolbar.rsgallery2.html.php
-DEFINE("_RSGALLERY_TOOL_CLOSE",				"Close");
-DEFINE("_RSGALLERY_TOOL_PANEL",				"CPanel");
-DEFINE("_RSGALLERY_TOOL_GAL",				"Galleries");
-DEFINE("_RSGALLERY_TOOL_IMG",				"Images");
-DEFINE("_RSGALLERY_TOOL_UP",				"Upload");
-DEFINE("_RSGALLERY_TOOL_NEXT",				"Next");
-DEFINE("_RSGALLERY_TOOL_DELETE",			"Delete");
-DEFINE("_RSGALLERY_TOOL_CONFIRM_DEL",		"Confirm removal");
-DEFINE("_RSGALLERY_TOOL_RES_HITS",	"Reset hits");
-
-//config.html
-DEFINE("_RSGALLERY_C_TMPL_VERSION",			"Version:");
-DEFINE("_RSGALLERY_C_TMPL_INTRO_TEXT",		"Introduction Text:");
-DEFINE("_RSGALLERY_C_TMPL_DEBUG",			"Debug:");
-DEFINE("_RSGALLERY_C_TMPL_IMG_MANIP",		"Image Manipulation");
-DEFINE("_RSGALLERY_C_TMPL_DISP_WIDTH",		"Display Picture Width:");
-DEFINE("_RSGALLERY_C_TMPL_THUMB_WIDTH",		"Thumbnail Width:");
-DEFINE("_RSGALLERY_C_TMPL_THUMBNAIL_STYLE",		"Thumbnail Style:");
-DEFINE("_RSGALLERY_C_TMPL_JPEG_QUALITY",	"JPEG Quality Percentage");
-DEFINE("_RSGALLERY_C_TMPL_GRAPH_LIB",		"Graphics Library");
-DEFINE("_RSGALLERY_C_TMPL_NOTE_GLIB_PATH",	"Note:</span> Leave the following fields empty unless you have problems.");
-DEFINE("_RSGALLERY_C_TMPL_IMGMAGICK_PATH",	"ImageMagick Path:");
-DEFINE("_RSGALLERY_C_TMPL_NETPBM_PATH",		"Netpbm Path:");
-DEFINE("_RSGALLERY_C_TMPL_FTP_PATH",		"FTP Path:");
-DEFINE("_RSGALLERY_C_TMPL_IMG_STORAGE",		"Image Storage");
-DEFINE("_RSGALLERY_C_TMPL_KEEP_ORIG",		"Keep original image:");
-DEFINE("_RSGALLERY_C_TMPL_ORIG_PATH",		"Original Image Path:");
-DEFINE("_RSGALLERY_C_TMPL_DISP_PATH",		"Display Image Path:");
-DEFINE("_RSGALLERY_C_TMPL_THUMB_PATH",		"Thumb Path:");
-DEFINE("_RSGALLERY_C_TMPL_CREATE_DIR",		"Create directories if they don't exist:");
-DEFINE("_RSGALLERY_C_TMPL_FRONT_PAGE",		"Front Page");
-DEFINE("_RSGALLERY_C_TMPL_DISP_RAND",		"Display Random");
-DEFINE("_RSGALLERY_C_TMPL_DISP_LATEST",		"Display Latest");
-DEFINE("_RSGALLERY_C_TMPL_DISP_BRAND",		"Display Branding");
-DEFINE("_RSGALLERY_C_TMPL_DISP_DOWN",		"Display Downloadlink");
-DEFINE("_RSGALLERY_C_TMPL_WATERMARK",		"Image Watermark.  Buggy, do not use on productions sites.");
-DEFINE("_RSGALLERY_C_TMPL_DISP_WTRMRK",		"Display Watermark");
-DEFINE("_RSGALLERY_C_TMPL_WTRMRK_TEXT",		"Watermark text");
-DEFINE("_RSGALLERY_C_TMPL_WTRMRK_FONTSIZE",	"Watermark Font Size");
-DEFINE("_RSGALLERY_C_TMPL_WTRMRK_ANGLE",	"Watermark text angle");
-DEFINE("_RSGALLERY_C_TMPL_WTRMRK_POS",		"Watermark position");
-DEFINE("_RSGALLERY_C_TMPL_GAL_VIEW",		"Gallery View");
-DEFINE("_RSGALLERY_C_TMPL_THUMB_STYLE",		"Thumbnail Style:<br>Use float for variable width templates.");
-DEFINE("_RSGALLERY_C_TMPL_FLOATDIRECTION",	"Direction (only works for float):");
-DEFINE("_RSGALLERY_C_TMPL_COLS_PERPAGE",	"Number of Thumbnail Columns (only for table):");
-DEFINE("_RSGALLERY_C_TMPL_THUMBS_PERPAGE",	"Thumbnails per Page:");
-DEFINE("_RSGALLERY_C_TMPL_DISP_SLIDE",		"Display Slideshow");
-DEFINE("_RSGALLERY_C_TMPL_IMG_DISP",		"Image Display");
-DEFINE("_RSGALLERY_C_TMPL_RESIZE_OPT",		"Resize Option");
-DEFINE("_RSGALLERY_C_TMPL_DISP_DESCR",		"Display Description");
-DEFINE("_RSGALLERY_C_TMPL_DISP_HITS",		"Display Hits");
-DEFINE("_RSGALLERY_C_TMPL_DISP_VOTE",		"Display Voting");
-DEFINE("_RSGALLERY_C_TMPL_DISP_COMM",		"Display Comments");
-DEFINE("_RSGALLERY_C_TMPL_DISP_EXIF",		"Display EXIF Data");
-DEFINE("_RSGALLERY_C_TMPL_ENABLE_U_UP",		"Enable User Uploads?");
-DEFINE("_RSGALLERY_C_TMPL_ONLY_REGISTERED",	"Only Registered Users");
-DEFINE("_RSGALLERY_C_TMPL_U_CREATE_GAL",	"Can user create galleries?");
-DEFINE("_RSGALLERY_C_TMPL_U_MAX_GAL",		"Maximum number of galleries a user can have:");
-DEFINE("_RSGALLERY_C_TMPL_U_MAX_IMG",		"Max numbers of pictures a user can have:");
-DEFINE("_RSGALLERY_C_TMPL_SHOW_IMGNAME",	"Show image name below thumbnail:");
-DEFINE("_RSGALLERY_C_TMPL_ACL_SETINGS",		"Access Control Settings");
-DEFINE("_RSGALLERY_C_TMPL_ACL_ENABLE",		"Enable Access Control");
-DEFINE("_RSGALLERY_C_TMPL_SHOW_MYGAL",		"Show My Galleries");
-DEFINE("_RSGALLERY_C_TMPL_USER_SET",		"User specific settings");
-DEFINE("_RSGALLERY_C_DISP_STATUS_ICON",		"Display Status Icons");
-DEFINE("_RSGALLERY_C_GEN_SET",			"General settings");
-DEFINE("_RSGALLERY_C_HTML_ROOT",			"HTML-root is");
-DEFINE("_RSGALLERY_C_DISP_LIMIB",		"Display gallery limitbox");
-DEFINE("_RSGALLERY_C_NUMB_GAL_FRONT",	"Default number of galleries on frontpage");
-DEFINE("_RSGALLERY_C_FONT",				"Font");
-DEFINE("_RSGALLERY_C_WATER_TRANS",		"Watermark transparency");
-DEFINE("_RSGALLERY_C_ALLOWED_FILE",		"Allowed filetypes");
-
-//galleries.html.php
-//function show
-DEFINE("_RSGALLERY_GAL_MANAGE",			"Gallery Manager");
-DEFINE("_RSGALLERY_GAL_MAX_LEVELS",		"Max Levels");
-DEFINE("_RSGALLERY_GAL_FILTER",			"Filter");
-DEFINE("_RSGALLERY_GAL_NAME",			"Name");
-DEFINE("_RSGALLERY_GAL_REORDER",		"Reorder");
-DEFINE("_RSGALLERY_GAL_COUNT",			"# Items");
-DEFINE("_RSGALLERY_GAL_HITS",			"Hits");
-//function edit
-DEFINE("_RSGALLERY_GAL_GAL",				"Gallery");
-DEFINE("_RSGALLERY_GAL_DETAILS",			"Details");
-DEFINE("_RSGALLERY_GAL_DESCR",			"Description");
-DEFINE("_RSGALLERY_GAL_PARENT",			"Parent Item");
-DEFINE("_RSGALLERY_GAL_THUMB",			"Gallery thumbnail");
-DEFINE("_RSGALLERY_GAL_ORDERING",		"Ordering");
-DEFINE("_RSGALLERY_GAL_PUBLISHED",		"Published");
-DEFINE("_RSGALLERY_GAL_PARAMETERS",		"Parameters");
-DEFINE("_RSGALLERY_GAL_OWNER",	"Owner");
-DEFINE("_RSGALLERY_GAL_PERMS",	"Permissions");
-DEFINE("_RSGALLERY_GAL_DEF_PERM_CREATE",	"Default permissions are created. <br />After creating the gallery, you can come back to edit the gallery permissions.");
-DEFINE("_RSGALLERY_GAL_NO_PERM_FOUND",	"No permissions found for this gallery. Click on the <strong>SAVE</strong> button in the toolbar above to create default permissions. After that, come back here and set permissions.");
-DEFINE("_RSGALLERY_GAL_USERTYPE",		"Usertype");
-DEFINE("_RSGALLERY_GAL_VIEW_GAL",		"View<br/>Gallery</span>");
-DEFINE("_RSGALLERY_GAL_UPL_EDIT_IMG",	"Upload/Edit<br/>images</span>");
-DEFINE("_RSGALLERY_GAL_DEL_IMG",			"Delete Image</span>");
-DEFINE("_RSGALLERY_GAL_MOD_GAL",			"Modify<br/>Gallery</span>");
-DEFINE("_RSGALLERY_GAL_DEL_GAL",			"Delete<br/>Gallery</span>");
-DEFINE("_RSGALLERY_GAL_ACL_PUB",			"Public</span>");
-DEFINE("_RSGALLERY_GAL_ACL_REG",			"Registered</span>");
-DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",	"&nbsp;Select/Deselect All");
-DEFINE("_RSGALLERY_GAL_ORDER",	"Order");
-
-//install.class.php
-//function echo_values
-//access.class.php
-//function checkGallery
-DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"No permissions were found, so default permissions were created. Please try again.");
-
-//tables/display.class.php
-//function _showGalleryDetails
-DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"Vytvoøil: ");
-DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"Velikost: ");
-DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Vytvoøeno: ");
-
-//file.utils.php
-//function importImage
-/*new*/DEFINE("_RSGALLERY_FU_NOT_SUP_TYPE",		" nepodporovaný typ souboru.");
-//function move_uploadedFile_to_orignalDir
-/*new*/DEFINE("_RSGALLERY_FU_UNABLE_COPY",		"nemoho zkopírovat ");
-/*new*/DEFINE("_RSGALLERY_FU_IMAGE_TO",		" obrázek do: ");
-//function preHandlerCheck
-/*new*/DEFINE("_RSGALLERY_FU_NOT_WRITABLE",		" existuje,ale nelze zapisovat!");
-/*new*/DEFINE("_RSGALLERY_FU_NOT_EXIST",		" neexistuje!");
-//function cleanMediaDir
-/*new*/DEFINE("_RSGALLERY_FU_APPARENTLY",		"Apparently ");
-/*new*/DEFINE("_RSGALLERY_FU_DOESNT_EXIST",		"does not exit");
-//function handleFTP
-/*new*/DEFINE("_RSGALLERY_FU_FTP_DIR_NOT_EXIST",		" does not exist or is no directory on your server. Please check the path.");
-/*new*/DEFINE("_RSGALLERY_FU_NO_VALID_IMG",		"No valid images found in ");
-/*new*/DEFINE("_RSGALLERY_FU_PLEASE_CHECK_PATH",		". Please check the path.");
-/*new*/DEFINE("_RSGALLERY_FU_NO_FILES",		"No files found to process!");
-/*new*/DEFINE("_RSGALLERY_FU_MAX_FILESIZE",		"The uploaded file exceeds the upload_max_filesize directive ");
-/*new*/DEFINE("_RSGALLERY_FU_IN_PINI",		" in php.ini.");
-/*new*/DEFINE("_RSGALLERY_FU_MAX_FILESIZE_FORM",		"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.");
-/*new*/DEFINE("_RSGALLERY_FU_PARTIAL_UPL",		"The uploaded file was only partially uploaded.");
-/*new*/DEFINE("_RSGALLERY_FU_NO_UPL",		"No file was uploaded.");
-/*new*/DEFINE("_RSGALLERY_FU_MISS_TEMP_DIR",		"Missing a temporary folder.");
-/*new*/DEFINE("_RSGALLERY_FU_FAIL_WRITE_DISK",		"Failed to write file to disk");
-/*new*/DEFINE("_RSGALLERY_FU_UPL_STOP_EXT",		"File upload stopped by extension");
-/*new*/DEFINE("_RSGALLERY_FU_UNKW_ERROR",		"Unknown File Error");
-
-//rsgcomments.class.php
-/*new*/DEFINE("_RSGALLERY_COMMENTS_ADD",		"Add comment");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_NAME",		"Name");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_TITLE",		"Title");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_COMMENT",		"Comment text");
-
-//rsgcomments.php
-/*new*/DEFINE("_RSGALLERY_COMMENTS_DISABLED",		"Commenting is disabled");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_ONLY_ONCE",		"You can only comment once on this item!");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_INCORRECT_CAPTCHA",		"Incorrect CAPTCHA check, comment is NOT saved!");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_ADD_SUCCES",		"Comment added succesfully!");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_ADD_FAIL",		"Comment could not be added!");
-
-//rsgvoting.class.php
-/*new*/DEFINE("_RSGALLERY_VOTING_ARE_YOU_SURE",		"Are you sure you want to vote?");
-/*new*/DEFINE("_RSGALLERY_VOTING_RATING",		"Rating");
-/*new*/DEFINE("_RSGALLERY_VOTING_VOTE",		"Vote");
-/*new*/DEFINE("_RSGALLERY_VOTING_VOTES",		"&nbsp;votes");
-/*new*/DEFINE("_RSGALLERY_VOTING_RATE_1",		"Rate this item 1 out of 5");
-/*new*/DEFINE("_RSGALLERY_VOTING_RATE_2",		"Rate this item 2 out of 5");
-/*new*/DEFINE("_RSGALLERY_VOTING_RATE_3",		"Rate this item 3 out of 5");
-/*new*/DEFINE("_RSGALLERY_VOTING_RATE_4",		"Rate this item 4 out of 5");
-/*new*/DEFINE("_RSGALLERY_VOTING_RATE_5",		"Rate this item 5 out of 5");
-
-//rsgvoting.php
-/*new*/DEFINE("_RSGALLERY_VOTING_DISABLED",		"Voting is disabled!");
-/*new*/DEFINE("_RSGALLERY_VOTING_NOT_AUTH",		"You are not authorized to vote!");
-/*new*/DEFINE("_RSGALLERY_VOTING_ALREADY_VOTED",		"You aready voted for this item!");
-/*new*/DEFINE("_RSGALLERY_VOTING_NOT_ADDED",		"Vote could not be added to the database!");
-/*new*/DEFINE("_RSGALLERY_VOTING_ADDED",		"Vote added to database!");
-
-
-
-//templates.php
-//function viewTemplates
-/*new*/DEFINE("_RSGALLERY_TPL_INST",	"Instalace nové RSGTemplate <small><small>[ Site ]</small></small>");
-// more to do here, but to come
-
-//templates.html.php
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_NAME",	"Jméno");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_ACTIVE",	"Activní");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_AUTHOR",	"Autor");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_VERSION",	"Verze");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_DATE",	"Datum");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_AUTH_URL",	"Autor URL");
-
-//stopped at gallery.class.php
-
 ?>

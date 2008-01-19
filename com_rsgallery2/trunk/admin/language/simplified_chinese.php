@@ -8,7 +8,7 @@
 * @author : baijianpeng http://www.tcmbook.net
 * RSGallery is Free Software
 **/
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 //rsgallery2.html.php
 //RSShowPictures
@@ -297,7 +297,7 @@ DEFINE("_RSGALLERY_PURGE_GAL",				"已从数据库消除图库.");
 DEFINE("_RSGALLERY_PURGE_CONFIG",			"已从数据库消除配置.");
 DEFINE("_RSGALLERY_PURGE_COMMENTS",			"已从数据库消除评论.");
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"已使用 rm -r 尝试移除 $mosConfig_absolute_path/images/rsgallery");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"已使用 rm -r 尝试移除 JPATH_SITE/images/rsgallery");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"已删除 #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"已删除 #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"已删除 #__rsgallery2_config");

@@ -9,8 +9,6 @@
 // Check to ensure this file is within the rest of the framework
 defined('_JEXEC') or die('Direct Access to this location is not allowed.');
 
-jimport( 'joomla.installer.installer' );
-
 class TemplatesController
 {
 	/**
@@ -89,7 +87,7 @@ class TemplatesController
 			$rsgConfig->saveConfig();
 		}
 
-		mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager');
+		$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager');
 	}
 
 
@@ -211,7 +209,7 @@ class TemplatesController
 			TemplatesView::editFileSource($template, $filename, $content, $option, $ftp, "template");
 		} else {
 			$msg = JText::sprintf('Operation Failed Could not open', $file);
-			mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager', $msg);
+			$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager', $msg);
 		}
 	}
 
@@ -228,7 +226,7 @@ class TemplatesController
 
 		if (JFile::getExt($filename) !== 'css') {
 			$msg = JText::_('Wrong file type given, only CSS files can be edited.');
-			mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager&task=choose_css&id='.$template, $msg, 'error');
+			$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager&task=choose_css&id='.$template, $msg, 'error');
 		}
 
 		$content = JFile::read(JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'css'.DS.$filename);
@@ -246,7 +244,7 @@ class TemplatesController
 		else
 		{
 			$msg = JText::sprintf('Operation Failed Could not open', $client->path.$filename);
-			mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager', $msg);
+			$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager', $msg);
 		}
 	}
 
@@ -263,7 +261,7 @@ class TemplatesController
 		
 		if (JFile::getExt($filename) !== 'php') {
 			$msg = JText::_('Wrong file type given, only php files can be edited.');
-			mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager&task=choose_override&id='.$template, $msg, 'error');
+			$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager&task=choose_override&id='.$template, $msg, 'error');
 		}
 		
 		$content = JFile::read(JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'html'.DS.$filename);
@@ -281,7 +279,7 @@ class TemplatesController
 		else
 		{
 			$msg = JText::sprintf('Operation Failed Could not open', JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'html'.DS.$filename);
-			mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager', $msg);
+			$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager', $msg);
 		}
 	}
 
@@ -310,7 +308,7 @@ class TemplatesController
 			TemplatesView::editFileSource($template, $filename, $content, $option, $ftp, "display");
 		} else {
 			$msg = JText::sprintf('Operation Failed Could not open', $file);
-			mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager', $msg);
+			$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager', $msg);
 		}
 	}
 
@@ -328,7 +326,7 @@ class TemplatesController
 		$default	= JRequest::getBool('default');
 
 		if (!$template) {
-			mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager', JText::_('Operation Failed').': '.JText::_('No template specified.'));
+			$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager', JText::_('Operation Failed').': '.JText::_('No template specified.'));
 		}
 
 		// Set FTP credentials, if given
@@ -359,15 +357,15 @@ class TemplatesController
 			}
 
 			if (!$return) {
-				mosRedirect('index2.php?option='.$option.'&client='.$client->id, JText::_('Operation Failed').': '.JText::sprintf('Failed to open file for writing.', $file));
+				$mainframe->redirect('index2.php?option='.$option.'&client='.$client->id, JText::_('Operation Failed').': '.JText::sprintf('Failed to open file for writing.', $file));
 			}
 		}
 
 		$task = JRequest::getCmd('task');
 		if($task == 'apply') {
-			mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager&task=edit&cid[]='.$template);
+			$mainframe->redirect('index.php2?option='.$option.'&rsgOption=templateManager&task=edit&cid[]='.$template);
 		} else {
-			mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager');
+			$mainframe->redirect('index.php2?option='.$option.'&rsgOption=templateManager');
 		}
 	}
 	
@@ -381,11 +379,11 @@ class TemplatesController
 		$filecontent	= JRequest::getVar('filecontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
 
 		if (!$template) {
-			mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager', JText::_('Operation Failed').': '.JText::_('No template specified.'));
+			$mainframe->redirect('index.php2?option='.$option.'&rsgOption=templateManager', JText::_('Operation Failed').': '.JText::_('No template specified.'));
 		}
 
 		if (!$filecontent) {
-			mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager', JText::_('Operation Failed').': '.JText::_('Content empty.'));
+			$mainframe->redirect('index.php2?option='.$option.'&rsgOption=templateManager', JText::_('Operation Failed').': '.JText::_('Content empty.'));
 		}
 
 		// Set FTP credentials, if given
@@ -414,17 +412,17 @@ class TemplatesController
 			switch($task)
 			{
 				case 'apply_file':
-					mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager&task=edit_source&id='.$template.'&filename=index.php&filetype=template', JText::_('Template source saved'));
+					$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager&task=edit_source&id='.$template.'&filename=index.php&filetype=template', JText::_('Template source saved'));
 					break;
 
 				case 'save_file':
 				default:
-					mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager&task=edit&cid[]='.$template, JText::_('Template source saved'));
+					$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager&task=edit&cid[]='.$template, JText::_('Template source saved'));
 					break;
 			}
 		}
 		else {
-			mosRedirect('index2.php?option='.$option, JText::_('Operation Failed').': '.JText::_('Failed to open file for writing.'));
+			$mainframe->redirect('index2.php?option='.$option, JText::_('Operation Failed').': '.JText::_('Failed to open file for writing.'));
 		}
 	}
 
@@ -439,11 +437,11 @@ class TemplatesController
 		$filecontent	= JRequest::getVar('filecontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
 
 		if (!$template) {
-			mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager', JText::_('Operation Failed').': '.JText::_('No template specified.'));
+			$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager', JText::_('Operation Failed').': '.JText::_('No template specified.'));
 		}
 
 		if (!$filecontent) {
-			mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager', JText::_('Operation Failed').': '.JText::_('Content empty.'));
+			$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager', JText::_('Operation Failed').': '.JText::_('Content empty.'));
 		}
 
 		// Set FTP credentials, if given
@@ -472,17 +470,17 @@ class TemplatesController
 			switch($task)
 			{
 				case 'apply_file':
-					mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager&task=edit_css&id='.$template.'&filename='.$filename.'&fileType=css',  JText::_('File Saved'));
+					$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager&task=edit_css&id='.$template.'&filename='.$filename.'&fileType=css',  JText::_('File Saved'));
 					break;
 
 				case 'save_file':
 				default:
-					mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager&task=choose_css&id='.$template, JText::_('File Saved'));
+					$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager&task=choose_css&id='.$template, JText::_('File Saved'));
 					break;
 			}
 		}
 		else {
-			mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager&id='.$template.'&task=choose_css', JText::_('Operation Failed').': '.JText::sprintf('Failed to open file for writing.', $file));
+			$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager&id='.$template.'&task=choose_css', JText::_('Operation Failed').': '.JText::sprintf('Failed to open file for writing.', $file));
 		}
 	}
 	
@@ -497,15 +495,15 @@ class TemplatesController
 		$filecontent	= JRequest::getVar('filecontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
 		
 		if (!$template) {
-			mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager', JText::_('Operation Failed').': '.JText::_('No template specified.'));
+			$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager', JText::_('Operation Failed').': '.JText::_('No template specified.'));
 		}
 		
 		if (!$filecontent) {
-			mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager', JText::_('Operation Failed').': '.JText::_('Content empty.'));
+			$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager', JText::_('Operation Failed').': '.JText::_('Content empty.'));
 		}
 
 		if (!$filename ) {
-			mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager', JText::_('Operation Failed').': '.JText::_('No css file specified.'));
+			$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager', JText::_('Operation Failed').': '.JText::_('No css file specified.'));
 		}
 		
 		// Set FTP credentials, if given
@@ -534,17 +532,17 @@ class TemplatesController
 			switch($task)
 			{
 				case 'apply_file':
-					mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager&task=edit_override&id='.$template.'&filename='.$filename.'&fileType=override',  JText::_('File Saved'));
+					$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager&task=edit_override&id='.$template.'&filename='.$filename.'&fileType=override',  JText::_('File Saved'));
 					break;
 				
 				case 'save_file':
 				default:
-					mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager&task=choose_override&id='.$template  , JText::_('File Saved'));
+					$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager&task=choose_override&id='.$template  , JText::_('File Saved'));
 					break;
 			}
 		}
 		else {
-			mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager&id='.$template.'&task=choose_override', JText::_('Operation Failed').': '.JText::sprintf('Failed to open file for writing.', $file));
+			$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager&id='.$template.'&task=choose_override', JText::_('Operation Failed').': '.JText::sprintf('Failed to open file for writing.', $file));
 		}
 	}
 
@@ -558,11 +556,11 @@ class TemplatesController
 		$filecontent	= JRequest::getVar('filecontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
 		
 		if (!$template) {
-			mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager', JText::_('Operation Failed').': '.JText::_('No template specified.'));
+			$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager', JText::_('Operation Failed').': '.JText::_('No template specified.'));
 		}
 		
 		if (!$filecontent) {
-			mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager', JText::_('Operation Failed').': '.JText::_('Content empty.'));
+			$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager', JText::_('Operation Failed').': '.JText::_('Content empty.'));
 		}
 		
 		// Set FTP credentials, if given
@@ -591,17 +589,17 @@ class TemplatesController
 			switch($task)
 			{
 				case 'apply_file':
-					mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager&task=edit_display&id='.$template.'&filename=index.php&filetype=template', JText::_('Template display source saved'));
+					$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager&task=edit_display&id='.$template.'&filename=index.php&filetype=template', JText::_('Template display source saved'));
 					break;
 				
 				case 'save_file':
 				default:
-					mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager&task=edit&cid[]='.$template, JText::_('Template display source saved'));
+					$mainframe->redirect('index2.php?option='.$option.'&rsgOption=templateManager&task=edit&cid[]='.$template, JText::_('Template display source saved'));
 					break;
 			}
 		}
 		else {
-			mosRedirect('index2.php?option='.$option, JText::_('Operation Failed').': '.JText::_('Failed to open file for writing.'));
+			$mainframe->redirect('index2.php?option='.$option, JText::_('Operation Failed').': '.JText::_('Failed to open file for writing.'));
 		}
 	}
 	
@@ -641,7 +639,7 @@ class TemplatesController
 				break;
 			
 			default:
-				mosRedirect('index2.php?option=com_rsgallery2&rsgOption=templateManager&task=chooseInstall', JText::_('Operation Failed').': '.JText::_('No Install Type Found'));
+				$mainframe->redirect('index2.php?option=com_rsgallery2&rsgOption=templateManager&task=chooseInstall', JText::_('Operation Failed').': '.JText::_('No Install Type Found'));
 				
 				return false;
 				break;
@@ -649,7 +647,7 @@ class TemplatesController
 		
 		// Was the package unpacked?
 		if (!$package) {
-			mosRedirect('index2.php?option=com_rsgallery2&rsgOption=templateManager&task=chooseInstall', JText::_('Operation Failed').': '.JText::_('Unable to find install package'));
+			$mainframe->redirect('index2.php?option=com_rsgallery2&rsgOption=templateManager&task=chooseInstall', JText::_('Operation Failed').': '.JText::_('Unable to find install package'));
 			return false;
 		}
 		
@@ -664,11 +662,11 @@ class TemplatesController
 		// Install the package
 		if (!$installer->install($package['dir'])) {
 			// There was an error installing the package
-			$msg = 'Error';
+			$msg = JText::sprintf('INSTALLEXT', JText::_($package['type']), JText::_('Error'));
 			$result = false;
 		} else {
 			// Package installed sucessfully
-			$msg = 'Success';
+			$msg = JText::sprintf('INSTALLEXT', JText::_($package['type']), JText::_('Success'));
 			$result = true;
 		}
 			
@@ -677,43 +675,40 @@ class TemplatesController
 			$config =& JFactory::getConfig();
 			$package['packagefile'] = $config->getValue('config.tmp_path').DS.$package['packagefile'];
 		}
-		jimport('joomla.installer.helper');
 		JInstallerHelper::cleanupInstall($package['packagefile'], $package['extractdir']);
-		mosRedirect('index2.php?option=com_rsgallery2&rsgOption=templateManager&task=chooseInstall', $msg);
+		$mainframe->redirect('index2.php?option=com_rsgallery2&rsgOption=templateManager&task=chooseInstall', $msg);
 	}
 	
 	function removeTemplate(){
-		global $mainframe;
 		
-		jimport("joomla.installer.installer");
 		$cid		= JRequest::getVar('cid', array(), 'method', 'array');
 		$cid		= array(JFilterInput::clean(@$cid[0], 'cmd'));
 		$template	= $cid[0];
 		$option		= JRequest::getCmd('option');
 		
 		if (!$cid[0]) {
-			JError::raiseWarning( 500, 'Template not specified' );
-			return false;
+			return JError::raiseWarning( 500, 'Template not specified' );
 		}
-
+		
 		require_once(JPATH_RSGALLERY2_ADMIN .DS. 'options' . DS. 'templateManager'. DS. 'helpers' .DS. 'JInstallerRSGTemplate.php');
 		// Get an installer instance
 		$installer =& JInstaller::getInstance();
-
+		
 		// set custom Adapter for JInstaller
 		$installer->SetAdapter("rsgTemplate", new JInstallerRSGTemplate($installer));
 		
 
 		if(!$installer->uninstall("rsgTemplate", $template, -1)){
 			// There was an error removing the package
-			$msg = 'Error';
+			$msg = JText::sprintf('UNINSTALLEXT', JText::_($package['type']), JText::_('Error'));
 			$result = false;
 		} else {
 			// Package installed sucessfully
-			$msg = 'Success';
-			mosRedirect('index2.php?option=com_rsgallery2&rsgOption=templateManager', $msg);
+			$msg = JText::sprintf('UNINSTALLEXT', JText::_($package['type']), JText::_('Success'));
+			$result = true;
 		}
-
+		
+		$mainframe->redirect('index2.php?option=com_rsgallery2&rsgOption=templateManager', $msg);
 	}
 	
 	/**

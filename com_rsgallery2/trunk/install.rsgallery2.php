@@ -9,12 +9,14 @@
 **/
 
 // no direct access
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 function com_install(){
-	global $database, $mosConfig_absolute_path, $mosConfig_lang;
-	require_once( $mosConfig_absolute_path . '/administrator/components/com_rsgallery2/includes/install.class.php' );
-	include $mosConfig_absolute_path.'/administrator/components/com_rsgallery2/language/' . $mosConfig_lang . '.php';
+	$lang =& JFactory::getLanguage();
+	$database =& JFactory::getDBO();
+	
+	require_once( JPATH_SITE . '/administrator/components/com_rsgallery2/includes/install.class.php' );
+	include JPATH_SITE.'/administrator/components/com_rsgallery2/language/' . $lang->get("backwardlang","english") . '.php';
 	
 	//Initialize install
 	$rsgInstall = new rsgInstall();

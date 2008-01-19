@@ -9,7 +9,7 @@
 * RSGallery is Free Software
 **/
 
-defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 
 
 /**
@@ -23,7 +23,7 @@ class galleryUtils {
      * contributed by Jeckel
      */
     function showRSPath($catid, $imgid = 0){
-        global $mainframe, $database, $mosConfig_live_site, $Itemid;
+        global $mainframe, $database, $Itemid;
     
         if ($catid != 0) {
             $database->setQuery('SELECT * FROM #__rsgallery2_galleries WHERE id = "'. $catid . '"');
@@ -45,7 +45,7 @@ class galleryUtils {
                 if ($cat->id == $catid && empty($imgid)) {
                     $mainframe->appendPathWay($cat->name);
                 } else {
-					$mainframe->appendPathWay('<a href="' .JRoute::_( $mosConfig_live_site . '/index.php?option=com_rsgallery2&Itemid='.$Itemid.'&catid=' . $cat->id ). '">' . $cat->name . '</a>');
+					$mainframe->appendPathWay('<a href="' .JRoute::_('index.php?option=com_rsgallery2&Itemid='.$Itemid.'&catid=' . $cat->id ). '">' . $cat->name . '</a>');
                 }    // if
             }    // foreach
         }    // if
@@ -62,7 +62,7 @@ class galleryUtils {
      * Shows random images for display on main page
      */
     function showRandom() {
-    global $database;
+    $database =& JFactory::getDBO();
 
     $database->setQuery("SELECT file.gallery_id, file.ordering, file.id, file.name, file.descr".
                         " FROM #__rsgallery2_files file, #__rsgallery2_galleries gal".
@@ -77,7 +77,7 @@ class galleryUtils {
      * Shows latest uploaded images for display on main page
      */
     function showLatest() {
-    global $database;
+    $database =& JFactory::getDBO();
     
     $database->setQuery("SELECT file.gallery_id, file.ordering, file.id, file.name, file.descr".
                         " FROM #__rsgallery2_files file, #__rsgallery2_galleries gal".
@@ -135,7 +135,7 @@ class galleryUtils {
 	 * @return HTML to show selectbox
 	 */
 	function showUserGalSelectList($action = '', $select_name = 'catid', $gallery_id = null, $js = '') {
-		global $rsgAccess, $database, $my;
+		global $rsgAccess;
 		
 		//Get gallery Id's where action is permitted and write to string
 		$galleries = $rsgAccess->actionPermitted($action);
@@ -155,7 +155,7 @@ class galleryUtils {
 	 */
 	function addToGalSelectList($level, $galid, $gallery_id, $galleries) {
 		// provided by Klaas on Dec.13.2007
-		global $database, $my;
+		$database = JFactory::getDBO();		
 		
 		$dropdown_html = "";
 		$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE parent = '$galid' ORDER BY ordering ASC");
@@ -190,7 +190,8 @@ class galleryUtils {
      * @return string HTML representation for selectlist
      */
     function createGalSelectList( $galleryid=null, $listName='galleryid', $style = true ) {
-    global $database, $my;
+    $database = JFactory::getDBO();
+	$my =& JFactory::getUser();
     $my_id = $my->id;
     if ($style == true)
         $size = ' size="10"';
@@ -222,17 +223,17 @@ class galleryUtils {
     }
 
     // second pass - get an indent list of the items
-    $list = mosTreeRecurse( 0, '', array(), $children, 9999, 0, 0 );
+    $list = JHTML::_('menu.treerecurse', 0, '', array(), $children, 9999, 0, 0 );
 
     // assemble menu items to the array
     $mitems     = array();
-    $mitems[]   = mosHTML::makeOption( '0', _RSGALLERY_SELECT_GAL_TOP);
+    $mitems[]   = JHTML::_("Select.option", '0', _RSGALLERY_SELECT_GAL_TOP);
 
     foreach ( $list as $item ) {
-        $mitems[] = mosHTML::makeOption( $item->id, '&nbsp;&nbsp;&nbsp;'. $item->treename );
+        $mitems[] = JHTML::_("Select.option", $item->id, '&nbsp;&nbsp;&nbsp;'. $item->treename );
     }
 
-    $output = mosHTML::selectList( $mitems, $listName, 'class="inputbox"'.$size, 'value', 'text', $galleryid );
+    $output = JHTML::_("select.genericlist", $mitems, $listName, 'class="inputbox"'.$size, 'value', 'text', $galleryid );
 
     echo $output;
 }
@@ -248,7 +249,7 @@ class galleryUtils {
      * @return string HTML representation for selectlist
      */
     function galleriesSelectList( $galleryid=null, $listName='gallery_id', $style = true, $javascript = NULL ) {
-    global $database;
+    $database =& JFactory::getDBO();
     if ($style == true)
         $size = ' size="10"';
     else
@@ -278,18 +279,18 @@ class galleryUtils {
     }
 
     // second pass - get an indent list of the items
-    $list = mosTreeRecurse( 0, '', array(), $children, 9999, 0, 0 );
+		$list = JHTML::_('menu.treerecurse', 0, '', array(), $children, 9999, 0, 0 );
 
     // assemble menu items to the array
     $mitems     = array();
-    $mitems[] 	= mosHTML::makeOption( '-1', _RSGALLERY_SELECT_GAL );
-    $mitems[] 	= mosHTML::makeOption( '0', '- Top Gallery -' );
+    $mitems[] 	= JHTML::_("Select.option", '-1', _RSGALLERY_SELECT_GAL );
+    $mitems[] 	= JHTML::_("Select.option", '0', '- Top Gallery -' );
 
     foreach ( $list as $item ) {
-        $mitems[] = mosHTML::makeOption( $item->id, '&nbsp;&nbsp;&nbsp;'. $item->treename );
+        $mitems[] = JHTML::_("Select.option", $item->id, '&nbsp;&nbsp;&nbsp;'. $item->treename );
     }
 
-    $output = mosHTML::selectList( $mitems, $listName, 'class="inputbox"'.$size.' '.$javascript, 'value', 'text', $galleryid );
+    $output = JHTML::_("select.genericlist", $mitems, $listName, 'class="inputbox"'.$size.' '.$javascript, 'value', 'text', $galleryid, false );
 
     return $output;
 }
@@ -305,7 +306,8 @@ class galleryUtils {
      */
      
     function getThumb($catid, $height = 0, $width = 0,$class = "") {
-	    global $Itemid, $database, $mosConfig_live_site;
+	    global $Itemid, $mainframe ;
+		$database = JFactory::getDBO();
 	    
 	    //Setting attributes for image tag
 	    $imgatt="";
@@ -317,7 +319,7 @@ class galleryUtils {
 	        $imgatt.=" class=\"rsg2-galleryList-thumb\" ";
 	    //If no thumb, show default image.
 	    if ( galleryUtils::getFileCount($catid) == 0 ) {
-	        $thumb_html = "<img $imgatt src=\"".$mosConfig_live_site."/components/com_rsgallery2/images/no_pics.gif\" alt=\"No pictures in gallery\" />";
+	        $thumb_html = "<img $imgatt src=\"".JURI_SITE."/components/com_rsgallery2/images/no_pics.gif\" alt=\"No pictures in gallery\" />";
 	    } else {
 	    	//Select thumb setting for specific gallery("Random" or "Specific thumb")
 	        $sql = "SELECT thumb_id FROM #__rsgallery2_galleries WHERE id = '$catid'";
@@ -345,7 +347,7 @@ class galleryUtils {
      * @return int Number of files in category
      */
     function getFileCount($id) {
-        global $database;
+        $database =& JFactory::getDBO();
         $list = galleryUtils::getChildList( $id );
         $database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id IN ($list)");
         $count = $database->loadResult();
@@ -359,7 +361,7 @@ class galleryUtils {
      */
     function getCatnameFromId($id)
         {
-        global $database;
+        $database =& JFactory::getDBO();
         $database->setQuery("SELECT name FROM #__rsgallery2_galleries WHERE id = '$id'");
         $catname = $database->loadResult();
         return $catname;
@@ -372,7 +374,7 @@ class galleryUtils {
      */
     function getCatIdFromFileId($id)
         {
-        global $database;
+        $database =& JFactory::getDBO();
         $database->setQuery("SELECT gallery_id FROM #__rsgallery2_files WHERE id = '$id'");
         $gallery_id = $database->loadResult();
         return $gallery_id;
@@ -385,7 +387,7 @@ class galleryUtils {
       */    
      function getFileNameFromId($id)
         {
-        global $database;
+        $database =& JFactory::getDBO();
         $database->setQuery("SELECT name FROM #__rsgallery2_files WHERE id = '$id'");
         $filename = $database->loadResult();
         return $filename;
@@ -398,7 +400,7 @@ class galleryUtils {
       */    
      function getTitleFromId($id)
         {
-        global $database;
+        $database =& JFactory::getDBO();
         $database->setQuery("SELECT title FROM #__rsgallery2_files WHERE id = '$id'");
         $title = $database->loadResult();
         return $title;
@@ -410,7 +412,7 @@ class galleryUtils {
      * @return int Parent ID
      */
      function getParentId($gallery_id) {
-     	global $database;
+     	$database =& JFactory::getDBO();
      	$sql = "SELECT parent FROM #__rsgallery2_galleries WHERE id = '$gallery_id'";
      	$database->setQuery($sql);
      	$parent = $database->loadResult();
@@ -438,7 +440,7 @@ class galleryUtils {
     
     function addHit($id)
         {
-        global $database;
+        $database =& JFactory::getDBO();
         //Get hits from DB
         $database->setQuery("SELECT hits FROM #__rsgallery2_files WHERE id = '$id'");
         $hits = $database->loadResult();
@@ -456,7 +458,7 @@ class galleryUtils {
     
     function addCatHit($hid)
         {
-        global $database;
+        $database =& JFactory::getDBO();
         //Get hits from DB
         $database->setQuery("SELECT hits FROM #__rsgallery2_galleries WHERE id = '$hid'");
         $hits = $database->loadResult();
@@ -473,7 +475,7 @@ class galleryUtils {
         }
         
     function showRating($id) {
-        global $database,$mosConfig_live_site;
+        $database = JFactory::getDBO();
         $database->setQuery("SELECT * FROM #__rsgallery2_files WHERE id = '$id'");
         $values = array(_RSGALLERY_RATE_NONE,_RSGALLERY_VERYBAD,_RSGALLERY_BAD,_RSGALLERY_OK,_RSGALLERY_GOOD,_RSGALLERY_VERYGOOD);
         $rows = $database->loadObjectList();
@@ -484,7 +486,7 @@ class galleryUtils {
             $average1 = round($average);
             for ($t = 1; $t <= $average1; $t++)
                 {
-                $images .= "<img src=\"$mosConfig_live_site/images/M_images/rating_star.png\">&nbsp;";
+                $images .= "<img src=\"JURI_SITE/images/M_images/rating_star.png\">&nbsp;";
                 }
             }
             return $images;
@@ -494,7 +496,7 @@ class galleryUtils {
 	 * @depreciated use rsgGallery->hasNewImages() instead;
 	 */
     function newImages($xid) {
-    global $database;
+    $database =& JFactory::getDBO();
     $lastweek  = mktime (0, 0, 0, date("m"),    date("d") - 7, date("Y"));
     $lastweek = date("Y-m-d H:m:s",$lastweek);
     $database->setQuery("SELECT * FROM #__rsgallery2_files WHERE date >= '$lastweek' AND published=1 AND gallery_id = '$xid'");
@@ -523,7 +525,7 @@ class galleryUtils {
      * @return the requested user id
      */
     function getUID($catid) {
-        global $database;
+        $database =& JFactory::getDBO();
         $database->setQuery("SELECT uid FROM #__rsgallery2_galleries WHERE id = '$catid'");
         $uid = $database->loadResult();
         return $uid;
@@ -535,7 +537,7 @@ class galleryUtils {
      * @return integer number of created categories
      */
     function userCategoryTotal($id) {
-        global $database;
+        $database =& JFactory::getDBO();
         $database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_galleries WHERE uid = '$id'");
         $cats = $database->loadResult();
         return $cats;
@@ -547,7 +549,7 @@ class galleryUtils {
      * @return integer number of uploaded images
      */
     function userImageTotal($id) {
-        global $database;
+        $database =& JFactory::getDBO();
         $database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE userid = '$id'");
         $result = $database->loadResult();
         return $result;
@@ -559,7 +561,9 @@ class galleryUtils {
      * @return integer number of uploaded images
      */
     function latestCats() {
-    global $my, $database;
+		$my = JFactory::getUser();
+		$database = JFactory::getDBO();
+
     $database->setQuery("SELECT * FROM #__rsgallery2_galleries ORDER BY id DESC LIMIT 0,5");
     $rows = $database->loadObjectList();
     if (count($rows) > 0)
@@ -588,7 +592,10 @@ class galleryUtils {
      * @todo isn't there a joomla function for this?
      */
     function genericGetUsername($uid) {
-        global $database, $name;
+		$my = JFactory::getUser();
+		$database = JFactory::getDBO();
+		global $name;
+
         $database->setQuery("SELECT username FROM #__users WHERE id = '$uid'");
         $name = $database->loadResult();
         
@@ -599,8 +606,10 @@ class galleryUtils {
      * This function will show the 5 last uploaded images
      */    
     function latestImages() {
-    global $database, $rows;
-
+    	global $rows;
+		$my = JFactory::getUser();
+		$database = JFactory::getDBO();
+		
     $lastweek  = mktime (0, 0, 0, date("m"),    date("d") - 7, date("Y"));
     $lastweek = date("Y-m-d H:m:s",$lastweek);
     $database->setQuery("SELECT * FROM #__rsgallery2_files WHERE date >= '$lastweek' and published=1 ORDER BY id DESC LIMIT 0,5");
@@ -643,7 +652,7 @@ class galleryUtils {
      * @return integer File ID
      */
     function getFileIdFromName($filename) {
-    global $database;
+    	$database =& JFactory::getDBO();
         $sql = "SELECT id FROM #__rsgallery2_files WHERE name = '$filename'";
         $database->setQuery($sql);
         $id = $database->loadResult();
@@ -659,7 +668,7 @@ class galleryUtils {
     function reorderRSGallery ($tbl, $where = NULL ) {
        // reorders either the categories or images within a category
        // it is necessary to call this whenever a shuffle or deletion is performed
-       global $database;
+       $database =& JFactory::getDBO();
     
        $database->setQuery( "SELECT id, ordering FROM $tbl"
           . ($where ? "\nWHERE $where" : '')
@@ -685,13 +694,13 @@ class galleryUtils {
      * RSGallery2 from functioning properly
      */
     function writeWarningBox() {
-    	global $mosConfig_live_site, $rsgConfig;
+    	global  $rsgConfig;
     	require_once(JPATH_RSGALLERY2_ADMIN.'/includes/img.utils.php');
     	//Detect image libraries
     	$html = '';
     	$count = 0;
 		if ( ( !GD2::detect() ) and (!imageMagick::detect() ) and (!Netpbm::detect() ) ) {
-  			$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".$mosConfig_live_site."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;"._RSGALLERY_NO_IMGLIBRARY."</p>";
+  			$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;"._RSGALLERY_NO_IMGLIBRARY."</p>";
 		}
 		
 		//Check availability and writability of folders
@@ -707,11 +716,11 @@ class galleryUtils {
 				{
 				$perms = substr(sprintf('%o', fileperms(JPATH_ROOT.$folder)), -4);
 				if (!is_writable(JPATH_ROOT.$folder) )
-					$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".$mosConfig_live_site."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;<strong>".JPATH_ROOT.$folder."</strong>"._RSGALLERY_NOT_WRITABLE."($perms)";
+					$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;<strong>".JPATH_ROOT.$folder."</strong>"._RSGALLERY_NOT_WRITABLE."($perms)";
 				}
 			else
 				{
-				$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".$mosConfig_live_site."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;<strong>".JPATH_ROOT.$folder."</strong>"._RSGALLERY_FOLDER_NOTEXIST;	
+				$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;<strong>".JPATH_ROOT.$folder."</strong>"._RSGALLERY_FOLDER_NOTEXIST;	
 				}
 		}
 		if ($html !== '') {
@@ -733,13 +742,13 @@ class galleryUtils {
 	 * @return HTML for downloadlink
 	 */
 	 function writeDownloadLink($id, $showtext = true, $type = 'button') {
-	 	global $mosConfig_live_site;
+	 	global $mainframe;
 	 	echo "<div class=\"rsg2-toolbar\">";
 	 	if ($type == 'button')
 	 		{
 	 		?>
 	 		<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>">
-	 		<img height="20" width="20" src="<?php echo $mosConfig_live_site;?>/administrator/images/download_f2.png" alt="<?php echo _RSGALLERY_DOWNLOAD?>">
+	 		<img height="20" width="20" src="<?php echo JURI_SITE;?>/administrator/images/download_f2.png" alt="<?php echo _RSGALLERY_DOWNLOAD?>">
 	 		<?php
 	 		if ($showtext == true) {
 	 			?>
@@ -760,7 +769,8 @@ class galleryUtils {
 	 }
 	 
 	function writeGalleryStatus( $gallery ) {
-		global $rsgConfig, $mosConfig_live_site, $database, $my, $rsgAccess;
+		global $rsgConfig, $mainframe, $rsgAccess;
+		$my =& JFactory::getUser();
 		
 		// return if status is not displayed
 		if ( !$rsgConfig->get('displayStatus') )
@@ -797,7 +807,7 @@ class galleryUtils {
 	}
 
 	 function getChildList( $gallery_id ) {
-	 	global $database;
+	 	$database =& JFactory::getDBO();
 	 	$array[] = $gallery_id;
 	 	$sql = "SELECT * FROM #__rsgallery2_galleries WHERE parent = '$gallery_id'";
 	 	$database->setQuery( $sql );
@@ -819,11 +829,11 @@ class galleryUtils {
 	 	global $rsgConfig;
 	 	
 	 	$selected = $rsgConfig->get('watermark_font');
-	 	$fonts = mosReadDirectory(JPATH_RSGALLERY2_ADMIN.DS.'fonts', 'ttf');
+	 	$fonts = JFolder::files(JPATH_RSGALLERY2_ADMIN.DS.'fonts', 'ttf');
 	 	foreach ($fonts as $font) {
-	 		$fontlist[] = mosHTML::makeOption( $font );
+	 		$fontlist[] = JHTML::_("Select.option", $font );
 	 	}
-	 	$list = mosHTML::selectList( $fontlist, 'watermark_font', '', 'value', 'text', $selected );
+	 	$list = JHTML::_("select.genericlist", $fontlist, 'watermark_font', '', 'value', 'text', $selected );
 	 	return $list;
 	 	
 	 }
@@ -838,7 +848,9 @@ class galleryUtils {
 	function subText($text, $length= 20, $tail="...") {
 		$text = trim($text);
 		$txtl = strlen($text);
-		$tail = JHTML::tooltip(ampReplace($text), null, null, $tail, null, 0);
+		jimport('joomla.filter.output');
+		
+		$tail = JHTML::tooltip(JFilterOutput::ampReplace($text), null, null, $tail, null, 0);
 		if($txtl > $length) {
 			for($i=1;$text[$length-$i]!=" ";$i++) {
 				if($i == $length) {
@@ -856,7 +868,7 @@ class galleryUtils {
 	 * @param Component name
 	 */
 	function isComponentInstalled( $component_name ) {
-		global $database;
+		$database =& JFactory::getDBO();
 		$sql = "SELECT COUNT(1) FROM #__components as a WHERE a.option = '$component_name'";
 		$database->setQuery( $sql );
 		$result = $database->loadResult();

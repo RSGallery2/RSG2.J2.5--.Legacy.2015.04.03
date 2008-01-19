@@ -7,7 +7,7 @@
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
-defined( '_VALID_MOS' ) or die( 'Access Denied.' );
+defined( '_JEXEC' ) or die( 'Access Denied.' );
 
 /**
 * Gallery utilities class
@@ -22,7 +22,7 @@ class rsgGalleryManager{
 	 * @param id of item
 	 */
 	function getGalleryByItemID( $id = null ) {
-		global $database;
+		$database =& JFactory::getDBO();
 		
 		if( $id === null ){
 			$id = rsgInstance::getInt( 'id', 0 );
@@ -53,7 +53,8 @@ class rsgGalleryManager{
      */
 	function get( $id = null ){
 		global $rsgAccess, $rsgConfig;
-
+		$my =& JFactory::getUser();
+		
 		if( $id === null ){
 			$id = rsgInstance::getInt( 'catid', 0 );
 			$id = rsgInstance::getInt( 'gid', $id );
@@ -72,7 +73,6 @@ class rsgGalleryManager{
 
 		// if gallery is unpublished don't show it unless ACL is enabled and users has permissions to modify (owners can view their unpublished galleries).
 		if( $gallery->get('published') < 1 ) {
-			global $my;
 			
 			// if user is admin or superadmin then always return the gallery
 			if ( $my->gid > 23 )
@@ -189,7 +189,7 @@ class rsgGalleryManager{
 		static $galleries = array();
 
 		if( !isset( $galleries[$gallery] )){
-			global $database;
+			$database =& JFactory::getDBO();
 		
 			if( !is_numeric( $gallery )) die("gallery id is not a number: $gallery");
 			

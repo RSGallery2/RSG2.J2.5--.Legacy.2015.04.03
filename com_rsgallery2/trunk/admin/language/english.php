@@ -8,7 +8,7 @@
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 **/
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 //rsgallery2.html.php
 //RSShowPictures
@@ -164,7 +164,6 @@ DEFINE("_RSGALLERY_C_UPLOAD_ZIP",			"Batch upload");
 DEFINE("_RSGALLERY_C_IMAGES",				"Manage Items");
 DEFINE("_RSGALLERY_C_CATEGORIES",			"Manage Galleries");
 DEFINE("_RSGALLERY_C_DATABASE",				"Consolidate database");
-/*new*/DEFINE("_RSGALLERY_C_MAINTENANCE",	"Maintenance");
 DEFINE("_RSGALLERY_C_MIGRATION",			"Migration options");
 DEFINE("_RSGALLERY_C_CSS_EDIT",				"Edit CSS");
 DEFINE("_RSGALLERY_C_DEBUG_ON",				"Advanced Debug Options.  Debug mode is set in the <a href='index2.php?option=com_rsgallery2&task=showConfig'>configuration</a>.");
@@ -227,7 +226,7 @@ DEFINE("_RSGALLERY_CONF_OPTION_BR",		"Bottom right");
 DEFINE("_RSGALLERY_CONF_POPUP_STYLE",		"Popup style");
 DEFINE("_RSGALLERY_CONF_POPUP_NO",		"No popup");
 DEFINE("_RSGALLERY_CONF_POPUP_NORMAL",		"Normal popup");
-/*new*/DEFINE("_RSGALLERY_CONF_POPUP_LIGHTBOX",		"Lightbox++ popup");
+DEFINE("_RSGALLERY_CONF_POPUP_FANCY",		"Fancy popup (Errors in IE6!)");
 //function showconfig
 DEFINE("_RSGALLERY_FREETYPE_INSTALLED",		"(Freetype library installed, watermark is possible)");
 DEFINE("_RSGALLERY_FREETYPE_NOTINSTALLED",	"(Freetype library NOT installed! Watermark does not work)");
@@ -323,7 +322,7 @@ DEFINE("_RSGALLERY_PURGE_DISPLAY",	"removing display images.");
 DEFINE("_RSGALLERY_PURGE_ORIGINAL",	"removing original images.");
 DEFINE("_RSGALLERY_PURGE_PURGED",	"purged.");
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Used rm -r to attempt to remove $mosConfig_absolute_path/images/rsgallery");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Used rm -r to attempt to remove JPATH_SITE/images/rsgallery");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"DROPed #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"DROPed #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"DROPed #__rsgallery2_config");
@@ -554,8 +553,6 @@ DEFINE("_RSGALLERY_GAL_UPL_EDIT_IMG",	"Upload/Edit<br/>images</span>");
 DEFINE("_RSGALLERY_GAL_DEL_IMG",			"Delete Image</span>");
 DEFINE("_RSGALLERY_GAL_MOD_GAL",			"Modify<br/>Gallery</span>");
 DEFINE("_RSGALLERY_GAL_DEL_GAL",			"Delete<br/>Gallery</span>");
-/*new*/DEFINE("_RSGALLERY_GAL_VOTE_VIEW",			"View<br/>Votes</span>");
-/*new*/DEFINE("_RSGALLERY_GAL_VOTE_VOTE",			"Make<br/>Vote</span>");
 DEFINE("_RSGALLERY_GAL_ACL_PUB",			"Public</span>");
 DEFINE("_RSGALLERY_GAL_ACL_REG",			"Registered</span>");
 DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",	"&nbsp;Select/Deselect All");
@@ -676,8 +673,6 @@ DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"No permissions were found, so default 
 DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"Owner: ");
 DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"Size: ");
 DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Created: ");
-/*new*/DEFINE("_RSGALLERY_TMPL_GAL_SUBGALLERIES",	"Subgalleries: ");
-/*new*/DEFINE("_RSGALLERY_TMPL_GAL_UPLOADED",	"Uploaded");
 
 //file.utils.php
 //function importImage
@@ -786,30 +781,6 @@ DEFINE("_RSGALLERY_VOTING_ADDED",		"Vote added to database!");
 /*new*/DEFINE("_RSGALLERY_TEMPLATES_VERSION",	"Version");
 /*new*/DEFINE("_RSGALLERY_TEMPLATES_DATE",	"Date");
 /*new*/DEFINE("_RSGALLERY_TEMPLATES_AUTH_URL",	"Author URL");
-
-//rsgsearch.html.php
-/*new*/DEFINE("_RSGALLERY_SEARCH_RESULTS_TITLE",	"RSGallery2 Search Results");
-/*new*/DEFINE("_RSGALLERY_SEARCH_RESULTS_NUMBER1",	"There are ");
-/*new*/DEFINE("_RSGALLERY_SEARCH_RESULTS_NUMBER2",	" results for ");
-/*new*/DEFINE("_RSGALLERY_SEARCH_LABEL",			"Search");
-/*new*/DEFINE("_RSGALLERY_SEARCH_KEYWORDS",			"Keywords");
-
-//maintenance.html.php
-/*new*/DEFINE("_RSGALLERY_MAINT_HEADER",	"Maintenance");
-/*new*/DEFINE("_RSGALLERY_MAINT_CONSOLDB",	"Consolidate Database");
-/*new*/DEFINE("_RSGALLERY_MAINT_CONSOLDB_TXT",	"This option will perform a complete check on the database and filesystem, to see if there are any discrepancies.");
-/*new*/DEFINE("_RSGALLERY_MAINT_REGEN",	"Regenerate Thumbnails");
-/*new*/DEFINE("_RSGALLERY_MAINT_REGEN_TXT",	"This option will regenerate thumbnails, based on the current settings of thumbnail dimensions. If you have changed these recently, this is probably a good idea.");
-/*new*/DEFINE("_RSGALLERY_MAINT_OPTDB",	"Optimize Database");
-/*new*/DEFINE("_RSGALLERY_MAINT_OPTDB_TXT",	"This option will perform a complete check on the RSGallery2 database tables, optimizing them when needed.");
-/*new*/DEFINE("_RSGALLERY_MAINT_REGEN_BUTTON",	"Regenerate");
-/*new*/DEFINE("_RSGALLERY_MAINT_OPTIMIZE_SUCCESS",	"Tables optimized succesfully");
-/*new*/DEFINE("_RSGALLERY_MAINT_NO_GALLERY_SELECTED",	"No gallery selected");
-/*new*/DEFINE("_RSGALLERY_MAINT_NO_THUMBSIZE_CHANGE",	"Thumbnail size did not change. Regeneration NOT needed");
-/*new*/DEFINE("_RSGALLERY_MAINT_REGEN_ERRORS",	"Errors were found when regenerating. Please check the thumbs");
-/*new*/DEFINE("_RSGALLERY_MAINT_REGEN_NO_ERRORS",	"Regeneration completed succesfully");
-/*new*/DEFINE("_RSGALLERY_MAINT_REGEN_ONLY_THUMB",	"Only thumb is available, so no other images can be generated!");
-/*new*/DEFINE("_RSGALLERY_MAINT_REGEN_SUCCESS",	" succesfully created");
 
 //stopped at gallery.class.php
 ?>

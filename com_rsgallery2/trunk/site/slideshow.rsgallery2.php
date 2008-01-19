@@ -8,8 +8,8 @@
 * RSGallery is Free Software
 **/
 
-defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
-global $rsgConfig, $name, $mosConfig_live_site, $imagepath;
+defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
+global $rsgConfig, $name, $mainframe, $imagepath;
 $imagepath = $rsgConfig->get('imgPath_display'); 
 $k = 0;
 $text = "";
@@ -21,7 +21,7 @@ foreach ($rows as $row)
         }
     $name = imgUtils::getImgNameDisplay($row->name);
     $id = $row->id;
-    $text .= "SLIDES[".$k."] = [\"$mosConfig_live_site$imagepath/$name\", \"$row->title\"];\n";
+    $text .= "SLIDES[".$k."] = [\"JURI_SITE$imagepath/$name\", \"$row->title\"];\n";
     $k++;
     }
 ?> 
@@ -35,10 +35,10 @@ foreach ($rows as $row)
         <tr>
             <td align="center">
             <div align="center">
-            <a href="javascript:;" onclick="startSS()"><img src="<?php echo $mosConfig_live_site;?>/components/com_rsgallery2/images/start.jpg" alt="<?php echo _RSGALLERY_SLIDE_START ?>" width="24" height="24" border="0"></a>
-            <a href="javascript:;" onclick="stopSS()"><img src="<?php echo $mosConfig_live_site;?>/components/com_rsgallery2/images/stop.jpg" alt="<?php echo _RSGALLERY_SLIDE_STOP ?>" width="24" height="24" border="0"></a>
-            <a href="javascript:;" onclick="prevSS()"><img src="<?php echo $mosConfig_live_site;?>/components/com_rsgallery2/images/previous.jpg" alt="<?php echo _RSGALLERY_SLIDE_PREV ?>" width="24" height="24" border="0"></a>
-            <a href="javascript:;" onclick="nextSS()"><img src="<?php echo $mosConfig_live_site;?>/components/com_rsgallery2/images/next.jpg" alt="<?php echo _RSGALLERY_SLIDE_NEXT ?>" width="24" height="24" border="0"></a>
+            <a href="javascript:;" onclick="startSS()"><img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/start.jpg" alt="<?php echo _RSGALLERY_SLIDE_START ?>" width="24" height="24" border="0"></a>
+            <a href="javascript:;" onclick="stopSS()"><img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/stop.jpg" alt="<?php echo _RSGALLERY_SLIDE_STOP ?>" width="24" height="24" border="0"></a>
+            <a href="javascript:;" onclick="prevSS()"><img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/previous.jpg" alt="<?php echo _RSGALLERY_SLIDE_PREV ?>" width="24" height="24" border="0"></a>
+            <a href="javascript:;" onclick="nextSS()"><img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/next.jpg" alt="<?php echo _RSGALLERY_SLIDE_NEXT ?>" width="24" height="24" border="0"></a>
             </div>
             <br>
             <div style="visibility:hidden;"><select name="wichIm" onchange="selected(this.options[this.selectedIndex].value)">
@@ -57,7 +57,7 @@ foreach ($rows as $row)
         <table border="0" cellpadding="0" cellspacing="0" style="border: white inset 2px; width: <?php echo $image_width; ?>px;">
         <tr>
             <td>
-            <img name="stage" border="0" src="<?php echo $mosConfig_live_site.$imagepath."/".$name;?>" style="filter: revealtrans(); font-size:12;">
+            <img name="stage" border="0" src="<?php echo JURI_SITE.$imagepath."/".$name;?>" style="filter: revealtrans(); font-size:12;">
             </td>
         </tr>
         </table>

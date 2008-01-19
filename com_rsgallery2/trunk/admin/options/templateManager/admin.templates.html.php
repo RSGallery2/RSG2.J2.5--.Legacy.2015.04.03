@@ -23,7 +23,7 @@ class TemplatesView
 	*/
 	function showTemplates(& $rows, & $page, $option)
 	{
-		global $mainframe,$mosConfig_live_site;
+		global $mainframe;
 
 		$limitstart = JRequest :: getVar('limitstart', '0', '', 'int');
 
@@ -156,7 +156,7 @@ class TemplatesView
 	{
 		global $mainframe;
 
-		$url =$mainframe->getSiteURL();
+		$url =JURI_SITE;
 		$doc =&JFactory::getDocument();
 		$doc->addStyleDeclaration("
 					.previewFrame {
@@ -462,7 +462,6 @@ class TemplatesView
 
 	function _writeFTPHeader(& $ftp)
 	{
-		return;
 		if($ftp): ?>
 			<fieldset title="<?php echo JText::_('DESCFTPTITLE'); ?>">
 			<legend><?php echo JText::_('DESCFTPTITLE'); ?></legend>

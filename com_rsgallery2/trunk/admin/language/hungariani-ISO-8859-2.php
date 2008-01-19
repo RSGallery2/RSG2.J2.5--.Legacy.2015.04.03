@@ -8,7 +8,7 @@
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 **/
-defined( '_VALID_MOS' ) or die( 'A hozzáférés tilos' );
+defined( '_JEXEC' ) or die( 'A hozzáférés tilos' );
 
 //rsgallery2.html.php
 //RSShowPictures
@@ -306,7 +306,7 @@ DEFINE("_RSGALLERY_PURGE_DISPLAY",	"megjelenített képek eltávolítása.");
 DEFINE("_RSGALLERY_PURGE_ORIGINAL",	"eredeti képek eltávolítása.");
 DEFINE("_RSGALLERY_PURGE_PURGED",	"a kiürítés befejezõdött.");
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Az rm -r használatával megkíséreltük eltávolítani a $mosConfig_absolute_path/images/rsgallery könyvtárat");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Az rm -r használatával megkíséreltük eltávolítani a JPATH_SITE/images/rsgallery könyvtárat");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"A #__rsgallery2_files tábla ELDOBÁSA kész");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"A #__rsgallery2_galleries tábla ELDOBÁSA kész");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"A #__rsgallery2_config tábla ELDOBÁSA kész");

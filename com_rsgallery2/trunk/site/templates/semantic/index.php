@@ -15,7 +15,7 @@ This is built to imitate the Joomla 1.5.* style of templating.  Hopefully that i
 
 **/
 
-defined( '_VALID_MOS' ) or die( 'Restricted Access' );
+defined( '_JEXEC' ) or die( 'Restricted Access' );
 
 // bring in display code
 $templatePath = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'semantic';
@@ -26,8 +26,8 @@ $rsgDisplay = new rsgDisplay_semantic();
 // set itemid
 $rsgDisplay->setItemid();
 
-global $mosConfig_live_site;
-$template_dir = $mosConfig_live_site . "/components/com_rsgallery2/templates/" . $rsgConfig->get('template');
+global $mainframe;
+$template_dir = JURI_SITE . "/components/com_rsgallery2/templates/" . $rsgConfig->get('template');
 
 $rsgDisplay->metadata();
 // append to Joomla's pathway
@@ -37,7 +37,7 @@ $rsgDisplay->showRSPathWay();
 JHTML::_('behavior.tooltip');
 
 //include page navigation
-//require_once(JPATH_ROOT.'/includes/pageNavigation.php');
+require_once(JPATH_ROOT.'/includes/pageNavigation.php');
 
 $doc =& JFactory::getDocument();
 $doc->addStyleSheet($template_dir."/css/template.css","text/css");

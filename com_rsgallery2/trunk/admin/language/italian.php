@@ -8,7 +8,7 @@
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 **/
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
 //rsgallery2.html.php
 //RSShowPictures
@@ -297,7 +297,7 @@ DEFINE("_RSGALLERY_PURGE_GAL",				"Gallerie nel database eliminate.");
 DEFINE("_RSGALLERY_PURGE_CONFIG",			"Configurazione nel database eliminata.");
 DEFINE("_RSGALLERY_PURGE_COMMENTS",			"Commenti nel database eliminati.");
 //function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Utilizzato rm -r nel tentativo di rimuovere $mosConfig_absolute_path/images/rsgallery");
+DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Utilizzato rm -r nel tentativo di rimuovere JPATH_SITE/images/rsgallery");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"Eliminati #__rsgallery2_files");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"Eliminati #__rsgallery2_galleries");
 DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"Eliminati #__rsgallery2_config");
@@ -598,87 +598,4 @@ DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"permesso trovato, saranno creati i per
 /*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"Proprietario:");
 /*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"Dimensioni: ");
 /*new*/DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Creata: ");
-/* W LoSpo */
-//rsgcomments.class.php
-//function showButtons
-/*new*/DEFINE("_RSGALLERY_COMMENTS_COLOR",	"-colore-");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_AQUA",	"acqua");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_BLACK",	"nero");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_BLUE",	"blu");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_FUCHSIA",	"fucsia");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_GRAY",	"grigio");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_GREEN",	"verde");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_LIME",	"lime");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_MAROON",	"marrone");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_NAVY",	"navy");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_OLIVE",	"oliva");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_PURPLE",	"viola");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_RED",	"rosso");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_SILVER",	"argento");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_TEAL",	"teal");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_WHITE",	"bianco");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_YELLOW",	"giallo");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_SIZE",	"-dimensione-");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_TINY",	"minuscolo");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_SMALL",	"piccolo");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_MEDIUM",	"medio");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_LARGE",	"grande");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_HUGE",	"enorme");
-//function parseQuoteElement
-/*new*/DEFINE("_RSGALLERY_COMMENTS_QUOTE_WROTE", "Scritto");
-//function editComment
-/*moved*/DEFINE("_RSGALLERY_COMMENT_ADD",		"Aggiungi commento");
-/*moved*/DEFINE("_RSGALLERY_COMMENT_NAME",		"Nome");
-/*moved*/DEFINE("_RSGALLERY_COMMENTS_TITLE",		"Titolo");
-/*moved*/DEFINE("_RSGALLERY_COMMENT_COMMENT",		"Testo commento");
-//function showComments
-/*moved*/DEFINE("_RSGALLERY_COMMENT_DELETE",	"Sicuro di voler eliminare il commento?");
-/*moved*/DEFINE("_RSGALLERY_COMMENTS",	"Commenti");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_NUM_COMM_ADD",	"# commenti aggiunti");
-/*new*/DEFINE("_RSGALLERY_DELETE_COMMENT",			"Elimina commento");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_SEC_IMG_MISS", "SecurityImages selezionato ma componente non installato, contatta il webmaster");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_NOCOMM",	"Ancora nessun commento.");
-
-//rsgcomments.php
-/*new*/DEFINE("_RSGALLERY_COMMENTS_COMMDEL",		"Commento eliminato con successo.");
-
-//rsgcomments.php
-DEFINE("_RSGALLERY_COMMENTS_DISABLED",		"I commenti sono disabilitati");
-/*double deleted DEFINE("_RSGALLERY_COMMENTS_ONLY_ONCE",		"You can only comment once on this item!");*/
-DEFINE("_RSGALLERY_COMMENTS_INCORRECT_CAPTCHA",		"Controllo CAPTCHA sbagliato, commento non salvato.");
-DEFINE("_RSGALLERY_COMMENTS_ADD_SUCCES",		"Commento aggiunto.");
-DEFINE("_RSGALLERY_COMMENTS_ADD_FAIL",		"Il commento non può essere aggiunto");
-
-//rsgvoting.class.php
-DEFINE("_RSGALLERY_VOTING_ARE_YOU_SURE",		"Sicuro di voler votare?");
-DEFINE("_RSGALLERY_VOTING_RATING",		"Votazione");
-DEFINE("_RSGALLERY_VOTING_VOTE",		"Voto");
-DEFINE("_RSGALLERY_VOTING_VOTES",		"&nbsp;voti");
-DEFINE("_RSGALLERY_VOTING_RATE_1",		"Vota la foto 1 su 5");
-DEFINE("_RSGALLERY_VOTING_RATE_2",		"Vota la foto 2 su 5");
-DEFINE("_RSGALLERY_VOTING_RATE_3",		"Vota la foto 3 su 5");
-DEFINE("_RSGALLERY_VOTING_RATE_4",		"Vota la foto 4 su 5");
-DEFINE("_RSGALLERY_VOTING_RATE_5",		"Vota la foto 5 su 5");
-
-//rsgvoting.php
-DEFINE("_RSGALLERY_VOTING_DISABLED",		"I voti sono disabilitati!");
-DEFINE("_RSGALLERY_VOTING_NOT_AUTH",		"Non sei autorizzato a votare!");
-DEFINE("_RSGALLERY_VOTING_ALREADY_VOTED",		"Hai già votato questa!");
-DEFINE("_RSGALLERY_VOTING_NOT_ADDED",		"Il voto non può essere aggiunto al database!");
-DEFINE("_RSGALLERY_VOTING_ADDED",		"Il voto è stato registrato!");
-
-//templates.php
-//function viewTemplates
-/*new*/DEFINE("_RSGALLERY_TPL_INST",	"Installa il nuovo RSGTemplate <small><small>[ Site ]</small></small>");
-// more to do here, but to come
-
-//templates.html.php
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_NAME",	"Nome");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_ACTIVE",	"Attivo");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_AUTHOR",	"Autore");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_VERSION",	"Versione");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_DATE",	"Data");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_AUTH_URL",	"URL Autore");
-
-//stopped at gallery.class.php
 ?>

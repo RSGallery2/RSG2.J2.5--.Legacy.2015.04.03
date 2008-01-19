@@ -8,7 +8,7 @@
 * RSGallery is Free Software
 */
 
-defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 
 /**
  * Explain what this class does
@@ -19,9 +19,10 @@ class html_rsg2_galleries{
      * show list of galleries
      */
     function show( &$rows, &$lists, &$search, &$pageNav ){
-        global $my, $rsgOption, $option;
+        global $rsgOption, $option;
 
-        mosCommonHTML::loadOverlib();
+		$my =& JFactory::getUser();
+		JHTML::_("behavior.mootools");
         ?>
         <form action="index2.php" method="post" name="adminForm">
         <table class="adminheading">
@@ -83,7 +84,7 @@ class html_rsg2_galleries{
             $img    = $row->published ? 'publish_g.png' : 'publish_x.png';
             $alt    = $row->published ? 'Published' : 'Unpublished';
 
-            $checked    = mosCommonHTML::CheckedOutProcessing( $row, $i );
+            $checked    = JHTML::_('grid.checkedout', $row, $i );
             ?>
             <tr class="<?php echo "row$k"; ?>">
                 <td>
@@ -191,12 +192,16 @@ class html_rsg2_galleries{
 	* @param string The option
 	*/
 	function edit( &$row, &$lists, &$params, $option ) {
-		global $rsgOption, $rsgAccess, $my, $rsgConfig;
-		mosMakeHtmlSafe( $row, ENT_QUOTES, 'description' );
+		global $rsgOption, $rsgAccess, $rsgConfig;
+
+		jimport("joomla.filter.output");
+		$my =& JFactory::getUser();
+		$editor =& JFactory::getEditor();
+		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES, 'description' );
 	
 		$task = rsgInstance::getVar( 'task'  , '');
-	
-		mosCommonHTML::loadOverlib();
+		
+		JHTML::_("Behavior.mootools");
 		?>
 		<script type="text/javascript">
 		function submitbutton(pressbutton) {
@@ -210,7 +215,7 @@ class html_rsg2_galleries{
 			if (form.name.value == ""){
 				alert( "Gallery must have a name" );
 			} else {
-				<?php getEditorContents( 'editor1', 'description' ) ; ?>
+				<?php echo $editor->save('editor1') ; ?>
 				submitform( pressbutton );
 			}
 		}
@@ -271,7 +276,7 @@ class html_rsg2_galleries{
 					<td>
 					<?php
 					// parameters : areaname, content, hidden field, width, height, rows, cols
-					editorArea( 'editor1',  $row->description , 'description', '100%;', '300', '10', '20' ) ; ?>
+					echo $editor->display ( 'editor1',  $row->description , '100%', '300', '10', '20' ) ; ?>
 					</td>
 				</tr>
 				<tr>

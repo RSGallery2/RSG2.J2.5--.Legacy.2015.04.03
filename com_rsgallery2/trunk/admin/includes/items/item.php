@@ -8,7 +8,7 @@
 * RSGallery2 is Free Software
 */
 
-defined( '_VALID_MOS' ) or die( 'Access Denied.' );
+defined( '_JEXEC' ) or die( 'Access Denied.' );
 
 /**
 * The generic item class
@@ -66,7 +66,7 @@ class rsgItem extends JObject{
 	function hit(){
 		$query = "UPDATE #__rsgallery2_files SET hits = hits + 1 WHERE id = {$this->id}";
 		
-		global $database;
+		$database =& JFactory::getDBO();
 		$database->setQuery( $query );
 		
 		if( !$database->query() ) {
@@ -233,8 +233,8 @@ class rsgResource extends JObject{
 	 * @return working URL to the resource
 	 */
 	function url(){
-		global $mosConfig_live_site;
-		return $mosConfig_live_site . $this->name;
+		global $mainframe;
+		return JURI_SITE . "/" . $this->name;
 	}
 	
 	/**
