@@ -12,7 +12,7 @@ defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 
 class html_rsg2_search {
 	function showResults($result, $searchtext) {
-		global $Itemid, $rsgConfig, $mosConfig_live_site;
+		global $Itemid, $rsgConfig;
 		
 		//Format number of hits
 		$count = count($result);

@@ -16,7 +16,7 @@ defined( '_JEXEC' ) or die( 'Restricted Access' );
 class rsgDisplay_slideshow_parth extends rsgDisplay{
 
 	function showSlideShow(){
-		global $rsgConfig, $mosConfig_live_site;
+		global $rsgConfig;
 		
 		$gallery = rsgGalleryManager::get();
 		

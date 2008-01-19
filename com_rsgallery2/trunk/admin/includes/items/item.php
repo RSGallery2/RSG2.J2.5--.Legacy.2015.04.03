@@ -177,7 +177,7 @@ class rsgItem extends JObject{
 	*/
 	function save(){
 		
-		global $database;
+		$database = JFactory::getDBO();
 
 		if( !$database->updateObject('#__rsgallery2_files', $this, 'id') ) {
 			$this->setError( $database->getErrorMsg() );
