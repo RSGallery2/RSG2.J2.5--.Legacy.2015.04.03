@@ -8,16 +8,17 @@
 * RSGallery is Free Software
 */
 
-defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 
+global $rsgOptions_path;
 require_once( $rsgOptions_path . 'search.html.php' );
 
-$cid = josGetArrayInts( 'cid' );
+$cid = JRequest::getVar( 'cid' , array(), 'default', 'array' );
 $task = rsgInstance::getVar( 'task', null);
 
 //Load stylesheet from current template
-global $mosConfig_live_site, $rsgConfig;
-$template_dir = $mosConfig_live_site . "/components/com_rsgallery2/templates/" . $rsgConfig->get('template');
+global  $rsgConfig;
+$template_dir = JURI_SITE . "/components/com_rsgallery2/templates/" . $rsgConfig->get('template');
 $doc =& JFactory::getDocument();
 $doc->addStyleSheet($template_dir."/css/template.css","text/css");
 
@@ -28,7 +29,7 @@ switch ($task) {
 }
 
 	function showResults() {
-		global $database, $mosConfig_live_site, $rsgConfig;
+		$database = JFactory::getDBO();
 		//Retrieve search string
 		$searchtext 	= rsgInstance::getVar( 'searchtext'  , '');
 		

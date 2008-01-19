@@ -8,7 +8,7 @@
 * RSGallery is Free Software
 */
 
-defined( '_VALID_MOS' ) or die( 'Restricted Access' );
+defined( '_JEXEC' ) or die( 'Restricted Access' );
 
 require_once( $rsgOptions_path . 'templates.html.php' );
 require_once( $rsgOptions_path . 'templates.class.php' );

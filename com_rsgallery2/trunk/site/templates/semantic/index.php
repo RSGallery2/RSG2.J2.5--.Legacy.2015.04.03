@@ -23,9 +23,6 @@ require_once( $templatePath . DS . 'display.class.php');
 
 $rsgDisplay = new rsgDisplay_semantic();
 
-// set itemid
-$rsgDisplay->setItemid();
-
 global $mainframe;
 $template_dir = JURI_SITE . "/components/com_rsgallery2/templates/" . $rsgConfig->get('template');
 

@@ -299,13 +299,13 @@ class rsgDisplay_semantic extends rsgDisplay{
 		
 		if( $rsgConfig->get('displayPopup') == 2 ){
 			//Lightbox++ scripts and CSS in document head
-			$js1 = "<script src=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/lightbox++/js/prototype.js\" type=\"text/javascript\"></script>";
+			$js1 = "<script src=\"".JURI_SITE."/components/com_rsgallery2/lib/lightbox++/js/prototype.js\" type=\"text/javascript\"></script>";
     		$mainframe->addCustomHeadTag($js1);
-			$js2 = "<script src=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/lightbox++/js/scriptaculous.js?load=effects\" type=\"text/javascript\"></script>";
+			$js2 = "<script src=\"".JURI_SITE."/components/com_rsgallery2/lib/lightbox++/js/scriptaculous.js?load=effects\" type=\"text/javascript\"></script>";
     		$mainframe->addCustomHeadTag($js2);
-			$js3 = "<script src=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/lightbox++/js/lightbox++.js\" type=\"text/javascript\"></script>";
+			$js3 = "<script src=\"".JURI_SITE."/components/com_rsgallery2/lib/lightbox++/js/lightbox++.js\" type=\"text/javascript\"></script>";
     		$mainframe->addCustomHeadTag($js3);
-			$css = "<link rel=\"stylesheet\" href=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/lightbox++/css/lightbox.css\" media=\"screen\" type=\"text/css\" />";
+			$css = "<link rel=\"stylesheet\" href=\"".JURI_SITE."/components/com_rsgallery2/lib/lightbox++/css/lightbox.css\" media=\"screen\" type=\"text/css\" />";
     		$mainframe->addCustomHeadTag($css);
 		}
 		?>

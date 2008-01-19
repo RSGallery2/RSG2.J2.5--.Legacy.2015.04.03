@@ -137,6 +137,7 @@ function saveComment( $option ) {
 * @param string The current url option
 */
 function deleteComments( $option ) {
+	global $mainframe;
 	$database =& JFactory::getDBO();
 	
 	//Get parameters

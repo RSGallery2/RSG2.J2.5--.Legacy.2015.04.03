@@ -123,8 +123,8 @@ class rsgGalleryManager{
      * @param id of parent gallery
      */
     function getList( $parent ){
-        global $database, $rsgAccess, $rsgConfig;
-
+        global $rsgAccess, $rsgConfig;
+		$database = JFactory::getDBO();
         if( !is_numeric( $parent )) return false;
         
         // since the user will never be offered the chance to view a gallery they can't, unauthorized attempts at viewing are a hacking attempt, so it is ok to print an unfriendly error.

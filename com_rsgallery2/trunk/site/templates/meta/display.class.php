@@ -126,30 +126,6 @@ class rsgDisplay extends JObject{
 	}
 	
 	/**
-		set Itemid for proper pathway and linking.
-		contributed by Jeckel
-	**/
-	function setItemid(){
-		$my = JFactory::getUser();
-		$database = JFactory::getDBO();
-		
-		
-		if (! isset($Itemid) || empty($Itemid) || $Itemid == '99999999') {
-			$query = "SELECT id"
-				. "\n FROM #__menu"
-				. "\n WHERE published = 1"
-				. "\n AND access <= ".$my->gid
-				. "\n AND link = 'index.php?option=".$_REQUEST['option']."'"
-				. "\n ORDER BY link"
-				;
-			$GLOBALS['database']->setQuery( $query );
-			$mitems = $database->loadObjectList();
-			if (count($mitems) > 0)
-				$Itemid = $mitems[0]->id;
-		}
-	}
-
-	/**
 	 * Shows contents of changelog.php in preformatted layout
 	 */
 	function viewChangelog() {
@@ -306,7 +282,7 @@ class rsgDisplay extends JObject{
 					 $rsgAccess->checkGallery("vote_vote", $gallery->id) ) ;
 		
 		if ($vote_view) {
-    		$css = "<link rel=\"stylesheet\" href=\"".$JURI_SITE."/components/com_rsgallery2/lib/rsgvoting/rsgvoting.css\" type=\"text/css\" />";
+			$css = "<link rel=\"stylesheet\" href=\"".JURI_SITE."/components/com_rsgallery2/lib/rsgvoting/rsgvoting.css\" type=\"text/css\" />";
     		$mainframe->addCustomHeadTag($css);
     		$voting = new rsgVoting();
 			if($rsgAccess->checkGallery("vote_view", $gallery->id))

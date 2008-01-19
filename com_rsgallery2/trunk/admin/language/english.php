@@ -673,6 +673,8 @@ DEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"No permissions were found, so default 
 DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"Owner: ");
 DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"Size: ");
 DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Created: ");
+/*new*/DEFINE("_RSGALLERY_TMPL_GAL_SUBGALLERIES",	"Subgalleries: ");
+/*new*/DEFINE("_RSGALLERY_TMPL_GAL_UPLOADED",	"Uploaded");
 
 //file.utils.php
 //function importImage
@@ -781,6 +783,13 @@ DEFINE("_RSGALLERY_VOTING_ADDED",		"Vote added to database!");
 /*new*/DEFINE("_RSGALLERY_TEMPLATES_VERSION",	"Version");
 /*new*/DEFINE("_RSGALLERY_TEMPLATES_DATE",	"Date");
 /*new*/DEFINE("_RSGALLERY_TEMPLATES_AUTH_URL",	"Author URL");
+
+//rsgsearch.html.php
+/*new*/DEFINE("_RSGALLERY_SEARCH_RESULTS_TITLE",	"RSGallery2 Search Results");
+/*new*/DEFINE("_RSGALLERY_SEARCH_RESULTS_NUMBER1",	"There are ");
+/*new*/DEFINE("_RSGALLERY_SEARCH_RESULTS_NUMBER2",	" results for ");
+/*new*/DEFINE("_RSGALLERY_SEARCH_LABEL",			"Search");
+/*new*/DEFINE("_RSGALLERY_SEARCH_KEYWORDS",			"Keywords");
 
 //stopped at gallery.class.php
 ?>

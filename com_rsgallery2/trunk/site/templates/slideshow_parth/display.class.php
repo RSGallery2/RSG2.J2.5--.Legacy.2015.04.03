@@ -5,7 +5,7 @@
  * @copyright (C) 2003 - 2007 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
-defined( '_VALID_MOS' ) or die( 'Restricted Access' );
+defined( '_JEXEC' ) or die( 'Restricted Access' );
 
 /**
  * Slideshow class for RSGallery2

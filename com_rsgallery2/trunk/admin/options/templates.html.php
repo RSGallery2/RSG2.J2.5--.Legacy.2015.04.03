@@ -8,7 +8,7 @@
 * RSGallery is Free Software
 */
 
-defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 
 /**
  * Explain what this class does
@@ -21,7 +21,7 @@ class html_rsg2_templates{
 	* @param string The option
 	*/
 	function showTemplates( &$rows, &$pageNav, $option ) {
-		global $my, $mosConfig_live_site;
+		$my = JFactory::getUser();
 
 		if ( isset( $row->authorUrl) && $row->authorUrl != '' ) {
 			$row->authorUrl = str_replace( 'http://', '', $row->authorUrl );

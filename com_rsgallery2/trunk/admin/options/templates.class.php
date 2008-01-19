@@ -8,7 +8,7 @@
 * RSGallery is Free Software
 */
 
-defined( '_VALID_MOS' ) or die( 'Restricted Access' );
+defined( '_JEXEC' ) or die( 'Restricted Access' );
 
 require_once( JPATH_ADMINISTRATOR .'/components/com_rsgallery2/options/templates.installer.php' );
 

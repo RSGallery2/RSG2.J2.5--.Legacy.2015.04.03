@@ -69,6 +69,7 @@ function showMyGalleries() {
 	$total = $database->loadResult();
 	
 	//New instance of mosPageNav
+	jimport('joomla.html.pagination');
 	$pageNav = new JPagination( $total, $limitstart, $limit );
 	
 	$database->setQuery("SELECT * FROM #__rsgallery2_files" .

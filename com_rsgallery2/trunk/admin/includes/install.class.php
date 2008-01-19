@@ -601,7 +601,7 @@ class rsgInstall {
      * @param integer Highest value in new table
      */
     function migrateOldFilesX($old_table, $old_image_name, $old_image_filename, $old_image_date, $old_description, $old_uid, $old_catid, $max_id) {
-	    global $database;
+		$database = JFactory::getDBO();
 	    $error = 0;
 	    $file = 0;
 	    $sql = "SELECT * FROM $old_table";
@@ -646,7 +646,7 @@ class rsgInstall {
     }
     
     function migrateOldCommentsX($old_table = "#__zoom_comments", $old_comment = "cmtcontent", $old_img_id = "imgid") {
-    global $database;
+		$database = JFactory::getDBO();
     }
     
     function migrateFromZoomX() {
@@ -1283,7 +1283,7 @@ class GenericMigrator{
      * @param integer Highest value in new table
      */
     function migrateItems($old_table, $old_image_name, $old_image_filename, $old_image_date, $old_description, $old_uid, $old_catid, $max_id, $prefix) {
-	    global $database;
+		$database = JFactory::getDBO();
 	    //Set variables
 	    $error = 0;
 	    $file = 0;
@@ -1330,7 +1330,7 @@ class GenericMigrator{
      * @todo Make this work. As images get new Image ID's this means the comments don't match when migrated.
      */	
 	function migrateComments($old_table = "#__zoom_comments", $old_comment = "cmtcontent", $old_img_id = "imgid") {
-    	global $database;
+		$database = JFactory::getDBO();
     	return true;
     }
 }//end class
@@ -1853,7 +1853,7 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
     }
 
 	function migrate() {
-		global $database;
+		$database = JFactory::getDBO();
 		//Set basedir from config file
 	    include_once(JPATH_SITE. DS . "administrator/components/com_easygallery/configuration.php");
 	    $basedir = JPATH_SITE .$eg_original_path;
@@ -1961,7 +1961,7 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
      * @param integer Highest value in new table
      */
     function migrateItems($old_table, $old_image_name, $old_image_filename, $old_image_date, $old_description, $old_uid, $old_catid, $max_id, $prefix) {
-	    global $database;
+		$database = JFactory::getDBO();
 	    //Set variables
 	    $error = 0;
 	    $file = 0;

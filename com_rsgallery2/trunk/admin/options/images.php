@@ -588,7 +588,8 @@ function copyImage( $cid, $option ) {
 }
 
 function batchupload($option) {
-	global $database, $mosConfig_live_site, $rsgConfig;
+	global $rsgConfig;
+	$database == JFactory::getDBO();
 	$FTP_path = $rsgConfig->get('ftp_path');
 	
 	//Retrieve data from submit form
@@ -634,8 +635,8 @@ function batchupload($option) {
 }//End function
 
 function save_batchupload() {
-    global $database, $mosConfig_live_site, $rsgConfig;
-    
+    global  $rsgConfig;
+	$database = JFactory::getDBO();
     //Try to bypass max_execution_time as set in php.ini
     set_time_limit(0);
     

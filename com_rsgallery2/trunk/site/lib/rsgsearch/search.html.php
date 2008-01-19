@@ -8,7 +8,7 @@
 * RSGallery is Free Software
 */
 
-defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 
 class html_rsg2_search {
 	function showResults($result, $searchtext) {
@@ -44,7 +44,7 @@ class html_rsg2_search {
 					<td width="<?php echo $rsgConfig->get('thumb_width');?>">
 					<div class="img-shadow">
 						<a href="index.php?option=com_rsgallery2&page=inline&id=<?php echo $match->item_id;?>">
-						<img border="0" src="<?php echo $mosConfig_live_site.$rsgConfig->get('imgPath_thumb') . "/" . imgUtils::getImgNameThumb($match->itemname);?>" alt="image" />
+						<img border="0" src="<?php echo JURI_SITE.$rsgConfig->get('imgPath_thumb') . "/" . imgUtils::getImgNameThumb($match->itemname);?>" alt="image" />
 						</a>
 					</div>
 					</td>
@@ -54,7 +54,7 @@ class html_rsg2_search {
 						</a>
 						<p><?php echo galleryUtils::highlight_keywords($match->descr, $searchtext);?></p>
 						<p style="color: #999999;font-size:10px;">
-							[<?php echo _RSGALLERY_USERCAT_NAME;?>:<a href="<?php echo $mosConfig_live_site."/index.php?option=com_rsgallery2&amp;gid=".$match->gallery_id."&amp;Itemid=".$Itemid;?>"><?php echo $match->name;?></a>]
+							[<?php echo _RSGALLERY_USERCAT_NAME;?>:<a href="<?php echo JURI_SITE."/index.php?option=com_rsgallery2&amp;gid=".$match->gallery_id."&amp;Itemid=".$Itemid;?>"><?php echo $match->name;?></a>]
 							<?php
 							if ($match->userid > 0) {
 								echo "["._RSGALLERY_GAL_OWNER.":&nbsp;".galleryUtils::genericGetUsername($match->userid)."]";
