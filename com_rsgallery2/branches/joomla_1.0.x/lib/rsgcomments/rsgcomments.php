@@ -76,9 +76,7 @@ function saveComment( $option ) {
 			if ($result > 0 ) {
 				//No further comments allowed, redirect
 				mosRedirect($redirect_url, _RSGALLERY_COMMENTS_ONLY_ONCE);
-			} else {
-				continue;
-			}
+			} 
 		}
 	} else {
 		$user_id = 0;
