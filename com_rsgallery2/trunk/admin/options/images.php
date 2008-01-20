@@ -604,7 +604,7 @@ function batchupload($option) {
 	$database->setQuery( "SELECT id FROM #__rsgallery2_galleries" );
 	$database->query();
 	if( $database->getNumRows()==0 ){
-		html_rsg2_images::requestCatCreation( );
+		HTML_RSGALLERY::requestCatCreation( );
 		return;
 	}
 	
