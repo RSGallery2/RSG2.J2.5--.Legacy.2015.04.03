@@ -2223,7 +2223,7 @@ class migrate_com_rsgallery_flat_structure extends GenericMigrator {
  * convert from hierarchical gallery to flat folder sturcture
  * @author John Caprez (john@swizzysoft.com)
  **/
-class migrate_com_rsgallery_flat_structure extends GenericMigrator {
+class migrate_com_rsgallery_hierarchical_structure extends GenericMigrator {
 	// TODO:implement	
 }
 
