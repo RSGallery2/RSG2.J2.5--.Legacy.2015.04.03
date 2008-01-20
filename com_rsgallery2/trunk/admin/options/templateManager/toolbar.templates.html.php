@@ -74,5 +74,4 @@ class TOOLBAR_templates
 		JToolBarHelper::title( JText::_( 'RSGallery 2 Template Installer' ), 'thememanager' );
 	}
 }
-}
 ?>

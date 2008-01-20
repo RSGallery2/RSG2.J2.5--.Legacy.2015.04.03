@@ -489,7 +489,7 @@ class html_rsg2_images {
                 <tr>
                     <td width="200"><strong><?php echo _RSGALLERY_BATCH_METHOD;?></strong>
                     <?php
-                    echo mosToolTip( _RSGALLERY_BATCH_METHOD_TIP, _RSGALLERY_BATCH_METHOD );
+                    echo JHTML::tooltip( _RSGALLERY_BATCH_METHOD_TIP, _RSGALLERY_BATCH_METHOD );
                     ?>
                     </td>
                     <td width="200">
@@ -509,7 +509,7 @@ class html_rsg2_images {
                         <?php echo _RSGALLERY_BATCH_FTP_PATH;?> :</td>
                     <td>
 
-                        <input type="text" name="ftppath" value="<?php echo $FTP_path; ?>" size="30" /><?php echo mosToolTip( _RSGALLERY_BATCH_FTP_PATH_OVERL, _RSGALLERY_BATCH_FTP_PATH );//echo _RSGALLERY_BATCH_DONT_FORGET_SLASH;?>
+                        <input type="text" name="ftppath" value="<?php echo $FTP_path; ?>" size="30" /><?php echo JHTML::tooltip( _RSGALLERY_BATCH_FTP_PATH_OVERL, _RSGALLERY_BATCH_FTP_PATH );//echo _RSGALLERY_BATCH_DONT_FORGET_SLASH;?>
                     </td>
                 </tr>
                 <tr>

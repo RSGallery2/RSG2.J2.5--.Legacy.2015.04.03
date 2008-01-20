@@ -144,7 +144,7 @@ class menu_rsg2_templateManager
 
 class menu_rsg2_images{
     function upload() {
-    	
+    	JToolBarHelper::title( '** Upload **', 'generic.png' );
         JToolBarHelper::spacer();
         JToolBarHelper::custom('save_upload','save_f2.png','save_f2.png',_RSGALLERY_TOOL_UP, false);
         JToolBarHelper::spacer();
@@ -154,22 +154,22 @@ class menu_rsg2_images{
         
     }
     function show(){
-        
-        JToolBarHelper::custom('move_images','file_f2.png','file_f2.png',_RSGALLERY_MOVETO, true);
+        JToolBarHelper::title( '** Manage Items **', 'generic.png' );
+        JToolBarHelper::custom('move_images','forward.png','forward.png',_RSGALLERY_MOVETO, true);
         JToolBarHelper::spacer();
-        JToolBarHelper::custom('copy_images','copy_f2.png','copy_f2.png',_RSGALLERY_COPYIMAGE, true);
+        JToolBarHelper::custom('copy_images','copy.png','copy.png',_RSGALLERY_COPYIMAGE, true);
         JToolBarHelper::spacer();
         JToolBarHelper::publishList();
         JToolBarHelper::spacer();
         JToolBarHelper::unpublishList();
         JToolBarHelper::spacer();
-        JToolBarHelper::custom('upload','upload_f2.png','upload_f2.png',_RSGALLERY_TOOL_UP, false);
+        JToolBarHelper::custom('upload','upload.png','upload.png',_RSGALLERY_TOOL_UP, false);
         JToolBarHelper::spacer();
         JToolBarHelper::editListX();
         JToolBarHelper::spacer();
         JToolBarHelper::deleteList();
         JToolBarHelper::spacer();
-        JToolBarHelper::custom('reset_hits','reload_f2.png','reload_f2.png',_RSGALLERY_TOOL_RES_HITS, true);
+        JToolBarHelper::custom('reset_hits','default.png','default.png',_RSGALLERY_TOOL_RES_HITS, true);
         JToolBarHelper::spacer();
         JToolBarHelper::help( 'screen.rsgallery2' );
         menuRSGallery::adminTasksMenu();
@@ -205,7 +205,7 @@ class menu_rsg2_images{
 
 class menu_rsg2_galleries{
     function show(){
-        
+        JToolBarHelper::title( '** Manage Galleries **', 'generic.png' );
         JToolBarHelper::spacer();
         JToolBarHelper::publishList();
         JToolBarHelper::spacer();
@@ -271,7 +271,6 @@ class menuRSGallery {
     
     function image_new()
         {
-        
         JToolBarHelper::save();
         JToolBarHelper::cancel();
         JToolBarHelper::spacer();
@@ -289,7 +288,7 @@ class menuRSGallery {
     
     function image_batchUpload()
         {
-        
+        JToolBarHelper::title( '** Batch Upload **', 'generic.png' );
         if( rsgInstance::getVar('uploaded'  , null) )
         	JToolBarHelper::custom('save_batchupload','next_f2.png','next_f2.png',_RSGALLERY_TOOL_NEXT, false);
 		else
@@ -298,13 +297,13 @@ class menuRSGallery {
         //JToolBarHelper::cancel();
         //JToolBarHelper::back();
         JToolBarHelper::spacer();
-        JToolBarHelper::help('screen.rsgallery2', true);
+        JToolBarHelper::help('screen.rsgallery2');
         
         }
     
     function image_upload()
         {
-        
+        JToolBarHelper::title( '** Upload **', 'generic.png' );
         JToolBarHelper::custom('upload','upload_f2.png','upload_f2.png',_RSGALLERY_TOOL_UP, false);
         //JToolBarHelper::save('upload');
 		JToolBarHelper::custom('upload','next_f2.png','next_f2.png',_RSGALLERY_TOOL_NEXT, false);
@@ -330,12 +329,12 @@ class menuRSGallery {
     }
     function config_show()
         {
-        
+        JToolBarHelper::title( '** RSGallery2 Configuration **', 'generic.png' );
         JToolBarHelper::apply('applyConfig');
         JToolBarHelper::save('saveConfig');
         JToolBarHelper::cancel();
-        JToolBarHelper::help('screen.rsgallery2', true);
-        menuRSGallery::adminTasksMenu();
+        JToolBarHelper::help('screen.rsgallery2');
+        //menuRSGallery::adminTasksMenu();
         }
 	function edit_main(){
 		
@@ -359,7 +358,7 @@ class menuRSGallery {
 		
 	}
     function simple(){
-        
+        JToolBarHelper::title( '** RSGallery2 Control Panel **', 'generic.png' );
         JToolBarHelper::help('screen.rsgallery2', true);
         menuRSGallery::adminTasksMenu();
     }

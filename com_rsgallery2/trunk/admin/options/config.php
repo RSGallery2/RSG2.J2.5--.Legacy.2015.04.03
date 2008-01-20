@@ -109,26 +109,27 @@ function showConfig(){
     global $rsgConfig;
 
     $langs      = array();
-    $imageLib   = array();
+    //$imageLib   = array();
     $lists      = array();
 
     // PRE-PROCESS SOME LISTS
 
     // -- Languages --
-
+	/*
     if ($handle = opendir( JPATH_RSGALLERY2_ADMIN.'/language/' )) {
         $i=0;
         while (false !== ($file = readdir( $handle ))) {
             if (!strcasecmp(substr($file,-4),".php") && $file <> "." && $file <> ".." && strcasecmp(substr($file,-11),".ignore.php")) {
-                $langs[] = mosHTML::makeOption( substr($file,0,-4) );
+                //$langs[] = mosHTML::makeOption( substr($file,0,-4) );
             }
         }
     }
+    
 
     // sort list of languages
     sort( $langs );
     reset( $langs );
-
+	*/
     /**
      * detect available graphics libraries
      * @todo call imgUtils graphics lib detection when it is built

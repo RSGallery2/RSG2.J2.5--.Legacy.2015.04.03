@@ -589,7 +589,7 @@ function copyImage( $cid, $option ) {
 
 function batchupload($option) {
 	global $rsgConfig;
-	$database == JFactory::getDBO();
+	$database = JFactory::getDBO();
 	$FTP_path = $rsgConfig->get('ftp_path');
 	
 	//Retrieve data from submit form

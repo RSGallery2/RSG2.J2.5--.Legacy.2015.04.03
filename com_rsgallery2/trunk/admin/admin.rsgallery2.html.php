@@ -228,7 +228,7 @@ class HTML_RSGALLERY{
             <div id='cpanel'>
                 <?php
                 if ( $user->get('gid') > 23 ):
-                    $link = 'index2.php?option=com_rsgallery2&task=showConfig';
+                    $link = 'index2.php?option=com_rsgallery2&rsgOption=config&task=showConfig';
                     HTML_RSGALLERY::quickiconButton( $link, 'config.png',  _RSGALLERY_C_CONFIG );
                 endif;
 
