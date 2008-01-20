@@ -178,6 +178,7 @@ class rsgDisplay_semantic extends rsgDisplay{
                         <div class="rsg_sub_url"><?php $this->_subGalleryList( $kid ); ?></span>
                         </div>
                     </div>
+                    
                 </div>
                 <?php
             }
@@ -185,48 +186,7 @@ class rsgDisplay_semantic extends rsgDisplay{
             </div>
         <?php
     }
-	
-	/**
-	 * @todo this alternate gallery view needs to be moved to an html file and added as a template parameter
-	 */
-    function _showCustom( $kids, $cols, $subgalleries ) {
-        echo "<h2>For testing purposes only!</h2>";
-        $width = 100/$cols."%"; 
-        ?>
-        <ul id="rsg2-galleryList">
-        <table width="100%" border="1">
-        <tr>
-        <?php
-        $i = 0;
-        foreach ( $kids as $kid ) {
-            $i++;
-            echo "<td width=\"$width\" valign=\"top\">";
-            $this->_writeCustomGalleryBlock( $kid );
-            echo "</td>";
-            if ($i%$cols == 0) {
-                echo "</tr><tr>";
-            }
-        }
-        ?>
-        </tr>
-        </table>
-        </ul>
-        <?php
-    }
-    
-    function _writeCustomGalleryBlock( $block ) {
-        global $rsgConfig;
-        
-        //Set template selection
-        if (!$rsgConfig->get('template')) {
-            $cur_template = "default";
-        } else {
-            $cur_template = $rsgConfig->get('template');
-        }
-        //Include gallery block template file
-        include( JPATH_RSGALLERY2_SITE. DS . 'tpl' . DS . $cur_template . DS . 'galleryblock.php' );
-    }
-    
+
 	/**
 	 * Shows thumbnails for gallery
 	 */
