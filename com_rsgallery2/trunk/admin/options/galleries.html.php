@@ -46,6 +46,7 @@ class html_rsg2_galleries{
         </table>
 
         <table class="adminlist">
+        <thead>
         <tr>
             <th width="5">
             ID
@@ -73,6 +74,8 @@ class html_rsg2_galleries{
             <?php echo _RSGALLERY_GAL_HITS?>
             </th>
         </tr>
+        </thead>
+        <tbody>
         <?php
         $k = 0;
         for ($i=0, $n=count( $rows ); $i < $n; $i++) {
@@ -131,8 +134,14 @@ class html_rsg2_galleries{
             $k = 1 - $k;
         }
         ?>
+        </tbody>
+        <tfoot>
+        <tr>
+        	<td colspan="10"><?php echo $pageNav->getListFooter(); ?></td>
+        </tr>
+        </tfoot>
         </table>
-        <?php echo $pageNav->getListFooter(); ?>
+        
         <input type="hidden" name="option" value="<?php echo $option;?>" />
         <input type="hidden" name="rsgOption" value="<?php echo $rsgOption;?>" />
         <input type="hidden" name="task" value="" />
