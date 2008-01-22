@@ -145,7 +145,7 @@ class rsgDisplay extends JObject{
      * shows proper Joomla path
      */
 	function showRSPathWay() {
-		global $mainframe, $mainframe, $Itemid, $option;
+		global $mainframe, $mainframe, $option;
 
 		// if rsg2 isn't the component being displayed, don't show pathway
 		if( $option != 'com_rsgallery2' )
@@ -478,15 +478,14 @@ class rsgDisplay extends JObject{
     }
     /*
     function showRSTopBar() {
-        global $my, $mainframe, $rsgConfig, $Itemid;
+        global $my, $mainframe, $rsgConfig,;
         $catid =rsgInstance::getInt( 'catid', 0 );
-        $Itemid = rsgInstance::getInt( 'Itemid', 0 );
         $page = rsgInstance::getVar( 'page'  , null);
         ?>
         <div style="float:right; text-align:right;">
         <ul id='rsg2-navigation'>
             <li>
-                <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=".$Itemid); ?>">
+                <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2"); ?>">
                 <?php echo _RSGALLERY_MAIN_GALLERY_PAGE; ?>
                 </a>
             </li>
@@ -494,7 +493,7 @@ class rsgDisplay extends JObject{
             if ( !$my->id == "" && $page != "my_galleries" && $rsgConfig->get('show_mygalleries') == 1):
             ?>
             <li>
-                <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=".$Itemid."&rsgOption=myGalleries");?>">
+                <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries");?>">
                 <?php echo _RSGALLERY_MY_GALLERIES; ?>
                 </a>
             </li>
@@ -502,7 +501,7 @@ class rsgDisplay extends JObject{
             elseif( $page == "slideshow" ): 
             ?>
             <li>
-                <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=inline&catid=".$catid."&id=".$_GET['id']);?>">
+                <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&page=inline&catid=".$catid."&id=".$_GET['id']);?>">
                 <?php echo _RSGALLERY_SLIDESHOW_EXIT; ?>
                 </a>
             </li>

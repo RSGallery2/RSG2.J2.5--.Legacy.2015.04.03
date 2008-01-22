@@ -329,7 +329,6 @@ function editComment( $item_id ) {
 	</table>
 	<input type="hidden" name="item_id" value="<?php echo $item_id;?>" />
 	<input type="hidden" name="rsgOption" value="rsgComments" />
-	<input type="hidden" name="Itemid" value="<?php echo rsgInstance::getInt('Itemid'  , null);?>" />
 	<input type="hidden" name="catid" value="<?php echo rsgInstance::getInt('catid'  , null);?>" />
 	</form>
 	<a name="comment2"></a>
@@ -337,7 +336,7 @@ function editComment( $item_id ) {
 }
 
 function showComments( $item_id ) {
-	global $database, $Itemid;
+	global $database;
 	$my =& JFactory::getUser();
 	?>
 	<script type="text/javascript">

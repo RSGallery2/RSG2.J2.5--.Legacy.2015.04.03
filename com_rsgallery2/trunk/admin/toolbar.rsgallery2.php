@@ -105,17 +105,6 @@ switch( $rsgOption ){
 		break;
 	
 	
-    case 'template':
-		switch ( $task ) {
-			case 'templates':
-			case 'remove':
-			case 'default':
-			case 'upload_template':
-			default:
-				menu_rsg2_templates::templates( $option );
-			break;
-		}
-	break;
 	case 'maintenance':
 		switch ( $task ) {
 		case 'regenerateThumbs':

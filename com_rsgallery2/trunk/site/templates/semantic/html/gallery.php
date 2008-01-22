@@ -2,8 +2,6 @@
 
 <?php
 
-global $ItemId;
-
 //Show My Galleries link
 if ($rsgConfig->get('show_mygalleries')) {
 	echo $this->showRsgHeader();

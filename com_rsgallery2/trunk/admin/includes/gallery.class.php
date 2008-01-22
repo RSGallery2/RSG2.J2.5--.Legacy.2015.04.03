@@ -71,8 +71,6 @@ class rsgGallery extends JObject{
 	var $_itemCount = null;
 
     function __construct( $row ){
-		global $Itemid;
-
 		$this->row = $row;
 
 		// bind db row to this object
@@ -90,7 +88,7 @@ class rsgGallery extends JObject{
 		$this->owner = galleryUtils::genericGetUserName( $this->get('uid') );
 
 		//Write gallery name
-		$this->url = JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&gid=".$this->get('id'));
+		$this->url = JRoute::_("index.php?option=com_rsgallery2&gid=".$this->get('id'));
 		$this->galleryName = htmlspecialchars( stripslashes( $this->get( 'name' )));
 		
 		//Write HTML for thumbnail

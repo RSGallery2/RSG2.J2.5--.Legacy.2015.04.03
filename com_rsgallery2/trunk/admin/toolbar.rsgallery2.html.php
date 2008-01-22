@@ -22,39 +22,6 @@ class menu_rsg2_maintenance{
 	
 }
 
-class menu_rsg2_templates{
-	
-    function templates()
-        {
-        
-        JToolBarHelper::makeDefault();
-		JToolBarHelper::spacer();
-		//JToolBarHelper::assign();
-		JToolBarHelper::spacer();
-
-		// deleting isn't working at the moment.  removing button for release.
- 		JToolBarHelper::deleteList();
-
-		JToolBarHelper::spacer();/*
-		JToolBarHelper::editHtmlX( 'edit_main', 'Main' );
-		JToolBarHelper::spacer();
-		JToolBarHelper::editHtmlX( 'edit_display', 'Display' );
-		JToolBarHelper::spacer();
-		JToolBarHelper::editCssX( 'edit_css', 'CSS' );*/
-		JToolBarHelper::spacer();
-		//JToolBarHelper::addNew();
-		//JToolBarHelper::spacer();
-		JToolBarHelper::help( 'screen.rsgallery2', true );
-		
-		/*
-        JToolBarHelper::custom('save', 'publish_f2.png', 'publish_f2.png', 'Default', false);
-        JToolBarHelper::spacer();
-        JToolBarHelper::help('screen.rsgallery2', true);
-        
-        */
-        }
-}
-
 class menu_rsg2_templateManager
 {
 	function _DEFAULT()

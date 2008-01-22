@@ -93,7 +93,7 @@ function showMyGalleries() {
  * Deletes an item through the frontend My Galleries part
  */
 function deleteItem() {
-	global $Itemid, $rsgAccess, $mainframe;
+	global $rsgAccess, $mainframe;
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
 	$id = rsgInstance::getInt( 'id'  , '');
@@ -140,7 +140,6 @@ function saveItem() {
 			"WHERE id= '$id'");
 
 	if ($database->query()) {
-		global $Itemid;
 		$mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=myGalleries", _RSGALLERY_SAVE_SUCCESS );
 	} else {
 		echo _RSGALLERY_ERROR_SAVE.mysql_error();
@@ -239,7 +238,7 @@ function saveUploadedItem() {
 }
 
 function editCat() {
-	global $rsgConfig, $Itemid;
+	global $rsgConfig;
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
 	
@@ -263,7 +262,7 @@ function editCat() {
 }
 
 function saveCat() {
-	global $rsgConfig, $Itemid, $mainframe;
+	global $rsgConfig, $mainframe;
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
 

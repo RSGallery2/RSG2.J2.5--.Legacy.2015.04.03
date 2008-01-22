@@ -377,7 +377,6 @@ class myGalleries {
                 <?php
                 /*
                 if( $numPics > $PageSize ){
-                global $Itemid;
                     echo $pagenav->writePagesLinks("index.php?option=com_rsgallery2&catid=".$catid);
                 }
                 */

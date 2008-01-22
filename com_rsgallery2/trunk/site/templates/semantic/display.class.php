@@ -64,7 +64,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 	 * Shows the gallery details block when set in the backend
 	 */
 	function _showGalleryDetails( $kid ) {
-		global $rsgConfig, $Itemid;
+		global $rsgConfig;
 		$slideshow = $rsgConfig->get('displaySlideshow') && $kid->itemCount() > 1;
 		$owner 		= $rsgConfig->get('showGalleryOwner');
 		$size 		= $rsgConfig->get('showGallerySize');
@@ -78,7 +78,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 			<?php
 			if ($slideshow) {
 				?>
-				<a href='<?php echo JRoute::_("index.php?option=com_rsgallery2&page=slideshow&gid=".$kid->get('id')."&Itemid=".$Itemid); ?>'><?php echo _RSGALLERY_SLIDESHOW; ?></a><br />
+				<a href='<?php echo JRoute::_("index.php?option=com_rsgallery2&page=slideshow&gid=".$kid->get('id')); ?>'><?php echo _RSGALLERY_SLIDESHOW; ?></a><br />
 				<?php
 			}
 			
@@ -190,7 +190,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 	 * Shows thumbnails for gallery
 	 */
 	function showThumbs() {
-		global $rsgConfig, $Itemid;
+		global $rsgConfig;
 		$my = JFactory::getUser();
 		
 		$itemCount = $this->gallery->itemCount();
@@ -231,7 +231,6 @@ class rsgDisplay_semantic extends rsgDisplay{
 		<div class="rsg2-pageNav">
 				<?php
 				if( $itemCount > $limit ){
-				global $Itemid;
 					echo $pagenav->getPagesLinks();
 					echo "<br /><br />".$pagenav->getPagesCounter();
 				}
@@ -421,7 +420,6 @@ class rsgDisplay_semantic extends rsgDisplay{
 	* @param rsgGallery parent gallery
 	*/
 	function _subGalleryList( $parent ){
-		global $Itemid;
 		$kids = $parent->kids();
 
 		if( count( $kids ) == 0 ) return;
@@ -432,7 +430,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		
 		while( true ){
 			?>
-			<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&gatid=".$kid->id); ?>">
+			<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&gid=".$kid->id); ?>">
 				<?php echo htmlspecialchars(stripslashes($kid->name), ENT_QUOTES); ?>
 				(<?php echo $kid->itemCount(); ?>)</a><?php
 

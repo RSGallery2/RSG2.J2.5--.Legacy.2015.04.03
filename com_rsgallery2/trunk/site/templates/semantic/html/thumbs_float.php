@@ -2,7 +2,6 @@
 
 <?php
 $floatDirection = $rsgConfig->get( 'display_thumbs_floatDirection' );
-global $Itemid;
 ?>
 
 <ul id="rsg2-thumbsList">

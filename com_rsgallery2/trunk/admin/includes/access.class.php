@@ -95,7 +95,7 @@ class rsgAccess extends JObject{
 	 * @return int 1 if allowed, 0 if not allowed.
 	 */
 	function checkGallery($action, $gallery_id ) {
-		global $check, $Itemid, $mainframe;
+		global $check, $mainframe;
 		$database =& JFactory::getDBO();
 		$my =& JFactory::getUser();
 		
@@ -118,7 +118,7 @@ class rsgAccess extends JObject{
 			if ( !rsgAccess::arePermissionsSet($gallery_id) ) {
 				//Aparently no permissions were found in #__rsgallery2_acl, so create default permissions
 				rsgAccess::createDefaultPermissions($gallery_id);
-				// mosRedirect( "index.php?option=com_rsgallery2&Itemid=".$Itemid."&page=my_galleries", _RSGALLERY_ACL_NO_PERM_FOUND);
+				// mosRedirect( "index.php?option=com_rsgallery2&page=my_galleries", _RSGALLERY_ACL_NO_PERM_FOUND);
 			} 
 			
 			// check user type for access

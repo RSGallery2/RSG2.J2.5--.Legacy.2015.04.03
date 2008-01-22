@@ -47,7 +47,7 @@ $mainframe->AddCustomHeadTag($js2);
 	window.addEvent('domready',startGallery);
 </script>
 <div class="content">
-	<div style="float: right;"><A href="index.php?option=com_rsgallery2&Itemid=<?php echo $Itemid;?>&gid=<?php echo $this->gid;?>">Back to gallery</a></div>
+	<div style="float: right;"><A href="index.php?option=com_rsgallery2&gid=<?php echo $this->gid;?>">Back to gallery</a></div>
 	<div class="rsg2-clr"></div>
 	<div style="text-align:center;font-size:24px;"><?php echo $this->galleryname;?></div>
 	<div class="rsg2-clr"></div>

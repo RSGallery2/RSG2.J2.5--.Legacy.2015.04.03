@@ -1,7 +1,6 @@
 <?php defined('_JEXEC') or die('Restricted access'); ?>
 
 <?php
-global $Itemid; 
 $cols = $rsgConfig->get( 'display_thumbs_colsPerPage' );
 $i = 0;
 ?>

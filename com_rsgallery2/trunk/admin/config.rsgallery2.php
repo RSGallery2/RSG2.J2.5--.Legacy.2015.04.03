@@ -23,7 +23,7 @@ class galleryUtils {
      * contributed by Jeckel
      */
     function showRSPath($catid, $imgid = 0){
-        global $mainframe, $database, $Itemid;
+        global $mainframe, $database;
     
         if ($catid != 0) {
             $database->setQuery('SELECT * FROM #__rsgallery2_galleries WHERE id = "'. $catid . '"');
@@ -45,7 +45,7 @@ class galleryUtils {
                 if ($cat->id == $catid && empty($imgid)) {
                     $mainframe->appendPathWay($cat->name);
                 } else {
-					$mainframe->appendPathWay('<a href="' .JRoute::_('index.php?option=com_rsgallery2&Itemid='.$Itemid.'&catid=' . $cat->id ). '">' . $cat->name . '</a>');
+					$mainframe->appendPathWay('<a href="' .JRoute::_('index.php?option=com_rsgallery2&catid=' . $cat->id ). '">' . $cat->name . '</a>');
                 }    // if
             }    // foreach
         }    // if
@@ -306,7 +306,7 @@ class galleryUtils {
      */
      
     function getThumb($catid, $height = 0, $width = 0,$class = "") {
-	    global $Itemid, $mainframe ;
+	    global $mainframe ;
 		$database = JFactory::getDBO();
 	    
 	    //Setting attributes for image tag
