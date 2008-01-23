@@ -37,7 +37,7 @@ DEFINE("_RSGALLERY_EDIT_DESCRIPTION",		"Beschreibung");
 DEFINE("_RSGALLERY_UPLOAD_ALERT_CAT",		"Sie m&uuml;ssen eine Galerie w&auml;hlen.");
 DEFINE("_RSGALLERY_UPLOAD_ALERT_FILE",		"Sie m&uuml;ssen eine Datei zum Upload angeben.");
 DEFINE("_RSGALLERY_ADD_IMAGE",				"Bild hinzuf&uuml;gen");
-DEFINE("_RSGALLERY_USERUPLOAD_TITLE",		"Benutzer Upload");
+DEFINE("_RSGALLERY_USERUPLOAD_TITLE",		"Benutzer-Upload");
 DEFINE("_RSGALLERY_USERUPLOAD_CATEGORY",	"Galerie");
 DEFINE("_RSGALLERY_FILENAME",				"Dateiname");
 DEFINE("_RSGALLERY_UPLOAD_FORM_TITLE",		"Titel");
@@ -194,7 +194,7 @@ DEFINE("_RSGALLERY_BATCH_UPLOAD_LIMIT",		"Uploadlimit ist ");
 DEFINE("_RSGALLERY_BATCH_IN_PHPINI",		" Megabytes (set in php.ini)");
 DEFINE("_RSGALLERY_BATCH_FTP_PATH",			"FTP-Pfad");
 DEFINE("_RSGALLERY_BATCH_DONT_FORGET_SLASH","(Bitte nicht den Anfangs und End-Slash vergessen)");
-DEFINE("_RSGALLERY_BATCH_CATEGORY",			"Galerie beschreiben");
+DEFINE("_RSGALLERY_BATCH_CATEGORY",			"Galerieangabe");
 DEFINE("_RSGALLERY_BATCH_YES_IMAGES_IN",	"Ja, alle Bilder nach ");
 DEFINE("_RSGALLERY_BATCH_NO_SPECIFY",		"Nein, Galerie f&uuml;r jedes Bild in Schritt 2 angeben");
 DEFINE("_RSGALLERY_BATCH_NEXT",				"Weiter -->");
@@ -431,7 +431,7 @@ DEFINE("_RSGALLERY_TOOL_UP",				"Upload");
 DEFINE("_RSGALLERY_TOOL_NEXT",				"Weiter");
 DEFINE("_RSGALLERY_TOOL_DELETE",			"L&ouml;schen");
 DEFINE("_RSGALLERY_TOOL_CONFIRM_DEL",		"Entfernen best&auml;tigen");
-DEFINE("_RSGALLERY_TOOL_RES_HITS",	"Treffer zur&uuml;cksetzen");
+DEFINE("_RSGALLERY_TOOL_RES_HITS",	"Treffer nullen");
 
 //config.html
 DEFINE("_RSGALLERY_C_TMPL_VERSION",			"Version:");
@@ -440,13 +440,13 @@ DEFINE("_RSGALLERY_C_TMPL_DEBUG",			"Debug:");
 DEFINE("_RSGALLERY_C_TMPL_IMG_MANIP",		"Bildeinstellungen");
 DEFINE("_RSGALLERY_C_TMPL_DISP_WIDTH",		"Breite der angezeigten Bilder:");
 DEFINE("_RSGALLERY_C_TMPL_THUMB_WIDTH",		"Breite der Thumbnails:");
-DEFINE("_RSGALLERY_C_TMPL_THUMBNAIL_STYLE",	"Thumbnail Style:");
+DEFINE("_RSGALLERY_C_TMPL_THUMBNAIL_STYLE",	"Thumbnail-Aussehen:");
 DEFINE("_RSGALLERY_C_TMPL_JPEG_QUALITY",	"JPEG-Qualit&auml;t in Prozent");
 DEFINE("_RSGALLERY_C_TMPL_GRAPH_LIB",		"Grafikbibliothek");
-DEFINE("_RSGALLERY_C_TMPL_NOTE_GLIB_PATH",	"Achtung:</span> Bitte die folgenden Felder leer lassen, sofern es keine Probleme gibt..");
-DEFINE("_RSGALLERY_C_TMPL_IMGMAGICK_PATH",	"ImageMagick Pfad:");
-DEFINE("_RSGALLERY_C_TMPL_NETPBM_PATH",		"NetPBM Pfad:");
-DEFINE("_RSGALLERY_C_TMPL_FTP_PATH",		"FTP Pfad:");
+DEFINE("_RSGALLERY_C_TMPL_NOTE_GLIB_PATH",	"Achtung:</span> Bitte die folgenden Felder leer lassen, sofern es keine Probleme gibt.");
+DEFINE("_RSGALLERY_C_TMPL_IMGMAGICK_PATH",	"ImageMagick-Pfad:");
+DEFINE("_RSGALLERY_C_TMPL_NETPBM_PATH",		"NetPBM-Pfad:");
+DEFINE("_RSGALLERY_C_TMPL_FTP_PATH",		"FTP-Pfad:");
 DEFINE("_RSGALLERY_C_TMPL_IMG_STORAGE",		"Bildablage");
 DEFINE("_RSGALLERY_C_TMPL_KEEP_ORIG",		"Original Bild behalten:");
 DEFINE("_RSGALLERY_C_TMPL_ORIG_PATH",		"Pfad der Original-Bilder:");
@@ -470,7 +470,7 @@ DEFINE("_RSGALLERY_C_TMPL_FLOATDIRECTION",	"Richtung (funktioniert nur bei float
 DEFINE("_RSGALLERY_C_TMPL_COLS_PERPAGE",	"Anzahl der Thumbnailspalten (nur bei Tabellen):");
 DEFINE("_RSGALLERY_C_TMPL_THUMBS_PERPAGE",	"Thumbnails pro Seite:");
 DEFINE("_RSGALLERY_C_TMPL_DISP_SLIDE",		"Zeige Diashow");
-DEFINE("_RSGALLERY_C_TMPL_DISP_OWNER",		"Zeige Besitzer Information");
+DEFINE("_RSGALLERY_C_TMPL_DISP_OWNER",		"Zeige Besitzerinformation");
 DEFINE("_RSGALLERY_C_TMPL_DISP_ITEMS",		"Zeige Objekt-Anzahl in der Galerie");
 DEFINE("_RSGALLERY_C_TMPL_DISP_DATE",		"Zeige Erstellungs-Datum");
 DEFINE("_RSGALLERY_C_TMPL_IMG_DISP",		"Anzeige Optionen");
@@ -558,7 +558,7 @@ DEFINE("_RSGALLERY_GAL_MOD_GAL",			"Modifiziere<br/>Galerie</span>");
 DEFINE("_RSGALLERY_GAL_DEL_GAL",			"L&ouml;sche<br/>Galerie</span>");
 DEFINE("_RSGALLERY_GAL_VOTE_VIEW",			"Zeige<br/>Stimmen</span>");
 DEFINE("_RSGALLERY_GAL_VOTE_VOTE",			"Erzeuge<br/>Stimme</span>");
-RSGALLERY_GAL_ACL_PUB",			"&Ouml;ffentlich</span>");
+DEFINE("_RSGALLERY_GAL_ACL_PUB",			"&Ouml;ffentlich</span>");
 DEFINE("_RSGALLERY_GAL_ACL_REG",			"Registrierte</span>");
 DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",	"&nbsp;Alle an/abw&auml;hlen");
 DEFINE("_RSGALLERY_GAL_ORDER",	"Sortieren");
@@ -812,6 +812,10 @@ DEFINE("_RSGALLERY_MAINT_REGEN_ERRORS",	"Beim Regenerieren traten Fehler auf. Bi
 DEFINE("_RSGALLERY_MAINT_REGEN_NO_ERRORS",	"Regeneration erfolgreich abgeschlossen");
 DEFINE("_RSGALLERY_MAINT_REGEN_ONLY_THUMB",	"Nur Thumbnail verf&uuml;gbar. Es k&ouml;nnen keine anderen Bilder regeneriert werden!");
 DEFINE("_RSGALLERY_MAINT_REGEN_SUCCESS",	" erfolgreich erzeugt");
+
+//eigene vorläufige Strings
+DEFINE("_RSGALLERY_COPYIMAGE",	"Bild/er kopieren");
+DEFINE("_RSGALLERY_IMG_CPY_MV_GAL",	"Verschiebe in Galerie");
 
 //stopped at gallery.class.php
 ?>

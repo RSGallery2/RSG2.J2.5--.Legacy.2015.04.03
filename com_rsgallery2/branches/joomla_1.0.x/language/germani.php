@@ -37,7 +37,7 @@ DEFINE("_RSGALLERY_EDIT_DESCRIPTION",		"Beschreibung");
 DEFINE("_RSGALLERY_UPLOAD_ALERT_CAT",		"Du musst eine Galerie w&auml;hlen.");
 DEFINE("_RSGALLERY_UPLOAD_ALERT_FILE",		"Du musst eine Datei zum Upload angeben.");
 DEFINE("_RSGALLERY_ADD_IMAGE",				"Bild hinzuf&uuml;gen");
-DEFINE("_RSGALLERY_USERUPLOAD_TITLE",		"Benutzer Upload");
+DEFINE("_RSGALLERY_USERUPLOAD_TITLE",		"Benutzer-Upload");
 DEFINE("_RSGALLERY_USERUPLOAD_CATEGORY",	"Galerie");
 DEFINE("_RSGALLERY_FILENAME",				"Dateiname");
 DEFINE("_RSGALLERY_UPLOAD_FORM_TITLE",		"Titel");
@@ -194,7 +194,7 @@ DEFINE("_RSGALLERY_BATCH_UPLOAD_LIMIT",		"Uploadlimit ist ");
 DEFINE("_RSGALLERY_BATCH_IN_PHPINI",		" Megabytes (set in php.ini)");
 DEFINE("_RSGALLERY_BATCH_FTP_PATH",			"FTP-Pfad");
 DEFINE("_RSGALLERY_BATCH_DONT_FORGET_SLASH","(Bitte nicht den Anfangs und End-Slash vergessen)");
-DEFINE("_RSGALLERY_BATCH_CATEGORY",			"Galerie beschreiben");
+DEFINE("_RSGALLERY_BATCH_CATEGORY",			"Galerieangabe");
 DEFINE("_RSGALLERY_BATCH_YES_IMAGES_IN",	"Ja, alle Bilder nach ");
 DEFINE("_RSGALLERY_BATCH_NO_SPECIFY",		"Nein, Galerie f&uuml;r jedes Bild in Schritt 2 angeben");
 DEFINE("_RSGALLERY_BATCH_NEXT",				"Weiter -->");
@@ -229,7 +229,7 @@ DEFINE("_RSGALLERY_CONF_OPTION_BR",		"unten rechts");
 DEFINE("_RSGALLERY_CONF_POPUP_STYLE",		"Popup Style");
 DEFINE("_RSGALLERY_CONF_POPUP_NO",		"Kein Popup");
 DEFINE("_RSGALLERY_CONF_POPUP_NORMAL",		"Normales Popup");
-DEFINE("_RSGALLERY_CONF_POPUP_FANCY",		"Fancy Popup (Fehler bei IE6!)");
+DEFINE("_RSGALLERY_CONF_POPUP_LIGHTBOX",		"Lightbox++ Popup");
 //function showconfig
 DEFINE("_RSGALLERY_FREETYPE_INSTALLED",		"(Freetype library installiert, Wasserzeichen sind m&ouml;glich)");
 DEFINE("_RSGALLERY_FREETYPE_NOTINSTALLED",	"(Freetype library NICHT installiert! Wasserzeichen funktionieren nicht)");
@@ -431,7 +431,7 @@ DEFINE("_RSGALLERY_TOOL_UP",				"Upload");
 DEFINE("_RSGALLERY_TOOL_NEXT",				"Weiter");
 DEFINE("_RSGALLERY_TOOL_DELETE",			"L&ouml;schen");
 DEFINE("_RSGALLERY_TOOL_CONFIRM_DEL",		"Entfernen best&auml;tigen");
-DEFINE("_RSGALLERY_TOOL_RES_HITS",	"Treffer zur&uuml;cksetzen");
+DEFINE("_RSGALLERY_TOOL_RES_HITS",	"Treffer nullen");
 
 //config.html
 DEFINE("_RSGALLERY_C_TMPL_VERSION",			"Version:");
@@ -440,13 +440,13 @@ DEFINE("_RSGALLERY_C_TMPL_DEBUG",			"Debug:");
 DEFINE("_RSGALLERY_C_TMPL_IMG_MANIP",		"Bildeinstellungen");
 DEFINE("_RSGALLERY_C_TMPL_DISP_WIDTH",		"Breite der angezeigten Bilder:");
 DEFINE("_RSGALLERY_C_TMPL_THUMB_WIDTH",		"Breite der Thumbnails:");
-DEFINE("_RSGALLERY_C_TMPL_THUMBNAIL_STYLE",	"Thumbnail Style:");
+DEFINE("_RSGALLERY_C_TMPL_THUMBNAIL_STYLE",	"Thumbnail-Aussehen:");
 DEFINE("_RSGALLERY_C_TMPL_JPEG_QUALITY",	"JPEG-Qualit&auml;t in Prozent");
 DEFINE("_RSGALLERY_C_TMPL_GRAPH_LIB",		"Grafikbibliothek");
-DEFINE("_RSGALLERY_C_TMPL_NOTE_GLIB_PATH",	"Achtung:</span> Bitte die folgenden Felder leer lassen, sofern es keine Probleme gibt..");
-DEFINE("_RSGALLERY_C_TMPL_IMGMAGICK_PATH",	"ImageMagick Pfad:");
-DEFINE("_RSGALLERY_C_TMPL_NETPBM_PATH",		"NetPBM Pfad:");
-DEFINE("_RSGALLERY_C_TMPL_FTP_PATH",		"FTP Pfad:");
+DEFINE("_RSGALLERY_C_TMPL_NOTE_GLIB_PATH",	"Achtung:</span> Bitte die folgenden Felder leer lassen, sofern es keine Probleme gibt.");
+DEFINE("_RSGALLERY_C_TMPL_IMGMAGICK_PATH",	"ImageMagick-Pfad:");
+DEFINE("_RSGALLERY_C_TMPL_NETPBM_PATH",		"NetPBM-Pfad:");
+DEFINE("_RSGALLERY_C_TMPL_FTP_PATH",		"FTP-Pfad:");
 DEFINE("_RSGALLERY_C_TMPL_IMG_STORAGE",		"Bildablage");
 DEFINE("_RSGALLERY_C_TMPL_KEEP_ORIG",		"Original Bild behalten:");
 DEFINE("_RSGALLERY_C_TMPL_ORIG_PATH",		"Pfad der Original-Bilder:");
@@ -470,9 +470,9 @@ DEFINE("_RSGALLERY_C_TMPL_FLOATDIRECTION",	"Richtung (funktioniert nur bei float
 DEFINE("_RSGALLERY_C_TMPL_COLS_PERPAGE",	"Anzahl der Thumbnailspalten (nur bei Tabellen):");
 DEFINE("_RSGALLERY_C_TMPL_THUMBS_PERPAGE",	"Thumbnails pro Seite:");
 DEFINE("_RSGALLERY_C_TMPL_DISP_SLIDE",		"Zeige Diashow");
-/*NEW*/DEFINE("_RSGALLERY_C_TMPL_DISP_OWNER",		"Zeige Besitzer Information");
-/*NEW*/DEFINE("_RSGALLERY_C_TMPL_DISP_ITEMS",		"Zeige Objekt-Anzahl in der Galerie");
-/*NEW*/DEFINE("_RSGALLERY_C_TMPL_DISP_DATE",		"Zeige Erstellungs-Datum");
+DEFINE("_RSGALLERY_C_TMPL_DISP_OWNER",		"Zeige Besitzerinformation");
+DEFINE("_RSGALLERY_C_TMPL_DISP_ITEMS",		"Zeige Objekt-Anzahl in der Galerie");
+DEFINE("_RSGALLERY_C_TMPL_DISP_DATE",		"Zeige Erstellungs-Datum");
 DEFINE("_RSGALLERY_C_TMPL_IMG_DISP",		"Anzeige Optionen");
 DEFINE("_RSGALLERY_C_TMPL_RESIZE_OPT",		"Resize Option");
 DEFINE("_RSGALLERY_C_TMPL_DISP_DESCR",		"Zeige Beschreibung");
@@ -710,31 +710,31 @@ DEFINE("_RSGALLERY_FU_UNKW_ERROR",		"Unbekannter Datei-Fehler");
 
 //rsgcomments.class.php
 //function showButtons
-/*new*/DEFINE("_RSGALLERY_COMMENTS_COLOR",	"-Farbe-");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_AQUA",	"aqua");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_BLACK",	"schwarz");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_BLUE",	"blau");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_FUCHSIA",	"purpurrot");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_GRAY",	"grau");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_GREEN",	"gr&uuml;n");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_LIME",	"hellgr&uuml;n");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_MAROON",	"rotbraun");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_NAVY",	"marineblau");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_OLIVE",	"olive");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_PURPLE",	"lila");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_RED",	"rot");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_SILVER",	"silber");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_TEAL",	"mint");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_WHITE",	"wei&szlig;");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_YELLOW",	"gelb");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_SIZE",	"-Gr&ouml;&szlig;e-");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_TINY",	"winzig");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_SMALL",	"klein");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_MEDIUM",	"mittel");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_LARGE",	"gro&szlig;");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_HUGE",	"rie&szlig;ig");
+DEFINE("_RSGALLERY_COMMENTS_COLOR",	"-Farbe-");
+DEFINE("_RSGALLERY_COMMENTS_AQUA",	"aqua");
+DEFINE("_RSGALLERY_COMMENTS_BLACK",	"schwarz");
+DEFINE("_RSGALLERY_COMMENTS_BLUE",	"blau");
+DEFINE("_RSGALLERY_COMMENTS_FUCHSIA",	"purpurrot");
+DEFINE("_RSGALLERY_COMMENTS_GRAY",	"grau");
+DEFINE("_RSGALLERY_COMMENTS_GREEN",	"gr&uuml;n");
+DEFINE("_RSGALLERY_COMMENTS_LIME",	"hellgr&uuml;n");
+DEFINE("_RSGALLERY_COMMENTS_MAROON",	"rotbraun");
+DEFINE("_RSGALLERY_COMMENTS_NAVY",	"marineblau");
+DEFINE("_RSGALLERY_COMMENTS_OLIVE",	"olive");
+DEFINE("_RSGALLERY_COMMENTS_PURPLE",	"lila");
+DEFINE("_RSGALLERY_COMMENTS_RED",	"rot");
+DEFINE("_RSGALLERY_COMMENTS_SILVER",	"silber");
+DEFINE("_RSGALLERY_COMMENTS_TEAL",	"mint");
+DEFINE("_RSGALLERY_COMMENTS_WHITE",	"wei&szlig;");
+DEFINE("_RSGALLERY_COMMENTS_YELLOW",	"gelb");
+DEFINE("_RSGALLERY_COMMENTS_SIZE",	"-Gr&ouml;&szlig;e-");
+DEFINE("_RSGALLERY_COMMENTS_TINY",	"winzig");
+DEFINE("_RSGALLERY_COMMENTS_SMALL",	"klein");
+DEFINE("_RSGALLERY_COMMENTS_MEDIUM",	"mittel");
+DEFINE("_RSGALLERY_COMMENTS_LARGE",	"gro&szlig;");
+DEFINE("_RSGALLERY_COMMENTS_HUGE",	"rie&szlig;ig");
 //function parseQuoteElement
-/*new*/DEFINE("_RSGALLERY_COMMENTS_QUOTE_WROTE",	"Wrote");
+DEFINE("_RSGALLERY_COMMENTS_QUOTE_WROTE",	"Wrote");
 //function editComment
 /*moved*/DEFINE("_RSGALLERY_COMMENT_ADD",		"Kommentar hinzuf&uuml;gen");
 /*moved*/DEFINE("_RSGALLERY_COMMENT_NAME",		"Name");
@@ -743,13 +743,13 @@ DEFINE("_RSGALLERY_FU_UNKW_ERROR",		"Unbekannter Datei-Fehler");
 //function showComments
 /*moved*/DEFINE("_RSGALLERY_COMMENT_DELETE",	"Bist du sicher, dass du den Kommentar l&ouml;schen m&ouml;chtest?");
 /*moved*/DEFINE("_RSGALLERY_COMMENTS",	"Comments");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_NUM_COMM_ADD",	"# Kommentare hinzugef&uuml;gt");
-/*new*/DEFINE("_RSGALLERY_DELETE_COMMENT",			"L&ouml;sche Kommentar");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_SEC_IMG_MISS", "Sicherheits-Bilder im BackEnd ausgew&auml;hlt, aber Komponente nicht installiert! Bitte den Webmaster informieren");
-/*new*/DEFINE("_RSGALLERY_COMMENTS_NOCOMM",	"Noch keine Kommentare!");
+DEFINE("_RSGALLERY_COMMENTS_NUM_COMM_ADD",	"# Kommentare hinzugef&uuml;gt");
+DEFINE("_RSGALLERY_DELETE_COMMENT",			"L&ouml;sche Kommentar");
+DEFINE("_RSGALLERY_COMMENTS_SEC_IMG_MISS", "Sicherheits-Bilder im BackEnd ausgew&auml;hlt, aber Komponente nicht installiert! Bitte den Webmaster informieren");
+DEFINE("_RSGALLERY_COMMENTS_NOCOMM",	"Noch keine Kommentare!");
 
 //rsgcomments.php
-/*new*/DEFINE("_RSGALLERY_COMMENTS_COMMDEL",		"Kommentar erfolgreich gel&ouml;scht");
+DEFINE("_RSGALLERY_COMMENTS_COMMDEL",		"Kommentar erfolgreich gel&ouml;scht");
 
 //rsgcomments.php
 DEFINE("_RSGALLERY_COMMENTS_DISABLED",		"Kommentare sind deaktiviert");
@@ -778,16 +778,16 @@ DEFINE("_RSGALLERY_VOTING_ADDED",		"Stimme der Datenbank hinzugef&uuml;gt!");
 
 //templates.php
 //function viewTemplates
-/*new*/DEFINE("_RSGALLERY_TPL_INST",	"Install new RSGTemplate <small><small>[ Site ]</small></small>");
+DEFINE("_RSGALLERY_TPL_INST",	"Install new RSGTemplate <small><small>[ Site ]</small></small>");
 // more to do here, but to come
 
 //templates.html.php
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_NAME",	"Name");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_ACTIVE",	"Aktiv");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_AUTHOR",	"Author");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_VERSION",	"Version");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_DATE",	"Datum");
-/*new*/DEFINE("_RSGALLERY_TEMPLATES_AUTH_URL",	"Author URL");
+DEFINE("_RSGALLERY_TEMPLATES_NAME",	"Name");
+DEFINE("_RSGALLERY_TEMPLATES_ACTIVE",	"Aktiv");
+DEFINE("_RSGALLERY_TEMPLATES_AUTHOR",	"Author");
+DEFINE("_RSGALLERY_TEMPLATES_VERSION",	"Version");
+DEFINE("_RSGALLERY_TEMPLATES_DATE",	"Datum");
+DEFINE("_RSGALLERY_TEMPLATES_AUTH_URL",	"Author URL");
 
 //rsgsearch.html.php
 DEFINE("_RSGALLERY_SEARCH_RESULTS_TITLE",	"RSGallery2 Suchergebnisse");
@@ -812,6 +812,10 @@ DEFINE("_RSGALLERY_MAINT_REGEN_ERRORS",	"Beim Regenerieren traten Fehler auf. Bi
 DEFINE("_RSGALLERY_MAINT_REGEN_NO_ERRORS",	"Regeneration erfolgreich abgeschlossen");
 DEFINE("_RSGALLERY_MAINT_REGEN_ONLY_THUMB",	"Nur Thumbnail verf&uuml;gbar. Es k&ouml;nnen keine anderen Bilder regeneriert werden!");
 DEFINE("_RSGALLERY_MAINT_REGEN_SUCCESS",	" erfolgreich erzeugt");
+
+//eigene vorläufige Strings
+DEFINE("_RSGALLERY_COPYIMAGE",	"Bild/er kopieren");
+DEFINE("_RSGALLERY_IMG_CPY_MV_GAL",	"Verschiebe in Galerie");
 
 //stopped at gallery.class.php
 ?>
