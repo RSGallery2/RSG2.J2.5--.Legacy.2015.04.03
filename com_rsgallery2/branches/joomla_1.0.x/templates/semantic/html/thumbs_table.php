@@ -18,7 +18,7 @@ $i = 0;
 			<td>
 				<div class="shadow-box">
 				<div class="img-shadow">
-				<a href="<?php echo JRoute::_( "index.php?option=com_rsgallery2&page=inline&id=".$item->id ); ?>">
+				<a href="<?php echo JRoute::_( "index.php?option=com_rsgallery2&page=inline&id=".$item->id ."&Itemid=$Itemid" ); ?>">
 					<img src="<?php echo $thumb->url();?>" alt="<?php echo htmlspecialchars(stripslashes($item->descr), ENT_QUOTES); ?>"/>
 				</a>
 				</div>
