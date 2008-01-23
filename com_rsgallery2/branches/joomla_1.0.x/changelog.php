@@ -32,6 +32,9 @@ Legend:
 
 ---------------- Recent ----------------
 
+2008-01-22 Jonah Braun
+ # added Itemid to image links
+
 ---------------- 1.14.1 alpha -- svn 584 -- 2008-01-18 -------------
 
 2008-01-14 Ronald Smit
