@@ -460,6 +460,11 @@ class rsgDisplay extends JObject{
  	}    
     
     function showSearchBox() {
+    	require_once(JPATH_ROOT . DS . "components" . DS . "com_rsgallery2" . DS . "lib" . DS . "rsgsearch" . DS . "search.html.php");
+    	html_rsg2_search::showSearchBox();
+    }
+    
+    function showSearchBoxXX() {
     	global $mainframe;
     	$css = "<link rel=\"stylesheet\" href=\"".JURI_SITE."/components/com_rsgallery2/lib/rsgsearch/rsgsearch.css\" type=\"text/css\" />";
     	$mainframe->addCustomHeadTag($css);

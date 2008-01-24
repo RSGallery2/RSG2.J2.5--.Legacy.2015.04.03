@@ -114,6 +114,7 @@ switch( $rsgOption ){
 			menuRSGallery::simple();
 			break;
 		}
+	break;
 	case 'config':
 		switch ( $task ) {
 			case 'applyConfig':
@@ -121,7 +122,16 @@ switch( $rsgOption ){
 				menuRSGallery::config_show();
         		break;
 		}
-		break;
+	break;
+	case 'jumploader':
+		switch ($task) {
+			case 'showUpload':
+				menu_rsg2_jumploader::show();
+				break;
+			default:
+				menu_rsg2_jumploader::simple();
+				break;
+		}
 }
 
 // only use the legacy task switch if rsgOption is not used.

@@ -84,8 +84,8 @@ class HTML_RSGALLERY{
                         <td>
 <?php
 						jimport("joomla.html.pane");
-                        $tabs =& JPane::getInstance("Tabs");
-                        echo $tabs->startPane( 'recent',"recent" );
+                        $tabs =& JPane::getInstance('sliders');
+                        echo $tabs->startPane( 'recent' );
                         echo $tabs->startPanel( _RSGALLERY_TAB_GALLERIES, 'Categories' );
                         ?>
                         <table class="adminlist" width="500">
@@ -237,6 +237,9 @@ class HTML_RSGALLERY{
 
                 $link = 'index2.php?option=com_rsgallery2&task=batchupload';
                 HTML_RSGALLERY::quickiconButton( $link, 'upload_zip.png', _RSGALLERY_C_UPLOAD_ZIP );
+                
+                $link = 'index2.php?option=com_rsgallery2&rsgOption=jumploader';
+                HTML_RSGALLERY::quickiconButton( $link, 'upload_zip.png', '** Java uploader **' );
                 
                 $link = 'index2.php?option=com_rsgallery2&rsgOption=images&task=view_images';
                 HTML_RSGALLERY::quickiconButton( $link, 'mediamanager.png', _RSGALLERY_C_IMAGES );

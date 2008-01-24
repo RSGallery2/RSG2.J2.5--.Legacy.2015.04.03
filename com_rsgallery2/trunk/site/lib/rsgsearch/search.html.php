@@ -11,9 +11,28 @@
 defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 
 class html_rsg2_search {
+	
+	function showSearchBox() {
+    	global $mainframe;
+    	$css = "<link rel=\"stylesheet\" href=\"".JURI_SITE."/components/com_rsgallery2/lib/rsgsearch/rsgsearch.css\" type=\"text/css\" />";
+    	$mainframe->addCustomHeadTag($css);
+    	?>
+
+    	<div align="right">
+    	<form name="rsg2_search" method="post" action="<?php echo JRoute::_('index.php');?>">
+    		<?php echo _RSGALLERY_SEARCH_LABEL;?>
+    		<input type="text" name="searchtext" class="searchbox" onblur="if(this.value=='') this.value='<?php echo _RSGALLERY_SEARCH_KEYWORDS;?>';" onfocus="if(this.value=='<?php echo _RSGALLERY_SEARCH_KEYWORDS;?>') this.value='';" value='<?php echo _RSGALLERY_SEARCH_KEYWORDS;?>' />
+			<input type="hidden" name="option" value="com_rsgallery2" />
+			<input type="hidden" name="rsgOption" value="search" />
+			<input type="hidden" name="task" value="showResults" />
+    	</form>
+    	</div>
+    	<?php
+    }
+	
 	function showResults($result, $searchtext) {
 		global $rsgConfig;
-		
+		html_rsg2_search::showSearchBox();
 		//Format number of hits
 		$count = count($result);
 		$count = "<span style=\"font-weight:bold;\">".$count."</span>";

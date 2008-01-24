@@ -22,28 +22,30 @@ class html_rsg2_images {
 		$my = JFactory::getUser();
 		?>
  		<form action="index2.php" method="post" name="adminForm">
-		<table class="adminheading">
+		<table border="0" width="100%">
 		<tr>
-			<th><?php echo _RSGALLERY_IMG_IMG_MANAGE?></th>
-			<td><?php echo _RSGALLERY_IMG_CPY_MV_GAL?></td>
-			<td><?php echo $lists['move_id'];?></td>
-			<td>&nbsp;&nbsp;</td>
-			<td><?php echo _RSGALLERY_IMG_FILTER?></td>
-			
-			<td>
-				<input type="text" name="search" value="<?php echo $search;?>" class="text_area" onChange="document.adminForm.submit();" />
+			<td align="left" width="50%">
+			&nbsp;
 			</td>
-			<td align="right"><?php echo $lists['gallery_id'];?></td>
+			<td align="right" width="50%">
+				<?php echo _RSGALLERY_IMG_CPY_MV_GAL?>
+				<?php echo $lists['move_id'];?>
+				<?php echo _RSGALLERY_IMG_FILTER?>
+				<input type="text" name="search" value="<?php echo $search;?>" class="text_area" onChange="document.adminForm.submit();" />
+				<?php echo $lists['gallery_id'];?>
+				
+			</td>
 		</tr>
 		</table>
 
 		<table class="adminlist">
+		<thead>
 		<tr>
 			<th width="5">ID</th>
 			<th width="20">
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $rows ); ?>);" />
 			</th>
-			<th class="title"><?php echo _RSGALLERY_IMG_TITLE?></th>
+			<th class="title"><?php echo _RSGALLERY_IMG_TITLE?><?php echo JText::_( 'Num' ); ?></th>
 			<th width="5%"><?php echo _RSGALLERY_MY_IMAGES_PUBLISHED?></th>
 			<th colspan="2" width="5%"><?php echo _RSGALLERY_REORDER?></th>
 			<th width="2%"><?php echo _RSGALLERY_IMG_ORDER?></th>
@@ -56,6 +58,8 @@ class html_rsg2_images {
 			<th width="5%"><?php echo _RSGALLERY_IMAGEHITS?></th>
 			<th width=""><?php echo _RSGALLERY_IMG_DATE_TIME?></th>
 		</tr>
+		</thead>
+		<tbody>
 		<?php
 		$k = 0;
 		for ($i=0, $n=count( $rows ); $i < $n; $i++) {
@@ -126,12 +130,18 @@ class html_rsg2_images {
 				<?php echo $row->date;?>
 				</td>
 			</tr>
+			</tbody>
+			
 			<?php
 			$k = 1 - $k;
 		}
 		?>
+		<tfoot>
+			<tr>
+				<td colspan="11"><?php echo $pageNav->getListFooter(); ?></td>
+			</tr>
+		</tfoot>
 		</table>
-		<?php echo $pageNav->getListFooter(); ?>
 		<input type="hidden" name="option" value="<?php echo $option;?>" />
 		<input type="hidden" name="rsgOption" value="<?php echo $rsgOption;?>" />
 		<input type="hidden" name="task" value="" />

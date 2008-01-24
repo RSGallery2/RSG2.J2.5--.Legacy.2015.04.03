@@ -25,21 +25,15 @@ class html_rsg2_galleries{
 		JHTML::_("behavior.mootools");
         ?>
         <form action="index2.php" method="post" name="adminForm">
-        <table class="adminheading">
+        <table border="0" width="100%">
         <tr>
-            <th>
-            <?php echo _RSGALLERY_GAL_MANAGE?>
-            </th>
-            <td nowrap="true">
+            <td width="50%">
+            &nbsp;
+            </td>
+            <td nowrap="true" width="50%" align="right">
             <?php echo _RSGALLERY_GAL_MAX_LEVELS?>
-            </td>
-            <td>
             <?php echo $lists['levellist'];?>
-            </td>
-            <td>
             <?php echo _RSGALLERY_GAL_FILTER?>:
-            </td>
-            <td>
             <input type="text" name="search" value="<?php echo $search;?>" class="text_area" onChange="document.adminForm.submit();" />
             </td>
         </tr>
