@@ -62,9 +62,9 @@
 //
 //	Configuration
 //
-var fileLoadingImage = "../lightbox++/images/loading.gif";				// Loading image		
-var fileBottomNavCloseImage = "../lightbox++/images/closelabel.gif";		// Close image
-var fallbackOverlayImage = "../lightbox++/images/overlay.png";			// Fallback overlay used with browsers that have opacity problems
+var fileLoadingImage = "components/com_rsgallery2/lib/lightbox++/images/loading.gif";				// Loading image		
+var fileBottomNavCloseImage = "components/com_rsgallery2/lib/lightbox++/images/closelabel.gif";		// Close image
+var fallbackOverlayImage = "components/com_rsgallery2/lib/lightbox++/images/overlay.png";			// Fallback overlay used with browsers that have opacity problems
 var overlayOpacity = 0.8;									// Controls transparency of shadow overlay
 var animate = true;											// Toggles resizing animations
 var resizeSpeed = 7;										// Controls the speed of the image resizing animations (1=slowest and 10=fastest)
