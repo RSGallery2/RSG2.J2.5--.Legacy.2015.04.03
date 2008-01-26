@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="rsgTemplate">
+	<name>micromacro</name>
+	<creationDate>2007</creationDate>
+	<author>Jonah</author>
+	<copyright>Open Source, GPL</copyright>
+	<authorEmail>Jonah@whalehosting.ca</authorEmail>
+	<authorUrl>rsgallery2.net</authorUrl>
+	<version>1.7</version>
+	<description>An attempt to most easily visualize and navigate an entire gallery tree.  Thanks to Josh Mace and Edward R. Tufte for design inspiration.  Uses overLib and Lightbox Plus.</description>
+	<files>
+		<filename>css/lightbox.css</filename>
+		<filename>css/template.css</filename>
+		<filename>display.class.php</filename>
+		<filename>images/blank.gif</filename>
+		<filename>images/close.gif</filename>
+		<filename>images/closelabel.gif</filename>
+		<filename>images/image-1.jpg</filename>
+		<filename>images/loading.gif</filename>
+		<filename>images/next.gif</filename>
+		<filename>images/nextlabel.gif</filename>
+		<filename>images/prev.gif</filename>
+		<filename>images/prevlabel.gif</filename>
+		<filename>images/thumb-1.jpg</filename>
+		<filename>index.php</filename>
+		<filename>js/effects.js</filename>
+		<filename>js/lightbox.js</filename>
+		<filename>js/prototype.js</filename>
+		<filename>js/scriptaculous.js</filename>
+		<filename>templateDetails.xml</filename>
+	</files>
+</mosinstall>
