@@ -555,6 +555,10 @@ DEFINE("_RSGALLERY_GAL_MOD_GAL",		"修改<br/>相簿</span>");
 DEFINE("_RSGALLERY_GAL_DEL_GAL",		"刪除<br/>相簿</span>");
 DEFINE("_RSGALLERY_GAL_ACL_PUB",		"公開的</span>");
 DEFINE("_RSGALLERY_GAL_ACL_REG",		"只限註冊用戶</span>");
+DEFINE("_RSGALLERY_GAL_ACL_AUTHOR",			"作者</span>");
+DEFINE("_RSGALLERY_GAL_ACL_EDITOR",			"編輯</span>");
+DEFINE("_RSGALLERY_GAL_ACL_PUBLISHER",			"出版者</span>");
+DEFINE("_RSGALLERY_GAL_ACL_MANAGER",			"經理</span>");
 DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",		"&nbsp;選擇／消除選擇全部");
 DEFINE("_RSGALLERY_GAL_ORDER",		"排序");
 

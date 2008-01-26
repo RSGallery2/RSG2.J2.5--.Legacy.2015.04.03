@@ -38,15 +38,19 @@ class rsgAccess extends JObject{
 				);
 		$this->levels = array(
 				'public',
-				'registered'
+				'registered',
+				'author',
+				'editor',
+				'publisher',
+				'manager'
 				);
 		$this->levelMaping = array(				// map user types 
 				'public' => 'public',
 				'registered' => 'registered',
-				'author' => 'registered',
-				'editor' => 'registered',
-				'publisher' => 'registered',
-				'manager' => 'registered',
+				'author' => 'author',
+				'editor' => 'editor',
+				'publisher' => 'publisher',
+				'manager' => 'manager',
 				'administrator' => 'admin',
 				'super administrator' => 'admin'
 				);
@@ -88,8 +92,7 @@ class rsgAccess extends JObject{
 	/**
 	 * Checks if a specific action on a gallery is allowed by the logged in user
 	 * Public (not logged in user) and Registered users have specific permissions.
-	 * Users above registered are treated as Registered. Administrator and Super Administrator 
-	 * have all rights.  
+	 * Administrator and Super Administrator have all rights.  
 	 * @param string action to perform on gallery(view, up_mod_img, del_img, create_mod_gal, del_gal)
 	 * @param int gallery ID of gallery to perform action on
 	 * @return int 1 if allowed, 0 if not allowed.

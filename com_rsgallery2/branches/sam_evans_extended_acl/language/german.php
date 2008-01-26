@@ -560,6 +560,10 @@ DEFINE("_RSGALLERY_GAL_VOTE_VIEW",			"Zeige<br/>Stimmen</span>");
 DEFINE("_RSGALLERY_GAL_VOTE_VOTE",			"Erzeuge<br/>Stimme</span>");
 RSGALLERY_GAL_ACL_PUB",			"&Ouml;ffentlich</span>");
 DEFINE("_RSGALLERY_GAL_ACL_REG",			"Registrierte</span>");
+DEFINE("_RSGALLERY_GAL_ACL_AUTHOR",			"Autor</span>");
+DEFINE("_RSGALLERY_GAL_ACL_EDITOR",			"Herausgeber</span>");
+DEFINE("_RSGALLERY_GAL_ACL_PUBLISHER",			"Verleger</span>");
+DEFINE("_RSGALLERY_GAL_ACL_MANAGER",			"Manager</span>");
 DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",	"&nbsp;Alle an/abw&auml;hlen");
 DEFINE("_RSGALLERY_GAL_ORDER",	"Sortieren");
 

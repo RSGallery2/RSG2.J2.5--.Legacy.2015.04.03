@@ -617,6 +617,10 @@ DEFINE("_RSGALLERY_GAL_VOTE_VIEW",			"Bekijk<br/>stem</span>");
 DEFINE("_RSGALLERY_GAL_VOTE_VOTE",			"Maak<br/>stem</span>");
 DEFINE("_RSGALLERY_GAL_ACL_PUB",			"Openbaar</span>");
 DEFINE("_RSGALLERY_GAL_ACL_REG",			"Geregistreerd</span>");
+DEFINE("_RSGALLERY_GAL_ACL_AUTHOR",			"Auteur</span>");
+DEFINE("_RSGALLERY_GAL_ACL_EDITOR",			"Redacteur</span>");
+DEFINE("_RSGALLERY_GAL_ACL_PUBLISHER",			"Uitgever</span>");
+DEFINE("_RSGALLERY_GAL_ACL_MANAGER",			"Manager</span>");
 DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",		"&nbsp;Selecteer/Deselecteer alles");
 DEFINE("_RSGALLERY_GAL_ORDER",				"Volgorde");
 

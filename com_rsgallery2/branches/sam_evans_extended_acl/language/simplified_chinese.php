@@ -482,6 +482,10 @@ DEFINE("_RSGALLERY_GAL_MOD_GAL",			"修改<br/>图库</span>");
 DEFINE("_RSGALLERY_GAL_DEL_GAL",			"删除<br/>图库</span>");
 DEFINE("_RSGALLERY_GAL_ACL_PUB",			"公众</span>");
 DEFINE("_RSGALLERY_GAL_ACL_REG",			"注册会员</span>");
+DEFINE("_RSGALLERY_GAL_ACL_AUTHOR",			"作者</span>");
+DEFINE("_RSGALLERY_GAL_ACL_EDITOR",			"编辑</span>");
+DEFINE("_RSGALLERY_GAL_ACL_PUBLISHER",			"出版者</span>");
+DEFINE("_RSGALLERY_GAL_ACL_MANAGER",			"经理</span>");
 DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",	"&nbsp;选择/取消选择 所有");
 DEFINE("_RSGALLERY_GAL_ORDER",	"次序");
 

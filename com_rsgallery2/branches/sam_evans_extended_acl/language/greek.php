@@ -522,6 +522,10 @@ DEFINE("_RSGALLERY_GAL_MOD_GAL",			"Μεταβολή<br/>Άλμπουμ</span>")
 DEFINE("_RSGALLERY_GAL_DEL_GAL",			"Διαγραφή<br/>Άλμπουμ</span>");
 DEFINE("_RSGALLERY_GAL_ACL_PUB",			"Public</span>");
 DEFINE("_RSGALLERY_GAL_ACL_REG",			"Registered</span>");
+DEFINE("_RSGALLERY_GAL_ACL_AUTHOR",			"Author</span>");
+DEFINE("_RSGALLERY_GAL_ACL_EDITOR",			"Editor</span>");
+DEFINE("_RSGALLERY_GAL_ACL_PUBLISHER",			"Εκδότης</span>");
+DEFINE("_RSGALLERY_GAL_ACL_MANAGER",			"Διευθυντής</span>");
 DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",	"&nbsp;Επιλογή/Απεπιλογή Όλων");
 DEFINE("_RSGALLERY_GAL_ORDER",	"Στοίχιση");
 

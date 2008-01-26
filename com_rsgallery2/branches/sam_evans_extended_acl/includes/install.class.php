@@ -2107,6 +2107,9 @@ class migrate_com_rsgallery extends GenericMigrator{
 			case $this->beforeVersion( '1.14.1' ):
 				$this->handleSqlFile( 'upgrade_1.14.0_to_1.14.1.sql' );
 			
+			case $this->beforeVersion( '1.14.2' ):
+				$this->handleSqlFile( 'upgrade_1.14.1_to_1.14.2.sql' );
+			
 			default:
 				// if we reach this point then everything was a success, update the version number and exit.
 				$this->updateVersionNumber();

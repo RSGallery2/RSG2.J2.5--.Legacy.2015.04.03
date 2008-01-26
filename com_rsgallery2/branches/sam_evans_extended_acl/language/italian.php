@@ -482,6 +482,10 @@ DEFINE("_RSGALLERY_GAL_MOD_GAL",			"Modifica<br/>Galleria</span>");
 DEFINE("_RSGALLERY_GAL_DEL_GAL",			"Elimina<br/>Galleria</span>");
 DEFINE("_RSGALLERY_GAL_ACL_PUB",			"Pubblica</span>");
 DEFINE("_RSGALLERY_GAL_ACL_REG",			"Registrato</span>");
+DEFINE("_RSGALLERY_GAL_ACL_AUTHOR",			"Autore</span>");
+DEFINE("_RSGALLERY_GAL_ACL_EDITOR",			"Redattore</span>");
+DEFINE("_RSGALLERY_GAL_ACL_PUBLISHER",			"Publisher</span>");
+DEFINE("_RSGALLERY_GAL_ACL_MANAGER",			"Responsabile</span>");
 DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",	"&nbsp;Seleziona/Deseleziona tutto");
 DEFINE("_RSGALLERY_GAL_ORDER",	"Ordina");
 
