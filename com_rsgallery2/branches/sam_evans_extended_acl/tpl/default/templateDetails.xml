@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="template">
+	<name>Default</name>
+	<creationDate>15/02/07</creationDate>
+	<author>rsgallery2.net</author>
+	<copyright>Open Source, GPL</copyright>
+	<authorEmail>info@rsgallery2.net</authorEmail>
+	<authorUrl>rsgallery2.net</authorUrl>
+	<version>1.0</version>
+	<description>This is the default template, brought to you by rsgallery2.net</description>
+	<files>
+		<filename>main.php</filename>
+		<filename>thumbs.php</filename>
+		<filename>display.php</filename>
+		<filename>galleryblock.php</filename>
+	</files>
+	<css>
+		<filename>css/template_css.css</filename>
+	</css>
+</mosinstall>
