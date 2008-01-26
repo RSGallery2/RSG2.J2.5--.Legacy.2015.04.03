@@ -6,7 +6,7 @@
 	<copyright>Open Source, GPL</copyright>
 	<authorEmail>Jonah@whalehosting.ca</authorEmail>
 	<authorUrl>rsgallery2.net</authorUrl>
-	<version>1.6</version>
+	<version>1.7</version>
 	<description>An attempt to most easily visualize and navigate an entire gallery tree.  Thanks to Josh Mace and Edward R. Tufte for design inspiration.  Uses overLib and Lightbox Plus.</description>
 	<files>
 		<filename>css/lightbox.css</filename>
