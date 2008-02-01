@@ -1,558 +1,1 @@
-<?php
-
-/**
-* Turkish languagefile for RSGallery
-* @version $Id$
-* @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
-* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
-* @author merdan nouryev<nouryev@yahoo.com>
-* RSGallery is Free Software
-**/
-defined( '_VALID_MOS' ) or die( 'Restricted access' );
-
-//rsgallery2.html.php
-//function showUserGallery
-DEFINE("_RSGALLERY_MAKECAT_ALERT_NAME",		"Galeriye bir isim belirtmelisiniz.");
-DEFINE("_RSGALLERY_MAKECAT_ALERT_DESCR",	"Bir açýklama belirtmelisiniz.");
-DEFINE("_RSGALLERY_CREATE_GALLERY",			"Galeri oluþtur");
-DEFINE("_RSGALLERY_SAVE",					"Kaydet");
-DEFINE("_RSGALLERY_CANCEL",					"Vazgeç");
-DEFINE("_RSGALLERY_CATLEVEL",				"Üst galeri");
-DEFINE("_RSGALLERY_USERCAT_NAME",			"Galeri adý");
-DEFINE("_RSGALLERY_DESCR",					"Tanýmlama");
-DEFINE("_RSGALLERY_CATPUBLISHED",			"Yayýnlanmýþ");
-//function edit_image
-DEFINE("_RSGALLERY_EDIT_IMAGE",				"Resmi düzenle");
-DEFINE("_RSGALLERY_CAT_NAME",				"Kategori ismi");
-DEFINE("_RSGALLERY_EDIT_FILENAME",			"Dosya adý");
-DEFINE("_RSGALLERY_EDIT_TITLE",			    "Baþlýk");
-DEFINE("_RSGALLERY_EDIT_DESCRIPTION",		"Açýklama");
-//function showFrontUpload
-DEFINE("_RSGALLERY_UPLOAD_ALERT_CAT",		"Bir galeri seçmelisiniz.");
-DEFINE("_RSGALLERY_UPLOAD_ALERT_FILE",		"Yüklemek için bir dosya belirtmelisiniz.");
-DEFINE("_RSGALLERY_ADD_IMAGE",				"Resim ekle");
-DEFINE("_RSGALLERY_USERUPLOAD_TITLE",		"Kullanýcý yüklemeleri");
-DEFINE("_RSGALLERY_USERUPLOAD_CATEGORY",	"Galeri");
-DEFINE("_RSGALLERY_FILENAME",				"Dosya adý");
-DEFINE("_RSGALLERY_UPLOAD_FORM_TITLE",		"Baþlýk");
-DEFINE("_RSGALLERY_UPLOAD_THUMB",			"Küçük resim:");
-//function RSGalleryInline
-DEFINE("_RSGALLERY_COMMENT_DELETE",			"Bu açýklamayý silmek istediðinizden eminmisiniz?");
-DEFINE("_RSGALLERY_NOIMG",					"Galeride resim yok");
-DEFINE("_RSGALLERY_SLIDESHOW",		        "Slayt gösterisi");
-DEFINE("_RSGALLERY_CATHITS",				"Týklama");
-DEFINE("_RSGALLERY_NODESCR",				"Tanýmlama yok");
-DEFINE("_RSGALLERY_VOTING",					"Oylama");
-DEFINE("_RSGALLERY_VOTES_NR",				"Oylar");
-DEFINE("_RSGALLERY_VOTES_AVG",				"Ortalama oy");
-DEFINE("_RSGALLERY_NO_RATINGS",				"Henüz deðerlendirme yok!");
-DEFINE("_RSGALLERY_VOTE",			   		"Oy ver");
-DEFINE("_RSGALLERY_VERYGOOD",				"&nbsp;Çok iyi&nbsp;");
-DEFINE("_RSGALLERY_GOOD",					"&nbsp;Ýyi&nbsp;");
-DEFINE("_RSGALLERY_OK",					    "&nbsp;Orta&nbsp;");
-DEFINE("_RSGALLERY_BAD",					"&nbsp;Kötü&nbsp;");
-DEFINE("_RSGALLERY_VERYBAD",				"&nbsp;Çok kötü&nbsp;");
-DEFINE("_RSGALLERY_COMMENTS",			   	"Yorumlar");
-DEFINE("_RSGALLERY_NO_COMMENTS",			"Henüz bir yorum yok!");
-DEFINE("_RSGALLERY_COMMENT_DATE",   		"Tarih");
-DEFINE("_RSGALLERY_COMMENT_BY",     		"Göre");
-DEFINE("_RSGALLERY_COMMENT_TEXT",   		"Yorum");
-DEFINE("_RSGALLERY_DELETE_COMMENT",			"Yorumu sil");
-DEFINE("_RSGALLERY_COMMENT_ADD",			"Yorum ekle");
-DEFINE("_RSGALLERY_COMMENT_NAME",   		"Ýsminiz");
-DEFINE("_RSGALLERY_COMMENT_ADD_TEXT",   	"Sizin yorumunuz");
-DEFINE("_RSGALLERY_EXIF",					"EXIF");
-//function RSGalleryTitleblock
-DEFINE("_RSGALLERY_MAIN_GALLERY_PAGE",		"Ana galeri sayfasý");
-DEFINE("_RSGALLERY_MY_GALLERIES",			"Benim galerilerim");
-DEFINE("_RSGALLERY_SLIDESHOW_EXIT",			"Slayt gösterisinden çýk");
-DEFINE("_RSGALLERY_COMPONENT_TITLE",		"Galeri");
-//function subGalleryList
-DEFINE("_RSGALLERY_IMAGES",					" Resimler");
-DEFINE("_RSGALLERY_SUB_GALLERIES",			"Alt galeriler:");
-//function RSGalleryList
-//function RSShowPictures
-DEFINE("_RSGALLERY_DELIMAGE_TEXT"			,"Bu resmi silmek istediðinizden eminmisiniz?");
-//function showMyGalleries
-DEFINE("_RSGALLERY_USER_MY_GAL",			"Benim galerilerim");
-DEFINE("_RSGALLERY_MY_IMAGES_CATEGORY",		"Galeri");
-DEFINE("_RSGALLERY_MY_IMAGES_PUBLISHED",	"Yayýnlanmýþ");
-DEFINE("_RSGALLERY_MY_IMAGES_DELETE",		"Sil");
-DEFINE("_RSGALLERY_MY_IMAGES_EDIT",			"Düzenle");
-DEFINE("_RSGALLERY_MY_IMAGES_PERMISSIONS",	"Ýzinler");
-DEFINE("_RSGALLERY_NO_USER_GAL",			"Kullanýcý galerisi oluþturulmadý");
-DEFINE("_RSGALLERY_DELCAT_TEXT",			"Bu galeriyi silmek istediðinizden eminmisiniz?\\nEðer bu galeri hala resim içeriyorsa onlar da silinecektir.");
-//function showMyImages
-DEFINE("_RSGALLERY_MY_IMAGES",				"Resimlerim");
-DEFINE("_RSGALLERY_MY_IMAGES_NAME",			"Ýsim");
-DEFINE("_RSGALLERY_NOIMG_USER",				"Kullanýcý galerilerinde resim yok");
-//function RSGalleryUserInfo
-DEFINE("_RSGALLERY_USER_INFO",				"Kullanýcý bilgileri");
-DEFINE("_RSGALLERY_USER_INFO_NAME",			"Kullanýcý adý");
-DEFINE("_RSGALLERY_USER_INFO_ACL",			"Kullanýcý yetki seviyesi");
-DEFINE("_RSGALLERY_USER_INFO_MAX_GAL",		"En fazla kullanýcý galerisi");
-DEFINE("_RSGALLERY_USER_INFO_CREATED",				"oluþturuldu)");
-DEFINE("_RSGALLERY_USER_INFO_MAX_IMG",		"En fazla resim izin verildi");
-DEFINE("_RSGALLERY_USER_INFO_UPL",			"yüklendi)");
-//function myGalleries
-//function showRandom
-DEFINE("_RSGALLERY_RANDOM_TITLE",			"Rasgele resimler");
-//function showLatest
-DEFINE("_RSGALLERY_LATEST_TITLE",			"En son yüklenen resimler");
-
-//rsgallery2.php
-//function my_galleries
-DEFINE("_RSGALLERY_NO_USERCATS",            "Kullanýcý galerileri yönetici tarafýndan devre dýþý býrakýldý");
-//function save_image
-DEFINE("_RSGALLERY_SAVE_SUCCESS",		    "Ayrýntýlar baþarýyla kaydedildi.");
-//function delete_image
-DEFINE("_RSGALLERY_USERIMAGE_NOTOWNER",		"Bu resmin sahibi deðilsiniz, ana sayfaya döndürülüyorsunuz");
-DEFINE("_RSGALLERY_DELIMAGE_OK",			"Resim silindi");
-DEFINE("_RSGALLERY_DELIMAGE_NOID",			" Id belirtilmedi. Bileþen geliþtiricisi ile temas kurun");
-//function addVote
-DEFINE("_RSGALLERY_THANK_VOTING",			"Oy verdiðiniz için teþekkür ederiz");
-DEFINE("_RSGALLERY_VOTING_FAILED",			"Oylamanýz hatalý");
-//function deleteComment
-DEFINE("_RSGALLERY_COMMENT_DELETED",		"Açýklama baþarýyla silindi!");
-DEFINE("_RSGALLERY_COMMENT_NOT_DELETED",	"Açýklama silinemedi");
-//function addComment
-DEFINE("_RSGALLERY_COMMENT_FIELD_CHECK",	"Lütfen isim ya da açýklama giriniz!");
-DEFINE("_RSGALLERY_COMMENT_ADDED",			"Açýklama baþarýyla eklendi!");
-DEFINE("_RSGALLERY_COMMENT_NOT_ADDED",		"Açýklama eklenemedi!");
-//function makeusercat
-DEFINE("_RSGALLERY_ALERT_CATDETAILSOK",		"Galeri ayrýntýlarý güncellendi!");
-DEFINE("_RSGALLERY_ALERT_CATDETAILSNOTOK",	" Galeri ayrýntýlarý kaydedilemedi!");
-DEFINE("_RSGALLERY_MAX_USERCAT_ALERT",		" Zaten en fazla galeri sayýsýna ulaþýldý, ana ekrana döndürülüyorsunuz");
-DEFINE("_RSGALLERY_ALERT_NEWCAT",			"Yeni galeri oluþturuldu!");
-DEFINE("_RSGALLERY_ALERT_NONEWCAT",			"Galeri oluþturulamadý!\\nSizi ana ekrana döndüreceðiz.");
-//function delUserCat
-DEFINE("_RSGALLERY_USERCAT_SUBCATS",        "Bu galeri alt galeriler içerdiðinden silinemiyor. Önce alt galerileri baþka bir yere taþýyýn yada silin!");
-DEFINE("_RSGALLERY_ALERT_CATDELNOTOK",		"Galeri silinemedi!");
-DEFINE("_RSGALLERY_ALERT_CATDELOK",			"Galeri silindi!");
-//function doFrontUpload
-DEFINE("_RSGALLERY_MAX_USERIMAGES_ALERT",   "En fazla resim seviyesine ulaþýldý. Önce bazý resimleri siliniz.");
-DEFINE("_RSGALLERY_BATCH_ERROR_SIZE",		"Yüklenmekte olan ZIP-dosyasý yüklemek için oldukça büyük. (php.ini içerisinde tanýmlanmýþ) Yükleme limitiniz ");
-DEFINE("_RSGALLERY_ALERT_UPLOADOK",			"Resim baþarýyla yüklendi!");
-DEFINE("_RSGALLERY_ALERT_NOWRITE",			"Yükleme baþarýsýz.\\nYükleme ekranýna geri dönün.");
-DEFINE("_RSGALLERY_ALERT_WRONGFORMAT",		"Geçersiz resim biçimi.\\nSizi yükleme ekranýna yönlendireceðiz");
-
-//admin.rsgallery2.html.php
-DEFINE("_RSGALLERY_TAB_GALLERIES",			"Galeriler");
-DEFINE("_RSGALLERY_MOST_RECENT_GAL",		"En yeni eklenen galeriler");
-DEFINE("_RSGALLERY_GALLERY",				"Galeri");
-DEFINE("_RSGALLERY_USER",					"Kullanýcý");
-DEFINE("_RSGALLERY_ID",						"ID");
-DEFINE("_RSGALLERY_TAB_IMAGES",				"Resimler");
-DEFINE("_RSGALLERY_MOST_RECENT_IMG", 		"En yeni eklenen resimler");
-DEFINE("_RSGALLERY_DATE",					"Tarih");
-DEFINE("_RSGALLERY_CREDITS",				"Sürüm notlarý");
-DEFINE("_RSGALLERY_INSTALLED_VERSION",		"Kurulu sürüm");
-/*new*/DEFINE("_RSGALLERY_LICENSE",			"Lisans");
-//Cpanel
-DEFINE("_RSGALLERY_C_CONFIG",				"Ayarlar");
-DEFINE("_RSGALLERY_C_UPLOAD",				"Yükle");
-DEFINE("_RSGALLERY_C_UPLOAD_ZIP",			"Toplu yükle");
-DEFINE("_RSGALLERY_C_IMAGES",				"Resimleri Yönet");
-DEFINE("_RSGALLERY_C_CATEGORIES",			"Galerileri Yönet");
-DEFINE("_RSGALLERY_C_DATABASE",				"Veritabanýný gözden geçir");
-DEFINE("_RSGALLERY_C_MIGRATION",			"Baþka bir sistemden taþýma seçenekleri");
-DEFINE("_RSGALLERY_C_CSS_EDIT",				"CSS düzenle");
-DEFINE("_RSGALLERY_C_DEBUG_ON",				"Geliþmiþ hata ayýklama seçenekleri. Debug mode is set in the <a href='index2.php?option=com_rsgallery2&task=showConfig'>configuration</a>.");
-DEFINE("_RSGALLERY_C_PURGE",				"Her þeyi Temizle/Sil ");
-DEFINE("_RSGALLERY_C_REALLY_UNINSTALL",		"REALLY Uninstall - Deletes all images, directories, drops all tables. Only on Linux with default directories.");
-DEFINE("_RSGALLERY_C_VIEW_CONFIG",			"Görünümü Yapýlandýr");
-DEFINE("_RSGALLERY_C_EDIT_CONFIG",			"Ham dosya (kamera yada görüntü cihazlara ait dosya) yapýlandýr");
-//function requestCatCreation
-DEFINE("_RSGALLERY_C_CAT_FIRST",			"Önce bir kategori oluþturun!");
-//function batch_upload
-DEFINE("_RSGALLERY_BATCH_NO_ZIP",			"ZIP yüklemesi seçildi ancak bir dosya belirtilmedi");
-DEFINE("_RSGALLERY_BATCH_GAL_FIRST",		"Önce bir kategori seçin");
-DEFINE("_RSGALLERY_BATCH_NO_FTP",			"FTP yüklemesi seçildi ancak bir FTP yolu belirtilmedi");
-DEFINE("_RSGALLERY_BATCH_STEP1",			"Birinci Aþama");
-DEFINE("_RSGALLERY_BATCH_METHOD",			"Yükleme türünü seçin");
-DEFINE("_RSGALLERY_BATCH_METHOD_TIP",		"Yüklemek için Tek dosya, ZIP-dosya yada  bir klasörün tamamýný seçin");
-DEFINE("_RSGALLERY_BATCH_ZIPFILE",			"ZIP-dosya");
-DEFINE("_RSGALLERY_BATCH_UPLOAD_LIMIT",		"Yükleme limitiniz ");
-DEFINE("_RSGALLERY_BATCH_IN_PHPINI",		" Megabayt (php.ini içerisinden ayarlayýn)");
-DEFINE("_RSGALLERY_BATCH_FTP_PATH",			"FTP-yolu");
-DEFINE("_RSGALLERY_BATCH_DONT_FORGET_SLASH","(Baþlangýç ve bitiþ bölü iþaretini unutmayýn)");
-DEFINE("_RSGALLERY_BATCH_CATEGORY",			"Galeri belirt");
-DEFINE("_RSGALLERY_BATCH_YES_IMAGES_IN",	"Evet, tüm resimler içeri");
-DEFINE("_RSGALLERY_BATCH_NO_SPECIFY",		"Hayýr, ikinci aþamada resim baþýna galeri belirt");
-DEFINE("_RSGALLERY_BATCH_NEXT",				"Sonraki -->");
-/*new*/DEFINE("_RSGALLERY_BATCH_DELETE",	"Sil");
-/*new*/DEFINE("_RSGALLERY_BATCH_TITLE",		"Baþlýk");
-/*new*/DEFINE("_RSGALLERY_BATCH_GAL",		"Galeri");
-/*new*/DEFINE("_RSGALLERY_BATCH_UPLOAD",	"Yükle");
-
-//function editImage
-DEFINE("_RSGALLERY_PROP_TITLE",				"Resim özelliklerini düzenle");
-DEFINE("_RSGALLERY_TITLE",					"Baþlýk");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_TABLE",		"Tablo");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_FLOAT",		"Akýþkan");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_MAGIC",		"Sihirbaz(henüz desteklenmiyor!)");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_L2R",		"Soldan saða");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_R2L",		"Saðdan sola");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_PROP",		"Orantýlý");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_SQUARE",		"KARE");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_DEFAULT_SIZE",		"Varsayýlan boyut");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_REZ_LARGE",		"Büyük resimleri yeniden boyutlandýr");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_REZ_SMALL",		"Küçük resimleri yeniden boyutlandýr");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_REZ_2FIT",		"Sýðdýracak þekilde yeniden boyutlandýr");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_TL",		"Üst sol");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_TC",		"Üst orta kýsým");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_TR",		"Üst sað");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_L",		"Sol");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_C",		"Orta");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_R",		"Sað");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_BL",		"Alt sol");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_BC",		"Alt orta kýsým");
-/*new*/DEFINE("_RSGALLERY_CONF_OPTION_BR",		"Alt sað");
-/*new*/DEFINE("_RSGALLERY_CONF_POPUP_STYLE",		"Açýlýr pencere stili");
-/*new*/DEFINE("_RSGALLERY_CONF_POPUP_NO",		"Açýlýr pencere yok");
-/*new*/DEFINE("_RSGALLERY_CONF_POPUP_NORMAL",		"Normal açýlýr pencere");
-/*new*/DEFINE("_RSGALLERY_CONF_POPUP_FANCY",		"Fancy popup (Errors in IE6!)");
-
-//function showconfig
-DEFINE("_RSGALLERY_FREETYPE_INSTALLED",		"(Freetype kütüphanesi yüklü, filigran uygulamak mümkün)");
-DEFINE("_RSGALLERY_FREETYPE_NOTINSTALLED",	"(Freetype kütüphanesi yüklü deðil! filigran uygulamak mümkün deðil)");
-/*new*/DEFINE("_RSGALLERY_CONF_GENERALTAB",		"Genel");
-/*new*/DEFINE("_RSGALLERY_CONF_IMAGESTAB",		"Resimler");
-/*new*/DEFINE("_RSGALLERY_CONF_DISPLAY",		"Görünüm");
-/*new*/DEFINE("_RSGALLERY_CONF_USERS",		"Kullanýcýlar");
-
-//function showUploadStep1
-DEFINE("_RSGALLERY_PICK",					"Bir galeri seçin");
-//function showUploadStep2
-DEFINE("_RSGALLERY_BATCH_STEP2",			"Ýkinci Aþama");
-DEFINE("_RSGALLERY_UPLOAD_NUMBER",			"Yükleme sayýsý");
-//function showUploadStep3
-DEFINE("_RSGALLERY_BATCH_STEP3",			"Üçüncü aþama");
-/*new*/DEFINE("_RSGALLERY_UPLOAD_FORM_IMAGE",		"Resim");
-DEFINE("_RSGALLERY_CATNAME",				"Galeri ismi");
-DEFINE("_RSGALLERY_UPLOAD_FORM_FILE",		"Dosya");
-//function viewImages
-DEFINE("_RSGALLERY_DELETE",					"Sil");
-DEFINE("_RSGALLERY_MOVETO",					"Þuraya taþý");
-DEFINE("_RSGALLERY_NUMDISPLAY",				"Göster #");
-DEFINE("_RSGALLERY_SEARCH",					"Ara");
-DEFINE("_RSGALLERY_IMAGENAME",				"Ad");
-DEFINE("_RSGALLERY_IMAGEFILE",				"Dosya adý");
-DEFINE("_RSGALLERY_IMAGECAT",				"Galeri");
-DEFINE("_RSGALLERY_IMAGEHITS",				"Týklama");
-DEFINE("_RSGALLERY_IMAGEDATE",				"Yükleme tarihi");
-DEFINE("_RSGALLERY_REORDER",				"Yeniden sýrala");
-//function consolidateDbGo
-DEFINE("_RSGALLERY_CONSDB_IN_DB",			"Veritabaný<br>içerisinde");
-DEFINE("_RSGALLERY_CONSDB_DISP",			"Görünüm<br>klasörü");
-DEFINE("_RSGALLERY_CONSDB_ORIG",			"Orijinal<br>klasörü");
-DEFINE("_RSGALLERY_CONSDB_THUMB",			"Küçük resim<br>klasörü");
-DEFINE("_RSGALLERY_CONSDB_ACT",				"Eylem");
-DEFINE("_RSGALLERY_CONSDB_DELETE_DB",		"[&nbsp;Veritabanýndan sil&nbsp;]");
-DEFINE("_RSGALLERY_CONSDB_CREATE_IMG",		"[&nbsp;Kayýp resimleri oluþtur&nbsp;]");
-DEFINE("_RSGALLERY_CONSDB_CREATE_DB",		"[&nbsp;Veritabaný girdisi oluþtur&nbsp;]");
-DEFINE("_RSGALLERY_CONSDB_DELETE_IMG",		"[&nbsp;Resimleri sil&nbsp;]");
-DEFINE("_RSGALLERY_CONSDB_NO_INCOS",		"Veritabanýnda tutarsýzlýk yok");
-
-//admin.rsgallery2.php
-/*new*/DEFINE("_RSGALLERY_HEAD_CONFIG",		"Ayarlar");
-/*new*/DEFINE("_RSGALLERY_HEAD_CPANEL",		"Denetim masasý");
-/*new*/DEFINE("_RSGALLERY_HEAD_EDIT",		"Düzenle");
-/*new*/DEFINE("_RSGALLERY_HEAD_UPLOAD",		"Yükle");
-/*new*/DEFINE("_RSGALLERY_HEAD_MIGRATE",		"Kur ve taþý");
-/*new*/DEFINE("_RSGALLERY_HEAD_UPLOAD_ZIP",		"ZIP-dosya yükle");
-/*new*/DEFINE("_RSGALLERY_HEAD_CONSDB",		"Veritabanýný gözden geçir");
-/*new*/DEFINE("_RSGALLERY_HEAD_LOG",		"Deðiþiklikler");
-/*new*/DEFINE("_RSGALLERY_HEAD_CONF_VARIA",		"Ayar parametreleri");
-/*new*/DEFINE("_RSGALLERY_HEAD_CONF_RAW_EDIT",		"Ham dosya ayarlarýný düzenle");
-
-//function config_rawEdit_save
-DEFINE("_RSGALLERY_CONF_SAVED",				"Yapýlandýrma kaydedildi");
-DEFINE("_RSGALLERY_CONF_SAVE_ERROR",		"Yapýlandýrma kaydedilirken hata");
-DEFINE("_RSGALLERY_CONF_CREATE_DIR",		"Resim klasörlerinin oluþturulmasý henüz yerine getirilmedi.");
-//function RSInstall
-DEFINE("_RSGALLERY_MIGR_OK",				"taþýma baþarýlý");
-//function purgeEverything
-DEFINE("_RSGALLERY_PURGE_IMG",				"resim girdileri veritabanýndan temizlendi.");
-DEFINE("_RSGALLERY_PURGE_GAL",				"galeri girdileri veritabanýndan temizlendi.");
-DEFINE("_RSGALLERY_PURGE_CONFIG",			"yapýlandýrma veritabanýndan temizlendi.");
-DEFINE("_RSGALLERY_PURGE_COMMENTS",			"yorum veritabanýndan temizlendi.");
-//function reallyUninstall
-DEFINE("_RSGALLERY_REAL_UNINST_DIR",		"$mosConfig_absolute_path/images/rsgallery kaldýrma sýnamasý için rm -r kullanýldý");
-DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"DROPed #__rsgallery2_files");
-DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"DROPed #__rsgallery2_galleries");
-DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"DROPed #__rsgallery2_config");
-DEFINE("_RSGALLERY_REAL_UNINST_DROP_COM",	"DROPed #__rsgallery2_comments");
-DEFINE("_RSGALLERY_REAL_UNINST_DONE",		"Bitti.  Eðer bir hata oluþursa yukardaki herþeyi el yardýmýyla yapýn. Hemen ÞÝMDÝ RSGallery2 i kaldýrýn aksi halde hata oluþacaktýr.");
-//function deleteImage
-DEFINE("_RSGALLERY_ALERT_IMGDELETEOK",		"Resim(ler) baþarýyla silindi!");
-//function c_delete
-DEFINE("_RSGALLERY_ALERT_IMGDELETENOTOK",	"Resim ya da resimler silinemedi!");
-//function save_batchupload
-DEFINE("_RSGALLERY_ALERT_NOCATSELECTED",	"Lütfen TÜM resimler için galeri seçin!!\\n(Ayný zamanda silinecek olan resimler için de.\\nnBu gelecek sürümlerde düzeltilecektir.!)");
-DEFINE("_RSGALLERY_ZIP_TO_BIG",				"ZIP-dosya oldukça büyük!");
-//function myPreExtractCallBack
-DEFINE("_RSGALLERY_NOT_ALLOWED_FILETYPE",	" bu izin verilmeyen dosya türü, bu silenecek!");
-DEFINE("_RSGALLERY_BATCH_ERROR_FTP1",		"Seçtiðiniz klasör bulunmuyor.\\n Yükleme ekranýna yönlendirileceksiniz.");
-//function showUpload
-DEFINE("_RSGALLEY_ALERT_REST_UPLOADOK",		" dosyalarýnýzýn düzgün bir þekilde yüklendi");
-//function saveImage
-DEFINE("_RSGALLERY_ALERT_IMAGEDETAILSOK",	"Ayrýntýlar baþarýyla kaydedildi!");
-DEFINE("_RSGALLERY_ALERT_IMAGEDETAILSNOTOK","Ayrýntýlar güncellenmedi!");
-//function showConfig
-DEFINE("_RSGALLERY_CONF_NOGD2",				"GD2 algýlanmadý");
-DEFINE("_RSAGALLERY_CONF_NOIMGMAGICK",		"ImageMagick algýlanmadý");
-DEFINE("_RSAGALLERY_CONF_NONETPBM",			"netPBM algýlanmadý");
-//function viewImages
-DEFINE("_RSGALLERY_VIEW_GAL",				"Galeri'yi gör");
-DEFINE("_RSGALLERY_ALL_GAL",				"- Tüm galeriler");
-DEFINE("_RSGALLERY_SELECT_GAL",				"Galeri seç");
-//function consolidateDbInform
-DEFINE("_RSGALLERY_CONSOLIDATE_DB",
-"'Veritabanýný Gözden Geçir' fonksiyonu RSGallery veritabaný ve galeri klasörü içerisindeki resimlerin üzerinde kontrol iþlemini gerçekleþtirir, bulunan tutarsýzlýklarý raporlar ".
-" Böylece kullanýcý veritabaný girdilerini yada resimleri ekleyip çýkartarak galerinin ".
-" kontrol etme imkanýný elde edecek.<br/><br/> Eðer galeri klasörüne herhangi bir resim eklendiðinde yada bu klasörden çýkartýldýðýnda bu fonksiyon çalýþtýrýlmalýdýr.".
-"  Örneðin. Bir kullanýcý galeri klasörüne FTP ile ek resimler yolladý diyelim".
-" Bu durumda veritabanýna bu resimleri güncellemek için bu fonksiyonu çalýþtýrmak lazým.<br/><br/> lütfen 'Devam et' ya da 'Vazgeç' komutlarýndan birini seçin!.".
-" kullanýcý bunlarý onaylayana kadar deðiþiklikler etkin olmayacak.<br/>");
-DEFINE("_RSGALLERY_PROCEED",				"Devam et");
-//function editTemplateCSS
-DEFINE("_RSGALLERY_EDITCSS_FAIL_NOOPEN",	"Ýþlem baþarýsýz: Açýlmadý");
-DEFINE("_RSGALLERY_EDITCSS_NOT_WRITABLE",	"Ýþlem baþarýsýz: Dosya salt okunur.");
-DEFINE("_RSGALLERY_EDITCSS_FAIL_NOTWRITING","Ýþlem baþarýsýz: Dosya yazmak için açýlamadý (salt okunur).");
-//function editCSSSource
-DEFINE("_RSGALLERY_EDITCSS_TITLE",			"RSgallery2 CSS Editör");
-DEFINE("_RSGALLERY_ISWRITABLE",				"RSgallery2.css dosyasý:");
-DEFINE("_RSGALLERY_ISWRITABLE_WRITABLE",	"Yazýlabilir");
-DEFINE("_RSGALLERY_ISWRITABLE_UNWRITABLE",	"Salt okunur");
-DEFINE("_RSGALLERY_MAKE_WRITABLE",			"Kayýt ettikten sonra Salt Okunur yap");
-DEFINE("_RSGALLERY_OVERWRITE_WRITABLE",		"Kayýt sýrasýnda yazma korumasýný göz ardý et");
-
-/*new*/DEFINE("_RSGALLERY_SELECT_GAL_TOP",		"Üst");
-//function newImages
-/*new*/DEFINE("_RSGALLERY_NEW",				"Yeni!");
-//config.rsgallery2.php
-//function writeWarningBox
-DEFINE("_RSGALLERY_NO_IMGLIBRARY",			"Uygun resim kütüphanesi algýlanmadý! Barýndýrma servis saðlayýcýnýzla temasa geçip GD2 kurmasýný yada ImageMagick veya NETPBM kurulumlarý için forumlara bakýn!");
-DEFINE("_RSGALLERY_NOT_WRITABLE",			" Yazýlamaz");
-DEFINE("_RSGALLERY_FOLDER_NOTEXIST",		" Bulunmadý! Lütfen bu klasörü oluþturun ve izin modunu 0755 olarak ayarlayýn!");
-DEFINE("_RSGALLERY_ERROR_SETTINGS",			"Aþaðýdaki ayarlar RSGallery2'nin düzgün çalýþmasýný engelliyor:");
-DEFINE("_RSGALLERY_REFRESH",				"Yenile");
-//function writeDownloadLink
-DEFINE("_RSGALLERY_DOWNLOAD",				"Ýndir");
-
-//install.rsgallery2.php
-//function com_install
-DEFINE("_RSGALLERY_MIGRATING_FROM",			"RSGallery2'den taþýma ");
-DEFINE("_RSGALLERY_INSTALL_SUCCESS",		"Baþarýlý.  Þimdi RSGallery2 kullanýlýyor");
-DEFINE("_RSGALLERY_INSTALL_FAIL",			"Hatalý: ");
-
-//toolbar.rsgallery2.html.php
-DEFINE("_RSGALLERY_TOOL_CLOSE",				"Kapat");
-DEFINE("_RSGALLERY_TOOL_PANEL",				"CPanel");
-DEFINE("_RSGALLERY_TOOL_GAL",				"Galeriler");
-DEFINE("_RSGALLERY_TOOL_IMG",				"Resimler");
-DEFINE("_RSGALLERY_TOOL_UP",				"Yükle");
-DEFINE("_RSGALLERY_TOOL_NEXT",				"Sonraki");
-DEFINE("_RSGALLERY_TOOL_DELETE",			"Sil");
-
-//config.html
-DEFINE("_RSGALLERY_C_TMPL_VERSION",			"Sürüm:");
-DEFINE("_RSGALLERY_C_TMPL_INTRO_TEXT",		"Giriþ metni:");
-DEFINE("_RSGALLERY_C_TMPL_DEBUG",			"Hata ayýklamasý:");
-DEFINE("_RSGALLERY_C_TMPL_IMG_MANIP",		"Resim iþleme, manipülasyon ");
-DEFINE("_RSGALLERY_C_TMPL_DISP_WIDTH",		"Resim geniþliðini göster:");
-DEFINE("_RSGALLERY_C_TMPL_THUMB_WIDTH",		"Küçük resim geniþliði:");
-DEFINE("_RSGALLERY_C_TMPL_JPEG_QUALITY",	"JPEG kalite yüzdesi");
-DEFINE("_RSGALLERY_C_TMPL_GRAPH_LIB",		"Grafik kütüphanesi");
-DEFINE("_RSGALLERY_C_TMPL_NOTE_GLIB_PATH",	"Not:</span> Sorun yaþýyorsanýz aþaðýdaki kutularý boþ býrakýn.");
-DEFINE("_RSGALLERY_C_TMPL_IMGMAGICK_PATH",	"ImageMagick Yolu:");
-DEFINE("_RSGALLERY_C_TMPL_NETPBM_PATH",		"Netpbm Yolu:");
-DEFINE("_RSGALLERY_C_TMPL_FTP_PATH",		"FTP Yolu:");
-DEFINE("_RSGALLERY_C_TMPL_IMG_STORAGE",		"Resim deposu");
-DEFINE("_RSGALLERY_C_TMPL_KEEP_ORIG",		"Orijinal resmi sakla:");
-DEFINE("_RSGALLERY_C_TMPL_ORIG_PATH",		"Orijinal resimlerin yolu:");
-DEFINE("_RSGALLERY_C_TMPL_DISP_PATH",		"Görünüm resimlerin yolu:");
-DEFINE("_RSGALLERY_C_TMPL_THUMB_PATH",		"Küçük resimlerin yolu:");
-DEFINE("_RSGALLERY_C_TMPL_CREATE_DIR",		"Klasörler yoksa oluþturun:");
-DEFINE("_RSGALLERY_C_TMPL_FRONT_PAGE",		"Ön yüz");
-DEFINE("_RSGALLERY_C_TMPL_DISP_RAND",		"Rasgele göster");
-DEFINE("_RSGALLERY_C_TMPL_DISP_LATEST",		"Son eklenenleri göster");
-DEFINE("_RSGALLERY_C_TMPL_DISP_BRAND",		"Ýþaretlileri göster");
-DEFINE("_RSGALLERY_C_TMPL_DISP_DOWN",		"Ýndirme kýsa yolunu göster");
-DEFINE("_RSGALLERY_C_TMPL_WATERMARK",		"Resim Filigraný");
-DEFINE("_RSGALLERY_C_TMPL_DISP_WTRMRK",		"Filigraný Göster");
-DEFINE("_RSGALLERY_C_TMPL_WTRMRK_TEXT",		"Filigran yazýsý");
-DEFINE("_RSGALLERY_C_TMPL_WTRMRK_FONTSIZE",	"Filigran Font büyüklüðü");
-DEFINE("_RSGALLERY_C_TMPL_WTRMRK_ANGLE",	"Filigran yazý açýsý");
-DEFINE("_RSGALLERY_C_TMPL_WTRMRK_POS",		"Filigran yeri");
-DEFINE("_RSGALLERY_C_TMPL_GAL_VIEW",		"Galeriyi görünümü");
-DEFINE("_RSGALLERY_C_TMPL_THUMB_STYLE",		"Küçük resim stili:<br>Sadece geniþlik deðerli þablonlarda Akýþkan (Float) sitili kullanýn.");
-DEFINE("_RSGALLERY_C_TMPL_FLOATDIRECTION",	"Yön stili(sadece akýþkan için çalýþýr):");
-DEFINE("_RSGALLERY_C_TMPL_COLS_PERPAGE",	"Küçük resim kolon sayýsý(sadece tablo stili için):");
-DEFINE("_RSGALLERY_C_TMPL_THUMBS_PERPAGE",	"Sayfa baþýna küçük resim sayýsý:");
-DEFINE("_RSGALLERY_C_TMPL_DISP_SLIDE",		"Slayt gösterisi'ni göster");
-DEFINE("_RSGALLERY_C_TMPL_IMG_DISP",		"Resim görünümü");
-DEFINE("_RSGALLERY_C_TMPL_RESIZE_OPT",		"Boyutlandýrma seçenekleri");
-DEFINE("_RSGALLERY_C_TMPL_DISP_DESCR",		"Tanýmlamalarý göster");
-DEFINE("_RSGALLERY_C_TMPL_DISP_HITS",		"Týklamalarý göster");
-DEFINE("_RSGALLERY_C_TMPL_DISP_VOTE",		"Oylamalarý göster");
-DEFINE("_RSGALLERY_C_TMPL_DISP_COMM",		"Yorumlarý göster");
-DEFINE("_RSGALLERY_C_TMPL_DISP_EXIF",		"EXIF verisini göster");
-DEFINE("_RSGALLERY_C_TMPL_ENABLE_U_UP",		"Kullanýcý yüklemeleri etkinleþtirilecek mi?");
-DEFINE("_RSGALLERY_C_TMPL_ONLY_REGISTERED",	"Sadece kayýtlý kullanýcýlar");
-DEFINE("_RSGALLERY_C_TMPL_U_CREATE_GAL",	"Kullanýcý galeri oluþturabilsin mi?");
-DEFINE("_RSGALLERY_C_TMPL_U_MAX_GAL",		"Kullanýcýnýn en çok sahip olabileceði galeri sayýsý:");
-DEFINE("_RSGALLERY_C_TMPL_U_MAX_IMG",		"Kullanýcýnýn en çok sahip olabileceði resim sayýsý:");
-
-//galleries.class.php
-//function check
-/*new*/DEFINE("_RSGALLERY_GAL_EXIST_ERROR",		"Ayný isimli galeri zaten mevcut, lütfen yeniden deneyiniz!.");
-//galleries.html.php
-//function show
-/*new*/DEFINE("_RSGALLERY_GAL_MANAGE",			"Galeri yöneticisi");
-/*new*/DEFINE("_RSGALLERY_GAL_MAX_LEVELS",		"Üst düzeyler");
-/*new*/DEFINE("_RSGALLERY_GAL_FILTER",			"Filtre");
-/*new*/DEFINE("_RSGALLERY_GAL_NAME",			"Galeri adý");
-/*new*/DEFINE("_RSGALLERY_GAL_REORDER",			"Yeniden sýrala");
-/*new*/DEFINE("_RSGALLERY_GAL_HITS",			"Týklamalar");
-//function edit
-/*new*/DEFINE("_RSGALLERY_GAL_GAL",				"Galeri");
-/*new*/DEFINE("_RSGALLERY_GAL_DETAILS",			"Ayrýntýlar");
-/*new*/DEFINE("_RSGALLERY_GAL_DESCR",			"Tanýmlama");
-/*new*/DEFINE("_RSGALLERY_GAL_PARENT",			"Ana öðe");
-/*new*/DEFINE("_RSGALLERY_GAL_THUMB",			"Galeri küçük resmi");
-/*new*/DEFINE("_RSGALLERY_GAL_ORDERING",		"Sýralama");
-/*new*/DEFINE("_RSGALLERY_GAL_PUBLISHED",		"Yayýnlandý");
-/*new*/DEFINE("_RSGALLERY_GAL_PARAMETERS",		"Parametreler");
-
-//install.class.php
-//function echo_values
-/*new*/DEFINE("_RSGALLERY_INSTALL_THUMBDIR",			"Küçük resimlerin klasörü:");
-//function changeMenuIcon
-/*new*/DEFINE("_RSGALLERY_INSTALL_MENU_ICON_OK",		"RSGalleri2 menü resmi baþarýyla deðiþtirildi");
-/*new*/DEFINE("_RSGALLERY_INSTALL_MENU_ICON_ERROR",		"Menü resmi deðiþtirilemedi");
-//function createDirStructure
-/*new*/DEFINE("_RSGALLERY_INSTALL_DIR_EXISTS",			" zaten mevcut");
-/*new*/DEFINE("_RSGALLERY_ISNTALL_IS_CREATED",			" oluþturuldu");
-/*new*/DEFINE("_RSGALLERY_INSTALL_NOT_CREATED",			" oluþturulamadý");
-//function createTableStructure
-/*new*/DEFINE("_RSGALLERY_ISNTALL_DB_OK",				"Veritabaný tablolarý baþarýyla oluþturuldu.");
-//function copyFiles
-/*new*/DEFINE("_RSGALLERY_INSTALL_FILE_COPY_FROM",		"Dosya þuradan kopyalandý ");
-/*new*/DEFINE("_RSGALLERY_INSTALL_FILE_COPY_TO",		" þuraya ");
-/*new*/DEFINE("_RSGALLERY_INSTALL_FILE_NOTCOPY_FROM",	"dosya þuradan kopyalanamadý ");
-/*new*/DEFINE("_RSGALLERY_INSTALL_DIR_CREATED",			"Directory created: ");
-/*new*/DEFINE("_RSGALLERY_INSTALL_DIR_NOTCREATED",		"klasör oluþturulamadý ");
-//function deleteGalleryDir
-/*new*/DEFINE("_RSGALLERY_DELGAL_PROCES",				"Ýþlem sürüyor: ");
-/*new*/DEFINE("_RSGALLERY_DELGAL_OK",					"Klasör yapýsý silindi!");
-/*new*/DEFINE("_RSGALLERY_DELGAL_NOTOK",				"Eski klasör yapýsýnýn silinmesi baþarýsýz.");
-/*new*/DEFINE("_RSGALLERY_DELGAL_NO_OLD_DIR",			"Eski klasör yapýsý bulunmadý. Devam edelim");
-//function checkDirPerms
-/*new*/DEFINE("_RSGALLERY_PERMS_NOT_EXIST",				" Mevcut deðil. FTP kullanarak el yardýmý ile oluþturun ve izinleri gözden geçirin");
-/*new*/DEFINE("_RSGALLERY_PERMS_NOT_SET",				" bulundu ancak,izinler (777) olarak ayarlanamadý. \nÝzinler þu anda þöyle ");
-/*new*/DEFINE("_RSGALLERY_PERMS_NOT_SET_TRY_FTP",		".<br />Lütfen þu izinleri FTP aracýlýðýyla düzeltmeye çalýþýn.");
-/*new*/DEFINE("_RSGALLERY_PERMS_OK",					" bulundu, izinler hakkýnda herþey yolunda.");
-//function installComplete
-/*new*/DEFINE("_RSGALLERY_INSTALL_COMPLETE",			"RSGallery kurulumu bitti");
-/*new*/DEFINE("_RSGALLERY_INSTALL_STATUS_MSGS",			"Eðer dikkat etmeniz gereken durum uyarýlarý varsa denetim masasýna gitmeden önce þimdi yapýnýz.");
-//function deleteTable
-/*new*/DEFINE("_RSGALLERY_TABLEDEL_OK",					" silindi");
-/*new*/DEFINE("_RSGALLERY_TABLEDEL_NOTOK",				" silinemedi.<br />El yardmý ile siliniz.");
-//function migrateOldFiles
-/*new*/DEFINE("_RSGALLERY_MIGRATE_NOT_ALL",			"Tüm dosya bilgileri RSGallery2 veritabanýna taþýnamadý. Çözümlenemeyen þu nedenler (");
-/*new*/DEFINE("_RSGALLERY_MIGRATE_OUT_OF",			" den ");
-/*new*/DEFINE("_RSGALLERY_MIGRATE_ENTRIES_OK",		" girdi iþlem gördü)");
-/*new*/DEFINE("_RSGALLERY_MIGRATE_ALL",				"Tüm dosya bilgileri RSGallery2 veritabanýna yükseltildi(");
-//function migrateOldCats
-/*new*/DEFINE("_RSGALLERY_MIGRATE_NOT_ALL_GAL",		"Tüm galeri bilgileri RSGallery2 veritabanýna taþýnamadý. Çözümlenemeyen þu nedenler (");
-/*new*/DEFINE("_RSGALLERY_MIGRATE_ALL_GAL",			"Tüm galeri bilgileri RSGallery2 veritabanýna taþýndý(");
-/*new*/DEFINE("_RSGALLERY_MIGRATE_ALL_FILES",		" Dosyalar yeni yapýya baþarýyla kopyalandý");
-/*new*/DEFINE("_RSGALLERY_MIGRATE_NOTALL_FILES",		"Dosyalar yeni yapýya kopyalanýrken hatalar oluþtu");
-/*new*/DEFINE("_RSGALLERY_MIGRATE_ZOOM_OK",		"Zoom Gallery taþýnmasý bitti. Denetim masasýna gidiniz");
-//function upgradeInstall
-/*new*/DEFINE("_RSGALLERY_UPGRADE_RSG",		"RSGallery den yükseltme");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_REC_FULL",		"Bileþen bulundu, ancak sürüm bilgisi mevcut deðil.<br />Tam kurulum tavsiye edilir.");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF",		"Orijinal dosyalar baþarýyla transfer edildi");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF_ERROR",		"Orijinal dosyalar yeni yapýya kopyalanýrken hatalar oluþtu. \nLütfen FTP aracýlýðýyla gözden geçirin.");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF",		"Küçük resim dosyalarý baþarýyla transfer edildi.");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF_ERROR",		"Küçük resim dosyalarý yeni yapýya kopyalanýrken hatalar oluþtu. \nLütfen FTP aracýlýðýyla gözden geçirin.");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE",		"Görünen resimler baþarýyla oluþturuldu.");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE_ERROR",		" Görünen resimlerin bazýlarý yada tümü oluþturulamadý.<br />Bu bileþenin geliþtiricisi ile temasa geçiniz.");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_TABLE",		"Tablo ");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_OK",		" baþarýyla deðiþtirildi");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_ERROR",		" deðiþtirme BAÞARISIZ");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_OK",		" baþarýyla yeniden adlandýrýldý");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_ERROR",		"");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_DUMMY_ERROR",		"Boþ tablolarýn oluþturulmasý hatalý. RSGallery'nin 2.0 beta 5 sürümünü kaldýrýn, çalýþmayabilir.");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_NOT_POSSIBLE",		"Yükselte olanaklý deðil.Yükseltilemeyen RSGallery bulundu\nTam kurulum önerilir.");
-/*new*/DEFINE("_RSGALLERY_UPGRADE_SUCCESS",		"RSGallery2'ye yükseltme tamamlandý.\nÞimdi RSGallery'nin eski sürümünü güvenle kaldýrabilirsiniz.");
-//function showMigrationOptions
-/*new*/DEFINE("_RSGALLERY_MIGRATION",		"Taþýma");
-/*new*/DEFINE("_RSGALLERY_MIGRATION_NO_SYSTEMS",		"Baþka galeri-sistemi kurulu deðil");
-//function doMigration
-/*new*/DEFINE("_RSGALLERY_MIGRATION_VOT_VALID",		"bu geçerli bir yükseltme / taþýma türü deðil.");
-
-/*
-* newly added language constants as of 20th of January 2007
-* these will be moved to the correct location when most translations have been completed
-* easiest would be for you to translate and place in the correct position in the file afterwards
-* this way your file will already have the correct order
-*/
-
-//uninstall.rsgallery2.php
-//function com_uninstall
-DEFINE("_RSGALLERY_UNINSTALL_OK",		"Baþarýyla kaldýrýldý");
-
-//toolbar.rsgallery2.html.php
-DEFINE("_RSGALLERY_TOOL_CONFIRM_DEL",		"Kaldýrmayý onayla");
-
-//slideshow.rsgallery2.php
-DEFINE("_RSGALLERY_SLIDE_START",		"Baþla");
-DEFINE("_RSGALLERY_SLIDE_STOP",			"Dur");
-DEFINE("_RSGALLERY_SLIDE_NEXT",			"Sonraki");
-DEFINE("_RSGALLERY_SLIDE_PREV",			"Önceki");
-
-//rsgallery2.php
-//function my_galleries
-DEFINE("_RSGALLERY_MYGAL_NOT_AUTH",		"Galerilerime yetkilendirilmemiþ eriþim çabasý!");
-
-//function save_image
-DEFINE("_RSGALLERY_ERROR_SAVE",		"Hata: ");
-
-//function viewChangelog
-DEFINE("_RSGALLERY_FEAT_INDEBUG",		"Özellik sade hata ayýklama modu ( debug ) için geçerlidir.");
-
-//rsgallery2.html.php
-//RSShowPictures
-DEFINE("_RSGALLERY_MAGIC_NOTIMP",		"Sihirbaz henüz ayarlanmadý");
-
-//showMyGalleries
-DEFINE("_RSGALLERY_FEAT_NOTIMP",		"Özellik henüz ayarlanmadý");
-
-//function myGalleries
-DEFINE("_RSGALLERY_USERGAL_DISABLED",		"Kullanýcý galerileri yönetici tarafýndan devre dýþý býrakýlmýþ.");
-      
-//function toString
-DEFINE("_RSGALLERY_CONF_ERROR_UPLOAD",		" - Resim Yükleme Hatasý : ");
-//function showCategories
-DEFINE("_RSGALLERY_SELECT_GAL_DROP_BOX",		"- Galeri seçin -");
-
-//config.html
-DEFINE("_RSGALLERY_C_TMPL_SHOW_IMGNAME",		"Küçük reim altýnda baþlýðý göster:");
-DEFINE("_RSGALLERY_C_TMPL_ACL_SETINGS",		"Eriþim Kontrol ayarlarý");
-DEFINE("_RSGALLERY_C_TMPL_ACL_ENABLE",		"Eriþim Kontrolü etkinleþtir");
-DEFINE("_RSGALLERY_C_TMPL_SHOW_MYGAL",		"Benim Galerilerimi Göster");
-DEFINE("_RSGALLERY_C_TMPL_USER_SET",		"Kullanýcýya özgü ayarlar");
-DEFINE("_RSGALLERY_C_DISP_STATUS_ICON",		"* Durum Simgelerini Göster *");
-
-//admin.rsgallery2.php
-//function consolidateDbGo
-DEFINE("_RSGALLERY_NOT_WORKING",		"Henüz çalýþmýyor");
-DEFINE("_RSGALLERY_DEL_FROM_SYSTEM",		"Dosya sisteminden sil");
-DEFINE("_RSGALLERY_CREATE_MISSING_IMG",		"Kayýp resimleri oluþtur");
-DEFINE("_RSGALLERY_CREATE_DB_ENTRIES",		"Veritabaný girdilerini oluþtur");
-
-?>
+ï»¿<?php/*** Turkish languagefile for RSGallery* @version $Id$* @package RSGallery2 1.14.0* @copyright (C) 2003 - 2007 RSGallery2* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL* RSGallery is Free Software - Turkish Language Mustafa TanrÄ±verdi - http://yenibelge.com Edited by aLaLeSTa**/defined( '_VALID_MOS' ) or die( 'Restricted access' );//rsgallery2.html.php//RSShowPicturesDEFINE("_RSGALLERY_MAGIC_NOTIMP",		"Magic not implemented yet");//showMyGalleriesDEFINE("_RSGALLERY_FEAT_NOTIMP",		"Feature not implemented yet");//function showUserGalleryDEFINE("_RSGALLERY_MAKECAT_ALERT_NAME",		"You must provide a gallery name.");DEFINE("_RSGALLERY_MAKECAT_ALERT_DESCR",	"You must provide a description.");DEFINE("_RSGALLERY_CREATE_GALLERY",			"Galeri OluÅŸtur");DEFINE("_RSGALLERY_SAVE",					"Kaydet");DEFINE("_RSGALLERY_CANCEL",					"Ã‡Ä±kÄ±ÅŸ");DEFINE("_RSGALLERY_CATLEVEL",				"Top Galeri");DEFINE("_RSGALLERY_USERCAT_NAME",			"Galeri AdÄ±");DEFINE("_RSGALLERY_DESCR",					"AÃ§Ä±klama");DEFINE("_RSGALLERY_CATPUBLISHED",			"YayÄ±nla");//function edit_imageDEFINE("_RSGALLERY_EDIT_IMAGE",				"Resmi DÃ¼zenle");DEFINE("_RSGALLERY_CAT_NAME",				"Kategori AdÄ±");DEFINE("_RSGALLERY_EDIT_FILENAME",			"Dosya AdÄ±");DEFINE("_RSGALLERY_EDIT_TITLE",			    "BaÅŸlÄ±k");DEFINE("_RSGALLERY_EDIT_DESCRIPTION",		"AÃ§Ä±klama");//function showFrontUploadDEFINE("_RSGALLERY_UPLOAD_ALERT_CAT",		"Galeri seÃ§iniz.");DEFINE("_RSGALLERY_UPLOAD_ALERT_FILE",		"Dosya seÃ§iniz.");DEFINE("_RSGALLERY_ADD_IMAGE",				"Resim Ekle");DEFINE("_RSGALLERY_USERUPLOAD_TITLE",		"Ãœye YÃ¼klemesi");DEFINE("_RSGALLERY_USERUPLOAD_CATEGORY",	"Galeri");DEFINE("_RSGALLERY_FILENAME",				"Dosya AdÄ±");DEFINE("_RSGALLERY_UPLOAD_FORM_TITLE",		"BaÅŸlÄ±k");DEFINE("_RSGALLERY_UPLOAD_THUMB",			"Thumb:");//function RSGalleryInline/*moved DEFINE("_RSGALLERY_COMMENT_DELETE",			"Bu yorumu silmek istediÄŸinizden emin misiniz?");DEFINE("_RSGALLERY_NOIMG",					"Galeride Resim Yok");DEFINE("_RSGALLERY_SLIDESHOW",		        "Slideshow");DEFINE("_RSGALLERY_CATHITS",				"Hit");DEFINE("_RSGALLERY_NODESCR",				"AÃ§Ä±klama Yok");DEFINE("_RSGALLERY_VOTING",					"Oy Ver");DEFINE("_RSGALLERY_VOTES_NR",				"Oylama");DEFINE("_RSGALLERY_VOTES_AVG",				"Ortalama Oy");DEFINE("_RSGALLERY_NO_RATINGS",				"HenÃ¼z Oy Yok!");DEFINE("_RSGALLERY_VOTE",			   		"Oy");/*deleted DEFINE("_RSGALLERY_VERYGOOD",				"&nbsp;Ã‡ok iyi&nbsp;");*//*deleted DEFINE("_RSGALLERY_GOOD",					"&nbsp;Ä°yi&nbsp;");*//*deleted DEFINE("_RSGALLERY_OK",					    "&nbsp;Orta&nbsp;");*//*deleted DEFINE("_RSGALLERY_BAD",					"&nbsp;KÃ¶tÃ¼&nbsp;");*//*deleted DEFINE("_RSGALLERY_VERYBAD",				"&nbsp;Ã‡ok kÃ¶tÃ¼&nbsp;");*//*moved DEFINE("_RSGALLERY_COMMENTS",			   	"Yorumlar");*//*deleted DEFINE("_RSGALLERY_NO_COMMENTS",			"HenÃ¼z Yorum Yok!");*//*deleted DEFINE("_RSGALLERY_COMMENT_DATE",   		"Tarih");*//*deleted DEFINE("_RSGALLERY_COMMENT_BY",     		"By");*//*deleted DEFINE("_RSGALLERY_COMMENT_TEXT",   		"Yorum");*//*moved DEFINE("_RSGALLERY_DELETE_COMMENT",			"Yorumu Sil");*//*moved DEFINE("_RSGALLERY_COMMENT_ADD",			"Yorum Ekle");*//*moved DEFINE("_RSGALLERY_COMMENT_NAME",   		"AdÄ±nÄ±z");*//*moved DEFINE("_RSGALLERY_COMMENT_ADD_TEXT",   	"Yorumunuz");*/DEFINE("_RSGALLERY_EXIF",					"EXIF");//function RSGalleryTitleblockDEFINE("_RSGALLERY_MAIN_GALLERY_PAGE",		"Ana Galeriye DÃ¶n");DEFINE("_RSGALLERY_MY_GALLERIES",			"Benim Galerim");DEFINE("_RSGALLERY_SLIDESHOW_EXIT",			"Slayt Show Ã‡Ä±kÄ±ÅŸ");DEFINE("_RSGALLERY_COMPONENT_TITLE",		"Galeri");//function subGalleryListDEFINE("_RSGALLERY_IMAGES",					" Resim");DEFINE("_RSGALLERY_SUB_GALLERIES",			"Alt Galeri:");//function RSGalleryList//function RSShowPicturesDEFINE("_RSGALLERY_DELIMAGE_TEXT"			,"Bu Resmi Silmek Ä°stediÄŸinizden Emin misiniz ?");//function showMyGalleriesDEFINE("_RSGALLERY_USER_MY_GAL",			"Benim Galerim");DEFINE("_RSGALLERY_MY_IMAGES_CATEGORY",		"Galeri");DEFINE("_RSGALLERY_MY_IMAGES_PUBLISHED",	"YayÄ±nla");DEFINE("_RSGALLERY_MY_IMAGES_DELETE",		"Sil");DEFINE("_RSGALLERY_MY_IMAGES_EDIT",			"DÃ¼zenle");DEFINE("_RSGALLERY_MY_IMAGES_PERMISSIONS",	"Ä°zinler");DEFINE("_RSGALLERY_NO_USER_GAL",			"Ãœye Galerisi OluÅŸturulmadÄ±");DEFINE("_RSGALLERY_DELCAT_TEXT",			"Bu galeriyi silmek istediÄŸinizden emin misiniz?\\nEÄŸer bu galeride resim var ise resimler de silinecektir.");//function showMyImagesDEFINE("_RSGALLERY_MY_IMAGES",				"Benim Resmim");DEFINE("_RSGALLERY_MY_IMAGES_NAME",			"Ad");DEFINE("_RSGALLERY_NOIMG_USER",				"Ãœye Galerisinde Resim Yok");//function RSGalleryUserInfoDEFINE("_RSGALLERY_USER_INFO",				"Ãœye DanÄ±ÅŸma");DEFINE("_RSGALLERY_USER_INFO_NAME",			"Ãœye AdÄ±");DEFINE("_RSGALLERY_USER_INFO_ACL",			"Ãœye SÄ±nÄ±fÄ±");DEFINE("_RSGALLERY_USER_INFO_MAX_GAL",		"Maksimum Ãœye Galeri");DEFINE("_RSGALLERY_USER_INFO_CREATED",				"OluÅŸturma)");DEFINE("_RSGALLERY_USER_INFO_MAX_IMG",		"Maksimum Resim");DEFINE("_RSGALLERY_USER_INFO_UPL",			"YÃ¼kleme)");//function myGalleriesDEFINE("_RSGALLERY_USERGAL_DISABLED",		"Ãœye Resmi YÃ¶netim TarafÄ±ndan Engellendi.");//function showRandomDEFINE("_RSGALLERY_RANDOM_TITLE",			"KarÄ±ÅŸÄ±k Resim");//function showLatestDEFINE("_RSGALLERY_LATEST_TITLE",			"Son Resim");//rsgallery2.php//function my_galleriesDEFINE("_RSGALLERY_NO_USERCATS",            "Ãœye Galerisi YÃ¶netim TarafÄ±ndan KaldÄ±rÄ±ldÄ±");DEFINE("_RSGALLERY_MYGAL_NOT_AUTH",			"Unauthorized access attempt to My Galleries!");//function save_imageDEFINE("_RSGALLERY_SAVE_SUCCESS",		    "Detaylar KayÄ±t Edildi");DEFINE("_RSGALLERY_ERROR_SAVE",				"Hata: ");//function viewChangelogDEFINE("_RSGALLERY_FEAT_INDEBUG",			"Feature only available in Debug mode.");//function delete_imageDEFINE("_RSGALLERY_USERIMAGE_NOTOWNER",		"You are not the owner of this image, taking you back to the main screen");DEFINE("_RSGALLERY_DELIMAGE_OK",			"Resmi Siliniz");DEFINE("_RSGALLERY_DELIMAGE_NOID",			"No Id provided. Contact component developer");//function addVoteDEFINE("_RSGALLERY_THANK_VOTING",			"Oylama Ä°Ã§in TeÅŸekkÃ¼r Ederiz");DEFINE("_RSGALLERY_VOTING_FAILED",			"Oylama BaÅŸarÄ±sÄ±z");//function deleteCommentDEFINE("_RSGALLERY_COMMENT_DELETED",		"Yorum Silme!");DEFINE("_RSGALLERY_COMMENT_NOT_DELETED",	"Yorum silinemedi");//function addCommentDEFINE("_RSGALLERY_COMMENT_FIELD_CHECK",	"LÃ¼tfen AdÄ±nÄ±zÄ± Giriniz");DEFINE("_RSGALLERY_COMMENT_ADDED",			"Yorum baÅŸarÄ±yla eklendi!");DEFINE("_RSGALLERY_COMMENT_NOT_ADDED",		"Yorum Eklendi!");//function makeusercatDEFINE("_RSGALLERY_ALERT_CATDETAILSOK",		"Galeri DetaylarÄ±!");DEFINE("_RSGALLERY_ALERT_CATDETAILSNOTOK",	"Galeri DetaylarÄ±!");DEFINE("_RSGALLERY_MAX_USERCAT_ALERT",		"Maximum number of galleries already reached, taking you back to main screen");DEFINE("_RSGALLERY_ALERT_NEWCAT",			"Yeni Galeri OluÅŸturuldu!");DEFINE("_RSGALLERY_ALERT_NONEWCAT",			"Galeri oluÅŸturulamadÄ±!\\nSizi Ã¶nceki ekrana geri alalÄ±m.");//function delUserCatDEFINE("_RSGALLERY_USERCAT_SUBCATS",        "Bu galeri altkategori iÃ§eriyor ve silinemez. EÄŸer bu galriyi silmek istiyorsanÄ±z , ilk olarak altkategorileri taÅŸÄ±yÄ±n ya da silin");DEFINE("_RSGALLERY_ALERT_CATDELNOTOK",		"Galeri Silinebilir!");DEFINE("_RSGALLERY_ALERT_CATDELOK",			"Galeri Silindi!");//function doFrontUploadDEFINE("_RSGALLERY_MAX_USERIMAGES_ALERT",   "Maksimum resim yÃ¼kleme sayÄ±sÄ± doldu. Ä°lk olarak bazÄ± resimleri silin.");DEFINE("_RSGALLERY_BATCH_ERROR_SIZE",		"Zipli Dosya yÃ¼kle limit(defined in php.ini) is ");DEFINE("_RSGALLERY_ALERT_UPLOADOK",			"Resim baÅŸarÄ±yla yÃ¼klendi!");DEFINE("_RSGALLERY_ALERT_NOWRITE",			"YÃ¼kleme baÅŸarÄ±sÄ±z.\\nYÃ¼kleme ekranÄ±na geri dÃ¶n");DEFINE("_RSGALLERY_ALERT_WRONGFORMAT",		"YanlÄ±ÅŸ resim formatÄ±.\\nWe will redirect you to the upload screen");//admin.rsgallery2.html.phpDEFINE("_RSGALLERY_TAB_GALLERIES",			"Galeriler");DEFINE("_RSGALLERY_MOST_RECENT_GAL",		"Son GÃ¶nderilen Kategoriler");DEFINE("_RSGALLERY_GALLERY",				"Galeri");DEFINE("_RSGALLERY_USER",					"Ãœye");DEFINE("_RSGALLERY_ID",						"ID");DEFINE("_RSGALLERY_TAB_IMAGES",				"Resim");DEFINE("_RSGALLERY_MOST_RECENT_IMG", 		"Son GÃ¶nderilen Resimler");DEFINE("_RSGALLERY_DATE",					"Tarih");DEFINE("_RSGALLERY_CREDITS",				"OluÅŸturulmuÅŸ");DEFINE("_RSGALLERY_INSTALLED_VERSION",		"YÃ¼kleme TÃ¼rÃ¼");DEFINE("_RSGALLERY_LICENSE",				"Lisan");//CpanelDEFINE("_RSGALLERY_C_CONFIG",				"Genel Ayarlar");DEFINE("_RSGALLERY_C_UPLOAD",				"YÃ¼kleme");DEFINE("_RSGALLERY_C_UPLOAD_ZIP",			"Toplu YÃ¼kleme");DEFINE("_RSGALLERY_C_IMAGES",				"Resim YÃ¶netimi");DEFINE("_RSGALLERY_C_CATEGORIES",			"Galeri YÃ¶netimi");DEFINE("_RSGALLERY_C_DATABASE",				"VeritabanÄ±nÄ± birleÅŸtir");DEFINE("_RSGALLERY_C_MIGRATION",			"Migration options");DEFINE("_RSGALLERY_C_CSS_EDIT",				"CSS DÃ¼zenle");DEFINE("_RSGALLERY_C_DEBUG_ON",				"Advanced Debug Options.  Debug mode is set in the <a href='index2.php?option=com_rsgallery2&task=showConfig'>configuration</a>.");DEFINE("_RSGALLERY_C_PURGE",				"Purge/Delete everything");DEFINE("_RSGALLERY_C_REALLY_UNINSTALL",		"REALLY Uninstall - Deletes all images, directories, drops all tables. Only on Linux with default directories.");DEFINE("_RSGALLERY_C_VIEW_CONFIG",			"Config - View");DEFINE("_RSGALLERY_C_EDIT_CONFIG",			"Config - Raw DÃ¼zenle");//function showInstallFormDEFINE("_RSGALLERY_INST_UPL_PCK_FILE",		"Paket dosya yÃ¼kle");DEFINE("_RSGALLERY_INST_PCK_FILE",		"Paket dosyae:");//function showInstallMessageDEFINE("_RSGALLERY_INST_MES_CONTINUE",	"Devam et ...");//function requestCatCreationDEFINE("_RSGALLERY_C_CAT_FIRST",			"Kategori OluÅŸturuldu!");//function batch_uploadDEFINE("_RSGALLERY_BATCH_NO_ZIP",			"ZIP-yÃ¼kleme seÃ§ildi fakat dosya seÃ§ilmedi");DEFINE("_RSGALLERY_BACTCH_NOT_VALID_ZIP",		" ,geÃ§erli bir arÅŸiv formatÄ± deÄŸil. Sadece ZIP dosyalara izin verilmiÅŸ!");DEFINE("_RSGALLERY_BATCH_GAL_FIRST",		"Bir Kategori");DEFINE("_RSGALLERY_BATCH_NO_FTP",			"FTP yÃ¼kleme seÃ§ildi fakat FTP yolu saÄŸlanmadÄ±");DEFINE("_RSGALLERY_BATCH_STEP1",			"AdÄ±m 1");DEFINE("_RSGALLERY_BATCH_METHOD",			"YÃ¼kleme Metodu");DEFINE("_RSGALLERY_BATCH_METHOD_TIP",		"Choose whether you want to upload a single file, a ZIP-file or upload a complete directory");DEFINE("_RSGALLERY_BATCH_ZIPFILE",			"ZIP-Dosya");DEFINE("_RSGALLERY_BATCH_UPLOAD_LIMIT",		"YÃ¼kleme Limiti ");DEFINE("_RSGALLERY_BATCH_IN_PHPINI",		" Megabytes (set in php.ini)");DEFINE("_RSGALLERY_BATCH_FTP_PATH",			"FTP-yolu");DEFINE("_RSGALLERY_BATCH_DONT_FORGET_SLASH","(Don't forget starting and trailing slash)");DEFINE("_RSGALLERY_BATCH_CATEGORY",			"Galeri Belirtiniz");DEFINE("_RSGALLERY_BATCH_YES_IMAGES_IN",	"Evet BÃ¼tÃ¼n Resimler ");DEFINE("_RSGALLERY_BATCH_NO_SPECIFY",		"No, specify gallery per image in step 2");DEFINE("_RSGALLERY_BATCH_NEXT",				"Ä°leri -->");DEFINE("_RSGALLERY_BATCH_DELETE",	"Sil");DEFINE("_RSGALLERY_BATCH_TITLE",		"BaÅŸlÄ±k");DEFINE("_RSGALLERY_BATCH_GAL",		"Galeri");DEFINE("_RSGALLERY_BATCH_UPLOAD",	"YÃ¼kle");DEFINE("_RSGALLERY_BATCH_FTP_PATH_OVERL",	"Please make sure the FTP path is within the webroot. It cannot be on another server! Also, end with a trailing slash.");//function editImageDEFINE("_RSGALLERY_PROP_TITLE",				"Resim Ã¶zelliklerini dÃ¼zenle");DEFINE("_RSGALLERY_TITLE",					"BaÅŸlÄ±k");DEFINE("_RSGALLERY_CONF_OPTION_TABLE",		"Tablo");DEFINE("_RSGALLERY_CONF_OPTION_FLOAT",		"SÃ¼rÃ¼kle");DEFINE("_RSGALLERY_CONF_OPTION_MAGIC",		"Magic(not supported yet!)");DEFINE("_RSGALLERY_CONF_OPTION_L2R",		"Soldan SaÄŸa");DEFINE("_RSGALLERY_CONF_OPTION_R2L",		"SaÄŸdan Sola");DEFINE("_RSGALLERY_CONF_OPTION_PROP",		"OrtantÄ±lÄ±");DEFINE("_RSGALLERY_CONF_OPTION_SQUARE",		"Kare");DEFINE("_RSGALLERY_CONF_OPTION_DEFAULT_SIZE",		"Orjinal Boyut");DEFINE("_RSGALLERY_CONF_OPTION_REZ_LARGE",		"OlaÄŸÄ±ndan BÃ¼yÃ¼k Resim");DEFINE("_RSGALLERY_CONF_OPTION_REZ_SMALL",		"Resim Ã‡ok KÃ¼Ã§Ã¼k");DEFINE("_RSGALLERY_CONF_OPTION_REZ_2FIT",		"Yeniden BoyutlandÄ±rÄ±n");DEFINE("_RSGALLERY_CONF_OPTION_TL",		"Sol Ãœst");DEFINE("_RSGALLERY_CONF_OPTION_TC",		"Orta Ãœst");DEFINE("_RSGALLERY_CONF_OPTION_TR",		"SaÄŸ Ãœst");DEFINE("_RSGALLERY_CONF_OPTION_L",		"Sol");DEFINE("_RSGALLERY_CONF_OPTION_C",		"Orta");DEFINE("_RSGALLERY_CONF_OPTION_R",		"SaÄŸ");DEFINE("_RSGALLERY_CONF_OPTION_BL",		"Sol Alt");DEFINE("_RSGALLERY_CONF_OPTION_BC",		"Orta Alt");DEFINE("_RSGALLERY_CONF_OPTION_BR",		"SaÄŸ Alt");DEFINE("_RSGALLERY_CONF_POPUP_STYLE",		"Pop-Up Stil");DEFINE("_RSGALLERY_CONF_POPUP_NO",		"Pop-up Yok");DEFINE("_RSGALLERY_CONF_POPUP_NORMAL",		"Normal Pop-Up");DEFINE("_RSGALLERY_CONF_POPUP_FANCY",		"Pop-up Hata (Errors in IE6!)");//function showconfigDEFINE("_RSGALLERY_FREETYPE_INSTALLED",		"(Freetype library installed, watermark is possible)");DEFINE("_RSGALLERY_FREETYPE_NOTINSTALLED",	"(Freetype library NOT installed! Watermark does not work)");DEFINE("_RSGALLERY_CONF_GENERALTAB",		"Genel");DEFINE("_RSGALLERY_CONF_IMAGESTAB",			"Resim");DEFINE("_RSGALLERY_CONF_DISPLAY",			"GÃ¶sterim");DEFINE("_RSGALLERY_CONF_USERS",				"Yetkiler");DEFINE("_RSGALLERY_CONF_LIMIT_NEV",		"Asla");DEFINE("_RSGALLERY_CONF_LIMIT_LIMIT",	"If more galleries than limit");DEFINE("_RSGALLERY_CONF_LIMIT_ALW",		"Hepsi");//function showUploadStep1DEFINE("_RSGALLERY_PICK",					"Toplam Galeri");//function showUploadStep2DEFINE("_RSGALLERY_BATCH_STEP2",			"AdÄ±m 2");DEFINE("_RSGALLERY_UPLOAD_NUMBER",			"YÃ¼kleme Adedi");//function showUploadStep3DEFINE("_RSGALLERY_BATCH_STEP3",			"AdÄ±m 3");DEFINE("_RSGALLERY_UPLOAD_FORM_IMAGE",		"Resim");DEFINE("_RSGALLERY_CATNAME",				"Galeri AdÄ±");DEFINE("_RSGALLERY_UPLOAD_FORM_FILE",		"Dosya");//function viewImagesDEFINE("_RSGALLERY_NO_PREVIEW ",		"No preview available");DEFINE("_RSGALLERY_DELETE",					"Sil");DEFINE("_RSGALLERY_MOVETO",					"TaÅŸÄ±");DEFINE("_RSGALLERY_COPYIMAGE",				"Kopyala");DEFINE("_RSGALLERY_NUMDISPLAY",				"GÃ¶sterim #");DEFINE("_RSGALLERY_SEARCH",					"Arama");DEFINE("_RSGALLERY_IMAGENAME",				"AdÄ±");DEFINE("_RSGALLERY_IMAGEFILE",				"Dosya AdÄ±");DEFINE("_RSGALLERY_IMAGECAT",				"Galeri");DEFINE("_RSGALLERY_IMAGEHITS",				"Hit");DEFINE("_RSGALLERY_IMAGEDATE",				"YÃ¼kleme Tarihi");DEFINE("_RSGALLERY_REORDER",				"Yeniden DÃ¼zenle");DEFINE("_RSGALLERY_SEL_TO_DEL",		"Silmek iÃ§in lÃ¼tfen listeden bir seÃ§im yapÄ±n");DEFINE("_RSGALLERY_SURE_DEL",		"SeÃ§ili Ã¶ÄŸeleri silmek istediÄŸinizden emin misiniz? ");DEFINE("_RSGALLERY_SEL_TO_MOVE",		"TaÅŸÄ±mak iÃ§in lÃ¼tfen listeden bir seÃ§im yapÄ±nÄ±z");DEFINE("_RSGALLERY_SEL_GAL_TO_MOVE",	"LÃ¼tfen resimleri taÅŸÄ±mak iÃ§in listeden bir galeri seÃ§in");DEFINE("_RSGALLERY_SURE_MOVE",		"SeÃ§ili Ã¶ÄŸeleri taÅŸÄ±mak istediÄŸinizden emin misiniz?");DEFINE("_RSGALLERY_ORDER_UP",		"YukarÄ± TaÅŸÄ±");DEFINE("_RSGALLERY_ORDER_DOWN",		"AÅŸaÄŸÄ± TaÅŸÄ±");//function showTemplatesDEFINE("_RSGALLERY_TEMP_MANG",				"Tema YÃ¶netim");DEFINE("_RSGALLERY_RSG_NAME",				"RSGallery2");DEFINE("_RSGALLERY_TEMP_PREV",				"Ã–nceki Tema");//function consolidateDbGoDEFINE("_RSGALLERY_CONSDB_IN_DB",			"In<br>database");DEFINE("_RSGALLERY_CONSDB_DISP",			"Display<br>folder");DEFINE("_RSGALLERY_CONSDB_ORIG",			"Original<br>folder");DEFINE("_RSGALLERY_CONSDB_THUMB",			"Thumb<br>folder");DEFINE("_RSGALLERY_CONSDB_ACT",				"Action");DEFINE("_RSGALLERY_CONSDB_DELETE_DB",		"[&nbsp;Delete from database&nbsp;]");DEFINE("_RSGALLERY_CONSDB_CREATE_IMG",		"[&nbsp;Create missing images&nbsp;]");DEFINE("_RSGALLERY_CONSDB_CREATE_DB",		"[&nbsp;Create Database entry&nbsp;]");DEFINE("_RSGALLERY_CONSDB_DELETE_IMG",		"[&nbsp;Delete images&nbsp;]");DEFINE("_RSGALLERY_CONSDB_NO_INCOS",		"No inconsistencies in database");DEFINE("_RSGALLERY_CONSDB_NOTICE",	"&nbsp;<span style='text-size: 14px;font-weight:bold;'>NOTICE</span>:<br />The Consolidate Database feature is mostly operational. The feature 'Create Database Entry' is also added.<br />Notice however that you cannot add Multiple entries to the database. For now, you'll have to add them one by one!");DEFINE("_RSGALLERY_NOT_WORKING",		"Not working yet");DEFINE("_RSGALLERY_DEL_FROM_SYSTEM",		"Delete from filesystem");DEFINE("_RSGALLERY_CREATE_MISSING_IMG",		"Create missing images");DEFINE("_RSGALLERY_CREATE_DB_ENTRIES",		"Create database entries");DEFINE("_RSGALLERY_CONSDB_IMG_IN_FLDR",		"Image in folder");DEFINE("_RSGALLERY_CONSDB_IMG__NOT_IN_FLDR",		"Image NOT in folder");DEFINE("_RSGALLERY_ ",		"");//admin.rsgallery2.phpDEFINE("_RSGALLERY_HEAD_CONFIG",		"Configuration");DEFINE("_RSGALLERY_HEAD_CPANEL",		"YÃ¶netim Paneli");DEFINE("_RSGALLERY_HEAD_EDIT",		"DÃ¼zenle");DEFINE("_RSGALLERY_HEAD_UPLOAD",		"YÃ¼kleme");DEFINE("_RSGALLERY_HEAD_MIGRATE",		"Install and Migrate");DEFINE("_RSGALLERY_HEAD_UPLOAD_ZIP",		"Toplu YÃ¼kle-Zip");DEFINE("_RSGALLERY_HEAD_CONSDB",		"Consolidate database");DEFINE("_RSGALLERY_HEAD_LOG",		"Changelog");DEFINE("_RSGALLERY_HEAD_CONF_VARIA",		"Configuration Variables");DEFINE("_RSGALLERY_HEAD_CONF_RAW_EDIT",		"Configuration Raw Edit");DEFINE("_RSGALLERY_HEAD_MISS_IMG_CREATE",	"Missing images created");//function config_rawEdit_saveDEFINE("_RSGALLERY_CONF_SAVED",				"Ayarlar KayÄ±t Edildi");DEFINE("_RSGALLERY_CONF_SAVE_ERROR",		"Hata : Ayarlar KayÄ±t Edilmedi");DEFINE("_RSGALLERY_CONF_CREATE_DIR",		"Creating Image directories not Implemented yet.");//function RSInstallDEFINE("_RSGALLERY_MIGR_OK",				"migration successful");//function purgeEverythingDEFINE("_RSGALLERY_PURGE_IMG",				"purged image entries from database.");DEFINE("_RSGALLERY_PURGE_GAL",				"purged galleries from database.");DEFINE("_RSGALLERY_PURGE_CONFIG",			"purged config from database.");DEFINE("_RSGALLERY_PURGE_COMMENTS",			"purged comments from database.");DEFINE("_RSGALLERY_PURGE_THUMB",		"removing thumb images.");DEFINE("_RSGALLERY_PURGE_DISPLAY",	"removing display images.");DEFINE("_RSGALLERY_PURGE_ORIGINAL",	"removing original images.");DEFINE("_RSGALLERY_PURGE_PURGED",	"purged.");//function reallyUninstallDEFINE("_RSGALLERY_REAL_UNINST_DIR",		"Used rm -r to attempt to remove $mosConfig_absolute_path/images/rsgallery");DEFINE("_RSGALLERY_REAL_UNINST_DROP_FILES",	"DROPed #__rsgallery2_files");DEFINE("_RSGALLERY_REAL_UNINST_DROP_GAL",	"DROPed #__rsgallery2_galleries");DEFINE("_RSGALLERY_REAL_UNINST_DROP_CONF",	"DROPed #__rsgallery2_config");DEFINE("_RSGALLERY_REAL_UNINST_DROP_COM",	"DROPed #__rsgallery2_comments");DEFINE("_RSGALLERY_REAL_UNINST_DONE",		"Done.  Manually remove anything above if there is an error.  You should uninstall RSGallery2 right NOW or you will recieve errors.");//function deleteImageDEFINE("_RSGALLERY_ALERT_IMGDELETEOK",		"Image(s) deleted succesfully!");//function c_deleteDEFINE("_RSGALLERY_ALERT_IMGDELETENOTOK",	"Image(s) were not deleted!");//function copy_imageDEFINE("_RSGALLERY_ALERT_COPYOK",			"Item(s) copied successfully!");DEFINE("_RSGALLEY_ALERT_REST_COPYDOK",		"Rest of the items copied successfully!");//function c_createDEFINE("_RSGALLERY_CC_NO_FILE_INFO",		"No fileinformation found. This should never happen!");//function db_createDEFINE("_RSGALLERY_DB_CREATE_NO_GAL",		"No gallery chosen to place image in!");DEFINE("_RSGALLERY_DB_CREATE_IMG_SUCCES ",		"Images succesfully added to the database!");DEFINE("_RSGALLERY_DB_CREATE_IMG_FAIL",		"Images could NOT be added to the database!");//function save_batchuploadDEFINE("_RSGALLERY_ALERT_NOCATSELECTED",	"Please select gallery for ALL images!\\n(Also for images that will be deleted.\\nnThis will be corrected in future version!)");DEFINE("_RSGALLERY_ZIP_TO_BIG",				"ZIP-file is too big!");//function myPreExtractCallBackDEFINE("_RSGALLERY_NOT_ALLOWED_FILETYPE",	"is not an allowed filetype, it will be deleted!");DEFINE("_RSGALLERY_BATCH_ERROR_FTP1",		"The directory you have chosen, does not exist.\\n You will be taken back to the upload screen.");//function showUploadDEFINE("_RSGALLEY_ALERT_REST_UPLOADOK",		"the rest of your files were uploaded fine");//function saveImageDEFINE("_RSGALLERY_ALERT_IMAGEDETAILSOK",	"Details updated succesfully!");DEFINE("_RSGALLERY_ALERT_IMAGEDETAILSNOTOK","Details not updated!");//function showConfigDEFINE("_RSGALLERY_CONF_NOGD2",				"GD2 not detected");DEFINE("_RSAGALLERY_CONF_NOIMGMAGICK",		"ImageMagick not detected");DEFINE("_RSAGALLERY_CONF_NONETPBM",			"netPBM not detected");//function viewImagesDEFINE("_RSGALLERY_VIEW_GAL",				"Galeri GÃ¶ster");DEFINE("_RSGALLERY_ALL_GAL",				"- BÃ¼tÃ¼n Galeriler");DEFINE("_RSGALLERY_SELECT_GAL",				"Galeri SeÃ§iniz");//function consolidateDbInformDEFINE("_RSGALLERY_CONSOLIDATE_DB","The 'Consolidate Database' function performs a check on the RSGallery database tables and the physical image"." files in the gallery directory, and generates a report based on discrepancies found.  The user will then have"." the option of adding or deleting database entries or physical image files to maintain consistency in the"." galleries.<br/><br/>This function should also be run if any additions or deletions are done to any image files"." contained within the gallery directory.  EG. A user can FTP additional image files into the gallery subdirectory"." and then call this function to update the database.<br/><br/>Please chose 'Proceed' or 'Cancel' below.  No"." changes will occur until the user confirms them.<br/>");DEFINE("_RSGALLERY_PROCEED",				"Proje");//function editTemplateCSSDEFINE("_RSGALLERY_EDITCSS_FAIL_NOOPEN",	"Operation Failed: Could not open");DEFINE("_RSGALLERY_EDITCSS_NOT_WRITABLE",	"Operation failed: The file is not writable.");DEFINE("_RSGALLERY_EDITCSS_FAIL_NOTWRITING","Operation failed: Failed to open file for writing.");//function editCSSSourceDEFINE("_RSGALLERY_EDITCSS_TITLE",			"RSgallery2 CSS Editor");DEFINE("_RSGALLERY_ISWRITABLE",				"RSgallery2.css is :");DEFINE("_RSGALLERY_ISWRITABLE_WRITABLE",	"YazÄ±labilir");DEFINE("_RSGALLERY_ISWRITABLE_UNWRITABLE",	"YazÄ±lmaz");DEFINE("_RSGALLERY_MAKE_WRITABLE",			"Make unwriteable after saving");DEFINE("_RSGALLERY_OVERWRITE_WRITABLE",		"Override write protection while saving");//function uploadFileDEFINE("_RSGALLERY_ERMSG_FAILD_CHMOD",	"Failed to change the permissions of the uploaded file.");DEFINE("_RSGALLERY_ERMSG_FAILD_MOVE_MEDIA",	"Failed to move uploaded file to <code>/media</code> directory.");DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_WRITE",	"Upload failed as <code>/media</code> directory is not writable.");DEFINE("_RSGALLERY_ERMSG_MEDIA_NOT_EXIST",	"Upload failed as <code>/media</code> directory does not exist.");//config.rsgallery2.php//function toStringDEFINE("_RSGALLERY_CONF_ERROR_UPLOAD",		" - Hata Resim YÃ¼klenmedi : ");//function showCategoriesDEFINE("_RSGALLERY_SELECT_GAL_DROP_BOX",		"- Galeri SeÃ§iniz -");//function galleriesSelectListDEFINE("_RSGALLERY_SELECT_GAL_TOP",		"Top");//function showRatingDEFINE("_RSGALLERY_RATE_NONE",		"No rating");//function newImagesDEFINE("_RSGALLERY_NEW",				"Yeni!");//function latestCatsDEFINE("_RSGALLERY_NO_NEW_ENT",		"No new entries");//function writeWarningBoxDEFINE("_RSGALLERY_NO_IMGLIBRARY",			"There was no available image libray detected! Please contact your hosting provider to install GD2 or check the forums to install either ImageMagick or NETPBM!");DEFINE("_RSGALLERY_NOT_WRITABLE",			" is NOT writable!");DEFINE("_RSGALLERY_FOLDER_NOTEXIST",		" does NOT exist! Please create this folder and make sure you CHMOD the folder to 0755!");DEFINE("_RSGALLERY_ERROR_SETTINGS",			"The following settings prevent RSGallery2 from working without errors:");DEFINE("_RSGALLERY_REFRESH",				"Refresh");//function writeDownloadLinkDEFINE("_RSGALLERY_DOWNLOAD",				"Download");//function writeGalleryStatusDEFINE("_RSGALLERY_STATUS_ARE_OWNER",	"Siz bu galerinin sahibisiniz");DEFINE("_RSGALLERY_STATUS_CAN_UPLOAD",	"Bu galeriye yÃ¼kleme yapabilirsiniz");DEFINE("_RSGALLERY_STATUS_NOT_PUBL",		"Bu galeri yayÄ±nlanMAdÄ±");//install.rsgallery2.php//function com_installDEFINE("_RSGALLERY_MIGRATING_FROM",			"Migrating from RSGallery2 ");DEFINE("_RSGALLERY_INSTALL_SUCCESS",		"Success.  Now using RSGallery2 ");DEFINE("_RSGALLERY_INSTALL_FAIL",			"Failure: ");//toolbar.rsgallery2.html.phpDEFINE("_RSGALLERY_TOOL_CLOSE",				"Ã‡Ä±kÄ±ÅŸ");DEFINE("_RSGALLERY_TOOL_PANEL",				"YÃ¶netim Paneli");DEFINE("_RSGALLERY_TOOL_GAL",				"Galeri");DEFINE("_RSGALLERY_TOOL_IMG",				"Resim");DEFINE("_RSGALLERY_TOOL_UP",				"YÃ¼kleme");DEFINE("_RSGALLERY_TOOL_NEXT",				"Ä°leri");DEFINE("_RSGALLERY_TOOL_DELETE",			"Sil");DEFINE("_RSGALLERY_TOOL_CONFIRM_DEL",		"Confirm removal");DEFINE("_RSGALLERY_TOOL_RES_HITS",	"Reset hits");//config.htmlDEFINE("_RSGALLERY_C_TMPL_VERSION",			"Versiyon:");DEFINE("_RSGALLERY_C_TMPL_INTRO_TEXT",		"Introduction Text:");DEFINE("_RSGALLERY_C_TMPL_DEBUG",			"Debug:");DEFINE("_RSGALLERY_C_TMPL_IMG_MANIP",		"Image Manipulation");DEFINE("_RSGALLERY_C_TMPL_DISP_WIDTH",		"Display Picture Width:");DEFINE("_RSGALLERY_C_TMPL_THUMB_WIDTH",		"Thumbnail Width:");DEFINE("_RSGALLERY_C_TMPL_THUMBNAIL_STYLE",		"Thumbnail Style:");DEFINE("_RSGALLERY_C_TMPL_JPEG_QUALITY",	"JPEG Quality Percentage");DEFINE("_RSGALLERY_C_TMPL_GRAPH_LIB",		"Graphics Library");DEFINE("_RSGALLERY_C_TMPL_NOTE_GLIB_PATH",	"Note:</span> Leave the following fields empty unless you have problems.");DEFINE("_RSGALLERY_C_TMPL_IMGMAGICK_PATH",	"ImageMagick Yolu:");DEFINE("_RSGALLERY_C_TMPL_NETPBM_PATH",		"Netpbm Path:");DEFINE("_RSGALLERY_C_TMPL_FTP_PATH",		"FTP Path:");DEFINE("_RSGALLERY_C_TMPL_IMG_STORAGE",		"Image Storage");DEFINE("_RSGALLERY_C_TMPL_KEEP_ORIG",		"Keep original image:");DEFINE("_RSGALLERY_C_TMPL_ORIG_PATH",		"Original Image Path:");DEFINE("_RSGALLERY_C_TMPL_DISP_PATH",		"Display Image Path:");DEFINE("_RSGALLERY_C_TMPL_THUMB_PATH",		"Thumb Path:");DEFINE("_RSGALLERY_C_TMPL_CREATE_DIR",		"Create directories if they don't exist:");DEFINE("_RSGALLERY_C_TMPL_FRONT_PAGE",		"Ana Sayfa");DEFINE("_RSGALLERY_C_TMPL_DISP_RAND",		"KarÄ±ÅŸÄ±k GÃ¶ster");DEFINE("_RSGALLERY_C_TMPL_DISP_LATEST",		"SonlarÄ± GÃ¶ster");DEFINE("_RSGALLERY_C_TMPL_DISP_BRAND",		"Display Branding");DEFINE("_RSGALLERY_C_TMPL_DISP_DOWN",		"YÃ¼klemeyi GÃ¶ster");DEFINE("_RSGALLERY_C_TMPL_WATERMARK",		"Image Watermark.  Buggy, do not use on productions sites.");DEFINE("_RSGALLERY_C_TMPL_DISP_WTRMRK",		"Display Watermark");DEFINE("_RSGALLERY_C_TMPL_WTRMRK_TEXT",		"Watermark text");DEFINE("_RSGALLERY_C_TMPL_WTRMRK_FONTSIZE",	"YazÄ± Fontu");DEFINE("_RSGALLERY_C_TMPL_WTRMRK_ANGLE",	"Watermark text angle");DEFINE("_RSGALLERY_C_TMPL_WTRMRK_POS",		"Watermark position");DEFINE("_RSGALLERY_C_TMPL_GAL_VIEW",		"Galeri GÃ¶ster");DEFINE("_RSGALLERY_C_TMPL_THUMB_STYLE",		"Thumbnail Style:<br>Use float for variable width templates.");DEFINE("_RSGALLERY_C_TMPL_FLOATDIRECTION",	"Direction (only works for float):");DEFINE("_RSGALLERY_C_TMPL_COLS_PERPAGE",	"Number of Thumbnail Columns (only for table):");DEFINE("_RSGALLERY_C_TMPL_THUMBS_PERPAGE",	"Thumbnails per Page:");DEFINE("_RSGALLERY_C_TMPL_DISP_SLIDE",		"Slayt Show GÃ¶ster");/*NEW*/DEFINE("_RSGALLERY_C_TMPL_DISP_OWNER",		"Display Owner Information");/*NEW*/DEFINE("_RSGALLERY_C_TMPL_DISP_ITEMS",		"Display number of items in gallery");/*NEW*/DEFINE("_RSGALLERY_C_TMPL_DISP_DATE",		"Display creation date");DEFINE("_RSGALLERY_C_TMPL_IMG_DISP",		"Resimleri GÃ¶ster");DEFINE("_RSGALLERY_C_TMPL_RESIZE_OPT",		"Resize Option");DEFINE("_RSGALLERY_C_TMPL_DISP_DESCR",		"Display Description");DEFINE("_RSGALLERY_C_TMPL_DISP_HITS",		"Hitler GÃ¶ster");DEFINE("_RSGALLERY_C_TMPL_DISP_VOTE",		"OylamayÄ± GÃ¶ster");DEFINE("_RSGALLERY_C_TMPL_DISP_COMM",		"YorumlarÄ± GÃ¶ster");DEFINE("_RSGALLERY_C_TMPL_DISP_EXIF",		"EXIF gÃ¶ster");DEFINE("_RSGALLERY_C_TMPL_ENABLE_U_UP",		"Enable User Uploads?");DEFINE("_RSGALLERY_C_TMPL_ONLY_REGISTERED",	"Only Registered Users");DEFINE("_RSGALLERY_C_TMPL_U_CREATE_GAL",	"Can user create galleries?");DEFINE("_RSGALLERY_C_TMPL_U_MAX_GAL",		"Maximum number of galleries a user can have:");DEFINE("_RSGALLERY_C_TMPL_U_MAX_IMG",		"Max numbers of pictures a user can have:");DEFINE("_RSGALLERY_C_TMPL_SHOW_IMGNAME",	"Show image name below thumbnail:");DEFINE("_RSGALLERY_C_TMPL_ACL_SETINGS",		"Access Control Settings");DEFINE("_RSGALLERY_C_TMPL_ACL_ENABLE",		"Enable Access Control");DEFINE("_RSGALLERY_C_TMPL_SHOW_MYGAL",		"benim Galerimi GÃ¶ster");DEFINE("_RSGALLERY_C_TMPL_USER_SET",		"User specific settings");DEFINE("_RSGALLERY_C_DISP_STATUS_ICON",		"Display Status Icons");DEFINE("_RSGALLERY_C_GEN_SET",			"General settings");DEFINE("_RSGALLERY_C_HTML_ROOT",			"HTML-root is");DEFINE("_RSGALLERY_C_DISP_LIMIB",		"Display gallery limitbox");DEFINE("_RSGALLERY_C_NUMB_GAL_FRONT",	"Default number of galleries on frontpage");DEFINE("_RSGALLERY_C_FONT",				"Font");DEFINE("_RSGALLERY_C_WATER_TRANS",		"Watermark transparency");DEFINE("_RSGALLERY_C_ALLOWED_FILE",		"Allowed filetypes");//CommentingDEFINE("_RSGALLERY_COMMENTS_LABEL",			"Comments");DEFINE("_RSGALLERY_COMMENTS_ENABLED",		"Commenting enabled");DEFINE("_RSGALLERY_COMMENTS_ALLOW_PUBLIC",	"Allow public users to comment");DEFINE("_RSGALLERY_COMMENTS_ONLY_ONCE",		"User can only comment once");//VotingDEFINE("_RSGALLERY_VOTE_LABEL",				"Voting");DEFINE("_RSGALLERY_VOTE_ENABLED",			"Voting enabled");DEFINE("_RSGALLERY_VOTE_REGISTERED_ONLY",	"Registered users only");DEFINE("_RSGALLERY_VOTE_ONLY_ONCE",			"User can only vote once(cookie based)");DEFINE("_RSGALLERY_VOTE_COOKIE_PREFIX",		"Cookie prefix");//galleries.class.php//function checkDEFINE("_RSGALLERY_GAL_EXIST_ERROR",		"There is a gallery already with that name, please try again.");//galleries.html.php//function showDEFINE("_RSGALLERY_GAL_MANAGE",			"Galeri YÃ¶netimi");DEFINE("_RSGALLERY_GAL_MAX_LEVELS",		"Max AdÄ±m");DEFINE("_RSGALLERY_GAL_FILTER",			"Filter");DEFINE("_RSGALLERY_GAL_NAME",			"AdÄ±");DEFINE("_RSGALLERY_GAL_REORDER",			"Reorder");DEFINE("_RSGALLERY_GAL_COUNT",			"# Items");DEFINE("_RSGALLERY_GAL_HITS",			"Hit");//function editDEFINE("_RSGALLERY_GAL_GAL",				"Galeri");DEFINE("_RSGALLERY_GAL_DETAILS",			"Detay");DEFINE("_RSGALLERY_GAL_DESCR",			"AÃ§Ä±klama");DEFINE("_RSGALLERY_GAL_PARENT",			"Parent Item");DEFINE("_RSGALLERY_GAL_THUMB",			"Gallery thumbnail");DEFINE("_RSGALLERY_GAL_ORDERING",		"Ordering");DEFINE("_RSGALLERY_GAL_PUBLISHED",		"YayÄ±nla");DEFINE("_RSGALLERY_GAL_PARAMETERS",		"Parameters");DEFINE("_RSGALLERY_GAL_OWNER",	"Sahip");DEFINE("_RSGALLERY_GAL_PERMS",	"Permissions");DEFINE("_RSGALLERY_GAL_DEF_PERM_CREATE",	"Default permissions are created. <br />After creating the gallery, you can come back to edit the gallery permissions.");DEFINE("_RSGALLERY_GAL_NO_PERM_FOUND",	"No permissions found for this gallery. Click on the <strong>SAVE</strong> button in the toolbar above to create default permissions. After that, come back here and set permissions.");DEFINE("_RSGALLERY_GAL_USERTYPE",		"Usertype");DEFINE("_RSGALLERY_GAL_VIEW_GAL",		"View<br/>Gallery</span>");DEFINE("_RSGALLERY_GAL_UPL_EDIT_IMG",	"Upload/Edit<br/>images</span>");DEFINE("_RSGALLERY_GAL_DEL_IMG",			"Delete Image</span>");DEFINE("_RSGALLERY_GAL_MOD_GAL",			"Modify<br/>Gallery</span>");DEFINE("_RSGALLERY_GAL_DEL_GAL",			"Delete<br/>Gallery</span>");DEFINE("_RSGALLERY_GAL_ACL_PUB",			"Public</span>");DEFINE("_RSGALLERY_GAL_ACL_REG",			"Registered</span>");DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",	"&nbsp;Select/Deselect All");DEFINE("_RSGALLERY_GAL_ORDER",	"Order");//install.class.php//function echo_valuesDEFINE("_RSGALLERY_INSTALL_THUMBDIR",			"Thumbdirectory is:");//function changeMenuIconDEFINE("_RSGALLERY_INSTALL_MENU_ICON_OK",		"Menu Image RSGallery2 succesfully changed");DEFINE("_RSGALLERY_INSTALL_MENU_ICON_ERROR",		"Menu image could not be changed");//function createDirStructureDEFINE("_RSGALLERY_INSTALL_DIR_EXISTS",			" already exists");DEFINE("_RSGALLERY_ISNTALL_IS_CREATED",			" is created");DEFINE("_RSGALLERY_INSTALL_NOT_CREATED",			" could not be created");//function createTableStructureDEFINE("_RSGALLERY_ISNTALL_DB_OK",				"Database tables created succesfully.");//function copyFilesDEFINE("_RSGALLERY_INSTALL_FILE_COPY_FROM",		"File copied from ");DEFINE("_RSGALLERY_INSTALL_FILE_COPY_TO",		" to ");DEFINE("_RSGALLERY_INSTALL_FILE_NOTCOPY_FROM",	"cannot copy file from ");DEFINE("_RSGALLERY_INSTALL_DIR_CREATED",			"Directory created: ");DEFINE("_RSGALLERY_INSTALL_DIR_NOTCREATED",		"cannot create directory ");//function deleteGalleryDirDEFINE("_RSGALLERY_DELGAL_PROCES",				"Processing: ");DEFINE("_RSGALLERY_DELGAL_OK",					"Directory structure deleted!");DEFINE("_RSGALLERY_DELGAL_NOTOK",				"Deleting old directory structure failed.");DEFINE("_RSGALLERY_DELGAL_NO_OLD_DIR",			"No old directory structure found. Let's continue");//function checkDirPermsDEFINE("_RSGALLERY_PERMS_NOT_EXIST",				" Does not exist. Please create manually through FTP and check permissions");DEFINE("_RSGALLERY_PERMS_NOT_SET",				" was found, but correct permissions(777) could not be set.\nPermissions are currently set at ");DEFINE("_RSGALLERY_PERMS_NOT_SET_TRY_FTP",		".<br />Please try to correct these permissions though FTP.");DEFINE("_RSGALLERY_PERMS_OK",					" was found, permissions are OK.");//function installCompleteDEFINE("_RSGALLERY_INSTALL_COMPLETE",			"Installation of RSGallery is completed");DEFINE("_RSGALLERY_INSTALL_STATUS_MSGS",			"If there are any status messages that need attention, please do so now, before going to the Control Panel.");//function deleteTableDEFINE("_RSGALLERY_TABLEDEL_OK",					" is deleted");DEFINE("_RSGALLERY_TABLEDEL_NOTOK",				" could not be deleted.<br />Delete manually.");//function migrateOldFilesDEFINE("_RSGALLERY_MIGRATE_NOT_ALL",			"Not all file information was migrated to RSGallery2 database, due to unknown reasons(");DEFINE("_RSGALLERY_MIGRATE_OUT_OF",			" out of ");DEFINE("_RSGALLERY_MIGRATE_ENTRIES_OK",		" entries processed)");DEFINE("_RSGALLERY_MIGRATE_ALL",				"All file information migrated to RSGallery2 database(");//function migrateOldCatsDEFINE("_RSGALLERY_MIGRATE_NOT_ALL_GAL",		"Not all gallery information was migrated to RSGallery2 database, due to unknown reasons(");DEFINE("_RSGALLERY_MIGRATE_ALL_GAL",			"All gallery information migrated to RSGallery2 database(");DEFINE("_RSGALLERY_MIGRATE_ALL_FILES",		"Files succesfully copied to new structure");DEFINE("_RSGALLERY_MIGRATE_NOTALL_FILES",		"There were errors copying files to the new structure");DEFINE("_RSGALLERY_MIGRATE_ZOOM_OK",		"migration of Zoom Gallery completed. Goto the Control Panel.");//function upgradeInstallDEFINE("_RSGALLERY_UPGRADE_RSG",		"Upgrade from RSGallery");DEFINE("_RSGALLERY_UPGRADE_REC_FULL",		"Component found, but no version information available.<br />Full install is recommended.");DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF",		"Original files succesfully transfered");DEFINE("_RSGALLERY_UPGRADE_FILES_TRANF_ERROR",		"There were errors transferring original files to the new structure.\nPlease check via FTP");DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF",		"Thumb files succesfully transfered");DEFINE("_RSGALLERY_UPGRADE_THUMB_TRANF_ERROR",		"There were errors transferring thumb files to the new structure.<br />Please check via FTP");DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE",		"Display images created succesfully.");DEFINE("_RSGALLERY_UPGRADE_DISP_CREATE_ERROR",		"Failed to create some or all of the display images.<br />Contact the developers of this component.");DEFINE("_RSGALLERY_UPGRADE_TABLE",		"Table ");DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_OK",		" is succesfully altered");DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_ERROR",		" is NOT succesfully altered");DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_OK",		" is succesfully renamed");DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_ERROR",		"");DEFINE("_RSGALLERY_UPGRADE_DUMMY_ERROR",		"Error creating dummy tables. Uninstall of RSGallery 2.0 beta 5 might not work.");DEFINE("_RSGALLERY_UPGRADE_NOT_POSSIBLE",		"Upgrade not possible.No upgradable RSGallery found\nFull install is recommended.");DEFINE("_RSGALLERY_UPGRADE_SUCCESS",		"Upgrade to RSGallery2 is completed.\nYou can now safely uninstall the old RSGallery");//function showMigrationOptionsDEFINE("_RSGALLERY_MIGRATION",		"Migration");DEFINE("_RSGALLERY_MIGRATION_NO_SYSTEMS",		"No other gallerysystems installed");//function doMigrationDEFINE("_RSGALLERY_MIGRATION_NOT_VALID",		"is not a valid migration type.");//uninstall.rsgallery2.php//function com_uninstallDEFINE("_RSGALLERY_UNINSTALL_OK",		"Uninstalled succesfully");//slideshow.rsgallery2.phpDEFINE("_RSGALLERY_SLIDE_START",		"BaÅŸla");DEFINE("_RSGALLERY_SLIDE_STOP",			"Dur");DEFINE("_RSGALLERY_SLIDE_NEXT",			"Ä°leri");DEFINE("_RSGALLERY_SLIDE_PREV",			"Geri");//images.html.php//function showImagesDEFINE("_RSGALLERY_IMG_IMG_MANAGE",			"Resim YÃ¶netimi");DEFINE("_RSGALLERY_IMG_FILTER",				"Filter:");DEFINE("_RSGALLERY_IMG_CPY_MV_GAL",			"Copy/Move:");DEFINE("_RSGALLERY_IMG_TITLE",				"BaÅŸlÄ±k (Dosya AdÄ±)");DEFINE("_RSGALLERY_IMG_ORDER",				"Order");DEFINE("_RSGALLERY_IMG_DATE_TIME",			"Tarih & Saat");DEFINE("_RSGALLERY_IMG_EDIT_IMG",			"Resim DÃ¼zenle");//function editImageDEFINE("_RSGALLERY_IMG_IMAGE",			"Resim");DEFINE("_RSGALLERY_IMG_DETAILS",			"Detay");DEFINE("_RSGALLERY_IMG_ORDERING",			"Ordering");DEFINE("_RSGALLERY_IMG_IMG_PREV",			"Resim Geri");DEFINE("_RSGALLERY_IMG_PARAMETERS",			"Parameters");DEFINE("_RSGALLERY_IMG_LINKS",			"Links to image");//function uploadImageDEFINE("_RSGALLERY_IMG_SELECT_GAL",			"You must select a gallery.");/*javascript alert*/DEFINE("_RSGALLERY_IMG_NO_FILE_SELECT",		"No file was selected in one or more fields.");/*javascript alert*/DEFINE("_RSGALLERY_IMG_UPLOAD",			"YÃ¼kle");DEFINE("_RSGALLERY_IMG_UPL_DETAILS",			"YÃ¼kleme AÃ§Ä±klamasÄ±");DEFINE("_RSGALLERY_IMG_UPL_GALLERY",			"Galeri YÃ¼kleme");DEFINE("_RSGALLERY_IMG_GEN_DESCR",			"Genel AÃ§Ä±klama");DEFINE("_RSGALLERY_IMG_IMG_FILES",			"Resim DosyasÄ±");DEFINE("_RSGALLERY_IMG_IMAGES",			"Resim");DEFINE("_RSGALLERY_IMG_FILE",			"Dosya");DEFINE("_RSGALLERY_IMG_MORE",			"(Resim AÃ§Ä±klamasÄ±)");//access.class.php//function checkGalleryDEFINE("_RSGALLERY_ACL_NO_PERM_FOUND",			"No permissions were found, so default permissions were created. Please try again.");//tables/display.class.php//function _showGalleryDetailsDEFINE("_RSGALLERY_TMPL_GAL_DETAILS_OWNER",	"Sahip: ");DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_SIZE",	"Boyut: ");DEFINE("_RSGALLERY_TMPL_GAL_DETAILS_DATE",	"Tarih: ");//file.utils.php//function importImageDEFINE("_RSGALLERY_FU_NOT_SUP_TYPE",		" not a supported file type.");//function move_uploadedFile_to_orignalDirDEFINE("_RSGALLERY_FU_UNABLE_COPY",		"could not copy ");DEFINE("_RSGALLERY_FU_IMAGE_TO",		" image to: ");//function preHandlerCheckDEFINE("_RSGALLERY_FU_NOT_WRITABLE",		" exists, but is not Writable!");DEFINE("_RSGALLERY_FU_NOT_EXIST",		" does not exist!");//function cleanMediaDirDEFINE("_RSGALLERY_FU_APPARENTLY",		"Apparently ");DEFINE("_RSGALLERY_FU_DOESNT_EXIST",		"does not exit");//function handleFTPDEFINE("_RSGALLERY_FU_FTP_DIR_NOT_EXIST",		" does not exist or is no directory on your server. Please check the path.");DEFINE("_RSGALLERY_FU_NO_VALID_IMG",		"No valid images found in ");DEFINE("_RSGALLERY_FU_PLEASE_CHECK_PATH",		". Please check the path.");DEFINE("_RSGALLERY_FU_NO_FILES",		"No files found to process!");DEFINE("_RSGALLERY_FU_MAX_FILESIZE",		"The uploaded file exceeds the upload_max_filesize directive ");DEFINE("_RSGALLERY_FU_IN_PINI",		" in php.ini.");DEFINE("_RSGALLERY_FU_MAX_FILESIZE_FORM",		"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.");DEFINE("_RSGALLERY_FU_PARTIAL_UPL",		"The uploaded file was only partially uploaded.");DEFINE("_RSGALLERY_FU_NO_UPL",		"No file was uploaded.");DEFINE("_RSGALLERY_FU_MISS_TEMP_DIR",		"Missing a temporary folder.");DEFINE("_RSGALLERY_FU_FAIL_WRITE_DISK",		"Failed to write file to disk");DEFINE("_RSGALLERY_FU_UPL_STOP_EXT",		"File upload stopped by extension");DEFINE("_RSGALLERY_FU_UNKW_ERROR",		"Unknown File Error");//rsgcomments.class.php//function showButtons/*new*/DEFINE("_RSGALLERY_COMMENTS_COLOR",	"-color-");/*new*/DEFINE("_RSGALLERY_COMMENTS_AQUA",	"aqua");/*new*/DEFINE("_RSGALLERY_COMMENTS_BLACK",	"black");/*new*/DEFINE("_RSGALLERY_COMMENTS_BLUE",	"blue");/*new*/DEFINE("_RSGALLERY_COMMENTS_FUCHSIA",	"fuchsia");/*new*/DEFINE("_RSGALLERY_COMMENTS_GRAY",	"gray");/*new*/DEFINE("_RSGALLERY_COMMENTS_GREEN",	"green");/*new*/DEFINE("_RSGALLERY_COMMENTS_LIME",	"lime");/*new*/DEFINE("_RSGALLERY_COMMENTS_MAROON",	"maroon");/*new*/DEFINE("_RSGALLERY_COMMENTS_NAVY",	"navy");/*new*/DEFINE("_RSGALLERY_COMMENTS_OLIVE",	"olive");/*new*/DEFINE("_RSGALLERY_COMMENTS_PURPLE",	"purple");/*new*/DEFINE("_RSGALLERY_COMMENTS_RED",	"red");/*new*/DEFINE("_RSGALLERY_COMMENTS_SILVER",	"silver");/*new*/DEFINE("_RSGALLERY_COMMENTS_TEAL",	"teal");/*new*/DEFINE("_RSGALLERY_COMMENTS_WHITE",	"white");/*new*/DEFINE("_RSGALLERY_COMMENTS_YELLOW",	"yellow");/*new*/DEFINE("_RSGALLERY_COMMENTS_SIZE",	"-size-");/*new*/DEFINE("_RSGALLERY_COMMENTS_TINY",	"tiny");/*new*/DEFINE("_RSGALLERY_COMMENTS_SMALL",	"small");/*new*/DEFINE("_RSGALLERY_COMMENTS_MEDIUM",	"medium");/*new*/DEFINE("_RSGALLERY_COMMENTS_LARGE",	"large");/*new*/DEFINE("_RSGALLERY_COMMENTS_HUGE",	"huge");//function parseQuoteElement/*new*/DEFINE("_RSGALLERY_COMMENTS_QUOTE_WROTE", "Yaz");//function editComment/*moved*/DEFINE("_RSGALLERY_COMMENT_ADD",		"Yorum ekle");/*moved*/DEFINE("_RSGALLERY_COMMENT_NAME",		"Ä°sim");/*moved*/DEFINE("_RSGALLERY_COMMENTS_TITLE",		"BaÅŸlÄ±k");/*moved*/DEFINE("_RSGALLERY_COMMENT_COMMENT",		"Yorum");//function showComments/*moved*/DEFINE("_RSGALLERY_COMMENT_DELETE",	"Yorumu silmek istediÄŸinizden emin misiniz?");/*moved*/DEFINE("_RSGALLERY_COMMENTS",	"Yorumlar");/*new*/DEFINE("_RSGALLERY_COMMENTS_NUM_COMM_ADD",	"# yorum eklendi");/*new*/DEFINE("_RSGALLERY_DELETE_COMMENT",			"Yorumu sil");/*new*/DEFINE("_RSGALLERY_COMMENTS_SEC_IMG_MISS", "SecurityImages selected in backend, but component not installed! Notify the webmaster");/*new*/DEFINE("_RSGALLERY_COMMENTS_NOCOMM",	"HenÃ¼z yorum yok!");//rsgcomments.php/*new*/DEFINE("_RSGALLERY_COMMENTS_COMMDEL",		"Yorum baÅŸarÄ±yla silindi");//rsgcomments.phpDEFINE("_RSGALLERY_COMMENTS_DISABLED",		"Commenting is disabled");/*double deleted DEFINE("_RSGALLERY_COMMENTS_ONLY_ONCE",		"Bu Ã¶ÄŸeye sadece bir kez yorum yazabilirsiniz!");*/DEFINE("_RSGALLERY_COMMENTS_INCORRECT_CAPTCHA",		"Incorrect CAPTCHA check, comment is NOT saved!");DEFINE("_RSGALLERY_COMMENTS_ADD_SUCCES",		"Yorum baÅŸarÄ±yla eklendi!");DEFINE("_RSGALLERY_COMMENTS_ADD_FAIL",		"yorum eklenemedi!");//rsgvoting.class.phpDEFINE("_RSGALLERY_VOTING_ARE_YOU_SURE",		"Oylamak istediÄŸinizden emin misiniz?");DEFINE("_RSGALLERY_VOTING_RATING",		"Rating");DEFINE("_RSGALLERY_VOTING_VOTE",		"Oy");DEFINE("_RSGALLERY_VOTING_VOTES",		"&nbsp;oylar");DEFINE("_RSGALLERY_VOTING_RATE_1",		"Rate this item 1 out of 5");DEFINE("_RSGALLERY_VOTING_RATE_2",		"Rate this item 2 out of 5");DEFINE("_RSGALLERY_VOTING_RATE_3",		"Rate this item 3 out of 5");DEFINE("_RSGALLERY_VOTING_RATE_4",		"Rate this item 4 out of 5");DEFINE("_RSGALLERY_VOTING_RATE_5",		"Rate this item 5 out of 5");//rsgvoting.phpDEFINE("_RSGALLERY_VOTING_DISABLED",		"Oylamaya kapalÄ±!");DEFINE("_RSGALLERY_VOTING_NOT_AUTH",		"Oy vermek iÃ§in yetkiniz yok!");DEFINE("_RSGALLERY_VOTING_ALREADY_VOTED",		"Bu Ã¶ÄŸeyi oylamÄ±ÅŸsÄ±nÄ±z!");DEFINE("_RSGALLERY_VOTING_NOT_ADDED",		"Oylama veritabanÄ±na eklenemedi!");DEFINE("_RSGALLERY_VOTING_ADDED",		"Oylama veritabanÄ±na eklendi!");//templates.php//function viewTemplates/*new*/DEFINE("_RSGALLERY_TPL_INST",	"Install new RSGTemplate <small><small>[ Site ]</small></small>");// more to do here, but to come//templates.html.php/*new*/DEFINE("_RSGALLERY_TEMPLATES_NAME",	"Name");/*new*/DEFINE("_RSGALLERY_TEMPLATES_ACTIVE",	"Active");/*new*/DEFINE("_RSGALLERY_TEMPLATES_AUTHOR",	"Author");/*new*/DEFINE("_RSGALLERY_TEMPLATES_VERSION",	"Version");/*new*/DEFINE("_RSGALLERY_TEMPLATES_DATE",	"Date");/*new*/DEFINE("_RSGALLERY_TEMPLATES_AUTH_URL",	"Author URL");//stopped at gallery.class.php?>
