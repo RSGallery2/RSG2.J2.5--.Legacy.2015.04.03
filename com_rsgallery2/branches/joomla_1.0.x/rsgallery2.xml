@@ -499,7 +499,9 @@
 	  <filename>includes/version.rsgallery2.php</filename>
 	  <filename>includes/video.utils.php</filename>
   	
-    <filename>language/brazilian_portuguese.php</filename>
+	  <filename>language/arabic.php</filename>
+	  <filename>language/basque.php</filename>
+	  <filename>language/brazilian_portuguese.php</filename>
 	  <filename>language/bulgarian.php</filename>
 	  <filename>language/catalan.php</filename>
 	  <filename>language/croation.php</filename>
@@ -507,32 +509,42 @@
 	  <filename>language/czechiso.php</filename>
 	  <filename>language/czechutf8.php</filename>
 	  <filename>language/danish.php</filename>
-    <filename>language/dutch.php</filename>
-    <filename>language/english.php</filename>
-    <filename>language/french.php</filename>
+	  <filename>language/dutch.php</filename>
+	  <filename>language/english.php</filename>
+	  <filename>language/french.php</filename>
 	  <filename>language/galician.php</filename>
-    <filename>language/german.php</filename>
-    <filename>language/germani.php</filename>
+	  <filename>language/german.php</filename>
+	  <filename>language/germani.php</filename>
 	  <filename>language/greek.php</filename>
 	  <filename>language/hebrew.php</filename>
-    <filename>language/hungarian.php</filename>
-    <filename>language/hungariani.php</filename>
-    <filename>language/hungariani-ISO-8859-2.php</filename>
-    <filename>language/hungarian-ISO-8859-2.php</filename>
+	  <filename>language/hungarian-ISO-8859-2.php</filename>
+	  <filename>language/hungarian.php</filename>
+	  <filename>language/hungariani-ISO-8859-2.php</filename>
+	  <filename>language/hungariani.php</filename>
+	  <filename>language/indonesia.php</filename>
+	  <filename>language/indonesian.php</filename>
 	  <filename>language/italian.php</filename>
 	  <filename>language/latvian.php</filename>
+	  <filename>language/macedonian.php</filename>
 	  <filename>language/norwegian.php</filename>
 	  <filename>language/polish-utf8.php</filename>
-    <filename>language/polish.php</filename>
-    <filename>language/russian.php</filename>
+	  <filename>language/polish.php</filename>
+	  <filename>language/russian.php</filename>
+	  <filename>language/serbian_lat.php</filename>
 	  <filename>language/simplified_chinese.php</filename>
-	  <filename>language/slovak.php</filename>
 	  <filename>language/slovak-utf8.php</filename>
-    <filename>language/spanish.php</filename>
-    <filename>language/spanish_iso-8859-1.php</filename>
-    <filename>language/spanish_iso-8859-2.php</filename>
-    <filename>language/swedish.php</filename>
-    <filename>language/traditional_chinese.php</filename>
+	  <filename>language/slovak.php</filename>
+	  <filename>language/slovak_utf.php</filename>
+	  <filename>language/spanish.php</filename>
+	  <filename>language/spanish_iso-8859-1.php</filename>
+	  <filename>language/spanish_iso-8859-2.php</filename>
+	  <filename>language/swedish.php</filename>
+	  <filename>language/tmp.php</filename>
+	  <filename>language/traditional_chinese.php</filename>
+	  <filename>language/turkish-iso8859-9.php</filename>
+	  <filename>language/turkish-utf8.php</filename>
+	  <filename>language/turkish.php</filename>
+	<filename>language/ukrainian.php</filename>
 	
 	  <filename>options/config.html.php</filename>
 	  <filename>options/config.php</filename>
