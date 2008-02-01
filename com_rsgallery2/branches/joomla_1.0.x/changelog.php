@@ -32,6 +32,9 @@ Legend:
 
 ---------------- Recent ----------------
 
+2008-02-01 Jonah Braun
+ # description at top of gallery is now gallery description and not always component text
+
 2008-01-22 Jonah Braun
  # added Itemid to image links
 

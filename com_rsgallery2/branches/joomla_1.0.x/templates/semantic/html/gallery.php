@@ -13,7 +13,7 @@ $this->showSearchBox();
 
 //Show introduction text
 ?>
-<div class="intro_text"><?php echo $rsgConfig->get('intro_text');?></div>
+<div class="intro_text"><?php echo $this->gallery->description; ?></div>
 <?php
 //Show limitbox
 if( $this->pageNav ):
