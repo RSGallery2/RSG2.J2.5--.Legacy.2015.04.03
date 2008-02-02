@@ -425,7 +425,7 @@ class rsgDisplay extends JObject{
                         foreach($rows as $row)
                             {
                             $l_start = $row->ordering - 1;
-							$url = JRoute::_("index.php?option=com_rsgallery2&page=inline&id=".$row->id);
+							$url = JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=".$row->id);
                             ?>
                             <td align="center">
                             <div class="shadow-box">

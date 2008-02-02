@@ -32,6 +32,9 @@ Legend:
 
 ---------------- Recent ----------------
 
+2008-02-02 Jonah Braun
+ # added missing Itemid to random image links. thanks: mirjam
+
 2008-02-01 Jonah Braun
  # description at top of gallery is now gallery description and not always component text
 
