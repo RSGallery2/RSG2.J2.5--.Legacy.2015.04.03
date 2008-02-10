@@ -47,7 +47,8 @@ switch( $rsgOption ){
     case 'galleries':
         switch( $task ){
             case 'new':
-            case 'edit':
+			case 'add':
+			case 'edit':
             case 'editA':
                 menu_rsg2_galleries::edit( $option );
             break;

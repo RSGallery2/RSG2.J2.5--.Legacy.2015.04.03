@@ -16,7 +16,7 @@ function com_install(){
 	$database =& JFactory::getDBO();
 	
 	require_once( JPATH_SITE . '/administrator/components/com_rsgallery2/includes/install.class.php' );
-	include JPATH_SITE.'/administrator/components/com_rsgallery2/language/' . $lang->get("backwardlang","english") . '.php';
+	include JPATH_SITE.'/administrator/components/com_rsgallery2/language/' . strtolower($lang->get("backwardlang", "english")) . '.php';
 	
 	//Initialize install
 	$rsgInstall = new rsgInstall();

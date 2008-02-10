@@ -14,10 +14,10 @@ require_once( $rsgOptions_path . 'galleries.html.php' );
 require_once( $rsgOptions_path . 'galleries.class.php' );
 
 $cid = JRequest::getVar( 'cid' , array(), 'default', 'array' );
-echo($task);
 switch( $task ){
     case 'new':
-        edit( $option, 0 );
+	case 'add':
+		edit( $option, 0 );
         break;
 
     case 'edit':

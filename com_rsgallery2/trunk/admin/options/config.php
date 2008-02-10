@@ -160,6 +160,7 @@ function showConfig(){
     html_rsg2_config::showconfig( $lists );
 }
 function cancelConfig( $option ) {
-    mosRedirect("index2.php?option=$option");
+	global $mainframe;
+	$mainframe->redirect("index2.php?option=$option");
 }
 ?>
