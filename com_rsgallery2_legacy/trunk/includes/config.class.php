@@ -18,7 +18,7 @@ class rsgConfig {
 
 	//	General
 	var $intro_text 		= 'RSGallery2 alpha release.';
-	var $version    		= 'depreciated';  // this is set and loaded from includes/version.rsgallery2.php
+	var $version    		= 'depreciated';  // this is set and loaded from includes/version.rsgallery2.php and below in the class constructor
 	var $debug      		= false;
 	var $allowedFileTypes 	= "jpg,jpeg,gif,png";
 	var $hideRoot = false; // hide the root gallery and it's listing.  this is to publish multiple independant galleries.
@@ -117,7 +117,7 @@ class rsgConfig {
         // get version
         // global $rsgVersion;
         // $this->version = $rsgVersion->getVersionOnly();
-        $this->version = '1.14.1';
+        $this->version = '1.14.2';
 
         if( $loadFromDB )
             $this->_loadConfig();

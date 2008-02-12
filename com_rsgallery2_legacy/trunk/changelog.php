@@ -31,6 +31,10 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+---------------- 1.14.2 alpha -- svn 644 -- 2008-02-11 -------------
+
+2008-02-11 Jonah Braun
+ + Languages updated for this release include: Dutch, German, Hungarian, Turkish, Brazilian Portuguese, Greek, Polish, French, Italian.
 
 2008-02-02 Jonah Braun
  # added missing Itemid to random image links. thanks: mirjam
