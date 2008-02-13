@@ -336,7 +336,15 @@ function editComment( $item_id ) {
 }
 
 function showComments( $item_id ) {
-	global $database, $my, $Itemid;
+	global $database, $Itemid;
+	
+	// Get the current JUser object
+	$user = &JFactory::getUser();
+	$deleteComment = false;
+
+	// user is admin or super admin and can delete the comment
+	if( $user->get('gid') > 22 ):
+		$deleteComment = true;
 	?>
 	<script type="text/javascript">
 	//<![CDATA[
@@ -350,6 +358,8 @@ function showComments( $item_id ) {
 	//]]>
 	</script>
 	<?php
+	endif;
+
 	$comments = rsgComments::_getList( $item_id );
 
 	if (count($comments) > 0) {
@@ -379,14 +389,9 @@ function showComments( $item_id ) {
 				<?php echo mosFormatDate($comment['datetime']);?>
 				<hr />
 				<?php echo rsgComments::parse( $comment['comment'] );?>
-				<?php
-				//Not my favorite way of checking for Admin or Super Admin but $my->gid is only working in backend.
-				if ( $my->id == $comment['user_id'] OR $my->usertype == "Super Administrator" OR $my->usertype == "Administrator" ) {
-					?>
+				<?php if ( $deleteComment ): ?>
 					<div style="float:right;"><a href="javascript:void(0);" onclick="delComment(<?php echo $comment['id'];?>, <?php echo $comment['item_id'];?>, <?php echo $catid;?>);"><?php echo _RSGALLERY_DELETE_COMMENT?></a></div>
-					<?php
-				}
-				?>
+				<?php endif; ?>
 				</td>
 			</tr>
 			</table>
