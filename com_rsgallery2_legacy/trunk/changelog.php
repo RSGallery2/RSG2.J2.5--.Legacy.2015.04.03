@@ -32,7 +32,7 @@ Legend:
 
 ---------------- Recent ----------------
 
----------------- 1.14.3 alpha -- svn ??? -- 2008-02-13 -------------
+---------------- 1.14.3 alpha -- svn 642 -- 2008-02-13 -------------
 
 2008-02-13 Jonah Braun
  * Only admin or superadmin can delete comments now.
