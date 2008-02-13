@@ -499,7 +499,11 @@ class rsgDisplay extends JObject{
  	}    
     
     function showSearchBox() {
-    	global $Itemid, $mainframe, $mosConfig_live_site;
+    	global $Itemid, $mainframe, $mosConfig_live_site, $rsgConfig;
+    	
+    	if( ! $rsgConfig->get('displaySearch' ) )
+    		return;
+
     	$css = "<link rel=\"stylesheet\" href=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/rsgsearch/rsgsearch.css\" type=\"text/css\" />";
     	$mainframe->addCustomHeadTag($css);
     	?>

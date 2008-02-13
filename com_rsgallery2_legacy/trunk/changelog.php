@@ -31,6 +31,13 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+
+---------------- 1.14.3 alpha -- svn ??? -- 2008-02-13 -------------
+
+2008-02-13 Jonah Braun
+ * Only admin or superadmin can delete comments now.
+ + Added config option to show/hide Search box.
+
 ---------------- 1.14.2 alpha -- svn 644 -- 2008-02-11 -------------
 
 2008-02-11 Jonah Braun

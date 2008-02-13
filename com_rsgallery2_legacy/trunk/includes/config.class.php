@@ -42,6 +42,7 @@ class rsgConfig {
 	var $ftp_path			= '';
 
 	// front display
+	var $displaySearch = true;
     var $display_thumbs_style = 'table'; // float, table, magic
     var $display_thumbs_floatDirection = 'left'; // left, right
 	var $display_thumbs_colsPerPage	= 3;
