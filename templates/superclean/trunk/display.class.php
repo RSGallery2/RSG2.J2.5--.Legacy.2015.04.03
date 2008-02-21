@@ -9,13 +9,11 @@ defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 
 class rsgDisplay_superclean extends rsgDisplay{
 	function mainPage(){
-		echo '<div id="rsg2">';
 		$this->showThumbs( $this->gallery );
 		
 		foreach( $this->gallery->kids() as $kid ){
 			$this->showThumbs( $kid );
 		}
-		echo '</div>';
 	}
 	
 	function showThumbs( $g ){
