@@ -32,6 +32,9 @@ Legend:
 
 ---------------- Recent ----------------
 
+2008-02-21 Jonah Braun
+ # Fixed bad admin group check when getting galleries
+
 ---------------- 1.14.3 alpha -- svn 642 -- 2008-02-13 -------------
 
 2008-02-13 Jonah Braun

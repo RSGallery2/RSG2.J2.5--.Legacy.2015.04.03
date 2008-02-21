@@ -53,6 +53,8 @@ class rsgGalleryManager{
      */
 	function get( $id = null ){
 		global $rsgAccess, $rsgConfig;
+		
+		$user = &JFactory::getUser();
 
 		if( $id === null ){
 			$id = rsgInstance::getInt( 'catid', 0 );
@@ -75,7 +77,7 @@ class rsgGalleryManager{
 			global $my;
 			
 			// if user is admin or superadmin then always return the gallery
-			if ( $my->gid > 23 )
+			if ( $user->gid > 23 )
 				return $gallery;
 
 			if( $rsgConfig->get( 'acl_enabled' )){
