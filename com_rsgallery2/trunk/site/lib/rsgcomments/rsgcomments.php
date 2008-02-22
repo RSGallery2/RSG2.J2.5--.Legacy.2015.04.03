@@ -140,6 +140,12 @@ function deleteComments( $option ) {
 	global $mainframe;
 	$database =& JFactory::getDBO();
 	
+	// Get the current JUser object
+	$user = &JFactory::getUser();
+
+	if ( $user->get('gid') < 23 )
+		die('Only admins can delete comments.');
+
 	//Get parameters
 	$id			= rsgInstance::getInt( 'id', '' );
 	$item_id 	= rsgInstance::getInt( 'item_id'  , '');
@@ -154,4 +160,3 @@ function deleteComments( $option ) {
 	}
 	$mainframe->redirect("index.php?option=".$option."&page=inline&id=".$item_id."&catid=".$catid, _RSGALLERY_COMMENTS_COMMDEL );
 }
-?>
