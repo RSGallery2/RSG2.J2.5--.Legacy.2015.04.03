@@ -337,7 +337,7 @@ function editComment( $item_id ) {
 
 function showComments( $item_id ) {
 	global $database;
-	$my =& JFactory::getUser();
+	$user =& JFactory::getUser();
 	?>
 	<script type="text/javascript">
 	//<![CDATA[
@@ -381,8 +381,8 @@ function showComments( $item_id ) {
 				<hr />
 				<?php echo rsgComments::parse( $comment['comment'] );?>
 				<?php
-				//Not my favorite way of checking for Admin or Super Admin but $my->gid is only working in backend.
-				if ( $my->id == $comment['user_id'] OR $my->usertype == "Super Administrator" OR $my->usertype == "Administrator" ) {
+				//Not my favorite way of checking for Admin or Super Admin but $user->gid is only working in backend.
+				if ( $user->id == $comment['user_id'] OR $user->usertype == "Super Administrator" OR $user->usertype == "Administrator" ) {
 					?>
 					<div style="float:right;"><a href="javascript:void(0);" onclick="delComment(<?php echo $comment['id'];?>, <?php echo $comment['item_id'];?>, <?php echo $catid;?>);"><?php echo _RSGALLERY_DELETE_COMMENT?></a></div>
 					<?php
