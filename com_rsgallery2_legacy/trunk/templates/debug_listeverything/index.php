@@ -23,7 +23,15 @@ $gid = rsgInstance::getInt('gid', 0);
 
 echo "Listing contents of Gallery #$gid";
 
-listEverything( $gid );
+switch(rsgInstance::getCmd( 'task', 'listEverything' )){
+	case 'dumpGallery':
+		dumpGallery( $gid );
+	break;
+	case 'listEverything':
+	default:
+		listEverything( $gid );
+	break;
+}
 
 
 ?>
