@@ -34,6 +34,7 @@ Legend:
 
 2008-02-25 Jonah Braun
  * Allow public users to comment switch now works.
+ + Added cleanStart option to slideshowone
 
 2008-02-21 Jonah Braun
  # Fixed bad admin group check when getting galleries
