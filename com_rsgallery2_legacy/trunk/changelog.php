@@ -32,7 +32,10 @@ Legend:
 
 ---------------- Recent ----------------
 
-2008-02-25 Jonah Braun
+2008-02-26 Jonah Braun
+ # Fixed where language files might not be included
+ 
+ 2008-02-25 Jonah Braun
  * Allow public users to comment switch now works.
  + Added cleanStart option to slideshowone
  # Fixed error reporting if a bad template name is specified.
