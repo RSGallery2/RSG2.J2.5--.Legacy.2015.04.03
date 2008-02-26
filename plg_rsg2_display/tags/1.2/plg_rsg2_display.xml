@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall version="1.0.0" type="mambot" group="content">
+	<name>RSG2 Display</name>
+	<author>Jonathan DeLaigle</author>
+	<creationDate>May 20007</creationDate>
+	<copyright>RSGallery2</copyright>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<authorUrl>http://rsgallery2.net/</authorUrl>
+	<version>1.2</version>
+	<description>Usage: {rsg2_display: Template, GID}</description>
+	<files>
+		<filename mambot="plg_rsg2_display">plg_rsg2_display.php</filename>
+	</files>
+	<params/>
+</mosinstall>
