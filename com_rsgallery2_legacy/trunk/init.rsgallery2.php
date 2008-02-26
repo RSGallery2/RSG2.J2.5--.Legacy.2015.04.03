@@ -10,7 +10,7 @@
 defined( '_VALID_MOS' ) or die( 'Access Denied.' );
 
 // create global variables in case we are not in the global scope.
-global $rsgConfig, $rsgAccess, $rsgVersion, $rsgOption;
+global $rsgConfig, $rsgAccess, $rsgVersion, $rsgOption, $mosConfig_lang;
 
 // include j15backport to allow use of Joomla! 1.5 libraries
 require_once($mosConfig_absolute_path.'/components/com_rsgallery2/lib/j15backport/j15backport.php');

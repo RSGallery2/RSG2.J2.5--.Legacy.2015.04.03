@@ -69,7 +69,7 @@ class JMenuSite extends JMenu
 			$menus[$key]->tree   = $parent_tree;
 
 			//Create route
-			$route = $parent_route.$menus[$key]->alias;
+			@$route = $parent_route.$menus[$key]->alias;
 			$menus[$key]->route  = $route;
 
 			//Create the query array
