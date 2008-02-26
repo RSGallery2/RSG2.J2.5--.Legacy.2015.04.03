@@ -35,6 +35,7 @@ Legend:
 2008-02-25 Jonah Braun
  * Allow public users to comment switch now works.
  + Added cleanStart option to slideshowone
+ # Fixed error reporting if a bad template name is specified.
 
 2008-02-21 Jonah Braun
  # Fixed bad admin group check when getting galleries
