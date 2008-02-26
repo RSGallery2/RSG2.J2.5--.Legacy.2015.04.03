@@ -34,7 +34,8 @@ Legend:
 
 2008-02-26 Jonah Braun
  # Fixed where language files might not be included
- 
+ # Fixed template installer bug where helper class was missing
+
  2008-02-25 Jonah Braun
  * Allow public users to comment switch now works.
  + Added cleanStart option to slideshowone

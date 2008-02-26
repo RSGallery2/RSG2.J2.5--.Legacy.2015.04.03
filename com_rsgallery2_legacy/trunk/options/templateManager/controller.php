@@ -677,7 +677,7 @@ class TemplatesController
 			$config =& JFactory::getConfig();
 			$package['packagefile'] = $config->getValue('config.tmp_path').DS.$package['packagefile'];
 		}
-		jimport('joomla.installer.helper');
+		require_once(JPATH_RSGALLERY2_ADMIN .DS. 'options' . DS. 'templateManager'. DS. 'helpers' .DS. 'JInstallerRSGTemplate.php');
 		JInstallerHelper::cleanupInstall($package['packagefile'], $package['extractdir']);
 		mosRedirect('index2.php?option=com_rsgallery2&rsgOption=templateManager&task=chooseInstall', $msg);
 	}
@@ -759,7 +759,7 @@ class TemplatesController
 		$uploaded = JFile::upload($tmp_src, $tmp_dest);
 		
 		// Unpack the downloaded package file
-		jimport('joomla.installer.helper');
+		require_once( JPATH_ADMINISTRATOR .'/components/com_rsgallery2/options/templates.installer.php' );
 		$package = JInstallerHelper::unpack($tmp_dest);
 		
 		return $package;
@@ -785,7 +785,7 @@ class TemplatesController
 		}
 		
 		// Detect the package type
-		jimport('joomla.installer.helper');
+		require_once(JPATH_RSGALLERY2_ADMIN .DS. 'options' . DS. 'templateManager'. DS. 'helpers' .DS. 'JInstallerRSGTemplate.php');
 		$type = JInstallerHelper::detectType($p_dir);
 		
 		// Did you give us a valid package?
@@ -824,7 +824,7 @@ class TemplatesController
 		}
 		
 		// Download the package at the URL given
-		jimport('joomla.installer.helper');
+		require_once(JPATH_RSGALLERY2_ADMIN .DS. 'options' . DS. 'templateManager'. DS. 'helpers' .DS. 'JInstallerRSGTemplate.php');
 		$p_file = JInstallerHelper::downloadPackage($url);
 		
 		// Was the package downloaded?

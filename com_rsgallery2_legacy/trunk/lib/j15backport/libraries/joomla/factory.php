@@ -344,7 +344,8 @@ class JFactory
 			{
 				if (!isset($options['lite']) || $options['lite'])
 				{
-					jimport('domit.xml_domit_lite_include');
+					// J15Backport: this file doesn't exist for some reason
+					//jimport('domit.xml_domit_lite_include');
 					$doc = new DOMIT_Lite_Document();
 				}
 				else
