@@ -80,6 +80,9 @@ class JLoader
 				$dir->close();
 			} else {
 				$path = str_replace( '.', DS, $filePath );
+				if( ! file_exists( $base . DS . $path . '.php' )){
+					JError::raiseError( 1, 'Why is this file being included???' );
+				}
 				$trs	= include($base . DS . $path . '.php');
 			}
 
