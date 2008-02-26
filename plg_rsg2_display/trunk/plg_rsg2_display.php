@@ -51,13 +51,17 @@ function bot_rsg2_display_replacer( &$matches ) {
 	
 	$attribs = explode(",",$matches[1]);
 	
+	$newInstance = array(
+		'rsgTemplate' => bot_rsg2_display_clean_data( strtolower( array_shift( $attribs ))),
+		'gid' => (int) bot_rsg2_display_clean_data( array_shift( $attribs ))
+		);
+	
+	foreach( $attribs as $a ){
+		$attrib = explode('=',$a);
+		$newInstance[ bot_rsg2_display_clean_data( $attrib[0] )] = bot_rsg2_display_clean_data( $attrib[1] );
+	}
 	ob_start();
-	rsgInstance::instance(
-		array(
-			'rsgTemplate' => bot_rsg2_display_clean_data($attribs[1]),
-			'gid' => bot_rsg2_display_clean_data($attribs[0])
-		)
-	);
+	rsgInstance::instance( $newInstance );
 	$content_output = ob_get_contents();
 	ob_end_clean();	
 		

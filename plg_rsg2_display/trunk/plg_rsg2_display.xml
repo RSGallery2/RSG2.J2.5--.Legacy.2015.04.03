@@ -3,11 +3,11 @@
 	<name>RSG2 Display</name>
 	<author>Jonathan DeLaigle</author>
 	<creationDate>May 20007</creationDate>
-	<copyright>(C) 2007 Morris DigitalWorks. All rights reserved.</copyright>
+	<copyright>RSGallery2</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-	<authorUrl>morrisdigitalworks.com</authorUrl>
-	<version>0.8</version>
-	<description>Usage: {rsg2_display: GID, Template}</description>
+	<authorUrl>http://rsgallery2.net/</authorUrl>
+	<version>1.2</version>
+	<description>Usage: {rsg2_display: Template, GID}</description>
 	<files>
 		<filename mambot="plg_rsg2_display">plg_rsg2_display.php</filename>
 	</files>
