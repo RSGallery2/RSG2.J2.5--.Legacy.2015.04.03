@@ -80,6 +80,13 @@ class JLoader
 				$dir->close();
 			} else {
 				$path = str_replace( '.', DS, $filePath );
+
+				/* for debugging missing files
+				if( ! file_exists( $base . DS . $path . '.php' )){
+					JError::raiseError( 1, 'Trying to import missing file: '.$base . DS . $path . '.php' );
+				}
+				*/
+
 				$trs	= include($base . DS . $path . '.php');
 			}
 
