@@ -537,7 +537,7 @@ class TemplatesView
 		<form enctype="multipart/form-data" action="index2.php" method="post" name="adminForm">
 
 			<?php
-			  TemplatesView::_writeFTPHeader(&$ftp); 
+			  TemplatesView::_writeFTPHeader($ftp); 
 			?>
 
 			<table class="adminform">
