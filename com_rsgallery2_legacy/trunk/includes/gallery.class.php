@@ -206,6 +206,8 @@ class rsgGallery extends JObject{
 			$this->items();
 		
 		$length = $rsgConfig->get("display_thumbs_maxPerPage");
+		if( $length == 0 )
+			return $this->items; // 0 means display all
 
 		$current = $this->indexOfItem(rsgInstance::getInt( 'id', 0 ));
 		$current = rsgInstance::getInt( 'limitstart', $current );

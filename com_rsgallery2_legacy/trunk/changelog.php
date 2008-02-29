@@ -32,6 +32,9 @@ Legend:
 
 ---------------- Recent ----------------
 
+2008-02-29 Jonah Braun
+ # fixed display_thumbs_maxPerPage when set to 0 to show all thumbs
+
 2008-02-26 Jonah Braun
  # Fixed where language files might not be included
  # Fixed template installer bug where helper class was missing
