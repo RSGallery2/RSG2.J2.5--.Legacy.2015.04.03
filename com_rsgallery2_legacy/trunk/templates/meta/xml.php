@@ -7,6 +7,8 @@
 */
 class rsgXmlGalleryTemplate_generic{
     var $gallery;
+
+	// deprecated
     var $output;
 
     /**
@@ -17,22 +19,19 @@ class rsgXmlGalleryTemplate_generic{
         $this->gallery = $gallery;
     }
 
-    function getName(){
-        return 'generic xml template';
-    }
-    
     /**
         Prepare XML first.  Then if there are errors we print an error before changing Content-Type to xml.
     **/
     function prepare(){
-        $this->output = '';
-        $this->output .= '<gallery name="'. $this->gallery->name .'">';
+        ?>
+<gallery name="<?php echo $this->gallery->name; ?>">
         
-        foreach( $this->gallery->itemRows() as $img ){
-            $this->output .= '  <image name="'. $img['name'] .'" />'."\n";
-        }
-        
-        $this->output .= '</gallery>';
+<?php foreach( $this->gallery->itemRows() as $img ): ?>
+	<image name="<?php echo $img['name']; ?>" />
+<?php endforeach; ?>
+
+</gallery>
+		<?php
     }
     
     /**
@@ -45,9 +44,11 @@ class rsgXmlGalleryTemplate_generic{
     
     /**
         outputs XML
+		@deprecated this function is only to support older xml templates
     **/
     function printGallery(){
-        echo $this->output;
+        if( $this->output )
+			echo $this->output;
     }
 }
 ?>
