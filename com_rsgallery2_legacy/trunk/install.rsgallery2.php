@@ -13,6 +13,10 @@ defined( '_VALID_MOS' ) or die( 'Restricted access' );
 
 function com_install(){
 	global $database, $mosConfig_absolute_path, $mosConfig_lang;
+
+	// include j15backport to allow use of Joomla! 1.5 libraries
+	require_once($mosConfig_absolute_path.'/components/com_rsgallery2/lib/j15backport/j15backport.php');
+
 	require_once( $mosConfig_absolute_path . '/administrator/components/com_rsgallery2/includes/install.class.php' );
 	include $mosConfig_absolute_path.'/administrator/components/com_rsgallery2/language/' . $mosConfig_lang . '.php';
 	

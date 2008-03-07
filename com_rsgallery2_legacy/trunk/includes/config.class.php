@@ -106,8 +106,7 @@ class rsgConfig {
     var $voting_once			= 1;
     var $cookie_prefix			= "rsgvoting_";
 
-	// private vars for internal use
-	var $_configTable = '#__rsgallery2_config';
+	// private vars for internal use, these should begin with _
 
     /**
      * constructor
@@ -171,17 +170,17 @@ class rsgConfig {
 	 * Binds the global configuration variables to the class properties
 	 */
 	function _loadConfig() {
-		global $database;
+		$db =& JFactory::getDBO();
 
-		$query = "SELECT * FROM " . $this->_configTable;
-		$database->setQuery($query);
+		$query = "SELECT * FROM #__rsgallery2_config";
+		$db->setQuery($query);
 
-		if( !$database->query() ){
+		if( !$db->query() ){
 			// database doesn't exist, use defaults.
 			return;
 		}
 
-		$vars = $database->loadAssocList();
+		$vars = $db->loadAssocList();
 
 		foreach ($vars as $v) {
 			$this->$v['name'] = $v['value'];
@@ -194,7 +193,7 @@ class rsgConfig {
 	 * @return false if fail
 	 */
 	function saveConfig( $config=null ) {
-		global $database;
+		$db =& JFactory::getDBO();
 		
 		//bind array to class
 		if( $config !== null){
@@ -202,34 +201,21 @@ class rsgConfig {
 			if(array_key_exists('exifTags', $config))
 				$this->exifTags = implode("|", $config['exifTags']);
 		}
-		
+	
+		$db->setQuery( "TRUNCATE #__rsgallery2_config" );
+		$db->query() or JError::raiseError( $dg->getErrorNum, $db->getErrorMsg() ); 
+
+		$query = "INSERT INTO #__rsgallery2_config ( `name`, `value` ) VALUES ";
+
 		$vars = $this->getPublicVars();
 		foreach ( $vars as $name ){
-			//Checks if the value exists and overrides it if present, inserting if not
-			//can seem a bit too much but since config is not gonna be changed often...
-			$query = "SELECT * FROM " . $this->_configTable ." WHERE name='$name'";
-			$database->setQuery( $query );
-			if(!$database->query()){
-				echo $database->getErrorMsg();
-				return false;
-			}
-			$isCreated = $database->getNumRows();
-			if ($isCreated==1) {
-				if ($name == 'intro_text')
-					$this->$name = addslashes($this->$name);
-				$query = "UPDATE " . $this->_configTable . " SET value='".$this->$name."' WHERE name='$name'";
-			}	
-			else {
-				$query = "INSERT INTO " . $this->_configTable . "  VALUES ('', '$name', '".$this->$name."')";
-			}
-				
-			
-            $database->setQuery( $query );
-			if(!$database->query()){
-				echo $database->getErrorMsg();
-				return false;
-			}
+			$query .= "( '$name', '{$this->$name}' ), ";
 		}
+
+		$query = substr( $query, 0, -2 );
+		$db->setQuery( $query );
+		$db->query() or JError::raiseError( $dg->getErrorNum, $db->getErrorMsg() ); 
+
 		return true;
 	}
 

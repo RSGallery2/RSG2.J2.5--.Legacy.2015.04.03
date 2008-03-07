@@ -32,6 +32,9 @@ Legend:
 
 ---------------- Recent ----------------
 
+2008-03-07 Jonah Braun
+ # Made saving config way better.  This should improve installation time as well.
+
 2008-02-29 Jonah Braun
  # fixed display_thumbs_maxPerPage when set to 0 to show all thumbs
 
