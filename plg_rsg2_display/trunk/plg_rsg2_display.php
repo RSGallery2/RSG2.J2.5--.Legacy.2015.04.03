@@ -36,6 +36,7 @@ function botrsgDisplay( $published, &$row, $mask=0, $page=0  ) {
  
   return true;
 }
+
 /**
  * Replace {rsg2_display template, gid [, name=value [,...]} with a template instance showing the gallery with options specified.
  *
@@ -68,7 +69,10 @@ function bot_rsg2_display_replacer( &$matches ) {
 	return $content_output;
 }
 
-function bot_rsg2_display_clean_data ( $attrib ) {//remove &nbsp; and trim white space
+/**
+ * remove &nbsp; and trim white space
+ */
+function bot_rsg2_display_clean_data ( $attrib ) {
 	$attrib = str_replace( "&nbsp;", '', "$attrib" );
 
 	return trim( $attrib );
