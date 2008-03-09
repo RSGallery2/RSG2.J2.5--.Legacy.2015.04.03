@@ -62,8 +62,8 @@
 //
 //	Configuration
 //
-var fileLoadingImage = "../images/loading.gif";		
-var fileBottomNavCloseImage = "../images/closelabel.gif";
+var fileLoadingImage = "components/com_rsgallery2/templates/sparkline/images/loading.gif";		
+var fileBottomNavCloseImage = "components/com_rsgallery2/templates/sparkline/images/closelabel.gif";
 
 var overlayOpacity = 0.8;	// controls transparency of shadow overlay
 
