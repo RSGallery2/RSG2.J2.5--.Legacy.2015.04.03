@@ -1,0 +1,16 @@
+.rsg2-sparkline{
+	letter-spacing: 1px;
+	word-spacing: 1px;
+}
+
+
+.rsg2-sparkline a{
+	text-decoration: none;
+	margin-right: 1px;
+}
+
+.rsg2-sparkline a img{
+	display: inline;
+	height: 1em;
+	border: 0;
+}

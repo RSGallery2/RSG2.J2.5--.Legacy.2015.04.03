@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="rsgTemplate">
+	<name>sparkline</name>
+	<creationDate>2008</creationDate>
+	<author>Jonah Braun</author>
+	<copyright>Open Source, GPL</copyright>
+	<authorEmail>info@whalehosting.ca</authorEmail>
+	<authorUrl>whalehosting.ca</authorUrl>
+	<version>0.9</version>
+	<description>Displays thumbnails inline resized to line height, lightbox2 for popup.</description>
+	<files>
+		<filename>css/lightbox.css</filename>
+		<filename>html/sparkline.php</filename>
+		<filename>images/blank.gif</filename>
+		<filename>images/close.gif</filename>
+		<filename>images/closelabel.gif</filename>
+		<filename>images/image-1.jpg</filename>
+		<filename>images/loading.gif</filename>
+		<filename>images/next.gif</filename>
+		<filename>images/nextlabel.gif</filename>
+		<filename>images/prev.gif</filename>
+		<filename>images/prevlabel.gif</filename>
+		<filename>images/thumb-1.jpg</filename>
+		<filename>index.php</filename>
+		<filename>js/effects.js</filename>
+		<filename>js/lightbox.js</filename>
+		<filename>js/prototype.js</filename>
+		<filename>js/scriptaculous.js</filename>
+		<filename>templateDetails.xml</filename>
+	</files>
+	<css>
+		<filename>css/template.css</filename>
+	</css>
+</mosinstall>
