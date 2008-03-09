@@ -13,15 +13,15 @@
 defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
  
 
-$_MAMBOTS->registerFunction( 'onPrepareContent', 'botMosRSGdisplay' );
+$_MAMBOTS->registerFunction( 'onPrepareContent', 'botrsgDisplay' );
  
 /**
-* Link bot
+* RSG2 Display bot
 *
 * <b>Usage:</b>
-* <code>{moslink id="the_id"}</code>
+* <code>{rsg2_display template, gid [, name=value [,...]}</code>
 */
-function botMosRSGdisplay( $published, &$row, $mask=0, $page=0  ) {
+function botrsgDisplay( $published, &$row, $mask=0, $page=0  ) {
   global $mosConfig_absolute_path;
  
   if (!$published) {
@@ -37,7 +37,7 @@ function botMosRSGdisplay( $published, &$row, $mask=0, $page=0  ) {
   return true;
 }
 /**
- * Replace {mosrsgdisplay ID,TEMPLATE} with the gallery displayed with the specified template
+ * Replace {rsg2_display template, gid [, name=value [,...]} with a template instance showing the gallery with options specified.
  *
  * @param array $matches
  * @return string
@@ -73,4 +73,3 @@ function bot_rsg2_display_clean_data ( $attrib ) {//remove &nbsp; and trim white
 
 	return trim( $attrib );
 }
-?>

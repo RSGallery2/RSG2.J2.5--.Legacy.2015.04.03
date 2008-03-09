@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <mosinstall version="1.0.0" type="mambot" group="content">
 	<name>RSG2 Display</name>
-	<author>Jonathan DeLaigle</author>
+	<author>Jonathan DeLaigle and Jonah Braun</author>
 	<creationDate>May 20007</creationDate>
 	<copyright>RSGallery2</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorUrl>http://rsgallery2.net/</authorUrl>
-	<version>1.2</version>
-	<description>Usage: {rsg2_display: Template, GID}</description>
+	<version>2.0</version>
+	<description>Usage: {rsg2_display: Template, GID} or {rsg2_display: Template, GID, paramName=value, paramName=value, ...} for as many parameters as you need to specify.  Template should be the name of the template you want to use.  GID should be the numerical ID representing the gallery, this can be found in the first column of the gallery listing.</description>
 	<files>
 		<filename mambot="plg_rsg2_display">plg_rsg2_display.php</filename>
 	</files>
