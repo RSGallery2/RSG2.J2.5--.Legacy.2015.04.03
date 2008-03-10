@@ -37,7 +37,7 @@ class InstallerController extends JController
 	function installform()
 	{
 		$model	= &$this->getModel( 'Install' );
-		$view	= &$this->getView( 'Install');
+		$view	= &$this->getView( 'Install', '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
 		$view->assignRef('ftp', $ftp);

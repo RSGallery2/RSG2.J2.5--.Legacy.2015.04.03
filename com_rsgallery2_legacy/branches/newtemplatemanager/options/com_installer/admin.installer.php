@@ -15,14 +15,6 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-/*
- * Make sure the user is authorized to view this page
- */
-$user = & JFactory::getUser();
-if (!$user->authorize('com_installer', 'installer')) {
-	$mainframe->redirect('index.php', JText::_('ALERTNOTAUTH'));
-}
-
 $ext	= JRequest::getWord('type');
 
 $subMenus = array(
@@ -37,9 +29,13 @@ foreach ($subMenus as $name => $extension) {
 	JSubMenuHelper::addEntry(JText::_( $name ), '#" onclick="javascript:document.adminForm.type.value=\''.$extension.'\';submitbutton(\'manage\');', ($extension == $ext));
 }
 
-require_once( JPATH_COMPONENT.DS.'controller.php' );
+require_once( rsgOptions_installer_path.DS.'controller.php' );
 
-$controller = new InstallerController( array('default_task' => 'installform') );
+$controller = new InstallerController( array(
+	'default_task' => 'installform',
+	'model_path'=>rsgOptions_installer_path.DS.'models',
+	'view_path'=>rsgOptions_installer_path.DS.'views'
+	));
 //die(JRequest::getCmd('task'));
 $controller->execute( JRequest::getCmd('task') );
 $controller->redirect();
