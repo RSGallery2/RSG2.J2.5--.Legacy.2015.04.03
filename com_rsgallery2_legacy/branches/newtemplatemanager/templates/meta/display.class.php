@@ -22,13 +22,13 @@ class rsgDisplay extends JObject{
 		// load parameters
 		jimport('joomla.filesystem.file');
 		// Read the ini file
-		$ini	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'params.ini';
+		$ini	= RSG2_PATH_SITE .DS. 'templates'.DS.$template.DS.'params.ini';
 		if (JFile::exists($ini)) {
 			$content = JFile::read($ini);
 		} else {
 			$content = null;
 		}
-		$xml	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template .DS.'templateDetails.xml';
+		$xml	= RSG2_PATH_SITE .DS. 'templates'.DS.$template .DS.'templateDetails.xml';
 		$this->params = new JParameter($content, $xml, 'rsgTemplate');
 		
 	}
@@ -101,7 +101,7 @@ class rsgDisplay extends JObject{
 	function display( $file = null ){
 		global $rsgConfig;
 		$template = preg_replace( '#\W#', '', rsgInstance::getVar( 'rsgTemplate', $rsgConfig->get('template') ));
-		$templateDir = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template . DS . 'html';
+		$templateDir = RSG2_PATH_SITE . DS . 'templates' . DS . $template . DS . 'html';
 	
 		$file = preg_replace('/[^A-Z0-9_\.-]/i', '', $file);
 

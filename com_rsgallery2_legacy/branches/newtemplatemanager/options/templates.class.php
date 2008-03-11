@@ -34,7 +34,7 @@ class rsgInstallerTemplate extends mosInstallerRSG2 {
 		// Set some vars
 		$e = &$mosinstall->getElementsByPath( 'name', 1 );
 		$this->elementName($e->getText());
-		$this->elementDir(mosPathName( JPATH_RSGALLERY2_SITE . DS . "templates" . DS . strtolower( str_replace( " ","_",$this->elementName() ) ) ) );
+		$this->elementDir(mosPathName( RSG2_PATH_SITE . DS . "templates" . DS . strtolower( str_replace( " ","_",$this->elementName() ) ) ) );
 		if (!file_exists( $this->elementDir() ) && !mosMakePath( $this->elementDir() )) {
 			$this->setError(1, 'Failed to create directory "' . $this->elementDir() . '"' );
 			return false;
@@ -73,7 +73,7 @@ class rsgInstallerTemplate extends mosInstallerRSG2 {
 				$this->returnTo( $option ) );
 		} else {
 			// Delete directories
-			$path = JPATH_RSGALLERY2_SITE . '/templates/' . $id;
+			$path = RSG2_PATH_SITE . '/templates/' . $id;
 	
 			$id = str_replace( '..', '', $id );
 			if (trim( $id )) {

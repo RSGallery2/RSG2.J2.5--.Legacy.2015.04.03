@@ -18,7 +18,7 @@ This is built to imitate the Joomla 1.5.* style of templating.  Hopefully that i
 defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 
 // bring in display code
-$templatePath = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'semantic';
+$templatePath = RSG2_PATH_SITE . DS . 'templates' . DS . 'semantic';
 require_once( $templatePath . DS . 'display.class.php');
 
 $rsgDisplay = new rsgDisplay_semantic();

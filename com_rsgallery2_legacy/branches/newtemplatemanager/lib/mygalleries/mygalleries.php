@@ -13,7 +13,7 @@ $css = "<link rel=\"stylesheet\" href=\"".JURI::root()."/components/com_rsgaller
 $mainframe->addCustomHeadTag($css);
 
 //Load required class file
-require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'mygalleries' . DS . 'mygalleries.class.php' );
+require_once( RSG2_PATH_SITE . DS . 'lib' . DS . 'mygalleries' . DS . 'mygalleries.class.php' );
 
 //Get parameters from URL and/or form
 $cid	= rsgInstance::getInt('cid', array(0) );

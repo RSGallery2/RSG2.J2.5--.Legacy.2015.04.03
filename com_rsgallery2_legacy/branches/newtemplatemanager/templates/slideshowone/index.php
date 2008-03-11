@@ -10,7 +10,7 @@
 defined( '_VALID_MOS' ) or die( 'Restricted Access' );
 
 // bring in display code
-$templatePath = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'slideshowone';
+$templatePath = RSG2_PATH_SITE . DS . 'templates' . DS . 'slideshowone';
 require_once( $templatePath . DS . 'display.class.php');
 
 $rsgDisplay = new rsgDisplay_slideshowone();

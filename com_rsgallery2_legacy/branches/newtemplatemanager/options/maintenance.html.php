@@ -151,7 +151,7 @@ class html_rsg2_maintenance {
 	
 	function consolidateDB($db_name, $file_display, $file_original, $file_thumb, $files_total) {
 	    global $mosConfig_live_site, $rsgConfig;
-	    require_once( JPATH_RSGALLERY2_ADMIN.'/config.rsgallery2.php' );
+	    require_once( RSG2_PATH_ADMIN.'/config.rsgallery2.php' );
 	    $file_diff = array_diff($files_total, $db_name);
 	    ?>
 	    <script language="Javascript">

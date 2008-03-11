@@ -13,7 +13,7 @@ defined( '_VALID_MOS' ) or die( 'Restricted access' );
 
 require_once( $rsgOptions_path . 'images.html.php' );
 require_once( $rsgOptions_path . 'images.class.php' );
-require_once( JPATH_RSGALLERY2_ADMIN . DS . 'admin.rsgallery2.html.php' );
+require_once( RSG2_PATH_ADMIN . DS . 'admin.rsgallery2.html.php' );
 
 $cid = josGetArrayInts( 'cid' );
 

@@ -263,7 +263,7 @@ class TemplatesView
 		<div class="col50">
 			<fieldset class="adminform">
 				<legend><?php echo JText::_( 'Parameters' ); ?></legend>
-		<?php $templatefile = JPATH_RSGALLERY2_SITE.DS.'templates'.DS.$template.DS.'params.ini';
+		<?php $templatefile = RSG2_PATH_SITE.DS.'templates'.DS.$template.DS.'params.ini';
 		echo is_writable($templatefile) ? JText::_( 'Writable' ):JText::_( 'Unwritable' ); ?>
 				<table class="admintable">
 				<tr>
@@ -416,18 +416,18 @@ class TemplatesView
 		switch ($fileType)
 		{
 			case "override":
-				$file_path = JPATH_RSGALLERY2_SITE .DS. 'templates' .DS. 'html' .DS. $filename;
+				$file_path = RSG2_PATH_SITE .DS. 'templates' .DS. 'html' .DS. $filename;
 				break;
 			case "css":
-				$file_path = JPATH_RSGALLERY2_SITE .DS. 'templates' .DS. 'css' .DS. $filename;
+				$file_path = RSG2_PATH_SITE .DS. 'templates' .DS. 'css' .DS. $filename;
 				break;
 			case "template":
 			case "display":
 			default :
-				$file_path = JPATH_RSGALLERY2_SITE .DS. 'templates' .DS. $filename;
+				$file_path = RSG2_PATH_SITE .DS. 'templates' .DS. $filename;
 				break;
 		}
-		$file_path = JPATH_RSGALLERY2_SITE .DS. 'templates' .DS. $filename;
+		$file_path = RSG2_PATH_SITE .DS. 'templates' .DS. $filename;
 ?>
 		<form action="index2.php" method="post" name="adminForm">
 

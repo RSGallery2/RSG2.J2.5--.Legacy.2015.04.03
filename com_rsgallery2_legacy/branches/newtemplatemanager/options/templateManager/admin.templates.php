@@ -19,7 +19,7 @@ defined('_JEXEC') or die('Direct Access to this location is not allowed.');
 //}
 global $rsgOptions_path, $templateManager_path;
 
-$rsgOptions_path = JPATH_RSGALLERY2_ADMIN . DS .'options' .DS;
+$rsgOptions_path = RSG2_PATH_ADMIN . DS .'options' .DS;
 $templateManager_path = $rsgOptions_path . 'templateManager' .DS;
 $task = JRequest::getCmd('task');
 $fileType = JRequest::getCmd('fileType');

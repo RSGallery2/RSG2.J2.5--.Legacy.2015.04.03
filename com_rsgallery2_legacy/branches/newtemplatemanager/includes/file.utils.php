@@ -9,7 +9,7 @@
 */
 
 defined( '_VALID_MOS' ) or die( 'Access Denied' );
-require_once(JPATH_RSGALLERY2_ADMIN.'/includes/mimetype.php');
+require_once(RSG2_PATH_ADMIN.'/includes/mimetype.php');
 require_once(JPATH_ROOT.'/includes/PEAR/PEAR.php');
 
 //Load Joomla filesystem class
@@ -178,8 +178,8 @@ class fileUtils{
     }
     
 	function determineHandle( $filename ){
-		require_once( JPATH_RSGALLERY2_ADMIN.'/includes/audio.utils.php' );
-		require_once( JPATH_RSGALLERY2_ADMIN.'/includes/video.utils.php' );
+		require_once( RSG2_PATH_ADMIN.'/includes/audio.utils.php' );
+		require_once( RSG2_PATH_ADMIN.'/includes/video.utils.php' );
 	
 		$ext = strtolower(JFile::getExt($filename));
 		if( in_array( $ext, imgUtils::allowedFileTypes() ))

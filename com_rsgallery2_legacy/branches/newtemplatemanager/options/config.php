@@ -116,7 +116,7 @@ function showConfig(){
 
     // -- Languages --
 
-    if ($handle = opendir( JPATH_RSGALLERY2_ADMIN.'/language/' )) {
+    if ($handle = opendir( RSG2_PATH_ADMIN.'/language/' )) {
         $i=0;
         while (false !== ($file = readdir( $handle ))) {
             if (!strcasecmp(substr($file,-4),".php") && $file <> "." && $file <> ".." && strcasecmp(substr($file,-11),".ignore.php")) {

@@ -10,7 +10,7 @@
 
 defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
 
-require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgcomments' . DS . 'rsgcomments.class.php' );
+require_once( RSG2_PATH_SITE . DS . 'lib' . DS . 'rsgcomments' . DS . 'rsgcomments.class.php' );
 
 $cid    = rsgInstance::getInt('cid', array(0) );
 $task    = rsgInstance::getVar('task', '' );

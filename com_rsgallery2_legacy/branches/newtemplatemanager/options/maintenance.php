@@ -87,7 +87,7 @@ function test() {
  */
 function showMigration() {
     global $mosConfig_live_site;
-    require_once(JPATH_RSGALLERY2_ADMIN.'/includes/install.class.php');
+    require_once(RSG2_PATH_ADMIN.'/includes/install.class.php');
     
     //Initialize new install instance
     $rsgInstall = new rsgInstall();
@@ -114,7 +114,7 @@ function showMigration() {
 
 function doMigration() {
 	$type  	= rsgInstance::getVar('type', null);
-	require_once(JPATH_RSGALLERY2_ADMIN.'/includes/install.class.php');
+	require_once(RSG2_PATH_ADMIN.'/includes/install.class.php');
 	
 	$migrate_class = "migrate_".$type; 
 	$migrate = new $migrate_class;

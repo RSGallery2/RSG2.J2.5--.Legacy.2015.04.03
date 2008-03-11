@@ -686,7 +686,7 @@ class galleryUtils {
      */
     function writeWarningBox() {
     	global $mosConfig_live_site, $rsgConfig;
-    	require_once(JPATH_RSGALLERY2_ADMIN.'/includes/img.utils.php');
+    	require_once(RSG2_PATH_ADMIN.'/includes/img.utils.php');
     	//Detect image libraries
     	$html = '';
     	$count = 0;
@@ -819,7 +819,7 @@ class galleryUtils {
 	 	global $rsgConfig;
 	 	
 	 	$selected = $rsgConfig->get('watermark_font');
-	 	$fonts = mosReadDirectory(JPATH_RSGALLERY2_ADMIN.DS.'fonts', 'ttf');
+	 	$fonts = mosReadDirectory(RSG2_PATH_ADMIN.DS.'fonts', 'ttf');
 	 	foreach ($fonts as $font) {
 	 		$fontlist[] = mosHTML::makeOption( $font );
 	 	}

@@ -248,7 +248,7 @@ function uploadFile( $filename, $userfile_name, $msg ) {
 
 function viewChangelog(){
     echo '<pre>';
-    readfile( JPATH_RSGALLERY2_ADMIN.'/changelog.php' );
+    readfile( RSG2_PATH_ADMIN.'/changelog.php' );
     echo '</pre>';
 }
 

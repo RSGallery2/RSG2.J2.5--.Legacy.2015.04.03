@@ -69,7 +69,7 @@ class JInstallerRSGTemplate extends JObject
 		$this->set('name', $name);
 		
 		// Set the template root path
-		$this->parent->setPath('extension_root', JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.strtolower(str_replace(" ", "_", $this->get('name'))));
+		$this->parent->setPath('extension_root', RSG2_PATH_SITE .DS. 'templates'.DS.strtolower(str_replace(" ", "_", $this->get('name'))));
 		
 		/*
 		 * If the template directory already exists, then we will assume that the template is already
@@ -146,7 +146,7 @@ class JInstallerRSGTemplate extends JObject
 		}
 		
 		// Get the template root path
-		$this->parent->setPath('extension_root', JPATH_RSGALLERY2_SITE .DS.'templates'.DS.$name);
+		$this->parent->setPath('extension_root', RSG2_PATH_SITE .DS.'templates'.DS.$name);
 		$this->parent->setPath('source', $this->parent->getPath('extension_root'));
 		
 		$manifest =& $this->parent->getManifest();

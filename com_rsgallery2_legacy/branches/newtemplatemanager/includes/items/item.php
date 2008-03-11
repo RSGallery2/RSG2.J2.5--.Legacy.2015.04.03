@@ -91,8 +91,8 @@ class rsgItem extends JObject{
 		$type = explode( '/', $mimetype );
 		$type = $type[0];
 		
-		if( file_exists( JPATH_RSGALLERY2_ADMIN.'/includes/items/'. $type .'.php' )){
-			require_once( JPATH_RSGALLERY2_ADMIN.'/includes/items/'. $type .'.php' );
+		if( file_exists( RSG2_PATH_ADMIN.'/includes/items/'. $type .'.php' )){
+			require_once( RSG2_PATH_ADMIN.'/includes/items/'. $type .'.php' );
 			$itemClass = "rsgItem_$type";
 			return new $itemClass( $type, $mimetype, $gallery, $row );
 		}

@@ -36,7 +36,7 @@ class html_rsg2_templates{
 			name = name.replace(pattern,'_');
 			name = name.toLowerCase();
 			if (document.adminForm.doPreview.checked) {
-				var src = '<?php JPATH_RSGALLERY2_SITE;?>/templates/'+dir+'/template_thumbnail.png';
+				var src = '<?php RSG2_PATH_SITE;?>/templates/'+dir+'/template_thumbnail.png';
 				var html=name;
 				html = '<br /><img border="1" src="'+src+'" name="imagelib" alt="No preview available" width="206" height="145" />';
 				return overlib(html, CAPTION, name)

@@ -730,7 +730,7 @@ class waterMarker extends GD2 {
          */
         $position 	= $rsgConfig->get('watermark_position');
         if ( $rsgConfig->get('watermark_type') == 'text' ) {
-        	$bbox 		= imagettfbbox($rsgConfig->get('watermark_font_size'), $rsgConfig->get('watermark_angle'), JPATH_RSGALLERY2_ADMIN."/fonts/arial.ttf", $rsgConfig->get('watermark_text'));
+        	$bbox 		= imagettfbbox($rsgConfig->get('watermark_font_size'), $rsgConfig->get('watermark_angle'), RSG2_PATH_ADMIN."/fonts/arial.ttf", $rsgConfig->get('watermark_text'));
         	$textW 		= abs($bbox[0] - $bbox[2]) + 20;
         	$textH 		= abs($bbox[7] - $bbox[1]) + 20;
         } else {
@@ -829,7 +829,7 @@ class waterMarker extends GD2 {
         $imark = new waterMarker();
         $imark->waterMarkText = $rsgConfig->get('watermark_text');
         $imark->imagePath = $imagepath;
-        $imark->font= JPATH_RSGALLERY2_ADMIN. DS . "fonts" . DS . $rsgConfig->get('watermark_font');
+        $imark->font= RSG2_PATH_ADMIN. DS . "fonts" . DS . $rsgConfig->get('watermark_font');
         $imark->size = $rsgConfig->get('watermark_font_size');
         $imark->shadow= $shadow;
         $imark->angle = $rsgConfig->get('watermark_angle');

@@ -78,7 +78,7 @@ function viewTemplates( $option ) {
 	$limit = $mainframe->getUserStateFromRequest( 'viewlistlimit', 'limit', $mosConfig_list_limit );
 	$limitstart = $mainframe->getUserStateFromRequest( "view{$option}limitstart", 'limitstart', 0 );
 
-	$templateBaseDir = mosPathName( JPATH_RSGALLERY2_SITE . DS .'/templates' );
+	$templateBaseDir = mosPathName( RSG2_PATH_SITE . DS .'/templates' );
 
 	$rows = array();
 	// Read the template dir to find templates
@@ -266,7 +266,7 @@ function removeTemplate( $option ) {
 			$cid = array(0);
 		}
 	$template = $cid[0];
-	$main_file = JPATH_RSGALLERY2_SITE.'/templates/' . $template . '/index.php';
+	$main_file = RSG2_PATH_SITE.'/templates/' . $template . '/index.php';
 	if ( $fp = fopen( $main_file, 'r' ) ) {
 		$content = fread( $fp, filesize( $main_file ) );
 		$content = htmlspecialchars( $content );
@@ -285,7 +285,7 @@ function saveTemplateMain( $option, $template) {
 		mosRedirect( 'index2.php?option='. $option .'&rsgOption=templates'.'&client='. $client, 'Operation failed: Content empty.' );
 	}
 
-	$main_file = JPATH_RSGALLERY2_SITE.'/templates/' . $template . '/index.php';
+	$main_file = RSG2_PATH_SITE.'/templates/' . $template . '/index.php';
 
 	$enable_write 	= rsgInstance::getVar('enable_write',0);
 	$oldperms 		= fileperms($main_file);
@@ -316,7 +316,7 @@ function saveTemplateMain( $option, $template) {
 
 function editTemplateMainSource($content, $option, $template) {
 		global $mosConfig_absolute_path;
-		$main_file =JPATH_RSGALLERY2_SITE.'/templates/' . $template . '/index.php';
+		$main_file =RSG2_PATH_SITE.'/templates/' . $template . '/index.php';
 		?>
 		<form action="index2.php" method="post" name="adminForm">
 		<table cellpadding="1" cellspacing="1" border="0" width="100%">
@@ -373,7 +373,7 @@ function editTemplateMainSource($content, $option, $template) {
 			$cid = array(0);
 		}
 	$template = $cid[0];
-	$thumbs_file = JPATH_RSGALLERY2_SITE.'/templates/' . $template . '/thumbs.php';
+	$thumbs_file = RSG2_PATH_SITE.'/templates/' . $template . '/thumbs.php';
 	if ( $fp = fopen( $thumbs_file, 'r' ) ) {
 		$content = fread( $fp, filesize( $thumbs_file ) );
 		$content = htmlspecialchars( $content );
@@ -392,7 +392,7 @@ function saveTemplateThumbs( $option, $template) {
 		mosRedirect( 'index2.php?option='. $option .'&rsgOption=templates'.'&client='. $client, 'Operation failed: Content empty.' );
 	}
 
-	$thumbs_file = JPATH_RSGALLERY2_SITE.'/templates/' . $template . '/thumbs.php';
+	$thumbs_file = RSG2_PATH_SITE.'/templates/' . $template . '/thumbs.php';
 
 	$enable_write 	= rsgInstance::getVar('enable_write',0);
 	$oldperms 		= fileperms($thumbs_file);
@@ -423,7 +423,7 @@ function saveTemplateThumbs( $option, $template) {
 
 function editTemplateThumbsSource($content, $option, $template) {
 		global $mosConfig_absolute_path;
-		$thumbs_file =JPATH_RSGALLERY2_SITE.'/templates/' . $template . '/thumbs.php';
+		$thumbs_file =RSG2_PATH_SITE.'/templates/' . $template . '/thumbs.php';
 		?>
 		<form action="index2.php" method="post" name="adminForm">
 		<table cellpadding="1" cellspacing="1" border="0" width="100%">
@@ -478,7 +478,7 @@ function editTemplateThumbsSource($content, $option, $template) {
 			$cid = array(0);
 		}
 	$template = $cid[0];
-	$display_file = JPATH_RSGALLERY2_SITE.'/templates/' . $template . '/display.class.php';
+	$display_file = RSG2_PATH_SITE.'/templates/' . $template . '/display.class.php';
 	if ( $fp = fopen( $display_file, 'r' ) ) {
 		$content = fread( $fp, filesize( $display_file ) );
 		$content = htmlspecialchars( $content );
@@ -497,7 +497,7 @@ function saveTemplateDisplay( $option, $template) {
 		mosRedirect( 'index2.php?option='. $option .'&rsgOption=templates'.'&client='. $client, 'Operation failed: Content empty.' );
 	}
 
-	$display_file = JPATH_RSGALLERY2_SITE.'/templates/' . $template . '/display.class.php';
+	$display_file = RSG2_PATH_SITE.'/templates/' . $template . '/display.class.php';
 
 	$enable_write 	= rsgInstance::getVar('enable_write',0);
 	$oldperms 		= fileperms($display_file);
@@ -528,7 +528,7 @@ function saveTemplateDisplay( $option, $template) {
 
 function editTemplateDisplaySource($content, $option, $template) {
 		global $mosConfig_absolute_path;
-		$display_file =JPATH_RSGALLERY2_SITE.'/templates/' . $template . '/display.class.php';
+		$display_file =RSG2_PATH_SITE.'/templates/' . $template . '/display.class.php';
 		?>
 		<form action="index2.php" method="post" name="adminForm">
 		<table cellpadding="1" cellspacing="1" border="0" width="100%">
@@ -582,7 +582,7 @@ function editTemplateCSS( $option ) {
 			$cid = array(0);
 		}
 	$template = $cid[0];
-	$file = JPATH_RSGALLERY2_SITE.'/templates/' . $template . '/css/template.css';
+	$file = RSG2_PATH_SITE.'/templates/' . $template . '/css/template.css';
 
 	if ($fp = fopen( $file, 'r' )) {
 		$content = fread( $fp, filesize( $file ) );
@@ -601,7 +601,7 @@ function saveTemplateCSS( $option, $template) {
 	if ( !$filecontent ) {
 		mosRedirect( 'index2.php?option='. $option.'&rsgOption=templates', 'Operation failed: Content empty.' );
 	}
-	$file = JPATH_RSGALLERY2_SITE.'/templates/' . $template . '/css/template.css';
+	$file = RSG2_PATH_SITE.'/templates/' . $template . '/css/template.css';
 
 	$enable_write 	= rsgInstance::getVar('enable_write',0);
 	$oldperms 		= fileperms($file);
@@ -634,7 +634,7 @@ function saveTemplateCSS( $option, $template) {
 
 function editCSSSource($content, $option, $template) {
 		global $mosConfig_absolute_path, $rsgConfig;
-		$css_path = JPATH_RSGALLERY2_SITE.'/templates/' . $template . '/css/template.css';
+		$css_path = RSG2_PATH_SITE.'/templates/' . $template . '/css/template.css';
 		?>
 		<form action="index2.php" method="post" name="adminForm">
 		<table cellpadding="1" cellspacing="1" border="0" width="100%">

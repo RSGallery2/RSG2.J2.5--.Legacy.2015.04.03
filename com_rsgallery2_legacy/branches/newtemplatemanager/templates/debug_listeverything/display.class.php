@@ -19,7 +19,7 @@ function dumpGallery( $parent = 0 ){
     global $rsgConfig;
     if(! $rsgConfig->get('debug')) return;
     
-    require_once(JPATH_RSGALLERY2_ADMIN.'/includes/gallery.class.php');
+    require_once(RSG2_PATH_ADMIN.'/includes/gallery.class.php');
 
     echo '<pre>';
 
@@ -52,7 +52,7 @@ function listEverything( $parent = 0 ){
     	return;
     }
     
-    require_once(JPATH_RSGALLERY2_ADMIN.'/includes/gallery.class.php');
+    require_once(RSG2_PATH_ADMIN.'/includes/gallery.class.php');
 
     $g = rsgGalleryManager::get( $parent );
     

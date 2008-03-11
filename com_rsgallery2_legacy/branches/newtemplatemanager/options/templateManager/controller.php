@@ -27,7 +27,7 @@ class TemplatesController
 		$limit		= $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
 		$limitstart = $mainframe->getUserStateFromRequest($option.'.limitstart', 'limitstart', 0, 'int');
 
-		$tBaseDir = JPATH_RSGALLERY2_SITE .DS. 'templates';
+		$tBaseDir = RSG2_PATH_SITE .DS. 'templates';
 
 		//get template xml file info
 		$rows = array();
@@ -110,16 +110,16 @@ class TemplatesController
 			return JError::raiseWarning( 500, 'Template not specified' );
 		}
 
-		$tBaseDir	= JPath::clean(JPATH_RSGALLERY2_SITE .DS. 'templates');
+		$tBaseDir	= JPath::clean(RSG2_PATH_SITE .DS. 'templates');
 
 		if (!is_dir( $tBaseDir . DS . $template )) {
 			return JError::raiseWarning( 500, 'Template not found' );
 		}
 		$lang =& JFactory::getLanguage();
-		$lang->load( 'tpl_'.$template, JPATH_RSGALLERY2_SITE );
+		$lang->load( 'tpl_'.$template, RSG2_PATH_SITE );
 
-		$ini	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'params.ini';
-		$xml	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'templateDetails.xml';
+		$ini	= RSG2_PATH_SITE .DS. 'templates'.DS.$template.DS.'params.ini';
+		$xml	= RSG2_PATH_SITE .DS. 'templates'.DS.$template.DS.'templateDetails.xml';
 		$row	= TemplatesHelper::parseXMLTemplateFile($tBaseDir, $template);
 
 		jimport('joomla.filesystem.file');
@@ -149,7 +149,7 @@ class TemplatesController
 		$template	= JRequest::getVar('id', '', 'method', 'cmd');
 
 		// Determine template CSS directory
-		$dir = JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'css';
+		$dir = RSG2_PATH_SITE .DS. 'templates'.DS.$template.DS.'css';
 
 		// List template .css files
 		jimport('joomla.filesystem.folder');
@@ -172,7 +172,7 @@ class TemplatesController
 		$template	= JRequest::getVar('id', '', 'method', 'cmd');
 		
 		// Determine template CSS directory
-		$dir = JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'html';
+		$dir = RSG2_PATH_SITE .DS. 'templates'.DS.$template.DS.'html';
 		
 		// List template .php files
 		jimport('joomla.filesystem.folder');
@@ -194,7 +194,7 @@ class TemplatesController
 		$option		= JRequest::getCmd('option');
 		$template	= JRequest::getVar('id', '', 'method', 'cmd');
 		$filename	= 'index.php';
-		$file		= JPATH_RSGALLERY2_SITE .DS.'templates'.DS.$template.DS.$filename ;
+		$file		= RSG2_PATH_SITE .DS.'templates'.DS.$template.DS.$filename ;
 		
 		// Read the source file
 		jimport('joomla.filesystem.file');
@@ -231,7 +231,7 @@ class TemplatesController
 			mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager&task=choose_css&id='.$template, $msg, 'error');
 		}
 
-		$content = JFile::read(JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'css'.DS.$filename);
+		$content = JFile::read(RSG2_PATH_SITE .DS. 'templates'.DS.$template.DS.'css'.DS.$filename);
 
 		if ($content !== false)
 		{
@@ -266,7 +266,7 @@ class TemplatesController
 			mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager&task=choose_override&id='.$template, $msg, 'error');
 		}
 		
-		$content = JFile::read(JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'html'.DS.$filename);
+		$content = JFile::read(RSG2_PATH_SITE .DS. 'templates'.DS.$template.DS.'html'.DS.$filename);
 		
 		if ($content !== false)
 		{
@@ -280,7 +280,7 @@ class TemplatesController
 		}
 		else
 		{
-			$msg = JText::sprintf('Operation Failed Could not open', JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'html'.DS.$filename);
+			$msg = JText::sprintf('Operation Failed Could not open', RSG2_PATH_SITE .DS. 'templates'.DS.$template.DS.'html'.DS.$filename);
 			mosRedirect('index2.php?option='.$option.'&rsgOption=templateManager', $msg);
 		}
 	}
@@ -293,7 +293,7 @@ class TemplatesController
 		$option		= JRequest::getCmd('option');
 		$template	= JRequest::getVar('id', '', 'method', 'cmd');
 		$filename	= 'display.class.php';
-		$file		= JPATH_RSGALLERY2_SITE .DS.'templates'.DS.$template.DS.$filename ;
+		$file		= RSG2_PATH_SITE .DS.'templates'.DS.$template.DS.$filename ;
 		
 		// Read the source file
 		jimport('joomla.filesystem.file');
@@ -336,7 +336,7 @@ class TemplatesController
 		JClientHelper::setCredentialsFromRequest('ftp');
 		$ftp = JClientHelper::getCredentials('ftp');
 
-		$file = JPATH_RSGALLERY2_SITE .DS.'templates'.DS.$template.DS.'params.ini';
+		$file = RSG2_PATH_SITE .DS.'templates'.DS.$template.DS.'params.ini';
 
 		jimport('joomla.filesystem.file');
 		if (JFile::exists($file) && count($params))
@@ -393,7 +393,7 @@ class TemplatesController
 		JClientHelper::setCredentialsFromRequest('ftp');
 		$ftp = JClientHelper::getCredentials('ftp');
 
-		$file = JPATH_RSGALLERY2_SITE .DS.'templates'.DS.$template.DS.'index.php';
+		$file = RSG2_PATH_SITE .DS.'templates'.DS.$template.DS.'index.php';
 
 		// Try to make the template file writeable
 		if (!$ftp['enabled'] && !JPath::setPermissions($file, '0755')) {
@@ -451,7 +451,7 @@ class TemplatesController
 		JClientHelper::setCredentialsFromRequest('ftp');
 		$ftp = JClientHelper::getCredentials('ftp');
 
-		$file = JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'css'.DS.$filename;
+		$file = RSG2_PATH_SITE .DS. 'templates'.DS.$template.DS.'css'.DS.$filename;
 
 		// Try to make the css file writeable
 		if (!$ftp['enabled'] && JPath::isOwner($file) && !JPath::setPermissions($file, '0755')) {
@@ -513,7 +513,7 @@ class TemplatesController
 		JClientHelper::setCredentialsFromRequest('ftp');
 		$ftp = JClientHelper::getCredentials('ftp');
 		
-		$file = JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'html'.DS.$filename;
+		$file = RSG2_PATH_SITE .DS. 'templates'.DS.$template.DS.'html'.DS.$filename;
 		
 		// Try to make the css file writeable
 		if (!$ftp['enabled'] && JPath::isOwner($file) && !JPath::setPermissions($file, '0755')) {
@@ -570,7 +570,7 @@ class TemplatesController
 		JClientHelper::setCredentialsFromRequest('ftp');
 		$ftp = JClientHelper::getCredentials('ftp');
 		
-		$file = JPATH_RSGALLERY2_SITE .DS.'templates'.DS.$template.DS.'display.class.php';
+		$file = RSG2_PATH_SITE .DS.'templates'.DS.$template.DS.'display.class.php';
 		
 		// Try to make the template file writeable
 		if (!$ftp['enabled'] && !JPath::setPermissions($file, '0755')) {
@@ -654,7 +654,7 @@ class TemplatesController
 		}
 		
 	
-		require_once(JPATH_RSGALLERY2_ADMIN .DS. 'options' . DS. 'templateManager'. DS. 'helpers' .DS. 'JInstallerRSGTemplate.php');
+		require_once(RSG2_PATH_ADMIN .DS. 'options' . DS. 'templateManager'. DS. 'helpers' .DS. 'JInstallerRSGTemplate.php');
 		// Get an installer instance
 		$installer =& JInstaller::getInstance();
 		
@@ -677,7 +677,7 @@ class TemplatesController
 			$config =& JFactory::getConfig();
 			$package['packagefile'] = $config->getValue('config.tmp_path').DS.$package['packagefile'];
 		}
-		require_once(JPATH_RSGALLERY2_ADMIN .DS. 'options' . DS. 'templateManager'. DS. 'helpers' .DS. 'JInstallerRSGTemplate.php');
+		require_once(RSG2_PATH_ADMIN .DS. 'options' . DS. 'templateManager'. DS. 'helpers' .DS. 'JInstallerRSGTemplate.php');
 		JInstallerHelper::cleanupInstall($package['packagefile'], $package['extractdir']);
 		mosRedirect('index2.php?option=com_rsgallery2&rsgOption=templateManager&task=chooseInstall', $msg);
 	}
@@ -696,7 +696,7 @@ class TemplatesController
 			return false;
 		}
 
-		require_once(JPATH_RSGALLERY2_ADMIN .DS. 'options' . DS. 'templateManager'. DS. 'helpers' .DS. 'JInstallerRSGTemplate.php');
+		require_once(RSG2_PATH_ADMIN .DS. 'options' . DS. 'templateManager'. DS. 'helpers' .DS. 'JInstallerRSGTemplate.php');
 		// Get an installer instance
 		$installer =& JInstaller::getInstance();
 
@@ -785,7 +785,7 @@ class TemplatesController
 		}
 		
 		// Detect the package type
-		require_once(JPATH_RSGALLERY2_ADMIN .DS. 'options' . DS. 'templateManager'. DS. 'helpers' .DS. 'JInstallerRSGTemplate.php');
+		require_once(RSG2_PATH_ADMIN .DS. 'options' . DS. 'templateManager'. DS. 'helpers' .DS. 'JInstallerRSGTemplate.php');
 		$type = JInstallerHelper::detectType($p_dir);
 		
 		// Did you give us a valid package?
@@ -824,7 +824,7 @@ class TemplatesController
 		}
 		
 		// Download the package at the URL given
-		require_once(JPATH_RSGALLERY2_ADMIN .DS. 'options' . DS. 'templateManager'. DS. 'helpers' .DS. 'JInstallerRSGTemplate.php');
+		require_once(RSG2_PATH_ADMIN .DS. 'options' . DS. 'templateManager'. DS. 'helpers' .DS. 'JInstallerRSGTemplate.php');
 		$p_file = JInstallerHelper::downloadPackage($url);
 		
 		// Was the package downloaded?
