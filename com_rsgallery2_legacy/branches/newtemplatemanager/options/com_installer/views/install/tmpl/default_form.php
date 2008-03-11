@@ -80,6 +80,7 @@
 	<input type="hidden" name="type" value="" />
 	<input type="hidden" name="installtype" value="upload" />
 	<input type="hidden" name="task" value="doInstall" />
-	<input type="hidden" name="option" value="com_installer" />
+	<input type="hidden" name="option" value="com_rsgallery2" />
+	<input type="hidden" name="rsgOption" value="newtemplates" />
 	<?php echo JHTML::_( 'form.token' ); ?>
 </form>

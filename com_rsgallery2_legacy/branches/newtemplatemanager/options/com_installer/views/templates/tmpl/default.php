@@ -43,7 +43,8 @@
 	<?php endif; ?>
 	<input type="hidden" name="task" value="manage" />
 	<input type="hidden" name="boxchecked" value="0" />
-	<input type="hidden" name="option" value="com_installer" />
+	<input type="hidden" name="option" value="com_rsgallery2" />
+	<input type="hidden" name="rsgOption" value="com_rsgallery2" />
 	<input type="hidden" name="type" value="templates" />
 	<?php echo JHTML::_( 'form.token' ); ?>
 </form>

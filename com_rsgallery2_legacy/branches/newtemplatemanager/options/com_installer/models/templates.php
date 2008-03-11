@@ -43,8 +43,8 @@ class InstallerModelTemplates extends InstallerModel
 		parent::__construct();
 
 		// Set state variables from the request
-		$this->setState('filter.string', $mainframe->getUserStateFromRequest( "com_installer.templates.string", 'filter', '', 'string' ));
-		$this->setState('filter.client', $mainframe->getUserStateFromRequest( "com_installer.templates.client", 'client', -1, 'int' ));
+		$this->setState('filter.string', $mainframe->getUserStateFromRequest( "com_rsgallery2_com_installer.templates.string", 'filter', '', 'string' ));
+		$this->setState('filter.client', $mainframe->getUserStateFromRequest( "com_rsgallery2_com_installer.templates.client", 'client', -1, 'int' ));
 	}
 
 	function _loadItems()
