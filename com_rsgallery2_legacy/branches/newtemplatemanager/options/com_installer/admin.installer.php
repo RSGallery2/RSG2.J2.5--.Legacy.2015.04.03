@@ -18,10 +18,6 @@ defined('_JEXEC') or die('Restricted access');
 $ext	= JRequest::getWord('type');
 
 $subMenus = array(
-	'Components' => 'components',
-	'Modules' => 'modules',
-	'Plugins' => 'plugins',
-	'Languages' => 'languages',
 	'Templates' => 'templates');
 
 JSubMenuHelper::addEntry(JText::_( 'Install' ), '#" onclick="javascript:document.adminForm.type.value=\'\';submitbutton(\'installer\');', !in_array( $ext, $subMenus));
