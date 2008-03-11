@@ -44,78 +44,35 @@ class InstallerModelTemplates extends InstallerModel
 
 		// Set state variables from the request
 		$this->setState('filter.string', $mainframe->getUserStateFromRequest( "com_rsgallery2_com_installer.templates.string", 'filter', '', 'string' ));
-		$this->setState('filter.client', $mainframe->getUserStateFromRequest( "com_rsgallery2_com_installer.templates.client", 'client', -1, 'int' ));
 	}
 
 	function _loadItems()
 	{
-		global $mainframe, $option;
+		global $mainframe, $option, $rsgConfig;
 
 		$db = &JFactory::getDBO();
 
-		if ($this->_state->get('filter.client') < 0) {
-			$client = 'all';
-			// Get the site templates
-			$templateDirs = JFolder::folders(JPATH_SITE.DS.'templates');
+		$clientInfo =& $rsgConfig->getClientInfo( 'site', true );
+		$client = $clientInfo->name;
+		$templateDirs = JFolder::folders($clientInfo->path.DS.'templates');
 
-			for ($i=0; $i < count($templateDirs); $i++) {
-				$template = new stdClass();
-				$template->folder = $templateDirs[$i];
-				$template->client = 0;
-				$template->baseDir = JPATH_SITE.DS.'templates';
+		for ($i=0; $i < count($templateDirs); $i++) {
+			$template = new stdClass();
+			$template->folder = $templateDirs[$i];
+			$template->client = $clientInfo->id;
+			$template->baseDir = $clientInfo->path.DS.'templates';
 
-				if ($this->_state->get('filter.string')) {
-					if (strpos($template->folder, $this->_state->get('filter.string')) !== false) {
-						$templates[] = $template;
-					}
-				} else {
+			if ($this->_state->get('filter.string')) {
+				if (strpos($template->folder, $this->_state->get('filter.string')) !== false) {
 					$templates[] = $template;
 				}
-			}
-			// Get the admin templates
-			$templateDirs = JFolder::folders(JPATH_ADMINISTRATOR.DS.'templates');
-
-			for ($i=0; $i < count($templateDirs); $i++) {
-				$template = new stdClass();
-				$template->folder = $templateDirs[$i];
-				$template->client = 1;
-				$template->baseDir = JPATH_ADMINISTRATOR.DS.'templates';
-
-				if ($this->_state->get('filter.string')) {
-					if (strpos($template->folder, $this->_state->get('filter.string')) !== false) {
-						$templates[] = $template;
-					}
-				} else {
-					$templates[] = $template;
-				}
-			}
-		} else {
-			$clientInfo =& JApplicationHelper::getClientInfo($this->_state->get('filter.client'));
-			$client = $clientInfo->name;
-			$templateDirs = JFolder::folders($clientInfo->path.DS.'templates');
-
-			for ($i=0; $i < count($templateDirs); $i++) {
-				$template = new stdClass();
-				$template->folder = $templateDirs[$i];
-				$template->client = $clientInfo->id;
-				$template->baseDir = $clientInfo->path.DS.'templates';
-
-				if ($this->_state->get('filter.string')) {
-					if (strpos($template->folder, $this->_state->get('filter.string')) !== false) {
-						$templates[] = $template;
-					}
-				} else {
-					$templates[] = $template;
-				}
+			} else {
+				$templates[] = $template;
 			}
 		}
 
 		// Get a list of the currently active templates
-		$query = 'SELECT template' .
-				' FROM #__templates_menu' .
-				' WHERE 1';
-		$db->setQuery($query);
-		$activeList = $db->loadResultArray();
+		$activeList = array( 'meta', $rsgConfig->get( 'template' ));
 
 		$rows = array();
 		$rowid = 0;

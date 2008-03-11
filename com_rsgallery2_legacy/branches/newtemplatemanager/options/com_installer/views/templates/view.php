@@ -36,19 +36,11 @@ class InstallerViewTemplates extends InstallerViewDefault
 		JToolBarHelper::help( 'screen.installer2' );
 
 		// Get data from the model
-		$state		= &$this->get('State');
 		$items		= &$this->get('Items');
 		$pagination	= &$this->get('Pagination');
 
-		$lists = new stdClass();
-		$select[] = JHTML::_('select.option', '-1', JText::_('All'));
-		$select[] = JHTML::_('select.option', '0', JText::_('Site Templates'));
-		$select[] = JHTML::_('select.option', '1', JText::_('Admin Templates'));
-		$lists->client = JHTML::_('select.genericlist',  $select, 'client', 'class="inputbox" size="1" onchange="document.adminForm.submit();"', 'value', 'text', $state->get('filter.client'));
-
 		$this->assignRef('items',		$items);
 		$this->assignRef('pagination',	$pagination);
-		$this->assignRef('lists',		$lists);
 
 		parent::display($tpl);
 	}
