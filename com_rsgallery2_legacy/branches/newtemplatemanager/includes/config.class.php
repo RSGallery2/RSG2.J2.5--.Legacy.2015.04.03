@@ -243,5 +243,75 @@ class rsgConfig {
         $defaultConfig = new rsgConfig( false );
         return $defaultConfig->get( $varname );
     }
+
+
+	/**
+	 * Gets information on a specific client id.  This method will be useful in
+	 * future versions when we start mapping applications in the database.
+	 * RIPPED FROM JApplicationHelper
+	 * @access	public
+	 * @param	int			$id		A client identifier
+	 * @param	boolean		$byName	If True, find the client by it's name
+	 * @return	mixed	Object describing the client or false if not known
+	 * @since	1.5
+	 */
+	function &getClientInfo($id = null, $byName = false)
+	{
+		static $clients;
+
+		// Only create the array if it does not exist
+		if (!is_array($clients))
+		{
+			$obj = new stdClass();
+
+			// Site Client
+			$obj->id		= 0;
+			$obj->name	= 'site';
+			$obj->path	= RSG2_PATH_SITE;
+			$clients[0] = clone($obj);
+
+			// Administrator Client
+			$obj->id		= 1;
+			$obj->name	= 'administrator';
+			$obj->path	= RSG2_PATH_ADMIN;
+			$clients[1] = clone($obj);
+
+			// Installation Client
+			$obj->id		= 2;
+			$obj->name	= 'installation';
+			$obj->path	= RSG2_PATH_INSTALLATION;
+			$clients[2] = clone($obj);
+
+			// XMLRPC Client
+			$obj->id		= 3;
+			$obj->name	= 'xmlrpc';
+			$obj->path	= RSG2_PATH_XMLRPC;
+			$clients[3] = clone($obj);
+		}
+
+		//If no client id has been passed return the whole array
+		if(is_null($id)) {
+			return $clients;
+		}
+
+		// Are we looking for client information by id or by name?
+		if (!$byName)
+		{
+			if (isset($clients[$id])){
+				return $clients[$id];
+			}
+		}
+		else
+		{
+			foreach ($clients as $client)
+			{
+				if ($client->name == strtolower($id)) {
+					return $client;
+				}
+			}
+		}
+		$null = null;
+		return $null;
+	}
 }
 ?>
