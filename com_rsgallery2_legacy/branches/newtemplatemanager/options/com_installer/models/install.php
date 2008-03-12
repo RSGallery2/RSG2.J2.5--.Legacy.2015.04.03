@@ -81,6 +81,8 @@ class InstallerModelInstall extends JModel
 
 		// Get an installer instance
 		$installer =& JInstaller::getInstance();
+		require_once( rsgOptions_installer_path .DS. 'adapters' .DS. 'rsgtemplate.php' );
+		$installer->setAdapter( 'rsgTemplate', new JInstaller_rsgTemplate( $installer ) );  
 
 		// Install the package
 		if (!$installer->install($package['dir'])) {
