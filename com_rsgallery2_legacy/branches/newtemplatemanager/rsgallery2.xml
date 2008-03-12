@@ -545,35 +545,49 @@
 	  <filename>language/turkish-utf8.php</filename>
 	  <filename>language/turkish.php</filename>
 	<filename>language/ukrainian.php</filename>
-	
-	  <filename>options/config.html.php</filename>
-	  <filename>options/config.php</filename>
-	  <filename>options/galleries.class.php</filename>
-	  <filename>options/galleries.html.php</filename>
-	  <filename>options/galleries.item.xml</filename>
-	  <filename>options/galleries.php</filename>
-	  <filename>options/images.class.php</filename>
-	  <filename>options/images.html.php</filename>
-	  <filename>options/images.item.xml</filename>
-	  <filename>options/images.php</filename>
-	  <filename>options/templateManager/admin.templates.html.php</filename>
-	  <filename>options/templateManager/admin.templates.php</filename>
-	  <filename>options/templateManager/controller.php</filename>
-	  <filename>options/templateManager/helpers/index.html</filename>
-	  <filename>options/templateManager/helpers/JInstallerRSGTemplate.php</filename>
-	  <filename>options/templateManager/helpers/template.php</filename>
-	  <filename>options/templateManager/index.html</filename>
-	  <filename>options/templateManager/toolbar.templates.html.php</filename>
-	  <filename>options/templateManager/toolbar.templates.php</filename>
-	  <filename>options/templates.class.php</filename>
-	  <filename>options/templates.html.php</filename>
-	  <filename>options/templates.installer.php</filename>
-	  <filename>options/templates.php</filename>
-    <filename>options/maintenance.class.php</filename>
-	  <filename>options/maintenance.html.php</filename>
-	  <filename>options/maintenance.php</filename>
     
-    <filename>sql/rsgallery2.sql</filename>
+	<filename>options/com_installer/adapters/rsgtemplate.php</filename>
+	<filename>options/com_installer/admin.installer.php</filename>
+	<filename>options/com_installer/controller.php</filename>
+	<filename>options/com_installer/helper.php</filename>
+	<filename>options/com_installer/index.html</filename>
+	<filename>options/com_installer/installer.xml</filename>
+	<filename>options/com_installer/models/extension.php</filename>
+	<filename>options/com_installer/models/index.html</filename>
+	<filename>options/com_installer/models/install.php</filename>
+	<filename>options/com_installer/models/templates.php</filename>
+	<filename>options/com_installer/views/default/index.html</filename>
+	<filename>options/com_installer/views/default/tmpl/default_ftp.php</filename>
+	<filename>options/com_installer/views/default/tmpl/default_message.php</filename>
+	<filename>options/com_installer/views/default/tmpl/index.html</filename>
+	<filename>options/com_installer/views/default/view.php</filename>
+	<filename>options/com_installer/views/index.html</filename>
+	<filename>options/com_installer/views/install/index.html</filename>
+	<filename>options/com_installer/views/install/tmpl/default.php</filename>
+	<filename>options/com_installer/views/install/tmpl/default_form.php</filename>
+	<filename>options/com_installer/views/install/tmpl/index.html</filename>
+	<filename>options/com_installer/views/install/view.php</filename>
+	<filename>options/com_installer/views/templates/index.html</filename>
+	<filename>options/com_installer/views/templates/tmpl/default.php</filename>
+	<filename>options/com_installer/views/templates/tmpl/default_item.php</filename>
+	<filename>options/com_installer/views/templates/tmpl/index.html</filename>
+	<filename>options/com_installer/views/templates/view.php</filename>
+	<filename>options/config.html.php</filename>
+	<filename>options/config.php</filename>
+	<filename>options/galleries.class.php</filename>
+	<filename>options/galleries.html.php</filename>
+	<filename>options/galleries.item.xml</filename>
+	<filename>options/galleries.php</filename>
+	<filename>options/images.class.php</filename>
+	<filename>options/images.html.php</filename>
+	<filename>options/images.item.xml</filename>
+	<filename>options/images.php</filename>
+	<filename>options/installer.php</filename>
+	<filename>options/maintenance.class.php</filename>
+	<filename>options/maintenance.html.php</filename>
+	<filename>options/maintenance.php</filename>
+
+	<filename>sql/rsgallery2.sql</filename>
     <filename>sql/upgrade_1.11.0_to_1.11.1.sql</filename>
     <filename>sql/upgrade_1.11.7_to_1.11.8.sql</filename>
     <filename>sql/upgrade_1.10.14_to_1.11.0.sql</filename>
