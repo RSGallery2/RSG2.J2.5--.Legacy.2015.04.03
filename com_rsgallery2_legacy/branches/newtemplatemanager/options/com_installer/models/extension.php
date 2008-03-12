@@ -18,7 +18,7 @@ defined('_JEXEC') or die();
 jimport( 'joomla.application.component.model' );
 
 /**
- * Extension Manager Abstract Extension Model
+ * RSGallery2 Template Manager Abstract Extension Model
  *
  * @abstract
  * @package		Joomla

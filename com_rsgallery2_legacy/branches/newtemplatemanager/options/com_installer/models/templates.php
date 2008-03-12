@@ -17,7 +17,7 @@ require_once(dirname(__FILE__).DS.'extension.php');
 jimport( 'joomla.filesystem.folder' );
 
 /**
- * Extension Manager Templates Model
+ * RSGallery2 Template Manager Templates Model
  *
  * @package		Joomla
  * @subpackage	Installer

@@ -16,7 +16,7 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
 /**
- * Extension Manager Templates View
+ * RSGallery2 Template Manager Templates View
  *
  * @package		Joomla
  * @subpackage	Installer

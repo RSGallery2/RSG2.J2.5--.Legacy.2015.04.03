@@ -20,7 +20,7 @@ jimport( 'joomla.installer.installer' );
 jimport('joomla.installer.helper');
 
 /**
- * Extension Manager Install Model
+ * RSGallery2 Template Manager Install Model
  *
  * @package		Joomla
  * @subpackage	Installer

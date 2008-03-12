@@ -13,7 +13,7 @@
  */
 
 /**
- * Extension Manager Helper
+ * RSGallery2 Template Manager Helper
  *
  * @static
  * @package		Joomla

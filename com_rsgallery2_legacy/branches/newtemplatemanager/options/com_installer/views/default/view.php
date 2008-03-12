@@ -18,7 +18,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport('joomla.application.component.view');
 
 /**
- * Extension Manager Default View
+ * RSGallery2 Template Manager Default View
  *
  * @package		Joomla
  * @subpackage	Installer
@@ -37,11 +37,11 @@ class InstallerViewDefault extends JView
 		/*
 		 * Set toolbar items for the page
 		 */
-		JToolBarHelper::title( JText::_( 'Extension Manager'), 'install.png' );
+		JToolBarHelper::title( JText::_( 'RSGallery2 Template Manager'), 'install.png' );
 
 		// Document
 		$document = & JFactory::getDocument();
-		$document->setTitle(JText::_('Extension Manager').' : '.JText::_( $this->getName() ));
+		$document->setTitle(JText::_('RSGallery2 Template Manager').' : '.JText::_( $this->getName() ));
 
 		// Get data from the model
 		$state		= &$this->get('State');
