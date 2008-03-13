@@ -203,7 +203,7 @@ class rsgConfig {
 		}
 	
 		$db->setQuery( "TRUNCATE #__rsgallery2_config" );
-		$db->query() or JError::raiseError( $dg->getErrorNum, $db->getErrorMsg() ); 
+		$db->query() or JError::raiseError( $db->getErrorNum, $db->getErrorMsg() ); 
 
 		$query = "INSERT INTO #__rsgallery2_config ( `name`, `value` ) VALUES ";
 
@@ -214,7 +214,7 @@ class rsgConfig {
 
 		$query = substr( $query, 0, -2 );
 		$db->setQuery( $query );
-		$db->query() or JError::raiseError( $dg->getErrorNum, $db->getErrorMsg() ); 
+		$db->query() or JError::raiseError( $db->getErrorNum, $db->getErrorMsg() ); 
 
 		return true;
 	}
