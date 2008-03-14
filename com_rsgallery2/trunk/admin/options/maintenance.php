@@ -228,6 +228,14 @@ function deleteImages() {
 	$database =& JFactory::getDBO();
 	$name = rsgInstance::getVar('name', null);
     
+    if ( imgUtils::deleteImage( $name ) ) {
+    	$txt = _RSGALLERY_ALERT_IMGDELETEOK;
+    } else {
+    	$txt = _RSGALLERY_ALERT_IMGDELETENOTOK;
+    }
+    
+    $mainframe->redirect("index2.php?option=com_rsgallery2&rsgOption=maintenance&task=consolidateDB", $txt);
+    /*
     //Check if file is in database
     $sql ="SELECT count(name) FROM #__rsgallery2_files WHERE name = '$name'";
     $database->setQuery($sql);
@@ -238,6 +246,7 @@ function deleteImages() {
     	imgUtils::deleteImage( $name );
     }
     $mainframe->redirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB", _RSGALLERY_ALERT_IMGDELETEOK);
+    */
 }
 
 function createDbEntries() {

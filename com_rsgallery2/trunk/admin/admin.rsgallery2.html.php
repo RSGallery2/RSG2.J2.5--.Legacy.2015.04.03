@@ -235,7 +235,7 @@ class HTML_RSGALLERY{
                 $link = 'index2.php?option=com_rsgallery2&rsgOption=images&task=upload';
                 HTML_RSGALLERY::quickiconButton( $link, 'upload.png', _RSGALLERY_C_UPLOAD );
 
-                $link = 'index2.php?option=com_rsgallery2&task=batchupload';
+                $link = 'index2.php?option=com_rsgallery2&rsgOption=images&task=batchupload';
                 HTML_RSGALLERY::quickiconButton( $link, 'upload_zip.png', _RSGALLERY_C_UPLOAD_ZIP );
                 
                 $link = 'index2.php?option=com_rsgallery2&rsgOption=jumploader';
@@ -293,7 +293,6 @@ class HTML_RSGALLERY{
     }
 
 	function showInstallForm( $title, $option, $p_startdir = "", $backLink="" ) {
-
 		?>
 		<script language="javascript" type="text/javascript">
 		function submitbutton3(pressbutton) {
@@ -449,6 +448,7 @@ class HTML_RSGALLERY{
      * RS 29-10-2005 NEW FUNCTION
      * Inserts the HTML content for the first screen of the batch upload process.
      */
+     /*
     function batch_uploadX($option)
         {
         global $rsgConfig, $task;
@@ -586,10 +586,11 @@ class HTML_RSGALLERY{
         <?php
         }
 
-
+*/
     /**
      * Inserts the HTML content for the second screen of the batch upload process.
      */
+     /*
     function batch_upload_2X	( $ziplist, $extractDir )
         {
         global  $database;
@@ -688,7 +689,7 @@ class HTML_RSGALLERY{
 			</form>
         <?php
         }
-
+	*/
      /**
      * asks user to choose a category for uploaded files to go in
      */

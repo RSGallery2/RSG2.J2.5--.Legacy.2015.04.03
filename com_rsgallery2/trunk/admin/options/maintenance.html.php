@@ -172,7 +172,7 @@ class html_rsg2_maintenance {
 	    	<tr>
 	    	<td width="15%">&nbsp;</td>
 	    	<td width="70%">
-			    <table class="adminlist" border="1">
+			    <table class="adminlist" border="0">
 			    <tr>
 			    	<td colspan="9" align="center">
 				    	<div style="clear: both; margin: 3px; margin-top: 10px; padding: 5px 15px; display: block; float: left; border: 1px solid #cc0000; background: #ffffcc; text-align: left; width: 80%;">
@@ -200,8 +200,8 @@ class html_rsg2_maintenance {
 			        <td colspan="9">&nbsp;</td>
 			    </tr>
 			    <?php
-			    $yes    = "<td align=\"center\"><img src=\"".JURI_SITE."/images/tick.png\" alt=\""._RSGALLERY_CONSDB_IMG_IN_FLDR."\" border=\"0\"></td>";
-				$no     = "<td align=\"center\"><img src=\"".JURI_SITE."/images/publish_x.png\" alt=\""._RSGALLERY_CONSDB_IMG__NOT_IN_FLDR."\" border=\"0\"></td>";
+			    $yes    = "<td align=\"center\"><img src=\"".JURI_SITE."administrator/images/tick.png\" alt=\""._RSGALLERY_CONSDB_IMG_IN_FLDR."\" border=\"0\"></td>";
+				$no     = "<td align=\"center\"><img src=\"".JURI_SITE."administrator/images/publish_x.png\" alt=\""._RSGALLERY_CONSDB_IMG__NOT_IN_FLDR."\" border=\"0\"></td>";
 			    $z = 0;
 			    $c = 0;
 			    //Check database and crossreference against filesystem
@@ -322,7 +322,7 @@ class html_rsg2_maintenance {
 			            </td>
 			            <td align="center">
 			                <a href="javascript:void();" onClick="javascript:db_create();"><?php echo _RSGALLERY_CONSDB_CREATE_DB;?></a><br />
-			                <a href="index2.php?option=com_rsgallery2&task=c_delete&name=<?php echo $diff;?>"><?php echo _RSGALLERY_CONSDB_DELETE_IMG;?></a>&nbsp;
+			                <a href="index2.php?option=com_rsgallery2&rsgOption=maintenance&task=deleteImages&name=<?php echo $diff;?>"><?php echo _RSGALLERY_CONSDB_DELETE_IMG;?></a>&nbsp;
 			                <?php
 			                if ($original2 == true AND $display2 == true AND $thumb2 == true)
 			                    {
