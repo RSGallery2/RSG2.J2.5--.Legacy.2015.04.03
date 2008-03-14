@@ -18,7 +18,7 @@ switch( $task ){
     	cancelConfig($option);
 		break;
     case 'config_dumpVars':
-        HTML_RSGallery::RSGalleryHeader('viewChangelog', _RSGALLERY_HEAD_CONF_VARIA);
+        //HTML_RSGallery::RSGalleryHeader('viewChangelog', _RSGALLERY_HEAD_CONF_VARIA);
         config_dumpVars();
         HTML_RSGallery::RSGalleryFooter();
     break;
@@ -29,37 +29,37 @@ $user = &JFactory::getUser();
 if ( $user->get('gid') > 23 )
 switch( $task ){
     case 'applyConfig':
-        HTML_RSGallery::RSGalleryHeader('config', _RSGALLERY_HEAD_CONFIG);
+        //HTML_RSGallery::RSGalleryHeader('config', _RSGALLERY_HEAD_CONFIG);
         saveConfig();
         showConfig($option);
         HTML_RSGallery::RSGalleryFooter();
     break;
     case 'saveConfig':
-        HTML_RSGallery::RSGalleryHeader('cpanel', _RSGALLERY_HEAD_CPANEL);
+        //HTML_RSGallery::RSGalleryHeader('cpanel', _RSGALLERY_HEAD_CPANEL);
         saveConfig();
         HTML_RSGallery::showCP();
         HTML_RSGallery::RSGalleryFooter();
     break;
     case "showConfig":
-        HTML_RSGallery::RSGalleryHeader('config', _RSGALLERY_HEAD_CONFIG);
+        //HTML_RSGallery::RSGalleryHeader('config', _RSGALLERY_HEAD_CONFIG);
         showConfig();
         HTML_RSGallery::RSGalleryFooter();
     break;
 
     case 'config_rawEdit_apply':
-        HTML_RSGallery::RSGalleryHeader('config_rawEdit', _RSGALLERY_HEAD_CONF_RAW_EDIT);
+        //HTML_RSGallery::RSGalleryHeader('config_rawEdit', _RSGALLERY_HEAD_CONF_RAW_EDIT);
         saveConfig();
         config_rawEdit( );
         HTML_RSGallery::RSGalleryFooter();
     break;
     case 'config_rawEdit_save':
-        HTML_RSGallery::RSGalleryHeader('cpanel', _RSGALLERY_HEAD_CPANEL);
+        //HTML_RSGallery::RSGalleryHeader('cpanel', _RSGALLERY_HEAD_CPANEL);
         saveConfig();
         HTML_RSGallery::showCP();
         HTML_RSGallery::RSGalleryFooter();
     break;
     case 'config_rawEdit':
-        HTML_RSGallery::RSGalleryHeader('config_rawEdit', _RSGALLERY_HEAD_CONF_RAW_EDIT);
+        //HTML_RSGallery::RSGalleryHeader('config_rawEdit', _RSGALLERY_HEAD_CONF_RAW_EDIT);
         config_rawEdit( );
         HTML_RSGallery::RSGalleryFooter();
     break;

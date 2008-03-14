@@ -287,16 +287,24 @@ class menuRSGallery {
         }
         
     function config_rawEdit(){
-        
+        JToolBarHelper::title( _RSGALLERY_HEAD_CONF_RAW_EDIT, 'generic.png' );
         JToolBarHelper::apply('config_rawEdit_apply');
         JToolBarHelper::save('config_rawEdit_save');
         JToolBarHelper::cancel();
         JToolBarHelper::spacer();
         
     }
+    
+    function config_dumpVars(){
+        JToolBarHelper::title( _RSGALLERY_HEAD_CONF_VARIA, 'generic.png' );
+        JToolBarHelper::cancel();
+        JToolBarHelper::spacer();
+        
+    }
+    
     function config_show()
         {
-        JToolBarHelper::title( '** RSGallery2 Configuration **', 'generic.png' );
+        JToolBarHelper::title( _RSGALLERY_HEAD_CONFIG, 'generic.png' );
         JToolBarHelper::apply('applyConfig');
         JToolBarHelper::save('saveConfig');
         JToolBarHelper::cancel();
@@ -325,7 +333,7 @@ class menuRSGallery {
 		
 	}
     function simple(){
-        JToolBarHelper::title( '** RSGallery2 Control Panel **', 'generic.png' );
+        JToolBarHelper::title( _RSGALLERY_HEAD_CPANEL, 'generic.png' );
         JToolBarHelper::help('screen.rsgallery2', true);
         //menuRSGallery::adminTasksMenu();
     }

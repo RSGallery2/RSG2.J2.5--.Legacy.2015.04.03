@@ -168,6 +168,9 @@ switch ($task){
     case 'config_rawEdit':
         menuRSGallery::config_rawEdit();
         break;
+	case 'config_dumpVars':
+		menuRSGallery::config_dumpVars();
+		break;
 
     case 'edit_css':
         menuRSGallery::edit_css();

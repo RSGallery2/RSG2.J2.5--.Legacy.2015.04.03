@@ -72,6 +72,7 @@ switch( $rsgOption ) {
  * admin pathway hack when $rsgOption is used.
  * this probably only works with Joomla <1.5
  */
+/*
 if( $rsgOption != '' ){
     $option = '<a href="'.JURI_SITE
         . '/administrator/index2.php?option=com_rsgallery2">'
@@ -85,20 +86,22 @@ if( $rsgOption != '' ){
         . "$rsgOption</a>";
     }
 }
-
+*/
 // only use the legacy task switch if rsgOption is not used.
 // these tasks require admin or super admin privledges.
 if( $rsgOption == '' && $my->gid > 23 )
 switch ( rsgInstance::getVar('task', null) ){
 //     special/debug tasks
     case 'purgeEverything':
+        /* Replace all headers with JToolBarHelper::title() in toolbar.rsgallery2.html.php
         HTML_RSGallery::RSGalleryHeader('cpanel', _RSGALLERY_HEAD_CPANEL);
+        */
         purgeEverything();
         HTML_RSGallery::showCP();
         HTML_RSGallery::RSGalleryFooter();
         break;
     case 'reallyUninstall':
-        HTML_RSGallery::RSGalleryHeader('cpanel', _RSGALLERY_HEAD_CPANEL);
+        //HTML_RSGallery::RSGalleryHeader('cpanel', _RSGALLERY_HEAD_CPANEL);
         reallyUninstall();
         HTML_RSGallery::showCP();
         HTML_RSGallery::RSGalleryFooter();
@@ -109,7 +112,7 @@ switch ( rsgInstance::getVar('task', null) ){
         HTML_RSGallery::RSGalleryFooter();
         break;*/
     case "install":
-        HTML_RSGallery::RSGalleryHeader('install', _RSGALLERY_HEAD_MIGRATE);
+        //HTML_RSGallery::RSGalleryHeader('install', _RSGALLERY_HEAD_MIGRATE);
         RSInstall();
         HTML_RSGallery::RSGalleryFooter();
         break;
@@ -121,11 +124,11 @@ switch ( rsgInstance::getVar('task', null ) ){
     // config tasks
     // this is just a kludge until all links and form vars to configuration functions have been updated to use $rsgOption = 'config';
     /*
-    case 'config_dumpVars':
     case 'applyConfig':
     case 'saveConfig':
     case "showConfig":
     */
+    case 'config_dumpVars':
     case 'config_rawEdit_apply':
     case 'config_rawEdit_save':
     case 'config_rawEdit':
@@ -173,25 +176,6 @@ switch ( rsgInstance::getVar('task', null ) ){
     case "save_batchuploadX":
         save_batchupload();
         break;
-    /*
-    case "view_images":
-        HTML_RSGallery::RSGalleryHeader();
-        viewImagesX($option);
-        HTML_RSGallery::RSGalleryFooter();
-        break;
-    case "save_image":
-        saveImageX($option, $id);
-        break;
-    case "move_image":
-        moveImageX($option, $cid);
-        break;
-    case "delete_image":
-        HTML_RSGallery::RSGalleryHeader();
-        deleteImageX( $cid, $option );
-        viewImagesX($option);
-        HTML_RSGallery::RSGalleryFooter();
-        break;
-	*/
 
     //image and category tasks
     case "categories_orderup":
@@ -211,7 +195,7 @@ switch ( rsgInstance::getVar('task', null ) ){
         break;
     case "controlPanel":
     default:
-        HTML_RSGallery::RSGalleryHeader('cpanel', _RSGALLERY_HEAD_CPANEL);
+        //HTML_RSGallery::RSGalleryHeader('cpanel', _RSGALLERY_HEAD_CPANEL);
         HTML_RSGallery::showCP();
         HTML_RSGallery::RSGalleryFooter();
         break;

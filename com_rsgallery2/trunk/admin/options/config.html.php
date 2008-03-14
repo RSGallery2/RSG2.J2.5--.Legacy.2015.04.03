@@ -435,8 +435,8 @@ class html_rsg2_config{
 					<legend><?php echo _RSGALLERY_C_TMPL_FRONT_PAGE?></legend>
 					<table width="100%">
 					<tr>
-						<td width="40%"><?php echo "Display Search"; ?></td>
-						<td><?php echo mosHTML::yesnoRadioList('displaySearch', '', $config->displaySearch)?></td>
+						<td width="40%"><?php echo "** Display Search**"; ?></td>
+						<td><?php echo JHTML::_("select.booleanlist", 'displaySearch', '', $config->displaySearch)?></td>
 					</tr>
 					<tr>
 						<td width="40%"><?php echo _RSGALLERY_C_TMPL_DISP_RAND?></td>
