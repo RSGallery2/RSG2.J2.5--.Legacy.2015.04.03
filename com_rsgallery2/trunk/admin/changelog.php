@@ -34,6 +34,7 @@ Legend:
 
 2008-03-17
  * Allow public users to comment switch now works. 
+ + Added cleanStart option to slideshowone
 
 2008-02-22 Jonah Braun
  # fixing delete comment bug

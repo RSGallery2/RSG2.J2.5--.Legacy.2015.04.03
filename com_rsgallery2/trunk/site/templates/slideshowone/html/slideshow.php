@@ -13,6 +13,7 @@ $firstImage = $firstImage->display();
 <input type="Hidden" name="currSlide" value="0">
 <input type="Hidden" name="delay">
 
+<?php if( ! $this->cleanStart ): ?>
 
 <a href="javascript:;" onclick="startSS()">
 	<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/start.jpg" alt="<?php echo _RSGALLERY_SLIDE_START ?>" width="24" height="24" border="0">
@@ -26,6 +27,8 @@ $firstImage = $firstImage->display();
 <a href="javascript:;" onclick="nextSS()">
 	<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/next.jpg" alt="<?php echo _RSGALLERY_SLIDE_NEXT ?>" width="24" height="24" border="0">
 </a>
+
+<?php endif; ?>
 
 <div style="visibility:hidden;">
 	<select name="wichIm" onchange="selected(this.options[this.selectedIndex].value)">
@@ -190,5 +193,11 @@ Window.onDomReady(function() {runSS( f.currSlide.value ); });
 
 // -->
 </script>
+
+<?php if( $this->cleanStart ): ?>
+<script type="text/javascript">
+	startSS();
+</script>
+<?php endif; ?>
 
 </div>
