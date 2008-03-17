@@ -151,13 +151,13 @@ class imgUtils extends fileUtils{
             $result = imgUtils::makeDisplayImage( $original_image, $newName, $rsgConfig->get('image_width') );
             if( PEAR::isError( $result )){
                 imgUtils::deleteImage( $newName );
-                return new imageUploadError( $imgName, "error creating display image: " . $result->getMessage() );
+                return new imageUploadError( $imgName, "error creating display image: <pre>" . print_r( $result->getMessage(), true) ."</pre>" );
             }
         } else {
             $result = imgUtils::makeDisplayImage( $original_image, $newName, $width );
             if( PEAR::isError( $result )){
                 imgUtils::deleteImage( $newName );
-                return new imageUploadError( $imgName, "error creating display image: " . $result->getMessage() );
+                return new imageUploadError( $imgName, "error creating display image: <pre>" . print_r( $result->getMessage(), true)  ."</pre>");
                 }
         }
            
