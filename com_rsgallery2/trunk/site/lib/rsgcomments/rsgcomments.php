@@ -81,6 +81,10 @@ function saveComment( $option ) {
 			}
 		}
 	} else {
+		if( ! $rsgConfig->get( 'comment_allowed_public' )){
+			echo '<b>You must login to comment.</b>';
+			return;
+		}
 		$user_id = 0;
 		//Check for unique IP-address and see if only one comment from this IP=address is allowed
 	}

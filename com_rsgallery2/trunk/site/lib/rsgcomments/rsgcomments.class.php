@@ -251,7 +251,11 @@ function editComment( $item_id ) {
 	$doc =& JFactory::getDocument();
 	$doc->addScript(JURI_SITE."/components/com_rsgallery2/lib/rsgcomments/js/client.js");
 	$doc->addStyleSheet(JURI_SITE."/components/com_rsgallery2/lib/rsgcomments/rsgcomments.css");
-	
+
+	if( ! $rsgConfig->get( 'comment_allowed_public' )){
+		if( ! $my->id )
+			return;
+	}
 	?>
 	<script type="text/javascript">
         function submitbutton(pressbutton) {
