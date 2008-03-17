@@ -259,10 +259,11 @@ class HTML_RSGALLERY{
                     HTML_RSGALLERY::quickiconButton( $link, 'dbrestore.png', _RSGALLERY_C_MIGRATION );
                 endif;
 
-				$link = 'index2.php?option=com_rsgallery2&rsgOption=templateManager';
-				HTML_RSGALLERY::quickiconButton( $link, 'template.png', _RSGALLERY_TEMP_MANG);
-
+				$link = 'index2.php?option=com_rsgallery2&rsgOption=installer';
+				HTML_RSGALLERY::quickiconButton( $link, 'template.png', 'Template Installer');
 				
+				$link = 'index2.php?option=com_rsgallery2&rsgOption=templates';
+				HTML_RSGALLERY::quickiconButton( $link, 'template.png', 'Templates Configuration');
 				
                 // if debug is on, display advanced options
                 if( $rsgConfig->get( 'debug' )): ?>

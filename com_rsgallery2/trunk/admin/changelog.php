@@ -33,6 +33,7 @@ Legend:
 ---------------- Recent ----------------
 
 2008-03-17
+ + Clean port of J1.5.1 com_installer to be the new template installer. 
  * Allow public users to comment switch now works. 
  + Added cleanStart option to slideshowone
  # fixed display_thumbs_maxPerPage when set to 0 to show all thumbs
