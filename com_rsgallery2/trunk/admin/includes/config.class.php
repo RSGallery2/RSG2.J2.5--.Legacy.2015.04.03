@@ -17,7 +17,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 class rsgConfig {
 
 	//	General
-	var $intro_text 		= 'RSGallery2 alpha release.';
+	var $intro_text 		= '';
 	var $version    		= 'depreciated';  // this is set and loaded from includes/version.rsgallery2.php
 	var $debug      		= false;
 	var $allowedFileTypes 	= "jpg,jpeg,gif,png";
@@ -106,9 +106,6 @@ class rsgConfig {
     var $voting_once			= 1;
     var $cookie_prefix			= "rsgvoting_";
 
-	// private vars for internal use
-	var $_configTable = '#__rsgallery2_config';
-
     /**
      * constructor
      * @param bool true loads config from db, false will retain defaults
@@ -149,10 +146,10 @@ class rsgConfig {
 			$this->_error = strtolower(get_class( $this )).'::bind failed.';
 			return false;
 		} else {
-			return $this->mosBindArrayToObject( $array, $this, $ignore );
+			return $this->rsgBindArrayToObject( $array, $this, $ignore );
 		}
 	}
-	function mosBindArrayToObject( $array, &$obj, $ignore='', $prefix=NULL, $checkSlashes=true )
+	function rsgBindArrayToObject( $array, &$obj, $ignore='', $prefix=NULL, $checkSlashes=true )
 	{
 		if (!is_array( $array ) || !is_object( $obj )) {
 			return (false);
@@ -179,19 +176,6 @@ class rsgConfig {
 		return true;
 	}
 
-	/**
-	 * Writes the configuration file line for a particular variable
-	 * @return string
-	 */
-	function getVarText() {
-		$txt = '';
-		$vars = $this->getPublicVars();
-		foreach ($vars as $v) {
-			$k = str_replace( 'config_', 'mosConfig_', $v );
-			$txt .= "\$$k = '" . addslashes( $this->$v ) . "';\n";
-		}
-		return $txt;
-	}
 
 	/**
 	 * Binds the global configuration variables to the class properties
@@ -271,4 +255,3 @@ class rsgConfig {
         return $defaultConfig->get( $varname );
     }
 }
-?>
