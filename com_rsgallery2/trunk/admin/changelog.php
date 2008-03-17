@@ -36,6 +36,7 @@ Legend:
  * Allow public users to comment switch now works. 
  + Added cleanStart option to slideshowone
  # fixed display_thumbs_maxPerPage when set to 0 to show all thumbs
+ + Made saving config way better.  This should improve installation time as well.
 
 2008-02-22 Jonah Braun
  # fixing delete comment bug
