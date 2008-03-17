@@ -696,7 +696,7 @@ function save_batchupload() {
         }
     } else {
         //Everything went smoothly, back to Control Panel
-        mosRedirect("index2.php?option=com_rsgallery2", _RSGALLERY_ALERT_UPLOADOK);
+		global $mainframe;
+		$mainframe->redirect("index2.php?option=com_rsgallery2", _RSGALLERY_ALERT_UPLOADOK);
     }
 }
-?>

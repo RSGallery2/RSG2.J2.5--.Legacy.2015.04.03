@@ -136,24 +136,6 @@ switch ( rsgInstance::getVar('task', null ) ){
 		require_once( $rsgOptions_path . 'config.php' );
     break;
 
-    // template tasks
-    // this is just a kludge until all links and form vars to template functions have been updated to use $rsgOption = 'templates';
-    case 'templates':
-    case 'upload_template':
-    case 'remove':
-    case 'default':
-    case 'edit_css':
-	case 'save_css':
-	case 'edit_main':
-	case 'edit_thumbs':
-	case 'edit_display':
-	case 'save_main':
-	case 'save_thumbs':
-	case 'save_display':
-		$rsgOption = 'templates';
-		require_once( $rsgOptions_path . 'templates.php' );
-	break;
-
 //     image tasks
 
     case "edit_image":
