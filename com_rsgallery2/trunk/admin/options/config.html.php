@@ -243,12 +243,12 @@ class html_rsg2_config{
 		$tabs =& JPane::getInstance("Tabs");
 		?>
 		<script  type="text/javascript">
-				function submitbutton(pressbutton) {
-					<?php echo $editor->save('editor1') ; ?>
-					submitform( pressbutton );
-				}
-			</script>
-		<form action="index2.php" method="post" name="adminForm">
+			function submitbutton(pressbutton) {
+				<?php echo $editor->save('intro_text') ; ?>
+				submitform( pressbutton );
+			}
+		</script>
+		<form action="index2.php" method="post" name="adminForm" id="adminForm">
 		<?php
 		echo $tabs->startPane( 'rsgConfig','rsgConfig' );
 		echo $tabs->startPanel( _RSGALLERY_CONF_GENERALTAB, 'rsgConfig' );
@@ -266,8 +266,7 @@ class html_rsg2_config{
 							<tr>
 								<td><?php echo _RSGALLERY_C_TMPL_INTRO_TEXT?></td>
 								<td>
-									<?php echo $editor->display( 'editor1',  $config->intro_text , '100%', '200', '10', '20' ) ; ?>
-									<!-- <textarea class="text_area" cols="60" rows="2" style="width:500px; height:40px" name="intro_text"><?php // echo $config->intro_text ?></textarea> -->
+									<?php echo $editor->display( 'intro_text',  $config->intro_text , '100%', '200', '10', '20' ) ; ?>
 								</td>
 							</tr>
 							<tr>
