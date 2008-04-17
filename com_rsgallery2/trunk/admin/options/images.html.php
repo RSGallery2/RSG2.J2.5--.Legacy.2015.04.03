@@ -183,7 +183,7 @@ class html_rsg2_images {
 			} else if (form.gallery_id.value == "0"){
 				alert( "You must select a category." );
 			} else {
-				<?php echo $editor->save( 'editor1' ) ; ?>
+				<?php echo $editor->save( 'descr' ) ; ?>
 				submitform( pressbutton );
 			}
 		}
@@ -222,7 +222,7 @@ class html_rsg2_images {
 					<td>
 						<?php
 						// parameters : areaname, content, hidden field, width, height, rows, cols
-						echo $editor->display('editor1',  $row->descr , '100%', '200', '10', '20' ) ; ?>
+						echo $editor->display('descr',  $row->descr , '100%', '200', '10', '20' ) ; ?>
 					</td>
 				</tr>
 				<tr>

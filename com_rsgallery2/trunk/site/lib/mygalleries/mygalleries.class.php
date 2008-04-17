@@ -59,6 +59,8 @@ class myGalleries {
 	function showCreateGallery($rows) {
     	global $rsgConfig;
 		$my = JFactory::getUser();
+		$editor =& JFactory::getEditor();
+
     	//Load frontend toolbar class
     	require_once( JPATH_ROOT . '/includes/HTML_toolbar.php' );
 	    ?>
@@ -70,20 +72,20 @@ class myGalleries {
 	                return;
 	            }
 	        
-	        // do field validation
-	        if (form.parent.value == "-1") {
-	            alert( "<?php echo "** You need to select a parent gallery **"; ?>" );
-	        } else if (form.catname1.value == "") {
-	            alert( "<?php echo _RSGALLERY_MAKECAT_ALERT_NAME; ?>" );
-	        }
-	        else if (form.description.value == ""){
-	            alert( "<?php echo _RSGALLERY_MAKECAT_ALERT_DESCR; ?>" );
-	        }
-	        else{
-			<?php //getEditorContents( 'editor1', 'description' ) ; ?>
-	            form.submit();
-	        }
-	        }
+				// do field validation
+				if (form.parent.value == "-1") {
+					alert( "<?php echo "** You need to select a parent gallery **"; ?>" );
+				} else if (form.catname1.value == "") {
+					alert( "<?php echo _RSGALLERY_MAKECAT_ALERT_NAME; ?>" );
+				}
+				else if (form.description.value == ""){
+					alert( "<?php echo _RSGALLERY_MAKECAT_ALERT_DESCR; ?>" );
+				}
+				else{
+					<?php echo $editor->save('description') ; ?>
+					submitform( pressbutton );
+				}
+			}
 	    </script>
 	    <?php
 	    if ($rows) {
@@ -156,10 +158,7 @@ class myGalleries {
         <tr>
             <td><?php echo _RSGALLERY_DESCR; ?></td>
             <td align="left">
-                <!--<textarea cols="20" rows="5" name="description"><?php echo htmlspecialchars(stripslashes($description)); ?></textarea>-->
-                <?php
-                // parameters : areaname, content, hidden field, width, height, rows, cols
-                    editorArea( 'editor1',  $description, 'description', '100%;', '300', '75', '50' ); ?>
+				<?php echo $editor->display( 'description',  $description , '100%', '200', '10', '20' ) ; ?>
             </td>
         </tr>
         <tr>
@@ -724,6 +723,7 @@ class myGalleries {
     function editItem($rows) {
         global $rsgConfig;
 		$my = JFactory::getUser();
+		$editor = JFactory::getEditor();
         require_once( JPATH_ROOT . '/includes/HTML_toolbar.php' );
         foreach ($rows as $row) {
             $filename       = $row->name;
@@ -742,17 +742,18 @@ class myGalleries {
                 history.back();
                 return;
             }
-        <?php getEditorContents( 'editor1', 'description' ) ; ?>
-        // do field validation
-        if (form.catid.value == "0") {
-            alert( "<?php echo _RSGALLERY_MAKECAT_ALERT_NAME; ?>" );
-        }
-        else if (form.descr.value == ""){
-            alert( "<?php echo _RSGALLERY_MAKECAT_ALERT_DESCR; ?>" );
-        }
-        else{
-            form.submit();
-        }
+
+			// do field validation
+			if (form.catid.value == "0") {
+				alert( "<?php echo _RSGALLERY_MAKECAT_ALERT_NAME; ?>" );
+			}
+			else if (form.descr.value == ""){
+				alert( "<?php echo _RSGALLERY_MAKECAT_ALERT_DESCR; ?>" );
+			}
+			else{
+				<?php echo $editor->save('description') ; ?>
+				submitform( pressbutton );
+			}
         }
     </script>
     <?php
@@ -790,11 +791,7 @@ class myGalleries {
             <tr>
                 <td align="left" valign="top"><?PHP echo _RSGALLERY_EDIT_DESCRIPTION; ?></td>
                 <td align="left" colspan="2">
-                    <!--<textarea cols="25" rows="5" name="descr"><?php echo htmlspecialchars(stripslashes($description)); ?></textarea>-->
-                    <?php
-                    // parameters : areaname, content, hidden field, width, height, rows, cols
-                    editorArea( 'editor1',  $description, 'descr', '100%;', '500', '75', '50' );
-                    ?>
+				<?php echo $editor->display( 'description',  $description , '100%', '200', '10', '20' ) ; ?>
                 </td>
             </tr>
             <tr>
@@ -830,7 +827,7 @@ function editCat($rows = null) {
             alert( "<?php echo _RSGALLERY_MAKECAT_ALERT_DESCR; ?>" );
         }
         else{
-            <?php echo $editor->save( 'editor1' ) ; ?>
+            <?php echo $editor->save( 'description' ) ; ?>
             form.submit();
         }
         }
@@ -895,11 +892,8 @@ function editCat($rows = null) {
         </tr>
         <tr>
             <td colspan="2"><?php echo _RSGALLERY_DESCR; ?>
-            
-                <!--<textarea cols="20" rows="5" name="description"><?php echo htmlspecialchars(stripslashes($description)); ?></textarea>-->
                 <?php
-                // parameters : areaname, content, hidden field, width, height, rows, cols
-                echo $editor->display( 'editor1',  $description , '600', '200', '35', '15' ) ; ?>
+                echo $editor->display( 'description',  $description , '600', '200', '35', '15' ) ; ?>
             </td>
         </tr>
         <tr>
