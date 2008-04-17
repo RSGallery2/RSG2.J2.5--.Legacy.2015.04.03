@@ -218,7 +218,7 @@ class html_rsg2_galleries{
 			if (form.name.value == ""){
 				alert( "Gallery must have a name" );
 			} else {
-				<?php echo $editor->save('editor1') ; ?>
+				<?php echo $editor->save('description') ; ?>
 				submitform( pressbutton );
 			}
 		}
@@ -279,7 +279,7 @@ class html_rsg2_galleries{
 					<td>
 					<?php
 					// parameters : areaname, content, hidden field, width, height, rows, cols
-					echo $editor->display ( 'editor1',  $row->description , '100%', '300', '10', '20' ) ; ?>
+					echo $editor->display ( 'description',  $row->description , '100%', '300', '10', '20' ) ; ?>
 					</td>
 				</tr>
 				<tr>
