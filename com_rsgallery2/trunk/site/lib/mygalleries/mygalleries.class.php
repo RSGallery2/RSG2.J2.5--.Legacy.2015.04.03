@@ -217,6 +217,7 @@ class myGalleries {
 	function showImageUpload() {
         global $rsgConfig;
 		$my = JFactory::getUser();
+		$editor = JFacory::getEditor();
         
         //Load frontend toolbar class
         require_once( JPATH_ROOT . '/includes/HTML_toolbar.php' );
@@ -228,7 +229,6 @@ class myGalleries {
                 form.reset();
                 return;
             }
-            <?php getEditorContents( 'editor1', 'descr' ) ; ?>
             // do field validation
             if (form.i_cat.value == "-1") {
                 alert( "<?php echo _RSGALLERY_UPLOAD_ALERT_CAT; ?>" );
@@ -237,7 +237,8 @@ class myGalleries {
             } else if (form.i_file.value == "") {
                 alert( "<?php echo _RSGALLERY_UPLOAD_ALERT_FILE; ?>" );
             } else {
-                form.submit();
+				<?php echo $editor->save('descr') ; ?>
+				submitform( pressbutton );
             }
         }
         
@@ -302,7 +303,7 @@ class myGalleries {
                     <tr>
                         <td><?php echo _RSGALLERY_DESCR ?></td>
                         <td align="left">
-							<?php editorArea( 'editor1',  '', 'descr', '100%;', '300', '75', '50' ); ?>
+							<?php echo $editor->display( 'descr',  '' , '100%', '200', '10', '20' ) ; ?>
 						</td>
                     </tr>
                     <?php
