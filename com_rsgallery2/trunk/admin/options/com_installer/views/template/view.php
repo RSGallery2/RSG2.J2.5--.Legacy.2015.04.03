@@ -25,42 +25,33 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 include_once(dirname(__FILE__).DS.'..'.DS.'default'.DS.'view.php');
 
-class InstallerViewTemplates extends InstallerViewDefault
+class InstallerViewTemplate extends InstallerViewDefault
 {
 	function display($tpl=null)
 	{
 		/*
 		 * Set toolbar items for the page
 		 */
-		JToolBarHelper::deleteList( '', 'remove', 'Uninstall' );
-		JToolBarHelper::editList( 'editTemplate', 'Edit Template' );
+		JToolBarHelper::save('saveTemplate','Save');
+		JToolBarHelper::apply('applyTemplate', 'Apply');
+		JToolBarHelper::spacer();
+		JToolBarHelperRSG::showCss( 'editCSS', 'Edit CSS' );
+		JToolBarHelperRSG::showHtml( 'editHTML', 'Edit HTML' );
+		JToolBarHelper::cancel( 'cancelTemplate', 'Cancel' );
 		JToolBarHelper::help( 'screen.installer2' );
-
+		
 		// Get data from the model
-		$items		= &$this->get('Items');
-		$pagination	= &$this->get('Pagination');
-
-		$this->assignRef('items',		$items);
-		$this->assignRef('pagination',	$pagination);
-
+		$item = &$this->get('Item');
+		
+		$this->assignRef('item', $item);
+		
 		parent::display($tpl);
 	}
-
-	function loadItem($index=0)
-	{
-		$item =& $this->items[$index];
-		$item->id		= $item->directory;
-		$item->index	= $index;
-
-		if ($item->active) {
-			$item->cbd		= 'disabled';
-			$item->style	= 'style="color:#999999;"';
-		} else {
-			$item->cbd		= null;
-			$item->style	= null;
-		}
-		$item->author_information = @$item->authorEmail .'<br />'. @$item->authorUrl;
-
-		$this->assignRef('item', $item);
+	
+	function isParamWriteable(){
+		
+		$templatefile = JPATH_RSGALLERY2_SITE .DS. 'templates' .DS. $this->item->template .DS. 'params.ini';
+		return is_writable($templatefile) ? JText::_( 'Writable' ):JText::_( 'Unwritable' );
+				
 	}
 }

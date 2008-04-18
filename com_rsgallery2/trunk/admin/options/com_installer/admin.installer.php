@@ -27,7 +27,9 @@ foreach ($subMenus as $name => $extension) {
 	JSubMenuHelper::addEntry(JText::_( $name ), '#" onclick="javascript:document.adminForm.type.value=\''.$extension.'\';submitbutton(\'manage\');', ($extension == $ext));
 }
 
-require_once( rsgOptions_installer_path.DS.'controller.php' );
+require_once(rsgOptions_installer_path . DS . 'helpers' . DS . 'template.php');
+require_once(rsgOptions_installer_path . DS . 'helpers' . DS . 'toolbar.php');
+require_once( rsgOptions_installer_path . DS . 'controller.php' );
 
 $controller = new InstallerController( array(
 	'default_task' => 'installform',

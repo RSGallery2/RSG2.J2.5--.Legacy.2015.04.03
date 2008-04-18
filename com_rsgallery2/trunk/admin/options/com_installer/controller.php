@@ -82,9 +82,8 @@ class InstallerController extends JController
 	 */
 	function manage()
 	{
-		$type	= JRequest::getWord('type', 'components');
-		$model	= &$this->getModel( $type );
-		$view	= &$this->getView( $type , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
+		$model	= &$this->getModel( 'templates' );
+		$view	= &$this->getView( 'templates' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
 		$view->assignRef('ftp', $ftp);
@@ -183,5 +182,117 @@ class InstallerController extends JController
 
 		$view->setModel( $model, true );
 		$view->display();
+	}
+	
+	/**
+	 * edit the base data of a template
+	 * @access	public
+	 * @return	void
+	 * @since	RSG 1.5
+	 * @author John Caprez (john@porelaire.com)
+	 */
+	function editTemplate(){
+		// Check for request forgeries
+		JRequest::checkToken() or die( 'Invalid Token' );
+		
+		$model	= &$this->getModel( 'template' );
+		$view	= &$this->getView( 'template' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
+		
+		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
+		$view->assignRef('ftp', $ftp);
+		
+		$eid = JRequest::getVar('eid', array(), '', 'array');
+		
+		// Update to handle components radio box
+		// Checks there is only one extensions, we're uninstalling components
+		// and then checks that the zero numbered item is set (shouldn't be a zero
+		// if the eid is set to the proper format)
+		if((count($eid) == 1) && ($type == 'components') && (isset($eid[0]))) $eid = array($eid[0] => 0);
+		
+		JArrayHelper::toInteger($eid, array());
+		$model->template = array_keys($eid);
+		$model->template = $model->template[0];
+		
+		$view->setModel( $model, true );
+		$view->display();
+		
+	}
+
+	/**
+	 * apply chnages to template
+	 * @access	public
+	 * @return	void
+	 * @since	RSG 1.5
+	 * @author John Caprez (john@porelaire.com)
+	 */
+	function applyTemplate(){
+		JError::raiseWarning( 500, 'not implemented' );
+	}
+	/**
+	* save chenges to template
+	* @access	public
+	* @return	void
+	* @since	RSG 1.5
+	* @author John Caprez (john@porelaire.com)
+	*/
+	function saveTemplate(){
+		JError::raiseWarning( 500, 'not implemented' );
+	}
+	
+	/**
+	* cancel changes to template
+	* @access	public
+	* @return	void
+	* @since	RSG 1.5
+	* @author John Caprez (john@porelaire.com)
+	*/
+	function cancelTemplate(){
+		$this->manage();
+//		JError::raiseWarning( 500, 'not implemented' );
+	}
+	
+	
+	/**
+	 * select witch css file has to be edited
+	 * @access	public
+	 * @return	void
+	 * @since	RSG 1.5
+	 * @author John Caprez (john@porelaire.com)
+	 */
+	function selectCSS(){
+		JError::raiseWarning( 500, 'not implemented' );
+	}
+	
+	/**
+	* edit a CSS file
+	* @access	public
+	* @return	void
+	* @since	RSG 1.5
+	* @author John Caprez (john@porelaire.com)
+	*/
+	function editCSS(){
+		JError::raiseWarning( 500, 'not implemented' );
+	}
+
+	/**
+	 * select witch html file has to be edited
+	 * @access	public
+	 * @return	void
+	 * @since	RSG 1.5
+	 * @author John Caprez (john@porelaire.com)
+	 */
+	function selectHTML(){
+		JError::raiseWarning( 500, 'not implemented' );
+	}
+	
+	/**
+	* edit a HTML file
+	* @access	public
+	* @return	void
+	* @since	RSG 1.5
+	* @author John Caprez (john@porelaire.com)
+	*/
+	function editHTML() {
+		JError::raiseWarning( 500, 'not implemented' );
 	}
 }
