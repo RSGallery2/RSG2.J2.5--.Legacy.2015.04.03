@@ -1,7 +1,7 @@
 <?php defined('_JEXEC') or die('Restricted access'); ?>
 
 <?php
-
+echo('<!-- using template parameter: testParameter = ' . $this->params->testParameter .'-->');
 //Show My Galleries link
 if ($rsgConfig->get('show_mygalleries')) {
 	echo $this->showRsgHeader();
