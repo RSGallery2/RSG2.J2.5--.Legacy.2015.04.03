@@ -100,12 +100,13 @@ class rsgGallery extends JObject{
 	}
 	
 	/**
-	 * @return true if there is an image within a week old
+	 * @return true if there is new images within the given time span
+	 * @param int amount of days to the past
 	 * @todo rewrite the sql to use better date features
 	 */
-	function hasNewImages(){
+	function hasNewImages($days = 7){
 		$database =& JFactory::getDBO();
-		$lastweek  = mktime (0, 0, 0, date("m"),    date("d") - 7, date("Y"));
+		$lastweek  = mktime (0, 0, 0, date("m"),    date("d") - $days, date("Y"));
 		$lastweek = date("Y-m-d H:m:s",$lastweek);
 		$database->setQuery("SELECT * FROM #__rsgallery2_files WHERE date >= '$lastweek' AND gallery_id = '{$this->id}' AND published = '1'");
 		$database->query();
