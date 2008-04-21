@@ -35,8 +35,8 @@ class InstallerViewTemplate extends InstallerViewDefault
 		JToolBarHelper::save('saveTemplate','Save');
 		JToolBarHelper::apply('applyTemplate', 'Apply');
 		JToolBarHelper::spacer();
-		JToolBarHelperRSG::showCss( 'editCSS', 'Edit CSS' );
-		JToolBarHelperRSG::showHtml( 'editHTML', 'Edit HTML' );
+		JToolBarHelper::custom( 'editCSS', 'css.png', 'css_f2.png', 'Edit CSS', false, false );
+		JToolBarHelper::custom( 'editHTML', 'html.png', 'html_f2.png', 'Edit HTML', false, false );
 		JToolBarHelper::cancel( 'cancelTemplate', 'Cancel' );
 		JToolBarHelper::help( 'screen.installer2' );
 		

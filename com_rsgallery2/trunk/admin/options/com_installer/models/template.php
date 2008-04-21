@@ -89,4 +89,50 @@ class InstallerModelTemplate extends InstallerModel
 		return $item;
 
 	}
+	
+	function update(){
+		
+		global $rsgConfig;
+		
+		$app = & JFactory::getApplication();
+		
+		if (!$this->template) {
+			JError::raiseError(500, "No template specified");
+			return;
+		}
+		
+		// Set FTP credentials, if given
+		jimport('joomla.client.helper');
+		JClientHelper::setCredentialsFromRequest('ftp');
+		$ftp = JClientHelper::getCredentials('ftp');
+		
+		$file = JPATH_RSGALLERY2_SITE.DS.'templates'.DS.$this->template.DS.'params.ini';
+		
+		jimport('joomla.filesystem.file');
+		if (JFile::exists($file) && count($this->params))
+		{
+			$txt = null;
+			foreach ($this->params as $k => $v) {
+				$txt .= "$k=$v\n";
+			}
+			
+			// Try to make the params file writeable
+			if (!$ftp['enabled'] && JPath::isOwner($file) && !JPath::setPermissions($file, '0755')) {
+				JError::raiseNotice('SOME_ERROR_CODE', JText::_('Could not make the template parameter file writable'));
+				return;
+			}
+			
+			$return = JFile::write($file, $txt);
+			
+			// Try to make the params file unwriteable
+			if (!$ftp['enabled'] && JPath::isOwner($file) && !JPath::setPermissions($file, '0555')) {
+				JError::raiseNotice('SOME_ERROR_CODE', JText::_('Could not make the template parameter file unwritable'));
+				return;
+			}
+			
+		}
+		
+		$app->enqueueMessage( 'Template saved');
+		
+	}
 }

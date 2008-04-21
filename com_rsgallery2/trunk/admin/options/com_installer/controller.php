@@ -112,7 +112,6 @@ class InstallerController extends JController
 
 	}
 	
-	
 	/**
 	 * Remove an extension (Uninstall)
 	 *
@@ -157,14 +156,7 @@ class InstallerController extends JController
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
 		$view->assignRef('ftp', $ftp);
 		
-		$template = JRequest::getVar( 'templateName' );
-		
-		// Update to handle components radio box
-		// Checks there is only one extensions, we're uninstalling components
-		// and then checks that the zero numbered item is set (shouldn't be a zero
-		// if the eid is set to the proper format)
-		if((count($eid) == 1) && ($type == 'components') && (isset($eid[0]))) $eid = array($eid[0] => 0);
-		
+		$template = JRequest::getVar( 'template' );
 		$model->template = $template;
 		
 		$view->setModel( $model, true );
@@ -180,7 +172,23 @@ class InstallerController extends JController
 	 * @author John Caprez (john@porelaire.com)
 	 */
 	function applyTemplate(){
-		JError::raiseWarning( 500, 'not implemented' );
+		
+		$model	= &$this->getModel( 'template' );
+		$view	= &$this->getView( 'template' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
+		
+		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
+		$view->assignRef('ftp', $ftp);
+		
+		$template = JRequest::getVar( 'template' );
+		$params	= JRequest::getVar('params', array(), 'post', 'array');
+
+		$model->set('template', $template);
+		$model->set('params' , $params);
+		$model->update();
+		
+		$view->setModel( $model, true );
+		$view->display();
+		
 	}
 	/**
 	* save chenges to template
@@ -190,7 +198,18 @@ class InstallerController extends JController
 	* @author John Caprez (john@porelaire.com)
 	*/
 	function saveTemplate(){
-		JError::raiseWarning( 500, 'not implemented' );
+
+		$model	= &$this->getModel( 'template' );
+	
+		$template = JRequest::getVar( 'template' );
+		$params	= JRequest::getVar('params', array(), 'post', 'array');
+
+		$model->set('template', $template);
+		$model->set('params' , $params);
+
+		$model->update();
+
+		$this->manage();
 	}
 	
 	/**
@@ -202,7 +221,6 @@ class InstallerController extends JController
 	*/
 	function cancelTemplate(){
 		$this->manage();
-//		JError::raiseWarning( 500, 'not implemented' );
 	}
 	
 	

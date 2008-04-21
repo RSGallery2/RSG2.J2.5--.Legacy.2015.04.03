@@ -92,6 +92,7 @@
 	<input type="hidden" name="boxchecked" value="0" />
 	<input type="hidden" name="option" value="com_rsgallery2" />
 	<input type="hidden" name="rsgOption" value="installer" />
+	<input type="hidden" name="template" value="<?php echo $this->item->template; ?>" />
 	<?php echo JHTML::_( 'form.token' ); ?>
 
 </form>
