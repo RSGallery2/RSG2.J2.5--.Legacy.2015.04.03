@@ -28,7 +28,6 @@ foreach ($subMenus as $name => $extension) {
 }
 
 require_once(rsgOptions_installer_path . DS . 'helpers' . DS . 'template.php');
-require_once(rsgOptions_installer_path . DS . 'helpers' . DS . 'toolbar.php');
 require_once( rsgOptions_installer_path . DS . 'controller.php' );
 
 $controller = new InstallerController( array(

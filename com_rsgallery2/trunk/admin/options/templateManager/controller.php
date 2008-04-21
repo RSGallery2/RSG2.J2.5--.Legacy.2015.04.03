@@ -106,7 +106,7 @@ class InstallerController extends JController
 		// Check for request forgeries
 		JRequest::checkToken( 'request' ) or die( 'Invalid Token' );
 
-		$template = JRequest::getVar( 'templateName' );
+		$template = JRequest::getVar( 'template' );
 		$rsgConfig->set('template', $template);
 		$this->manage();
 

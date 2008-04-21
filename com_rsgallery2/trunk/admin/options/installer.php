@@ -10,6 +10,6 @@
 
 defined('_JEXEC') or die( 'Restricted Access' );
 
-define( 'rsgOptions_installer_path', $rsgOptions_path . 'com_installer' );
+define( 'rsgOptions_installer_path', $rsgOptions_path . 'templateManager' );
 require_once( rsgOptions_installer_path .DS. 'admin.installer.php' );
 
