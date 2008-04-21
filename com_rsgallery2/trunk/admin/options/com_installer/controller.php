@@ -74,7 +74,7 @@ class InstallerController extends JController
 	}
 
 	/**
-	 * Manage an extension type (List extensions of a given type)
+	 * List all templates
 	 *
 	 * @access	public
 	 * @return	void
@@ -93,63 +93,26 @@ class InstallerController extends JController
 	}
 
 	/**
-	 * Enable an extension (If supported)
+	 * Set template as default
 	 *
 	 * @access	public
 	 * @return	void
 	 * @since	1.5
 	 */
-	function enable()
+	function setDefault()
 	{
+		
+		global $rsgConfig;
 		// Check for request forgeries
 		JRequest::checkToken( 'request' ) or die( 'Invalid Token' );
 
-		$type	= JRequest::getWord('type', 'components');
-		$model	= &$this->getModel( $type );
-		$view	= &$this->getView( $type , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
+		$template = JRequest::getVar( 'templateName' );
+		$rsgConfig->set('template', $template);
+		$this->manage();
 
-		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
-		$view->assignRef('ftp', $ftp);
-
-		if (method_exists($model, 'enable')) {
-			$eid = JRequest::getVar('eid', array(), '', 'array');
-			JArrayHelper::toInteger($eid, array());
-			$model->enable($eid);
-		}
-
-		$view->setModel( $model, true );
-		$view->display();
 	}
-
-	/**
-	 * Disable an extension (If supported)
-	 *
-	 * @access	public
-	 * @return	void
-	 * @since	1.5
-	 */
-	function disable()
-	{
-		// Check for request forgeries
-		JRequest::checkToken( 'request' ) or die( 'Invalid Token' );
-
-		$type	= JRequest::getWord('type', 'components');
-		$model	= &$this->getModel( $type );
-		$view	= &$this->getView( $type , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
-
-		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
-		$view->assignRef('ftp', $ftp);
-
-		if (method_exists($model, 'disable')) {
-			$eid = JRequest::getVar('eid', array(), '', 'array');
-			JArrayHelper::toInteger($eid, array());
-			$model->disable($eid);
-		}
-
-		$view->setModel( $model, true );
-		$view->display();
-	}
-
+	
+	
 	/**
 	 * Remove an extension (Uninstall)
 	 *
@@ -159,29 +122,22 @@ class InstallerController extends JController
 	 */
 	function remove()
 	{
+		global $rsgConfig;
+		
 		// Check for request forgeries
 		JRequest::checkToken() or die( 'Invalid Token' );
 
-		$type	= JRequest::getWord('type', 'components');
-		$model	= &$this->getModel( $type );
-		$view	= &$this->getView( $type , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
+		$template = JRequest::getVar( 'templateName' );
 
-		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
-		$view->assignRef('ftp', $ftp);
+		if($rsgConfig->template == $template) {
+			JError::raiseWarning( 500, 'Can not delete default template.', "Select an other template and then delete this one." );
+		}
+		else{
+			JFolder::delete(JPATH_RSGALLERY2_SITE . DS . "templates" . DS . $template);
+		}
 
-		$eid = JRequest::getVar('eid', array(), '', 'array');
+		$this->manage();		
 
-		// Update to handle components radio box
-		// Checks there is only one extensions, we're uninstalling components
-		// and then checks that the zero numbered item is set (shouldn't be a zero
-		// if the eid is set to the proper format)
-		if((count($eid) == 1) && ($type == 'components') && (isset($eid[0]))) $eid = array($eid[0] => 0);
-
-		JArrayHelper::toInteger($eid, array());
-		$result = $model->remove($eid);
-
-		$view->setModel( $model, true );
-		$view->display();
 	}
 	
 	/**
@@ -201,7 +157,7 @@ class InstallerController extends JController
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
 		$view->assignRef('ftp', $ftp);
 		
-		$eid = JRequest::getVar('eid', array(), '', 'array');
+		$template = JRequest::getVar( 'templateName' );
 		
 		// Update to handle components radio box
 		// Checks there is only one extensions, we're uninstalling components
@@ -209,9 +165,7 @@ class InstallerController extends JController
 		// if the eid is set to the proper format)
 		if((count($eid) == 1) && ($type == 'components') && (isset($eid[0]))) $eid = array($eid[0] => 0);
 		
-		JArrayHelper::toInteger($eid, array());
-		$model->template = array_keys($eid);
-		$model->template = $model->template[0];
+		$model->template = $template;
 		
 		$view->setModel( $model, true );
 		$view->display();

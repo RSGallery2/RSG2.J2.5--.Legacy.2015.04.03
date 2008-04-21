@@ -18,6 +18,7 @@
 			<tr>
 				<th class="title" width="10px"><?php echo JText::_( 'Num' ); ?></th>
 				<th class="title"><?php echo JText::_( 'Template' ); ?></th>
+				<th class="title" align="center"><?php echo JText::_( 'Default' ); ?></th>
 				<th class="title" width="10%" align="center"><?php echo JText::_( 'Version' ); ?></th>
 				<th class="title" width="15%"><?php echo JText::_( 'Date' ); ?></th>
 				<th class="title" width="25%"><?php echo JText::_( 'Author' ); ?></th>

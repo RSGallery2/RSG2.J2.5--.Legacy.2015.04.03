@@ -72,7 +72,7 @@ class InstallerModelTemplates extends InstallerModel
 		}
 
 		// Get a list of the currently active templates
-		$activeList = array( 'meta', $rsgConfig->get( 'template' ));
+		$inactiveList = array( 'meta' );
 
 		$rows = array();
 		$rowid = 0;
@@ -92,21 +92,17 @@ class InstallerModelTemplates extends InstallerModel
 				$row->directory = $template->folder;
 				$row->baseDir	= $template->baseDir;
 
-				// Is the template active?
-				if (in_array($row->directory, $activeList)) {
-					$row->active = true;
-				} else {
-					$row->active = false;
-				}
-
 				if ($data) {
 					foreach($data as $key => $value) {
 						$row->$key = $value;
 					}
 				}
 
+				$row->isDisabled = (in_array($row->directory, $inactiveList));
+				$row->isDefault = ( $rsgConfig->get( 'template' ) == $template->folder);
 				$row->checked_out = 0;
 				$row->jname = JString::strtolower( str_replace( ' ', '_', $row->name ) );
+
 
 				$rows[] = $row;
 				$rowid++;

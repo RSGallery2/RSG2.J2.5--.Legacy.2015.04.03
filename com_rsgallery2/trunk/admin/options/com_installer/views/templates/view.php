@@ -32,6 +32,8 @@ class InstallerViewTemplates extends InstallerViewDefault
 		/*
 		 * Set toolbar items for the page
 		 */
+		JToolBarHelper::makeDefault( 'setDefault', 'Default' );
+		JToolBarHelper::spacer();
 		JToolBarHelper::deleteList( '', 'remove', 'Uninstall' );
 		JToolBarHelper::editList( 'editTemplate', 'Edit Template' );
 		JToolBarHelper::help( 'screen.installer2' );
@@ -52,7 +54,7 @@ class InstallerViewTemplates extends InstallerViewDefault
 		$item->id		= $item->directory;
 		$item->index	= $index;
 
-		if ($item->active) {
+		if ($item->isDisabled) {
 			$item->cbd		= 'disabled';
 			$item->style	= 'style="color:#999999;"';
 		} else {
