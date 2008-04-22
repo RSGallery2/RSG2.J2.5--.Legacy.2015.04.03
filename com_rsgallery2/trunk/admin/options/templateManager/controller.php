@@ -108,6 +108,7 @@ class InstallerController extends JController
 
 		$template = JRequest::getVar( 'template' );
 		$rsgConfig->set('template', $template);
+		$rsgConfig->saveConfig();
 		$this->manage();
 
 	}
