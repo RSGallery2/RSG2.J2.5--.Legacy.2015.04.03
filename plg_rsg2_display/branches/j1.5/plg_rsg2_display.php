@@ -33,19 +33,25 @@ function plg_rsg2_display_replacer ( $matches ) {
 	if( !$matches )
 		return '';
 
+	function plg_rsg2_display_replacer_clean_data ( $attrib ) {//remove &nbsp; and trim white space
+		$attrib = str_replace( "&nbsp;", '', "$attrib" );
+
+		return trim( $attrib );
+	}
+	
 	global $mosConfig_absolute_path;
 	require_once( $mosConfig_absolute_path.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
 	
 	$attribs = explode(",",$matches[1]);
 	
 	$newInstance = array(
-		'rsgTemplate' => bot_rsg2_display_clean_data( strtolower( array_shift( $attribs ))),
-		'gid' => (int) bot_rsg2_display_clean_data( array_shift( $attribs ))
+		'rsgTemplate' => plg_rsg2_display_replacer_clean_data( strtolower( array_shift( $attribs ))),
+		'gid' => (int) plg_rsg2_display_replacer_clean_data( array_shift( $attribs ))
 		);
 	
 	foreach( $attribs as $a ){
 		$attrib = explode('=',$a);
-		$newInstance[ bot_rsg2_display_clean_data( $attrib[0] )] = bot_rsg2_display_clean_data( $attrib[1] );
+		$newInstance[ plg_rsg2_display_replacer_clean_data( $attrib[0] )] = plg_rsg2_display_replacer_clean_data( $attrib[1] );
 	}
 	ob_start();
 	rsgInstance::instance( $newInstance );
@@ -53,10 +59,4 @@ function plg_rsg2_display_replacer ( $matches ) {
 	ob_end_clean();	
 		
 	return $content_output;
-}
-
-function plg_rsg2_display_replacer_clean_data ( $attrib ) {//remove &nbsp; and trim white space
-	$attrib = str_replace( "&nbsp;", '', "$attrib" );
-
-	return trim( $attrib );
 }
