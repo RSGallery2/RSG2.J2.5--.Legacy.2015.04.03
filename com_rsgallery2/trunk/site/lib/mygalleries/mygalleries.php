@@ -8,9 +8,11 @@
 * RSGallery is Free Software
 */
 defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
-global $mainframe;
+global $mainframe,$rsgConfig;
 
 $css = "<link rel=\"stylesheet\" href=\"".JURI::root()."/components/com_rsgallery2/lib/mygalleries/mygalleries.css\" type=\"text/css\" />";
+$mainframe->addCustomHeadTag($css);
+$css = "<link rel=\"stylesheet\" href=\"".JURI::root()."/components/com_rsgallery2/templates/".$rsgConfig->template."/css/template.css\" type=\"text/css\" />";
 $mainframe->addCustomHeadTag($css);
 
 //Load required class file

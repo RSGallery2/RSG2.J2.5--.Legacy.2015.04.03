@@ -30,6 +30,7 @@ class myGalleries {
         if (!$rsgConfig->get('show_mygalleries'))
             $mainframe->redirect( $this->myg_url,_RSGALLERY_USERGAL_DISABLED);
         ?>
+		<div class="rsg2">
         <h2><?php echo _RSGALLERY_USER_MY_GAL;?></h2>
 
         <?php
@@ -52,6 +53,7 @@ class myGalleries {
         }
         echo $tabs->endPane();
         ?>
+		</div>
         <div class='rsg2-clr'>&nbsp;</div>
         <?php
 	}
@@ -158,7 +160,7 @@ class myGalleries {
         <tr>
             <td><?php echo _RSGALLERY_DESCR; ?></td>
             <td align="left">
-				<?php echo $editor->display( 'description',  $description , '100%', '200', '10', '20' ) ; ?>
+				<?php echo $editor->display( 'description',  $description , '100%', '200', '10', '20' ,false) ; ?>
             </td>
         </tr>
         <tr>
@@ -217,7 +219,7 @@ class myGalleries {
 	function showImageUpload() {
         global $rsgConfig;
 		$my = JFactory::getUser();
-		$editor = JFacory::getEditor();
+		$editor = JFactory::getEditor();
         
         //Load frontend toolbar class
         require_once( JPATH_ROOT . '/includes/HTML_toolbar.php' );
@@ -245,6 +247,7 @@ class myGalleries {
     </script>
         <form name="uploadform" id="uploadform" method="post" action="
 <?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=saveUploadedItem"); ?>" enctype="multipart/form-data">
+		<div class="rsg2">
         <table border="0" width="100%">
             <tr>
                 <td colspan="2"><h3>
@@ -303,7 +306,7 @@ class myGalleries {
                     <tr>
                         <td><?php echo _RSGALLERY_DESCR ?></td>
                         <td align="left">
-							<?php echo $editor->display( 'descr',  '' , '100%', '200', '10', '20' ) ; ?>
+							<?php echo $editor->display( 'descr',  '' , '100%', '200', '10', '20' ,false) ; ?>
 						</td>
                     </tr>
                     <?php
@@ -327,6 +330,7 @@ class myGalleries {
             </tr>
         </table>
         </form>
+		</div>
         <?php
         }
 
@@ -486,6 +490,7 @@ class myGalleries {
     //Set variables
     $count = count($rows);
     ?>
+		<div class="rsg2">
     <table class="adminform" width="100%" border="1">
             <tr>
                 <td colspan="5"><h3><?php echo _RSGALLERY_USER_MY_GAL;?></h3></td>
@@ -598,6 +603,7 @@ class myGalleries {
                         <th colspan="5">&nbsp;</th>
                     </tr>
                 </table>
+				</div>
     <?php
     }
     /**
@@ -792,7 +798,7 @@ class myGalleries {
             <tr>
                 <td align="left" valign="top"><?PHP echo _RSGALLERY_EDIT_DESCRIPTION; ?></td>
                 <td align="left" colspan="2">
-				<?php echo $editor->display( 'description',  $description , '100%', '200', '10', '20' ) ; ?>
+				<?php echo $editor->display( 'description',  $description , '100%', '200', '10', '20',false ) ; ?>
                 </td>
             </tr>
             <tr>

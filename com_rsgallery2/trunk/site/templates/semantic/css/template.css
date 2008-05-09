@@ -290,24 +290,24 @@ text-align:right;
 /*************************************/
 /* Classes for tab pane */
 
-.rsg_sem_inl_ImgDetails dl.tabs
+.rsg2 dl.tabs
 {
 	margin-bottom:0;
 	padding-bottom:0;
 }
-.rsg_sem_inl_ImgDetails .tabs dt
+.rsg2 dl.tabs dt
 {
 	background-color:White;
 	display:inline;
 	border:1px solid #919B9C;
 	padding:0.25em 0.5em;
 }
-.rsg_sem_inl_ImgDetails .tabs dt.open
+.rsg2 dl.tabs dt.open
 {
 	border-bottom:1px solid white;
 	font-weight:bold;
 }
-.rsg_sem_inl_ImgDetails .current
+.rsg2 div.current
 {
 	border:1px solid #919B9C;
 	padding:0.5em;

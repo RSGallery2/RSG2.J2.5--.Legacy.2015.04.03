@@ -222,7 +222,7 @@ class html_rsg2_images {
 					<td>
 						<?php
 						// parameters : areaname, content, hidden field, width, height, rows, cols
-						echo $editor->display('descr',  $row->descr , '100%', '200', '10', '20' ) ; ?>
+						echo $editor->display('descr',  $row->descr , '100%', '200', '10', '20' ,false) ; ?>
 					</td>
 				</tr>
 				<tr>
@@ -379,7 +379,7 @@ class html_rsg2_images {
 					<?php echo _RSGALLERY_IMG_GEN_DESCR?>:
 					</td>
 					<td>
-				<?php echo $editor->display( 'descr',  '' , '100%', '200', '10', '20' ) ; ?>
+				<?php echo $editor->display( 'descr',  '' , '100%', '200', '10', '20' ,false ) ; ?>
 					</td>
 				</tr>
 				</table>
