@@ -40,6 +40,7 @@ class InstallerViewInstall extends InstallerViewDefault
 		$this->assignRef('paths', $paths);
 		$this->assignRef('state', $this->get('state'));
 
+		parent::showHeader();
 		parent::display($tpl);
 	}
 

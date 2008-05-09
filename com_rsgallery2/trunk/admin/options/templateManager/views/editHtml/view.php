@@ -20,33 +20,26 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 include_once(dirname(__FILE__).DS.'..'.DS.'default'.DS.'view.php');
 
-class InstallerViewTemplate extends InstallerViewDefault
+class InstallerViewEditHtml extends InstallerViewDefault
 {
 	function display($tpl=null)
 	{
 		/*
 		 * Set toolbar items for the page
 		 */
-		JToolBarHelper::save('saveTemplate','Save');
-		JToolBarHelper::apply('applyTemplate', 'Apply');
-		JToolBarHelper::spacer();
-		JToolBarHelper::custom( 'editCSS', 'css.png', 'css_f2.png', 'Edit CSS', false, false );
-		JToolBarHelper::custom( 'editHTML', 'html.png', 'html_f2.png', 'Edit HTML', false, false );
-		JToolBarHelper::cancel( 'cancelTemplate', 'Cancel' );
-		JToolBarHelper::help( 'screen.installer2' );
+		JToolBarHelper::save( 'saveHTML', 'Save' );
+		JToolBarHelper::apply( 'applyHTML', 'Apply');
+		JToolBarHelper::cancel( 'cancelHTML', 'Cancel' );
+		JToolBarHelper::help( 'screen.installerSelectCss' );
+		
+		JRequest::setVar( 'hidemainmenu', 1 );
 		
 		// Get data from the model
 		$item = &$this->get('Item');
-		
 		$this->assignRef('item', $item);
 		
+		parent::showTemplateHeader();
 		parent::display($tpl);
 	}
 	
-	function isParamWriteable(){
-		
-		$templatefile = JPATH_RSGALLERY2_SITE .DS. 'templates' .DS. $this->item->template .DS. 'params.ini';
-		return is_writable($templatefile) ? JText::_( 'Writable' ):JText::_( 'Unwritable' );
-				
-	}
 }

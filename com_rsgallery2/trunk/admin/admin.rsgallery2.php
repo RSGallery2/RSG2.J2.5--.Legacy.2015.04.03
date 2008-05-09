@@ -57,9 +57,9 @@ switch( $rsgOption ) {
     case 'config':
         require_once( $rsgOptions_path . 'config.php' );
     	break;
-	case 'template':
-		require_once( $rsgOptions_path . 'templates.php' );
-		break;
+//	case 'template':
+//		require_once( $rsgOptions_path . 'templates.php' );
+//		break;
 	case 'installer':
 		require_once( $rsgOptions_path . 'installer.php' );
 		break;

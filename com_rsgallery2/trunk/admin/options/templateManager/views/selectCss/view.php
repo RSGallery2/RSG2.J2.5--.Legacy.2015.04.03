@@ -20,26 +20,23 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 include_once(dirname(__FILE__).DS.'..'.DS.'default'.DS.'view.php');
 
-class InstallerViewTemplate extends InstallerViewDefault
+class InstallerViewSelectCss extends InstallerViewDefault
 {
-	
-	var $type = '';
-	
 	function display($tpl=null)
 	{
 		/*
 		 * Set toolbar items for the page
 		 */
-		JToolBarHelper::editList( 'editCSS', 'css.png', 'css_f2.png', 'Edit CSS', false, false );
-		JToolBarHelper::custom( 'editHTML', 'html.png', 'html_f2.png', 'Edit HTML', false, false );
-		JToolBarHelper::cancel( 'cancelTemplate', 'Cancel' );
-		JToolBarHelper::help( 'screen.installer2' );
+		JToolBarHelper::editCssX( 'editCSS', 'Edit CSS' );
+		JToolBarHelper::spacer();
+		JToolBarHelper::cancel( 'manage', 'Cancel' );
+		JToolBarHelper::help( 'screen.installerSelectCss' );
 		
 		// Get data from the model
-		$item = &$this->get('Item');
-		
+		$item = &$this->get('Items');
 		$this->assignRef('item', $item);
 		
+		parent::showTemplateHeader();
 		parent::display($tpl);
 	}
 	

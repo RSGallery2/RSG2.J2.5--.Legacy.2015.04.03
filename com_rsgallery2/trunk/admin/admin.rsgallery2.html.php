@@ -260,10 +260,10 @@ class HTML_RSGALLERY{
                 endif;
 
 				$link = 'index2.php?option=com_rsgallery2&rsgOption=installer';
-				HTML_RSGALLERY::quickiconButton( $link, 'extension.png', 'Template Installer');
+				HTML_RSGALLERY::quickiconButton( $link, 'extension.png', 'Template Manager');
 				
-				$link = 'index2.php?option=com_rsgallery2&rsgOption=templates';
-				HTML_RSGALLERY::quickiconButton( $link, 'template.png', 'Templates Configuration');
+//				$link = 'index2.php?option=com_rsgallery2&rsgOption=templates';
+//				HTML_RSGALLERY::quickiconButton( $link, 'template.png', 'Templates Configuration');
 				
                 // if debug is on, display advanced options
                 if( $rsgConfig->get( 'debug' )): ?>

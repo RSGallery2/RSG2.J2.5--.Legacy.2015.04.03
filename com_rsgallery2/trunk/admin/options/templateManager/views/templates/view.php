@@ -30,7 +30,7 @@ class InstallerViewTemplates extends InstallerViewDefault
 		JToolBarHelper::makeDefault( 'setDefault', 'Default' );
 		JToolBarHelper::spacer();
 		JToolBarHelper::deleteList( '', 'remove', 'Uninstall' );
-		JToolBarHelper::editList( 'editTemplate', 'Edit Template' );
+		JToolBarHelper::editList( 'template', 'Edit Template' );
 		JToolBarHelper::help( 'screen.installer2' );
 
 		// Get data from the model
@@ -40,6 +40,7 @@ class InstallerViewTemplates extends InstallerViewDefault
 		$this->assignRef('items',		$items);
 		$this->assignRef('pagination',	$pagination);
 
+		parent::showHeader();
 		parent::display($tpl);
 	}
 

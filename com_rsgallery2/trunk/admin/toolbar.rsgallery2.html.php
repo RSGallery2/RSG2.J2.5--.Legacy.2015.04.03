@@ -338,18 +338,18 @@ class menuRSGallery {
         //menuRSGallery::adminTasksMenu();
     }
 } 
-    class menu_rsg2_jumploader {
-    	function show() {
-    	JToolBarHelper::title( '** Java Uploader **', 'generic.png' );
-        JToolBarHelper::apply('');
-        JToolBarHelper::save('');
-        JToolBarHelper::cancel();
-        JToolBarHelper::help('screen.rsgallery2');
-    	}
-    	
-    	function simple() {
-    		JToolBarHelper::title( '** Java Uploader **', 'generic.png' );
-    		JToolBarHelper::help('screen.rsgallery2');
-    	}
-    }
+class menu_rsg2_jumploader {
+	function show() {
+	JToolBarHelper::title( '** Java Uploader **', 'generic.png' );
+    JToolBarHelper::apply('');
+    JToolBarHelper::save('');
+    JToolBarHelper::cancel();
+    JToolBarHelper::help('screen.rsgallery2');
+	}
+	
+	function simple() {
+		JToolBarHelper::title( '** Java Uploader **', 'generic.png' );
+		JToolBarHelper::help('screen.rsgallery2');
+	}
+}
 ?>

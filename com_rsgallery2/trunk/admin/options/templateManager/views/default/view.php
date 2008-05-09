@@ -70,4 +70,37 @@ class InstallerViewDefault extends JView
 	function loadItem($index=0)
 	{
 	}
+	
+	function showHeader(){
+		
+		$ext	= JRequest::getWord('type');
+		
+		$subMenus = array(
+				'Edit' => 'templates'
+				);
+		
+		JSubMenuHelper::addEntry(JText::_( 'RSG2 Control Panel'), 'index2.php?option=com_rsgallery2', false);
+		JSubMenuHelper::addEntry(JText::_( 'Install' ), '#" onclick="javascript:document.adminForm.type.value=\'\';submitbutton(\'installer\');', !in_array( $ext, $subMenus));
+		foreach ($subMenus as $name => $extension) {
+			JSubMenuHelper::addEntry(JText::_( $name ), '#" onclick="javascript:document.adminForm.type.value=\''.$extension.'\';submitbutton(\'manage\');', ($extension == $ext));
+		}
+		
+	}
+
+	function showTemplateHeader(){
+		
+		$ext	= JRequest::getWord('type', 'templateGeneral');
+		if($ext =='templates') $ext = 'templateGeneral';
+		
+		$subMenus = array(
+				'General' => 'templateGeneral',
+				'CSS' => 'templateCSS',
+				'HTML' => 'templateHTML'
+				);
+
+		foreach ($subMenus as $name => $extension) {
+			JSubMenuHelper::addEntry(JText::_( $name ), '#" onclick="javascript:document.adminForm.type.value=\''.$extension.'\';submitbutton(\'template\');', ($extension == $ext));
+		}
+		
+	}
 }

@@ -38,14 +38,14 @@ class InstallerController extends JController
 	{
 		$model	= &$this->getModel( 'Install' );
 		$view	= &$this->getView( 'Install', '', '', array( 'base_path'=>rsgOptions_installer_path ) );
-
+		
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
 		$view->assignRef('ftp', $ftp);
-
+		
 		$view->setModel( $model, true );
 		$view->display();
 	}
-
+	
 	/**
 	 * Install an extension
 	 *
@@ -57,22 +57,22 @@ class InstallerController extends JController
 	{
 		// Check for request forgeries
 		JRequest::checkToken() or die( 'Invalid Token' );
-
+		
 		$model	= &$this->getModel( 'Install' );
 		$view	= &$this->getView( 'Install' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
-
+		
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
 		$view->assignRef('ftp', $ftp);
-
+		
 		if ($model->install()) {
 			$cache = &JFactory::getCache('mod_menu');
 			$cache->clean();
 		}
-
+		
 		$view->setModel( $model, true );
 		$view->display();
 	}
-
+	
 	/**
 	 * List all templates
 	 *
@@ -84,14 +84,14 @@ class InstallerController extends JController
 	{
 		$model	= &$this->getModel( 'templates' );
 		$view	= &$this->getView( 'templates' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
-
+		
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
 		$view->assignRef('ftp', $ftp);
-
+		
 		$view->setModel( $model, true );
 		$view->display();
 	}
-
+	
 	/**
 	 * Set template as default
 	 *
@@ -105,12 +105,12 @@ class InstallerController extends JController
 		global $rsgConfig;
 		// Check for request forgeries
 		JRequest::checkToken( 'request' ) or die( 'Invalid Token' );
-
+		
 		$template = JRequest::getVar( 'template' );
 		$rsgConfig->set('template', $template);
 		$rsgConfig->saveConfig();
 		$this->manage();
-
+		
 	}
 	
 	/**
@@ -126,20 +126,30 @@ class InstallerController extends JController
 		
 		// Check for request forgeries
 		JRequest::checkToken() or die( 'Invalid Token' );
-
+		
 		$template = JRequest::getVar( 'templateName' );
-
+		
 		if($rsgConfig->template == $template) {
 			JError::raiseWarning( 500, 'Can not delete default template.', "Select an other template and then delete this one." );
 		}
 		else{
 			JFolder::delete(JPATH_RSGALLERY2_SITE . DS . "templates" . DS . $template);
 		}
-
+		
 		$this->manage();		
-
+		
 	}
 	
+	function template(){
+		switch($this->get('task_type', 'templateGeneral')){
+			
+			case "templateCSS": $this->selectCSS();break;
+			case "templateHTML": $this->selectHTML();break;
+			case "templateGeneral":
+			case "templates": $this->editTemplate();break;
+		}	
+		
+	}
 	/**
 	 * edit the base data of a template
 	 * @access	public
@@ -164,7 +174,6 @@ class InstallerController extends JController
 		$view->display();
 		
 	}
-
 	/**
 	 * apply chnages to template
 	 * @access	public
@@ -182,7 +191,7 @@ class InstallerController extends JController
 		
 		$template = JRequest::getVar( 'template' );
 		$params	= JRequest::getVar('params', array(), 'post', 'array');
-
+		
 		$model->set('template', $template);
 		$model->set('params' , $params);
 		$model->update();
@@ -199,31 +208,19 @@ class InstallerController extends JController
 	* @author John Caprez (john@porelaire.com)
 	*/
 	function saveTemplate(){
-
+		
 		$model	= &$this->getModel( 'template' );
-	
+		
 		$template = JRequest::getVar( 'template' );
 		$params	= JRequest::getVar('params', array(), 'post', 'array');
-
+		
 		$model->set('template', $template);
 		$model->set('params' , $params);
-
+		
 		$model->update();
-
+		
 		$this->manage();
 	}
-	
-	/**
-	* cancel changes to template
-	* @access	public
-	* @return	void
-	* @since	RSG 1.5
-	* @author John Caprez (john@porelaire.com)
-	*/
-	function cancelTemplate(){
-		$this->manage();
-	}
-	
 	
 	/**
 	 * select witch css file has to be edited
@@ -232,10 +229,22 @@ class InstallerController extends JController
 	 * @since	RSG 1.5
 	 * @author John Caprez (john@porelaire.com)
 	 */
-	function selectCSS(){
-		JError::raiseWarning( 500, 'not implemented' );
+	function selectCss(){
+		// Check for request forgeries
+		JRequest::checkToken() or die( 'Invalid Token' );
+		
+		$model	= &$this->getModel( 'selectCss' );
+		$view	= &$this->getView( 'selectCss' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
+		
+		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
+		$view->assignRef('ftp', $ftp);
+		
+		$template = JRequest::getVar( 'template' );
+		$model->template = $template;
+		
+		$view->setModel( $model, true );
+		$view->display();
 	}
-	
 	/**
 	* edit a CSS file
 	* @access	public
@@ -244,9 +253,55 @@ class InstallerController extends JController
 	* @author John Caprez (john@porelaire.com)
 	*/
 	function editCSS(){
-		JError::raiseWarning( 500, 'not implemented' );
+		// Check for request forgeries
+		JRequest::checkToken() or die( 'Invalid Token' );
+		
+		$model	= &$this->getModel( 'editCss' );
+		$view	= &$this->getView( 'editCss' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
+		
+		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
+		$view->assignRef('ftp', $ftp);
+		
+		$template = JRequest::getVar( 'template' );
+		$model->template = $template;
+		$model->filename = JRequest::getVar( 'filename' );
+		
+		$view->setModel( $model, true );
+		$view->display();
 	}
+	function saveCSS()
+	{
+		// Check for request forgeries
+		JRequest::checkToken() or die( 'Invalid Token' );
+		
+		$model	= &$this->getModel( 'editCss' );
+		$model->filename = JRequest::getVar( 'filename' );
+		$model->content = JRequest::getVar('csscontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
+		$model->template = JRequest::getVar( 'template' );
+		
+		$model->save();
 
+		$this->selectCss();
+	}
+	function applyCSS()
+	{
+		// Check for request forgeries
+		JRequest::checkToken() or die( 'Invalid Token' );
+		
+		$model	= &$this->getModel( 'editCss' );
+		$model->filename = JRequest::getVar( 'filename' );
+		$model->content = JRequest::getVar('csscontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
+		$model->template = JRequest::getVar( 'template' );
+		
+		$model->save();
+		
+		$this->editCSS();
+	}
+	function cancelCSS()
+	{
+		$this->selectCss();
+	}
+	
 	/**
 	 * select witch html file has to be edited
 	 * @access	public
@@ -255,9 +310,21 @@ class InstallerController extends JController
 	 * @author John Caprez (john@porelaire.com)
 	 */
 	function selectHTML(){
-		JError::raiseWarning( 500, 'not implemented' );
+		// Check for request forgeries
+		JRequest::checkToken() or die( 'Invalid Token' );
+		
+		$model	= &$this->getModel( 'selectHtml' );
+		$view	= &$this->getView( 'selectHtml' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
+		
+		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
+		$view->assignRef('ftp', $ftp);
+		
+		$template = JRequest::getVar( 'template' );
+		$model->template = $template;
+		
+		$view->setModel( $model, true );
+		$view->display();
 	}
-	
 	/**
 	* edit a HTML file
 	* @access	public
@@ -266,6 +333,53 @@ class InstallerController extends JController
 	* @author John Caprez (john@porelaire.com)
 	*/
 	function editHTML() {
-		JError::raiseWarning( 500, 'not implemented' );
+		// Check for request forgeries
+		JRequest::checkToken() or die( 'Invalid Token' );
+		
+		$model	= &$this->getModel( 'editHtml' );
+		$view	= &$this->getView( 'editHtml' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
+		
+		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
+		$view->assignRef('ftp', $ftp);
+		
+		$template = JRequest::getVar( 'template' );
+		$model->template = $template;
+		$model->filename = JRequest::getVar( 'filename' );
+		
+		$view->setModel( $model, true );
+		$view->display();
+	}
+	function saveHTML()
+	{
+		// Check for request forgeries
+		JRequest::checkToken() or die( 'Invalid Token' );
+		
+		$model	= &$this->getModel( 'editHtml' );
+		$model->filename = JRequest::getVar( 'filename' );
+		$model->content = JRequest::getVar('htmlcontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
+		$model->template = JRequest::getVar( 'template' );
+		
+		$model->save();
+		
+		$this->selectHTML();
+	}
+	function applyHTML()
+	{
+		// Check for request forgeries
+		JRequest::checkToken() or die( 'Invalid Token' );
+		
+		$model	= &$this->getModel( 'editHtml' );
+		$model->filename = JRequest::getVar( 'filename' );
+		$model->content = JRequest::getVar('htmlcontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
+		$model->template = JRequest::getVar( 'template' );
+		
+		$model->save();
+		
+		$this->editHTML();
+	}
+	function cancelHTML()
+	{
+		$this->selectHTML();
 	}
 }
+

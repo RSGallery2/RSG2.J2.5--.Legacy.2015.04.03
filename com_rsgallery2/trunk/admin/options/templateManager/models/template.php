@@ -1,15 +1,9 @@
 <?php
 /**
- * @version		$Id: templates.php 9764 2007-12-30 07:48:11Z ircmaxell $
- * @package		Joomla
- * @subpackage	Menus
+ * @package		RSGallery2
+ * @subpackage	TemplateManager
  * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
- * Joomla! is free software. This version may have been modified pursuant to the
- * GNU General Public License, and as distributed it includes or is derivative
- * of works licensed under the GNU General Public License or other free or open
- * source software licenses. See COPYRIGHT.php for copyright notices and
- * details.
  */
 
 // Import library dependencies
@@ -19,8 +13,8 @@ jimport( 'joomla.filesystem.folder' );
 /**
  * RSGallery2 Template Manager Template Model
  *
- * @package		Joomla
- * @subpackage	Installer
+ * @package		RSGallery2
+ * @subpackage	TemplateManager
  * @since		1.5
  */
 class InstallerModelTemplate extends InstallerModel
@@ -90,6 +84,10 @@ class InstallerModelTemplate extends InstallerModel
 
 	}
 	
+	/**
+	 * Updates the template parameter file
+	 * @access protected
+	 */
 	function update(){
 		
 		global $rsgConfig;
