@@ -172,14 +172,22 @@ class rsgDisplay extends JObject{
 			if ( $gallery->id == $currentGallery && empty($item) ) {
 				$pathway->addItem( $gallery->name );
 			} else {
-				$link = 'index.php?option=com_rsgallery2&gid=' . $gallery->id;
-				$pathway->addItem( $gallery->name, $link );
+				if($gallery->id != 0)
+				{
+					$link = 'index.php?option=com_rsgallery2&gid=' . $gallery->id;
+					$pathway->addItem( $gallery->name, $link );
+				}
 			}
 		}
 
-		if (!empty($item)) {
+		// check if an image is displayed
+		$isImage = rsgInstance::getInt( 'id', 0 );
+		$isImage = rsgInstance::getInt( 'limit', $isImage );
+		if ($isImage) {
 			$mainframe->appendPathWay( $item->title );
 		}
+		
+		
 	}
 
 	/**
@@ -460,8 +468,13 @@ class rsgDisplay extends JObject{
  	}    
     
     function showSearchBox() {
-    	require_once(JPATH_ROOT . DS . "components" . DS . "com_rsgallery2" . DS . "lib" . DS . "rsgsearch" . DS . "search.html.php");
-    	html_rsg2_search::showSearchBox();
+		global $rsgConfig;
+		
+		if($rsgConfig->get('displaySearch') != 0)
+		{
+			require_once(JPATH_ROOT . DS . "components" . DS . "com_rsgallery2" . DS . "lib" . DS . "rsgsearch" . DS . "search.html.php");
+			html_rsg2_search::showSearchBox();
+		}
     }
     
     function showSearchBoxXX() {
