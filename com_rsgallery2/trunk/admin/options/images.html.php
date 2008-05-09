@@ -322,6 +322,7 @@ class html_rsg2_images {
 	function uploadImage( $lists, $option ) {
 		global $rsgOption;
 		//mosMakeHtmlSafe( $row, ENT_QUOTES, 'descr' );
+		$editor =& JFactory::getEditor();
 		
 		?>
 		<script type="text/javascript">
@@ -333,11 +334,12 @@ class html_rsg2_images {
 			}
         
 			// do field validation
-			if (form.gallery_id.value == "0"){
+			if (form.gallery_id.value <= 0){
 				alert( "<?php echo _RSGALLERY_IMG_SELECT_GAL?>" );
 			} else if (form.images.value == ''){
 				alert( "<?php echo _RSGALLERY_IMG_NO_FILE_SELECT?>" );
 			} else {
+					<?php echo $editor->save('descr') ; ?>
 				submitform( pressbutton );
 			}
 		}
@@ -377,7 +379,7 @@ class html_rsg2_images {
 					<?php echo _RSGALLERY_IMG_GEN_DESCR?>:
 					</td>
 					<td>
-					<textarea class="inputbox" cols="50" rows="5" name="descr" style="width:500px" width="500"></textarea>
+				<?php echo $editor->display( 'descr',  '' , '100%', '200', '10', '20' ) ; ?>
 					</td>
 				</tr>
 				</table>
