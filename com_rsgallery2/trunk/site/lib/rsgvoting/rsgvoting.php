@@ -14,6 +14,7 @@ require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgvoting' . DS . 'rsgv
 $cid    = rsgInstance::getInt('cid', array(0) );
 $task    = rsgInstance::getVar('task', '' );
 $id    = rsgInstance::getInt('id','' );
+
 switch( $task ){
     case 'save':
         saveVote( $option );
@@ -33,9 +34,11 @@ function test( $id ) {
 
 }
 function saveVote( $option ) {
-	global $rsgConfig;
+	
+	global $rsgConfig,$mainframe;
+	
 	$database = JFactory::getDBO();
-	$my = JFactory->getUser();
+	$my = JFactory::getUser();
 	
 	if ( $rsgConfig->get('voting') < 1 ) {
 		$mainframe->redirect("index.php?option=com_rsgallery2", _RSGALLERY_VOTING_DISABLED);

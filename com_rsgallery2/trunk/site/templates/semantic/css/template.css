@@ -287,6 +287,33 @@ text-align:right;
     line-height: 0px;
 }
 
+/*************************************/
+/* Classes for tab pane */
+
+.rsg_sem_inl_ImgDetails dl.tabs
+{
+	margin-bottom:0;
+	padding-bottom:0;
+}
+.rsg_sem_inl_ImgDetails .tabs dt
+{
+	background-color:White;
+	display:inline;
+	border:1px solid #919B9C;
+	padding:0.25em 0.5em;
+}
+.rsg_sem_inl_ImgDetails .tabs dt.open
+{
+	border-bottom:1px solid white;
+	font-weight:bold;
+}
+.rsg_sem_inl_ImgDetails .current
+{
+	border:1px solid #919B9C;
+	padding:0.5em;
+	margin-top:0.25em;
+}
+
 /****************** OLD CLASSES ********************/
 /* Classes for RSGallery:
 
