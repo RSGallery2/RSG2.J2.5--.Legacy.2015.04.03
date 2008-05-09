@@ -200,13 +200,24 @@ class rsgDisplay extends JObject{
 		if( $option != 'com_rsgallery2' )
 			return;
 
-		$title = $this->gallery->get('name');
-		$description = htmlspecialchars(strip_tags($this->gallery->get('description')), ENT_QUOTES );
+		// check if an image is displayed
+		$isImage = rsgInstance::getInt( 'id', 0 );
+		$isImage = rsgInstance::getInt( 'limit', $isImage );
 		
-		$item = rsgInstance::getItem();
-		if ($item != null){
-			$title .= ' - ' . $item->title;
-			$description .= ' -  ' . htmlspecialchars(strip_tags($item->descr), ENT_QUOTES );
+		if($isImage)
+		{
+			$item = rsgInstance::getItem();
+			$title = $item->title;
+			$description = htmlspecialchars(strip_tags($item->descr), ENT_QUOTES );
+		}
+		else
+		{
+
+			if($this->gallery->id == 0)
+				$title = "RSGallery2";
+			else
+				$title = $this->gallery->get('name');
+			$description = htmlspecialchars(strip_tags($this->gallery->get('description')), ENT_QUOTES );
 		}
 		
 		$mainframe->setPageTitle( ' '. $title );
