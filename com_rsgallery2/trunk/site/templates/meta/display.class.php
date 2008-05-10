@@ -118,7 +118,7 @@ class rsgDisplay extends JObject{
 		if (!$rsgOption == 'mygalleries' AND !$gid) {
 			?>
 			<div class="rsg2-mygalleries">
-				<a class="rsg2-mygalleries_link" href="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries");?>">My Galleries</a>
+			<a class="rsg2-mygalleries_link" href="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries");?>"><?php echo _RSGALLERY_MY_GALLERIES ?></a>
 			</div>
 			<div class="rsg2-clr"></div>
 			<?php

@@ -27,9 +27,9 @@ class InstallerViewSelectHtml extends InstallerViewDefault
 		/*
 		 * Set toolbar items for the page
 		 */
-		JToolBarHelper::editHtmlX( 'editHTML', 'Edit HTML' );
+		JToolBarHelper::editHtmlX( 'editHTML');
 		JToolBarHelper::spacer();
-		JToolBarHelper::cancel( 'manage', 'Cancel' );
+		JToolBarHelper::cancel( 'manage' );
 		JToolBarHelper::help( 'screen.installerSelectHtml' );
 		
 		// Get data from the model

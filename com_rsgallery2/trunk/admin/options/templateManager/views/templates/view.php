@@ -27,10 +27,10 @@ class InstallerViewTemplates extends InstallerViewDefault
 		/*
 		 * Set toolbar items for the page
 		 */
-		JToolBarHelper::makeDefault( 'setDefault', 'Default' );
+		JToolBarHelper::makeDefault( 'setDefault' );
 		JToolBarHelper::spacer();
-		JToolBarHelper::deleteList( '', 'remove', 'Uninstall' );
-		JToolBarHelper::editList( 'template', 'Edit Template' );
+		JToolBarHelper::deleteList( '', 'remove' );
+		JToolBarHelper::editList( 'template' );
 		JToolBarHelper::help( 'screen.installer2' );
 
 		// Get data from the model

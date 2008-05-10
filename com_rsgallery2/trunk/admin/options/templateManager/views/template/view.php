@@ -27,10 +27,10 @@ class InstallerViewTemplate extends InstallerViewDefault
 		/*
 		 * Set toolbar items for the page
 		 */
-		JToolBarHelper::save('saveTemplate','Save');
-		JToolBarHelper::apply('applyTemplate', 'Apply');
+		JToolBarHelper::save('saveTemplate');
+		JToolBarHelper::apply('applyTemplate');
 		JToolBarHelper::spacer();
-		JToolBarHelper::cancel( 'manage', 'Cancel' );
+		JToolBarHelper::cancel( 'manage' );
 		JToolBarHelper::help( 'screen.installerTemplate' );
 		
 		// Get data from the model

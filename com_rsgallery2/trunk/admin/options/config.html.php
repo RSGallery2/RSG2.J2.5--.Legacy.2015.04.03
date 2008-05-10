@@ -255,18 +255,18 @@ class html_rsg2_config{
 		?>
 		<table border="0" width="100%">
 			<tr>
-				<td width="40%" valign="top">
+				<td  valign="top">
 					<fieldset>
 						<legend><?php echo _RSGALLERY_C_GEN_SET ?></legend>
 						<table width="100%">
 							<tr>
-								<td width="400"><?php echo _RSGALLERY_C_TMPL_VERSION?></td>
+								<td width="200"><?php echo _RSGALLERY_C_TMPL_VERSION?></td>
 								<td><?php echo $config->version?></td>
 							</tr>
 							<tr>
 								<td><?php echo _RSGALLERY_C_TMPL_INTRO_TEXT?></td>
 								<td>
-									<?php echo $editor->display( 'intro_text',  $config->intro_text , '100%', '200', '10', '20' ) ; ?>
+									<?php echo $editor->display( 'intro_text',  $config->intro_text , '100%', '200', '10', '20', false ) ; ?>
 								</td>
 							</tr>
 							<tr>
@@ -274,13 +274,12 @@ class html_rsg2_config{
 								<td><?php echo JHTML::_("select.booleanlist",'debug', '', $config->debug); ?></td>
 							</tr>
 							<tr>
-								<td><?php echo 'Hide Root (create multiple independant galleries)'; ?></td>
+								<td><?php echo _RSGALLERY_C_HIDEROOT; ?></td>
 								<td><?php echo JHTML::_("select.booleanlist",'hideRoot', '', $config->hideRoot); ?></td>
 							</tr>
 						</table>
 					</fieldset>
 				</td>
-				<td width="60%" valign="top">&nbsp;</td>
 			</tr>
 		</table>
 		<?php
@@ -300,7 +299,7 @@ class html_rsg2_config{
 								<td><input class="text_area" type="text" name="image_width" size="10" value="<?php echo $config->image_width;?>"/></td>
 							</tr>
 							<tr>
-								<td><?php echo "Resize portrait images by height using Display Picture Width:" ?></td>
+								<td><?php echo _RSGALLERY_C_TMPL_PORT_WIDTH ; ?></td>
 								<td><?php echo JHTML::_("select.booleanlist",'resize_portrait_by_height', '', $config->resize_portrait_by_height);?></td>
 							</tr>
 							<tr>

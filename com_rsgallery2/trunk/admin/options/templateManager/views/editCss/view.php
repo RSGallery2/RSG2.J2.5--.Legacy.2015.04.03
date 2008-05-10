@@ -27,9 +27,9 @@ class InstallerViewEditCss extends InstallerViewDefault
 		/*
 		 * Set toolbar items for the page
 		 */
-		JToolBarHelper::save( 'saveCSS', 'Save' );
-		JToolBarHelper::apply( 'applyCSS', 'Apply');
-		JToolBarHelper::cancel( 'cancelCSS', 'Cancel' );
+		JToolBarHelper::save( 'saveCSS' );
+		JToolBarHelper::apply( 'applyCSS');
+		JToolBarHelper::cancel( 'cancelCSS');
 		JToolBarHelper::help( 'screen.installerSelectCss' );
 		
 		JRequest::setVar( 'hidemainmenu', 1 );

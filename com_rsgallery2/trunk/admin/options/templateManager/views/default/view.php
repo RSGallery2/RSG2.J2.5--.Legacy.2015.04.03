@@ -37,11 +37,11 @@ class InstallerViewDefault extends JView
 		/*
 		 * Set toolbar items for the page
 		 */
-		JToolBarHelper::title( JText::_( 'RSGallery2 Template Manager'), 'install.png' );
+		JToolBarHelper::title( JText::_( _RSGALLERY_TEMP_MANG), 'install.png' );
 
 		// Document
 		$document = & JFactory::getDocument();
-		$document->setTitle(JText::_('RSGallery2 Template Manager').' : '.JText::_( $this->getName() ));
+		$document->setTitle(JText::_(_RSGALLERY_TEMP_MANG).' : '.JText::_( $this->getName() ));
 
 		// Get data from the model
 		$state		= &$this->get('State');
@@ -76,11 +76,11 @@ class InstallerViewDefault extends JView
 		$ext	= JRequest::getWord('type');
 		
 		$subMenus = array(
-				'Edit' => 'templates'
+				_RSGALLERY_TPL_MANAGE => 'templates'
 				);
 		
-		JSubMenuHelper::addEntry(JText::_( 'RSG2 Control Panel'), 'index2.php?option=com_rsgallery2', false);
-		JSubMenuHelper::addEntry(JText::_( 'Install' ), '#" onclick="javascript:document.adminForm.type.value=\'\';submitbutton(\'installer\');', !in_array( $ext, $subMenus));
+		JSubMenuHelper::addEntry(JText::_( _RSGALLERY_HEAD_CPANEL), 'index2.php?option=com_rsgallery2', false);
+		JSubMenuHelper::addEntry(JText::_( _RSGALLERY_TPL_INSTALL ), '#" onclick="javascript:document.adminForm.type.value=\'\';submitbutton(\'installer\');', !in_array( $ext, $subMenus));
 		foreach ($subMenus as $name => $extension) {
 			JSubMenuHelper::addEntry(JText::_( $name ), '#" onclick="javascript:document.adminForm.type.value=\''.$extension.'\';submitbutton(\'manage\');', ($extension == $ext));
 		}
@@ -93,9 +93,9 @@ class InstallerViewDefault extends JView
 		if($ext =='templates') $ext = 'templateGeneral';
 		
 		$subMenus = array(
-				'General' => 'templateGeneral',
-				'CSS' => 'templateCSS',
-				'HTML' => 'templateHTML'
+				_RSGALLERY_TPL_GENERAL => 'templateGeneral',
+				_RSGALLERY_TPL_CSS => 'templateCSS',
+				_RSGALLERY_TPL_HTML => 'templateHTML'
 				);
 
 		foreach ($subMenus as $name => $extension) {

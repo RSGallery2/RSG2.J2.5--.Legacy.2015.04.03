@@ -27,9 +27,9 @@ class InstallerViewSelectCss extends InstallerViewDefault
 		/*
 		 * Set toolbar items for the page
 		 */
-		JToolBarHelper::editCssX( 'editCSS', 'Edit CSS' );
+		JToolBarHelper::editCssX( 'editCSS');
 		JToolBarHelper::spacer();
-		JToolBarHelper::cancel( 'manage', 'Cancel' );
+		JToolBarHelper::cancel( 'manage');
 		JToolBarHelper::help( 'screen.installerSelectCss' );
 		
 		// Get data from the model

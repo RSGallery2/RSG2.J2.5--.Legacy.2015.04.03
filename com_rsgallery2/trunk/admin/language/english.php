@@ -18,6 +18,7 @@ DEFINE("_RSGALLERY_FEAT_NOTIMP",		"Feature not implemented yet");
 //function showUserGallery
 DEFINE("_RSGALLERY_MAKECAT_ALERT_NAME",		"You must provide a gallery name.");
 DEFINE("_RSGALLERY_MAKECAT_ALERT_DESCR",	"You must provide a description.");
+DEFINE("_RSGALLERY_MAKECAT_SELECT_CAT",		"** You need to select a parent gallery **");
 DEFINE("_RSGALLERY_CREATE_GALLERY",			"Create Gallery");
 DEFINE("_RSGALLERY_SAVE",					"Save");
 DEFINE("_RSGALLERY_CANCEL",					"Cancel");
@@ -434,6 +435,7 @@ DEFINE("_RSGALLERY_TOOL_RES_HITS",	"Reset hits");
 DEFINE("_RSGALLERY_C_TMPL_VERSION",			"Version:");
 DEFINE("_RSGALLERY_C_TMPL_INTRO_TEXT",		"Introduction Text:");
 DEFINE("_RSGALLERY_C_TMPL_DEBUG",			"Debug:");
+/** new **/ DEFINE("_RSGALLERY_C_HIDEROOT",			"Hide Root (create multiple independant galleries)");
 DEFINE("_RSGALLERY_C_TMPL_IMG_MANIP",		"Image Manipulation");
 DEFINE("_RSGALLERY_C_TMPL_DISP_WIDTH",		"Display Picture Width:");
 DEFINE("_RSGALLERY_C_TMPL_THUMB_WIDTH",		"Thumbnail Width:");
@@ -495,6 +497,8 @@ DEFINE("_RSGALLERY_C_NUMB_GAL_FRONT",	"Default number of galleries on frontpage"
 DEFINE("_RSGALLERY_C_FONT",				"Font");
 DEFINE("_RSGALLERY_C_WATER_TRANS",		"Watermark transparency");
 DEFINE("_RSGALLERY_C_ALLOWED_FILE",		"Allowed filetypes");
+
+/*NEW*/DEFINE("_RSGALLERY_C_TMPL_PORT_WIDTH",		"Resize portrait images by height using Display Picture Width:");
 
 /*NEW*/DEFINE("_RSGALLERY_C_DISP_IMG_ORDER",		"Image order");
 /*NEW*/DEFINE("_RSGALLERY_C_DISP_IMG_ORDER_BY",		"Order images by");
@@ -774,6 +778,12 @@ DEFINE("_RSGALLERY_VOTING_ADDED",		"Vote added to database!");
 //templates.php
 //function viewTemplates
 /*new*/DEFINE("_RSGALLERY_TPL_INST",	"Install new RSGTemplate <small><small>[ Site ]</small></small>");
+/*new*/DEFINE("_RSGALLERY_TPL_INSTALL",	"Install");
+/*new*/DEFINE("_RSGALLERY_TPL_MANAGE",	"Manage");
+/*new*/DEFINE("_RSGALLERY_TPL_GENERAL",	"General");
+/*new*/DEFINE("_RSGALLERY_TPL_CSS",	"CSS");
+/*new*/DEFINE("_RSGALLERY_TPL_HTML",	"HTML");
+
 // more to do here, but to come
 
 //templates.html.php

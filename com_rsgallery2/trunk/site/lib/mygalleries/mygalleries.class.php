@@ -76,7 +76,7 @@ class myGalleries {
 	        
 				// do field validation
 				if (form.parent.value == "-1") {
-					alert( "<?php echo "** You need to select a parent gallery **"; ?>" );
+					alert( "<?php echo _RSGALLERY_MAKECAT_SELECT_CAT; ?>" );
 				} else if (form.catname1.value == "") {
 					alert( "<?php echo _RSGALLERY_MAKECAT_ALERT_NAME; ?>" );
 				}
