@@ -41,19 +41,19 @@ function saveVote( $option ) {
 	$my = JFactory::getUser();
 	
 	if ( $rsgConfig->get('voting') < 1 ) {
-		$mainframe->redirect("index.php?option=com_rsgallery2", _RSGALLERY_VOTING_DISABLED);
+		$mainframe->redirect("index.php?option=com_rsgallery2", JText::_('Voting is disabled!'));
 	} else {
 		$rating 	= rsgInstance::getInt('rating', '');
 		$id 		= rsgInstance::getInt('id', '');
 		$vote 		= new rsgVoting();
 		//Check if user can vote
 		if (!$vote->voteAllowed() ) {
-			$mainframe->redirect("index.php?option=com_rsgallery2&page=inline&id=$id", _RSGALLERY_VOTING_NOT_AUTH);
+			$mainframe->redirect("index.php?option=com_rsgallery2&page=inline&id=$id", JText::_('You are not authorized to vote!'));
 		}
 		
 		//Check if user has already voted for this image
 		if ($vote->alreadyVoted($id)) {
-		 	$mainframe->redirect("index.php?option=com_rsgallery2&page=inline&id=$id",_RSGALLERY_VOTING_ALREADY_VOTED);
+		 	$mainframe->redirect("index.php?option=com_rsgallery2&page=inline&id=$id",JText::_('You already voted for this item!'));
 		}
 		
 		//All checks OK, store vote in DB
@@ -63,9 +63,9 @@ function saveVote( $option ) {
 		$sql = "UPDATE #__rsgallery2_files SET rating = '$total', votes = '$votecount' WHERE id = '$id'";
 		$database->setQuery( $sql );
 		if ( !$database->query() ) {
-			$msg = _RSGALLERY_VOTING_NOT_ADDED;
+			$msg = JText::_('Vote could not be added to the database!');
 		} else {
-			$msg = _RSGALLERY_VOTING_ADDED;
+			$msg = JText::_('Vote added to database!');
 			//Store cookie on system
 			setcookie($rsgConfig->get('cookie_prefix').$id, $my->id, time()+60*60*24*365, "/");
 		}

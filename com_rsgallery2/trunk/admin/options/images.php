@@ -23,7 +23,7 @@ switch ($task) {
 		break;
 	
 	case 'batchupload':
-		HTML_RSGallery::RSGalleryHeader('', _RSGALLERY_HEAD_UPLOAD_ZIP);
+		HTML_RSGallery::RSGalleryHeader('', JText::_('Upload ZIP-file'));
 		batchupload($option);
 		HTML_RSGallery::RSGalleryFooter();
 		break;
@@ -289,7 +289,7 @@ function removeImages( $cid, $option ) {
 		}
 	}
 
-	$mainframe->redirect( "index2.php?option=$option&rsgOption=$rsgOption", _RSGALLERY_ALERT_IMGDELETEOK );
+	$mainframe->redirect( "index2.php?option=$option&rsgOption=$rsgOption", JText::_('Image(s) deleted succesfully!') );
 }
 
 
@@ -436,7 +436,7 @@ function saveUploadedImage( $option ) {
 	}
 	//Error handling if necessary
 	if ( count( $errors ) == 0){
-		$mainframe->redirect( "index2.php?option=$option&rsgOption=$rsgOption", _RSGALLERY_ALERT_UPLOADOK );
+		$mainframe->redirect( "index2.php?option=$option&rsgOption=$rsgOption", JText::_('Item uploaded succesfully!') );
 	} else {
 		//Show error message for each error encountered
 		foreach( $errors as $e ) {
@@ -444,7 +444,7 @@ function saveUploadedImage( $option ) {
 		}
 		//If there were more files than errors, assure the user the rest went well
 		if ( count( $errors ) < count( $files["error"] ) ) {
-			echo "<br>"._RSGALLEY_ALERT_REST_UPLOADOK;
+			echo "<br>".JText::_('the rest of your files were uploaded fine');
 		}
 	}		
 }
@@ -574,7 +574,7 @@ function copyImage( $cid, $option ) {
 
 	//Error handling if necessary
 	if ( count( $errors ) == 0){
-		$mainframe->redirect( "index2.php?option=$option&rsgOption=images", _RSGALLERY_ALERT_COPYOK );
+		$mainframe->redirect( "index2.php?option=$option&rsgOption=images", JText::_('Item(s) copied successfully!') );
 	} else {
 		//Show error message for each error encountered
 		foreach( $errors as $e ) {
@@ -582,7 +582,7 @@ function copyImage( $cid, $option ) {
 		}
 		//If there were more files than errors, assure the user the rest went well
 		if ( count( $errors ) < count( $files["error"] ) ) {
-			echo "<br>"._RSGALLEY_ALERT_REST_COPYDOK;
+			echo "<br>".JText::_('Rest of the items copied successfully!');
 		}
 	}
 }
@@ -615,14 +615,14 @@ function batchupload($option) {
 		if ($batchmethod == "zip") {
 			//Check if file is really a ZIP-file
 			if (!eregi( '.zip$', $zip_file['name'] )) {
-				$mainframe->redirect( "index2.php?option=com_rsgallery2&task=batchupload", $zip_file['name']._RSGALLERY_BACTCH_NOT_VALID_ZIP);
+				$mainframe->redirect( "index2.php?option=com_rsgallery2&task=batchupload", $zip_file['name'].JText::_(' is not a valid archive format. Only ZIP-files are allowed!'));
 			} else {
 				//Valid ZIP-file, continue
 				if ($uploadfile->checkSize($zip_file) == 1) {
 					$ziplist = $uploadfile->handleZIP($zip_file);
 				} else {
 					//Error message
-					$mainframe->redirect( "index2.php?option=com_rsgallery2&task=batchupload", _RSGALLERY_ZIP_TO_BIG);
+					$mainframe->redirect( "index2.php?option=com_rsgallery2&task=batchupload", JText::_('ZIP-file is too big!'));
 				}
 			}
 		} else {
@@ -656,7 +656,7 @@ function save_batchupload() {
         $category = array(0);
 
     if ( in_array("0",$category) ) {
-        $mainframe->redirect("index2.php?option=com_rsgallery2&task=batchupload", _RSGALLERY_ALERT_NOCATSELECTED);
+        $mainframe->redirect("index2.php?option=com_rsgallery2&task=batchupload", JText::_('_RSGALLERY_ALERT_NOCATSELECTED'));
 	}
 
      for($i=0;$i<$teller;$i++) {
@@ -688,7 +688,7 @@ function save_batchupload() {
     // Error handling
     if (isset($errors )) {
         if ( count( $errors ) == 0) {
-            echo _RSGALLERY_ALERT_UPLOADOK;
+            echo JText::_('Item uploaded succesfully!');
         } else {
             foreach( $errors as $err ) {
                 echo $err->toString();
@@ -697,6 +697,6 @@ function save_batchupload() {
     } else {
         //Everything went smoothly, back to Control Panel
 		global $mainframe;
-		$mainframe->redirect("index2.php?option=com_rsgallery2", _RSGALLERY_ALERT_UPLOADOK);
+		$mainframe->redirect("index2.php?option=com_rsgallery2", JText::_('Item uploaded succesfully!'));
     }
 }

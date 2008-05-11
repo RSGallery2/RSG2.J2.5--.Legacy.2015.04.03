@@ -60,7 +60,7 @@ class rsgGalleriesItem extends JTable {
 		
         /** check for valid name */
         if (trim( $this->name ) == '') {
-            $this->_error = _RSGALLERY_CATNAME;
+            $this->_error = JText::_('Gallery name');
             return false;
         }
 
@@ -74,7 +74,7 @@ class rsgGalleriesItem extends JTable {
 
         $xid = intval( $this->_db->loadResult() );
         if ($xid && $xid != intval( $this->id )) {
-            $this->_error = _RSGALLERY_GAL_EXIST_ERROR;
+            $this->_error = JText::_('There is a gallery already with that name, please try again.');
             return false;
         }
         return true;
@@ -125,7 +125,7 @@ function galleryParentSelectList( &$row ) {
 
     // assemble menu items to the array
     $mitems     = array();
-    $mitems[]   = JHTMLSelect::option( '0', _RSGALLERY_SELECT_GAL_TOP );
+    $mitems[]   = JHTMLSelect::option( '0', JText::_('Top') );
 
     foreach ( $list as $item ) {
         $mitems[] = JHTMLSelect::option( $item->id, '&nbsp;&nbsp;&nbsp;'. $item->treename );

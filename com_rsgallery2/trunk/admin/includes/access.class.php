@@ -118,7 +118,7 @@ class rsgAccess extends JObject{
 			if ( !rsgAccess::arePermissionsSet($gallery_id) ) {
 				//Aparently no permissions were found in #__rsgallery2_acl, so create default permissions
 				rsgAccess::createDefaultPermissions($gallery_id);
-				// mosRedirect( "index.php?option=com_rsgallery2&page=my_galleries", _RSGALLERY_ACL_NO_PERM_FOUND);
+				// mosRedirect( "index.php?option=com_rsgallery2&page=my_galleries", JText::_('_RSGALLERY_ACL_NO_PERM_FOUND'));
 			} 
 			
 			// check user type for access

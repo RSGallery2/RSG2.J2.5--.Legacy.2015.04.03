@@ -78,6 +78,7 @@ class InstallerModelTemplate extends InstallerModel
 		$item = new stdClass();
 		$item->params = $params;
 		$item->row = $row;
+		$item->type = $this->_type;
 		$item->template = $this->template;
 
 		return $item;

@@ -3,7 +3,6 @@
 		<tbody>
 			<tr>
 				<td width="100%"><?php echo JText::_( 'DESCTEMPLATES' ); ?></td>
-				<td align="right"><?php echo $this->lists->client; ?></td>
 			</tr>
 		</tbody>
 	</table>

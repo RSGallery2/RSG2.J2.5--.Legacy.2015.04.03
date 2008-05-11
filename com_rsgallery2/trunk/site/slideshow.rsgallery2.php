@@ -35,10 +35,10 @@ foreach ($rows as $row)
         <tr>
             <td align="center">
             <div align="center">
-            <a href="javascript:;" onclick="startSS()"><img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/start.jpg" alt="<?php echo _RSGALLERY_SLIDE_START ?>" width="24" height="24" border="0"></a>
-            <a href="javascript:;" onclick="stopSS()"><img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/stop.jpg" alt="<?php echo _RSGALLERY_SLIDE_STOP ?>" width="24" height="24" border="0"></a>
-            <a href="javascript:;" onclick="prevSS()"><img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/previous.jpg" alt="<?php echo _RSGALLERY_SLIDE_PREV ?>" width="24" height="24" border="0"></a>
-            <a href="javascript:;" onclick="nextSS()"><img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/next.jpg" alt="<?php echo _RSGALLERY_SLIDE_NEXT ?>" width="24" height="24" border="0"></a>
+            <a href="javascript:;" onclick="startSS()"><img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/start.jpg" alt="<?php echo JText::_('Start') ?>" width="24" height="24" border="0"></a>
+            <a href="javascript:;" onclick="stopSS()"><img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/stop.jpg" alt="<?php echo JText::_('Stop') ?>" width="24" height="24" border="0"></a>
+            <a href="javascript:;" onclick="prevSS()"><img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/previous.jpg" alt="<?php echo JText::_('Previous') ?>" width="24" height="24" border="0"></a>
+            <a href="javascript:;" onclick="nextSS()"><img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/next.jpg" alt="<?php echo JText::_('Next') ?>" width="24" height="24" border="0"></a>
             </div>
             <br>
             <div style="visibility:hidden;"><select name="wichIm" onchange="selected(this.options[this.selectedIndex].value)">

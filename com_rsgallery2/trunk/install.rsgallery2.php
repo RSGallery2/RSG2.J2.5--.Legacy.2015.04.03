@@ -16,7 +16,6 @@ function com_install(){
 	$database =& JFactory::getDBO();
 	
 	require_once( JPATH_SITE . '/administrator/components/com_rsgallery2/includes/install.class.php' );
-	include JPATH_SITE.'/administrator/components/com_rsgallery2/language/' . strtolower($lang->get("backwardlang", "english")) . '.php';
 	
 	//Initialize install
 	$rsgInstall = new rsgInstall();
@@ -33,16 +32,16 @@ function com_install(){
 		global $rsgConfig;
 		$rsgConfig = new rsgConfig();
 
-		$rsgInstall->writeInstallMsg( _RSGALLERY_MIGRATING_FROM . $rsgConfig->get( 'version' ), 'ok');
+		$rsgInstall->writeInstallMsg( JText::_('Migrating from RSGallery2 ') . $rsgConfig->get( 'version' ), 'ok');
 		//Migrate from earlier version
 		$result = $migrate_com_rsgallery->migrate();
 		
 		if( $result === true ){
-			$rsgInstall->writeInstallMsg( _RSGALLERY_INSTALL_SUCCESS . $rsgConfig->get( 'version' ), 'ok');
+			$rsgInstall->writeInstallMsg( JText::_('Success.  Now using RSGallery2 ') . $rsgConfig->get( 'version' ), 'ok');
 		}
 		else{
 			$result = print_r( $result, true );
-			$rsgInstall->writeInstallMsg( _RSGALLERY_INSTALL_FAIL."\n<br><pre>$result\n</pre>", 'error');
+			$rsgInstall->writeInstallMsg( JText::_('Failure: ')."\n<br><pre>$result\n</pre>", 'error');
 		}
 	}
 	else{

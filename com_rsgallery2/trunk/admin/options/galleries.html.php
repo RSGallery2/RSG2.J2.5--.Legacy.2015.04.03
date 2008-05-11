@@ -31,9 +31,9 @@ class html_rsg2_galleries{
             &nbsp;
             </td>
             <td nowrap="true" width="50%" align="right">
-            <?php echo _RSGALLERY_GAL_MAX_LEVELS?>
+            <?php echo JText::_('Max Levels')?>
             <?php echo $lists['levellist'];?>
-            <?php echo _RSGALLERY_GAL_FILTER?>:
+            <?php echo JText::_('Filter')?>:
             <input type="text" name="search" value="<?php echo $search;?>" class="text_area" onChange="document.adminForm.submit();" />
             </td>
         </tr>
@@ -49,23 +49,23 @@ class html_rsg2_galleries{
             <input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $rows ); ?>);" />
             </th>
             <th class="Name">
-            <?php echo _RSGALLERY_GAL_NAME?>
+            <?php echo JText::_('Name')?>
             </th>
             <th width="5%">
-            <?php echo _RSGALLERY_GAL_PUBLISHED?>
+            <?php echo JText::_('Published')?>
             </th>
             <th colspan="2" width="5%">
-            <?php echo _RSGALLERY_GAL_REORDER?>
+            <?php echo JText::_('Reorder')?>
             </th>
-			<th width="2%"><?php echo _RSGALLERY_GAL_ORDER?></th>
+			<th width="2%"><?php echo JText::_('Order')?></th>
 			<th width="2%">
 			<a href="javascript: saveorder( <?php echo count( $rows )-1; ?> )">
 				<img src="images/filesave.png" width="16" height="16" alt="Save Order" />
 			</a>
 			</th>
-			<th width="4%"><?php echo _RSGALLERY_GAL_COUNT?></th>
+			<th width="4%"><?php echo JText::_('# Items')?></th>
             <th width="25%">
-            <?php echo _RSGALLERY_GAL_HITS?>
+            <?php echo JText::_('Hits')?>
             </th>
         </tr>
         </thead>
@@ -239,7 +239,7 @@ class html_rsg2_galleries{
 		<table class="adminheading">
 		<tr>
 			<th>
-			<?php echo _RSGALLERY_GAL_GAL?>:
+			<?php echo JText::_('Gallery')?>:
 			<small>
 			<?php echo $row->id ? 'Edit' : 'New';?>
 			</small>
@@ -253,12 +253,12 @@ class html_rsg2_galleries{
 				<table class="adminform">
 				<tr>
 					<th colspan="2">
-					<?php echo _RSGALLERY_GAL_DETAILS?>
+					<?php echo JText::_('Details')?>
 					</th>
 				</tr>
 				<tr>
 					<td width="20%" align="right">
-					<?php echo _RSGALLERY_GAL_NAME?>:
+					<?php echo JText::_('Name')?>:
 					</td>
 					<td width="80%">
 					<input class="text_area" type="text" name="name" size="50" maxlength="250" value="<?php echo $row->name;?>" />
@@ -266,7 +266,7 @@ class html_rsg2_galleries{
 				</tr>
 				<tr>
 					<td align="right">
-					<?php echo _RSGALLERY_GAL_OWNER;?>:
+					<?php echo JText::_('Owner');?>:
 					</td>
 					<td>
 					<?php echo $lists['uid']; ?>
@@ -274,7 +274,7 @@ class html_rsg2_galleries{
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					<?php echo _RSGALLERY_GAL_DESCR?>:
+					<?php echo JText::_('Description')?>:
 					</td>
 					<td>
 					<?php
@@ -284,7 +284,7 @@ class html_rsg2_galleries{
 				</tr>
 				<tr>
 					<td align="right">
-					<?php echo _RSGALLERY_GAL_PARENT;?>:
+					<?php echo JText::_('Parent Item');?>:
 					</td>
 					<td>
 					<?php echo $lists['parent']; ?>
@@ -292,7 +292,7 @@ class html_rsg2_galleries{
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					<?php echo _RSGALLERY_GAL_THUMB;?>:
+					<?php echo JText::_('Gallery thumbnail');?>:
 					</td>
 					<td>
 					<?php echo imgUtils::showThumbNames($row->id, $row->thumb_id); ?>
@@ -300,7 +300,7 @@ class html_rsg2_galleries{
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					<?php echo _RSGALLERY_GAL_ORDERING;?>:
+					<?php echo JText::_('Ordering');?>:
 					</td>
 					<td>
 					<?php echo $lists['ordering']; ?>
@@ -308,7 +308,7 @@ class html_rsg2_galleries{
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					<?php echo _RSGALLERY_GAL_PUBLISHED;?>:
+					<?php echo JText::_('Published');?>:
 					</td>
 					<td>
 					<?php echo $lists['published']; ?>
@@ -320,7 +320,7 @@ class html_rsg2_galleries{
 				<table class="adminform">
 				<tr>
 					<th colspan="1">
-					<?php echo _RSGALLERY_GAL_PARAMETERS;?>
+					<?php echo JText::_('Parameters');?>
 					</th>
 				</tr>
 				<tr>
@@ -334,14 +334,14 @@ class html_rsg2_galleries{
 				if ($rsgConfig->get('acl_enabled')) {
 					?>
 					<tr>
-						<th colspan="1"><?php echo _RSGALLERY_GAL_PERMS?></th>
+						<th colspan="1"><?php echo JText::_('Permissions')?></th>
 					</tr>	                
 					<?php
 					if ( !isset($row->id) ) {
 					?>
 	
 					<tr>
-						<td><?php echo _RSGALLERY_GAL_DEF_PERM_CREATE?></td>
+						<td><?php echo JText::_('_RSGALLERY_GAL_DEF_PERM_CREATE')?></td>
 					</tr>
 					<?php
 					} else {
@@ -350,7 +350,7 @@ class html_rsg2_galleries{
 						if ( !$perms ) {
 							?>
 							<tr>
-								<td colspan="6"><?php echo _RSGALLERY_GAL_NO_PERM_FOUND?></td>
+								<td colspan="6"><?php echo JText::_('_RSGALLERY_GAL_NO_PERM_FOUND')?></td>
 							</tr>
 							<?php	
 						} else {
@@ -359,17 +359,17 @@ class html_rsg2_galleries{
 								<td>
 								<table class="adminform" border="0" width="100%">
 								<tr>
-									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_USERTYPE?></span></td>
-									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_VIEW_GAL?></td>
-									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_UPL_EDIT_IMG?></td>
-									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_DEL_IMG?></td>
-									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_MOD_GAL?></td>
-									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_DEL_GAL?></td>
-									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_VOTE_VIEW?></td>
-									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_VOTE_VOTE?></td>
+									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo JText::_('Usertype')?></span></td>
+									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo JText::_('View<br/>Gallery</span>')?></td>
+									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo JText::_('Upload/Edit<br/>images</span>')?></td>
+									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo JText::_('Delete Image</span>')?></td>
+									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo JText::_('Modify<br/>Gallery</span>')?></td>
+									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo JText::_('Delete<br/>Gallery</span>')?></td>
+									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo JText::_('View votes')?></td>
+									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo JText::_('Vote')?></td>
 								</tr>
 								<tr>
-									<td><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_ACL_PUB?></td>
+									<td><span style="font-weight:bold;"><?php echo JText::_('Public</span>')?></td>
 									<td><input id="p0" type="checkbox" name="perm[0]" value="1" <?php if ($perms->public_view == 1) echo "CHECKED";?>></td>
 									<td><input id="p1" type="checkbox" name="perm[1]" value="1" <?php if ($perms->public_up_mod_img == 1) echo "CHECKED";?>></td>
 									<td><input id="p2" type="checkbox" name="perm[2]" value="1" <?php if ($perms->public_del_img == 1) echo "CHECKED";?>></td>
@@ -379,7 +379,7 @@ class html_rsg2_galleries{
 									<td><input id="p6" type="checkbox" name="perm[6]" value="1" <?php if ($perms->public_vote_vote == 1) echo "CHECKED";?>></td>
 								</tr>
 								<tr>
-									<td><span style="font-weight:bold;"><?php echo _RSGALLERY_GAL_ACL_REG?></td>
+									<td><span style="font-weight:bold;"><?php echo JText::_('Registered</span>')?></td>
 									<td><input id="p7" type="checkbox" name="perm[7]" value="1" <?php if ($perms->registered_view == 1) echo "CHECKED";?>></td>
 									<td><input id="p8" type="checkbox" name="perm[8]" value="1" <?php if ($perms->registered_up_mod_img == 1) echo "CHECKED";?>></td>
 									<td><input id="p9" type="checkbox" name="perm[9]" value="1" <?php if ($perms->registered_del_img == 1) echo "CHECKED";?>></td>
@@ -389,7 +389,7 @@ class html_rsg2_galleries{
 									<td><input id="p13" type="checkbox" name="perm[13]" value="1" <?php if ($perms->registered_vote_vote == 1) echo "CHECKED";?>></td>
 								</tr>
 								<tr>
-									<td colspan="6"><input type="checkbox" name="checkbox0" value="true" onClick='selectAll()'><?php echo _RSGALLERY_GAL_SEL_DESEL_ALL?></td>
+									<td colspan="6"><input type="checkbox" name="checkbox0" value="true" onClick='selectAll()'><?php echo JText::_('&nbsp;Select/Deselect All')?></td>
 								</tr>
 								</table>
 								</td>

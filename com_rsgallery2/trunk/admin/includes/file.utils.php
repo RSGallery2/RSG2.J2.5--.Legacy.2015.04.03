@@ -46,7 +46,7 @@ class imageUploadError{
     }
     
     function toString(){
-        return _RSGALLERY_CONF_ERROR_UPLOAD . $this->filename . " : " . $this->error . "<br>";
+        return JText::_(' - Error Image Upload : ') . $this->filename . " : " . $this->error . "<br>";
     }
 }
 
@@ -95,7 +95,7 @@ class fileUtils{
                 return audioUtils::importImage( $imgTmpName, $imgName, $imgCat, $imgTitle, $imgDesc );
             break;
             default:
-                return new imageUploadError( $imgName, "$imgName"._RSGALLERY_FU_NOT_SUP_TYPE );
+                return new imageUploadError( $imgName, "$imgName".JText::_(' not a supported file type.') );
         }
     }
 
@@ -130,7 +130,7 @@ class fileUtils{
         $destination = JPATH_ORIGINAL . DS . $basename;
         if ( !move_uploaded_file( $tmpName, $destination )) {
             if( !copy( $tmpName, $destination )){
-            	return new imageUploadError( $basename, _RSGALLERY_FU_UNABLE_COPY."$tmpName"._RSGALLERY_FU_IMAGE_TO."$destination" );
+            	return new imageUploadError( $basename, JText::_('could not copy ')."$tmpName".JText::_(' image to: ')."$destination" );
                 }
         }
         return $destination;
@@ -170,7 +170,7 @@ class fileUtils{
         $destination = JPATH_ORIGINAL . DS . $basename;
         if ( !JFile::copy( $tmpName, $destination )) {
             if( !JFile::upload( $tmpName, $destination )){
-            	return new imageUploadError( $basename, _RSGALLERY_FU_UNABLE_COPY."$tmpName"._RSGALLERY_FU_IMAGE_TO."$destination" );
+            	return new imageUploadError( $basename, JText::_('could not copy ')."$tmpName".JText::_(' image to: ')."$destination" );
             }
         }
 
@@ -255,9 +255,9 @@ class fileHandler {
                 if ( is_writable($folder) )
                     continue;
                 else
-                    $error .= "<p>".$folder._RSGALLERY_FU_NOT_WRITABLE."</p>";
+                    $error .= "<p>".$folder.JText::_(' exists, but is not Writable!')."</p>";
             } else {
-                $error .= "<p>".$folder._RSGALLERY_FU_NOT_EXIST."</p>";
+                $error .= "<p>".$folder.JText::_(' does not exist!')."</p>";
             }
         }
         //Error handling
@@ -373,7 +373,7 @@ class fileHandler {
         if (file_exists( $mediadir )) {
             fileHandler::deldir( JPath::clean($mediadir) );
         } else {
-            echo _RSGALLERY_FU_APPARENTLY."<strong>$mediadir</strong>"._RSGALLERY_FU_DOESNT_EXIST;
+            echo JText::_('Apparently ')."<strong>$mediadir</strong>".JText::_('does not exit');
         }
     }
     
@@ -528,13 +528,13 @@ class fileHandler {
          
         //check source directory
         if (!file_exists( $source ) OR !is_dir ( $source )) {
-            echo $source._RSGALLERY_FU_FTP_DIR_NOT_EXIST;
-            $mainframe->redirect('index2.php?option=com_rsgallery2&task=batchupload', $source._RSGALLERY_FU_FTP_DIR_NOT_EXIST);
+            echo $source.JText::_('_RSGALLERY_FU_FTP_DIR_NOT_EXIST');
+            $mainframe->redirect('index2.php?option=com_rsgallery2&task=batchupload', $source.JText::_('_RSGALLERY_FU_FTP_DIR_NOT_EXIST'));
         }
         //Read files from FTP-directory
         $files = JFolder::filesy($source, '');
         if (!$files) {
-            $mainframe->redirect('index2.php?option=com_rsgallery2&task=batchupload', _RSGALLERY_FU_NO_VALID_IMG.$source._RSGALLERY_FU_PLEASE_CHECK_PATH);
+            $mainframe->redirect('index2.php?option=com_rsgallery2&task=batchupload', JText::_('No valid images found in ').$source.JText::_('. Please check the path.'));
         }
         
         //Create imagelist from FTP-directory
@@ -553,7 +553,7 @@ class fileHandler {
         }
 
         if (count($list) == 0) {
-            echo _RSGALLERY_FU_NO_FILES;
+            echo JText::_('No files found to process!');
         } else {
         return $list;            
         }
@@ -570,27 +570,27 @@ class fileHandler {
         } else {
             switch ( $error ) {
                 case UPLOAD_ERR_INI_SIZE:
-                    $msg = _RSGALLERY_FU_MAX_FILESIZE."(".ini_get("upload_max_filesize").")"._RSGALLERY_FU_IN_PINI;
+                    $msg = JText::_('The uploaded file exceeds the upload_max_filesize directive ')."(".ini_get("upload_max_filesize").")".JText::_(' in php.ini.');
                     break;
                 case UPLOAD_ERR_FORM_SIZE:
-                    $msg = _RSGALLERY_FU_MAX_FILESIZE_FORM;
+					$msg = JText::_('_FU_MAX_FILESIZE_FORM');
                     break;
                 case UPLOAD_ERR_PARTIAL:
-                    $msg = _RSGALLERY_FU_PARTIAL_UPL;
+                    $msg = JText::_('The uploaded file was only partially uploaded.');
                     break;
                 case UPLOAD_ERR_NO_FILE:
-                    $msg = _RSGALLERY_FU_NO_UPL;
+                    $msg = JText::_('No file was uploaded.');
                     break;
                 case UPLOAD_ERR_NO_TMP_DIR:
-                    $msg = _RSGALLERY_FU_MISS_TEMP_DIR;
+                    $msg = JText::_('Missing a temporary folder.');
                     break;
                 case UPLOAD_ERR_CANT_WRITE:
-                    $msg = _RSGALLERY_FU_FAIL_WRITE_DISK;
+                    $msg = JText::_('Failed to write file to disk');
                     break;
                 case UPLOAD_ERR_EXTENSION;
-                    $msg = _RSGALLERY_FU_UPL_STOP_EXT;         
+                    $msg = JText::_('File upload stopped by extension');         
                 default:
-                    $msg = _RSGALLERY_FU_UNKW_ERROR;
+                    $msg = JText::_('Unknown File Error');
             }
         return $msg;
         }

@@ -1,7 +1,7 @@
 <?php defined('_JEXEC') or die('Restricted access'); ?>
 
 <?php
-echo('<!-- using template parameter: testParameter = ' . $this->params->testParameter .'-->');
+echo('<!-- using template parameter: testParameter = ' . $this->params->get('testParameter') .' -->');
 //Show My Galleries link
 if ($rsgConfig->get('show_mygalleries')) {
 	echo $this->showRsgHeader();
@@ -32,7 +32,7 @@ foreach( $this->kids as $kid ):
 	<div class="rsg2-galleryList-text">
 		<?php echo $kid->galleryName;?>
 		<span class='rsg2-galleryList-newImages'>
-			<sup><?php if( $this->gallery->hasNewImages() ) echo _RSGALLERY_NEW; ?></sup>
+			<sup><?php if( $this->gallery->hasNewImages() ) echo JText::_('New!'); ?></sup>
 		</span>
 		<?php echo $this->_showGalleryDetails( $kid );?>
 		<div class="rsg2-galleryList-description"><?php echo $kid->description;?>
@@ -64,5 +64,5 @@ if( $this->pageNav ):
 	<br/>
 	<?php echo $this->getGalleryPagesCounter(); ?>
 </div>
-<div class='rsg2-clr'>&nbsp;</div>
+<div class='rsg2-clr'> </div>
 <?php endif; ?>

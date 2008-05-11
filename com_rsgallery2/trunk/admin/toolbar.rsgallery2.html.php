@@ -113,7 +113,7 @@ class menu_rsg2_images{
     function upload() {
     	JToolBarHelper::title( '** Upload **', 'generic.png' );
         JToolBarHelper::spacer();
-        JToolBarHelper::custom('save_upload','upload.png','upload.png',_RSGALLERY_TOOL_UP, false);
+        JToolBarHelper::custom('save_upload','upload.png','upload.png',JText::_('Upload'), false);
         JToolBarHelper::spacer();
         JToolBarHelper::cancel();
         JToolBarHelper::spacer();
@@ -122,21 +122,21 @@ class menu_rsg2_images{
     }
     function show(){
         JToolBarHelper::title( '** Manage Items **', 'generic.png' );
-        JToolBarHelper::custom('move_images','forward.png','forward.png',_RSGALLERY_MOVETO, true);
+        JToolBarHelper::custom('move_images','forward.png','forward.png',JText::_('Move To'), true);
         JToolBarHelper::spacer();
-        JToolBarHelper::custom('copy_images','copy.png','copy.png',_RSGALLERY_COPYIMAGE, true);
+        JToolBarHelper::custom('copy_images','copy.png','copy.png',JText::_('Copy'), true);
         JToolBarHelper::spacer();
         JToolBarHelper::publishList();
         JToolBarHelper::spacer();
         JToolBarHelper::unpublishList();
         JToolBarHelper::spacer();
-        JToolBarHelper::custom('upload','upload.png','upload.png',_RSGALLERY_TOOL_UP, false);
+        JToolBarHelper::custom('upload','upload.png','upload.png',JText::_('Upload'), false);
         JToolBarHelper::spacer();
         JToolBarHelper::editListX();
         JToolBarHelper::spacer();
         JToolBarHelper::deleteList();
         JToolBarHelper::spacer();
-        JToolBarHelper::custom('reset_hits','default.png','default.png',_RSGALLERY_TOOL_RES_HITS, true);
+        JToolBarHelper::custom('reset_hits','default.png','default.png',JText::_('Reset hits'), true);
         JToolBarHelper::spacer();
         JToolBarHelper::help( 'screen.rsgallery2' );
         //menuRSGallery::adminTasksMenu();
@@ -149,7 +149,7 @@ class menu_rsg2_images{
         JToolBarHelper::spacer();
         if ( $id ) {
             // for existing content items the button is renamed `close`
-            JToolBarHelper::cancel( 'cancel', _RSGALLERY_TOOL_CLOSE );
+            JToolBarHelper::cancel( 'cancel', JText::_('Close') );
         } else {
             JToolBarHelper::cancel();
         }
@@ -163,7 +163,7 @@ class menu_rsg2_images{
         
         JToolBarHelper::cancel();
         JToolBarHelper::spacer();
-        JToolBarHelper::custom('removeReal','delete_f2.png','',_RSGALLERY_TOOL_CONFIRM_DEL, false);
+        JToolBarHelper::custom('removeReal','delete_f2.png','',JText::_('Confirm removal'), false);
         JToolBarHelper::spacer();
         JToolBarHelper::help( 'screen.rsgallery2.edit' );
         
@@ -195,7 +195,7 @@ class menu_rsg2_galleries{
         JToolBarHelper::spacer();
         if ( $id ) {
             // for existing content items the button is renamed `close`
-            JToolBarHelper::cancel( 'cancel', _RSGALLERY_TOOL_CLOSE );
+            JToolBarHelper::cancel( 'cancel', JText::_('Close') );
         } else {
             JToolBarHelper::cancel();
         }
@@ -209,7 +209,7 @@ class menu_rsg2_galleries{
         
         JToolBarHelper::cancel();
         JToolBarHelper::spacer();
-        JToolBarHelper::custom('removeReal','delete_f2.png','',_RSGALLERY_TOOL_CONFIRM_DEL, false);
+        JToolBarHelper::custom('removeReal','delete_f2.png','',JText::_('Confirm removal'), false);
         JToolBarHelper::spacer();
         JToolBarHelper::help( 'screen.rsgallery2.edit' );
         
@@ -228,10 +228,10 @@ class menuRSGallery {
         JToolBarHelper::divider();
         JToolBarHelper::spacer();
         JToolBarHelper::spacer();
-        JToolBarHelper::custom('controlPanel', '../components/com_rsgallery2/images/rsg2-cpanel.png', '../components/com_rsgallery2/images/rsg2-cpanel.png', _RSGALLERY_TOOL_PANEL, false);
-        JToolBarHelper::custom('view_categories', '../components/com_rsgallery2/images/rsg2-categories.png', '../components/com_rsgallery2/images/rsg2-categories.png', _RSGALLERY_TOOL_GAL, false);
-        JToolBarHelper::custom('view_images', '../components/com_rsgallery2/images/rsg2-mediamanager.png', '../components/com_rsgallery2/images/rsg2-mediamanager.png', _RSGALLERY_TOOL_IMG, false);
-        JToolBarHelper::custom('upload', 'upload_f2.png', 'upload_f2.png', _RSGALLERY_TOOL_UP, false);
+        JToolBarHelper::custom('controlPanel', '../components/com_rsgallery2/images/rsg2-cpanel.png', '../components/com_rsgallery2/images/rsg2-cpanel.png', JText::_('CPanel'), false);
+        JToolBarHelper::custom('view_categories', '../components/com_rsgallery2/images/rsg2-categories.png', '../components/com_rsgallery2/images/rsg2-categories.png', JText::_('Galleries'), false);
+        JToolBarHelper::custom('view_images', '../components/com_rsgallery2/images/rsg2-mediamanager.png', '../components/com_rsgallery2/images/rsg2-mediamanager.png', JText::_('Images'), false);
+        JToolBarHelper::custom('upload', 'upload_f2.png', 'upload_f2.png', JText::_('Upload'), false);
         
         */
     }
@@ -257,9 +257,9 @@ class menuRSGallery {
         {
         JToolBarHelper::title( '** Batch Upload **', 'generic.png' );
         if( rsgInstance::getVar('uploaded'  , null) )
-        	JToolBarHelper::custom('save_batchupload','upload.png','upload.png',_RSGALLERY_TOOL_UP, false);
+        	JToolBarHelper::custom('save_batchupload','upload.png','upload.png',JText::_('Upload'), false);
 		else
-        	JToolBarHelper::custom('batchupload','forward.png','forward.png',_RSGALLERY_TOOL_NEXT, false);
+        	JToolBarHelper::custom('batchupload','forward.png','forward.png',JText::_('Next'), false);
         //JToolBarHelper::save('save_image');
         //JToolBarHelper::cancel();
         //JToolBarHelper::back();
@@ -271,9 +271,9 @@ class menuRSGallery {
     function image_upload()
         {
         JToolBarHelper::title( '** Upload **', 'generic.png' );
-        JToolBarHelper::custom('upload','upload_f2.png','upload_f2.png',_RSGALLERY_TOOL_UP, false);
+        JToolBarHelper::custom('upload','upload_f2.png','upload_f2.png',JText::_('Upload'), false);
         //JToolBarHelper::save('upload');
-		JToolBarHelper::custom('upload','forward.png','forward.png',_RSGALLERY_TOOL_NEXT, false);
+		JToolBarHelper::custom('upload','forward.png','forward.png',JText::_('Next'), false);
         
         }
     
@@ -282,12 +282,12 @@ class menuRSGallery {
         
         JToolBarHelper::addNew('forward');
         JToolBarHelper::editList('edit_image');
-        JToolBarHelper::deleteList( '', 'delete_image', _RSGALLERY_TOOL_DELETE );
+        JToolBarHelper::deleteList( '', 'delete_image', JText::_('Delete') );
         //menuRSGallery::adminTasksMenu();
         }
         
     function config_rawEdit(){
-        JToolBarHelper::title( _RSGALLERY_HEAD_CONF_RAW_EDIT, 'generic.png' );
+        JToolBarHelper::title( JText::_('Configuration Raw Edit'), 'generic.png' );
         JToolBarHelper::apply('config_rawEdit_apply');
         JToolBarHelper::save('config_rawEdit_save');
         JToolBarHelper::cancel();
@@ -296,7 +296,7 @@ class menuRSGallery {
     }
     
     function config_dumpVars(){
-        JToolBarHelper::title( _RSGALLERY_HEAD_CONF_VARIA, 'generic.png' );
+        JToolBarHelper::title( JText::_('Configuration Variables'), 'generic.png' );
         JToolBarHelper::cancel();
         JToolBarHelper::spacer();
         
@@ -304,7 +304,7 @@ class menuRSGallery {
     
     function config_show()
         {
-        JToolBarHelper::title( _RSGALLERY_HEAD_CONFIG, 'generic.png' );
+        JToolBarHelper::title( JText::_('Configuration'), 'generic.png' );
         JToolBarHelper::apply('applyConfig');
         JToolBarHelper::save('saveConfig');
         JToolBarHelper::cancel();
@@ -333,7 +333,7 @@ class menuRSGallery {
 		
 	}
     function simple(){
-        JToolBarHelper::title( _RSGALLERY_HEAD_CPANEL, 'generic.png' );
+        JToolBarHelper::title( JText::_('Control Panel'), 'generic.png' );
         JToolBarHelper::help('screen.rsgallery2', true);
         //menuRSGallery::adminTasksMenu();
     }

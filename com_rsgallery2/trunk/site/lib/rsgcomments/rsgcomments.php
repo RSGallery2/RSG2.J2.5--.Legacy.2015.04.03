@@ -60,7 +60,7 @@ function saveComment( $option ) {
 	//Check if commenting is enabled
 	$redirect_url = "index.php?option=".$option."&page=inline&id=".$item_id;
 	if ($rsgConfig->get('comment') == 0) {
-		$mainframe->redirect($redirect_url, _RSGALLERY_COMMENTS_DISABLED );
+		$mainframe->redirect($redirect_url, JText::_('Commenting is disabled') );
 		exit();
 	}
 	
@@ -75,7 +75,7 @@ function saveComment( $option ) {
 			$result = loadResult();
 			if ($result > 0 ) {
 				//No further comments allowed, redirect
-				$mainframe->redirect($redirect_url, _RSGALLERY_COMMENTS_ONLY_ONCE);
+				$mainframe->redirect($redirect_url, JText::_('User can only comment once'));
 			} else {
 				continue;
 			}
@@ -100,7 +100,7 @@ function saveComment( $option ) {
 		}
 		//Check if security check was OK
 		if ($checkSecurity == false ) {
-			$mainframe->redirect( $redirect_url, _RSGALLERY_COMMENTS_INCORRECT_CAPTCHA );
+			$mainframe->redirect( $redirect_url, JText::_('Incorrect CAPTCHA check, comment is NOT saved!') );
 			exit();
 		}	
 	}
@@ -127,9 +127,9 @@ function saveComment( $option ) {
 			")";
 	$database->setQuery( $sql );
 	if ( $database->query() ) {
-		$mainframe->redirect( $redirect_url, _RSGALLERY_COMMENTS_ADD_SUCCES );
+		$mainframe->redirect( $redirect_url, JText::_('Comment added succesfully!') );
 	} else {
-		$mainframe->redirect( $redirect_url, _RSGALLERY_COMMENTS_ADD_FAIL );
+		$mainframe->redirect( $redirect_url, JText::_('Comment could not be added!') );
 		//echo $sql;
 	}
 	
@@ -162,5 +162,5 @@ function deleteComments( $option ) {
 			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 		}
 	}
-	$mainframe->redirect("index.php?option=".$option."&page=inline&id=".$item_id."&catid=".$catid, _RSGALLERY_COMMENTS_COMMDEL );
+	$mainframe->redirect("index.php?option=".$option."&page=inline&id=".$item_id."&catid=".$catid, JText::_('Comment deleted succesfully') );
 }

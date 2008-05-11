@@ -78,22 +78,22 @@ class rsgDisplay_semantic extends rsgDisplay{
 			<?php
 			if ($slideshow) {
 				?>
-				<a href='<?php echo JRoute::_("index.php?option=com_rsgallery2&page=slideshow&gid=".$kid->get('id')); ?>'><?php echo _RSGALLERY_SLIDESHOW; ?></a><br />
+				<a href='<?php echo JRoute::_("index.php?option=com_rsgallery2&page=slideshow&gid=".$kid->get('id')); ?>'><?php echo JText::_('Slideshow'); ?></a><br />
 				<?php
 			}
 			
 			if ($owner) {
-				echo _RSGALLERY_TMPL_GAL_DETAILS_OWNER." "; echo $kid->owner;?><br />
+				echo JText::_('Owner: ')." "; echo $kid->owner;?><br />
 				<?php
 			} 
 			
 			if ($size) {
-				echo _RSGALLERY_TMPL_GAL_DETAILS_SIZE." "; echo galleryUtils::getFileCount($kid->get('id')). _RSGALLERY_IMAGES;?><br />
+				echo JText::_('Size: ')." "; echo galleryUtils::getFileCount($kid->get('id')). JText::_(' Images');?><br />
 			<?php
 			}
 			
 			if ($date) {
-				echo _RSGALLERY_TMPL_GAL_DETAILS_DATE." "; echo JHTML::_("date", $kid->date,"%d-%m-%Y" );?><br />
+				echo JText::_('Created: ')." "; echo JHTML::_("date", $kid->date,"%d-%m-%Y" );?><br />
 				<?php
 			}
 			?>
@@ -162,7 +162,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 							<div class="rsg2-galleryList-status"><?php echo $kid->status; ?></div>
                             <?php echo $kid->galleryName;?>
                             <sup><span class='rsg2-galleryList-newImages'><?php echo galleryUtils::newImages($kid->get('id')); ?></span></sup>
-                            <div class='rsg2-galleryList-totalImages'>(<?php echo galleryUtils::getFileCount($kid->get('id')). _RSGALLERY_IMAGES;?>)</div>
+                            <div class='rsg2-galleryList-totalImages'>(<?php echo galleryUtils::getFileCount($kid->get('id')). JText::_(' Images');?>)</div>
                         </div>
 						<div>
                         	<div class="rsg2-galleryList-thumb_box">
@@ -208,7 +208,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		if( !$this->gallery->itemCount() ){
 			if( $this->gallery->id ){
 				// if gallery is not the root gallery display the message
-				echo _RSGALLERY_NOIMG;
+				echo JText::_('No images in gallery');
 			}
 			// no items to display, so we can return;
 			return;
@@ -368,25 +368,25 @@ class rsgDisplay_semantic extends rsgDisplay{
 		echo $tabs->startPane( 'tabs' );
 		
 		if ( $rsgConfig->get("displayDesc") ) {
-			echo $tabs->startPanel(_RSGALLERY_DESCR, 'rs-description' );
+			echo $tabs->startPanel(JText::_('Description'), 'rs-description' );
 			$this->_showDescription(); 
 			echo $tabs->endPanel();
 		}
 		
 		if ( $rsgConfig->get("displayVoting") ) {
-			echo $tabs->startPanel(_RSGALLERY_VOTING, 'Voting' );
+			echo $tabs->startPanel(JText::_('Voting'), 'Voting' );
 			$this->_showVotes();
 			echo $tabs->endPanel();
 		}
 		
 		if ( $rsgConfig->get("displayComments") ) {
-			echo $tabs->startPanel(_RSGALLERY_COMMENTS, 'Comments' );
+			echo $tabs->startPanel(JText::_('Comments'), 'Comments' );
 			$this->_showComments();
 			echo $tabs->endPanel();
 		}
 	
 		if ($rsgConfig->get("displayEXIF") ) {
-			echo $tabs->startPanel(_RSGALLERY_EXIF, 'EXIF' );
+			echo $tabs->startPanel(JText::_('EXIF'), 'EXIF' );
 			$this->_showEXIF();
 			echo $tabs->endPanel();
 		}
@@ -403,7 +403,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		
 		if( $rsgConfig->get('displayHits')):
 		?>
-		<p class="rsg2_hits"><?php echo _RSGALLERY_CATHITS; ?> <span><?php echo $item->hits; ?></span></p>
+		<p class="rsg2_hits"><?php echo JText::_('Hits'); ?> <span><?php echo $item->hits; ?></span></p>
 		<?php
 		endif;
 		
@@ -424,7 +424,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 
 		if( count( $kids ) == 0 ) return;
 		
-		echo _RSGALLERY_TMPL_GAL_SUBGALLERIES;
+		echo JText::_('Subgalleries: ');
 		
 		$kid = array_shift( $kids );
 		

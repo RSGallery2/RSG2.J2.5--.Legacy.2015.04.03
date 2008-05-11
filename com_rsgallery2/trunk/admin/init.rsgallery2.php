@@ -59,10 +59,3 @@ require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'gallery.class.php'
 require_once(JPATH_RSGALLERY2_LIBS . DS . 'rsgcomments' . DS . 'rsgcomments.class.php');
 require_once(JPATH_RSGALLERY2_LIBS . DS . 'rsgvoting' . DS . 'rsgvoting.class.php');
 
-$lang =& JFactory::getLanguage();
-//Check for language files, if not found, default to english
-if (file_exists(JPATH_RSGALLERY2_ADMIN.'/language/'.$lang->get("backwardlang","english").'.php')){
-	include_once(JPATH_RSGALLERY2_ADMIN.'/language/'.$lang->get("backwardlang","english").'.php');
-} else {
-    include_once(JPATH_RSGALLERY2_ADMIN.'/language/english.php');
-}

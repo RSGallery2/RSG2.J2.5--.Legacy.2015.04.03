@@ -28,10 +28,10 @@ class myGalleries {
 		$database = JFactory::getDBO();
 
         if (!$rsgConfig->get('show_mygalleries'))
-            $mainframe->redirect( $this->myg_url,_RSGALLERY_USERGAL_DISABLED);
+            $mainframe->redirect( $this->myg_url,JText::_('User galleries was disabled by the administrator.'));
         ?>
 		<div class="rsg2">
-        <h2><?php echo _RSGALLERY_USER_MY_GAL;?></h2>
+        <h2><?php echo JText::_('My galleries');?></h2>
 
         <?php
         //Show User information
@@ -41,12 +41,12 @@ class myGalleries {
 		jimport("joomla.html.pane");
         $tabs =& JPane::getInstance("Tabs");
         echo $tabs->startPane( 'tabs' );
-        echo $tabs->startPanel( _RSGALLERY_MY_IMAGES, 'my_images' );
+        echo $tabs->startPanel( JText::_('My Images'), 'my_images' );
             myGalleries::showMyImages($images, $pageNav);
             myGalleries::showImageUpload();
         echo $tabs->endPanel();
         if ($rsgConfig->get('uu_createCat')) {
-            echo $tabs->startPanel( _RSGALLERY_USER_MY_GAL, 'my_galleries' );
+            echo $tabs->startPanel( JText::_('My galleries'), 'my_galleries' );
                 myGalleries::showMyGalleries($rows);
                 myGalleries::showCreateGallery(NULL);
             echo $tabs->endPanel();
@@ -76,12 +76,12 @@ class myGalleries {
 	        
 				// do field validation
 				if (form.parent.value == "-1") {
-					alert( "<?php echo _RSGALLERY_MAKECAT_SELECT_CAT; ?>" );
+					alert( "<?php echo JText::_('** You need to select a parent gallery **'); ?>" );
 				} else if (form.catname1.value == "") {
-					alert( "<?php echo _RSGALLERY_MAKECAT_ALERT_NAME; ?>" );
+					alert( "<?php echo JText::_('You must provide a gallery name.'); ?>" );
 				}
 				else if (form.description.value == ""){
-					alert( "<?php echo _RSGALLERY_MAKECAT_ALERT_DESCR; ?>" );
+					alert( "<?php echo JText::_('You must provide a description.'); ?>" );
 				}
 				else{
 					<?php echo $editor->save('description') ; ?>
@@ -116,7 +116,7 @@ class myGalleries {
         <form name="form1" id="form1" method="post" action="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=saveCat"); ?>">
         <table width="100%">
         <tr>
-            <td colspan="2"><h3><?php echo _RSGALLERY_CREATE_GALLERY; ?></h3></td>
+            <td colspan="2"><h3><?php echo JText::_('Create Gallery'); ?></h3></td>
         </tr>
         <tr>
 
@@ -138,10 +138,10 @@ class myGalleries {
         <input type="hidden" name="ordering" value="<?php echo $ordering; ?>" />
         <table class="adminlist" border="1">
         <tr>
-            <th colspan="2"><?php echo _RSGALLERY_CREATE_GALLERY; ?></th>
+            <th colspan="2"><?php echo JText::_('Create Gallery'); ?></th>
         </tr>
         <tr>
-            <td><?php echo _RSGALLERY_CATLEVEL;?></td>
+            <td><?php echo JText::_('Top gallery');?></td>
             <td>
 				<?php
                 if (!$rsgConfig->get('acl_enabled')) {
@@ -154,17 +154,17 @@ class myGalleries {
             </td>
         </tr>
         <tr>
-            <td><?php echo _RSGALLERY_USERCAT_NAME; ?></td>
+            <td><?php echo JText::_('Gallery name'); ?></td>
             <td align="left"><input type="text" name="catname1" size="30" value="<?php echo $catname; ?>" /></td>
         </tr>
         <tr>
-            <td><?php echo _RSGALLERY_DESCR; ?></td>
+            <td><?php echo JText::_('Description'); ?></td>
             <td align="left">
 				<?php echo $editor->display( 'description',  $description , '100%', '200', '10', '20' ,false) ; ?>
             </td>
         </tr>
         <tr>
-            <td><?php echo _RSGALLERY_CATPUBLISHED; ?></td>
+            <td><?php echo JText::_('Published'); ?></td>
             <td align="left"><input type="checkbox" name="published" value="1" <?php if ($published==1) echo "checked"; ?> /></td>
         </tr>
         </table>
@@ -190,23 +190,23 @@ class myGalleries {
 	     ?>
 	     <table class="adminform" border="1">
 	     <tr>
-	        <th colspan="2"><?php echo _RSGALLERY_USER_INFO; ?></th>
+	        <th colspan="2"><?php echo JText::_('User information'); ?></th>
 	     </tr>
 	     <tr>
-	        <td width="250"><?php echo _RSGALLERY_USER_INFO_NAME; ?></td>
+	        <td width="250"><?php echo JText::_('Username'); ?></td>
 	        <td><?php echo $my->username;?></td>
 	     </tr>
 	     <tr>
-	        <td><?php echo _RSGALLERY_USER_INFO_ACL; ?></td>
+	        <td><?php echo JText::_('User level'); ?></td>
 	        <td><?php echo $my->usertype;?></td>
 	     </tr>
 	     <tr>
-	        <td><?php echo _RSGALLERY_USER_INFO_MAX_GAL; ?></td>
-	        <td><?php echo $maxcat;?>&nbsp;&nbsp;(<font color="#008000"><strong><?php echo galleryUtils::userCategoryTotal($my->id);?></strong></font> <?php echo _RSGALLERY_USER_INFO_CREATED;?></td>
+	        <td><?php echo JText::_('Maximum usergalleries'); ?></td>
+	        <td><?php echo $maxcat;?>&nbsp;&nbsp;(<font color="#008000"><strong><?php echo galleryUtils::userCategoryTotal($my->id);?></strong></font> <?php echo JText::_('created)');?></td>
 	     </tr>
 	     <tr>
-	        <td><?php echo _RSGALLERY_USER_INFO_MAX_IMG; ?></td>
-	        <td><?php echo $max_images;?>&nbsp;&nbsp;(<font color="#008000"><strong><?php echo galleryUtils::userImageTotal($my->id);?></strong></font> <?php echo _RSGALLERY_USER_INFO_UPL; ?></td>
+	        <td><?php echo JText::_('Maximum images allowed'); ?></td>
+	        <td><?php echo $max_images;?>&nbsp;&nbsp;(<font color="#008000"><strong><?php echo galleryUtils::userImageTotal($my->id);?></strong></font> <?php echo JText::_('uploaded)'); ?></td>
 	     </tr>
 	     <tr>
 	        <th colspan="2"></th>
@@ -233,11 +233,11 @@ class myGalleries {
             }
             // do field validation
             if (form.i_cat.value == "-1") {
-                alert( "<?php echo _RSGALLERY_UPLOAD_ALERT_CAT; ?>" );
+                alert( "<?php echo JText::_('You must select a gallery.'); ?>" );
             } else if (form.i_cat.value == "0") {
-                alert( "<?php echo _RSGALLERY_UPLOAD_ALERT_CAT; ?>" );
+                alert( "<?php echo JText::_('You must select a gallery.'); ?>" );
             } else if (form.i_file.value == "") {
-                alert( "<?php echo _RSGALLERY_UPLOAD_ALERT_FILE; ?>" );
+                alert( "<?php echo JText::_('You must provide a file to upload.'); ?>" );
             } else {
 				<?php echo $editor->save('descr') ; ?>
 				submitform( pressbutton );
@@ -251,7 +251,7 @@ class myGalleries {
         <table border="0" width="100%">
             <tr>
                 <td colspan="2"><h3>
-<?php echo _RSGALLERY_ADD_IMAGE;?></h3></td>
+<?php echo JText::_('Add Image');?></h3></td>
             </tr>
             <tr>
 
@@ -277,10 +277,10 @@ class myGalleries {
                 <td>
                     <table class="adminlist" border="1">
                     <tr>
-                        <th colspan="2"><?php echo _RSGALLERY_USERUPLOAD_TITLE; ?></th>
+                        <th colspan="2"><?php echo JText::_('User Upload'); ?></th>
                     </tr>
                     <tr>
-                        <td><?php echo _RSGALLERY_USERUPLOAD_CATEGORY; ?></td>
+                        <td><?php echo JText::_('Gallery'); ?></td>
                         <td>
                             <?php 
                             /*echo galleryUtils::galleriesSelectList(null, 'i_cat', false);*/
@@ -295,16 +295,16 @@ class myGalleries {
                         </td>
                     </tr>
                     <tr>
-                        <td><?php echo _RSGALLERY_FILENAME ?></td>
+                        <td><?php echo JText::_('Filename') ?></td>
                         <td align="left"><input size="49" type="file" name="i_file" /></td>
                     </tr>
                     </tr>
-                        <td><?php echo _RSGALLERY_UPLOAD_FORM_TITLE ?>:</td>
+                        <td><?php echo JText::_('Title') ?>:</td>
                         <td align="left"><input name="title" type="text" size="49" />
                     </td>
                     </tr>
                     <tr>
-                        <td><?php echo _RSGALLERY_DESCR ?></td>
+                        <td><?php echo JText::_('Description') ?></td>
                         <td align="left">
 							<?php echo $editor->display( 'descr',  '' , '100%', '200', '10', '20' ,false) ; ?>
 						</td>
@@ -313,7 +313,7 @@ class myGalleries {
                     if ($rsgConfig->get('graphicsLib') == '')
                         { ?>
                     <tr>
-                        <td><?php echo _RSGALLERY_UPLOAD_THUMB; ?></td>
+                        <td><?php echo JText::_('Thumb:'); ?></td>
                         <td align="left"><input type="file" name="i_thumb" /></td>
                     </tr>
                         <?php } ?>
@@ -414,7 +414,7 @@ class myGalleries {
                     <?php if( $allowEdit ): ?>
                     <div id='rsg2-adminButtons'>
                         <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&page=edit_image&id=".$row->id); ?>"><img src="<?php echo JURI_SITE; ?>/administrator/images/edit_f2.png" alt=""  height="15" /></a>
-                        <a href="#" onClick="if(window.confirm('<?php echo _RSGALLERY_DELIMAGE_TEXT;?>')) location='<?php echo JRoute::_("index.php?option=com_rsgallery2&page=delete_image&id=".$row->id); ?>'"><img src="<?php echo JURI_SITE; ?>/administrator/images/delete_f2.png" alt=""  height="15" /></a>
+                        <a href="#" onClick="if(window.confirm('<?php echo JText::_('Are you sure you want to delete this image?');?>')) location='<?php echo JRoute::_("index.php?option=com_rsgallery2&page=delete_image&id=".$row->id); ?>'"><img src="<?php echo JURI_SITE; ?>/administrator/images/delete_f2.png" alt=""  height="15" /></a>
                     </div>
                     <?php endif; ?>
                 </li>
@@ -446,7 +446,7 @@ class myGalleries {
                             <?php if( $allowEdit ): ?>
                             <div id='rsg2-adminButtons'>
                                 <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&page=edit_image&id=".$row->id); ?>"><img src="<?php echo JURI_SITE; ?>/administrator/images/edit_f2.png" alt=""  height="15" /></a>
-                                <a href="#" onClick="if(window.confirm('<?php echo _RSGALLERY_DELIMAGE_TEXT;?>')) location='<?php echo JRoute::_("index.php?option=com_rsgallery2&page=delete_image&id=".$row->id); ?>'"><img src="<?php echo JURI_SITE; ?>/administrator/images/delete_f2.png" alt=""  height="15" /></a>
+                                <a href="#" onClick="if(window.confirm('<?php echo JText::_('Are you sure you want to delete this image?');?>')) location='<?php echo JRoute::_("index.php?option=com_rsgallery2&page=delete_image&id=".$row->id); ?>'"><img src="<?php echo JURI_SITE; ?>/administrator/images/delete_f2.png" alt=""  height="15" /></a>
                             </div>
                             <?php endif; ?>
                         </td>
@@ -457,11 +457,11 @@ class myGalleries {
                 <?php
                 break;
             case 'magic':
-                echo _RSGALLERY_MAGIC_NOTIMP;
+                echo JText::_('Magic not implemented yet');
                 ?>
                 <table id='rsg2-thumbsList'>
                 <tr>
-                    <td><?php echo _RSGALLERY_MAGIC_NOTIMP?></td>
+                    <td><?php echo JText::_('Magic not implemented yet')?></td>
                 </tr>
                 </table>
                 <?php
@@ -479,7 +479,7 @@ class myGalleries {
             <?php
             }
         else {
-            if (!$catid == 0)echo _RSGALLERY_NOIMG;
+            if (!$catid == 0)echo JText::_('No images in gallery');
         }
     }
     
@@ -493,19 +493,19 @@ class myGalleries {
 		<div class="rsg2">
     <table class="adminform" width="100%" border="1">
             <tr>
-                <td colspan="5"><h3><?php echo _RSGALLERY_USER_MY_GAL;?></h3></td>
+                <td colspan="5"><h3><?php echo JText::_('My galleries');?></h3></td>
             </tr>
             <tr>
-                <th><div align="center"><?php echo _RSGALLERY_MY_IMAGES_CATEGORY; ?></div></th>
-                <th width="75"><div align="center"><?php echo _RSGALLERY_MY_IMAGES_PUBLISHED; ?></div></th>
-                <th width="75"><div align="center"><?php echo _RSGALLERY_MY_IMAGES_DELETE; ?></div></th>
-                <th width="75"><div align="center"><?php echo _RSGALLERY_MY_IMAGES_EDIT; ?></div></th>
-                <th width="75"><div align="center"><?php echo _RSGALLERY_MY_IMAGES_PERMISSIONS; ?></div></th>
+                <th><div align="center"><?php echo JText::_('Gallery'); ?></div></th>
+                <th width="75"><div align="center"><?php echo JText::_('Published'); ?></div></th>
+                <th width="75"><div align="center"><?php echo JText::_('Delete'); ?></div></th>
+                <th width="75"><div align="center"><?php echo JText::_('Edit'); ?></div></th>
+                <th width="75"><div align="center"><?php echo JText::_('Permissions'); ?></div></th>
             </tr>
             <?php
             if ($count == 0) {
                 ?>
-                <tr><td colspan="5"><?php echo _RSGALLERY_NO_USER_GAL; ?></td></tr>
+                <tr><td colspan="5"><?php echo JText::_('No User Galleries created'); ?></td></tr>
                 <?php
             } else {
                 //echo "This is the overview screen";
@@ -514,7 +514,7 @@ class myGalleries {
                     <script type="text/javascript">
 						//<![CDATA[
 						function deletePres(catid) {
-							var yesno = confirm ("<?php echo _RSGALLERY_DELCAT_TEXT;?>");
+							var yesno = confirm ("<?php echo JText::_('_RSGALLERY_DELCAT_TEXT');?>");
 							if (yesno == true) {
 								location = "<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=deleteCat&catid=", false);?>"+catid;
 							}
@@ -587,7 +587,7 @@ class myGalleries {
                                 </a>
                             </td>
                             <td>
-                                <a href="#" onclick="alert('<?php echo _RSGALLERY_FEAT_NOTIMP?>')">
+                                <a href="#" onclick="alert('<?php echo JText::_('Feature not implemented yet')?>')">
                                 <div align="center">
                                     <img src="<?php echo JURI_SITE; ?>/administrator/images/users.png" alt="" width="22" height="22" >
                                 </div>
@@ -617,16 +617,16 @@ class myGalleries {
         ?>
         <table width="100%" class="adminlist" border="1">
         <tr>
-            <td colspan="4"><h3><?php echo _RSGALLERY_MY_IMAGES; ?></h3></td>
+            <td colspan="4"><h3><?php echo JText::_('My Images'); ?></h3></td>
         </tr>
         <tr>
             <th colspan="4"><div align="right"><?php  echo $pageNav->getLimitBox(); ?></div></th>
         </tr>
         <tr>
-            <th><?php echo _RSGALLERY_MY_IMAGES_NAME; ?></th>
-            <th><?php echo _RSGALLERY_MY_IMAGES_CATEGORY; ?></th>
-            <th width="75"><?php echo _RSGALLERY_MY_IMAGES_DELETE; ?></th>
-            <th width="75"><?php echo _RSGALLERY_MY_IMAGES_EDIT; ?></th>
+            <th><?php echo JText::_('Name'); ?></th>
+            <th><?php echo JText::_('Gallery'); ?></th>
+            <th width="75"><?php echo JText::_('Delete'); ?></th>
+            <th width="75"><?php echo JText::_('Edit'); ?></th>
         </tr>
         
         <?php
@@ -636,7 +636,7 @@ class myGalleries {
 					//<![CDATA[
 				function deleteImage(id)
 				{
-					var yesno = confirm ('<?php echo _RSGALLERY_DELIMAGE_TEXT;?>');
+					var yesno = confirm ('<?php echo JText::_('Are you sure you want to delete this image?');?>');
 					if (yesno == true) {
 						location = "<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=deleteItem&id=", false);?>"+id;
 					}
@@ -655,7 +655,7 @@ class myGalleries {
                             echo $image->name;
                         } else {
 						 echo JHTML::tooltip('<img src="'.JURI::root().$rsgConfig->get('imgPath_thumb').'/'.$image->name.'.jpg" alt="'.$image->name.'" />',
-						 _RSGALLERY_EDIT_IMAGE,
+						 JText::_('Edit image'),
 						 $image->name,
 						 $image->title.'&nbsp;('.$image->name.')',
 						 "index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editItem&id=".$image->id,
@@ -709,7 +709,7 @@ class myGalleries {
         else
             {
             ?>
-            <tr><td colspan="4"><?php echo _RSGALLERY_NOIMG_USER; ?></td></tr>
+            <tr><td colspan="4"><?php echo JText::_('No images in user galleries'); ?></td></tr>
             <?php
             }
             ?>
@@ -752,10 +752,10 @@ class myGalleries {
 
 			// do field validation
 			if (form.catid.value == "0") {
-				alert( "<?php echo _RSGALLERY_MAKECAT_ALERT_NAME; ?>" );
+				alert( "<?php echo JText::_('You must provide a gallery name.'); ?>" );
 			}
 			else if (form.descr.value == ""){
-				alert( "<?php echo _RSGALLERY_MAKECAT_ALERT_DESCR; ?>" );
+				alert( "<?php echo JText::_('You must provide a description.'); ?>" );
 			}
 			else{
 				<?php echo $editor->save('description') ; ?>
@@ -764,39 +764,39 @@ class myGalleries {
         }
     </script>
     <?php
-        echo "<h3>"._RSGALLERY_EDIT_IMAGE."</h3>";
+        echo "<h3>".JText::_('Edit image')."</h3>";
         ?>
         <form name="form1" method="post" action="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=saveItem"); ?>">
         <input type="hidden" name="id" value="<?php echo $id; ?>" />
         <table width="100%">
             <tr>
                 <td align="right">
-                    <img onClick="form1.submit();" src="<?php echo JURI_SITE; ?>/administrator/images/save.png" alt="<?php echo _RSGALLERY_TOOL_UP ?>"  name="upload" onMouseOver="document.upload.src='<?php echo JURI_SITE; ?>/administrator/images/save_f2.png';" onMouseOut="document.upload.src='<?php echo JURI_SITE; ?>/administrator/images/save.png';" />&nbsp;&nbsp;
-                    <img onClick="history.back();" src="<?php echo JURI_SITE; ?>/administrator/images/cancel.png" alt="<?php echo _RSGALLERY_CANCEL; ?>"  name="cancel" onMouseOver="document.cancel.src='<?php echo JURI_SITE; ?>/administrator/images/cancel_f2.png';" onMouseOut="document.cancel.src='<?php echo JURI_SITE; ?>/administrator/images/cancel.png';" />
+                    <img onClick="form1.submit();" src="<?php echo JURI_SITE; ?>/administrator/images/save.png" alt="<?php echo JText::_('Upload') ?>"  name="upload" onMouseOver="document.upload.src='<?php echo JURI_SITE; ?>/administrator/images/save_f2.png';" onMouseOut="document.upload.src='<?php echo JURI_SITE; ?>/administrator/images/save.png';" />&nbsp;&nbsp;
+                    <img onClick="history.back();" src="<?php echo JURI_SITE; ?>/administrator/images/cancel.png" alt="<?php echo JText::_('Cancel'); ?>"  name="cancel" onMouseOver="document.cancel.src='<?php echo JURI_SITE; ?>/administrator/images/cancel_f2.png';" onMouseOut="document.cancel.src='<?php echo JURI_SITE; ?>/administrator/images/cancel.png';" />
                 </td>
             </tr>
         </table>
         <table class="adminlist" border="2" width="100%">
             <tr>
-                <th colspan="3"><?php echo _RSGALLERY_EDIT_IMAGE; ?></th>
+                <th colspan="3"><?php echo JText::_('Edit image'); ?></th>
             </tr>
             <tr>
-                <td align="left"><?php echo _RSGALLERY_CAT_NAME; ?></td>
+                <td align="left"><?php echo JText::_('Category name'); ?></td>
                 <td align="left">
                     <?php galleryUtils::showUserGalSelectList('up_mod_img', 'catid', $catid);?>
                 </td>
                 <td rowspan="2"><img src="<?php echo imgUtils::getImgThumb($filename); ?>" alt="<?php echo $title; ?>"  /></td>
             </tr>
             <tr>
-                <td align="left"><?php echo _RSGALLERY_EDIT_FILENAME; ?></td>
+                <td align="left"><?php echo JText::_('Filename'); ?></td>
                 <td align="left"><strong><?php echo $filename; ?></strong></td>
             </tr>
             <tr>
-                <td align="left"><?php echo _RSGALLERY_EDIT_TITLE;?></td>
+                <td align="left"><?php echo JText::_('Title');?></td>
                 <td align="left"><input type="text" name="title" size="30" value="<?php echo $title; ?>" /></td>
             </tr>
             <tr>
-                <td align="left" valign="top"><?PHP echo _RSGALLERY_EDIT_DESCRIPTION; ?></td>
+                <td align="left" valign="top"><?PHP echo JText::_('Description'); ?></td>
                 <td align="left" colspan="2">
 				<?php echo $editor->display( 'description',  $description , '100%', '200', '10', '20',false ) ; ?>
                 </td>
@@ -828,10 +828,10 @@ function editCat($rows = null) {
         
         // do field validation
         if (form.catname1.value == "") {
-            alert( "<?php echo _RSGALLERY_MAKECAT_ALERT_NAME; ?>" );
+            alert( "<?php echo JText::_('You must provide a gallery name.'); ?>" );
         }
         else if (form.description.value == ""){
-            alert( "<?php echo _RSGALLERY_MAKECAT_ALERT_DESCR; ?>" );
+            alert( "<?php echo JText::_('You must provide a description.'); ?>" );
         }
         else{
             <?php echo $editor->save( 'description' ) ; ?>
@@ -866,14 +866,14 @@ function editCat($rows = null) {
         <form name="form2" id="form2" method="post" action="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=saveCat"); ?>">
         <table width="100%">
         <tr>
-            <td colspan="2"><h3><?php echo _RSGALLERY_CREATE_GALLERY; ?></h3></td>
+            <td colspan="2"><h3><?php echo JText::_('Create Gallery'); ?></h3></td>
         </tr>
         <tr>
 
             <td align="right">
                 <div style="float: right;">
-                    <img onClick="form2.submit();" src="<?php echo JURI_SITE; ?>/administrator/images/save.png" alt="<?php echo _RSGALLERY_TOOL_UP ?>"  name="upload" onMouseOver="document.upload.src='<?php echo JURI_SITE; ?>/administrator/images/save_f2.png';" onMouseOut="document.upload.src='<?php echo JURI_SITE; ?>/administrator/images/save.png';" />&nbsp;&nbsp;
-                    <img onClick="history.back();" src="<?php echo JURI_SITE; ?>/administrator/images/cancel.png" alt="<?php echo _RSGALLERY_CANCEL; ?>"  name="cancel" onMouseOver="document.cancel.src='<?php echo JURI_SITE; ?>/administrator/images/cancel_f2.png';" onMouseOut="document.cancel.src='<?php echo JURI_SITE; ?>/administrator/images/cancel.png';" />
+                    <img onClick="form2.submit();" src="<?php echo JURI_SITE; ?>/administrator/images/save.png" alt="<?php echo JText::_('Upload') ?>"  name="upload" onMouseOver="document.upload.src='<?php echo JURI_SITE; ?>/administrator/images/save_f2.png';" onMouseOut="document.upload.src='<?php echo JURI_SITE; ?>/administrator/images/save.png';" />&nbsp;&nbsp;
+                    <img onClick="history.back();" src="<?php echo JURI_SITE; ?>/administrator/images/cancel.png" alt="<?php echo JText::_('Cancel'); ?>"  name="cancel" onMouseOver="document.cancel.src='<?php echo JURI_SITE; ?>/administrator/images/cancel_f2.png';" onMouseOut="document.cancel.src='<?php echo JURI_SITE; ?>/administrator/images/cancel.png';" />
                 </div>
             </td>
 
@@ -883,10 +883,10 @@ function editCat($rows = null) {
         <input type="hidden" name="ordering" value="<?php echo $ordering; ?>" />
         <table class="adminlist" border="1">
         <tr>
-            <th colspan="2"><?php echo _RSGALLERY_CREATE_GALLERY; ?></th>
+            <th colspan="2"><?php echo JText::_('Create Gallery'); ?></th>
         </tr>
         <tr>
-            <td><?php echo _RSGALLERY_CATLEVEL;?></td>
+            <td><?php echo JText::_('Top gallery');?></td>
             <td>
                 <?php //galleryUtils::showCategories(NULL, $my->id, 'parent');?>
                 <?php echo galleryUtils::galleriesSelectList( $parent, 'parent', false );?>
@@ -894,17 +894,17 @@ function editCat($rows = null) {
             </td>
         </tr>
         <tr>
-            <td><?php echo _RSGALLERY_USERCAT_NAME; ?></td>
+            <td><?php echo JText::_('Gallery name'); ?></td>
             <td align="left"><input type="text" name="catname1" size="30" value="<?php echo $catname; ?>" /></td>
         </tr>
         <tr>
-            <td colspan="2"><?php echo _RSGALLERY_DESCR; ?>
+            <td colspan="2"><?php echo JText::_('Description'); ?>
                 <?php
                 echo $editor->display( 'description',  $description , '600', '200', '35', '15' ) ; ?>
             </td>
         </tr>
         <tr>
-            <td><?php echo _RSGALLERY_CATPUBLISHED; ?></td>
+            <td><?php echo JText::_('Published'); ?></td>
             <td align="left"><input type="checkbox" name="published" value="1" <?php if ($published==1) echo "checked"; ?> /></td>
         </tr>
         </table>

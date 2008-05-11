@@ -136,8 +136,8 @@ class html_rsg2_maintenance {
 	        <tr>
 	            <td>
 	                <div align="center">
-	                <input type="button" name="consolidate_db_go" value="<?php echo _RSGALLERY_PROCEED ?>" class="button" onClick="submitbutton('consolidate_db_go');" />
-	                <input type="button" name="cancel" value="<?php echo _RSGALLERY_CANCEL ?>" class="button" onClick="submitbutton('cancel');" />
+	                <input type="button" name="consolidate_db_go" value="<?php echo JText::_('Proceed') ?>" class="button" onClick="submitbutton('consolidate_db_go');" />
+	                <input type="button" name="cancel" value="<?php echo JText::_('Cancel') ?>" class="button" onClick="submitbutton('cancel');" />
 	                </div>
 	            </td>
 	        </tr>
@@ -179,7 +179,7 @@ class html_rsg2_maintenance {
 		    				<p style="color: #CC0000;">
 		    				<img src="<?php echo JURI_SITE;?>/includes/js/ThemeOffice/warning.png" alt="Warning icon" />
 							NOTICE:<br />Experimental at this stage. Single image regeneration works. <br /> Database entries do NOT work!.
-							<?php //echo _RSGALLERY_CONSDB_NOTICE;?>
+							<?php //echo JText::_('_RSGALLERY_CONSDB_NOTICE');?>
 							</p>
 						</div>
 						<div class='rsg2-clr'>&nbsp;</div>
@@ -187,21 +187,21 @@ class html_rsg2_maintenance {
 			    </tr>
 			    <tr>
 			    	<th>#</th>
-			        <th><?php echo _RSGALLERY_FILENAME;?></th>
-			        <th align="center"><?php echo _RSGALLERY_CONSDB_IN_DB;?></th>
-			        <th align="center"><?php echo _RSGALLERY_CONSDB_DISP;?></th>
-		        	<th align="center"><?php echo _RSGALLERY_CONSDB_ORIG;?></th>
-			        <th align="center"><?php echo _RSGALLERY_CONSDB_THUMB;?></th>
+			        <th><?php echo JText::_('Filename');?></th>
+			        <th align="center"><?php echo JText::_('In<br>database');?></th>
+			        <th align="center"><?php echo JText::_('Display<br>folder');?></th>
+		        	<th align="center"><?php echo JText::_('Original<br>folder');?></th>
+			        <th align="center"><?php echo JText::_('Thumb<br>folder');?></th>
 			        <th>&nbsp;</th>
 			        <th>Image</th>
-			        <th align="center"><?php echo _RSGALLERY_CONSDB_ACT;?></th>
+			        <th align="center"><?php echo JText::_('Action');?></th>
 			    </tr>
 			    <tr>
 			        <td colspan="9">&nbsp;</td>
 			    </tr>
 			    <?php
-			    $yes    = "<td align=\"center\"><img src=\"".JURI_SITE."administrator/images/tick.png\" alt=\""._RSGALLERY_CONSDB_IMG_IN_FLDR."\" border=\"0\"></td>";
-				$no     = "<td align=\"center\"><img src=\"".JURI_SITE."administrator/images/publish_x.png\" alt=\""._RSGALLERY_CONSDB_IMG__NOT_IN_FLDR."\" border=\"0\"></td>";
+			    $yes    = "<td align=\"center\"><img src=\"".JURI_SITE."administrator/images/tick.png\" alt=\"".JText::_('Image in folder')."\" border=\"0\"></td>";
+				$no     = "<td align=\"center\"><img src=\"".JURI_SITE."administrator/images/publish_x.png\" alt=\"".JText::_('Image NOT in folder')."\" border=\"0\"></td>";
 			    $z = 0;
 			    $c = 0;
 			    //Check database and crossreference against filesystem
@@ -247,11 +247,11 @@ class html_rsg2_maintenance {
 			            	<img src="<?php echo imgUtils::getImgThumb( $name );?>" name="image" width="<?php echo $rsgConfig->get('thumb_width')?>" alt="<?php echo $name;?>"/>
 			            </td>
 			            <td align="center">
-			                <a href="index2.php?option=com_rsgallery2&rsgOption=maintenance&task=deleteImages&name=<?php echo $name;?>"><?php echo _RSGALLERY_CONSDB_DELETE_DB?></a><br />
+			                <a href="index2.php?option=com_rsgallery2&rsgOption=maintenance&task=deleteImages&name=<?php echo $name;?>"><?php echo JText::_('[&nbsp;Delete from database&nbsp;]')?></a><br />
 			                <?php
 			                if ($original == true OR $display == true) {
 			                    ?>
-			                    <a href="index2.php?option=com_rsgallery2&rsgOption=maintenance&task=createImages&id=<?php echo $fid;?>"><?php echo _RSGALLERY_CONSDB_CREATE_IMG?></a>
+			                    <a href="index2.php?option=com_rsgallery2&rsgOption=maintenance&task=createImages&id=<?php echo $fid;?>"><?php echo JText::_('[&nbsp;Create missing images&nbsp;]')?></a>
 			                    <?php
 			                    }
 			                    ?>
@@ -321,8 +321,8 @@ class html_rsg2_maintenance {
 			            	<img src="<?php echo imgUtils::getImgThumb( $diff );?>" name="image" width="<?php echo $rsgConfig->get('thumb_width')?>" />
 			            </td>
 			            <td align="center">
-			                <a href="javascript:void();" onClick="javascript:db_create();"><?php echo _RSGALLERY_CONSDB_CREATE_DB;?></a><br />
-			                <a href="index2.php?option=com_rsgallery2&rsgOption=maintenance&task=deleteImages&name=<?php echo $diff;?>"><?php echo _RSGALLERY_CONSDB_DELETE_IMG;?></a>&nbsp;
+			                <a href="javascript:void();" onClick="javascript:db_create();"><?php echo JText::_('[&nbsp;Create Database entry&nbsp;]');?></a><br />
+			                <a href="index2.php?option=com_rsgallery2&rsgOption=maintenance&task=deleteImages&name=<?php echo $diff;?>"><?php echo JText::_('[&nbsp;Delete images&nbsp;]');?></a>&nbsp;
 			                <?php
 			                if ($original2 == true AND $display2 == true AND $thumb2 == true)
 			                    {
@@ -331,7 +331,7 @@ class html_rsg2_maintenance {
 			                else
 			                    {
 			                    ?>
-			                    <br /><a href="index2.php?option=com_rsgallery2&rsgOption=maintenance&task=createImages&name=<?php echo $diff;?>"><?php echo _RSGALLERY_CONSDB_CREATE_IMG;?></a>
+			                    <br /><a href="index2.php?option=com_rsgallery2&rsgOption=maintenance&task=createImages&name=<?php echo $diff;?>"><?php echo JText::_('[&nbsp;Create missing images&nbsp;]');?></a>
 			                    <?php
 			                    }
 			                    ?>
@@ -344,7 +344,7 @@ class html_rsg2_maintenance {
 			            }
 			        }
 			        if ($t == 0 AND $z == 0)
-			        	echo "<tr><td colspan=\"8\"><font color=\"#008000\"><strong>"._RSGALLERY_CONSDB_NO_INCOS."</strong></font></td>";
+			        	echo "<tr><td colspan=\"8\"><font color=\"#008000\"><strong>".JText::_('No inconsistencies in database')."</strong></font></td>";
 			    ?>
 			    </tr>
 			    <tr>
@@ -356,9 +356,9 @@ class html_rsg2_maintenance {
 			    <tr>
 			    	<td colspan="2"><input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo (count( $db_name ) + count( $file_diff )); ?>);" /></td>
 			    	<td colspan="5"> With selection:<br /> 
-			    		<a href="javascript:void();" onClick="javascript:alert('<?php echo _RSGALLERY_NOT_WORKING ?>');"><?php echo _RSGALLERY_DEL_FROM_SYSTEM ?></a>&nbsp;|&nbsp; 
-			    		<a href="javascript:void();" onClick="javascript:alert('<?php echo _RSGALLERY_NOT_WORKING ?>');"><?php echo _RSGALLERY_CREATE_MISSING_IMG?></a>&nbsp;|&nbsp;
-			    		<a href="javascript:void();" onClick="javascript:alert('<?php echo _RSGALLERY_NOT_WORKING ?>');"><?php echo _RSGALLERY_CREATE_DB_ENTRIES?></a>
+			    		<a href="javascript:void();" onClick="javascript:alert('<?php echo JText::_('Not working yet') ?>');"><?php echo JText::_('Delete from filesystem') ?></a>&nbsp;|&nbsp; 
+			    		<a href="javascript:void();" onClick="javascript:alert('<?php echo JText::_('Not working yet') ?>');"><?php echo JText::_('Create missing images')?></a>&nbsp;|&nbsp;
+			    		<a href="javascript:void();" onClick="javascript:alert('<?php echo JText::_('Not working yet') ?>');"><?php echo JText::_('Create database entries')?></a>
 			    	</td>
 			
 			    </tr>

@@ -28,9 +28,9 @@ class html_rsg2_images {
 			&nbsp;
 			</td>
 			<td align="right" width="50%">
-				<?php echo _RSGALLERY_IMG_CPY_MV_GAL?>
+				<?php echo JText::_('Copy/Move:')?>
 				<?php echo $lists['move_id'];?>
-				<?php echo _RSGALLERY_IMG_FILTER?>
+				<?php echo JText::_('Filter:')?>
 				<input type="text" name="search" value="<?php echo $search;?>" class="text_area" onChange="document.adminForm.submit();" />
 				<?php echo $lists['gallery_id'];?>
 				
@@ -45,18 +45,18 @@ class html_rsg2_images {
 			<th width="20">
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $rows ); ?>);" />
 			</th>
-			<th class="title"><?php echo _RSGALLERY_IMG_TITLE?><?php echo JText::_( 'Num' ); ?></th>
-			<th width="5%"><?php echo _RSGALLERY_MY_IMAGES_PUBLISHED?></th>
-			<th colspan="2" width="5%"><?php echo _RSGALLERY_REORDER?></th>
-			<th width="2%"><?php echo _RSGALLERY_IMG_ORDER?></th>
+			<th class="title"><?php echo JText::_('Title (filename)')?><?php echo JText::_( 'Num' ); ?></th>
+			<th width="5%"><?php echo JText::_('Published')?></th>
+			<th colspan="2" width="5%"><?php echo JText::_('Reorder')?></th>
+			<th width="2%"><?php echo JText::_('Order')?></th>
 			<th width="2%">
 			<a href="javascript: saveorder( <?php echo count( $rows )-1; ?> )">
 				<img src="images/filesave.png" border="0" width="16" height="16" alt="Save Order" />
 			</a>
 			</th>
-			<th width="15%" align="left"><?php echo _RSGALLERY_GAL_GAL?></th>
-			<th width="5%"><?php echo _RSGALLERY_IMAGEHITS?></th>
-			<th width=""><?php echo _RSGALLERY_IMG_DATE_TIME?></th>
+			<th width="15%" align="left"><?php echo JText::_('Gallery')?></th>
+			<th width="5%"><?php echo JText::_('Hits')?></th>
+			<th width=""><?php echo JText::_('Date & time')?></th>
 		</tr>
 		</thead>
 		<tbody>
@@ -96,7 +96,7 @@ class html_rsg2_images {
 						}
 					}
 					echo JHTML::tooltip('<img src="'.JURI_SITE.$rsgConfig->get('imgPath_thumb').'/'.$row->name.'.jpg" alt="'.$row->name.'" />',
-					 _RSGALLERY_IMG_EDIT_IMG,
+					 JText::_('Edit Images'),
 					 $row->name,
 					 $row->title.'&nbsp;('.$row->name.')',
 					 $link,
@@ -192,7 +192,7 @@ class html_rsg2_images {
 		<form action="index2.php" method="post" name="adminForm" id="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th><?php echo _RSGALLERY_IMG_IMAGE?>:<small><?php echo $row->id ? 'Edit' : 'New';?></small></th>
+			<th><?php echo JText::_('Item')?>:<small><?php echo $row->id ? 'Edit' : 'New';?></small></th>
 		</tr>
 		</table>
 
@@ -201,24 +201,24 @@ class html_rsg2_images {
 			<td width="60%" valign="top">
 				<table class="adminform">
 				<tr>
-					<th colspan="2"><?php echo _RSGALLERY_IMG_DETAILS?></th>
+					<th colspan="2"><?php echo JText::_('Details')?></th>
 				</tr>
 				<tr>
-					<td width="20%" align="right"><?php echo _RSGALLERY_IMAGENAME?>:</td>
+					<td width="20%" align="right"><?php echo JText::_('Name')?>:</td>
 					<td width="80%">
 						<input class="text_area" type="text" name="title" size="50" maxlength="250" value="<?php echo $row->title;?>" />
 					</td>
 				</tr>
 				<tr>
-					<td width="20%" align="right"><?php echo _RSGALLERY_IMAGEFILE?>:</td>
+					<td width="20%" align="right"><?php echo JText::_('Filename')?>:</td>
 					<td width="80%"><?php echo $row->name;?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right"><?php echo _RSGALLERY_IMAGECAT?>:</td>
+					<td valign="top" align="right"><?php echo JText::_('Gallery')?>:</td>
 					<td><?php echo $lists['gallery_id']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right"><?php echo _RSGALLERY_DESCR?>:</td>
+					<td valign="top" align="right"><?php echo JText::_('Description')?>:</td>
 					<td>
 						<?php
 						// parameters : areaname, content, hidden field, width, height, rows, cols
@@ -226,11 +226,11 @@ class html_rsg2_images {
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" align="right"><?php echo _RSGALLERY_IMG_ORDERING?>:</td>
+					<td valign="top" align="right"><?php echo JText::_('Ordering')?>:</td>
 					<td><?php echo $lists['ordering']; ?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right"><?php echo _RSGALLERY_MY_IMAGES_PUBLISHED?>:</td>
+					<td valign="top" align="right"><?php echo JText::_('Published')?>:</td>
 					<td><?php echo $lists['published']; ?></td>
 				</tr>
 				</table>
@@ -238,7 +238,7 @@ class html_rsg2_images {
 			<td width="40%" valign="top">
 				<table class="adminform">
 				<tr>
-					<th colspan="1"><?php echo _RSGALLERY_IMG_IMG_PREV?></th>
+					<th colspan="1"><?php echo JText::_('Item preview')?></th>
 				</tr>
 				<tr>
 					<td>
@@ -266,7 +266,7 @@ class html_rsg2_images {
 				</table>
 				<table class="adminform">
 				<tr>
-					<th colspan="1"><?php echo _RSGALLERY_IMG_PARAMETERS?></th>
+					<th colspan="1"><?php echo JText::_('Parameters')?></th>
 				</tr>
 				<tr>
 					<td><?php echo $params->render();?>&nbsp;</td>
@@ -274,7 +274,7 @@ class html_rsg2_images {
 				</table>
 				<table class="adminform">
 				<tr>
-					<th colspan="1"><?php echo _RSGALLERY_IMG_LINKS?></th>
+					<th colspan="1"><?php echo JText::_('Links to image')?></th>
 				</tr>
 				<tr>
 					<td>
@@ -335,9 +335,9 @@ class html_rsg2_images {
         
 			// do field validation
 			if (form.gallery_id.value <= 0){
-				alert( "<?php echo _RSGALLERY_IMG_SELECT_GAL?>" );
+				alert( "<?php echo JText::_('You must select a gallery.')?>" );
 			} else if (form.images.value == ''){
-				alert( "<?php echo _RSGALLERY_IMG_NO_FILE_SELECT?>" );
+				alert( "<?php echo JText::_('No file was selected in one or more fields.')?>" );
 			} else {
 					<?php echo $editor->save('descr') ; ?>
 				submitform( pressbutton );
@@ -353,9 +353,9 @@ class html_rsg2_images {
 		<table class="adminheading">
 		<tr>
 			<th>
-			<?php echo _RSGALLERY_IMG_IMAGE?>:
+			<?php echo JText::_('Item')?>:
 			<small>
-			<?php echo _RSGALLERY_IMG_UPLOAD?>
+			<?php echo JText::_('Upload')?>
 			</small>
 			</th>
 		</tr>
@@ -367,7 +367,7 @@ class html_rsg2_images {
 				<table class="adminform">
 				<tr>
 					<th colspan="2">
-					<?php echo _RSGALLERY_IMG_UPL_DETAILS?>
+					<?php echo JText::_('Upload details')?>
 					</th>
 				</tr>
 				<tr>
@@ -376,7 +376,7 @@ class html_rsg2_images {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					<?php echo _RSGALLERY_IMG_GEN_DESCR?>:
+					<?php echo JText::_('Generic Description')?>:
 					</td>
 					<td>
 				<?php echo $editor->display( 'descr',  '' , '100%', '200', '10', '20' ,false ) ; ?>
@@ -387,18 +387,18 @@ class html_rsg2_images {
 				<table class="adminform">
 				<tr>
 					<th colspan="2">
-					<?php echo _RSGALLERY_IMG_IMG_FILES?>
+					<?php echo JText::_('Item files')?>
 					</th>
 				</tr>
 				<tr>
 					<td  width="20%" valign="top" align="right">
-					<?php echo _RSGALLERY_IMG_IMAGES?>:
+					<?php echo JText::_('Items')?>:
 					</td>
 					<td width="80%">
-						<?php echo _RSGALLERY_TITLE?>:&nbsp;<input class="text" type="text" id= "title" name="title[]" value="" size="60" maxlength="250" /><br /><br />
-						<?php echo _RSGALLERY_IMG_FILE?>:&nbsp;&nbsp;<input type="file" size="48" id="images" name="images[]" /><br /><hr />
+						<?php echo JText::_('Title')?>:&nbsp;<input class="text" type="text" id= "title" name="title[]" value="" size="60" maxlength="250" /><br /><br />
+						<?php echo JText::_('File')?>:&nbsp;&nbsp;<input type="file" size="48" id="images" name="images[]" /><br /><hr />
     					<span id="moreAttachments"></span>
-    					<a href="javascript:addAttachment(); void(0);"><?php echo _RSGALLERY_IMG_MORE?></a><br />
+    					<a href="javascript:addAttachment(); void(0);"><?php echo JText::_('(more files)')?></a><br />
     					<noscript><input type="file" size="48" name="images[]" /><br /></noscript>
 					</td>
 				</tr>
@@ -408,7 +408,7 @@ class html_rsg2_images {
 				<table class="adminform">
 				<tr>
 					<th colspan="1">
-					<?php echo _RSGALLERY_IMG_PARAMETERS?>
+					<?php echo JText::_('Parameters')?>
 					</th>
 				</tr>
 				<tr>
@@ -459,11 +459,11 @@ class html_rsg2_images {
                 {
                 if (form.zip_file.value == '')
                     {
-                    alert( "<?php echo _RSGALLERY_BATCH_NO_ZIP;?>" );
+                    alert( "<?php echo JText::_('ZIP-upload selected but no file chosen');?>" );
                     }        
                else if (form.xcat.value == '0' & selcat_method == '1')
                     {
-                    alert("<?php echo _RSGALLERY_BATCH_GAL_FIRST;?>");
+                    alert("<?php echo JText::_('Please choose a category first');?>");
                     }
                 else
                     {
@@ -474,11 +474,11 @@ class html_rsg2_images {
             	{
             	if (form.ftppath.value == '')
             		{
-            		alert( "<?php echo _RSGALLERY_BATCH_NO_FTP;?>" );	
+            		alert( "<?php echo JText::_('FTP upload chosen but no FTP-path provided');?>" );	
             		}
             	else if (form.xcat.value == '0' & selcat_method == '1')
             		{
-					alert("<?php echo _RSGALLERY_BATCH_GAL_FIRST;?>");
+					alert("<?php echo JText::_('Please choose a category first');?>");
             		}
             	else
             		{
@@ -496,21 +496,21 @@ class html_rsg2_images {
             <td>
                 <table class="adminform">
                 <tr>
-                    <th colspan="3"><font size="4"><?php echo _RSGALLERY_BATCH_STEP1;?></font></th>
+                    <th colspan="3"><font size="4"><?php echo JText::_('Step 1');?></font></th>
                 </tr>
                 <tr>
-                    <td width="200"><strong><?php echo _RSGALLERY_BATCH_METHOD;?></strong>
+                    <td width="200"><strong><?php echo JText::_('Specify upload method');?></strong>
                     <?php
-                    echo JHTML::tooltip( _RSGALLERY_BATCH_METHOD_TIP, _RSGALLERY_BATCH_METHOD );
+                    echo JHTML::tooltip( JText::_('_BATCH_METHOD_TIP'), JText::_('Specify upload method') );
                     ?>
                     </td>
                     <td width="200">
                         <input type="radio" value="zip" name="batchmethod" CHECKED/>
-                        <?php echo _RSGALLERY_BATCH_ZIPFILE; ?> :</td>
+                        <?php echo JText::_('ZIP-file'); ?> :</td>
                     <td>
                         <input type="file" name="zip_file" size="20" />
                         <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
-                        <?php echo _RSGALLERY_BATCH_UPLOAD_LIMIT . $size ._RSGALLERY_BATCH_IN_PHPINI;?>
+                        <?php echo JText::_('Upload limit is ') . $size .JText::_(' Megabytes (set in php.ini)');?>
                         </div>
                     </td>
                 </tr>
@@ -518,19 +518,19 @@ class html_rsg2_images {
                     <td>&nbsp;</td>
                     <td>
                         <input type="radio" value="ftp" name="batchmethod" />
-                        <?php echo _RSGALLERY_BATCH_FTP_PATH;?> :</td>
+                        <?php echo JText::_('FTP-path');?> :</td>
                     <td>
 
-                        <input type="text" name="ftppath" value="<?php echo $FTP_path; ?>" size="30" /><?php echo JHTML::tooltip( _RSGALLERY_BATCH_FTP_PATH_OVERL, _RSGALLERY_BATCH_FTP_PATH );//echo _RSGALLERY_BATCH_DONT_FORGET_SLASH;?>
+                        <input type="text" name="ftppath" value="<?php echo $FTP_path; ?>" size="30" /><?php echo JHTML::tooltip( JText::_('_BATCH_FTP_PATH_OVERL'), JText::_('FTP-path') ); ?>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">&nbsp;<br /></td>
                 </tr>
                 <tr>
-                <td valign="top"><strong><?php echo _RSGALLERY_BATCH_CATEGORY;?></strong></td>
+                <td valign="top"><strong><?php echo JText::_('Specify gallery');?></strong></td>
                     <td valign="top">
-                        <input type="radio" name="selcat" value="1" CHECKED/>&nbsp;&nbsp;<?php echo _RSGALLERY_BATCH_YES_IMAGES_IN;?>:&nbsp;
+                        <input type="radio" name="selcat" value="1" CHECKED/>&nbsp;&nbsp;<?php echo JText::_('Yes, all items in ');?>:&nbsp;
                     </td>
                     <td valign="top">
                         <?php echo galleryUtils::galleriesSelectList( null, 'xcat', false );?>
@@ -538,7 +538,7 @@ class html_rsg2_images {
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
-                    <td colspan="2"><input type="radio" name="selcat" value="0" />&nbsp;&nbsp;<?php echo _RSGALLERY_BATCH_NO_SPECIFY; ?></td>
+                    <td colspan="2"><input type="radio" name="selcat" value="0" />&nbsp;&nbsp;<?php echo JText::_('No, specify gallery per image in step 2'); ?></td>
                 </tr>
                 <tr>
                     <td colspan="3">&nbsp;<br /></td>
@@ -546,7 +546,7 @@ class html_rsg2_images {
                 <tr class="row1">
                     <th colspan="3">
                         <div align="center" style="visibility: hidden;">
-                        <input type="button" name="something" value="<?php echo _RSGALLERY_BATCH_NEXT;?>" onClick="submitbutton('batchupload');" />
+                        <input type="button" name="something" value="<?php echo JText::_('Next -->');?>" onClick="submitbutton('batchupload');" />
                         </div>
                         </th>
                 </tr>
@@ -577,7 +577,7 @@ class html_rsg2_images {
         <form action="index2.php" method="post" name="adminForm">
         <table class="adminform">
         <tr>
-            <th colspan="5" class="sectionname"><font size="4"><?php echo _RSGALLERY_BATCH_STEP2;?></font></th>
+            <th colspan="5" class="sectionname"><font size="4"><?php echo JText::_('Step 2');?></font></th>
         </tr>
         <tr>
         <?php
@@ -608,20 +608,20 @@ class html_rsg2_images {
                         <th colspan="2">&nbsp;</th>
                     </tr>
                     <tr>
-                        <td colspan="2" align="right"><?php echo _RSGALLERY_BATCH_DELETE;?> #<?php echo $i - 1;?>: <input type="checkbox" name="delete[<?php echo $i - 1;?>]" value="true" /></td>
+                        <td colspan="2" align="right"><?php echo JText::_('Delete');?> #<?php echo $i - 1;?>: <input type="checkbox" name="delete[<?php echo $i - 1;?>]" value="true" /></td>
                     </tr>
                     <tr>
                         <td align="center" colspan="2"><img src="<?php echo JURI_SITE . "/media/" . $extractDir . "/" . $filename;?>" alt="" border="1" width="100" align="center" /></td>
                     </tr>
                     <input type="hidden" value="<?php echo $filename;?>" name="filename[]" />
                     <tr>
-                        <td><?php echo _RSGALLERY_BATCH_TITLE;?></td>
+                        <td><?php echo JText::_('Title');?></td>
                         <td>
                             <input type="text" name="ptitle[]" size="15" />
                         </td>
                     </tr>
                     <tr>
-                        <td><?php echo _RSGALLERY_BATCH_GAL;?></td>
+                        <td><?php echo JText::_('Gallery');?></td>
                         <td><?php
                             if ($selcat == 1 && $xcat !== '0')
                                 {
@@ -638,7 +638,7 @@ class html_rsg2_images {
                         </td>
                     </tr>
                     <tr>
-                        <td><?php echo _RSGALLERY_DESCR;?></td>
+                        <td><?php echo JText::_('Description');?></td>
                         <td><textarea cols="15" rows="2" name="descr[]"></textarea></td>
                     </tr>
                 </table>

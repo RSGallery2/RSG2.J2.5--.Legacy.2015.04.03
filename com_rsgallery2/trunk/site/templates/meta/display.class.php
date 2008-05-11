@@ -118,7 +118,7 @@ class rsgDisplay extends JObject{
 		if (!$rsgOption == 'mygalleries' AND !$gid) {
 			?>
 			<div class="rsg2-mygalleries">
-			<a class="rsg2-mygalleries_link" href="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries");?>"><?php echo _RSGALLERY_MY_GALLERIES ?></a>
+			<a class="rsg2-mygalleries_link" href="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries");?>"><?php echo JText::_('My galleries') ?></a>
 			</div>
 			<div class="rsg2-clr"></div>
 			<?php
@@ -132,7 +132,7 @@ class rsgDisplay extends JObject{
 		global $rsgConfig;
 	
 		if( !$rsgConfig->get('debug')){
-			echo _RSGALLERY_FEAT_INDEBUG;
+			echo JText::_('Feature only available in Debug mode.');
 			return;
 		}
 		
@@ -285,7 +285,7 @@ class rsgDisplay extends JObject{
 			$comment->showComments($id);
 			$comment->editComment($id);
 		} else {
-			echo _RSGALLERY_COMMENTS_DISABLED;
+			echo JText::_('Commenting is disabled');
 		}
     }
     
@@ -309,7 +309,7 @@ class rsgDisplay extends JObject{
 			if($rsgAccess->checkGallery("vote_vote", $gallery->id))
     			$voting->showVoting();
     	} else {
-    		echo _RSGALLERY_VOTING_DISABLED;
+    		echo JText::_('Voting is disabled!');
     	}
     }
     
@@ -338,7 +338,7 @@ class rsgDisplay extends JObject{
                         " WHERE file.gallery_id=gal.id and gal.published=1 AND file.published=1".
                         " ORDER BY rand() limit $number");
     			$rows = $database->loadObjectList();
-    			$title = _RSGALLERY_RANDOM_TITLE;
+    			$title = JText::_('Random images');
     			break;
     		case 'latest':
 				$database->setQuery("SELECT file.date, file.gallery_id, file.ordering, file.id, file.name, file.title".
@@ -346,7 +346,7 @@ class rsgDisplay extends JObject{
                         " WHERE file.gallery_id=gal.id AND gal.published=1 AND file.published=1".
                         " ORDER BY file.date DESC LIMIT $number");
     			$rows = $database->loadObjectList();
-    			$title = _RSGALLERY_LATEST_TITLE;
+    			$title = JText::_('Latest images');
     			break;
     	}
     	
@@ -415,7 +415,7 @@ class rsgDisplay extends JObject{
                             	</a>
                             	</div>
                             	<div class="rsg2-clr"></div>
-								<div class="rsg2_details"><?php echo _RSGALLERY_TMPL_GAL_UPLOADED ?>&nbsp;<?php echo JHTML::_("date",$row->date);?></div>
+								<div class="rsg2_details"><?php echo JText::_('Uploaded') ?>&nbsp;<?php echo JHTML::_("date",$row->date);?></div>
                             </div>
                             </td>
                             <?php
@@ -446,11 +446,11 @@ class rsgDisplay extends JObject{
 			if ($type == 'button') {
 				?>
 				<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>">
-				<img height="20" width="20" src="<?php echo JURI_SITE;?>/administrator/images/download_f2.png" alt="<?php echo _RSGALLERY_DOWNLOAD?>">
+				<img height="20" width="20" src="<?php echo JURI_SITE;?>/administrator/images/download_f2.png" alt="<?php echo JText::_('Download')?>">
 				<?php
 				if ($showtext == true) {
 					?>
-					<br /><span style="font-size:smaller;"><?php echo _RSGALLERY_DOWNLOAD?></span>
+					<br /><span style="font-size:smaller;"><?php echo JText::_('Download')?></span>
 					<?php
 				}
 				?>
@@ -458,7 +458,7 @@ class rsgDisplay extends JObject{
 				<?php
 			} else {
 				?>
-				<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>"><?php echo _RSGALLERY_DOWNLOAD;?></a>
+				<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>"><?php echo JText::_('Download');?></a>
 				<?php
 			}
 			echo "</div><div class=\"rsg2-clr\">&nbsp;</div>";
@@ -496,8 +496,8 @@ class rsgDisplay extends JObject{
 
     	<div align="right">
     	<form name="rsg2_search" method="post" action="<?php echo JRoute::_('index.php');?>">
-    		<?php echo _RSGALLERY_SEARCH_LABEL;?>
-    		<input type="text" name="searchtext" class="searchbox" onblur="if(this.value=='') this.value='<?php echo _RSGALLERY_SEARCH_KEYWORDS;?>';" onfocus="if(this.value=='<?php echo _RSGALLERY_SEARCH_KEYWORDS;?>') this.value='';" value='<?php echo _RSGALLERY_SEARCH_KEYWORDS;?>' />
+    		<?php echo JText::_('Search');?>
+    		<input type="text" name="searchtext" class="searchbox" onblur="if(this.value=='') this.value='<?php echo JText::_('Keywords');?>';" onfocus="if(this.value=='<?php echo JText::_('Keywords');?>') this.value='';" value='<?php echo JText::_('Keywords');?>' />
 			<input type="hidden" name="option" value="com_rsgallery2" />
 			<input type="hidden" name="rsgOption" value="search" />
 			<input type="hidden" name="task" value="showResults" />
@@ -515,7 +515,7 @@ class rsgDisplay extends JObject{
         <ul id='rsg2-navigation'>
             <li>
                 <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2"); ?>">
-                <?php echo _RSGALLERY_MAIN_GALLERY_PAGE; ?>
+                <?php echo JText::_('Main gallery page'); ?>
                 </a>
             </li>
             <?php 
@@ -523,7 +523,7 @@ class rsgDisplay extends JObject{
             ?>
             <li>
                 <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries");?>">
-                <?php echo _RSGALLERY_MY_GALLERIES; ?>
+                <?php echo JText::_('My galleries'); ?>
                 </a>
             </li>
             <?php
@@ -531,7 +531,7 @@ class rsgDisplay extends JObject{
             ?>
             <li>
                 <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&page=inline&catid=".$catid."&id=".$_GET['id']);?>">
-                <?php echo _RSGALLERY_SLIDESHOW_EXIT; ?>
+                <?php echo JText::_('Exit slideshow'); ?>
                 </a>
             </li>
         <?php endif; ?>
@@ -541,7 +541,7 @@ class rsgDisplay extends JObject{
         <?php if( isset( $catid )): ?>
             <h2 id='rsg2-galleryTitle'><?php htmlspecialchars(stripslashes(galleryUtils::getCatNameFromId($catid)), ENT_QUOTES) ?></h2>
         <?php elseif( $page != "my_galleries" ): ?>
-            <h2 id='rsg2-galleryTitle'><?php echo _RSGALLERY_COMPONENT_TITLE ?></h2>
+            <h2 id='rsg2-galleryTitle'><?php echo JText::_('Gallery') ?></h2>
         <?php endif; ?>
         </div>
         <?php

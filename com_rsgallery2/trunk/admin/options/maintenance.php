@@ -49,7 +49,7 @@ switch ($task) {
 	
 	/* Migration calls */
 	case 'showMigration':
-		HTML_RSGALLERY::RSGalleryHeader('cpanel', _RSGALLERY_C_MIGRATION);
+		HTML_RSGALLERY::RSGalleryHeader('cpanel', JText::_('Migration options'));
 		showMigration();
 		HTML_RSGALLERY::RSGalleryFooter();
 		break;
@@ -105,7 +105,7 @@ function showMigration() {
             echo $result;
             HTML_RSGallery::showCP();
     	} else {
-        	echo _RSGALLERY_MIGR_OK;
+        	echo JText::_('migration successful');
         	HTML_RSGallery::showCP();
     	}
 	}
@@ -190,7 +190,7 @@ function createImages() {
 	elseif ( isset($_REQUEST['name'] ) ) {
 		$name    = rsgInstance::getVar( 'name', null);
 	} else {
-		$mainframe->redirect("index2.php?option=com_rsgallery2&rsgOption=maintenance", _RSGALLERY_CC_NO_FILE_INFO);
+		$mainframe->redirect("index2.php?option=com_rsgallery2&rsgOption=maintenance", JText::_('No fileinformation found. This should never happen!'));
 	}
 	
 	//Just for readability of code
@@ -229,9 +229,9 @@ function deleteImages() {
 	$name = rsgInstance::getVar('name', null);
     
     if ( imgUtils::deleteImage( $name ) ) {
-    	$txt = _RSGALLERY_ALERT_IMGDELETEOK;
+    	$txt = JText::_('Image(s) deleted succesfully!');
     } else {
-    	$txt = _RSGALLERY_ALERT_IMGDELETENOTOK;
+    	$txt = JText::_('Image(s) were not deleted!');
     }
     
     $mainframe->redirect("index2.php?option=com_rsgallery2&rsgOption=maintenance&task=consolidateDB", $txt);
@@ -245,7 +245,7 @@ function deleteImages() {
     	//Delete from database
     	imgUtils::deleteImage( $name );
     }
-    $mainframe->redirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB", _RSGALLERY_ALERT_IMGDELETEOK);
+    $mainframe->redirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB", JText::_('Image(s) deleted succesfully!'));
     */
 }
 
@@ -276,7 +276,7 @@ function regenerateImage() {
 	elseif ( isset($_REQUEST['name'] ) ) {
 		$name    = rsgInstance::getVar( 'name', null);
 	} else {
-		$mainframe->redirect("index2.php?option=com_rsgallery2&task=batchupload", _RSGALLERY_CC_NO_FILE_INFO);
+		$mainframe->redirect("index2.php?option=com_rsgallery2&task=batchupload", JText::_('No fileinformation found. This should never happen!'));
 	}
 	
 	//Just for readability of code

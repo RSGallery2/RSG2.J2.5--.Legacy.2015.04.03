@@ -100,7 +100,7 @@ class galleryUtils {
 	global $database, $dropdown_html;
 	$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE parent = '0' AND uid = '$uid' ORDER BY ordering ASC");
 	$rows = $database->loadObjectList();
-	$dropdown_html = "<select name=\"$selectname\"><option value=\"0\" SELECTED>"._RSGALLERY_SELECT_GAL_DROP_BOX."</option>\n";
+	$dropdown_html = "<select name=\"$selectname\"><option value=\"0\" SELECTED>".JText::_('- Select gallery -')."</option>\n";
 
     foreach ($rows as $row)
 		{
@@ -140,7 +140,7 @@ class galleryUtils {
 		//Get gallery Id's where action is permitted and write to string
 		$galleries = $rsgAccess->actionPermitted($action);
 		
-		$dropdown_html = "<select name=\"$select_name\" $js><option value=\"0\" SELECTED>"._RSGALLERY_SELECT_GAL_DROP_BOX."</option>\n";
+		$dropdown_html = "<select name=\"$select_name\" $js><option value=\"0\" SELECTED>".JText::_('- Select gallery -')."</option>\n";
 		$dropdown_html .= galleryUtils::addToGalSelectList(0, 0, $gallery_id, $galleries);
 		echo $dropdown_html."</select>";
 	}
@@ -227,7 +227,7 @@ class galleryUtils {
 
     // assemble menu items to the array
     $mitems     = array();
-    $mitems[]   = JHTML::_("Select.option", '0', _RSGALLERY_SELECT_GAL_TOP);
+    $mitems[]   = JHTML::_("Select.option", '0', JText::_('Top'));
 
     foreach ( $list as $item ) {
         $mitems[] = JHTML::_("Select.option", $item->id, '&nbsp;&nbsp;&nbsp;'. $item->treename );
@@ -283,7 +283,7 @@ class galleryUtils {
 
     // assemble menu items to the array
     $mitems     = array();
-    $mitems[] 	= JHTML::_("Select.option", '-1', _RSGALLERY_SELECT_GAL );
+    $mitems[] 	= JHTML::_("Select.option", '-1', JText::_('Select Gallery') );
     $mitems[] 	= JHTML::_("Select.option", '0', '- Top Gallery -' );
 
     foreach ( $list as $item ) {
@@ -477,7 +477,7 @@ class galleryUtils {
     function showRating($id) {
         $database = JFactory::getDBO();
         $database->setQuery("SELECT * FROM #__rsgallery2_files WHERE id = '$id'");
-        $values = array(_RSGALLERY_RATE_NONE,_RSGALLERY_VERYBAD,_RSGALLERY_BAD,_RSGALLERY_OK,_RSGALLERY_GOOD,_RSGALLERY_VERYGOOD);
+        $values = array(JText::_('No rating'),JText::_('&nbsp;Very Bad&nbsp;'),JText::_('&nbsp;Bad&nbsp;'),JText::_('&nbsp;Ok&nbsp;'),JText::_('&nbsp;Good&nbsp;'),JText::_('&nbsp;Very Good&nbsp;'));
         $rows = $database->loadObjectList();
         $images = "";
         foreach ($rows as $row)
@@ -508,7 +508,7 @@ class galleryUtils {
             $gallery_id = $row->gallery_id;
             if ($gallery_id == $xid)
                 {
-                echo _RSGALLERY_NEW;
+                echo JText::_('New!');
                 break;
                 }
             }
@@ -581,7 +581,7 @@ class galleryUtils {
             }
         else
             {
-            echo "<tr><td colspan=\"3\">"._RSGALLERY_NO_NEW_ENT."</td></tr>";
+            echo "<tr><td colspan=\"3\">".JText::_('No new entries')."</td></tr>";
             }
     }
     
@@ -630,7 +630,7 @@ class galleryUtils {
         }
     else
         {
-        echo "<tr><td colspan=\"4\">"._RSGALLERY_NO_NEW_ENT."</td></tr>";
+        echo "<tr><td colspan=\"4\">".JText::_('No new entries')."</td></tr>";
         }
     }
     
@@ -700,7 +700,7 @@ class galleryUtils {
     	$html = '';
     	$count = 0;
 		if ( ( !GD2::detect() ) and (!imageMagick::detect() ) and (!Netpbm::detect() ) ) {
-  			$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;"._RSGALLERY_NO_IMGLIBRARY."</p>";
+  			$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;".JText::_('_RSGALLERY_NO_IMGLIBRARY')."</p>";
 		}
 		
 		//Check availability and writability of folders
@@ -716,19 +716,19 @@ class galleryUtils {
 				{
 				$perms = substr(sprintf('%o', fileperms(JPATH_ROOT.$folder)), -4);
 				if (!is_writable(JPATH_ROOT.$folder) )
-					$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;<strong>".JPATH_ROOT.$folder."</strong>"._RSGALLERY_NOT_WRITABLE."($perms)";
+					$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;<strong>".JPATH_ROOT.$folder."</strong>".JText::_(' is NOT writable!')."($perms)";
 				}
 			else
 				{
-				$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;<strong>".JPATH_ROOT.$folder."</strong>"._RSGALLERY_FOLDER_NOTEXIST;	
+				$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;<strong>".JPATH_ROOT.$folder."</strong>".JText::_('_RSGALLERY_FOLDER_NOTEXIST');	
 				}
 		}
 		if ($html !== '') {
 			?>
 			<div style="clear: both; margin: 3px; margin-top: 10px; padding: 5px 15px; display: block; float: left; border: 1px solid #cc0000; background: #ffffcc; text-align: left; width: 50%;">
-			<p style="color: #CC0000;"><?php echo _RSGALLERY_ERROR_SETTINGS?></p>
+			<p style="color: #CC0000;"><?php echo JText::_('The following settings prevent RSGallery2 from working without errors:')?></p>
 			<?php echo $html;?>
-			<p style="color: #CC0000;text-align:right;"><a href="index2.php?option=com_rsgallery2"><?php echo _RSGALLERY_REFRESH?></a></p>		
+			<p style="color: #CC0000;text-align:right;"><a href="index2.php?option=com_rsgallery2"><?php echo JText::_('Refresh')?></a></p>		
 			</div>
 			<div class='rsg2-clr'>&nbsp;</div>		
 			<?php
@@ -748,11 +748,11 @@ class galleryUtils {
 	 		{
 	 		?>
 	 		<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>">
-	 		<img height="20" width="20" src="<?php echo JURI_SITE;?>/administrator/images/download_f2.png" alt="<?php echo _RSGALLERY_DOWNLOAD?>">
+	 		<img height="20" width="20" src="<?php echo JURI_SITE;?>/administrator/images/download_f2.png" alt="<?php echo JText::_('Download')?>">
 	 		<?php
 	 		if ($showtext == true) {
 	 			?>
-	 			<br /><span style="font-size:smaller;"><?php echo _RSGALLERY_DOWNLOAD?></span>
+	 			<br /><span style="font-size:smaller;"><?php echo JText::_('Download')?></span>
 	 			<?php
 	 		}
 	 		?>
@@ -762,7 +762,7 @@ class galleryUtils {
 	 	else
 	 		{
 	 		?>
-	 		<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>"><?php echo _RSGALLERY_DOWNLOAD?></a>
+	 		<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>"><?php echo JText::_('Download')?></a>
 	 		<?php
 	 		}
 	 echo "</div><div class=\"rsg2-clr\">&nbsp;</div>";
@@ -776,14 +776,14 @@ class galleryUtils {
 		if ( !$rsgConfig->get('displayStatus') )
 			return;
 		
-		$owner = JHTML::tooltip(_RSGALLERY_STATUS_ARE_OWNER, 
+		$owner = JHTML::tooltip(JText::_('You are the owner of this gallery'), 
 				null, 
 				'../../../components/com_rsgallery2/images/status_owner.png',null,null,0);
-		$upload = JHTML::tooltip(_RSGALLERY_STATUS_CAN_UPLOAD, 
+		$upload = JHTML::tooltip(JText::_('You can upload in this gallery'), 
 				null, 
 				'../../../components/com_rsgallery2/images/status_upload.png',null,null,0);
 		
-		$unpublished = JHTML::tooltip(_RSGALLERY_STATUS_NOT_PUBL, 
+		$unpublished = JHTML::tooltip(JText::_('This gallery is NOT published'), 
 				null, 
 				'../../../components/com_rsgallery2/images/status_hidden.png',null,null,0);
 

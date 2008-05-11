@@ -94,14 +94,14 @@ switch ( rsgInstance::getVar('task', null) ){
 //     special/debug tasks
     case 'purgeEverything':
         /* Replace all headers with JToolBarHelper::title() in toolbar.rsgallery2.html.php
-        HTML_RSGallery::RSGalleryHeader('cpanel', _RSGALLERY_HEAD_CPANEL);
+        HTML_RSGallery::RSGalleryHeader('cpanel', JText::_('Control Panel'));
         */
         purgeEverything();
         HTML_RSGallery::showCP();
         HTML_RSGallery::RSGalleryFooter();
         break;
     case 'reallyUninstall':
-        //HTML_RSGallery::RSGalleryHeader('cpanel', _RSGALLERY_HEAD_CPANEL);
+        //HTML_RSGallery::RSGalleryHeader('cpanel', JText::_('Control Panel'));
         reallyUninstall();
         HTML_RSGallery::showCP();
         HTML_RSGallery::RSGalleryFooter();
@@ -112,7 +112,7 @@ switch ( rsgInstance::getVar('task', null) ){
         HTML_RSGallery::RSGalleryFooter();
         break;*/
     case "install":
-        //HTML_RSGallery::RSGalleryHeader('install', _RSGALLERY_HEAD_MIGRATE);
+        //HTML_RSGallery::RSGalleryHeader('install', JText::_('Install and Migrate'));
         RSInstall();
         HTML_RSGallery::RSGalleryFooter();
         break;
@@ -139,19 +139,19 @@ switch ( rsgInstance::getVar('task', null ) ){
 //     image tasks
 
     case "edit_image":
-        HTML_RSGallery::RSGalleryHeader('edit', _RSGALLERY_HEAD_EDIT);
+        HTML_RSGallery::RSGalleryHeader('edit', JText::_('Edit'));
         editImageX($option, $cid[0]);
         HTML_RSGallery::RSGalleryFooter();
         break;
 
     case "uploadX":
-        HTML_RSGallery::RSGalleryHeader('browser', _RSGALLERY_HEAD_UPLOAD);
+        HTML_RSGallery::RSGalleryHeader('browser', JText::_('Upload'));
         showUpload();
         HTML_RSGallery::RSGalleryFooter();
         break;
 
     case "batchuploadX":
-        HTML_RSGallery::RSGalleryHeader('', _RSGALLERY_HEAD_UPLOAD_ZIP);
+        HTML_RSGallery::RSGalleryHeader('', JText::_('Upload ZIP-file'));
         batch_upload($option, $task);
         HTML_RSGallery::RSGalleryFooter();
         break;
@@ -171,13 +171,13 @@ switch ( rsgInstance::getVar('task', null ) ){
 
 //  special/debug tasks
     case 'viewChangelog':
-        HTML_RSGallery::RSGalleryHeader('viewChangelog', _RSGALLERY_HEAD_LOG);
+        HTML_RSGallery::RSGalleryHeader('viewChangelog', JText::_('Changelog'));
         viewChangelog();
         HTML_RSGallery::RSGalleryFooter();
         break;
     case "controlPanel":
     default:
-        //HTML_RSGallery::RSGalleryHeader('cpanel', _RSGALLERY_HEAD_CPANEL);
+        //HTML_RSGallery::RSGalleryHeader('cpanel', JText::_('Control Panel'));
         HTML_RSGallery::showCP();
         HTML_RSGallery::RSGalleryFooter();
         break;
@@ -198,16 +198,16 @@ function uploadFile( $filename, $userfile_name, $msg ) {
 				if (JFTP::chmod( $baseDir . $userfile_name )) {
 					return true;
 				} else {
-					$msg = _RSGALLERY_ERMSG_FAILD_CHMOD;
+					$msg = JText::_('Failed to change the permissions of the uploaded file.');
 				}
 			} else {
-				$msg = _RSGALLERY_ERMSG_FAILD_MOVE_MEDIA;
+				$msg = JText::_('Failed to move uploaded file to <code>/media</code> directory.');
 			}
 		} else {
-			$msg = _RSGALLERY_ERMSG_MEDIA_NOT_WRITE;
+			$msg = JText::_('Upload failed as <code>/media</code> directory is not writable.');
 		}
 	} else {
-		$msg = _RSGALLERY_ERMSG_MEDIA_NOT_EXIST;
+		$msg = JText::_('Upload failed as <code>/media</code> directory does not exist.');
 	}
 	return false;
 }
@@ -229,31 +229,31 @@ function purgeEverything(){
     $fullPath_display = JPATH_ROOT.$rsgConfig->get('imgPath_display') . '/';
     $fullPath_original = JPATH_ROOT.$rsgConfig->get('imgPath_original') . '/';
 
-    processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_files', _RSGALLERY_PURGE_IMG );
-    processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_galleries', _RSGALLERY_PURGE_GAL );
-    processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_config', _RSGALLERY_PURGE_CONFIG );
-    processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_comments', _RSGALLERY_PURGE_COMMENTS );
+    processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_files', JText::_('purged image entries from database.') );
+    processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_galleries', JText::_('purged galleries from database.') );
+    processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_config', JText::_('purged config from database.') );
+    processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_comments', JText::_('purged comments from database.') );
 	processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_acl', '** Access Control Data deleted **' );
     
     // remove thumbnails
-    HTML_RSGALLERY::printAdminMsg( _RSGALLERY_PURGE_THUMB );
+    HTML_RSGALLERY::printAdminMsg( JText::_('removing thumb images.') );
     foreach ( glob( $fullPath_thumb.'*' ) as $filename ) {
         if( is_file( $filename )) unlink( $filename );
     }
     
     // remove display imgs
-    HTML_RSGALLERY::printAdminMsg( _RSGALLERY_PURGE_DISPLAY );
+    HTML_RSGALLERY::printAdminMsg( JText::_('removing display images.') );
     foreach ( glob( $fullPath_display.'*' ) as $filename ) {
         if( is_file( $filename )) unlink( $filename );
     }
     
     // remove display imgs
-    HTML_RSGALLERY::printAdminMsg( _RSGALLERY_PURGE_ORIGINAL );
+    HTML_RSGALLERY::printAdminMsg( JText::_('removing original images.') );
     foreach ( glob( $fullPath_original.'*' ) as $filename ) {
         if( is_file( $filename )) unlink( $filename );
     }
     
-    HTML_RSGALLERY::printAdminMsg( _RSGALLERY_PURGE_PURGED, true );
+    HTML_RSGALLERY::printAdminMsg( JText::_('purged.'), true );
 }
 
 /**
@@ -265,16 +265,16 @@ function reallyUninstall(){
     
     
     passthru( "rm -r ".JPATH_SITE."/images/rsgallery");
-    HTML_RSGALLERY::printAdminMsg( _RSGALLERY_REAL_UNINST_DIR );
+    HTML_RSGALLERY::printAdminMsg( JText::_('Used rm -r to attempt to remove JPATH_SITE/images/rsgallery') );
 
-    processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_acl', _RSGALLERY_REAL_UNINST_DROP_GAL );
-    processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_files', _RSGALLERY_REAL_UNINST_DROP_FILES );
-    processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_cats', _RSGALLERY_REAL_UNINST_DROP_GAL );
-    processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_galleries', _RSGALLERY_REAL_UNINST_DROP_GAL );
-    processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_config', _RSGALLERY_REAL_UNINST_DROP_CONF );
-    processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_comments', _RSGALLERY_REAL_UNINST_DROP_COM );
+    processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_acl', JText::_('DROPed #__rsgallery2_galleries') );
+    processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_files', JText::_('DROPed #__rsgallery2_files') );
+    processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_cats', JText::_('DROPed #__rsgallery2_galleries') );
+    processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_galleries', JText::_('DROPed #__rsgallery2_galleries') );
+    processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_config', JText::_('DROPed #__rsgallery2_config') );
+    processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_comments', JText::_('DROPed #__rsgallery2_comments') );
 
-    HTML_RSGALLERY::printAdminMsg( _RSGALLERY_REAL_UNINST_DONE );
+    HTML_RSGALLERY::printAdminMsg( JText::_('_RSGALLERY_REAL_UNINST_DONE') );
 }
 
 /**
@@ -320,7 +320,7 @@ function save_batchuploadX() {
         $category = array(0);
 
     if ( in_array("0",$category) ) {
-        $mainframe->redirect("index2.php?option=com_rsgallery2&task=batchupload", _RSGALLERY_ALERT_NOCATSELECTED);
+        $mainframe->redirect("index2.php?option=com_rsgallery2&task=batchupload", JText::_('_RSGALLERY_ALERT_NOCATSELECTED'));
 	}
 
      for($i=0;$i<$teller;$i++) {
@@ -352,7 +352,7 @@ function save_batchuploadX() {
     // Error handling
     if (isset($errors )) {
         if ( count( $errors ) == 0) {
-            echo _RSGALLERY_ALERT_UPLOADOK;
+            echo JText::_('Item uploaded succesfully!');
         } else {
             foreach( $errors as $err ) {
                 echo $err->toString();
@@ -360,7 +360,7 @@ function save_batchuploadX() {
         }
     } else {
         //Everything went smoothly, back to Control Panel
-        $mainframe->redirect("index2.php?option=com_rsgallery2", _RSGALLERY_ALERT_UPLOADOK);
+        $mainframe->redirect("index2.php?option=com_rsgallery2", JText::_('Item uploaded succesfully!'));
     }
 }
 
@@ -406,14 +406,14 @@ function batch_uploadX($option) {
 		if ($batchmethod == "zip") {
 			//Check if file is really a ZIP-file
 			if (!eregi( '.zip$', $zip_file['name'] )) {
-				$mainframe->redirect( "index2.php?option=com_rsgallery2&task=batchupload", $zip_file['name']._RSGALLERY_BACTCH_NOT_VALID_ZIP);
+				$mainframe->redirect( "index2.php?option=com_rsgallery2&task=batchupload", $zip_file['name'].JText::_(' is not a valid archive format. Only ZIP-files are allowed!'));
 			} else {
 				//Valid ZIP-file, continue
 				if ($uploadfile->checkSize($zip_file) == 1) {
 					$ziplist = $uploadfile->handleZIP($zip_file);
 				} else {
 					//Error message
-					$mainframe->redirect( "index2.php?option=com_rsgallery2&task=batchupload", _RSGALLERY_ZIP_TO_BIG);
+					$mainframe->redirect( "index2.php?option=com_rsgallery2&task=batchupload", JText::_('ZIP-file is too big!'));
 				}
 			}
 		} else {
