@@ -261,8 +261,8 @@ class rsgGalleryManager{
      * @todo this is a quick hack.  galleryUtils and imgUtils need to be reorganized; and a rsgImage class created to do this proper
      */
     function _deleteTree( $galleries ){
-        global $database, $rsgAccess;
-        
+        global $rsgAccess;
+		$database =& JFactory::getDBO();
         foreach( $galleries as $gallery ){
             rsgGalleryManager::_deleteTree( $gallery->kids() );
 
