@@ -32,6 +32,16 @@ Legend:
 
 ---------------- Recent ----------------
 
+2008-04-11 John Caprez 
+ + added template manager to the new template installer
+ # fixed voting lockup and configuration
+ # fixed HTML matadata and pathway 
+ - removed image/pagebreak/read-more buttons from WYSIWYG editor
+ + added WYSIWYG editor for image upload
+ ^ using J1.5 translation framework
+ ! the old language files have been converted by a script.
+
+
 2008-03-17
  + Clean port of J1.5.1 com_installer to be the new template installer. 
  * Allow public users to comment switch now works. 
