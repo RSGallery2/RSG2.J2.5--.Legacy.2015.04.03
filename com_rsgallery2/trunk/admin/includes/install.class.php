@@ -726,7 +726,7 @@ class rsgInstall {
                 }
             else
                 {
-                $this->writeInstallMsg(JText::_('Original files succesfully transfered')_ERROR'),"error");
+                $this->writeInstallMsg(JText::_('_UPGRADE_FILES_TRANF_ERROR'),"error");
                 }
                 
             /**
@@ -738,7 +738,7 @@ class rsgInstall {
                 }
             else
                 {
-                $this->writeInstallMsg(JText::_('Thumb files succesfully transfered')_ERROR'),"error");
+                $this->writeInstallMsg(JText::_('_UPGRADE_THUMB_TRANF_ERROR'),"error");
                 }
             
             /**
@@ -750,7 +750,7 @@ class rsgInstall {
                 }
             else
                 {
-                $this->writeInstallMsg(JText::_('Display images created succesfully.')_ERROR'),"error");
+                $this->writeInstallMsg(JText::_('_UPGRADE_DISP_CREATE_ERROR'),"error");
                 }
 
             if ($version == "RSGallery 2.0 beta 5")
@@ -819,7 +819,7 @@ class rsgInstall {
                         }
                     else
                         {
-                        $this->writeInstallMsg(JText::_('Table ')."<strong>".$this->tablelist[$i]."</strong>".JText::_('Table ')_RENAME_ERROR,"error");
+                        $this->writeInstallMsg(JText::_('Table ')."<strong>".$this->tablelist[$i]."</strong>".JText::_(' is NOT renamed'),"error");
                         }
                     }
                 /**
@@ -1264,7 +1264,7 @@ class GenericMigrator{
 		
 	    $total = $error + $file;
 	    if ($error > 0) {
-	        rsgInstall::writeInstallMsg(JText::_('_RSGALLERY_MIGRATE_NOT_ALL')_GAL')."<strong>$file</strong>".JText::_(' out of ')."<strong>$processed</strong>".JText::_(' entries processed)'),"error");
+	        rsgInstall::writeInstallMsg(JText::_('_MIGRATE_NOT_ALL_GAL')."<strong>$file</strong>".JText::_(' out of ')."<strong>$processed</strong>".JText::_(' entries processed)'),"error");
 		} else {
 	        rsgInstall::writeInstallMsg(JText::_('All gallery information migrated to RSGallery2 database(')."<strong>$file</strong>".JText::_(' entries processed)'),"ok");
 	    }
@@ -1939,7 +1939,7 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
 		
 	    $total = $error + $file;
 	    if ($error > 0) {
-	        rsgInstall::writeInstallMsg(JText::_('_RSGALLERY_MIGRATE_NOT_ALL')_GAL')."<strong>$file</strong>".JText::_(' out of ')."<strong>$processed</strong>".JText::_(' entries processed)'),"error");
+	        rsgInstall::writeInstallMsg(JText::_('_RSGALLERY_MIGRATE_NOT_ALL_GAL')."<strong>$file</strong>".JText::_(' out of ')."<strong>$processed</strong>".JText::_(' entries processed)'),"error");
 		} else {
 	        rsgInstall::writeInstallMsg(JText::_('All gallery information migrated to RSGallery2 database(')."<strong>$file</strong>".JText::_(' entries processed)'),"ok");
 	    }
