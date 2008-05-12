@@ -318,7 +318,7 @@ function editComment( $item_id ) {
 						echo getSecurityImageTextHelp()."<br/>";
 					}
 				} else {
-					echo JText::_('_COMMENTS_SEC_IMG_MISS');
+					echo JText::_('_RSGALLERY_COMMENTS_SEC_IMG_MISS');
 				}
 			}
 			?>

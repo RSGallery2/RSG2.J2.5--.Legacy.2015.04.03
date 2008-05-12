@@ -726,7 +726,7 @@ class rsgInstall {
                 }
             else
                 {
-                $this->writeInstallMsg(JText::_('_UPGRADE_FILES_TRANF_ERROR'),"error");
+                $this->writeInstallMsg(JText::_('_RSGALLERY_UPGRADE_FILES_TRANF_ERROR'),"error");
                 }
                 
             /**
@@ -738,7 +738,7 @@ class rsgInstall {
                 }
             else
                 {
-                $this->writeInstallMsg(JText::_('_UPGRADE_THUMB_TRANF_ERROR'),"error");
+                $this->writeInstallMsg(JText::_('_RSGALLERY_UPGRADE_THUMB_TRANF_ERROR'),"error");
                 }
             
             /**
@@ -750,7 +750,7 @@ class rsgInstall {
                 }
             else
                 {
-                $this->writeInstallMsg(JText::_('_UPGRADE_DISP_CREATE_ERROR'),"error");
+                $this->writeInstallMsg(JText::_('_RSGALLERY_UPGRADE_DISP_CREATE_ERROR'),"error");
                 }
 
             if ($version == "RSGallery 2.0 beta 5")
