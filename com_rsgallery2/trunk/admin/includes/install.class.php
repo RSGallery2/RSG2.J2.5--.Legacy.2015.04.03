@@ -381,7 +381,7 @@ class rsgInstall {
     else
         {
         //return 2;
-        $this->writeInstallMsg(JText::_('No old directory structure found. Let's continue'),"ok");
+        $this->writeInstallMsg(JText::_("No old directory structure found. Let's continue"),"ok");
         }
     }
     
