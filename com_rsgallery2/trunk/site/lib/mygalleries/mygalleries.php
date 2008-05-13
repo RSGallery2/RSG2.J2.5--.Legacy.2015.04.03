@@ -255,7 +255,7 @@ function editCat() {
 		//Check if maximum number of usercats are already made
 		$count = galleryUtils::userCategoryTotal($my->id);
 		if ($count >= $rsgConfig->get('uu_maxCat') ) {
-			$mainframe->redirect("index.php?option=com_rsgallery2&page=my_galleries", JText::_('_RSGALLERY_MAX_USERCAT_ALERT') );
+			$mainframe->redirect("index.php?option=com_rsgallery2&page=my_galleries", JText::_('MAX_USERCAT_ALERT') );
 		} else {
 			//New category
 			myGalleries::editCat();
@@ -305,12 +305,12 @@ function saveCat() {
 			?>
 				<script type="text/javascript">
 				//<![CDATA[
-				alert('<?php echo JText::_('_RSGALLERY_MAX_USERCAT_ALERT');?>');
+				alert('<?php echo JText::_('MAX_USERCAT_ALERT');?>');
 				location = '<?php echo JRoute::_("index.php?option=com_rsgallery2&page=my_galleries", false); ?>';
 				//]]>
 				</script>
 				<?php
-			//$mainframe->redirect( $redirect ,JText::_('_RSGALLERY_MAX_USERCAT_ALERT'));
+			//$mainframe->redirect( $redirect ,JText::_('MAX_USERCAT_ALERT'));
 		} else {
 			//Create ordering, start at last position
 			$database->setQuery("SELECT MAX(ordering) FROM #__rsgallery2_galleries WHERE uid = '$my->id'");
@@ -328,7 +328,7 @@ function saveCat() {
 				if ( $acl->createDefaultPermissions($gallery_id) )
 					$mainframe->redirect( $redirect , JText::_('New gallery created!') );
 			} else {
-				$mainframe->redirect( $redirect , JText::_('_RSGALLERY_ALERT_NONEWCAT') );
+				$mainframe->redirect( $redirect , JText::_('ALERT_NONEWCAT') );
 			}
 		}
 	}

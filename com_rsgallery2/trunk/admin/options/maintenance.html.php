@@ -23,13 +23,13 @@ class html_rsg2_maintenance {
 		<div id='cpanel'>
 			<?php
 			$link = 'index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB';
-			html_rsg2_maintenance::quickiconBar( $link, 'blockdevice.png', _RSGALLERY_MAINT_CONSOLDB, _RSGALLERY_MAINT_CONSOLDB_TXT );
+		html_rsg2_maintenance::quickiconBar( $link, 'blockdevice.png', JText::_('MAINT_CONSOLDB'), JText::_('MAINT_CONSOLDB_TXT') );
 
 			$link = 'index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=regenerateThumbs';
-			html_rsg2_maintenance::quickiconBar( $link, 'menu.png', _RSGALLERY_MAINT_REGEN, _RSGALLERY_MAINT_REGEN_TXT );
+		html_rsg2_maintenance::quickiconBar( $link, 'menu.png', JText::_('MAINT_REGEN'), JText::_('MAINT_REGEN_TXT') );
 
 			$link = 'index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=optimizeDB';
-			html_rsg2_maintenance::quickiconBar( $link, 'db_optimize.png', _RSGALLERY_MAINT_OPTDB, _RSGALLERY_MAINT_OPTDB_TXT );
+		html_rsg2_maintenance::quickiconBar( $link, 'db_optimize.png', JText::_('MAINT_OPTDB'), JText::_('MAINT_OPTDB_TXT') );
 		?>
 		</div>
 		<div class='rsg2-clr'>&nbsp;</div>
@@ -43,7 +43,7 @@ class html_rsg2_maintenance {
       * @param string Image name for button image
       * @param string Text to show in button
       */
-	function quickiconBar( $link, $image, $title, $text ) {
+	function quickiconBar( $link, $image, $title, $text = "" ) {
 	    ?>
 	    <div style="float:left;">
 	    <div class="icon-bar">
@@ -131,7 +131,7 @@ class html_rsg2_maintenance {
 	            <td>&nbsp;</td>
 	        </tr>
 	        <tr>
-	            <td><?php echo _RSGALLERY_CONSOLIDATE_DB;?></td>
+		<td><?php echo JText::_('CONSOLIDATE_DB');?></td>
 	        </tr>
 	        <tr>
 	            <td>
@@ -179,7 +179,7 @@ class html_rsg2_maintenance {
 		    				<p style="color: #CC0000;">
 		    				<img src="<?php echo JURI_SITE;?>/includes/js/ThemeOffice/warning.png" alt="Warning icon" />
 							NOTICE:<br />Experimental at this stage. Single image regeneration works. <br /> Database entries do NOT work!.
-							<?php //echo JText::_('_RSGALLERY_CONSDB_NOTICE');?>
+							<?php //echo JText::_('CONSDB_NOTICE');?>
 							</p>
 						</div>
 						<div class='rsg2-clr'>&nbsp;</div>

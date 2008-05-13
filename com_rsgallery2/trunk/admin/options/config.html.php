@@ -330,7 +330,7 @@ class html_rsg2_config{
 								<td><?php echo $lists['graphicsLib'] ?></td>
 							</tr>
 							<tr>
-								<td colspan=2 ><span style="color:red;"><?php echo JText::_('_RSGALLERY_C_TMPL_NOTE_GLIB_PATH') ?></td>
+								<td colspan=2 ><span style="color:red;"><?php echo JText::_('Note');?></span><?php echo JText::_('Leave the following fields empty unless you have problems.'); ?></td>
 							</tr>
 							<tr>
 								<td><?php echo JText::_('ImageMagick Path:') ?></td>

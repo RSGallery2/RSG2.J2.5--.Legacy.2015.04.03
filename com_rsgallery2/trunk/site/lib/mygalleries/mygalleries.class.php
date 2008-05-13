@@ -74,6 +74,8 @@ class myGalleries {
 	                return;
 	            }
 	        
+				<?php echo $editor->save('description') ; ?>
+
 				// do field validation
 				if (form.parent.value == "-1") {
 					alert( "<?php echo JText::_('** You need to select a parent gallery **'); ?>" );
@@ -84,8 +86,7 @@ class myGalleries {
 					alert( "<?php echo JText::_('You must provide a description.'); ?>" );
 				}
 				else{
-					<?php echo $editor->save('description') ; ?>
-					submitform( pressbutton );
+					form.submit();
 				}
 			}
 	    </script>
@@ -225,12 +226,14 @@ class myGalleries {
         require_once( JPATH_ROOT . '/includes/HTML_toolbar.php' );
         ?>
         <script  type="text/javascript">
-        function submitbutton2(pressbutton) {
-            var form = document.uploadform;
+        function submitbuttonImage(pressbutton) {
+            var form = document.uploadForm;
             if (pressbutton == 'cancel') {
                 form.reset();
                 return;
             }
+				<?php echo $editor->save('descr') ; ?>
+
             // do field validation
             if (form.i_cat.value == "-1") {
                 alert( "<?php echo JText::_('You must select a gallery.'); ?>" );
@@ -239,13 +242,12 @@ class myGalleries {
             } else if (form.i_file.value == "") {
                 alert( "<?php echo JText::_('You must provide a file to upload.'); ?>" );
             } else {
-				<?php echo $editor->save('descr') ; ?>
-				submitform( pressbutton );
+				form.submit();
             }
         }
         
     </script>
-        <form name="uploadform" id="uploadform" method="post" action="
+        <form name="uploadForm" id="uploadForm" method="post" action="
 <?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=saveUploadedItem"); ?>" enctype="multipart/form-data">
 		<div class="rsg2">
         <table border="0" width="100%">
@@ -260,11 +262,11 @@ class myGalleries {
                     <table cellpadding="0" cellspacing="3" border="0" id="toolbar">
                     <tr height="60" valign="middle" align="center">
                         <td>
-                            <a class="toolbar" href="javascript:submitbutton2('save');" >
+                            <a class="toolbar" href="javascript:submitbuttonImage('save');" >
                             <img src="<?php echo JURI::root();?>/images/save_f2.png"  alt="Save" name="save" title="Save" align="middle" /></a>
                         </td>
                         <td>
-                            <a class="toolbar" href="javascript:submitbutton2('cancel');" >
+                            <a class="toolbar" href="javascript:submitbuttonImage('cancel');" >
                             <img src="<?php echo JURI::root();?>/images/cancel_f2.png"  alt="Cancel" name="cancel" title="Cancel" align="middle" /></a>
                         </td>
                     </tr>
@@ -514,7 +516,7 @@ class myGalleries {
                     <script type="text/javascript">
 						//<![CDATA[
 						function deletePres(catid) {
-							var yesno = confirm ("<?php echo JText::_('_RSGALLERY_DELCAT_TEXT');?>");
+							var yesno = confirm ("<?php echo JText::_('DELCAT_TEXT');?>");
 							if (yesno == true) {
 								location = "<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=deleteCat&catid=", false);?>"+catid;
 							}
@@ -750,6 +752,8 @@ class myGalleries {
                 return;
             }
 
+			<?php echo $editor->save('descr') ; ?>
+
 			// do field validation
 			if (form.catid.value == "0") {
 				alert( "<?php echo JText::_('You must provide a gallery name.'); ?>" );
@@ -758,7 +762,6 @@ class myGalleries {
 				alert( "<?php echo JText::_('You must provide a description.'); ?>" );
 			}
 			else{
-				<?php echo $editor->save('description') ; ?>
 				submitform( pressbutton );
 			}
         }
@@ -798,7 +801,7 @@ class myGalleries {
             <tr>
                 <td align="left" valign="top"><?PHP echo JText::_('Description'); ?></td>
                 <td align="left" colspan="2">
-				<?php echo $editor->display( 'description',  $description , '100%', '200', '10', '20',false ) ; ?>
+				<?php echo $editor->display( 'descr',  $description , '100%', '200', '10', '20',false ) ; ?>
                 </td>
             </tr>
             <tr>
@@ -825,6 +828,8 @@ function editCat($rows = null) {
                 history.back();
                 return;
             }
+
+         <?php echo $editor->save( 'description' ) ; ?>
         
         // do field validation
         if (form.catname1.value == "") {
@@ -834,7 +839,6 @@ function editCat($rows = null) {
             alert( "<?php echo JText::_('You must provide a description.'); ?>" );
         }
         else{
-            <?php echo $editor->save( 'description' ) ; ?>
             form.submit();
         }
         }
@@ -872,8 +876,8 @@ function editCat($rows = null) {
 
             <td align="right">
                 <div style="float: right;">
-                    <img onClick="form2.submit();" src="<?php echo JURI_SITE; ?>/administrator/images/save.png" alt="<?php echo JText::_('Upload') ?>"  name="upload" onMouseOver="document.upload.src='<?php echo JURI_SITE; ?>/administrator/images/save_f2.png';" onMouseOut="document.upload.src='<?php echo JURI_SITE; ?>/administrator/images/save.png';" />&nbsp;&nbsp;
-                    <img onClick="history.back();" src="<?php echo JURI_SITE; ?>/administrator/images/cancel.png" alt="<?php echo JText::_('Cancel'); ?>"  name="cancel" onMouseOver="document.cancel.src='<?php echo JURI_SITE; ?>/administrator/images/cancel_f2.png';" onMouseOut="document.cancel.src='<?php echo JURI_SITE; ?>/administrator/images/cancel.png';" />
+                    <img onClick="submitbutton('save');" src="<?php echo JURI_SITE; ?>/administrator/images/save.png" alt="<?php echo JText::_('Upload') ?>"  name="upload" onMouseOver="document.upload.src='<?php echo JURI_SITE; ?>/administrator/images/save_f2.png';" onMouseOut="document.upload.src='<?php echo JURI_SITE; ?>/administrator/images/save.png';" />&nbsp;&nbsp;
+                    <img onClick="submitbutton('cancel')" src="<?php echo JURI_SITE; ?>/administrator/images/cancel.png" alt="<?php echo JText::_('Cancel'); ?>"  name="cancel" onMouseOver="document.cancel.src='<?php echo JURI_SITE; ?>/administrator/images/cancel_f2.png';" onMouseOut="document.cancel.src='<?php echo JURI_SITE; ?>/administrator/images/cancel.png';" />
                 </div>
             </td>
 

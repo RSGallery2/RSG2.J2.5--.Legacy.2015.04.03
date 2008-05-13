@@ -253,7 +253,7 @@ class HTML_RSGALLERY{
                     HTML_RSGALLERY::quickiconButton( $link, 'dbrestore.png', JText::_('Consolidate database') );
     				*/
     				$link = 'index2.php?option=com_rsgallery2&rsgOption=maintenance';
-					HTML_RSGALLERY::quickiconButton( $link, 'maintenance.png', '** Maintenance **');
+					HTML_RSGALLERY::quickiconButton( $link, 'maintenance.png', JText::_('** Maintenance **'));
     				
                     $link = 'index2.php?option=com_rsgallery2&task=install&opt=migration';
                     HTML_RSGALLERY::quickiconButton( $link, 'dbrestore.png', JText::_('Migration options') );

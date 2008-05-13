@@ -20,7 +20,7 @@ $task = rsgInstance::getVar( 'task', null);
 switch ($task) {
 	/* Regenerate thumbs calls */
 	case 'regenerateThumbs':
-		HTML_RSGALLERY::RSGalleryHeader('cpanel', _RSGALLERY_MAINT_REGEN);
+		HTML_RSGALLERY::RSGalleryHeader('cpanel', JText::_('MAINT_REGEN'));
 		regenerateImages();
 		HTML_RSGALLERY::RSGalleryFooter();
 		break;
@@ -61,7 +61,7 @@ switch ($task) {
 		test();
 		break;
 	default:
-		HTML_RSGALLERY::RSGalleryHeader('cpanel', _RSGALLERY_MAINT_HEADER);
+		HTML_RSGALLERY::RSGalleryHeader('cpanel', JText::_('MAINT_HEADER'));
 		showMaintenanceCP( $option );
 		HTML_RSGALLERY::RSGalleryFooter();
 		break;
@@ -167,9 +167,9 @@ function executeRegenerateImages() {
     	}
     }
     if ($error > 0) {
-    	$msg = _RSGALLERY_MAINT_REGEN_ERRORS;
+    	$msg = JText::_('_RSGALLERY_MAINT_REGEN_ERRORS');
     } else {
-    	$msg = _RSGALLERY_MAINT_REGEN_NO_ERRORS;
+		$msg = JText::_('_RSGALLERY_MAINT_REGEN_NO_ERRORS');
     }
     mosRedirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=regenerateThumbs", $msg);
 }
@@ -200,7 +200,7 @@ function createImages() {
 	
 	//If only thumb exists, no generation possible so redirect.
 	if (!file_exists($original) AND !file_exists($display) AND file_exists($thumb) ) {
-		$mainframe->redirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB", _RSGALLERY_MAINT_REGEN_ONLY_THUMB);
+		$mainframe->redirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB", JText::_('_RSGALLERY_MAINT_REGEN_ONLY_THUMB'));
 		return;
 	}
 	//Go make images
@@ -316,6 +316,6 @@ function optimizeDB() {
 		$database->setQuery("OPTIMIZE $table");
 		$database->query();
 	}
-	$mainframe->redirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance",_RSGALLERY_MAINT_OPTIMIZE_SUCCESS);
+	$mainframe->redirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance",JText::_('_RSGALLERY_MAINT_OPTIMIZE_SUCCESS'));
 }
 ?>
