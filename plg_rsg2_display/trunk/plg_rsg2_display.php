@@ -3,7 +3,7 @@
  * @version		$Id$
  * @package		RSGallery2
  * @subpackage	Content
- * @copyright	Copyright (C) 2007 Ground Level Solutions. All rights reserved.
+ * @copyright	Copyright (C) 2008 RSGallery2
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -13,20 +13,24 @@
  */
 
 // Check to ensure this file is included in Joomla!
-defined( '_JEXEC' ) or die();
+defined( '_JEXEC' ) or die('Restricted');
 
 $mainframe->registerEvent( 'onPrepareContent', 'plg_rsg2_display' );
 
 function plg_rsg2_display( &$row, &$params, $page=0 ) {
-  $plugin =& JPluginHelper::getPlugin('content', 'plg_rsg2_display');
- 
-  // define the regular expression for the bot
-  $regex = "#{rsg2_display\:*(.*?)}#s";
- 
-  // perform the replacement
-  $row->text = preg_replace_callback( $regex, 'plg_rsg2_display_replacer', $row->text );
- 
-  return true;
+	$text = null;
+	if (is_object($row))
+		$text &= $row->text;
+	else
+		$text &= $text;
+
+	// define the regular expression for the bot
+	$regex = "#{rsg2_display\:*(.*?)}#s";
+
+	// perform the replacement
+	$text = preg_replace_callback( $regex, 'plg_rsg2_display_replacer', $text );
+
+	return true;
 }
 
 function plg_rsg2_display_replacer ( $matches ) {
@@ -39,8 +43,7 @@ function plg_rsg2_display_replacer ( $matches ) {
 		return trim( $attrib );
 	}
 	
-	global $mosConfig_absolute_path;
-	require_once( $mosConfig_absolute_path.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
+	require_once( JPATH_ROOT.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
 	
 	$attribs = explode(",",$matches[1]);
 	
