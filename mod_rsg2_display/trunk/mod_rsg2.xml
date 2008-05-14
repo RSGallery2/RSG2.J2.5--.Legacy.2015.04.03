@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="module" version="1.5.0">
+	<name>RSGallery2 Display</name>
+	<author>Jonah</author>
+	<creationDate>2008</creationDate>
+	<copyright>Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
+	<authorEmail>info@whalehosting.ca</authorEmail>
+	<authorUrl>WhaleHosting.ca</authorUrl>
+	<version>.5</version>
+	<description>This displays a gallery using a template from RSGallery2.</description>
+	<files>
+		<filename module="mod_rsg2">mod_rsg2.php</filename>
+	</files>
+	<params>
+		<param name="rsgTemplate" type="text" default="" label="Template Name" description="The technical name of the template.  No spaces or caps." />
+		<param name="gid" type="text" default="" size="5" label="Gallery ID" description="The gallery ID can be found in the Gallery Manager ID column." />
+	</params>
+</install>
