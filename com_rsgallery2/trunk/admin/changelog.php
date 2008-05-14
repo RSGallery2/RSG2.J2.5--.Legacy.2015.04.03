@@ -42,7 +42,7 @@ Legend:
  ! the old language files have been converted by a script.
 
 
-2008-03-17
+2008-03-17 Jonah Braun
  + Clean port of J1.5.1 com_installer to be the new template installer. 
  * Allow public users to comment switch now works. 
  + Added cleanStart option to slideshowone
