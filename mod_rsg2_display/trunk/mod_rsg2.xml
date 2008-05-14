@@ -7,10 +7,10 @@
 	<license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<authorEmail>info@whalehosting.ca</authorEmail>
 	<authorUrl>WhaleHosting.ca</authorUrl>
-	<version>.5</version>
+	<version>.7</version>
 	<description>This displays a gallery using a template from RSGallery2.</description>
 	<files>
-		<filename module="mod_rsg2_display">mod_rsg2.php</filename>
+		<filename module="mod_rsg2_display">mod_rsg2_display.php</filename>
 	</files>
 	<params>
 		<param name="rsgTemplate" type="text" default="" label="Template Name" description="The technical name of the template.  No spaces or caps." />
