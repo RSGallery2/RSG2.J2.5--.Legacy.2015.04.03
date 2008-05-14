@@ -16,18 +16,21 @@ defined('_JEXEC') or die('Restricted access');
 
 require_once( JPATH_ROOT.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
 
-
 $newInstance = array(
 	'rsgTemplate' => $params->get( 'rsgTemplate' ),
 	'gid' => $params->get( 'gid' )
 	);
 
-/*
- * support xtra params in the future:
-foreach( $attribs as $a ){
-	$attrib = explode('=',$a);
-	$newInstance[ plg_rsg2_display_replacer_clean_data( $attrib[0] )] = plg_rsg2_display_replacer_clean_data( $attrib[1] );
-}
-*/
+// get extra params
+for( $i=0; $i<5; $i++ ){
+	$p = $params->get( "extra$i" );
 
+	if( ! $p )
+		continue;
+
+	$p = explode( '=', $p );
+	$newInstance[ trim($p[0]) ] = trim($p[1]);
+}
+
+// execute (display) the rsg2 instance
 rsgInstance::instance( $newInstance );

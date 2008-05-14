@@ -7,13 +7,21 @@
 	<license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<authorEmail>info@whalehosting.ca</authorEmail>
 	<authorUrl>WhaleHosting.ca</authorUrl>
-	<version>.7</version>
+	<version>1.0</version>
 	<description>This displays a gallery using a template from RSGallery2.</description>
 	<files>
 		<filename module="mod_rsg2_display">mod_rsg2_display.php</filename>
 	</files>
 	<params>
-		<param name="rsgTemplate" type="text" default="" label="Template Name" description="The technical name of the template.  No spaces or caps." />
+		<param name="rsgTemplate" type="folderlist" directory="/components/com_rsgallery2/templates" filter="" hide_default="1" default="" label="Template" description="This template is used to display the gallery." />
 		<param name="gid" type="text" default="" size="5" label="Gallery ID" description="The gallery ID can be found in the Gallery Manager ID column." />
+	
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+
+		<param name="extra0" type="text" default="" label="Extra Parameter" description="Extra parameters should be in the format name = value." />
+		<param name="extra1" type="text" default="" label="Extra Parameter" description="Extra parameters should be in the format name = value." />
+		<param name="extra2" type="text" default="" label="Extra Parameter" description="Extra parameters should be in the format name = value." />
+		<param name="extra3" type="text" default="" label="Extra Parameter" description="Extra parameters should be in the format name = value." />
+		<param name="extra4" type="text" default="" label="Extra Parameter" description="Extra parameters should be in the format name = value." />
 	</params>
 </install>
