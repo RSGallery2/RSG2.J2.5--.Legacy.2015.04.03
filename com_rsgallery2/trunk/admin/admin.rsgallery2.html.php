@@ -130,12 +130,9 @@ class HTML_RSGALLERY{
 <div id='rsg2-credits'>
     <h3>Core Team</h3>
     <dl>
-        <dt>Architect</dt>
+        <dt>Project Architect</dt>
         	<dd><b>Jonah Braun</b> <a href='http://whalehosting.ca/' target='_blank'>Whale Hosting Inc.</a></dd>
-        <dt>Lead Developer</dt>
-        	<dd><b>Ronald Smit</b> <a href='http://www.rsdev.nl/' target='_blank'>RSDevelopment</a></dd>
         <dt>Developers</dt>
-        	<dd><b>Dani&#235;l Tulp</b> <a href='http://design.danieltulp.nl/' target='_blank'>DT^2</a></dd>
         	<dd><b>John Caprez</b></dd>
         <dt>Community Liaison</dt>
         	<dd><b>Dani&#235;l Tulp</b> <a href='http://design.danieltulp.nl/' target='_blank'>DT^2</a></dd>

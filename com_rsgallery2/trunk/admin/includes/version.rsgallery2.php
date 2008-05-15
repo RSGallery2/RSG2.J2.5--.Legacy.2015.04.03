@@ -19,23 +19,23 @@ class rsgalleryVersion {
     /** @var string Product */
     var $PRODUCT    = 'RSGallery2';
     /** @var int Main Release Level */
-    var $RELEASE    = '1.14';
+    var $RELEASE    = '1.16';
     /** @var string Development Status */
     var $DEV_STATUS = 'Alpha';
     /** @var int Sub Release Level */
-    var $DEV_LEVEL  = '1';
+    var $DEV_LEVEL  = '0';
     /** @var int build Number */
     var $BUILD      = 'SVN $GlobalRev$';
     /** @var string Codename */
     var $CODENAME   = '';
     /** @var string Date */
-    var $RELDATE    = '11 june 2007';
+    var $RELDATE    = '1 June 2008';
     /** @var string Time */
-    var $RELTIME    = '19:45';
+    var $RELTIME    = '16:20';
     /** @var string Timezone */
-    var $RELTZ      = 'GMT';
+    var $RELTZ      = 'UTC';
     /** @var string Copyright Text */
-    var $COPYRIGHT  = '&copy; 2005 - 2007 <strong><a class="rsg2-footer" href="http://rsgallery2.net">RSGallery2</a></strong>. All rights reserved.';
+    var $COPYRIGHT  = '&copy; 2005 - 2008 <strong><a class="rsg2-footer" href="http://rsgallery2.net">RSGallery2</a></strong>. All rights reserved.';
     /** @var string URL */
     var $URL        = '<strong><a class="rsg2-footer" href="http://rsgallery2.net">RSGallery2</a></strong>';
     /** @var string Whether site is a production = 1 or demo site = 0: 1 is default */
