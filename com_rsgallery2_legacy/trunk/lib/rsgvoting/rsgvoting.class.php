@@ -18,8 +18,10 @@ class rsgVoting {
     function showVoting( $option = "com_rsgallery2") {
     	global $rsgConfig;
     	if ($rsgConfig->get('voting')) {
-	    	$id 		= rsgInstance::getInt( 'id'  , '');
-	    	
+			
+			$item = rsgInstance::getItem();
+			$id = $item->id;
+			    	
 			?>
 			<script  type="text/javascript">
 			function saveVote(id, value) {
@@ -88,7 +90,9 @@ class rsgVoting {
 	}
 	
 	function showScore() {
-	    	$id 		= rsgInstance::getInt( 'id'  , '');
+
+		$item = rsgInstance::getItem();
+		$id = $item->id;
 		?>		
 	    	<table border="0" width="200">
 	    	<tr>
@@ -105,6 +109,10 @@ class rsgVoting {
 	 */
 	function alreadyVoted( $id ) {
 		global $rsgConfig;
+		
+		if($rsgConfig->get('voting_once') == 0)
+			return false;
+			
 		//Check if cookie rsgvoting was set for this image!
 		$cookie_name = $rsgConfig->get('cookie_prefix').$id;
 		if (isset($_COOKIE[$cookie_name])) {
