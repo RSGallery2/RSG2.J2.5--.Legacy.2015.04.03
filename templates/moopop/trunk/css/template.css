@@ -1,0 +1,28 @@
+.rsg2-moopop{
+	margin: auto;
+}
+
+.rsg2-moopop-thumb{
+	margin: 0 2px;
+}
+
+.moopop-tip {
+	color: #fff;
+	z-index: 13000;
+	width: 416px;
+}
+ 
+.moopop-title {
+	font-weight: bold;
+	font-size: 11px;
+	margin: 0;
+	color: #fff;
+	padding: 8px 8px 4px;
+	background: url(/images/bubble.large.png) top left;
+}
+ 
+.moopop-text {
+	font-size: 11px;
+	padding: 4px 8px 8px;
+	background: url(/images/bubble.large.png) bottom right;
+}
