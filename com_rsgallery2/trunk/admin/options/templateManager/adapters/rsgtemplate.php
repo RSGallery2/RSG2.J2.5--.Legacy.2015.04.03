@@ -65,7 +65,7 @@ class JInstaller_rsgTemplate extends JObject
 		} else {
 			// No client attribute was found so we assume the site as the client
 			$cname = 'site';
-			$basePath = RSG2_PATH_SITE;
+			$basePath = JPATH_RSGALLERY2_SITE;
 			$clientId = 0;
 		}
 

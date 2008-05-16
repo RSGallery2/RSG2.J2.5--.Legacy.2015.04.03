@@ -32,6 +32,9 @@ Legend:
 
 ---------------- Recent ----------------
 
+2008-05-16 Jonah Braun
+ # fixed path naming in template installer
+
 2008-04-11 John Caprez 
  + added template manager to the new template installer
  # fixed voting lockup and configuration
