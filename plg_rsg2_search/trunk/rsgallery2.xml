@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="search">
+	<name>Search - RSGallery2</name>
+	<author>John Caprez</author>
+	<creationDate>May 2008</creationDate>
+	<copyright>Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>john@porelaire.com</authorEmail>
+	<authorUrl>www.swizzysoft.com</authorUrl>
+	<version>0.1</version>
+	<description>
+  <![CDATA[
+    Allows Searching of RSGallery2 Component<br>
+    Showing thumbnails in the result only works with modifications to the J1.5 core.<br>
+See the rsgallery2.php plugin file for further details.
+]]>
+  </description>
+	<files>
+		<filename plugin="rsgallery2">rsgallery2.php</filename>
+	</files>
+<admin>
+  <languages>
+    <language tag="en-US">en-US.plg_search_rsgallery2.ini</language>
+  </languages>
+</admin>
+  <languages>
+    <language tag="en-US">en-US.plg_search_rsgallery2.ini</language>
+  </languages>
+	<params>
+		<param name="search_limit" type="text" size="5" default="50" label="Search Limit" description="Number of Search items to return"/>
+    <param name="show_image" type="radio" default="yes" label="Show thumbnail" description="Show thumbnail in search result.">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </param>
+    </params>
+</install>
