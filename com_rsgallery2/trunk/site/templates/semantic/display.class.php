@@ -283,7 +283,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 						//Normal popup
 						case 1:
 							if ($rsgConfig->get('watermark')) {
-								?><a href="<?php echo waterMarker::showMarkedImage( $item->name, 'original' ); ?>" target="_blank"><?php
+								?><a href="<?php echo waterMarker::showMarkedImage( $item->name ); ?>" target="_blank"><?php
 							} else {
 								?><a href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>" target="_blank"><?php
 							}
@@ -295,7 +295,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 						//Lightbox++ popup
 						case 2:
 							if ($rsgConfig->get('watermark')) {
-								?><a rel="lightbox" title="<?php echo $item->title."<p>".$item->descr."</p>";?>" href="<?php echo waterMarker::showMarkedImage( $item->name, 'original' ); ?>"><?php
+								?><a rel="lightbox" title="<?php echo $item->title."<p>".$item->descr."</p>";?>" href="<?php echo waterMarker::showMarkedImage( $item->name ); ?>"><?php
 							} else {
 								?><a rel="lightbox" title="<?php echo $item->title."<p>".$item->descr."</p>";?>" href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>"><?php
 							}
