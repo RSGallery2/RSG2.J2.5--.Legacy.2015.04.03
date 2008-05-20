@@ -106,16 +106,6 @@ switch ( rsgInstance::getVar('task', null) ){
         HTML_RSGallery::showCP();
         HTML_RSGallery::RSGalleryFooter();
         break;
-/**    case "migration":
-        HTML_RSGallery::RSGalleryHeader('dbrestore', 'Migration options');
-        showMigration();
-        HTML_RSGallery::RSGalleryFooter();
-        break;*/
-    case "install":
-        //HTML_RSGallery::RSGalleryHeader('install', JText::_('Install and Migrate'));
-        RSInstall();
-        HTML_RSGallery::RSGalleryFooter();
-        break;
 }
 
 // only use the legacy task switch if rsgOption is not used.
