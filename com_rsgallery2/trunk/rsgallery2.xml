@@ -54,7 +54,7 @@
     <language tag="hu-HU">hu-HU.com_rsgallery2.ini</language>
     <language tag="pt-BR">pt-BR.com_rsgallery2.ini</language>
     <language tag="nl-NL">nl-NL.com_rsgallery2.ini</language>
-    
+    <language tag="nb-NO">nb-NO.com_rsgallery2.ini</language>
   </languages>
 
   <administration>
@@ -117,6 +117,7 @@
       <language tag="hu-HU">hu-HU.com_rsgallery2.ini</language>
       <language tag="pt-BR">pt-BR.com_rsgallery2.ini</language>
       <language tag="nl-NL">nl-NL.com_rsgallery2.ini</language>
+      <language tag="nb-NO">nb-NO.com_rsgallery2.ini</language>
     </languages>
 
   </administration>
