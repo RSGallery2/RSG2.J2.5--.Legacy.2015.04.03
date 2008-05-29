@@ -388,7 +388,7 @@ function showComments( $item_id ) {
 				<td colspan="2" class="title"><span class='posttitle'><?php echo $comment['subject'];?></span></td>
 			</tr>
 			<tr>
-				<td valign="top" width="100"><span class="postusername"><?php echo galleryUtils::genericGetUsername( $comment['user_id'] );?></span></td>
+                <td valign="top" width="100"><span class="postusername"><?php echo $comment['user_name'] ;?></span></td></td>
 				<td valign="top" class="content_area">
 				<?php echo JHTML::_("date",$comment['datetime']);?>
 				<hr />
