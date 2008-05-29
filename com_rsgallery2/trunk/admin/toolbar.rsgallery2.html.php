@@ -14,7 +14,7 @@ class menu_rsg2_maintenance{
 	
 	function regenerateThumbs() {
 
-		JToolBarHelper::custom('executeRegenerateImages','next_f2.png','next_f2.png','** Regenerate **', false);
+		JToolBarHelper::custom('executeRegenerateImages','next_f2.png','next_f2.png',JText::_('MAINT_REGEN_BUTTON'), false);
         JToolBarHelper::spacer();
         JToolBarHelper::help( 'screen.rsgallery2' );
 		
@@ -25,7 +25,7 @@ class menu_rsg2_maintenance{
 
 class menu_rsg2_images{
     function upload() {
-    	JToolBarHelper::title( '** Upload **', 'generic.png' );
+		JToolBarHelper::title( JText::_('Upload'), 'generic.png' );
         JToolBarHelper::spacer();
         JToolBarHelper::custom('save_upload','upload.png','upload.png',JText::_('Upload'), false);
         JToolBarHelper::spacer();
@@ -35,7 +35,7 @@ class menu_rsg2_images{
         
     }
     function show(){
-        JToolBarHelper::title( '** Manage Items **', 'generic.png' );
+        JToolBarHelper::title( JText::_('Manage Items'), 'generic.png' );
         JToolBarHelper::custom('move_images','forward.png','forward.png',JText::_('Move To'), true);
         JToolBarHelper::spacer();
         JToolBarHelper::custom('copy_images','copy.png','copy.png',JText::_('Copy'), true);
@@ -86,7 +86,7 @@ class menu_rsg2_images{
 
 class menu_rsg2_galleries{
     function show(){
-        JToolBarHelper::title( '** Manage Galleries **', 'generic.png' );
+		JToolBarHelper::title( JText::_('Manage Galleries'), 'generic.png' );
         JToolBarHelper::spacer();
         JToolBarHelper::publishList();
         JToolBarHelper::spacer();
@@ -169,7 +169,7 @@ class menuRSGallery {
     
     function image_batchUpload()
         {
-        JToolBarHelper::title( '** Batch Upload **', 'generic.png' );
+		JToolBarHelper::title( JText::_('Batch Upload'), 'generic.png' );
         if( rsgInstance::getVar('uploaded'  , null) )
         	JToolBarHelper::custom('save_batchupload','upload.png','upload.png',JText::_('Upload'), false);
 		else
@@ -184,7 +184,7 @@ class menuRSGallery {
     
     function image_upload()
         {
-        JToolBarHelper::title( '** Upload **', 'generic.png' );
+		JToolBarHelper::title( JText::_('Upload'), 'generic.png' );
         JToolBarHelper::custom('upload','upload_f2.png','upload_f2.png',JText::_('Upload'), false);
         //JToolBarHelper::save('upload');
 		JToolBarHelper::custom('upload','forward.png','forward.png',JText::_('Next'), false);
@@ -254,7 +254,7 @@ class menuRSGallery {
 } 
 class menu_rsg2_jumploader {
 	function show() {
-	JToolBarHelper::title( '** Java Uploader **', 'generic.png' );
+		JToolBarHelper::title( JText::_('Java Uploader'), 'generic.png' );
     JToolBarHelper::apply('');
     JToolBarHelper::save('');
     JToolBarHelper::cancel();
@@ -262,7 +262,7 @@ class menu_rsg2_jumploader {
 	}
 	
 	function simple() {
-		JToolBarHelper::title( '** Java Uploader **', 'generic.png' );
+		JToolBarHelper::title( JText::_('Java Uploader'), 'generic.png' );
 		JToolBarHelper::help('screen.rsgallery2');
 	}
 }

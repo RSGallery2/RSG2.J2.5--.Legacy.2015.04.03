@@ -236,7 +236,7 @@ class HTML_RSGALLERY{
                 HTML_RSGALLERY::quickiconButton( $link, 'upload_zip.png', JText::_('Batch upload') );
                 
                 $link = 'index2.php?option=com_rsgallery2&rsgOption=jumploader';
-                HTML_RSGALLERY::quickiconButton( $link, 'upload_zip.png', '** Java uploader **' );
+                HTML_RSGALLERY::quickiconButton( $link, 'upload_zip.png', JText::_('Java uploader') );
                 
                 $link = 'index2.php?option=com_rsgallery2&rsgOption=images&task=view_images';
                 HTML_RSGALLERY::quickiconButton( $link, 'mediamanager.png', JText::_('Manage Items') );
@@ -250,14 +250,14 @@ class HTML_RSGALLERY{
                     HTML_RSGALLERY::quickiconButton( $link, 'dbrestore.png', JText::_('Consolidate database') );
     				*/
     				$link = 'index2.php?option=com_rsgallery2&rsgOption=maintenance';
-					HTML_RSGALLERY::quickiconButton( $link, 'maintenance.png', JText::_('** Maintenance **'));
+					HTML_RSGALLERY::quickiconButton( $link, 'maintenance.png', JText::_('Maintenance'));
     				
                     $link = 'index2.php?option=com_rsgallery2&rsgOption=maintenance&task=showMigration';
                     HTML_RSGALLERY::quickiconButton( $link, 'dbrestore.png', JText::_('Migration options') );
                 endif;
 
 				$link = 'index2.php?option=com_rsgallery2&rsgOption=installer';
-				HTML_RSGALLERY::quickiconButton( $link, 'template.png', 'Template Manager');
+				HTML_RSGALLERY::quickiconButton( $link, 'template.png', JText::_('Template Manager'));
 			
                 // if debug is on, display advanced options
                 if( $rsgConfig->get( 'debug' )): ?>
