@@ -184,7 +184,7 @@ class rsgDisplay extends JObject{
 		$isImage = rsgInstance::getInt( 'id', 0 );
 		$isImage = rsgInstance::getInt( 'limit', $isImage );
 		if ($isImage) {
-			$mainframe->appendPathWay( $item->title );
+			$pathway->addItem( $item->title );
 		}
 		
 		
