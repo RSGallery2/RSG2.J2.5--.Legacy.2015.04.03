@@ -72,12 +72,10 @@ function saveComment( $option ) {
 			//Check how many comments the user already made on this item
 			$sql = "SELECT COUNT(1) FROM #__rsgallery2_comments WHERE user_id = '$user_id'";
 			$database->setQuery( $sql );
-			$result = loadResult();
+			$result = $database->loadResult();
 			if ($result > 0 ) {
 				//No further comments allowed, redirect
 				$mainframe->redirect($redirect_url, JText::_('User can only comment once'));
-			} else {
-				continue;
 			}
 		}
 	} else {

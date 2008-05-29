@@ -353,7 +353,7 @@ function showComments( $item_id ) {
 	<script type="text/javascript">
 	//<![CDATA[
 	function delComment(id, item_id, catid) {
-		var delCom = confirm('<?php echo JText::_('Delete Comment')?>(' + id + ');
+		var delCom = confirm('<?php echo JText::_('Delete Comment')?>' + id );
 		
 		if (delCom) {
 			window.location = "<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=rsgComments&task=delete", false); ?>&id="+id+"&item_id="+item_id+"&catid="+catid;
@@ -372,7 +372,7 @@ function showComments( $item_id ) {
 		<table width="100%" class="comment_table">
 			<tr>
 				<td class="title" width="25%"><?php echo JText::_('Comments')?></td>
-				<td class="title" width="50%"><?php echo JText::_('# comments added')?></td>
+				<td class="title" width="50%"><?php echo JText::_(' comments added')?></td>
 				<td class="title"><div class="addcomment"><a class="special" href="#comment2"><?php echo JText::_('Add Comment');?></a></div></td>
 			</tr>
 		</table>
@@ -394,7 +394,7 @@ function showComments( $item_id ) {
 				<hr />
 				<?php echo rsgComments::parse( $comment['comment'] );?>
 				<?php if ( $deleteComment ): ?>
-					<div style="float:right;"><a href="javascript:void(0);" onclick="delComment(<?php echo $comment['id'];?>, <?php echo $comment['item_id'];?>, <?php echo $catid;?>);"><?php echo JText::_('Delete Comment')?></a></div>
+					<div style="float:right;"><a href="javascript:void(0);" onclick="javascript:delComment(<?php echo $comment['id'];?>, <?php echo $comment['item_id'];?>, <?php echo $catid;?>);"><?php echo JText::_('Delete Comment')?></a></div>
 				<?php endif; ?>
 				</td>
 			</tr>
