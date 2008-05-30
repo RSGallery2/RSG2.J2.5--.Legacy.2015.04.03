@@ -35,7 +35,7 @@ function test( $option ) {
 	$id	= rsgInstance::getInt('id'  , '');
 	$item_id 	= rsgInstance::getInt('item_id'  , '');
 	$catid 		= rsgInstance::getInt('catid'  , '');
-	$redirect_url = "index.php?option=".$option."&page=inline&id=".$item_id."&catid=".$catid;
+	$redirect_url = JRoute::_("index.php?option=".$option."&page=inline&id=".$item_id."&catid=".$catid);
 	echo "Here we will delete comment number ".$id."\\n and redirect to ".$redirect_url;
 }
 
@@ -58,7 +58,7 @@ function saveComment( $option ) {
 	$item_id 	= rsgInstance::getInt( 'item_id'  , '');
 	$catid 		= rsgInstance::getInt( 'catid'  , '');
 	//Check if commenting is enabled
-	$redirect_url = "index.php?option=".$option."&page=inline&id=".$item_id;
+	$redirect_url = JRoute::_("index.php?option=".$option."&page=inline&id=".$item_id);
 	if ($rsgConfig->get('comment') == 0) {
 		$mainframe->redirect($redirect_url, JText::_('Commenting is disabled') );
 		exit();
@@ -70,7 +70,7 @@ function saveComment( $option ) {
 		//Check if only one comment is allowed
 		if ($rsgConfig->get('comment_once') == 1) {
 			//Check how many comments the user already made on this item
-			$sql = "SELECT COUNT(1) FROM #__rsgallery2_comments WHERE user_id = '$user_id'";
+			$sql = "SELECT COUNT(1) FROM #__rsgallery2_comments WHERE user_id = '$user_id' AND item_id='$item_id'";
 			$database->setQuery( $sql );
 			$result = $database->loadResult();
 			if ($result > 0 ) {
@@ -160,5 +160,5 @@ function deleteComments( $option ) {
 			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 		}
 	}
-	$mainframe->redirect("index.php?option=".$option."&page=inline&id=".$item_id."&catid=".$catid, JText::_('Comment deleted succesfully') );
+	$mainframe->redirect(JRoute::_("index.php?option=".$option."&page=inline&id=".$item_id."&catid=".$catid), JText::_('Comment deleted succesfully') );
 }

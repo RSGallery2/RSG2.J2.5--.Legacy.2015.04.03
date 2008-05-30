@@ -20,6 +20,7 @@ require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'mygalleries' . DS . 'my
 
 //Get parameters from URL and/or form
 $cid	= rsgInstance::getInt('cid', array(0) );
+$cid	= rsgInstance::getInt('gid', $cid );
 $task   = rsgInstance::getVar('task', '' );
 $id		= rsgInstance::getInt('id','' );
 
@@ -38,10 +39,10 @@ switch( $task ){
     	saveItem();
     	break;
     case 'newCat':
-    	editCat();
+    	editCat(null);
     	break;
     case 'editCat':
-    	editCat();  		
+    	editCat($cid);  		
     	break;
     case 'saveCat':
     	saveCat();
@@ -87,7 +88,7 @@ function showMyGalleries() {
 		myGalleries::viewMyGalleriesPage($rows, $images, $pageNav);
 	} else {
 		//Not logged in, back to main page
-		$mainframe->redirect("index.php?option=com_rsgallery2",JText::_('User galleries are disabled by administrator') );
+		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2"), JText::_('User galleries are disabled by administrator') );
 	}	
 }
 
@@ -107,13 +108,13 @@ function deleteItem() {
 		if ($rsgAccess->checkGallery('del_img', $gallery_id )) {
 			$filename 	= galleryUtils::getFileNameFromId($id);
 			imgUtils::deleteImage($filename);
-			$mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=myGalleries", JText::_('Image is deleted') );
+			$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries"), JText::_('Image is deleted') );
 		} else {
-			$mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=myGalleries", JText::_('USERIMAGE_NOTOWNER') );
+			$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries"), JText::_('USERIMAGE_NOTOWNER') );
 		}
 	} else {
 		//No ID sent, no delete possible, back to my galleries
-		$mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=myGalleries", JText::_('No Id provided. Contact component developer') );
+		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries"), JText::_('No Id provided. Contact component developer') );
 	}
 }
 
@@ -142,7 +143,7 @@ function saveItem() {
 			"WHERE id= '$id'");
 
 	if ($database->query()) {
-		$mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=myGalleries", JText::_('Details saved succesfully') );
+		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries"), JText::_('Details saved succesfully') );
 	} else {
 		echo JText::_('Error: ').mysql_error();
 	}
@@ -152,7 +153,7 @@ function saveUploadedItem() {
 	global $rsgConfig, $rsgAccess, $mainframe;
 	$database = JFactory::getDBO();
 	//Set redirect URL
-	$redirect = "index.php?option=com_rsgallery2&rsgOption=myGalleries&";
+	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries");
 	
 	//Get category ID to check rights
 	$i_cat = rsgInstance::getVar( 'i_cat'  , '');
@@ -239,12 +240,10 @@ function saveUploadedItem() {
 	}
 }
 
-function editCat() {
+function editCat($catid) {
 	global $rsgConfig;
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
-	
-	$catid = rsgInstance::getInt( 'catid'  , null);
 	
 	if ($catid) {
 		//Edit category
@@ -255,7 +254,7 @@ function editCat() {
 		//Check if maximum number of usercats are already made
 		$count = galleryUtils::userCategoryTotal($my->id);
 		if ($count >= $rsgConfig->get('uu_maxCat') ) {
-			$mainframe->redirect("index.php?option=com_rsgallery2&page=my_galleries", JText::_('MAX_USERCAT_ALERT') );
+			$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&page=my_galleries"), JText::_('MAX_USERCAT_ALERT') );
 		} else {
 			//New category
 			myGalleries::editCat();
@@ -272,7 +271,7 @@ function saveCat() {
 	if (!$rsgConfig->get('uu_createCat')) die ("User category creation is disabled by administrator.");
 	
 	//Set redirect URL
-	$redirect = "index.php?option=com_rsgallery2&rsgOption=myGalleries&";
+	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries");
 	
 	$parent 		= rsgInstance::getVar( 'parent'  , 0);
 	$id 			= rsgInstance::getInt( 'catid'  , null);
@@ -344,7 +343,7 @@ function deleteCat() {
 	$catid = rsgInstance::getInt( 'catid'  , null);
 	
 	//Set redirect URL
-	$redirect = "index.php?option=com_rsgallery2&rsgOption=myGalleries";
+	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries");
 	
 	//Get category details
 	$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE id = '$catid'");

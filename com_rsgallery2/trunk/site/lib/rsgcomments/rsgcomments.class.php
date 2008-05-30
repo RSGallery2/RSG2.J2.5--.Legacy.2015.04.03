@@ -353,10 +353,10 @@ function showComments( $item_id ) {
 	<script type="text/javascript">
 	//<![CDATA[
 	function delComment(id, item_id, catid) {
-		var delCom = confirm('<?php echo JText::_('Delete Comment')?>' + id );
+		var delCom = confirm('<?php echo JText::_("Delete Comment")?>' + id );
 		
 		if (delCom) {
-			window.location = "<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=rsgComments&task=delete", false); ?>&id="+id+"&item_id="+item_id+"&catid="+catid;
+			window.location = '<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=rsgComments&task=delete", false); ?>&id='+id+'&item_id='+item_id+'&catid='+catid;
 		}
 	}
 	//]]>

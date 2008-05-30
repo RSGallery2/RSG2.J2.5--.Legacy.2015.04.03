@@ -41,19 +41,19 @@ function saveVote( $option ) {
 	$my = JFactory::getUser();
 	
 	if ( $rsgConfig->get('voting') < 1 ) {
-		$mainframe->redirect("index.php?option=com_rsgallery2", JText::_('Voting is disabled!'));
+		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2"), JText::_('Voting is disabled!'));
 	} else {
 		$rating 	= rsgInstance::getInt('rating', '');
 		$id 		= rsgInstance::getInt('id', '');
 		$vote 		= new rsgVoting();
 		//Check if user can vote
 		if (!$vote->voteAllowed() ) {
-			$mainframe->redirect("index.php?option=com_rsgallery2&page=inline&id=$id", JText::_('You are not authorized to vote!'));
+			$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&page=inline&id=$id"), JText::_('You are not authorized to vote!'));
 		}
 		
 		//Check if user has already voted for this image
 		if ($vote->alreadyVoted($id)) {
-		 	$mainframe->redirect("index.php?option=com_rsgallery2&page=inline&id=$id",JText::_('You already voted for this item!'));
+		 	$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&page=inline&id=$id"), JText::_('You already voted for this item!'));
 		}
 		
 		//All checks OK, store vote in DB
@@ -69,7 +69,7 @@ function saveVote( $option ) {
 			//Store cookie on system
 			setcookie($rsgConfig->get('cookie_prefix').$id, $my->id, time()+60*60*24*365, "/");
 		}
-		$mainframe->redirect("index.php?option=com_rsgallery2&page=inline&id=$id", $msg);
+		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&page=inline&id=$id"), $msg);
 	}
 }
 ?>
