@@ -29,10 +29,10 @@ require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'config.class.php')
 $rsgConfig = new rsgConfig();
 
 //Set image paths for RSGallery2
-define('JPATH_ORIGINAL', JPATH_ROOT.$rsgConfig->get('imgPath_original') );
-define('JPATH_DISPLAY', JPATH_ROOT.$rsgConfig->get('imgPath_display') );
-define('JPATH_THUMB', JPATH_ROOT.$rsgConfig->get('imgPath_thumb') );
-define('JPATH_WATERMARKED', JPATH_ROOT.$rsgConfig->get('imgPath_watermarked') );
+define('JPATH_ORIGINAL', JPATH_ROOT . str_replace('/', DS , $rsgConfig->get('imgPath_original')) );
+define('JPATH_DISPLAY', JPATH_ROOT. str_replace('/', DS , $rsgConfig->get('imgPath_display')) );
+define('JPATH_THUMB', JPATH_ROOT. str_replace('/', DS , $rsgConfig->get('imgPath_thumb')) );
+define('JPATH_WATERMARKED', JPATH_ROOT. str_replace('/', DS , $rsgConfig->get('imgPath_watermarked')) );
 
 $rsgOptions_path = JPATH_RSGALLERY2_ADMIN .DS. 'options' .DS;
 $rsgClasses_path = JPATH_RSGALLERY2_ADMIN .DS. 'includes' . DS;

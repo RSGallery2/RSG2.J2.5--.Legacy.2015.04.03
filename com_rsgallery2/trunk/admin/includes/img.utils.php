@@ -836,7 +836,7 @@ class waterMarker extends GD2 {
 			$imark->size = $rsgConfig->get('watermark_font_size');
 			$imark->shadow= $shadow;
 			$imark->angle = $rsgConfig->get('watermark_angle');
-			$imark->imageTargetPath = JPATH_WATERMARKED . '/' . $filename;
+			$imark->imageTargetPath = JPATH_WATERMARKED . DS . $filename;
 			$imark->mark($imagetype); //draw watermark
 			
 		}

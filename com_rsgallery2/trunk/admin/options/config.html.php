@@ -627,6 +627,10 @@ class html_rsg2_config{
 						<td><?php echo JText::_('Watermark transparency')?></td>
 						<td><?php echo JHTML::_("select.genericlist",$watermarkTransparency, 'watermark_transparency','','value', 'text', $config->watermark_transparency)?><strong>%<strong></td>
 					</tr>
+					<tr>
+						<td><?php echo JText::_('Watermarked image Path:') ?></td>
+						<td><input class="text_area" style="width:300px;" type="text" name="imgPath_watermarked" size="10" value="<?php echo $config->imgPath_watermarked?>"/></td>
+					</tr>
 					</table>
 					</fieldset>
 
