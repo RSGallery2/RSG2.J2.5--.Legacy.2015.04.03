@@ -674,13 +674,12 @@ class waterMarker extends GD2 {
     var $size 			= 10; 			//font size
     var $angle 			= 45; 			//angle to draw watermark text
     var $imageResource; 				//to store the image resource after completion of watermarking
-    var $imageType		="jpg"; 		//this could be either of png, jpg, jpeg, bmp, or gif (if gif then output will be in png)
+    var $imageType		= "jpg"; 		//this could be either of png, jpg, jpeg, bmp, or gif (if gif then output will be in png)
     var $shadow 		= false; 		//if set to true then a shadow will be drawn under every watermark text
     var $antialiased 	= true; 		//if set to true then watermark text will be drawn anti-aliased. this is recommended
-    
+	var $imageTargetPath = '';		//full path to where to store the watermarked image to
     /**
      * this function draws the watermark over the image
-     * @return image resource after completion of watermarking
      */
     function mark($imagetype = 'display'){
     global $rsgConfig;
@@ -794,22 +793,18 @@ class waterMarker extends GD2 {
 	        //Merge copy and original image
 			ImageCopyMerge ( $im, $im_copy, 0, 0, 0, 0, $width, $height, $rsgConfig->get('watermark_transparency') ); 
         }
-        
-        if ($imagetype == 'display')
-            $file_name_dest = JPATH_ROOT."/media/display_temp.jpg";
-        else
-            $file_name_dest = JPATH_ROOT."/media/original_temp.jpg";
             
-        $fh = fopen($file_name_dest,'wb');
+        $fh = fopen($this->imageTargetPath ,'wb');
         fclose($fh);
 		
         //deploy the image with generalized image deploy function
-        $this->imageResource= $outputProc($im, $file_name_dest, 100);
+		$this->imageResource = $outputProc($im, $this->imageTargetPath, 100);
         imagedestroy($im);
         imagedestroy($im_copy);
         if (isset($watermark)) {
         	imagedestroy($watermark);
         }
+		
     }
      
     /**
@@ -823,24 +818,30 @@ class waterMarker extends GD2 {
      */
     function showMarkedImage($imagename, $imagetype = 'display', $font="arial.ttf", $shadow = true){
     global $rsgConfig, $mainframe;
-        if ( $imagetype == 'display')
-            $imagepath = JPATH_DISPLAY . DS . $imagename.".jpg";
-        else
-            $imagepath = JPATH_ORIGINAL . DS . $imagename;
-            
-        $imark = new waterMarker();
-        $imark->waterMarkText = $rsgConfig->get('watermark_text');
-        $imark->imagePath = $imagepath;
-        $imark->font= JPATH_RSGALLERY2_ADMIN. DS . "fonts" . DS . $rsgConfig->get('watermark_font');
-        $imark->size = $rsgConfig->get('watermark_font_size');
-        $imark->shadow= $shadow;
-        $imark->angle = $rsgConfig->get('watermark_angle');
-        $imark->mark($imagetype); //draw watermark
-        $rand = rand();
-        if ($imagetype == 'original')
-            echo JURI_SITE."/media/original_temp.jpg?".$rand;
-        else
-            echo JURI_SITE."/media/display_temp.jpg?".$rand;
-    }
+
+		$pepper = 'RSG2Watermarked';
+		$salt = JApplication::getCfg('secret');
+		$filename = md5($pepper.$imagename.$salt).'.jpg';
+		
+		if(!JFile::exists(JPATH_WATERMARKED. DS . $filename)){
+			if ( $imagetype == 'display')
+				$imagepath = JPATH_DISPLAY . DS . $imagename.".jpg";
+			else
+				$imagepath = JPATH_ORIGINAL . DS . $imagename;
+			
+			$imark = new waterMarker();
+			$imark->waterMarkText = $rsgConfig->get('watermark_text');
+			$imark->imagePath = $imagepath;
+			$imark->font= JPATH_RSGALLERY2_ADMIN. DS . "fonts" . DS . $rsgConfig->get('watermark_font');
+			$imark->size = $rsgConfig->get('watermark_font_size');
+			$imark->shadow= $shadow;
+			$imark->angle = $rsgConfig->get('watermark_angle');
+			$imark->imageTargetPath = JPATH_WATERMARKED . '/' . $filename;
+			$imark->mark($imagetype); //draw watermark
+			
+		}
+		echo trim(JURI_SITE,'/') . $rsgConfig->get('imgPath_watermarked') . '/' . $filename ;
+    
+	}
 }//END CLASS WATERMARKER
 ?>

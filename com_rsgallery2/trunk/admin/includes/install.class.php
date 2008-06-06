@@ -39,7 +39,9 @@ class rsgInstall {
     var $dirThumbs;
     /** @var string Directory to hold display image */
     var $dirDisplay;
-    /** @var array Table list of RSGallery2 */
+	/** @var string Directory to hold watermarked image */
+	var $dirWatermarked;
+	/** @var array Table list of RSGallery2 */
     var $tablelistNew;
     /** @var array Table list of old RSGallery versions */
     var $tablelistOld;
@@ -61,6 +63,8 @@ class rsgInstall {
         $this->dirOriginal  = '/images/rsgallery/original';
         $this->dirThumbs    = '/images/rsgallery/thumb';
         $this->dirDisplay   = '/images/rsgallery/display';
+		$this->dirWatermarked  = '/images/rsgallery/watermarked';
+		
         $this->tablelistNew = array('#__rsgallery2_galleries','#__rsgallery2_files','#__rsgallery2_comments','#__rsgallery2_config', '#__rsgallery2_acl');
         $this->tablelistOld = array('#__rsgallery','#__rsgalleryfiles','#__rsgallery_comments','');
 
@@ -106,7 +110,7 @@ class rsgInstall {
      */
     function createDirStructure() {
         
-        $dirs = array($this->galleryDir, $this->dirOriginal, $this->dirThumbs, $this->dirDisplay);
+        $dirs = array($this->galleryDir, $this->dirOriginal, $this->dirThumbs, $this->dirDisplay, $this->dirWatermarked);
         $count = 0;
         
         foreach ($dirs as $dir) {

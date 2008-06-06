@@ -27,7 +27,8 @@ class rsgConfig {
 	var $imgPath_thumb 		= '/images/rsgallery/thumb';
 	var $imgPath_display 	= '/images/rsgallery/display';
 	var $imgPath_original 	= '/images/rsgallery/original';
-    var $createImgDirs 		= false;
+	var $imgPath_watermarked 	= '/images/rsgallery/watermarked';
+	var $createImgDirs 		= false;
 	var $gallery_folders	= false; // defines if galleries are stored in separate folders
 	
 	// graphics manipulation

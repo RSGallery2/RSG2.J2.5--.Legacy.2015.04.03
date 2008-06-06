@@ -32,6 +32,7 @@ $rsgConfig = new rsgConfig();
 define('JPATH_ORIGINAL', JPATH_ROOT.$rsgConfig->get('imgPath_original') );
 define('JPATH_DISPLAY', JPATH_ROOT.$rsgConfig->get('imgPath_display') );
 define('JPATH_THUMB', JPATH_ROOT.$rsgConfig->get('imgPath_thumb') );
+define('JPATH_WATERMARKED', JPATH_ROOT.$rsgConfig->get('imgPath_watermarked') );
 
 $rsgOptions_path = JPATH_RSGALLERY2_ADMIN .DS. 'options' .DS;
 $rsgClasses_path = JPATH_RSGALLERY2_ADMIN .DS. 'includes' . DS;

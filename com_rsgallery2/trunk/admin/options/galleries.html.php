@@ -63,7 +63,7 @@ class html_rsg2_galleries{
 				<img src="images/filesave.png" width="16" height="16" alt="Save Order" />
 			</a>
 			</th>
-			<th width="4%"><?php echo JText::_('# Items')?></th>
+			<th width="4%"><?php echo JText::_(' Items')?></th>
             <th width="25%">
             <?php echo JText::_('Hits')?>
             </th>
