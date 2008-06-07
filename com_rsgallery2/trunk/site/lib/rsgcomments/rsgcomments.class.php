@@ -193,7 +193,7 @@ function parseQuoteElement($html) {
         $patterns = array("/\[quote\](.+?)\[\/quote\]/is",
             "/\[quote=(.+?)\](.+?)\[\/quote\]/is");
         $replacements = array(
-						"<div class='quote'><div class='genmed'><b>Quote</b></div><div class='quotebody'>\\1</div></div>",
+						"<div class='quote'><div class='genmed'><b>".JText::_('Quote')."</b></div><div class='quotebody'>\\1</div></div>",
             			"<div class='quote'><div class='genmed'><b>\\1".JText::_('Wrote')."</b></div><div class='quotebody'>\\2</div></div>"
             			);
         while ($quotes > 0) {
@@ -221,7 +221,7 @@ function parseCodeElement($html) {
     $pattern = array();
     $replacement = array();
     $pattern[] = "/\[code\](.+?)\[\/code\]/is";
-    $replacement[] = "<div class='code'><div class='genmed'><b>Code</b></div><div class='codebody'><pre>\\1</pre></div></div>";
+    $replacement[] = "<div class='code'><div class='genmed'><b>".JText::_('Code')."</b></div><div class='codebody'><pre>\\1</pre></div></div>";
     return preg_replace($pattern, $replacement, $html);
     }
 
@@ -267,10 +267,10 @@ function editComment( $item_id ) {
         
         // do field validation
         if (form.tname.value == "") {
-            alert( "You should enter your name" );
+            alert( '<?php JText::_('You should enter your name'); ?>' );
         }
         else if (form.tcomment.value == ""){
-            alert( "No comment entered" );
+            alert( '<?php JText::_('No comment entered'); ?>' );
         }
         else{
             form.submit();

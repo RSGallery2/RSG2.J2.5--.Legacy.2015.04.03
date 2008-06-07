@@ -192,7 +192,7 @@ class html_rsg2_images {
 		<form action="index2.php" method="post" name="adminForm" id="adminForm">
 		<table class="adminheading">
 		<tr>
-			<th><?php echo JText::_('Item')?>:<small><?php echo $row->id ? 'Edit' : 'New';?></small></th>
+			<th><?php echo JText::_('Item')?>:<small><?php echo $row->id ? JText::_('Edit') : JText::_('New');?></small></th>
 		</tr>
 		</table>
 
@@ -281,16 +281,16 @@ class html_rsg2_images {
 						<table width="100%" class="imagelist">
 						<?php if (!is_a( $item, 'rsgItem_audio' ) ) {?>
 						<tr>
-							<td width="40%" align="right" valign="top"> <a href="<?php echo $thumb->url();?>" target="_blank" alt="<?php echo $item->descr;?>">Thumb</a>:</td>
+							<td width="40%" align="right" valign="top"> <a href="<?php echo $thumb->url();?>" target="_blank" alt="<?php echo $item->descr;?>"><?php JText::_('Thumb'); ?></a>:</td>
 							<td><input type="text" name="thumb_url" class="text_area" size="" value="<?php echo $thumb->url();?>" /></td>
 						</tr>
 						<tr>
-							<td width="40%" align="right" valign="top"><a href="<?php echo $display->url();?>" target="_blank" alt="<?php echo $item->descr;?>">Display</a>:</td>
+							<td width="40%" align="right" valign="top"><a href="<?php echo $display->url();?>" target="_blank" alt="<?php echo $item->descr;?>"><?php JText::_('Display'); ?></a>:</td>
 							<td ><input type="text" name="display_url" class="text_area" size="" value="<?php echo $display->url();?>" /></td>
 						</tr>
 						<?php }?>
 						<tr>
-							<td width="40%" align="right" valign="top"><a href="<?php echo $original->url();?>" target="_blank" alt="<?php echo $item->descr;?>">Original</a>:</td>
+							<td width="40%" align="right" valign="top"><a href="<?php echo $original->url();?>" target="_blank" alt="<?php echo $item->descr;?>"><?php JText::_('Original'); ?></a>:</td>
 							<td><input type="text" name="original_url" class="text_area" size="" value="<?php echo $original->url();?>" /></td>
 						</td>
 					</tr>

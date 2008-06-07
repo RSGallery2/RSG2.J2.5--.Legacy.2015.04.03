@@ -54,9 +54,10 @@ function saveComment( $option ) {
 	$rsgOption	= rsgInstance::getVar('rsgOption'  , '');
 	$subject 	= rsgInstance::getVar('ttitle'  , '');
 	$user_name	= rsgInstance::getVar( 'tname', '');
-	$comment 	= rsgInstance::getVar( 'tcomment'  , '');
+	$comment 	= addslashes(rsgInstance::getVar( 'tcomment'  , ''));
 	$item_id 	= rsgInstance::getInt( 'item_id'  , '');
 	$catid 		= rsgInstance::getInt( 'catid'  , '');
+	
 	//Check if commenting is enabled
 	$redirect_url = JRoute::_("index.php?option=".$option."&page=inline&id=".$item_id);
 	if ($rsgConfig->get('comment') == 0) {
@@ -80,8 +81,7 @@ function saveComment( $option ) {
 		}
 	} else {
 		if( ! $rsgConfig->get( 'comment_allowed_public' )){
-			echo '<b>You must login to comment.</b>';
-			return;
+			$mainframe->redirect($redirect_url, JText::_('You must login to comment.'));
 		}
 		$user_id = 0;
 		//Check for unique IP-address and see if only one comment from this IP=address is allowed
