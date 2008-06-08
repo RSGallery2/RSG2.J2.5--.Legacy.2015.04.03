@@ -83,17 +83,17 @@ class rsgDisplay_semantic extends rsgDisplay{
 			}
 			
 			if ($owner) {
-				echo JText::_('Owner: ')." "; echo $kid->owner;?><br />
+				echo JText::_('Owner').": "; echo $kid->owner;?><br />
 				<?php
 			} 
 			
 			if ($size) {
-				echo JText::_('Size: ')." "; echo galleryUtils::getFileCount($kid->get('id')). JText::_(' Images');?><br />
+				echo JText::_('Size').": "; echo galleryUtils::getFileCount($kid->get('id')). ' ' . JText::_('Images');?><br />
 			<?php
 			}
 			
 			if ($date) {
-				echo JText::_('Created: ')." "; echo JHTML::_("date", $kid->date,"%d-%m-%Y" );?><br />
+				echo JText::_('Created').": "; echo JHTML::_("date", $kid->date,"%d-%m-%Y" );?><br />
 				<?php
 			}
 			?>
@@ -429,7 +429,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 
 		if( count( $kids ) == 0 ) return;
 		
-		echo JText::_('Subgalleries: ');
+		echo JText::_('Subgalleries');
 		
 		$kid = array_shift( $kids );
 		
