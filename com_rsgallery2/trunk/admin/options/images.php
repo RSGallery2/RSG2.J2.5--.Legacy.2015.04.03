@@ -405,7 +405,7 @@ function uploadImage( $option ) {
 function saveUploadedImage( $option ) {
 	global $id, $rsgOption, $mainframe;
 	$title = rsgInstance::getVar('title'  , '');  
-	$descr = rsgInstance::getVar('descr'  , '', 'post', 'string', JREQUEST_ALLOWRAW);; 
+	$descr = rsgInstance::getVar('descr'  , '', 'post', 'string', JREQUEST_ALLOWRAW); 
 	$gallery_id = rsgInstance::getInt('gallery_id'  , '');
 	$files = rsgInstance::getVar('images','', 'FILES');
 

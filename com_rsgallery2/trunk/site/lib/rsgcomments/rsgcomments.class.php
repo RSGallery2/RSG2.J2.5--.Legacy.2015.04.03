@@ -267,10 +267,10 @@ function editComment( $item_id ) {
         
         // do field validation
         if (form.tname.value == "") {
-            alert( '<?php JText::_('You should enter your name'); ?>' );
+            alert( '<?php echo JText::_('You should enter your name'); ?>' );
         }
         else if (form.tcomment.value == ""){
-            alert( '<?php JText::_('No comment entered'); ?>' );
+            alert( '<?php echo JText::_('No comment entered'); ?>' );
         }
         else{
             form.submit();

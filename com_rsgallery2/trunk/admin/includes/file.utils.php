@@ -143,7 +143,7 @@ class fileUtils{
      * @todo Check filenames against database instead of filesystem
      * @param string Temporary upload location as provided by $_FILES['tmp_name'] or from filename array
      * @param string Destination location path
-     * @return True if move is succesfull
+     * @return string Path to the file where the image was saved to 
      */
     function move_uploadedFile_to_orignalDir( $tmpName, $name ){     
         $parts = pathinfo( $name );

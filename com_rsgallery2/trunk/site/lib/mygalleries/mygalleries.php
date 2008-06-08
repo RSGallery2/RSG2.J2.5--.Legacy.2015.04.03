@@ -133,7 +133,7 @@ function saveItem() {
 	$database = JFactory::getDBO();
 	$id 	= rsgInstance::getInt( 'id'  , '');
 	$title 	= rsgInstance::getVar( 'title'  , '');
-	$descr 	= rsgInstance::getVar( 'descr'  , '');
+	$descr 	= rsgInstance::getVar( 'descr'  , '', 'post', 'string', JREQUEST_ALLOWRAW);
 	$catid 	= rsgInstance::getInt( 'catid'  , '');
 
 	$database->setQuery("UPDATE #__rsgallery2_files SET ".
