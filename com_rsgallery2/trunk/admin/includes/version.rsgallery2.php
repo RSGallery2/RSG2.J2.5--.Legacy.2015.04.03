@@ -19,9 +19,9 @@ class rsgalleryVersion {
     /** @var string Product */
     var $PRODUCT    = 'RSGallery2';
     /** @var int Main Release Level */
-    var $RELEASE    = '1.16';
+    var $RELEASE    = '2.00';
     /** @var string Development Status */
-    var $DEV_STATUS = 'Alpha';
+    var $DEV_STATUS = 'Beta';
     /** @var int Sub Release Level */
     var $DEV_LEVEL  = '0';
     /** @var int build Number */
@@ -29,9 +29,9 @@ class rsgalleryVersion {
     /** @var string Codename */
     var $CODENAME   = '';
     /** @var string Date */
-    var $RELDATE    = '1 June 2008';
+    var $RELDATE    = '8 June 2008';
     /** @var string Time */
-    var $RELTIME    = '16:20';
+    var $RELTIME    = '22:32';
     /** @var string Timezone */
     var $RELTZ      = 'UTC';
     /** @var string Copyright Text */
