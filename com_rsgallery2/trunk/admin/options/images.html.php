@@ -246,7 +246,7 @@ class html_rsg2_images {
 						<?php
 						$item = rsgGalleryManager::getItem( $row->id );
 						
-						$original	= $item->original();
+						$original = $item->original();
 						if (is_a( $item, 'rsgItem_audio' ) ) {
 							?>
 							<object type="application/x-shockwave-flash" width="400" height="15" data="<?php echo JURI_SITE ?>/components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=<?php echo $row->name?>&song_url=<?php echo audioUtils::getAudio($row->name)?>"><param name="movie" value="<?php echo JURI_SITE ?>/components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=<?php echo $item->title;?>&song_url=<?php echo $original->url();?>" /></object>
@@ -281,16 +281,16 @@ class html_rsg2_images {
 						<table width="100%" class="imagelist">
 						<?php if (!is_a( $item, 'rsgItem_audio' ) ) {?>
 						<tr>
-							<td width="40%" align="right" valign="top"> <a href="<?php echo $thumb->url();?>" target="_blank" alt="<?php echo $item->descr;?>"><?php JText::_('Thumb'); ?></a>:</td>
+							<td width="40%" align="right" valign="top"> <a href="<?php echo $thumb->url();?>" target="_blank" alt="<?php echo $item->descr;?>"><?php echo JText::_('Thumb'); ?></a>:</td>
 							<td><input type="text" name="thumb_url" class="text_area" size="" value="<?php echo $thumb->url();?>" /></td>
 						</tr>
 						<tr>
-							<td width="40%" align="right" valign="top"><a href="<?php echo $display->url();?>" target="_blank" alt="<?php echo $item->descr;?>"><?php JText::_('Display'); ?></a>:</td>
+							<td width="40%" align="right" valign="top"><a href="<?php echo $display->url();?>" target="_blank" alt="<?php echo $item->descr;?>"><?php echo JText::_('Display'); ?></a>:</td>
 							<td ><input type="text" name="display_url" class="text_area" size="" value="<?php echo $display->url();?>" /></td>
 						</tr>
 						<?php }?>
 						<tr>
-							<td width="40%" align="right" valign="top"><a href="<?php echo $original->url();?>" target="_blank" alt="<?php echo $item->descr;?>"><?php JText::_('Original'); ?></a>:</td>
+							<td width="40%" align="right" valign="top"><a href="<?php echo $original->url();?>" target="_blank" alt="<?php echo $item->descr;?>"><?php echo JText::_('Original'); ?></a>:</td>
 							<td><input type="text" name="original_url" class="text_area" size="" value="<?php echo $original->url();?>" /></td>
 						</td>
 					</tr>

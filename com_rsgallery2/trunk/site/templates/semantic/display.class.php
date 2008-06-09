@@ -339,8 +339,8 @@ class rsgDisplay_semantic extends rsgDisplay{
 			// i'm not fond of this style of hackery
 			// first we need to replace the item id with the gallery id
 			// second, the limit parameter is not being written.  this is must be a bug or something.  weird.
-			$pageLinks = str_replace( ';id={$item->id}', ';gid={$gallery->id}&amp;limit=1', $pageLinks );
-			$pageLinks = str_replace( '/item/{$item->id}', '/category/{$gallery->id}', $pageLinks );
+			$pageLinks = str_replace( ";id={$item->id}", ";gid={$gallery->id}&amp;limit=1", $pageLinks );
+			$pageLinks = str_replace( "/item/{$item->id}", "/category/{$gallery->id}", $pageLinks );
 		}
 
 		if(!strstr($pageLinks,'limit=1')){
