@@ -32,6 +32,13 @@ Legend:
 
 ---------------- Recent ----------------
 
+2008-05-17 John Caprez
++ added router for SEF Url
++ lots of untranslated text
+^ watermarked images are now stored and cached with different names to avoid collisions on high trafic sites
+# fixed breadcrumb links
+# fixed various voting/comenting bugs
+
 2008-05-16 Jonah Braun
  # fixed path naming in template installer
 
