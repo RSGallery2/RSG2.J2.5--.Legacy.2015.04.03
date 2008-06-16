@@ -532,7 +532,7 @@ class fileHandler {
             $mainframe->redirect('index2.php?option=com_rsgallery2&task=batchupload', $source.JText::_('_RSGALLERY_FU_FTP_DIR_NOT_EXIST'));
         }
         //Read files from FTP-directory
-        $files = JFolder::filesy($source, '');
+        $files = JFolder::files($source, '');
         if (!$files) {
             $mainframe->redirect('index2.php?option=com_rsgallery2&task=batchupload', JText::_('No valid images found in ').$source.JText::_('. Please check the path.'));
         }

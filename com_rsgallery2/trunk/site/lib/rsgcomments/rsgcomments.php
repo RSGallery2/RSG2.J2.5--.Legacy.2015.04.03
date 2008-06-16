@@ -54,7 +54,7 @@ function saveComment( $option ) {
 	$rsgOption	= rsgInstance::getVar('rsgOption'  , '');
 	$subject 	= rsgInstance::getVar('ttitle'  , '');
 	$user_name	= rsgInstance::getVar( 'tname', '');
-	$comment 	= addslashes(JRequest::getVar( 'tcomment'  , '', 'post', 'string', JREQUEST_ALLOWRAW));
+	$comment 	= get_magic_quotes_gpc() ? rsgInstance::getVar( 'tcomment'  , '') : addslashes(rsgInstance::getVar( 'tcomment'  , ''));
 	$item_id 	= rsgInstance::getInt( 'item_id'  , '');
 	$catid 		= rsgInstance::getInt( 'catid'  , '');
 	
