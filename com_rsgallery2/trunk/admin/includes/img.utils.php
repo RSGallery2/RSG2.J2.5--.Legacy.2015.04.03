@@ -522,14 +522,19 @@ class GD2 extends genericImageLib{
         // determine target height
         //$targetHeight = ( $targetWidth / $sourceWidth ) * $sourceHeight;
         
-        // determine target height, contributed by lorant, let's try this
-        if( $sourceWidth > $sourceHeight ) {
-             $targetHeight = ( $targetWidth / $sourceWidth ) * $sourceHeight;
-        } else {
-             $targetHeight = $targetWidth;
-             $targetWidth = ( $targetHeight / $sourceHeight ) * $sourceWidth;
-        } 
-               
+		// determine target height, contributed by lorant, let's try this
+		if( $sourceWidth > $sourceHeight ) {
+			$targetHeight = ( $targetWidth / $sourceWidth ) * $sourceHeight;
+		} else {
+			//contributed by p9939068
+			if ($sourceHeight < $rsgConfig->get('image_width')) {
+				$targetHeight = $sourceHeight;
+			}
+			else
+				$targetHeight = $rsgConfig->get('image_width');
+			$targetWidth = ( $targetHeight / $sourceHeight ) * $sourceWidth;
+		} 
+		
         // load source image file into a resource
         $loadImg = "imagecreatefrom" . $type;
         $sourceImg = $loadImg( $source );
