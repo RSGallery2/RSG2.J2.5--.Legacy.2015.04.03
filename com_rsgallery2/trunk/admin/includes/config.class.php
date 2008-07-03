@@ -222,7 +222,7 @@ class rsgConfig {
 
 		$vars = $this->getPublicVars();
 		foreach ( $vars as $name ){
-			$query .= "( '$name', '" . get_magic_quotes_gpc() ? $this->$name : addslashes($this->$name) . "' ), ";
+			$query .= "( '$name', '" . addslashes($this->$name) . "' ), ";
 		}
 
 		$query = substr( $query, 0, -2 );
