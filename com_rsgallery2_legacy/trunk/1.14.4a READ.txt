@@ -1,0 +1,4 @@
+I rearranged the directories a little just to make it easier to merge test versions back into the trunk and so on.
+
+For now to install test version, copy admin dir to /administrator/components/com_rsgallery2
+and site dir to /components/com_rsgallery2
