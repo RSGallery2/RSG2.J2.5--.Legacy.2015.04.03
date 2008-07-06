@@ -9,7 +9,7 @@
 
 /**
  * ATTENTION!
- * This is built to imitate the Joomla 1.0.* style of templating.  Hopefully that is enlightening.
+ * This termplate is all jacked.  Built for 1.13.1, won't work with 1.14.x yet
  */
 
 defined( '_VALID_MOS' ) or die( 'Restricted Access' );

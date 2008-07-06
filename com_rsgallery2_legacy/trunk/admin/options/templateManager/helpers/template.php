@@ -52,10 +52,16 @@ class TemplatesHelper
 		$xml = JApplicationHelper::parseXMLInstallFile($templateBaseDir.DS.$templateDir.DS.'templateDetails.xml');
 		
 		if ($xml['type'] == 'template') {
-			JError::raiseWarning(0,"The type attribute in ".$templateBaseDir.DS.$templateDir.DS."templateDetails.xml has a not supported value.<br/>Please change it to 'rsgTemplate'.","");
+		// *** REMOVING FOR NOW, IT BREAKS Joomla 1.13.x +
+			
+		//	JError::raiseWarning(0,"The type attribute in ".$templateBaseDir.DS.$templateDir.DS."templateDetails.xml has a not supported value.<br/>Please change it to 'rsgTemplate'.","");
+
+		echo ("The type attribute in ".$templateBaseDir.DS.$templateDir.DS."templateDetails.xml has a not supported value.<br/>Please change it to 'rsgTemplate'");
+
+			return false;
 		}
 		
-		if ($xml['type'] != 'rsgTemplate') {
+		if ($xml['type'] != 'rsgTemplate' ) {
 			return false;
 		}
 
