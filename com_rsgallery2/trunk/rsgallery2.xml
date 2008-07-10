@@ -58,6 +58,7 @@
     <language tag="nb-NO">nb-NO.com_rsgallery2.ini</language>
     <language tag="hr-HR">hr-HR.com_rsgallery2.ini</language>
     <language tag="sl-SI">sl-SI.com_rsgallery2.ini</language>
+    <language tag="he-IL">he-IL.com_rsgallery2.ini</language>
   </languages>
 
   <administration>
@@ -122,8 +123,9 @@
       <language tag="nl-NL">nl-NL.com_rsgallery2.ini</language>
       <language tag="nb-NO">nb-NO.com_rsgallery2.ini</language>
       <language tag="hr-HR">hr-HR.com_rsgallery2.ini</language>
-	  <language tag="sl-SI">sl-SI.com_rsgallery2.ini</language>
-	</languages>
+      <language tag="sl-SI">sl-SI.com_rsgallery2.ini</language>
+      <language tag="he-IL">he-IL.com_rsgallery2.ini</language>
+    </languages>
 
   </administration>
 </install>
