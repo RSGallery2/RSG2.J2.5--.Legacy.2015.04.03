@@ -31,6 +31,8 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2008-07-15 Ronald Smit
++ Added slideshow phatfusion to distribution
 
 2008-05-17 John Caprez
 + added router for SEF Url
