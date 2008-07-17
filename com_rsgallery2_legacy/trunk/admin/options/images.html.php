@@ -552,6 +552,8 @@ class html_rsg2_images {
 	function batchupload_2( $ziplist, $extractDir ){
         global $mosConfig_live_site, $database, $rsgOption;
         
+	
+		
         //Get variables from form
         $selcat 		= rsgInstance::getInt('selcat'  , null);
         $ftppath 		= rsgInstance::getVar('ftppath'  , null);
@@ -571,6 +573,10 @@ class html_rsg2_images {
         $i = 0;
 
         foreach ($ziplist as $filename) {
+			if ( is_array($filename))
+			{
+				continue;
+			}
         	$k++;
         	//Check if filename is dir
         	if ( is_dir(JPATH_ROOT. DS . 'media' . DS . $extractDir . DS . $filename) ) {
