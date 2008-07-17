@@ -94,7 +94,7 @@ DEFINE("_RSGALLERY_NOIMG_USER",				"No images in user galleries");
 DEFINE("_RSGALLERY_USER_INFO",				"User information");
 DEFINE("_RSGALLERY_USER_INFO_NAME",			"Username");
 DEFINE("_RSGALLERY_USER_INFO_ACL",			"User level");
-DEFINE("_RSGALLERY_USER_INFO_MAX_GAL",		"Maximum usergalleries");
+DEFINE("_RSGALLERY_USER_INFO_MAX_GAL",		"Maximum user galleries");
 DEFINE("_RSGALLERY_USER_INFO_CREATED",				"created)");
 DEFINE("_RSGALLERY_USER_INFO_MAX_IMG",		"Maximum images allowed");
 DEFINE("_RSGALLERY_USER_INFO_UPL",			"uploaded)");
@@ -117,7 +117,7 @@ DEFINE("_RSGALLERY_FEAT_INDEBUG",			"Feature only available in Debug mode.");
 //function delete_image
 DEFINE("_RSGALLERY_USERIMAGE_NOTOWNER",		"You are not the owner of this image, taking you back to the main screen");
 DEFINE("_RSGALLERY_DELIMAGE_OK",			"Image is deleted");
-DEFINE("_RSGALLERY_DELIMAGE_NOID",			"No Id provided. Contact component developer");
+DEFINE("_RSGALLERY_DELIMAGE_NOID",			"No ID provided. Contact component developer");
 //function addVote
 DEFINE("_RSGALLERY_THANK_VOTING",			"Thank you for voting");
 DEFINE("_RSGALLERY_VOTING_FAILED",			"Your vote has failed");
@@ -133,16 +133,16 @@ DEFINE("_RSGALLERY_ALERT_CATDETAILSOK",		"Gallery details updated!");
 DEFINE("_RSGALLERY_ALERT_CATDETAILSNOTOK",	"Could not update gallery details!");
 DEFINE("_RSGALLERY_MAX_USERCAT_ALERT",		"Maximum number of galleries already reached, taking you back to main screen");
 DEFINE("_RSGALLERY_ALERT_NEWCAT",			"New gallery created!");
-DEFINE("_RSGALLERY_ALERT_NONEWCAT",			"Gallery could not be created!\\nWe wil take you back to the previous screen.");
+DEFINE("_RSGALLERY_ALERT_NONEWCAT",			"Gallery could not be created!\\nWe will take you back to the previous screen.");
 //function delUserCat
-DEFINE("_RSGALLERY_USERCAT_SUBCATS",        "This gallery is containing subcategories and cannot be deleted. If you want to delete this gallery, first move or delete subcategories");
+DEFINE("_RSGALLERY_USERCAT_SUBCATS",        "This gallery contains subcategories and cannot be deleted. If you want to delete this gallery, first move or delete subcategories");
 DEFINE("_RSGALLERY_ALERT_CATDELNOTOK",		"Gallery could not be deleted!");
 DEFINE("_RSGALLERY_ALERT_CATDELOK",			"Gallery deleted!");
 //function doFrontUpload
 DEFINE("_RSGALLERY_MAX_USERIMAGES_ALERT",   "Maximum number of images uploaded reached. Delete some images first.");
-DEFINE("_RSGALLERY_BATCH_ERROR_SIZE",		"ZIP-file is too big to upload. Your upload limit(defined in php.ini) is ");
+DEFINE("_RSGALLERY_BATCH_ERROR_SIZE",		"ZIP-file is too big to upload. Your upload limit (defined in php.ini) is ");
 DEFINE("_RSGALLERY_ALERT_UPLOADOK",			"Item uploaded succesfully!");
-DEFINE("_RSGALLERY_ALERT_NOWRITE",			"Upload failed.\\nBack to uploadscreen");
+DEFINE("_RSGALLERY_ALERT_NOWRITE",			"Upload failed.\\nBack to upload screen");
 DEFINE("_RSGALLERY_ALERT_WRONGFORMAT",		"Wrong image format.\\nWe will redirect you to the upload screen");
 
 //admin.rsgallery2.html.php
@@ -337,7 +337,7 @@ DEFINE("_RSGALLERY_ALERT_IMGDELETENOTOK",	"Image(s) were not deleted!");
 DEFINE("_RSGALLERY_ALERT_COPYOK",			"Item(s) copied successfully!");
 DEFINE("_RSGALLEY_ALERT_REST_COPYDOK",		"Rest of the items copied successfully!");
 //function c_create
-DEFINE("_RSGALLERY_CC_NO_FILE_INFO",		"No fileinformation found. This should never happen!");
+DEFINE("_RSGALLERY_CC_NO_FILE_INFO",		"No file information found. This should never happen!");
 //function db_create
 DEFINE("_RSGALLERY_DB_CREATE_NO_GAL",		"No gallery chosen to place image in!");
 DEFINE("_RSGALLERY_DB_CREATE_IMG_SUCCES ",		"Images succesfully added to the database!");
@@ -621,7 +621,7 @@ DEFINE("_RSGALLERY_UPGRADE_TABLE_ALTER_ERROR",		" is NOT succesfully altered");
 DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_OK",		" is succesfully renamed");
 DEFINE("_RSGALLERY_UPGRADE_TABLE_RENAME_ERROR",		"");
 DEFINE("_RSGALLERY_UPGRADE_DUMMY_ERROR",		"Error creating dummy tables. Uninstall of RSGallery 2.0 beta 5 might not work.");
-DEFINE("_RSGALLERY_UPGRADE_NOT_POSSIBLE",		"Upgrade not possible.No upgradable RSGallery found\nFull install is recommended.");
+DEFINE("_RSGALLERY_UPGRADE_NOT_POSSIBLE",		"Upgrade not possible. No upgradable RSGallery found\nFull install is recommended.");
 DEFINE("_RSGALLERY_UPGRADE_SUCCESS",		"Upgrade to RSGallery2 is completed.\nYou can now safely uninstall the old RSGallery");
 //function showMigrationOptions
 DEFINE("_RSGALLERY_MIGRATION",		"Migration");

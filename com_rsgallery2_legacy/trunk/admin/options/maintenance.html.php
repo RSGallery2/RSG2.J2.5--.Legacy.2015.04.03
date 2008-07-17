@@ -50,7 +50,7 @@ class html_rsg2_maintenance {
 	    <div class="icon-bar">
 	        <a href="<?php echo $link; ?>">
 	            <div class="iconimage">
-	                <div class="rsg2-icon"><img src="<?php echo $mosConfig_live_site;?>/administrator/components/com_rsgallery2/images/<?php echo $image;?>" alt="alternate text" /></div>
+	                <div class="rsg2-icon"><img src="<?php echo $mosConfig_live_site;?>/administrator/components/com_rsgallery2/images/<?php echo $image;?>" alt="<?php echo $title;?>" title="<?php echo $title;?>" /></div>
 					<div class="rsg2-text">
 						<span class="maint-title"><?php echo $title;?></span>
 						<span class="maint-text"><?php echo $text;?></span></div>
