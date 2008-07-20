@@ -132,7 +132,7 @@ function edit( $option, $id ) {
 
     $lists = array();
 
-    $row = new rsgGalleriesItem( $database );
+    $row = new rsgTagsItem( $database );
     // load the row from the db table
     $row->load( $id );
 
@@ -160,8 +160,7 @@ function edit( $option, $id ) {
 	$lists['uid'] 			= mosAdminMenus::UserSelect( 'uid', $row->uid, 1, NULL, 'name', 0 );
     // build the html select list for ordering
     $lists['ordering']          = mosAdminMenus::SpecificOrdering( $row, $id, $query, 1 );
-    // build the html select list for paraent item
-    $lists['parent']        = galleryParentSelectList( $row );
+
     // build the html select list
     $lists['published']         = mosHTML::yesnoRadioList( 'published', 'class="inputbox"', $row->published );
 
@@ -179,7 +178,7 @@ function edit( $option, $id ) {
 function save( $option ) {
     global $database, $my, $rsgOption, $rsgAccess, $rsgConfig;
 
-    $row = new rsgGalleriesItem( $database );
+    $row = new rsgTagsItem( $database );
     if (!$row->bind( $_POST )) {
         echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
         exit();
@@ -196,7 +195,7 @@ function save( $option ) {
 	// code cleaner for xhtml transitional compliance
 	$row->description = str_replace( '<br>', '<br />', $row->description );
 	
-    $row->date = date( 'Y-m-d H:i:s' );
+    $row->date_added = date( 'Y-m-d H:i:s' );
     if (!$row->check()) {
         echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
         exit();
@@ -229,9 +228,9 @@ function removeWarn( $cid, $option ) {
         exit;
     }
 
-    $galleries = rsgGalleryManager::getArray( $cid );
+    $tags = rsgTagsManager::getArray( $cid );
 
-    html_rsg2_tags::removeWarn( $galleries );
+    html_rsg2_tags::removeWarn( $tags );
 }
 
 /**
@@ -242,7 +241,7 @@ function removeWarn( $cid, $option ) {
 function removeReal( $cid, $option ) {
     global $rsgOption, $rsgConfig;
 
-    $result = rsgGalleryManager::deleteArray( $cid );
+    $result = rsgTagsManager::deleteArray( $cid );
 
     if( !$rsgConfig->get( 'debug' ))
         mosRedirect( "index2.php?option=$option&rsgOption=$rsgOption" );
@@ -279,7 +278,7 @@ function publish( $cid=null, $publish=1,  $option ) {
     }
 
     if (count( $cid ) == 1) {
-        $row = new rsgGalleriesItem( $database );
+        $row = new rsgTagsItem( $database );
         $row->checkin( $cid[0] );
     }
     mosRedirect( "index2.php?option=$option&rsgOption=$rsgOption" );
@@ -290,7 +289,7 @@ function publish( $cid=null, $publish=1,  $option ) {
 */
 function order( $uid, $inc, $option ) {
     global $database, $rsgOption;
-    $row = new rsgGalleriesItem( $database );
+    $row = new rsgTagsItem( $database );
     $row->load( $uid );
     $row->move( $inc, "published >= 0" );
 
@@ -303,7 +302,7 @@ function order( $uid, $inc, $option ) {
 */
 function cancel( $option ) {
     global $database, $rsgOption;
-    $row = new rsgGalleriesItem( $database );
+    $row = new rsgTagsItem( $database );
     $row->bind( $_POST );
     $row->checkin();
     mosRedirect( "index2.php?option=$option&rsgOption=$rsgOption" );
@@ -315,7 +314,7 @@ function saveOrder( &$cid ) {
 	$total		= count( $cid );
 	$order 		= josGetArrayInts( 'order' );
 
-	$row 		= new rsgGalleriesItem( $database );
+	$row 		= new rsgTagsItem( $database );
 	
 	$conditions = array();
 

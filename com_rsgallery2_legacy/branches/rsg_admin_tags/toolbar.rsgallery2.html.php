@@ -259,12 +259,41 @@ class menu_rsg2_tags{
         mosMenuBar::spacer();
         mosMenuBar::editListX();
         mosMenuBar::spacer();
-        mosMenuBar::deleteList();
+		// temporaly removed since delete tag is all screwed up
+        //mosMenuBar::deleteList();
         mosMenuBar::spacer();
         mosMenuBar::addNewX();
         mosMenuBar::spacer();
         mosMenuBar::help( 'screen.rsgallery2' );
         menuRSGallery::adminTasksMenu();
+    }
+	    function edit() {
+        global $id;
+
+        mosMenuBar::startTable();
+        mosMenuBar::save();
+        mosMenuBar::spacer();
+        if ( $id ) {
+            // for existing content items the button is renamed `close`
+            mosMenuBar::cancel( 'cancel', _RSGALLERY_TOOL_CLOSE );
+        } else {
+            mosMenuBar::cancel();
+        }
+        mosMenuBar::spacer();
+        mosMenuBar::help( 'screen.rsgallery2.edit' );
+        mosMenuBar::endTable();
+   		 }
+    function remove() {
+        global $id;
+
+        mosMenuBar::startTable();
+        mosMenuBar::cancel();
+        mosMenuBar::spacer();
+		// temporaly removed since delete tag is all screwed up
+        //mosMenuBar::custom('removeReal','delete_f2.png','',_RSGALLERY_TOOL_CONFIRM_DEL, false);
+        mosMenuBar::spacer();
+        mosMenuBar::help( 'screen.rsgallery2.edit' );
+        mosMenuBar::endTable();
     }
 }
 

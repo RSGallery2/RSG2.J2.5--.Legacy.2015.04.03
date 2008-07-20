@@ -60,7 +60,6 @@ class html_rsg2_tags{
 			<th width="2%">
 			<a href="javascript: saveorder( <?php echo count( $rows )-1; ?> )">
 				<img src="images/filesave.png" width="16" height="16" alt="Save Order" />			</a>			</th>
-			<th width="4%"><?php echo _RSGALLERY_TAGS_COUNT?></th>
 </tr>
         <?php
         $k = 0;
@@ -100,8 +99,6 @@ class html_rsg2_tags{
                 <?php echo $pageNav->orderDownIcon( $i, $n ); ?>                </td>
                 <td colspan="2" align="center">
                 <input type="text" name="order[]" size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" />                </td>
-                <td align="center">
-                <?php $gallery = rsgGalleryManager::get( $row->id ); echo $gallery->itemCount()?>                </td>
 </tr>
             <?php
             $k = 1 - $k;
@@ -185,7 +182,7 @@ class html_rsg2_tags{
 	
 			// do field validation
 			if (form.name.value == ""){
-				alert( "Gallery must have a name" );
+				alert( "Tag must have a name" );
 			} else {
 				<?php getEditorContents( 'editor1', 'description' ) ; ?>
 				submitform( pressbutton );
@@ -251,22 +248,8 @@ class html_rsg2_tags{
 					editorArea( 'editor1',  $row->description , 'description', '100%;', '300', '10', '20' ) ; ?>
 					</td>
 				</tr>
-				<tr>
-					<td align="right">
-					<?php echo _RSGALLERY_TAGS_PARENT;?>:
-					</td>
-					<td>
-					<?php echo $lists['parent']; ?>
-					</td>
-				</tr>
-				<tr>
-					<td valign="top" align="right">
-					<?php echo _RSGALLERY_TAGS_THUMB;?>:
-					</td>
-					<td>
-					<?php echo imgUtils::showThumbNames($row->id, $row->thumb_id); ?>
-					</td>
-				</tr>
+
+
 				<tr>
 					<td valign="top" align="right">
 					<?php echo _RSGALLERY_TAGS_ORDERING;?>:

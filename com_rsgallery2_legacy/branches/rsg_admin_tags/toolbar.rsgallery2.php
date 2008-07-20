@@ -60,6 +60,22 @@ switch( $rsgOption ){
         }
     break;
 	
+	case 'tags':
+        switch( $task ){
+            case 'new':
+            case 'edit':
+            case 'editA':
+                menu_rsg2_tags::edit( $option );
+            break;
+            case 'remove':
+                menu_rsg2_tags::remove( $option );
+            break;
+            default:
+                menu_rsg2_tags::show( $option );
+            break;
+        }
+    break;
+	
 	case 'templateManager':
 	
 		switch ($task)
