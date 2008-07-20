@@ -31,6 +31,11 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2008-07-04-20 Chef Groovy
+ # Fixed FTP bulk upload "warning". 
+
+2008-07-04-08 Chef Groovy SVN 815
+ ^  Temporarily removed JError in template manager if template has type "template".  Caused infinite loop error in Joomla 1.x
 
 2008-03-07 Jonah Braun
  # Made saving config way better.  This should improve installation time as well.

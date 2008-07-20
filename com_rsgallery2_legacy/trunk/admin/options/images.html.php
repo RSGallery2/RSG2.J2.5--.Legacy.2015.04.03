@@ -573,13 +573,10 @@ class html_rsg2_images {
         $i = 0;
 
         foreach ($ziplist as $filename) {
-			if ( is_array($filename))
-			{
-				continue;
-			}
-        	$k++;
-        	//Check if filename is dir
-        	if ( is_dir(JPATH_ROOT. DS . 'media' . DS . $extractDir . DS . $filename) ) {
+			$k++;
+			
+        	//Check if filename is dir or array
+        	if ( is_dir(JPATH_ROOT. DS . 'media' . DS . $extractDir . DS . $filename) or is_array( $filename )) {
         		continue;
         	} else {
         		//Check if file is allowed
