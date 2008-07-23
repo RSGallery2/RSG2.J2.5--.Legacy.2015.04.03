@@ -320,7 +320,7 @@ class html_rsg2_images {
 			}
         
 			// do field validation
-			if (form.gallery_id.value == "0"){
+			if (form.gallery_id.value <= 0){
 				alert( "<?php echo _RSGALLERY_IMG_SELECT_GAL?>" );
 			} else if (form.images.value == ''){
 				alert( "<?php echo _RSGALLERY_IMG_NO_FILE_SELECT?>" );

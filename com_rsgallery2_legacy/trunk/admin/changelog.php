@@ -31,6 +31,9 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2008-07-23 Chef Groovy
+ # Fixed orphan file bug when upload and don't select a gallery
+
 2008-07-04-20 Chef Groovy
  # Fixed FTP bulk upload "warning". 
 

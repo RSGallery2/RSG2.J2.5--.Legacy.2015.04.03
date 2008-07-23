@@ -398,10 +398,9 @@ function saveUploadedImage( $option ) {
 	$gallery_id = rsgInstance::getInt('gallery_id'  , '');
 	$files = rsgInstance::getVar('images','', 'FILES');
 
-	echo $gallery_id;
 
 // This test a last final check to make sure not going in top or void gallery
-if ($gallery_id == -1 or $gallery_id == 0)
+if ($gallery_id <= 0)
 {
 	echo "Must select gallery <br /> Sorry for the ugly error message";
 	return;
