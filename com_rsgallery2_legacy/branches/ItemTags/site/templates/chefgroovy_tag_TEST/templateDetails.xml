@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <mosinstall type="rsgTemplate">
-	<name>Chef Groovy - Semantic</name>
+	<name>Chef Groovy TAG Test - Semantic</name>
 	<creationDate>15/02/07</creationDate>
 	<author>rsgallery2.net</author>
 	<copyright>Open Source, GPL</copyright>

@@ -164,6 +164,7 @@ DEFINE("_RSGALLERY_C_UPLOAD_ZIP",			"Batch upload");
 DEFINE("_RSGALLERY_C_IMAGES",				"Manage Items");
 DEFINE("_RSGALLERY_C_CATEGORIES",			"Manage Galleries");
 DEFINE("_RSGALLERY_C_DATABASE",				"Consolidate database");
+DEFINE("_RSGALLERY_C_TAGS",					"Manage Tags");
 /*new*/DEFINE("_RSGALLERY_C_MAINTENANCE",	"Maintenance");
 DEFINE("_RSGALLERY_C_MIGRATION",			"Migration options");
 DEFINE("_RSGALLERY_C_CSS_EDIT",				"Edit CSS");
@@ -560,6 +561,46 @@ DEFINE("_RSGALLERY_GAL_ACL_PUB",			"Public</span>");
 DEFINE("_RSGALLERY_GAL_ACL_REG",			"Registered</span>");
 DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",	"&nbsp;Select/Deselect All");
 DEFINE("_RSGALLERY_GAL_ORDER",	"Order");
+
+//tags.class.php
+//function check
+DEFINE("_RSGALLERY_GAL_EXIST_ERROR",		"There is a tag already with that name, please try again.");
+
+//tags.html.php
+//function show
+DEFINE("_RSGALLERY_TAGS_MANAGE",			"Tag Manager");
+DEFINE("_RSGALLERY_TAGS_MAX_LEVELS",		"Max Levels");
+DEFINE("_RSGALLERY_TAGS_FILTER",			"Filter");
+DEFINE("_RSGALLERY_TAGS_NAME",			"Name");
+DEFINE("_RSGALLERY_TAGS_REORDER",		"Reorder");
+DEFINE("_RSGALLERY_TAGS_COUNT",			"# Items");
+DEFINE("_RSGALLERY_TAGS_HITS",			"Hits");
+//function edit
+DEFINE("_RSGALLERY_TAGS_GAL",				"Tag");
+DEFINE("_RSGALLERY_TAGS_DETAILS",			"Details");
+DEFINE("_RSGALLERY_TAGS_DESCR",				"Description");
+DEFINE("_RSGALLERY_TAGS_PARENT",			"Parent Item");
+DEFINE("_RSGALLERY_TAGS_THUMB",				"Tag thumbnail");
+DEFINE("_RSGALLERY_TAGS_ORDERING",			"Ordering");
+DEFINE("_RSGALLERY_TAGS_PUBLISHED",			"Published");
+DEFINE("_RSGALLERY_TAGS_PARAMETERS",		"Parameters");
+DEFINE("_RSGALLERY_TAGS_ENABLED",			"Enabled");
+DEFINE("_RSGALLERY_TAGS_OWNER",	"Owner");
+DEFINE("_RSGALLERY_TAGS_PERMS",	"Permissions");
+DEFINE("_RSGALLERY_TAGS_DEF_PERM_CREATE",	"Default permissions are created. <br />After creating the tag, you can come back to edit the tag permissions.");
+DEFINE("_RSGALLERY_TAGS_NO_PERM_FOUND",	"No permissions found for this tag. Click on the <strong>SAVE</strong> button in the toolbar above to create default permissions. After that, come back here and set permissions.");
+DEFINE("_RSGALLERY_TAGS_USERTYPE",		"Usertype");
+DEFINE("_RSGALLERY_TAGS_VIEW_GAL",		"View<br/>Tag</span>");
+DEFINE("_RSGALLERY_TAGS_UPL_EDIT_IMG",	"Upload/Edit<br/>images</span>");
+DEFINE("_RSGALLERY_TAGS_DEL_IMG",			"Delete Image</span>");
+DEFINE("_RSGALLERY_TAGS_MOD_GAL",			"Modify<br/>Gallery</span>");
+DEFINE("_RSGALLERY_TAGS_DEL_GAL",			"Delete<br/>Gallery</span>");
+/*new*/DEFINE("_RSGALLERY_TAGS_VOTE_VIEW",			"View<br/>Votes</span>");
+/*new*/DEFINE("_RSGALLERY_TAGS_VOTE_VOTE",			"Make<br/>Vote</span>");
+DEFINE("_RSGALLERY_TAGS_ACL_PUB",			"Public</span>");
+DEFINE("_RSGALLERY_TAGS_ACL_REG",			"Registered</span>");
+DEFINE("_RSGALLERY_TAGS_SEL_DESEL_ALL",	"&nbsp;Select/Deselect All");
+DEFINE("_RSGALLERY_TAGS_ORDER",	"Order");
 
 //install.class.php
 //function echo_values

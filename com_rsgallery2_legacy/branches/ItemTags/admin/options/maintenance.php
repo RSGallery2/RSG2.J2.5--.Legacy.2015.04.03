@@ -30,12 +30,17 @@ switch ($task) {
 		
 	/* Consolidate database calls */
 	case 'consolidateDB':
-		consolidateDB();
+		HTML_RSGALLERY::RSGalleryHeader('cpanel', _RSGALLERY_MAINT_CONSOLDB);
+			consolidateDB();
+		HTML_RSGALLERY::RSGalleryFooter();
 		break;
 	case 'createImages':
 		createImages();
 		break;
 	case 'deleteImages':
+		deleteImages();
+		break;
+	case 'c_delete':
 		deleteImages();
 		break;
 	case 'createDbEntries':

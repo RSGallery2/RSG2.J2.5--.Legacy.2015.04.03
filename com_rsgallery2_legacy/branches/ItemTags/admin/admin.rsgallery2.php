@@ -65,6 +65,9 @@ switch( $rsgOption ) {
 	case 'maintenance':
     	require_once( $rsgOptions_path . 'maintenance.php' );
     	break;
+	case 'tags':
+		require_once( $rsgOptions_path . 'tags.php' );
+    	break;
 }
 
 /**
