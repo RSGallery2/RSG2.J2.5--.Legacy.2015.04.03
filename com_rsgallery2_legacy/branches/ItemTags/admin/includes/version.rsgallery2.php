@@ -23,7 +23,7 @@ class rsgalleryVersion {
     /** @var string Development Status */
     var $DEV_STATUS = 'Pre Alpha';
     /** @var int Sub Release Level */
-    var $DEV_LEVEL  = '4a';
+    var $DEV_LEVEL  = '4b';
     /** @var int build Number */
     var $BUILD      = 'SVN $GlobalRev$';
     /** @var string Codename */
