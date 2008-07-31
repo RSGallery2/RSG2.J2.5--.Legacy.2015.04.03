@@ -59,6 +59,8 @@
     <language tag="hr-HR">hr-HR.com_rsgallery2.ini</language>
     <language tag="sl-SI">sl-SI.com_rsgallery2.ini</language>
     <language tag="he-IL">he-IL.com_rsgallery2.ini</language>
+    <language tag="da-DK">da-DK.com_rsgallery2.ini</language>
+    <language tag="el-GR">el-GR.com_rsgallery2.ini</language>
   </languages>
 
   <administration>
@@ -125,6 +127,8 @@
       <language tag="hr-HR">hr-HR.com_rsgallery2.ini</language>
       <language tag="sl-SI">sl-SI.com_rsgallery2.ini</language>
       <language tag="he-IL">he-IL.com_rsgallery2.ini</language>
+      <language tag="da-DK">da-DK.com_rsgallery2.ini</language>
+      <language tag="el-GR">el-GR.com_rsgallery2.ini</language>
     </languages>
 
   </administration>
