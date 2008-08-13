@@ -1,12 +1,13 @@
 <?php
 /**
-* RSGallery2 Items - Random, Latest, Popular, Most Voted
+* Newest Images for RSGallery
 * @ package Joomla! Open Source
 * @ Based on the RSitems module from Errol Elumir
 * @ Modified for use with RSgallery2 by Daniel Tulp
+* @ Stripped and modified to work with Joomla 1.5 and RSgallery 1.14.x by Chef Groovy
 * @ Joomla! Open Source is Free Software
 * @ Released under GNU/GPL License : http://www.gnu.org/copyleft/gpl.html
-* @ version 1.4.2
+* @ version 0.0.3
 **/
 
 defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
@@ -17,7 +18,8 @@ require_once($mosConfig_absolute_path.'/administrator/components/com_rsgallery2/
 
 
 
-// How many to display
+// HARD CODE VARIABLES FOR NOW
+
 $count = 10;
 $dateformat = "M j, Y";
 
@@ -39,7 +41,7 @@ $dateformat = "M j, Y";
 	$queryb="SELECT * FROM (SELECT * FROM #__rsgallery2_files ORDER BY `date` DESC ) AS MOSTHITS GROUP BY `gallery_id` ORDER BY `date` DESC LIMIT $count";
 	$database->setQuery( $queryb );
 	$rows = $database->loadObjectList();
-	//$rowb=$rows[0];
+
 	//error trapping:
 	if(mysql_error()){
 		echo "MySQL error ".mysql_errno().": ".mysql_error()."\n<br>When executing b:<br>\n$queryb\n<br>";
@@ -80,18 +82,15 @@ else
 				
 				
 				$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id=".$catid." ORDER BY hits DESC LIMIT $count");
-        	//	$countb = $database->loadResult();
-			//	$limit= $countb - $limitstart_b - 1;
-				
 				?>
 
- 			 <tr style="margin-bottom:10px;">
-   					 <td align="center"  >				
-        	<a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;page=inline&amp;id=".$id."&amp;catid=".$catid."&amp;Itemid=".$RSG2Itemid);?>">
-             <img src="<?php echo imgUtils::getImgThumb($filename); ?>" alt="<?php echo $title; ?>" title="<?php echo $catname  ?>" border="1" /></a>	
-    		<div class="rsitems_date"><?php echo date($dateformat, strtotime($date));  ?></div>
+			<tr style="margin-bottom:10px;">
+   				<td align="center"  >				
+        			<a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;page=inline&amp;id=".$id."&amp;catid=".$catid."&amp;Itemid=".$RSG2Itemid);?>">
+             		<img src="<?php echo imgUtils::getImgThumb($filename); ?>" alt="<?php echo $title; ?>" title="<?php echo $catname  ?>" border="1" /></a>	
+    			<div class="rsitems_date"><?php echo date($dateformat, strtotime($date));  ?></div>
 			<br/>
-              <?php } ?>  
+              <?php } // END LEFT IMAGE?>  
 			</td>
 			<?php
 			if( $i+1 < sizeof($rows)) {
@@ -99,7 +98,6 @@ else
 				$title          = $rows[$i+1]->title;
 				$description    = $rows[$i+1]->descr;
 				$id             = $rows[$i+1]->id;
-				//$limitstart_b     = $rowdb[$i+1]->ordering - 1;
 				$catid          = $rows[$i+1]->gallery_id;
 				$date			  = $rows[$i+1]->date;
 				
@@ -113,33 +111,37 @@ else
 <img src="<?php echo imgUtils::getImgThumb($filename); ?>" alt="<?php echo $title; ?>" title="<?php echo $catname  ?>" border="1" /></a>	
     <div class="rsitems_date"><?php echo date($dateformat ,strtotime($date));  ?></div>
     <br/>
-    <?php } ?>  
+    		<?php } // END RIGHT IMAGE?>  
     </td>
   </tr>
 
-<?php if ($i == 2 ) {
-?>
-<tr>
-<td colspan="2" align="center">
-<div style="width: 180px; height:150px; border:#FF3333 1px solid; margin-bottom:10px;">
-			<script type="text/javascript"><!--
-            google_ad_client = "pub-4848754589931121";
-            /* 180x150, created 5/26/08 */
-            google_ad_slot = "7148097726";
-            google_ad_width = 180;
-            google_ad_height = 150;
-            //-->
-            </script>
-            <script type="text/javascript"
-            src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-            </script>
-</div>
-</td>
-</tr>
+			<?php 
+			// BEGIN AD BLOCK
+			if ($i == 2 ) {
+            ?>
+            <tr>
+            <td colspan="2" align="center">
+            <div style="width: 180px; height:150px; border:#FF3333 1px solid; margin-bottom:10px;">
+                        <script type="text/javascript"><!--
+                        google_ad_client = "pub-4848754589931121";
+                        /* 180x150, created 5/26/08 */
+                        google_ad_slot = "7148097726";
+                        google_ad_width = 180;
+                        google_ad_height = 150;
+                        //-->
+                        </script>
+                        <script type="text/javascript"
+                        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+                        </script>
+            </div>
+            </td>
+            </tr>
+            <?php } // end ad block?>
 
-  <?php } 
-  // END FOR LOOP
-  ?>  
+
+
+<?php } // End for Loop ?>
+
 </table>
 
 <!-- END LIST -->
@@ -149,8 +151,4 @@ else
 	</tr>
 </table>
 
-<?php }
-
-
-		
-}?>
+<?php }?>
