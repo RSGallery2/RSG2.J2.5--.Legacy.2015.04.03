@@ -45,12 +45,14 @@ $dateformat = "M j, Y";
 		echo "MySQL error ".mysql_errno().": ".mysql_error()."\n<br>When executing b:<br>\n$queryb\n<br>";
 	}
 
-	// Check if anything in gallery
-	if ( sizeof($rows) == 0)
-	{	
+if ( sizeof($rows) == 0)
+{	
 		echo( "Nothing in gallery");
-	}else{
-	?>
+}
+else
+{
+?>
+
 
 <table class="rsitems_table">
 	<tr>
@@ -63,7 +65,7 @@ $dateformat = "M j, Y";
 	
 	
 	for ($i = 0; $i <= $count-1; $i=$i+2) {
-				
+			if( $i < sizeof($rows)) {
 				$filename       = $rows[$i]->name;
 				$title          = $rows[$i]->title;
 				$description    = $rows[$i]->descr;
@@ -78,6 +80,8 @@ $dateformat = "M j, Y";
 				
 				
 				$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id=".$catid." ORDER BY hits DESC LIMIT $count");
+        	//	$countb = $database->loadResult();
+			//	$limit= $countb - $limitstart_b - 1;
 				
 				?>
 
@@ -87,6 +91,7 @@ $dateformat = "M j, Y";
              <img src="<?php echo imgUtils::getImgThumb($filename); ?>" alt="<?php echo $title; ?>" title="<?php echo $catname  ?>" border="1" /></a>	
     		<div class="rsitems_date"><?php echo date($dateformat, strtotime($date));  ?></div>
 			<br/>
+              <?php } ?>  
 			</td>
 			<?php
 			if( $i+1 < sizeof($rows)) {
@@ -94,6 +99,7 @@ $dateformat = "M j, Y";
 				$title          = $rows[$i+1]->title;
 				$description    = $rows[$i+1]->descr;
 				$id             = $rows[$i+1]->id;
+				//$limitstart_b     = $rowdb[$i+1]->ordering - 1;
 				$catid          = $rows[$i+1]->gallery_id;
 				$date			  = $rows[$i+1]->date;
 				
@@ -112,14 +118,9 @@ $dateformat = "M j, Y";
   </tr>
 
 <?php if ($i == 2 ) {
-
-// THIS ROW IS THE CODE TO BE INSERTED IN MIDDLE OF LIST
-
 ?>
 <tr>
 <td colspan="2" align="center">
-
-
 <div style="width: 180px; height:150px; border:#FF3333 1px solid; margin-bottom:10px;">
 			<script type="text/javascript"><!--
             google_ad_client = "pub-4848754589931121";
@@ -133,8 +134,6 @@ $dateformat = "M j, Y";
             src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
             </script>
 </div>
-
-
 </td>
 </tr>
 
@@ -150,7 +149,7 @@ $dateformat = "M j, Y";
 	</tr>
 </table>
 
-<?php }	// END Main 
+<?php }
 
 
 		
