@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<mosinstall type="module">
+    <name>CG New Images</name>
+    <creationDate>August 13, 2008</creationDate>
+    <author>Chef Groovy</author>
+    <copyright>This module is released under the GNU/GPL License</copyright>
+    <authorEmail>chefgroovy@fantasyartwork.net</authorEmail>
+    <authorUrl>www.fantasyartwork.net</authorUrl>
+    <version>0.0.3</version>
+    <description>Module to display newest image in each gallery. Loosely based on Johans version of RSItems. </description>
+</mosinstall>
