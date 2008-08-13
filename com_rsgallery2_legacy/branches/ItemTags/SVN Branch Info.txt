@@ -1,0 +1,40 @@
+
+BRANCH INFO ItemTags
+
+===================
+
+Date: 		24 July 2008
+Base: 		Trunk SVN 824
+Version:	1.14.4b
+Level:		Double Secret Alpha
+
+Purpose: Integrate tagging system for images and items.
+
+Installation Notes:
+	Currently only way to install is to use the 1.14.3 tag or download zip, install and overwrite everything (except tamplates if you've modded any), see forums for additional info
+	Cou will have to manually modify 2 database tables to use this branch, didn't want to automate just yet, some fairly sensitive tables modified
+	Temporarily Maintained at \com_rsgallery2_legacy\branches\ItemTags\admin\sql\TEST_add_tag_database.sql
+	
+	BE SURE TO REVIEW THE SQL TO CHANGE YOUR EXTENSION. HARDCODED with jos_
+	
+Technical Notes:
+	Tables created are
+		jos_rsgallery2_tags
+		jos_rsgallery2_tag_match
+	Table Maodified is
+		jos_rsgallery2_files
+			(note, this is your MAIN files table, be sure know what you are doing beofre add the column.
+		
+		And please review the SQL file to verify, hate to mess someones db up unintentionally. 
+		
+		BACK UP FIRST  !!!
+
+Additional:
+
+	Test site for this branch is at dev.fantasyartwork.net, it is totally "sandbox", so if someone want a backend password, let me know.
+	
+	chefgroovy@fantasyartwork.net
+	
+	
+NOTE:
+Will be redoing all of this, to give the tags it's own table and remove the extra column in _files table

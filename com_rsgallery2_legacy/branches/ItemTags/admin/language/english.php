@@ -564,7 +564,7 @@ DEFINE("_RSGALLERY_GAL_ORDER",	"Order");
 
 //tags.class.php
 //function check
-DEFINE("_RSGALLERY_GAL_EXIST_ERROR",		"There is a tag already with that name, please try again.");
+DEFINE("_RSGALLERY_TAGS_EXIST_ERROR",		"There is a tag already with that name, please try again.");
 
 //tags.html.php
 //function show
