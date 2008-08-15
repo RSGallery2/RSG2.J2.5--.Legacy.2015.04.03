@@ -1,16 +1,23 @@
 <?php
 /**
 * Newest Images for RSGallery
-* @ package Joomla! Open Source
+* @ version 0.0.3
+*
 * @ Based on the RSitems module from Errol Elumir
 * @ Modified for use with RSgallery2 by Daniel Tulp
 * @ Stripped and modified to work with Joomla 1.5 and RSgallery 1.14.x by Chef Groovy
-* @ Joomla! Open Source is Free Software
-* @ Released under GNU/GPL License : http://www.gnu.org/copyleft/gpl.html
-* @ version 0.0.3
+
+*************************
+STILL HIGHLY EXPERIMENTAL. CHANGE GOOGLE AD BLOCK IF USE ON YOUR SITE
+*************************
 **/
 
 defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
+
+//Get paramaters
+ $RowsToDisplay = intval($params->get('DisplayRows', 1));
+ $CodeAfterRow = intval($params->get('CodeAfterRow', 1));
+ $InsertedCode = $params->get('InsertedCode', "");
 
 //initialise init file
 global $mosConfig_absolute_path;
@@ -20,7 +27,7 @@ require_once($mosConfig_absolute_path.'/administrator/components/com_rsgallery2/
 
 // HARD CODE VARIABLES FOR NOW
 
-$count = 10;
+$count = $RowsToDisplay * 2;
 $dateformat = "M j, Y";
 
 //get Itemid from menutable
@@ -65,8 +72,8 @@ else
 <table width="180" border="0" cellspacing="0" cellpadding="0">
     <?php
 	
-	
-	for ($i = 0; $i <= $count-1; $i=$i+2) {
+	$i = 0;
+	for ($rownumber = 1; $rownumber <= $RowsToDisplay; $rownumber = $rownumber +1 ) {
 			if( $i < sizeof($rows)) {
 				$filename       = $rows[$i]->name;
 				$title          = $rows[$i]->title;
@@ -93,13 +100,14 @@ else
               <?php } // END LEFT IMAGE?>  
 			</td>
 			<?php
-			if( $i+1 < sizeof($rows)) {
-    			$filename       = $rows[$i+1]->name;
-				$title          = $rows[$i+1]->title;
-				$description    = $rows[$i+1]->descr;
-				$id             = $rows[$i+1]->id;
-				$catid          = $rows[$i+1]->gallery_id;
-				$date			  = $rows[$i+1]->date;
+			++$i;
+			if( $i < sizeof($rows)) {
+    			$filename       = $rows[$i]->name;
+				$title          = $rows[$i]->title;
+				$description    = $rows[$i]->descr;
+				$id             = $rows[$i]->id;
+				$catid          = $rows[$i]->gallery_id;
+				$date			= $rows[$i]->date;
 				
 				$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE id=" . $catid);
 				$resultb= $database->loadObjectList();
@@ -111,28 +119,21 @@ else
 <img src="<?php echo imgUtils::getImgThumb($filename); ?>" alt="<?php echo $title; ?>" title="<?php echo $catname  ?>" border="1" /></a>	
     <div class="rsitems_date"><?php echo date($dateformat ,strtotime($date));  ?></div>
     <br/>
-    		<?php } // END RIGHT IMAGE?>  
+    		<?php } // END RIGHT IMAGE ?>  
     </td>
   </tr>
 
 			<?php 
-			// BEGIN AD BLOCK
-			if ($i == 2 ) {
+			// BEGIN INSERTED CODE BLOCK
+			if ($rownumber == $CodeAfterRow ) {
             ?>
             <tr>
             <td colspan="2" align="center">
+            
             <div style="width: 180px; height:150px; border:#FF3333 1px solid; margin-bottom:10px;">
-                        <script type="text/javascript"><!--
-                        google_ad_client = "pub-4848754589931121";
-                        /* 180x150, created 5/26/08 */
-                        google_ad_slot = "7148097726";
-                        google_ad_width = 180;
-                        google_ad_height = 150;
-                        //-->
-                        </script>
-                        <script type="text/javascript"
-                        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-                        </script>
+            <?php
+            echo $InsertedCode;
+			?>
             </div>
             </td>
             </tr>
@@ -140,7 +141,8 @@ else
 
 
 
-<?php } // End for Loop ?>
+<?php ++$i;
+} // End for Loop ?>
 
 </table>
 

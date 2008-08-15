@@ -8,4 +8,27 @@
     <authorUrl>www.fantasyartwork.net</authorUrl>
     <version>0.0.3</version>
     <description>Module to display newest image in each gallery. Loosely based on Johans version of RSItems. </description>
+	
+	<files>
+		<filename module="mod_cg_newimages">mod_cg_newimages.php</filename>
+	</files>
+	
+	<params>
+		<param name="DisplayRows" type="text" size="5" default="1"
+				label="Rows to Display"
+				description="Number of rows to display">
+		</param>
+		
+		<param name="InsertedCode" type="textarea" default="" rows="8" cols="50"
+			label="Code to Insert"
+			description="Code block to insert">
+		</param>
+		
+		<param name="CodeAfterRow" type="text" size="5" default="1"
+				label="Row to insert code after"
+				description="What row to insert code block after">
+		</param>		
+		
+	</params>
+	
 </mosinstall>

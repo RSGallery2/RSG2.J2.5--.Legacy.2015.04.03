@@ -1,0 +1,17 @@
+
+RS Newest Images is roughly based on a small part of the original RSItems module written by Daniel Tulp.
+
+It will display only the newest image from each gallery as a 2 column table. It also can add a code block in the middle of the list to display a web ad or something.
+(To disable tell it to insert the add after row 0)
+
+Any comments or blame?
+chefgroovy@fantasyartwork.net
+
+---------------------
+
+2008-Aug-14	v0.0.4	Test release
+Added backend options and made it somewhat functional
+
+
+
+
