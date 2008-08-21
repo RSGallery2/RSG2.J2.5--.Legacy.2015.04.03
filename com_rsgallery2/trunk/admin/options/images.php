@@ -588,7 +588,7 @@ function copyImage( $cid, $option ) {
 }
 
 function batchupload($option) {
-	global $rsgConfig;
+	global $rsgConfig, $mainframe;
 	$database = JFactory::getDBO();
 	$FTP_path = $rsgConfig->get('ftp_path');
 	
