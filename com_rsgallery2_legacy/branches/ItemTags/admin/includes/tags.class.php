@@ -15,16 +15,22 @@ defined( '_VALID_MOS' ) or die( 'Access Denied.' );
 * @package RSGallery2
 * @author Jonah Braun <Jonah@WhaleHosting.ca>
 */
-class rsgGallery extends JObject{
+class rsgTag extends JObject{
 //     variables from the db table
 	/** @var array the entire table row */
 	var $row = null;
+	
+	/** @array of images with tag */
+	var $imageswithtag;
+	
+	/** @array of tags for image */
+	var tagsforimage;
 	
 	/** @var int Primary key */
 	var $id = null;
 	/** @var int id of parent */
 	var $parent = null;
-	/** @var string name of gallery*/
+	/** @var string name of tag*/
 	var $name = null;
 	/** @var string */
 	var $description = null;
@@ -310,7 +316,7 @@ class rsgGallery extends JObject{
 	}
 
 	/**
-	 * Method to get a pagination object for the the gallery items
+	 * Method to get a pagination object for the the tag items
 	 *
 	 * @access public
 	 * @return integer
@@ -376,6 +382,14 @@ class rsgGallery extends JObject{
 				$array3[$key] =substr($val,$pos+1,strlen($val));
 	  }
 	  return $array3;
+	}
+
+	function GetTagsForImage ($image ) {
+		
+	}
+	
+	function GetImagesWithTag ($image ) {
+		echo "IMAGESWITH TAg";
 	}
 
 }
