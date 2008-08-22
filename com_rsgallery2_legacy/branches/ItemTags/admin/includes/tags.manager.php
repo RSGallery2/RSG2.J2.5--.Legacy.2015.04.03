@@ -18,11 +18,11 @@ defined( '_VALID_MOS' ) or die( 'Access Denied.' );
 class rsgTagsManager{
 
 	/**
-	 * returns the rsgGallery object which contains item id
+	 * returns the rsgTags object which contains item id
 	 *
 	 * @param id of item
 	 */
-	function getGalleryByItemID( $id = null ) {
+	function getTagsByItemID( $id = null ) {
 		global $database;
 		
 		if( $id === null ){
@@ -64,7 +64,7 @@ class rsgTagsManager{
 			if( !$id ){
 				// check if an item id is set and if so return the gallery for that item id
 				if( rsgInstance::getInt( 'id', 0 ))
-					return rsgTagsManager::getGalleryByItemID();
+					return rsgTagsManager::getTagsByItemID();
 			}
 		}
 
@@ -153,7 +153,7 @@ class rsgTagsManager{
                 }
             }
             
-            $galleries[] = new rsgGallery( $row );
+            $galleries[] = new rsgTags( $row );
         }
 
         return $galleries;
@@ -210,7 +210,7 @@ class rsgTagsManager{
 			}
 			$row = $row[0];
 		
-			$galleries[$gallery] = new rsgGallery( $row );
+			$galleries[$gallery] = new rsgTags( $row );
 		}
 		return $galleries[$gallery];
 	}
@@ -226,7 +226,7 @@ class rsgTagsManager{
     function _getRootGallery(){
         global $rsgConfig;
 
-        return new rsgGallery( array(
+        return new rsgTags( array(
             'id'=>0,
             'parent'=>null,
             'name'=>'',

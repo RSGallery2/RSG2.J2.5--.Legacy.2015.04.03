@@ -2,11 +2,19 @@
 BRANCH INFO ItemTags
 
 ===================
+Date: 		21 August 2008
+Version:	1.14.4b
+Level:		Double Secret Alpha
+
+Redoing database model.  Master lookup table instead of adding column to image table
+
+======
 
 Date: 		24 July 2008
 Base: 		Trunk SVN 824
 Version:	1.14.4b
 Level:		Double Secret Alpha
+
 
 Purpose: Integrate tagging system for images and items.
 

@@ -1,7 +1,12 @@
 <?php
 /**
 * Images option for RSGallery2 - HTML display code
+*
+* TEST VERSION, ADDS TAG TO TAG DATABASE
+*
+** August 21, 2008
 * @version $Id$
+* 
 * @package RSGallery2
 * @copyright (C) 2003 - 2006 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -40,21 +45,20 @@ class html_rsg2_images {
 		<tr>
 			<th width="5">ID</th>
 			<th width="20">
-				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $rows ); ?>);" />			</th>
+				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $rows ); ?>);" />
+			</th>
 			<th class="title"><?php echo _RSGALLERY_IMG_TITLE?></th>
 			<th width="5%"><?php echo _RSGALLERY_MY_IMAGES_PUBLISHED?></th>
 			<th colspan="2" width="5%"><?php echo _RSGALLERY_REORDER?></th>
 			<th width="2%"><?php echo _RSGALLERY_IMG_ORDER?></th>
 			<th width="2%">
 			<a href="javascript: saveorder( <?php echo count( $rows )-1; ?> )">
-				<img src="images/filesave.png" border="0" width="16" height="16" alt="Save Order" />			</a>			</th>
+				<img src="images/filesave.png" border="0" width="16" height="16" alt="Save Order" />
+			</a>
+			</th>
 			<th width="15%" align="left"><?php echo _RSGALLERY_GAL_GAL?></th>
 			<th width="5%"><?php echo _RSGALLERY_IMAGEHITS?></th>
 			<th width=""><?php echo _RSGALLERY_IMG_DATE_TIME?></th>
-            <?php if( $rsgConfig->get( 'enableTags' ))
-				{ 	?>  
-			<th width="">Tags</th>
-            <?php } ?>
 		</tr>
 		<?php
 		$k = 0;
@@ -69,15 +73,15 @@ class html_rsg2_images {
 
 			$checked 	= mosCommonHTML::CheckedOutProcessing( $row, $i );
 
-			$tags = split("," , $row->tags);
-
 			$row->cat_link 	= 'index2.php?option=com_rsgallery2&rsgOption=galleries&task=editA&hidemainmenu=1&id='. $row->gallery_id;
 			?>
 			<tr class="<?php echo "row$k"; ?>">
 				<td>
-				<?php echo $row->id; ?>				</td>
+				<?php echo $row->id; ?>
+				</td>
 				<td>
-				<?php echo $checked; ?>				</td>
+				<?php echo $checked; ?>
+				</td>
 				<td>
 				<?php
 				if ( $row->checked_out && ( $row->checked_out != $my->id ) ) {
@@ -98,48 +102,33 @@ class html_rsg2_images {
 					 $link,
 					1);
 				}
-				?>				</td>
+				?>
+				</td>
 				<td align="center">
 				<a href="javascript: void(0);" onclick="return listItemTask('cb<?php echo $i;?>','<?php echo $task;?>')">
-				<img src="images/<?php echo $img;?>" width="12" height="12" border="0" alt="<?php echo $alt; ?>" />				</a>				</td>
+				<img src="images/<?php echo $img;?>" width="12" height="12" border="0" alt="<?php echo $alt; ?>" />
+				</a>
+				</td>
 				<td>
-				<?php echo $pageNav->orderUpIcon( $i, ($row->gallery_id == @$rows[$i-1]->gallery_id) ); ?>				</td>
+				<?php echo $pageNav->orderUpIcon( $i, ($row->gallery_id == @$rows[$i-1]->gallery_id) ); ?>
+				</td>
 	  			<td>
-				<?php echo $pageNav->orderDownIcon( $i, $n, ($row->gallery_id == @$rows[$i+1]->gallery_id) ); ?>				</td>
+				<?php echo $pageNav->orderDownIcon( $i, $n, ($row->gallery_id == @$rows[$i+1]->gallery_id) ); ?>
+				</td>
 				<td colspan="2" align="center">
-				<input type="text" name="order[]" size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" />				</td>
+				<input type="text" name="order[]" size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" />
+				</td>
 				<td>
 				<a href="<?php echo $row->cat_link; ?>" title="Edit Category">
-				<?php echo $row->category; ?>				</a>				</td>
+				<?php echo $row->category; ?>
+				</a>
+				</td>
 				<td align="left">
-				<?php echo $row->hits; ?>				</td>
+				<?php echo $row->hits; ?>
+				</td>
 				<td align="left">
-				<?php echo $row->date;?>				</td>
-               
-               <?php if( $rsgConfig->get( 'enableTags' ))
-			   		{ 	?>  
-				<td align="left">
-               
-			   
-               
-			   <?php 
-			   foreach ($tags as $tag)
-			   {
-				   
-			   	//$query2 = "SELECT name FROM jos_rsgallery2_tags where id = " . intval ( $tag );
-				//$database->setQuery( $query2 );
-				//$tagname = $database->loadObjectList();
-				 //  echo $query . "<br />";
-
-				//	echo intval($tag) . " ";   
-				echo getTagName($tag)."<br />";
-			   }
-			  
-			   ?>		
-               
-               			</td>
-               
-               <?php } ?>
+				<?php echo $row->date;?>
+				</td>
 			</tr>
 			<?php
 			$k = 1 - $k;
@@ -224,7 +213,8 @@ class html_rsg2_images {
 					<td>
 						<?php
 						// parameters : areaname, content, hidden field, width, height, rows, cols
-                    	editorArea( 'editor1',  $row->descr , 'descr', '100%;', '200', '10', '20' ) ; ?>
+//  DISABLE EDITORI FOR NOW
+//editorArea( 'editor1',  $row->descr , 'descr', '100%;', '200', '10', '20' ) ; ?>
 					</td>
 				</tr>
 				<tr>
@@ -273,7 +263,14 @@ class html_rsg2_images {
 				</tr>
 				<tr>
 					<td><?php echo $params->render();?>&nbsp;</td>
+                    <?php echo $params->get("tags_string"); ?>
 				</tr>
+                <tr>
+                <td>  
+                		TAGS
+                        <input class="text_area" type="text" name="title" size="50" maxlength="250" value="<?php echo $row->title;?>" />
+                </td>
+                </tr>
 				</table>
 				<table class="adminform">
 				<tr>

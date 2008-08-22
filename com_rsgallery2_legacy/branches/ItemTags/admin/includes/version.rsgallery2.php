@@ -25,7 +25,7 @@ class rsgalleryVersion {
     /** @var int Sub Release Level */
     var $DEV_LEVEL  = '4b';
     /** @var int build Number */
-    var $BUILD      = 'SVN $GlobalRev$';
+    var $BUILD      = 'Tags Test Branch';
     /** @var string Codename */
     var $CODENAME   = '';
     /** @var string Date */
