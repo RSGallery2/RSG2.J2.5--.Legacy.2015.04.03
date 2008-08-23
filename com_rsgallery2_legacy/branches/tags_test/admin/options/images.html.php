@@ -1,7 +1,12 @@
 <?php
 /**
 * Images option for RSGallery2 - HTML display code
+*
+* TEST VERSION, ADDS TAG TO TAG DATABASE
+*
+** August 21, 2008
 * @version $Id$
+* 
 * @package RSGallery2
 * @copyright (C) 2003 - 2006 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -208,7 +213,8 @@ class html_rsg2_images {
 					<td>
 						<?php
 						// parameters : areaname, content, hidden field, width, height, rows, cols
-                    	editorArea( 'editor1',  $row->descr , 'descr', '100%;', '200', '10', '20' ) ; ?>
+//  DISABLE EDITORI FOR NOW
+//editorArea( 'editor1',  $row->descr , 'descr', '100%;', '200', '10', '20' ) ; ?>
 					</td>
 				</tr>
 				<tr>
@@ -257,7 +263,14 @@ class html_rsg2_images {
 				</tr>
 				<tr>
 					<td><?php echo $params->render();?>&nbsp;</td>
+                    <?php echo $params->get("tags_string"); ?>
 				</tr>
+                <tr>
+                <td>  
+                		TAGS
+                        <input class="text_area" type="text" name="title" size="50" maxlength="250" value="<?php echo $row->title;?>" />
+                </td>
+                </tr>
 				</table>
 				<table class="adminform">
 				<tr>

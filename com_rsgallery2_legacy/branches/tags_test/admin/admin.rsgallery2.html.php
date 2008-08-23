@@ -242,7 +242,10 @@ class HTML_RSGALLERY{
 
                 $link = 'index2.php?option=com_rsgallery2&amp;rsgOption=galleries';
                 HTML_RSGALLERY::quickiconButton( $link, 'categories.png', _RSGALLERY_C_CATEGORIES );
-
+				
+                $link = 'index2.php?option=com_rsgallery2&amp;rsgOption=tags';
+                HTML_RSGALLERY::quickiconButton( $link, 'categories.png', _RSGALLERY_C_TAGS );
+				
                 if ( $user->get('gid') > 23 ):
                     /*
                     $link = 'index2.php?option=com_rsgallery2&amp;task=consolidate_db';
