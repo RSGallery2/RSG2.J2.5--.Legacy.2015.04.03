@@ -19,6 +19,13 @@ class menu_rsg2_maintenance{
         mosMenuBar::help('screen.rsgallery2', true);
         mosMenuBar::endTable();
 	}
+	function consolidateDatabase() {
+        mosMenuBar::startTable();
+       	mosMenuBar::deleteList( '', 'delete_image', _RSGALLERY_TOOL_DELETE );
+        mosMenuBar::spacer();
+        mosMenuBar::help('screen.rsgallery2', true);
+        mosMenuBar::endTable();
+	}	
 	
 }
 
@@ -243,6 +250,54 @@ class menu_rsg2_galleries{
         mosMenuBar::cancel();
         mosMenuBar::spacer();
         mosMenuBar::custom('removeReal','delete_f2.png','',_RSGALLERY_TOOL_CONFIRM_DEL, false);
+        mosMenuBar::spacer();
+        mosMenuBar::help( 'screen.rsgallery2.edit' );
+        mosMenuBar::endTable();
+    }
+}
+
+class menu_rsg2_tags{
+    function show(){
+        mosMenuBar::startTable();
+        mosMenuBar::spacer();
+        mosMenuBar::publishList();
+        mosMenuBar::spacer();
+        mosMenuBar::unpublishList();
+        mosMenuBar::spacer();
+        mosMenuBar::editListX();
+        mosMenuBar::spacer();
+		// temporaly removed since delete tag is all screwed up
+        //mosMenuBar::deleteList();
+        mosMenuBar::spacer();
+        mosMenuBar::addNewX();
+        mosMenuBar::spacer();
+        mosMenuBar::help( 'screen.rsgallery2' );
+        menuRSGallery::adminTasksMenu();
+    }
+	    function edit() {
+        global $id;
+
+        mosMenuBar::startTable();
+        mosMenuBar::save();
+        mosMenuBar::spacer();
+        if ( $id ) {
+            // for existing content items the button is renamed `close`
+            mosMenuBar::cancel( 'cancel', _RSGALLERY_TOOL_CLOSE );
+        } else {
+            mosMenuBar::cancel();
+        }
+        mosMenuBar::spacer();
+        mosMenuBar::help( 'screen.rsgallery2.edit' );
+        mosMenuBar::endTable();
+   		 }
+    function remove() {
+        global $id;
+
+        mosMenuBar::startTable();
+        mosMenuBar::cancel();
+        mosMenuBar::spacer();
+		// temporaly removed since delete tag is all screwed up
+        //mosMenuBar::custom('removeReal','delete_f2.png','',_RSGALLERY_TOOL_CONFIRM_DEL, false);
         mosMenuBar::spacer();
         mosMenuBar::help( 'screen.rsgallery2.edit' );
         mosMenuBar::endTable();

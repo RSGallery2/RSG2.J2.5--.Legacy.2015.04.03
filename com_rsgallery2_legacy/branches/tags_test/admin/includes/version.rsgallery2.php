@@ -21,11 +21,11 @@ class rsgalleryVersion {
     /** @var int Main Release Level */
     var $RELEASE    = '1.14';
     /** @var string Development Status */
-    var $DEV_STATUS = 'Pre Alpha';
+    var $DEV_STATUS = 'Tags Test Branch';
     /** @var int Sub Release Level */
-    var $DEV_LEVEL  = '4a';
+    var $DEV_LEVEL  = '4b';
     /** @var int build Number */
-    var $BUILD      = 'SVN $GlobalRev$';
+    var $BUILD      = 'Tags Test Branch';
     /** @var string Codename */
     var $CODENAME   = '';
     /** @var string Date */
