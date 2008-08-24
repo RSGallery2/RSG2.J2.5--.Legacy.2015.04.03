@@ -273,6 +273,11 @@ table#rsg2-thumbsList td{
     text-align: center;
 }
 
+.rsg_nextrandom {
+	font-size:18px;
+	
+}
+
 .rsg2-pageNav{
     text-align: center;
     font-size: 12px;

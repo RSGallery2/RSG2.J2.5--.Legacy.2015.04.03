@@ -452,6 +452,8 @@ class rsgDisplay extends JObject{
         }
     }
     
+
+	
 	/**
 	 * Write downloadlink for image
 	 * @param int image ID
@@ -563,5 +565,53 @@ class rsgDisplay extends JObject{
         <?php
     }
 	*/
+
+		function getTags ()
+		{
+			global $rsgConfig;
+			
+
+			if (! $rsgConfig->get('enableTags'))
+				return;
+
+
+			$tags = array();
+			$id = $item->id;
+			//$item = rsgInstance::getItem();
+			$item = rsgInstance::getItem();
+			$tagsFound = tagUtils::getTagsForImage($item->id);
+			
+			foreach ( $tagsFound as $tag ) {
+				echo $tag->name . "<br/>";
+			}
+			
+//			  echo tagUtils::test ($item->id); 
+		}
+	
+	function ShowNextRandomLink () {
+		global $database;
+		
+		    	//$query = ("SELECT file.date, file.gallery_id, file.ordering, file.id, file.name, file.title".
+                //       " FROM #__rsgallery2_files as file, #__rsgallery2_galleries as gal".
+                 //      " WHERE file.gallery_id=gal.id and gal.published=1 AND file.published=1".
+                //      " ORDER BY rand() limit 1");
+				
+				$query="SELECT * FROM #__rsgallery2_files WHERE published='1' ORDER BY rand() LIMIT 1 ";
+				
+				$database->setQuery($query);
+    			$randomimage = $database->loadObjectList();
+				?>
+
+                <div class="rsg_nextrandom">
+        
+						<a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;page=inline&amp;id=".$randomimage[0]->id); ?>">        								<img src="<?php echo imgUtils::getImgThumb($randomimage[0]->name); ?>"  border="1" /><br />
+                        Random Image
+                        </a>	
+				
+                </div>
+
+                <?php
+				
+	}
 }
 ?>

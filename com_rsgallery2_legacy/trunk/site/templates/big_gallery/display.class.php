@@ -16,6 +16,9 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 
 	function inline(){
 		$this->display( 'inline.php' );
+		
+		
+		
 	}
 
 	/**
@@ -281,8 +284,12 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 		  </tr>
 	  <tr>
 				<td>
-				<div align="center">
-					<?php
+                <div align="center">
+                  <div align="center" style="width:600px;";>
+                    <div style="float:right;">
+                      <?php $this->ShowNextRandomLink(); ?>
+                    </div>
+                    <?php
 					switch ($rsgConfig->get('displayPopup')) {
 						//No popup
 						case 0:
@@ -291,31 +298,39 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 						//Normal popup
 						case 1:
 							if ($rsgConfig->get('watermark')) {
-								?><a href="<?php echo waterMarker::showMarkedImage( $item->name, 'original' ); ?>" target="_blank"><?php
+								?>
+                    <a href="<?php echo waterMarker::showMarkedImage( $item->name, 'original' ); ?>" target="_blank">
+                    <?php
 							} else {
-								?><a href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>" target="_blank"><?php
+								?>
+                    <a href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>" target="_blank">
+                    <?php
 							}
 							$this->_showImageBox( $item->name, $item->descr );
 							?>
-							</a>
-							<?php
+                    </a>
+                    <?php
 							break;
 						//Lightbox++ popup
 						case 2:
 							if ($rsgConfig->get('watermark')) {
-								?><a rel="lightbox" title="<?php echo $item->title."<p>".$item->descr."</p>";?>" href="<?php echo waterMarker::showMarkedImage( $item->name, 'original' ); ?>"><?php
+								?>
+                    <a rel="lightbox" title="<?php echo $item->title."<p>".$item->descr."</p>";?>" href="<?php echo waterMarker::showMarkedImage( $item->name, 'original' ); ?>">
+                    <?php
 							} else {
-								?><a rel="lightbox" title="<?php echo $item->title."<p>".$item->descr."</p>";?>" href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>"><?php
+								?>
+                    </a><a rel="lightbox" title="<?php echo $item->title."<p>".$item->descr."</p>";?>" href="<?php echo waterMarker::showMarkedImage( $item->name, 'original' ); ?>"><a rel="lightbox" title="<?php echo $item->title."<p>".$item->descr."</p>";?>" href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>">
+                    <?php
 							}
 							$this->_showImageBox( $item->name, $item->descr );
 							?>
-							</a>
-                            <br />
-							<?php
+                    </a><br />
+                    <?php
 							break;
 					}
 					?>
-				</div>		<br/>		</td>
+                  </div>
+        </div> <!-- end main display div --><br/>		</td>
 			</tr>
 			<tr>
 				<td><?php $this->_writeDownloadLink( $item->id );?></td>
@@ -447,7 +462,8 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 			?>
 			<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&gid=".$kid->id); ?>">
 				<?php echo htmlspecialchars(stripslashes($kid->name), ENT_QUOTES); ?>
-				(<?php echo $kid->itemCount(); ?>)</a><?php
+				(<?php echo $kid->itemCount(); ?>)</a> 
+				<?php
 
 			if( $kid = array_shift( $kids ))
 				echo ', ';
@@ -455,4 +471,7 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 				break;
 		}
 	}
+	
+
+	
 }
