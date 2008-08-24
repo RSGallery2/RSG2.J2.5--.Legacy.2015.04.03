@@ -293,7 +293,9 @@ class rsgDisplay_tag_test_2 extends rsgDisplay{
 							if ($rsgConfig->get('watermark')) {
 								?><a href="<?php echo waterMarker::showMarkedImage( $item->name, 'original' ); ?>" target="_blank"><?php
 							} else {
-								?><a href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>" target="_blank"><?php
+								?>
+                                <a href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>" target="_blank">
+								<?php
 							}
 							$this->_showImageBox( $item->name, $item->descr );
 							?>
@@ -305,7 +307,8 @@ class rsgDisplay_tag_test_2 extends rsgDisplay{
 							if ($rsgConfig->get('watermark')) {
 								?><a rel="lightbox" title="<?php echo $item->title."<p>".$item->descr."</p>";?>" href="<?php echo waterMarker::showMarkedImage( $item->name, 'original' ); ?>"><?php
 							} else {
-								?><a rel="lightbox" title="<?php echo $item->title."<p>".$item->descr."</p>";?>" href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>"><?php
+								?><a rel="lightbox" title="<?php echo $item->title."<p>".$item->descr."</p>";?>" href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>">
+								<?php
 							}
 							$this->_showImageBox( $item->name, $item->descr );
 							?>
@@ -452,7 +455,8 @@ class rsgDisplay_tag_test_2 extends rsgDisplay{
 			?>
 			<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&gid=".$kid->id); ?>">
 				<?php echo htmlspecialchars(stripslashes($kid->name), ENT_QUOTES); ?>
-				(<?php echo $kid->itemCount(); ?>)</a><?php
+				(<?php echo $kid->itemCount(); ?>)</a>
+				<?php
 
 			if( $kid = array_shift( $kids ))
 				echo ', ';
