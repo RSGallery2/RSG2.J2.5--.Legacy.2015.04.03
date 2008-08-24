@@ -1,10 +1,94 @@
-#rsg2-galleryTitle{
+/* Style introtext with this css tag*/
+div.intro_text {
+	
+}
+/* General style for all images within the rsg2 container */
+/*div.rsg2 img {
+	border: none;
+}
+*/
+/* Style form labels with this tag */
+div.rsg2_exif_container .rsg2_label {
+	font-weight: bold;
 }
 
-/* Lists and Basic */
-.galleryblock td
-{
-background:#604004;
+/* Style EXIF container */
+div.rsg2_exif_container {
+	font-size: 12px;
+}
+/* Style gallery details block here */
+.rsg2_details {
+	font-size: smaller;
+	font-weight: bold;
+	color: silver;
+}
+
+/* Style My Galleries link on frontpage */
+div.rsg2-mygalleries {
+	float:right;	
+}
+
+.rsg2{
+	width:100%;
+	margin:0;
+	padding:0;
+}
+.rsg_galleryblock, .rsg_galleryblock_double_1, .rsg_galleryblock_double_2{
+	border: 1px #999999 solid;
+	padding:8px;
+	float:left;
+	position:relative;
+	margin:0 0 10px 0;
+	vertical-align:top;
+}
+.rsg_galleryblock{
+	width:97%;
+}
+.rsg_galleryblock_double_1{
+	width:46%;
+	margin:0 10px 10px 0;
+}
+.rsg_galleryblock_double_2{
+	width:46%;
+	margin:0 0 10px 0;
+}
+.rsg_double_fix{
+	display: table;
+	width:100%;
+	margin:0;
+	padding:0;
+}
+.rsg_box_block{
+	width:100%;
+	border:0;
+	background:red;
+}
+.rsg_box_box_1, .rsg_box_box_2, .rsg_box_box_3{
+	width:200px;
+	vertical-align:top;
+}
+.rsg_box_box_2, .rsg_box_box_3{
+	position:relative;
+	float:left;
+}
+.rsg2-galleryList-text_box{
+	position:relative;
+	float:right;
+}
+.rsg2-galleryList-description_box{
+	width:100%;
+	float:left;
+	padding-top:5px;
+}
+.rsg_sub_url{
+	width:100%;
+	float:left;
+	padding-top:5px;
+}
+.rsg_sub_url_single{
+	width:90%;
+	float:left;
+	padding-top:5px;
 }
 
 /* Status icons */
@@ -13,11 +97,11 @@ img.status{
     border: none;
 }
 
-/* Thumbs shadow css */
+/* Thumbs shadow css. If you don't want shadow, comment out the next 3 CSS-declarations */
 .img-shadow {
   float:left;
-  background: url(../../Copy%20of%20tables/css/images/shadowAlpha.png) no-repeat bottom right  !important;
-  background: url(../../Copy%20of%20tables/css/images/shadow.gif) no-repeat bottom right;
+  background: url(../../../images/shadowAlpha.png) no-repeat bottom right !important;
+  background: url(../../../images/shadow.gif) no-repeat bottom right;
   margin: 10px 0 0 10px !important;
   margin: 10px 0 0 5px;
   }
@@ -30,24 +114,47 @@ img.status{
   margin: -6px 6px 6px -6px;
   padding: 4px;
   }
+
+.shadow-box {
+	margin-left: auto;
+	margin-right: auto;
+	width: 120px;	
+}
+
 /* end Thumbs shadow */
+
+/* uncomment the next tag if you have commented out the previous 3 tags */
+/*
+.img-shadow img {
+	border:none;
+}
+*/
+
 .rsg2_slideshow{
 width:100%;
 text-align:center;
  padding: 2;
+ margin:0;
 }
 
+#rsg2-adminButtons img {
+	border: none;
+}
 .rsg2-toolbar {
     text-align: center;
     padding-bottom: 5px;
     padding-left: 5px;
     padding-right: 5px;
     padding-top: 5px;
+	margin:0;
     }
+    
+.rsg2-toolbar img{
+	border:0;
+}
 
 .rsg2_display_name{
     /*display:none;*/
-	text-align:center;
 }
 .rsg2_thumb_name{
     /*display:none;*/
@@ -82,6 +189,7 @@ ul#rsg2-galleryList{
 }
 .rsg2-galleryList-status{
     text-align: right;
+	float:right;
 }
 
 .rsg2-galleryList-item{
@@ -95,18 +203,26 @@ ul#rsg2-galleryList{
 
     border: 1px solid #ccc;
 }
-
-.rsg2-galleryList-title
-{
-font-size: 1.4em;
-margin-right: 1em;
-font-weight:bold;
-}
-
 .rsg2-galleryList-thumb{
-    display: block;
     float: left;
-    /*margin: 0 5px 5px 0;*/
+    margin: 0 5px 5px 0;
+}
+.rsg2-galleryList-text{
+}
+.rsg2-galleryList-thumb_double{
+    float: left;
+	position:relative;
+    margin: 0 5px 5px 0;
+	vertical-align:top;
+	width:35%;
+	padding:0;
+}
+.rsg2-galleryList-text_double{
+	float:left;
+	text-align:left;
+	position:relative;
+	width:60%;
+	padding:0;
 }
 
 /* sub gallery list */
@@ -166,7 +282,7 @@ text-align:right;
 }
 
 /* utility selector, this is common in many templates, but we can't count on it being there */
-.clr{
+.rsg2-clr{
     clear: both;
     line-height: 0px;
 }
@@ -189,7 +305,7 @@ table.adminlist th {
     margin: 0px;
     padding: 6px 4px 2px 4px;
     height: 25px;
-    background: url(../../administrator/templates/joomla_admin/images/background.jpg);
+    background: url(../../../../../administrator/templates/joomla_admin/images/background.jpg);
     background-repeat: repeat;
     font-size: 11px;
     color: #000;
@@ -233,7 +349,7 @@ select.options, input.options {
     border: 1px solid #999999;
 }
 /* standard form style table */
-table.adminform, table.galleryblock{
+table.adminform{
     background-color: #f9f9f9;
     border: 1px solid #d5d5d5;
     padding: 0px;
@@ -258,7 +374,7 @@ table.adminform th {
     height: 25px;
     color: #000;
     background-repeat: repeat;
-    background: url(../../administrator/templates/joomla_admin/images/background.jpg);
+    background: url(../../../../../administrator/templates/joomla_admin/images/background.jpg);
 }
 table.adminform td {
     padding: 3px;
@@ -267,4 +383,3 @@ table.adminform td {
 table.adminform td.editor {
     font-size: 9px;
 }
-
