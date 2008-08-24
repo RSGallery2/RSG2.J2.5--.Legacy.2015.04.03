@@ -9,7 +9,7 @@
 	</div>
 	<div class="rsg_sem_inl_ImgDetails">
     	<?php $this->showDisplayImageDetails(); ?>
-		<?php tagUtils::test ("1"); ?>
+		<?php $this->getTags(); ?>
     </div>
     
     

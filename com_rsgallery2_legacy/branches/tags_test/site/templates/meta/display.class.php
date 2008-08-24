@@ -452,6 +452,8 @@ class rsgDisplay extends JObject{
         }
     }
     
+
+	
 	/**
 	 * Write downloadlink for image
 	 * @param int image ID
@@ -563,5 +565,21 @@ class rsgDisplay extends JObject{
         <?php
     }
 	*/
+
+		function getTags ()
+		{
+			$tags = array();
+			$id = $item->id;
+			//$item = rsgInstance::getItem();
+			$item = rsgInstance::getItem();
+			$tagsFound = tagUtils::getTagsForImage($item->id);
+			
+			foreach ( $tagsFound as $tag ) {
+				echo $tag->tag_id . "<br/>";
+			}
+			
+//			  echo tagUtils::test ($item->id); 
+		}
+	
 }
 ?>

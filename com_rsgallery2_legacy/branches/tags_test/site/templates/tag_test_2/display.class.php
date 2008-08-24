@@ -377,7 +377,7 @@ class rsgDisplay_tag_test_2 extends rsgDisplay{
 	$file 	= $mosConfig_absolute_path .'/administrator/components/com_rsgallery2/options/images.item.xml';
 	$params = new mosParameters( $row->params, $file, '10450' );
 	
-echo "test :" . $params->get("tags_string");
+
 
 		// if no details need to be displayed then exit
 		
