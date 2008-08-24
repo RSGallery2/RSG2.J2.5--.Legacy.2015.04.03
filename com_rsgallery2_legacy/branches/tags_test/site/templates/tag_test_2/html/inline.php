@@ -11,9 +11,6 @@
     	<?php $this->showDisplayImageDetails(); ?>
 		<?php $this->getTags(); ?>
     </div>
-    
-    
-    
 	<div class="rsg_sem_inl_footer">
     	<?php // $this->showRsgFooter(); ?>
 	</div>

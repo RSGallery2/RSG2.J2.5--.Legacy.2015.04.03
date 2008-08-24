@@ -568,6 +568,13 @@ class rsgDisplay extends JObject{
 
 		function getTags ()
 		{
+			global $rsgConfig;
+			
+
+			if (! $rsgConfig->get('enableTags'))
+				return;
+
+
 			$tags = array();
 			$id = $item->id;
 			//$item = rsgInstance::getItem();
@@ -575,7 +582,7 @@ class rsgDisplay extends JObject{
 			$tagsFound = tagUtils::getTagsForImage($item->id);
 			
 			foreach ( $tagsFound as $tag ) {
-				echo $tag->tag_id . "<br/>";
+				echo $tag->name . "<br/>";
 			}
 			
 //			  echo tagUtils::test ($item->id); 

@@ -19,10 +19,14 @@ class tagUtils extends fileUtils {
 	
 	function getTagsForImage ($imageNumber) {
 		global $database;
+		
 
 echo $imageNumber . "<br/>";
 
 		$query="SELECT * FROM #__rsgallery2_tagmatch WHERE image_id=" . $imageNumber . " GROUP BY tag_id";
+		
+		$query ="SELECT image_id, tag_id, name FROM #__rsgallery2_tagmatch  INNER JOIN #__rsgallery2_tags ON (#__rsgallery2_tagmatch.tag_id=#__rsgallery2_tags.id) WHERE image_id=" . $imageNumber . " GROUP BY tag_id";
+ 
 
 	    $database->setQuery( $query );
 		$tagsFound = $database->loadObjectList();
