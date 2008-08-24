@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <mosinstall type="rsgTemplate">
-	<name>Chef Groovy</name>
-	<creationDate>01/11/07</creationDate>
+	<name>Big Gallery</name>
+	<creationDate>24-Aug-2008</creationDate>
 	<author>Chef Groovy</author>
-	<copyright>2007 Chef Groovy</copyright>
+	<copyright>Open Source, GPL</copyright>
 	<authorEmail>info@rsgallery2.net</authorEmail>
 	<authorUrl>rsgallery2.net</authorUrl>
-	<version>.001b</version>
-	<description>Chef Groovy's Fantasy Artwork Collection</description>
+	<version>0.1</version>
+	<description>Template based on semantic for large gallery collections</description>
 	<files>
 		<filename>index.php</filename>
 		<filename>display.class.php</filename>
-		<filename>templateDetails.css</filename>
+		<filename>templateDetails.xml</filename>
 	</files>
 	<css>
 		<filename>css/template.css</filename>
