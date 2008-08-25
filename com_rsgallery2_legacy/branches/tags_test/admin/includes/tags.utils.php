@@ -1,27 +1,22 @@
 <?php
-// Handles tag lookups and functins
-
+// 
+/*
+* class Handles all tag related routines
+*  	August 24, 2008
+*	Chef Groovy (chefgroovy@fantasyartwork.net)
+*/
 
 defined( '_VALID_MOS' ) or die( 'Access Denied' );
 
 
 class tagUtils extends fileUtils {
 	
-	function test ($imageNumber) {
-				
-		echo "TagUtils: " . $imageNumber;
-	
-	}
-	
-	/*
-		Returns array of all tags for a given image id
-	*/
-	
+/*
+*		Returns array of all tags for a given image id
+*/
 	function getTagsForImage ($imageNumber) {
-		global $database;
-		
+		global $database;		
 
-echo $imageNumber . "<br/>";
 
 		$query="SELECT * FROM #__rsgallery2_tagmatch WHERE image_id=" . $imageNumber . " GROUP BY tag_id";
 		
@@ -31,27 +26,22 @@ echo $imageNumber . "<br/>";
 	    $database->setQuery( $query );
 		$tagsFound = $database->loadObjectList();
 
-       
-	   if( $tagsFound==null ){
-            echo "No tags for image"  . "<br/>";
-         
-        } else {
-			echo "tags found: " . count($tagsFound) . "<br/>";
-		}
-
-	
-
-
-//		foreach ( $tagsFound as $tag ) {
-//			echo $tag->tag_id . "<br/>";
-//
-//		}
-				 
 		return $tagsFound;
+	}  // End Get Tags
+
+
+/*
+*	displays tags for an image
+*/
+	function showTagsForImage ($imageNumber) {
+		$taglist = tagUtils::getTagsForImage($imageNumber);
+		
+		foreach ( $taglist as $tag ) {
+			echo $tag->name . ", ";	
+		}
+		
 		
 	}
-	
-
 	
 } // END CLASS 
 
