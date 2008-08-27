@@ -133,6 +133,7 @@ function showImages( $option ) {
 	$database->setQuery( $query );
 	$total = $database->loadResult();
 
+
 	require_once( $GLOBALS['mosConfig_absolute_path'] . '/administrator/includes/pageNavigation.php' );
 	$pageNav = new mosPageNav( $total, $limitstart, $limit  );
 
@@ -689,5 +690,19 @@ function save_batchupload() {
         //Everything went smoothly, back to Control Panel
         mosRedirect("index2.php?option=com_rsgallery2", _RSGALLERY_ALERT_UPLOADOK);
     }
+}
+
+function getTagName ($tagnumber)
+{
+	   global $database, $mosConfig_live_site, $rsgConfig;
+	
+				   	$query2 = "SELECT name FROM jos_rsgallery2_tags where published AND id = " . intval ( $tagnumber);
+				$database->setQuery( $query2 );
+				$tagname = $database->loadResult();
+	
+	if ($tagname == '')
+		return;
+	else
+		return $tagname;
 }
 ?>
