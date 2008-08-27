@@ -1,7 +1,7 @@
 <?php
 /**
 * This file handles the initialization required for core functionality.
-* @version $Id$
+* @version 1.14.4
 * @package RSGallery2
 * @copyright (C) 2003 - 2006 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -55,8 +55,10 @@ require_once( JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'items' . DS .'ite
 require_once(JPATH_RSGALLERY2_ADMIN . DS . 'config.rsgallery2.php');
 require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'gallery.manager.php');
 require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'gallery.class.php');
+require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'tags.utils.php');
 require_once(JPATH_RSGALLERY2_LIBS . DS . 'rsgcomments' . DS . 'rsgcomments.class.php');
 require_once(JPATH_RSGALLERY2_LIBS . DS . 'rsgvoting' . DS . 'rsgvoting.class.php');
+
 
 //Check for language files, if not found, default to english
 if (file_exists(JPATH_RSGALLERY2_ADMIN.'/language/'.$mosConfig_lang.'.php')){

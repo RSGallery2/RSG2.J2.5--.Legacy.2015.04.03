@@ -276,6 +276,11 @@ class html_rsg2_config{
 								<td><?php echo 'Hide Root (create multiple independant galleries)'; ?></td>
 								<td><?php echo mosHTML::yesnoRadioList('hideRoot', '', $config->hideRoot); ?></td>
 							</tr>
+							<tr>
+								<td><?php echo 'Enable Tags [Testing]'; ?></td>
+								<td><?php echo mosHTML::yesnoRadioList('enableTags', '', $config->enableTags); ?></td>
+							</tr>
+                            
 						</table>
 					</fieldset>
 				</td>

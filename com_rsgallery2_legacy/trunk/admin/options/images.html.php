@@ -1,7 +1,12 @@
 <?php
 /**
 * Images option for RSGallery2 - HTML display code
+*
+* TEST VERSION, ADDS TAG TO TAG DATABASE
+*
+** August 21, 2008
 * @version $Id$
+* 
 * @package RSGallery2
 * @copyright (C) 2003 - 2006 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -192,8 +197,7 @@ class html_rsg2_images {
 				<tr>
 					<td width="20%" align="right"><?php echo _RSGALLERY_IMAGENAME?>:</td>
 					<td width="80%">
-						<input class="text_area" type="text" name="title" size="50" maxlength="250" value="<?php echo $row->title;?>" />
-					</td>
+						<input class="text_area" type="text" name="title" size="50" maxlength="250" value="<?php echo $row->title;?>" />					</td>
 				</tr>
 				<tr>
 					<td width="20%" align="right"><?php echo _RSGALLERY_IMAGEFILE?>:</td>
@@ -208,8 +212,8 @@ class html_rsg2_images {
 					<td>
 						<?php
 						// parameters : areaname, content, hidden field, width, height, rows, cols
-                    	editorArea( 'editor1',  $row->descr , 'descr', '100%;', '200', '10', '20' ) ; ?>
-					</td>
+//  DISABLE EDITORI FOR NOW
+//editorArea( 'editor1',  $row->descr , 'descr', '100%;', '200', '10', '20' ) ; ?>					</td>
 				</tr>
 				<tr>
 					<td valign="top" align="right"><?php echo _RSGALLERY_IMG_ORDERING?>:</td>
@@ -219,10 +223,15 @@ class html_rsg2_images {
 					<td valign="top" align="right"><?php echo _RSGALLERY_MY_IMAGES_PUBLISHED?>:</td>
 					<td><?php echo $lists['published']; ?></td>
 				</tr>
-				</table>
-			</td>
-			<td width="40%" valign="top">
-				<table class="adminform">
+				<tr>
+				  <td valign="top" align="right">Tags</td>
+				  <td><?php tagUtils::showTagsForImage($row->id); ?></td>
+				  </tr>
+				</table>			</td>
+            
+		  <td width="40%" valign="top">
+            
+	  <table class="adminform">
 				<tr>
 					<th colspan="1"><?php echo _RSGALLERY_IMG_IMG_PREV?></th>
 				</tr>
@@ -257,7 +266,9 @@ class html_rsg2_images {
 				</tr>
 				<tr>
 					<td><?php echo $params->render();?>&nbsp;</td>
+                    <?php echo $params->get("tags_string"); ?>
 				</tr>
+
 				</table>
 				<table class="adminform">
 				<tr>
