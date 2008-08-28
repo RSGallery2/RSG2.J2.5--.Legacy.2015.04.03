@@ -212,8 +212,7 @@ class html_rsg2_images {
 					<td>
 						<?php
 						// parameters : areaname, content, hidden field, width, height, rows, cols
-//  DISABLE EDITORI FOR NOW
-//editorArea( 'editor1',  $row->descr , 'descr', '100%;', '200', '10', '20' ) ; ?>					</td>
+					editorArea( 'editor1',  $row->descr , 'descr', '100%;', '200', '10', '20' ) ; ?>					</td>
 				</tr>
 				<tr>
 					<td valign="top" align="right"><?php echo _RSGALLERY_IMG_ORDERING?>:</td>
@@ -225,7 +224,7 @@ class html_rsg2_images {
 				</tr>
 				<tr>
 				  <td valign="top" align="right">Tags</td>
-				  <td><?php tagUtils::showTagsForImage($row->id); ?></td>
+				  <td><?php tagUtils::getTagsForImage($row->id); ?></td>
 				  </tr>
 				</table>			</td>
             
