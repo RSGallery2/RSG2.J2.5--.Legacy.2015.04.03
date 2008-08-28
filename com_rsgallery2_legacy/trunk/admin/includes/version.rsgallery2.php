@@ -21,19 +21,19 @@ class rsgalleryVersion {
     /** @var int Main Release Level */
     var $RELEASE    = '1.14';
     /** @var string Development Status */
-    var $DEV_STATUS = 'Tags Test Branch';
+    var $DEV_STATUS = 'Trunk';
     /** @var int Sub Release Level */
     var $DEV_LEVEL  = '4b';
     /** @var int build Number */
-    var $BUILD      = 'Tags Test Branch';
+    var $BUILD      = 'Trunk: Unstable';
     /** @var string Codename */
     var $CODENAME   = '';
     /** @var string Date */
-    var $RELDATE    = '06 July 2008';
+    var $RELDATE    = '23 August 2008';
     /** @var string Time */
-    var $RELTIME    = '19:40';
+    var $RELTIME    = '22:55';
     /** @var string Timezone */
-    var $RELTZ      = 'GMT';
+    var $RELTZ      = 'EST';
     /** @var string Copyright Text */
     var $COPYRIGHT  = '&copy; 2005 - 2008 <strong><a class="rsg2-footer" href="http://rsgallery2.net">RSGallery2</a></strong>. All rights reserved.';
     /** @var string URL */

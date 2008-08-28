@@ -31,6 +31,10 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2008-08-26 
+ + Groundwork for tagging system. Classes in tagUtils
+ + Added function for "random image" in templates
+
 2008-07-23 Chef Groovy
  # Fixed orphan file bug when upload and don't select a gallery
 
