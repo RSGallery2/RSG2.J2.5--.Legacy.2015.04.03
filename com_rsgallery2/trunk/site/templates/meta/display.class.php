@@ -214,7 +214,7 @@ class rsgDisplay extends JObject{
 		{
 
 			if($this->gallery->id == 0)
-				$title = "RSGallery2";
+				$title = $mainframe->getPageTitle();
 			else
 				$title = $this->gallery->get('name');
 			$description = htmlspecialchars(strip_tags($this->gallery->get('description')), ENT_QUOTES );
