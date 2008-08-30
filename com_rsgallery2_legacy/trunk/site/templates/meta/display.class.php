@@ -588,30 +588,39 @@ class rsgDisplay extends JObject{
 //			  echo tagUtils::test ($item->id); 
 		}
 	
-	function ShowNextRandomLink () {
+	// show random image
+	// @param galleryID
+	// @returns image row
+	// If not supplied, gets random from any gallery
+	
+	function showRandomImageLink ($galleryID=0)  {
 		global $database;
+		
+		if (! $galleryID) {
+		// this query will only get from published galleries
 		
 		    	//$query = ("SELECT file.date, file.gallery_id, file.ordering, file.id, file.name, file.title".
                 //       " FROM #__rsgallery2_files as file, #__rsgallery2_galleries as gal".
                  //      " WHERE file.gallery_id=gal.id and gal.published=1 AND file.published=1".
                 //      " ORDER BY rand() limit 1");
-				
-				$query="SELECT * FROM #__rsgallery2_files WHERE published='1' ORDER BY rand() LIMIT 1 ";
-				
-				$database->setQuery($query);
-    			$randomimage = $database->loadObjectList();
-				?>
-
+			$query="SELECT * FROM #__rsgallery2_files WHERE published='1' ORDER BY rand() LIMIT 1 ";
+			$linktext = "Random Image";
+		} else {
+			$query="SELECT * FROM #__rsgallery2_files WHERE published='1' AND gallery_id = " . $galleryID  . " ORDER BY rand() LIMIT 1 ";
+			$linktext="From This Gallery";
+		}
+		
+		$database->setQuery($query);
+		$randomimage = $database->loadObjectList();
+		
+						?>
                 <div class="rsg_nextrandom">
-        
-						<a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;page=inline&amp;id=".$randomimage[0]->id); ?>">        								<img src="<?php echo imgUtils::getImgThumb($randomimage[0]->name); ?>"  border="1" /><br />
-                        Random Image
+						<a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;page=inline&amp;id=".$randomimage[0]->id); ?>"><img src="<?php echo imgUtils::getImgThumb($randomimage[0]->name); ?>"  border="1" /><br />
+                       <?php echo $linktext; ?>
                         </a>	
-				
                 </div>
-
                 <?php
-				
 	}
+
 }
 ?>
