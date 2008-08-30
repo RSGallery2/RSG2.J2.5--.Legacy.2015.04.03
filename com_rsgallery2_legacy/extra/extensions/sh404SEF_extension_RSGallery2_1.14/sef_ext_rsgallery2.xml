@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<mosinstall type="component" version="1.0">
+  <name>sef_ext_rsgallery2</name>
+  <creationDate>February 3, 2008</creationDate>
+  <author>Kaizer, M (Mirjam)</author>
+  <copyright>This extension is released under the GNU/GPL License.</copyright>
+  <authorEmail>-</authorEmail>
+  <authorUrl>-</authorUrl>
+  <version>0.2 for 1.14</version>
+  <description>This extension enables sh404SEF to work with RSGallery2 <span style='color:red;'>1.14</span> (not 1.13).</description>
+  <installfile>install.sef_ext_rsgallery2.php</installfile>
+  <administration>
+  	<menu>sef_ext_rsgallery2</menu>
+    <files>
+    	<filename>admin.sef_ext_rsgallery2.php</filename>
+    	<filename>sef_ext\com_rsgallery2.php</filename>
+        <filename>meta_ext\com_xxxxxx.php</filename>
+    </files>
+  </administration>
+</mosinstall>
+

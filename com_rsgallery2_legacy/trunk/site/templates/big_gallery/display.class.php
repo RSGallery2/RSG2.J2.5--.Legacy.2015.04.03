@@ -16,9 +16,6 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 
 	function inline(){
 		$this->display( 'inline.php' );
-		
-		
-		
 	}
 
 	/**
@@ -287,7 +284,9 @@ class rsgDisplay_big_gallery extends rsgDisplay{
                 <div align="center">
                   <div align="center" style="width:600px;";>
                     <div style="float:right;">
-                      <?php $this->ShowNextRandomLink(); ?>
+                      <?php $this->showRandomImageLink(0); ?>
+                      <br />
+                      <?php $this->showRandomImageLink(rsgGalleryManager::get()->id); ?>
                     </div>
                     <?php
 					switch ($rsgConfig->get('displayPopup')) {
@@ -463,6 +462,7 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 			<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&gid=".$kid->id); ?>">
 				<?php echo htmlspecialchars(stripslashes($kid->name), ENT_QUOTES); ?>
 				(<?php echo $kid->itemCount(); ?>)</a> 
+				
 				<?php
 
 			if( $kid = array_shift( $kids ))
@@ -473,5 +473,6 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 	}
 	
 
-	
-}
+
+} 
+?>
