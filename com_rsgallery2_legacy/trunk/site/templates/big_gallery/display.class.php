@@ -302,7 +302,8 @@ class rsgDisplay_big_gallery extends rsgDisplay{
                     <?php
 							} else {
 								?>
-                    <a href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>" target="_blank">
+                                <a href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>" target="_blank">
+                    
                     <?php
 							}
 							$this->_showImageBox( $item->name, $item->descr );
@@ -318,7 +319,10 @@ class rsgDisplay_big_gallery extends rsgDisplay{
                     <?php
 							} else {
 								?>
-                    </a><a rel="lightbox" title="<?php echo $item->title."<p>".$item->descr."</p>";?>" href="<?php echo waterMarker::showMarkedImage( $item->name, 'original' ); ?>"><a rel="lightbox" title="<?php echo $item->title."<p>".$item->descr."</p>";?>" href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>">
+                    </a><a rel="lightbox" title="<?php echo $item->title."<p>".$item->descr."</p>";?>" href="<?php echo waterMarker::showMarkedImage( $item->name, 'original' ); ?>"> 
+                    
+                    <a rel="lightbox" title="<?php echo $item->title."<p>".$item->descr."</p>";?>" href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>">
+                    
                     <?php
 							}
 							$this->_showImageBox( $item->name, $item->descr );
@@ -472,7 +476,5 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 		}
 	}
 	
-
-
 } 
 ?>
