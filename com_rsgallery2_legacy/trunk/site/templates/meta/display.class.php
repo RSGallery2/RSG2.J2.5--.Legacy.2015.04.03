@@ -590,7 +590,7 @@ class rsgDisplay extends JObject{
 	
 	// show random image
 	// @param galleryID
-	// @returns image row
+	// Displays block of html with random image
 	// If not supplied, gets random from any gallery
 	
 	function showRandomImageLink ($galleryID=0)  {
@@ -612,12 +612,13 @@ class rsgDisplay extends JObject{
 		
 		$database->setQuery($query);
 		$randomimage = $database->loadObjectList();
-		
+		$galleyname = rsgGalleryManager::getGalleryByItemID($randomimage[0]->id)->name;
 						?>
                 <div class="rsg_nextrandom">
-						<a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;page=inline&amp;id=".$randomimage[0]->id); ?>"><img src="<?php echo imgUtils::getImgThumb($randomimage[0]->name); ?>"  border="1" /><br />
+						<a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;page=inline&amp;id=".$randomimage[0]->id); ?>"><img alt="<?php echo $galleyname; ?>" title="<?php echo $galleyname; ?>"  src="<?php echo imgUtils::getImgThumb($randomimage[0]->name); ?>"  border="1" /><br />
                        <?php echo $linktext; ?>
                         </a>	
+
                 </div>
                 <?php
 	}
