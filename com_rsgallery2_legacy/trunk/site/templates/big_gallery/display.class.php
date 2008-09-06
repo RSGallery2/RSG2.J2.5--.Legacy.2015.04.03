@@ -293,6 +293,7 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 						//No popup
 						case 0:
 							$this->_showImageBox( $item->name, $item->descr );
+							
 							break;
 						//Normal popup
 						case 1:
@@ -302,13 +303,14 @@ class rsgDisplay_big_gallery extends rsgDisplay{
                     <?php
 							} else {
 								?>
-                                <a href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>" target="_blank">
-                    
+                                
+                                <a href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>" target="_blank" title="Click for full size">
                     <?php
 							}
 							$this->_showImageBox( $item->name, $item->descr );
 							?>
                     </a>
+                    
                     <?php
 							break;
 						//Lightbox++ popup
@@ -320,19 +322,24 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 							} else {
 								?>
                     </a><a rel="lightbox" title="<?php echo $item->title."<p>".$item->descr."</p>";?>" href="<?php echo waterMarker::showMarkedImage( $item->name, 'original' ); ?>"> 
-                    
+                   
                     <a rel="lightbox" title="<?php echo $item->title."<p>".$item->descr."</p>";?>" href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>">
                     
                     <?php
 							}
 							$this->_showImageBox( $item->name, $item->descr );
+
 							?>
+                            
                     </a><br />
                     <?php
 							break;
 					}
 					?>
+                   
                   </div>
+            
+                  <a href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>" title="Full Size">Click image for full size</a>
         </div> <!-- end main display div --><br/>		</td>
 			</tr>
 			<tr>
