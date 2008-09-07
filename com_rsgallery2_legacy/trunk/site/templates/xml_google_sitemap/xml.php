@@ -14,22 +14,43 @@
 * 	9/3/08 - Check is gallery exists before attempt to retreive list
 *	9/3/08	- figure out the new way to send output besised using Output variable
 */
-class rsgXmlGalleryTemplate_xml_google_sitemap {
+class rsgXmlGalleryTemplate_xml_google_sitemap extends rsgXmlGalleryTemplate_generic {
     var $gallery;
 
 	// deprecated
     var $output;
+
+
 
     /**
         class constructor
         @param rsgGallery object
     **/
     function rsgXmlGalleryTemplate_xml_google_sitemap( $gallery  ){
-     	$this->gallery = $gallery;
+     	global $rsgConfig;
+		$this->gallery = $gallery;
+					// GET TEMPLATE PARAMS
+		$template = preg_replace( '#\W#', '', rsgInstance::getVar( 'xmlTemplate', 'meta' ) );
+		$template = strtolower( $template );
+
+		// load parameters
+		jimport('joomla.filesystem.file');
+		// Read the ini file
+		$ini	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'params.ini';
+		if (JFile::exists($ini)) {
+			$content = JFile::read($ini);
+		} else {
+			$content = null;
+		}
+		$xml	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template .DS.'templateDetails.xml';
+		$this->params = new JParameter($content, $xml, 'rsgTemplate');
 		
 		// These variables will be in the template parameters eventually
-		$this->dateformat = "Y-m-d";
-		$this->IncludeRootGallery = 1;
+		//$this->dateformat = "Y-m-d";
+		$this->dateformat = $this->params->get('DateFormat');	
+		//$this->IncludeRootGallery = 1;
+		$this->IncludeRootGallery = $this->params->get('IncludeRootGallery');
+		
 		
     }
 
@@ -47,7 +68,7 @@ class rsgXmlGalleryTemplate_xml_google_sitemap {
 	{
 	
 	// CREATE LINK TO ROOT
-	if ($this->IncludeRootGallery) {
+	if ($this->IncludeRootGallery == 1) {
 			$this->output .= "<url>";
 			$this->output .= "<loc>" . $urlroot . "</loc>"; 
 			$this->output .= '<changefreq>daily</changefreq>' ;
@@ -73,11 +94,12 @@ class rsgXmlGalleryTemplate_xml_google_sitemap {
 // Create list for specific gallery
 
 //CREATE LINK TO GALLERY
-	if ($this->IncludeRootGallery) {
+	if ($this->IncludeRootGallery == 1) {
 			$this->output .= '<url>';
 			$this->output .= "<loc>$urlroot"."&amp;" . 'gid='. $this->gallery->id .'</loc>'; 
 			$this->output .= '<changefreq>daily</changefreq>' ;
-			$this->output .= '<priority>1.0</priority>' ;
+			if (count($this->gallery->items()) > 0) 
+				$this->output .= '<priority>1.0</priority>' ;
 			$this->output .= '</url>';
 	}
 	
