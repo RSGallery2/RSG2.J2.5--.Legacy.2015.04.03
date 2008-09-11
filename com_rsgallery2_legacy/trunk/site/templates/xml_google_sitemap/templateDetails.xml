@@ -17,11 +17,11 @@
 	  <params>
   		<param name="DateFormat" type="text" size="25" default="Y-m-d"
 				label="Format for lastmod element."
-				description="DOES NOT WORK NOW. Uses date the file was uploaded. Use Y-m-d\TH:i:s\Z to show date and time.">
+				description="Uses date the file was uploaded. Use Y-m-d\TH:i:s\Z to show date and time.">
 		</param>
 				
 		<param name="IncludeRootGallery" type="radio" default="1" label="Include Root Gallery in Sitemap"
-		description="DOES NOT WORK NOW. Include Root Gallery in Sitemap">
+		description="Include Root Gallery in Sitemap">
 		<option value="1">Yes</option>
 		<option value="0">No</option>
 		</param>
