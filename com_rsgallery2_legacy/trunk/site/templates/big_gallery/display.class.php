@@ -289,6 +289,10 @@ class rsgDisplay_big_gallery extends rsgDisplay{
                       <?php $this->showRandomImageLink(0); ?>
                       <br />
                       <?php $this->showRandomImageLink(rsgGalleryManager::get()->id); ?>
+                      <br />
+                       <?php $this->showPreviousButton(); ?>
+                      <?php $this->showNextButton(); ?>
+                       
                     </div>
                     <?php
 					switch ($rsgConfig->get('displayPopup')) {
@@ -484,6 +488,8 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 				break;
 		}
 	}
+	
+
 	
 } 
 ?>
