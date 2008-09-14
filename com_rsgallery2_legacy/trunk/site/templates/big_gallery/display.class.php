@@ -273,7 +273,9 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 		<table border="0" cellspacing="0" cellpadding="0" width="100%">
             <tr>
             <td>
-           <h3>Gallery: <a href="<?php echo ("index.php?option=com_rsgallery2&amp;gid=".$this->gallery->get('id')); ?>"><?php echo $this->gallery->get('name'); ?></a></h3></td>
+    <h3>Gallery: <a href="<?php echo ("index.php?option=com_rsgallery2&amp;gid=".$this->gallery->get('id')); ?>"><?php echo $this->gallery->get('name'); ?></a></h3>
+
+           </td>
             </tr>
 
             <tr>

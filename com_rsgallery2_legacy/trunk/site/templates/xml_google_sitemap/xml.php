@@ -14,12 +14,12 @@
 * 	9/3/08 - Check is gallery exists before attempt to retreive list
 *	9/3/08	- figure out the new way to send output besised using Output variable
 */
+
 class rsgXmlGalleryTemplate_xml_google_sitemap extends rsgXmlGalleryTemplate_generic {
     var $gallery;
 
 	// deprecated
     var $output;
-
 
 
     /**
@@ -30,29 +30,27 @@ class rsgXmlGalleryTemplate_xml_google_sitemap extends rsgXmlGalleryTemplate_gen
      	global $rsgConfig;
 		$this->gallery = $gallery;
 					// GET TEMPLATE PARAMS
-		$template = preg_replace( '#\W#', '', rsgInstance::getVar( 'xmlTemplate', 'meta' ) );
-		$template = strtolower( $template );
+				$template = preg_replace( '#\W#', '', rsgInstance::getVar( 'xmlTemplate', 'meta' ) );
+				$template = strtolower( $template );
 
-		// load parameters
-		jimport('joomla.filesystem.file');
-		// Read the ini file
-		$ini	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'params.ini';
-		if (JFile::exists($ini)) {
-			$content = JFile::read($ini);
-		} else {
-			$content = null;
-		}
-		$xml	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template .DS.'templateDetails.xml';
-		$this->params = new JParameter($content, $xml, 'rsgTemplate');
+				// load parameters for template
+				jimport('joomla.filesystem.file');
+				// Read the ini file
+				$ini	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'params.ini';
+				if (JFile::exists($ini)) {
+					$content = JFile::read($ini);
+				} else {
+					$content = null;
+				}
+				$xml	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template .DS.'templateDetails.xml';
+				$this->params = new JParameter($content, $xml, 'rsgTemplate');
 		
 		// These variables will be in the template parameters eventually
 		//$this->dateformat = "Y-m-d";
 		$this->dateformat = $this->params->get('DateFormat');	
 		//$this->IncludeRootGallery = 1;
 		$this->IncludeRootGallery = $this->params->get('IncludeRootGallery');
-		
-		
-    }
+	}
 
     /**
         Prepare XML first.  Then if there are errors we print an error before changing Content-Type to xml.
@@ -61,13 +59,15 @@ class rsgXmlGalleryTemplate_xml_google_sitemap extends rsgXmlGalleryTemplate_gen
 		global $database, $mosConfig_live_site;
 		$urlroot= $mosConfig_live_site. "/index.php?option=com_rsgallery2";
 
-	$this->output = '';
+		$this->output = '';
 
 
-	if ( ! $this->gallery->id )	// check if not gallery specified
-	{
+		if ( ! $this->gallery->id )	// check if not gallery specified
+		{
+		
+// No Gallery Specified Mode
 	
-	// CREATE LINK TO ROOT
+	// Create link to root
 	if ($this->IncludeRootGallery == 1) {
 			$this->output .= "<url>";
 			$this->output .= "<loc>" . $urlroot . "</loc>"; 
@@ -88,12 +88,13 @@ class rsgXmlGalleryTemplate_xml_google_sitemap extends rsgXmlGalleryTemplate_gen
 				$this->output .= '</url>';
 			}
 			$this->output .= '</urlset>';
-	}   // end if no gallery selected
+	}   // end if no gallery specified
+	
 	else 	{
 
 // Create list for specific gallery
 
-//CREATE LINK TO GALLERY
+	//CREATE LINK TO GALLERY
 	if ($this->IncludeRootGallery == 1) {
 			$this->output .= '<url>';
 			$this->output .= "<loc>$urlroot"."&amp;" . 'gid='. $this->gallery->id .'</loc>'; 
@@ -118,7 +119,7 @@ class rsgXmlGalleryTemplate_xml_google_sitemap extends rsgXmlGalleryTemplate_gen
 			$this->output .= '</urlset>';
 	 }
 	
-	}  //END PREPARE FUNCTION
+}  //END PREPARE FUNCTION
 
     function printHead(){
 		Header("Content-type: text/xml; charset=UTF-8");

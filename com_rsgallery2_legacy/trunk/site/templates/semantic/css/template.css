@@ -97,6 +97,12 @@ img.status{
     border: none;
 }
 
+.tool-tip{
+    background-color:#ffffcc;
+    border: 1px solid black;
+    padding: 2px;
+}
+
 /* Thumbs shadow css. If you don't want shadow, comment out the next 3 CSS-declarations */
 .img-shadow {
   float:left;
