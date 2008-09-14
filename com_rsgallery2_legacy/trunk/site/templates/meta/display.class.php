@@ -622,6 +622,62 @@ class rsgDisplay extends JObject{
                 </div>
                 <?php
 	}
-
+	// Shows a link to the next image in current directory	
+	function showNextButton() {
+			
+		$gallery = rsgGalleryManager::get();
+		$galid=$gallery->id;
+		$ceiling = $gallery->itemCount();
+		
+		// If the ID is set in rsgInstance, then get the current page from there
+		if( rsgInstance::getInt( 'id', 0 ) )
+		{
+			$curimage = $gallery->indexOfItem();
+			$nextlink = $curimage+1;
+		}
+		// ID NOT SET, so get it from limitstart in address bar
+		else	
+		{	
+			$limitstart = mosGetParam ( $_REQUEST, 'limitstart', 0);
+			$nextlink = $limitstart+1;
+		}
+		
+		// Check if last page. If so, start over at 1
+		if ($nextlink >= $ceiling)
+		{
+			$nextlink = 0;
+		}
+				
+		echo '<a href="/index.php?option=com_rsgallery2&page=inline&gid='. $galid . '&limit=1&limitstart=' . $nextlink .'">Next Image</a>';
+	}
+	
+		// Shows a link to the next image in current directory	
+	function showPreviousButton() {
+			
+		$gallery = rsgGalleryManager::get();
+		$galid=$gallery->id;
+//		$ceiling = $gallery->itemCount();
+		
+		// If the ID is set in rsgInstance, then get the current page from there
+		if( rsgInstance::getInt( 'id', 0 ) )
+		{
+			$curimage = $gallery->indexOfItem();
+			$nextlink = $curimage-1;
+		}
+		// ID NOT SET, so get it from limitstart in address bar
+		else	
+		{	
+			$limitstart = mosGetParam ( $_REQUEST, 'limitstart', 0);
+			$nextlink = $limitstart-1;
+		}
+		
+		// Check if first page. If so, start over at last page
+		if ($nextlink < 0)
+		{
+			$nextlink = $gallery->itemCount()-1;
+		}
+				
+		echo '<a href="/index.php?option=com_rsgallery2&page=inline&gid='. $galid . '&limit=1&limitstart=' . $nextlink .'">Previous Image</a>';
+	}
 }
 ?>

@@ -31,6 +31,10 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+
+2008-09-14
+ +	Add Prev/Next Image links and Random Image links to meta template
+
 2008-08-26 
  + Groundwork for tagging system. Classes in tagUtils
  + Added function for "random image" in templates. 
