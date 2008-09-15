@@ -286,13 +286,12 @@ class rsgDisplay_big_gallery extends rsgDisplay{
                 <div align="center">
                   <div align="center" style="width:600px;";>
                     <div style="float:right;">
-                      <?php $this->showRandomImageLink(0); ?>
+                      <a href="<?php echo $this->getPreviousLink() ?>">Previous</a>
+                      <a href="<?php echo $this->getNextLink() ?>">Next</a>
+                         <br />
+                          <br />
+					  <?php $this->showRandomImageLink(0); ?>
                       <br />
-                      <?php $this->showRandomImageLink(rsgGalleryManager::get()->id); ?>
-                      <br />
-                       <?php $this->showPreviousButton(); ?>
-                      <?php $this->showNextButton(); ?>
-                       
                     </div>
                     <?php
 					switch ($rsgConfig->get('displayPopup')) {
