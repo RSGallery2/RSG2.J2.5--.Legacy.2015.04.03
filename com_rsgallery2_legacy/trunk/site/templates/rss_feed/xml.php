@@ -1,16 +1,15 @@
 <?php
 
 /**
-* Creates an RSS feed for specified gallery
-* Call with &gid=GALLERYNUMBER
-* example: http://YOUR.SITE.NAME/index.php?option=com_rsgallery2&task=xml&xmlTemplate=rss_feedp&gid=17
+* Creates an RSS feed for newest images for last 3 days
+* example: http://YOUR.SITE.NAME/index.php?option=com_rsgallery2&task=xml&xmlTemplate=rss_feed
 *
 * if don't supply gallery number, will send whole list
 * @package RSGallery2
 * @author Chef Groovy <chefgroovy@gantasyartwork.net>
 *
 * TODO 
-*	9/13/08 - Convert from google sitemap
+*	9/20/08 - Clean Up
 */
 
 class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
@@ -44,10 +43,10 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
 				$this->params = new JParameter($content, $xml, 'rsgTemplate');
 		
 		// These variables will be in the template parameters eventually
-		//$this->dateformat = "Y-m-d";
-		$this->dateformat = $this->params->get('DateFormat');	
-		//$this->IncludeRootGallery = 1;
-		$this->IncludeRootGallery = $this->params->get('IncludeRootGallery');
+		$this->dateformat = "r";
+		//$this->dateformat = $this->params->get('DateFormat');	
+		$this->IncludeRootGallery = 0;
+		//$this->IncludeRootGallery = $this->params->get('IncludeRootGallery');
 	}
 
     /**
@@ -65,32 +64,32 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
 		
 // No Gallery Specified Mode
 	
-	// Create link to root
-	if ($this->IncludeRootGallery == 1) {
-			$this->output .= "<url>";
-			$this->output .= "<loc>" . $urlroot . "</loc>"; 
-			$this->output .= '<changefreq>daily</changefreq>' ;
-			$this->output .= '</url>';
-	}
 
 	// GET ALL IMAGES THAT ARE PUBLISTED
-	    	$query = ("SELECT * FROM #__rsgallery2_files WHERE published='1'");
+	    	$query = ("SELECT * FROM #__rsgallery2_files WHERE published='1' AND (date + INTERVAL 3 DAY) >= NOW()");
 			$database->setQuery($query);
 			$filelist = $database->loadObjectList();
 
+				
+				
 			foreach ($filelist as $img) {
-				$this->output .= '<url>';
-				$this->output .= "<loc>$urlroot"."&amp;page=inline" . "&amp;" . 'id='. $img->id .'</loc>'; 
-				$this->output .= '<changefreq>weekly</changefreq>' ;
-				$this->output .= '<lastmod>'. gmdate($this->dateformat, strtotime($img->date)) .'</lastmod>' ;
-				$this->output .= '</url>';
+				
+				$this->output .= '<item>';
+				$this->output .= '<title>'.$img->title.'</title>';
+				$this->output .= '<link>' . $urlroot. '&amp;page=inline' ."&amp;" . 'id='. $img->id .'</link>';
+				$this->output .= '<pubDate>' . gmdate($this->dateformat, strtotime($img->date)) .'</pubDate>';
+				$this->output .= '<description><![CDATA[<img src="http://dev.fantasyartwork.net/images/rsgallery/thumb/'. $img->name.'.jpg"]]>.</description>';
+				$this->output .= '</item>';
+				
 			}
-			$this->output .= '</urlset>';
+			$this->output .= '</channel>';
+			$this->output .= '</rss>';
 	}   // end if no gallery specified
 	
 	else 	{
 
 // Create list for specific gallery
+// This is still formated to google sitemap mode
 
 	//CREATE LINK TO GALLERY
 	if ($this->IncludeRootGallery == 1) {
@@ -120,16 +119,26 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
 }  //END PREPARE FUNCTION
 
     function printHead(){
-		Header("Content-type: text/xml; charset=UTF-8");
+		global $rsgConfig;
+		
+		// have to use rss+xml content to get firefox to automatically detect rss
+		Header("Content-type: application/rss+xml; charset=UTF-8");
 		Header("Content-encoding: UTF-8");
 
 		
-		echo '<?xml version="1.0" encoding="UTF-8"?>'."\n";
+		echo '<?xml version="1.0" ?>'."\n";
+
+
+		echo '<rss version="2.0">';
+		echo '<channel>';
+		echo '<title>Fantasy Artwork</title>';
+		echo '<link>'.$urlroot.'</link>';
+		echo '<description>This is the latest from Fantasy Artwork</description>';
+		echo '<lastBuildDate>Mon, 20 Sep 2008 18:37:00 GMT</lastBuildDate>';
+		echo '<language>en-us</language>';
+		echo '<pubDate>Tue, 10 Jun 2003 04:00:00 GMT</pubDate>';
+		echo '<docs>http://blogs.law.harvard.edu/tech/rss</docs>';
 		
-		echo '<urlset xmlns="http://www.google.com/schemas/sitemap/0.84"'."\n";
-		echo ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'."\n";
-		echo ' xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84'."\n";
-		echo ' http://www.google.com/schemas/sitemap/0.84/sitemap.xsd">'."\n";
 		
     }
     
