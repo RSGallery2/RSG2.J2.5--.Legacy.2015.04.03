@@ -14,7 +14,13 @@
 *	9/20/08 - Clean Up
 *	9/20/08 - Add link to gallery and description
 *	9/20/08 - Add check for ACL
-*/
+*	9/21/08 - Add gallery name to title
+*
+
+
+
+
+*/ 
 
 class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
     var $gallery;
@@ -30,22 +36,29 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
     function rsgXmlGalleryTemplate_rss_feed( $gallery  ){
      	global $rsgConfig;
 		$this->gallery = $gallery;
-					// GET TEMPLATE PARAMS
-				$template = preg_replace( '#\W#', '', rsgInstance::getVar( 'xmlTemplate', 'meta' ) );
-				$template = strtolower( $template );
-
-				// load parameters for template
-				jimport('joomla.filesystem.file');
-				// Read the ini file
-				$ini	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'params.ini';
-				if (JFile::exists($ini)) {
-					$content = JFile::read($ini);
-				} else {
-					$content = null;
-				}
-				$xml	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template .DS.'templateDetails.xml';
-				$this->params = new JParameter($content, $xml, 'rsgTemplate');
 		
+//					// GET TEMPLATE PARAMS
+//
+//				WILL ADD TEMPLATE PARAMS LATER
+//				
+//				$template = preg_replace( '#\W#', '', rsgInstance::getVar( 'xmlTemplate', 'meta' ) );
+//				$template = strtolower( $template );
+//
+//				// load parameters for template
+//				jimport('joomla.filesystem.file');
+//				// Read the ini file
+//				$ini	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'params.ini';
+//				if (JFile::exists($ini)) {
+//					$content = JFile::read($ini);
+//				} else {
+//					$content = null;
+//				}
+//				$xml	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template .DS.'templateDetails.xml';
+//				$this->params = new JParameter($content, $xml, 'rsgTemplate');
+
+
+// Set these to match your site
+
 		// These variables will be in the template parameters eventually
 		$this->dateformat = "r";
 		//$this->dateformat = $this->params->get('DateFormat');	
@@ -80,16 +93,16 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
 				
 			foreach ($filelist as $img) {
 				
-				$this->output .= '<item>';
-				$this->output .= '<title>'.$img->title.'</title>';
-				$this->output .= '<link>' . $urlroot. '&amp;page=inline' ."&amp;" . 'id='. $img->id .'</link>';
-				$this->output .= '<pubDate>' . gmdate($this->dateformat, strtotime($img->date)) .'</pubDate>';
-				$this->output .= '<description><![CDATA[<img src="'.$mosConfig_live_site.'/images/rsgallery/thumb/'. $img->name.'.jpg"]]>.</description>';
-				$this->output .= '</item>';
+				$this->output .= '<item>' . "\n";
+				$this->output .= '<title>'.$img->title.'</title>' . "\n";
+				$this->output .= '<link>' . $urlroot. '&amp;page=inline' ."&amp;" . 'id='. $img->id .'</link>' . "\n";
+				$this->output .= '<pubDate>' . gmdate($this->dateformat, strtotime($img->date)) .'</pubDate>' . "\n";
+				$this->output .= '<description><![CDATA[<a href="'.$urlroot. '&amp;page=inline&amp;id='. $img->id .'"><img src="'.$mosConfig_live_site.'/images/rsgallery/thumb/'. $img->name.'.jpg"]]>.</description>' . "\n";
+				$this->output .= '</item>' . "\n";
 				
 			}
-			$this->output .= '</channel>';
-			$this->output .= '</rss>';
+			$this->output .= '</channel>' . "\n";
+			$this->output .= '</rss>' . "\n";
 	}   // end if no gallery specified
 	
 	else 	{
@@ -135,14 +148,14 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
 		echo '<?xml version="1.0" ?>'."\n";
 
 
-		echo '<rss version="2.0">';
-		echo '<channel>';
-		echo '<title>'.$this->FeedTitle.'</title>';
-		echo '<link>'.$urlroot.'</link>';
-		echo '<description>'.$this->SiteDescription.'</description>';
-		echo '<lastBuildDate>Mon, 20 Sep 2008 18:37:00 GMT</lastBuildDate>';
-		echo '<language>en-us</language>';
-		echo '<pubDate>Tue, 10 Jun 2003 04:00:00 GMT</pubDate>';
+		echo '<rss version="2.0">' . "\n";
+		echo '<channel>' . "\n";
+		echo '<title>'.$this->FeedTitle.'</title>' . "\n";
+		echo '<link>'.$urlroot.'</link>' . "\n";
+		echo '<description>'.$this->SiteDescription.'</description>' . "\n";
+		echo '<lastBuildDate>Mon, 20 Sep 2008 18:37:00 GMT</lastBuildDate>' . "\n";
+		echo '<language>en-us</language>' . "\n";
+		echo '<pubDate>Tue, 10 Jun 2003 04:00:00 GMT</pubDate>' . "\n";
 		
 		
     }
