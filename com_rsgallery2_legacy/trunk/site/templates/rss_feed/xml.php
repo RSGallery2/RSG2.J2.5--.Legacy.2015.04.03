@@ -92,15 +92,17 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
 				
 				
 			foreach ($filelist as $img) {
-				
+											
 				$this->output .= '<item>' . "\n";
-				$this->output .= '<title>'.$img->title.'</title>' . "\n";
+				$this->output .= '<title>'.$this->_getGalleryName( $img->gallery_id ) . " - " . $img->title.'</title>' . "\n";
 				$this->output .= '<link>' . $urlroot. '&amp;page=inline' ."&amp;" . 'id='. $img->id .'</link>' . "\n";
 				$this->output .= '<pubDate>' . gmdate($this->dateformat, strtotime($img->date)) .'</pubDate>' . "\n";
-				$this->output .= '<description><![CDATA[<a href="'.$urlroot. '&amp;page=inline&amp;id='. $img->id .'"><img src="'.$mosConfig_live_site.'/images/rsgallery/thumb/'. $img->name.'.jpg"]]>.</description>' . "\n";
+				$this->output .= '<description><![CDATA[<a href="'.$urlroot. '&amp;page=inline&amp;id='. $img->id .'"><img src="'.$mosConfig_live_site.'/images/rsgallery/thumb/'. $img->name.'.jpg"]]></description>' . "\n";
+				$this->output .= '<guid isPermaLink="true">'.$urlroot. '&amp;page=inline' ."&amp;" . 'id='. $img->id.'</guid>';
 				$this->output .= '</item>' . "\n";
 				
 			}
+			$this->output .= '<atom:link href="'. $urlroot . '&amp;task=xml&amp;xmlTemplate=rss_feed' .'" rel="self" type="application/rss+xml" />';
 			$this->output .= '</channel>' . "\n";
 			$this->output .= '</rss>' . "\n";
 	}   // end if no gallery specified
@@ -139,6 +141,7 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
 
     function printHead(){
 		global $rsgConfig;
+		global $mosConfig_live_site;
 		
 		// have to use rss+xml content to get firefox to automatically detect rss
 		Header("Content-type: application/rss+xml; charset=UTF-8");
@@ -148,14 +151,14 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
 		echo '<?xml version="1.0" ?>'."\n";
 
 
-		echo '<rss version="2.0">' . "\n";
+		echo '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">' . "\n";
 		echo '<channel>' . "\n";
 		echo '<title>'.$this->FeedTitle.'</title>' . "\n";
-		echo '<link>'.$urlroot.'</link>' . "\n";
+		echo '<link>'. $mosConfig_live_site . '</link>' . "\n";
 		echo '<description>'.$this->SiteDescription.'</description>' . "\n";
-		echo '<lastBuildDate>Mon, 20 Sep 2008 18:37:00 GMT</lastBuildDate>' . "\n";
+		echo '<lastBuildDate>'.date("r").'</lastBuildDate>' . "\n";
 		echo '<language>en-us</language>' . "\n";
-		echo '<pubDate>Tue, 10 Jun 2003 04:00:00 GMT</pubDate>' . "\n";
+		echo '<pubDate>'.date("r").'</pubDate>' . "\n";
 		
 		
     }
@@ -169,5 +172,17 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
         if( $this->output )
 			echo $this->output;
     }
+	
+	
+	function _getGalleryName($id)
+	{
+		global $database;
+		$query="SELECT name FROM #__rsgallery2_galleries WHERE id=" . $id;
+		$database->setQuery($query);
+		$galname = $database->loadResult();
+
+		return $galname;
+	}
+	
 }
 ?>
