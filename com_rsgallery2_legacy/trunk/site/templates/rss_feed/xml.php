@@ -1,6 +1,8 @@
 <?php
 
 /**
+* CAUTION  EXREME BETA
+************************
 * Creates an RSS feed for newest images for last 3 days
 * example: http://YOUR.SITE.NAME/index.php?option=com_rsgallery2&task=xml&xmlTemplate=rss_feed
 *
@@ -10,6 +12,8 @@
 *
 * TODO 
 *	9/20/08 - Clean Up
+*	9/20/08 - Add link to gallery and description
+*	9/20/08 - Add check for ACL
 */
 
 class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
@@ -47,6 +51,8 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
 		//$this->dateformat = $this->params->get('DateFormat');	
 		$this->IncludeRootGallery = 0;
 		//$this->IncludeRootGallery = $this->params->get('IncludeRootGallery');
+		$this->SiteDescription = "This is the latest from Fantasy Artwork";
+		$this->FeedTitle = "Fantasy Artwork";
 	}
 
     /**
@@ -78,7 +84,7 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
 				$this->output .= '<title>'.$img->title.'</title>';
 				$this->output .= '<link>' . $urlroot. '&amp;page=inline' ."&amp;" . 'id='. $img->id .'</link>';
 				$this->output .= '<pubDate>' . gmdate($this->dateformat, strtotime($img->date)) .'</pubDate>';
-				$this->output .= '<description><![CDATA[<img src="http://dev.fantasyartwork.net/images/rsgallery/thumb/'. $img->name.'.jpg"]]>.</description>';
+				$this->output .= '<description><![CDATA[<img src="'.$mosConfig_live_site.'/images/rsgallery/thumb/'. $img->name.'.jpg"]]>.</description>';
 				$this->output .= '</item>';
 				
 			}
@@ -131,13 +137,12 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
 
 		echo '<rss version="2.0">';
 		echo '<channel>';
-		echo '<title>Fantasy Artwork</title>';
+		echo '<title>'.$this->FeedTitle.'</title>';
 		echo '<link>'.$urlroot.'</link>';
-		echo '<description>This is the latest from Fantasy Artwork</description>';
+		echo '<description>'.$this->SiteDescription.'</description>';
 		echo '<lastBuildDate>Mon, 20 Sep 2008 18:37:00 GMT</lastBuildDate>';
 		echo '<language>en-us</language>';
 		echo '<pubDate>Tue, 10 Jun 2003 04:00:00 GMT</pubDate>';
-		echo '<docs>http://blogs.law.harvard.edu/tech/rss</docs>';
 		
 		
     }
