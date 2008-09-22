@@ -14,12 +14,7 @@
 *	9/20/08 - Clean Up
 *	9/20/08 - Add link to gallery and description
 *	9/20/08 - Add check for ACL
-*	9/21/08 - Add gallery name to title
 *
-
-
-
-
 */ 
 
 class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
@@ -78,64 +73,25 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
 		$this->output = '';
 
 
-		if ( ! $this->gallery->id )	// check if not gallery specified
-		{
-		
-// No Gallery Specified Mode
-	
-
 	// GET ALL IMAGES THAT ARE PUBLISTED
 	    	$query = ("SELECT * FROM #__rsgallery2_files WHERE published='1' AND (date + INTERVAL 3 DAY) >= NOW()");
 			$database->setQuery($query);
 			$filelist = $database->loadObjectList();
 
-				
-				
 			foreach ($filelist as $img) {
 											
 				$this->output .= '<item>' . "\n";
 				$this->output .= '<title>'.$this->_getGalleryName( $img->gallery_id ) . " - " . $img->title.'</title>' . "\n";
-				$this->output .= '<link>' . $urlroot. '&amp;page=inline' ."&amp;" . 'id='. $img->id .'</link>' . "\n";
+				$this->output .= '<link>' . $urlroot. '&amp;page=inline&amp;id='. $img->id .'</link>' . "\n";
 				$this->output .= '<pubDate>' . gmdate($this->dateformat, strtotime($img->date)) .'</pubDate>' . "\n";
-				$this->output .= '<description><![CDATA[<a href="'.$urlroot. '&amp;page=inline&amp;id='. $img->id .'"><img src="'.$mosConfig_live_site.'/images/rsgallery/thumb/'. $img->name.'.jpg"]]></description>' . "\n";
+				$this->output .= '<description><![CDATA[<a href="'.$urlroot. '&amp;page=inline&amp;id='. $img->id .'"><img src="'.$mosConfig_live_site.'/images/rsgallery/thumb/'. $img->name.'.jpg"/>]]></description>' . "\n";
 				$this->output .= '<guid isPermaLink="true">'.$urlroot. '&amp;page=inline' ."&amp;" . 'id='. $img->id.'</guid>';
 				$this->output .= '</item>' . "\n";
-				
 			}
 			$this->output .= '<atom:link href="'. $urlroot . '&amp;task=xml&amp;xmlTemplate=rss_feed' .'" rel="self" type="application/rss+xml" />';
 			$this->output .= '</channel>' . "\n";
 			$this->output .= '</rss>' . "\n";
-	}   // end if no gallery specified
-	
-	else 	{
 
-// Create list for specific gallery
-// This is still formated to google sitemap mode
-
-	//CREATE LINK TO GALLERY
-	if ($this->IncludeRootGallery == 1) {
-			$this->output .= '<url>';
-			$this->output .= "<loc>$urlroot"."&amp;" . 'gid='. $this->gallery->id .'</loc>'; 
-			$this->output .= '<changefreq>daily</changefreq>' ;
-			if (count($this->gallery->items()) > 0) 
-				$this->output .= '<priority>1.0</priority>' ;
-			$this->output .= '</url>';
-	}
-	
-// CREATE FILE LINKS
-		foreach( $this->gallery->items() as $img ){
-
-			$this->output .= '<url>';
-			$this->output .= "<loc>$urlroot"."&amp;page=inline" . "&amp;" . 'id='. $img->id .'</loc>'; 
-			$this->output .= '<changefreq>weekly</changefreq>' ;
-			$this->output .= '<priority>0.5</priority>' ;
-//Use this is want full date and time
-			//	$this->output .= '<lastmod>'. gmdate('Y-m-d\TH:i:s\Z', strtotime($img->date)) .'</lastmod>' ;
-			$this->output .= '<lastmod>'. gmdate($this->dateformat, strtotime($img->date)) .'</lastmod>' ;
-			$this->output .= '</url>';
-        }
-			$this->output .= '</urlset>';
-	 }
 	
 }  //END PREPARE FUNCTION
 
@@ -147,10 +103,7 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
 		Header("Content-type: application/rss+xml; charset=UTF-8");
 		Header("Content-encoding: UTF-8");
 
-		
 		echo '<?xml version="1.0" ?>'."\n";
-
-
 		echo '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">' . "\n";
 		echo '<channel>' . "\n";
 		echo '<title>'.$this->FeedTitle.'</title>' . "\n";
@@ -159,8 +112,6 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
 		echo '<lastBuildDate>'.date("r").'</lastBuildDate>' . "\n";
 		echo '<language>en-us</language>' . "\n";
 		echo '<pubDate>'.date("r").'</pubDate>' . "\n";
-		
-		
     }
     
     /**
