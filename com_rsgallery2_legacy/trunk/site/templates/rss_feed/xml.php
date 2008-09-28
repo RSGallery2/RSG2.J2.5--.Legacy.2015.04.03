@@ -74,7 +74,7 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
 
 
 	// GET ALL IMAGES THAT ARE PUBLISTED
-	    	$query = ("SELECT * FROM #__rsgallery2_files WHERE published='1' AND (date + INTERVAL 3 DAY) >= NOW()");
+	    	$query = ("SELECT * FROM #__rsgallery2_files WHERE published='1' AND (date + INTERVAL 7 DAY) >= NOW()");
 			$database->setQuery($query);
 			$filelist = $database->loadObjectList();
 

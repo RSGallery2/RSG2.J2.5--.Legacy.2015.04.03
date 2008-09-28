@@ -248,8 +248,7 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 		global $rsgConfig, $mosConfig_live_site, $mainframe;
 		
 		$item = rsgInstance::getItem();
-		//$gallery = rsgInstance::getGallery();
-		
+
 		if( $item->type != 'image' ){
 			// item is not an image, return;
 			return;
@@ -272,7 +271,7 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 		?>
 		<table border="0" cellspacing="0" cellpadding="0" width="100%">
             <tr>
-            <td>
+            <td align="right">
     <h3>Gallery: <a href="<?php echo ("index.php?option=com_rsgallery2&amp;gid=".$this->gallery->get('id')); ?>"><?php echo $this->gallery->get('name'); ?></a></h3>
 
            </td>
@@ -285,11 +284,13 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 				<td>
                 <div align="center">
                   <div align="center" style="width:600px;";>
-                    <div style="float:right;">
+                    <div style="float:right;" class="rsg_nextrandom">
                       <a href="<?php echo $this->getPreviousLink() ?>">Previous</a>
+						 &nbsp;&nbsp;
                       <a href="<?php echo $this->getNextLink() ?>">Next</a>
-                         <br />
+                        <br />
                           <br />
+                          <?php  $this->_showVotes();   ?>
 					  <?php $this->showRandomImageLink(0); ?>
                       <br />
                     </div>
@@ -298,7 +299,6 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 						//No popup
 						case 0:
 							$this->_showImageBox( $item->name, $item->descr );
-							
 							break;
 						//Normal popup
 						case 1:
@@ -477,8 +477,7 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 			?>
 			<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&gid=".$kid->id); ?>">
 				<?php echo htmlspecialchars(stripslashes($kid->name), ENT_QUOTES); ?>
-				(<?php echo $kid->itemCount(); ?>)</a> 
-				
+				(<?php echo $kid->itemCount(); ?>)</a>
 				<?php
 
 			if( $kid = array_shift( $kids ))
