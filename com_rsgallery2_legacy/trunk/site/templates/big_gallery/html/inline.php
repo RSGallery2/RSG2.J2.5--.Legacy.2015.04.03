@@ -11,6 +11,6 @@
     	<?php $this->showDisplayImageDetails(); ?>
 	</div>
 	<div class="rsg_sem_inl_footer">
-    	<?php  $this->showRsgFooter(); ?>
+    	<?php $this->showRsgFooter(); ?>
 	</div>
 </div>
