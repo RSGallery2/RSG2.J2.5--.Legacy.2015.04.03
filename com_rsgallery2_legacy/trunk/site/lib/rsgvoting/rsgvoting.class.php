@@ -26,7 +26,8 @@ class rsgVoting {
 			<script  type="text/javascript">
 			function saveVote(id, value) {
 				var form = document.rsgvoteform;
-				var saveVote = confirm('<?php echo _RSGALLERY_VOTING_ARE_YOU_SURE;?>');
+				//var saveVote = confirm('<?php echo _RSGALLERY_VOTING_ARE_YOU_SURE;?>');
+				var saveVote = 1;
 				
 			if (saveVote) {
 				form.rating.value = value;
