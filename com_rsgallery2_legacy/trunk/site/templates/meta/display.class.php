@@ -644,7 +644,8 @@ class rsgDisplay extends JObject{
 		}
 		
 		// Check if last page. If so, start over at 1
-		if ($nextlink >= $ceiling)
+		
+		if ($nextpage >= $ceiling)
 		{
 			$nextpage = 0;
 		}
