@@ -1,9 +1,9 @@
 <?php
 /**
-* This file contains xxxxxxxxxxxxxxxxxxxxxxxxxxx.
-* @version xxx
+* This file contains routines to save votes.
+* @version 1.0
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2008 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -49,7 +49,8 @@ function saveVote( $option ) {
 		
 		//Check if user has already voted for this image
 		if ($vote->alreadyVoted($id)) {
-		 	mosRedirect("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id",_RSGALLERY_VOTING_ALREADY_VOTED);
+		// 	mosRedirect("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id",_RSGALLERY_VOTING_ALREADY_VOTED);
+			gotoNextItem($msg);
 		}
 		
 		//All checks OK, store vote in DB
@@ -65,7 +66,20 @@ function saveVote( $option ) {
 			//Store cookie on system
 			setcookie($rsgConfig->get('cookie_prefix').$id, $my->id, time()+60*60*24*365, "/");
 		}
-		mosRedirect("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id", $msg);
+
+		//mosRedirect("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id", $msg);
+		gotoNextItem($msg);
 	}
+	
+
 }
+
+	function gotoNextItem ($msg)
+	{
+		global $mosConfig_live_site;
+		require_once( JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'meta' . DS . 'display.class.php' );
+		
+		//mosRedirect("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id", $msg);
+		mosRedirect($mosConfig_live_site . DS . rsgDisplay::getNextLink() , $msg);
+	}
 ?>
