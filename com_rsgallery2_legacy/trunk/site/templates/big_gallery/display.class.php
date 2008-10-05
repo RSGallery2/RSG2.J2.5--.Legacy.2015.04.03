@@ -292,8 +292,19 @@ class rsgDisplay_big_gallery extends rsgDisplay{
                           <br />
                           <?php  $this->_showVotes();   ?>
 					  <?php $this->showRandomImageLink(0); ?>
-                      <br />
+                     
+                       <?php 	
+					   	$this->adcode = $this->params->get('AdCodeSubMenu');
+
+				
+				$this->adcode=str_replace(array("<br/>","<br />"),"\n\r",$this->adcode);
+				
+echo $this->adcode;
+						
+					?>
+    
                     </div>
+                   
                     <?php
 					switch ($rsgConfig->get('displayPopup')) {
 						//No popup
@@ -340,6 +351,8 @@ class rsgDisplay_big_gallery extends rsgDisplay{
                     <?php
 							break;
 					}
+
+				
 					?>
                    
                   </div>

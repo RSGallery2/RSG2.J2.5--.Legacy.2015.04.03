@@ -16,4 +16,14 @@
 	<css>
 		<filename>css/template.css</filename>
 	</css>
+	<params>
+	<param name="AdCodeSubMenu" type="textarea" default="" 
+				label="Ad code: Inline Submenu" description="Code for the ad code in inline submenu" rows="10" cols="60" />
+		<param name="AdCodeBelow" type="textarea" default="" 
+				label="Ad Code: Below Pic" description="" rows="10" cols="60" />
+	
+	</params>
+	
+	
+	
 </mosinstall>
