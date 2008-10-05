@@ -343,7 +343,9 @@ class TemplatesController
 		{
 			$txt = null;
 			foreach ($params as $k => $v) {
-				$txt .= "$k=$v\n";
+				$paramtxt =  nl2br("$k=$v");
+				$paramtxt=str_replace(array("\n","\r"),"",$paramtxt);
+				$txt .=   $paramtxt  . "\n";
 			}
 
 			// Try to make the params file writeable
