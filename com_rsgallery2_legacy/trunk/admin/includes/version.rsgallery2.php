@@ -23,13 +23,13 @@ class rsgalleryVersion {
     /** @var string Development Status */
     var $DEV_STATUS = 'Trunk';
     /** @var int Sub Release Level */
-    var $DEV_LEVEL  = '4b';
+    var $DEV_LEVEL  = '4';
     /** @var int build Number */
     var $BUILD      = 'Trunk: Unstable';
     /** @var string Codename */
     var $CODENAME   = '';
     /** @var string Date */
-    var $RELDATE    = '23 August 2008';
+    var $RELDATE    = '11 October 2008';
     /** @var string Time */
     var $RELTIME    = '22:55';
     /** @var string Timezone */
