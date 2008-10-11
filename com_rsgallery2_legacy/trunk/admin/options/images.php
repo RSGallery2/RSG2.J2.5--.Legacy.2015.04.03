@@ -696,7 +696,7 @@ function getTagName ($tagnumber)
 {
 	   global $database, $mosConfig_live_site, $rsgConfig;
 	
-				   	$query2 = "SELECT name FROM jos_rsgallery2_tags where published AND id = " . intval ( $tagnumber);
+				   	$query2 = "SELECT name FROM #__rsgallery2_tags where published AND id = " . intval ( $tagnumber);
 				$database->setQuery( $query2 );
 				$tagname = $database->loadResult();
 	

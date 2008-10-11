@@ -31,6 +31,14 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2008-10-10 - Version 1.14.4 (only tested with Joomla 1.5 in legacy mode)
+ !	Notable changes:
+ !		Added getNextLink() and getPreviousLink() to meta template to return link to next or previous image in gallery.
+ !		Set up database and backend for tagging system
+ !		Added function fetch a random image from whole gallery
+ !		Basic xml templates for Google sitemap and RSS Feeds
+ !		Fix template manager to handle multiline textarea fields
+ !		minor bug fixes
 
 2008-09-14
  +	Add Prev/Next Image links and Random Image links to meta template
