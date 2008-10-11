@@ -17,7 +17,7 @@ defined( '_VALID_MOS' ) or die( 'Restricted access' );
 class rsgConfig {
 
 	//	General
-	var $intro_text 		= 'RSGallery2 1.14.4b Trunk: Unstable.';
+	var $intro_text 		= 'RSGallery2 1.14.4 Trunk: Unstable.';
 	var $version    		= 'depreciated';  // this is set and loaded from includes/version.rsgallery2.php and below in the class constructor
 	var $debug      		= false;
 	var $allowedFileTypes 	= "jpg,jpeg,gif,png";
@@ -118,7 +118,7 @@ class rsgConfig {
         // get version
         // global $rsgVersion;
         // $this->version = $rsgVersion->getVersionOnly();
-        $this->version = '1.14.4b';
+        $this->version = '1.14.4';
 
         if( $loadFromDB )
             $this->_loadConfig();
