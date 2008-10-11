@@ -292,14 +292,13 @@ class rsgDisplay_big_gallery extends rsgDisplay{
                           <br />
                           <?php  $this->_showVotes();   ?>
 					  <?php $this->showRandomImageLink(0); ?>
-                     
+                      <br />
                        <?php 	
+					   // GET ADCODE PARAM
+					   // have to replace <br/> with php newlines to get google ads to work
 					   	$this->adcode = $this->params->get('AdCodeSubMenu');
-
-				
-				$this->adcode=str_replace(array("<br/>","<br />"),"\n\r",$this->adcode);
-				
-echo $this->adcode;
+						$this->adcode=str_replace(array("<br/>","<br />"),"\n\r",$this->adcode);
+						echo $this->adcode;
 						
 					?>
     
