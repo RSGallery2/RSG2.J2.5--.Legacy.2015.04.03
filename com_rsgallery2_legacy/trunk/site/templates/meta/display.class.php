@@ -649,8 +649,8 @@ class rsgDisplay extends JObject{
 		{
 			$nextpage = 0;
 		}
-			
-			$nextlink = 'index.php?option=com_rsgallery2&page=inline&gid='. $galid . '&limit=1&limitstart=' . $nextpage;
+			$nextlink = $mosConfig_live_site;
+			$nextlink .= '/index.php?option=com_rsgallery2&page=inline&gid='. $galid . '&limit=1&limitstart=' . $nextpage;
 			
 		return $nextlink;
 	}
@@ -681,8 +681,8 @@ class rsgDisplay extends JObject{
 		{
 			$previouspage = $gallery->itemCount()-1;
 		}
-				
-		$previouslink = "index.php?option=com_rsgallery2&page=inline&gid=". $galid . "&limit=1&limitstart=" . $previouspage;
+		$nextlink = $mosConfig_live_site;				
+		$previouslink .= "/index.php?option=com_rsgallery2&page=inline&gid=". $galid . "&limit=1&limitstart=" . $previouspage;
 
 		return $previouslink;
 	}
