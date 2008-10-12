@@ -418,9 +418,44 @@
 	<filename>templates/slideshowone/index.php</filename>
 	<filename>templates/slideshowone/templateDetails.xml</filename>
 
+	<filename>templates/slideshow_parth/index.php</filename>
+	<filename>templates/slideshow_parth/display.class.php</filename>
+	<filename>templates/slideshow_parth/templateDetails.xml</filename>
+	<filename>templates/slideshow_parth/resizer.php</filename>
+	<filename>templates/slideshow_parth/html/slideshow.php</filename>
+	<filename>templates/slideshow_parth/images/carrow1.gif</filename>
+	<filename>templates/slideshow_parth/images/carrow2.gif</filename>
+	<filename>templates/slideshow_parth/images/fleche1.gif</filename>
+	<filename>templates/slideshow_parth/images/fleche1.png</filename>
+	<filename>templates/slideshow_parth/images/fleche2.gif</filename>
+	<filename>templates/slideshow_parth/images/fleche2.png</filename>
+	<filename>templates/slideshow_parth/images/loading-bar-black.gif</filename>
+	<filename>templates/slideshow_parth/images/open.gif</filename>
+	<filename>templates/slideshow_parth/images/open.png</filename>
+	<filename>templates/slideshow_parth/images/bg/biglink_off.gif</filename>
+	<filename>templates/slideshow_parth/images/bg/biglink_on.gif</filename>
+	<filename>templates/slideshow_parth/images/bg/bullet.gif</filename>
+	<filename>templates/slideshow_parth/images/bg/footer.jpg</filename>
+	<filename>templates/slideshow_parth/images/bg/gradient.jpg</filename>
+	<filename>templates/slideshow_parth/images/bg/gradient1.gif</filename>
+	<filename>templates/slideshow_parth/images/bg/header.jpg</filename>
+	<filename>templates/slideshow_parth/js/HistoryManager.js</filename>
+	<filename>templates/slideshow_parth/js/jd.gallery.js</filename>
+	<filename>templates/slideshow_parth/js/jd.gallery.set.js</filename>
+	<filename>templates/slideshow_parth/js/jd.gallery.transitions.js</filename>
+	<filename>templates/slideshow_parth/js/mootools.v1.11.js</filename>
+	<filename>templates/slideshow_parth/js/mootools.v1.11.ext.js</filename>
+	<filename>templates/slideshow_parth/js/mootools.v1.11.uncompressed.js</filename>
+	<filename>templates/slideshow_parth/css/template.css</filename>
+	<filename>templates/slideshow_parth/css/jd.gallery.css</filename>
+
 <filename>templates/xml_google_sitemap/index.php</filename>
 <filename>templates/xml_google_sitemap/templateDetails.xml</filename>
 <filename>templates/xml_google_sitemap/xml.php</filename>
+
+<filename>templates/rss_feed/index.php</filename>
+<filename>templates/rss_feed/templateDetails.xml</filename>
+<filename>templates/rss_feed/xml.php</filename>
 
   </files>
  
