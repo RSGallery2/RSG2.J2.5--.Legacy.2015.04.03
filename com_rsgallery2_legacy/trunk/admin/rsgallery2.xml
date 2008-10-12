@@ -6,7 +6,7 @@
   <copyright>This component is released under the GNU/GPL License</copyright>
   <authorEmail>info@rsgallery2.net</authorEmail>
   <authorUrl>http://rsgallery2.net</authorUrl>
-  <version>1.14.4</version>
+  <version>1.14.5</version>
   <description>RSGallery2 is a full featured gallery component for Joomla!  Visit the official site for FAQ, support forums and latest news: www.RSGallery2.net.</description>
   <files>
 	<filename>rsgallery.css</filename>
@@ -386,6 +386,16 @@
 	<filename>lib/lightbox++/js/prototype.js</filename>
 	<filename>lib/lightbox++/js/scriptaculous.js</filename>
 	
+	<filename>templates/big_gallery/css/template.css</filename>
+	<filename>templates/big_gallery/display.class.php</filename>
+	<filename>templates/big_gallery/html/exif.php</filename>
+	<filename>templates/big_gallery/html/gallery.php</filename>
+	<filename>templates/big_gallery/html/inline.php</filename>
+	<filename>templates/big_gallery/html/thumbs_float.php</filename>
+	<filename>templates/big_gallery/html/thumbs_table.php</filename>
+	<filename>templates/big_gallery/index.php</filename>
+	<filename>templates/big_gallery/templateDetails.xml</filename>
+	
 	<filename>templates/debug_listeverything/css/template.css</filename>
 	<filename>templates/debug_listeverything/templateDetails.xml</filename>
 	<filename>templates/debug_listeverything/index.php</filename>
@@ -407,6 +417,7 @@
 	<filename>templates/slideshowone/html/slideshow.php</filename>
 	<filename>templates/slideshowone/index.php</filename>
 	<filename>templates/slideshowone/templateDetails.xml</filename>
+
 	<filename>templates/slideshow_parth/index.php</filename>
 	<filename>templates/slideshow_parth/display.class.php</filename>
 	<filename>templates/slideshow_parth/templateDetails.xml</filename>
@@ -437,6 +448,15 @@
 	<filename>templates/slideshow_parth/js/mootools.v1.11.uncompressed.js</filename>
 	<filename>templates/slideshow_parth/css/template.css</filename>
 	<filename>templates/slideshow_parth/css/jd.gallery.css</filename>
+
+<filename>templates/xml_google_sitemap/index.php</filename>
+<filename>templates/xml_google_sitemap/templateDetails.xml</filename>
+<filename>templates/xml_google_sitemap/xml.php</filename>
+
+<filename>templates/rss_feed/index.php</filename>
+<filename>templates/rss_feed/templateDetails.xml</filename>
+<filename>templates/rss_feed/xml.php</filename>
+
   </files>
  
   <images>
@@ -496,6 +516,9 @@
 	  <filename>includes/items/item.php</filename>
 	  <filename>includes/mimetype.php</filename>
 	  <filename>includes/script.php</filename>
+	  <filename>includes/tags.class.php</filename>
+	  <filename>includes/tags.manager.php</filename>
+	  <filename>includes/tags.utils.php</filename>
 	  <filename>includes/version.rsgallery2.php</filename>
 	  <filename>includes/video.utils.php</filename>
   	
@@ -569,9 +592,13 @@
 	  <filename>options/templates.html.php</filename>
 	  <filename>options/templates.installer.php</filename>
 	  <filename>options/templates.php</filename>
-    <filename>options/maintenance.class.php</filename>
+      <filename>options/maintenance.class.php</filename>
 	  <filename>options/maintenance.html.php</filename>
 	  <filename>options/maintenance.php</filename>
+	  <filename>options/tags.class.php</filename>
+	  <filename>options/tags.html.php</filename>
+	  <filename>options/tags.php</filename>
+	  
     
     <filename>sql/rsgallery2.sql</filename>
     <filename>sql/upgrade_1.11.0_to_1.11.1.sql</filename>
@@ -581,8 +608,9 @@
     <filename>sql/upgrade_1.11.11_to_1.12.0.sql</filename>
     <filename>sql/upgrade_1.12.1_to_1.12.2.sql</filename>
     <filename>sql/upgrade_1.12.2_to_1.13.2.sql</filename>
-	  <filename>sql/upgrade_1.13.2_to_1.14.0.sql</filename>
+	<filename>sql/upgrade_1.13.2_to_1.14.0.sql</filename>
     <filename>sql/upgrade_1.14.0_to_1.14.1.sql</filename>
+	<filename>sql/upgrade_1.14.1_to_1.14.4.sql</filename>
     <filename>fonts/arial.ttf</filename>
 </files>
     <images>

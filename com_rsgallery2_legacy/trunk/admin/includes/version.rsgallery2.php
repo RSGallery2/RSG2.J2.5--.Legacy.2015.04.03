@@ -23,7 +23,7 @@ class rsgalleryVersion {
     /** @var string Development Status */
     var $DEV_STATUS = 'Trunk';
     /** @var int Sub Release Level */
-    var $DEV_LEVEL  = '4';
+    var $DEV_LEVEL  = '5';
     /** @var int build Number */
     var $BUILD      = 'Trunk: Unstable';
     /** @var string Codename */
