@@ -2,7 +2,7 @@
 # 2008-09-3 works on backside
 
 
---DROP TABLE IF EXISTS `#__rsgallery2_tags`;
+# DROP TABLE IF EXISTS `#__rsgallery2_tags`;
 CREATE TABLE IF NOT EXISTS `#__rsgallery2_tags` (
   `id`                int AUTO_INCREMENT NOT NULL,
   `name`              varchar(255) NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `#__rsgallery2_tags` (
   
 
 
--- DROP TABLE IF EXISTS `#__rsgallery2_tagmatch`;
+# DROP TABLE IF EXISTS `#__rsgallery2_tagmatch`;
 CREATE TABLE IF NOT EXISTS `#__rsgallery2_tagmatch` (
   `match_id`         int AUTO_INCREMENT NOT NULL,
   `image_id`         int NOT NULL DEFAULT '0',
