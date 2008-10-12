@@ -7,7 +7,7 @@
 	<authorEmail>chefgroovy@fantasyartwork.net</authorEmail>
 	<authorUrl>http://www.fantasyartwork.net</authorUrl>
 	<version>1.1</version>
-	<description>Creates a sitemap for use in Google webmaster tools. Leave off gallery ID to list all files in database.</description>
+	<description>Creates a sitemap for use in Google webmaster tools. Leave off gallery ID to list all files in database. To call it, use URL http://WWW.MYSITE.COM/index.php?option=com_rsgallery2&amp;task=xml&amp;xmlTemplate=xml_google_sitemap&amp;gid=17</description>
 	<files>
 		<filename>index.php</filename>
 		<filename>xml.php</filename>
