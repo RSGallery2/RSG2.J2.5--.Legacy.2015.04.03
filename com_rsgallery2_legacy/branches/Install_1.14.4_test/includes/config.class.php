@@ -17,7 +17,7 @@ defined( '_VALID_MOS' ) or die( 'Restricted access' );
 class rsgConfig {
 
 	//	General
-	var $intro_text 		= 'RSGallery2 1.14.4 Trunk: Unstable.';
+	var $intro_text 		= 'RSGallery2 1.14.4';
 	var $version    		= 'depreciated';  // this is set and loaded from includes/version.rsgallery2.php and below in the class constructor
 	var $debug      		= false;
 	var $allowedFileTypes 	= "jpg,jpeg,gif,png";
@@ -88,7 +88,7 @@ class rsgConfig {
     // watermarking
     var $watermark           = 0;
     var $watermark_type		 = "text"; //Values are text or image
-    var $watermark_text      = "(c) 2007 - RSGallery2";
+    var $watermark_text      = "(c) 2008 - RSGallery2";
     var $watermark_image	 = "watermark.png";
     var $watermark_angle     = 0;
     var $watermark_position  = 5;

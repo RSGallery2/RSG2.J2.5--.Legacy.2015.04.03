@@ -80,6 +80,6 @@ function saveVote( $option ) {
 		require_once( JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'meta' . DS . 'display.class.php' );
 		
 		//mosRedirect("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id", $msg);
-		mosRedirect($mosConfig_live_site . DS . rsgDisplay::getNextLink() , $msg);
+		mosRedirect(rsgDisplay::getNextLink() , $msg);
 	}
 ?>
