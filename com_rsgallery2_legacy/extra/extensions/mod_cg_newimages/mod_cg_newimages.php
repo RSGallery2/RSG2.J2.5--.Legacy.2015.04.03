@@ -27,23 +27,23 @@ require_once($mosConfig_absolute_path.'/administrator/components/com_rsgallery2/
 
 // HARD CODE VARIABLES FOR NOW
 
-$count = $RowsToDisplay * 2;
+
 $dateformat = "M j, Y";
+$count =  $RowsToDisplay * 2;
 
 //get Itemid from menutable
-    $query = "SELECT id"
-        . "\n FROM #__menu"
-        . "\n WHERE published = 1"
-        . "\n AND link = 'index.php?option=com_rsgallery2'"
-        . "\n ORDER BY link"
-        ;
-    $database->setQuery( $query );
-    $RSG2Itemidobj = $database->loadObjectList();
-    if (count($RSG2Itemidobj) > 0)
-        $RSG2Itemid = $RSG2Itemidobj[0]->id;
+  $query = "SELECT id"
+     . "\n FROM #__menu"
+      . "\n WHERE published = 1"
+     . "\n AND link = 'index.php?option=com_rsgallery2'"
+      . "\n ORDER BY link"
+     ;
+  $database->setQuery( $query );
+   $RSG2Itemidobj = $database->loadObjectList();
+   if (count($RSG2Itemidobj) > 0)
+       $RSG2Itemid = $RSG2Itemidobj[0]->id;
 
-
-
+// Get list of new images
 	$queryb="SELECT * FROM #__rsgallery2_files  ORDER BY date DESC LIMIT $count";
 	$queryb="SELECT * FROM (SELECT * FROM #__rsgallery2_files ORDER BY `date` DESC ) AS MOSTHITS GROUP BY `gallery_id` ORDER BY `date` DESC LIMIT $count";
 	$database->setQuery( $queryb );
@@ -79,21 +79,21 @@ else
 				$title          = $rows[$i]->title;
 				$description    = $rows[$i]->descr;
 				$id             = $rows[$i]->id;
-				$catid          = $rows[$i]->gallery_id;
+				$gid          = $rows[$i]->gallery_id;
 				$date			  = $rows[$i]->date;
 				
-				$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE id=" . $catid);
+				$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE id=" . $gid);
 				$resultb= $database->loadObjectList();
 				$result=$resultb[0];
 				$catname = $result->name;
 				
 				
-				$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id=".$catid." ORDER BY hits DESC LIMIT $count");
+				$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id=".$gid." ORDER BY hits DESC LIMIT $count");
 				?>
 
 			<tr style="margin-bottom:10px;">
    				<td align="center"  >				
-        			<a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;page=inline&amp;id=".$id."&amp;catid=".$catid."&amp;Itemid=".$RSG2Itemid);?>">
+        			<a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;page=inline&amp;id=".$id); ?>">
              		<img src="<?php echo imgUtils::getImgThumb($filename); ?>" alt="<?php echo $title; ?>" title="<?php echo $catname  ?>" border="1" /></a>	
     			<div class="rsitems_date"><?php echo date($dateformat, strtotime($date));  ?></div>
 			<br/>
@@ -106,16 +106,16 @@ else
 				$title          = $rows[$i]->title;
 				$description    = $rows[$i]->descr;
 				$id             = $rows[$i]->id;
-				$catid          = $rows[$i]->gallery_id;
+				$gid          = $rows[$i]->gallery_id;
 				$date			= $rows[$i]->date;
 				
-				$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE id=" . $catid);
+				$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE id=" . $gid);
 				$resultb= $database->loadObjectList();
 				$result=$resultb[0];
 				$catname = $result->name;
 			 ?>               
     <td align="center">
-    <a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;page=inline&amp;id=".$id."&amp;catid=".$catid."&amp;Itemid=".$RSG2Itemid);?>">
+    <a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;page=inline&amp;id=".$id);?>">
 <img src="<?php echo imgUtils::getImgThumb($filename); ?>" alt="<?php echo $title; ?>" title="<?php echo $catname  ?>" border="1" /></a>	
     <div class="rsitems_date"><?php echo date($dateformat ,strtotime($date));  ?></div>
     <br/>
@@ -129,8 +129,8 @@ else
             ?>
             <tr>
             <td colspan="2" align="center">
-            
-            <div style="width: 180px; height:150px; border:#FF3333 1px solid; margin-bottom:10px;">
+
+            <div style="width: 180px; padding-bottom:8px; border:#FF3333 1px solid; margin-bottom:10px;">
             <?php
             echo $InsertedCode;
 			?>

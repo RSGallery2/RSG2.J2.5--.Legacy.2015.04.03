@@ -295,8 +295,9 @@ class rsgDisplay_big_gallery extends rsgDisplay{
                       <br />
                        <?php 	
 					   // GET ADCODE PARAM
-					   // have to replace <br/> with php newlines to get google ads to work
+
 					   	$this->adcode = $this->params->get('AdCodeSubMenu');
+					   // have to replace <br/> with php newlines to get google ads to work
 						$this->adcode=str_replace(array("<br/>","<br />"),"\n\r",$this->adcode);
 						echo $this->adcode;
 						

@@ -19,7 +19,9 @@
 	<params>
 	<param name="AdCodeSubMenu" type="textarea" default="" 
 				label="Ad code: Inline Submenu" description="Code for the ad code in inline submenu" rows="10" cols="60" />
-		<param name="AdCodeBelow" type="textarea" default="" 
+	<param name="AdCodeSubMenu2" type="textarea" default="" 
+				label="Ad code: 2nd Inline Submenu" description="Ad Code for Inline 2nd Code" rows="10" cols="60" />
+	<param name="AdCodeBelow" type="textarea" default="" 
 				label="Ad Code: Below Pic" description="" rows="10" cols="60" />
 	
 	</params>
