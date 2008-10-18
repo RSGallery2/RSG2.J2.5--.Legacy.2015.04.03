@@ -1,13 +1,13 @@
 <?xml version="1.0" ?>
 <mosinstall type="module">
-    <name>CG New Images</name>
+    <name>Newest RSG Images</name>
     <creationDate>August 13, 2008</creationDate>
     <author>Chef Groovy</author>
     <copyright>This module is released under the GNU/GPL License</copyright>
     <authorEmail>chefgroovy@fantasyartwork.net</authorEmail>
     <authorUrl>www.fantasyartwork.net</authorUrl>
-    <version>0.0.3</version>
-    <description>Module to display newest image in each gallery. Loosely based on Johans version of RSItems. </description>
+    <version>0.0.5</version>
+    <description>Module to display newest image in each gallery. Loosely based on Johans version of RSItems. Newest beta version on the SVN at http://joomlacode.org/svn/rsgallery2/com_rsgallery2_legacy/extra/extensions/mod_cg_newimages/</description>
 	
 	<files>
 		<filename module="mod_cg_newimages">mod_cg_newimages.php</filename>
@@ -15,18 +15,18 @@
 	
 	<params>
 		<param name="DisplayRows" type="text" size="5" default="1"
-				label="Rows to Display"
+				label="Rows to Display. Two per row."
 				description="Number of rows to display">
 		</param>
 		
 		<param name="InsertedCode" type="textarea" default="" rows="8" cols="50"
 			label="Code to Insert"
-			description="Code block to insert">
+			description="Google Adwords or other HTML Code block to insert in image list">
 		</param>
 		
-		<param name="CodeAfterRow" type="text" size="5" default="1"
+		<param name="CodeAfterRow" type="text" size="5" default="0"
 				label="Row to insert code after"
-				description="What row to insert code block after">
+				description="What row to insert code block after. Zero for disabled.">
 		</param>		
 		
 	</params>
