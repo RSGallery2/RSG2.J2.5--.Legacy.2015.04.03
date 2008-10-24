@@ -73,8 +73,26 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
 		$this->output = '';
 
 
-	// GET ALL IMAGES THAT ARE PUBLISTED
+	// GET ALL IMAGES THAT ARE PUBLISTED FROM LAST 7 DAYS
 	    	$query = ("SELECT * FROM #__rsgallery2_files WHERE published='1' AND (date + INTERVAL 7 DAY) >= NOW()");
+			$query="SELECT * FROM (SELECT * FROM #__rsgallery2_files ORDER BY `date` DESC ) AS MOSTHITS GROUP BY `gallery_id` ORDER BY `date` DESC LIMIT $count";
+	// Changing to, get last 25 images 2 from each gallery
+			// Valriable
+			$totalimages = 25;
+			$imagespergallery = 2;
+	//only show set number
+			$query = "SELECT * FROM #__rsgallery2_files WHERE published='1' ORDER BY jos_rsgallery2_files.`date` DESC LIMIT 40";
+			//$querypart=
+			
+
+	$query="SELECT * FROM (SELECT * FROM #__rsgallery2_files ORDER BY `date` DESC ) AS MOSTHITS GROUP BY `gallery_id` ORDER BY `date` DESC LIMIT 40";
+
+
+
+
+
+
+
 			$database->setQuery($query);
 			$filelist = $database->loadObjectList();
 
