@@ -347,7 +347,8 @@ function saveOrder( &$cid ) {
 	$database =& JFactory::getDBO();
 
 	$total		= count( $cid );
-	$order 		= josGetArrayInts( 'order' );
+	$order 		= JRequest::getVar( 'order', array(0), 'post', 'array' );
+	JArrayHelper::toInteger($order, array(0));
 
 	$row 		= new rsgGalleriesItem( $database );
 	
@@ -356,36 +357,26 @@ function saveOrder( &$cid ) {
 	// update ordering values
 	for ( $i=0; $i < $total; $i++ ) {
 		$row->load( (int) $cid[$i] );
+		$groupings[] = $row->parent;
 		if ($row->ordering != $order[$i]) {
 			$row->ordering = $order[$i];
 			if (!$row->store()) {
-				echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
-				exit();
+				JError::raiseError(500, $db->getErrorMsg());
 			} // if
-			// remember to updateOrder this group
-			//$condition = "gallery_id=" . (int) $row->gallery_id;
-			$condition = "parent=" . (int) $row->parent;
-			$found = false;
-			foreach ( $conditions as $cond )
-				if ($cond[1]==$condition) {
-					$found = true;
-					break;
-				} // if
-			if (!$found) $conditions[] = array($row->id, $condition);
 		} // if
 	} // for
 
-	// execute updateOrder for each group
-	foreach ( $conditions as $cond ) {
-		$row->load( $cond[0] );
-		$row->updateOrder( $cond[1] );
+	// reorder each group
+	$groupings = array_unique( $groupings );
+	foreach ( $groupings as $group ) {
+		$row->reorder('parent = '.$database->Quote($group));
 	} // foreach
 
 	// clean any existing cache files
-	mosCache::cleanCache( 'com_rsgallery2' );
+	$cache =& JFactory::getCache('com_rsgallery2');
+	$cache->clean( 'com_rsgallery2' );
 
-	$msg 	= 'New ordering saved';
+	$msg 	= JText::_( 'New ordering saved' );
 	$mainframe->redirect( 'index2.php?option=com_rsgallery2&rsgOption=galleries', $msg );
 } // saveOrder
-
 ?>
