@@ -275,12 +275,12 @@ function saveCat() {
 	
 	$parent 		= rsgInstance::getVar( 'parent'  , 0);
 	$id 			= rsgInstance::getInt( 'catid'  , null);
-	$catname1 		= rsgInstance::getVar( 'catname1'  , null);
-	$description 	= rsgInstance::getVar( 'description'  , null);
+	$catname1 		= htmlentities(rsgInstance::getVar( 'catname1'  , null), ENT_QUOTES);
+	$description 	= htmlentities(rsgInstance::getVar( 'description'  , null), ENT_QUOTES);
 	$published 		= rsgInstance::getInt( 'published'  , 0);
 	$ordering 		= rsgInstance::getInt( 'ordering'  , null);
-	$maxcats        = $rsgConfig->get('uu_maxCat');
-	
+	$maxcats        = $rsgConfig->get('uu_maxCat');	
+
 	if ($id) {
 		$database->setQuery("UPDATE #__rsgallery2_galleries SET ".
 			"name = '$catname1', ".
