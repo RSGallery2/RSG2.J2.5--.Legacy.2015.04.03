@@ -88,19 +88,14 @@ function saveComment( $option ) {
 	}
 	
 	if ($rsgConfig->get('comment_security') == 1) {
-		if ( file_exists(JPATH_ROOT.'/administrator/components/com_securityimages/server.php') ) {
-			include (JPATH_ROOT.'/administrator/components/com_securityimages/server.php');
-			//Get parameters
-			$security_refid		= rsgInstance::getVar( 'security_rsgallery2_refid', '' );
-			$security_try    	= rsgInstance::getVar( 'security_rsgallery2_try', '' );
-			$security_reload	= rsgInstance::getVar( 'security_rsgallery2_reload', '' ); 
-			$checkSecurity 		= checkSecurityImage($security_refid, $security_try);
-		}
+		
+		$checkSecurity = null;
+		$userEntry = JRequest::getVar('securityImageRSGallery2', false, '', 'CMD'); 
+		$mainframe->triggerEvent('onSecurityImagesCheck', array($userEntry, &$checkSecurity));
+		
 		//Check if security check was OK
-		if ($checkSecurity == false ) {
-			$mainframe->redirect( $redirect_url, JText::_('Incorrect CAPTCHA check, comment is NOT saved!') );
-			exit();
-		}	
+		if ($checkSecurity == false ) 
+			$mainframe->redirect( $redirect_url, JText::_('Incorrect CAPTCHA check, comment is NOT saved!'));
 	}
 	
 	//If we are here, start database thing
