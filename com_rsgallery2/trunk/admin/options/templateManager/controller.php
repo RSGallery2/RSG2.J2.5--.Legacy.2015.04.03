@@ -127,7 +127,7 @@ class InstallerController extends JController
 		// Check for request forgeries
 		JRequest::checkToken() or die( 'Invalid Token' );
 		
-		$template = JRequest::getVar( 'templateName' );
+		$template = JRequest::getVar( 'template' );
 		
 		if($rsgConfig->template == $template) {
 			JError::raiseWarning( 500, 'Can not delete default template.', "Select an other template and then delete this one." );
