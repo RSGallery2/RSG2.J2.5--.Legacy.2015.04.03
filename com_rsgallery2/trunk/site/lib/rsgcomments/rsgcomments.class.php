@@ -305,21 +305,11 @@ function editComment( $item_id ) {
 			<?php
 			//Implement security images only for 
 			if ( $rsgConfig->get('comment_security') == 1 ) {
-				if (file_exists(JPATH_ROOT.'/administrator/components/com_securityimages/client.php') ) {
-					include(JPATH_ROOT.'/administrator/components/com_securityimages/client.php');
-					$packageName = 'security_rsgallery2';
-					
-					// check if security image is turned of by com_securityimage
-					$imageTag = insertSecurityImage($packageName);
-					if($imageTag != ''){
-						echo getSecurityImageTextHeader()." *<br />";
-						echo $imageTag."<br />";
-						echo getSecurityImageField($packageName)."<br/>";
-						echo getSecurityImageTextHelp()."<br/>";
-					}
-				} else {
-					echo JText::_('_RSGALLERY_COMMENTS_SEC_IMG_MISS');
-				}
+				?>
+			<img src="/index.php?option=com_securityimages&task=displayCaptcha">  
+			<br />  
+			<?php echo JText::_('Enter what you see in the image above:');?><input type="text" name="securityImageRSGallery2" />  
+			<?php
 			}
 			?>
 		</td>

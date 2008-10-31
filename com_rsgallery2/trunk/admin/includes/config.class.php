@@ -99,7 +99,7 @@ class rsgConfig {
     
     // Commenting system
     var $comment						= 1;
-    var $comment_security				= 1;
+    var $comment_security				= 0;
     var $comment_once		 			= 0;
     var $comment_allowed_public			= 1;
     

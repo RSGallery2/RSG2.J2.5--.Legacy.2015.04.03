@@ -388,7 +388,7 @@ class html_rsg2_config{
 							</tr>
 							<tr>
 								<td>Use <a href="http://www.waltercedric.com" target="_blank">SecurityImages component</a> <?php echo $security_notice;?></td>
-								<td><?php echo JHTML::_("select.booleanlist",'comment_security', '', $config->comment_security)?></td>
+								<td><?php echo JHTML::_("select.booleanlist",'comment_security', '', $config->comment_security && galleryUtils::isComponentInstalled('com_securityimages'))?></td>
 							</tr>
 							<tr>
 								<td><?php echo JText::_('Allow public users to comment');?></td>
