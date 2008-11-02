@@ -28,64 +28,45 @@ if( $this->pageNav ):
 <?php
 endif;
 ?>
-
-<table width="100%" border="1">
-   <tr align="center">
- 	<td align="center" colspan="2">
 	 <h2 align="center"><?php echo $this->gallery->get('name'); ?> </h2>
- </td>
- </tr>
+<?php
+
+
+
+//  BEGIN TEST
+$count = 10;
+global $database;
+
+
+
+if (! $this->gallery->id ) {
+	
+
+	$queryb="SELECT * FROM (SELECT * FROM #__rsgallery2_files ORDER BY `hits` DESC ) AS MOSTHITS GROUP BY `gallery_id` ORDER BY `date` DESC LIMIT $count";
+	
+	$queryb = "SELECT LOWHITS.name as imgname, #__rsgallery2_galleries.name as galname, #__rsgallery2_galleries.id AS galid, LOWHITS.id AS imgid FROM (SELECT * FROM #__rsgallery2_files ORDER BY `hits` DESC ) AS LOWHITS  INNER JOIN #__rsgallery2_galleries ON (LOWHITS.gallery_id=#__rsgallery2_galleries.id) GROUP BY `gallery_id` ORDER BY LOWHITS.date ASC";
  
  
+	$database->setQuery( $queryb );
+	$rows = $database->loadObjectList();
+foreach ($rows as $row) {
+?>
+<div class="rsg_newgalleryblock">
 <?php
-$i=0;
-foreach( $this->kids as $kid ):
-++$i;
-
-if ($i % 2)  {
+	$filename = $row->imgname ;
+	$id= $row->imgid;
 	?>
-	<tr>
+
+        			<a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;page=inline&amp;id=".$id); ?>">
+             		<img src="<?php echo imgUtils::getImgThumb($filename); ?>" alt="<?php echo $filename; ?>" title="<?php echo $row->galname  ?>" border="2" /></a>
+<h3><?php echo $row->galname; ?></h3>
+ </div>
 <?php
+} // END TEST
+
+
 }
 ?>
-
-<td width="50%">
-<div class="rsg_galleryblock">
-	<div class="rsg2-galleryList-status"><?php echo $kid->status;?></div>
-	<div class="rsg2-galleryList-thumb">
-		<?php echo $kid->thumbHTML; ?>
-	</div>
-	<div class="rsg2-galleryList-text">
-		<?php echo $kid->galleryName;?>
-		<span class='rsg2-galleryList-newImages'>
-			<sup><?php if( $this->gallery->hasNewImages() ) echo _RSGALLERY_NEW; ?></sup>
-		</span>
-		<?php echo $this->_showGalleryDetails( $kid );?>
-		<div class="rsg2-galleryList-description"><?php echo $kid->description;?>
-		</div>
-	</div>
-	<div class="rsg_sub_url_single">
-		<?php $this->_subGalleryList( $kid ); ?>
-	</div>
-</div>
-</td>
-
-<?php
-if ( $i % 2 == 0)  {
-	?>
-	</tr>
-    <?php
-}
-
-?>
-
-<?php
-endforeach;
-?>
-
-</table>
-
-
 <div class="rsg2-clr"></div>
 <?php
 if($this->gallery->id == 0){

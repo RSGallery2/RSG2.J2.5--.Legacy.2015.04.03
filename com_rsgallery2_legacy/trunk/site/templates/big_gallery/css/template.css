@@ -33,6 +33,20 @@ div.rsg2-mygalleries {
 	margin:0;
 	padding:0;
 }
+
+.rsg_newgalleryblock
+{
+	border: 1px #999999 solid;
+	padding:20px;
+	float:left;
+	position:relative;
+	margin:30px 30px 30px 30px;
+	vertical-align:top;
+	text-align:center;
+	
+}
+
+
 .rsg_galleryblock, .rsg_galleryblock_double_1, .rsg_galleryblock_double_2{
 	border: 1px #999999 solid;
 	padding:8px;
