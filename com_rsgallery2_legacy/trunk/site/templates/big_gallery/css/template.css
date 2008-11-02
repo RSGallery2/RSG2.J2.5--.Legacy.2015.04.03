@@ -39,8 +39,10 @@ div.rsg2-mygalleries {
 	border: 1px #999999 solid;
 	padding:20px;
 	float:left;
+	width: 125px;
+	height: 150px;
 	position:relative;
-	margin:30px 30px 30px 30px;
+	margin:20px;
 	vertical-align:top;
 	text-align:center;
 	

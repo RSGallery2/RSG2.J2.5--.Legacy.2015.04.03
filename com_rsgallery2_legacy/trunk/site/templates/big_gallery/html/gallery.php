@@ -29,6 +29,7 @@ if( $this->pageNav ):
 endif;
 ?>
 	 <h2 align="center"><?php echo $this->gallery->get('name'); ?> </h2>
+     <div align="center">
 <?php
 
 
@@ -44,13 +45,14 @@ if (! $this->gallery->id ) {
 
 	$queryb="SELECT * FROM (SELECT * FROM #__rsgallery2_files ORDER BY `hits` DESC ) AS MOSTHITS GROUP BY `gallery_id` ORDER BY `date` DESC LIMIT $count";
 	
-	$queryb = "SELECT LOWHITS.name as imgname, #__rsgallery2_galleries.name as galname, #__rsgallery2_galleries.id AS galid, LOWHITS.id AS imgid FROM (SELECT * FROM #__rsgallery2_files ORDER BY `hits` DESC ) AS LOWHITS  INNER JOIN #__rsgallery2_galleries ON (LOWHITS.gallery_id=#__rsgallery2_galleries.id) GROUP BY `gallery_id` ORDER BY LOWHITS.date ASC";
+	$queryb = "SELECT LOWHITS.name as imgname, #__rsgallery2_galleries.name as galname, #__rsgallery2_galleries.hits AS galhits, #__rsgallery2_galleries.id AS galid, LOWHITS.id AS imgid FROM (SELECT * FROM #__rsgallery2_files ORDER BY `hits` ASC ) AS LOWHITS  INNER JOIN #__rsgallery2_galleries ON (LOWHITS.gallery_id=#__rsgallery2_galleries.id) GROUP BY `gallery_id` ORDER BY galhits DESC";
  
  
 	$database->setQuery( $queryb );
 	$rows = $database->loadObjectList();
 foreach ($rows as $row) {
 ?>
+
 <div class="rsg_newgalleryblock">
 <?php
 	$filename = $row->imgname ;
@@ -67,6 +69,7 @@ foreach ($rows as $row) {
 
 }
 ?>
+</div>
 <div class="rsg2-clr"></div>
 <?php
 if($this->gallery->id == 0){
