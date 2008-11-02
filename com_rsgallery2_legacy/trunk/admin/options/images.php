@@ -49,7 +49,7 @@ switch ($task) {
 		break;
 
 	case 'save':
-		saveImage( $option );
+		saveImage( $option, $id );
 		break;
 
 	case 'remove':
@@ -199,6 +199,9 @@ function editImage( $option, $id ) {
 	$lists['gallery_id']			= galleryUtils::galleriesSelectList( $row->gallery_id, 'gallery_id', true );
 	// build the html select list
 	$lists['published'] 		= mosHTML::yesnoRadioList( 'published', 'class="inputbox"', $row->published );
+	
+	// Hits
+	$lists['hits'] = $row->hits;
 
 	$file 	= $mosConfig_absolute_path .'/administrator/components/com_rsgallery2/options/images.item.xml';
 	$params = new mosParameters( $row->params, $file, 'component' );
@@ -210,7 +213,7 @@ function editImage( $option, $id ) {
 * Saves the record on an edit form submit
 * @param database A database connector object
 */
-function saveImage( $option, $redirect = true ) {
+function saveImage( $option, $id, $redirect = true ) {
 	global $database, $my, $rsgOption;
 
 	$row = new rsgImagesItem( $database );
@@ -224,11 +227,19 @@ function saveImage( $option, $redirect = true ) {
 		$txt = array();
 		foreach ( $params as $k=>$v) {
 			$txt[] = "$k=$v";
+		
 		}
 		$row->params = implode( "\n", $txt );
 	}
-
+	
+// SET THE DATE to NOW
 	$row->date = date( 'Y-m-d H:i:s' );
+
+// Don't know why need this hack to get Hits to save, but you do.  Strange. This forces original hits to be loaded.
+	$org = new rsgImagesItem( $database );
+	$org->load( (int)$id );
+	$row->hits = $org->hits;
+	
 	if (!$row->check()) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
@@ -455,12 +466,12 @@ function resetHits ( &$cid ) {
 	global $database;
 
 	$total		= count( $cid );
-	/*
+
 	echo "Reset hits for $total images";
 	echo "<pre>";
 	print_r( $cid );
 	echo "</pre>";
-	*/
+	
 	//Reset hits
 	$cids = implode( ',', $cid );
 

@@ -184,11 +184,13 @@ class html_rsg2_images {
 		<table class="adminheading">
 		<tr>
 			<th><?php echo _RSGALLERY_IMG_IMAGE?>:<small><?php echo $row->id ? 'Edit' : 'New';?></small></th>
+          
 		</tr>
 		</table>
 
 		<table width="100%">
-		<tr>
+        <tr>
+        
 			<td width="60%" valign="top">
 				<table class="adminform">
 				<tr>
@@ -218,6 +220,13 @@ class html_rsg2_images {
 					<td valign="top" align="right"><?php echo _RSGALLERY_IMG_ORDERING?>:</td>
 					<td><?php echo $lists['ordering']; ?></td>
 				</tr>
+
+				<tr>
+					<td valign="top" align="right"><?php echo _RSGALLERY_IMAGEHITS?>:</td>
+					<td><?php echo $lists['hits']; ?></td>
+				</tr>
+                
+                
 				<tr>
 					<td valign="top" align="right"><?php echo _RSGALLERY_MY_IMAGES_PUBLISHED?>:</td>
 					<td><?php echo $lists['published']; ?></td>
