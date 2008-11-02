@@ -30,9 +30,9 @@ endif;
 ?>
 
 <table width="100%" border="1">
-   <tr colspan="2" align="center">
- <td align="center">
- <h2 align="center"><?php echo $this->gallery->get('name'); ?> </h2>
+   <tr align="center">
+ 	<td align="center" colspan="2">
+	 <h2 align="center"><?php echo $this->gallery->get('name'); ?> </h2>
  </td>
  </tr>
  
@@ -43,11 +43,11 @@ foreach( $this->kids as $kid ):
 ++$i;
 
 if ($i % 2)  {
-	echo "<tr>";
+	?>
+	<tr>
+<?php
 }
-
 ?>
-
 
 <td width="50%">
 <div class="rsg_galleryblock">
@@ -72,7 +72,9 @@ if ($i % 2)  {
 
 <?php
 if ( $i % 2 == 0)  {
-	echo "</tr>";
+	?>
+	</tr>
+    <?php
 }
 
 ?>
