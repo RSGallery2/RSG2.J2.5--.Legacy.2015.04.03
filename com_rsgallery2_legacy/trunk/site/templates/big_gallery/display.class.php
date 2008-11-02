@@ -283,7 +283,7 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 	  <tr>
 				<td>
                 <div align="center">
-                  <div align="center" style="width:600px;";>
+                  <div align="center" style="width:700px;";>
                     <div style="float:right;" class="rsg_nextrandom">
                       <a href="<?php echo $this->getPreviousLink() ?>">Previous</a>
 						 &nbsp;&nbsp;
