@@ -29,7 +29,7 @@ class rsgalleryVersion {
     /** @var string Codename */
     var $CODENAME   = '';
     /** @var string Date */
-    var $RELDATE    = '11 October 2008';
+    var $RELDATE    = '2 November 2008';
     /** @var string Time */
     var $RELTIME    = '22:55';
     /** @var string Timezone */

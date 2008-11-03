@@ -299,6 +299,11 @@ table#rsg2-thumbsList td{
 	font-weight:bold;
 }
 
+.rsg_nextrandom a:link, .rsg_nextrandom a:visited
+{
+color:#ff6030;
+}
+
 .rsg2-pageNav{
     text-align: center;
     font-size: 12px;

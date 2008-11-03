@@ -261,7 +261,7 @@ DEFINE("_RSGALLERY_SEARCH",					"Search");
 DEFINE("_RSGALLERY_IMAGENAME",				"Name");
 DEFINE("_RSGALLERY_IMAGEFILE",				"Filename");
 DEFINE("_RSGALLERY_IMAGECAT",				"Gallery");
-DEFINE("_RSGALLERY_IMAGEHITS",				"Hits");
+DEFINE("_RSGALLERY_IMAGEHITS",				"Views");
 DEFINE("_RSGALLERY_IMAGEDATE",				"Date upload");
 DEFINE("_RSGALLERY_REORDER",				"Reorder");
 DEFINE("_RSGALLERY_SEL_TO_DEL",		"Please make a selection from the list to delete");
