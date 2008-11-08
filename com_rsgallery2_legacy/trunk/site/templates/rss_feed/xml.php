@@ -105,16 +105,16 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
 					
 				switch ($this->ThumbOrDisplay)  {
 					case "thumb":
-						$imageloc = $mosConfig_live_site. '/images/rsgallery/display/' . $img->name. '.jpg';
+						$imageloc = $mosConfig_live_site. '/images/rsgallery/thumb/' . $img->name. '.jpg';
 						break;
 					case "display":
-						$imageloc= $mosConfig_live_site. '/images/rsgallery/thumb/' . $img->name. '.jpg';
+						$imageloc= $mosConfig_live_site. '/images/rsgallery/display/' . $img->name. '.jpg';
 						break;
 				}
 
 						
-				$this->output .= '<item>' . "\n";
-//				$this->output .= '<title>'.$this->_getGalleryName( $img->gallery_id ) . " - " . $img->title.'</title>' . "\n";
+//				$this->output .= '<item>' . "\n";
+				$this->output .= '<title>'.$this->_getGalleryName( $img->gallery_id ) . " - " . $img->title.'</title>' . "\n";
 				$this->output .= '<title>' . $imageloc . '</title>';
 				$this->output .= '<link>' . $urlroot. '&amp;page=inline&amp;id='. $img->id .'</link>' . "\n";
 				$this->output .= '<pubDate>' . gmdate($this->dateformat, strtotime($img->date)) .'</pubDate>' . "\n";
