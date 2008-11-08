@@ -24,16 +24,34 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
     var $output;
 
 
+
     /**
         class constructor
         @param rsgGallery object
     **/
     function rsgXmlGalleryTemplate_rss_feed( $gallery  ){
      	global $rsgConfig;
+		
 		$this->gallery = $gallery;
 		
 //					// GET TEMPLATE PARAMS
-//
+
+					// GET TEMPLATE PARAMS
+				$template = preg_replace( '#\W#', '', rsgInstance::getVar( 'xmlTemplate', 'meta' ) );
+				$template = strtolower( $template );
+
+				// load parameters for template
+				jimport('joomla.filesystem.file');
+				// Read the ini file
+				$ini	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'params.ini';
+				if (JFile::exists($ini)) {
+					$content = JFile::read($ini);
+				} else {
+					$content = null;
+				}
+				$xml	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template .DS.'templateDetails.xml';
+				$this->params = new JParameter($content, $xml, 'rsgTemplate');//
+
 //				WILL ADD TEMPLATE PARAMS LATER
 //				
 //				$template = preg_replace( '#\W#', '', rsgInstance::getVar( 'xmlTemplate', 'meta' ) );
@@ -55,12 +73,16 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
 // Set these to match your site
 
 		// These variables will be in the template parameters eventually
-		$this->dateformat = "r";
-		//$this->dateformat = $this->params->get('DateFormat');	
-		$this->IncludeRootGallery = 0;
-		//$this->IncludeRootGallery = $this->params->get('IncludeRootGallery');
-		$this->SiteDescription = "This is the latest from Fantasy Artwork";
-		$this->FeedTitle = "Fantasy Artwork";
+		
+			
+		$this->dateformat = $this->params->get('DateFormat');  //"r" is default for Feedburner validation
+		$this->SiteDescription = $this->params->get('SiteDescription');
+		$this->FeedTitle = strip_tags($this->params->get('FeedTitle'));
+		$this->ThumbOrDisplay = $this->params->get('ThumbOrDisplay');	//Show thumbnail or display
+		$this->IntroText = strip_tags($this->params->get('IntroText')); 		// text to add to each image
+		$this->totalimages = $this->params->get('ImagesToShow');
+		$imagespergallery = 2;  // not used yet
+		
 	}
 
     /**
@@ -73,36 +95,30 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
 		$this->output = '';
 
 
-	// GET ALL IMAGES THAT ARE PUBLISTED FROM LAST 7 DAYS
-	    	$query = ("SELECT * FROM #__rsgallery2_files WHERE published='1' AND (date + INTERVAL 7 DAY) >= NOW()");
-			$query="SELECT * FROM (SELECT * FROM #__rsgallery2_files ORDER BY `date` DESC ) AS MOSTHITS GROUP BY `gallery_id` ORDER BY `date` DESC LIMIT $count";
-	// Changing to, get last 25 images 2 from each gallery
-			// Valriable
-			$totalimages = 25;
-			$imagespergallery = 2;
-	//only show set number
-			$query = "SELECT * FROM #__rsgallery2_files WHERE published='1' ORDER BY jos_rsgallery2_files.`date` DESC LIMIT 40";
-			//$querypart=
-			
-
-	$query="SELECT * FROM (SELECT * FROM #__rsgallery2_files ORDER BY `date` DESC ) AS MOSTHITS GROUP BY `gallery_id` ORDER BY `date` DESC LIMIT 40";
-
-
-
-
-
+		$query="SELECT * FROM (SELECT * FROM #__rsgallery2_files ORDER BY `date` DESC ) AS LATESTS GROUP BY `gallery_id` ORDER BY `date` DESC LIMIT " . $this->totalimages ;
 
 
 			$database->setQuery($query);
 			$filelist = $database->loadObjectList();
 
 			foreach ($filelist as $img) {
-											
+					
+				switch ($this->ThumbOrDisplay)  {
+					case "thumb":
+						$imageloc = $mosConfig_live_site. '/images/rsgallery/display/' . $img->name. '.jpg';
+						break;
+					case "display":
+						$imageloc= $mosConfig_live_site. '/images/rsgallery/thumb/' . $img->name. '.jpg';
+						break;
+				}
+
+						
 				$this->output .= '<item>' . "\n";
-				$this->output .= '<title>'.$this->_getGalleryName( $img->gallery_id ) . " - " . $img->title.'</title>' . "\n";
+//				$this->output .= '<title>'.$this->_getGalleryName( $img->gallery_id ) . " - " . $img->title.'</title>' . "\n";
+				$this->output .= '<title>' . $imageloc . '</title>';
 				$this->output .= '<link>' . $urlroot. '&amp;page=inline&amp;id='. $img->id .'</link>' . "\n";
 				$this->output .= '<pubDate>' . gmdate($this->dateformat, strtotime($img->date)) .'</pubDate>' . "\n";
-				$this->output .= '<description><![CDATA[<a href="'.$urlroot. '&amp;page=inline&amp;id='. $img->id .'"><img src="'.$mosConfig_live_site.'/images/rsgallery/thumb/'. $img->name.'.jpg"/>]]></description>' . "\n";
+				$this->output .= '<description><![CDATA[<p>' . $this->IntroText . '</p><a href="'.$urlroot. '&amp;page=inline&amp;id='. $img->id .'"><img src="'.$imageloc . '"/>]]></description>' . "\n";
 				$this->output .= '<guid isPermaLink="true">'.$urlroot. '&amp;page=inline' ."&amp;" . 'id='. $img->id.'</guid>';
 				$this->output .= '</item>' . "\n";
 			}
