@@ -18,7 +18,7 @@ defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.'
  $RowsToDisplay = intval($params->get('DisplayRows', 1));
  $CodeAfterRow = intval($params->get('CodeAfterRow', 1));
  $InsertedCode = $params->get('InsertedCode', "");
-
+$sortmode = $params->get('SortModeForDisplay');
 //initialise init file
 global $mosConfig_absolute_path;
 require_once($mosConfig_absolute_path.'/administrator/components/com_rsgallery2/init.rsgallery2.php');
@@ -44,8 +44,25 @@ $count =  $RowsToDisplay * 2;
        $RSG2Itemid = $RSG2Itemidobj[0]->id;
 
 // Get list of new images
-	$queryb="SELECT * FROM #__rsgallery2_files  ORDER BY date DESC LIMIT $count";
-	$queryb="SELECT * FROM (SELECT * FROM #__rsgallery2_files ORDER BY `date` DESC ) AS MOSTHITS GROUP BY `gallery_id` ORDER BY `date` DESC LIMIT $count";
+switch ($sortmode) {
+	case "uploaddate":
+		$queryb="SELECT BYDATE.name as imgname, BYDATE.title as filetitle, BYDATE.id as fileid, BYDATE.gallery_id as galleryid, BYDATE.date as filedate FROM (SELECT * FROM #__rsgallery2_files where published = 1 ORDER BY `date` DESC ) AS BYDATE GROUP BY `galleryid` ORDER BY `date` DESC LIMIT $count";		
+break;
+	case "leasthits":
+	default:
+		$queryb="SELECT * FROM (SELECT * FROM #__rsgallery2_files where published = 1 ORDER BY `hits` ASC ) AS MOSTHITS GROUP BY `gallery_id` ORDER BY `hits` ASC LIMIT $count";
+		
+				$queryb = "SELECT LOWHITS.id as fileid, LOWHITS.name as imgname, #__rsgallery2_galleries.name as galname, #__rsgallery2_galleries.hits AS galhits, #__rsgallery2_galleries.id AS galleryid, LOWHITS.id AS imgid FROM (SELECT * FROM #__rsgallery2_files ORDER BY `hits` ASC ) AS LOWHITS  INNER JOIN #__rsgallery2_galleries ON (LOWHITS.gallery_id=#__rsgallery2_galleries.id) GROUP BY `gallery_id` ORDER BY galhits DESC";
+		
+		break;
+	}
+
+
+
+
+	//leadt hits first
+
+		
 	$database->setQuery( $queryb );
 	$rows = $database->loadObjectList();
 
@@ -75,20 +92,20 @@ else
 	$i = 0;
 	for ($rownumber = 1; $rownumber <= $RowsToDisplay; $rownumber = $rownumber +1 ) {
 			if( $i < sizeof($rows)) {
-				$filename       = $rows[$i]->name;
-				$title          = $rows[$i]->title;
-				$description    = $rows[$i]->descr;
-				$id             = $rows[$i]->id;
-				$gid          = $rows[$i]->gallery_id;
-				$date			  = $rows[$i]->date;
+				$filename	= $rows[$i]->imgname;
+				$title		= $rows[$i]->filetitle;
+				$id			= $rows[$i]->fileid;
+				$gid		= $rows[$i]->galleryid;
+				$date		= $rows[$i]->filedate;
 				
+			
 				$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE id=" . $gid);
 				$resultb= $database->loadObjectList();
 				$result=$resultb[0];
 				$catname = $result->name;
 				
 				
-				$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id=".$gid." ORDER BY hits DESC LIMIT $count");
+			//	$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id=".$gid." ORDER BY hits DESC LIMIT $count");
 				?>
 
 			<tr style="margin-bottom:10px;">
@@ -102,12 +119,11 @@ else
 			<?php
 			++$i;
 			if( $i < sizeof($rows)) {
-    			$filename       = $rows[$i]->name;
-				$title          = $rows[$i]->title;
-				$description    = $rows[$i]->descr;
-				$id             = $rows[$i]->id;
-				$gid          = $rows[$i]->gallery_id;
-				$date			= $rows[$i]->date;
+				$filename	= $rows[$i]->imgname;
+				$title		= $rows[$i]->filetitle;
+				$id			= $rows[$i]->fileid;
+				$gid		= $rows[$i]->galleryid;
+				$date		= $rows[$i]->filedate;
 				
 				$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE id=" . $gid);
 				$resultb= $database->loadObjectList();
