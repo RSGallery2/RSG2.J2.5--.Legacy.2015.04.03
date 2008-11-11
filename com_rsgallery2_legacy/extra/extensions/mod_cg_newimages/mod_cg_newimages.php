@@ -14,11 +14,15 @@ STILL HIGHLY EXPERIMENTAL. CHANGE GOOGLE AD BLOCK IF USE ON YOUR SITE
 
 defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
 
+// include helper functions
+require_once (dirname(__FILE__).DS.'helper.php');
+
 //Get paramaters
  $RowsToDisplay = intval($params->get('DisplayRows', 1));
  $CodeAfterRow = intval($params->get('CodeAfterRow', 1));
  $InsertedCode = $params->get('InsertedCode', "");
 $sortmode = $params->get('SortModeForDisplay');
+	$LabelText = $params->get('labeltext');
 //initialise init file
 global $mosConfig_absolute_path;
 require_once($mosConfig_absolute_path.'/administrator/components/com_rsgallery2/init.rsgallery2.php');
@@ -28,7 +32,7 @@ require_once($mosConfig_absolute_path.'/administrator/components/com_rsgallery2/
 // HARD CODE VARIABLES FOR NOW
 
 
-$dateformat = "M j, Y";
+
 $count =  $RowsToDisplay * 2;
 
 //get Itemid from menutable
@@ -50,9 +54,9 @@ switch ($sortmode) {
 break;
 	case "leasthits":
 	default:
-		$queryb="SELECT * FROM (SELECT * FROM #__rsgallery2_files where published = 1 ORDER BY `hits` ASC ) AS MOSTHITS GROUP BY `gallery_id` ORDER BY `hits` ASC LIMIT $count";
+	//	$queryb="SELECT * FROM (SELECT * FROM #__rsgallery2_files where published = 1 ORDER BY `hits` ASC ) AS MOSTHITS GROUP BY `gallery_id` ORDER BY `hits` ASC LIMIT $count";
 		
-				$queryb = "SELECT LOWHITS.id as fileid, LOWHITS.name as imgname, #__rsgallery2_galleries.name as galname, #__rsgallery2_galleries.hits AS galhits, #__rsgallery2_galleries.id AS galleryid, LOWHITS.id AS imgid FROM (SELECT * FROM #__rsgallery2_files ORDER BY `hits` ASC ) AS LOWHITS  INNER JOIN #__rsgallery2_galleries ON (LOWHITS.gallery_id=#__rsgallery2_galleries.id) GROUP BY `gallery_id` ORDER BY galhits DESC";
+				$queryb = "SELECT LOWHITS.id as fileid, LOWHITS.name as imgname, #__rsgallery2_galleries.name as galname, #__rsgallery2_galleries.hits AS galhits, #__rsgallery2_galleries.id AS galleryid, LOWHITS.id AS imgid, LOWHITS.date as filedate, LOWHITS.hits as imghits FROM (SELECT * FROM #__rsgallery2_files ORDER BY `hits` ASC ) AS LOWHITS  INNER JOIN #__rsgallery2_galleries ON (LOWHITS.gallery_id=#__rsgallery2_galleries.id) GROUP BY `gallery_id` ORDER BY galhits DESC";
 		
 		break;
 	}
@@ -112,7 +116,7 @@ else
    				<td align="center"  >				
         			<a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;page=inline&amp;id=".$id); ?>">
              		<img src="<?php echo imgUtils::getImgThumb($filename); ?>" alt="<?php echo $title; ?>" title="<?php echo $catname  ?>" border="1" /></a>	
-    			<div class="rsitems_date"><?php echo date($dateformat, strtotime($date));  ?></div>
+			 <div class="rsitems_date"><?php echo getLabel($LabelText, $rows[$i]); ?></div>
 			<br/>
               <?php } // END LEFT IMAGE?>  
 			</td>
@@ -133,7 +137,7 @@ else
     <td align="center">
     <a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;page=inline&amp;id=".$id);?>">
 <img src="<?php echo imgUtils::getImgThumb($filename); ?>" alt="<?php echo $title; ?>" title="<?php echo $catname  ?>" border="1" /></a>	
-    <div class="rsitems_date"><?php echo date($dateformat ,strtotime($date));  ?></div>
+   <div class="rsitems_date"><?php echo getLabel($LabelText, $rows[$i]); ?></div>
     <br/>
     		<?php } // END RIGHT IMAGE ?>  
     </td>
@@ -169,4 +173,5 @@ else
 	</tr>
 </table>
 
-<?php }?>
+<?php } // end main?>
+

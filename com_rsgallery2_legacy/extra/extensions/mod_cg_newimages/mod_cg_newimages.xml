@@ -1,39 +1,44 @@
 <?xml version="1.0" ?>
 <mosinstall type="module">
-    <name>Newest RSG Images</name>
+    <name>CG New Images</name>
     <creationDate>Novemeber 8, 2008</creationDate>
     <author>Chef Groovy</author>
     <copyright>This module is released under the GNU/GPL License</copyright>
     <authorEmail>chefgroovy@fantasyartwork.net</authorEmail>
     <authorUrl>www.fantasyartwork.net</authorUrl>
-    <version>0.5.6</version>
-    <description>Module to display newest image in each gallery. Loosely based on Johans version of RSItems. Newest beta version on the SVN at http://joomlacode.org/svn/rsgallery2/com_rsgallery2_legacy/extra/extensions/mod_cg_newimages/</description>
+    <version>0.5.8</version>
+    <description>Module to display newest image in each gallery sorted reversly by hits. Loosely based on Johans version of RSItems. Newest beta version on the SVN at http://joomlacode.org/svn/rsgallery2/com_rsgallery2_legacy/extra/extensions/mod_cg_newimages/</description>
 	
 	<files>
 		<filename module="mod_cg_newimages">mod_cg_newimages.php</filename>
+		<filename module="mod_cg_newimages">mod_cg_newimages.xml</filename>
 	</files>
 	
 	<params>
 		<param name="DisplayRows" type="text" size="5" default="1"
-				label="Rows to Display. Two per row."
+				label="Rows to Display"
 				description="Number of rows to display">
 		</param>
 		
 		<param name="InsertedCode" type="textarea" default="" rows="8" cols="50"
 			label="Code to Insert"
-			description="Google Adwords or other HTML Code block to insert in image list">
+			description="Code block to insert">
 		</param>
 		
-		<param name="CodeAfterRow" type="text" size="5" default="0"
+		<param name="CodeAfterRow" type="text" size="5" default="1"
 				label="Row to insert code after"
-				description="What row to insert code block after. Zero for disabled.">
+				description="What row to insert code block after">
 		</param>		
 		
 		<param name="SortModeForDisplay" type="list" default="uploaddate" label="Sort mode for display" description="What to display. Newst by date, least hits first, etc">
 			  <option value="uploaddate">Upload Date</option>
 			  <option value="leasthits">Least Hits</option>
 		</param>
-		
+		<param name="labeltext" type="list" default="nothing" label="Text to Show" description="Text to show below image">
+				<option value="nothing">Nothing</option>
+				<option value="DateAdded">Date Added</option>
+				<option value="Hits">Hits</option>				
+		</param>
 	</params>
 	
 </mosinstall>
