@@ -256,6 +256,7 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 
 		// increase hit counter
 		$item->hit();
+		$this->gallery->hit();
 		
 		if( $rsgConfig->get('displayPopup') == 2 ){
 			//Lightbox++ scripts and CSS in document head
