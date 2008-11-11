@@ -8,9 +8,15 @@ Any comments or blame?
 chefgroovy@fantasyartwork.net
 
 ---------------------
+2008-Nov-11 v.0.5.8 - Hits Mode
+
+	+ Added backend options to toggle sort mode.
+	+ Add backend variable to change what to display under thumbnail
+	* Can display least viewed images first instead of by date
 
 2008-Aug-14	v0.0.4	Test release
-Added backend options and made it somewhat functional
+
+	+ Added backend options and made it somewhat functional
 
 
 
