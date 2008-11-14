@@ -273,7 +273,7 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 		<table border="0" cellspacing="0" cellpadding="0" width="100%">
             <tr>
             <td align="right">
-    <h3>Gallery: <a href="<?php echo ("index.php?option=com_rsgallery2&amp;gid=".$this->gallery->get('id')); ?>"><?php echo $this->gallery->get('name'); ?></a></h3>
+
 
            </td>
             </tr>
@@ -290,8 +290,10 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 						 &nbsp;&nbsp;
                       <a href="<?php echo $this->getNextLink() ?>">Next</a>
                         <br />
+                                                    <h4><a href="<?php echo ("index.php?option=com_rsgallery2&amp;gid=".$this->gallery->get('id')); ?>"><?php echo $this->gallery->get('name'); ?></a></h4>
                           <br />
-                          <?php  $this->_showVotes();   ?>
+  
+                          <?php if ( $rsgConfig->get("displayVoting") ){$this->_showVotes();} ?>
 					  <?php $this->showRandomImageLink(0); ?>
                       <br />
                        <?php 	
