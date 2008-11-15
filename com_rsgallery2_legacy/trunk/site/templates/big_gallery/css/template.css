@@ -125,8 +125,8 @@ img.status{
 .img-shadow img {
   display: block;
   position: relative;
-  background-color: #fff;
-  border: 1px solid #a9a9a9;
+  background-color:#063;
+  border: 1px solid #00C000;
   margin: -6px 6px 6px -6px;
   padding: 4px;
   }
@@ -173,7 +173,8 @@ text-align:center;
     /*display:none;*/
 }
 .rsg2_thumb_name{
-    /*display:none;*/
+    display:none;
+	font-size:.3em;
 }
 .rsg2-galleryList-newImages {
     color: Red;
