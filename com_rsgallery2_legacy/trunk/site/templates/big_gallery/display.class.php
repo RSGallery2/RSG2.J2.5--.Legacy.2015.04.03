@@ -305,8 +305,16 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 						echo $this->adcode;
 						
 					?>
+   <br /><br />
+				<?php if( $rsgConfig->get('displayHits')):
+                    ?>
+                    <?php echo _RSGALLERY_CATHITS . ": ";  ?> <span><?php echo $item->hits; ?></span>
+                    <?php
+                endif; ?>        
+    <br />
+    <a href="<?php  echo $this->getPermaLink(); ?>" title="Copy URL for Permalink Location">Permalink</a>
     
-                    </div>
+    </div>
                    
                     <?php
 					switch ($rsgConfig->get('displayPopup')) {
@@ -359,9 +367,7 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 					?>
                    
                   </div>
-            
-                  <a href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>" title="Full Size">Click image for full size</a>
-        </div> <!-- end main display div --><br/>		</td>
+				</div> <!-- end main display div --><br/>		</td>
 			</tr>
 			<tr>
 				<td><?php $this->_writeDownloadLink( $item->id );?></td>
@@ -369,11 +375,7 @@ class rsgDisplay_big_gallery extends rsgDisplay{
             
             <tr>
             <td align="center">
-            					<?php if( $rsgConfig->get('displayHits')):
-		?>
-		<?php echo _RSGALLERY_CATHITS . ": ";  ?> <span><?php echo $item->hits; ?></span>
-		<?php
-		endif; ?>        </td>
+            					</td>
         </tr>
 		</table>
 		<?php
