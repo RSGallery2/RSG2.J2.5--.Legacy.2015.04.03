@@ -686,5 +686,18 @@ class rsgDisplay extends JObject{
 
 		return $previouslink;
 	}
+	
+	function getPermaLink () {
+		global $mosConfig_live_site;
+		$item = rsgInstance::getItem();
+		
+		
+		$link = $mosConfig_live_site;
+		$link .= "/index.php?option=com_rsgallery2&page=inline&id=";
+		$link .= $item->id;
+		
+		return $link;
+		
+	}
 }
 ?>
