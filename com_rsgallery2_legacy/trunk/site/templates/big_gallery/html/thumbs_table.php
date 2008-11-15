@@ -19,7 +19,7 @@ $i = 0;
 				<div class="shadow-box">
 				<div class="img-shadow">
 				<a href="<?php echo JRoute::_( "index.php?option=com_rsgallery2&page=inline&id=".$item->id ."&Itemid=$Itemid" ); ?>">
-					<img src="<?php echo $thumb->url();?>" alt="<?php echo htmlspecialchars(stripslashes($item->descr), ENT_QUOTES); ?>"/>
+					<img src="<?php echo $thumb->url();?>" alt="<?php echo htmlspecialchars(stripslashes($item->title), ENT_QUOTES); ?>" title="<?php echo htmlspecialchars(stripslashes($item->title), ENT_QUOTES); ?>"  />
 				</a>
 				</div>
 				</div>
