@@ -616,6 +616,7 @@ class myGalleries {
      */
     function showMyImages($images, $pageNav) {
         global $rsgAccess;
+        JHTML::_('behavior.tooltip');
         ?>
         <table width="100%" class="adminlist" border="1">
         <tr>
@@ -640,7 +641,7 @@ class myGalleries {
 				{
 					var yesno = confirm ('<?php echo JText::_('Are you sure you want to delete this image?');?>');
 					if (yesno == true) {
-						location = "<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=deleteItem&id=", false);?>"+id;
+						location = 'index.php?option=com_rsgallery2&rsgOption=myGalleries&task=deleteItem&id='+id;
 					}
 				}
 				//]]>
@@ -657,8 +658,8 @@ class myGalleries {
                             echo $image->name;
                         } else {
 						 echo JHTML::tooltip('<img src="'.JURI::root().$rsgConfig->get('imgPath_thumb').'/'.$image->name.'.jpg" alt="'.$image->name.'" />',
-						 JText::_('Edit image'),
 						 $image->name,
+						 "",
 						 $image->title.'&nbsp;('.$image->name.')',
 						 "index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editItem&id=".$image->id,
 						1);
