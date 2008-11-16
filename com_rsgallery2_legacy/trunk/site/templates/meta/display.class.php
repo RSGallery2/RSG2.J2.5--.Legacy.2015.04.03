@@ -622,6 +622,40 @@ class rsgDisplay extends JObject{
                 </div>
                 <?php
 	}
+	
+		function showRandomImageBlock ($galleryID=0, $Number=1)  {
+		global $database;
+		
+		if (! $galleryID) {
+		// this query will only get from published galleries
+		
+		    	//$query = ("SELECT file.date, file.gallery_id, file.ordering, file.id, file.name, file.title".
+                //       " FROM #__rsgallery2_files as file, #__rsgallery2_galleries as gal".
+                 //      " WHERE file.gallery_id=gal.id and gal.published=1 AND file.published=1".
+                //      " ORDER BY rand() limit 1");
+			$query="SELECT * FROM #__rsgallery2_files WHERE published='1' ORDER BY rand() LIMIT " . $Number;
+			$linktext = "";
+		} else {
+			$query="SELECT * FROM #__rsgallery2_files WHERE published='1' AND gallery_id = " . $galleryID  . " ORDER BY rand() LIMIT " . $Number;
+			$linktext="";
+		}
+		
+		$database->setQuery($query);
+		$randomimages = $database->loadObjectList();
+		foreach($randomimages as $randomimage )
+		{
+
+		//$galleyname = rsgGalleryManager::getGalleryByItemID($randomimage->id)->name;
+						?>
+               
+						<a href="<?php echo sefRelToAbs("index.php?option=com_rsgallery2&amp;page=inline&amp;id=".$randomimage->id); ?>"><img alt="<?php echo $randomimage->title; ?>" title="<?php echo $randomimage->title; ?>"  src="<?php echo imgUtils::getImgThumb($randomimage->name); ?>"  border="1" /></a>	
+
+  
+            
+                <?php
+		}
+	}
+	
 	// returns a link to the next image in current directory	
 	function getNextLink() {
 			global $mosConfig_live_site;
