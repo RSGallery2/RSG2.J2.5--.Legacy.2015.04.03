@@ -113,12 +113,16 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
 				}
 
 						
-//				$this->output .= '<item>' . "\n";
+				$this->output .= '<item>' . "\n";
 				$this->output .= '<title>'.$this->_getGalleryName( $img->gallery_id ) . " - " . $img->title.'</title>' . "\n";
-				$this->output .= '<title>' . $imageloc . '</title>';
+//				$this->output .= '<title>' . $imageloc . '</title>';
 				$this->output .= '<link>' . $urlroot. '&amp;page=inline&amp;id='. $img->id .'</link>' . "\n";
 				$this->output .= '<pubDate>' . gmdate($this->dateformat, strtotime($img->date)) .'</pubDate>' . "\n";
-				$this->output .= '<description><![CDATA[<p>' . $this->IntroText . '</p><a href="'.$urlroot. '&amp;page=inline&amp;id='. $img->id .'"><img src="'.$imageloc . '"/>]]></description>' . "\n";
+				$this->output .= '<description>';
+				$this->output .= '<![CDATA[<p>' . $this->IntroText . '</p><a href="'.$urlroot. '&amp;page=inline&amp;id='. $img->id .'"><img src="'.$imageloc . '"/></a>]]>';  
+				$this->output .= '<![CDATA[ <p>' . 'New image posted in gallery <strong> ' . '<a href ="'.$urlroot. '&amp;gid='  . $img->gallery_id .'>' .$this->_getGalleryName( $img->gallery_id ) .'</a></strong></p>]]> </description>' . "\n";
+			
+				
 				$this->output .= '<guid isPermaLink="true">'.$urlroot. '&amp;page=inline' ."&amp;" . 'id='. $img->id.'</guid>';
 				$this->output .= '</item>' . "\n";
 			}
