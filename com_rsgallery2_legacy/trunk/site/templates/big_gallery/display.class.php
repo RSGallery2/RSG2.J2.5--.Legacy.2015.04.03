@@ -258,6 +258,7 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 		$item->hit();
 		$this->gallery->hit();
 		
+		
 		if( $rsgConfig->get('displayPopup') == 2 ){
 			//Lightbox++ scripts and CSS in document head
 			$js1 = "<script src=\"".$mosConfig_live_site."/components/com_rsgallery2/lib/lightbox++/js/prototype.js\" type=\"text/javascript\"></script>";
@@ -290,21 +291,22 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 						 &nbsp;&nbsp;
                       <a href="<?php echo $this->getNextLink() ?>">Next</a>
                         <br />
-                                                    <h4><a href="<?php echo ("index.php?option=com_rsgallery2&amp;gid=".$this->gallery->get('id')); ?>"><?php echo $this->gallery->get('name'); ?></a></h4>
+                                                    <h4><a href="<?php echo ("index.php?option=com_rsgallery2&amp;gid=".$this->gallery->get('id')); ?>" title="View Gallery: <?php echo $this->gallery->get('name'); ?>"><?php echo $this->gallery->get('name'); ?></a></h4>
                           <br />
   
                           <?php if ( $rsgConfig->get("displayVoting") ){$this->_showVotes();} ?>
 					  <?php $this->showRandomImageLink(0); ?>
-                      <br />
-                       <?php 	
-					   // GET ADCODE PARAM
+                     
+                <br />
+    
+ <div style="width: 180px; padding-bottom:8px;  margin-bottom:10px;">
+	   <?php	
+	   $this->adcode = $this->params->get('AdCodeSubMenu');
+		$this->adcode=str_replace(array("<br/>","<br />"),"\n\r",$this->adcode);
+		echo $this->adcode; 
+		?>
+</div>
 
-					   	$this->adcode = $this->params->get('AdCodeSubMenu');
-					   // have to replace <br/> with php newlines to get google ads to work
-						$this->adcode=str_replace(array("<br/>","<br />"),"\n\r",$this->adcode);
-						echo $this->adcode;
-						
-					?>
    <br /><br />
 				<?php if( $rsgConfig->get('displayHits')):
                     ?>
@@ -312,8 +314,8 @@ class rsgDisplay_big_gallery extends rsgDisplay{
                     <?php
                 endif; ?>        
     <br />
-    <a href="<?php  echo $this->getPermaLink(); ?>" title="Copy URL for Permalink Location">Permalink</a>
-    
+    <h4><a href="<?php  echo $this->getPermaLink(); ?>" title="Copy URL for Permalink Location">Permalink</a></h4>
+    <br />
     </div>
                    
                     <?php

@@ -6,7 +6,7 @@
 	<copyright>Open Source, GPL</copyright>
 	<authorEmail>chefgroovy@fantasyartwork.net</authorEmail>
 	<authorUrl>http://www.fantasyartwork.net</authorUrl>
-	<version>1.51</version>
+	<version>1.6</version>
 	<description>Creates an RSS Feed of all images.</description>
 	<files>
 		<filename>index.php</filename>
