@@ -229,6 +229,8 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 			break;
 		}
 		?>
+        
+        
 		<div class="rsg2-pageNav">
 				<?php
 				if( $itemCount > $limit ){
@@ -256,7 +258,7 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 
 		// increase hit counter
 		$item->hit();
-		$this->gallery->hit();
+		$this->gallery->hit();  //add gallery when look at image
 		
 		
 		if( $rsgConfig->get('displayPopup') == 2 ){
@@ -364,11 +366,18 @@ class rsgDisplay_big_gallery extends rsgDisplay{
                     <?php
 							break;
 					}
-
+				?>
+                <br />
+                <p>Other images in gallery</p>
+                <?php
+						$this->showRandomImageBlock($item->gallery_id, 6);
+				
 				
 					?>
                    
                   </div>
+                  
+                  
 				</div> <!-- end main display div --><br/>		</td>
 			</tr>
 			<tr>
@@ -507,7 +516,12 @@ class rsgDisplay_big_gallery extends rsgDisplay{
 		}
 	}
 	
-
+function showGalleryThumbnails()
+{
+	$thumbstoshow = 5;
+	
+	
+}
 	
 } 
 ?>
