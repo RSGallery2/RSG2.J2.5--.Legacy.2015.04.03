@@ -12,7 +12,7 @@ foreach( $this->gallery->currentItems() as $item ):
 
 		$thumb = $item->thumb(); ?>
 		
-	<li <?php echo "style='float: $floatDirection'"; ?> >
+	<li <?php echo "style=\"float:$floatDirection;\""; ?> >
 		<a href="<?php echo JRoute::_( "index.php?option=com_rsgallery2&page=inline&id=".$item->id ); ?>">
 			<!--<div class="img-shadow">-->
 			<img alt="<?php echo htmlspecialchars(stripslashes($item->descr), ENT_QUOTES); ?>" src="<?php echo $thumb->url(); ?>" />

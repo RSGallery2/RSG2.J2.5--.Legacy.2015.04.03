@@ -20,9 +20,6 @@ class rsgDisplay_semantic extends rsgDisplay{
 
 	/**
 	* Show main gallery page
-	* @param string Style for main page (single, double, box)
-	* @param boolean Show subgalleries or not.
-	* @return HTML for main gallery page.
 	*/
 	function showMainGalleries() {
 		global $rsgConfig;
@@ -39,18 +36,15 @@ class rsgDisplay_semantic extends rsgDisplay{
 
 		$this->pageNav = false;
 		
-		if( $rsgConfig->get('dispLimitbox') == 1 ) {
-			if( $kidCountTotal > $limit ){
-				jimport('joomla.html.pagination');
-				$this->kids = array_slice( $this->kids, $limitstart, $limit );
-				$this->pageNav = new JPagination($kidCountTotal, $limitstart, $limit );
-			}
-		} elseif( $rsgConfig->get('dispLimitbox') == 2 ) {
-			jimport('joomla.html.pagination');
+		if(( $rsgConfig->get('dispLimitbox') == 1 &&
+		    $kidCountTotal > $limit )  ||
+			$rsgConfig->get('dispLimitbox') == 2 )
+			{
+			require_once( JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'gpagination.php' );
 			$this->kids = array_slice( $this->kids, $limitstart, $limit );
-			$this->pageNav = new JPagination( $kidCountTotal, $limitstart, $limit );
-		}
+			$this->pageNav = new JGPagination($kidCountTotal, $limitstart, $limit );
 
+		}
 		$this->display( 'gallery.php' );
 		
 		//Show page navigation if selected in backend
@@ -323,30 +317,24 @@ class rsgDisplay_semantic extends rsgDisplay{
 		$gallery = rsgGalleryManager::get();
 		
 		if( rsgInstance::getInt( 'id', 0 )){
-			//  if id is set then we need to set limits and gid so that page nav works properlly
-			rsgInstance::setVar( 'gid', $gallery->id );
-			rsgInstance::setVar( 'limit', 1 );
+			// if the item id is set then we need to set the gid instead
+			// having the id valiable set in the querystring breaks the page navigation
 
-			$item = $gallery->getItem();
-			rsgInstance::setVar( 'limitstart', $gallery->indexOfItem() );
+			// Get the router 
+			// i have not found any other way to remove query variables from the router
+			// JPagination uses the router to build the current route, so removing it from the 
+			// request variables does not work.
+			$app	= &JFactory::getApplication();
+			$router = &$app->getRouter();
+
+			$router->_vars['gid'] = $gallery->id;
+			unset($router->_vars['id']);
+
 		}
 
-		$pageNav = $gallery->getPagination();		
+		$pageNav = $gallery->getPagination();	
 		$pageLinks = $pageNav->getPagesLinks();
 
-		if( rsgInstance::getInt( 'id', 0 )){
-			
-			// i'm not fond of this style of hackery
-			// first we need to replace the item id with the gallery id
-			// second, the limit parameter is not being written.  this is must be a bug or something.  weird.
-			$pageLinks = str_replace( ";id={$item->id}", ";gid={$gallery->id}&amp;limit=1", $pageLinks );
-			$pageLinks = str_replace( "/item/{$item->id}", "/category/{$gallery->id}", $pageLinks );
-		}
-
-		if(!strstr($pageLinks,'limit=1')){
-			$pageLinks = str_replace('?','?limit=1&amp;',$pageLinks);
-		}
-		
 		?>
 		<div align="center">
 			<?php echo $pageLinks; ?>

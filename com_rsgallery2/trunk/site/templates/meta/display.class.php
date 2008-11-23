@@ -226,20 +226,15 @@ class rsgDisplay extends JObject{
 
 	function getGalleryLimitBox(){
 		$pagelinks = $this->pageNav->getLimitBox("index.php?option=com_rsgallery2");
-		$pagelinks = str_replace("\"limit", "\"limitg", $pagelinks);
 		// add form for LimitBox
 		$pagelinks = '<form action="'.JRoute::_("index.php?option=com_rsgallery2&gid=".$this->gallery->id).'" method="post">' .
-			         $pagelinks . '</form>';
+			         $pagelinks . 
+					'</form>';
 
 		return $pagelinks; 
 	}
 	function getGalleryPageLinks(){
 		$pagelinks = $this->pageNav->getPagesLinks("index.php?option=com_rsgallery2");
-		$pagelinks = str_replace ("&amp;limit=","&amp;limitg=", $pagelinks);
-		$pagelinks = str_replace ("&amp;limitstart=","&amp;limitstartg=", $pagelinks);
-		if($this->pageNav->limitstart >= $this->pageNav->limit){
-			$pagelinks = str_replace("&amp;limitstartg=".$this->pageNav->limit, "", $pagelinks);
-		}
 		return $pagelinks;
 		
 	}
