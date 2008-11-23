@@ -320,7 +320,7 @@ class rsgGallery extends JObject{
 		if (empty($this->_pagination))
 		{
 			jimport('joomla.html.pagination');
-			$this->_pagination = new JPagination( $this->itemCount(), rsgInstance::getInt( 'limitstart', 0 ), rsgInstance::getInt( 'limit', 0 ) );
+			$this->_pagination = new JPagination( $this->itemCount(), rsgInstance::getInt( 'limitstart', 0 ), rsgInstance::getInt( 'limit', 1 ) );
 		}
 
 		return $this->_pagination;
