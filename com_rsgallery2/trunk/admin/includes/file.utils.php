@@ -308,6 +308,8 @@ class fileHandler {
      * @param string Full path to image
      */
     function getImageType( $filename ) {
+		if(!file_exists($filename)) { return ""; }
+		
         $image = getimagesize( $filename );
         $type = $image[2];
         switch ( $type ) {
