@@ -19,7 +19,7 @@ class rsgDisplay extends JObject{
 
 		$template = $rsgConfig->get('template');
 
-		// load parameters
+		// load template parameters
 		jimport('joomla.filesystem.file');
 		// Read the ini file
 		$ini	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'params.ini';
@@ -196,7 +196,7 @@ class rsgDisplay extends JObject{
 	function metadata(){
 		global $mainframe, $option;
 
-		// if rsg2 isn't the component being displayed, don not append meta data
+		// if rsg2 isn't the component being displayed, do not append meta data
 		if( $option != 'com_rsgallery2' )
 			return;
 
@@ -208,7 +208,7 @@ class rsgDisplay extends JObject{
 		{
 			$item = rsgInstance::getItem();
 			$title = $item->title;
-			$description = htmlspecialchars(strip_tags($item->descr), ENT_QUOTES );
+			$description = htmlspecialchars(stripslashes(strip_tags($item->descr)), ENT_QUOTES );
 		}
 		else
 		{
@@ -217,7 +217,7 @@ class rsgDisplay extends JObject{
 				$title = $mainframe->getPageTitle();
 			else
 				$title = $this->gallery->get('name');
-			$description = htmlspecialchars(strip_tags($this->gallery->get('description')), ENT_QUOTES );
+			$description = htmlspecialchars(stripslashes(strip_tags($this->gallery->get('description'))), ENT_QUOTES );
 		}
 		
 		$mainframe->setPageTitle( ' '. $title );
@@ -254,11 +254,11 @@ class rsgDisplay extends JObject{
 
         if ($rsgConfig->get('watermark') == true) {
             ?>
-            <img id="thumb1" src="<?php waterMarker::showMarkedImage($name);?>" alt="<?php echo htmlspecialchars(stripslashes($descr), ENT_QUOTES); ?>" border="0"  />
+            <img class="rsg2-displayImage" src="<?php echo waterMarker::showMarkedImage($name);?>" alt="<?php echo $title; ?>" title="<?php echo $title; ?>" />
             <?php
         } else {
             ?>
-            <img id="thumb1" src="<?php echo imgUtils::getImgDisplay($name); ?>" alt="<?php echo htmlspecialchars(stripslashes($descr), ENT_QUOTES); ?>" border="0"  />
+			<img class="rsg2-displayImage"  src="<?php echo imgUtils::getImgDisplay($name); ?>" alt="<?php echo $title; ?>" title="<?php echo $title; ?>"  />
             <?php
         }
     }

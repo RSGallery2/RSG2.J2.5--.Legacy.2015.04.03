@@ -36,6 +36,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 
 		$this->pageNav = false;
 		
+		//Show page navigation if selected in backend
 		if(( $rsgConfig->get('dispLimitbox') == 1 &&
 		    $kidCountTotal > $limit )  ||
 			$rsgConfig->get('dispLimitbox') == 2 )
@@ -47,7 +48,6 @@ class rsgDisplay_semantic extends rsgDisplay{
 		}
 		$this->display( 'gallery.php' );
 		
-		//Show page navigation if selected in backend
 	}
 
 
@@ -249,17 +249,6 @@ class rsgDisplay_semantic extends rsgDisplay{
 		// increase hit counter
 		$item->hit();
 		
-		if( $rsgConfig->get('displayPopup') == 2 ){
-			//Lightbox++ scripts and CSS in document head
-			$js1 = "<script src=\"".JURI_SITE."/components/com_rsgallery2/lib/lightbox++/js/prototype.js\" type=\"text/javascript\"></script>";
-    		$mainframe->addCustomHeadTag($js1);
-			$js2 = "<script src=\"".JURI_SITE."/components/com_rsgallery2/lib/lightbox++/js/scriptaculous.js?load=effects\" type=\"text/javascript\"></script>";
-    		$mainframe->addCustomHeadTag($js2);
-			$js3 = "<script src=\"".JURI_SITE."/components/com_rsgallery2/lib/lightbox++/js/lightbox++.js\" type=\"text/javascript\"></script>";
-    		$mainframe->addCustomHeadTag($js3);
-			$css = "<link rel=\"stylesheet\" href=\"".JURI_SITE."/components/com_rsgallery2/lib/lightbox++/css/lightbox.css\" media=\"screen\" type=\"text/css\" />";
-    		$mainframe->addCustomHeadTag($css);
-		}
 		?>
 		<table border="0" cellspacing="0" cellpadding="0" width="100%">
 			<tr>
@@ -269,6 +258,11 @@ class rsgDisplay_semantic extends rsgDisplay{
 				<td>
 				<div align="center">
 					<?php
+					$watermark = $rsgConfig->get('watermark');
+					
+					$imageUrl = $watermark ? waterMarker::showMarkedImage( $item->name ) : 
+											 imgUtils::getImgOriginal( $item->name );
+
 					switch ($rsgConfig->get('displayPopup')) {
 						//No popup
 						case 0:
@@ -276,27 +270,28 @@ class rsgDisplay_semantic extends rsgDisplay{
 							break;
 						//Normal popup
 						case 1:
-							if ($rsgConfig->get('watermark')) {
-								?><a href="<?php echo waterMarker::showMarkedImage( $item->name ); ?>" target="_blank"><?php
-							} else {
-								?><a href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>" target="_blank"><?php
-							}
+							?><a href="<?php echo $imageUrl; ?>" target="_blank"><?php
 							$this->_showImageBox( $item->name, $item->descr );
-							?>
-							</a>
+							?></a>
 							<?php
 							break;
-						//Lightbox++ popup
+					
 						case 2:
-							if ($rsgConfig->get('watermark')) {
-								?><a rel="lightbox" title="<?php echo $item->title."<p>".$item->descr."</p>";?>" href="<?php echo waterMarker::showMarkedImage( $item->name ); ?>"><?php
-							} else {
-								?><a rel="lightbox" title="<?php echo $item->title."<p>".$item->descr."</p>";?>" href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>"><?php
-							}
-							$this->_showImageBox( $item->name, $item->descr );
-							?>
-							</a>
-							<?php
+							JHTML::_('behavior.modal');
+							$jsModal = '
+	window.addEvent("domready", function() {
+		SqueezeBox.initialize({});
+		var img = $$("img.rsg2-displayImage")[0];
+		img.addEvent("click", function(e)
+		{
+			new Event(e).stop();
+			SqueezeBox.fromElement(img,{url:"' . $imageUrl .'", classWindow:"rsg2", classOverlay:"rsg2" });		
+		});
+	});';
+
+							$this->_showImageBox( $item->name, $item->descr, $watermark );
+							$doc =& JFactory::getDocument();
+							$doc->addScriptDeclaration($jsModal);
 							break;
 					}
 					?>
