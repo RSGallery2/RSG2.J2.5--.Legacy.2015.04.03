@@ -44,17 +44,33 @@ class rsgConfig {
 	var $ftp_path			= '';
 
 	// front display
+    var $display_thumbs_style = 'table'; // float, table, magic
+    var $display_thumbs_floatDirection = 'left'; // left, right
+	var $display_thumbs_colsPerPage	= 3;
+    var $display_thumbs_maxPerPage = 9;
+    var $display_thumbs_showImgName = true;
 	var $display_img_dynamicResize	= 5;
+    var $displayRandom	            = 1;
+	var $displayLatest	            = 1;
 	var $displayBranding			= true;
-
+	var $displayDesc		        = 1;
+    var $displayHits                = 0;
+	var $displayVoting	            = 1;
+	var $displayComments	        = 1;
+	var $displayEXIF		        = 1;
+	var $displaySlideshow 			= 1;
 	var $displaySearch				= 1;
 	var $current_slideshow			= "slideshow_parth";
 	var $displayDownload			= true;
+	var $displayPopup				= 1; //0 = Off; 1 = Normal; 2 = Fancy;
 	var $displayStatus				= 1;
 	var $dispLimitbox				= 1; //0 = never; 1 = If more galleries then limit; 2 = always
 	var $galcountNrs				= 5;
 	var $template					= 'semantic';
-	var $exifTags					= 'FileDateTime|resolution';
+	var $showGalleryOwner			= 1;
+	var $showGallerySize			= 1;
+	var $showGalleryDate			= 1;
+	var $exifTags					= 'FileName|FileDateTime|resolution';
 	
 	var $filter_order				= 'ordering';
 	var $filter_order_Dir			= 'ASC';
@@ -68,8 +84,10 @@ class rsgConfig {
 	var $uu_maxCat          = 5;
 	var $uu_maxImages       = 50;
 	var $acl_enabled		= 0;
+	var $show_mygalleries	= 0;
     
     // watermarking
+    var $watermark           = 0;
     var $watermark_type		 = "text"; //Values are text or image
     var $watermark_text      = "(c) 2007 - RSGallery2";
     var $watermark_image	 = "watermark.png";

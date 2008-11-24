@@ -141,10 +141,22 @@ class html_rsg2_config{
 		$resizeOptions[] = JHTML::_("select.option",'2',JText::_('Resize smaller pics'));
 		$resizeOptions[] = JHTML::_("select.option",'3',JText::_('Resize pics to fit'));
 		
+		$displayPopup[] = JHTML::_("select.option",'0',JText::_('No popup'));
+		$displayPopup[] = JHTML::_("select.option",'1',JText::_('Normal popup'));
+		$displayPopup[] = JHTML::_("select.option",'2',JText::_('Fancy popup (Errors in IE6!)'));
+		
 		//Number of galleries dropdown field
 		$dispLimitbox[] = JHTML::_("select.option",'0',JText::_('Never'));
 		$dispLimitbox[] = JHTML::_("select.option",'1',JText::_('If more galleries than limit'));
 		$dispLimitbox[] = JHTML::_("select.option",'2',JText::_('Always'));
+		
+		$galcountNrs[] = JHTML::_("select.option",'5','5');
+		$galcountNrs[] = JHTML::_("select.option",'10','10');
+		$galcountNrs[] = JHTML::_("select.option",'15','15');
+		$galcountNrs[] = JHTML::_("select.option",'20','20');
+		$galcountNrs[] = JHTML::_("select.option",'25','25');
+		$galcountNrs[] = JHTML::_("select.option",'30','30');
+		$galcountNrs[] = JHTML::_("select.option",'50','50');
 		
 		// watermark
 		$watermarkAngles[] = JHTML::_("select.option",'0','0');
@@ -425,6 +437,14 @@ class html_rsg2_config{
 						<td><?php echo JHTML::_("select.booleanlist", 'displaySearch', '', $config->displaySearch)?></td>
 					</tr>
 					<tr>
+						<td width="40%"><?php echo JText::_('Display Random')?></td>
+						<td><?php echo JHTML::_("select.booleanlist",'displayRandom', '', $config->displayRandom)?></td>
+					</tr>
+					<tr>
+						<td><?php echo JText::_('Display Latest')?></td>
+						<td><?php echo JHTML::_("select.booleanlist",'displayLatest', '', $config->displayLatest)?></td>
+					</tr>
+					<tr>
 						<td><?php echo JText::_('Display Branding')?></td>
 						<td><?php echo JHTML::_("select.booleanlist",'displayBranding','', $config->displayBranding)?></td>
 					</tr>
@@ -441,8 +461,28 @@ class html_rsg2_config{
 						<td><?php echo JHTML::_("select.genericlist",$dispLimitbox, 'dispLimitbox','','value', 'text', $config->dispLimitbox)?></td>
 					</tr>
 					<tr>
+						<td><?php echo JText::_('Default number of galleries on frontpage')?></td>
+						<td><?php echo JHTML::_("select.genericlist",$galcountNrs, 'galcountNrs','','value', 'text', $config->galcountNrs)?></td>
+					</tr>
+					<tr>
+						<td><?php echo JText::_('Display Slideshow')?></td>
+						<td><?php echo JHTML::_("select.booleanlist",'displaySlideshow', '', $config->displaySlideshow)?></td>
+					</tr>
+					<tr>
 						<td><?php echo "** Select slideshow **";?></td>
 						<td><?php echo JHTML::_("select.genericlist",$current_slideshow, 'current_slideshow','','value', 'text', $config->current_slideshow);?></td>
+					</tr>
+					<tr>
+						<td><?php echo JText::_('Display Owner Information'); ?></td>
+						<td><?php echo JHTML::_("select.booleanlist",'showGalleryOwner', '', $config->showGalleryOwner)?></td>
+					</tr>
+					<tr>
+						<td><?php echo JText::_('Display number of items in gallery');?></td>
+						<td><?php echo JHTML::_("select.booleanlist",'showGallerySize', '', $config->showGallerySize)?></td>
+					</tr>
+					<tr>
+						<td><?php echo JText::_('Display creation date');?></td>
+						<td><?php echo JHTML::_("select.booleanlist",'showGalleryDate', '', $config->showGalleryDate)?></td>
 					</tr>
 					</table>
 					</fieldset>
@@ -452,8 +492,28 @@ class html_rsg2_config{
 					<legend><?php echo JText::_('Image Display')?></legend>
 					<table width="100%">
 					<tr>
+						<td width="40%"><?php echo JText::_('Popup style')?></td>
+						<td><?php echo JHTML::_("select.genericlist", $displayPopup, 'displayPopup', '', 'value', 'text', $config->displayPopup )?></td>
+					</tr>
+					<tr>
 						<td><?php echo JText::_('Resize Option')?></td>
 						<td><?php echo JHTML::_("select.genericlist", $resizeOptions, 'display_img_dynamicResize', '', 'value', 'text', $config->display_img_dynamicResize )?></td>
+					</tr>
+					<tr>
+						<td><?php echo JText::_('Display Description')?></td>
+						<td><?php echo JHTML::_("select.booleanlist",'displayDesc', '', $config->displayDesc)?></td>
+					</tr>
+					<tr>
+						<td><?php echo JText::_('Display Hits')?></td>
+						<td><?php echo JHTML::_("select.booleanlist",'displayHits', '', $config->displayHits)?></td>
+					</tr>
+					<tr>
+						<td><?php echo JText::_('Display Voting')?></td>
+						<td><?php echo JHTML::_("select.booleanlist",'displayVoting', '', $config->displayVoting)?></td>
+					</tr>
+					<tr>
+						<td><?php echo JText::_('Display Comments')?></td>
+						<td><?php echo JHTML::_("select.booleanlist",'displayComments', '', $config->displayComments)?></td>
 					</tr>
 					</table>
 					</fieldset>
@@ -477,6 +537,10 @@ class html_rsg2_config{
 					<legend><?php echo "** EXIF settings **";?></legend>
 					<table width="100%">
 					<tr>
+						<td><?php echo JText::_('Display EXIF Data')?></td>
+						<td><?php echo JHTML::_("select.booleanlist",'displayEXIF', '', $config->displayEXIF)?></td>
+					</tr>
+					<tr>
 						<td valign="top"><?php echo "** Select EXIF tags to display **";?></td>
 						<td valign="top">
 							<label class="examples"></label>
@@ -489,7 +553,32 @@ class html_rsg2_config{
 			</tr>
 			<tr>
 				<td width="40%" valign="top">
-
+					<fieldset>
+					<legend><?php echo JText::_('Gallery View')?></legend>
+					<table width="100%">
+					<tr>
+						<td width="40%"><?php echo JText::_('Thumbnail Style:<br>Use float for variable width templates.')?></td>
+						<td><?php echo JHTML::_("select.genericlist", $display_thumbs_style, 'display_thumbs_style', '', 'value', 'text', $config->display_thumbs_style );?></td>
+					</tr>
+					<tr>
+						<td><?php echo JText::_('Direction (only works for float):')?></td>
+						<td><?php echo JHTML::_("select.genericlist", $display_thumbs_floatDirection, 'display_thumbs_floatDirection', '', 'value', 'text', $config->display_thumbs_floatDirection )?></td>
+					</tr>
+					<tr>
+						<td><?php echo JText::_('Number of Thumbnail Columns (only for table):')?></td>
+						<td><?php echo JHTML::_("select.integerlist",1, 19, 1, 'display_thumbs_colsPerPage', '', $config->display_thumbs_colsPerPage)?></td>
+					</tr>
+					<tr>
+						<td><?php echo JText::_('Thumbnails per Page:')?></td>
+						<td><input class="text_area" type="text" name="display_thumbs_maxPerPage" size="10" value="<?php echo $config->display_thumbs_maxPerPage?>"/></td>
+					</tr>
+					<tr>
+						<td><?php echo JText::_('Show image name below thumbnail:')?></td>
+						<td><?php echo JHTML::_("select.booleanlist", 'display_thumbs_showImgName','', $config->display_thumbs_showImgName )?></td>
+					</tr>
+					
+					</table>
+					</fieldset>
 				</td>
 				<td colspan="2" valign="top">
 					<fieldset>
@@ -500,6 +589,20 @@ class html_rsg2_config{
 						<strong><?php echo $freeTypeSupport?></strong>
 						</td>
 					</tr>
+					<tr>
+						<td width="40%"><?php echo JText::_('Display Watermark')?></td>
+						<td><?php echo JHTML::_("select.booleanlist",'watermark','', $config->watermark)?></td>
+					</tr>
+					<!--
+					<tr>
+						<td width="40%">* Watermark type *</td>
+						<td><?php // echo JHTML::_("select.genericlist",$watermarkType, 'watermark_type','','value', 'text', $config->watermark_type)?></td>
+					</tr>
+					<tr>
+						<td valign="top" width="40%">* Watermark upload *</td>
+						<td></td>
+					</tr>
+					-->
 					<tr>
 						<td width="40%"><?php echo JText::_('Font')?></td>
 						<td><?php echo galleryUtils::showFontList();?></td>
@@ -550,6 +653,10 @@ class html_rsg2_config{
 						<td width="60%"><?php echo JText::_('Enable Access Control')?></td>
 						<td><?php echo JHTML::_("select.booleanlist",'acl_enabled', '', $config->acl_enabled)?></td>
 					</tr>
+					<tr>
+						<td><?php echo JText::_('Show My Galleries')?></td>
+						<td><?php echo JHTML::_("select.booleanlist",'show_mygalleries', '', $config->show_mygalleries)?></td>
+					</tr>	
 					<tr>
 						<td><?php echo JText::_('Can user create galleries?')?></td>
 						<td><?php echo JHTML::_("select.booleanlist",'uu_createCat', '', $config->uu_createCat)?></td>
