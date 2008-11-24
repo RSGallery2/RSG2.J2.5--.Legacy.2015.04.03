@@ -199,11 +199,12 @@ class rsgGallery extends JObject{
 	/**
 	* returns an array of item objects viewable with the current pagination
 	*/
-	function currentItems($length = 0){
+	function currentItems(){
 		global $rsgConfig;
 		if( $this->items === null )
 			$this->items();
 		
+		$length = $rsgConfig->get("display_thumbs_maxPerPage");
 		if( $length == 0 )
 			return $this->items; // 0 means display all
 
