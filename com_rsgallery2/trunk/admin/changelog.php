@@ -31,6 +31,19 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+
+2008-11-24 John Caprez
+^ using default meta page title instead of "RSGallery2"
+# backend gallery ordering
+# template manager deleting wrong templates
+^ using SecurityImages 5.0 API
+# fixed gallery pagination
++ SEF urls for gallery and item pagination (see site/router.php for details) 
+- Lightbox popup
++ Mootools popup
+! changes in the way the watermarked image url is retreived
++ many new translation
+
 2008-07-15 Ronald Smit
 + Added slideshow phatfusion to distribution
 
