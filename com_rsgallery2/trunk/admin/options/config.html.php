@@ -143,7 +143,7 @@ class html_rsg2_config{
 		
 		$displayPopup[] = JHTML::_("select.option",'0',JText::_('No popup'));
 		$displayPopup[] = JHTML::_("select.option",'1',JText::_('Normal popup'));
-		$displayPopup[] = JHTML::_("select.option",'2',JText::_('Fancy popup (Errors in IE6!)'));
+		$displayPopup[] = JHTML::_("select.option",'2',JText::_('Joomla Modal'));
 		
 		//Number of galleries dropdown field
 		$dispLimitbox[] = JHTML::_("select.option",'0',JText::_('Never'));
