@@ -410,20 +410,3 @@ table.adminform td {
 table.adminform td.editor {
     font-size: 9px;
 }
-
-/*************** modal popup style ************/
-
-#sbox-window.rsg2
-{
-    background-color:#fff;
-    padding:2px;
-}
-#sbox-overlay.rsg2
-{
-    background-color:#000;
-}
-
-.rsg2 #sbox-btn-close
-{
-    display:none;
-}

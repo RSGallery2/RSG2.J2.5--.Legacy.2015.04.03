@@ -239,8 +239,7 @@ class imgUtils extends fileUtils{
         global  $rsgConfig, $mainframe ;
         
 		$locale = $local? JPATH_ROOT : JURI_SITE;
-        	
-		$locale = trim($locale, '/');	
+        
         // if original image exists return that, otherwise $keepOriginalImage is false and and we return the display image instead.
         if( file_exists( JPATH_ROOT.$rsgConfig->get('imgPath_original') . '/' . $name )){
             return $locale . $rsgConfig->get('imgPath_original') . '/' . rawurlencode($name);
@@ -258,8 +257,7 @@ class imgUtils extends fileUtils{
 		global  $rsgConfig,$mainframe;
         
         $locale = $local? JPATH_ROOT : JURI_SITE;
-		$locale = trim($locale, '/');	
-		
+        
         // if display image exists return that, otherwise the original image width <= $display_width so we return the original image instead.
         if( file_exists( JPATH_ROOT.$rsgConfig->get('imgPath_display') . '/' . imgUtils::getImgNameDisplay( $name ))){
             return $locale . $rsgConfig->get('imgPath_display') . '/' . rawurlencode( imgUtils::getImgNameDisplay( $name ));
@@ -276,8 +274,7 @@ class imgUtils extends fileUtils{
     function getImgThumb($name, $local=false){
         global  $rsgConfig, $mainframe;
         $locale = $local? JPATH_ROOT : JURI_SITE;
-		$locale = trim($locale, '/');	
-		
+        
         // if thumb image exists return that, otherwise the original image width <= $thumb_width so we return the original image instead.
         if( file_exists( JPATH_ROOT.$rsgConfig->get('imgPath_thumb') . '/' . imgUtils::getImgNameThumb( $name ))){
             return $locale  . $rsgConfig->get('imgPath_thumb') . '/' . rawurlencode( imgUtils::getImgNameThumb( $name ));
@@ -816,14 +813,13 @@ class waterMarker extends GD2 {
     }
      
     /**
-     * Function that takes an image and returns the url to watermarked image
+     * Function that takes an image and displays it with the predefined watermark text
      * @param string Name of the image in question
      * @param string Font used for watermark
      * @param string Text size in pixels
      * @param int Vertical spacing between text
      * @param int Horizontal spacing between text
      * @param boolean Shadow text yes or no
-     * @return url to watermarked image
      */
     function showMarkedImage($imagename, $imagetype = 'display', $font="arial.ttf", $shadow = true){
     global $rsgConfig, $mainframe;
@@ -849,7 +845,7 @@ class waterMarker extends GD2 {
 			$imark->mark($imagetype); //draw watermark
 			
 		}
-		return trim(JURI_SITE,'/') . $rsgConfig->get('imgPath_watermarked') . '/' . $filename ;
+		echo trim(JURI_SITE,'/') . $rsgConfig->get('imgPath_watermarked') . '/' . $filename ;
     
 	}
 }//END CLASS WATERMARKER
