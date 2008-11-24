@@ -28,7 +28,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		$this->gallery = $gallery;
 		
 		//Get values for page navigation from URL
-		$limit = rsgInstance::getInt( 'limitg', $this->params->get('galcountNrs') );
+		$limit = rsgInstance::getInt( 'limitg', $rsgConfig->get('galcountNrs') );
 		$limitstart = rsgInstance::getInt( 'limitstartg', 0 );
 		//Get number of galleries including main gallery
 		$this->kids = $gallery->kids();
@@ -36,7 +36,6 @@ class rsgDisplay_semantic extends rsgDisplay{
 
 		$this->pageNav = false;
 		
-		//Show page navigation if selected in backend
 		if(( $rsgConfig->get('dispLimitbox') == 1 &&
 		    $kidCountTotal > $limit )  ||
 			$rsgConfig->get('dispLimitbox') == 2 )
@@ -48,6 +47,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		}
 		$this->display( 'gallery.php' );
 		
+		//Show page navigation if selected in backend
 	}
 
 
@@ -58,13 +58,14 @@ class rsgDisplay_semantic extends rsgDisplay{
 	 * Shows the gallery details block when set in the backend
 	 */
 	function _showGalleryDetails( $kid ) {
-		$slideshow = $this->params->get('displaySlideshow') && $kid->itemCount() > 1;
-		$owner 		= $this->params->get('showGalleryOwner');
-		$size 		= $this->params->get('showGallerySize');
-		$date 		= $this->params->get('showGalleryDate');
+		global $rsgConfig;
+		$slideshow = $rsgConfig->get('displaySlideshow') && $kid->itemCount() > 1;
+		$owner 		= $rsgConfig->get('showGalleryOwner');
+		$size 		= $rsgConfig->get('showGallerySize');
+		$date 		= $rsgConfig->get('showGalleryDate');
 		
 		//Check if items need to be shown
-		if ( ($slideshow + $owner + $size + $date) != 0 ) {
+		if ( ($slideshow + $owner + $size + $date) > 0 ) {
 			?>
 			<div class="rsg_gallery_details">
 			<div class="rsg2_details">
@@ -104,6 +105,7 @@ class rsgDisplay_semantic extends rsgDisplay{
      * @todo this alternate gallery view needs to be moved to an html file and added as a template parameter
      */
     function _showDouble( $kids ) {
+		global $rsgConfig;
         $i = 0;
 		echo"<div class='rsg_double_fix'>";
         foreach ( $kids as $kid ) {
@@ -182,11 +184,12 @@ class rsgDisplay_semantic extends rsgDisplay{
 	 * Shows thumbnails for gallery
 	 */
 	function showThumbs() {
+		global $rsgConfig;
 		$my = JFactory::getUser();
 		
 		$itemCount = $this->gallery->itemCount();
 		
-		$limit = $this->params->get('display_thumbs_maxPerPage') ;
+		$limit = $rsgConfig->get("display_thumbs_maxPerPage") ;
 		$limitstart = rsgInstance::getInt( 'limitstart' );
 		
 		//instantiate page navigation
@@ -205,14 +208,19 @@ class rsgDisplay_semantic extends rsgDisplay{
 			return;
 		}
 		//Old rights management. If user is owner or user is Super Administrator, you can edit this gallery
-		if( $my->id <> 0  && 
-		  ( $this->gallery->uid == $my->id  || 
-		    $my->usertype == 'Super Administrator' ))
+		if(( $my->id <> 0 ) and (( $this->gallery->uid == $my->id ) OR ( $my->usertype == 'Super Administrator' )))
 			$this->allowEdit = true;
 		else
 			$this->allowEdit = false;
 
-			$this->display( 'thumbs_' . $this->params->get( 'display_thumbs_style' ) . '.php' );
+		switch( $rsgConfig->get( 'display_thumbs_style' )){
+			case 'float':
+				$this->display( 'thumbs_float.php' );
+			break;
+			case 'table':
+				$this->display( 'thumbs_table.php' );
+			break;
+		}
 		?>
 		<div class="rsg2-pageNav">
 				<?php
@@ -229,7 +237,7 @@ class rsgDisplay_semantic extends rsgDisplay{
      * Shows main image
      */
 	function showDisplayImage(){
-		global $mainframe;
+		global $rsgConfig, $mainframe;
 		
 		$item = rsgInstance::getItem();
 
@@ -241,7 +249,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		// increase hit counter
 		$item->hit();
 		
-		if( $this->params->get('displayPopup') == 2 ){
+		if( $rsgConfig->get('displayPopup') == 2 ){
 			//Lightbox++ scripts and CSS in document head
 			$js1 = "<script src=\"".JURI_SITE."/components/com_rsgallery2/lib/lightbox++/js/prototype.js\" type=\"text/javascript\"></script>";
     		$mainframe->addCustomHeadTag($js1);
@@ -261,33 +269,31 @@ class rsgDisplay_semantic extends rsgDisplay{
 				<td>
 				<div align="center">
 					<?php
-					$watermark = $this->params->get('watermark');
-					
-					switch ($this->params->get('displayPopup')) {
+					switch ($rsgConfig->get('displayPopup')) {
 						//No popup
 						case 0:
-							$this->_showImageBox( $item->name, $item->descr, $watermark );
+							$this->_showImageBox( $item->name, $item->descr );
 							break;
 						//Normal popup
 						case 1:
-							if ($watermark) {
+							if ($rsgConfig->get('watermark')) {
 								?><a href="<?php echo waterMarker::showMarkedImage( $item->name ); ?>" target="_blank"><?php
 							} else {
 								?><a href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>" target="_blank"><?php
 							}
-							$this->_showImageBox( $item->name, $item->descr, $watermark );
+							$this->_showImageBox( $item->name, $item->descr );
 							?>
 							</a>
 							<?php
 							break;
 						//Lightbox++ popup
 						case 2:
-							if ($watermark) {
+							if ($rsgConfig->get('watermark')) {
 								?><a rel="lightbox" title="<?php echo $item->title."<p>".$item->descr."</p>";?>" href="<?php echo waterMarker::showMarkedImage( $item->name ); ?>"><?php
 							} else {
 								?><a rel="lightbox" title="<?php echo $item->title."<p>".$item->descr."</p>";?>" href="<?php echo imgUtils::getImgOriginal( $item->name ); ?>"><?php
 							}
-							$this->_showImageBox( $item->name, $item->descr, $watermark );
+							$this->_showImageBox( $item->name, $item->descr );
 							?>
 							</a>
 							<?php
@@ -340,14 +346,13 @@ class rsgDisplay_semantic extends rsgDisplay{
 	 * Shows details of image
 	 */
 	function showDisplayImageDetails() {
+		global $rsgConfig, $rsgAccess;
+		
 		$gallery = rsgGalleryManager::get();
 
 		// if no details need to be displayed then exit
 		
-		if (! ( $this->params->get('displayDesc') || 
-				$this->params->get('displayVoting') || 
-				$this->params->get('displayComments') || 
-				$this->params->get('displayEXIF') ))
+		if (! ( $rsgConfig->get("displayDesc") || $rsgConfig->get("displayVoting") || $rsgConfig->get("displayComments") || $rsgConfig->get("displayEXIF") ))
 			return;
 
 		jimport("joomla.html.pane");
@@ -355,25 +360,25 @@ class rsgDisplay_semantic extends rsgDisplay{
 		$tabs =& JPane::getInstance("Tabs",array("useCookies" => true));
 		echo $tabs->startPane( 'tabs' );
 		
-		if ( $this->params->get('displayDesc')) {
+		if ( $rsgConfig->get("displayDesc") ) {
 			echo $tabs->startPanel(JText::_('Description'), 'rs-description' );
 			$this->_showDescription(); 
 			echo $tabs->endPanel();
 		}
 		
-		if ( $this->params->get('displayVoting') ) {
+		if ( $rsgConfig->get("displayVoting") ) {
 			echo $tabs->startPanel(JText::_('Voting'), 'Voting' );
 			$this->_showVotes();
 			echo $tabs->endPanel();
 		}
 		
-		if ( $this->params->get('displayComments') ) {
+		if ( $rsgConfig->get("displayComments") ) {
 			echo $tabs->startPanel(JText::_('Comments'), 'Comments' );
 			$this->_showComments();
 			echo $tabs->endPanel();
 		}
 	
-		if ($this->params->get('displayEXIF') ) {
+		if ($rsgConfig->get("displayEXIF") ) {
 			echo $tabs->startPanel(JText::_('EXIF'), 'EXIF' );
 			$this->_showEXIF();
 			echo $tabs->endPanel();
@@ -386,9 +391,10 @@ class rsgDisplay_semantic extends rsgDisplay{
      * Show description
      */
 	function _showDescription( ) {
+		global $rsgConfig;
 		$item = rsgInstance::getItem();
 		
-		if( $this->params->get('displayHits')):
+		if( $rsgConfig->get('displayHits')):
 		?>
 		<p class="rsg2_hits"><?php echo JText::_('Hits'); ?> <span><?php echo $item->hits; ?></span></p>
 		<?php

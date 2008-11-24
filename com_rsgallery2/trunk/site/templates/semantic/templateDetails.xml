@@ -17,101 +17,13 @@
 		<filename>css/template.css</filename>
 	</css>
   <params>
-    <param name="displayDescription" type="radio" default="1" label="Display description" description="">
-      <option value="1">Yes</option>
-      <option value="0">No</option>
+    <param name="testParameter" type="list" default="white" label="Color Variation" description="Color variation to use">
+      <option value="blue">Blue</option>
+      <option value="red">Red</option>
+      <option value="green">Green</option>
+      <option value="orange">Orange</option>
+      <option value="black">Black</option>
+      <option value="white">White</option>
     </param>
-    <param name="displayHits" type="radio" default="1" label="Display hits" description="">
-      <option value="1">Yes</option>
-      <option value="0">No</option>
-    </param>
-
-    <param name="displayVoting" type="radio" default="1" label="Display voting" description="">
-      <option value="1">Yes</option>
-      <option value="0">No</option>
-    </param>
-    
-    <param name="displayComments" type="radio" default="1" label="Display comments" description="">
-      <option value="1">Yes</option>
-      <option value="0">No</option>
-    </param>
-
-    <param name="displayEXIF" type="radio" default="1" label="Display EXIF data" description="">
-      <option value="1">Yes</option>
-      <option value="0">No</option>
-    </param>
-
-    <param name="displayPopup" type="list" default="0" label="Popup style" description="">
-      <option value="0">No popup</option>
-      <option value="1">Normal popup</option>
-      <option value="2">Fancy popup (Errors in IE6!)</option>
-    </param>
-
-    <param name="watermark" type="radio" default="1" label="Display watermark" description="">
-      <option value="1">Yes</option>
-      <option value="0">No</option>
-    </param>
-
-
-    <param name="display_thumbs_style" type="list" default="float" label="Thumbnail style" description="">
-      <option value="table">Table</option>
-      <option value="float">Float</option>
-    </param>
-
-    <param name="display_thumbs_floatDirection" type="list" default="float" label="Direction (only for float)" description="">
-      <option value="left">Left</option>
-      <option value="right">Right</option>
-    </param>
-
-    <param name="display_thumbs_colsPerPage" type="text" default="3" label="Number of thumbnail columns (only for table)" description="" size="10" />
-
-
-    <param name="display_thumbs_maxPerPage" type="text" default="9" label="Thumbnails per page" description="" size="10" />
-
-    <param name="displaySlideshow" type="radio" default="1" label="Display Slideshow" description="">
-      <option value="1">Yes</option>
-      <option value="0">No</option>
-    </param>
-
-    <param name="showGalleryOwner" type="radio" default="1" label="Display Owner Information" description="">
-      <option value="1">Yes</option>
-      <option value="0">No</option>
-    </param>
-
-    <param name="showGallerySize" type="radio" default="1" label="Display number of items in gallery" description="">
-      <option value="1">Yes</option>
-      <option value="0">No</option>
-    </param>
-
-    <param name="showGalleryDate" type="radio" default="1" label="Display creation date" description="">
-      <option value="1">Yes</option>
-      <option value="0">No</option>
-    </param>
-
-    <param name="galcountNrs" type="text" default="10" label="Default number of galleries on frontpage" description="" size="10" />
-
-    <param name="displayRandom" type="radio" default="1" label="Display random" description="">
-      <option value="1">Yes</option>
-      <option value="0">No</option>
-    </param>
-
-    <param name="displayLatest" type="radio" default="1" label="Display latest" description="">
-      <option value="1">Yes</option>
-      <option value="0">No</option>
-    </param>
-
-    <param name="show_mygalleries" type="radio" default="1" label="Show My Galleries" description="">
-      <option value="1">Yes</option>
-      <option value="0">No</option>
-    </param>
-
-    <param name="display_thumbs_showImgName" type="radio" default="1" label="Show image name below thumbnail" description="">
-      <option value="1">Yes</option>
-      <option value="0">No</option>
-    </param>
-
-
-
-
   </params>
   </mosinstall>
