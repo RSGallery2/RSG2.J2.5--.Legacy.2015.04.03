@@ -1,24 +1,26 @@
 <?php defined('_JEXEC') or die('Restricted access'); ?>
 
 <?php
-$floatDirection = $rsgConfig->get( 'display_thumbs_floatDirection' );
+$floatDirection = $this->params->get( 'display_thumbs_floatDirection' );
 ?>
 
 <ul id="rsg2-thumbsList">
 <?php 
-foreach( $this->gallery->currentItems() as $item ):
+foreach( $this->gallery->currentItems($this->params->get('display_thumbs_maxPerPage')) as $item ):
 		if( $item->type != 'image' )
 			continue;  // we only handle images
 
-		$thumb = $item->thumb(); ?>
+		$thumb = $item->thumb(); 
+		$title = htmlspecialchars(stripslashes(strip_tags($item->descr)), ENT_QUOTES);
+?>
 		
 	<li <?php echo "style=\"float:$floatDirection;\""; ?> >
 		<a href="<?php echo JRoute::_( "index.php?option=com_rsgallery2&page=inline&id=".$item->id ); ?>">
 			<!--<div class="img-shadow">-->
-			<img alt="<?php echo htmlspecialchars(stripslashes($item->descr), ENT_QUOTES); ?>" src="<?php echo $thumb->url(); ?>" />
+			<img alt="<?php echo $title; ?>" title="<?php echo $title; ?>" src="<?php echo $thumb->url(); ?>" />
 			<!--</div>-->
 			<span class="rsg2-clr"></span>
-			<?php if($rsgConfig->get("display_thumbs_showImgName")): ?>
+			<?php if($this->params->get("display_thumbs_showImgName")): ?>
 				<br /><span class='rsg2_thumb_name'><?php echo htmlspecialchars(stripslashes($item->title), ENT_QUOTES); ?></span>
 			<?php endif; ?>
 		</a>

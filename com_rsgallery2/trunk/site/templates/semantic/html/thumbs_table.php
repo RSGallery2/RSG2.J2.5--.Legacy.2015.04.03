@@ -1,7 +1,7 @@
 <?php defined('_JEXEC') or die('Restricted access'); ?>
 
 <?php
-$cols = $rsgConfig->get( 'display_thumbs_colsPerPage' );
+$cols = $this->params->get( 'display_thumbs_colsPerPage' );
 $i = 0;
 ?>
 
@@ -11,19 +11,19 @@ $i = 0;
 			continue;  // we only handle images
 
 		$thumb = $item->thumb();
-		
+		$title = htmlspecialchars(stripslashes(strip_tags($item->descr)), ENT_QUOTES);
 		if( $i % $cols== 0) echo "<tr>\n";
 		?>
 			<td>
 				<div class="shadow-box">
 				<div class="img-shadow">
 				<a href="<?php echo JRoute::_( "index.php?option=com_rsgallery2&page=inline&id=".$item->id ); ?>">
-					<img src="<?php echo $thumb->url();?>" alt="<?php echo htmlspecialchars(stripslashes($item->descr), ENT_QUOTES); ?>"/>
+					<img src="<?php echo $thumb->url();?>" alt="<?php echo $title; ?>" title="<?php echo $title; ?>"/>
 				</a>
 				</div>
 				</div>
 				<div class="rsg2-clr"></div>
-				<?php if($rsgConfig->get("display_thumbs_showImgName")): ?>
+				<?php if($this->params->get("display_thumbs_showImgName")): ?>
 				<br />
 				<span class="rsg2_thumb_name">
 					<?php echo htmlspecialchars(stripslashes($item->title), ENT_QUOTES); ?>
