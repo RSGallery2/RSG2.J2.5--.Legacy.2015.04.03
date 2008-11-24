@@ -1,9 +1,8 @@
 <?php defined('_JEXEC') or die('Restricted access'); ?>
 
 <?php
-echo('<!-- using template parameter: testParameter = ' . $this->params->get('testParameter') .' -->');
 //Show My Galleries link
-if ($rsgConfig->get('show_mygalleries')) {
+if ($this->params->get('show_mygalleries')) {
 	echo $this->showRsgHeader();
 }
 //show search box
@@ -52,9 +51,11 @@ if($this->gallery->id == 0){
 	// show random and latest only in the top gallery 
 	
 	//Show block with random images 
-	$this->showImages("random", 3);
+	if($this->params->get('displayRandom'))
+		$this->showImages("random", 3);
 	//Show block with latest images
-	$this->showImages("latest", 3);
+	if($this->params->get('displayLatest'))
+		$this->showImages("latest", 3);
 }
 if( $this->pageNav ):
 ?>
