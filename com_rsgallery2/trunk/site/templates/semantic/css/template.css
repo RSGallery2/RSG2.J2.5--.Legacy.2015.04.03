@@ -427,3 +427,17 @@ table.adminform td.editor {
 {
     display:none;
 }
+
+p.rsg2-popup-description,
+p.rsg2-popup-title
+{
+    text-align:center;
+    font-size:small;
+    margin:0.5em 0 0 0;
+    padding:0;
+}
+p.rsg2-popup-description
+{
+    border-top:1px solid #999;
+    padding-bottom:1.5em;
+}

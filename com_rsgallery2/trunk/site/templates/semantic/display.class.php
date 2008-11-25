@@ -285,7 +285,22 @@ class rsgDisplay_semantic extends rsgDisplay{
 		img.addEvent("click", function(e)
 		{
 			new Event(e).stop();
-			SqueezeBox.fromElement(img,{url:"' . $imageUrl .'", classWindow:"rsg2", classOverlay:"rsg2" });		
+			SqueezeBox.fromElement(img,{url:"' . $imageUrl .'", 
+										classWindow:"rsg2", 
+										classOverlay:"rsg2",
+										onOpen:function(img){
+											var p = new Element("p", {class:"rsg2-popup-title"});
+											$(p).appendText("'. strip_tags($item->name) . '");
+											$(p).inject(img);
+											var pSize1 = $(p).getSize().size;
+											p = new Element("p", {class:"rsg2-popup-description"});
+											$(p).appendText("'. strip_tags($item->descr) . '");
+											$(p).inject(img);
+											var pSize2 = $(p).getSize().size;
+											size = SqueezeBox.size;
+											size.y += pSize1.y + pSize2.y;
+											SqueezeBox.resize(size, true);
+										}});		
 		});
 	});';
 
