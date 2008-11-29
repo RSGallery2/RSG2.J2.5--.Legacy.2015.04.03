@@ -306,7 +306,7 @@ function editComment( $item_id ) {
 			//Implement security images only for 
 			if ( $rsgConfig->get('comment_security') == 1 ) {
 				?>
-			<img src="/index.php?option=com_securityimages&task=displayCaptcha">  
+			<img src="<?php echo JRoute::_("index.php?option=com_securityimages&task=displayCaptcha"); ?>">  
 			<br />  
 			<?php echo JText::_('Enter what you see in the image above:');?><input type="text" name="securityImageRSGallery2" />  
 			<?php
