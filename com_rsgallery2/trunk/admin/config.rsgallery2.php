@@ -700,7 +700,7 @@ class galleryUtils {
     	$html = '';
     	$count = 0;
 		if ( ( !GD2::detect() ) and (!imageMagick::detect() ) and (!Netpbm::detect() ) ) {
-  			$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;".JText::_('_RSGALLERY_NO_IMGLIBRARY')."</p>";
+  			$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;".JText::_('NO_IMGLIBRARY')."</p>";
 		}
 		
 		//Check availability and writability of folders
@@ -720,7 +720,7 @@ class galleryUtils {
 				}
 			else
 				{
-				$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;<strong>".JPATH_ROOT.$folder."</strong>".JText::_('_RSGALLERY_FOLDER_NOTEXIST');	
+				$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;<strong>".JPATH_ROOT.$folder."</strong>".JText::_('FOLDER_NOTEXIST');	
 				}
 		}
 		if ($html !== '') {
