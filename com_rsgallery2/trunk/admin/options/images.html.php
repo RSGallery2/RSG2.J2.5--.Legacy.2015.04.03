@@ -191,141 +191,142 @@ class html_rsg2_images {
 		
 		<form action="index2.php" method="post" name="adminForm" id="adminForm">
 		<table class="adminheading">
-		<tr>
-			<th><?php echo JText::_('Item')?>:<small><?php echo $row->id ? JText::_('Edit') : JText::_('New');?></small></th>
-		</tr>
+			<tr>
+				<th><?php echo JText::_('Item')?>:<small><?php echo $row->id ? JText::_('Edit') : JText::_('New');?></small></th>
+			</tr>
 		</table>
 
 		<table width="100%">
-		<tr>
-			<td width="60%" valign="top">
-				<table class="adminform">
-				<tr>
-					<th colspan="2"><?php echo JText::_('Details')?></th>
-				</tr>
-				<tr>
-					<td width="20%" align="right"><?php echo JText::_('Name')?>:</td>
-					<td width="80%">
-						<input class="text_area" type="text" name="title" size="50" maxlength="250" value="<?php echo $row->title;?>" />
-					</td>
-				</tr>
-				<tr>
-					<td width="20%" align="right"><?php echo JText::_('Filename')?>:</td>
-					<td width="80%"><?php echo $row->name;?></td>
-				</tr>
-				<tr>
-					<td valign="top" align="right"><?php echo JText::_('Gallery')?>:</td>
-					<td><?php echo $lists['gallery_id']; ?></td>
-				</tr>
-				<tr>
-					<td valign="top" align="right"><?php echo JText::_('Description')?>:</td>
-					<td>
-						<?php
-						// parameters : areaname, content, hidden field, width, height, rows, cols
-						echo $editor->display('descr',  $row->descr , '100%', '200', '10', '20' ,false) ; ?>
-					</td>
-				</tr>
-				<tr>
-					<td valign="top" align="right"><?php echo JText::_('Ordering')?>:</td>
-					<td><?php echo $lists['ordering']; ?></td>
-				</tr>
-				<tr>
-					<td valign="top" align="right"><?php echo JText::_('Published')?>:</td>
-					<td><?php echo $lists['published']; ?></td>
-				</tr>
-				</table>
-			</td>
-			<td width="40%" valign="top">
-				<table class="adminform">
-				<tr>
-					<th colspan="1"><?php echo JText::_('Item preview')?></th>
-				</tr>
-				<tr>
-					<td>
-						<div align="center">
-						<?php
-						$item = rsgGalleryManager::getItem( $row->id );
-						
-						$original = $item->original();
-						$thumb 		= $item->thumb();
-						$display	= $item->display();
-						switch($item->type){
-							case "audio":{
-							?>
-							<object type="application/x-shockwave-flash" width="400" height="15" data="<?php echo JURI_SITE ?>/components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=<?php echo $row->name?>&song_url=<?php echo audioUtils::getAudio($row->name)?>"><param name="movie" value="<?php echo JURI_SITE ?>/components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=<?php echo $item->title;?>&song_url=<?php echo $original->url();?>" /></object>
-							<?php
-								break;
-							}
-							case "video":{
-								// OS flv player from http://www.osflv.com
-							?>
-							<object type="application/x-shockwave-flash" 
-									width="400" 
-									height="300" 
-									data="<?php echo JURI::base() ?>/components/com_rsgallery2/options/player.swf?movie=<?php echo $display->name; ?>" >
-									<param name="movie" value="<?php echo JURI::base() ?>/components/com_rsgallery2/options/player.swf?movie=<?php echo $display->name ?>"; />
-									<embed src="<?php echo JURI::base() ?>/components/com_rsgallery2/options/player.swf?movie=<?php echo $display->url(); ?>" 
-											width="400" 
-											height="340" 
-											allowFullScreen="false" 
-											type="application/x-shockwave-flash">
-							</object>
-							<?php
-								break;
-							}
-							case "image":{
-
-							?>
-							<img src="<?php echo $display->url() ?>" alt="<?php echo htmlspecialchars( stripslashes( $item->descr ), ENT_QUOTES );?>" />
-							<?php
-							break;
-							}
-							default:
-							{
-								?> Unsuported item <?php
-								break;	
-							}
-						}
-						?>
-							<br />
-						</div>
-					</td>
-				</tr>
-				</table>
-				<table class="adminform">
-				<tr>
-					<th colspan="1"><?php echo JText::_('Parameters')?></th>
-				</tr>
-				<tr>
-					<td><?php echo $params->render();?>&nbsp;</td>
-				</tr>
-				</table>
-				<table class="adminform">
-				<tr>
-					<th colspan="1"><?php echo JText::_('Links to image')?></th>
-				</tr>
-				<tr>
-					<td>
-						<table width="100%" class="imagelist">
-						<?php if ( $item->type == 'image' || $item->type == "video" ) {?>
+			<tr>
+				<td width="60%" valign="top">
+					<table class="adminform">
 						<tr>
-							<td width="40%" align="right" valign="top"> <a href="<?php echo $thumb->url();?>" target="_blank" alt="<?php echo $item->descr;?>"><?php echo JText::_('Thumb'); ?></a>:</td>
-							<td><input type="text" name="thumb_url" class="text_area" size="50" value="<?php echo $thumb->url();?>" /></td>
+							<th colspan="2"><?php echo JText::_('Details')?></th>
 						</tr>
 						<tr>
-							<td width="40%" align="right" valign="top"><a href="<?php echo $display->url();?>" target="_blank" alt="<?php echo $item->descr;?>"><?php echo JText::_('Display'); ?></a>:</td>
-							<td ><input type="text" name="display_url" class="text_area" size="50" value="<?php echo $display->url();?>" /></td>
+							<td width="20%" align="right"><?php echo JText::_('Name')?>:</td>
+							<td width="80%">
+								<input class="text_area" type="text" name="title" size="50" maxlength="250" value="<?php echo $row->title;?>" />
+							</td>
 						</tr>
-						<?php }?>
 						<tr>
-							<td width="40%" align="right" valign="top"><a href="<?php echo $original->url();?>" target="_blank" alt="<?php echo $item->descr;?>"><?php echo JText::_('Original'); ?></a>:</td>
-							<td><input type="text" name="original_url" class="text_area" size="50" value="<?php echo $original->url();?>" /></td>
-						</td>
-					</tr>
-					</table>		
+							<td width="20%" align="right"><?php echo JText::_('Filename')?>:</td>
+							<td width="80%"><?php echo $row->name;?></td>
+						</tr>
+						<tr>
+							<td valign="top" align="right"><?php echo JText::_('Gallery')?>:</td>
+							<td><?php echo $lists['gallery_id']; ?></td>
+						</tr>
+						<tr>
+							<td valign="top" align="right"><?php echo JText::_('Description')?>:</td>
+							<td>
+								<?php
+								// parameters : areaname, content, hidden field, width, height, rows, cols
+								echo $editor->display('descr',  $row->descr , '100%', '200', '10', '20' ,false) ; ?>
+							</td>
+						</tr>
+						<tr>
+							<td valign="top" align="right"><?php echo JText::_('Ordering')?>:</td>
+							<td><?php echo $lists['ordering']; ?></td>
+						</tr>
+						<tr>
+							<td valign="top" align="right"><?php echo JText::_('Published')?>:</td>
+							<td><?php echo $lists['published']; ?></td>
+						</tr>
+					</table>
 				</td>
-			</td>
-		</tr>
+				<td width="40%" valign="top">
+					<table class="adminform">
+						<tr>
+							<th colspan="1"><?php echo JText::_('Item preview')?></th>
+						</tr>
+						<tr>
+							<td>
+								<div align="center">
+								<?php
+								$item = rsgGalleryManager::getItem( $row->id );
+								
+								$original = $item->original();
+								$thumb 		= $item->thumb();
+								$display	= $item->display();
+								switch($item->type){
+									case "audio":{
+									?>
+									<object type="application/x-shockwave-flash" width="400" height="15" data="<?php echo JURI_SITE ?>/components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=<?php echo $row->name?>&song_url=<?php echo audioUtils::getAudio($row->name)?>"><param name="movie" value="<?php echo JURI_SITE ?>/components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=<?php echo $item->title;?>&song_url=<?php echo $original->url();?>" /></object>
+									<?php
+										break;
+									}
+									case "video":{
+										// OS flv player from http://www.osflv.com
+									?>
+									<object type="application/x-shockwave-flash" 
+											width="400" 
+											height="300" 
+											data="<?php echo JURI::base() ?>/components/com_rsgallery2/options/player.swf?movie=<?php echo $display->name; ?>" >
+											<param name="movie" value="<?php echo JURI::base() ?>/components/com_rsgallery2/options/player.swf?movie=<?php echo $display->name ?>"; />
+											<embed src="<?php echo JURI::base() ?>/components/com_rsgallery2/options/player.swf?movie=<?php echo $display->url(); ?>" 
+													width="400" 
+													height="340" 
+													allowFullScreen="false" 
+													type="application/x-shockwave-flash">
+									</object>
+									<?php
+										break;
+									}
+									case "image":{
+
+									?>
+									<img src="<?php echo $display->url() ?>" alt="<?php echo htmlspecialchars( stripslashes( $item->descr ), ENT_QUOTES );?>" />
+									<?php
+									break;
+									}
+									default:
+									{
+										?> Unsuported item <?php
+										break;	
+									}
+								}
+								?>
+									<br />
+								</div>
+							</td>
+						</tr>
+					</table>
+					<table class="adminform">
+						<tr>
+							<th colspan="1"><?php echo JText::_('Parameters')?></th>
+						</tr>
+						<tr>
+							<td><?php echo $params->render();?>&nbsp;</td>
+						</tr>
+					</table>
+					<table class="adminform">
+						<tr>
+							<th colspan="1"><?php echo JText::_('Links to image')?></th>
+						</tr>
+						<tr>
+							<td>
+								<table width="100%" class="imagelist">
+									<?php if ( $item->type == 'image' || $item->type == "video" ) {?>
+									<tr>
+										<td width="40%" align="right" valign="top"> <a href="<?php echo $thumb->url();?>" target="_blank" alt="<?php echo $item->descr;?>"><?php echo JText::_('Thumb'); ?></a>:</td>
+										<td><input type="text" name="thumb_url" class="text_area" size="50" value="<?php echo $thumb->url();?>" /></td>
+									</tr>
+									<tr>
+										<td width="40%" align="right" valign="top"><a href="<?php echo $display->url();?>" target="_blank" alt="<?php echo $item->descr;?>"><?php echo JText::_('Display'); ?></a>:</td>
+										<td ><input type="text" name="display_url" class="text_area" size="50" value="<?php echo $display->url();?>" /></td>
+									</tr>
+									<?php }?>
+									<tr>
+										<td width="40%" align="right" valign="top"><a href="<?php echo $original->url();?>" target="_blank" alt="<?php echo $item->descr;?>"><?php echo JText::_('Original'); ?></a>:</td>
+										<td><input type="text" name="original_url" class="text_area" size="50" value="<?php echo $original->url();?>" /></td>
+									</tr>
+								</table>		
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
 		</table>
 
 		<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
@@ -488,7 +489,7 @@ class html_rsg2_images {
                     {
                     alert( "<?php echo JText::_('ZIP-upload selected but no file chosen');?>" );
                     }        
-               else if (form.xcat.value == '0' & selcat_method == '1')
+               else if (form.xcat.value <= '0' & selcat_method == '1')
                     {
                     alert("<?php echo JText::_('Please choose a category first');?>");
                     }
@@ -601,6 +602,30 @@ class html_rsg2_images {
         $xcat 			= rsgInstance::getInt('xcat'  , null);
         $batchmethod 	= rsgInstance::getVar('batchmethod'  , null);
         ?>
+		        <script language="javascript" type="text/javascript">
+        <!--
+        function submitbutton(pressbutton) {
+            var form = document.adminForm,
+				missingCat = false;
+           
+            for (i=0 ; i<document.forms[0].category.length ; i++) {
+				if (document.forms[0].category[i].value <= 0) {
+					missingCat = true;
+				}
+            }
+
+			if (pressbutton == 'save_batchupload'){
+				if (missingCat == true) {
+					alert("<?php echo JText::_('All images must be part of a category.');?>");
+				}
+				else {
+					form.submit();
+				}
+			}
+        }
+        //-->
+        </script>
+
         <form action="index2.php" method="post" name="adminForm">
         <table class="adminform">
         <tr>
