@@ -7,7 +7,7 @@ $floatDirection = $rsgConfig->get( 'display_thumbs_floatDirection' );
 <ul id="rsg2-thumbsList">
 <?php 
 foreach( $this->gallery->currentItems() as $item ):
-		if( $item->type != 'image' )
+		if( $item->type == 'audio' )
 			continue;  // we only handle images
 
 		$thumb = $item->thumb(); ?>

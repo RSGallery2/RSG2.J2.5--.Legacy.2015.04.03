@@ -440,7 +440,7 @@ function saveUploadedImage( $option ) {
 	} else {
 		//Show error message for each error encountered
 		foreach( $errors as $e ) {
-			echo $e->toString();
+			JError::raiseWarning($e->toString());
 		}
 		//If there were more files than errors, assure the user the rest went well
 		if ( count( $errors ) < count( $files["error"] ) ) {

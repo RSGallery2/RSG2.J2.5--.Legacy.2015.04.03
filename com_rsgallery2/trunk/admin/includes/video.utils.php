@@ -17,7 +17,16 @@ defined( '_JEXEC' ) or die( 'Access Denied' );
 */
 class videoUtils extends fileUtils{
     function allowedFileTypes(){
-        return array('flv');
+		global $rsgConfig;
+		
+		// check if a converter is configured 
+		// and return an empty array if it is not
+		if( $rsgConfig->get( "videoConverter_path" ) == ''){
+			return array();
+		}
+		else {
+			return array('flv', 'avi', 'mpg');
+		}
     }
     
     /**
@@ -35,16 +44,17 @@ class videoUtils extends fileUtils{
       * @return filename of image
       */
     function getImgNameDisplay($name){
-        return $name . '.jpg';
+		global $rsgConfig;
+        return $name . '.' . $rsgConfig->get("videoConverter_extension");
     }
     
-    function getVideoName($name){
-        return $name . '.flv';
-    }
+//    function getVideoName($name){
+//        return $name . '.flv';
+//    }
     
-    function getImgPreviewName($name){
-        return $name . '.png';
-    }
+//    function getImgPreviewName($name){
+//        return $name . '.jpg';
+//    }
     
     /**
      * Takes an image file, moves the file and adds database entry
@@ -78,74 +88,70 @@ class videoUtils extends fileUtils{
         
         //Destination becomes original video, just for readability
         $original_video = $destination;
-        
-        // New video vill be locate to same directory
-        $newVideo = JPATH_ORIGINAL . DS . $newName . ".flv";
-        $result = videoUtils::convertVideo( $original_video, $newVideo );
-        if( PEAR::isError( $result )){
-        	//videoUtils::deleteImage( $newName );
-            return new imageUploadError( $imgName, "error converting video: <pre>" . print_r( $result->getMessage(), true) ."</pre>" );
-		}
-        
-        // First frame of video
-        $videoPreviewImage =  JPATH_ORIGINAL . DS . $newName . ".png";
-		$result = videoUtils::capturePreviewImage( $original_video, $videoPreviewImage );
-        if( PEAR::isError( $result )){
-        	//videoUtils::deleteImage( $newName );
-            return new imageUploadError( $imgName, "error capturing preview image: <pre>" . print_r( $result->getMessage(), true) ."</pre>" );
+		$result = true;
+		
+		do{
+			// New video will be located in display folder
+			$newVideo = JPATH_DISPLAY . DS . $newName . "." . $rsgConfig->get("videoConverter_extension");
+			$result = Ffmpeg::convertVideo( $original_video, $newVideo );
+			if( PEAR::isError( $result )){
+				$result = new imageUploadError( $imgName, "error converting video: <pre>" . print_r( $result->getMessage(), true) ."</pre>" );
+				break;
+			}
+			
+			// get first frame of the video to genetrate a thumbnail from
+			$videoPreviewImage =  JPATH_ORIGINAL . DS . $newName . ".png";
+			$result = Ffmpeg::capturePreviewImage( $original_video, $videoPreviewImage );
+			if( PEAR::isError( $result )){
+				$result = new imageUploadError( $imgName, "error capturing preview image: <pre>" . print_r( $result->getMessage(), true) ."</pre>" );
+				break;
+			}
+			
+			//Get details of the original image.
+			$width = getimagesize( $videoPreviewImage );
+			if( !$width ){
+				$result = new imageUploadError( $videoPreviewImage, "not an image OR can't read $videoPreviewImage" );
+				break;
+			} else {
+				//the actual image width
+				$width = $width[0];
+			}
+			
+			$result = imgUtils::makeThumbImage( $videoPreviewImage, $newName );
+			// remove the temporary preview image
+			JFile::delete($videoPreviewImage);
+			if( PEAR::isError( $result )){
+				$result = new imageUploadError( $imgName, "error creating thumb image: " . $result->getMessage() );
+				break;
+			}
+			
+			// determine ordering
+			$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id = '$cat'");
+			$ordering = $database->loadResult() + 1;
+			
+			//Store image details in database
+			$desc = mysql_real_escape_string($desc);
+			$title = mysql_real_escape_string($title);
+			$database->setQuery("INSERT INTO #__rsgallery2_files".
+					" (title, name, descr, gallery_id, date, ordering, userid) VALUES".
+					" ('$title', '$newName', '$desc', '$cat', now(), '$ordering', '$my->id')");
+			
+			if (!$database->query()){
+				$result = new imageUploadError( $parts['basename'], $database->stderr(true) );
+				break;
+			}
+			
+			$result = true;
+		} while(false);
+
+		if($result !== true){
+			// clean up
+			if(JFile::exists($newVideo)) JFile::delete($newVideo); 
+			if(JFile::exists($videoPreviewImage)) JFile::delete($videoPreviewImage);
+			imgUtils::deleteImage( $newName );
 		}
 		
-		//Get details of the original image.
-        $width = getimagesize( $videoPreviewImage );
-        if( !$width ){
-            imgUtils::deleteImage( $newName );
-            return new imageUploadError( $videoPreviewImage, "not an image OR can't read $videoPreviewImage" );
-        } else {
-            //the actual image width
-            $width = $width[0];
-        }
-            // if original is wider than display, create a display image
-        if( $width > $rsgConfig->get('image_width') ) {
-            $result = imgUtils::makeDisplayImage( $videoPreviewImage, $newName, $rsgConfig->get('image_width') );
-            if( PEAR::isError( $result )){
-                imgUtils::deleteImage( $newName );
-                return new imageUploadError( $imgName, "error creating display image: <pre>" . print_r( $result->getMessage(), true) ."</pre>" );
-            }
-        } else {
-            $result = imgUtils::makeDisplayImage( $videoPreviewImage, $newName, $width );
-            if( PEAR::isError( $result )){
-                imgUtils::deleteImage( $newName );
-                return new imageUploadError( $imgName, "error creating display image: <pre>" . print_r( $result->getMessage(), true)  ."</pre>");
-                }
-        }
-           
-        // if original is wider than thumb, create a thumb image
-        if( $width > $rsgConfig->get('thumb_width') ){
-            $result = imgUtils::makeThumbImage( $videoPreviewImage, $newName );
-            if( PEAR::isError( $result )){
-                imgUtils::deleteImage( $newName );
-                return new imageUploadError( $imgName, "error creating thumb image: " . $result->getMessage() );
-            }
-        }
-
-
-        // determine ordering
-        $database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id = '$cat'");
-        $ordering = $database->loadResult() + 1;
-        
-        //Store image details in database
-        $desc = mysql_real_escape_string($desc);
-        $title = mysql_real_escape_string($title);
-        $database->setQuery("INSERT INTO #__rsgallery2_files".
-                " (title, name, descr, gallery_id, date, ordering, userid) VALUES".
-                " ('$title', '$name', '$desc', '$cat', now(), '$ordering', '$my->id')");
-        
-        if (!$database->query()){
-            imgUtils::deleteImage( $parts['basename'] );
-            return new imageUploadError( $parts['basename'], $database->stderr(true) );
-        }
-
-        return true;
+		return $result;
     }
 
 }
@@ -198,15 +204,27 @@ class Ffmpeg extends genericVideoLib{
     function convertVideo($source, $target){
         global $rsgConfig;
         
-        // if path exists add the final /
-        $ffmpeg_path = $rsgConfig->get( "ffmpeg_path" );
-        $ffmpeg_path = $ffmpeg_path==''? '' : $ffmpeg_path.'/';
-        //ffmpeg -i 03022008011.mp4 -deinterlace -ar 22050 -ab 56 -acodec mp3 -r 25 -f flv -b 400 -s 320x240 output.flv
-        
-        $ffmpeg_params = " -deinterlace -ar 22050 -ab 56 -acodec mp3 -r 25 -f flv -b 400 -s 320x240 ";
-        
-        $cmd = $ffmpeg_path . "ffmpeg -i " . $source . $ffmpeg_params . " " . $target;
-        @exec($cmd);
+		$videoConverter_path = $rsgConfig->get( "videoConverter_path" );
+		$videoConverter_param = $rsgConfig->get( "videoConverter_param" );
+
+		// check if there are spaces in the source and target path
+		if(stripos($source," ") != -1) $source = '"' . $source . '"';
+		if(stripos($target," ") != -1) $target = '"' . $target . '"';
+		
+		$param = str_replace("{input}", $source, $videoConverter_param);
+		$param = str_replace("{output}", $target, $param);
+		
+		$cmd = $videoConverter_path . ' ' . $param;
+		$output = array();
+		$return = null;
+		exec($cmd, &$output, &$return);
+
+		if($return == 0){
+			return true;
+		}
+		else{
+			return new PEAR_Error(implode("\n",$output));
+		}
     }
     
     /**
@@ -219,30 +237,41 @@ class Ffmpeg extends genericVideoLib{
     function capturePreviewImage($source, $target){
         global $rsgConfig;
         
-        // if path exists add the final /
-        $ffmpeg_path = $rsgConfig->get( "ffmpeg_path" );
-        $ffmpeg_path = $ffmpeg_path==''? '' : $ffmpeg_path.'/';
-        //ffmpeg -vframes 1 -i 19072007013.mp4 -vcodec png -an -f rawvideo test.png
-        
-        $ffmpeg_params = " -vframes 1 -vcodec png -an -f rawvideo ";
-        
-        $cmd = $ffmpeg_path . "ffmpeg -i " . $source . $ffmpeg_params . " " . $target;
-        @exec($cmd);
-    }
+		$videoConverter_path = $rsgConfig->get( "videoConverter_path" );
+		$videoConverter_thumbParam = $rsgConfig->get( "videoConverter_thumbParam" );
+		
+		// check if there are spaces in the source and target path
+		if(stripos($source," ") != -1) $source = '"' . $source . '"';
+		if(stripos($target," ") != -1) $target = '"' . $target . '"';
+		
+		$param = str_replace("{input}", $source, $videoConverter_thumbParam);
+		$param = str_replace("{output}", $target, $param);
+		
+		$cmd = $videoConverter_path . ' ' . $param;
+		$output = array();
+		$return = null;
+		exec($cmd, &$output, &$return);
+
+		if($return == 0){
+			return true;
+		}
+		else{
+			return new PEAR_Error(implode("\n",$output),$return);
+		}
+	}
 
     /**
       * detects if image library is available
       * @return false if not detected, user friendly string of library name and version if detected
       */
     function detect($shell_cmd = '', $output = '', $status = ''){
-        @exec($shell_cmd. 'jpegtopnm -version 2>&1',  $output, $status);
-        if(!$status){
-            if(preg_match("/netpbm[ \t]+([0-9\.]+)/i",$output[0],$matches)){
-                return $matches[0];
-            }
-            else
-            	return false;
-        }
+
+		global $rsgConfig;
+		
+		$videoConverter_path = $rsgConfig->get( "videoConverter_path" );
+		
+		return JFile::exists($videoConverter_path);
+
     }
 } // END CLASS FFMPEG
 ?>

@@ -234,19 +234,14 @@ class rsgDisplay_semantic extends rsgDisplay{
 	}
     
     /**
-     * Shows main image
+     * Shows main item
      */
-	function showDisplayImage(){
+	function showItem(){
 		global $rsgConfig, $mainframe;
 		
 		$item = rsgInstance::getItem();
 
-		if( $item->type != 'image' ){
-			// item is not an image, return;
-			return;
-		}
-
-		// increase hit counter
+    	// increase hit counter
 		$item->hit();
 		
 		?>
@@ -258,58 +253,9 @@ class rsgDisplay_semantic extends rsgDisplay{
 				<td>
 				<div align="center">
 					<?php
-					$watermark = $rsgConfig->get('watermark');
-					
-					$imageUrl = $watermark ? waterMarker::showMarkedImage( $item->name ) : 
-											 imgUtils::getImgOriginal( $item->name );
-
-					switch ($rsgConfig->get('displayPopup')) {
-						//No popup
-						case 0:
-							$this->_showImageBox( $item->name, $item->descr );
-							break;
-						//Normal popup
-						case 1:
-							?><a href="<?php echo $imageUrl; ?>" target="_blank"><?php
-							$this->_showImageBox( $item->name, $item->descr );
-							?></a>
-							<?php
-							break;
-					
-						case 2:
-							JHTML::_('behavior.modal');
-							$jsModal = '
-	window.addEvent("domready", function() {
-		SqueezeBox.initialize({});
-		var img = $$("img.rsg2-displayImage")[0];
-		img.addEvent("click", function(e)
-		{
-			new Event(e).stop();
-			SqueezeBox.fromElement(img,{url:"' . $imageUrl .'", 
-										classWindow:"rsg2", 
-										classOverlay:"rsg2",
-										onOpen:function(img){
-											var p = new Element("p", {class:"rsg2-popup-title"});
-											$(p).appendText("'. strip_tags($item->name) . '");
-											$(p).inject(img);
-											var pSize1 = $(p).getSize().size;
-											p = new Element("p", {class:"rsg2-popup-description"});
-											$(p).appendText("'. strip_tags($item->descr) . '");
-											$(p).inject(img);
-											var pSize2 = $(p).getSize().size;
-											size = SqueezeBox.size;
-											size.y += pSize1.y + pSize2.y;
-											SqueezeBox.resize(size, true);
-										}});		
-		});
-	});';
-
-							$this->_showImageBox( $item->name, $item->descr, $watermark );
-							$doc =& JFactory::getDocument();
-							$doc->addScriptDeclaration($jsModal);
-							break;
-					}
-					?>
+					$this->currentItem = $item;
+					$this->display("item_" .  $item->type . ".php");
+    				?>
 				</div>
 				</td>
 			</tr>
@@ -319,7 +265,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		</table>
 		<?php
 	}
-    
+ 
 	/**
 	 * Show page navigation for Display image
 	 */

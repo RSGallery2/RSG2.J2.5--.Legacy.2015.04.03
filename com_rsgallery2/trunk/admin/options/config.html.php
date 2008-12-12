@@ -344,6 +344,22 @@ class html_rsg2_config{
 								<td><?php echo JText::_('FTP Path:') ?></td>
 								<td><input class="text_area" type="text" name="ftp_path" size="50" value="<?php echo $config->ftp_path?>"/>(<?php echo JText::_('HTML-root is')?>: <?php  print $_SERVER['DOCUMENT_ROOT']?>)</td>
 							</tr>
+							<tr>
+								<td><?php echo JText::_('Video converter path:') ?></td>
+								<td><input class="text_area" type="text" name="videoConverter_path" size="50" value="<?php echo $config->videoConverter_path;?>"/>(ex. "C:\ffmpeg\ffmpeg.exe")</td>
+							</tr>
+							<tr>
+								<td><?php echo JText::_('Video converter parameters:') ?></td>
+								<td><input class="text_area" type="text" name="videoConverter_param" size="100" value="<?php echo $config->videoConverter_param;?>"/></td>
+							</tr>
+							<tr>
+								<td><?php echo JText::_('Thumbnail extraction parameters:') ?></td>
+								<td><input class="text_area" type="text" name="videoConverter_thumbParam" size="100" value="<?php echo $config->videoConverter_thumbParam;?>"/></td>
+							</tr>
+							<tr>
+								<td><?php echo JText::_('Video output type:') ?></td>
+								<td><input class="text_area" type="text" name="videoConverter_extension" size="50" value="<?php echo $config->videoConverter_extension;?>"/></td>
+							</tr>
 						</table>
 					</fieldset>
 				</td>

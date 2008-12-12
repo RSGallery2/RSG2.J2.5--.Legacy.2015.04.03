@@ -43,6 +43,11 @@ class rsgConfig {
 	var $netpbm_path		= '';
 	var $ftp_path			= '';
 
+	var $videoConverter_path			= '';
+	var $videoConverter_param			= '-i {input} -ar 22050 -ab 56 -b 200 -r 12 -f flv -s 320x240 -acodec mp3 -ac 1 {output}';
+	var $videoConverter_thumbParam		= ' -i {input} -f mjpg -vframes 1 -an -s 320x240 {output}';
+	var $videoConverter_extension			= 'flv';
+	
 	// front display
     var $display_thumbs_style = 'table'; // float, table, magic
     var $display_thumbs_floatDirection = 'left'; // left, right

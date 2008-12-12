@@ -7,7 +7,7 @@ $i = 0;
 
 <table id="rsg2-thumbsList" border="0">
 	<?php foreach( $this->gallery->currentItems() as $item ):
-		if( $item->type != 'image' )
+		if( $item->type == 'audio' )
 			continue;  // we only handle images
 
 		$thumb = $item->thumb();

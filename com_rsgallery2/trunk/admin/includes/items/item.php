@@ -233,8 +233,8 @@ class rsgResource extends JObject{
 	 * @return working URL to the resource
 	 */
 	function url(){
-		global $mainframe;
-		return JURI_SITE . "/" . $this->name;
+		$url = JURI_SITE . trim($this->name, "/");
+		return $url;
 	}
 	
 	/**

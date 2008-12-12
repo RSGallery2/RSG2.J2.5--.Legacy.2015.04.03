@@ -68,9 +68,9 @@ class rsgItem_image extends rsgItem{
 		
 		$gallery_path = $this->gallery->getPath("/");
 
-		$thumb = $rsgConfig->get('imgPath_thumb') . $gallery_path . "/" . imgUtils::getImgNameThumb( $this->name );
-		$display = $rsgConfig->get('imgPath_display') . $gallery_path . "/" . imgUtils::getImgNameDisplay( $this->name );
-		$original = $rsgConfig->get('imgPath_original') . $gallery_path . "/" . $this->name;
+		$thumb = $rsgConfig->get('imgPath_thumb') . $gallery_path . imgUtils::getImgNameThumb( $this->name );
+		$display = $rsgConfig->get('imgPath_display') . $gallery_path . imgUtils::getImgNameDisplay( $this->name );
+		$original = $rsgConfig->get('imgPath_original') . $gallery_path . $this->name;
 		
 		if( file_exists( JPATH_ROOT . $original )){
 			// original image exists
