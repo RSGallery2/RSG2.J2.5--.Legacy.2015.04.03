@@ -32,6 +32,15 @@ Legend:
 
 ---------------- Recent ----------------
 
+2008-12-12 John Caprez
++ video functionality 
+  mov,flv and avi files can be uploaded. 
+  To be able to convert video files a conversion application must be set up.
+  The converter is not part of the RSGallery2 package.
+  The predefined settings are for the ffmpeg converter (http://ffmpeg.mplayerhq.hu/)
+  To display the videos the open source flv player is used (http://www.osflv.com/)
+  
+
 2008-11-24 John Caprez
 ^ using default meta page title instead of "RSGallery2"
 # backend gallery ordering

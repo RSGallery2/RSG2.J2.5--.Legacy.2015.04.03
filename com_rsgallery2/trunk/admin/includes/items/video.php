@@ -54,22 +54,22 @@ class rsgItem_video extends rsgItem{
 	
 	function _determineResources(){
 		global $rsgConfig;
+
+		require_once( JPATH_RSGALLERY2_ADMIN.'/includes/video.utils.php' );
 		
 		$gallery_path = $this->gallery->getPath("/");
 
-		$thumb = $rsgConfig->get('imgPath_thumb') . $gallery_path . "/" . videoUtils::getImgNameThumb( $this->name );
-		$display = $rsgConfig->get('imgPath_display') . $gallery_path . "/" . videoUtils::getImgNameDisplay( $this->name );
-		$original = $rsgConfig->get('imgPath_original') . $gallery_path . "/" . $this->name;
+		$thumb = $rsgConfig->get('imgPath_thumb') . $gallery_path . videoUtils::getImgNameThumb( $this->name );
+		$display = $rsgConfig->get('imgPath_display') . $gallery_path . videoUtils::getImgNameDisplay( $this->name );
+		$original = $rsgConfig->get('imgPath_original') . $gallery_path . $this->name;
 		
-		
-		//$original = $rsgConfig->get('imgPath_original') . DS . $this->name;
-		
-		
-		if( file_exists( JPATH_ROOT . $original )){
-			// original image exists
-			$this->original = new rsgResource( $original );
-		} else {
-			return;
+		if( !JFile::exists( JPATH_ROOT . $original )){
+			$this->original = $display;
 		}
+		
+		$this->thumb = new rsgResource( $thumb );
+		$this->display = new rsgResource( $display );
+		$this->original = new rsgResource( $original );
+		
 	}
 }

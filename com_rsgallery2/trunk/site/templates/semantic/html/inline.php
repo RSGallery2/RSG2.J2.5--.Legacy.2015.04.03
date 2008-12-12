@@ -2,7 +2,7 @@
 
 <div class="rsg_sem_inl">
 	<div class="rsg_sem_inl_dispImg">
-    	<?php $this->showDisplayImage(); ?>
+    	<?php $this->showItem(); ?>
 	</div>
 	<div class="rsg_sem_inl_Nav">
     	<?php $this->showDisplayPageNav(); ?>

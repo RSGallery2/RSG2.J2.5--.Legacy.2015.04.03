@@ -247,19 +247,47 @@ class html_rsg2_images {
 						$item = rsgGalleryManager::getItem( $row->id );
 						
 						$original = $item->original();
-						if (is_a( $item, 'rsgItem_audio' ) ) {
+						$thumb 		= $item->thumb();
+						$display	= $item->display();
+						switch($item->type){
+							case "audio":{
 							?>
 							<object type="application/x-shockwave-flash" width="400" height="15" data="<?php echo JURI_SITE ?>/components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=<?php echo $row->name?>&song_url=<?php echo audioUtils::getAudio($row->name)?>"><param name="movie" value="<?php echo JURI_SITE ?>/components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=<?php echo $item->title;?>&song_url=<?php echo $original->url();?>" /></object>
 							<?php
-						} else {
-							$thumb 		= $item->thumb();
-							$display	= $item->display();
+								break;
+							}
+							case "video":{
+								// OS flv player from http://www.osflv.com
 							?>
-							<img width="300" border="1" src="<?php echo $display->url() ?>" alt="<?php echo htmlspecialchars( stripslashes( $item->descr ), ENT_QUOTES );?>" />
-							<br />
+							<object type="application/x-shockwave-flash" 
+									width="400" 
+									height="300" 
+									data="<?php echo JURI::base() ?>/components/com_rsgallery2/options/player.swf?movie=<?php echo $display->name; ?>" >
+									<param name="movie" value="<?php echo JURI::base() ?>/components/com_rsgallery2/options/player.swf?movie=<?php echo $display->name ?>"; />
+									<embed src="<?php echo JURI::base() ?>/components/com_rsgallery2/options/player.swf?movie=<?php echo $display->url(); ?>" 
+											width="400" 
+											height="340" 
+											allowFullScreen="false" 
+											type="application/x-shockwave-flash">
+							</object>
 							<?php
+								break;
+							}
+							case "image":{
+
+							?>
+							<img src="<?php echo $display->url() ?>" alt="<?php echo htmlspecialchars( stripslashes( $item->descr ), ENT_QUOTES );?>" />
+							<?php
+							break;
+							}
+							default:
+							{
+								?> Unsuported item <?php
+								break;	
+							}
 						}
 						?>
+							<br />
 						</div>
 					</td>
 				</tr>
@@ -279,19 +307,19 @@ class html_rsg2_images {
 				<tr>
 					<td>
 						<table width="100%" class="imagelist">
-						<?php if (!is_a( $item, 'rsgItem_audio' ) ) {?>
+						<?php if ( $item->type == 'image' || $item->type == "video" ) {?>
 						<tr>
 							<td width="40%" align="right" valign="top"> <a href="<?php echo $thumb->url();?>" target="_blank" alt="<?php echo $item->descr;?>"><?php echo JText::_('Thumb'); ?></a>:</td>
-							<td><input type="text" name="thumb_url" class="text_area" size="" value="<?php echo $thumb->url();?>" /></td>
+							<td><input type="text" name="thumb_url" class="text_area" size="50" value="<?php echo $thumb->url();?>" /></td>
 						</tr>
 						<tr>
 							<td width="40%" align="right" valign="top"><a href="<?php echo $display->url();?>" target="_blank" alt="<?php echo $item->descr;?>"><?php echo JText::_('Display'); ?></a>:</td>
-							<td ><input type="text" name="display_url" class="text_area" size="" value="<?php echo $display->url();?>" /></td>
+							<td ><input type="text" name="display_url" class="text_area" size="50" value="<?php echo $display->url();?>" /></td>
 						</tr>
 						<?php }?>
 						<tr>
 							<td width="40%" align="right" valign="top"><a href="<?php echo $original->url();?>" target="_blank" alt="<?php echo $item->descr;?>"><?php echo JText::_('Original'); ?></a>:</td>
-							<td><input type="text" name="original_url" class="text_area" size="" value="<?php echo $original->url();?>" /></td>
+							<td><input type="text" name="original_url" class="text_area" size="50" value="<?php echo $original->url();?>" /></td>
 						</td>
 					</tr>
 					</table>		
@@ -321,7 +349,6 @@ class html_rsg2_images {
 	*/
 	function uploadImage( $lists, $option ) {
 		global $rsgOption;
-		//mosMakeHtmlSafe( $row, ENT_QUOTES, 'descr' );
 		$editor =& JFactory::getEditor();
 		
 		?>

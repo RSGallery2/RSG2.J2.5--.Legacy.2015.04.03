@@ -12,6 +12,7 @@ class rsgDisplay extends JObject{
 	
 	var $params = null;
 	
+	var $currentItem = null;
 	function __construct(){
 		global $rsgConfig;
 		
