@@ -13,11 +13,11 @@ $jsSwf = '
 		autoload: "on",
 		autorewind: "on",
 		volume: "70"}; 
-		swfobject.embedSWF("' .$templatePath .'/player.swf",
+		swfobject.embedSWF("' . JURI_SITE . '/components/com_rsgallery2/flash/player.swf",
 		"rsg2-flashMovie", 
 		"320", "240", 
 		"7", 
-		"' .$templatePath .'/expressInstall.swf",
+		"' . JURI_SITE . '/components/com_rsgallery2/flash/expressInstall.swf",
 		flashvars,
 		{ wmode: "transparent", loop:false, autoPlay:true }
 		);
@@ -25,7 +25,7 @@ $jsSwf = '
 
 $doc =& JFactory::getDocument();
 $doc->addScriptDeclaration($jsSwf);
-$doc->addScript($templatePath . "/script/swfobject.js");
+$doc->addScript(JURI_SITE . '/components/com_rsgallery2/flash/script/swfobject.js');
 
 ?><div id="rsg2-flashMovie"><p><?php echo JText::_("The movie should appear here."); ?></p></div><?php
 
