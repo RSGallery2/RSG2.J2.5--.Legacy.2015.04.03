@@ -140,8 +140,6 @@ class videoUtils extends fileUtils{
 				$result = new imageUploadError( $parts['basename'], $database->stderr(true) );
 				break;
 			}
-			
-			$result = true;
 		} while(false);
 
 		if($result !== true){

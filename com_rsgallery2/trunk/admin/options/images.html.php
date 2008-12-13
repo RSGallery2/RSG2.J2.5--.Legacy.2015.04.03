@@ -262,9 +262,9 @@ class html_rsg2_images {
 									<object type="application/x-shockwave-flash" 
 											width="400" 
 											height="300" 
-											data="<?php echo JURI::base() ?>/components/com_rsgallery2/options/player.swf?movie=<?php echo $display->name; ?>" >
-											<param name="movie" value="<?php echo JURI::base() ?>/components/com_rsgallery2/options/player.swf?movie=<?php echo $display->name ?>"; />
-											<embed src="<?php echo JURI::base() ?>/components/com_rsgallery2/options/player.swf?movie=<?php echo $display->url(); ?>" 
+											data="<?php echo JURI_SITE ?>/components/com_rsgallery2/flash/player.swf?movie=<?php echo $display->name; ?>" >
+											<param name="movie" value="<?php echo JURI_SITE ?>/components/com_rsgallery2/flash/player.swf?movie=<?php echo $display->name; ?>" />
+											<embed src="<?php echo JURI_SITE ?>/components/com_rsgallery2/flash/player.swf?movie=<?php echo $display->url(); ?>" 
 													width="400" 
 													height="340" 
 													allowFullScreen="false" 
