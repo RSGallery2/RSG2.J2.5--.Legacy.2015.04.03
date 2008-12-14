@@ -47,12 +47,9 @@ function Rsgallery2BuildRoute(&$query)
 	if(isset($query['gid'])){
 		// add the gallery id only if it is not part of the menu link
 		if(empty($item) ||
-		   preg_match( "/gid=([0-9]*)/", $currentMenu->link) == 0){
+				preg_match( "/gid=([0-9]*)/", $currentMenu->link) == 0){
 			$segments[] = 'category';
-			
-			// instead of the numerical id the gallery's (unique) title could be added here
-			
-			$segments[] = $query['gid'];
+			$segments[] = Rsgallery2GetCategoryName($query['gid']);
 		}
 		unset($query['gid']);
 	}
@@ -63,14 +60,11 @@ function Rsgallery2BuildRoute(&$query)
 		$segments[] = $query['limitstartg'];
 		unset($query['limitstartg']);
 	}
-
+	
 	// direct item link
 	if(isset($query['id'])){
 		$segments[] = 'item';
-		
-		// instead of the numerical id the item's (unique) title could be added here
-		
-		$segments[] = $query['id'];
+		$segments[] = Rsgallery2GetItemName($query['id']);
 		unset($query['id']);
 	}
 	
@@ -86,7 +80,7 @@ function Rsgallery2BuildRoute(&$query)
 		$segments[] = 'as' . ucfirst($query['page']);
 		unset($query['page']);
 	}
-		
+	
 	return $segments;
 }
 
@@ -112,28 +106,13 @@ function Rsgallery2ParseRoute($segments)
 			// gallery link
 			case 'category':
 			{
-				$vars['gid'] = $segments[++$index];
-				// check if the gallery id is non numerial
-				if(!ctype_digit($vars['gid']))
-				{
-					// after sanitising the id value the numerial id could be fetched from the 
-					// database.
-				}
-
+				$vars['gid'] = Rsgallery2GetCategoryId($segments[++$index]);
 				break;
 			}
 			// item link
 			case 'item':
 			{
-				$vars['id'] = $segments[++$index];
-				
-				// check if the item id is non numerial
-				if(!ctype_digit($vars['id']))
-				{
-					// after sanitising the id value the numerial id could be fetched from the 
-					// database.
-				}
-				
+				$vars['id']  = Rsgallery2GetItemId($segments[++$index]);
 				break;
 			}
 			// gallery paging
@@ -166,4 +145,163 @@ function Rsgallery2ParseRoute($segments)
 		$vars['page'] = "inline";
 	}
 	return $vars;
+}
+
+/**
+ * Converts a category Id to its SEF representation
+ * 
+ *  @param $categoyId int Numerial value of the category
+ *	@return string String representation of the category
+ * 
+ **/
+function Rsgallery2GetCategoryName($categoryId){
+	
+	global $config;
+	
+	Rsgallery2InitConfig();
+	
+	// fetch the gallery name from the database if advanced sef is active
+	// else return the numerical value	
+	if($config->get("advancedSef") == true)
+	{
+		$dbo = JFactory::getDBO();
+		$query = "SELECT name FROM #__rsgallery2_galleries WHERE id=$categoryId";
+		$dbo->setQuery($query);
+		$result = $dbo->query();
+		if($dbo->getNumRows($result) != 1){
+			// gallery name was not unique or is unknown, use the numeric value instead.
+			$segment = $categoryId;
+		}
+		else{			
+			$segment = $dbo->loadResult($result);
+		}
+	}
+	else{
+		$segment = $categoryId;
+	}
+	
+	return $segment;
+}
+
+/**
+ * Converts a category SEF name to its id
+ * 
+ *  @param $categoyName mixed SEF name or id of the category
+ *	@return int id of the category
+ * 
+ **/
+function Rsgallery2GetCategoryId($categoyName){
+	
+	global $config;
+	
+	Rsgallery2InitConfig();
+	
+	// fetch the gallery id from the database if advanced sef is active
+	if($config->get("advancedSef") == true)
+	{
+		$dbo = JFactory::getDBO();
+		$query = "SELECT id FROM #__rsgallery2_galleries WHERE name='$categoyName'";
+		$dbo->setQuery($query);
+		$result = $dbo->query();
+		
+		if($dbo->getNumRows($result) != 1){
+			// if the gallery name is not unique, tell the user and redirect to the root gallery
+			JFactory::getLanguage()->load("com_rsgallery2");
+			JError::raiseWarning(0, JText::sprintf("NON_UNIQUE_CAT", $categoyName));
+			$id = 0;
+		}
+		else{			
+			$id = $dbo->loadResult($result);
+		}
+	}
+	else{
+		$id = $categoyName;
+	}
+	return $id;
+}
+
+/**
+ * Converts a item SEF name to its id
+ * 
+ *  @param $categoyName mixed SEF name or id of the category
+ *	@return int id of the category
+ * 
+ **/
+function Rsgallery2GetItemId($itemName){
+	
+	global $config;
+	
+	Rsgallery2InitConfig();
+	
+	// fetch the gallery id from the database if advanced sef is active
+	if($config->get("advancedSef") == true)
+	{
+		$dbo = JFactory::getDBO();
+		$query = "SELECT id FROM #__rsgallery2_files WHERE title='$itemName'";
+		$dbo->setQuery($query);
+		$result = $dbo->query();
+		
+		if($dbo->getNumRows($result) != 1){
+			// if the item name is not unique,  tell the user and redirect to the main page
+			global $mainframe;
+			JFactory::getLanguage()->load("com_rsgallery2");
+			$mainframe->redirect("index.php", JText::sprintf("NON_UNIQUE_ITEM", $itemName));
+		}
+		else{			
+			$id = $dbo->loadResult($result);
+		}
+	}
+	else{
+		$id = $itemName;
+	}
+	
+	return $id;
+}
+
+/**
+ * Converts a item Id to its SEF representation
+ * 
+ *  @param $categoyId int Numerial value of the category
+ *	@return string String representation of the category
+ * 
+ **/
+function Rsgallery2GetItemName($itemId){
+	
+	global $config;
+	
+	Rsgallery2InitConfig();
+	
+	// fetch the gallery name from the database if advanced sef is active
+	// else return the numerical value	
+	if($config->get("advancedSef") == true)
+	{
+		$dbo = JFactory::getDBO();
+		$query = "SELECT title FROM #__rsgallery2_files WHERE id=$itemId";
+		$result = $dbo->query($query);
+		
+		$dbo->setQuery($query);
+		$result = $dbo->query();
+		if($dbo->getNumRows($result) != 1){
+			// item name was not unique or is unknown, use the numeric value instead.
+			$segment = $itemId;
+		}
+		else{			
+			$segment = $dbo->loadResult($result);
+		}
+	}
+	else{
+		$segment = $itemId;
+	}
+	
+	return $segment;
+}
+function Rsgallery2InitConfig()
+{
+	global $config;
+		
+	if($config == null){
+		define('JPATH_RSGALLERY2_ADMIN', JPATH_ROOT. DS .'administrator' . DS . 'components' . DS . 'com_rsgallery2');
+		require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'config.class.php');
+		$config = new rsgConfig();
+	}
 }
