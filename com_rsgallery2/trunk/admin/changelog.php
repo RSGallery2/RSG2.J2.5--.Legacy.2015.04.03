@@ -32,6 +32,9 @@ Legend:
 
 ---------------- Recent ----------------
 
+2008-12-14 John Caprez
++ added advanced SEF that uses category name and item title instead if its id (names and titles must ne unique!)
+
 2008-12-12 John Caprez
 + video functionality 
   mov,flv and avi files can be uploaded. 

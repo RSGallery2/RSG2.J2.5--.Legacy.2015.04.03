@@ -277,6 +277,10 @@ class html_rsg2_config{
 								<td><?php echo JText::_('Hide Root (create multiple independant galleries)'); ?></td>
 								<td><?php echo JHTML::_("select.booleanlist",'hideRoot', '', $config->hideRoot); ?></td>
 							</tr>
+							<tr>
+								<td><?php echo JText::_('Advanced SEF (all category names and item titles must be unique)'); ?></td>
+								<td><?php echo JHTML::_("select.booleanlist",'advancedSef', '', $config->advancedSef); ?></td>
+							</tr>
 						</table>
 					</fieldset>
 				</td>
