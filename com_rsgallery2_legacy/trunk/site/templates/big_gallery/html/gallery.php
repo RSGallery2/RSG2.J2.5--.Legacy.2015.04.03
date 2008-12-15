@@ -45,7 +45,7 @@ if (! $this->gallery->id ) {
 
 	$queryb="SELECT * FROM (SELECT * FROM #__rsgallery2_files ORDER BY `hits` DESC ) AS MOSTHITS GROUP BY `gallery_id` ORDER BY `date` DESC LIMIT $count";
 	
-	$queryb = "SELECT LOWHITS.name as imgname, #__rsgallery2_galleries.name as galname, #__rsgallery2_galleries.hits AS galhits, #__rsgallery2_galleries.id AS galid, LOWHITS.id AS imgid FROM (SELECT * FROM #__rsgallery2_files ORDER BY `hits` ASC ) AS LOWHITS  INNER JOIN #__rsgallery2_galleries ON (LOWHITS.gallery_id=#__rsgallery2_galleries.id) GROUP BY `gallery_id` ORDER BY galhits ASC";
+	$queryb = "SELECT LOWHITS.name as imgname, #__rsgallery2_galleries.name as galname, #__rsgallery2_galleries.hits AS galhits, NOW()-#__rsgallery2_galleries.date AS galage, #__rsgallery2_galleries.id AS galid, LOWHITS.id AS imgid FROM (SELECT * FROM #__rsgallery2_files ORDER BY `hits` ASC ) AS LOWHITS  INNER JOIN #__rsgallery2_galleries ON (LOWHITS.gallery_id=#__rsgallery2_galleries.id) GROUP BY `gallery_id` ORDER BY galage/galhits ASC";
  
  
 	$database->setQuery( $queryb );
