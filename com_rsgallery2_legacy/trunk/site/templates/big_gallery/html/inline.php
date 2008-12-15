@@ -4,6 +4,9 @@
 	<div class="rsg_sem_inl_dispImg">
     	<?php $this->showDisplayImage(); ?>
 	</div>
+    <div class="rsg_sem_inlThumbs">
+    	<?php $this->showGalleryThumbnails(); ?>
+    </div>
 	<div class="rsg_sem_inl_Nav">
     	<?php $this->showDisplayPageNav(); ?>
 	</div>
