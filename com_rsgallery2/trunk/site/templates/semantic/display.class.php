@@ -271,21 +271,24 @@ class rsgDisplay_semantic extends rsgDisplay{
 	 */
 	function showDisplayPageNav() {
 		$gallery = rsgGalleryManager::get();
-		
-		if( rsgInstance::getInt( 'id', 0 )){
+		$itemId = rsgInstance::getInt( 'id', 0 );
+		if( $itemId != 0 ){
 			// if the item id is set then we need to set the gid instead
-			// having the id valiable set in the querystring breaks the page navigation
+			// having the id variable set in the querystring breaks the page navigation
 
-			// Get the router 
-			// i have not found any other way to remove query variables from the router
+			// i have not found any other way to remove a query variable from the router
 			// JPagination uses the router to build the current route, so removing it from the 
-			// request variables does not work.
+			// request variables only does not work.
 			$app	= &JFactory::getApplication();
 			$router = &$app->getRouter();
 
 			$router->_vars['gid'] = $gallery->id;
 			unset($router->_vars['id']);
-
+			
+			// set the limitstart so the pagination knows what page to start from
+			$itemIndex = $gallery->indexOfItem($itemId);
+			$router->setVar("limitstart", $itemIndex);
+			rsgInstance::setVar('limitstart', $itemIndex);
 		}
 
 		$pageNav = $gallery->getPagination();	
