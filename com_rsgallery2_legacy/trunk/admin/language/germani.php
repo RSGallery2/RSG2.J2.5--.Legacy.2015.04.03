@@ -6,7 +6,7 @@
 * @package RSGallery2
 * @copyright (C) 2003 - 2007 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
-* @author woelzen[at]gmx[dot]de (modified 15.11.2007)
+* @author woelzen[at]gmx[dot]de (modified 25.11.2008)
 * RSGallery is Free Software
 **/
 
@@ -166,12 +166,13 @@ DEFINE("_RSGALLERY_C_UPLOAD_ZIP",			"Stapel-Upload");
 DEFINE("_RSGALLERY_C_IMAGES",				"Bilder verwalten");
 DEFINE("_RSGALLERY_C_CATEGORIES",			"Galerien verwalten");
 DEFINE("_RSGALLERY_C_DATABASE",				"Datenbanken zusammenf&uuml;hren");
+DEFINE("_RSGALLERY_C_TAGS",					"Verwalte Tags");
 DEFINE("_RSGALLERY_C_MAINTENANCE",			"Wartungsarbeiten");
 DEFINE("_RSGALLERY_C_MIGRATION",			"Optionen f&uuml;r Daten&uuml;bernahme");
 DEFINE("_RSGALLERY_C_CSS_EDIT",				"CSS bearbeiten");
 DEFINE("_RSGALLERY_C_DEBUG_ON",				"Erweiterte Debug-Optionen.  Debug-Modus wird hier ge&auml;ndert <a href='index2.php?option=com_rsgallery2&task=showConfig'>Konfiguration</a>.");
 DEFINE("_RSGALLERY_C_PURGE",				"Alles l&ouml;schen");
-DEFINE("_RSGALLERY_C_REALLY_UNINSTALL",		"WIRKLICH deinstallieren - L&ouml;scht alle Bilder und VerzeichnisseDeletes. Alle Tabellen werden verworfen. Nur unter Linux mit standard Verzeichnissen.");
+DEFINE("_RSGALLERY_C_REALLY_UNINSTALL",		"WIRKLICH deinstallieren - L&ouml;scht alle Bilder und VerzeichnisseDeletes. Alle Tabellen werden verworfen. Nur unter Linux mit Standardverzeichnissen.");
 DEFINE("_RSGALLERY_C_VIEW_CONFIG",			"Konfiguration - Anschauen");
 DEFINE("_RSGALLERY_C_EDIT_CONFIG",			"Konfiguration - Raw bearbeiten");
 //function showInstallForm
@@ -531,7 +532,7 @@ DEFINE("_RSGALLERY_GAL_EXIST_ERROR",		"Es gibt bereits eine Galerie mit diesem N
 //galleries.html.php
 //function show
 DEFINE("_RSGALLERY_GAL_MANAGE",			"Galerie Manager");
-DEFINE("_RSGALLERY_GAL_MAX_LEVELS",		"Max Levels");
+DEFINE("_RSGALLERY_GAL_MAX_LEVELS",		"Max Stufen");
 DEFINE("_RSGALLERY_GAL_FILTER",			"Filter");
 DEFINE("_RSGALLERY_GAL_NAME",			"Name");
 DEFINE("_RSGALLERY_GAL_REORDER",			"Neu ordnen");
@@ -541,7 +542,7 @@ DEFINE("_RSGALLERY_GAL_HITS",			"Treffer");
 DEFINE("_RSGALLERY_GAL_GAL",				"Galerie");
 DEFINE("_RSGALLERY_GAL_DETAILS",			"Details");
 DEFINE("_RSGALLERY_GAL_DESCR",			"Beschreibung");
-DEFINE("_RSGALLERY_GAL_PARENT",			"Parent Item");
+DEFINE("_RSGALLERY_GAL_PARENT",			"Elternelement");
 DEFINE("_RSGALLERY_GAL_THUMB",			"Galerie Thumbnail");
 DEFINE("_RSGALLERY_GAL_ORDERING",		"Anordnung");
 DEFINE("_RSGALLERY_GAL_PUBLISHED",		"Ver&ouml;ffentlicht");
@@ -562,6 +563,46 @@ DEFINE("_RSGALLERY_GAL_ACL_PUB",			"&Ouml;ffentlich</span>");
 DEFINE("_RSGALLERY_GAL_ACL_REG",			"Registrierte</span>");
 DEFINE("_RSGALLERY_GAL_SEL_DESEL_ALL",	"&nbsp;Alle an/abw&auml;hlen");
 DEFINE("_RSGALLERY_GAL_ORDER",	"Sortieren");
+
+//tags.class.php
+//function check
+DEFINE("_RSGALLERY_TAGS_EXIST_ERROR",		"Es gibt bereits ein Tag mit diesem Namen, bitte nochmal versuchen.");
+
+//tags.html.php
+//function show
+DEFINE("_RSGALLERY_TAGS_MANAGE",			"Tag Manager");
+DEFINE("_RSGALLERY_TAGS_MAX_LEVELS",		"Maximale Ebenen");
+DEFINE("_RSGALLERY_TAGS_FILTER",			"Filter");
+DEFINE("_RSGALLERY_TAGS_NAME",			"Name");
+DEFINE("_RSGALLERY_TAGS_REORDER",		"Neu ordnen");
+DEFINE("_RSGALLERY_TAGS_COUNT",			"# Objekte");
+DEFINE("_RSGALLERY_TAGS_HITS",			"Treffer");
+//function edit
+DEFINE("_RSGALLERY_TAGS_GAL",				"Tag");
+DEFINE("_RSGALLERY_TAGS_DETAILS",			"Details");
+DEFINE("_RSGALLERY_TAGS_DESCR",				"Beschreibung");
+DEFINE("_RSGALLERY_TAGS_PARENT",			"Elternelement");
+DEFINE("_RSGALLERY_TAGS_THUMB",				"Tag Thumbnail");
+DEFINE("_RSGALLERY_TAGS_ORDERING",			"Anordnung");
+DEFINE("_RSGALLERY_TAGS_PUBLISHED",			"Ver&ouml;ffentlicht");
+DEFINE("_RSGALLERY_TAGS_PARAMETERS",		"Parameter");
+DEFINE("_RSGALLERY_TAGS_ENABLED",			"Erlaubt");
+DEFINE("_RSGALLERY_TAGS_OWNER",	"Besitzer");
+DEFINE("_RSGALLERY_TAGS_PERMS",	"Zugriffsrechte");
+DEFINE("_RSGALLERY_TAGS_DEF_PERM_CREATE",	"Standard Zugriffsrechte sind gesetzt. <br />Nachdem das Tag erstellt wurde, kannst du zur&uuml;ck kommen, um die Zugriffsrechte zu &auml;ndern.");
+DEFINE("_RSGALLERY_TAGS_NO_PERM_FOUND",	"Keine Zugriffsrechte f&uuml;r dieses Tag gefunden. Klicken Sie  auf die <strong>SAVE</strong> Schaltfl&auml;che der Toolbar umd die Standardzugriffsrechte zu setzen. Danach kannst du hier die Zugriffsrechte anpassen.");
+DEFINE("_RSGALLERY_TAGS_USERTYPE",		"Benutzertyp");
+DEFINE("_RSGALLERY_TAGS_VIEW_GAL",		"Zeige<br/>Tag</span>");
+DEFINE("_RSGALLERY_TAGS_UPL_EDIT_IMG",	"Upload/Editiere<br/>Bilder</span>");
+DEFINE("_RSGALLERY_TAGS_DEL_IMG",			"L&ouml;sche Bild</span>");
+DEFINE("_RSGALLERY_TAGS_MOD_GAL",			"Modifiziere<br/>Galerie</span>");
+DEFINE("_RSGALLERY_TAGS_DEL_GAL",			"L&ouml;sche<br/>Galerie</span>");
+/*new*/DEFINE("_RSGALLERY_TAGS_VOTE_VIEW",			"Zeige<br/>Stimmen</span>");
+/*new*/DEFINE("_RSGALLERY_TAGS_VOTE_VOTE",			"gebe<br/>Stimme</span>ab");
+DEFINE("_RSGALLERY_TAGS_ACL_PUB",			"&Ouml;ffentlich</span>");
+DEFINE("_RSGALLERY_TAGS_ACL_REG",			"Registriert</span>");
+DEFINE("_RSGALLERY_TAGS_SEL_DESEL_ALL",	"&nbsp;W&auml;hle alle an/ab");
+DEFINE("_RSGALLERY_TAGS_ORDER",	"Anordnung");
 
 //install.class.php
 //function echo_values
@@ -734,7 +775,7 @@ DEFINE("_RSGALLERY_COMMENTS_MEDIUM",	"mittel");
 DEFINE("_RSGALLERY_COMMENTS_LARGE",	"gro&szlig;");
 DEFINE("_RSGALLERY_COMMENTS_HUGE",	"rie&szlig;ig");
 //function parseQuoteElement
-DEFINE("_RSGALLERY_COMMENTS_QUOTE_WROTE",	"Wrote");
+DEFINE("_RSGALLERY_COMMENTS_QUOTE_WROTE", "Schreibe");
 //function editComment
 /*moved*/DEFINE("_RSGALLERY_COMMENT_ADD",		"Kommentar hinzuf&uuml;gen");
 /*moved*/DEFINE("_RSGALLERY_COMMENT_NAME",		"Name");
