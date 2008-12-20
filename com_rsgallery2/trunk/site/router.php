@@ -206,7 +206,8 @@ function Rsgallery2GetCategoryId($categoyName){
 		
 		if($dbo->getNumRows($result) != 1){
 			// if the gallery name is not unique, tell the user and redirect to the root gallery
-			JFactory::getLanguage()->load("com_rsgallery2");
+			$lang = JFactory::getLanguage();
+			$lang->load("com_rsgallery2");
 			JError::raiseWarning(0, JText::sprintf("NON_UNIQUE_CAT", $categoyName));
 			$id = 0;
 		}
