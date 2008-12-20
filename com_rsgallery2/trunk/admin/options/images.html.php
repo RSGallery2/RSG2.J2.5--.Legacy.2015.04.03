@@ -608,8 +608,8 @@ class html_rsg2_images {
             var form = document.adminForm,
 				missingCat = false;
            
-            for (i=0 ; i<document.forms[0].category.length ; i++) {
-				if (document.forms[0].category[i].value <= 0) {
+            for (i=0 ; i<document.form.category.length ; i++) {
+				if (document.form.category[i].value <= 0) {
 					missingCat = true;
 				}
             }
