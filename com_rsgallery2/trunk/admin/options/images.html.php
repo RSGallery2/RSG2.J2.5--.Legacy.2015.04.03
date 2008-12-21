@@ -679,12 +679,12 @@ class html_rsg2_images {
                                 {
                                 ?>
                                 <input type="text" name="cat_text" value="<?php echo htmlspecialchars(stripslashes(galleryUtils::getCatnameFromId($xcat)));?>" readonly />
-                                <input type="hidden" name="category[]" value="<?php echo $xcat;?>" />
+                                <input type="hidden" name="category" value="<?php echo $xcat;?>" />
                                 <?php
                                 }
                             else
                                 {
-								echo galleryUtils::galleriesSelectList( null, 'category[]', false );
+								echo galleryUtils::galleriesSelectList( null, 'category', false );
                                 }
                                 ?>
                         </td>
