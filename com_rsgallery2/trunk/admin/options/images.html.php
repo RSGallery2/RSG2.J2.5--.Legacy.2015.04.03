@@ -502,7 +502,7 @@ class html_rsg2_images {
             	{
             	if (form.ftppath.value == '')
             		{
-            		alert( "<?php echo JText::_('FTP upload chosen but no FTP-path provided');?>" );	
+            		alert( " <?php echo JText::_('FTP upload chosen but no FTP-path provided');?>" );	
             		}
             	else if (form.xcat.value == '0' & selcat_method == '1')
             		{
@@ -594,23 +594,27 @@ class html_rsg2_images {
 
 	function batchupload_2( $ziplist, $extractDir ){
         global $rsgOption;
-        
+        JHTML::_('behavior.mootools');
+		
 		$database = JFactory::getDBO();
         //Get variables from form
         $selcat 		= rsgInstance::getInt('selcat'  , null);
         $ftppath 		= rsgInstance::getVar('ftppath'  , null);
         $xcat 			= rsgInstance::getInt('xcat'  , null);
         $batchmethod 	= rsgInstance::getVar('batchmethod'  , null);
+		
         ?>
-		        <script language="javascript" type="text/javascript">
+		<script language="javascript" type="text/javascript">
         <!--
         function submitbutton(pressbutton) {
             var form = document.adminForm,
-				missingCat = false;
+				missingCat = false,
+				categories = $$('#adminForm input[name^=category]', '#adminForm select[name^=category]');
            
-            for (i=0 ; i<form.category.length ; i++) {
-				if (form.category[i].value <= 0) {
+            for (i=0 ; i<categories.length ; i++) {
+				if (categories[i].value <= 0) {
 					missingCat = true;
+					break;
 				}
             }
 
@@ -626,7 +630,7 @@ class html_rsg2_images {
         //-->
         </script>
 
-        <form action="index2.php" method="post" name="adminForm">
+        <form action="index2.php" method="post" name="adminForm" id="adminForm">
         <table class="adminform">
         <tr>
             <th colspan="5" class="sectionname"><font size="4"><?php echo JText::_('Step 2');?></font></th>
@@ -645,13 +649,25 @@ class html_rsg2_images {
         		continue;
         	} else {
         		//Check if file is allowed
-        		$allowed_ext = array("gif","jpg","png");
+        		$allowed_ext = array('gif','jpg','png');
+        		$allowedVideo_ext = array('flv','avi','mov');
         		$ext = fileHandler::getImageType( JPATH_ROOT. DS . 'media' . DS . $extractDir . DS . $filename );
-        		if ( !in_array($ext, $allowed_ext) ) {
-        			continue;
-        		} else {
-        			$i++;
-        		}
+				if ( in_array($ext, $allowedVideo_ext) ) {
+        			// build preview image
+					$basePath = JPATH_SITE . DS .'media' . DS . $extractDir . DS;
+					require_once( JPATH_RSGALLERY2_ADMIN. DS .'includes' . DS . 'video.utils.php' );
+					Ffmpeg::capturePreviewImage( $basePath . $filename, $basePath . $filename . '.png');
+					$displayImage = $basePath . $filename . '.png';
+					$i++;
+				}
+				else{
+					if ( !in_array($ext, $allowed_ext) ) {
+        				continue;
+        			} else {
+						$displayImage = $filename;
+        				$i++;
+        			}
+				}
         	}
             ?>
             <td align="center" valign="top" bgcolor="#CCCCCC">
@@ -663,7 +679,7 @@ class html_rsg2_images {
                         <td colspan="2" align="right"><?php echo JText::_('Delete');?> #<?php echo $i - 1;?>: <input type="checkbox" name="delete[<?php echo $i - 1;?>]" value="true" /></td>
                     </tr>
                     <tr>
-                        <td align="center" colspan="2"><img src="<?php echo JURI_SITE . "/media/" . $extractDir . "/" . $filename;?>" alt="" border="1" width="100" align="center" /></td>
+                        <td align="center" colspan="2"><img src="<?php echo JURI_SITE . "/media/" . $extractDir . "/" . $displayImage;?>" alt="" border="1" width="100" align="center" /></td>
                     </tr>
                     <input type="hidden" value="<?php echo $filename;?>" name="filename[]" />
                     <tr>
@@ -679,12 +695,12 @@ class html_rsg2_images {
                                 {
                                 ?>
                                 <input type="text" name="cat_text" value="<?php echo htmlspecialchars(stripslashes(galleryUtils::getCatnameFromId($xcat)));?>" readonly />
-                                <input type="hidden" name="category" value="<?php echo $xcat;?>" />
+                                <input type="hidden" name="category[]" value="<?php echo $xcat;?>" />
                                 <?php
                                 }
                             else
                                 {
-								echo galleryUtils::galleriesSelectList( null, 'category', false );
+								echo galleryUtils::galleriesSelectList( null, 'category[]', false );
                                 }
                                 ?>
                         </td>

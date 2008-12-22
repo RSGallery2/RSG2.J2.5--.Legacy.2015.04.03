@@ -635,7 +635,7 @@ function batchupload($option) {
 }//End function
 
 function save_batchupload() {
-    global  $rsgConfig;
+    global  $rsgConfig, $mainframe;
 	$database = JFactory::getDBO();
     //Try to bypass max_execution_time as set in php.ini
     set_time_limit(0);
@@ -650,12 +650,13 @@ function save_batchupload() {
 	$extractdir = rsgInstance::getVar('extractdir'  , null);
 	
     //Check if all categories are chosen
-    if (isset($_REQUEST['category']))
-        $category = rsgInstance::getVar('category'  , null);
+	if (isset($_REQUEST['category']))
+		$category = rsgInstance::getVar('category'  , array(0));
     else
         $category = array(0);
 
-    if ( in_array("0",$category) ) {
+    if ( in_array('0', $category) || 
+		 in_array('-1', $category)) {
         $mainframe->redirect("index2.php?option=com_rsgallery2&task=batchupload", JText::_('_RSGALLERY_ALERT_NOCATSELECTED'));
 	}
 
