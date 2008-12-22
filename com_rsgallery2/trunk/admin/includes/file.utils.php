@@ -213,7 +213,7 @@ class fileHandler {
     function fileHandler() {
         global $rsgConfig;
         $this->protectedFiles = array('.','..','index.html','Helvetica.afm', 'original_temp.jpg', 'display_temp.jpg');
-        $this->allowedFiles = array('jpg','gif','png');
+        $this->allowedFiles = array('jpg','gif','png','avi','flv','mpg');
         $this->usedFolders = array(
             JPATH_THUMB,
             JPATH_DISPLAY,
@@ -311,28 +311,36 @@ class fileHandler {
 		if(!file_exists($filename)) { return ""; }
 		
         $image = getimagesize( $filename );
-        $type = $image[2];
-        switch ( $type ) {
-            case 1:
-                $imagetype = "gif";
-                break;
-            case 2:
-                $imagetype = "jpg";
-                break;
-            case 3:
-                $imagetype = "png";
-                break;
-            case 4:
-                $imagetype = "swf";
-                break;
-            case 5:
-                $imagetype = "psd";
-                break;
-            default:
-                $imagetype = "";
-                                                            
-        }
-        return $imagetype;
+		if($image == false){
+			//it's not an image, but might be a video
+			$info = pathinfo($filename);
+			return $info['extension'];
+		}
+		else{
+		
+			$type = $image[2];
+			switch ( $type ) {
+				case 1:
+					$imagetype = "gif";
+					break;
+				case 2:
+					$imagetype = "jpg";
+					break;
+				case 3:
+					$imagetype = "png";
+					break;
+				case 4:
+					$imagetype = "swf";
+					break;
+				case 5:
+					$imagetype = "psd";
+					break;
+				default:
+					$imagetype = "";
+	                                                            
+			}
+	        return $imagetype;
+		}
     }
     
     /**
