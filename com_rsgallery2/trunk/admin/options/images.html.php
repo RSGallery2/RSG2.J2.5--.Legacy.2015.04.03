@@ -657,7 +657,7 @@ class html_rsg2_images {
 					$basePath = JPATH_SITE . DS .'media' . DS . $extractDir . DS;
 					require_once( JPATH_RSGALLERY2_ADMIN. DS .'includes' . DS . 'video.utils.php' );
 					Ffmpeg::capturePreviewImage( $basePath . $filename, $basePath . $filename . '.png');
-					$displayImage = $basePath . $filename . '.png';
+					$displayImage = $filename . '.png';
 					$i++;
 				}
 				else{
