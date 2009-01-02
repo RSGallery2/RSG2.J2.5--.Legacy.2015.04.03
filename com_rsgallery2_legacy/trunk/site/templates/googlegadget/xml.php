@@ -13,13 +13,13 @@ CREATE A GADGET WITH THIS CODE EXAMPLE
 <Module>
   <ModulePrefs title="Fantasy Art v10" height="250" scaling="false" />
 
-<Content type="url" href="http://dev.fantasyartwork.net/index.php?option=com_rsgallery2&amp;task=xml&amp;xmlTemplate=gadget" /> 
+<Content type="url" href="http://dev.fantasyartwork.net/index.php?option=com_rsgallery2&amp;task=xml&amp;xmlTemplate=googlegadget" /> 
 </Module>
 *************************************************
 
 */
 
-class rsgXmlGalleryTemplate_gadget extends rsgXmlGalleryTemplate_generic {
+class rsgXmlGalleryTemplate_googlegadget extends rsgXmlGalleryTemplate_generic {
     var $gallery;
 
 	// deprecated
