@@ -30,22 +30,24 @@ class rsgXmlGalleryTemplate_googlegadget extends rsgXmlGalleryTemplate_generic {
         class constructor
         @param rsgGallery object
     **/
-    function rsgXmlGalleryTemplate_gadget ( $gallery  )  {
+    function rsgXmlGalleryTemplate_googlegadget ( $gallery  )  {
      	global $rsgConfig;
 		global $database, $mosConfig_live_site;
 		$thumbdir = $mosConfig_live_site . "/images/rsgallery/thumb/";
 		$urlroot= $mosConfig_live_site. "/index.php?option=com_rsgallery2";
 		$this->gallery = $gallery;
-$query="SELECT * FROM #__rsgallery2_files WHERE published='1' ORDER BY rand() LIMIT 2 ";
+		$query="SELECT * FROM #__rsgallery2_files WHERE published='1' ORDER BY rand() LIMIT 2 ";
 		$database->setQuery($query);
 		$randomimage = $database->loadObjectList();
 		
 		
 	?>
-    <div align="center"> <a href="<?php echo $this->output .= "$urlroot"."&amp;page=inline" . "&amp;" . 'id='. $randomimage[0]->id ; ?>" target="_blank"><img src="<?php echo $thumbdir . $randomimage[0]->name . '.jpg'; ?>" height="100" /></a>
-      <a href="<?php echo $this->output .= "$urlroot"."&amp;page=inline" . "&amp;" . 'id='. $randomimage[1]->id ; ?>" target="_blank"><img src="<?php echo $thumbdir . $randomimage[1]->name . '.jpg'; ?>" height="100" /></a>
-  
-	</div>
+    <div align="center"> 
+      <p><a href="<?php echo $this->output .= "$urlroot"."&amp;page=inline" . "&amp;" . 'id='. $randomimage[0]->id ; ?>" target="_blank"><img src="<?php echo $thumbdir . $randomimage[0]->name . '.jpg'; ?>" height="175" /></a>
+        
+      </p>
+      <p><?php echo $randomimage[0]->title; ?></p>
+</div>
         <?php
 
 		// These variables will be in the template parameters eventually
@@ -62,8 +64,9 @@ $query="SELECT * FROM #__rsgallery2_files WHERE published='1' ORDER BY rand() LI
 //		global $database, $mosConfig_live_site;
 //		$urlroot= $mosConfig_live_site. "/index.php?option=com_rsgallery2";
 //		$thumbdir = $mosConfig_live_site . "/images/rsgallery/thumb/";
-/*
+
 		$this->output = '';
+/*
 echo $this->output .= "<head>"."\n";
 echo $this->output .= "<title>Untitled Document</title>"."\n";
 echo $this->output .= "</head>"."\n";
