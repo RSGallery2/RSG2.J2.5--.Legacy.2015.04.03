@@ -126,7 +126,7 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
 				$this->output .= '<guid isPermaLink="true">'.$urlroot. '&amp;page=inline' ."&amp;" . 'id='. $img->id.'</guid>';
 				$this->output .= '</item>' . "\n";
 			}
-			$this->output .= '<atom:link href="'. $urlroot . '&amp;task=xml&amp;xmlTemplate=rss_feed' .'" rel="self" type="application/rss+xml" />';
+
 			$this->output .= '</channel>' . "\n";
 			$this->output .= '</rss>' . "\n";
 
@@ -136,7 +136,7 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
     function printHead(){
 		global $rsgConfig;
 		global $mosConfig_live_site;
-		
+		$urlroot= $mosConfig_live_site. "/index.php?option=com_rsgallery2";
 		// have to use rss+xml content to get firefox to automatically detect rss
 		Header("Content-type: application/rss+xml; charset=UTF-8");
 		Header("Content-encoding: UTF-8");
@@ -150,6 +150,7 @@ class rsgXmlGalleryTemplate_rss_feed extends rsgXmlGalleryTemplate_generic {
 		echo '<lastBuildDate>'.date("r").'</lastBuildDate>' . "\n";
 		echo '<language>en-us</language>' . "\n";
 		echo '<pubDate>'.date("r").'</pubDate>' . "\n";
+		echo '<atom:link href="'. $urlroot . '&amp;task=xml&amp;xmlTemplate=rss_feed"' .' rel="self"' . ' type="application/rss+xml" />' . "\n";
     }
     
     /**
