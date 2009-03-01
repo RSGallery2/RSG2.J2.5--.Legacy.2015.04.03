@@ -93,11 +93,11 @@ class html_rsg2_galleries{
                 <td>
                 <?php
                 if ( $row->checked_out && ( $row->checked_out != $my->id ) ) {
-                    echo $row->name;
+                    echo stripslashes($row->name);
                 } else {
                     ?>
                     <a href="<?php echo $link; ?>" name="Edit Gallery">
-                    <?php echo $row->treename;; ?>
+                    <?php echo stripslashes($row->treename); ?>
                     </a>
                     <?php
                 }
@@ -261,7 +261,7 @@ class html_rsg2_galleries{
 					<?php echo JText::_('Name')?>:
 					</td>
 					<td width="80%">
-					<input class="text_area" type="text" name="name" size="50" maxlength="250" value="<?php echo $row->name;?>" />
+					<input class="text_area" type="text" name="name" size="50" maxlength="250" value="<?php echo stripslashes($row->name);?>" />
 					</td>
 				</tr>
 				<tr>
@@ -279,7 +279,7 @@ class html_rsg2_galleries{
 					<td>
 					<?php
 					// parameters : areaname, content, hidden field, width, height, rows, cols
-					echo $editor->display ( 'description',  $row->description , '100%', '300', '10', '20' ,false) ; ?>
+					echo $editor->display ( 'description',  stripslashes($row->description) , '100%', '300', '10', '20' ,false) ; ?>
 					</td>
 				</tr>
 				<tr>
