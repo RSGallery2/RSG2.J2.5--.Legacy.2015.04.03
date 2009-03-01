@@ -30,12 +30,12 @@ foreach( $this->kids as $kid ):
 		<?php echo $kid->thumbHTML; ?>
 	</div>
 	<div class="rsg2-galleryList-text">
-		<?php echo $kid->galleryName;?>
+		<?php echo stripslashes($kid->galleryName);?>
 		<span class='rsg2-galleryList-newImages'>
 			<sup><?php if( $this->gallery->hasNewImages() ) echo JText::_('New!'); ?></sup>
 		</span>
 		<?php echo $this->_showGalleryDetails( $kid );?>
-		<div class="rsg2-galleryList-description"><?php echo $kid->description;?>
+		<div class="rsg2-galleryList-description"><?php echo strip($kid->description);?>
 		</div>
 	</div>
 	<div class="rsg_sub_url_single">
