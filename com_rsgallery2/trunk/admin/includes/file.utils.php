@@ -517,7 +517,7 @@ class fileHandler {
      * @param string Absolute path to destination folder, defaults to Joomla /media folder
      */
     function handleFTP($source, $destination = '') {
-        global $ziplist;
+        global $ziplist, $mainframe;
         
         //Create unique install directory
         $tmpdir         = uniqid( 'rsginstall_' );

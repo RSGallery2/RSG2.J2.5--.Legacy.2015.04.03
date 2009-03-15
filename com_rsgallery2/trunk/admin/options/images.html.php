@@ -550,6 +550,7 @@ class html_rsg2_images {
                     <td>
 
                         <input type="text" name="ftppath" value="<?php echo $FTP_path; ?>" size="30" /><?php echo JHTML::tooltip( JText::_('_BATCH_FTP_PATH_OVERL'), JText::_('FTP-path') ); ?>
+						<br/><?php echo JText::printf("FTP base path is :%s", JPATH_SITE); ?>
                     </td>
                 </tr>
                 <tr>
