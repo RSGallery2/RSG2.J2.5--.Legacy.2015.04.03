@@ -18,20 +18,14 @@ defined( '_JEXEC' ) or die('Restricted');
 $mainframe->registerEvent( 'onPrepareContent', 'plg_rsg2_display' );
 
 function plg_rsg2_display( &$row, &$params, $page=0 ) {
-	$text = null;
-	if (is_object($row))
-		$text &= $row->text;
-	else
-		$text &= $text;
-
-	// define the regular expression for the bot
-	$regex = "#{rsg2_display\:*(.*?)}#s";
-
-	// perform the replacement
-	$text = preg_replace_callback( $regex, 'plg_rsg2_display_replacer', $text );
-
-	return true;
-}
+    // define the regular expression for the bot
+    $regex = "#{rsg2_display\:*(.*?)}#s";
+    
+    // perform the replacement
+    $row->text = preg_replace_callback( $regex, 'plg_rsg2_display_replacer', $row->text );
+    
+    return true;
+}   
 
 function plg_rsg2_display_replacer ( $matches ) {
 	if( !$matches )
