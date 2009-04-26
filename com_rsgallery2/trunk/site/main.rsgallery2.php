@@ -41,11 +41,16 @@ function xmlFile(){
 	// prepare and output xml
 	$xmlTemplate = "rsgXmlGalleryTemplate_$template";
 	$xmlTemplate = new $xmlTemplate( rsgInstance::getGallery() );
+
+	ob_start();
 	$xmlTemplate->prepare();
+	$content = ob_get_clean();
+
 	$xmlTemplate->printHead();
-	$xmlTemplate->printGallery();
+	echo $content;
 	
-die();// quit now so that only the xml is sent and not the joomla template
+	die(); 	// quit now so that only the xml is sent and not the joomla template
+			// this is a saftey measure that should not be needed
 }
 
 /**

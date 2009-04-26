@@ -189,6 +189,14 @@ class rsgInstance extends JRequest{
 				$input = &$_REQUEST;
 			default:
 				if( $GLOBALS['_RSGINSTANCE'] == 'request' ){
+					// check if a param exists first and return that if so
+					global $mainframe;
+					if( $mainframe instanceof JSite ){
+						$params = &$mainframe->getParams();
+						if( $params->get( $name ) )
+							return $params->get( $name );
+					}
+
 					$input = &$_REQUEST;
 					$hash = 'REQUEST';
 				}

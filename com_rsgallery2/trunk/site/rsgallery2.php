@@ -12,5 +12,5 @@ defined( '_JEXEC' ) or die( 'Access Denied.' );
 // initialize RSG2 core functionality
 require_once( JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "init.rsgallery2.php" );
 
-// createa new instance of RSGallery2
+// create a new instance of RSGallery2
 rsgInstance::instance();
