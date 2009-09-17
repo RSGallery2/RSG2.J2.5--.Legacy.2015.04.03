@@ -32,6 +32,8 @@ Legend:
 
 ---------------- Recent ----------------
 
+---------------- 2.1.0 beta -- svn 956 -- 2009-09-17 -------------
+
 2008-12-14 John Caprez
 + added advanced SEF that uses category name and item title instead if its id (names and titles must ne unique!)
 

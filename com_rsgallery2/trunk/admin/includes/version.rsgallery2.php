@@ -19,7 +19,7 @@ class rsgalleryVersion {
     /** @var string Product */
     var $PRODUCT    = 'RSGallery2';
     /** @var int Main Release Level */
-    var $RELEASE    = '2.00';
+    var $RELEASE    = '2.1';
     /** @var string Development Status */
     var $DEV_STATUS = 'Beta';
     /** @var int Sub Release Level */
