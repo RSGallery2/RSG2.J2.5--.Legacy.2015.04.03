@@ -3,7 +3,7 @@
 * This class handles version management for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2010 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -35,7 +35,7 @@ class rsgalleryVersion {
     /** @var string Timezone */
     var $RELTZ      = 'UTC';
     /** @var string Copyright Text */
-    var $COPYRIGHT  = '&copy; 2005 - 2008 <strong><a class="rsg2-footer" href="http://rsgallery2.net">RSGallery2</a></strong>. All rights reserved.';
+    var $COPYRIGHT  = '&copy; 2005 - 2010 <strong><a class="rsg2-footer" href="http://rsgallery2.net">RSGallery2</a></strong>. All rights reserved.';
     /** @var string URL */
     var $URL        = '<strong><a class="rsg2-footer" href="http://rsgallery2.net">RSGallery2</a></strong>';
     /** @var string Whether site is a production = 1 or demo site = 0: 1 is default */
