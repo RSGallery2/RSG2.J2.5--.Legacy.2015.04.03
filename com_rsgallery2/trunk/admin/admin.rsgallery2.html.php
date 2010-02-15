@@ -196,15 +196,22 @@ class HTML_RSGALLERY{
 			<dd>Jonathan DeLaigle</dd>
 			<dd>Margo Adams</dd>
 			<dd>Ronald Smit</dd>
+		<dt>RSGallery2 2010</dt>
+        	<dd>Mihir Chhatre <a href="http://www.thoughtfulviewfinder.com">Thoughtfulviewfinder Services </a></dd>
+        	<dd>Jonah Braun</dd>
+            <dd>Mirjam</dd>
     </dl>
 </div>
                         <?php
                         echo $tabs->endPanel();
                         echo $tabs->endPane();
-                        ?>
-                        </td>
+                        ?>                        </td>
                             </tr>
-                        </table><br />
+                    <tr>
+                      <td>&nbsp;</td>
+                    </tr>
+                        </table>
+            <br />
                 <table border="0" width="100%" cellspacing="1" cellpadding="1" style=background-color:#CCCCCC;>
                     <tr>
                         <td bgcolor="#FFFFFF" colspan="2">
