@@ -47,7 +47,8 @@
   <uninstallfile>uninstall.rsgallery2.php</uninstallfile>
 
   <languages folder="languages">
-    <language tag="en-US">en-US.com_rsgallery2.ini</language>
+    <language tag="en-GB">en-GB.com_rsgallery2.ini</language>
+	<language tag="en-US">en-US.com_rsgallery2.ini</language>
     <language tag="es-ES">es-ES.com_rsgallery2.ini</language>
     <language tag="fr-FR">fr-FR.com_rsgallery2.ini</language>
     <language tag="de-DE">de-DE.com_rsgallery2.ini</language>
@@ -116,7 +117,8 @@
     </images>
 
     <languages folder="languages">
-      <language tag="en-US">en-US.com_rsgallery2.ini</language>
+      <language tag="en-GB">en-GB.com_rsgallery2.ini</language>
+	  <language tag="en-US">en-US.com_rsgallery2.ini</language>
       <language tag="es-ES">es-ES.com_rsgallery2.ini</language>
       <language tag="fr-FR">fr-FR.com_rsgallery2.ini</language>
       <language tag="de-DE">de-DE.com_rsgallery2.ini</language>

@@ -216,11 +216,11 @@ class html_rsg2_config{
 		
 		//Commenting options
 		if ( galleryUtils::isComponentInstalled('com_securityimages') == 1 ) {
-			$security_notice = "<span style=\"color:#009933;font-weight:bold;\">( SecurityImages component detected! )</span>";
+			$security_notice = "<span style=\"color:#009933;font-weight:bold;\">" . JText::_('SecurityImages_component_detected')." </span>";
 		} else {
-			$security_notice = "<span style=\"color:#FF0000;font-weight:bold;\">SecurityImages component NOT installed!</span>";
+			$security_notice = "<span style=\"color:#FF0000;font-weight:bold;\">".JText::_('SECURITYIMAGES_COMPONENT_NOT_INSTALLED')." </span>";
 		}
-		
+
 		/**
 			* Routine checks if Freetype library is compiled with GD2
 			* @return boolean True or False
@@ -407,7 +407,7 @@ class html_rsg2_config{
 								<td><?php echo JHTML::_("select.booleanlist",'comment', '', $config->comment);?></td>
 							</tr>
 							<tr>
-								<td>Use <a href="http://www.waltercedric.com" target="_blank">SecurityImages component</a> <?php echo $security_notice;?></td>
+								<td>Use  <a href="http://www.waltercedric.com" target="_blank"><?php echo JText::_('SecurityImages_component')?></a> <?php echo $security_notice;?></td>
 								<td><?php echo JHTML::_("select.booleanlist",'comment_security', '', $config->comment_security && galleryUtils::isComponentInstalled('com_securityimages'))?></td>
 							</tr>
 							<tr>
@@ -453,7 +453,7 @@ class html_rsg2_config{
 					<legend><?php echo JText::_('Front Page')?></legend>
 					<table width="100%">
 					<tr>
-						<td width="40%"><?php echo "** Display Search**"; ?></td>
+						<td width="40%"><?php echo JText::_('Display Search')?></td>
 						<td><?php echo JHTML::_("select.booleanlist", 'displaySearch', '', $config->displaySearch)?></td>
 					</tr>
 					<tr>
@@ -489,7 +489,7 @@ class html_rsg2_config{
 						<td><?php echo JHTML::_("select.booleanlist",'displaySlideshow', '', $config->displaySlideshow)?></td>
 					</tr>
 					<tr>
-						<td><?php echo "** Select slideshow **";?></td>
+						<td><?php echo JText::_('Select slideshow')?></td>
 						<td><?php echo JHTML::_("select.genericlist",$current_slideshow, 'current_slideshow','','value', 'text', $config->current_slideshow);?></td>
 					</tr>
 					<tr>
@@ -554,14 +554,14 @@ class html_rsg2_config{
 				</td>
 				<td width="30%" valign="top">
 					<fieldset>
-					<legend><?php echo "** EXIF settings **";?></legend>
+					<legend><?php echo JText::_('EXIF SETTINGS')?></legend>
 					<table width="100%">
 					<tr>
 						<td><?php echo JText::_('Display EXIF Data')?></td>
 						<td><?php echo JHTML::_("select.booleanlist",'displayEXIF', '', $config->displayEXIF)?></td>
 					</tr>
 					<tr>
-						<td valign="top"><?php echo "** Select EXIF tags to display **";?></td>
+						<td valign="top"><?php echo JText::_('Select_EXIF_tags_to_display')?></td>
 						<td valign="top">
 							<label class="examples"></label>
 							<?php echo JHTML::_("select.genericlist", $exif, 'exifTags[]', 'MULTIPLE size="15"', 'value', 'text', $exifSelect );?>

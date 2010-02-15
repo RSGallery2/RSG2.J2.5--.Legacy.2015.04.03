@@ -63,7 +63,7 @@ class html_rsg2_galleries{
 				<img src="images/filesave.png" width="16" height="16" alt="Save Order" />
 			</a>
 			</th>
-			<th width="4%"><?php echo JText::_(' Items')?></th>
+			<th width="4%"><?php echo JText::_('Items')?></th>
             <th width="25%">
             <?php echo JText::_('Hits')?>
             </th>
@@ -350,7 +350,7 @@ class html_rsg2_galleries{
 						if ( !$perms ) {
 							?>
 							<tr>
-								<td colspan="6"><?php echo JText::_('_RSGALLERY_GAL_NO_PERM_FOUND')?></td>
+								<td colspan="6"><?php echo JText::_('RSGALLERY_GAL_NO_PERM_FOUND')?></td>
 							</tr>
 							<?php	
 						} else {
@@ -389,7 +389,7 @@ class html_rsg2_galleries{
 									<td><input id="p13" type="checkbox" name="perm[13]" value="1" <?php if ($perms->registered_vote_vote == 1) echo "CHECKED";?>></td>
 								</tr>
 								<tr>
-									<td colspan="6"><input type="checkbox" name="checkbox0" value="true" onClick='selectAll()'><?php echo JText::_('&nbsp;Select/Deselect All')?></td>
+									<td colspan="6"><input type="checkbox" name="checkbox0" value="true" onClick='selectAll()'><?php echo ' '.JText::_('Select/Deselect All')?></td>
 								</tr>
 								</table>
 								</td>

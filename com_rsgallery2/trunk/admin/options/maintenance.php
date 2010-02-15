@@ -143,7 +143,7 @@ function executeRegenerateImages() {
 	$error = 0;
 	$gid = rsgInstance::getVar( 'gid', array());
 	if ( empty($gid) ) {
-		$mainframe->redirect("index2.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs", "** No gallery selected **");
+		$mainframe->redirect("index2.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs", JText::_('NO_GALLERY_SELECTED'));
 		return;
 	}
 
@@ -151,7 +151,7 @@ function executeRegenerateImages() {
     	if ($id > 0) {
     		//Check if resize is really needed. It takes a lot of resources when changing thumbs when dimensions did not change!
     		if ( !rsg2_maintenance::thumbSizeChanged($id) ) {
-				$mainframe->redirect("index2.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs", "** Thumbnail size did not change. Regeneration NOT needed. **");
+				$mainframe->redirect("index2.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs", JText::_('THUMBNAIL_SIZE_DID_NOT_CHANGE_REGENERATION_NOT_NEEDED'));
 				return;
 			} else {
 				$gallery = rsgGalleryManager::_get($id);
@@ -220,7 +220,7 @@ function createImages() {
 	        imgUtils::makeThumbImage($display);
 	    }
 	}
-	$mainframe->redirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB",$name._RSGALLERY_MAINT_REGEN_SUCCESS);
+	$mainframe->redirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB",$name.' '.JText::_('RSGALLERY_MAINT_REGEN_SUCCESS'));
 }
 
 function deleteImages() {
@@ -316,6 +316,6 @@ function optimizeDB() {
 		$database->setQuery("OPTIMIZE $table");
 		$database->query();
 	}
-	$mainframe->redirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance",JText::_('_RSGALLERY_MAINT_OPTIMIZE_SUCCESS'));
+	$mainframe->redirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance",JText::_('RSGALLERY_MAINT_OPTIMIZE_SUCCESS'));
 }
 ?>

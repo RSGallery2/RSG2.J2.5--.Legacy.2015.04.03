@@ -476,7 +476,7 @@ function resetHits ( &$cid ) {
 		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 	}
 
-	$mainframe->redirect( "index2.php?option=com_rsgallery2&rsgOption=images", '*Hits reset to zero succesfull*' );
+	$mainframe->redirect( "index2.php?option=com_rsgallery2&rsgOption=images", JText::_('Hits reset to zero succesfull') );
 }
 
 function saveOrder( &$cid ) {

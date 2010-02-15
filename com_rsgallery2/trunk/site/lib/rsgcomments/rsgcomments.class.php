@@ -362,7 +362,7 @@ function showComments( $item_id ) {
 		<table width="100%" class="comment_table">
 			<tr>
 				<td class="title" width="25%"><?php echo JText::_('Comments')?></td>
-				<td class="title" width="50%"><?php echo JText::_(' comments added')?></td>
+				<td class="title" width="50%"><?php echo JText::_('comments added')?></td>
 				<td class="title"><div class="addcomment"><a class="special" href="#comment2"><?php echo JText::_('Add Comment');?></a></div></td>
 			</tr>
 		</table>

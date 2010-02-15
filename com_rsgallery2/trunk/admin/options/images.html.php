@@ -529,7 +529,7 @@ class html_rsg2_images {
                 <tr>
                     <td width="200"><strong><?php echo JText::_('Specify upload method');?></strong>
                     <?php
-                    echo JHTML::tooltip( JText::_('_BATCH_METHOD_TIP'), JText::_('Specify upload method') );
+                    echo JHTML::tooltip( JText::_('BATCH_METHOD_TIP'), JText::_('Specify upload method') );
                     ?>
                     </td>
                     <td width="200">
@@ -538,7 +538,7 @@ class html_rsg2_images {
                     <td>
                         <input type="file" name="zip_file" size="20" />
                         <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
-                        <?php echo JText::_('Upload limit is ') . $size .JText::_(' Megabytes (set in php.ini)');?>
+                        <?php echo JText::_('Upload limit is').' ' . $size .' '.JText::_('Megabytes (set in php.ini)');?>
                         </div>
                     </td>
                 </tr>
@@ -549,8 +549,8 @@ class html_rsg2_images {
                         <?php echo JText::_('FTP-path');?> :</td>
                     <td>
 
-                        <input type="text" name="ftppath" value="<?php echo $FTP_path; ?>" size="30" /><?php echo JHTML::tooltip( JText::_('_BATCH_FTP_PATH_OVERL'), JText::_('FTP-path') ); ?>
-						<br/><?php echo JText::printf("FTP base path is :%s", JPATH_SITE); ?>
+                        <input type="text" name="ftppath" value="<?php echo $FTP_path; ?>" size="30" /><?php echo JHTML::tooltip( JText::_('BATCH_FTP_PATH_OVERL'), JText::_('FTP-path') ); ?>
+						<br/><?php echo JText::sprintf('FTP_BASE_PATH', JPATH_SITE); ?>
                     </td>
                 </tr>
                 <tr>
@@ -559,7 +559,7 @@ class html_rsg2_images {
                 <tr>
                 <td valign="top"><strong><?php echo JText::_('Specify gallery');?></strong></td>
                     <td valign="top">
-                        <input type="radio" name="selcat" value="1" CHECKED/>&nbsp;&nbsp;<?php echo JText::_('Yes, all items in ');?>:&nbsp;
+                        <input type="radio" name="selcat" value="1" CHECKED/>&nbsp;&nbsp;<?php echo JText::_('Yes_all_items_in');?>:&nbsp;
                     </td>
                     <td valign="top">
                         <?php echo galleryUtils::galleriesSelectList( null, 'xcat', false );?>
@@ -621,7 +621,7 @@ class html_rsg2_images {
 
 			if (pressbutton == 'save_batchupload'){
 				if (missingCat == true) {
-					alert("<?php echo JText::_('All images must be part of a category.');?>");
+					alert("<?php echo JText::_('All images must be part of a galery');?>");
 				}
 				else {
 					form.submit();

@@ -223,7 +223,7 @@ function purgeEverything(){
     processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_galleries', JText::_('purged galleries from database.') );
     processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_config', JText::_('purged config from database.') );
     processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_comments', JText::_('purged comments from database.') );
-	processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_acl', '** Access Control Data deleted **' );
+	processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_acl', JText::_('Access Control Data deleted' ));
     
     // remove thumbnails
     HTML_RSGALLERY::printAdminMsg( JText::_('removing thumb images.') );
@@ -264,7 +264,7 @@ function reallyUninstall(){
     processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_config', JText::_('DROPed #__rsgallery2_config') );
     processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_comments', JText::_('DROPed #__rsgallery2_comments') );
 
-    HTML_RSGALLERY::printAdminMsg( JText::_('_RSGALLERY_REAL_UNINST_DONE') );
+    HTML_RSGALLERY::printAdminMsg( JText::_('RSGALLERY_REAL_UNINST_DONE') );
 }
 
 /**
@@ -396,7 +396,7 @@ function batch_uploadX($option) {
 		if ($batchmethod == "zip") {
 			//Check if file is really a ZIP-file
 			if (!eregi( '.zip$', $zip_file['name'] )) {
-				$mainframe->redirect( "index2.php?option=com_rsgallery2&task=batchupload", $zip_file['name'].JText::_(' is not a valid archive format. Only ZIP-files are allowed!'));
+				$mainframe->redirect( "index2.php?option=com_rsgallery2&task=batchupload", $zip_file['name'].' '.JText::_('NO_VALID_ARCHIVE_ONLY_ZIP_ALLOWED'));
 			} else {
 				//Valid ZIP-file, continue
 				if ($uploadfile->checkSize($zip_file) == 1) {

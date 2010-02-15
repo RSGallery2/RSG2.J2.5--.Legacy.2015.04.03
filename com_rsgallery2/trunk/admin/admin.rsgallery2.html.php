@@ -261,14 +261,14 @@ class HTML_RSGALLERY{
 			
                 // if debug is on, display advanced options
                 if( $rsgConfig->get( 'debug' )): ?>
-                <div id='rsg2-cpanelDebug'><?php echo JText::_('_RSGALLERY_C_DEBUG_ON');?>
+                <div id='rsg2-cpanelDebug'><?php echo JText::_('RSGALLERY_C_DEBUG_ON');?>
                     <?php
                     if ( $user->get('gid') > 23 ):
                         $link = 'index2.php?option=com_rsgallery2&task=purgeEverything';
                         HTML_RSGALLERY::quickiconButton( $link, 'menu.png', JText::_('Purge/Delete everything') );
     
                         $link = 'index2.php?option=com_rsgallery2&task=reallyUninstall';
-                        HTML_RSGALLERY::quickiconButton( $link, 'menu.png', JText::_('_RSGALLERY_C_REALLY_UNINSTALL') );
+                        HTML_RSGALLERY::quickiconButton( $link, 'menu.png', JText::_('RSGALLERY_C_REALLY_UNINSTALL') );
         
                         $link = 'index2.php?option=com_rsgallery2&task=config_rawEdit';
                         HTML_RSGALLERY::quickiconButton( $link, 'menu.png', JText::_('Config - Raw Edit') );
