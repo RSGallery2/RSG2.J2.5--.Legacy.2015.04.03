@@ -14,8 +14,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 global $rsgConfig;
 if( !isset( $rsgConfig )){
     
-    require_once( JPATH_SITE . '/administrator/components/com_rsgallery2/includes/config.class.php' );
-    require_once( JPATH_SITE . '/administrator/components/com_rsgallery2/includes/version.rsgallery2.php' );
+    require_once( JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "config.class.php" );
+    require_once( JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "version.rsgallery2.php" );
 
     $rsgVersion = new rsgalleryVersion();
     $rsgConfig = new rsgConfig( false );
@@ -161,7 +161,7 @@ class rsgInstall {
     function populate_db( $sqlfile='rsgallery2.sql') {
         $database =& JFactory::getDBO();
 		
-        $sqlDir = JPATH_SITE . '/administrator/components/com_rsgallery2/sql/';
+        $sqlDir = JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "sql/";
         $errors = array();
     
         $query = fread( fopen( $sqlDir . $sqlfile, 'r' ), filesize( $sqlDir . $sqlfile ) );
@@ -706,11 +706,11 @@ class rsgInstall {
         if ($this->ComponentInstalled("com_rsgallery"))
             {
             //Yes, component is installed
-            $config_file = JPATH_SITE."/administrator/components/com_rsgallery/language/english.php";
+            $config_file = JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "language" . DS . "english.php";
             if (file_exists($config_file))
                 {
                 //Supress notices on duplicate definitions with @, as we loaded the new english.php already
-                @include_once(JPATH_SITE."/administrator/components/com_rsgallery/language/english.php");
+                @include_once( JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "language" . DS . "english.php");
                 $version = _RSGALLERY_VERSION;
                 }
             else
@@ -1167,7 +1167,7 @@ class GenericMigrator{
      */
     function runSqlFile( $sqlfile ) {
 		$database =& JFactory::getDBO();
-        $sqlDir = JPATH_SITE . '/administrator/components/com_rsgallery2/sql/';
+        $sqlDir =  JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "sql/";
 
         $errors = array();
     
@@ -1419,7 +1419,7 @@ class migrate_com_akogallery extends GenericMigrator{
      */
     function migrate() {
         
-        $comconfig = JPATH_SITE."/administrator/components/com_akogallery/config.akogallery.php";
+        $comconfig =  JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_akogallery" . DS . "config.akogallery.php";
 
         if (! file_exists($comconfig))
             return ( "Config file for AKOGallery does not exist" );
@@ -1729,10 +1729,10 @@ class migrate_com_zoom_251_RC4 extends GenericMigrator{
     **/
     function detect(){
         
-        $comdir = JPATH_SITE."/administrator/components/com_zoom";
+        $comdir =  JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_zoom";
         
         if( rsgInstall::componentInstalled( "com_zoom" )){
-            include_once(JPATH_SITE."/components/com_zoom/etc/zoom_config.php");
+            include_once(JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_zoom" . DS ."etc" . DS ."zoom_config.php");
 
             if ( $zoomConfig['version'] == "2.5.1 RC4" ) {
             	return true;
@@ -1751,7 +1751,7 @@ class migrate_com_zoom_251_RC4 extends GenericMigrator{
 	    global $mosConfig_absolute_path;
 	    
 	    //Set basedir from config file
-	    include_once(JPATH_SITE. DS . "components/com_zoom/etc/zoom_config.php");
+	    include_once(JPATH_SITE. DS . "components" . DS . "com_zoom" . DS . "zoom_config.php");
 	    $basedir = JPATH_SITE . "/" .$zoomConfig['imagepath'];
 	    
 	    //Set prefix
@@ -1861,7 +1861,7 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
 	function migrate() {
 		$database = JFactory::getDBO();
 		//Set basedir from config file
-	    include_once(JPATH_SITE. DS . "administrator/components/com_easygallery/configuration.php");
+	    include_once(JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_easygallery" . DS . "configuration.php");
 	    $basedir = JPATH_SITE .$eg_original_path;
 
 	    //Set prefix
@@ -2070,7 +2070,20 @@ class migrate_com_rsgallery extends GenericMigrator{
      * detect if the gallery version this class handles is installed
      * @return true or false
      */
-    function detect(){
+// Added by Mihir Chhatre. Fixed on 15 Feb 2010. http://rsgallery2.net/index.php?topic=16599.msg43112#msg43112 - FIX.	 
+//    function detect(){
+//		global $mainframe; 
+//		$database =& JFactory::getDBO();
+//		
+//		if( in_array( $database->getPrefix().'rsgallery2_config', $database->getTableList() ) === false ){ 
+//            // rsgallery2_config table does not exist
+//            return false;
+//        } else {
+//        	// if #__rsgallery2_config exists, then we can handle the upgrade
+//        	return true;
+//        }
+//    }
+function detect(){
 		global $mainframe; 
 		$database =& JFactory::getDBO();
 		
