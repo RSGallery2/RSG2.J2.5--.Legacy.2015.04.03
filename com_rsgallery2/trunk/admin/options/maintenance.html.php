@@ -84,7 +84,7 @@ class html_rsg2_maintenance {
 			<td>
 			<table class="adminform">
 				<tr>
-					<td valign="top" width="300"><p>Select all galleries you want to regenerate the thumbnails from. Multiple galleries can be selected, using the <span style="font-weight: bold;">Ctrl</span> key.</p><p>Be advised that with a large number of images this might take some time. If the action returns a time-out error, please select less galleries at once to regenerate.</p></td>
+					<td valign="top" width="300"><p><?php echo JText::_('SELECT_GALLERIES_TO_REGENERATE_THUMBNAILS_FROM')?></p></td>
 					<td valign="top">
 						<fieldset>
 						<legend>Select galleries</legend>
@@ -193,7 +193,7 @@ class html_rsg2_maintenance {
 		        	<th align="center"><?php echo JText::_('Original<br>folder');?></th>
 			        <th align="center"><?php echo JText::_('Thumb<br>folder');?></th>
 			        <th>&nbsp;</th>
-			        <th>Image</th>
+			        <th align="center"><?php echo JText::_('Image');?></th>
 			        <th align="center"><?php echo JText::_('Action');?></th>
 			    </tr>
 			    <tr>
@@ -247,11 +247,11 @@ class html_rsg2_maintenance {
 			            	<img src="<?php echo imgUtils::getImgThumb( $name );?>" name="image" width="<?php echo $rsgConfig->get('thumb_width')?>" alt="<?php echo $name;?>"/>
 			            </td>
 			            <td align="center">
-			                <a href="index2.php?option=com_rsgallery2&rsgOption=maintenance&task=deleteImages&name=<?php echo $name;?>"><?php echo JText::_('[&nbsp;Delete from database&nbsp;]')?></a><br />
+			                <a href="index2.php?option=com_rsgallery2&rsgOption=maintenance&task=deleteImages&name=<?php echo $name;?>"><?php echo '[&nbsp;'.JText::_('Delete_from_database').'&nbsp;]'?></a><br />
 			                <?php
 			                if ($original == true OR $display == true) {
 			                    ?>
-			                    <a href="index2.php?option=com_rsgallery2&rsgOption=maintenance&task=createImages&id=<?php echo $fid;?>"><?php echo JText::_('[&nbsp;Create missing images&nbsp;]')?></a>
+			                    <a href="index2.php?option=com_rsgallery2&rsgOption=maintenance&task=createImages&id=<?php echo $fid;?>"><?php echo '[&nbsp;'.JText::_('Create_missing_images').'&nbsp;]'?></a>
 			                    <?php
 			                    }
 			                    ?>
@@ -321,8 +321,8 @@ class html_rsg2_maintenance {
 			            	<img src="<?php echo imgUtils::getImgThumb( $diff );?>" name="image" width="<?php echo $rsgConfig->get('thumb_width')?>" />
 			            </td>
 			            <td align="center">
-			                <a href="javascript:void();" onClick="javascript:db_create();"><?php echo JText::_('[&nbsp;Create Database entry&nbsp;]');?></a><br />
-			                <a href="index2.php?option=com_rsgallery2&rsgOption=maintenance&task=deleteImages&name=<?php echo $diff;?>"><?php echo JText::_('[&nbsp;Delete images&nbsp;]');?></a>&nbsp;
+			                <a href="javascript:void();" onClick="javascript:db_create();"><?php echo '[&nbsp;'.JText::_('Create_Database_entry').'&nbsp;]';?></a><br />
+			                <a href="index2.php?option=com_rsgallery2&rsgOption=maintenance&task=deleteImages&name=<?php echo $diff;?>"><?php echo '[&nbsp;'.JText::_('Delete_images'),'&nbsp;]'?></a>&nbsp;
 			                <?php
 			                if ($original2 == true AND $display2 == true AND $thumb2 == true)
 			                    {
@@ -331,7 +331,7 @@ class html_rsg2_maintenance {
 			                else
 			                    {
 			                    ?>
-			                    <br /><a href="index2.php?option=com_rsgallery2&rsgOption=maintenance&task=createImages&name=<?php echo $diff;?>"><?php echo JText::_('[&nbsp;Create missing images&nbsp;]');?></a>
+			                    <br /><a href="index2.php?option=com_rsgallery2&rsgOption=maintenance&task=createImages&name=<?php echo $diff;?>"><?php echo '[&nbsp;'.JText::_('Create missing images').'&nbsp;]';?></a>
 			                    <?php
 			                    }
 			                    ?>

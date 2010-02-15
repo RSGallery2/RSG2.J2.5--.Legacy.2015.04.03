@@ -117,18 +117,18 @@ class rsgInstall {
         if (file_exists(JPATH_SITE.$dir) && is_dir(JPATH_SITE.$dir))
             {
             // Dir already exists, next
-            $this->writeInstallMsg("<strong>$dir</strong>".JText::_(' already exists'),"ok");
+            $this->writeInstallMsg("<strong>$dir</strong> ".JText::_('already exists'),"ok");
             }
         else
             {
             if(@mkdir(JPATH_SITE.$dir, 0777))
                 {
-                $this->writeInstallMsg("<strong>$dir</strong>".JText::_(' is created'),"ok");
+                $this->writeInstallMsg("<strong>$dir</strong> ".JText::_('is created'),"ok");
                 $count++;
                 }
             else
                 {
-                $this->writeInstallMsg("<strong>$dir</strong>".JText::_(' could not be created'),"error");
+                $this->writeInstallMsg("<strong>$dir</strong>".JText::_('could not be created'),"error");
                 }
             }
         }
@@ -141,7 +141,7 @@ class rsgInstall {
         $result = $this->populate_db();
 
         if( count( $result ) == 0 ){
-            $this->writeInstallMsg(JText::_('Database tables created succesfully.'),"ok");
+            $this->writeInstallMsg(JText::_('Database tables created succesfully'),"ok");
             return true;
         }
         else{
@@ -374,18 +374,18 @@ class rsgInstall {
         if(rmdir($target))
             {
             //return 0;
-            $this->writeInstallMsg(JText::_('Directory structure deleted!'),"ok");
+            $this->writeInstallMsg(JText::_('Directory structure deleted'),"ok");
             }
         else
             {
             //return 1;
-            $this->writeInstallMsg(JText::_('Deleting old directory structure failed.'),"error");
+            $this->writeInstallMsg(JText::_('Deleting old directory structure failed'),"error");
             }
         }
     else
         {
         //return 2;
-        $this->writeInstallMsg(JText::_("No old directory structure found. Let's continue"),"ok");
+        $this->writeInstallMsg(JText::_("No old directory structure found continue"),"ok");
         }
     }
     
@@ -532,12 +532,12 @@ class rsgInstall {
             <td colspan="2">
                 <div align="center">
                 <h2><?php echo $msg; ?></h2> 
-                <?php echo JText::_('INSTALL_STATUS_MSGS')?>
+                <?php //echo JText::_('INSTALL_STATUS_MSGS')?>
                 <br>
                 
                 <a href="index2.php?option=com_rsgallery2">
                     <img align="absmiddle" src="<?php echo JURI_SITE;?>/administrator/images/cpanel.png" alt="" width="48" height="48" border="0">&nbsp;
-                    <h2><?php echo JText::_('Control Panel')?></h2>
+                    <h2><?php echo JText::_('Control Panel') ?></h2>
                 </a>
                 </div>
             </td>
@@ -559,11 +559,11 @@ class rsgInstall {
         $database->setQuery($sql);
         if ($database->query())
             {
-            $this->writeInstallMsg("<strong>$table</strong>".JText::_(' is deleted'),"ok");
+            $this->writeInstallMsg("<strong>$table</strong> ".JText::_('is deleted'),"ok");
             }
         else
             {
-            $this->writeInstallMsg("<strong>$table</strong>".JText::_(' could not be deleted.<br />Delete manually.'),"error");
+            $this->writeInstallMsg("<strong>$table</strong> ".JText::_('could not be deleted Delete manually'),"error");
             }
         }
         
@@ -2071,10 +2071,10 @@ class migrate_com_rsgallery extends GenericMigrator{
      * @return true or false
      */
     function detect(){
-        global $mosConfig_dbprefix;
+		global $mainframe; 
 		$database =& JFactory::getDBO();
 		
-        if( in_array( $mosConfig_dbprefix.'rsgallery2_config', $database->getTableList() ) === false ){
+		if( in_array( $database->getPrefix().'rsgallery2_config', $database->getTableList() ) === false ){ 
             // rsgallery2_config table does not exist
             return false;
         } else {
