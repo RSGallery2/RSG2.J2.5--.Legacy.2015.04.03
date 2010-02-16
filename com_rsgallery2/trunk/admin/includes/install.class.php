@@ -14,8 +14,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 global $rsgConfig;
 if( !isset( $rsgConfig )){
     
-    require_once( JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "config.class.php" );
-    require_once( JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "version.rsgallery2.php" );
+    require_once( JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . 'includes' .DS. "config.class.php" );
+    require_once( JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . 'includes' .DS. "version.rsgallery2.php" );
 
     $rsgVersion = new rsgalleryVersion();
     $rsgConfig = new rsgConfig( false );
