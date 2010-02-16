@@ -37,7 +37,7 @@ function plg_rsg2_display_replacer ( $matches ) {
 		return trim( $attrib );
 	}
 	
-	require_once( JPATH_ROOT.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
+	require_once( JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "init.rsgallery2.php" );
 	
 	$attribs = explode(",",$matches[1]);
 	
