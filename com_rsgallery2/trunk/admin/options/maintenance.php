@@ -3,7 +3,7 @@
 * Maintenance options for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2010 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -167,11 +167,11 @@ function executeRegenerateImages() {
     	}
     }
     if ($error > 0) {
-    	$msg = JText::_('_RSGALLERY_MAINT_REGEN_ERRORS');
+    	$msg = JText::_('MAINT_REGEN_ERRORS');
     } else {
-		$msg = JText::_('_RSGALLERY_MAINT_REGEN_NO_ERRORS');
+		$msg = JText::_('MAINT_REGEN_NO_ERRORS');
     }
-    mosRedirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=regenerateThumbs", $msg);
+    $mainframe->redirect("index2.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs", $msg);
 }
 
 
