@@ -3,7 +3,7 @@
 * Changelog for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2010 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 **/
@@ -31,6 +31,17 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+
+2010-02-16 Mirjam
+# filenames with spaces were not allowed when regenerating proportional images with GD2
+# portrait images were not resized according to thumb_width (it used image width) - fixed
+! proportional resizing uses thumb_width for max width and height
+
+2010-02-15 Mihir
+# upgrade now possible without legacy turned on - changed getting db-prefix
+
+2010-02-15 Mirjam
++ Added and changed language strings that were hardcoded instead of JText: en-GB and nl-NL
 
 ---------------- 2.1.0 beta -- svn 956 -- 2009-09-17 -------------
 

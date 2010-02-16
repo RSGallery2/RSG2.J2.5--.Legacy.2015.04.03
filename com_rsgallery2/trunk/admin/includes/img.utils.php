@@ -3,7 +3,7 @@
 * This file handles image manipulation functions RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2005 - 2006 RSGallery2
+* @copyright (C) 2005 - 2010 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
@@ -508,42 +508,46 @@ class GD2 extends genericImageLib{
         // an array of image types
         
         $imageTypes = array( 1 => 'gif', 2 => 'jpeg', 3 => 'png', 4 => 'swf', 5 => 'psd', 6 => 'bmp', 7 => 'tiff', 8 => 'tiff', 9 => 'jpc', 10 => 'jp2', 11 => 'jpx', 12 => 'jb2', 13 => 'swc', 14 => 'iff', 15 => 'wbmp', 16 => 'xbm');
-        
+        $source = rawurldecode( $source );//fix: getimagesize does not like %20
+		$target = rawurldecode( $target );//fix: getimagesize does not like %20
         $imgInfo = getimagesize( $source );
-        if( !$imgInfo )
-            return new PEAR_Error( "not a valid image" );
-        
+		
+        if( !$imgInfo ){
+			JError::raiseNotice('ERROR_CODE', $source ." ". JText::_('IS NOT A VALID IMAGE OR IMAGENAME'));
+			return false;
+        }
         list( $sourceWidth, $sourceHeight, $type, $attr ) = $imgInfo;
         
         // convert $type into a usable string
         $type = $imageTypes[$type];
         
         // check if we can read this type of file
-        if( !function_exists( "imagecreatefrom$type" ))
-            return new PEAR_Error( "GD2 doesn't support reading image type $type" );
-        
+        if( !function_exists( "imagecreatefrom$type" )){
+            JError::raiseNotice('ERROR_CODE', JText::_('GD2 does not support reading image type').' '.$type);
+			return false;
+        }
         // determine target height
         //$targetHeight = ( $targetWidth / $sourceWidth ) * $sourceHeight;
-        
 		// determine target height, contributed by lorant, let's try this
 		if( $sourceWidth > $sourceHeight ) {
 			$targetHeight = ( $targetWidth / $sourceWidth ) * $sourceHeight;
 		} else {
-			//contributed by p9939068
-			if ($sourceHeight < $rsgConfig->get('image_width')) {
+			//contributed by p9939068, corrected by mirjam
+			if ($sourceHeight < $rsgConfig->get('thumb_width')) {
 				$targetHeight = $sourceHeight;
 			}
 			else
-				$targetHeight = $rsgConfig->get('image_width');
+				$targetHeight = $rsgConfig->get('thumb_width');
 			$targetWidth = ( $targetHeight / $sourceHeight ) * $sourceWidth;
 		} 
-		
+
         // load source image file into a resource
         $loadImg = "imagecreatefrom" . $type;
         $sourceImg = $loadImg( $source );
-        if( !$sourceImg )
-            return new PEAR_Error( "error reading source image: $source" );
-        
+        if( !$sourceImg ){
+			JError::raiseNotice('ERROR_CODE', JText::_('ERROR READING SOURCE IMAGE').': '.$source);
+			return false;        
+        }
         // create target resource
         $targetImg = imagecreatetruecolor( $targetWidth, $targetHeight );
         
@@ -554,14 +558,19 @@ class GD2 extends genericImageLib{
             0,0,0,0,
             $targetWidth, $targetHeight,
             $sourceWidth, $sourceHeight
-        )) return new PEAR_Error( "error resizing image: $source" );
-        
+        )){
+		JError::raiseNotice('ERROR_CODE', JText::_('ERROR RESIZING IMAGE').': '.$source);
+		return false;  
+		}	
         // write the image
-        if( !imagejpeg( $targetImg, $target, $rsgConfig->get('jpegQuality')))
-            return new PEAR_Error( "error writing target image: $target" );
+        if( !imagejpeg( $targetImg, $target, $rsgConfig->get('jpegQuality'))){
+			JError::raiseNotice('ERROR_CODE', JText::_('ERROR WRITING TARGET IMAGE').': '.$target);
+			return false; 
+		}
         //Free up memory
         imagedestroy($sourceImg);
         imagedestroy($targetImg);
+		return true;
     }
     
     /**
