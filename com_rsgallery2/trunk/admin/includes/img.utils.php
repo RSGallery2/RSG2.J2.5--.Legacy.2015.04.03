@@ -240,7 +240,7 @@ class imgUtils extends fileUtils{
         
 		$locale = $local? JPATH_ROOT : JURI_SITE;
         	
-		$locale = trim($locale, '/');	
+		//$locale = trim($locale, '/');	//Mirjam: removed trim, getimagesize in GD::resizeImage needs preceeding / in path
         // if original image exists return that, otherwise $keepOriginalImage is false and and we return the display image instead.
         if( file_exists( JPATH_ROOT.$rsgConfig->get('imgPath_original') . '/' . $name )){
             return $locale . $rsgConfig->get('imgPath_original') . '/' . rawurlencode($name);
