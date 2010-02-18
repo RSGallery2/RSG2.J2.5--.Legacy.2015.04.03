@@ -352,7 +352,7 @@ class imgUtils extends fileUtils{
         $list = $database->loadObjectList();
 
         if( $list==null ){
-            echo 'No images in gallery yet.';
+            echo JText::_('NO IMAGES IN GALLERY YET');
             return;
         }
 

@@ -3,7 +3,7 @@
 * This file contains xxxxxxxxxxxxxxxxxxxxxxxxxxx.
 * @version xxx
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2010 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -518,14 +518,14 @@ class myGalleries {
 						function deletePres(catid) {
 							var yesno = confirm ("<?php echo JText::_('DELCAT_TEXT');?>");
 							if (yesno == true) {
-								location = "<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=deleteCat&catid=", false);?>"+catid;
+								location = "<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=deleteCat", false);?>"+"&gid="+catid;
 							}
 						}
 						//]]>
                     </script>
                     <tr>
                         <td>
-                        	<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editCat&catid='.$row->id);?>">
+                        	<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editCat&gid='.$row->id);?>">
                         		<?php echo $row->name;?>
                         	</a>
                         </td>
@@ -544,7 +544,7 @@ class myGalleries {
                         	</a>
                         </td>
                         <td>
-                        	<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editCat&catid='.$row->id);?>">
+                        	<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editCat&gid='.$row->id);?>">
                         		<div align="center">
                         			<img src="<?php echo JURI_SITE;?>/administrator/images/edit_f2.png" alt="" width="18" height="18" >
                         		</div>
@@ -565,7 +565,7 @@ class myGalleries {
                             <td>
                                 <img src="<?php echo JURI_SITE;?>/administrator/components/com_rsgallery2/images/sub_arrow.png" alt="" width="12" height="12" >
                                 &nbsp;
-                                <a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editCat&catid='.$row2->id);?>">
+                                <a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editCat&gid='.$row2->id);?>">
                                 	<?php echo $row2->name;?>
                                 </a>
                             </td>
@@ -582,7 +582,7 @@ class myGalleries {
                                 </a>
                             </td>
                             <td>
-                                <a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editCat&catid='.$row2->id);?>">
+                                <a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editCat&gid='.$row2->id)?>">
                                 <div align="center">
                                     <img src="<?php echo JURI_SITE;?>/administrator/images/edit_f2.png" alt="" width="18" height="18" >
                                 </div>
@@ -814,6 +814,7 @@ class myGalleries {
     }
     
 function editCat($rows = null) {
+	//Mirjam: In v1.13 catid was used where since v1.14 gid is used, but locally in a function catid is fine
     global $rsgConfig;
 	$my = JFactory::getUser();
 	$editor =& JFactory::getEditor();
@@ -915,7 +916,7 @@ function editCat($rows = null) {
         </table>
         </form>
         <?php
-        }
+    }
 
 }//end class
 ?>

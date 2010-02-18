@@ -3,7 +3,7 @@
 * This file contains xxxxxxxxxxxxxxxxxxxxxxxxxxx.
 * @version xxx
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2010 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -19,11 +19,11 @@ $mainframe->addCustomHeadTag($css);
 require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'mygalleries' . DS . 'mygalleries.class.php' );
 
 //Get parameters from URL and/or form
-$cid	= rsgInstance::getInt('cid', array(0) );
-$cid	= rsgInstance::getInt('gid', $cid );
+//$cid	= rsgInstance::getInt('cid', array(0) );//no longer neccessary?
+//$cid	= rsgInstance::getInt('gid', $cid );//no longer neccessary?
 $task   = rsgInstance::getVar('task', '' );
 $id		= rsgInstance::getInt('id','' );
-
+$gid	= rsgInstance::getInt('gid','' );	//Mirjam: In v1.13 catid was used where since v1.14 gid is used
 
 switch( $task ){
     case 'saveUploadedItem':
@@ -42,7 +42,7 @@ switch( $task ){
     	editCat(null);
     	break;
     case 'editCat':
-    	editCat($cid);  		
+    	editCat($gid);  		
     	break;
     case 'saveCat':
     	saveCat();
@@ -241,6 +241,7 @@ function saveUploadedItem() {
 }
 
 function editCat($catid) {
+	//Mirjam: In v1.13 catid was used where since v1.14 gid is used, but locally in a function catid is fine
 	global $rsgConfig;
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
@@ -275,8 +276,8 @@ function saveCat() {
 	
 	$parent 		= rsgInstance::getVar( 'parent'  , 0);
 	$id 			= rsgInstance::getInt( 'catid'  , null);
-	$catname1 		= htmlentities(rsgInstance::getVar( 'catname1'  , null), ENT_QUOTES);
-	$description 	= htmlentities(rsgInstance::getVar( 'description'  , null), ENT_QUOTES);
+	$catname1 		= rsgInstance::getVar( 'catname1'  , null);
+	$description 	= rsgInstance::getVar( 'description'  , null);
 	$published 		= rsgInstance::getInt( 'published'  , 0);
 	$ordering 		= rsgInstance::getInt( 'ordering'  , null);
 	$maxcats        = $rsgConfig->get('uu_maxCat');	
@@ -340,10 +341,10 @@ function deleteCat() {
 	$database = JFactory::getDBO();
 
 	//Get values from URL
-	$catid = rsgInstance::getInt( 'catid'  , null);
-	
+	$catid = rsgInstance::getInt( 'gid'  , null);//Mirjam: catid is gid as of v1.14
+
 	//Set redirect URL
-	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries");
+	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries",false);
 	
 	//Get category details
 	$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE id = '$catid'");
@@ -357,7 +358,7 @@ function deleteCat() {
 	$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_galleries WHERE parent = '$catid'");
 	$count = $database->loadResult();
 	if ($count > 0) {
-		$mainframe->redirect( $redirect ,JText::_('_USERCAT_SUBCATS'));
+		$mainframe->redirect( $redirect ,JText::_('USERCAT_SUBCATS'));
 	}
 	
 	//No children from here, so lets continue

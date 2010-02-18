@@ -32,7 +32,12 @@ Legend:
 
 ---------------- Recent ----------------
 
-2010-02-16 Mirjam
+2010-02-18 Mirjam - SVN 968
+# Special characters now possible in frontend My Galleries - removed htmlentities
+# Ability to edit and delete galleries fixed in frontend My Galleries - use gid not catid
+! gallery list to choose from is unaware of which user is logged on, function galleryUtils::galleriesSelectList is used for front- and backend
+
+2010-02-16 Mirjam - SVN 967
 # filenames with spaces were not allowed when regenerating proportional images with GD2
 # portrait images were not resized according to thumb_width (it used image width) - fixed
 ! proportional resizing uses thumb_width for max width and height
