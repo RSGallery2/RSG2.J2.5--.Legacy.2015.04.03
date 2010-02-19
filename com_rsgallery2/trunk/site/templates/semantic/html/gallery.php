@@ -35,7 +35,7 @@ foreach( $this->kids as $kid ):
 			<sup><?php if( $this->gallery->hasNewImages() ) echo JText::_('New!'); ?></sup>
 		</span>
 		<?php echo $this->_showGalleryDetails( $kid );?>
-		<div class="rsg2-galleryList-description"><?php echo $kid->description;?>
+		<div class="rsg2-galleryList-description"><?php echo stripslashes($kid->description);?>
 		</div>
 	</div>
 	<div class="rsg_sub_url_single">

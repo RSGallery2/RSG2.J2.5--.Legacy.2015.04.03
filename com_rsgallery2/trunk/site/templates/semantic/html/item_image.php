@@ -14,14 +14,14 @@
 		//No popup
 		case 0:{
 					?>
-					<img class="rsg2-displayImage" src="<?php echo $imageUrl;?>" alt="<?php echo $item->name; ?>" title="<?php echo $item->descr; ?>" />
+					<img class="rsg2-displayImage" src="<?php echo $imageUrl;?>" alt="<?php echo $item->name; ?>" title="<?php echo $item->name; ?>" />
 		<?php
 		break;
 	}
 	//Normal popup
 	case 1:{
 					?><a href="<?php echo $imageOriginalUrl; ?>" target="_blank">
-					<img class="rsg2-displayImage" src="<?php echo $imageUrl;?>" alt="<?php echo $item->name; ?>" title="<?php echo $item->descr; ?>" />
+					<img class="rsg2-displayImage" src="<?php echo $imageUrl;?>" alt="<?php echo $item->name; ?>" title="<?php echo $item->name; ?>" />
 					</a>
 			<?php
 			break;
@@ -55,7 +55,7 @@
 					});';
 			
 					?>
-					<img class="rsg2-displayImage" src="<?php echo $imageUrl;?>" alt="<?php echo $item->name; ?>" title="<?php echo $item->descr; ?>" />
+					<img class="rsg2-displayImage" src="<?php echo $imageUrl;?>" alt="<?php echo $item->name; ?>" title="<?php echo $item->name; ?>" />
 			<?php
 			$doc =& JFactory::getDocument();
 			$doc->addScriptDeclaration($jsModal);

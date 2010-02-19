@@ -361,7 +361,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		
 		if ( $item->descr ):
 		?>
-		<p class="rsg2_description"><?php  echo $item->descr; ?></p>
+		<p class="rsg2_description"><?php  echo stripslashes($item->descr); ?></p>
 		<?php
 		endif;
 	}

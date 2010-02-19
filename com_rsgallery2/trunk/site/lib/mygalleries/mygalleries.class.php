@@ -738,7 +738,7 @@ class myGalleries {
         foreach ($rows as $row) {
             $filename       = $row->name;
             $title          = $row->title;
-            $description    = $row->descr;
+            $description    = stripslashes($row->descr);//MK
             $id             = $row->id;
             $limitstart     = $row->ordering - 1;
             $catid          = $row->gallery_id;
@@ -802,7 +802,7 @@ class myGalleries {
             <tr>
                 <td align="left" valign="top"><?PHP echo JText::_('Description'); ?></td>
                 <td align="left" colspan="2">
-				<?php echo $editor->display( 'descr',  $description , '100%', '200', '10', '20',false ) ; ?>
+				<?php echo $editor->display( 'descr', stripslashes($description) , '100%', '200', '10', '20',false ) ; ?>
                 </td>
             </tr>
             <tr>
@@ -849,7 +849,7 @@ function editCat($rows = null) {
     if ($rows) {
         foreach ($rows as $row){
             $catname        = $row->name;
-            $description    = $row->description;
+            $description    = stripslashes($row->description);
             $ordering       = $row->ordering;
             $uid            = $row->uid;
             $catid          = $row->id;
