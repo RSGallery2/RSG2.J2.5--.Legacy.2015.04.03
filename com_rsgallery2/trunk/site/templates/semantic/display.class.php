@@ -2,7 +2,7 @@
 /**
  * @version $Id$
  * @package RSGallery2
- * @copyright (C) 2003 - 2006 RSGallery2
+ * @copyright (C) 2003 - 2010 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined( '_JEXEC' ) or die( 'Restricted Access' );
@@ -186,16 +186,16 @@ class rsgDisplay_semantic extends rsgDisplay{
 	function showThumbs() {
 		global $rsgConfig;
 		$my = JFactory::getUser();
-		
+
 		$itemCount = $this->gallery->itemCount();
-		
+
 		$limit = $rsgConfig->get("display_thumbs_maxPerPage") ;
 		$limitstart = rsgInstance::getInt( 'limitstart' );
 		
 		//instantiate page navigation
-		jimport("joomla.html.pagination");
-		$pagenav = new JPagination( $itemCount, $limitstart, $limit );
-		
+		jimport('joomla.html.pagination');
+		$pagenav = new JPagination( $itemCount, $limitstart, $limit );//MK gaat goed: thumbs in gallery
+	
 		// increase the gallery hit counter
 		$this->gallery->hit();
 		
@@ -269,7 +269,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 	/**
 	 * Show page navigation for Display image
 	 */
-	function showDisplayPageNav() {
+	function showDisplayPageNav() {//MK this is where the images are shown with limit=1
 		$gallery = rsgGalleryManager::get();
 		$itemId = rsgInstance::getInt( 'id', 0 );
 		if( $itemId != 0 ){
@@ -292,7 +292,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		}
 
 		$pageNav = $gallery->getPagination();	
-		$pageLinks = $pageNav->getPagesLinks();
+		$pageLinks = $pageNav->getPagesLinks(); 
 
 		?>
 		<div align="center">

@@ -1,17 +1,27 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<mosinstall type="rsgTemplate">
-	<name>Semantic - Default display template</name>
-	<creationDate>15/02/07</creationDate>
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="rsgTemplate">
+	<name>Semantic</name>
+	<creationDate>25/01/10</creationDate>
 	<author>rsgallery2.net</author>
 	<copyright>Open Source, GPL</copyright>
 	<authorEmail>info@rsgallery2.net</authorEmail>
 	<authorUrl>rsgallery2.net</authorUrl>
-	<version>2.0</version>
-	<description>This is the default semantic HTML template.  Currently unfinished.</description>
+	<description>Default semantic template.</description>
+	<version>2.1</version>
 	<files>
 		<filename>index.php</filename>
 		<filename>display.class.php</filename>
 		<filename>templateDetails.xml</filename>
+		<filename>params.ini</filename>
+		<filename>changelog.txt</filename>
+		<filename>html/exif.php</filename>
+		<filename>html/gallery.php</filename>
+		<filename>html/inline.php</filename>
+		<filename>html/item_audio.php</filename>
+		<filename>html/item_image.php</filename>
+		<filename>html/item_video.php</filename>
+		<filename>html/thumbs_float.php</filename>
+		<filename>html/thumbs_table.php</filename>
 	</files>
 	<css>
 		<filename>css/template.css</filename>
@@ -26,4 +36,4 @@
       <option value="white">White</option>
     </param>
   </params>
-  </mosinstall>
+  </install>
