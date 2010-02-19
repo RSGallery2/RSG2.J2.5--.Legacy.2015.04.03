@@ -133,7 +133,7 @@ function saveItem() {
 	$database = JFactory::getDBO();
 	$id 	= rsgInstance::getInt( 'id'  , '');
 	$title 	= rsgInstance::getVar( 'title'  , '');
-	$descr 	= rsgInstance::getVar( 'descr'  , '', 'post', 'string', JREQUEST_ALLOWRAW);
+	$descr 	= $database->getEscaped(rsgInstance::getVar( 'descr'  , '', 'post', 'string', JREQUEST_ALLOWHTML));
 	$catid 	= rsgInstance::getInt( 'catid'  , '');
 
 	$database->setQuery("UPDATE #__rsgallery2_files SET ".
@@ -277,7 +277,7 @@ function saveCat() {
 	$parent 		= rsgInstance::getVar( 'parent'  , 0);
 	$id 			= rsgInstance::getInt( 'catid'  , null);
 	$catname1 		= rsgInstance::getVar( 'catname1'  , null);
-	$description 	= rsgInstance::getVar( 'description'  , null);
+	$description 	= $database->getEscaped(rsgInstance::getVar( 'description'  , null, 'post', 'string', JREQUEST_ALLOWHTML));
 	$published 		= rsgInstance::getInt( 'published'  , 0);
 	$ordering 		= rsgInstance::getInt( 'ordering'  , null);
 	$maxcats        = $rsgConfig->get('uu_maxCat');	

@@ -3,7 +3,7 @@
 * Images option for RSGallery2 - HTML display code
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2010 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -309,16 +309,16 @@ class html_rsg2_images {
 								<table width="100%" class="imagelist">
 									<?php if ( $item->type == 'image' || $item->type == "video" ) {?>
 									<tr>
-										<td width="40%" align="right" valign="top"> <a href="<?php echo $thumb->url();?>" target="_blank" alt="<?php echo $item->descr;?>"><?php echo JText::_('Thumb'); ?></a>:</td>
+										<td width="40%" align="right" valign="top"> <a href="<?php echo $thumb->url();?>" target="_blank" alt="<?php echo $item->name;?>"><?php echo JText::_('Thumb'); ?></a>:</td>
 										<td><input type="text" name="thumb_url" class="text_area" size="50" value="<?php echo $thumb->url();?>" /></td>
 									</tr>
 									<tr>
-										<td width="40%" align="right" valign="top"><a href="<?php echo $display->url();?>" target="_blank" alt="<?php echo $item->descr;?>"><?php echo JText::_('Display'); ?></a>:</td>
+										<td width="40%" align="right" valign="top"><a href="<?php echo $display->url();?>" target="_blank" alt="<?php echo $item->name;?>"><?php echo JText::_('Display'); ?></a>:</td>
 										<td ><input type="text" name="display_url" class="text_area" size="50" value="<?php echo $display->url();?>" /></td>
 									</tr>
 									<?php }?>
 									<tr>
-										<td width="40%" align="right" valign="top"><a href="<?php echo $original->url();?>" target="_blank" alt="<?php echo $item->descr;?>"><?php echo JText::_('Original'); ?></a>:</td>
+										<td width="40%" align="right" valign="top"><a href="<?php echo $original->url();?>" target="_blank" alt="<?php echo $item->name;?>"><?php echo JText::_('Original'); ?></a>:</td>
 										<td><input type="text" name="original_url" class="text_area" size="50" value="<?php echo $original->url();?>" /></td>
 									</tr>
 								</table>		
