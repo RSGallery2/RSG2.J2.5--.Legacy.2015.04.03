@@ -3,7 +3,7 @@
 * Galleries option for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2010 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -208,11 +208,11 @@ function save( $option ) {
 	$database =& JFactory::getDBO();
 	
     $row = new rsgGalleriesItem( $database );
-    if (!$row->bind( $_POST )) {
+    if (!$row->bind( $_POST )) {	//here we get id, parent, ... from the user's input
         echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
         exit();
     }
-    // save params
+    // save params //Mirjam: is this used in J1.5???[22feb2010]
     $params = rsgInstance::getVar( 'params', array() );
     if (is_array( $params )) {
         $txt = array();
@@ -221,9 +221,11 @@ function save( $option ) {
         }
         $row->params = implode( "\n", $txt );
     }
-	// code cleaner for xhtml transitional compliance
-	$row->description = str_replace( '<br>', '<br />', $row->description );
 	
+	// code cleaner for xhtml transitional compliance //MK
+	//$row->description = str_replace( '<br>', '<br />', $row->description );//replaced with:
+	$row->description = htmlspecialchars_decode($row->description );
+
     $row->date = date( 'Y-m-d H:i:s' );
     if (!$row->check()) {
         echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";

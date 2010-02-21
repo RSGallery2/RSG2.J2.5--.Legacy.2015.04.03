@@ -3,7 +3,7 @@
 * Images option for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2010 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -222,6 +222,10 @@ function saveImage( $option, $redirect = true ) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
+	
+	//The description may contain html, don't know where better to put/do this (mirjam)
+	$row->descr = htmlspecialchars_decode($row->descr);
+
 	// save params
 	$params = rsgInstance::getVar( 'params', '' );
 	if (is_array( $params )) {
