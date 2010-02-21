@@ -98,7 +98,7 @@ class html_rsg2_images {
 					echo JHTML::tooltip('<img src="'.JURI_SITE.$rsgConfig->get('imgPath_thumb').'/'.$row->name.'.jpg" alt="'.$row->name.'" />',
 					 JText::_('Edit Images'),
 					 $row->name,
-					 $row->title.'&nbsp;('.$row->name.')',
+					 htmlspecialchars(stripslashes($row->title), ENT_QUOTES).'&nbsp;('.$row->name.')',
 					 $link,
 					1);
 				}
@@ -164,8 +164,9 @@ class html_rsg2_images {
 	function editImage( &$row, &$lists, &$params, $option ) {
 		global $rsgOption;
 		jimport("joomla.filter.output");
-				
+
 		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES, 'descr' );
+
 		$editor =& JFactory::getEditor();
 		
 		?>
@@ -183,7 +184,7 @@ class html_rsg2_images {
 			} else if (form.gallery_id.value == "0"){
 				alert( "You must select a category." );
 			} else {
-				<?php echo $editor->save( 'descr' ) ; ?>
+				<?php echo $editor->save( 'descr' ) ;?>
 				submitform( pressbutton );
 			}
 		}
@@ -206,7 +207,7 @@ class html_rsg2_images {
 						<tr>
 							<td width="20%" align="right"><?php echo JText::_('Name')?>:</td>
 							<td width="80%">
-								<input class="text_area" type="text" name="title" size="50" maxlength="250" value="<?php echo $row->title;?>" />
+								<input class="text_area" type="text" name="title" size="50" maxlength="250" value="<?php echo stripslashes($row->title);?>" />
 							</td>
 						</tr>
 						<tr>
@@ -222,7 +223,7 @@ class html_rsg2_images {
 							<td>
 								<?php
 								// parameters : areaname, content, hidden field, width, height, rows, cols
-								echo $editor->display('descr',  $row->descr , '100%', '200', '10', '20' ,false) ; ?>
+								echo $editor->display('descr',  stripslashes($row->descr) , '100%', '200', '10', '20' ,false) ; ?>
 							</td>
 						</tr>
 						<tr>

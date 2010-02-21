@@ -339,7 +339,7 @@ class imgUtils extends fileUtils{
         $database =& JFactory::getDBO();
 
 		if( $id==null ){
-			echo 'No images in gallery yet.';
+			echo 'NO IMAGES IN GALLERY YET';
 			return;
 		}
         $list = galleryUtils::getChildList( $id );

@@ -526,7 +526,7 @@ class myGalleries {
                     <tr>
                         <td>
                         	<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editCat&gid='.$row->id);?>">
-                        		<?php echo $row->name;?>
+                        		<?php echo stripslashes($row->name);?>
                         	</a>
                         </td>
                         <?php
@@ -653,17 +653,17 @@ class myGalleries {
                ?>
                 <tr>
                     <td>
-                        <?php
+                        <?php 
                         if (!$rsgAccess->checkGallery('up_mod_img', $image->gallery_id)) {
                             echo $image->name;
                         } else {
+						//tooltip: tip, tiptitle, tipimage, tiptext, url, depreciated bool=1
 						 echo JHTML::tooltip('<img src="'.JURI::root().$rsgConfig->get('imgPath_thumb').'/'.$image->name.'.jpg" alt="'.$image->name.'" />',
 						 $image->name,
 						 "",
-						 $image->title.'&nbsp;('.$image->name.')',
-						 "index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editItem&id=".$image->id,
-						1);
-}
+						 htmlspecialchars($image->title,ENT_QUOTES,'UTF-8').'&nbsp;('.$image->name.')',	//turns into javascript safe so ENT_QUOTES needed with htmlspeciahlchars
+					"index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editItem&id=".$image->id,1);
+						}
                         ?>
                     </td>
                     <td><?php echo galleryUtils::getCatnameFromId($image->gallery_id)?></td>

@@ -131,8 +131,12 @@ function editItem() {
 function saveItem() {
 	global $mainframe;
 	$database = JFactory::getDBO();
+	
+	//Set redirect URL
+	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
+	
 	$id 	= rsgInstance::getInt( 'id'  , '');
-	$title 	= rsgInstance::getVar( 'title'  , '');
+	$title 	= $database->getEscaped(rsgInstance::getstring( 'title'  , ''));
 	$descr 	= $database->getEscaped(rsgInstance::getVar( 'descr'  , '', 'post', 'string', JREQUEST_ALLOWHTML));
 	$catid 	= rsgInstance::getInt( 'catid'  , '');
 
@@ -143,9 +147,10 @@ function saveItem() {
 			"WHERE id= '$id'");
 
 	if ($database->query()) {
-		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries"), JText::_('Details saved succesfully') );
+		$mainframe->redirect(JRoute::_( $redirect ), JText::_('Details saved succesfully') );
 	} else {
-		echo JText::_('Error: ').mysql_error();
+		//echo JText::_('Error: ').mysql_error();
+		$mainframe->redirect( $redirect , JText::_('Could not update image details') );
 	}
 }
 
@@ -272,11 +277,11 @@ function saveCat() {
 	if (!$rsgConfig->get('uu_createCat')) die ("User category creation is disabled by administrator.");
 	
 	//Set redirect URL
-	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries");
+	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
 	
 	$parent 		= rsgInstance::getVar( 'parent'  , 0);
 	$id 			= rsgInstance::getInt( 'catid'  , null);
-	$catname1 		= rsgInstance::getVar( 'catname1'  , null);
+	$catname1 		= $database->getEscaped(rsgInstance::getstring( 'catname1'  , null));
 	$description 	= $database->getEscaped(rsgInstance::getVar( 'description'  , null, 'post', 'string', JREQUEST_ALLOWHTML));
 	$published 		= rsgInstance::getInt( 'published'  , 0);
 	$ordering 		= rsgInstance::getInt( 'ordering'  , null);
@@ -290,10 +295,8 @@ function saveCat() {
 			"parent = '$parent' ".
 			"WHERE id = '$id' ");
 		if ($database->query()) {
-			echo "Query gelukt";
 			$mainframe->redirect( $redirect , JText::_('Gallery details updated!') );
 		} else {
-			echo "Query failed: ".mysql_error();
 			$mainframe->redirect( $redirect , JText::_('Could not update gallery details!') );
 		}
 	} else {
