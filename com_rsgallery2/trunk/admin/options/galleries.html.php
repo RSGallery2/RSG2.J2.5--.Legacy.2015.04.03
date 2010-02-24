@@ -200,7 +200,7 @@ class html_rsg2_galleries{
 		jimport("joomla.filter.output");
 		$my =& JFactory::getUser();
 		$editor =& JFactory::getEditor();
-		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES, 'description' );
+		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES );
 	
 		$task = rsgInstance::getVar( 'task'  , '');
 		

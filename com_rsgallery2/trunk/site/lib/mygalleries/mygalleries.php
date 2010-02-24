@@ -136,10 +136,14 @@ function saveItem() {
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
 	
 	$id 	= rsgInstance::getInt( 'id'  , '');
-	$title 	= $database->getEscaped(rsgInstance::getstring( 'title'  , ''));
-	$descr 	= $database->getEscaped(rsgInstance::getVar( 'descr'  , '', 'post', 'string', JREQUEST_ALLOWHTML));
+	$title 	= rsgInstance::getstring( 'title'  , '');
+	$descr 	= rsgInstance::getVar( 'descr'  , '', 'post', 'string', JREQUEST_ALLOWRAW);
 	$catid 	= rsgInstance::getInt( 'catid'  , '');
 
+	//escape strings for sql query
+	$title 	= $database->getEscaped($title);
+	$descr 	= $database->getEscaped($descr);
+	
 	$database->setQuery("UPDATE #__rsgallery2_files SET ".
 			"title = '$title', ".
 			"descr = '$descr', ".
@@ -250,7 +254,7 @@ function editCat($catid) {
 	global $rsgConfig;
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
-	
+
 	if ($catid) {
 		//Edit category
 		$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE id ='$catid'");
@@ -281,11 +285,15 @@ function saveCat() {
 	
 	$parent 		= rsgInstance::getVar( 'parent'  , 0);
 	$id 			= rsgInstance::getInt( 'catid'  , null);
-	$catname1 		= $database->getEscaped(rsgInstance::getstring( 'catname1'  , null));
-	$description 	= $database->getEscaped(rsgInstance::getVar( 'description'  , null, 'post', 'string', JREQUEST_ALLOWHTML));
+	$catname1 		= rsgInstance::getstring( 'catname1'  , null);
+	$description 	= rsgInstance::getVar( 'description'  , null, 'post', 'string', JREQUEST_ALLOWRAW);
 	$published 		= rsgInstance::getInt( 'published'  , 0);
 	$ordering 		= rsgInstance::getInt( 'ordering'  , null);
 	$maxcats        = $rsgConfig->get('uu_maxCat');	
+
+	//escape strings for sql query
+	$catname1 		= $database->getEscaped($catname1);
+	$description 	= $database->getEscaped($description);
 
 	if ($id) {
 		$database->setQuery("UPDATE #__rsgallery2_galleries SET ".

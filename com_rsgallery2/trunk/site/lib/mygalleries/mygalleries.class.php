@@ -737,8 +737,9 @@ class myGalleries {
         require_once( JPATH_ROOT . '/includes/HTML_toolbar.php' );
         foreach ($rows as $row) {
             $filename       = $row->name;
-            $title          = $row->title;
-            $description    = stripslashes($row->descr);//MK
+            $title          = htmlspecialchars($row->title, ENT_QUOTES);
+            //$description    = $row->descr;
+            $description    = htmlspecialchars($row->descr, ENT_QUOTES);
             $id             = $row->id;
             $limitstart     = $row->ordering - 1;
             $catid          = $row->gallery_id;
@@ -818,7 +819,7 @@ function editCat($rows = null) {
     global $rsgConfig;
 	$my = JFactory::getUser();
 	$editor =& JFactory::getEditor();
-	
+
     //Load frontend toolbar class
     require_once( JPATH_ROOT . '/includes/HTML_toolbar.php' );
     ?>
@@ -848,8 +849,8 @@ function editCat($rows = null) {
     <?php
     if ($rows) {
         foreach ($rows as $row){
-            $catname        = $row->name;
-            $description    = stripslashes($row->description);
+            $catname        = htmlspecialchars($row->name, ENT_QUOTES);
+            $description    = htmlspecialchars($row->description, ENT_QUOTES);
             $ordering       = $row->ordering;
             $uid            = $row->uid;
             $catid          = $row->id;
