@@ -218,14 +218,15 @@ function saveImage( $option, $redirect = true ) {
 	$my =& JFactory::getUser();
 
 	$row = new rsgImagesItem( $database );
-	if (!$row->bind( $_POST )) {
+	if (!$row->bind( JRequest::get('post') )) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
+	$row->descr = JRequest::getVar( 'descr', '', 'post', 'string', JREQUEST_ALLOWRAW );
 	
-	//The description may contain html, don't know where better to put/do this (mirjam)
-	$row->descr = htmlspecialchars_decode($row->descr);
-
+	//XHTML COMPLIANCE
+	$row->descr = str_replace( '<br>', '<br />', $row->descr );
+	
 	// save params
 	$params = rsgInstance::getVar( 'params', '' );
 	if (is_array( $params )) {

@@ -165,7 +165,7 @@ class html_rsg2_images {
 		global $rsgOption;
 		jimport("joomla.filter.output");
 
-		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES, 'descr' );
+		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES );
 
 		$editor =& JFactory::getEditor();
 		
@@ -207,7 +207,7 @@ class html_rsg2_images {
 						<tr>
 							<td width="20%" align="right"><?php echo JText::_('Name')?>:</td>
 							<td width="80%">
-								<input class="text_area" type="text" name="title" size="50" maxlength="250" value="<?php echo stripslashes($row->title);?>" />
+								<input class="text_area" type="text" name="title" size="50" maxlength="250" value="<?php echo $row->title;?>" />
 							</td>
 						</tr>
 						<tr>
@@ -223,7 +223,7 @@ class html_rsg2_images {
 							<td>
 								<?php
 								// parameters : areaname, content, hidden field, width, height, rows, cols
-								echo $editor->display('descr',  stripslashes($row->descr) , '100%', '200', '10', '20' ,false) ; ?>
+								echo $editor->display('descr',  $row->descr , '100%', '200', '10', '20' ,false) ; ?>
 							</td>
 						</tr>
 						<tr>

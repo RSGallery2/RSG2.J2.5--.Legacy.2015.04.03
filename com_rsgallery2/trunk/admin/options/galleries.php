@@ -208,11 +208,13 @@ function save( $option ) {
 	$database =& JFactory::getDBO();
 	
     $row = new rsgGalleriesItem( $database );
-    if (!$row->bind( $_POST )) {	//here we get id, parent, ... from the user's input
+    if (!$row->bind( JRequest::get('post') )) {	//here we get id, parent, ... from the user's input
         echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
         exit();
     }
-    // save params //Mirjam: is this used in J1.5???[22feb2010]
+	$row->description = JRequest::getVar( 'description', '', 'post', 'string', JREQUEST_ALLOWRAW );
+
+    // save params
     $params = rsgInstance::getVar( 'params', array() );
     if (is_array( $params )) {
         $txt = array();
@@ -222,9 +224,8 @@ function save( $option ) {
         $row->params = implode( "\n", $txt );
     }
 	
-	// code cleaner for xhtml transitional compliance //MK
-	//$row->description = str_replace( '<br>', '<br />', $row->description );//replaced with:
-	$row->description = htmlspecialchars_decode($row->description );
+	// code cleaner for xhtml transitional compliance 
+	$row->description = str_replace( '<br>', '<br />', $row->description );
 
     $row->date = date( 'Y-m-d H:i:s' );
     if (!$row->check()) {

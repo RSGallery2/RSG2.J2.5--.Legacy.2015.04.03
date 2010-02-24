@@ -31,9 +31,13 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2010-02-24 Mirjam - SVN 971
+# Fixed gallery and item names and descriptions in backend and frontend, e.g. multiplying \ on save
+! All names in database are not escaped, escaping is done just befor insert query
+	or in store() of object
+! Item and gallery descriptions are in JREQUEST_ALLOWRAW format
 
 2010-02-18 Mirjam - SVN 968
-# Special characters now possible in frontend My Galleries - removed htmlentities
 # Ability to edit and delete galleries fixed in frontend My Galleries - use gid not catid
 ! gallery list to choose from is unaware of which user is logged on, function galleryUtils::galleriesSelectList is used for front- and backend
 
