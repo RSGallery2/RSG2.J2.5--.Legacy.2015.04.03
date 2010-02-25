@@ -162,7 +162,7 @@ function saveUploadedItem() {
 	global $rsgConfig, $rsgAccess, $mainframe;
 	$database = JFactory::getDBO();
 	//Set redirect URL
-	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries");
+	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries",false);
 	
 	//Get category ID to check rights
 	$i_cat = rsgInstance::getVar( 'i_cat'  , '');
@@ -185,7 +185,7 @@ function saveUploadedItem() {
 		$i_file = rsgInstance::getVar( 'i_file', null, 'files', 'array'); 
 		$i_cat = rsgInstance::getInt( 'i_cat'  , ''); 
 		$title = rsgInstance::getVar( 'title'  , ''); 
-		$descr = rsgInstance::getVar( 'descr'  , ''); 
+		$descr = rsgInstance::getVar( 'descr', '', 'post', 'string', JREQUEST_ALLOWRAW );
 		$uploader = rsgInstance::getVar( 'uploader'  , ''); 
 		
 		//Get filetype
@@ -196,7 +196,7 @@ function saveUploadedItem() {
 		if ($check !== true ) {
 			$mainframe->redirect( $redirect , $check);
 		}
-		
+
 		switch ($file_ext) {
 			case 'zip':
         		if ($upload->checkSize($i_file) == 1) {
@@ -224,7 +224,7 @@ function saveUploadedItem() {
 			case 'image':
 				//Check if image is too big
 				if ($i_file['error'] == 1)
-					$mainframe->redirect( $redirect , '*Image size is too big for upload!*' );
+					$mainframe->redirect( $redirect , JText::_('Image size is too big for upload') );
 				
 				$file_name = $i_file['name'];
 				if ( move_uploaded_file($i_file['tmp_name'], JPATH_ROOT . DS ."media" . DS . $file_name) ) {
