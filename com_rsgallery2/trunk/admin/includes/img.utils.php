@@ -173,10 +173,10 @@ class imgUtils extends fileUtils{
         // determine ordering
         $database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id = '$imgCat'");
         $ordering = $database->loadResult() + 1;
-        
+
         //Store image details in database
-        $imgDesc = mysql_real_escape_string($imgDesc);
-        $imgTitle = mysql_real_escape_string($imgTitle);
+        $imgDesc = $database->getEscaped($imgDesc);
+        $imgTitle = $database->getEscaped($imgTitle);
         $database->setQuery("INSERT INTO #__rsgallery2_files".
                 " (title, name, descr, gallery_id, date, ordering, userid) VALUES".
                 " ('$imgTitle', '$newName', '$imgDesc', '$imgCat', now(), '$ordering', '$my->id')");
