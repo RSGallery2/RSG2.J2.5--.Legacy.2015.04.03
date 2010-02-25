@@ -4,7 +4,7 @@
 *
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2010 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -130,12 +130,17 @@ class HTML_RSGALLERY{
 <div id='rsg2-credits'>
     <h3>Core Team</h3>
     <dl>
-        <dt>Project Architect</dt>
-        	<dd><b>Jonah Braun</b> <a href='http://whalehosting.ca/' target='_blank'>Whale Hosting Inc.</a></dd>
+		<dt>2010</dt>
+        	<dd><b>Mihir Chhatre</b> <a href="http://www.thoughtfulviewfinder.com">Thoughtfulviewfinder Services </a></dd>
+        	<dd><b>Jonah Braun</b></dd>
+            <dd><b>Mirjam Kaizer</b></dd>
+        <dt>2008-2009</dt>
+		<dt>Project Architect</dt>
+        	<dd>Jonah Braun <a href='http://whalehosting.ca/' target='_blank'>Whale Hosting Inc.</a></dd>
         <dt>Developers</dt>
-        	<dd><b>John Caprez</b></dd>
+        	<dd>John Caprez</dd>
         <dt>Community Liaison</dt>
-        	<dd><b>Dani&#235;l Tulp</b> <a href='http://design.danieltulp.nl/' target='_blank'>DT^2</a></dd>
+        	<dd>Dani&#235;l Tulp <a href='http://design.danieltulp.nl/' target='_blank'>DT^2</a></dd>
     </dl>
     
     <h3>Logo</h3>
@@ -153,7 +158,8 @@ class HTML_RSGALLERY{
 			<dd><b>Tomislav Ribicic</b></dd>
         	<dd><b>Dani&#235;l Tulp</b> <a href='http://design.danieltulp.nl' target='_blank'></a></dd>
 			<dd><b>Bas</b><a href='http://www.fantasea.nl' target='_blank'>http://www.fantasea.nl</a></dd>
-        <dt>French</dt><dd><b>Fabien de Silvestre</b></dd>
+        	<dd><b>Mirjam Kaizer</b></dd>
+		<dt>French</dt><dd><b>Fabien de Silvestre</b></dd>
         <dt>German</dt> <dd><b>woelzen</b><a href='http://conseil.silvestre.fr' target='_blank'>http://conseil.silvestre.fr</a></dd>
 		<dt>Greek</dt><dd><b>Charis Argyropoulos</b><a href='http://www.symenox.gr' target='_blank'>http://www.symenox.gr</a></dd>
         <dt>Hungarian</dt> 
@@ -173,7 +179,7 @@ class HTML_RSGALLERY{
 			<dd><b>Mike Ho</b> <a href='http://www.dogneighbor.com' target='_blank'>http://www.dogneighbor.com</a></dd>
     </dl>
 
-    <h3>Legacy</h3>
+    <h3>Legacy (up to version 1.14)</h3>
     <dl>
         <dt>Creator</dt>
         	<dd>Ronald Smit</dd>
@@ -196,10 +202,9 @@ class HTML_RSGALLERY{
 			<dd>Jonathan DeLaigle</dd>
 			<dd>Margo Adams</dd>
 			<dd>Ronald Smit</dd>
-		<dt>RSGallery2 2010</dt>
-        	<dd>Mihir Chhatre <a href="http://www.thoughtfulviewfinder.com">Thoughtfulviewfinder Services </a></dd>
-        	<dd>Jonah Braun</dd>
-            <dd>Mirjam</dd>
+		<dt>RSGallery2 2008</dt>
+			<dd>Dan Shaffer 'chefgroovy'</dd>
+
     </dl>
 </div>
                         <?php
