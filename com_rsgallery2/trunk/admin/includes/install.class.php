@@ -53,10 +53,10 @@ class rsgInstall {
     /** Constructor */
     function rsgInstall(){
 		global $rsgConfig, $mainframe;
-        
+        $app =JFactory::getApplication();
+		
 		if (!defined("JURI_SITE")){
-			$app =JFactory::getApplication();
-			define('JURI_SITE', $app->isSite() ? JURI::base() : $mainframe->getSiteURL());
+			define('JURI_SITE', $app->isSite() ? JURI::base() : JURI::root());
 		}
 		
         $this->galleryDir   = '/images/rsgallery';

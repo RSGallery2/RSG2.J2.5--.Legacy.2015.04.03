@@ -16,8 +16,8 @@ if( isset( $_REQUEST['rsgOption'] ))
 else
     $rsgOption = '';
 
-require_once( $mainframe->getPath( 'toolbar_html' ) );
-require_once( $mainframe->getPath( 'toolbar_default' ) );
+require_once( JApplicationHelper::getPath('toolbar_html') );
+require_once( JApplicationHelper::getPath('toolbar_default') );
 
 switch( $rsgOption ){
 	case 'images':

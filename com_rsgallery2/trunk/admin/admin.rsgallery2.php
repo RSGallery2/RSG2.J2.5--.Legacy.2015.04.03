@@ -3,7 +3,7 @@
 * This file contains the non-presentation processing for the Admin section of RSGallery.
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2010 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -25,7 +25,7 @@ JHTML::_('behavior.tooltip');
 <link href="<?php echo JURI_SITE; ?>/administrator/components/com_rsgallery2/admin.rsgallery2.css" rel="stylesheet" type="text/css" />
 <?php
 
-require_once( $mainframe->getPath( 'admin_html' ) );
+require_once( JApplicationHelper::getPath('admin_html') );
 
 global $opt, $catid, $uploadStep, $numberOfUploads, $e_id ;
 $opt                = rsgInstance::getVar('opt', null );
