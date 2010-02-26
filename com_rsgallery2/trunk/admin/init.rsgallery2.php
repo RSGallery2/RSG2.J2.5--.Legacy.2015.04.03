@@ -19,7 +19,7 @@ define('JPATH_RSGALLERY2_ADMIN', JPATH_ROOT. DS .'administrator' . DS . 'compone
 define('JPATH_RSGALLERY2_LIBS',JPATH_ROOT. DS . 'components' . DS . 'com_rsgallery2' . DS . 'lib');
 
 $app =JFactory::getApplication();
-define('JURI_SITE', $app->isSite() ? JURI::base() : $mainframe->getSiteURL());
+define('JURI_SITE', $app->isSite() ? JURI::base() : JURI::root());
 
 // check if this file has been included yet.
 if( isset( $rsgConfig )) return;

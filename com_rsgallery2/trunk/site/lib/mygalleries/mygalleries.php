@@ -1,6 +1,6 @@
 <?php
 /**
-* This file contains xxxxxxxxxxxxxxxxxxxxxxxxxxx.
+* This file contains code for frontend My Galleries.
 * @version xxx
 * @package RSGallery2
 * @copyright (C) 2003 - 2010 RSGallery2
@@ -9,11 +9,14 @@
 */
 defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 global $mainframe,$rsgConfig;
+$document=& JFactory::getDocument();
 
-$css = "<link rel=\"stylesheet\" href=\"".JURI::root()."/components/com_rsgallery2/lib/mygalleries/mygalleries.css\" type=\"text/css\" />";
-$mainframe->addCustomHeadTag($css);
-$css = "<link rel=\"stylesheet\" href=\"".JURI::root()."/components/com_rsgallery2/templates/".$rsgConfig->template."/css/template.css\" type=\"text/css\" />";
-$mainframe->addCustomHeadTag($css);
+if($document->getType() == 'html') {
+	$css = "<link rel=\"stylesheet\" href=\"".JURI::root()."components/com_rsgallery2/lib/mygalleries/mygalleries.css\" type=\"text/css\" />";	
+	$document->addCustomTag($css);
+	$css = "<link rel=\"stylesheet\" href=\"".JURI::root()."components/com_rsgallery2/templates/".$rsgConfig->template."/css/template.css\" type=\"text/css\" />";
+	$document->addCustomTag($css);
+}
 
 //Load required class file
 require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'mygalleries' . DS . 'mygalleries.class.php' );

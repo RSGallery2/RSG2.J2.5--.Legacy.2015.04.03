@@ -21,6 +21,7 @@ class galleryUtils {
     /**
      * shows proper Joomla path
      * contributed by Jeckel
+	 * Deprecated? It seems that galleryUtils::showRSPath is not used in v2.1.0 anymore.
      */
     function showRSPath($catid, $imgid = 0){
         global $mainframe, $database;

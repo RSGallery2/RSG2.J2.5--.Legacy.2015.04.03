@@ -31,6 +31,12 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2010-02-26 Mirjam - SVN 975
+^ getSiteURL() and getPath() are deprecated in J1.5 (and removed from J1.6): changed to J1.5 native methods
+
+2010-02-   Mirjam - SVN 974
+# Fixed gallery and item names and descriptions in backend and frontend - last part
+
 2010-02-24 Mirjam - SVN 971
 # Fixed gallery and item names and descriptions in backend and frontend, e.g. multiplying \ on save
 ! All names in database are not escaped, escaping is done just befor insert query
