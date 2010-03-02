@@ -3,7 +3,7 @@
 * This file handles image manipulation functions RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2005 - 2006 RSGallery2
+* @copyright (C) 2005 - 2010 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
@@ -94,7 +94,7 @@ class videoUtils extends fileUtils{
 			// New video will be located in display folder
 			$newVideo = JPATH_DISPLAY . DS . $newName . "." . $rsgConfig->get("videoConverter_extension");
 			$result = Ffmpeg::convertVideo( $original_video, $newVideo );
-			if( PEAR::isError( $result )){
+			if( !$result ){
 				$result = new imageUploadError( $imgName, "error converting video: <pre>" . print_r( $result->getMessage(), true) ."</pre>" );
 				break;
 			}
@@ -102,7 +102,7 @@ class videoUtils extends fileUtils{
 			// get first frame of the video to genetrate a thumbnail from
 			$videoPreviewImage =  JPATH_ORIGINAL . DS . $newName . ".png";
 			$result = Ffmpeg::capturePreviewImage( $original_video, $videoPreviewImage );
-			if( PEAR::isError( $result )){
+			if( !$result ){
 				$result = new imageUploadError( $imgName, "error capturing preview image: <pre>" . print_r( $result->getMessage(), true) ."</pre>" );
 				break;
 			}
@@ -120,8 +120,8 @@ class videoUtils extends fileUtils{
 			$result = imgUtils::makeThumbImage( $videoPreviewImage, $newName );
 			// remove the temporary preview image
 			JFile::delete($videoPreviewImage);
-			if( PEAR::isError( $result )){
-				$result = new imageUploadError( $imgName, "error creating thumb image: " . $result->getMessage() );
+			if( !( $result )){
+				$result = new imageUploadError( $imgName, JText::_('ERROR CREATING THUMB IMAGE'). ": ".$videoPreviewImage);
 				break;
 			}
 			
@@ -162,22 +162,24 @@ class genericVideoLib{
      * video conversion to flv function
      * @param string full path of source video
      * @param string full path of target video (FLV)
-     * @return true if successfull, PEAR_Error if error
+     * @return true if successfull, notice and false if error
      * @todo not final yet
      */
     function convertVideo($source, $target){	
-        return new PEAR_Error( 'this is the abstract image library class, no resize available' );
+		JError::raiseNotice('ERROR_CODE', JText::_('VIDEO ABSTRACT IMAGE LIB NO RESIZE'));
+		return false;
     }
 
 	/**
      * preview image capture function
      * @param string full path of source video
      * @param string full path of target image (PNG)
-     * @return true if successfull, PEAR_Error if error
+     * @return true if successfull, notice and false if error
      * @todo not final yet
      */
     function capturePreviewImage($source, $target){
-		return new PEAR_Error( 'this is the abstract image library class, no resize available' );
+		JError::raiseNotice('ERROR_CODE', JText::_('VIDEO ABSTRACT IMAGE LIB NO RESIZE'));
+		return false;
     }    
     /**
       * detects if image library is available
@@ -196,7 +198,7 @@ class Ffmpeg extends genericVideoLib{
      * video conversion to flv function
      * @param string full path of source video
      * @param string full path of target video (FLV)
-     * @return true if successfull, PEAR_Error if error
+     * @return true if successfull, notice and false if error
      * @todo not final yet
      */
     function convertVideo($source, $target){
@@ -221,7 +223,8 @@ class Ffmpeg extends genericVideoLib{
 			return true;
 		}
 		else{
-			return new PEAR_Error(implode("\n",$output));
+			JError::raiseNotice('ERROR_CODE', JText::_('VIDEO CONVERSION TO FVL ERROR'));
+			return false;
 		}
     }
     
@@ -229,7 +232,7 @@ class Ffmpeg extends genericVideoLib{
      * preview image capture function
      * @param string full path of source video
      * @param string full path of target image (PNG)
-     * @return true if successfull, PEAR_Error if error
+     * @return true if successfull, notice and false if error
      * @todo not final yet
      */
     function capturePreviewImage($source, $target){
@@ -254,7 +257,8 @@ class Ffmpeg extends genericVideoLib{
 			return true;
 		}
 		else{
-			return new PEAR_Error(implode("\n",$output),$return);
+			JError::raiseNotice('ERROR_CODE', JText::_('VIDEO CAPTURE PREVIEW IMAGE ERROR'));
+			return false;
 		}
 	}
 

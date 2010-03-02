@@ -262,6 +262,7 @@ function removeImages( $cid, $option ) {
 	global  $rsgOption, $rsgConfig, $mainframe;
 	$database =& JFactory::getDBO();
 	
+	$return="index.php?option=$option&rsgOption=images";
 	if (!is_array( $cid ) || count( $cid ) < 1) {
 		echo "<script> alert('Select an item to delete'); window.history.go(-1);</script>\n";
 		exit;
@@ -275,12 +276,27 @@ function removeImages( $cid, $option ) {
         	$display 	= JPATH_ROOT.$rsgConfig->get('imgPath_display') . '/' . imgUtils::getImgNameDisplay( $name );
         	$original 	= JPATH_ROOT.$rsgConfig->get('imgPath_original') . '/' . $name;
         
-        	if( file_exists( $thumb ))
-            	if( !JFile::delete( $thumb )) return new PEAR_Error( "error deleting thumb image: " . $thumb );
-			if( file_exists( $display ))
-				if( !JFile::delete( $display )) return new PEAR_Error( "error deleting display image: " . $display );
-			if( file_exists( $original ))
-				if( !JFile::delete( $original )) return new PEAR_Error( "error deleting original image: " . $original );
+        	if( file_exists( $thumb )){
+            	if( !JFile::delete( $thumb )){
+				JError::raiseNotice('ERROR_CODE', JText::_('ERROR DELETING THUMB IMAGE') ." ". $thumb);
+				$mainframe->redirect( $return );
+				return;
+				}
+			}
+			if( file_exists( $display )){
+				if( !JFile::delete( $display )){
+				JError::raiseNotice('ERROR_CODE', JText::_('ERROR DELETING DISPLAY IMAGE') ." ". $display);
+				$mainframe->redirect( $return );
+				return;
+				}
+			}
+			if( file_exists( $original )){
+				if( !JFile::delete( $original )){
+				JError::raiseNotice('ERROR_CODE', JText::_('ERROR DELETING ORIGINAL IMAGE') ." ". $original);
+				$mainframe->redirect( $return );
+				return;
+				}
+			}
 		}
 		
 		//Delete from database
@@ -294,7 +310,7 @@ function removeImages( $cid, $option ) {
 		}
 	}
 
-	$mainframe->redirect( "index2.php?option=$option&rsgOption=$rsgOption", JText::_('Image(s) deleted succesfully!') );
+	$mainframe->redirect( $return , JText::_('Image(s) deleted succesfully!') );
 }
 
 
