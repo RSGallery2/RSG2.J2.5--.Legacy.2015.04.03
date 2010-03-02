@@ -246,10 +246,10 @@ class html_rsg2_images {
 								<div align="center">
 								<?php
 								$item = rsgGalleryManager::getItem( $row->id );
-								
+
 								$original = $item->original();
 								$thumb 		= $item->thumb();
-								$display	= $item->display();
+
 								switch($item->type){
 									case "audio":{
 									?>
@@ -275,11 +275,11 @@ class html_rsg2_images {
 										break;
 									}
 									case "image":{
-
+										$display	= $item->display();
 									?>
-									<img src="<?php echo $display->url() ?>" alt="<?php echo htmlspecialchars( stripslashes( $item->descr ), ENT_QUOTES );?>" />
+										<img src="<?php echo $display->url() ?>" alt="<?php echo htmlspecialchars( stripslashes( $item->descr ), ENT_QUOTES );?>" />
 									<?php
-									break;
+										break;
 									}
 									default:
 									{

@@ -31,6 +31,11 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2010-03-02 Mirjam - SVN 976
+^ Changed use of PEAR_Error to JError::raiseNotice and return false instead of new PEAR_Error (PEAR_Error is PHP4 not PHP5 and deprecated in Joomla 1.6)
+# Backend display item moved inside 'case item->type' for image: was error for type mp3
++ Added JText language strings for error handling
+
 2010-02-26 Mirjam - SVN 975
 ^ getSiteURL() and getPath() are deprecated in J1.5 (and removed from J1.6): changed to J1.5 native methods
 

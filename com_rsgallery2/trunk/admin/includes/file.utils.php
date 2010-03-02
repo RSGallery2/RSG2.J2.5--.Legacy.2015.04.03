@@ -3,14 +3,14 @@
 * This file handles image manipulation functions RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2005 - 2006 RSGallery2
+* @copyright (C) 2005 - 2010 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
 
 defined( '_JEXEC' ) or die( 'Access Denied' );
 require_once(JPATH_RSGALLERY2_ADMIN.'/includes/mimetype.php');
-require_once(JPATH_ROOT.'/includes/PEAR/PEAR.php');
+//require_once(JPATH_ROOT.'/includes/PEAR/PEAR.php');				//Mirjam: no longer used since SVN 975
 
 //Load Joomla filesystem class
 jimport('joomla.base.tree');

@@ -3,7 +3,7 @@
 * This file handles image manipulation functions RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2005 - 2006 RSGallery2
+* @copyright (C) 2005 - 2010 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
@@ -58,7 +58,7 @@ class audioUtils extends fileUtils{
                 " ('$title', '$newName', '$desc', '$cat', now(), '$ordering', '$my->id')");
         
         if (!$database->query()){
-           audioUtils::deleteAudio( $parts['basename'] );
+			audioUtils::deleteAudio( $parts['basename'] );
             return new imageUploadError( $parts['basename'], $database->stderr(true) );
         }
 
@@ -81,24 +81,28 @@ class audioUtils extends fileUtils{
     /**
     * deletes all elements of image on disk and in database
     * @param string name of image
-    * @return true if success or PEAR_Error if error
+    * @return true if success or notice and false if error
     */
 	function deleteAudio($name){
         global $database, $rsgConfig;
         
         $original   = JPATH_ORIGINAL . DS . $name;
         
-        if( file_exists( $original ))
-            if( !unlink( $original ))
-                return new PEAR_Error( "error deleting original image: " . $original );
-        
+        if( file_exists( $original )){
+            if( !unlink( $original )){
+				JError::raiseNotice('ERROR_CODE', JText::_('ERROR DELETING ORIGINAL IMAGE').": ".$original);
+				return false;
+			}
+		}
         $database->setQuery("SELECT gallery_id FROM #__rsgallery2_files WHERE name = '$name'");
         $gallery_id = $database->loadResult();
                 
         $database->setQuery("DELETE FROM #__rsgallery2_files WHERE name = '$name'");
-        if( !$database->query())
-            return new PEAR_Error( "error deleting database entry for image: " . $name);
-
+        if( !$database->query()){
+            JError::raiseNotice('ERROR_CODE', JText::_('ERROR DELETING DATABASE ENTRY FOR IMAGE').": ".$name);
+			return false;
+		}
+		
         galleryUtils::reorderRSGallery('#__rsgallery2_files', "gallery_id = '$gallery_id'");
         
         return true;

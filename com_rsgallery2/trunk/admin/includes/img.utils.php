@@ -44,7 +44,7 @@ class imgUtils extends fileUtils{
     /**
       * @param string full path of source image
       * @param string name destination file (path is retrieved from rsgConfig)
-      * @return true if successfull, PEAR_Error if error
+      * @return true if successfull, false if error
       */
     function makeDisplayImage($source, $name='', $width){
         global $rsgConfig;
@@ -60,7 +60,7 @@ class imgUtils extends fileUtils{
     /**
       * @param string full path of source image
       * @param string name destination file (path is retrieved from rsgConfig)
-      * @return true if successfull, PEAR_Error if error
+      * @return true if successfull, false if error
       */
     function makeThumbImage($source, $name=''){
         global $rsgConfig;
@@ -83,7 +83,7 @@ class imgUtils extends fileUtils{
       * @param string full path of source image
       * @param string full path of target image
       * @param int width of target
-      * @return true if successfull, PEAR_Error if error
+      * @return true if successfull, false if error
       * @todo only writes in JPEG, this should be given as a user option
       */
     function resizeImage($source, $target, $targetWidth){
@@ -100,7 +100,8 @@ class imgUtils extends fileUtils{
                 return Netpbm::resizeImage($source, $target, $targetWidth);
                 break;
             default:
-                return new PEAR_Error( "invalid graphics library: " . $rsgConfig->get( 'graphicsLib' ));
+                JError::raiseNotice('ERROR_CODE', JText::_('INVALID GRAPHICS LIBRARY') . $rsgConfig->get( 'graphicsLib' ));
+				return false;
         }
     }
 
@@ -120,7 +121,7 @@ class imgUtils extends fileUtils{
 		
         //First move uploaded file to original directory
         $destination = fileUtils::move_uploadedFile_to_orignalDir( $imgTmpName, $imgName );
-        
+
         if( is_a( $destination, 'imageUploadError' ) )
             return $destination;
 
@@ -138,7 +139,7 @@ class imgUtils extends fileUtils{
         $width = getimagesize( $destination );
         if( !$width ){
             imgUtils::deleteImage( $newName );
-            return new imageUploadError( $destination, "not an image OR can't read $destination" );
+            return new imageUploadError( $destination, JText::_('NOT AN IMAGE OR CANNOT READ')." ". $destination );
         } else {
             //the actual image width
             $width = $width[0];
@@ -149,24 +150,24 @@ class imgUtils extends fileUtils{
         // if original is wider than display, create a display image
         if( $width > $rsgConfig->get('image_width') ) {
             $result = imgUtils::makeDisplayImage( $original_image, $newName, $rsgConfig->get('image_width') );
-            if( PEAR::isError( $result )){
+            if( !$result ){
                 imgUtils::deleteImage( $newName );
-                return new imageUploadError( $imgName, "error creating display image: <pre>" . print_r( $result->getMessage(), true) ."</pre>" );
+				return new imageUploadError( $imgName, JText::_('ERROR CREATING DISPLAY IMAGE'). ": ".$newName);
             }
         } else {
             $result = imgUtils::makeDisplayImage( $original_image, $newName, $width );
-            if( PEAR::isError( $result )){
+            if( !$result ){
                 imgUtils::deleteImage( $newName );
-                return new imageUploadError( $imgName, "error creating display image: <pre>" . print_r( $result->getMessage(), true)  ."</pre>");
+                return new imageUploadError( $imgName, JText::_('ERROR CREATING DISPLAY IMAGE'). ": ".$newName);
                 }
         }
            
         // if original is wider than thumb, create a thumb image
         if( $width > $rsgConfig->get('thumb_width') ){
             $result = imgUtils::makeThumbImage( $original_image, $newName );
-            if( PEAR::isError( $result )){
+            if( !$result){
                 imgUtils::deleteImage( $newName );
-                return new imageUploadError( $imgName, "error creating thumb image: " . $result->getMessage() );
+                return new imageUploadError( $imgName, JText::_('ERROR CREATING THUMB IMAGE'). ": ".$newName);
             }
         }
 
@@ -197,7 +198,7 @@ class imgUtils extends fileUtils{
     /**
       * deletes all elements of image on disk and in database
       * @param string name of image
-      * @return true if success or PEAR_Error if error
+      * @return true if success or notice and false if error
       */
     function deleteImage($name){
         global  $rsgConfig;
@@ -207,24 +208,34 @@ class imgUtils extends fileUtils{
         $thumb      = JPATH_THUMB . DS . imgUtils::getImgNameThumb( $name );
         $display    = JPATH_DISPLAY . DS . imgUtils::getImgNameDisplay( $name );
         $original   = JPATH_ORIGINAL . DS . $name;
-        
-        if( file_exists( $thumb ))
-            if( !JFile::delete( $thumb ))
-                return new PEAR_Error( "error deleting thumb image: " . $thumb );
-        if( file_exists( $display ))
-			if( !JFile::delete( $display ))
-                return new PEAR_Error( "error deleting display image: " . $display );
-        if( file_exists( $original ))
-			if( !JFile::delete( $original ))
-                return new PEAR_Error( "error deleting original image: " . $original );
-        
+
+        if( file_exists( $thumb )){
+            if( !JFile::delete( $thumb )){
+				JError::raiseNotice('ERROR_CODE', JText::_('ERROR DELETING THUMB IMAGE') .": ". $thumb);
+				return false;
+			}
+		}
+        if( file_exists( $display )){
+			if( !JFile::delete( $display )){
+                JError::raiseNotice('ERROR_CODE', JText::_('ERROR DELETING DISPLAY IMAGE') .": ". $display);
+				return false;
+			}
+		}
+        if( file_exists( $original )){
+			if( !JFile::delete( $original )){
+                JError::raiseNotice('ERROR_CODE', JText::_('ERROR DELETING ORIGINAL IMAGE') .": ". $original);
+				return false;
+			}
+		}
+		
         $database->setQuery("SELECT gallery_id FROM #__rsgallery2_files WHERE name = '$name'");
         $gallery_id = $database->loadResult();
                 
         $database->setQuery("DELETE FROM #__rsgallery2_files WHERE name = '$name'");
-        if( !$database->query())
-            return new PEAR_Error( "error deleting database entry for image: " . $name);
-
+        if( !$database->query()){
+            JError::raiseNotice('ERROR_CODE', JText::_('ERROR DELETING DATABASE ENTRY FOR IMAGE') .": ". $name);
+			return false;
+		}
         galleryUtils::reorderRSGallery('#__rsgallery2_files', "gallery_id = '$gallery_id'");
         
         return true;
@@ -384,10 +395,11 @@ class genericImageLib{
       * @param string full path of source image
       * @param string full path of target image
       * @param int width of target
-      * @return true if successfull, PEAR_Error if error
+      * @return true if successfull, false if error
       */ 
     function resizeImage($source, $target, $targetWidth){
-        return new PEAR_Error( 'this is the abstract image library class, no resize available' );
+		JError::raiseNotice('ERROR_CODE', JText::_('ABSTRACT IMAGE LIBRARY CLASS NO RESIZE AVAILABLE'));
+		return false;
     }
 
     /**
@@ -449,7 +461,7 @@ class ImageMagick extends genericImageLib{
      * @param string full path of source image
      * @param string full path of target image
      * @param int width of target
-     * @return true if successfull, PEAR_Error if error
+     * @return true if successfull, false if error
      * @todo only writes in JPEG, this should be given as a user option
      */
     function resizeImage($source, $target, $targetWidth){
@@ -461,8 +473,10 @@ class ImageMagick extends genericImageLib{
         
         $cmd = $impath."convert -resize $targetWidth $source $target";
         exec($cmd, $results, $return);
-        if( $return > 0 )
-        	return new PEAR_Error( $results );
+        if( $return > 0 ){
+			JError::raiseNotice('ERROR_CODE', JText::_('IMAGE COULD NOT BE MADE WITH IMAGEMAGICK').": ".$target);
+			return false;
+			}
         else 
         	return true;
     }
@@ -499,7 +513,7 @@ class GD2 extends genericImageLib{
      * @param string full path of source image
      * @param string full path of target image
      * @param int width of target
-     * @return true if successfull, PEAR_Error if error
+     * @return true if successfull, false if error
      * @todo only writes in JPEG, this should be given as a user option
      * @todo use constants found in http://www.php.net/gd rather than numbers
      */
@@ -578,7 +592,7 @@ class GD2 extends genericImageLib{
       * @param string Full path of source image
       * @param string Full path of target image
       * @param int width of target
-      * @return true if successfull, PEAR_Error if error
+      * @return true if successfull, false if error
       */
     function createSquareThumb( $source, $target, $width ) {
         global $rsgConfig;
@@ -630,19 +644,23 @@ class GD2 extends genericImageLib{
     
         //Resize the image
         $thumb = imagecreatetruecolor($width , $height); 
-        if ( !imagecopyresampled($thumb, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig))
-            return new PEAR_Error( "error resizing image: $source" );
-        
+        if ( !imagecopyresampled($thumb, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig)){
+			JError::raiseNotice('ERROR_CODE', JText::_('ERROR RESIZING IMAGE').": ".$source);
+            return false;
+        }
         //Create the cropped thumbnail
         $w1 =($width/2) - ($t_width/2);
         $h1 = ($height/2) - ($t_height/2);
         $thumb2 = imagecreatetruecolor($t_width , $t_height);
-        if ( !imagecopyresampled($thumb2, $thumb, 0,0, $w1, $h1, $t_width , $t_height ,$t_width, $t_height) )
-            return new PEAR_Error( "error cropping image: $source" );
+        if ( !imagecopyresampled($thumb2, $thumb, 0,0, $w1, $h1, $t_width , $t_height ,$t_width, $t_height) ){
+            JError::raiseNotice('ERROR_CODE', JText::_('ERROR CROPPING IMAGE').": ".$source);
+            return false;
+		}
         
         // write the image
         if( !imagejpeg( $thumb2, $target, $rsgConfig->get('jpegQuality'))) {
-            return new PEAR_Error( "error writing target image: $target" );
+            JError::raiseNotice('ERROR_CODE', JText::_('ERROR WRITING TARGET IMAGE').": ".$target);
+            return false;
         } else {
         	//Free up memory
         	imagedestroy($thumb);
