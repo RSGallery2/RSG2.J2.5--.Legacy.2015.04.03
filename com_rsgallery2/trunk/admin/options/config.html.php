@@ -3,7 +3,7 @@
 * Galleries option for RSGallery2 - HTML display code
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2010 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -602,7 +602,7 @@ class html_rsg2_config{
 				</td>
 				<td colspan="2" valign="top">
 					<fieldset>
-					<legend><?php echo JText::_('Image Watermark.  Buggy, do not use on productions sites.')?></legend>
+					<legend><?php echo JText::_('Image Watermark')?></legend>
 					<table width="100%">
 					<tr>
 						<td colspan="2">
