@@ -20,7 +20,7 @@ $GLOBALS['_RSGINSTANCE'] = null;
 * @package RSGallery2
 * @author Jonah Braun <Jonah@WhaleHosting.ca>
 */
-class rsgInstance extends JRequest{
+class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	
 	/**
 	 * Creates a new RSG2 instance and executes it.
