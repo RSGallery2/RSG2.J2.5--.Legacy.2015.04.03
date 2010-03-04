@@ -30,6 +30,8 @@ Legend:
 - -> Removed
 ! -> Note
 
+---------------- 2.1.1 ------- svn 978 -- 2010-03-04 -------------
+
 ---------------- Recent ----------------
 2010-03-02 Mirjam - SVN 976
 ^ Changed use of PEAR_Error to JError::raiseNotice and return false instead of new PEAR_Error (PEAR_Error is PHP4 not PHP5 and deprecated in Joomla 1.6)
@@ -41,6 +43,7 @@ Legend:
 
 2010-02-   Mirjam - SVN 974
 # Fixed gallery and item names and descriptions in backend and frontend - last part
+! Now special characters can by used in My Galleries 'new' and 'save'
 
 2010-02-24 Mirjam - SVN 971
 # Fixed gallery and item names and descriptions in backend and frontend, e.g. multiplying \ on save
