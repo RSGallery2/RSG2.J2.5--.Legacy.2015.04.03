@@ -19,19 +19,19 @@ class rsgalleryVersion {
     /** @var string Product */
     var $PRODUCT    = 'RSGallery2';
     /** @var int Main Release Level */
-    var $RELEASE    = '2.1';
+    var $RELEASE    = '2.1';				//Main Release Level: x.y for x.y.z
     /** @var string Development Status */
-    var $DEV_STATUS = 'Beta';
+    var $DEV_STATUS = '';					//as of 2.1.1 'beta' removed
     /** @var int Sub Release Level */
-    var $DEV_LEVEL  = '0';
+    var $DEV_LEVEL  = '1';					//Dev level z for x.y.z
     /** @var int build Number */
-    var $BUILD      = 'SVN $GlobalRev$';
+    var $BUILD      = 'SVN 978';
     /** @var string Codename */
     var $CODENAME   = '';
     /** @var string Date */
-    var $RELDATE    = '8 June 2008';
+    var $RELDATE    = '4 March 2010';
     /** @var string Time */
-    var $RELTIME    = '22:32';
+    var $RELTIME    = '14:00';
     /** @var string Timezone */
     var $RELTZ      = 'UTC';
     /** @var string Copyright Text */

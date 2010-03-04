@@ -3,7 +3,7 @@
  * Class handles all configuration parameters for RSGallery2
  * @version $Id$
  * @package RSGallery2
- * @copyright (C) 2003 - 2006 RSGallery2
+ * @copyright (C) 2003 - 2010 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
@@ -123,7 +123,7 @@ class rsgConfig {
         // get version
         // global $rsgVersion;
         // $this->version = $rsgVersion->getVersionOnly();
-        $this->version = '2.1.0';
+        $this->version = '2.1.1';
 
         if( $loadFromDB )
             $this->_loadConfig();

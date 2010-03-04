@@ -14,7 +14,7 @@ class menu_rsg2_maintenance{
 	
 	function regenerateThumbs() {
 
-		JToolBarHelper::custom('executeRegenerateImages','next_f2.png','next_f2.png',JText::_('MAINT_REGEN_BUTTON'), false);
+		JToolBarHelper::custom('executeRegenerateImages','forward.png','forward.png',JText::_('MAINT_REGEN_BUTTON'), false);
         JToolBarHelper::spacer();
         JToolBarHelper::help( 'screen.rsgallery2' );
 		
