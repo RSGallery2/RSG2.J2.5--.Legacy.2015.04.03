@@ -54,7 +54,7 @@ class imgUtils extends fileUtils{
             $name = $parts['basename'];
         }
         $target = JPATH_DISPLAY . DS . imgUtils::getImgNameDisplay( $name );
-        
+       
         return imgUtils::resizeImage( $source, $target, $width );
     }   
     /**
@@ -141,29 +141,35 @@ class imgUtils extends fileUtils{
             imgUtils::deleteImage( $newName );
             return new imageUploadError( $destination, JText::_('NOT AN IMAGE OR CANNOT READ')." ". $destination );
         } else {
-            //the actual image width
-            $width = $width[0];
+            //the actual image width and height and its max
+            $height = $width[1];
+			$width = $width[0];
+			if ($height > $width) {
+				$maxSideImage = $height;
+			} else {
+				$maxSideImage = $width;
+			}
         }
         //Destination becomes original image, just for readability
         $original_image = $destination;
         
-        // if original is wider than display, create a display image
-        if( $width > $rsgConfig->get('image_width') ) {
+        // if original is wider or higher than display size, create a display image
+        if( $maxSideImage > $rsgConfig->get('image_width') ) {
             $result = imgUtils::makeDisplayImage( $original_image, $newName, $rsgConfig->get('image_width') );
             if( !$result ){
                 imgUtils::deleteImage( $newName );
 				return new imageUploadError( $imgName, JText::_('ERROR CREATING DISPLAY IMAGE'). ": ".$newName);
             }
         } else {
-            $result = imgUtils::makeDisplayImage( $original_image, $newName, $width );
+            $result = imgUtils::makeDisplayImage( $original_image, $newName, $maxSideImage );
             if( !$result ){
                 imgUtils::deleteImage( $newName );
                 return new imageUploadError( $imgName, JText::_('ERROR CREATING DISPLAY IMAGE'). ": ".$newName);
                 }
         }
            
-        // if original is wider than thumb, create a thumb image
-        if( $width > $rsgConfig->get('thumb_width') ){
+        // if original is wider or higher than thumb, create a thumb image
+        if( $maxSideImage > $rsgConfig->get('thumb_width') ){
             $result = imgUtils::makeThumbImage( $original_image, $newName );
             if( !$result){
                 imgUtils::deleteImage( $newName );
@@ -525,13 +531,13 @@ class GD2 extends genericImageLib{
         $source = rawurldecode( $source );//fix: getimagesize does not like %20
 		$target = rawurldecode( $target );//fix: getimagesize does not like %20
         $imgInfo = getimagesize( $source );
-		
+
         if( !$imgInfo ){
 			JError::raiseNotice('ERROR_CODE', $source ." ". JText::_('IS NOT A VALID IMAGE OR IMAGENAME'));
 			return false;
         }
         list( $sourceWidth, $sourceHeight, $type, $attr ) = $imgInfo;
-        
+
         // convert $type into a usable string
         $type = $imageTypes[$type];
         
@@ -540,20 +546,16 @@ class GD2 extends genericImageLib{
             JError::raiseNotice('ERROR_CODE', JText::_('GD2 does not support reading image type').' '.$type);
 			return false;
         }
-        // determine target height
-        //$targetHeight = ( $targetWidth / $sourceWidth ) * $sourceHeight;
-		// determine target height, contributed by lorant, let's try this
-		if( $sourceWidth > $sourceHeight ) {
+		// Determine target sizes: the $targetWidth that is put in this function is actually
+		// the size of the largest side of the image, with that calculate the other side:
+		// - landscape: function input $targetWidth is the actual $targetWidht
+		// - portrait: function input $targetWidth is the height to achieve, so switch!
+		if( $sourceWidth > $sourceHeight ) {	//landscape
 			$targetHeight = ( $targetWidth / $sourceWidth ) * $sourceHeight;
-		} else {
-			//contributed by p9939068, corrected by mirjam
-			if ($sourceHeight < $rsgConfig->get('thumb_width')) {
-				$targetHeight = $sourceHeight;
-			}
-			else
-				$targetHeight = $rsgConfig->get('thumb_width');
+		} else {								//portrait or square
+			$targetHeight = $targetWidth;
 			$targetWidth = ( $targetHeight / $sourceHeight ) * $sourceWidth;
-		} 
+		}
 
         // load source image file into a resource
         $loadImg = "imagecreatefrom" . $type;
