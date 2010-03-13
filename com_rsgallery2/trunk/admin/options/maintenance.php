@@ -181,7 +181,7 @@ function consolidateDB() {
 }
 
 function createImages() {
-	global $mainframe;
+	global $mainframe, $rsgConfig;
 	//Check if id or name is set
 	if ( isset( $_REQUEST['id'] ) ) {
 		$id = rsgInstance::getInt( 'id', null);
@@ -200,7 +200,7 @@ function createImages() {
 	
 	//If only thumb exists, no generation possible so redirect.
 	if (!file_exists($original) AND !file_exists($display) AND file_exists($thumb) ) {
-		$mainframe->redirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB", JText::_('_RSGALLERY_MAINT_REGEN_ONLY_THUMB'));
+		$mainframe->redirect("index2.php?option=com_rsgallery2&rsgOption=maintenance&task=consolidateDB", JText::_('RSGALLERY_MAINT_REGEN_ONLY_THUMB'));
 		return;
 	}
 	//Go make images
@@ -220,7 +220,7 @@ function createImages() {
 	        imgUtils::makeThumbImage($display);
 	    }
 	}
-	$mainframe->redirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB",$name.' '.JText::_('RSGALLERY_MAINT_REGEN_SUCCESS'));
+	$mainframe->redirect("index2.php?option=com_rsgallery2&rsgOption=maintenance&task=consolidateDB",$name.' '.JText::_('RSGALLERY_MAINT_REGEN_SUCCESS'));
 }
 
 function deleteImages() {
