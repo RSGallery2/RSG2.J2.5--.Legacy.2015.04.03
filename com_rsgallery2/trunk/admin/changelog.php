@@ -30,9 +30,18 @@ Legend:
 - -> Removed
 ! -> Note
 
+---------------- Recent ----------------
+
+2010-03-17 Mirjam
+# Added if !defined('JPATH_RSGALLERY2_ADMIN'){} to avoid notice because when SEF is used this constant is defined in two places
+
+2010-03-13 Mirjam - SVN 981
+# Fix on resize of portrait images with DB: GD::resize portrait images now based on input $targetWidth, 
+	not on display size (before svn 965) or thumb size (since 965). 
+# Small fixes in function createImages() in maintenance.php.
+
 ---------------- 2.1.1 ------- svn 978 -- 2010-03-04 -------------
 
----------------- Recent ----------------
 2010-03-02 Mirjam - SVN 976
 ^ Changed use of PEAR_Error to JError::raiseNotice and return false instead of new PEAR_Error (PEAR_Error is PHP4 not PHP5 and deprecated in Joomla 1.6)
 # Backend display item moved inside 'case item->type' for image: was error for type mp3

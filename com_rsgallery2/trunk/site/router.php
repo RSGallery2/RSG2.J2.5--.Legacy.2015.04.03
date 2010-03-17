@@ -2,7 +2,7 @@
 /**
  * @version		$Id: router.php 7380 2007-05-06 21:26:03Z eddieajau $
  * @package		Joomla
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -299,9 +299,11 @@ function Rsgallery2GetItemName($itemId){
 function Rsgallery2InitConfig()
 {
 	global $config;
-		
+	
 	if($config == null){
-		define('JPATH_RSGALLERY2_ADMIN', JPATH_ROOT. DS .'administrator' . DS . 'components' . DS . 'com_rsgallery2');
+		if (!defined('JPATH_RSGALLERY2_ADMIN')){
+			define('JPATH_RSGALLERY2_ADMIN', JPATH_ROOT. DS .'administrator' . DS . 'components' . DS . 'com_rsgallery2');
+		}
 		require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'config.class.php');
 		$config = new rsgConfig();
 	}
