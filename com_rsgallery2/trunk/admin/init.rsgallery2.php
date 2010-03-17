@@ -3,7 +3,7 @@
 * This file handles the initialization required for core functionality.
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2010 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -15,7 +15,9 @@ global $rsgConfig, $rsgAccess, $rsgVersion, $rsgOption, $mainframe ;
 
 //Set path globals for RSGallery2
 define('JPATH_RSGALLERY2_SITE', JPATH_ROOT. DS .'components'. DS . 'com_rsgallery2');
-define('JPATH_RSGALLERY2_ADMIN', JPATH_ROOT. DS .'administrator' . DS . 'components' . DS . 'com_rsgallery2');
+if (!defined('JPATH_RSGALLERY2_ADMIN')){	//might also be defined in router.php is SEF is used
+	define('JPATH_RSGALLERY2_ADMIN', JPATH_ROOT. DS .'administrator' . DS . 'components' . DS . 'com_rsgallery2');
+}
 define('JPATH_RSGALLERY2_LIBS',JPATH_ROOT. DS . 'components' . DS . 'com_rsgallery2' . DS . 'lib');
 
 $app =JFactory::getApplication();
