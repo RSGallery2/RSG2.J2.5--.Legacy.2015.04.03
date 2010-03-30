@@ -1,7 +1,7 @@
 <?php
 /**
  * @version		$Id: router.php 7380 2007-05-06 21:26:03Z eddieajau $
- * @package		Joomla
+ * @package		Joomla changed by RSGallery2
  * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
@@ -11,6 +11,12 @@
  * See COPYRIGHT.php for copyright notices and details.
  */
 
+ /*		If gid, and it’s not part of a menulink: add ‘gallery’ (category was used <= v2.1.1) and add gid number
+		If id then add ‘item’ and id number
+		If start then add ‘itemPage’ and limitstart value - 1
+		If page then add ‘as’ concatenated with page value
+  */
+ 
 function Rsgallery2BuildRoute(&$query)
 {
 	static $items;
@@ -37,18 +43,18 @@ function Rsgallery2BuildRoute(&$query)
 		}
 	}
 	
-	// rename catId to gId
+	// rename catId to gId	//catId could be leftover from versions before 1.14.x
 	if(isset($query['catid'])){
 		$query['gid'] = $query['catid'];
 		unset($query['catid']);
 	}
 	
-	// direct category link
+	// direct gallery link
 	if(isset($query['gid'])){
 		// add the gallery id only if it is not part of the menu link
 		if(empty($item) ||
-				preg_match( "/gid=([0-9]*)/", $currentMenu->link) == 0){
-			$segments[] = 'category';
+				preg_match( "/gid=".$query['gid']."/", $currentMenu->link) == 0){// changed from "/gid=([0-9]*)/" to have an exact match
+			$segments[] = 'gallery';
 			$segments[] = Rsgallery2GetCategoryName($query['gid']);
 		}
 		unset($query['gid']);
@@ -91,20 +97,24 @@ function Rsgallery2ParseRoute($segments)
 	// Get the active menu item.
 	$menu	= &JSite::getMenu();
 	$item	= &$menu->getActive();
-	
+
 	if(!empty($item)){
-		// add gallery id if it exists in the menu link
-		if(preg_match( "/gid=([0-9]*)/", $item->link, $matches) != 0){
-			$vars['gid'] = $matches[1];
+		// We only want the gid from the menu-item-link when (this case the menulink refers to a subgallery)
+		// - it is the only gid: e.g. no 'category' in $segments (it is not a subgallery of the gallery shown with the menu-item)
+		// - we do not have id in the URL, e.g. no 'item' in $segments
+		if (!in_array("gallery", $segments) AND !in_array("item", $segments) AND !in_array("category", $segments)) {	//'category' for links created with RSG2 version <= 2.1.1
+			if(preg_match( "/gid=([0-9]*)/", $item->link, $matches) != 0){
+				$vars['gid'] = $matches[1];
+			}
 		}
-		
 	}
 	
 	for ($index = 0 ; $index < count($segments) ; $index++){
 		
 		switch ($segments[$index]){
-			// gallery link
-			case 'category':
+			// gallery link (subgallery of the gallery shown with the menu-item)
+			case 'category':	//changed 'category' to 'gallery' after version 2.1.1
+			case 'gallery':		
 			{
 				$vars['gid'] = Rsgallery2GetCategoryId($segments[++$index]);
 				break;
