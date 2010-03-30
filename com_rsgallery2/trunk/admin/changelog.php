@@ -32,7 +32,12 @@ Legend:
 
 ---------------- Recent ----------------
 
-2010-03-17 Mirjam
+2010-03-30 Mirjam - SVN 983
++ Added menutree option to choose gallery tied to the menu item from list of galleries, including root gallery
+# Changed router.php to correctly get gid when menuitem shows (sub)gallery and not rootgallery (otherwise resulting in hit() error)
++ Updated rsgallery2.xml to include views directory (thus now also installing Jonahs display-view from SVN955, but hidden through the metadata.xml settings)
+
+2010-03-17 Mirjam - SVN 982
 # Added if !defined('JPATH_RSGALLERY2_ADMIN'){} to avoid notice because when SEF is used this constant is defined in two places
 
 2010-03-13 Mirjam - SVN 981
