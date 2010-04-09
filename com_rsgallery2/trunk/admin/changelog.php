@@ -31,6 +31,8 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2010-04-09 Mirjam - SVN 985
+# Changed all Help buttons to JToolBarHelper::help( 'screen.rsgallery2',true); and moved the screen.rsgallery2.html file to the correct folder /help/en-GB/ to be accessable: now all Help buttons are functional with updated information.
 
 2010-03-30 Mirjam - SVN 983
 + Added menutree option to choose gallery tied to the menu item from list of galleries, including root gallery
