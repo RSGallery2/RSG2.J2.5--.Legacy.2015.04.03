@@ -324,6 +324,17 @@ class html_rsg2_config{
 							</tr>
 						</table>
 					</fieldset>
+					<fieldset>
+						<legend><?php echo JText::_('Image upload') ?></legend>
+						<table width="100%">
+							<tr>
+								<td><?php echo JHTML::tooltip(JText::_('RSG2_IPTC_TOOLTIP'), JText::_('RSG2_IPTC_TOOLTIP_TITLE'), 
+                    '', 'RSG2_USE_IPTC'); ?></td>
+								<td><?php echo JHTML::_("select.booleanlist",'useIPTCinformation', '', $config->useIPTCinformation);?></td>
+							</tr>
+						</table>
+					</fieldset>
+<!--end of addition-->					
 				</td>
 				<td width="60%" valign="top">
 					<fieldset>

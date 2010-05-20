@@ -118,7 +118,7 @@ class imgUtils extends fileUtils{
         global $rsgConfig;
 		$my =& JFactory::getUser();
 		$database =& JFactory::getDBO();
-		
+
         //First move uploaded file to original directory
         $destination = fileUtils::move_uploadedFile_to_orignalDir( $imgTmpName, $imgName );
 
@@ -126,6 +126,29 @@ class imgUtils extends fileUtils{
             return $destination;
 
         $parts = pathinfo( $destination );
+
+		// If IPTC parameter in config is true and the user left either the image title
+		// or description empty in the upload step we want to get that IPTC data.
+		if ($rsgConfig->get( 'useIPTCinformation' )){
+			if (($imgTitle == '') OR ($imgDesc == '')) {
+				getimagesize( $destination , $imageInfo);
+				if(isset($imageInfo['APP13'])) {
+					$iptc = iptcparse($imageInfo['APP13']);
+					//Get Iptc.Caption for the description (null if it does not exist)
+					$IPTCcaption = $iptc["2#120"][0]; 
+					//Get Iptc.ObjectName for the title
+					$IPTCtitle = $iptc["2#005"][0]; 
+					//If the field (description or title) in the import step is emtpy, and we have IPTC info, then use the IPTC info:
+					if (($imgDesc == '') and !is_null($IPTCcaption)) {
+						$imgDesc = $IPTCcaption;
+					}
+					if (($imgTitle == '') and !is_null($IPTCtitle)) {
+						$imgTitle = $IPTCtitle;
+					}
+				}
+			}
+		}
+		
         // fill $imgTitle if empty
         if( $imgTitle == '' ) 
             $imgTitle = substr( $parts['basename'], 0, -( strlen( $parts['extension'] ) + ( $parts['extension'] == '' ? 0 : 1 )));
