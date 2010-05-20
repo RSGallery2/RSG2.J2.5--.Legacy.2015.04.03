@@ -31,6 +31,9 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2010-05-20 Mirjam - SVN 986
++ Added setting useIPTCinformation (default off): choice of using image IPTC information for title and description when uploading images (single file/batch upload).
+
 2010-04-09 Mirjam - SVN 985
 # Changed all Help buttons to JToolBarHelper::help( 'screen.rsgallery2',true); and moved the screen.rsgallery2.html file to the correct folder /help/en-GB/ to be accessable: now all Help buttons are functional with updated information.
 

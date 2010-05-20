@@ -31,6 +31,9 @@ class rsgConfig {
 	var $imgPath_watermarked 	= '/images/rsgallery/watermarked';
 	var $createImgDirs 		= false;
 	var $gallery_folders	= false; // defines if galleries are stored in separate folders
+
+	//Image upload settings
+	var $useIPTCinformation = false;
 	
 	// graphics manipulation
 	var $graphicsLib        = 'gd2';   // imagemagick, netbpm, gd1, gd2
