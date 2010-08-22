@@ -31,6 +31,9 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+2010-08-22 Mirjam - SVN 989
+^ Updated german and french language file (thanks to Günter Hoffman)
+
 2010-05-20 Mirjam - SVN 986
 + Added setting useIPTCinformation (default off): choice of using image IPTC information for title and description when uploading images (single file/batch upload).
 
