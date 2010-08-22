@@ -159,8 +159,12 @@ class HTML_RSGALLERY{
         	<dd><b>Dani&#235;l Tulp</b> <a href='http://design.danieltulp.nl' target='_blank'></a></dd>
 			<dd><b>Bas</b><a href='http://www.fantasea.nl' target='_blank'>http://www.fantasea.nl</a></dd>
         	<dd><b>Mirjam Kaizer</b></dd>
-		<dt>French</dt><dd><b>Fabien de Silvestre</b></dd>
-        <dt>German</dt> <dd><b>woelzen</b><a href='http://conseil.silvestre.fr' target='_blank'>http://conseil.silvestre.fr</a></dd>
+		<dt>French</dt>
+			<dd><b>Fabien de Silvestre</b></dd>
+			<dd><b>Günter Hoffmann</b><a href='http://gunterhoffmann.com' target='_blank'>http://gunterhoffmann.com</a></dd>
+        <dt>German</dt> 
+			<dd><b>woelzen</b><a href='http://conseil.silvestre.fr' target='_blank'>http://conseil.silvestre.fr</a></dd>
+			<dd><b>Günter Hoffmann</b><a href='http://gunterhoffmann.com' target='_blank'>http://gunterhoffmann.com</a></dd>
 		<dt>Greek</dt><dd><b>Charis Argyropoulos</b><a href='http://www.symenox.gr' target='_blank'>http://www.symenox.gr</a></dd>
         <dt>Hungarian</dt> 
 			<dd><b>SOFT-TRANS</b> <a href='http://www.soft-trans.hu' target='_blank'>SOFT-TRANS</a></dd>
