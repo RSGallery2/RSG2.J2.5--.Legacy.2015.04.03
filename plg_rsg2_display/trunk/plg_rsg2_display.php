@@ -3,7 +3,7 @@
  * @version		$Id$
  * @package		RSGallery2
  * @subpackage	Content
- * @copyright	Copyright (C) 2008 RSGallery2
+ * @copyright	Copyright (C) 2008 - 2010 RSGallery2
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -18,26 +18,34 @@ defined( '_JEXEC' ) or die('Restricted');
 $mainframe->registerEvent( 'onPrepareContent', 'plg_rsg2_display' );
 
 function plg_rsg2_display( &$row, &$params, $page=0 ) {
-    // define the regular expression for the bot
-    $regex = "#{rsg2_display\:*(.*?)}#s";
-    
-    // perform the replacement
-    $row->text = preg_replace_callback( $regex, 'plg_rsg2_display_replacer', $row->text );
-    
-    return true;
-}   
+	$text = null;
+	if (is_object($row))
+		$text =& $row->text;
+	else
+		$text =& $text;
+
+	// define the regular expression for the bot
+	$regex = "#{rsg2_display\:*(.*?)}#s";
+
+	// perform the replacement
+
+	$text = preg_replace_callback( $regex, 'plg_rsg2_display_replacer', $text );
+
+	return true;
+}
 
 function plg_rsg2_display_replacer ( $matches ) {
 	if( !$matches )
 		return '';
 
-	function plg_rsg2_display_replacer_clean_data ( $attrib ) {//remove &nbsp; and trim white space
-		$attrib = str_replace( "&nbsp;", '', "$attrib" );
-
-		return trim( $attrib );
+	if(!function_exists('plg_rsg2_display_replacer_clean_data')){	//needed for multiple uses of this plugin on the same page
+		function plg_rsg2_display_replacer_clean_data ( $attrib ) {//remove &nbsp; and trim white space
+			$attrib = str_replace( "&nbsp;", '', "$attrib" );
+			return trim( $attrib );
+		}
 	}
 	
-	require_once( JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "init.rsgallery2.php" );
+	require_once( JPATH_ROOT.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
 	
 	$attribs = explode(",",$matches[1]);
 	
