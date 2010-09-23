@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="content">
+	<name>RSGallery2 - Content Image Gallery Plugin</name>
+	<author>Jonathan DeLaigle,Jonah Braun and Mihir Chhatre.</author>
+	<creationDate>Sept. 2010</creationDate>
+	<copyright>RSGallery2</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>info@rsgallery2.net</authorEmail>
+	<authorUrl>http://rsgallery2.net</authorUrl>
+	<version>2.2</version>
+	<description>Usage: {rsg2_display: template, GID} or {rsg2_display: template, GID, paramName=value, paramName=value, ...} for as many parameters as you need to specify.  Template should be the name of the template you want to use.  GID should be the numerical ID representing the gallery, this can be found in the first column of the gallery listing. By default use 'semantic' as the template. To use this, open any article, component description, etc and add the above mentioned code in the editor. 
+	Please Do not forget to enable the Plugin from the Plugin Manager.
+	</description>
+	<files>
+		<filename plugin="plg_rsg2_display">plg_rsg2_display.php</filename>
+	</files>
+	<params/>
+</install>
