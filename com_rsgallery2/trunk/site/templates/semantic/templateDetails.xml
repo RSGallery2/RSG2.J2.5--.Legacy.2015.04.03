@@ -2,10 +2,10 @@
 <install version="1.5" type="rsgTemplate">
 	<name>Semantic</name>
 	<creationDate>25/01/10</creationDate>
-	<author>rsgallery2.net</author>
+	<author>RSGallery2 Team</author>
 	<copyright>Open Source, GPL</copyright>
-	<authorEmail>info@rsgallery2.net</authorEmail>
-	<authorUrl>rsgallery2.net</authorUrl>
+	<authorEmail>team@rsgallery2.nl</authorEmail>
+	<authorUrl>rsgallery2.nl</authorUrl>
 	<description>Default semantic template.</description>
 	<version>2.1</version>
 	<files>

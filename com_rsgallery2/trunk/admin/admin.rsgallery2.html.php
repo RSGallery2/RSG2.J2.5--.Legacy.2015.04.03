@@ -131,9 +131,9 @@ class HTML_RSGALLERY{
     <h3>Core Team</h3>
     <dl>
 		<dt>2010</dt>
-        	<dd><b>Mihir Chhatre</b> <a href="http://www.thoughtfulviewfinder.com">Thoughtfulviewfinder Services </a></dd>
-        	<dd><b>Jonah Braun</b></dd>
-            <dd><b>Mirjam Kaizer</b></dd>
+			<dd><b>Johan Ravenzwaaij</b></dd>
+			<dd><b>Mihir Chhatre</b> <a href="http://www.thoughtfulviewfinder.com">Thoughtfulviewfinder Services </a></dd>
+        	<dd><b>Mirjam Kaizer</b></dd>
         <dt>2008-2009</dt>
 		<dt>Project Architect</dt>
         	<dd>Jonah Braun <a href='http://whalehosting.ca/' target='_blank'>Whale Hosting Inc.</a></dd>

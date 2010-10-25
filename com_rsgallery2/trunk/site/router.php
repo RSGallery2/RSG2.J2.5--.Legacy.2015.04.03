@@ -201,7 +201,6 @@ function Rsgallery2GetCategoryName($categoryId){
  * 
  **/
 function Rsgallery2GetCategoryId($categoyName){
-	
 	global $config;
 	
 	Rsgallery2InitConfig();
@@ -210,15 +209,23 @@ function Rsgallery2GetCategoryId($categoyName){
 	if($config->get("advancedSef") == true)
 	{
 		$dbo = JFactory::getDBO();
-		$query = "SELECT id FROM #__rsgallery2_galleries WHERE name='$categoyName'";
+		//Use getEscaped for when gallerynames have ' in them!
+		$query = "SELECT id FROM #__rsgallery2_galleries WHERE name='".$dbo->getEscaped($categoyName)."'";
 		$dbo->setQuery($query);
 		$result = $dbo->query();
-		
+
 		if($dbo->getNumRows($result) != 1){
 			// if the gallery name is not unique, tell the user and redirect to the root gallery
+			//When using JoomFish the translation of an existing gallery may not
+			// be found, so the $result is 0 rows, handle the error message:
+			if($dbo->getNumRows($result) == 0){
+				$msg = 'ROUTER_NO_GALLERY_FOUND';
+			} else {
+				$msg = "NON_UNIQUE_CAT";
+			}
 			$lang = JFactory::getLanguage();
 			$lang->load("com_rsgallery2");
-			JError::raiseWarning(0, JText::sprintf("NON_UNIQUE_CAT", $categoyName));
+			JError::raiseWarning(0, JText::sprintf($msg, $categoyName));
 			$id = 0;
 		}
 		else{			
@@ -248,15 +255,21 @@ function Rsgallery2GetItemId($itemName){
 	if($config->get("advancedSef") == true)
 	{
 		$dbo = JFactory::getDBO();
-		$query = "SELECT id FROM #__rsgallery2_files WHERE title='$itemName'";
+		$query = "SELECT id FROM #__rsgallery2_files WHERE title='".$dbo->getEscaped($itemName)."'";
 		$dbo->setQuery($query);
 		$result = $dbo->query();
-		
+
 		if($dbo->getNumRows($result) != 1){
 			// if the item name is not unique,  tell the user and redirect to the main page
+			// Error message depend on number of results...
+			if($dbo->getNumRows($result) == 0){
+				$msg = 'ROUTER_NO_IMAGE_FOUND';
+			} else {
+				$msg = "NON_UNIQUE_ITEM";
+			}
 			global $mainframe;
 			JFactory::getLanguage()->load("com_rsgallery2");
-			$mainframe->redirect("index.php", JText::sprintf("NON_UNIQUE_ITEM", $itemName));
+			$mainframe->redirect("index.php", JText::sprintf($msg, $itemName));
 		}
 		else{			
 			$id = $dbo->loadResult($result);

@@ -381,15 +381,15 @@ function publishImages( $cid=null, $publish=1,  $option ) {
 * @param integer The increment to reorder by
 */
 function orderImages( $uid, $inc, $option ) {
-	global  $rsgOption, $mainframe;
+	global  $rsgOption;
+	$mainframe =& JFactory::getApplication();
 	$database = JFactory::getDBO();
+	
 	$row = new rsgImagesItem( $database );
 	$row->load( (int)$uid );
-	$row->reorder();
-	$row->move( $inc, "published >= 0" );
-	$row->reorder();
+	$row->move( $inc, "gallery_id = $row->gallery_id" );
 
-	$mainframe->redirect( "index2.php?option=$option&rsgOption=$rsgOption" );
+	$mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
 }
 
 /**
