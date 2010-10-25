@@ -2070,19 +2070,6 @@ class migrate_com_rsgallery extends GenericMigrator{
      * detect if the gallery version this class handles is installed
      * @return true or false
      */
-// Added by Mihir Chhatre. Fixed on 15 Feb 2010. http://rsgallery2.net/index.php?topic=16599.msg43112#msg43112 - FIX.	 
-//    function detect(){
-//		global $mainframe; 
-//		$database =& JFactory::getDBO();
-//		
-//		if( in_array( $database->getPrefix().'rsgallery2_config', $database->getTableList() ) === false ){ 
-//            // rsgallery2_config table does not exist
-//            return false;
-//        } else {
-//        	// if #__rsgallery2_config exists, then we can handle the upgrade
-//        	return true;
-//        }
-//    }
 function detect(){
 		global $mainframe; 
 		$database =& JFactory::getDBO();

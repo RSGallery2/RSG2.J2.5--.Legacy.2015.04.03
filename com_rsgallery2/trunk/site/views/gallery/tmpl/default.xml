@@ -7,7 +7,7 @@
 	</layout>
 	<state>
 		<name>RSGALLERY2</name>
-		<description>RSGALLERY2 IS A FULL FEATURED GALLERY COMPONENT FOR JOOMLA!  VISIT THE OFFICIAL SITE FOR FAQ, SUPPORT FORUMS AND LATEST NEWS: WWW.RSGALLERY2.NET.</description>
+		<description>RSGALLERY2 IS A FULL FEATURED GALLERY COMPONENT FOR JOOMLA VISIT THE OFFICIAL SITE FOR FAQ SUPPORT FORUMS AND LATEST NEWS WWW_RSGALLERY2_NL</description>
 		<url addpath="/administrator/components/com_rsgallery2/elements">
 			<param name="gid" type="gallery" default="" label="CHOOSE GALLERY" description="CHOOSE GALLERY DESC" />
 		</url>

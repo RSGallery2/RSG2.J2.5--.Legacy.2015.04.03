@@ -16,6 +16,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
  * @package RSGallery2
  */
 class rsgalleryVersion {
+	// Version also needs to be changed in config.class.php function rsgConfig
     /** @var string Product */
     var $PRODUCT    = 'RSGallery2';
     /** @var int Main Release Level */
@@ -35,9 +36,9 @@ class rsgalleryVersion {
     /** @var string Timezone */
     var $RELTZ      = 'UTC';
     /** @var string Copyright Text */
-    var $COPYRIGHT  = '&copy; 2005 - 2010 <strong><a class="rsg2-footer" href="http://rsgallery2.net">RSGallery2</a></strong>. All rights reserved.';
+    var $COPYRIGHT  = '&copy; 2005 - 2010 <strong><a class="rsg2-footer" href="http://rsgallery2.nl">RSGallery2</a></strong>. All rights reserved.';
     /** @var string URL */
-    var $URL        = '<strong><a class="rsg2-footer" href="http://rsgallery2.net">RSGallery2</a></strong>';
+    var $URL        = '<strong><a class="rsg2-footer" href="http://rsgallery2.nl">RSGallery2</a></strong>';
     /** @var string Whether site is a production = 1 or demo site = 0: 1 is default */
     var $SITE       = 1;
     /** @var string Whether site has restricted functionality mostly used for demo sites: 0 is default */

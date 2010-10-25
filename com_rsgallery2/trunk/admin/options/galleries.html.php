@@ -19,12 +19,21 @@ class html_rsg2_galleries{
      * show list of galleries
      */
     function show( &$rows, &$lists, &$search, &$pageNav ){
-        global $rsgOption, $option;
-
+        global $rsgOption;
+		$option = JRequest::getCmd('option');
+		
 		$my =& JFactory::getUser();
 		JHTML::_("behavior.mootools");
+		
+		//Create 'lookup array' to find whether or not galleries with the same parent
+		// can move up/down in their order: $orderLookup[id parent][#] = id child
+		$orderLookup = array();
+		foreach ($rows as $row) {
+			$orderLookup[$row->parent][] = $row->id;
+		}  		
+		
         ?>
-        <form action="index2.php" method="post" name="adminForm">
+        <form action="index.php" method="post" name="adminForm">
         <table border="0" width="100%">
         <tr>
             <td width="50%">
@@ -42,10 +51,10 @@ class html_rsg2_galleries{
         <table class="adminlist">
         <thead>
         <tr>
-            <th width="5">
+            <th width="1%">
             ID
             </th>
-            <th width="20">
+            <th width="1%">
             <input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $rows ); ?>);" />
             </th>
             <th class="Name">
@@ -57,11 +66,11 @@ class html_rsg2_galleries{
             <th colspan="2" width="5%">
             <?php echo JText::_('Reorder')?>
             </th>
-			<th width="2%"><?php echo JText::_('Order')?></th>
 			<th width="2%">
-			<a href="javascript: saveorder( <?php echo count( $rows )-1; ?> )">
-				<img src="images/filesave.png" width="16" height="16" alt="Save Order" />
-			</a>
+				<?php echo JText::_('Order')?>
+			</th>
+			<th width="2%">
+				<?php echo JHtml::_('grid.order',  $rows); ?>
 			</th>
 			<th width="4%"><?php echo JText::_('Items')?></th>
             <th width="25%">
@@ -82,6 +91,13 @@ class html_rsg2_galleries{
             $alt    = $row->published ? 'Published' : 'Unpublished';
 
             $checked    = JHTML::_('grid.checkedout', $row, $i );
+			
+			//Use the $orderLookup array to determine if for the same 
+			// parent one can still move up/down. First look up the parent info.
+			$orderkey = array_search($row->id, $orderLookup[$row->parent]);
+			$showMoveUpIcon		= isset($orderLookup[$row->parent][$orderkey - 1]);
+			$showMoveDownIcon	= isset($orderLookup[$row->parent][$orderkey + 1]);
+			
             ?>
             <tr class="<?php echo "row$k"; ?>">
                 <td>
@@ -109,10 +125,10 @@ class html_rsg2_galleries{
                 </a>
                 </td>
                 <td>
-                <?php echo $pageNav->orderUpIcon( $i ); ?>
+					<?php echo $pageNav->orderUpIcon( $i, $showMoveUpIcon ); ?>
                 </td>
                 <td>
-                <?php echo $pageNav->orderDownIcon( $i, $n ); ?>
+					<?php echo $pageNav->orderDownIcon( $i, $n , $showMoveDownIcon); ?>
                 </td>
                 <td colspan="2" align="center">
                 <input type="text" name="order[]" size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" />

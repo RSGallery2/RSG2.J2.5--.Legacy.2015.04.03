@@ -126,6 +126,7 @@ class rsgConfig {
         // get version
         // global $rsgVersion;
         // $this->version = $rsgVersion->getVersionOnly();
+		// Version needs to be changed here!
         $this->version = '2.1.1';
 
         if( $loadFromDB )

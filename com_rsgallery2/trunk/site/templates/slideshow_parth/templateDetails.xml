@@ -2,10 +2,10 @@
 <mosinstall type="rsgTemplate">
 	<name>Slideshow Parth</name>
 	<creationDate>2007</creationDate>
-	<author>rsgallery2.net</author>
+	<author>RSGallery2 Team</author>
 	<copyright>Open Source, GPL</copyright>
-	<authorEmail>info@rsgallery2.net</authorEmail>
-	<authorUrl>rsgallery2.net</authorUrl>
+	<authorEmail>team@rsgallery2.nl</authorEmail>
+	<authorUrl>rsgallery2.nl</authorUrl>
 	<version>1.0</version>
 	<description>Slideshow implementation, based on the SmoothGallery solution by Johndesign.net.</description>
 	<files>

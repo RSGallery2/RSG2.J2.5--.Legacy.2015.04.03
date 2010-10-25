@@ -322,13 +322,15 @@ function publish( $cid=null, $publish=1,  $option ) {
 * @param integer The increment to reorder by
 */
 function order( $uid, $inc, $option ) {
-	global $rsgOption, $mainframe;
+	global $rsgOption;
+	$mainframe =& JFactory::getApplication();
 	$database =& JFactory::getDBO();
+	
 	$row = new rsgGalleriesItem( $database );
     $row->load( $uid );
-    $row->move( $inc, "published >= 0" );
+    $row->move( $inc, "parent = $row->parent" );
 
-    $mainframe->redirect( "index2.php?option=$option&rsgOption=$rsgOption" );
+    $mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
 }
 
 /**

@@ -3,7 +3,7 @@
 * Item class
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2005 - 2006 rsgallery2.net
+* @copyright (C) 2005 - 2006 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
