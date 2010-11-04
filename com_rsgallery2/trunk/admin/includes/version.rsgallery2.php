@@ -20,25 +20,25 @@ class rsgalleryVersion {
     /** @var string Product */
     var $PRODUCT    = 'RSGallery2';
     /** @var int Main Release Level */
-    var $RELEASE    = '2.1';				//Main Release Level: x.y for x.y.z
+    var $RELEASE    = '2.2';				//Main Release Level: x.y for x.y.z
     /** @var string Development Status */
     var $DEV_STATUS = '';					//as of 2.1.1 'beta' removed
     /** @var int Sub Release Level */
-    var $DEV_LEVEL  = '1';					//Dev level z for x.y.z
+    var $DEV_LEVEL  = '0';					//Dev level z for x.y.z
     /** @var int build Number */
-    var $BUILD      = 'SVN 988';
+    var $BUILD      = 'SVN 993';
     /** @var string Codename */
     var $CODENAME   = '';
     /** @var string Date */
-    var $RELDATE    = '20 August 2010';
+    var $RELDATE    = '04 November 2010';
     /** @var string Time */
     var $RELTIME    = '14:00';
     /** @var string Timezone */
     var $RELTZ      = 'UTC';
     /** @var string Copyright Text */
-    var $COPYRIGHT  = '&copy; 2005 - 2010 <strong><a class="rsg2-footer" href="http://rsgallery2.nl">RSGallery2</a></strong>. All rights reserved.';
+    var $COPYRIGHT  = '&copy; 2005 - 2010 <strong><a class="rsg2-footer" href="http://www.rsgallery2.nl">RSGallery2</a></strong>. All rights reserved.';
     /** @var string URL */
-    var $URL        = '<strong><a class="rsg2-footer" href="http://rsgallery2.nl">RSGallery2</a></strong>';
+    var $URL        = '<strong><a class="rsg2-footer" href="http://www.rsgallery2.nl">RSGallery2</a></strong>';
     /** @var string Whether site is a production = 1 or demo site = 0: 1 is default */
     var $SITE       = 1;
     /** @var string Whether site has restricted functionality mostly used for demo sites: 0 is default */

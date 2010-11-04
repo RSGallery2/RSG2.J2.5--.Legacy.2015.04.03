@@ -12,7 +12,7 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
 
-Check for the latest version of RSGallery2 at http://rsgallery2.nl/
+Check for the latest version of RSGallery2 at http://www.rsgallery2.nl/
 
 1. Changelog
 ------------
@@ -31,7 +31,9 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
-2010-10-25 Mirjam
+---------------- 2.2.0 ------- svn 993 -- 2010-11-04 -------------
+
+2010-10-25 Mirjam - SVN 992
 ! When using JoomFish and Joomla SEF the message that a gallery/image name is not unique is given even when the gallery/image does exist with a unique name. This problem is not solved, but the error messages are improved: JoomFish does not return which gallery/image is used so a 'gallery/image not found' message is shown instead of a 'gallery/image not unique' message.
 # RSG2 now handles galleries with an ' in the name, when Joomla SEF is used.
 
@@ -39,7 +41,7 @@ Legend:
 ! Domain rsgallery2.net was lost to the RSGallery2 Team in september 2010.
   SVN and File Releases are still on http://joomlacode.org/gf/project/rsgallery2
   where packages now show j10 for Joomla!1.0 and j15 for Joomla!1.5.
-^ New domain rsgallery2.nl will be used from now on, changed in the code.
+^ New domain www.rsgallery2.nl will be used from now on, changed in the code.
 ^ New mailaddress will be used: team@rsgallery2.nl instead of info@rsgallery2.net.
   (Note: support goes through the forum, not by e-mail!)
 
