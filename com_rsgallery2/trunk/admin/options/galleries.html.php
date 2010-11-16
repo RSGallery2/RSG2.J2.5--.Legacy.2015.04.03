@@ -118,6 +118,9 @@ class html_rsg2_galleries{
                     <?php
                 }
                 ?>
+				<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$row->id); ?>" >
+					<img src="images/forward_f2.png" width="12" height="12" style="margin: 0px 20px" alt="<?php echo JText::_('ITEMS'); ?>" />
+				</a>				
                 </td>
                 <td align="center">
                 <a href="javascript: void(0);" onclick="return listItemTask('cb<?php echo $i;?>','<?php echo $task;?>')">

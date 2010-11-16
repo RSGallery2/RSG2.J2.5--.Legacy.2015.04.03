@@ -113,7 +113,7 @@ function showImages( $option ) {
 	$database = JFactory::getDBO();
 	
 	$gallery_id 		= intval( $mainframe->getUserStateFromRequest( "gallery_id{$option}", 'gallery_id', 0 ) );
-	$limit 		= intval( $mainframe->getUserStateFromRequest( "viewlistlimit", 'limit', $mosConfig_list_limit ) );
+	$limit		= $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');	
 	$limitstart = intval( $mainframe->getUserStateFromRequest( "view{$option}limitstart", 'limitstart', 0 ) );
 	$search 	= $mainframe->getUserStateFromRequest( "search{$option}", 'search', '' );
 	$search 	= $database->getEscaped( trim( strtolower( $search ) ) );
