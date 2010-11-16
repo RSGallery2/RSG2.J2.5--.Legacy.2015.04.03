@@ -30,6 +30,11 @@ Legend:
 - -> Removed
 ! -> Note
 
+2010-10-25 Mirjam - SVN 995
+# Backend list of items showed all items instead of number set in Joomla's Global Config. [#23214]
++ In backend view of all galleries an image is added that links to the backend view of images, filtered on that gallery.
+# Instead of the fi-FI language fr-FR was installed: corrected.
+
 ---------------- Recent ----------------
 ---------------- 2.2.0 ------- svn 993 -- 2010-11-04 -------------
 
