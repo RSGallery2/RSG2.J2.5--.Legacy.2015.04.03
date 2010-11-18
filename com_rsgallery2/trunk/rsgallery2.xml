@@ -8,12 +8,11 @@
   <authorEmail>team@rsgallery2.nl</authorEmail>
   <authorUrl>http://www.rsgallery2.nl</authorUrl>
   <version>2.2.0</version>
-  <license>GNU/GPL<license>
+  <license>GNU/GPL</license>
   <description>RSGallery2 is a full featured gallery component for Joomla!  Visit the official site for FAQ, support forums and latest news: www.RSGallery2.nl.</description>
 
   <files folder="site">
     <folder>flash</folder>
-
     <folder>lib</folder>
     <folder>templates</folder>
     <folder>views</folder>
@@ -80,7 +79,6 @@
       <folder>elements</folder>
 	  <folder>fonts</folder>
 	  <folder>help</folder>
-	  
       <folder>includes</folder>
       <folder>options</folder>
       <folder>sql</folder>

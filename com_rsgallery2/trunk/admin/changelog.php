@@ -30,6 +30,9 @@ Legend:
 - -> Removed
 ! -> Note
 
+2010-11-18 Mirjam
++ Added license tag to manifest.
+
 2010-10-25 Mirjam - SVN 995
 # Backend list of items showed all items instead of number set in Joomla's Global Config. [#23214]
 + In backend view of all galleries an image is added that links to the backend view of images, filtered on that gallery.
