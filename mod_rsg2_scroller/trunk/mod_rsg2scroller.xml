@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="module" version="1.5.0" method="upgrade">
+	<name>RSGallery2 Thumbnail Scroller</name>
+	<creationDate>5 december 2010</creationDate>
+	<author>Daniel Tulp and Radek Kafka</author>
+	<copyright>This module is released under the GNU/ GPL license</copyright>
+	<authorEmail>mail@danieltulp.nl</authorEmail>
+	<authorUrl>http://design.danieltulp.nl</authorUrl>
+	<version>2.0</version>
+	<description>
+		Scrolls selected thumbnails from the RSGallery2 component for Joomla!.
+		Note: this module uses the proprietary tag marquee, therefore not valid.
+	</description>
+	<files>
+		<filename module="mod_rsg2scroller">mod_rsg2scroller.php</filename>
+	</files>
+	<params>
+		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="A suffix to be applied to the css class of the module (.moduletable), this allows individual module styling" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="useACL" type="radio" default="0" label="Use ACL" description="Do you want the module to check if people have access rights to the galleries of the thumbnails (only works when ACL is enabled)?">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="usegalselect" type="radio" default="0" label="Limit to certain galleries" description="Do you want limit the thumbnails displayed to certain galleries?">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="galselect" type="text" default="" label="Gallery id's" description="Enter one or more gallery id's seperated by a comma: 5,6,10.">
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="ScrollDirection" type="list" default="up" label="Scroll Direction" description="Scroll Direction">
+			<option value="up">Up</option>
+			<option value="down">Down</option>
+			<option value="left">Left</option>
+			<option value="right">Right</option>
+		</param>
+		<param name="ScrollAmount" type="text" size="20" default="2" label="Scroll Amount" description="Number of pixels to scroll at each step. Default is 2."/>
+		<param name="ScrollDelay" type="text" size="20" default="50" label="Scroll Delay" description="Number of ms to wait between steps. Default is 50."/>
+		<param name="@spacer" type="spacer" default="" label="" description=""/> 
+		<param name="Clickornot" type="radio" default="1" label="Images linked?" description="Should the pictures be linked?">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="link2gal" type="radio" default="dis" label="Gallery or display" description="Link to the gallery or to the display view (the actual image).">
+			<option value="gal">Gallery</option>
+			<option value="dis">Display</option>
+		</param>
+		<param name="Pause" type="radio" default="1" label="Pause OnMouseOver?" description="Should the slideshow pause onMouseOver?">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="Width" type="text" size="20" default="100" label="Scroll Width" description="Default is 100%, ajust when you want it to be smaller/ larger then that."/>
+		<param name="widthunit" type="radio" default="%" label="Width unit" description="Width in pixels or a percentage">
+			<option value="px">Px</option>
+			<option value="%">%</option>
+		</param>
+		<param name="Height" type="text" size="20" default="150" label="Scroll Height" description="Default is 150"/>
+		<param name="heightunit" type="radio" default="px" label="Height unit" description="Height in pixels or a percentage">
+			<option value="px">Px</option>
+			<option value="%">%</option>
+		</param>		
+		<param name="@spacer" type="spacer" default="" label="" description=""/>	
+		<param name="PicsNum" type="text" size="20" default="5" label="Number of pics" description="Number of pictures to display"/>
+		<param name="PickMethod" type="list" default="Rand()" label="Display Method" description="Display Method">
+			<option value="Rand()">Random</option>
+			<option value="Date">Date</option>
+			<option value="Hits">Hits</option>
+			<option value="Votes">Votes</option>
+			<option value="Rating">Rating</option>
+		</param>	
+		<param name="@spacer" type="spacer" default="" label="" description=""/>
+		<param name="usecss" type="radio" default="1" label="Use CSS entered below?" description="Do you want the module to use the CSS entered below? Note: It is not valid to use css outside the head, you can also add the css below to your own css stylesheet, then again, the marquee tag (used by this module to scroll) is also not valid.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="css" type="textarea" rows="10" cols="20" default=".rsscroller_thumb {text-align:center;} .rsscroller_thumb img{ border:0; padding:3px;}" label="CSS" description="Edit CSS to be included in the script here. Note: don't use return, simply type everything on the same line."/>	
+	</params>	
+</install>
