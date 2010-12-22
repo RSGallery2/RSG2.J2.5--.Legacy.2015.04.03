@@ -158,13 +158,19 @@ class rsgGallery extends JObject{
 			$my =& JFactory::getUser();
 			$database =& JFactory::getDBO();
 			
-			$filter_order = rsgInstance::getWord( 'filter_order',  $rsgConfig->get("filter_order") );
-			$filter_order_Dir = rsgInstance::getWord( 'filter_order_Dir', $rsgConfig->get("filter_order_Dir"));
+			$filter_order = JRequest::getWord( 'filter_order',  $rsgConfig->get("filter_order") );
+			$filter_order_Dir = JRequest::getWord( 'filter_order_Dir', $rsgConfig->get("filter_order_Dir"));
 	
 			$where = ' WHERE gallery_id = '. $this->get('id');
 
-			if($my->get('gid') != 25)
-				$where .= ' AND published = 1 ';
+			//MK// [todo] [In J!1.5 JUser gid is the group id, corresponding to the usertype, 
+			// 25 = Super Administrator, 24 = Adminisitrator, etc. with the following line an item
+			// still shows in 'images view', but when you click it you get a fatal error when you're
+			// not a Super Administrator and the image is unpublished. Therefore I think this can be left
+			// out, and yes/not showing images depending on being (un)published and usertype in J!1.6
+			// should be handled differently. Thus commenting these lines...]
+//			if($my->get('gid') != 25)
+//				$where .= ' AND published = 1 ';
 			
 			$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir;
 	
@@ -208,8 +214,8 @@ class rsgGallery extends JObject{
 		if( $length == 0 )
 			return $this->items; // 0 means display all
 
-		$current = $this->indexOfItem(rsgInstance::getInt( 'id', 0 ));
-		$current = rsgInstance::getInt( 'limitstart', $current );
+		$current = $this->indexOfItem(JRequest::getInt( 'id', 0 ));
+		$current = JRequest::getInt( 'limitstart', $current );
 		
 		// calculate page from current position
 		$start =  floor($current  / $length) * $length;
@@ -241,11 +247,11 @@ class rsgGallery extends JObject{
 		if( $id !== null )
 			return $this->items[$id];
 
-		$id = rsgInstance::getInt( 'id', null );
+		$id = JRequest::getInt( 'id', null );
 		if( $id !== null )
 			return $this->items[$id];
 			
-		$id = rsgInstance::getInt( 'limitstart', 0 );
+		$id = JRequest::getInt( 'limitstart', 0 );
 		return array_pop(array_slice($this->items, $id, 1));
 
 	}
@@ -253,7 +259,7 @@ class rsgGallery extends JObject{
 	function indexOfItem($id = null){
 	
 		if( $id === null ){
-			$id = rsgInstance::getInt( 'id', null );
+			$id = JRequest::getInt( 'id', null );
 			if( $id === null ){
 				return 0;
 			}
@@ -320,7 +326,7 @@ class rsgGallery extends JObject{
 		if (empty($this->_pagination))
 		{
 			jimport('joomla.html.pagination');
-			$this->_pagination = new JPagination( $this->itemCount(), rsgInstance::getInt( 'limitstart', 0 ), rsgInstance::getInt( 'limit', 1 ) );
+			$this->_pagination = new JPagination( $this->itemCount(), JRequest::getInt( 'limitstart', 0 ), JRequest::getInt( 'limit', 1 ) );
 		}
 
 		return $this->_pagination;

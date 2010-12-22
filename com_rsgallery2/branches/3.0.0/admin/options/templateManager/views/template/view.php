@@ -46,7 +46,7 @@ class InstallerViewTemplate extends InstallerViewDefault
 	function isParamWriteable(){
 		
 		$templatefile = JPATH_RSGALLERY2_SITE .DS. 'templates' .DS. $this->item->template .DS. 'params.ini';
-		return is_writable($templatefile) ? JText::_( 'Writable' ):JText::_( 'Unwritable' );
+		return is_writable($templatefile) ? JText::_( 'COM_RSGALLERY2_WRITABLE' ):JText::_( 'COM_RSGALLERY2_UNWRITABLE' );
 				
 	}
 }

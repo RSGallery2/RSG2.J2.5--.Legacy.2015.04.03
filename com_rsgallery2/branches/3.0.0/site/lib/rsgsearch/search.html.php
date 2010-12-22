@@ -13,7 +13,7 @@ defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 class html_rsg2_search {
 	
 	function showSearchBox() {
-    	global $mainframe;
+//    	global $mainframe;//MK// [not used check]	
 		$document=& JFactory::getDocument();
 		
 		if($document->getType() == 'html') {
@@ -24,8 +24,8 @@ class html_rsg2_search {
 
     	<div align="right">
     	<form name="rsg2_search" method="post" action="<?php echo JRoute::_('index.php');?>">
-    		<?php echo JText::_('Search');?>
-    		<input type="text" name="searchtext" class="searchbox" onblur="if(this.value=='') this.value='<?php echo JText::_('Keywords');?>';" onfocus="if(this.value=='<?php echo JText::_('Keywords');?>') this.value='';" value='<?php echo JText::_('Keywords');?>' />
+    		<?php echo JText::_('COM_RSGALLERY2_SEARCH');?>
+    		<input type="text" name="searchtext" class="searchbox" onblur="if(this.value=='') this.value='<?php echo JText::_('COM_RSGALLERY2_KEYWORDS');?>';" onfocus="if(this.value=='<?php echo JText::_('COM_RSGALLERY2_KEYWORDS');?>') this.value='';" value='<?php echo JText::_('COM_RSGALLERY2_KEYWORDS');?>' />
 			<input type="hidden" name="option" value="com_rsgallery2" />
 			<input type="hidden" name="rsgOption" value="search" />
 			<input type="hidden" name="task" value="showResults" />
@@ -43,15 +43,15 @@ class html_rsg2_search {
 		?>
 		<table width="100%" style="border-bottom: thin solid #CCCCCC;">
 		<tr>
-			<td><div align="right"><a href="index.php?option=com_rsgallery2"><?php echo JText::_('Main gallery page');?></a></div></td>
+			<td><div align="right"><a href="index.php?option=com_rsgallery2"><?php echo JText::_('COM_RSGALLERY2_MAIN_GALLERY_PAGE');?></a></div></td>
 		</tr>
 		<tr>
-			<td><h3><?php echo JText::_('RSGallery2 Search Results');?></h3></td>
+			<td><h3><?php echo JText::_('COM_RSGALLERY2_RSGALLERY2_SEARCH_RESULTS');?></h3></td>
 		</tr>
 		<tr>
 			<td>
 				<span style="font-style:italic;">
-				<?php echo JText::_('There are ') . $count . JText::_(' results for ');?>
+				<?php echo JText::_('COM_RSGALLERY2_THERE_ARE') .' '. $count . JText::_('COM_RSGALLERY2_RESULTS_FOR');?>
 					<span style="font-weight:bold;";><?php echo $searchtext;?></span>
 				<span>
 			</td>
@@ -77,10 +77,10 @@ class html_rsg2_search {
 						</a>
 						<p><?php echo galleryUtils::highlight_keywords($match->descr, $searchtext);?></p>
 						<p style="color: #999999;font-size:10px;">
-				[<?php echo JText::_('Gallery name');?>:<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&gid=".$match->gallery_id);?>"><?php echo $match->name;?></a>]
+				[<?php echo JText::_('COM_RSGALLERY2_GALLERY_NAME');?>:<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&gid=".$match->gallery_id);?>"><?php echo $match->name;?></a>]
 							<?php
 							if ($match->userid > 0) {
-								echo "[".JText::_('Owner').":&nbsp;".galleryUtils::genericGetUsername($match->userid)."]";
+								echo "[".JText::_('COM_RSGALLERY2_OWNER').":&nbsp;".galleryUtils::genericGetUsername($match->userid)."]";
 							}
 						?>
 						</p>

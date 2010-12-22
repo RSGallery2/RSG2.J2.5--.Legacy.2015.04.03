@@ -3,7 +3,7 @@
 * RSGallery2 Toolbar Menu
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2010 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 **/
 
@@ -17,7 +17,9 @@ else
     $rsgOption = '';
 
 require_once( JApplicationHelper::getPath('toolbar_html') );
-require_once( JApplicationHelper::getPath('toolbar_default') );
+//MK// [removed for Joomla 1.6] require_once( JApplicationHelper::getPath('toolbar_default') );//MK///--> includes/HTML_toolbar.php --> /../plugins/system/legacy/toolbar.php; not used in J15?!
+
+menu_rsg2_submenu::addRSG2Submenu($rsgOption, $task);
 
 switch( $rsgOption ){
 	case 'images':
@@ -33,7 +35,7 @@ switch( $rsgOption ){
             case 'upload':
             	menu_rsg2_images::upload( $option );
             	break;
-            case "batchupload":
+            case 'batchupload':
         		menuRSGallery::image_batchUpload();
         		break;
         	case 'save_batchupload':
@@ -43,7 +45,8 @@ switch( $rsgOption ){
                 menu_rsg2_images::show( $option );
             break;
 		}
-	break;
+		break;
+	
     case 'galleries':
         switch( $task ){
             case 'new':
@@ -59,53 +62,43 @@ switch( $rsgOption ){
                 menu_rsg2_galleries::show( $option );
             break;
         }
-    break;
+   		break;
 	
 	case 'templateManager':
-	
-		switch ($task)
-		{
+		switch ($task){
 			case 'view'   :
 			case 'preview':
 				menu_rsg2_templateManager::_VIEW();
 				break;
-
 			case 'edit_source':
 			case 'edit_display':
-					menu_rsg2_templateManager::_EDIT_SOURCE();
-					break;
-				
-				case 'edit':
-					menu_rsg2_templateManager::_EDIT();
-					break;
-				
-				case 'choose_css':
-					menu_rsg2_templateManager::_CHOOSE_CSS();
-					break;
-				
-				case 'edit_css':
-					menu_rsg2_templateManager::_EDIT_CSS();
-					break;
-				
-				case 'choose_override':
-					menu_rsg2_templateManager::_CHOOSE_OVERRIDE();
-					break;
-				
-				case 'edit_override':
-					menu_rsg2_templateManager::_EDIT_OVERRIDE();
-					break;
-				
-				case 'doInstall':
-				case 'showInstall':
-					menu_rsg2_templateManager::_INSTALL();
-					break;
-				default:
-					menu_rsg2_templateManager::_DEFAULT();
-					break;
+				menu_rsg2_templateManager::_EDIT_SOURCE();
+				break;
+			case 'edit':
+				menu_rsg2_templateManager::_EDIT();
+				break;
+			case 'choose_css':
+				menu_rsg2_templateManager::_CHOOSE_CSS();
+				break;
+			case 'edit_css':
+				menu_rsg2_templateManager::_EDIT_CSS();
+				break;
+			case 'choose_override':
+				menu_rsg2_templateManager::_CHOOSE_OVERRIDE();
+				break;
+			case 'edit_override':
+				menu_rsg2_templateManager::_EDIT_OVERRIDE();
+				break;
+			case 'doInstall':
+			case 'showInstall':
+				menu_rsg2_templateManager::_INSTALL();
+				break;
+			default:
+				menu_rsg2_templateManager::_DEFAULT();
+				break;
 			}
 		break;
-	
-	
+
 	case 'maintenance':
 		switch ( $task ) {
 		case 'regenerateThumbs':
@@ -115,15 +108,17 @@ switch( $rsgOption ){
 			menuRSGallery::simple();
 			break;
 		}
-	break;
+		break;
+
 	case 'config':
 		switch ( $task ) {
 			case 'applyConfig':
-			case "showConfig":
+			case 'showConfig':
 				menuRSGallery::config_show();
         		break;
 		}
-	break;
+		break;
+		
 	case 'jumploader':
 		switch ($task) {
 			case 'showUpload':
@@ -133,7 +128,7 @@ switch( $rsgOption ){
 				menu_rsg2_jumploader::simple();
 				break;
 		}
-}
+}// end switch( $rsgOption )
 
 // only use the legacy task switch if rsgOption is not used.
 if( $rsgOption == '' )
@@ -188,17 +183,17 @@ switch ($task){
 
 // do these need a toolbar?:
     case 'regen_thumbs':
-    case "import_captions":
-    case "consolidate_db_go":
-    case "consolidate_db":
-    case "install":
+    case 'import_captions':
+    case 'consolidate_db_go':
+    case 'consolidate_db':
+    case 'install':
         break;
 
 // the following options either bring you to the control panel or only need a help button
     default:
-    case "controlPanel":
+    case 'controlPanel':
     case 'config_rawEdit_save':
-    case "migration":
+    case 'migration':
     case 'purgeEverything':
     case 'saveConfig':
     case 'viewChangelog':

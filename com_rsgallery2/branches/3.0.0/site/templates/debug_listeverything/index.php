@@ -13,17 +13,17 @@ defined( '_JEXEC' ) or die( 'Restricted Access' );
 $templatePath = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'debug_listeverything';
 require_once( $templatePath . DS . 'display.class.php');
 
-global $mainframe;
+//global $mainframe;//MK// [not used check]	
 $template_dir = "JURI_SITE/components/com_rsgallery2/templates/debug_listeverything";
 ?>
 <link href="<?php echo $template_dir ?>/css/template.css" rel="stylesheet" type="text/css" />
 <?php
 
-$gid = rsgInstance::getInt('gid', 0); 
+$gid = JRequest::getInt('gid', 0); 
 
-echo "Listing contents of Gallery #$gid";
+echo JText::_('COM_RSGALLERY2_LISTING_CONTENTS_OF_GALLERY_#').$gid;
 
-switch(rsgInstance::getCmd( 'task', 'listEverything' )){
+switch(JRequest::getCmd( 'task', 'listEverything' )){
 	case 'dumpGallery':
 		dumpGallery( $gid );
 	break;

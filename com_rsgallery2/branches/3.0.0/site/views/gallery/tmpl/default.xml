@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout title="RSGALLERY2">
+	<layout title="GALLERYVIEW_DEFAULT_TITLE">
 		<message>
-			<![CDATA[rsg2 descr 2]]>
+			GALLERYVIEW_DEFAULT_DESC
 		</message>
 	</layout>
-	<state>
-		<name>RSGALLERY2</name>
-		<description>RSGALLERY2 IS A FULL FEATURED GALLERY COMPONENT FOR JOOMLA VISIT THE OFFICIAL SITE FOR FAQ SUPPORT FORUMS AND LATEST NEWS WWW_RSGALLERY2_NL</description>
-		<url addpath="/administrator/components/com_rsgallery2/elements">
-			<param name="gid" type="gallery" default="" label="CHOOSE GALLERY" description="CHOOSE GALLERY DESC" />
-		</url>
-	</state>
+
+	<fields name="request">
+		<fieldset name="request"
+			addfieldpath="/administrator/components/com_rsgallery2/models/fields"
+		>
+
+			<field
+					id="gid"
+					name="gid"
+					type="gallery"
+					label="COM_RSGALLERY2_CHOOSE_GALLERY"
+					description="COM_RSGALLERY2_CHOOSE_GALLERY_DESC"
+					default="0"
+					required="true"
+			><!-- introduces new field type gallery -->
+			</field>
+		</fieldset>
+	</fields>
 </metadata>

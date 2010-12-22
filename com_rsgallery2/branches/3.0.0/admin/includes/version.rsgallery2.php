@@ -16,21 +16,20 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
  * @package RSGallery2
  */
 class rsgalleryVersion {
-	// Version also needs to be changed in config.class.php function rsgConfig
     /** @var string Product */
     var $PRODUCT    = 'RSGallery2';
     /** @var int Main Release Level */
-    var $RELEASE    = '2.2';				//Main Release Level: x.y for x.y.z
+    var $RELEASE    = '3.0';				//Main Release Level: x.y for x.y.z
     /** @var string Development Status */
-    var $DEV_STATUS = '';					//as of 2.1.1 'beta' removed
+    var $DEV_STATUS = 'pre-Alpha';				//as of 2.1.1 'beta' removed
     /** @var int Sub Release Level */
     var $DEV_LEVEL  = '0';					//Dev level z for x.y.z
     /** @var int build Number */
-    var $BUILD      = 'SVN 993';
+    var $BUILD      = 'SVN 1000';
     /** @var string Codename */
     var $CODENAME   = '';
     /** @var string Date */
-    var $RELDATE    = '04 November 2010';
+    var $RELDATE    = 'xx Oct 2010';
     /** @var string Time */
     var $RELTIME    = '14:00';
     /** @var string Timezone */

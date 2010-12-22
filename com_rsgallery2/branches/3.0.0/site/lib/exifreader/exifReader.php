@@ -434,7 +434,7 @@ class phpExifReader {
         if(!$this->newFile) return true;
         
         if(!file_exists($this->file)) {
-            echo "<br>Error: File ".($this->file)."does not exists!";
+            echo "<br>".JText::_('COM_RSGALLERY2_ERROR_FILE_DOES_NOT_EXIST').($this->file);
             exit;
         }
 

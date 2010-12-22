@@ -12,7 +12,7 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
 
-Check for the latest version of RSGallery2 at http://www.rsgallery2.nl/
+Check for the latest version of RSGallery2 at http://rsgallery2.net/
 
 1. Changelog
 ------------
@@ -30,29 +30,56 @@ Legend:
 - -> Removed
 ! -> Note
 
-2010-11-18 Mirjam
-+ Added license tag to manifest.
-
-2010-10-25 Mirjam - SVN 995
-# Backend list of items showed all items instead of number set in Joomla's Global Config. [#23214]
-+ In backend view of all galleries an image is added that links to the backend view of images, filtered on that gallery.
-# Instead of the fi-FI language fr-FR was installed: corrected.
-
 ---------------- Recent ----------------
----------------- 2.2.0 ------- svn 993 -- 2010-11-04 -------------
 
-2010-10-25 Mirjam - SVN 992
-! When using JoomFish and Joomla SEF the message that a gallery/image name is not unique is given even when the gallery/image does exist with a unique name. This problem is not solved, but the error messages are improved: JoomFish does not return which gallery/image is used so a 'gallery/image not found' message is shown instead of a 'gallery/image not unique' message.
-# RSG2 now handles galleries with an ' in the name, when Joomla SEF is used.
+2010-09-01 - 2010-12-21 Mirjam SVN 1001
+All kinds of changes to get RSG2 ready and working in J!1.6 (pre-alpha status):
+BACKEND
+- Removed reference to XML library
+- Removed require_once( JApplicationHelper::getPath('toolbar_default') );
+- Removed Java Uploader menu item as it was not implemented
+^ Changed references to index2.php to index.php
+^ Replace global $mainframe; by $mainframe =& JFactory::getApplication();
+^ Replace require_once( JPATH_ADMINISTRATOR . '/includes/pageNavigation.php' ); by  import('joomla.html.pagination'); to be able to use JPagination
+^ Replace global $option; by JRequest::getCmd('option'); 
+^ Changed query SELECT a.*, u.name AS editor, a.parent AS parent_id, a.name AS title" because in J1.6 parent property is parent_id and name property is title (or alias)
+^ Non-breaking space: HTML name: &nbsp; replaced by HTML number: &#160;.
+^ PCLZIP is no longer included in J!1.6. Use JArchive instead (Rewrite batch upload)
+^ addCustomHeadTag is deprecated in J!1.5, use JDocument->addCustomTag (only when document type is HTML)
+^ Changed code to show published/reorder icons correcty in J!1.6
+^ Changed help screen that is no longer in /help/en-gb/ but in /help/ 
+^ With some help of EasyCreator all language strings have been converted: no spaces in keys, keys start with COM_RSGALLERY2_, no punctuation marks in keys; values in double quotes. E.g. COM_RSGALLERY2_KEY=”Value”. Removed redundand keys, or when they have all translations, commented them. Comment sign is a semi-colon ;. Needs to be checked by translators.
++ added jimport( 'joomla.html.parameter' ); in init.rsgallery2.php for JParameter
++ Around pageLinks a div with class pagination is needed (or else you’ll just see a bulleted list)
++ For menutree the elements directory is removed and a models/fields/gallery.php is created for a dropdown list where the gallery can be chosen: this adds parameter gid to the URL, so one can choose e.g. the root, with gid 0, or any other gallery. This also involved changes in the views/gallery/tmpl/default.xml.
++ Added submenu: the submenu no longer appears automatically from the xml file admin submenu items: need  JSubMenuHelper::addEntry
+^ Changed referent to #__components table, that no longer exists in J!1.6, to #__extensions table 
++ Started with Backend ACL in JPATH_COMPONENT.'/helpers/ rsgallery2.php'; NOTE J!1.6 ACL is NOT implemented yet!
+
+FRONTEND
+- Removed require_once( JPATH_ROOT . '/includes/HTML_toolbar.php' );
+- Removed (legacy) mosToolBar
+^ Added JToolBar styling to mygalleries.css
+^ Minor adjustments to CSS
+^ Changed JHTML::_("date", $kid->date,"d-m-Y" ) to JHTML::_("date", $kid->date,JText::_('DATE_FORMAT_LC3')
+^ Pathway now working (global $option; replaced by $option = JRequest::getCmd('option');) and adjusted for the fact that subgalleries now also may be menu items.
+^ With some help of EasyCreator all language strings have been converted: no spaces in keys, keys start with COM_RSGALLERY2_, no punctuation marks in keys; values in double quotes. E.g. COM_RSGALLERY2_KEY=”Value”. Removed redundand keys, or when they have all translations, commented them. Comment sign is a semi-colon ;. Needs to be checked by translators.
+
+! To do: Implement J!1.6 ACL! – now there is NO ACL at all (not even the ACL that was present in J!1.5)
+! To do: Make (un)installation comments translatable
+! To do: Make various XML texts translatable
+! To do: Change RSG2 router so that it works with Joomla 1.6 SEF on
+! To do: Make slideshows work
+! To do: Remove Migration Options menu item
+! To do: Check Maintenance
+! To do: Check Template Manager
+! To do: Test, check and double check...
 
 2010-10-20 Mirjam
 ! Domain rsgallery2.net was lost to the RSGallery2 Team in september 2010.
   SVN and File Releases are still on http://joomlacode.org/gf/project/rsgallery2
   where packages now show j10 for Joomla!1.0 and j15 for Joomla!1.5.
-^ New domain www.rsgallery2.nl will be used from now on, changed in the code.
-^ New mailaddress will be used: team@rsgallery2.nl instead of info@rsgallery2.net.
-  (Note: support goes through the forum, not by e-mail!)
-
+^ New domain rsgallery2.nl will be used from now on, changed in the code.
 
 2010-10-20 Mirjam
 # Order/reorder in Backend Galleries now works correctly and reorder images show only when they can be used
@@ -109,9 +136,11 @@ Legend:
 # portrait images were not resized according to thumb_width (it used image width) - fixed
 ! proportional resizing uses thumb_width for max width and height
 
+2010-02-15 Mihir
+# upgrade now possible without legacy turned on - changed getting db-prefix
+
 2010-02-15 Mirjam
 + Added and changed language strings that were hardcoded instead of JText: en-GB and nl-NL
-# upgrade now possible without legacy turned on - changed getting db-prefix
 
 ---------------- 2.1.0 beta -- svn 956 -- 2009-09-17 -------------
 

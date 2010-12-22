@@ -8,7 +8,7 @@
 	<td align="center"><?php echo @$this->item->version != '' ? $this->item->version : '&nbsp;'; ?></td>
 	<td><?php echo @$this->item->creationdate != '' ? $this->item->creationdate : '&nbsp;'; ?></td>
 	<td>
-		<span class="editlinktip hasTip" title="<?php echo JText::_( 'Author Information' );?>::<?php echo $this->item->author_information; ?>">
+		<span class="editlinktip hasTip" title="<?php echo JText::_( 'COM_RSGALLERY2_AUTHOR_INFORMATION' );?>::<?php echo $this->item->author_information; ?>">
 			<?php echo @$this->item->author != '' ? $this->item->author : '&nbsp;'; ?>
 		</span>
 	</td>

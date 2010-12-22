@@ -46,7 +46,7 @@ class imageUploadError{
     }
     
     function toString(){
-        return JText::_(' - Error Image Upload : ') . $this->filename . " : " . $this->error . "<br>";
+        return JText::_('COM_RSGALLERY2_ERROR_IMAGE_UPLOAD') . $this->filename . " : " . $this->error . "<br>";
     }
 }
 
@@ -95,7 +95,7 @@ class fileUtils{
                 return audioUtils::importImage( $imgTmpName, $imgName, $imgCat, $imgTitle, $imgDesc );
             break;
             default:
-                return new imageUploadError( $imgName, "$imgName".JText::_(' not a supported file type.') );
+                return new imageUploadError( $imgName, "$imgName ".JText::_('COM_RSGALLERY2_NOT_A_SUPPORTED_FILE_TYPE') );
         }
     }
 
@@ -130,7 +130,7 @@ class fileUtils{
         $destination = JPATH_ORIGINAL . DS . $basename;
         if ( !move_uploaded_file( $tmpName, $destination )) {
             if( !copy( $tmpName, $destination )){
-            	return new imageUploadError( $basename, JText::_('could not copy ')."$tmpName".JText::_(' image to: ')."$destination" );
+            	return new imageUploadError( $basename, JText::_('COM_RSGALLERY2_COULD_NOT_COPY')."$tmpName ".JText::_('COM_RSGALLERY2_IMAGE_TO')." $destination" );
                 }
         }
         return $destination;
@@ -170,7 +170,7 @@ class fileUtils{
         $destination = JPATH_ORIGINAL . DS . $basename;
         if ( !JFile::copy( $tmpName, $destination )) {
             if( !JFile::upload( $tmpName, $destination )){
-            	return new imageUploadError( $basename, JText::_('could not copy ')."$tmpName".JText::_(' image to: ')."$destination" );
+            	return new imageUploadError( $basename, JText::_('COM_RSGALLERY2_COULD_NOT_COPY')."$tmpName ".JText::_('COM_RSGALLERY2_IMAGE_TO')." $destination" );
             }
         }
 
@@ -255,9 +255,9 @@ class fileHandler {
                 if ( is_writable($folder) )
                     continue;
                 else
-                    $error .= "<p>".$folder.JText::_(' exists, but is not Writable!')."</p>";
+                    $error .= "<p>".$folder.JText::_('COM_RSGALLERY2_EXISTS_BUT_IS_NOT_WRITABLE')."</p>";
             } else {
-                $error .= "<p>".$folder.JText::_(' does not exist!')."</p>";
+                $error .= "<p>".$folder.' '.JText::_('COM_RSGALLERY2_DOES_NOT_EXIST')."</p>";
             }
         }
         //Error handling
@@ -383,7 +383,7 @@ class fileHandler {
         if (file_exists( $mediadir )) {
             fileHandler::deldir( JPath::clean($mediadir) );
         } else {
-            echo JText::_('Apparently ')."<strong>$mediadir</strong>".JText::_('does not exit');
+            echo JText::_('COM_RSGALLERY2_APPARENTLY')."<strong>$mediadir </strong>".JText::_('COM_RSGALLERY2_DOES_NOT_EXIST');
         }
     }
     
@@ -410,8 +410,8 @@ class fileHandler {
         return rmdir( $dir );
     }
     /**
-     * Extracts uploaded archive to designated folder
-     * This function will replace handleZIP in the future and allows for all archive formats
+     * Uploads archive (with original name)and Extracts archive to designated folder
+     * This function replaces handleZIP used in J!1.5 and allows for all archive formats
      * 
      * @param	array 	Archive tmp path from upload form
      * @param 	string	Absolute path to destination folder, defaults to joomla /media folder
@@ -419,6 +419,38 @@ class fileHandler {
      */
     function extractArchive($archive, $destination = '') {
     	global $rsgConfig;
+    	$mainframe =& JFactory::getApplication();
+
+    	//Before extracting upload the archive to /JOOMLAROOT/tmp
+    	$uploadError = 0;
+    	//$archive = JRequest::getVar('uploadFile', null, 'FILES', 'ARRAY'); //(this is what is given to this function)
+    	
+    	//To make sure that a file was uploaded, we simply need to check that $uploadFile is an array:
+		if (!is_array($archive)) {
+			$uploadError	= 1;
+			$mainframe->enqueueMessage(JText::_('COM_RSGALLERY2_NO_FILE_TO_UPLOAD_PRESENT'), 'error');
+		}
+		//The next step is to verify that the upload was indeed successful.
+		if (($archive['error']) || $archive['size'] < 1) {
+			$uploadError	= 1;
+			$mainframe->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_IN_UPLOAD'), 'error');
+		}
+    	
+		//JFile::upload() transfers a file from the source file path to the destination path,
+		//which is /JOOMLAROOT/tmp/ here. Filename is made safe.
+		$config = & JFactory::getConfig();
+		$fileDestination = JFolder::makeSafe($config->getValue('config.tmp_path')). DS .  JFile::makeSafe(JFile::getName($archive['name']));
+		// Move uploaded file
+		if (!JFile::upload($archive['tmp_name'], $fileDestination)){
+			//handle upload (move file from user to server) error
+			$uploadError	= 1;
+			$mainframe->enqueueMessage(JText::_('COM_RSGALLERY2_UNABLE_TO_TRANSFER_FILE_TO_UPLOAD_TO_SERVER'), 'error');
+		}
+		if ($uploadError){
+			return false;			
+		} else {
+			$archive['tmp_name'] = $fileDestination;
+		}
     	
     	//Create unique install directory
         $tmpdir         = uniqid( 'rsginstall_' );
@@ -435,9 +467,13 @@ class fileHandler {
 		}
 		
 		//Unpack archive
+		jimport( 'joomla.filesystem.archive' );
 		$result = JArchive::extract($archivename, $extractdir);
 		if ( $result === false ) {
 			return false;
+		} else {
+			//remove tmp archive file on successfull extract
+			JFile::delete($archive['tmp_name']);
 		}
 		
 		/*
@@ -457,6 +493,7 @@ class fileHandler {
 				$extractdir = JPath::clean($extractdir.DS.$archivelist[0]);
 			}
 		}
+		return $archivelist;
     }
     
     /**
@@ -538,13 +575,13 @@ class fileHandler {
          
         //check source directory
         if (!file_exists( $source ) OR !is_dir ( $source )) {
-            echo $source.JText::_('_RSGALLERY_FU_FTP_DIR_NOT_EXIST');
-            $mainframe->redirect('index2.php?option=com_rsgallery2&task=batchupload', $source.JText::_('_RSGALLERY_FU_FTP_DIR_NOT_EXIST'));
+            echo $source.JText::_('COM_RSGALLERY2_FU_FTP_DIR_NOT_EXIST');
+            $mainframe->redirect('index.php?option=com_rsgallery2&task=batchupload', $source.JText::_('COM_RSGALLERY2_FU_FTP_DIR_NOT_EXIST'));
         }
         //Read files from FTP-directory
         $files = JFolder::files($source, '');
         if (!$files) {
-            $mainframe->redirect('index2.php?option=com_rsgallery2&task=batchupload', JText::_('No valid images found in ').$source.JText::_('. Please check the path.'));
+            $mainframe->redirect('index.php?option=com_rsgallery2&task=batchupload', JText::_('COM_RSGALLERY2_NO_VALID_IMAGES_FOUND_IN').' '.$source.'. '.JText::_('COM_RSGALLERY2_PLEASE_CHECK_THE_PATH'));
         }
         
         //Create imagelist from FTP-directory
@@ -563,7 +600,7 @@ class fileHandler {
         }
 
         if (count($list) == 0) {
-            echo JText::_('No files found to process!');
+            echo JText::_('COM_RSGALLERY2_NO_FILES_FOUND_TO_PROCESS');
         } else {
         return $list;            
         }
@@ -580,27 +617,27 @@ class fileHandler {
         } else {
             switch ( $error ) {
                 case UPLOAD_ERR_INI_SIZE:
-                    $msg = JText::_('The uploaded file exceeds the upload_max_filesize directive ')."(".ini_get("upload_max_filesize").")".JText::_(' in php.ini.');
+                    $msg = JText::_('COM_RSGALLERY2_THE_UPLOADED_FILE_EXCEEDS_THE_UPLOAD_MAX_FILESIZE_DIRECTIVE')." (".ini_get("upload_max_filesize").")".JText::_('COM_RSGALLERY2_IN_PHPINI');
                     break;
                 case UPLOAD_ERR_FORM_SIZE:
-					$msg = JText::_('_FU_MAX_FILESIZE_FORM');
+					$msg = JText::_('COM_RSGALLERY2_FU_MAX_FILESIZE_FORM');
                     break;
                 case UPLOAD_ERR_PARTIAL:
-                    $msg = JText::_('The uploaded file was only partially uploaded.');
+                    $msg = JText::_('COM_RSGALLERY2_THE_UPLOADED_FILE_WAS_ONLY_PARTIALLY_UPLOADED');
                     break;
                 case UPLOAD_ERR_NO_FILE:
-                    $msg = JText::_('No file was uploaded.');
+                    $msg = JText::_('COM_RSGALLERY2_NO_FILE_WAS_UPLOADED');
                     break;
                 case UPLOAD_ERR_NO_TMP_DIR:
-                    $msg = JText::_('Missing a temporary folder.');
+                    $msg = JText::_('COM_RSGALLERY2_MISSING_A_TEMPORARY_FOLDER');
                     break;
                 case UPLOAD_ERR_CANT_WRITE:
-                    $msg = JText::_('Failed to write file to disk');
+                    $msg = JText::_('COM_RSGALLERY2_FAILED_TO_WRITE_FILE_TO_DISK');
                     break;
                 case UPLOAD_ERR_EXTENSION;
-                    $msg = JText::_('File upload stopped by extension');         
+                    $msg = JText::_('COM_RSGALLERY2_FILE_UPLOAD_STOPPED_BY_EXTENSION');         
                 default:
-                    $msg = JText::_('Unknown File Error');
+                    $msg = JText::_('COM_RSGALLERY2_UNKNOWN_FILE_ERROR');
             }
         return $msg;
         }

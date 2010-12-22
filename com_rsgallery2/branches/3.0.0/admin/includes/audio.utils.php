@@ -90,7 +90,7 @@ class audioUtils extends fileUtils{
         
         if( file_exists( $original )){
             if( !unlink( $original )){
-				JError::raiseNotice('ERROR_CODE', JText::_('ERROR DELETING ORIGINAL IMAGE').": ".$original);
+				JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE').": ".$original);
 				return false;
 			}
 		}
@@ -99,7 +99,7 @@ class audioUtils extends fileUtils{
                 
         $database->setQuery("DELETE FROM #__rsgallery2_files WHERE name = '$name'");
         if( !$database->query()){
-            JError::raiseNotice('ERROR_CODE', JText::_('ERROR DELETING DATABASE ENTRY FOR IMAGE').": ".$name);
+            JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_DATABASE_ENTRY_FOR_IMAGE').": ".$name);
 			return false;
 		}
 		

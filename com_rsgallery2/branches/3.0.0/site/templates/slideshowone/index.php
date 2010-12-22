@@ -15,6 +15,6 @@ require_once( $templatePath . DS . 'display.class.php');
 
 $rsgDisplay = new rsgDisplay_slideshowone();
 
-$rsgDisplay->cleanStart = rsgInstance::getBool( 'cleanStart' );
+$rsgDisplay->cleanStart = JRequest::getBool( 'cleanStart' );
 
 $rsgDisplay->showSlideShow();

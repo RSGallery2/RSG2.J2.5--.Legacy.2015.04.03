@@ -100,7 +100,7 @@ class imgUtils extends fileUtils{
                 return Netpbm::resizeImage($source, $target, $targetWidth);
                 break;
             default:
-                JError::raiseNotice('ERROR_CODE', JText::_('INVALID GRAPHICS LIBRARY') . $rsgConfig->get( 'graphicsLib' ));
+                JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_INVALID_GRAPHICS_LIBRARY') . $rsgConfig->get( 'graphicsLib' ));
 				return false;
         }
     }
@@ -162,7 +162,7 @@ class imgUtils extends fileUtils{
         $width = getimagesize( $destination );
         if( !$width ){
             imgUtils::deleteImage( $newName );
-            return new imageUploadError( $destination, JText::_('NOT AN IMAGE OR CANNOT READ')." ". $destination );
+            return new imageUploadError( $destination, JText::_('COM_RSGALLERY2_NOT_AN_IMAGE_OR_CANNOT_READ')." ". $destination );
         } else {
             //the actual image width and height and its max
             $height = $width[1];
@@ -181,13 +181,13 @@ class imgUtils extends fileUtils{
             $result = imgUtils::makeDisplayImage( $original_image, $newName, $rsgConfig->get('image_width') );
             if( !$result ){
                 imgUtils::deleteImage( $newName );
-				return new imageUploadError( $imgName, JText::_('ERROR CREATING DISPLAY IMAGE'). ": ".$newName);
+				return new imageUploadError( $imgName, JText::_('COM_RSGALLERY2_ERROR_CREATING_DISPLAY_IMAGE'). ": ".$newName);
             }
         } else {
             $result = imgUtils::makeDisplayImage( $original_image, $newName, $maxSideImage );
             if( !$result ){
                 imgUtils::deleteImage( $newName );
-                return new imageUploadError( $imgName, JText::_('ERROR CREATING DISPLAY IMAGE'). ": ".$newName);
+                return new imageUploadError( $imgName, JText::_('COM_RSGALLERY2_ERROR_CREATING_DISPLAY_IMAGE'). ": ".$newName);
                 }
         }
            
@@ -196,7 +196,7 @@ class imgUtils extends fileUtils{
             $result = imgUtils::makeThumbImage( $original_image, $newName );
             if( !$result){
                 imgUtils::deleteImage( $newName );
-                return new imageUploadError( $imgName, JText::_('ERROR CREATING THUMB IMAGE'). ": ".$newName);
+                return new imageUploadError( $imgName, JText::_('COM_RSGALLERY2_ERROR_CREATING_THUMB_IMAGE'). ": ".$newName);
             }
         }
 
@@ -240,19 +240,19 @@ class imgUtils extends fileUtils{
 
         if( file_exists( $thumb )){
             if( !JFile::delete( $thumb )){
-				JError::raiseNotice('ERROR_CODE', JText::_('ERROR DELETING THUMB IMAGE') .": ". $thumb);
+				JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_THUMB_IMAGE') .": ". $thumb);
 				return false;
 			}
 		}
         if( file_exists( $display )){
 			if( !JFile::delete( $display )){
-                JError::raiseNotice('ERROR_CODE', JText::_('ERROR DELETING DISPLAY IMAGE') .": ". $display);
+                JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_DISPLAY_IMAGE') .": ". $display);
 				return false;
 			}
 		}
         if( file_exists( $original )){
 			if( !JFile::delete( $original )){
-                JError::raiseNotice('ERROR_CODE', JText::_('ERROR DELETING ORIGINAL IMAGE') .": ". $original);
+                JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE') .": ". $original);
 				return false;
 			}
 		}
@@ -262,7 +262,7 @@ class imgUtils extends fileUtils{
                 
         $database->setQuery("DELETE FROM #__rsgallery2_files WHERE name = '$name'");
         if( !$database->query()){
-            JError::raiseNotice('ERROR_CODE', JText::_('ERROR DELETING DATABASE ENTRY FOR IMAGE') .": ". $name);
+            JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_DATABASE_ENTRY_FOR_IMAGE') .": ". $name);
 			return false;
 		}
         galleryUtils::reorderRSGallery('#__rsgallery2_files', "gallery_id = '$gallery_id'");
@@ -379,7 +379,7 @@ class imgUtils extends fileUtils{
         $database =& JFactory::getDBO();
 
 		if( $id==null ){
-			echo JText::_('NO IMAGES IN GALLERY YET');
+			echo JText::_('COM_RSGALLERY2_NO_IMAGES_IN_GALLERY_YET');
 			return;
 		}
         $list = galleryUtils::getChildList( $id );
@@ -392,7 +392,7 @@ class imgUtils extends fileUtils{
         $list = $database->loadObjectList();
 
         if( $list==null ){
-            echo JText::_('NO IMAGES IN GALLERY YET');
+            echo JText::_('COM_RSGALLERY2_NO_IMAGES_IN_GALLERY_YET');
             return;
         }
 
@@ -427,7 +427,7 @@ class genericImageLib{
       * @return true if successfull, false if error
       */ 
     function resizeImage($source, $target, $targetWidth){
-		JError::raiseNotice('ERROR_CODE', JText::_('ABSTRACT IMAGE LIBRARY CLASS NO RESIZE AVAILABLE'));
+		JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ABSTRACT_IMAGE_LIBRARY_CLASS_NO_RESIZE_AVAILABLE'));
 		return false;
     }
 
@@ -503,7 +503,7 @@ class ImageMagick extends genericImageLib{
         $cmd = $impath."convert -resize $targetWidth $source $target";
         exec($cmd, $results, $return);
         if( $return > 0 ){
-			JError::raiseNotice('ERROR_CODE', JText::_('IMAGE COULD NOT BE MADE WITH IMAGEMAGICK').": ".$target);
+			JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_IMAGE_COULD_NOT_BE_MADE_WITH_IMAGEMAGICK').": ".$target);
 			return false;
 			}
         else 
@@ -556,7 +556,7 @@ class GD2 extends genericImageLib{
         $imgInfo = getimagesize( $source );
 
         if( !$imgInfo ){
-			JError::raiseNotice('ERROR_CODE', $source ." ". JText::_('IS NOT A VALID IMAGE OR IMAGENAME'));
+			JError::raiseNotice('ERROR_CODE', $source ." ". JText::_('COM_RSGALLERY2_IS_NOT_A_VALID_IMAGE_OR_IMAGENAME'));
 			return false;
         }
         list( $sourceWidth, $sourceHeight, $type, $attr ) = $imgInfo;
@@ -566,7 +566,7 @@ class GD2 extends genericImageLib{
         
         // check if we can read this type of file
         if( !function_exists( "imagecreatefrom$type" )){
-            JError::raiseNotice('ERROR_CODE', JText::_('GD2 does not support reading image type').' '.$type);
+            JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_GD2_DOES_NOT_SUPPORT_READING_IMAGE_TYPE').' '.$type);
 			return false;
         }
 		// Determine target sizes: the $targetWidth that is put in this function is actually
@@ -584,7 +584,7 @@ class GD2 extends genericImageLib{
         $loadImg = "imagecreatefrom" . $type;
         $sourceImg = $loadImg( $source );
         if( !$sourceImg ){
-			JError::raiseNotice('ERROR_CODE', JText::_('ERROR READING SOURCE IMAGE').': '.$source);
+			JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_READING_SOURCE_IMAGE').': '.$source);
 			return false;        
         }
         // create target resource
@@ -598,12 +598,12 @@ class GD2 extends genericImageLib{
             $targetWidth, $targetHeight,
             $sourceWidth, $sourceHeight
         )){
-		JError::raiseNotice('ERROR_CODE', JText::_('ERROR RESIZING IMAGE').': '.$source);
+		JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_RESIZING_IMAGE').': '.$source);
 		return false;  
 		}	
         // write the image
         if( !imagejpeg( $targetImg, $target, $rsgConfig->get('jpegQuality'))){
-			JError::raiseNotice('ERROR_CODE', JText::_('ERROR WRITING TARGET IMAGE').': '.$target);
+			JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_WRITING_TARGET_IMAGE').': '.$target);
 			return false; 
 		}
         //Free up memory
@@ -621,7 +621,7 @@ class GD2 extends genericImageLib{
       */
     function createSquareThumb( $source, $target, $width ) {
         global $rsgConfig;
-        
+$source = rawurldecode( $source );//fix: getimagesize does not like %20      
         //Create a square image, based on the set width
         $t_width  = $width;
         $t_height = $width;
@@ -634,13 +634,13 @@ class GD2 extends genericImageLib{
         
         switch($ext)
             {
-            case 1:
+            case 1:	//GIF
                 $image = imagecreatefromgif($source);
                 break;
-            case 2:
+            case 2:	//JPG
                 $image = imagecreatefromjpeg($source);
                 break;
-            case 3:
+            case 3:	//PNG
                 $image = imagecreatefrompng($source);
                 break;
             }
@@ -668,9 +668,9 @@ class GD2 extends genericImageLib{
             }
     
         //Resize the image
-        $thumb = imagecreatetruecolor($width , $height); 
+        $thumb = imagecreatetruecolor($width , $height);
         if ( !imagecopyresampled($thumb, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig)){
-			JError::raiseNotice('ERROR_CODE', JText::_('ERROR RESIZING IMAGE').": ".$source);
+			JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_RESIZING_IMAGE').": ".$source);
             return false;
         }
         //Create the cropped thumbnail
@@ -678,13 +678,13 @@ class GD2 extends genericImageLib{
         $h1 = ($height/2) - ($t_height/2);
         $thumb2 = imagecreatetruecolor($t_width , $t_height);
         if ( !imagecopyresampled($thumb2, $thumb, 0,0, $w1, $h1, $t_width , $t_height ,$t_width, $t_height) ){
-            JError::raiseNotice('ERROR_CODE', JText::_('ERROR CROPPING IMAGE').": ".$source);
+            JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_CROPPING_IMAGE').": ".$source);
             return false;
 		}
         
         // write the image
         if( !imagejpeg( $thumb2, $target, $rsgConfig->get('jpegQuality'))) {
-            JError::raiseNotice('ERROR_CODE', JText::_('ERROR WRITING TARGET IMAGE').": ".$target);
+            JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_WRITING_TARGET_IMAGE').": ".$target);
             return false;
         } else {
         	//Free up memory

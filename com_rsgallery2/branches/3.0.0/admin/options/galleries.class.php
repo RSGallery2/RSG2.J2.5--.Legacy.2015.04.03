@@ -60,7 +60,7 @@ class rsgGalleriesItem extends JTable {
 		
         /** check for valid name */
         if (trim( $this->name ) == '') {
-            $this->_error = JText::_('Gallery name');
+            $this->_error = JText::_('COM_RSGALLERY2_GALLERY_NAME');
             return false;
         }
 
@@ -74,7 +74,7 @@ class rsgGalleriesItem extends JTable {
 
         $xid = intval( $this->_db->loadResult() );
         if ($xid && $xid != intval( $this->id )) {
-            $this->_error = JText::_('There is a gallery already with that name, please try again.');
+            $this->_error = JText::_('COM_RSGALLERY2_THERE_IS_A_GALLERY_ALREADY_WITH_THAT_NAME_PLEASE_TRY_AGAIN');
             return false;
         }
         return true;
@@ -97,7 +97,8 @@ function galleryParentSelectList( &$row ) {
 
     // get a list of the menu items
     // excluding the current menu item and its child elements
-    $query = "SELECT *"
+    //$query = "SELECT *" //MK// [change] [J!1.6 has parent_id instead of parent and title instead of name]
+    $query = "SELECT *, parent AS parent_id, name AS title"
     . " FROM #__rsgallery2_galleries"
     . " WHERE published != -2"
     . $id
@@ -125,12 +126,14 @@ function galleryParentSelectList( &$row ) {
 
     // assemble menu items to the array
     $mitems     = array();
-    $mitems[]   = JHTMLSelect::option( '0', JText::_('Top') );
+    $mitems[]   = JHTMLSelect::option( '0', JText::_('COM_RSGALLERY2_TOP') );
 
     foreach ( $list as $item ) {
-        $mitems[] = JHTMLSelect::option( $item->id, '&nbsp;&nbsp;&nbsp;'. $item->treename );
+    	$item->treename = str_replace  ( '&#160;&#160;'  ,  '...' ,  $item->treename  ); //MK// [hack] [the original treename holds &#160; as a non breacking space for subgalleries, but JHTMLSelect::option cannot handle that, nor &nbsp;] 
+        $mitems[] = JHTMLSelect::option( $item->id, '...'. $item->treename );// //MK// [change] [Non-breaking space: HTML name: &nbsp; replaced by '...']
     }
-
+    
+//genericlist(array of objects, value of HMTL name attribute, additional HTML attributes for <select> tag, name of objectvarialbe for the option value, name of objectvariable for option text, key that is selected,???,???)
     $output = JHTML::_("select.genericlist", $mitems, 'parent', 'class="inputbox" size="10"', 'value', 'text', $row->parent );
 
     return $output;

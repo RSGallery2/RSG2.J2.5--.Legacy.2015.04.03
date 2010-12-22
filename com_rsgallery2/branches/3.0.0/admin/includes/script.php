@@ -101,7 +101,7 @@ function addAttachment() {
     if (allowed_attachments <= 0)
     return alert("Sorry, you aren't allowed to post any more attachments.");
 
-    setOuterHTML(document.getElementById("moreAttachments"), '<br /><?php echo JText::_('Title')?>:&nbsp;<input class="text" type="text" id="title" name="title[]" value="" size="50" maxlength="250" /><br /><br /><?php echo JText::_('File')?>:&nbsp;&nbsp;<input type="file" size="48" id="images" name="images[]" /><br /><hr /><span id="moreAttachments"></span>');
+    setOuterHTML(document.getElementById("moreAttachments"), '<br /><?php echo JText::_('COM_RSGALLERY2_TITLE')?>:&nbsp;<input class="text" type="text" id="title" name="title[]" value="" size="50" maxlength="250" /><br /><br /><?php echo JText::_('COM_RSGALLERY2_FILE')?>:&nbsp;&nbsp;<input type="file" size="48" id="images" name="images[]" /><br /><hr /><span id="moreAttachments"></span>');
     allowed_attachments = allowed_attachments - 1;
 return true;
 }

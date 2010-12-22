@@ -39,7 +39,7 @@ class InstallerModel extends JModel
 	 */
 	function __construct()
 	{
-		global $mainframe;
+		$mainframe =& JFactory::getApplication();
 
 		// Call the parent constructor
 		parent::__construct();
@@ -84,7 +84,7 @@ class InstallerModel extends JModel
 	 */
 	function remove($eid=array())
 	{
-		global $mainframe;
+		$mainframe =& JFactory::getApplication();
 
 		// Initialize variables
 		$failed = array ();
@@ -121,11 +121,11 @@ class InstallerModel extends JModel
 
 		if (count($failed)) {
 			// There was an error in uninstalling the package
-			$msg = JText::sprintf('UNINSTALLEXT', JText::_($this->_type), JText::_('Error'));
+			$msg = JText::sprintf('COM_RSGALLERY2_UNINSTALLEXT', JText::_($this->_type), JText::_('COM_RSGALLERY2_ERROR'));
 			$result = false;
 		} else {
 			// Package uninstalled sucessfully
-			$msg = JText::sprintf('UNINSTALLEXT', JText::_($this->_type), JText::_('Success'));
+			$msg = JText::sprintf('COM_RSGALLERY2_UNINSTALLEXT', JText::_($this->_type), JText::_('COM_RSGALLERY2_SUCCESS'));
 			$result = true;
 		}
 
@@ -140,6 +140,6 @@ class InstallerModel extends JModel
 
 	function _loadItems()
 	{
-		return JError::raiseError( 500, JText::_('Method Not Implemented'));
+		return JError::raiseError( 500, JText::_('COM_RSGALLERY2_METHOD_NOT_IMPLEMENTED'));
 	}
 }

@@ -21,7 +21,7 @@ class rsgConfig {
 	var $version    		= 'depreciated';  // this is set and loaded from includes/version.rsgallery2.php
 	var $debug      		= false;
 	var $allowedFileTypes 	= "jpg,jpeg,gif,png";
-	var $hideRoot			= false; // hide the root gallery and it's listing.  this is to publish multiple independant galleries.
+	var $hideRoot			= false; //Deprecated in v3, is not used anywhere; hide the root gallery and it's listing.  this is to publish multiple independant galleries.
 	var $advancedSef		= false; // use category and image name instead of numeric identifiers in url.
 	
 	// new image paths, use imgUtils::getImg*() instead of calling these directly
@@ -126,8 +126,7 @@ class rsgConfig {
         // get version
         // global $rsgVersion;
         // $this->version = $rsgVersion->getVersionOnly();
-		// Version needs to be changed here!
-        $this->version = '2.2.0';
+        $this->version = '3.0.0';
 
         if( $loadFromDB )
             $this->_loadConfig();
@@ -178,13 +177,22 @@ class rsgConfig {
 					} else {
 						$ak = $k;
 					}
+
 					if (isset($array[$ak])) {
-						$obj->$k = ($checkSlashes && get_magic_quotes_gpc()) ?  stripslashes( $array[$ak] ) : $array[$ak];
-					}
+						if ($checkSlashes && get_magic_quotes_gpc()) {
+							if (is_string($array[$ak])) {
+								//if it is a string, we can use stripslashes e.g. when multiple exifTags are selected is is an array
+								$obj->$k = stripslashes($array[$ak]);	
+							} else {
+								$obj->$k = $array[$ak];	
+							}
+						} else {
+							$obj->$k = $array[$ak];
+						}
+					} 
 				}
 			}
 		}
-
 		return true;
 	}
 

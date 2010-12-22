@@ -57,7 +57,7 @@ class JInstaller_rsgTemplate extends JObject
 			global $rsgConfig;
 			$client =& $rsgConfig->getClientInfo($cname, true);
 			if ($client === false) {
-				$this->parent->abort(JText::_('rsgTemplate').' '.JText::_('Install').': '.JText::_('Unknown client type').' ['.$cname.']');
+				$this->parent->abort(JText::_('COM_RSGALLERY2_RSGTEMPLATE').' '.JText::_('COM_RSGALLERY2_INSTALL').': '.JText::_('COM_RSGALLERY2_UNKNOWN_CLIENT_TYPE').' ['.$cname.']');
 				return false;
 			}
 			$basePath = $client->path;
@@ -82,7 +82,7 @@ class JInstaller_rsgTemplate extends JObject
 		 * installed or another template is using that directory.
 		 */
 		if (file_exists($this->parent->getPath('extension_root')) && !$this->parent->getOverwrite()) {
-			JError::raiseWarning(100, JText::_('Template').' '.JText::_('Install').': '.JText::_('Another template is already using directory').': "'.$this->parent->getPath('extension_root').'"');
+			JError::raiseWarning(100, JText::_('COM_RSGALLERY2_TEMPLATE').' '.JText::_('COM_RSGALLERY2_INSTALL').': '.JText::_('COM_RSGALLERY2_ANOTHER_TEMPLATE_IS_ALREADY_USING_DIRECTORY').': "'.$this->parent->getPath('extension_root').'"');
 			return false;
 		}
 
@@ -90,7 +90,7 @@ class JInstaller_rsgTemplate extends JObject
 		$created = false;
 		if (!file_exists($this->parent->getPath('extension_root'))) {
 			if (!$created = JFolder::create($this->parent->getPath('extension_root'))) {
-				$this->parent->abort(JText::_('Template').' '.JText::_('Install').': '.JText::_('Failed to create directory').' "'.$this->parent->getPath('extension_root').'"');
+				$this->parent->abort(JText::_('COM_RSGALLERY2_TEMPLATE').' '.JText::_('COM_RSGALLERY2_INSTALL').': '.JText::_('COM_RSGALLERY2_FAILED_TO_CREATE_DIRECTORY').' "'.$this->parent->getPath('extension_root').'"');
 				return false;
 			}
 		}
@@ -134,7 +134,7 @@ class JInstaller_rsgTemplate extends JObject
 		// Lastly, we will copy the manifest file to its appropriate place.
 		if (!$this->parent->copyManifest(-1)) {
 			// Install failed, rollback changes
-			$this->parent->abort(JText::_('Template').' '.JText::_('Install').': '.JText::_('Could not copy setup file'));
+			$this->parent->abort(JText::_('COM_RSGALLERY2_TEMPLATE').' '.JText::_('COM_RSGALLERY2_INSTALL').': '.JText::_('COM_RSGALLERY2_COULD_NOT_COPY_SETUP_FILE'));
 			return false;
 		}
 		return true;
@@ -156,7 +156,7 @@ class JInstaller_rsgTemplate extends JObject
 
 		// For a template the id will be the template name which represents the subfolder of the templates folder that the template resides in.
 		if (!$name) {
-			JError::raiseWarning(100, JText::_('Template').' '.JText::_('Uninstall').': '.JText::_('Template id is empty, cannot uninstall files'));
+			JError::raiseWarning(100, JText::_('COM_RSGALLERY2_TEMPLATE').' '.JText::_('COM_RSGALLERY2_UNINSTALL').': '.JText::_('COM_RSGALLERY2_TEMPLATE_ID_IS_EMPTY,_CANNOT_UNINSTALL_FILES'));
 			return false;
 		}
 
@@ -164,7 +164,7 @@ class JInstaller_rsgTemplate extends JObject
 		global $rsgConfig;
 		$client =& $rsgConfig->getClientInfo( $clientId );
 		if (!$client) {
-			JError::raiseWarning(100, JText::_('Template').' '.JText::_('Uninstall').': '.JText::_('Invalid application'));
+			JError::raiseWarning(100, JText::_('COM_RSGALLERY2_TEMPLATE').' '.JText::_('COM_RSGALLERY2_UNINSTALL').': '.JText::_('COM_RSGALLERY2_INVALID_APPLICATION'));
 			return false;
 		}
 		$this->parent->setPath('extension_root', $client->path.DS.'templates'.DS.$name);
@@ -174,7 +174,7 @@ class JInstaller_rsgTemplate extends JObject
 		if (!is_a($manifest, 'JSimpleXML')) {
 			// Make sure we delete the folders
 			JFolder::delete($this->parent->getPath('extension_root'));
-			JError::raiseWarning(100, JTEXT::_('Template').' '.JTEXT::_('Uninstall').': '.JTEXT::_('Package manifest file invalid or not found'));
+			JError::raiseWarning(100, JTEXT::_('COM_RSGALLERY2_TEMPLATE').' '.JTEXT::_('COM_RSGALLERY2_UNINSTALL').': '.JTEXT::_('COM_RSGALLERY2_PACKAGE_MANIFEST_FILE_INVALID_OR_NOT_FOUND'));
 			return false;
 		}
 		$root =& $manifest->document;
@@ -188,7 +188,7 @@ class JInstaller_rsgTemplate extends JObject
 		if (JFolder::exists($this->parent->getPath('extension_root'))) {
 			$retval = JFolder::delete($this->parent->getPath('extension_root'));
 		} else {
-			JError::raiseWarning(100, JText::_('Template').' '.JText::_('Uninstall').': '.JText::_('Directory does not exist, cannot remove files'));
+			JError::raiseWarning(100, JText::_('COM_RSGALLERY2_TEMPLATE').' '.JText::_('COM_RSGALLERY2_UNINSTALL').': '.JText::_('COM_RSGALLERY2_DIRECTORY_DOES_NOT_EXIST,_CANNOT_REMOVE_FILES'));
 			$retval = false;
 		}
 		return $retval;

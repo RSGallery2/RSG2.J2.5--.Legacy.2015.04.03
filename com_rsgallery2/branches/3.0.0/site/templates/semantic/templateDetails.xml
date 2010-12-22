@@ -2,12 +2,12 @@
 <install version="1.5" type="rsgTemplate">
 	<name>Semantic</name>
 	<creationDate>25/01/10</creationDate>
-	<author>RSGallery2 Team</author>
+	<author>RSGallery2</author>
 	<copyright>Open Source, GPL</copyright>
 	<authorEmail>team@rsgallery2.nl</authorEmail>
 	<authorUrl>rsgallery2.nl</authorUrl>
 	<description>Default semantic template.</description>
-	<version>2.1</version>
+	<version>3.0</version>
 	<files>
 		<filename>index.php</filename>
 		<filename>display.class.php</filename>

@@ -186,23 +186,24 @@ text-align:center;
 ul#rsg2-galleryList{
     clear: both;
     padding: 0;
+	border: 1px solid #ccc; /*Added in J1.6*/
 }
 .rsg2-galleryList-status{
     text-align: right;
 	float:right;
 }
-
 .rsg2-galleryList-item{
     clear: both;
-    
     padding: 5px;
     margin: 5px 0 5px 0;
-
     list-style: none;
     background-image: none;
-
-    border: 1px solid #ccc;
+/*    border: 1px solid #ccc;*/ /*Removed in J1.6*/
 }
+.rsg2-galleryList-item td, .rsg2-galleryList-item tr{ /*Added in J1.6*/
+	border: none;
+}
+
 .rsg2-galleryList-thumb{
     float: left;
     margin: 0 5px 5px 0;
@@ -269,8 +270,17 @@ table#rsg2-thumbsList{
 table#rsg2-thumbsList td{
     overflow: hidden;
     padding: 5px 5px;
-
     text-align: center;
+	border: none;
+}
+table#rsg2-thumbsList tr{
+	border: none;
+}
+.rsg_sem_inl_dispImg tr, .rsg_sem_inl_dispImg td{
+	border: none;
+}
+.rsg_sem_inl_ImgDetails tr, .rsg_sem_inl_ImgDetails td{
+	border: none;
 }
 
 .rsg2-pageNav{
@@ -278,7 +288,7 @@ table#rsg2-thumbsList td{
     font-size: 12px;
 }
 .rsg2-pagenav-limitbox{
-text-align:right;
+	text-align:right;
 }
 
 /* utility selector, this is common in many templates, but we can't count on it being there */

@@ -62,7 +62,7 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	* This is the main task switch where we decide what to do.
 	*/
 	function mainSwitch(){
-		switch( rsgInstance::getVar( 'rsgOption', '' )) {
+		switch( JRequest::getVar( 'rsgOption', '' )) {
 			case 'rsgComments':
 				require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgcomments' . DS . 'rsgcomments.php');
 				break;
@@ -76,7 +76,7 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 				require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgsearch' . DS . 'search.php');
 				break;
 			default:
-				switch( rsgInstance::getVar( 'task', '' ) ){
+				switch( JRequest::getVar( 'task', '' ) ){
 					case 'xml':
 						xmlFile();
 						break;
@@ -256,7 +256,7 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * @since	1.5
 	 */
 	function getInt($name, $default = 0, $hash = 'default') {
-		return rsgInstance::getVar($name, $default, $hash, 'int');
+		return JRequest::getVar($name, $default, $hash, 'int');
 	}
 
 	/**
@@ -274,7 +274,7 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * @since	1.5
 	 */
 	function getFloat($name, $default = 0.0, $hash = 'default') {
-		return rsgInstance::getVar($name, $default, $hash, 'float');
+		return JRequest::getVar($name, $default, $hash, 'float');
 	}
 
 	/**
@@ -292,7 +292,7 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * @since	1.5
 	 */
 	function getBool($name, $default = false, $hash = 'default') {
-		return rsgInstance::getVar($name, $default, $hash, 'bool');
+		return JRequest::getVar($name, $default, $hash, 'bool');
 	}
 
 	/**
@@ -310,7 +310,7 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * @since	1.5
 	 */
 	function getWord($name, $default = '', $hash = 'default') {
-		return rsgInstance::getVar($name, $default, $hash, 'word');
+		return JRequest::getVar($name, $default, $hash, 'word');
 	}
 
 	/**
@@ -328,7 +328,7 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * @since	1.5
 	 */
 	function getCmd($name, $default = '', $hash = 'default') {
-		return rsgInstance::getVar($name, $default, $hash, 'cmd');
+		return JRequest::getVar($name, $default, $hash, 'cmd');
 	}
 
 	/**
@@ -349,7 +349,7 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	function getString($name, $default = '', $hash = 'default', $mask = 0)
 	{
 		// Cast to string, in case JREQUEST_ALLOWRAW was specified for mask
-		return (string) rsgInstance::getVar($name, $default, $hash, 'string', $mask);
+		return (string) JRequest::getVar($name, $default, $hash, 'string', $mask);
 	}
 
 	/**

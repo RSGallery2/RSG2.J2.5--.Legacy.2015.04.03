@@ -2,7 +2,7 @@
 	<table class="adminform">
 		<tbody>
 			<tr>
-				<td width="100%"><?php echo JText::_( 'DESCTEMPLATES' ); ?></td>
+				<td width="100%"><?php echo JText::_( 'COM_RSGALLERY2_DESCTEMPLATES' ); ?></td>
 			</tr>
 		</tbody>
 	</table>
@@ -11,12 +11,12 @@
 	<table class="adminlist" cellspacing="1">
 		<thead>
 			<tr>
-				<th class="title" width="10px"><?php echo JText::_( 'Num' ); ?></th>
-				<th class="title"><?php echo JText::_( 'Template' ); ?></th>
-				<th class="title" align="center"><?php echo JText::_( 'Default' ); ?></th>
-				<th class="title" width="10%" align="center"><?php echo JText::_( 'Version' ); ?></th>
-				<th class="title" width="15%"><?php echo JText::_( 'Date' ); ?></th>
-				<th class="title" width="25%"><?php echo JText::_( 'Author' ); ?></th>
+				<th class="title" width="10px"><?php echo JText::_( 'COM_RSGALLERY2_NUM' ); ?></th>
+				<th class="title"><?php echo JText::_( 'COM_RSGALLERY2_TEMPLATE' ); ?></th>
+				<th class="title" align="center"><?php echo JText::_( 'COM_RSGALLERY2_DEFAULT' ); ?></th>
+				<th class="title" width="10%" align="center"><?php echo JText::_( 'COM_RSGALLERY2_VERSION' ); ?></th>
+				<th class="title" width="15%"><?php echo JText::_( 'COM_RSGALLERY2_DATE' ); ?></th>
+				<th class="title" width="25%"><?php echo JText::_( 'COM_RSGALLERY2_AUTHOR' ); ?></th>
 			</tr>
 		</thead>
 		<tfoot>
@@ -34,7 +34,7 @@
 		</tbody>
 	</table>
 	<?php else : ?>
-		<?php echo JText::_( 'There are no templates installed' ); ?>
+		<?php echo JText::_( 'COM_RSGALLERY2_THERE_ARE_NO_TEMPLATES_INSTALLED' ); ?>
 	<?php endif; ?>
 	<input type="hidden" name="task" value="manage" />
 	<input type="hidden" name="boxchecked" value="0" />

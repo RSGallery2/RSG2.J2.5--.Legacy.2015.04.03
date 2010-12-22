@@ -2,9 +2,9 @@
 
 <table width="100%" border="0" cellspacing="1" cellpadding="0" class="imageExif">
 	<tr>
-		<th><?php echo JText::_('Section'); ?></th>
-		<th><?php echo JText::_('Name'); ?></th>
-		<th><?php echo JText::_('Value'); ?></th>
+		<th><?php echo JText::_('COM_RSGALLERY2_SECTION'); ?></th>
+		<th><?php echo JText::_('COM_RSGALLERY2_NAME'); ?></th>
+		<th><?php echo JText::_('COM_RSGALLERY2_VALUE'); ?></th>
 	</tr>
 <?php
 		foreach ($this->exif as $key => $section):
