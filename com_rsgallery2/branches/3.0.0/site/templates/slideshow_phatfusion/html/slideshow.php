@@ -1,6 +1,7 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-global $mainframe, $rsgConfig;
+global $rsgConfig;
+$mainframe =& JFactory::getApplication();
 //Add stylesheets and scripts to header
 $css1 = "<link rel=\"stylesheet\" href=\"components/com_rsgallery2/templates/slideshow_phatfusion/css/slideshow.css\" type=\"text/css\" media=\"screen\" charset=\"utf-8\" />";
 $mainframe->AddCustomHeadTag($css1);

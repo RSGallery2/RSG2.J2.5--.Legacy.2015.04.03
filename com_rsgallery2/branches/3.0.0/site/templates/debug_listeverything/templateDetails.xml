@@ -2,11 +2,11 @@
 <mosinstall type="rsgTemplate">
 	<name>debug - List Everything</name>
 	<creationDate>15/02/07</creationDate>
-	<author>RSGallery2 Team</author>
+	<author>RSGallery2</author>
 	<copyright>Open Source, GPL</copyright>
 	<authorEmail>team@rsgallery2.nl</authorEmail>
 	<authorUrl>rsgallery2.nl</authorUrl>
-	<version>1.0</version>
+	<version>3.0</version>
 	<description>Must have debug enabled to use this template.  Lists all galleries and items.</description>
 	<files>
 		<filename>index.php</filename>

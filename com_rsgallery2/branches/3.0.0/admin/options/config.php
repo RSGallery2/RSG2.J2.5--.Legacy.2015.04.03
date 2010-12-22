@@ -18,7 +18,7 @@ switch( $task ){
     	cancelConfig($option);
 		break;
     case 'config_dumpVars':
-        //HTML_RSGallery::RSGalleryHeader('viewChangelog', JText::_('Configuration Variables'));
+        //HTML_RSGallery::RSGalleryHeader('viewChangelog', JText::_('COM_RSGALLERY2_CONFIGURATION_VARIABLES'));
         config_dumpVars();
         HTML_RSGallery::RSGalleryFooter();
     break;
@@ -26,40 +26,40 @@ switch( $task ){
 
 $user = &JFactory::getUser();
 // these config functions require an admin check
-if ( $user->get('gid') > 23 )
+if (1 )//MK// [change] [only admin + may see this]  $user->get('gid') > 23
 switch( $task ){
     case 'applyConfig':
-        //HTML_RSGallery::RSGalleryHeader('config', JText::_('Configuration'));
+        //HTML_RSGallery::RSGalleryHeader('config', JText::_('COM_RSGALLERY2_CONFIGURATION'));
         saveConfig();
         showConfig($option);
         HTML_RSGallery::RSGalleryFooter();
     break;
     case 'saveConfig':
-        //HTML_RSGallery::RSGalleryHeader('cpanel', JText::_('Control Panel'));
+        //HTML_RSGallery::RSGalleryHeader('cpanel', JText::_('COM_RSGALLERY2_CONTROL_PANEL'));
         saveConfig();
         HTML_RSGallery::showCP();
         HTML_RSGallery::RSGalleryFooter();
     break;
     case "showConfig":
-        //HTML_RSGallery::RSGalleryHeader('config', JText::_('Configuration'));
+        //HTML_RSGallery::RSGalleryHeader('config', JText::_('COM_RSGALLERY2_CONFIGURATION'));
         showConfig();
         HTML_RSGallery::RSGalleryFooter();
     break;
 
     case 'config_rawEdit_apply':
-        //HTML_RSGallery::RSGalleryHeader('config_rawEdit', JText::_('Configuration Raw Edit'));
+        //HTML_RSGallery::RSGalleryHeader('config_rawEdit', JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'));
         saveConfig();
         config_rawEdit( );
         HTML_RSGallery::RSGalleryFooter();
     break;
     case 'config_rawEdit_save':
-        //HTML_RSGallery::RSGalleryHeader('cpanel', JText::_('Control Panel'));
+        //HTML_RSGallery::RSGalleryHeader('cpanel', JText::_('COM_RSGALLERY2_CONTROL_PANEL'));
         saveConfig();
         HTML_RSGallery::showCP();
         HTML_RSGallery::RSGalleryFooter();
     break;
     case 'config_rawEdit':
-        //HTML_RSGallery::RSGalleryHeader('config_rawEdit', JText::_('Configuration Raw Edit'));
+        //HTML_RSGallery::RSGalleryHeader('config_rawEdit', JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'));
         config_rawEdit( );
         HTML_RSGallery::RSGalleryFooter();
     break;
@@ -93,14 +93,14 @@ function saveConfig(){
     $rsgConfig = new rsgConfig();
     
     if( $rsgConfig->saveConfig( $_REQUEST )){
-            HTML_RSGALLERY::printAdminMsg(JText::_('Configuration Saved'));
+            HTML_RSGALLERY::printAdminMsg(JText::_('COM_RSGALLERY2_CONFIGURATION_SAVED'));
 
             // save successful, try creating some image directories if we were asked to
-            if( rsgInstance::getVar( 'createImgDirs' ))
-                HTML_RSGALLERY::printAdminMsg(JText::_('Creating Image directories not Implemented yet.'), true);
+            if( JRequest::getVar( 'createImgDirs' ))
+                HTML_RSGALLERY::printAdminMsg(JText::_('COM_RSGALLERY2_CREATING_IMAGE_DIRECTORIES_NOT_IMPLEMENTED_YET'), true);
             
     }else{
-            HTML_RSGALLERY::printAdminMsg(JText::_('Error Saving Configuration'));
+            HTML_RSGALLERY::printAdminMsg(JText::_('COM_RSGALLERY2_ERROR_SAVING_CONFIGURATION'));
     }
     
 }
@@ -140,19 +140,19 @@ function showConfig(){
 	if( $result )
 		$graphicsLib[] = JHTML::_("select.option", 'gd2', $result );
 	else
-		$graphicsLib[] = JHTML::_("select.option", 'gd2', JText::_('GD2 not detected') );
+		$graphicsLib[] = JHTML::_("select.option", 'gd2', JText::_('COM_RSGALLERY2_GD2_NOT_DETECTED') );
 
     $result = ImageMagick::detect();
     if( $result )
         $graphicsLib[] = JHTML::_("select.option", 'imagemagick', $result );
     else
-        $graphicsLib[] = JHTML::_("select.option", 'imagemagick', JText::_('ImageMagick not detected') );
+        $graphicsLib[] = JHTML::_("select.option", 'imagemagick', JText::_('COM_RSGALLERY2_IMAGEMAGICK_NOT_DETECTED') );
 
     $result = Netpbm::detect();
     if( $result )
         $graphicsLib[] = JHTML::_("select.option", 'netpbm', $result );
     else
-        $graphicsLib[] = JHTML::_("select.option", 'netpbm', JText::_('netPBM not detected') );
+        $graphicsLib[] = JHTML::_("select.option", 'netpbm', JText::_('COM_RSGALLERY2_NETPBM_NOT_DETECTED') );
     
     
     $lists['graphicsLib'] = JHTML::_("select.genericlist",$graphicsLib, 'graphicsLib', '', 'value', 'text', $rsgConfig->graphicsLib );
@@ -160,7 +160,7 @@ function showConfig(){
     html_rsg2_config::showconfig( $lists );
 }
 function cancelConfig( $option ) {
-	global $mainframe;
-	$mainframe->redirect("index2.php?option=$option");
+	$mainframe =& JFactory::getApplication();
+	$mainframe->redirect("index.php?option=$option");
 }
 ?>

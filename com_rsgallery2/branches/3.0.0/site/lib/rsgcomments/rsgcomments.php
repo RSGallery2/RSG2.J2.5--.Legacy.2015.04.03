@@ -12,9 +12,9 @@ defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 
 require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgcomments' . DS . 'rsgcomments.class.php' );
 
-$cid    = rsgInstance::getInt('cid', array(0) );
-$task    = rsgInstance::getVar('task', '' );
-$option    = rsgInstance::getVar('option', '' );
+$cid    = JRequest::getInt('cid', array(0) );
+$task    = JRequest::getVar('task', '' );
+$option    = JRequest::getVar('option', '' );
 
 switch( $task ){
     case 'save':
@@ -32,9 +32,9 @@ switch( $task ){
  * @param string The current url option
  */
 function test( $option ) {
-	$id	= rsgInstance::getInt('id'  , '');
-	$item_id 	= rsgInstance::getInt('item_id'  , '');
-	$catid 		= rsgInstance::getInt('catid'  , '');
+	$id	= JRequest::getInt('id'  , '');
+	$item_id 	= JRequest::getInt('item_id'  , '');
+	$catid 		= JRequest::getInt('catid'  , '');
 	$redirect_url = JRoute::_("index.php?option=".$option."&page=inline&id=".$item_id."&catid=".$catid);
 	echo "Here we will delete comment number ".$id."\\n and redirect to ".$redirect_url;
 }
@@ -45,23 +45,24 @@ function test( $option ) {
  * @todo Implement system to allow only one comment per user.
  */
 function saveComment( $option ) {
-	global $rsgConfig,$mainframe;
+	global $rsgConfig;
+	$mainframe =& JFactory::getApplication();
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
 	
 	//Retrieve parameters
 	$user_ip	= $_SERVER['REMOTE_ADDR'];
-	$rsgOption	= rsgInstance::getVar('rsgOption'  , '');
-	$subject 	= rsgInstance::getVar('ttitle'  , '');
-	$user_name	= rsgInstance::getVar( 'tname', '');
-	$comment 	= get_magic_quotes_gpc() ? rsgInstance::getVar( 'tcomment'  , '') : addslashes(rsgInstance::getVar( 'tcomment'  , ''));
-	$item_id 	= rsgInstance::getInt( 'item_id'  , '');
-	$catid 		= rsgInstance::getInt( 'catid'  , '');
+	$rsgOption	= JRequest::getVar('rsgOption'  , '');
+	$subject 	= JRequest::getVar('ttitle'  , '');
+	$user_name	= JRequest::getVar( 'tname', '');
+	$comment 	= get_magic_quotes_gpc() ? JRequest::getVar( 'tcomment'  , '') : addslashes(JRequest::getVar( 'tcomment'  , ''));
+	$item_id 	= JRequest::getInt( 'item_id'  , '');
+	$catid 		= JRequest::getInt( 'catid'  , '');
 	
 	//Check if commenting is enabled
 	$redirect_url = JRoute::_("index.php?option=".$option."&page=inline&id=".$item_id);
 	if ($rsgConfig->get('comment') == 0) {
-		$mainframe->redirect($redirect_url, JText::_('Commenting is disabled') );
+		$mainframe->redirect($redirect_url, JText::_('COM_RSGALLERY2_COMMENTING_IS_DISABLED') );
 		exit();
 	}
 	
@@ -76,12 +77,12 @@ function saveComment( $option ) {
 			$result = $database->loadResult();
 			if ($result > 0 ) {
 				//No further comments allowed, redirect
-				$mainframe->redirect($redirect_url, JText::_('User can only comment once'));
+				$mainframe->redirect($redirect_url, JText::_('COM_RSGALLERY2_USER_CAN_ONLY_COMMENT_ONCE'));
 			}
 		}
 	} else {
 		if( ! $rsgConfig->get( 'comment_allowed_public' )){
-			$mainframe->redirect($redirect_url, JText::_('You must login to comment.'));
+			$mainframe->redirect($redirect_url, JText::_('COM_RSGALLERY2_YOU_MUST_LOGIN_TO_COMMENT'));
 		}
 		$user_id = 0;
 		//Check for unique IP-address and see if only one comment from this IP=address is allowed
@@ -95,7 +96,7 @@ function saveComment( $option ) {
 		
 		//Check if security check was OK
 		if ($checkSecurity == false ) 
-			$mainframe->redirect( $redirect_url, JText::_('Incorrect CAPTCHA check, comment is NOT saved!'));
+			$mainframe->redirect( $redirect_url, JText::_('COM_RSGALLERY2_INCORRECT_CAPTCHA_CHECK_COMMENT_IS_NOT_SAVED'));
 	}
 	
 	//If we are here, start database thing
@@ -120,9 +121,9 @@ function saveComment( $option ) {
 			")";
 	$database->setQuery( $sql );
 	if ( $database->query() ) {
-		$mainframe->redirect( $redirect_url, JText::_('Comment added succesfully!') );
+		$mainframe->redirect( $redirect_url, JText::_('COM_RSGALLERY2_COMMENT_ADDED_SUCCESFULLY') );
 	} else {
-		$mainframe->redirect( $redirect_url, JText::_('Comment could not be added!') );
+		$mainframe->redirect( $redirect_url, JText::_('COM_RSGALLERY2_COMMENT_COULD_NOT_BE_ADDED') );
 		//echo $sql;
 	}
 	
@@ -134,7 +135,7 @@ function saveComment( $option ) {
 * @param string The current url option
 */
 function deleteComments( $option ) {
-	global $mainframe;
+	$mainframe =& JFactory::getApplication();
 	$database =& JFactory::getDBO();
 	
 	// Get the current JUser object
@@ -144,9 +145,9 @@ function deleteComments( $option ) {
 		die('Only admins can delete comments.');
 
 	//Get parameters
-	$id			= rsgInstance::getInt( 'id', '' );
-	$item_id 	= rsgInstance::getInt( 'item_id'  , '');
-	$catid 		= rsgInstance::getInt( 'catid'  , '');
+	$id			= JRequest::getInt( 'id', '' );
+	$item_id 	= JRequest::getInt( 'item_id'  , '');
+	$catid 		= JRequest::getInt( 'catid'  , '');
 	
 	if ( !empty($id) ) {
 		$query = "DELETE FROM #__rsgallery2_comments WHERE id = '$id'";
@@ -155,5 +156,5 @@ function deleteComments( $option ) {
 			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 		}
 	}
-	$mainframe->redirect(JRoute::_("index.php?option=".$option."&page=inline&id=".$item_id."&catid=".$catid), JText::_('Comment deleted succesfully') );
+	$mainframe->redirect(JRoute::_("index.php?option=".$option."&page=inline&id=".$item_id."&catid=".$catid), JText::_('COM_RSGALLERY2_COMMENT_DELETED_SUCCESFULLY') );
 }

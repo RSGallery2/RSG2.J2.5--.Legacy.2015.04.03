@@ -1,16 +1,16 @@
-<form action="index2.php" method="post" name="adminForm">
+<form action="index.php" method="post" name="adminForm">
 	<?php if ($this->ftp) : ?>
 		<?php echo $this->loadTemplate('ftp'); ?>
 	<?php endif; ?>
 
 	<div class="col50">
 		<fieldset class="adminform">
-			<legend><?php echo JText::_( 'Details' ); ?></legend>
+			<legend><?php echo JText::_( 'COM_RSGALLERY2_DETAILS' ); ?></legend>
 
 			<table class="admintable">
 			<tr>
 				<td valign="top" class="key">
-					<?php echo JText::_( 'Name' ); ?>:
+					<?php echo JText::_( 'COM_RSGALLERY2_NAME' ); ?>:
 				</td>
 				<td>
 					<strong>
@@ -20,7 +20,7 @@
 			</tr>
 			<tr>
 				<td valign="top" class="key">
-					<?php echo JText::_( 'Version' ); ?>:
+					<?php echo JText::_( 'COM_RSGALLERY2_VERSION' ); ?>:
 				</td>
 				<td>
 					<strong>
@@ -30,7 +30,7 @@
 			</tr>
 			<tr>
 				<td valign="top" class="key">
-					<?php echo JText::_( 'Description' ); ?>:
+					<?php echo JText::_( 'COM_RSGALLERY2_DESCRIPTION' ); ?>:
 				</td>
 				<td>
 					<?php echo JText::_($this->item->row->description); ?>
@@ -38,7 +38,7 @@
 			</tr>
 			<tr>
 				<td valign="top" class="key">
-					<?php echo JText::_( 'Author' ); ?>:
+					<?php echo JText::_( 'COM_RSGALLERY2_AUTHOR' ); ?>:
 				</td>
 				<td>
 					<?php echo JText::_($this->item->row->author) .  "(" .JText::_($this->item->row->authorEmail) . ")" ; ?>
@@ -46,7 +46,7 @@
 			</tr>
 			<tr>
 				<td valign="top" class="key">
-					<?php echo JText::_( 'Author url' ); ?>:
+					<?php echo JText::_( 'COM_RSGALLERY2_AUTHOR_URL' ); ?>:
 				</td>
 				<td>
 					<?php echo JText::_($this->item->row->authorUrl); ?>
@@ -55,7 +55,7 @@
 
 			<tr>
 				<td valign="top" class="key">
-					<?php echo JText::_( 'Copyright' ); ?>:
+					<?php echo JText::_( 'COM_RSGALLERY2_COPYRIGHT' ); ?>:
 				</td>
 				<td>
 					<?php echo JText::_($this->item->row->copyright); ?>
@@ -68,7 +68,7 @@
 
 	<div class="col50">
 		<fieldset class="adminform">
-			<legend><?php echo JText::_( 'Parameters' ); ?></legend>
+			<legend><?php echo JText::_( 'COM_RSGALLERY2_PARAMETERS' ); ?></legend>
 			<?php echo $this->isParamWriteable() ; ?>
 			<table class="admintable">
 			<tr>

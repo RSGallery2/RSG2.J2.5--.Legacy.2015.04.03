@@ -32,7 +32,7 @@ foreach( $this->kids as $kid ):
 	<div class="rsg2-galleryList-text">
 		<?php echo $kid->galleryName;?>
 		<span class='rsg2-galleryList-newImages'>
-			<sup><?php if( $this->gallery->hasNewImages() ) echo JText::_('New!'); ?></sup>
+			<sup><?php if( $this->gallery->hasNewImages() ) echo JText::_('COM_RSGALLERY2_NEW'); ?></sup>
 		</span>
 		<?php echo $this->_showGalleryDetails( $kid );?>
 		<div class="rsg2-galleryList-description"><?php echo stripslashes($kid->description);?>

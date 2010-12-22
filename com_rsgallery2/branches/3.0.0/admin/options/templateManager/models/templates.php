@@ -31,7 +31,7 @@ class InstallerModelTemplates extends InstallerModel
 	 */
 	function __construct()
 	{
-		global $mainframe;
+		$mainframe =& JFactory::getApplication();
 
 		// Call the parent constructor
 		parent::__construct();
@@ -42,7 +42,7 @@ class InstallerModelTemplates extends InstallerModel
 
 	function _loadItems()
 	{
-		global $mainframe, $option, $rsgConfig;
+		global $option, $rsgConfig;//MK// [removed][mainframe]
 
 		$db = &JFactory::getDBO();
 

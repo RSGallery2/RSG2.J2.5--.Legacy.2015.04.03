@@ -28,8 +28,8 @@ class rsgDisplay_semantic extends rsgDisplay{
 		$this->gallery = $gallery;
 		
 		//Get values for page navigation from URL
-		$limit = rsgInstance::getInt( 'limitg', $rsgConfig->get('galcountNrs') );
-		$limitstart = rsgInstance::getInt( 'limitstartg', 0 );
+		$limit = JRequest::getInt( 'limitg', $rsgConfig->get('galcountNrs') );
+		$limitstart = JRequest::getInt( 'limitstartg', 0 );
 		//Get number of galleries including main gallery
 		$this->kids = $gallery->kids();
 		$kidCountTotal = count( $gallery->kids() );
@@ -72,22 +72,24 @@ class rsgDisplay_semantic extends rsgDisplay{
 			<?php
 			if ($slideshow) {
 				?>
-				<a href='<?php echo JRoute::_("index.php?option=com_rsgallery2&page=slideshow&gid=".$kid->get('id')); ?>'><?php echo JText::_('Slideshow'); ?></a><br />
+				<a href='<?php echo JRoute::_("index.php?option=com_rsgallery2&page=slideshow&gid=".$kid->get('id')); ?>'>
+				<?php echo JText::_('COM_RSGALLERY2_SLIDESHOW'); ?></a><br />
 				<?php
 			}
 			
 			if ($owner) {
-				echo JText::_('Owner').": "; echo $kid->owner;?><br />
+				echo JText::_('COM_RSGALLERY2_OWNER').": "; echo $kid->owner;?><br />
 				<?php
 			} 
 			
 			if ($size) {
-				echo JText::_('Size').": "; echo galleryUtils::getFileCount($kid->get('id')). ' ' . JText::_('Images');?><br />
+				echo JText::_('COM_RSGALLERY2_SIZE').": "; echo galleryUtils::getFileCount($kid->get('id')). ' ' . JText::_('COM_RSGALLERY2_IMAGES');?><br />
 			<?php
 			}
 			
 			if ($date) {
-				echo JText::_('Created').": "; echo JHTML::_("date", $kid->date,"%d-%m-%Y" );?><br />
+				echo JText::_('COM_RSGALLERY2_CREATED').": "; echo JHTML::_("date", $kid->date,JText::_('COM_RSGALLERY2_DATE_FORMAT_LC3') );
+				?><br />
 				<?php
 			}
 			?>
@@ -156,7 +158,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 							<div class="rsg2-galleryList-status"><?php echo $kid->status; ?></div>
                             <?php echo $kid->galleryName;?>
                             <sup><span class='rsg2-galleryList-newImages'><?php echo galleryUtils::newImages($kid->get('id')); ?></span></sup>
-                            <div class='rsg2-galleryList-totalImages'>(<?php echo galleryUtils::getFileCount($kid->get('id')). JText::_(' Images');?>)</div>
+                            <div class='rsg2-galleryList-totalImages'>(<?php echo galleryUtils::getFileCount($kid->get('id')).' '. JText::_('COM_RSGALLERY2_IMAGES');?>)</div>
                         </div>
 						<div>
                         	<div class="rsg2-galleryList-thumb_box">
@@ -169,7 +171,8 @@ class rsgDisplay_semantic extends rsgDisplay{
                         <div class="rsg2-galleryList-description_box">
                             	<?php echo $kid->description;?>
 						</div>
-                        <div class="rsg_sub_url"><?php $this->_subGalleryList( $kid ); ?></span>
+                        <div class="rsg_sub_url">
+                        		<?php $this->_subGalleryList( $kid ); ?> 
                         </div>
                     </div>
                 </div>
@@ -190,7 +193,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		$itemCount = $this->gallery->itemCount();
 
 		$limit = $rsgConfig->get("display_thumbs_maxPerPage") ;
-		$limitstart = rsgInstance::getInt( 'limitstart' );
+		$limitstart = JRequest::getInt( 'limitstart' );
 		
 		//instantiate page navigation
 		jimport('joomla.html.pagination');
@@ -202,7 +205,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		if( !$this->gallery->itemCount() ){
 			if( $this->gallery->id ){
 				// if gallery is not the root gallery display the message
-				echo JText::_('No images in gallery');
+				echo JText::_('COM_RSGALLERY2_NO_IMAGES_IN_GALLERY');
 			}
 			// no items to display, so we can return;
 			return;
@@ -237,7 +240,7 @@ class rsgDisplay_semantic extends rsgDisplay{
      * Shows main item
      */
 	function showItem(){
-		global $rsgConfig, $mainframe;
+		global $rsgConfig;//MK// [not used check]	$mainframe
 		
 		$item = rsgInstance::getItem();
 
@@ -271,7 +274,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 	 */
 	function showDisplayPageNav() {//MK this is where the images are shown with limit=1
 		$gallery = rsgGalleryManager::get();
-		$itemId = rsgInstance::getInt( 'id', 0 );
+		$itemId = JRequest::getInt( 'id', 0 );
 		if( $itemId != 0 ){
 			// if the item id is set then we need to set the gid instead
 			// having the id variable set in the querystring breaks the page navigation
@@ -282,13 +285,13 @@ class rsgDisplay_semantic extends rsgDisplay{
 			$app	= &JFactory::getApplication();
 			$router = &$app->getRouter();
 
-			$router->_vars['gid'] = $gallery->id;
-			unset($router->_vars['id']);
+			$router->setVar('gid',$gallery->id);
+			$router->setVar('id',Null);				//unsets the var id from JRouter
 			
 			// set the limitstart so the pagination knows what page to start from
 			$itemIndex = $gallery->indexOfItem($itemId);
 			$router->setVar("limitstart", $itemIndex);
-			rsgInstance::setVar('limitstart', $itemIndex);
+			JRequest::setVar('limitstart', $itemIndex);
 		}
 
 		$pageNav = $gallery->getPagination();	
@@ -296,7 +299,9 @@ class rsgDisplay_semantic extends rsgDisplay{
 
 		?>
 		<div align="center">
+		 <div class="pagination">
 			<?php echo $pageLinks; ?>
+		 </div>
 		</div>
 		<?php
 	}
@@ -320,25 +325,25 @@ class rsgDisplay_semantic extends rsgDisplay{
 		echo $tabs->startPane( 'tabs' );
 		
 		if ( $rsgConfig->get("displayDesc") ) {
-			echo $tabs->startPanel(JText::_('Description'), 'rs-description' );
+			echo $tabs->startPanel(JText::_('COM_RSGALLERY2_DESCRIPTION'), 'rs-description' );
 			$this->_showDescription(); 
 			echo $tabs->endPanel();
 		}
 		
 		if ( $rsgConfig->get("displayVoting") ) {
-			echo $tabs->startPanel(JText::_('Voting'), 'Voting' );
+			echo $tabs->startPanel(JText::_('COM_RSGALLERY2_VOTING'), 'Voting' );
 			$this->_showVotes();
 			echo $tabs->endPanel();
 		}
 		
 		if ( $rsgConfig->get("displayComments") ) {
-			echo $tabs->startPanel(JText::_('Comments'), 'Comments' );
+			echo $tabs->startPanel(JText::_('COM_RSGALLERY2_COMMENTS'), 'Comments' );
 			$this->_showComments();
 			echo $tabs->endPanel();
 		}
 	
 		if ($rsgConfig->get("displayEXIF") ) {
-			echo $tabs->startPanel(JText::_('EXIF'), 'EXIF' );
+			echo $tabs->startPanel(JText::_('COM_RSGALLERY2_EXIF'), 'EXIF' );
 			$this->_showEXIF();
 			echo $tabs->endPanel();
 		}
@@ -355,7 +360,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		
 		if( $rsgConfig->get('displayHits')):
 		?>
-		<p class="rsg2_hits"><?php echo JText::_('Hits'); ?> <span><?php echo $item->hits; ?></span></p>
+		<p class="rsg2_hits"><?php echo JText::_('COM_RSGALLERY2_HITS'); ?> <span><?php echo $item->hits; ?></span></p>
 		<?php
 		endif;
 		
@@ -376,7 +381,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 
 		if( count( $kids ) == 0 ) return;
 		
-		echo JText::_('Subgalleries');
+		echo JText::_('COM_RSGALLERY2_SUBGALLERIES');
 		
 		$kid = array_shift( $kids );
 		

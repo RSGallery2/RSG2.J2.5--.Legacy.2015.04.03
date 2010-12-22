@@ -46,7 +46,7 @@ class InstallerModelInstall extends JModel
 
 	function install()
 	{
-		global $mainframe;
+		$mainframe =& JFactory::getApplication();
 
 		$this->setState('action', 'install');
 
@@ -87,11 +87,11 @@ class InstallerModelInstall extends JModel
 		// Install the package
 		if (!$installer->install($package['dir'])) {
 			// There was an error installing the package
-			$msg = JText::sprintf('INSTALLEXT', JText::_($package['type']), JText::_('Error'));
+			$msg = JText::sprintf('COM_RSGALLERY2_INSTALLEXT', JText::_($package['type']), JText::_('COM_RSGALLERY2_ERROR'));
 			$result = false;
 		} else {
 			// Package installed sucessfully
-			$msg = JText::sprintf('INSTALLEXT', JText::_($package['type']), JText::_('Success'));
+			$msg = JText::sprintf('COM_RSGALLERY2_INSTALLEXT', JText::_($package['type']), JText::_('COM_RSGALLERY2_SUCCESS'));
 			$result = true;
 		}
 
@@ -123,26 +123,26 @@ class InstallerModelInstall extends JModel
 
 		// Make sure that file uploads are enabled in php
 		if (!(bool) ini_get('file_uploads')) {
-			JError::raiseWarning('SOME_ERROR_CODE', JText::_('WARNINSTALLFILE'));
+			JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_WARNINSTALLFILE'));
 			return false;
 		}
 
 		// Make sure that zlib is loaded so that the package can be unpacked
 		if (!extension_loaded('zlib')) {
-			JError::raiseWarning('SOME_ERROR_CODE', JText::_('WARNINSTALLZLIB'));
+			JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_WARNINSTALLZLIB'));
 			return false;
 		}
 
 		// If there is no uploaded file, we have a problem...
 		if (!is_array($userfile) ) {
-			JError::raiseWarning('SOME_ERROR_CODE', JText::_('No file selected'));
+			JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_NO_FILE_SELECTED'));
 			return false;
 		}
 
 		// Check if there was a problem uploading the file.
 		if ( $userfile['error'] || $userfile['size'] < 1 )
 		{
-			JError::raiseWarning('SOME_ERROR_CODE', JText::_('WARNINSTALLUPLOADERROR'));
+			JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_WARNINSTALLUPLOADERROR'));
 			return false;
 		}
 
@@ -176,7 +176,7 @@ class InstallerModelInstall extends JModel
 
 		// Did you give us a valid directory?
 		if (!is_dir($p_dir)) {
-			JError::raiseWarning('SOME_ERROR_CODE', JText::_('Please enter a package directory'));
+			JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_PLEASE_ENTER_A_PACKAGE_DIRECTORY'));
 			return false;
 		}
 
@@ -185,7 +185,7 @@ class InstallerModelInstall extends JModel
 
 		// Did you give us a valid package?
 		if (!$type) {
-			JError::raiseWarning('SOME_ERROR_CODE', JText::_('Path does not have a valid package'));
+			JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_PATH_DOES_NOT_HAVE_A_VALID_PACKAGE'));
 			return false;
 		}
 
@@ -214,7 +214,7 @@ class InstallerModelInstall extends JModel
 
 		// Did you give us a URL?
 		if (!$url) {
-			JError::raiseWarning('SOME_ERROR_CODE', JText::_('Please enter a URL'));
+			JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_PLEASE_ENTER_A_URL'));
 			return false;
 		}
 
@@ -223,7 +223,7 @@ class InstallerModelInstall extends JModel
 
 		// Was the package downloaded?
 		if (!$p_file) {
-			JError::raiseWarning('SOME_ERROR_CODE', JText::_('Invalid URL'));
+			JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_INVALID_URL'));
 			return false;
 		}
 

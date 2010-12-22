@@ -75,7 +75,7 @@ class rsgImagesItem extends JTable {
 
 		/** check for valid name */
 		if (trim( $this->title ) == '') {
-			$this->_error = JText::_('Please provide a valid image title');
+			$this->_error = JText::_('COM_RSGALLERY2_PLEASE_PROVIDE_A_VALID_IMAGE_TITLE');
 			return false;
 		}
 

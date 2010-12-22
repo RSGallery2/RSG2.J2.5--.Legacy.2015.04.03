@@ -24,7 +24,7 @@ class rsgComments {
  */
  
  function rsgComments() {
-	global $mainframe;
+//	global $mainframe;//MK// [not used check]	$mainframe
  	$this->_buttons = array(
 		"b" 	=> "ubb_bold.gif",
 		"i" 	=> "ubb_italicize.gif",
@@ -66,7 +66,7 @@ class rsgComments {
  * Shows toolbar for BBCode editor
  */
 function showButtons() {
-	global $mainframe;
+//	global $mainframe;//MK// [not used check]	$mainframe
 	//Define codes and corresponding images for toolbar
 
 	echo "<div style='float: left;'>";
@@ -79,31 +79,31 @@ function showButtons() {
 	</div>
 	<div style='float: left;'>
 	<select name='menuColor' class='select' onchange='fontColor()'>
-	  	<option><?php echo JText::_('-color-')?></option>
-		<option><?php echo JText::_('aqua')?></option>
-		<option><?php echo JText::_('black')?></option>
-		<option><?php echo JText::_('blue')?></option>
-		<option><?php echo JText::_('fuchsia')?></option>
-		<option><?php echo JText::_('gray')?></option>
-		<option><?php echo JText::_('green')?></option>
-		<option><?php echo JText::_('lime')?></option>
-		<option><?php echo JText::_('maroon')?></option>
-		<option><?php echo JText::_('navy')?></option>
-		<option><?php echo JText::_('olive')?></option>
-		<option><?php echo JText::_('purple')?></option>
-		<option><?php echo JText::_('red')?></option>
-		<option><?php echo JText::_('silver')?></option>
-		<option><?php echo JText::_('teal')?></option>
-		<option><?php echo JText::_('white')?></option>
-		<option><?php echo JText::_('yellow')?></option>
+	  	<option><?php echo JText::_('COM_RSGALLERY2_COLOR')?></option>
+		<option><?php echo JText::_('COM_RSGALLERY2_AQUA')?></option>
+		<option><?php echo JText::_('COM_RSGALLERY2_BLACK')?></option>
+		<option><?php echo JText::_('COM_RSGALLERY2_BLUE')?></option>
+		<option><?php echo JText::_('COM_RSGALLERY2_FUCHSIA')?></option>
+		<option><?php echo JText::_('COM_RSGALLERY2_GRAY')?></option>
+		<option><?php echo JText::_('COM_RSGALLERY2_GREEN')?></option>
+		<option><?php echo JText::_('COM_RSGALLERY2_LIME')?></option>
+		<option><?php echo JText::_('COM_RSGALLERY2_MAROON')?></option>
+		<option><?php echo JText::_('COM_RSGALLERY2_NAVY')?></option>
+		<option><?php echo JText::_('COM_RSGALLERY2_OLIVE')?></option>
+		<option><?php echo JText::_('COM_RSGALLERY2_PURPLE')?></option>
+		<option><?php echo JText::_('COM_RSGALLERY2_RED')?></option>
+		<option><?php echo JText::_('COM_RSGALLERY2_SILVER')?></option>
+		<option><?php echo JText::_('COM_RSGALLERY2_TEAL')?></option>
+		<option><?php echo JText::_('COM_RSGALLERY2_WHITE')?></option>
+		<option><?php echo JText::_('COM_RSGALLERY2_YELLOW')?></option>
 	</select>&nbsp;
 	<select name='menuSize' class='select' onchange='fontSize()'>
-		<option><?php echo JText::_('-size-')?></option>
-		<option><?php echo JText::_('tiny')?></option>
-		<option><?php echo JText::_('small')?></option>
-		<option><?php echo JText::_('medium')?></option>
-		<option><?php echo JText::_('large')?></option>
-		<option><?php echo JText::_('huge')?></option>
+		<option><?php echo JText::_('COM_RSGALLERY2_SIZE_FROM_LIST')?></option>
+		<option><?php echo JText::_('COM_RSGALLERY2_TINY')?></option>
+		<option><?php echo JText::_('COM_RSGALLERY2_SMALL')?></option>
+		<option><?php echo JText::_('COM_RSGALLERY2_MEDIUM')?></option>
+		<option><?php echo JText::_('COM_RSGALLERY2_LARGE')?></option>
+		<option><?php echo JText::_('COM_RSGALLERY2_HUGE')?></option>
 	</select>
 	</div>
 	<?php
@@ -113,7 +113,7 @@ function showButtons() {
  * Shows block of smilies for BBCode editor
  */
 function showSmilies() {
-	global $mainframe;
+//	global $mainframe;//MK// [not used check]	$mainframe
 	
 	$i = 0;
 	foreach ($this->_emoticons as $tag => $filename) {
@@ -193,8 +193,8 @@ function parseQuoteElement($html) {
         $patterns = array("/\[quote\](.+?)\[\/quote\]/is",
             "/\[quote=(.+?)\](.+?)\[\/quote\]/is");
         $replacements = array(
-						"<div class='quote'><div class='genmed'><b>".JText::_('Quote')."</b></div><div class='quotebody'>\\1</div></div>",
-            			"<div class='quote'><div class='genmed'><b>\\1".JText::_('Wrote')."</b></div><div class='quotebody'>\\2</div></div>"
+						"<div class='quote'><div class='genmed'><b>".JText::_('COM_RSGALLERY2_QUOTE')."</b></div><div class='quotebody'>\\1</div></div>",
+            			"<div class='quote'><div class='genmed'><b>\\1".JText::_('COM_RSGALLERY2_WROTE')."</b></div><div class='quotebody'>\\2</div></div>"
             			);
         while ($quotes > 0) {
             $html = preg_replace($patterns, $replacements, $html);
@@ -221,7 +221,7 @@ function parseCodeElement($html) {
     $pattern = array();
     $replacement = array();
     $pattern[] = "/\[code\](.+?)\[\/code\]/is";
-    $replacement[] = "<div class='code'><div class='genmed'><b>".JText::_('Code')."</b></div><div class='codebody'><pre>\\1</pre></div></div>";
+    $replacement[] = "<div class='code'><div class='genmed'><b>".JText::_('COM_RSGALLERY2_CODE')."</b></div><div class='codebody'><pre>\\1</pre></div></div>";
     return preg_replace($pattern, $replacement, $html);
     }
 
@@ -246,7 +246,7 @@ function parse( $html ) {
  * Shows the form for the 
  */
 function editComment( $item_id ) {
-	global $rsgConfig, $mainframe ;
+	global $rsgConfig ;//MK// [not used check]	$mainframe
 	$my =& JFactory::getUser();/* JPATH_SITE is only there to accomodate SecurityImages for now*/
 	$doc =& JFactory::getDocument();
 	$doc->addScript(JURI_SITE."/components/com_rsgallery2/lib/rsgcomments/js/client.js");
@@ -267,10 +267,10 @@ function editComment( $item_id ) {
         
         // do field validation
         if (form.tname.value == "") {
-            alert( '<?php echo JText::_('You should enter your name'); ?>' );
+            alert( '<?php echo JText::_('COM_RSGALLERY2_YOU_SHOULD_ENTER_YOUR_NAME'); ?>' );
         }
         else if (form.tcomment.value == ""){
-            alert( '<?php echo JText::_('No comment entered'); ?>' );
+            alert( '<?php echo JText::_('COM_RSGALLERY2_NO_COMMENT_ENTERED'); ?>' );
         }
         else{
             form.submit();
@@ -281,18 +281,18 @@ function editComment( $item_id ) {
 	<form name="rsgcommentform" method="post" action="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=rsgComments&task=save");?>">
 	<table border="0" width="100%" class="adminForm">
 	<tr>
-		<td colspan="2"><h2><?php echo JText::_('Add Comment');?></h2></td>
+		<td colspan="2"><h2><?php echo JText::_('COM_RSGALLERY2_ADD_COMMENT');?></h2></td>
 	</tr>
 	<tr>
-		<td><?php echo JText::_('Your Name');?>:</td>
+		<td><?php echo JText::_('COM_RSGALLERY2_YOUR_NAME');?>:</td>
 		<td><input name='tname' type='text' class='inputbox' size='40' value='<?php if (!$my->username == '') echo $my->username;?>' /></td>
 	</tr>
 	<tr>
-		<td><?php echo JText::_('Title');?>:</td>
+		<td><?php echo JText::_('COM_RSGALLERY2_TITLE');?>:</td>
 		<td><input name='ttitle' type='text' class='inputbox' size='40'/></td>
 	</tr>
 	<tr>
-		<td><?php echo JText::_('Comment text');?>:</td>
+		<td><?php echo JText::_('COM_RSGALLERY2_COMMENT_TEXT');?>:</td>
 		<td><div class='buttoncontainer'><?php rsgComments::showButtons();?></div></td>
 	</tr>
 	<tr>
@@ -308,7 +308,7 @@ function editComment( $item_id ) {
 				?>
 			<img src="<?php echo JRoute::_("index.php?option=com_securityimages&task=displayCaptcha"); ?>">  
 			<br />  
-			<?php echo JText::_('Enter what you see in the image above:');?><input type="text" name="securityImageRSGallery2" />  
+			<?php echo JText::_('COM_RSGALLERY2_ENTER_WHAT_YOU_SEE_IN_THE_IMAGE_ABOVE');?><input type="text" name="securityImageRSGallery2" />  
 			<?php
 			}
 			?>
@@ -323,7 +323,7 @@ function editComment( $item_id ) {
 	</table>
 	<input type="hidden" name="item_id" value="<?php echo $item_id;?>" />
 	<input type="hidden" name="rsgOption" value="rsgComments" />
-	<input type="hidden" name="catid" value="<?php echo rsgInstance::getInt('catid'  , null);?>" />
+	<input type="hidden" name="catid" value="<?php echo JRequest::getInt('catid'  , null);?>" />
 	</form>
 	<a name="comment2"></a>
 	<?php
@@ -343,7 +343,7 @@ function showComments( $item_id ) {
 	<script type="text/javascript">
 	//<![CDATA[
 	function delComment(id, item_id, catid) {
-		var delCom = confirm('<?php echo JText::_("Delete Comment")?>' + id );
+		var delCom = confirm('<?php echo JText::_("COM_RSGALLERY2_DELETE_COMMENT")?>' + id );
 		
 		if (delCom) {
 			window.location = '<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=rsgComments&task=delete", false); ?>&id='+id+'&item_id='+item_id+'&catid='+catid;
@@ -361,9 +361,9 @@ function showComments( $item_id ) {
 		<div id="comment">
 		<table width="100%" class="comment_table">
 			<tr>
-				<td class="title" width="25%"><?php echo JText::_('Comments')?></td>
-				<td class="title" width="50%"><?php echo JText::_('comments added')?></td>
-				<td class="title"><div class="addcomment"><a class="special" href="#comment2"><?php echo JText::_('Add Comment');?></a></div></td>
+				<td class="title" width="25%"><?php echo JText::_('COM_RSGALLERY2_COMMENTS')?></td>
+				<td class="title" width="50%"><?php echo JText::_('COM_RSGALLERY2_COMMENTS_ADDED')?></td>
+				<td class="title"><div class="addcomment"><a class="special" href="#comment2"><?php echo JText::_('COM_RSGALLERY2_ADD_COMMENT');?></a></div></td>
 			</tr>
 		</table>
 		<br />
@@ -384,7 +384,7 @@ function showComments( $item_id ) {
 				<hr />
 				<?php echo rsgComments::parse( $comment['comment'] );?>
 				<?php if ( $deleteComment ): ?>
-					<div style="float:right;"><a href="javascript:void(0);" onclick="javascript:delComment(<?php echo $comment['id'];?>, <?php echo $comment['item_id'];?>, <?php echo $catid;?>);"><?php echo JText::_('Delete Comment')?></a></div>
+					<div style="float:right;"><a href="javascript:void(0);" onclick="javascript:delComment(<?php echo $comment['id'];?>, <?php echo $comment['item_id'];?>, <?php echo $catid;?>);"><?php echo JText::_('COM_RSGALLERY2_DELETE_COMMENT')?></a></div>
 				<?php endif; ?>
 				</td>
 			</tr>
@@ -399,7 +399,7 @@ function showComments( $item_id ) {
 		<div id="comment">
 		<table width="100%" class="comment_table">
 			<tr>
-				<td class="title"><span class='posttitle'><?php echo JText::_('No comments yet!')?></span></td>
+				<td class="title"><span class='posttitle'><?php echo JText::_('COM_RSGALLERY2_NO_COMMENTS_YET')?></span></td>
 			</tr>
 		</table>
 		</div>

@@ -3,7 +3,7 @@ defined('_JEXEC') or die('Restricted access');
 JHTML::_('behavior.mootools');
 
 $item = $this->currentItem;
-$templatePath = JURI_SITE . "components/com_rsgallery2/templates/". rsgInstance::getVar( 'rsgTemplate', $rsgConfig->get('template'));
+$templatePath = JURI_SITE . "components/com_rsgallery2/templates/". JRequest::getVar( 'rsgTemplate', $rsgConfig->get('template'));
 
 $jsSwf = '
 		window.addEvent("domready", function() {
@@ -27,6 +27,6 @@ $doc =& JFactory::getDocument();
 $doc->addScriptDeclaration($jsSwf);
 $doc->addScript(JURI_SITE . '/components/com_rsgallery2/flash/script/swfobject.js');
 
-?><div id="rsg2-flashMovie"><p><?php echo JText::_("The movie should appear here."); ?></p></div><?php
+?><div id="rsg2-flashMovie"><p><?php echo JText::_("COM_RSGALLERY2_THE_MOVIE_SHOULD_APPEAR_HERE"); ?></p></div><?php
 
 ?>

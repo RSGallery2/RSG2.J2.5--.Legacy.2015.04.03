@@ -23,7 +23,7 @@ require_once( $templatePath . DS . 'display.class.php');
 
 $rsgDisplay = new rsgDisplay_semantic();
 
-global $mainframe;
+//global $mainframe;//MK// [not used check]	
 $template_dir = JURI_SITE . "/components/com_rsgallery2/templates/" . $rsgConfig->get('template');
 
 $rsgDisplay->metadata();

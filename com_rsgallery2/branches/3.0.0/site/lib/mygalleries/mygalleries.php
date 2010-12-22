@@ -8,7 +8,7 @@
 * RSGallery is Free Software
 */
 defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
-global $mainframe,$rsgConfig;
+global $rsgConfig;//MK// [not used check]	$mainframe
 $document=& JFactory::getDocument();
 
 if($document->getType() == 'html') {
@@ -22,11 +22,11 @@ if($document->getType() == 'html') {
 require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'mygalleries' . DS . 'mygalleries.class.php' );
 
 //Get parameters from URL and/or form
-//$cid	= rsgInstance::getInt('cid', array(0) );//no longer neccessary?
-//$cid	= rsgInstance::getInt('gid', $cid );//no longer neccessary?
-$task   = rsgInstance::getVar('task', '' );
-$id		= rsgInstance::getInt('id','' );
-$gid	= rsgInstance::getInt('gid','' );	//Mirjam: In v1.13 catid was used where since v1.14 gid is used
+//$cid	= JRequest::getInt('cid', array(0) );//no longer neccessary?
+//$cid	= JRequest::getInt('gid', $cid );//no longer neccessary?
+$task   = JRequest::getVar('task', '' );
+$id		= JRequest::getInt('id','' );
+$gid	= JRequest::getInt('gid','' );	//Mirjam: In v1.13 catid was used where since v1.14 gid is used
 
 switch( $task ){
     case 'saveUploadedItem':
@@ -59,16 +59,17 @@ switch( $task ){
 }
 
 function showMyGalleries() {
-	global $rsgConfig, $mainframe;
+	global $rsgConfig;
+	$mainframe =& JFactory::getApplication();
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
 	
 	//Check if My Galleries is enabled in config, if not .............. 
-	if ( !$rsgConfig->get('show_mygalleries') ) die(JText::_('Unauthorized access attempt to My Galleries!'));
+	if ( !$rsgConfig->get('show_mygalleries') ) die(JText::_('COM_RSGALLERY2_UNAUTHORIZED_ACCESS_ATTEMPT_TO_MY_GALLERIES'));
 	
 	//Set limits for pagenav
-	$limit      = trim(rsgInstance::getInt( 'limit', 10 ) );
-	$limitstart = trim(rsgInstance::getInt( 'limitstart', 0 ) );
+	$limit      = trim(JRequest::getInt( 'limit', 10 ) );
+	$limitstart = trim(JRequest::getInt( 'limitstart', 0 ) );
 	
 	//Get total number of records for paging
 	$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE userid = '$my->id'");
@@ -91,7 +92,7 @@ function showMyGalleries() {
 		myGalleries::viewMyGalleriesPage($rows, $images, $pageNav);
 	} else {
 		//Not logged in, back to main page
-		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2"), JText::_('User galleries are disabled by administrator') );
+		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2"), JText::_('COM_RSGALLERY2_USER_GALLERIES_ARE_DISABLED_BY_ADMINISTRATOR') );
 	}	
 }
 
@@ -99,10 +100,11 @@ function showMyGalleries() {
  * Deletes an item through the frontend My Galleries part
  */
 function deleteItem() {
-	global $rsgAccess, $mainframe;
+	global $rsgAccess;
+	$mainframe =& JFactory::getApplication();
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
-	$id = rsgInstance::getInt( 'id'  , '');
+	$id = JRequest::getInt( 'id'  , '');
 	if ($id) {		
 		//Get gallery id
 		$gallery_id = galleryUtils::getCatidFromFileId($id);
@@ -111,19 +113,19 @@ function deleteItem() {
 		if ($rsgAccess->checkGallery('del_img', $gallery_id )) {
 			$filename 	= galleryUtils::getFileNameFromId($id);
 			imgUtils::deleteImage($filename);
-			$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries"), JText::_('Image is deleted') );
+			$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries"), JText::_('COM_RSGALLERY2_IMAGE_IS_DELETED') );
 		} else {
-			$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries"), JText::_('USERIMAGE_NOTOWNER') );
+			$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries"), JText::_('COM_RSGALLERY2_USERIMAGE_NOTOWNER') );
 		}
 	} else {
 		//No ID sent, no delete possible, back to my galleries
-		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries"), JText::_('No Id provided. Contact component developer') );
+		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries"), JText::_('COM_RSGALLERY2_NO_ID_PROVIDED_CONTACT_COMPONENT_DEVELOPER') );
 	}
 }
 
 function editItem() {
 	$database = JFactory::getDBO();
-	$id = rsgInstance::getInt('id'  , null);
+	$id = JRequest::getInt('id'  , null);
 	if ($id) {
 		$database->setQuery("SELECT * FROM #__rsgallery2_files WHERE id = '$id'");
 		$rows = $database->loadObjectList();
@@ -132,16 +134,16 @@ function editItem() {
 }
 
 function saveItem() {
-	global $mainframe;
+	$mainframe =& JFactory::getApplication();
 	$database = JFactory::getDBO();
 	
 	//Set redirect URL
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
 	
-	$id 	= rsgInstance::getInt( 'id'  , '');
-	$title 	= rsgInstance::getstring( 'title'  , '');
-	$descr 	= rsgInstance::getVar( 'descr'  , '', 'post', 'string', JREQUEST_ALLOWRAW);
-	$catid 	= rsgInstance::getInt( 'catid'  , '');
+	$id 	= JRequest::getInt( 'id'  , '');
+	$title 	= JRequest::getString( 'title'  , '');
+	$descr 	= JRequest::getVar( 'descr'  , '', 'post', 'string', JREQUEST_ALLOWRAW);
+	$catid 	= JRequest::getInt( 'catid'  , '');
 
 	//escape strings for sql query
 	$title 	= $database->getEscaped($title);
@@ -154,21 +156,22 @@ function saveItem() {
 			"WHERE id= '$id'");
 
 	if ($database->query()) {
-		$mainframe->redirect(JRoute::_( $redirect ), JText::_('Details saved succesfully') );
+		$mainframe->redirect(JRoute::_( $redirect ), JText::_('COM_RSGALLERY2_DETAILS_SAVED_SUCCESFULLY') );
 	} else {
-		//echo JText::_('Error: ').mysql_error();
-		$mainframe->redirect( $redirect , JText::_('Could not update image details') );
+		//echo JText::_('COM_RSGALLERY2_ERROR-').mysql_error();
+		$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_COULD_NOT_UPDATE_IMAGE_DETAILS') );
 	}
 }
 
 function saveUploadedItem() {
-	global $rsgConfig, $rsgAccess, $mainframe;
+	global $rsgConfig, $rsgAccess;
+	$mainframe =& JFactory::getApplication();
 	$database = JFactory::getDBO();
 	//Set redirect URL
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries",false);
 	
 	//Get category ID to check rights
-	$i_cat = rsgInstance::getVar( 'i_cat'  , '');
+	$i_cat = JRequest::getVar( 'i_cat'  , '');
 	
 	//Get maximum number of images to upload
 	$max_images = $rsgConfig->get('uu_maxImages');
@@ -185,11 +188,11 @@ function saveUploadedItem() {
 		$upload = new fileHandler();
 		
 		//Get parameters from form
-		$i_file = rsgInstance::getVar( 'i_file', null, 'files', 'array'); 
-		$i_cat = rsgInstance::getInt( 'i_cat'  , ''); 
-		$title = rsgInstance::getVar( 'title'  , ''); 
-		$descr = rsgInstance::getVar( 'descr', '', 'post', 'string', JREQUEST_ALLOWRAW );
-		$uploader = rsgInstance::getVar( 'uploader'  , ''); 
+		$i_file = JRequest::getVar( 'i_file', null, 'files', 'array'); 
+		$i_cat = JRequest::getInt( 'i_cat'  , ''); 
+		$title = JRequest::getVar( 'title'  , ''); 
+		$descr = JRequest::getVar( 'descr', '', 'post', 'string', JREQUEST_ALLOWRAW );
+		$uploader = JRequest::getVar( 'uploader'  , ''); 
 		
 		//Get filetype
 		$file_ext = $upload->checkFileType($i_file['name']);
@@ -217,17 +220,17 @@ function saveUploadedItem() {
             		fileHandler::cleanMediaDir( $upload->extractDir );
             		
             		//Redirect
-            		$mainframe->redirect( $redirect , JText::_('Item uploaded succesfully!') );
+            		$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_ITEM_UPLOADED_SUCCESFULLY') );
             		
         		} else {
             		//Error message
-            		$mainframe->redirect( $redirect , JText::_('ZIP-file is too big!'));
+            		$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_ZIP-FILE_IS_TOO_BIG'));
         		}
 				break;
 			case 'image':
 				//Check if image is too big
 				if ($i_file['error'] == 1)
-					$mainframe->redirect( $redirect , JText::_('Image size is too big for upload') );
+					$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_IMAGE_SIZE_IS_TOO_BIG_FOR_UPLOAD') );
 				
 				$file_name = $i_file['name'];
 				if ( move_uploaded_file($i_file['tmp_name'], JPATH_ROOT . DS ."media" . DS . $file_name) ) {
@@ -240,13 +243,13 @@ function saveUploadedItem() {
 					} else {
 						$mainframe->redirect( $redirect , 'Importing image failed! Notify RSGallery2. This should never happen!');
 					}
-					$mainframe->redirect( $redirect , JText::_('Item uploaded succesfully!') );
+					$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_ITEM_UPLOADED_SUCCESFULLY') );
 				} else {
-					$mainframe->redirect( $redirect , JText::_('Upload failed.\\nBack to uploadscreen') );
+					$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_UPLOAD_FAILED_BACK_TO_UPLOADSCREEN') );
 				}
 				break;
 			case 'error':
-				$mainframe->redirect( $redirect , JText::_('Wrong image format.\\nWe will redirect you to the upload screen') );
+				$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_WRONG_IMAGE_FORMAT_WE_WILL_REDIRECT_YOU_TO_THE_UPLOAD_SCREEN') );
 				break;
 		}
 	}
@@ -267,7 +270,7 @@ function editCat($catid) {
 		//Check if maximum number of usercats are already made
 		$count = galleryUtils::userCategoryTotal($my->id);
 		if ($count >= $rsgConfig->get('uu_maxCat') ) {
-			$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&page=my_galleries"), JText::_('MAX_USERCAT_ALERT') );
+			$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&page=my_galleries"), JText::_('COM_RSGALLERY2_MAX_USERCAT_ALERT') );
 		} else {
 			//New category
 			myGalleries::editCat();
@@ -276,7 +279,8 @@ function editCat($catid) {
 }
 
 function saveCat() {
-	global $rsgConfig, $mainframe;
+	global $rsgConfig;
+	$mainframe =& JFactory::getApplication();
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
 
@@ -286,12 +290,12 @@ function saveCat() {
 	//Set redirect URL
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
 	
-	$parent 		= rsgInstance::getVar( 'parent'  , 0);
-	$id 			= rsgInstance::getInt( 'catid'  , null);
-	$catname1 		= rsgInstance::getstring( 'catname1'  , null);
-	$description 	= rsgInstance::getVar( 'description'  , null, 'post', 'string', JREQUEST_ALLOWRAW);
-	$published 		= rsgInstance::getInt( 'published'  , 0);
-	$ordering 		= rsgInstance::getInt( 'ordering'  , null);
+	$parent 		= JRequest::getVar( 'parent'  , 0);
+	$id 			= JRequest::getInt( 'catid'  , null);
+	$catname1 		= JRequest::getString( 'catname1'  , null);
+	$description 	= JRequest::getVar( 'description'  , null, 'post', 'string', JREQUEST_ALLOWRAW);
+	$published 		= JRequest::getInt( 'published'  , 0);
+	$ordering 		= JRequest::getInt( 'ordering'  , null);
 	$maxcats        = $rsgConfig->get('uu_maxCat');	
 
 	//escape strings for sql query
@@ -306,9 +310,9 @@ function saveCat() {
 			"parent = '$parent' ".
 			"WHERE id = '$id' ");
 		if ($database->query()) {
-			$mainframe->redirect( $redirect , JText::_('Gallery details updated!') );
+			$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_GALLERY_DETAILS_UPDATED') );
 		} else {
-			$mainframe->redirect( $redirect , JText::_('Could not update gallery details!') );
+			$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_COULD_NOT_UPDATE_GALLERY_DETAILS') );
 		}
 	} else {
 		//New category
@@ -319,12 +323,12 @@ function saveCat() {
 			?>
 				<script type="text/javascript">
 				//<![CDATA[
-				alert('<?php echo JText::_('MAX_USERCAT_ALERT');?>');
+				alert('<?php echo JText::_('COM_RSGALLERY2_MAX_USERCAT_ALERT');?>');
 				location = '<?php echo JRoute::_("index.php?option=com_rsgallery2&page=my_galleries", false); ?>';
 				//]]>
 				</script>
 				<?php
-			//$mainframe->redirect( $redirect ,JText::_('MAX_USERCAT_ALERT'));
+			//$mainframe->redirect( $redirect ,JText::_('COM_RSGALLERY2_MAX_USERCAT_ALERT'));
 		} else {
 			//Create ordering, start at last position
 			$database->setQuery("SELECT MAX(ordering) FROM #__rsgallery2_galleries WHERE uid = '$my->id'");
@@ -340,9 +344,9 @@ function saveCat() {
 				$gallery_id = $database->loadResult();
 				$acl = new rsgAccess();
 				if ( $acl->createDefaultPermissions($gallery_id) )
-					$mainframe->redirect( $redirect , JText::_('New gallery created!') );
+					$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_NEW_GALLERY_CREATED') );
 			} else {
-				$mainframe->redirect( $redirect , JText::_('ALERT_NONEWCAT') );
+				$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_ALERT_NONEWCAT') );
 			}
 		}
 	}
@@ -350,12 +354,13 @@ function saveCat() {
 }
 
 function deleteCat() {
-	global $rsgConfig, $mainframe;
+	global $rsgConfig;
+	$mainframe =& JFactory::getApplication();
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
 
 	//Get values from URL
-	$catid = rsgInstance::getInt( 'gid'  , null);//Mirjam: catid is gid as of v1.14
+	$catid = JRequest::getInt( 'gid'  , null);//Mirjam: catid is gid as of v1.14
 
 	//Set redirect URL
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries",false);
@@ -372,7 +377,7 @@ function deleteCat() {
 	$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_galleries WHERE parent = '$catid'");
 	$count = $database->loadResult();
 	if ($count > 0) {
-		$mainframe->redirect( $redirect ,JText::_('USERCAT_SUBCATS'));
+		$mainframe->redirect( $redirect ,JText::_('COM_RSGALLERY2_USERCAT_SUBCATS'));
 	}
 	
 	//No children from here, so lets continue
@@ -392,18 +397,18 @@ function deleteCat() {
 			$database->setQuery("DELETE FROM #__rsgallery2_galleries WHERE id = '$catid'");
 			if ( !$database->query() ) {
 				//Error message, gallery could not be deleted
-				$mainframe->redirect( $redirect ,JText::_('Gallery could not be deleted!'));
+				$mainframe->redirect( $redirect ,JText::_('COM_RSGALLERY2_GALLERY_COULD_NOT_BE_DELETED'));
 			} else {
 				//Ok, goto mainpage
-				$mainframe->redirect( $redirect ,JText::_('Gallery deleted!'));
+				$mainframe->redirect( $redirect ,JText::_('COM_RSGALLERY2_GALLERY_DELETED'));
 			}
 		} else {
 			//There were errors. Gallery will not be deleted
-			$mainframe->redirect( $redirect ,JText::_('Gallery could not be deleted!'));
+			$mainframe->redirect( $redirect ,JText::_('COM_RSGALLERY2_GALLERY_COULD_NOT_BE_DELETED'));
 		}
 	} else {
 		//Abort and return to mainscreen
-		$mainframe->redirect( $redirect ,JText::_('USER_CAT_NOTOWNER'));
+		$mainframe->redirect( $redirect ,JText::_('COM_RSGALLERY2_USER_CAT_NOTOWNER'));
 	}
 }
 ?>

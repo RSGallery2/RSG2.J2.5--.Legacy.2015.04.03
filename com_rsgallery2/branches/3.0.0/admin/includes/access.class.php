@@ -3,7 +3,7 @@
 * Access Manager Class for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2005 - 2006 RSGallery2
+* @copyright (C) 2005 - 2006 rsgallery2.net
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
@@ -95,10 +95,10 @@ class rsgAccess extends JObject{
 	 * @return int 1 if allowed, 0 if not allowed.
 	 */
 	function checkGallery($action, $gallery_id ) {
-		global $check, $mainframe;
+		global $check; //MK// [removed for Joomla 1.6]	 only $mainframe
 		$database =& JFactory::getDBO();
 		$my =& JFactory::getUser();
-		
+
 		//Check if Access Control is enabled
 		if ( !rsgAccess::aclActivated() ) {
 			//Acl not activated, always return 1;
@@ -118,21 +118,22 @@ class rsgAccess extends JObject{
 			if ( !rsgAccess::arePermissionsSet($gallery_id) ) {
 				//Aparently no permissions were found in #__rsgallery2_acl, so create default permissions
 				rsgAccess::createDefaultPermissions($gallery_id);
-				// mosRedirect( "index.php?option=com_rsgallery2&page=my_galleries", JText::_('_RSGALLERY_ACL_NO_PERM_FOUND'));
+				// mosRedirect( "index.php?option=com_rsgallery2&page=my_galleries", JText::_('COM_RSGALLERY2_ACL_NO_PERM_FOUND'));
 			} 
-			
+
+//MK// [todo] [In J1.6 usertypes, e.g. public, registered, are deprecated. So we won't check on usertype and for now give everybody the same admin priviliges!!!]					
 			// check user type for access
-			$type = rsgAccess::returnUserType();
-			$type = $this->levelMaping[$type];
-			if($type == "admin")
+//MK			$type = rsgAccess::returnUserType();
+//MK			$type = $this->levelMaping[$type];
+//MK			if($type == "admin")
 				// admins are allowed to do everything
 				return 1;
-			else{
+//MK			else{
 				// get permission from acl table
-				$sql = "SELECT ".$type."_".$action." FROM $this->_table WHERE gallery_id = '$gallery_id'";
-				$database->setQuery( $sql );
-				return intval( $database->loadResult() );
-			}
+//MK				$sql = "SELECT ".$type."_".$action." FROM $this->_table WHERE gallery_id = '$gallery_id'";
+//MK				$database->setQuery( $sql );
+//MK				return intval( $database->loadResult() );
+//MK			}
 		}
 	}
 	
@@ -178,23 +179,26 @@ class rsgAccess extends JObject{
 	function actionPermitted($action) {
 		$database =& JFactory::getDBO();
 		$my =& JFactory::getUser();
-		//Check usertype of the logged in user
-		$type = rsgAccess::returnUserType();
+//MK// [todo] [In J1.6 usertypes, e.g. public, registered, are deprecated. So we won't check on usertype and for now give everybody the same admin priviliges!!!]		
+		//Check usertype of the logged in user (e.g. Author, Registered, Administrator)
+//MK		$type = rsgAccess::returnUserType();
 		
 		//Get action based on that usertype 
-		$type = $this->levelMaping[$type];
+//MK		$type = $this->levelMaping[$type];//only public, registered, admin
 		
-		if ($type == 'admin'){
+//MK		if ($type == 'admin'){//MK// [todo] [new user authorisation!]
 			// all actions permitted for admin users
 			$sql = "SELECT id FROM #__rsgallery2_galleries ";
 			$database->setQuery( $sql );
 			$galleries = $database->loadResultArray();
-		}
-		else{
+/*/MK	}
+		else
+		{
 			// get galleries where action is permitted for the user group
-			$type = $type."_".$action;
-
+			$type = $type."_".$action;//e.g. public_view or registered_up_mod_img
+				
 			$sql = "SELECT gallery_id FROM $this->_table WHERE ".$type." = 1";
+				//table #__rsgallery2_acl
 			$database->setQuery($sql);
 			$galleries = $database->loadResultArray();
 			
@@ -205,9 +209,8 @@ class rsgAccess extends JObject{
 				$database->setQuery( $sql );
 				$galleries = array_merge($galleries, $database->loadResultArray());	
 			}
-			
 		}
-		
+MK*/		
 		return $galleries;
 	}
 	

@@ -17,7 +17,7 @@ defined( '_JEXEC' ) or die( 'Access Denied.' );
 class rsgGalleryManager{
 
 	/**
-	 * returns the rsgGallery object which contains item id
+	 * returns the rsgGallery object with all associated items (one of which is the given item id)
 	 *
 	 * @param id of item
 	 */
@@ -25,7 +25,7 @@ class rsgGalleryManager{
 		$database =& JFactory::getDBO();
 		
 		if( $id === null ){
-			$id = rsgInstance::getInt( 'id', 0 );
+			$id = JRequest::getInt( 'id', 0 );
 		}
 		
 		if( !is_numeric( $id )) return false;
@@ -39,7 +39,10 @@ class rsgGalleryManager{
 	}
 	
 	/**
-		@deprecated Use rsgGallery->getItem() instead!
+	 * Returns an rsgItem_image (or rsgItem_audio) object, which is taken from
+	 * an rsgGallery object and its associated items, based on the given item id.
+	 * @param id of an item
+	 * @deprecated Use rsgGallery->getItem() instead!
 	**/
 	function getItem( $id = null ){
 		$gallery = rsgGalleryManager::get();
@@ -47,7 +50,10 @@ class rsgGalleryManager{
 	}
 
     /**
-     * returns a gallery
+     * Returns an rsgGallery object.
+     * Checks for catid, gid in $_GET if no item id is given, 
+     * and if those are not found then checks for (item) id in $_GET 
+     * to get gallery id. 
      * @param id of the gallery
      * @todo move published check to rsgAccess
      */
@@ -56,12 +62,12 @@ class rsgGalleryManager{
 		$my =& JFactory::getUser();
 		
 		if( $id === null ){
-			$id = rsgInstance::getInt( 'catid', 0 );
-			$id = rsgInstance::getInt( 'gid', $id );
+			$id = JRequest::getInt( 'catid', 0 );
+			$id = JRequest::getInt( 'gid', $id );
 			
 			if( !$id ){
 				// check if an item id is set and if so return the gallery for that item id
-				if( rsgInstance::getInt( 'id', 0 ))
+				if( JRequest::getInt( 'id', 0 ))
 					return rsgGalleryManager::getGalleryByItemID();
 			}
 		}
@@ -75,9 +81,10 @@ class rsgGalleryManager{
 		if( $gallery->get('published') < 1 ) {
 			
 			// if user is admin or superadmin then always return the gallery
-			if ( $my->gid > 23 )
+			if ( 1			   ){ //MK// [change] [only admin + may see this]
+		//	if ( $my->gid > 23 ) //MK// [change] [only admin + may see this]
 				return $gallery;
-
+			}
 			if( $rsgConfig->get( 'acl_enabled' )){
 				if( !$rsgAccess->checkGallery( 'create_mod_gal', $id )) die("RSGallery2: Access denied to gallery $id");
 			}
@@ -182,8 +189,9 @@ class rsgGalleryManager{
     */
 
 	/**
-	 * returns a gallery
-	 * @param rsgGallery object
+	 * Returns an rsgGallery object of the gallery which id was given
+	 * with all associated items
+	 * @param the id of a gallery
 	*/
 	function _get( $gallery ){
 		static $galleries = array();
@@ -193,10 +201,10 @@ class rsgGalleryManager{
 		
 			if( !is_numeric( $gallery )) die("gallery id is not a number: $gallery");
 			
-			$database->setQuery("SELECT * FROM #__rsgallery2_galleries ".
+			$query = "SELECT * FROM #__rsgallery2_galleries ".
 								"WHERE id = '$gallery' ".
-								"ORDER BY ordering ASC ");
-		
+								"ORDER BY ordering ASC ";
+			$database->setQuery($query);
 			$row = $database->loadAssocList();
 			if( count($row)==0 && $gallery!=0 ){
 				JError::raiseError( 1, "gallery id does not exist: $gallery" );

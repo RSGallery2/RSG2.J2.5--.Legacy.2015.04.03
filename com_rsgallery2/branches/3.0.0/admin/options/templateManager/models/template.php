@@ -31,7 +31,7 @@ class InstallerModelTemplate extends InstallerModel
 	 */
 	function __construct()
 	{
-		global $mainframe;
+		$mainframe =& JFactory::getApplication();
 		
 		// Call the parent constructor
 		parent::__construct();
@@ -42,7 +42,7 @@ class InstallerModelTemplate extends InstallerModel
 	
 	function getItem()
 	{
-		global $mainframe;
+		//MK// [removed][mainframe]//global $mainframe;
 		
 		jimport('joomla.filesystem.path');
 		if (!$this->template) {
@@ -117,7 +117,7 @@ class InstallerModelTemplate extends InstallerModel
 			
 			// Try to make the params file writeable
 			if (!$ftp['enabled'] && JPath::isOwner($file) && !JPath::setPermissions($file, '0755')) {
-				JError::raiseNotice('SOME_ERROR_CODE', JText::_('Could not make the template parameter file writable'));
+				JError::raiseNotice('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_COULD_NOT_MAKE_THE_TEMPLATE_PARAMETER_FILE_WRITABLE'));
 				return;
 			}
 			
@@ -125,7 +125,7 @@ class InstallerModelTemplate extends InstallerModel
 			
 			// Try to make the params file unwriteable
 			if (!$ftp['enabled'] && JPath::isOwner($file) && !JPath::setPermissions($file, '0555')) {
-				JError::raiseNotice('SOME_ERROR_CODE', JText::_('Could not make the template parameter file unwritable'));
+				JError::raiseNotice('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_COULD_NOT_MAKE_THE_TEMPLATE_PARAMETER_FILE_UNWRITABLE'));
 				return;
 			}
 			

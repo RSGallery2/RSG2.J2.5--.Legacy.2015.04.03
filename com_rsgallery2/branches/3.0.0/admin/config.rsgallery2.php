@@ -101,7 +101,7 @@ class galleryUtils {
 	global $database, $dropdown_html;
 	$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE parent = '0' AND uid = '$uid' ORDER BY ordering ASC");
 	$rows = $database->loadObjectList();
-	$dropdown_html = "<select name=\"$selectname\"><option value=\"0\" SELECTED>".JText::_('- Select gallery -')."</option>\n";
+	$dropdown_html = "<select name=\"$selectname\"><option value=\"0\" SELECTED>".JText::_('COM_RSGALLERY2_SELECT_GALLERY_FROM_LIST')."</option>\n";
 
     foreach ($rows as $row)
 		{
@@ -141,7 +141,7 @@ class galleryUtils {
 		//Get gallery Id's where action is permitted and write to string
 		$galleries = $rsgAccess->actionPermitted($action);
 		
-		$dropdown_html = "<select name=\"$select_name\" $js><option value=\"0\" SELECTED>".JText::_('- Select gallery -')."</option>\n";
+		$dropdown_html = "<select name=\"$select_name\" $js><option value=\"0\" SELECTED>".JText::_('COM_RSGALLERY2_SELECT_GALLERY_FROM_LIST')."</option>\n";
 		$dropdown_html .= galleryUtils::addToGalSelectList(0, 0, $gallery_id, $galleries);
 		echo $dropdown_html."</select>";
 	}
@@ -228,7 +228,7 @@ class galleryUtils {
 
     // assemble menu items to the array
     $mitems     = array();
-    $mitems[]   = JHTML::_("Select.option", '0', JText::_('Top'));
+    $mitems[]   = JHTML::_("Select.option", '0', JText::_('COM_RSGALLERY2_TOP'));
 
     foreach ( $list as $item ) {
         $mitems[] = JHTML::_("Select.option", $item->id, '&nbsp;&nbsp;&nbsp;'. $item->treename );
@@ -249,51 +249,54 @@ class galleryUtils {
      * @param string javascript entries ( e.g: 'onChange="form.submit();"' )
      * @return string HTML representation for selectlist
      */
-    function galleriesSelectList( $galleryid=null, $listName='gallery_id', $style = true, $javascript = NULL ) {
-    $database =& JFactory::getDBO();
-    if ($style == true)
-        $size = ' size="10"';
-    else
-        $size = ' size="1"';
-    // get a list of the menu items
-    // excluding the current menu item and its child elements
-    $query = "SELECT *"
-    . " FROM #__rsgallery2_galleries"
-    . " WHERE published != -2"
-    . " ORDER BY parent, ordering";
-    
-    $database->setQuery( $query );
-    
-    $mitems = $database->loadObjectList();
+    function galleriesSelectList( $galleryid=null, $listName='gallery_id', $style = true, $javascript = NULL ) 
+	{
+		$database =& JFactory::getDBO();
+		if ($style == true)
+			$size = ' size="10"';
+		else
+			$size = ' size="1"';
+		// get a list of the menu items
+		// excluding the current menu item and its child elements
+		//$query = "SELECT *"; //MK [change] [J1.6 needs parent_id and title instead of parent and name]
+		$query = "SELECT *, parent AS parent_id, name AS title "
+		. " FROM #__rsgallery2_galleries"
+		. " WHERE published != -2"			//MK// [change] [What is -2 for: not J1.0 nor J1.5...]	
+		. " ORDER BY parent, ordering";
+		
+		$database->setQuery( $query );
+		
+		$mitems = $database->loadObjectList();
 
-    // establish the hierarchy of the menu
-    $children = array();
+		// establish the hierarchy of the menu
+		$children = array();
 
-    if ( $mitems ) {
-        // first pass - collect children
-        foreach ( $mitems as $v ) {
-            $pt     = $v->parent;
-            $list   = @$children[$pt] ? $children[$pt] : array();
-            array_push( $list, $v );
-            $children[$pt] = $list;
-        }
-    }
+		if ( $mitems ) {
+			// first pass - collect children
+			foreach ( $mitems as $v ) {
+				$pt     = $v->parent;
+				$list   = @$children[$pt] ? $children[$pt] : array();
+				array_push( $list, $v );
+				$children[$pt] = $list;
+			}
+		}
 
-    // second pass - get an indent list of the items
-		$list = JHTML::_('menu.treerecurse', 0, '', array(), $children, 9999, 0, 0 );
+		// second pass - get an indent list of the items
+			$list = JHTML::_('menu.treerecurse', 0, '', array(), $children, 9999, 0, 0 );
 
-    // assemble menu items to the array
-    $mitems     = array();
-    $mitems[] 	= JHTML::_("Select.option", '-1', JText::_('Select Gallery') );
-    $mitems[] 	= JHTML::_("Select.option", '0', '- Top Gallery -' );
+		// assemble menu items to the array
+		$mitems     = array();
+		$mitems[] 	= JHTML::_("Select.option", '-1', JText::_('COM_RSGALLERY2_SELECT_GALLERY') );
+		$mitems[] 	= JHTML::_("Select.option", '0', '- Top Gallery -' );
 
-    foreach ( $list as $item ) {
-        $mitems[] = JHTML::_("Select.option", $item->id, '&nbsp;&nbsp;&nbsp;'. $item->treename );
-    }
+		foreach ( $list as $item ) {
+			$item->treename = str_replace  ( '&#160;&#160;'  ,  '...' ,  $item->treename  );//MK [hack] [the original treename holds &#160; as a non breacking space for subgalleries, but JHTMLSelect::option cannot handle that, nor &nbsp;, so replaced string]
+			$mitems[] = JHTML::_("Select.option", $item->id, ''. $item->treename );
+		}
 
-    $output = JHTML::_("select.genericlist", $mitems, $listName, 'class="inputbox"'.$size.' '.$javascript, 'value', 'text', $galleryid, false );
+		$output = JHTML::_("select.genericlist", $mitems, $listName, 'class="inputbox"'.$size.' '.$javascript, 'value', 'text', $galleryid, false );
 
-    return $output;
+		return $output;
 }
 
     /**
@@ -307,7 +310,7 @@ class galleryUtils {
      */
      
     function getThumb($catid, $height = 0, $width = 0,$class = "") {
-	    global $mainframe ;
+	    //global $mainframe ; //MK// [removed for Joomla 1.6]	
 		$database = JFactory::getDBO();
 	    
 	    //Setting attributes for image tag
@@ -478,7 +481,7 @@ class galleryUtils {
     function showRating($id) {
         $database = JFactory::getDBO();
         $database->setQuery("SELECT * FROM #__rsgallery2_files WHERE id = '$id'");
-        $values = array(JText::_('No rating'),JText::_('&nbsp;Very Bad&nbsp;'),JText::_('&nbsp;Bad&nbsp;'),JText::_('&nbsp;Ok&nbsp;'),JText::_('&nbsp;Good&nbsp;'),JText::_('&nbsp;Very Good&nbsp;'));
+        $values = array(JText::_('COM_RSGALLERY2_NO_RATING'),JText::_('COM_RSGALLERY2_NBSP;VERY_BADNBSP;'),JText::_('COM_RSGALLERY2_NBSP;BADNBSP;'),JText::_('COM_RSGALLERY2_NBSP;OKNBSP;'),JText::_('COM_RSGALLERY2_NBSP;GOODNBSP;'),JText::_('COM_RSGALLERY2_NBSP;VERY_GOODNBSP;'));
         $rows = $database->loadObjectList();
         $images = "";
         foreach ($rows as $row)
@@ -509,7 +512,7 @@ class galleryUtils {
             $gallery_id = $row->gallery_id;
             if ($gallery_id == $xid)
                 {
-                echo JText::_('New!');
+                echo JText::_('COM_RSGALLERY2_NEW-');
                 break;
                 }
             }
@@ -582,7 +585,7 @@ class galleryUtils {
             }
         else
             {
-            echo "<tr><td colspan=\"3\">".JText::_('No new entries')."</td></tr>";
+            echo "<tr><td colspan=\"3\">".JText::_('COM_RSGALLERY2_NO_NEW_ENTRIES')."</td></tr>";
             }
     }
     
@@ -631,7 +634,7 @@ class galleryUtils {
         }
     else
         {
-        echo "<tr><td colspan=\"4\">".JText::_('No new entries')."</td></tr>";
+        echo "<tr><td colspan=\"4\">".JText::_('COM_RSGALLERY2_NO_NEW_ENTRIES')."</td></tr>";
         }
     }
     
@@ -701,7 +704,7 @@ class galleryUtils {
     	$html = '';
     	$count = 0;
 		if ( ( !GD2::detect() ) and (!imageMagick::detect() ) and (!Netpbm::detect() ) ) {
-  			$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;".JText::_('NO_IMGLIBRARY')."</p>";
+  			$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;".JText::_('COM_RSGALLERY2_NO_IMGLIBRARY')."</p>";
 		}
 		
 		//Check availability and writability of folders
@@ -717,19 +720,19 @@ class galleryUtils {
 				{
 				$perms = substr(sprintf('%o', fileperms(JPATH_ROOT.$folder)), -4);
 				if (!is_writable(JPATH_ROOT.$folder) )
-					$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;<strong>".JPATH_ROOT.$folder."</strong>".JText::_(' is NOT writable!')."($perms)";
+					$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;<strong>".JPATH_ROOT.$folder."</strong>".JText::_('COM_RSGALLERY2_IS_NOT_WRITABLE')."($perms)";
 				}
 			else
 				{
-				$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;<strong>".JPATH_ROOT.$folder."</strong>".JText::_('FOLDER_NOTEXIST');	
+				$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;<strong>".JPATH_ROOT.$folder."</strong>".JText::_('COM_RSGALLERY2_FOLDER_NOTEXIST');	
 				}
 		}
 		if ($html !== '') {
 			?>
 			<div style="clear: both; margin: 3px; margin-top: 10px; padding: 5px 15px; display: block; float: left; border: 1px solid #cc0000; background: #ffffcc; text-align: left; width: 50%;">
-			<p style="color: #CC0000;"><?php echo JText::_('The following settings prevent RSGallery2 from working without errors:')?></p>
+			<p style="color: #CC0000;"><?php echo JText::_('COM_RSGALLERY2_THE_FOLLOWING_SETTINGS_PREVENT_RSGALLERY2_FROM_WORKING_WITHOUT_ERRORS')?></p>
 			<?php echo $html;?>
-			<p style="color: #CC0000;text-align:right;"><a href="index2.php?option=com_rsgallery2"><?php echo JText::_('Refresh')?></a></p>		
+			<p style="color: #CC0000;text-align:right;"><a href="index.php?option=com_rsgallery2"><?php echo JText::_('COM_RSGALLERY2_REFRESH')?></a></p>		
 			</div>
 			<div class='rsg2-clr'>&nbsp;</div>		
 			<?php
@@ -743,17 +746,17 @@ class galleryUtils {
 	 * @return HTML for downloadlink
 	 */
 	 function writeDownloadLink($id, $showtext = true, $type = 'button') {
-	 	global $mainframe;
+	 	//global $mainframe; //MK// [removed for Joomla 1.6]	
 	 	echo "<div class=\"rsg2-toolbar\">";
 	 	if ($type == 'button')
 	 		{
 	 		?>
 	 		<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>">
-	 		<img height="20" width="20" src="<?php echo JURI_SITE;?>/administrator/images/download_f2.png" alt="<?php echo JText::_('Download')?>">
+	 		<img height="20" width="20" src="<?php echo JURI_SITE;?>/administrator/images/download_f2.png" alt="<?php echo JText::_('COM_RSGALLERY2_DOWNLOAD')?>">
 	 		<?php
 	 		if ($showtext == true) {
 	 			?>
-	 			<br /><span style="font-size:smaller;"><?php echo JText::_('Download')?></span>
+	 			<br /><span style="font-size:smaller;"><?php echo JText::_('COM_RSGALLERY2_DOWNLOAD')?></span>
 	 			<?php
 	 		}
 	 		?>
@@ -763,28 +766,28 @@ class galleryUtils {
 	 	else
 	 		{
 	 		?>
-	 		<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>"><?php echo JText::_('Download')?></a>
+	 		<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>"><?php echo JText::_('COM_RSGALLERY2_DOWNLOAD')?></a>
 	 		<?php
 	 		}
 	 echo "</div><div class=\"rsg2-clr\">&nbsp;</div>";
 	 }
 	 
 	function writeGalleryStatus( $gallery ) {
-		global $rsgConfig, $mainframe, $rsgAccess;
+		global $rsgConfig, $rsgAccess; //MK// [removed for Joomla 1.6]	only $mainframe
 		$my =& JFactory::getUser();
 		
 		// return if status is not displayed
 		if ( !$rsgConfig->get('displayStatus') )
 			return;
 		
-		$owner = JHTML::tooltip(JText::_('You are the owner of this gallery'), 
+		$owner = JHTML::tooltip(JText::_('COM_RSGALLERY2_YOU_ARE_THE_OWNER_OF_THIS_GALLERY'), 
 				null, 
 				'../../../components/com_rsgallery2/images/status_owner.png',null,null,0);
-		$upload = JHTML::tooltip(JText::_('You can upload in this gallery'), 
+		$upload = JHTML::tooltip(JText::_('COM_RSGALLERY2_YOU_CAN_UPLOAD_IN_THIS_GALLERY'), 
 				null, 
 				'../../../components/com_rsgallery2/images/status_upload.png',null,null,0);
 		
-		$unpublished = JHTML::tooltip(JText::_('This gallery is NOT published'), 
+		$unpublished = JHTML::tooltip(JText::_('COM_RSGALLERY2_THIS_GALLERY_IS_NOT_PUBLISHED'), 
 				null, 
 				'../../../components/com_rsgallery2/images/status_hidden.png',null,null,0);
 
@@ -870,7 +873,7 @@ class galleryUtils {
 	 */
 	function isComponentInstalled( $component_name ) {
 		$database =& JFactory::getDBO();
-		$sql = "SELECT COUNT(1) FROM #__components as a WHERE a.option = '$component_name'";
+		$sql = "SELECT COUNT(1) FROM #__extensions as a WHERE a.element = '$component_name'";
 		$database->setQuery( $sql );
 		$result = $database->loadResult();
 		if ($result > 0) {

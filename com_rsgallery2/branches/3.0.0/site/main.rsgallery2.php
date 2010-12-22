@@ -18,7 +18,7 @@ function template(){
 	global $rsgConfig;
 
 	//Set template selection
-	$template = preg_replace( '#\W#', '', rsgInstance::getVar( 'rsgTemplate', $rsgConfig->get('template') ));
+	$template = preg_replace( '#\W#', '', JRequest::getVar( 'rsgTemplate', $rsgConfig->get('template') ));
 	$template = strtolower( $template );
 
 	$templateLocation = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template . DS . 'index.php';
@@ -30,7 +30,7 @@ function template(){
 }
 
 function xmlFile(){
-	$template = preg_replace( '#\W#', '', rsgInstance::getVar( 'xmlTemplate', 'meta' ) );
+	$template = preg_replace( '#\W#', '', JRequest::getVar( 'xmlTemplate', 'meta' ) );
 	$template = strtolower( $template );
 	
 	// require generic template which all other templates should extend

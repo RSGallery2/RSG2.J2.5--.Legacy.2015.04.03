@@ -169,7 +169,7 @@ class JGPagination extends JPagination
 		}
 		$limits[] = JHtml::_('select.option', '50');
 		$limits[] = JHtml::_('select.option', '100');
-		$limits[] = JHtml::_('select.option', '0', JText::_('all'));
+		$limits[] = JHtml::_('select.option', '0', JText::_('COM_RSGALLERY2_ALL'));
 
 		$selected = $this->_viewall ? 0 : $this->limit;
 
@@ -230,15 +230,15 @@ class JGPagination extends JPagination
 		// Initialize variables
 		$data = new stdClass();
 
-		$data->all	= new JPaginationObject(JText::_('View All'));
+		$data->all	= new JPaginationObject(JText::_('COM_RSGALLERY2_VIEW_ALL'));
 		if (!$this->_viewall) {
 			$data->all->base	= '0';
 			$data->all->link	= JRoute::_("&limitstartg=");
 		}
 
 		// Set the start and previous data objects
-		$data->start	= new JPaginationObject(JText::_('Start'));
-		$data->previous	= new JPaginationObject(JText::_('Prev'));
+		$data->start	= new JPaginationObject(JText::_('COM_RSGALLERY2_START'));
+		$data->previous	= new JPaginationObject(JText::_('COM_RSGALLERY2_PREV'));
 
 		if ($this->get('pages.current') > 1)
 		{
@@ -253,8 +253,8 @@ class JGPagination extends JPagination
 		}
 
 		// Set the next and end data objects
-		$data->next	= new JPaginationObject(JText::_('Next'));
-		$data->end	= new JPaginationObject(JText::_('End'));
+		$data->next	= new JPaginationObject(JText::_('COM_RSGALLERY2_NEXT'));
+		$data->end	= new JPaginationObject(JText::_('COM_RSGALLERY2_END'));
 
 		if ($this->get('pages.current') < $this->get('pages.total'))
 		{

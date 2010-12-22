@@ -1,4 +1,4 @@
-<form action="index2.php" method="post" name="adminForm">
+<form action="index.php" method="post" name="adminForm">
 
 	<?php if ($this->ftp) : ?>
 		<?php echo $this->loadTemplate('ftp'); ?>

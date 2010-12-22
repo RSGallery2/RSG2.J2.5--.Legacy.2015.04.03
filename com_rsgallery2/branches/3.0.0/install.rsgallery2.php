@@ -32,16 +32,16 @@ function com_install(){
 		global $rsgConfig;
 		$rsgConfig = new rsgConfig();
 
-		$rsgInstall->writeInstallMsg( JText::_('Migrating from RSGallery2 ') . $rsgConfig->get( 'version' ), 'ok');
+		$rsgInstall->writeInstallMsg( JText::_('COM_RSGALLERY2_MIGRATING_FROM_RSGALLERY2') .' '. $rsgConfig->get( 'version' ), 'ok');
 		//Migrate from earlier version
 		$result = $migrate_com_rsgallery->migrate();
 		
 		if( $result === true ){
-			$rsgInstall->writeInstallMsg( JText::_('Success.  Now using RSGallery2 ') . $rsgConfig->get( 'version' ), 'ok');
+			$rsgInstall->writeInstallMsg( JText::_('COM_RSGALLERY2_SUCCESS_NOW_USING_RSGALLERY2').' '. $rsgConfig->get( 'version' ), 'ok');
 		}
 		else{
 			$result = print_r( $result, true );
-			$rsgInstall->writeInstallMsg( JText::_('Failure: ')."\n<br><pre>$result\n</pre>", 'error');
+			$rsgInstall->writeInstallMsg( JText::_('COM_RSGALLERY2_FAILURE')."\n<br><pre>$result\n</pre>", 'error');
 		}
 	}
 	else{

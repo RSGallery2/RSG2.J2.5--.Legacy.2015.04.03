@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <mosparams type="component">
 	<params>
-		<param name="link" type="text" default="" label="Link" description="When the image is clicked on in some templates, go to this link.">
+		<param name="link" type="text" default="" label="COM_RSGALLERY2_PARAM_IMAGES_LINK" description="COM_RSGALLERY2_PARAM_IMAGES_LINK_DESC">
 		</param>
-		<param name="link_text" type="text" default="" label="Link Text" description="The text to use for the above link.">
+		<param name="link_text" type="text" default="" label="COM_RSGALLERY2_LINK_TEXT" description="COM_RSGALLERY2_LINK_TEXT_DESC">
 		</param>
 	</params>
 </mosparams>

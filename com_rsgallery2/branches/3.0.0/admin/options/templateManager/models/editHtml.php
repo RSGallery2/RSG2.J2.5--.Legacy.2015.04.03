@@ -31,7 +31,7 @@ class InstallerModelEditHtml extends InstallerModel
 	 */
 	function __construct()
 	{
-		global $mainframe;
+		$mainframe =& JFactory::getApplication();
 		
 		// Call the parent constructor
 		parent::__construct();
@@ -52,7 +52,7 @@ class InstallerModelEditHtml extends InstallerModel
 		
 		if ($content == false)
 		{
-			JError::raiseWarning( 500, JText::sprintf('Operation Failed Could not open', $client->path.$filename) );
+			JError::raiseWarning( 500, JText::sprintf('COM_RSGALLERY2_OPERATION_FAILED_COULD_NOT_OPEN', $client->path.$filename) );
 		}
 		
 		$item = new stdClass();

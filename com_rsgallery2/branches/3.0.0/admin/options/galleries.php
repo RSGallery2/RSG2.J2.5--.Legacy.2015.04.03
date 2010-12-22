@@ -14,6 +14,7 @@ require_once( $rsgOptions_path . 'galleries.html.php' );
 require_once( $rsgOptions_path . 'galleries.class.php' );
 
 $cid = JRequest::getVar( 'cid' , array(), 'default', 'array' );
+
 switch( $task ){
     case 'new':
 	case 'add':
@@ -75,7 +76,9 @@ switch( $task ){
  * @param database A database connector object
  */
 function show(){
-    global $mainframe, $mosConfig_list_limit, $option;
+    global $mosConfig_list_limit;
+	$mainframe =& JFactory::getApplication();
+	$option = JRequest::getCmd('option');
 	$database =& JFactory::getDBO();
     $limit      = $mainframe->getUserStateFromRequest( "viewlistlimit", 'limit', $mosConfig_list_limit );
     $limitstart = $mainframe->getUserStateFromRequest( "view{$option}limitstart", 'limitstart', 0 );
@@ -94,7 +97,8 @@ function show(){
         $search_rows = $database->loadResultArray();
     }
 
-    $query = "SELECT a.*, u.name AS editor"
+//  $query = "SELECT a.*, u.name AS editor"	//J!1.6 has parent_id instead of parent and title instead of name
+    $query = "SELECT a.*, u.name AS editor, a.parent AS parent_id, a.name AS title" //MK// [change] [J!1.6 has parent_id instead of parent and title instead of name]	
     . "\n FROM #__rsgallery2_galleries AS a"
     . "\n LEFT JOIN #__users AS u ON u.id = a.checked_out"
     . "\n ORDER BY a.ordering"
@@ -151,7 +155,8 @@ function show(){
  * @param integer The unique id of the record to edit (0 if new)
  */
 function edit( $option, $id ) {
-	global $rsgOptions_path, $mainframe;
+	global $rsgOptions_path;
+	$mainframe =& JFactory::getApplication();
 	$database =& JFactory::getDBO();
 	$my =& JFactory::getUser();
 	
@@ -163,7 +168,7 @@ function edit( $option, $id ) {
 
     // fail if checked out not by 'me'
     if ($row->isCheckedOut( $my->id )) {
-        $mainframe->redirect( 'index2.php?option='. $option, 'The module $row->title is currently being edited by another administrator.' );
+        $mainframe->redirect( 'index.php?option='. $option, 'The module $row->title is currently being edited by another administrator.' );
     }
 
     if ($id) {
@@ -202,8 +207,9 @@ function edit( $option, $id ) {
  * @param database A database connector object
  */
 function save( $option ) {
-    global $rsgOption, $rsgAccess, $rsgConfig, $mainframe;
-	
+    global $rsgOption, $rsgAccess, $rsgConfig;
+	$mainframe = &JFactory::getApplication();
+
 	$my =& JFactory::getUser();
 	$database =& JFactory::getDBO();
 	
@@ -215,7 +221,7 @@ function save( $option ) {
 	$row->description = JRequest::getVar( 'description', '', 'post', 'string', JREQUEST_ALLOWRAW );
 
     // save params
-    $params = rsgInstance::getVar( 'params', array() );
+    $params = JRequest::getVar( 'params', array() );
     if (is_array( $params )) {
         $txt = array();
         foreach ( $params as $k=>$v) {
@@ -241,11 +247,11 @@ function save( $option ) {
     
     //If acl is enabled, set permissions array and save them to the DB
     if ( $rsgConfig->get('acl_enabled') ) {
-    	$perms = $rsgAccess->makeArrayComplete( rsgInstance::getVar( 'perm', array() ) );
+    	$perms = $rsgAccess->makeArrayComplete( JRequest::getVar( 'perm', array() ) );
     	$rsgAccess->savePermissions($perms, $row->id);
     }
 	
-    $mainframe->redirect( "index2.php?option=$option&rsgOption=$rsgOption" );
+    $mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
 }
 
 
@@ -271,12 +277,13 @@ function removeWarn( $cid, $option ) {
 * @param string The current url option
 */
 function removeReal( $cid, $option ) {
-	global $rsgOption, $rsgConfig, $mainframe;
+	global $rsgOption, $rsgConfig;
+	$mainframe =& JFactory::getApplication();
 
     $result = rsgGalleryManager::deleteArray( $cid );
 
     if( !$rsgConfig->get( 'debug' ))
-        $mainframe->redirect( "index2.php?option=$option&rsgOption=$rsgOption" );
+        $mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
 }
 
 /**
@@ -286,11 +293,12 @@ function removeReal( $cid, $option ) {
 * @param string The current url option
 */
 function publish( $cid=null, $publish=1,  $option ) {
-	global $rsgOption, $mainframe;
+	global $rsgOption;
+	$mainframe =& JFactory::getApplication();
 	$database =& JFactory::getDBO();
 	$my =& JFactory::getUser();
 
-    $catid = rsgInstance::getInt( 'catid', array(0) );
+    $catid = JRequest::getInt( 'catid', array(0) );
 
     if (!is_array( $cid ) || count( $cid ) < 1) {
         $action = $publish ? 'publish' : 'unpublish';
@@ -315,7 +323,7 @@ function publish( $cid=null, $publish=1,  $option ) {
         $row = new rsgGalleriesItem( $database );
         $row->checkin( $cid[0] );
     }
-    $mainframe->redirect( "index2.php?option=$option&rsgOption=$rsgOption" );
+    $mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
 }
 /**
 * Moves the order of a record
@@ -328,7 +336,7 @@ function order( $uid, $inc, $option ) {
 	
 	$row = new rsgGalleriesItem( $database );
     $row->load( $uid );
-    $row->move( $inc, "parent = $row->parent" );
+	$row->move( $inc, "parent = $row->parent" );//2nd arg: restrict to set with same parent
 
     $mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
 }
@@ -338,17 +346,18 @@ function order( $uid, $inc, $option ) {
 * @param string The current url option
 */
 function cancel( $option ) {
-	global $rsgOption, $mainframe;
-    
+	global $rsgOption;
+	$mainframe =& JFactory::getApplication();
 	$database =& JFactory::getDBO();
+
 	$row = new rsgGalleriesItem( $database );
     $row->bind( $_POST );
     $row->checkin();
-    $mainframe->redirect( "index2.php?option=$option&rsgOption=$rsgOption" );
+    $mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
 }
 
 function saveOrder( &$cid ) {
-	global $mainframe;
+	$mainframe =& JFactory::getApplication();
 	$database =& JFactory::getDBO();
 
 	$total		= count( $cid );
@@ -381,7 +390,7 @@ function saveOrder( &$cid ) {
 	$cache =& JFactory::getCache('com_rsgallery2');
 	$cache->clean( 'com_rsgallery2' );
 
-	$msg 	= JText::_( 'New ordering saved' );
-	$mainframe->redirect( 'index2.php?option=com_rsgallery2&rsgOption=galleries', $msg );
+	$msg 	= JText::_( 'COM_RSGALLERY2_NEW_ORDERING_SAVED' );
+	$mainframe->redirect( 'index.php?option=com_rsgallery2&rsgOption=galleries', $msg );
 } // saveOrder
 ?>

@@ -14,7 +14,7 @@ global $rsgOptions_path;
 require_once( $rsgOptions_path . 'search.html.php' );
 
 $cid = JRequest::getVar( 'cid' , array(), 'default', 'array' );
-$task = rsgInstance::getVar( 'task', null);
+$task = JRequest::getVar( 'task', null);
 
 //Load stylesheet from current template
 global  $rsgConfig;
@@ -31,7 +31,7 @@ switch ($task) {
 	function showResults() {
 		$database = JFactory::getDBO();
 		//Retrieve search string
-		$searchtext 	= rsgInstance::getVar( 'searchtext'  , '');
+		$searchtext 	= JRequest::getVar( 'searchtext'  , '');
 		
 		//Check searchtext against database
 		$sql = "SELECT *, a.name as itemname, a.id as item_id FROM #__rsgallery2_files as a, #__rsgallery2_galleries as b " .

@@ -121,7 +121,7 @@ class videoUtils extends fileUtils{
 			// remove the temporary preview image
 			JFile::delete($videoPreviewImage);
 			if( !( $result )){
-				$result = new imageUploadError( $imgName, JText::_('ERROR CREATING THUMB IMAGE'). ": ".$videoPreviewImage);
+				$result = new imageUploadError( $imgName, JText::_('COM_RSGALLERY2_ERROR_CREATING_THUMB_IMAGE'). ": ".$videoPreviewImage);
 				break;
 			}
 			
@@ -166,7 +166,7 @@ class genericVideoLib{
      * @todo not final yet
      */
     function convertVideo($source, $target){	
-		JError::raiseNotice('ERROR_CODE', JText::_('VIDEO ABSTRACT IMAGE LIB NO RESIZE'));
+		JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_VIDEO_ABSTRACT_IMAGE_LIB_NO_RESIZE'));
 		return false;
     }
 
@@ -178,7 +178,7 @@ class genericVideoLib{
      * @todo not final yet
      */
     function capturePreviewImage($source, $target){
-		JError::raiseNotice('ERROR_CODE', JText::_('VIDEO ABSTRACT IMAGE LIB NO RESIZE'));
+		JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_VIDEO_ABSTRACT_IMAGE_LIB_NO_RESIZE'));
 		return false;
     }    
     /**
@@ -223,7 +223,7 @@ class Ffmpeg extends genericVideoLib{
 			return true;
 		}
 		else{
-			JError::raiseNotice('ERROR_CODE', JText::_('VIDEO CONVERSION TO FVL ERROR'));
+			JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_VIDEO_CONVERSION_TO_FVL_ERROR'));
 			return false;
 		}
     }
@@ -257,7 +257,7 @@ class Ffmpeg extends genericVideoLib{
 			return true;
 		}
 		else{
-			JError::raiseNotice('ERROR_CODE', JText::_('VIDEO CAPTURE PREVIEW IMAGE ERROR'));
+			JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_VIDEO_CAPTURE_PREVIEW_IMAGE_ERROR'));
 			return false;
 		}
 	}

@@ -52,7 +52,7 @@ class rsgInstall {
     
     /** Constructor */
     function rsgInstall(){
-		global $rsgConfig, $mainframe;
+		global $rsgConfig;//MK// [removed][mainframe]
         $app =JFactory::getApplication();
 		
 		if (!defined("JURI_SITE")){
@@ -87,7 +87,7 @@ class rsgInstall {
     }
     /** For debug purposes only */
     function echo_values(){
-    echo JText::_('Thumbdirectory is:').$this->dirThumbs;
+    echo JText::_('COM_RSGALLERY2_THUMBDIRECTORY_IS').$this->dirThumbs;
     }
     /**
      * Changes Menu icon in backend to RSGallery2 logo
@@ -97,11 +97,11 @@ class rsgInstall {
 	$database->setQuery("UPDATE #__components SET admin_menu_img='../administrator/components/com_rsgallery2/images/rsg2_menu.png' WHERE admin_menu_link='option=com_rsgallery2'");
 	if ($database->query())
         {
-        $this->writeInstallMsg(JText::_('Menu Image RSGallery2 succesfully changed'), 'ok');
+        $this->writeInstallMsg(JText::_('COM_RSGALLERY2_MENU_IMAGE_RSGALLERY2_SUCCESFULLY_CHANGED'), 'ok');
         }
     else
         {
-        $this->writeInstallMsg(JText::_('Menu image could not be changed'), 'error');
+        $this->writeInstallMsg(JText::_('COM_RSGALLERY2_MENU_IMAGE_COULD_NOT_BE_CHANGED'), 'error');
         }
     }
     
@@ -117,18 +117,18 @@ class rsgInstall {
         if (file_exists(JPATH_SITE.$dir) && is_dir(JPATH_SITE.$dir))
             {
             // Dir already exists, next
-            $this->writeInstallMsg("<strong>$dir</strong> ".JText::_('already exists'),"ok");
+            $this->writeInstallMsg("<strong>$dir</strong> ".JText::_('COM_RSGALLERY2_ALREADY_EXISTS'),"ok");
             }
         else
             {
             if(@mkdir(JPATH_SITE.$dir, 0777))
                 {
-                $this->writeInstallMsg("<strong>$dir</strong> ".JText::_('is created'),"ok");
+                $this->writeInstallMsg("<strong>$dir</strong> ".JText::_('COM_RSGALLERY2_IS_CREATED'),"ok");
                 $count++;
                 }
             else
                 {
-                $this->writeInstallMsg("<strong>$dir</strong>".JText::_('could not be created'),"error");
+                $this->writeInstallMsg("<strong>$dir</strong>".JText::_('COM_RSGALLERY2_COULD_NOT_BE_CREATED'),"error");
                 }
             }
         }
@@ -141,7 +141,7 @@ class rsgInstall {
         $result = $this->populate_db();
 
         if( count( $result ) == 0 ){
-            $this->writeInstallMsg(JText::_('Database tables created succesfully'),"ok");
+            $this->writeInstallMsg(JText::_('COM_RSGALLERY2_DATABASE_TABLES_CREATED_SUCCESFULLY'),"ok");
             return true;
         }
         else{
@@ -304,11 +304,11 @@ class rsgInstall {
                     {
                     chmod($to,$chmod);
                     touch($to,filemtime($from)); // to track last modified time
-						$messages[]=JText::_('INSTALL_FILE_COPIED_FROM').$from.JText::_('INSTALL_FILE_COPIED_TO').$to;
+						$messages[]=JText::_('COM_RSGALLERY2_INSTALL_FILE_COPIED_FROM').$from.JText::_('COM_RSGALLERY2_INSTALL_FILE_COPIED_TO').$to;
                     }
                 else
                     {
-                    $errors[]=JText::_('cannot copy file from ').$from.JText::_('INSTALL_FILE_COPIED_TO').$to;
+                    $errors[]=JText::_('COM_RSGALLERY2_CANNOT_COPY_FILE_FROM').$from.JText::_('COM_RSGALLERY2_INSTALL_FILE_COPIED_TO').$to;
                     $errorcount++;
                     }
                 }
@@ -319,11 +319,11 @@ class rsgInstall {
                     if (@mkdir($to))
                         {
                         chmod($to,$chmod);
-                        $messages[]=JText::_('Directory created: ').$to;
+                        $messages[]=JText::_('COM_RSGALLERY2_DIRECTORY_CREATED').$to;
                         }
                     else
                         {
-                        $errors[]=JText::_('cannot create directory ').$to;
+                        $errors[]=JText::_('COM_RSGALLERY2_CANNOT_CREATE_DIRECTORY').' '.$to;
                         $errorcount++;
                         }
                     $this->copyFiles($from, $to, $chmod, $subdir);
@@ -356,7 +356,7 @@ class rsgInstall {
                 {
                 if($output)
                     {
-                    echo JText::_('Processing: ').$target."/".$filename."<br>";
+                    echo JText::_('COM_RSGALLERY2_PROCESSING').$target."/".$filename."<br>";
                     }
                 if(is_dir($target."/".$filename))
                     {
@@ -374,18 +374,18 @@ class rsgInstall {
         if(rmdir($target))
             {
             //return 0;
-            $this->writeInstallMsg(JText::_('Directory structure deleted'),"ok");
+            $this->writeInstallMsg(JText::_('COM_RSGALLERY2_DIRECTORY_STRUCTURE_DELETED'),"ok");
             }
         else
             {
             //return 1;
-            $this->writeInstallMsg(JText::_('Deleting old directory structure failed'),"error");
+            $this->writeInstallMsg(JText::_('COM_RSGALLERY2_DELETING_OLD_DIRECTORY_STRUCTURE_FAILED'),"error");
             }
         }
     else
         {
         //return 2;
-        $this->writeInstallMsg(JText::_("No old directory structure found continue"),"ok");
+        $this->writeInstallMsg(JText::_("COM_RSGALLERY2_NO_OLD_DIRECTORY_STRUCTURE_FOUND_CONTINUE"),"ok");
         }
     }
     
@@ -446,15 +446,15 @@ class rsgInstall {
         if(!is_dir($dir))
             {
             //
-            $this->writeInstallMSg("<strong>$dir</strong>".JText::_('PERMS_NOT_EXIST'),"error");
+            $this->writeInstallMSg("<strong>$dir</strong>".JText::_('COM_RSGALLERY2_PERMS_NOT_EXIST'),"error");
             }
         elseif(is_dir($dir) && (fileperms($dir) & 0777) != 0777)
             {
-            $this->writeInstallMsg("<strong>$dir</strong>".JText::_('PERMS_NOT_SET').decoct(fileperms($dir)).JText::_('.<br />Please try to correct these permissions though FTP.'),"error");
+            $this->writeInstallMsg("<strong>$dir</strong>".JText::_('COM_RSGALLERY2_PERMS_NOT_SET').decoct(fileperms($dir)).'.<br />'.JText::_('COM_RSGALLERY2_PLEASE_TRY_TO_CORRECT_THESE_PERMISSIONS_THOUGH_FTP'),"error");
             }
         else
             {
-            $this->writeInstallMsg("<strong>$dir</strong>".JText::_(' was found, permissions are OK.'),"ok");
+            $this->writeInstallMsg("<strong>$dir</strong> ".JText::_('COM_RSGALLERY2_WAS_FOUND_PERMISSIONS_ARE_OK'),"ok");
             }
         }
     
@@ -486,7 +486,7 @@ class rsgInstall {
      */
      function writeInstallMsg($msg, $type = NULL)
         {
-        global $mainframe;
+        //MK// [removed][mainframe] global $mainframe;
         if ($type == "ok")
             {
             $icon = "tick.png";
@@ -521,9 +521,9 @@ class rsgInstall {
       * Shows the "Installation complete" box with a link to the controlpanel
       */
      function installComplete($msg = null){
-     global $mainframe;
+     //MK// [removed][mainframe] global $mainframe;
 	
-		if($msg == null) $msg = JText::_('Installation of RSGallery is completed');
+		if($msg == null) $msg = JText::_('COM_RSGALLERY2_INSTALLATION_OF_RSGALLERY_IS_COMPLETED');
      ?>
      <div align="center">
         <table width="500"><tr><td>
@@ -532,13 +532,15 @@ class rsgInstall {
             <td colspan="2">
                 <div align="center">
                 <h2><?php echo $msg; ?></h2> 
-                <?php //echo JText::_('INSTALL_STATUS_MSGS')?>
+                <?php //echo JText::_('COM_RSGALLERY2_INSTALL_STATUS_MSGS')?>
                 <br>
                 
-                <a href="index2.php?option=com_rsgallery2">
-                    <img align="absmiddle" src="<?php echo JURI_SITE;?>/administrator/images/cpanel.png" alt="" width="48" height="48" border="0">&nbsp;
-                    <h2><?php echo JText::_('Control Panel') ?></h2>
-                </a>
+                <h2>
+	                <a href="index.php?option=com_rsgallery2">
+	                    <img src="<?php echo JURI_SITE;?>/administrator/images/cpanel.png" alt="" width="48" height="48" border="0">&nbsp;
+	                    <?php echo JText::_('COM_RSGALLERY2_CONTROL_PANEL') ?>
+	                </a>
+                </h2>
                 </div>
             </td>
         </tr>
@@ -559,11 +561,11 @@ class rsgInstall {
         $database->setQuery($sql);
         if ($database->query())
             {
-            $this->writeInstallMsg("<strong>$table</strong> ".JText::_('is deleted'),"ok");
+            $this->writeInstallMsg("<strong>$table</strong> ".JText::_('COM_RSGALLERY2_IS_DELETED'),"ok");
             }
         else
             {
-            $this->writeInstallMsg("<strong>$table</strong> ".JText::_('could not be deleted Delete manually'),"error");
+            $this->writeInstallMsg("<strong>$table</strong> ".JText::_('COM_RSGALLERY2_COULD_NOT_BE_DELETED_DELETE_MANUALLY'),"error");
             }
         }
         
@@ -633,9 +635,9 @@ class rsgInstall {
 		}
 	    $total = $error + $file;
 	    if ($error > 0) {
-	        $this->writeInstallMsg(JText::_('MIGRATE_NOT_ALL')."<strong>$file</strong>".JText::_(' out of ')."<strong>$total</strong>".JText::_(' entries processed)'),"error");
+	        $this->writeInstallMsg(JText::_('COM_RSGALLERY2_MIGRATE_NOT_ALL')."<strong>$file</strong>".JText::_('COM_RSGALLERY2_OUT_OF')."<strong>$total</strong>".JText::_('COM_RSGALLERY2_ENTRIES_PROCESSED'),"error");
 		} else{
-	        $this->writeInstallMsg(JText::_('All file information migrated to RSGallery2 database(')."<strong>$file</strong>".JText::_(' entries processed)'),"ok");
+	        $this->writeInstallMsg(JText::_('COM_RSGALLERY2_ALL_FILE_INFORMATION_MIGRATED_TO_RSGALLERY2_DATABASE')."<strong>$file</strong>".JText::_('COM_RSGALLERY2_ENTRIES_PROCESSED'),"ok");
 		}
 	}
     /**
@@ -674,13 +676,13 @@ class rsgInstall {
             $this->createDirStructure();
             if ($this->copyZoomImages($basedir))
                 {
-                $this->writeInstallMsg(JText::_('Files succesfully copied to new structure'),"ok");
+                $this->writeInstallMsg(JText::_('COM_RSGALLERY2_FILES_SUCCESFULLY_COPIED_TO_NEW_STRUCTURE'),"ok");
                 }
             else
                 {
-                $this->writeInstallMsg(JText::_('There were errors copying files to the new structure'),"error");
+                $this->writeInstallMsg(JText::_('COM_RSGALLERY2_THERE_WERE_ERRORS_COPYING_FILES_TO_THE_NEW_STRUCTURE'),"error");
                 }
-            $this->installComplete(JText::_('migration of Zoom Gallery completed. Goto the Control Panel.'));
+            $this->installComplete(JText::_('COM_RSGALLERY2_MIGRATION_OF_ZOOM_GALLERY_COMPLETED_GOTO_THE_CONTROL_PANEL'));
             }
         else
             {
@@ -699,7 +701,7 @@ class rsgInstall {
          * -  Old component is still installed
          *    dir structure, images and database tables are still intact.
          */
-        echo "<h3>".JText::_('Upgrade from RSGallery')."</h3>";
+        echo "<h3>".JText::_('COM_RSGALLERY2_UPGRADE_FROM_RSGALLERY')."</h3>";
         /**
          * 1. Check if old component is installed
          */
@@ -716,7 +718,7 @@ class rsgInstall {
             else
                 {
                 //Well, component is installed, but no version information can be established
-                $mainframe->redirect("index2.php?option=com_rsgallery2&task=install",JText::_('UPGRADE_REC_FULL'));
+                $mainframe->redirect("index.php?option=com_rsgallery2&task=install",JText::_('COM_RSGALLERY2_UPGRADE_REC_FULL'));
                 }
             /**
              * 2. Then we need to create the new directory structure.
@@ -728,11 +730,11 @@ class rsgInstall {
              */
             if ($this->copyFiles($imagepath_old,JPATH_SITE.$this->dirOriginal,0777,false))
                 {
-                $this->writeInstallMsg(JText::_('Original files succesfully transfered'),"ok");
+                $this->writeInstallMsg(JText::_('COM_RSGALLERY2_ORIGINAL_FILES_SUCCESFULLY_TRANSFERED'),"ok");
                 }
             else
                 {
-                $this->writeInstallMsg(JText::_('UPGRADE_FILES_TRANF_ERROR'),"error");
+                $this->writeInstallMsg(JText::_('COM_RSGALLERY2_UPGRADE_FILES_TRANF_ERROR'),"error");
                 }
                 
             /**
@@ -740,11 +742,11 @@ class rsgInstall {
              */
             if ($this->copyFiles($imagepath_old."/thumbs",JPATH_SITE.$this->dirThumbs,0777,false))
                 {
-                $this->writeInstallMsg(JText::_('Thumb files succesfully transfered'),"ok");
+                $this->writeInstallMsg(JText::_('COM_RSGALLERY2_THUMB_FILES_SUCCESFULLY_TRANSFERED'),"ok");
                 }
             else
                 {
-                $this->writeInstallMsg(JText::_('UPGRADE_THUMB_TRANF_ERROR'),"error");
+                $this->writeInstallMsg(JText::_('COM_RSGALLERY2_UPGRADE_THUMB_TRANF_ERROR'),"error");
                 }
             
             /**
@@ -752,11 +754,11 @@ class rsgInstall {
              */
             if($this->createImages(JPATH_SITE.$this->dirOriginal, "display"))
                 {
-                $this->writeInstallMsg(JText::_('Display images created succesfully.'),"ok");
+                $this->writeInstallMsg(JText::_('COM_RSGALLERY2_DISPLAY_IMAGES_CREATED_SUCCESFULLY'),"ok");
                 }
             else
                 {
-                $this->writeInstallMsg(JText::_('UPGRADE_DISP_CREATE_ERROR'),"error");
+                $this->writeInstallMsg(JText::_('COM_RSGALLERY2_UPGRADE_DISP_CREATE_ERROR'),"error");
                 }
 
             if ($version == "RSGallery 2.0 beta 5")
@@ -804,11 +806,11 @@ class rsgInstall {
                     $database->setQuery($$sql);
                     if ($database->query())
                         {
-                        $this->writeInstallMsg(JText::_('Table ')."<strong>".$this->tablelist[$i]."</strong>".JText::_(' is succesfully altered'),"OK");
+                        $this->writeInstallMsg(JText::_('COM_RSGALLERY2_TABLE')."<strong>".$this->tablelist[$i]."</strong>".JText::_('COM_RSGALLERY2_IS_SUCCESFULLY_ALTERED'),"OK");
                         }
                     else
                         {
-                        $this->writeInstallMsg(JText::_('Table ')."<strong>".$this->tablelist[$i]."</strong>".JText::_(' is NOT succesfully altered'),"error");
+                        $this->writeInstallMsg(JText::_('COM_RSGALLERY2_TABLE')."<strong>".$this->tablelist[$i]."</strong>".JText::_('COM_RSGALLERY2_IS_NOT_SUCCESFULLY_ALTERED'),"error");
                         }
                     }
                     
@@ -821,11 +823,11 @@ class rsgInstall {
                     $database->setQuery($$sql);
                     if ($database->query())
                         {
-                        $this->writeInstallMsg(JText::_('Table ')."<strong>".$this->tablelist[$i]."</strong>".JText::_(' is succesfully renamed'),"OK");
+                        $this->writeInstallMsg(JText::_('COM_RSGALLERY2_TABLE')."<strong>".$this->tablelist[$i]."</strong>".JText::_('COM_RSGALLERY2_IS_SUCCESFULLY_RENAMED'),"OK");
                         }
                     else
                         {
-                        $this->writeInstallMsg(JText::_('Table ')."<strong>".$this->tablelist[$i]."</strong>".JText::_(' is NOT renamed'),"error");
+                        $this->writeInstallMsg(JText::_('COM_RSGALLERY2_TABLE')."<strong>".$this->tablelist[$i]."</strong>".JText::_('COM_RSGALLERY2_IS_NOT_RENAMED'),"error");
                         }
                     }
                 /**
@@ -846,7 +848,7 @@ class rsgInstall {
                     }
                  if ($x > 0)
                     {
-                    $this->writeInstallMsg(JText::_('UPGRADE_DUMMY_ERROR'),"error");
+                    $this->writeInstallMsg(JText::_('COM_RSGALLERY2_UPGRADE_DUMMY_ERROR'),"error");
                     }
                 }
             elseif ($version == "RSGallery2 beta1")
@@ -878,11 +880,11 @@ class rsgInstall {
                     $database->setQuery($$sql);
                     if ($database->query())
                         {
-                        $this->writeInstallMsg(JText::_('Table ')."<strong>".$this->tablelistOld[$i]."</strong>".JText::_(' is succesfully altered'),"OK");
+                        $this->writeInstallMsg(JText::_('COM_RSGALLERY2_TABLE')."<strong>".$this->tablelistOld[$i]."</strong> ".JText::_('COM_RSGALLERY2_IS_SUCCESFULLY_ALTERED'),"OK");
                         }
                     else
                         {
-                        $this->writeInstallMsg(JText::_('Table ')."<strong>".$this->tablelistOld[$i]."</strong>".JText::_(' is NOT succesfully altered'),"error");
+                        $this->writeInstallMsg(JText::_('COM_RSGALLERY2_TABLE')."<strong>".$this->tablelistOld[$i]."</strong>".JText::_('COM_RSGALLERY2_IS_NOT_SUCCESFULLY_ALTERED'),"error");
                         }
                     }
                     
@@ -904,7 +906,7 @@ class rsgInstall {
                     }
                  if ($x > 0)
                     {
-                    $this->writeInstallMsg(JText::_('UPGRADE_DUMMY_ERROR'),"error");
+                    $this->writeInstallMsg(JText::_('COM_RSGALLERY2_UPGRADE_DUMMY_ERROR'),"error");
                     }
                 }
             else
@@ -913,23 +915,23 @@ class rsgInstall {
                 $exceptions = array(".","..");
                 $this->deleteGalleryDir(JPATH_SITE.$this->galleryDir, $exceptions, $output=false);
                 //Abort upgrade. Gallery structure present but no version information could be retrieved
-                $mainframe->redirect("index2.php?option=com_rsgallery2&task=install",JText::_('UPGRADE_NOT_POSSIBLE'));
+                $mainframe->redirect("index.php?option=com_rsgallery2&task=install",JText::_('COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE'));
                 }
             }
         else
             {
             //No, component is not installed
-            $mainframe->redirect("index2.php?option=com_rsgallery2&task=install",JText::_('UPGRADE_NOT_POSSIBLE'));
+            $mainframe->redirect("index.php?option=com_rsgallery2&task=install",JText::_('COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE'));
             }
         /**
          * 8. Finally a check if everything went OK (rights, etc)
          * Check needs to be implemented.
          */
-    $this->installComplete(JText::_('UPGRADE_SUCCESS'));
+    $this->installComplete(JText::_('COM_RSGALLERY2_UPGRADE_SUCCESS'));
     }
 
     function showInstallOptions(){
-        global $mainframe;
+        //MK// [removed][mainframe] global $mainframe;
         ?>
         <table width="100%">
         <tr>
@@ -946,7 +948,7 @@ class rsgInstall {
                     <td>
                     <div style=font-size:12px;font-weight:bold;>
                     <img style="float:left;margin:7px;" src="<?php echo JURI_SITE;?>/administrator/images/install.png" alt="" border="0">&nbsp;
-                    <a href="index2.php?option=com_rsgallery2&task=install&opt=fresh">Fresh install</a>
+                    <a href="index.php?option=com_rsgallery2&task=install&opt=fresh">Fresh install</a>
                     </div>
                     Installs a complete new RSGallery2. All original images, directories and database entries will be lost. Typical choice for a first install or if you want a completely fresh installation.
                     </td>
@@ -955,15 +957,15 @@ class rsgInstall {
                     <td>
                     <div style=font-size:12px;font-weight:bold;>
                     <img style="float:left;margin:7px;" src="<?php echo JURI_SITE;?>/administrator/images/categories.png" alt="" border="0">&nbsp;
-                    <a href="index2.php?option=com_rsgallery2&task=install&opt=upgrade">Upgrade</a>
+                    <a href="index.php?option=com_rsgallery2&task=install&opt=upgrade">Upgrade</a>
                     </div>
-                    Upgrade from RSGallery 2.0 beta 5 only. This upgrade only works if the old database tables are still on the server and the '<strong>gallery</strong>' and '<strong>gallery/thumbs</strong>' directory still exist. If not, choose <a href="index2.php?option=com_rsgallery2&task=install&opt=fresh">Fresh install</a>.
+                    Upgrade from RSGallery 2.0 beta 5 only. This upgrade only works if the old database tables are still on the server and the '<strong>gallery</strong>' and '<strong>gallery/thumbs</strong>' directory still exist. If not, choose <a href="index.php?option=com_rsgallery2&task=install&opt=fresh">Fresh install</a>.
                     </td>
                 </tr>
                 <tr>
                     <td><div style=font-size:12px;font-weight:bold;>
                     <img style="float:left;margin:7px;" src="<?php echo JURI_SITE;?>/administrator/images/menu.png" alt="" border="0">&nbsp;
-                    <a href="index2.php?option=com_rsgallery2&task=install&opt=migration">Migration</a>
+                    <a href="index.php?option=com_rsgallery2&task=install&opt=migration">Migration</a>
                     </div>
                     Migrate your other galleries to RSGallery2. This option will detect any other gallery component in your installation and will offer you the possibility to import the images into the new RSGallery2.<br>(Currently supported are: <strong>Zoom Media Gallery</strong>, <strong>Akogallery</strong> and .......)
                     </td>
@@ -972,7 +974,7 @@ class rsgInstall {
                     <td>
                     <div style=font-size:12px;font-weight:bold;>
                     <img style="float:left;margin:15px;" src="<?php echo JURI_SITE;?>/administrator/images/next_f2.png" alt="" border="0">&nbsp;
-                    <a href="index2.php?option=com_rsgallery2">Do Nothing</a>
+                    <a href="index.php?option=com_rsgallery2">Do Nothing</a>
                     </div>
                     Choose this if you are upgrading from a recent RSGallery2 installation.  This option will preserve your existing RSGallery2 galleries and take you to the control panel.  Clicking "Continue" below does same but takes you back to Component Installers.
                     </td>
@@ -980,7 +982,6 @@ class rsgInstall {
                 <tr>
                     <td>&nbsp;</td>
                 </tr>
-                <tr>
                 <tr class="row1">
                     <td>&nbsp;</td>
                 </tr>
@@ -993,7 +994,7 @@ class rsgInstall {
     }
 
     function freshInstall() {
-        global $mainframe, $rsgConfig;
+        global $rsgConfig;//MK// [removed][mainframe]
 		$database =& JFactory::getDBO();
         echo "<h2>Fresh install</h2>";
         //Delete images and directories if exist
@@ -1034,7 +1035,7 @@ class rsgInstall {
                 <table class="adminlist" border="1">
                 <tr>
                     <td width="75%"><strong><?php echo $component->getName(); ?></strong> is installed</td>
-                    <td><a href="index2.php?option=com_rsgallery2&rsgOption=maintenance&task=doMigration&type=<? echo $component->getTechName(); ?>"><img src="<?php echo JURI_SITE;?>/administrator/images/install.png" alt="" width="24" height="24" border="0" align="middle">&nbsp;Migrate</a></td>
+                    <td><a href="index.php?option=com_rsgallery2&rsgOption=maintenance&task=doMigration&type=<? echo $component->getTechName(); ?>"><img src="<?php echo JURI_SITE;?>/administrator/images/install.png" alt="" width="24" height="24" border="0" align="middle">&nbsp;Migrate</a></td>
                 </tr>
                 </table>
                 </td></tr></table>
@@ -1045,7 +1046,7 @@ class rsgInstall {
         }
         if ( $i == 0 ){
             //No migration possibilities
-            $this->writeInstallMsg(JText::_('No other gallerysystems installed'),"error");
+            $this->writeInstallMsg(JText::_('COM_RSGALLERY2_NO_OTHER_GALLERYSYSTEMS_INSTALLED'),"error");
         }
     }
 
@@ -1059,7 +1060,7 @@ class rsgInstall {
                 return $gallery->migrate();
             }
         }
-        return "$type".JText::_('is not a valid migration type.');
+        return "$type".JText::_('COM_RSGALLERY2_IS_NOT_A_VALID_MIGRATION_TYPE');
     }
     
     /**
@@ -1150,7 +1151,7 @@ class GenericMigrator{
         $result = $this->runSqlFile( $sqlfile );
 
         if( count( $result ) == 0 ){
-            rsgInstall::writeInstallMsg(JText::_('Database tables created succesfully.'),"ok");
+            rsgInstall::writeInstallMsg(JText::_('COM_RSGALLERY2_DATABASE_TABLES_CREATED_SUCCESFULLY.'),"ok");
             return true;
         }
         else{
@@ -1270,9 +1271,9 @@ class GenericMigrator{
 		
 	    $total = $error + $file;
 	    if ($error > 0) {
-	        rsgInstall::writeInstallMsg(JText::_('_MIGRATE_NOT_ALL_GAL')."<strong>$file</strong>".JText::_(' out of ')."<strong>$processed</strong>".JText::_(' entries processed)'),"error");
+	        rsgInstall::writeInstallMsg(JText::_('COM_RSGALLERY2__MIGRATE_NOT_ALL_GAL')."<strong>$file</strong>".JText::_('COM_RSGALLERY2_OUT_OF')."<strong>$processed</strong>".JText::_('COM_RSGALLERY2_ENTRIES_PROCESSED'),"error");
 		} else {
-	        rsgInstall::writeInstallMsg(JText::_('All gallery information migrated to RSGallery2 database(')."<strong>$file</strong>".JText::_(' entries processed)'),"ok");
+	        rsgInstall::writeInstallMsg(JText::_('COM_RSGALLERY2_ALL_GALLERY_INFORMATION_MIGRATED_TO_RSGALLERY2_DATABASE')."<strong>$file</strong>".JText::_('COM_RSGALLERY2_ENTRIES_PROCESSED'),"ok");
 	    }
     }
     
@@ -1322,9 +1323,9 @@ class GenericMigrator{
 		}
 	    $total = $error + $file;
 	    if ($error > 0) {
-	        rsgInstall::writeInstallMsg(JText::_('MIGRATE_NOT_ALL')."<strong>$file</strong>".JText::_(' out of ')."<strong>$total</strong>".JText::_(' entries processed)'),"error");
+	        rsgInstall::writeInstallMsg(JText::_('COM_RSGALLERY2_MIGRATE_NOT_ALL')."<strong>$file</strong>".JText::_('COM_RSGALLERY2_OUT_OF')."<strong>$total</strong>".JText::_('COM_RSGALLERY2_ENTRIES_PROCESSED'),"error");
 		} else{
-	        rsgInstall::writeInstallMsg(JText::_('All file information migrated to RSGallery2 database(')."<strong>$file</strong>".JText::_(' entries processed)'),"ok");
+	        rsgInstall::writeInstallMsg(JText::_('COM_RSGALLERY2_ALL_FILE_INFORMATION_MIGRATED_TO_RSGALLERY2_DATABASE')."<strong>$file</strong>".JText::_('COM_RSGALLERY2_ENTRIES_PROCESSED'),"ok");
 		}
 	}
 
@@ -1692,9 +1693,9 @@ function copyImages($basedir, $prefix = "pony_"){
 	    //$this->migrateComments("#__ponygallery_comments", "cmttext", "cmtid");
 		
 	    if ($this->copyImages($basedir)) {
-	        rsgInstall::writeInstallMsg(JText::_('Files succesfully copied to new structure'),"ok");
+	        rsgInstall::writeInstallMsg(JText::_('COM_RSGALLERY2_FILES_SUCCESFULLY_COPIED_TO_NEW_STRUCTURE'),"ok");
 	    } else {
-	        rsgInstall::writeInstallMsg(JText::_('There were errors copying files to the new structure'),"error");
+	        rsgInstall::writeInstallMsg(JText::_('COM_RSGALLERY2_THERE_WERE_ERRORS_COPYING_FILES_TO_THE_NEW_STRUCTURE'),"error");
 	    }
 	    rsgInstall::installComplete("Migration of ".$this->getName()." completed");
 	    
@@ -1777,9 +1778,9 @@ class migrate_com_zoom_251_RC4 extends GenericMigrator{
 	    
 		
 	    if ($this->copyImages($basedir, $prefix)) {
-	        rsgInstall::writeInstallMsg(JText::_('Files succesfully copied to new structure'),"ok");
+	        rsgInstall::writeInstallMsg(JText::_('COM_RSGALLERY2_FILES_SUCCESFULLY_COPIED_TO_NEW_STRUCTURE'),"ok");
 	    } else {
-	        rsgInstall::writeInstallMsg(JText::_('There were errors copying files to the new structure'),"error");
+	        rsgInstall::writeInstallMsg(JText::_('COM_RSGALLERY2_THERE_WERE_ERRORS_COPYING_FILES_TO_THE_NEW_STRUCTURE'),"error");
 	    }
 	    rsgInstall::installComplete("Migration of ".$this->getName()." completed");
 	}
@@ -1886,9 +1887,9 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
 	    //$this->migrateComments();//Obsolete for now
 	    
 	    if ($this->copyImages($basedir, $prefix)) {
-	        rsgInstall::writeInstallMsg(JText::_('Files succesfully copied to new structure'),"ok");
+	        rsgInstall::writeInstallMsg(JText::_('COM_RSGALLERY2_FILES_SUCCESFULLY_COPIED_TO_NEW_STRUCTURE'),"ok");
 	    } else {
-	        rsgInstall::writeInstallMsg(JText::_('There were errors copying files to the new structure'),"error");
+	        rsgInstall::writeInstallMsg(JText::_('COM_RSGALLERY2_THERE_WERE_ERRORS_COPYING_FILES_TO_THE_NEW_STRUCTURE'),"error");
 	    }
 	    rsgInstall::installComplete("Migration of ".$this->getName()." completed");
 	}
@@ -1945,9 +1946,9 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
 		
 	    $total = $error + $file;
 	    if ($error > 0) {
-	        rsgInstall::writeInstallMsg(JText::_('MIGRATE_NOT_ALL_GAL')."<strong>$file</strong>".JText::_(' out of ')."<strong>$processed</strong>".JText::_(' entries processed)'),"error");
+	        rsgInstall::writeInstallMsg(JText::_('COM_RSGALLERY2_MIGRATE_NOT_ALL_GAL')."<strong>$file</strong>".JText::_('COM_RSGALLERY2_OUT_OF')."<strong>$processed</strong>".JText::_('COM_RSGALLERY2_ENTRIES_PROCESSED'),"error");
 		} else {
-	        rsgInstall::writeInstallMsg(JText::_('All gallery information migrated to RSGallery2 database(')."<strong>$file</strong>".JText::_(' entries processed)'),"ok");
+	        rsgInstall::writeInstallMsg(JText::_('COM_RSGALLERY2_ALL_GALLERY_INFORMATION_MIGRATED_TO_RSGALLERY2_DATABASE')."<strong>$file</strong>".JText::_('COM_RSGALLERY2_ENTRIES_PROCESSED'),"ok");
 	    }
     }
     
@@ -2002,9 +2003,9 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
 		}
 	    $total = $error + $file;
 	    if ($error > 0) {
-	        rsgInstall::writeInstallMsg(JText::_('MIGRATE_NOT_ALL')."<strong>$file</strong>".JText::_(' out of ')."<strong>$total</strong>".JText::_(' entries processed)'),"error");
+	        rsgInstall::writeInstallMsg(JText::_('COM_RSGALLERY2_MIGRATE_NOT_ALL')."<strong>$file</strong>".JText::_('COM_RSGALLERY2_OUT_OF')."<strong>$total</strong>".JText::_('COM_RSGALLERY2_ENTRIES_PROCESSED'),"error");
 		} else{
-	        rsgInstall::writeInstallMsg(JText::_('All file information migrated to RSGallery2 database(')."<strong>$file</strong>".JText::_(' entries processed)'),"ok");
+	        rsgInstall::writeInstallMsg(JText::_('COM_RSGALLERY2_ALL_FILE_INFORMATION_MIGRATED_TO_RSGALLERY2_DATABASE')."<strong>$file</strong>".JText::_('COM_RSGALLERY2_ENTRIES_PROCESSED'),"ok");
 		}
 	}
 	
@@ -2071,7 +2072,7 @@ class migrate_com_rsgallery extends GenericMigrator{
      * @return true or false
      */
 function detect(){
-		global $mainframe; 
+		//MK// [removed][mainframe] global $mainframe; 
 		$database =& JFactory::getDBO();
 		
 		if( in_array( $database->getPrefix().'rsgallery2_config', $database->getTableList() ) === false ){ 
