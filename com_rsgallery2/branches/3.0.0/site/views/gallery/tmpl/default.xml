@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout title="GALLERYVIEW_DEFAULT_TITLE">
+	<layout title="COM_RSGALLERY2_GALLERYVIEW_DEFAULT_TITLE">
 		<message>
-			GALLERYVIEW_DEFAULT_DESC
+			COM_RSGALLERY2_GALLERYVIEW_DEFAULT_DESC
 		</message>
 	</layout>
 

@@ -349,7 +349,7 @@ class html_rsg2_config{
 						<legend><?php echo JText::_('COM_RSGALLERY2_GRAPHICS_LIBRARY') ?></legend>
 						<table width="100%">
 							<tr>
-								<td width=200><?php echo JText::_('COM_RSGALLERY2_GRAPHICS_LIBRARY') ?>:</td>
+								<td width=200><?php echo JText::_('COM_RSGALLERY2_GRAPHICS_LIBRARY') ?></td>
 								<td><?php echo $lists['graphicsLib'] ?></td>
 							</tr>
 							<tr>
@@ -431,7 +431,7 @@ class html_rsg2_config{
 						<?php echo JHTML::_("select.booleanlist",'comment', '', $config->comment);?></fieldset></td>
 							</tr>
 							<tr>
-								<td>Use  <a href="http://www.waltercedric.com" target="_blank"><?php echo JText::_('COM_RSGALLERY2_SECURITYIMAGES_COMPONENT')?></a> <?php echo $security_notice;?></td>
+								<td><?php echo JText::sprintf('COM_RSGALLERY2_SECURITYIMAGES_COMPONENT', '<a href="http://www.waltercedric.com" target="_blank">', '</a>')?> <?php echo $security_notice;?></td>	
 								<td><fieldset id="jform_block" class="radio">
 						<?php echo JHTML::_("select.booleanlist",'comment_security', '', $config->comment_security && galleryUtils::isComponentInstalled('com_securityimages'))?></fieldset></td>
 							</tr>

@@ -12,16 +12,18 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
 function com_install(){
-	$lang =& JFactory::getLanguage();
 	$database =& JFactory::getDBO();
+	
+	$lang =& JFactory::getLanguage();
+	$lang->load('com_rsgallery2');
 	
 	require_once( JPATH_SITE . '/administrator/components/com_rsgallery2/includes/install.class.php' );
 	
 	//Initialize install
 	$rsgInstall = new rsgInstall();
 	
-	//Change the menu icon
-	$rsgInstall->changeMenuIcon();
+	//Change the menu icon - no longer needed for version 3.x
+//	$rsgInstall->changeMenuIcon();
 	
 	//Initialize rsgallery migration
 	$migrate_com_rsgallery = new migrate_com_rsgallery();
@@ -32,12 +34,13 @@ function com_install(){
 		global $rsgConfig;
 		$rsgConfig = new rsgConfig();
 
-		$rsgInstall->writeInstallMsg( JText::_('COM_RSGALLERY2_MIGRATING_FROM_RSGALLERY2') .' '. $rsgConfig->get( 'version' ), 'ok');
+		$rsgInstall->writeInstallMsg( JText::sprintf('COM_RSGALLERY2_MIGRATING_FROM_RSGALLERY2', $rsgConfig->get( 'version' )) , 'ok');		
+		
 		//Migrate from earlier version
 		$result = $migrate_com_rsgallery->migrate();
 		
 		if( $result === true ){
-			$rsgInstall->writeInstallMsg( JText::_('COM_RSGALLERY2_SUCCESS_NOW_USING_RSGALLERY2').' '. $rsgConfig->get( 'version' ), 'ok');
+			$rsgInstall->writeInstallMsg( JText::sprintf('COM_RSGALLERY2_SUCCESS_NOW_USING_RSGALLERY2', $rsgConfig->get( 'version' )), 'ok');
 		}
 		else{
 			$result = print_r( $result, true );

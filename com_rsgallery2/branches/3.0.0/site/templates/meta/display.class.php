@@ -199,7 +199,7 @@ class rsgDisplay extends JObject{
 
 		// check if an image is displayed
 		$isImage = JRequest::getInt( 'id', 0 );
-		$isImage = JRequest::getInt( 'limit', $isImage );
+		$isImage = JRequest::getInt( 'limitstart', $isImage );
 		if ($isImage) {
 			$pathway->addItem( $item->title );
 		}
