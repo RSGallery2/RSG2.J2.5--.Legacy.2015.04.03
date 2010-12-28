@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="1.6.0"  method="upgrade">
-  <name>RSGallery2</name>
+  <name>com_rsgallery2</name>
   <creationDate>xx Oct 2010</creationDate>
   <author>RSGallery2 Team</author>
   <copyright>This component is released under the GNU/GPL License</copyright>
   <authorEmail>team@rsgallery2.nl</authorEmail>
   <authorUrl>http://www.rsgallery2.nl</authorUrl>
-  <version>3.0.0 Nightly SVN 987 with changes for J1.6</version>
+  <version>3.0.0 Nightly SVN 1001 with changes for J1.6</version>
   <description>COM_RSGALLERY2_XML_DESCRIPTION</description>
 
   <files folder="site">
@@ -46,7 +46,7 @@
   </languages>
 
   <administration>
-    <menu img="components/com_rsgallery2/images/rsg2_menu.png">RSGallery2</menu>
+    <menu img="components/com_rsgallery2/images/rsg2_menu.png">com_rsgallery2</menu>
     <submenu>
 	  <!-- Note that all & must be escaped to &amp; for the file to be valid XML and be parsed by the installer -->
       <menu link="option=com_rsgallery2" img="class:config">COM_RSGALLERY2_MENU_CONTROL_PANEL</menu>
@@ -76,6 +76,7 @@
     </files>
 
     <languages folder="languages">
+		<!-- Note: .ini for front and backend, .sys.ini for menu and install-->
 		<language tag="da-DK">da-DK.com_rsgallery2.ini</language>
 		<language tag="de-DE">de-DE.com_rsgallery2.ini</language>
 		<language tag="el-GR">el-GR.com_rsgallery2.ini</language>
@@ -90,6 +91,7 @@
 		<language tag="it-IT">it-IT.com_rsgallery2.ini</language>
 		<language tag="nb-NO">nb-NO.com_rsgallery2.ini</language>
 		<language tag="nl-NL">nl-NL.com_rsgallery2.ini</language>
+		<language tag="nl-NL">nl-NL.com_rsgallery2.sys.ini</language>
 		<language tag="pt-BR">pt-BR.com_rsgallery2.ini</language>
 		<language tag="sl-SI">sl-SI.com_rsgallery2.ini</language>
 		<language tag="tr-TR">tr-TR.com_rsgallery2.ini</language>

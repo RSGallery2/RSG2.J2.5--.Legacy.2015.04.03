@@ -91,10 +91,11 @@ class rsgInstall {
     }
     /**
      * Changes Menu icon in backend to RSGallery2 logo
+	 * Deprecated in v3.0 for J!1.6
      */
     function changeMenuIcon() {
     $database =& JFactory::getDBO();
-	$database->setQuery("UPDATE #__components SET admin_menu_img='../administrator/components/com_rsgallery2/images/rsg2_menu.png' WHERE admin_menu_link='option=com_rsgallery2'");
+	$database->setQuery("UPDATE #__extensions SET admin_menu_img='../administrator/components/com_rsgallery2/images/rsg2_menu.png' WHERE admin_menu_link='option=com_rsgallery2'");
 	if ($database->query())
         {
         $this->writeInstallMsg(JText::_('COM_RSGALLERY2_MENU_IMAGE_RSGALLERY2_SUCCESFULLY_CHANGED'), 'ok');
@@ -114,28 +115,25 @@ class rsgInstall {
         $count = 0;
         
         foreach ($dirs as $dir) {
-        if (file_exists(JPATH_SITE.$dir) && is_dir(JPATH_SITE.$dir))
-            {
-            // Dir already exists, next
-            $this->writeInstallMsg("<strong>$dir</strong> ".JText::_('COM_RSGALLERY2_ALREADY_EXISTS'),"ok");
-            }
-        else
-            {
-            if(@mkdir(JPATH_SITE.$dir, 0777))
-                {
-                $this->writeInstallMsg("<strong>$dir</strong> ".JText::_('COM_RSGALLERY2_IS_CREATED'),"ok");
-                $count++;
-                }
-            else
-                {
-                $this->writeInstallMsg("<strong>$dir</strong>".JText::_('COM_RSGALLERY2_COULD_NOT_BE_CREATED'),"error");
-                }
-            }
+			if (file_exists(JPATH_SITE.$dir) && is_dir(JPATH_SITE.$dir)) {
+				// Dir already exists, next
+				$this->writeInstallMsg(JText::sprintf('COM_RSGALLERY2_ALREADY_EXISTS', $dir),"ok");
+			}
+			else {
+				if(@mkdir(JPATH_SITE.$dir, 0777)) {
+					$this->writeInstallMsg(JText::sprintf('COM_RSGALLERY2_FOLDER_IS_CREATED', $dir),"ok");
+					$count++;
+				}
+				else {
+					$this->writeInstallMsg(JText::sprintf('COM_RSGALLERY2_FOLDER_COULD_NOT_BE_CREATED', $dir),"error");
+				}
+			}
         }
     }
 
     /**
-        DEPRECIATED: use GenericMigrator:: instead
+        Creates database table (needed for fresh install)
+		DEPRECIATED (for migrator): use GenericMigrator:: instead [@todo: check usage and if indeed deprcated]
     **/
     function createTableStructure(){
         $result = $this->populate_db();
@@ -374,12 +372,12 @@ class rsgInstall {
         if(rmdir($target))
             {
             //return 0;
-            $this->writeInstallMsg(JText::_('COM_RSGALLERY2_DIRECTORY_STRUCTURE_DELETED'),"ok");
+            $this->writeInstallMsg(JText::sprintf('COM_RSGALLERY2_DIRECTORY_STRUCTURE_DELETED', $target),"ok");
             }
         else
             {
             //return 1;
-            $this->writeInstallMsg(JText::_('COM_RSGALLERY2_DELETING_OLD_DIRECTORY_STRUCTURE_FAILED'),"error");
+            $this->writeInstallMsg(JText::sprintf('COM_RSGALLERY2_DELETING_OLD_DIRECTORY_STRUCTURE_FAILED', $target), "error");
             }
         }
     else
@@ -465,7 +463,7 @@ class rsgInstall {
      */
     function componentInstalled($component){
     $database =& JFactory::getDBO();
-    $sql = "SELECT COUNT(1) FROM #__components as a WHERE a.option = '$component'";
+    $sql = "SELECT COUNT(1) FROM #__extensions as a WHERE a.element = '$component'";
     $database->setQuery($sql);
     $result = $database->loadResult($sql);
     
@@ -484,71 +482,69 @@ class rsgInstall {
      * @param string Message to write
      * @param string Type of message (ok,error)
      */
-     function writeInstallMsg($msg, $type = NULL)
-        {
-        //MK// [removed][mainframe] global $mainframe;
-        if ($type == "ok")
-            {
+    function writeInstallMsg($msg, $type = NULL) {
+        if ($type == "ok") {
             $icon = "tick.png";
-            }
-        elseif ($type == "error")
-            {
+		} elseif ($type == "error") {
             $icon = "publish_x.png";
-            }
-        else
-            {
+		} else {
             $icon = "downarrow.png";
-            }
-        ?>
+		}
+	?>
         <div align="center">
         <table width="500"><tr><td>
-        <table class="adminlist" border="1">
-        <tr>
-            <td width="40"><img src="<?php echo JURI_SITE;?>/administrator/images/<?php echo $icon;?>" alt="" border="0"></td>
-            <?php if( $type=='error' ): ?>
-                <td><pre><?php print_r( $msg );?></pre></td>
-            <?php else: ?>
-                <td><?php echo $msg;?></td>
-            <?php endif; ?>
-        </tr>
-        </table>
-        </td></tr></table>
+			<table class="adminlist" border="1">
+			<tr>
+				<td width="40">
+					<img src="<?php echo JURI_SITE;?>/administrator/components/com_rsgallery2/images/<?php echo $icon;?>" alt="" border="0">
+				</td>
+				<?php if( $type=='error' ): ?>
+				<td>
+					<pre><?php print_r( $msg );?></pre>
+				</td>
+				<?php else: ?>
+				<td>
+					<?php echo $msg;?>
+				</td>
+				<?php endif; ?>
+			</tr>
+			</table>
+        </td></tr>
+		</table>
         </div>
-        <?php
-        }
+	<?php
+	}
         
      /**
       * Shows the "Installation complete" box with a link to the controlpanel
       */
      function installComplete($msg = null){
-     //MK// [removed][mainframe] global $mainframe;
-	
 		if($msg == null) $msg = JText::_('COM_RSGALLERY2_INSTALLATION_OF_RSGALLERY_IS_COMPLETED');
-     ?>
-     <div align="center">
-        <table width="500"><tr><td>
-        <table class="adminlist" border="1">
-        <tr>
-            <td colspan="2">
-                <div align="center">
-                <h2><?php echo $msg; ?></h2> 
-                <?php //echo JText::_('COM_RSGALLERY2_INSTALL_STATUS_MSGS')?>
-                <br>
-                
-                <h2>
-	                <a href="index.php?option=com_rsgallery2">
-	                    <img src="<?php echo JURI_SITE;?>/administrator/images/cpanel.png" alt="" width="48" height="48" border="0">&nbsp;
-	                    <?php echo JText::_('COM_RSGALLERY2_CONTROL_PANEL') ?>
-	                </a>
-                </h2>
-                </div>
-            </td>
-        </tr>
-        </table>
-        </td></tr></table>
-        </div>
+		?>
+		<div align="center">
+			<table width="500"><tr><td>
+				<table class="adminlist" border="1">
+				<tr>
+					<td colspan="2">
+						<div align="center">
+							<h2><?php echo $msg; ?></h2> 
+							<?php //echo JText::_('COM_RSGALLERY2_INSTALL_STATUS_MSGS')?>
+							<br>
+							<a href="index.php?option=com_rsgallery2">
+								<img src="<?php echo JURI_SITE.'administrator/components/com_rsgallery2/images/icon-48-config.png';?>" alt=" <?php echo JText::_('COM_RSGALLERY2_CONTROL_PANEL') ?>" width="48" height="48" border="0">
+								<h2>
+									<?php echo JText::_('COM_RSGALLERY2_CONTROL_PANEL') ?>
+								</h2>
+							</a>
+						</div>
+					</td>
+				</tr>
+				</table>
+			</td></tr></table>
+		</div>
         <?php
      }
+	 
     /**
      * Deletes table from database if it exists
      * 
@@ -561,11 +557,11 @@ class rsgInstall {
         $database->setQuery($sql);
         if ($database->query())
             {
-            $this->writeInstallMsg("<strong>$table</strong> ".JText::_('COM_RSGALLERY2_IS_DELETED'),"ok");
+            $this->writeInstallMsg(JText::sprintf('COM_RSGALLERY2_IS_DELETED_OR_TABLE_DID_NOT_EXIST', $table),"ok");
             }
         else
             {
-            $this->writeInstallMsg("<strong>$table</strong> ".JText::_('COM_RSGALLERY2_COULD_NOT_BE_DELETED_DELETE_MANUALLY'),"error");
+            $this->writeInstallMsg(JText::sprintf('COM_RSGALLERY2_COULD_NOT_BE_DELETED_DELETE_MANUALLY', $table),"error");
             }
         }
         
@@ -931,7 +927,6 @@ class rsgInstall {
     }
 
     function showInstallOptions(){
-        //MK// [removed][mainframe] global $mainframe;
         ?>
         <table width="100%">
         <tr>
@@ -994,9 +989,10 @@ class rsgInstall {
     }
 
     function freshInstall() {
-        global $rsgConfig;//MK// [removed][mainframe]
+        global $rsgConfig;
 		$database =& JFactory::getDBO();
-        echo "<h2>Fresh install</h2>";
+		
+        echo '<h2>'.JText::_('COM_RSGALLERY2_FRESH_INSTALL').'</h2>';
         //Delete images and directories if exist
         $exceptions = array(".", "..");
         $this->deleteGalleryDir(JPATH_SITE.$this->galleryDir, $exceptions, false);
@@ -1010,6 +1006,7 @@ class rsgInstall {
         //Create new directories
         $this->createDirStructure();
         
+		//Create RSGallery2 table structure
         $this->createTableStructure();
 
         // save config to populate database with default config values

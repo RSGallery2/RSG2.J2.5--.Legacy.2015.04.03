@@ -407,7 +407,7 @@ class html_rsg2_images {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					<?php echo JText::_('COM_RSGALLERY2_GENERIC_DESCRIPTION')?>:
+					<?php echo JText::_('COM_RSGALLERY2_GENERIC_DESCRIPTION')?>
 					</td>
 					<td>
 				<?php echo $editor->display( 'descr',  '' , '100%', '200', '10', '20' ,false ) ; ?>
@@ -423,7 +423,7 @@ class html_rsg2_images {
 				</tr>
 				<tr>
 					<td  width="20%" valign="top" align="right">
-					<?php echo JText::_('COM_RSGALLERY2_ITEMS')?>:
+					<?php echo JText::_('COM_RSGALLERY2_ITEMS')?>
 					</td>
 					<td width="80%">
 						<?php echo JText::_('COM_RSGALLERY2_TITLE')?>:&nbsp;<input class="text" type="text" id= "title" name="title[]" value="" size="60" maxlength="250" /><br /><br />

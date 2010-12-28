@@ -1689,8 +1689,8 @@ class phpExifReader {
 		<div class="rsg2_exif_container">
 		<table class="adminlist" border="1">
 		<tr>
-			<th>Setting</th>
-			<th>Value</th>
+			<th><?PHP echo JText::_('COM_RSGALLERY2_SETTING')?></th>
+			<th><?PHP echo JText::_('COM_RSGALLERY2_VALUE')?></th>
 		</tr>
 		<?php
 		foreach ($exifdata as $value) {
@@ -1705,7 +1705,7 @@ class phpExifReader {
 				?>
 				<tr>
 					<td><span class="rsg2_label"><?php echo $value;?></span></td>
-					<td>** No value available **</td>
+					<td><?PHP echo JText::_('COM_RSGALLERY2_NO_VALUE_AVAILABLE')?></td>
 				</tr>
 				<?php
 			}

@@ -32,6 +32,12 @@ Legend:
 
 ---------------- Recent ----------------
 
+2010-12-28 Mirjam
+# Pathway now shows image name correctly
++ Added some language strings 
+^ Reverted: changed help screen that is no longer in /help/en-gb/ (changed in J!1.6 RC1) 
+# Installation script (and XML) now uses RSGallery2 language files (.ini and .sys.ini)
+
 2010-09-01 - 2010-12-21 Mirjam SVN 1001
 All kinds of changes to get RSG2 ready and working in J!1.6 (pre-alpha status):
 BACKEND
@@ -53,7 +59,7 @@ BACKEND
 + Around pageLinks a div with class pagination is needed (or else you’ll just see a bulleted list)
 + For menutree the elements directory is removed and a models/fields/gallery.php is created for a dropdown list where the gallery can be chosen: this adds parameter gid to the URL, so one can choose e.g. the root, with gid 0, or any other gallery. This also involved changes in the views/gallery/tmpl/default.xml.
 + Added submenu: the submenu no longer appears automatically from the xml file admin submenu items: need  JSubMenuHelper::addEntry
-^ Changed referent to #__components table, that no longer exists in J!1.6, to #__extensions table 
+^ Changed reference to #__components table, that no longer exists in J!1.6, to #__extensions table 
 + Started with Backend ACL in JPATH_COMPONENT.'/helpers/ rsgallery2.php'; NOTE J!1.6 ACL is NOT implemented yet!
 
 FRONTEND
@@ -66,8 +72,6 @@ FRONTEND
 ^ With some help of EasyCreator all language strings have been converted: no spaces in keys, keys start with COM_RSGALLERY2_, no punctuation marks in keys; values in double quotes. E.g. COM_RSGALLERY2_KEY=”Value”. Removed redundand keys, or when they have all translations, commented them. Comment sign is a semi-colon ;. Needs to be checked by translators.
 
 ! To do: Implement J!1.6 ACL! – now there is NO ACL at all (not even the ACL that was present in J!1.5)
-! To do: Make (un)installation comments translatable
-! To do: Make various XML texts translatable
 ! To do: Change RSG2 router so that it works with Joomla 1.6 SEF on
 ! To do: Make slideshows work
 ! To do: Remove Migration Options menu item
