@@ -205,21 +205,21 @@ class html_rsg2_images {
 							<th colspan="2"><?php echo JText::_('Details')?></th>
 						</tr>
 						<tr>
-							<td width="20%" align="right"><?php echo JText::_('Name')?>:</td>
+							<td width="20%" align="right"><?php echo JText::_('Name')?></td>
 							<td width="80%">
 								<input class="text_area" type="text" name="title" size="50" maxlength="250" value="<?php echo $row->title;?>" />
 							</td>
 						</tr>
 						<tr>
-							<td width="20%" align="right"><?php echo JText::_('Filename')?>:</td>
+							<td width="20%" align="right"><?php echo JText::_('Filename')?></td>
 							<td width="80%"><?php echo $row->name;?></td>
 						</tr>
 						<tr>
-							<td valign="top" align="right"><?php echo JText::_('Gallery')?>:</td>
+							<td valign="top" align="right"><?php echo JText::_('Gallery')?></td>
 							<td><?php echo $lists['gallery_id']; ?></td>
 						</tr>
 						<tr>
-							<td valign="top" align="right"><?php echo JText::_('Description')?>:</td>
+							<td valign="top" align="right"><?php echo JText::_('Description')?></td>
 							<td>
 								<?php
 								// parameters : areaname, content, hidden field, width, height, rows, cols
@@ -227,11 +227,11 @@ class html_rsg2_images {
 							</td>
 						</tr>
 						<tr>
-							<td valign="top" align="right"><?php echo JText::_('Ordering')?>:</td>
+							<td valign="top" align="right"><?php echo JText::_('Ordering')?></td>
 							<td><?php echo $lists['ordering']; ?></td>
 						</tr>
 						<tr>
-							<td valign="top" align="right"><?php echo JText::_('Published')?>:</td>
+							<td valign="top" align="right"><?php echo JText::_('Published')?></td>
 							<td><?php echo $lists['published']; ?></td>
 						</tr>
 					</table>
@@ -535,7 +535,7 @@ class html_rsg2_images {
                     </td>
                     <td width="200">
                         <input type="radio" value="zip" name="batchmethod" CHECKED/>
-                        <?php echo JText::_('ZIP-file'); ?> :</td>
+                        <?php echo JText::_('ZIP-file'); ?></td>
                     <td>
                         <input type="file" name="zip_file" size="20" />
                         <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
@@ -547,7 +547,7 @@ class html_rsg2_images {
                     <td>&nbsp;</td>
                     <td>
                         <input type="radio" value="ftp" name="batchmethod" />
-                        <?php echo JText::_('FTP-path');?> :</td>
+                        <?php echo JText::_('FTP-path');?></td>
                     <td>
 
                         <input type="text" name="ftppath" value="<?php echo $FTP_path; ?>" size="30" /><?php echo JHTML::tooltip( JText::_('BATCH_FTP_PATH_OVERL'), JText::_('FTP-path') ); ?>
@@ -560,7 +560,7 @@ class html_rsg2_images {
                 <tr>
                 <td valign="top"><strong><?php echo JText::_('Specify gallery');?></strong></td>
                     <td valign="top">
-                        <input type="radio" name="selcat" value="1" CHECKED/>&nbsp;&nbsp;<?php echo JText::_('Yes_all_items_in');?>:&nbsp;
+                        <input type="radio" name="selcat" value="1" CHECKED/>&nbsp;&nbsp;<?php echo JText::_('Yes_all_items_in');?>&nbsp;
                     </td>
                     <td valign="top">
                         <?php echo galleryUtils::galleriesSelectList( null, 'xcat', false );?>

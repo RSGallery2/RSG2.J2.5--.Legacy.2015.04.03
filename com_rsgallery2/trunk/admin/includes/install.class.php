@@ -532,7 +532,7 @@ class rsgInstall {
             <td colspan="2">
                 <div align="center">
                 <h2><?php echo $msg; ?></h2> 
-                <?php //echo JText::_('INSTALL_STATUS_MSGS')?>
+                <?php echo JText::_('INSTALL_STATUS_MSGS')?>
                 <br>
                 
                 <a href="index2.php?option=com_rsgallery2">

@@ -30,6 +30,14 @@ Legend:
 - -> Removed
 ! -> Note
 
+2010-12-28 Mirjam - SVN 1003
+# Corrected pathway: show correct gallery, depending on menulink, and added item to pathway.
+# (De)installation now uses RSGallery2's language files: strings are translatable
+^ A few language keys were changed: e.g. because of an _ at the start or a space (' ') at the start/end of the key.
+^ Updated several dutch and a few english language strings
+^ Updated all available language files to show what language/country the language/country code is for
+- Removed 'hide root' option because it is not used
+
 2010-11-18 Mirjam
 + Added license tag to manifest.
 

@@ -78,7 +78,7 @@ class myGalleries {
 
 				// do field validation
 				if (form.parent.value == "-1") {
-					alert( "<?php echo JText::_('** You need to select a parent gallery **'); ?>" );
+					alert( "<?php echo JText::_('You need to select a parent gallery'); ?>" );
 				} else if (form.catname1.value == "") {
 					alert( "<?php echo JText::_('You must provide a gallery name.'); ?>" );
 				}
@@ -182,8 +182,8 @@ class myGalleries {
 				$my = JFactory::getUser();
 
 	     if ($my->usertype == "Super Administrator" OR $my->usertype == "Administrator") {
-	        $maxcat = "unlimited";
-	        $max_images = "unlimited";
+	        $maxcat = JText::_('COM_RSGALLERY2_UNLIMITED');
+	        $max_images = JText::_('COM_RSGALLERY2_UNLIMITED');
 	     } else {
 	        $maxcat = $rsgConfig->get('uu_maxCat');
 	        $max_images = $rsgConfig->get('uu_maxImages');
@@ -495,14 +495,16 @@ class myGalleries {
 		<div class="rsg2">
     <table class="adminform" width="100%" border="1">
             <tr>
-                <td colspan="5"><h3><?php echo JText::_('My galleries');?></h3></td>
+                <td colspan="4"><h3><?php echo JText::_('My galleries');?></h3></td>
+				<td></td>
             </tr>
             <tr>
                 <th><div align="center"><?php echo JText::_('Gallery'); ?></div></th>
                 <th width="75"><div align="center"><?php echo JText::_('Published'); ?></div></th>
                 <th width="75"><div align="center"><?php echo JText::_('Delete'); ?></div></th>
                 <th width="75"><div align="center"><?php echo JText::_('Edit'); ?></div></th>
-                <th width="75"><div align="center"><?php echo JText::_('Permissions'); ?></div></th>
+                <th width="75"><div align="center"><?php //echo JText::_('Permissions'); ?></div></th>
+
             </tr>
             <?php
             if ($count == 0) {
@@ -550,7 +552,9 @@ class myGalleries {
                         		</div>
                         	</a>
                         </td>
-                        <td><a href="#" onclick="alert('Feature not implemented yet')"><div align="center"><img src="<?php echo JURI_SITE;?>/administrator/images/users.png" alt="" width="22" height="22"></div></td>
+                        <td>
+<!--							<a href="#" onclick="alert('Feature not implemented yet')"><div align="center"><img src="<?php //echo JURI_SITE;?>/administrator/images/users.png" alt="" width="22" height="22"></div>-->
+						</td>
                     </tr>
                     <?php
                     $sql2 = "SELECT * FROM #__rsgallery2_galleries WHERE parent = $row->id ORDER BY ordering ASC";
@@ -589,12 +593,13 @@ class myGalleries {
                                 </a>
                             </td>
                             <td>
-                                <a href="#" onclick="alert('<?php echo JText::_('Feature not implemented yet')?>')">
+<!--                            <a href="#" onclick="alert('<?php //echo JText::_('Feature not implemented yet')?>')">
                                 <div align="center">
-                                    <img src="<?php echo JURI_SITE; ?>/administrator/images/users.png" alt="" width="22" height="22" >
+                                    <img src="<?php //echo JURI_SITE; ?>/administrator/images/users.png" alt="" width="22" height="22" >
                                 </div>
                                 </a>
-                            </td>
+-->                         </td>
+
                         </tr>
                         <?php
                         }

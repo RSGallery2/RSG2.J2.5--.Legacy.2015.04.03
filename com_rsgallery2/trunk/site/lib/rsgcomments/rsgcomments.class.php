@@ -317,7 +317,7 @@ function editComment( $item_id ) {
 	<tr>
 		<td>&nbsp;</td>
 		<td align="center">
-			<input type="button" class="button" value="Post" onclick="submitbutton('save')" />
+			<input type="button" class="button" value="<?php echo JText::_('COM_RSGALLERY2_POST');?>" onclick="submitbutton('save')" />
 		</td>
 	</tr>
 	</table>

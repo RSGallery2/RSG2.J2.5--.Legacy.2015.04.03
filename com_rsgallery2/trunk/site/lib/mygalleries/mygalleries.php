@@ -91,7 +91,7 @@ function showMyGalleries() {
 		myGalleries::viewMyGalleriesPage($rows, $images, $pageNav);
 	} else {
 		//Not logged in, back to main page
-		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2"), JText::_('User galleries are disabled by administrator') );
+		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2"), JText::_('MY GALLERIES ACCESSIBLE FOR LOGGED ON USERS') );
 	}	
 }
 
@@ -242,11 +242,11 @@ function saveUploadedItem() {
 					}
 					$mainframe->redirect( $redirect , JText::_('Item uploaded succesfully!') );
 				} else {
-					$mainframe->redirect( $redirect , JText::_('Upload failed.\\nBack to uploadscreen') );
+					$mainframe->redirect( $redirect , JText::_('UPLOAD FAILED BACK TO UPLOADSCREEN') );
 				}
 				break;
 			case 'error':
-				$mainframe->redirect( $redirect , JText::_('Wrong image format.\\nWe will redirect you to the upload screen') );
+				$mainframe->redirect( $redirect , JText::_('WRONG IMAGE FORMAT. WE WILL REDIRECT YOU TO THE UPLOAD SCREEN') );
 				break;
 		}
 	}

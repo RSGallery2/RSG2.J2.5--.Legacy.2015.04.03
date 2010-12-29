@@ -3,7 +3,7 @@
  * This class encapsulates the HTML for the non-administration RSGallery pages.
  * @version $Id$
  * @package RSGallery2
- * @copyright (C) 2003 - 2006 RSGallery2
+ * @copyright (C) 2003 - 2010 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined( '_JEXEC' ) or die( 'Restricted Access' );
@@ -143,52 +143,63 @@ class rsgDisplay extends JObject{
 	}
 	
     /**
-     * shows proper Joomla path
+     * shows proper Joomla breadcrumb pathway
      */
 	function showRSPathWay() {
-		global $mainframe, $mainframe, $option;
+		global $mainframe, $option;
 
-		// if rsg2 isn't the component being displayed, don't show pathway
+		//Don't show the RSG2 pathway if RSGallery2 is not the component being displayed
 		if( $option != 'com_rsgallery2' )
 			return;
 
+		//Get information on the current menu item and the gallery id for the active menu item 
+		$menus =& JMenu::getInstance('site');
+		$menuitem =& $menus->getActive();
+		if (!empty($menuitem->query['gid'])){
+			$baseGalleryThisMenuItem = $menuitem->query['gid']; 
+		} else {	//in case of a menu item for the root gallery
+			$baseGalleryThisMenuItem = 0;
+		}
+		
+		//Get gallery information
 		$gallery = rsgInstance::getGallery();
 		$currentGallery = $gallery->id;
 
 		$item = rsgInstance::getItem();
 
+		//Set up galleries to show in the pathway
 		$galleries = array();
 		$galleries[] = $gallery;
 
-		while ( $gallery->parent != 0) {
-			$gallery = $gallery->parent();
-			$galleries[] = $gallery;
+		if ($currentGallery != $baseGalleryThisMenuItem){
+			while ( $gallery->parent != $baseGalleryThisMenuItem) {
+				$gallery = $gallery->parent();
+				$galleries[] = $gallery;
+			}
 		}
 
 		$galleries = array_reverse($galleries);
 
+		//Add gallery pathway items
 		$pathway =& $mainframe->getPathway();
 		
 		foreach( $galleries as $gallery ) {
-			if ( $gallery->id == $currentGallery && empty($item) ) {
-				$pathway->addItem( $gallery->name );
-			} else {
-				if($gallery->id != 0)
-				{
+			if($gallery->id != $baseGalleryThisMenuItem){
+				if ( $gallery->id == $currentGallery && empty($item) ) {
+					$pathway->addItem( $gallery->name );
+				} else {
 					$link = 'index.php?option=com_rsgallery2&gid=' . $gallery->id;
 					$pathway->addItem( $gallery->name, $link );
 				}
 			}
 		}
 
-		// check if an image is displayed
+		//Add image name to pathway if an image is displayed (then either id or limistart is available)
 		$isImage = rsgInstance::getInt( 'id', 0 );
-		$isImage = rsgInstance::getInt( 'limit', $isImage );
+		$isImage = rsgInstance::getInt( 'limitstart', $isImage );
 		if ($isImage) {
 			$pathway->addItem( $item->title );
 		}
-		
-		
 	}
 
 	/**

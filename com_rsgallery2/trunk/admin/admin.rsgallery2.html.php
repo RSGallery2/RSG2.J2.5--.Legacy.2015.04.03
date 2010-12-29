@@ -251,8 +251,8 @@ class HTML_RSGALLERY{
                 $link = 'index2.php?option=com_rsgallery2&rsgOption=images&task=batchupload';
                 HTML_RSGALLERY::quickiconButton( $link, 'upload_zip.png', JText::_('Batch upload') );
                 
-                $link = 'index2.php?option=com_rsgallery2&rsgOption=jumploader';
-                HTML_RSGALLERY::quickiconButton( $link, 'upload_zip.png', JText::_('Java uploader') );
+//                $link = 'index2.php?option=com_rsgallery2&rsgOption=jumploader';
+//                HTML_RSGALLERY::quickiconButton( $link, 'upload_zip.png', JText::_('Java uploader') );
                 
                 $link = 'index2.php?option=com_rsgallery2&rsgOption=images&task=view_images';
                 HTML_RSGALLERY::quickiconButton( $link, 'mediamanager.png', JText::_('Manage Items') );
@@ -277,7 +277,7 @@ class HTML_RSGALLERY{
 			
                 // if debug is on, display advanced options
                 if( $rsgConfig->get( 'debug' )): ?>
-                <div id='rsg2-cpanelDebug'><?php echo JText::_('RSGALLERY_C_DEBUG_ON');?>
+                <div id='rsg2-cpanelDebug'><?php echo JText::_('RSGALLERY2_C_DEBUG_ON');?>
                     <?php
                     if ( $user->get('gid') > 23 ):
                         $link = 'index2.php?option=com_rsgallery2&task=purgeEverything';
