@@ -273,10 +273,11 @@ class html_rsg2_config{
 								<td><?php echo JText::_('Debug:') ?></td>
 								<td><?php echo JHTML::_("select.booleanlist",'debug', '', $config->debug); ?></td>
 							</tr>
-							<tr>
-								<td><?php echo JText::_('Hide Root (create multiple independant galleries)'); ?></td>
-								<td><?php echo JHTML::_("select.booleanlist",'hideRoot', '', $config->hideRoot); ?></td>
+<!--							<tr>
+								<td><?php //echo JText::_('Hide Root (create multiple independant galleries)'); ?></td>
+								<td><?php //echo JHTML::_("select.booleanlist",'hideRoot', '', $config->hideRoot); ?></td>
 							</tr>
+-->
 							<tr>
 								<td><?php echo JText::_('Advanced SEF (all category names and item titles must be unique)'); ?></td>
 								<td><?php echo JHTML::_("select.booleanlist",'advancedSef', '', $config->advancedSef); ?></td>
@@ -341,7 +342,7 @@ class html_rsg2_config{
 						<legend><?php echo JText::_('Graphics Library') ?></legend>
 						<table width="100%">
 							<tr>
-								<td width=185><?php echo JText::_('Graphics Library') ?>:</td>
+								<td width=185><?php echo JText::_('Graphics Library') ?></td>
 								<td><?php echo $lists['graphicsLib'] ?></td>
 							</tr>
 							<tr>
@@ -426,7 +427,7 @@ class html_rsg2_config{
 								<td><?php echo JHTML::_("select.booleanlist",'comment_allowed_public', '', $config->comment_allowed_public)?></td>
 							</tr>
 							<tr>
-								<td><?php echo JText::_('User can only comment once');?>(Not working yet!)</td>
+								<td><?php echo JText::_('User can only comment once');?> (Not working yet!)</td>
 								<td><?php echo JHTML::_("select.booleanlist",'comment_once', '', $config->comment_once)?></td>
 							</tr>
 						</table>

@@ -277,7 +277,7 @@ class html_rsg2_galleries{
 				</tr>
 				<tr>
 					<td width="20%" align="right">
-					<?php echo JText::_('Name')?>:
+					<?php echo JText::_('Name')?>
 					</td>
 					<td width="80%">
 					<input class="text_area" type="text" name="name" size="50" maxlength="250" value="<?php echo stripslashes($row->name);?>" />
@@ -285,7 +285,7 @@ class html_rsg2_galleries{
 				</tr>
 				<tr>
 					<td align="right">
-					<?php echo JText::_('Owner');?>:
+					<?php echo JText::_('Owner');?>
 					</td>
 					<td>
 					<?php echo $lists['uid']; ?>
@@ -293,7 +293,7 @@ class html_rsg2_galleries{
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					<?php echo JText::_('Description')?>:
+					<?php echo JText::_('Description')?>
 					</td>
 					<td>
 					<?php
@@ -303,7 +303,7 @@ class html_rsg2_galleries{
 				</tr>
 				<tr>
 					<td align="right">
-					<?php echo JText::_('Parent Item');?>:
+					<?php echo JText::_('Parent Item');?>
 					</td>
 					<td>
 					<?php echo $lists['parent']; ?>
@@ -311,7 +311,7 @@ class html_rsg2_galleries{
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					<?php echo JText::_('Gallery thumbnail');?>:
+					<?php echo JText::_('Gallery thumbnail');?>
 					</td>
 					<td>
 					<?php echo imgUtils::showThumbNames($row->id, $row->thumb_id); ?>
@@ -319,7 +319,7 @@ class html_rsg2_galleries{
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					<?php echo JText::_('Ordering');?>:
+					<?php echo JText::_('Ordering');?>
 					</td>
 					<td>
 					<?php echo $lists['ordering']; ?>
@@ -327,7 +327,7 @@ class html_rsg2_galleries{
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					<?php echo JText::_('Published');?>:
+					<?php echo JText::_('Published');?>
 					</td>
 					<td>
 					<?php echo $lists['published']; ?>

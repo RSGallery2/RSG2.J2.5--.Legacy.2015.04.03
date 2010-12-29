@@ -10,8 +10,9 @@
 defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 
 function com_uninstall(){
-	
-	echo JText::_('Uninstalled succesfully');
+	$lang = &JFactory::getLanguage();
+	$lang->load('com_rsgallery2');
 
+	echo JText::_('Uninstalled succesfully');
 	}
 ?>

@@ -717,11 +717,11 @@ class galleryUtils {
 				{
 				$perms = substr(sprintf('%o', fileperms(JPATH_ROOT.$folder)), -4);
 				if (!is_writable(JPATH_ROOT.$folder) )
-					$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;<strong>".JPATH_ROOT.$folder."</strong>".JText::_(' is NOT writable!')."($perms)";
+					$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;<strong>".JPATH_ROOT.$folder."</strong> ".JText::_('is NOT writable!')."($perms)";
 				}
 			else
 				{
-				$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;<strong>".JPATH_ROOT.$folder."</strong>".JText::_('FOLDER_NOTEXIST');	
+				$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;<strong>".JPATH_ROOT.$folder."</strong> ".JText::_('FOLDER_NOTEXIST');	
 				}
 		}
 		if ($html !== '') {
