@@ -205,11 +205,11 @@ class myGalleries {
 	     </tr>
 	     <tr>
 	        <td><?php echo JText::_('COM_RSGALLERY2_MAXIMUM_USERGALLERIES'); ?></td>
-	        <td><?php echo $maxcat;?>&nbsp;&nbsp;(<font color="#008000"><strong><?php echo galleryUtils::userCategoryTotal($my->id);?></strong></font> <?php echo JText::_('COM_RSGALLERY2_CREATED-');?></td>
+	        <td><?php echo $maxcat;?>&nbsp;&nbsp;(<font color="#008000"><strong><?php echo galleryUtils::userCategoryTotal($my->id);?></strong></font> <?php echo JText::_('COM_RSGALLERY2_NR_OF_USERGALLERIES_CREATED');?>)</td>
 	     </tr>
 	     <tr>
 	        <td><?php echo JText::_('COM_RSGALLERY2_MAXIMUM_IMAGES_ALLOWED'); ?></td>
-	        <td><?php echo $max_images;?>&nbsp;&nbsp;(<font color="#008000"><strong><?php echo galleryUtils::userImageTotal($my->id);?></strong></font> <?php echo JText::_('COM_RSGALLERY2_UPLOADED'); ?></td>
+	        <td><?php echo $max_images;?>&nbsp;&nbsp;(<font color="#008000"><strong><?php echo galleryUtils::userImageTotal($my->id);?></strong></font> <?php echo JText::_('COM_RSGALLERY2_NR_OF_IMAGES_UPLOADED'); ?>)</td>
 	     </tr>
 	     <tr>
 	        <th colspan="2"></th>

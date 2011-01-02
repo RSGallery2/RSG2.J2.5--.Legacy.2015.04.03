@@ -3,7 +3,7 @@
 * Galleries option for RSGallery2 - HTML display code
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -283,7 +283,7 @@ class html_rsg2_galleries{
 				</tr>
 				<tr>
 					<td width="20%" align="right">
-					<?php echo JText::_('COM_RSGALLERY2_NAME')?>:
+					<?php echo JText::_('COM_RSGALLERY2_NAME')?>
 					</td>
 					<td width="80%">
 					<input class="text_area" type="text" name="name" size="50" maxlength="250" value="<?php echo stripslashes($row->name);?>" />
@@ -291,7 +291,7 @@ class html_rsg2_galleries{
 				</tr>
 				<tr>
 					<td align="right">
-					<?php echo JText::_('COM_RSGALLERY2_OWNER');?>:
+					<?php echo JText::_('COM_RSGALLERY2_OWNER');?>
 					</td>
 					<td>
 					<?php echo $lists['uid']; ?>
@@ -299,7 +299,7 @@ class html_rsg2_galleries{
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					<?php echo JText::_('COM_RSGALLERY2_DESCRIPTION')?>:
+					<?php echo JText::_('COM_RSGALLERY2_DESCRIPTION')?>
 					</td>
 					<td>
 					<?php
@@ -309,7 +309,7 @@ class html_rsg2_galleries{
 				</tr>
 				<tr>
 					<td align="right">
-					<?php echo JText::_('COM_RSGALLERY2_PARENT_ITEM');?>:
+					<?php echo JText::_('COM_RSGALLERY2_PARENT_ITEM');?>
 					</td>
 					<td>
 					<?php echo $lists['parent']; ?>
@@ -317,7 +317,7 @@ class html_rsg2_galleries{
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					<?php echo JText::_('COM_RSGALLERY2_GALLERY_THUMBNAIL');?>:
+					<?php echo JText::_('COM_RSGALLERY2_GALLERY_THUMBNAIL');?>
 					</td>
 					<td>
 					<?php echo imgUtils::showThumbNames($row->id, $row->thumb_id); ?>
@@ -325,7 +325,7 @@ class html_rsg2_galleries{
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					<?php echo JText::_('COM_RSGALLERY2_ORDERING');?>:
+					<?php echo JText::_('COM_RSGALLERY2_ORDERING');?>
 					</td>
 					<td>
 					<?php echo $lists['ordering']; ?>
@@ -333,7 +333,7 @@ class html_rsg2_galleries{
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					<?php echo JText::_('COM_RSGALLERY2_PUBLISHED');?>:
+					<?php echo JText::_('COM_RSGALLERY2_PUBLISHED');?>
 					</td>
 					<td>
 					<?php echo $lists['published']; ?>
