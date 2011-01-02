@@ -78,17 +78,17 @@ class rsgDisplay_semantic extends rsgDisplay{
 			}
 			
 			if ($owner) {
-				echo JText::_('COM_RSGALLERY2_OWNER').": "; echo $kid->owner;?><br />
+				echo JText::_('COM_RSGALLERY2_OWNER-'); echo $kid->owner;?><br />
 				<?php
 			} 
 			
 			if ($size) {
-				echo JText::_('COM_RSGALLERY2_SIZE').": "; echo galleryUtils::getFileCount($kid->get('id')). ' ' . JText::_('COM_RSGALLERY2_IMAGES');?><br />
+				echo JText::_('COM_RSGALLERY2_SIZE-'); echo galleryUtils::getFileCount($kid->get('id')). ' ' . JText::_('COM_RSGALLERY2_IMAGES');?><br />
 			<?php
 			}
 			
 			if ($date) {
-				echo JText::_('COM_RSGALLERY2_CREATED').": "; echo JHTML::_("date", $kid->date,JText::_('COM_RSGALLERY2_DATE_FORMAT_LC3') );
+				echo JText::_('COM_RSGALLERY2_CREATED-').""; echo JHTML::_("date", $kid->date,JText::_('COM_RSGALLERY2_DATE_FORMAT_LC3') );
 				?><br />
 				<?php
 			}
