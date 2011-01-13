@@ -225,7 +225,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 			break;
 		}
 		?>
-		<div class="rsg2-pageNav">
+		<div class="pagination">
 				<?php
 				if( $itemCount > $limit ){
 					echo $pagenav->getPagesLinks();

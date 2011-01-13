@@ -26,6 +26,8 @@ class rsgGallery extends JObject{
 	var $parent = null;
 	/** @var string name of gallery*/
 	var $name = null;
+	/** @var string alias of gallery*/
+	var $alias = null;
 	/** @var string */
 	var $description = null;
 	/** @var boolean */

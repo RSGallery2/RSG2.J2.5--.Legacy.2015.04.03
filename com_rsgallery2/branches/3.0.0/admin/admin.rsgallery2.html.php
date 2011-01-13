@@ -77,6 +77,28 @@ class HTML_RSGALLERY{
         //Show Warningbox if some preconditions are not met
         galleryUtils::writeWarningBox();
         ?>
+		
+You have installed an alpha version of RSGallery2 for Joomla 1.6.
+Please keep the following in mind:
+<ul>
+<li>This version is not ready yet to be used on production sites</li>
+<li>The following options are known not to function in this version:</li>
+	<ul>
+	<li>Backend: Maintenance, Migration Options, Template Manager</li>
+	<li>Frontend: My Galleries, slideshows</li>
+	<li>Access Control: the access control used in v2.x for Joomla 1.5 is removed and 
+	access control for Joomla 1.6 is not implemented yet.</li>
+	</ul>
+<li>Available languages:</li>
+	<ul>
+	<li>Tested: english (en-GB), dutch (nl-NL)</li>
+	<li>Not tested (translators and feedback from users appreciated): danish (da-DK), german (de-DE), greek (el-GR), spanish (es-ES),
+	finnish (fi-FI), french (fr-FR), hebrew (he-IL), croatian (hr-HR), hungarian (hu-HU), 
+	italian (it-IT), norwegian (nb-NO), brazilian portugese (pt-BR), slovenian (sl-SI), 
+	turkish (tr-TR)</li>
+	</ul>
+</ul>
+		
         <div id="rsg2-thisform">
             <div id='rsg2-infoTabs'>
                 <table width="100%">
@@ -130,14 +152,17 @@ class HTML_RSGALLERY{
 <div id='rsg2-credits'>
     <h3>Core Team - RSGallery2 3.x (Joomla 1.6)</h3>
     <dl>
-		<dt>2010</dt>
+		<dt>2011</dt>
         	<dd><b>Johan Ravenzwaaij</b></dd>
             <dd><b>Mirjam Kaizer</b></dd>
     </dl>
     
     <h3>Translations</h3>
     <dl>
-        <dt>Brazilian Portuguese</dt> <dd><b>Helio Wakasugui</b></dd>
+        <dt>Brazilian Portuguese</dt> 
+			<dd><b>Helio Wakasugui</b></dd>
+		<dt>Croatian</dt> 
+			<dd><b>Tanja</b></dd>
         <dt>Czech</dt> 
 			<dd><b>David Zirhut</b> <a href='http://www.joomlaportal.cz/'>joomlaportal.za</a></dd>
 			<dd><b>Felix 'eFix' Lauda</b></dd>
@@ -146,11 +171,19 @@ class HTML_RSGALLERY{
         	<dd><b>Dani&#235;l Tulp</b> <a href='http://design.danieltulp.nl' target='_blank'></a></dd>
 			<dd><b>Bas</b><a href='http://www.fantasea.nl' target='_blank'>http://www.fantasea.nl</a></dd>
         	<dd><b>Mirjam Kaizer</b></dd>
-		<dt>French</dt><dd><b>Fabien de Silvestre</b></dd>
+		<dt>Finnish</dt>
+			<dd><b>Antti</b></dd>
+		<dt>French</dt>
+			<dd><b>Fabien de Silvestre</b></dd>
         <dt>German</dt> <dd><b>woelzen</b><a href='http://conseil.silvestre.fr' target='_blank'>http://conseil.silvestre.fr</a></dd>
-		<dt>Greek</dt><dd><b>Charis Argyropoulos</b><a href='http://www.symenox.gr' target='_blank'>http://www.symenox.gr</a></dd>
+		<dt>Greek</dt>
+			<dd><b>Charis Argyropoulos</b><a href='http://www.symenox.gr' target='_blank'>http://www.symenox.gr</a></dd>
+			<dd><b>George Fakas</b></dd>
+		<dt>Hebrew</dt>
+			<dd><b>Kobi</b></dd>
+			<dd><b>theNoam</b><a href='http://www.theNoam.com/' target='_blank'>http://www.theNoam.com/</a></dd>
         <dt>Hungarian</dt> 
-			<dd><b>SOFT-TRANS</b> <a href='http://www.soft-trans.hu' target='_blank'>SOFT-TRANS</a></dd>
+			<dd><b>Jozsef Tamas Herczeg</b> <a href='http://www.soft-trans.hu' target='_blank'>SOFT-TRANS</a></dd>
 		<dt>Italian</dt><dd><b>Michele Monaco</b><a href='http://www.mayavoyage.com' target='_blank'>Maya Voyages</a>
         <dt>Norwegian</dt> 
 			<dd><b>Ronny Tjelle</b></dd>
@@ -159,11 +192,15 @@ class HTML_RSGALLERY{
 			<dd><b>Zbyszek Rosiek</b></dd>
         <dt>Russian</dt>
 			<dd><b>Ragnaar</b></dd>
-        <dt>Spanish</dt> 
+        <dt>Slovenian</dt>
+			<dd><b>Iztok Osredkar</b></dd>
+		<dt>Spanish</dt> 
 			<dd><b>Eb&auml;vs</b> <a href='http://www.ebavs.net/' target='_blank'>eb&auml;vs.net</a></dd>
         <dt>Traditional Chinese</dt>
 			<dd><b>Sun Yu</b><a href='http://www.meto.com.tw' target='_blank'>Meto</a></dd>
 			<dd><b>Mike Ho</b> <a href='http://www.dogneighbor.com' target='_blank'>http://www.dogneighbor.com</a></dd>
+		<dt>Turkish</dt>
+			<dd><b>Pheadrus</b></dd>
     </dl>
 
     <h3>Logo</h3>
