@@ -205,11 +205,13 @@ class imgUtils extends fileUtils{
         $ordering = $database->loadResult() + 1;
 
         //Store image details in database
-        $imgDesc = $database->getEscaped($imgDesc);
+        $imgAlias = $database->getEscaped(JFilterOutput::stringURLSafe($imgTitle));
+		$imgDesc = $database->getEscaped($imgDesc);
         $imgTitle = $database->getEscaped($imgTitle);
+		
         $database->setQuery("INSERT INTO #__rsgallery2_files".
-                " (title, name, descr, gallery_id, date, ordering, userid) VALUES".
-                " ('$imgTitle', '$newName', '$imgDesc', '$imgCat', now(), '$ordering', '$my->id')");
+                " (title, name, descr, gallery_id, date, ordering, userid, alias) VALUES".
+                " ('$imgTitle', '$newName', '$imgDesc', '$imgCat', now(), '$ordering', '$my->id', '$imgAlias')");
         
         if (!$database->query()){
             imgUtils::deleteImage( $newName );

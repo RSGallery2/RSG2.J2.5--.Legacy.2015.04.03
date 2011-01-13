@@ -3,7 +3,7 @@
 * Images option for RSGallery2 - HTML display code
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2010 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -214,6 +214,12 @@ class html_rsg2_images {
 							</td>
 						</tr>
 						<tr>
+							<td width="20%" align="right"><?php echo JText::_('COM_RSGALLERY2_ALIAS')?></td>
+							<td width="80%">
+								<input class="text_area" type="text" name="alias" size="50" maxlength="250" value="<?php echo $row->alias;?>" />
+							</td>
+						</tr>
+						<tr>
 							<td width="20%" align="right"><?php echo JText::_('COM_RSGALLERY2_FILENAME')?></td>
 							<td width="80%"><?php echo $row->name;?></td>
 						</tr>
@@ -312,16 +318,20 @@ class html_rsg2_images {
 								<table width="100%" class="imagelist">
 									<?php if ( $item->type == 'image' || $item->type == "video" ) {?>
 									<tr>
-										<td width="40%" align="right" valign="top"> <a href="<?php echo $thumb->url();?>" target="_blank" alt="<?php echo $item->name;?>"><?php echo JText::_('COM_RSGALLERY2_THUMB'); ?></a>:</td>
+										<td width="40%" align="right" valign="top"> 
+											<a href="<?php echo $thumb->url();?>" target="_blank" title="<?php echo $item->name;?>">
+												<?php echo JText::_('COM_RSGALLERY2_THUMB'); ?>
+											</a>:
+										</td>
 										<td><input type="text" name="thumb_url" class="text_area" size="50" value="<?php echo $thumb->url();?>" /></td>
 									</tr>
 									<tr>
-										<td width="40%" align="right" valign="top"><a href="<?php echo $display->url();?>" target="_blank" alt="<?php echo $item->name;?>"><?php echo JText::_('COM_RSGALLERY2_DISPLAY'); ?></a>:</td>
+										<td width="40%" align="right" valign="top"><a href="<?php echo $display->url();?>" target="_blank" title="<?php echo $item->name;?>"><?php echo JText::_('COM_RSGALLERY2_DISPLAY'); ?></a>:</td>
 										<td ><input type="text" name="display_url" class="text_area" size="50" value="<?php echo $display->url();?>" /></td>
 									</tr>
 									<?php }?>
 									<tr>
-										<td width="40%" align="right" valign="top"><a href="<?php echo $original->url();?>" target="_blank" alt="<?php echo $item->name;?>"><?php echo JText::_('COM_RSGALLERY2_ORIGINAL'); ?></a>:</td>
+										<td width="40%" align="right" valign="top"><a href="<?php echo $original->url();?>" target="_blank" title="<?php echo $item->name;?>"><?php echo JText::_('COM_RSGALLERY2_ORIGINAL'); ?></a>:</td>
 										<td><input type="text" name="original_url" class="text_area" size="50" value="<?php echo $original->url();?>" /></td>
 									</tr>
 								</table>		
@@ -699,9 +709,11 @@ class html_rsg2_images {
                         <td colspan="2" align="right"><?php echo JText::_('COM_RSGALLERY2_DELETE');?> #<?php echo $i - 1;?>: <input type="checkbox" name="delete[<?php echo $i - 1;?>]" value="true" /></td>
                     </tr>
                     <tr>
-                        <td align="center" colspan="2"><img src="<?php echo JURI_SITE . "/media/" . $extractDir . "/" . $displayImage;?>" alt="" border="1" width="100" align="center" /></td>
+                        <td align="center" colspan="2">
+                        	<img src="<?php echo JURI_SITE . "/media/" . $extractDir . "/" . $displayImage;?>" alt="" border="1" width="100"  />
+                        <input type="hidden" value="<?php echo $filename;?>" name="filename[]" />
+                        </td>
                     </tr>
-                    <input type="hidden" value="<?php echo $filename;?>" name="filename[]" />
                     <tr>
                         <td><?php echo JText::_('COM_RSGALLERY2_TITLE');?></td>
                         <td>

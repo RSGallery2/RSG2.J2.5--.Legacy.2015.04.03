@@ -22,6 +22,8 @@ class rsgImagesItem extends JTable {
 	/** @var int */
 	var $name				= null;
 	/** @var int */
+	var $alias				= null;
+	/** @var int */
 	var $descr				= null;
 	/** @var string */
 	var $gallery_id			= null;

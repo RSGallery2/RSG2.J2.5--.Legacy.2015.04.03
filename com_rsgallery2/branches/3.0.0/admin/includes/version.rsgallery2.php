@@ -16,26 +16,27 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
  * @package RSGallery2
  */
 class rsgalleryVersion {
+	//Note: also set version number in config.class.php function rsgConfig
     /** @var string Product */
     var $PRODUCT    = 'RSGallery2';
     /** @var int Main Release Level */
     var $RELEASE    = '3.0';				//Main Release Level: x.y for x.y.z
     /** @var string Development Status */
-    var $DEV_STATUS = 'pre-Alpha';				//as of 2.1.1 'beta' removed
+    var $DEV_STATUS = 'Alpha 1';				//as of 2.1.1 'beta' removed
     /** @var int Sub Release Level */
     var $DEV_LEVEL  = '0';					//Dev level z for x.y.z
     /** @var int build Number */
-    var $BUILD      = 'SVN 1000';
+    var $BUILD      = 'SVN 1005';
     /** @var string Codename */
     var $CODENAME   = '';
     /** @var string Date */
-    var $RELDATE    = 'xx Oct 2010';
+    var $RELDATE    = '14 January 2011';
     /** @var string Time */
     var $RELTIME    = '14:00';
     /** @var string Timezone */
     var $RELTZ      = 'UTC';
     /** @var string Copyright Text */
-    var $COPYRIGHT  = '&copy; 2005 - 2010 <strong><a class="rsg2-footer" href="http://www.rsgallery2.nl">RSGallery2</a></strong>. All rights reserved.';
+    var $COPYRIGHT  = '&copy; 2005 - 2011 <strong><a class="rsg2-footer" href="http://www.rsgallery2.nl">RSGallery2</a></strong>. All rights reserved.';
     /** @var string URL */
     var $URL        = '<strong><a class="rsg2-footer" href="http://www.rsgallery2.nl">RSGallery2</a></strong>';
     /** @var string Whether site is a production = 1 or demo site = 0: 1 is default */

@@ -299,6 +299,7 @@ function saveCat() {
 	$maxcats        = $rsgConfig->get('uu_maxCat');	
 
 	//escape strings for sql query
+	$alias			= $database->getEscaped(JFilterOutput::stringURLSafe($catname1));
 	$catname1 		= $database->getEscaped($catname1);
 	$description 	= $database->getEscaped($description);
 
@@ -335,8 +336,8 @@ function saveCat() {
 			$ordering = $database->loadResult() + 1;
 			//Insert into database
 			$database->setQuery("INSERT INTO #__rsgallery2_galleries ".
-				"(name, description, ordering, parent, published, user, uid, date) VALUES ".
-				"('$catname1','$description','$ordering','$parent','$published','1' ,'$my->id', now())");
+				"(name, description, alias, ordering, parent, published, user, uid, date) VALUES ".
+				"('$catname1','$description','$alias','$ordering','$parent','$published','1' ,'$my->id', now())");
 				
 			if ($database->query()) {
 				//Create initial permissions for this gallery

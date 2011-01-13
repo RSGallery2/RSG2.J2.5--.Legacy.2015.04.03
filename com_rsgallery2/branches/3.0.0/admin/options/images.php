@@ -3,7 +3,7 @@
 * Images option for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2010 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -226,8 +226,13 @@ function saveImage( $option, $redirect = true ) {
 		exit();
 	}
 	$row->descr = JRequest::getVar( 'descr', '', 'post', 'string', JREQUEST_ALLOWRAW );
-	
-	//XHTML COMPLIANCE
+	//Make the alias for SEF
+	if(empty($row->alias)) {
+            $row->alias = $row->title;
+    }
+    $row->alias = JFilterOutput::stringURLSafe($row->alias);
+
+    //XHTML COMPLIANCE
 	$row->descr = str_replace( '<br>', '<br />', $row->descr );
 	
 	// save params

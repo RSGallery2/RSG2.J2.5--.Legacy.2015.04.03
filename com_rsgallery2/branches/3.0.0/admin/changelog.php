@@ -32,6 +32,11 @@ Legend:
 
 ---------------- Recent ----------------
 
+2011-01-13 Mirjam SVN 1005
+^ Changed advanced router
++ Added alias to items and galleries to use in (advanced) router
++ Added/updated credits for languages, also withing language files
+
 2010-12-28 Mirjam
 # Pathway now shows image name correctly
 + Added some language strings 

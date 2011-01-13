@@ -3,7 +3,7 @@
 * Galleries option for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2010 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -219,6 +219,12 @@ function save( $option ) {
         exit();
     }
 	$row->description = JRequest::getVar( 'description', '', 'post', 'string', JREQUEST_ALLOWRAW );
+	//Make the alias for SEF
+	if(empty($row->alias)) {
+            $row->alias = $row->name;
+    }
+    $row->alias = JFilterOutput::stringURLSafe($row->alias);
+	
 
     // save params
     $params = JRequest::getVar( 'params', array() );

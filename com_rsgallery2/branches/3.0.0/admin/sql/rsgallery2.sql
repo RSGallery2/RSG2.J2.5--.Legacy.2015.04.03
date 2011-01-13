@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS `#__rsgallery2_galleries` (
   `id` int(11) NOT NULL auto_increment,
   `parent` int(11) NOT NULL default 0,
   `name` varchar(255) NOT NULL default '',
+  `alias` varchar(255) NOT NULL DEFAULT '',
   `description` text NOT NULL,
   `published` tinyint(1) NOT NULL default '0',
   `checked_out` int(11) unsigned NOT NULL default '0',
@@ -24,6 +25,7 @@ CREATE TABLE IF NOT EXISTS `#__rsgallery2_galleries` (
 CREATE TABLE IF NOT EXISTS `#__rsgallery2_files` (
   `id` int(9) unsigned NOT NULL auto_increment,
   `name` varchar(100) NOT NULL default '',
+  `alias` varchar(255) NOT NULL DEFAULT '',
   `descr` text,
   `gallery_id` int(9) unsigned NOT NULL default '0',
   `title` varchar(50) NOT NULL default '',
