@@ -461,7 +461,7 @@ class rsgDisplay extends JObject{
 			if ($type == 'button') {
 				?>
 				<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>">
-				<img height="20" width="20" src="<?php echo JPATH_COMPONENT_SITE.DS.'images'.DS.'download_f2.png';?>" alt="<?php echo JText::_('COM_RSGALLERY2_DOWNLOAD')?>">
+				<img height="20" width="20" src="<?php echo JURI::base();?>/components/com_rsgallery2/images/download_f2.png" alt="<?php echo JText::_('COM_RSGALLERY2_DOWNLOAD')?>">
 				<?php
 				if ($showtext == true) {
 					?>

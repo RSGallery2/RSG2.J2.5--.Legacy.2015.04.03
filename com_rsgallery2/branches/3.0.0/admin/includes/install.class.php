@@ -557,7 +557,7 @@ class rsgInstall {
         $database->setQuery($sql);
         if ($database->query())
             {
-            $this->writeInstallMsg(JText::sprintf('COM_RSGALLERY2_IS_DELETED_OR_TABLE_DID_NOT_EXIST', $table),"ok");
+            $this->writeInstallMsg(JText::sprintf('COM_RSGALLERY2_IS_DELETED_OR_TABLE_DOES_NOT_EXIST_YET', $table),"ok");
             }
         else
             {

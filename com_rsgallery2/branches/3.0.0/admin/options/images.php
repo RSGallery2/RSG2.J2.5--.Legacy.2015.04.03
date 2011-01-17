@@ -23,7 +23,7 @@ switch ($task) {
 		break;
 	
 	case 'batchupload':
-		HTML_RSGallery::RSGalleryHeader('', JText::_('COM_RSGALLERY2_UPLOAD_ZIP-FILE'));
+		HTML_RSGallery::RSGalleryHeader('', JText::_('COM_RSGALLERY2_SUBMENU_BATCH-UPLOAD'));
 		batchupload($option);
 		HTML_RSGallery::RSGalleryFooter();
 		break;
@@ -480,6 +480,7 @@ function saveUploadedImage( $option ) {
 		if ( count( $errors ) < count( $files["error"] ) ) {
 			echo "<br>".JText::_('COM_RSGALLERY2_THE_REST_OF_YOUR_FILES_WERE_UPLOADED_FINE');
 		}
+		$mainframe->redirect( "index.php?option=com_rsgallery2&rsgOption=images&task=upload");
 	}		
 }
 
@@ -555,7 +556,7 @@ function saveOrder( &$cid ) {
 	$cache =& JFactory::getCache();
 	$cache->clean( 'com_rsgallery2' );
 
-	$msg 	= 'New ordering saved';
+	$msg 	= JText::_('COM_RSGALLERY2_NEW_ORDERING_SAVED');
 	$mainframe->redirect( 'index.php?option=com_rsgallery2&rsgOption=images', $msg );
 } // saveOrder
 

@@ -96,6 +96,7 @@ function Rsgallery2BuildRoute(&$query) {
 						//remove gid and limitstart from URL
 						unset($query['gid']);
 						unset($query['start']);
+						unset($query['limitstart']);
 					}
 			        break;
 			    default:
@@ -268,10 +269,10 @@ function Rsgallery2ParseRoute($segments) {
 }
 
 /**
- * Get the name of a gallery based on its id (gid)
+ * Get the alias of a gallery based on its id (gid)
  * 
  *  @param $gid int Numerial value of the gallery
- *	@return string String Name of the gallery
+ *	@return string String Alias of the gallery
  * 
  **/
 function Rsgallery2GetGalleryName($gid){
@@ -279,15 +280,15 @@ function Rsgallery2GetGalleryName($gid){
 	global $config;
 	Rsgallery2InitConfig();
 	
-	// Fetch the gallery name from the database if advanced sef is active,
+	// Fetch the gallery alias from the database if advanced sef is active,
 	// else return the numerical value	
 	if($config->get("advancedSef") == true) {
 		$dbo = JFactory::getDBO();
-		$query = 'SELECT name FROM #__rsgallery2_galleries WHERE `id`='. (int) $gid;
+		$query = 'SELECT alias FROM #__rsgallery2_galleries WHERE `id`='. (int) $gid;
 		$dbo->setQuery($query);
 		$result = $dbo->query();
 		if($dbo->getNumRows($result) != 1){
-			// Gallery name was not unique or is unknown, use the numeric value instead.
+			// Gallery alias was not unique or is unknown, use the numeric value instead.
 			$segment = $gid;
 		}
 		else{			
@@ -301,9 +302,9 @@ function Rsgallery2GetGalleryName($gid){
 }
 
 /**
- * Converts a category SEF name to its id
+ * Converts a category SEF alias to its id
  * 
- *  @param $categoyName mixed SEF name or id of the category
+ *  @param $categoyName mixed SEF alias or id of the category
  *	@return int id of the category
  * 
  **/
@@ -322,9 +323,9 @@ function Rsgallery2GetCategoryId($categoyName){
 }
 
 /**
- * Converts a item SEF name to its id
+ * Converts a item SEF alias to its id
  * 
- *  @param $categoyName mixed SEF name or id of the category
+ *  @param $categoyName mixed SEF alias or id of the category
  *	@return int id of the category
  * 
  **/
@@ -344,10 +345,10 @@ function Rsgallery2GetItemId($itemName){
 }
 
 /**
- * Get an item name based on its id
+ * Get an item alias based on its id
  * 
  *  @param $id int Numerial id of the item
- *	@return string Name of the item
+ *	@return string Alias of the item
  * 
  **/
 function Rsgallery2GetItemName($id){
@@ -355,11 +356,11 @@ function Rsgallery2GetItemName($id){
 	global $config;
 	Rsgallery2InitConfig();
 	
-	// Getch the item name from the database if advanced sef is active,
+	// Getch the item alias from the database if advanced sef is active,
 	// else return the numerical value	
 	if($config->get("advancedSef") == true) {
 		$dbo = JFactory::getDBO();
-		$query = 'SELECT title FROM #__rsgallery2_files WHERE `id`='. (int) $id;
+		$query = 'SELECT alias FROM #__rsgallery2_files WHERE `id`='. (int) $id;
 		$result = $dbo->query($query);
 		
 		$dbo->setQuery($query);

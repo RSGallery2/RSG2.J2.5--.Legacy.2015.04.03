@@ -130,7 +130,7 @@ class html_rsg2_images {
 				<?php echo $row->hits; ?>
 				</td>
 				<td align="left">
-				<?php echo $row->date;?>
+				<?php echo JHTML::Date($row->date, JText::_('COM_RSGALLERY2_DATE_FORMAT_WITH_TIME'));?>
 				</td>
 			</tr>
 			</tbody>
@@ -196,7 +196,7 @@ class html_rsg2_images {
 		<form action="index.php" method="post" name="adminForm" id="adminForm">
 		<table class="adminheading">
 			<tr>
-				<th><?php echo JText::_('COM_RSGALLERY2_ITEM')?>:<small><?php echo $row->id ? JText::_('COM_RSGALLERY2_EDIT') : JText::_('COM_RSGALLERY2_NEW');?></small></th>
+				<th><?php echo JText::_('COM_RSGALLERY2_ITEM').': '?><small><?php echo $row->id ? JText::_('COM_RSGALLERY2_EDIT') : JText::_('COM_RSGALLERY2_NEW');?></small></th>
 			</tr>
 		</table>
 
@@ -436,8 +436,8 @@ class html_rsg2_images {
 					<?php echo JText::_('COM_RSGALLERY2_ITEMS')?>
 					</td>
 					<td width="80%">
-						<?php echo JText::_('COM_RSGALLERY2_TITLE')?>:&nbsp;<input class="text" type="text" id= "title" name="title[]" value="" size="60" maxlength="250" /><br /><br />
-						<?php echo JText::_('COM_RSGALLERY2_FILE')?>:&nbsp;&nbsp;<input type="file" size="48" id="images" name="images[]" /><br /><hr />
+						<?php echo JText::_('COM_RSGALLERY2_TITLE')?>&nbsp;<input class="text" type="text" id= "title" name="title[]" value="" size="60" maxlength="250" /><br /><br />
+						<?php echo JText::_('COM_RSGALLERY2_FILE')?>&nbsp;<input type="file" size="48" id="images" name="images[]" /><br /><hr />
     					<span id="moreAttachments"></span>
     					<a href="javascript:addAttachment(); void(0);"><?php echo JText::_('COM_RSGALLERY2_MORE_FILES')?></a><br />
     					<noscript><input type="file" size="48" name="images[]" /><br /></noscript>
@@ -563,14 +563,15 @@ class html_rsg2_images {
                     </td>
                 </tr>
                 <tr>
+                <tr>
                     <td>&nbsp;</td>
                     <td>
                         <input type="radio" value="ftp" name="batchmethod" />
-                        <?php echo JText::_('COM_RSGALLERY2_FTP-PATH');?></td>
+                        <?php echo JText::_('COM_RSGALLERY2_FTP-PATH');?>&nbsp;<?php echo JHTML::tooltip( JText::_('COM_RSGALLERY2_BATCH_FTP_PATH_OVERL'), JText::_('COM_RSGALLERY2_FTP-PATH') ); ?></td>
                     <td>
 
-                        <input type="text" name="ftppath" value="<?php echo $FTP_path; ?>" size="30" /><?php echo JHTML::tooltip( JText::_('COM_RSGALLERY2_BATCH_FTP_PATH_OVERL'), JText::_('COM_RSGALLERY2_FTP-PATH') ); ?>
-						<br/><?php echo JText::sprintf('COM_RSGALLERY2_FTP_BASE_PATH', JPATH_SITE); ?>
+                        <input type="text" name="ftppath" value="<?php echo $FTP_path; ?>" size="30" />
+						<br/><?php echo JText::sprintf('COM_RSGALLERY2_FTP_BASE_PATH', JPATH_SITE.DS); ?>
                     </td>
                 </tr>
                 <tr>
