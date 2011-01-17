@@ -127,7 +127,7 @@ function galleryParentSelectList( &$row ) {
 
     // assemble menu items to the array
     $mitems     = array();
-    $mitems[]   = JHTMLSelect::option( '0', JText::_('COM_RSGALLERY2_TOP') );
+    $mitems[]   = JHTMLSelect::option( '0', JText::_('COM_RSGALLERY2_TOP_GALLERY') );
 
     foreach ( $list as $item ) {
     	$item->treename = str_replace  ( '&#160;&#160;'  ,  '...' ,  $item->treename  ); //MK// [hack] [the original treename holds &#160; as a non breacking space for subgalleries, but JHTMLSelect::option cannot handle that, nor &nbsp;] 

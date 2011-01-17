@@ -32,7 +32,17 @@ Legend:
 
 ---------------- Recent ----------------
 
-2011-01-13 Mirjam SVN 1005
+2011-01-17 Mirjam - SVN 1006
+# Control panel icon does not show after installation on installation info page.
+# Frontend: download icon did not show.
+# Advanced SEF for RSG2 uses aliases and removed ?limitstart=0 in URL (advancedSEF)
+# Untranslatable items: "- Top Gallery -", "New ordering saved" when changing order items, date format Items
+^ FTP example path has trailing slash, and tooltip has moved.
+^ Zip upload is renamed to Batch upload at it also refers to FTP
+^ Upload of item of unsupported type now redirects to Item Upload
+! Javascript alerts don't function
+
+2011-01-13 Mirjam - SVN 1005
 ^ Changed advanced router
 + Added alias to items and galleries to use in (advanced) router
 + Added/updated credits for languages, also withing language files
@@ -77,7 +87,6 @@ FRONTEND
 ^ With some help of EasyCreator all language strings have been converted: no spaces in keys, keys start with COM_RSGALLERY2_, no punctuation marks in keys; values in double quotes. E.g. COM_RSGALLERY2_KEY=”Value”. Removed redundand keys, or when they have all translations, commented them. Comment sign is a semi-colon ;. Needs to be checked by translators.
 
 ! To do: Implement J!1.6 ACL! – now there is NO ACL at all (not even the ACL that was present in J!1.5)
-! To do: Change RSG2 router so that it works with Joomla 1.6 SEF on
 ! To do: Make slideshows work
 ! To do: Remove Migration Options menu item
 ! To do: Check Maintenance

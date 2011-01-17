@@ -228,7 +228,7 @@ class galleryUtils {
 
     // assemble menu items to the array
     $mitems     = array();
-    $mitems[]   = JHTML::_("Select.option", '0', JText::_('COM_RSGALLERY2_TOP'));
+    $mitems[]   = JHTML::_("Select.option", '0', JText::_('COM_RSGALLERY2_TOP_GALLERY'));
 
     foreach ( $list as $item ) {
         $mitems[] = JHTML::_("Select.option", $item->id, '&nbsp;&nbsp;&nbsp;'. $item->treename );
@@ -287,7 +287,7 @@ class galleryUtils {
 		// assemble menu items to the array
 		$mitems     = array();
 		$mitems[] 	= JHTML::_("Select.option", '-1', JText::_('COM_RSGALLERY2_SELECT_GALLERY') );
-		$mitems[] 	= JHTML::_("Select.option", '0', '- Top Gallery -' );
+		$mitems[] 	= JHTML::_("Select.option", '0', '- '.JText::_('COM_RSGALLERY2_TOP_GALLERY').' -' );
 
 		foreach ( $list as $item ) {
 			$item->treename = str_replace  ( '&#160;&#160;'  ,  '...' ,  $item->treename  );//MK [hack] [the original treename holds &#160; as a non breacking space for subgalleries, but JHTMLSelect::option cannot handle that, nor &nbsp;, so replaced string]
