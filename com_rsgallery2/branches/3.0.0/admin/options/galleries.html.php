@@ -222,6 +222,7 @@ class html_rsg2_galleries{
 	function edit( &$row, &$lists, &$params, $option ) {
 		global $rsgOption, $rsgAccess, $rsgConfig;
 
+		JHTML::_('behavior.formvalidation');
 		jimport("joomla.filter.output");
 		$my =& JFactory::getUser();
 		$editor =& JFactory::getEditor();
@@ -232,19 +233,20 @@ class html_rsg2_galleries{
 		JHTML::_("Behavior.mootools");
 		?>
 		<script type="text/javascript">
-		function submitbutton(pressbutton) {
+		Joomla.submitbutton = function(task) {
 			var form = document.adminForm;
-			if (pressbutton == 'cancel') {
-				submitform( pressbutton );
+			
+			if (task == 'cancel') {
+				Joomla.submitform(task);
 				return;
 			}
-	
-			// do field validation
-			if (form.name.value == ""){
-				alert( "Gallery must have a name" );
+			
+			if (document.formvalidator.isValid(document.id('adminForm'))) {
+				Joomla.submitform(task);
+				return;
 			} else {
-				<?php echo $editor->save('description') ; ?>
-				submitform( pressbutton );
+				alert( "<?php echo JText::_('COM_RSGALLERY2_YOU_MUST_PROVIDE_A_GALLERY_NAME');?>" );
+				return;
 			}
 		}
 	
@@ -260,7 +262,8 @@ class html_rsg2_galleries{
 			}
 		}
 		</script>
-		<form action="index.php" method="post" name="adminForm" id="adminForm">
+		
+		<form action="index.php" method="post" name="adminForm" id="adminForm" class="form-validate">
 		<table class="adminheading">
 		<tr>
 			<th>
@@ -286,7 +289,7 @@ class html_rsg2_galleries{
 					<?php echo JText::_('COM_RSGALLERY2_NAME')?>
 					</td>
 					<td width="80%">
-					<input class="text_area" type="text" name="name" size="50" maxlength="250" value="<?php echo stripslashes($row->name);?>" />
+					<input class="text_area required" type="text"  name="name" size="50" maxlength="250" value="<?php echo stripslashes($row->name);?>"/>
 					</td>
 				</tr>
 				<tr>

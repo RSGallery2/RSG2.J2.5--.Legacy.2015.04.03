@@ -88,7 +88,6 @@ Please keep the following in mind:
 	<li>Frontend: My Galleries, slideshows</li>
 	<li>Access Control: the access control used in v2.x for Joomla 1.5 is removed and 
 	access control for Joomla 1.6 is not implemented yet.</li>
-	<li>Javascript alerts don't function (e.g. when no gallery is chosen, or no Zipfile to upload is present).</li>
 	</ul>
 <li>Available languages:</li>
 	<ul>
