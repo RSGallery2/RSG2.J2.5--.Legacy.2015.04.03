@@ -167,33 +167,30 @@ class html_rsg2_images {
 	function editImage( &$row, &$lists, &$params, $option ) {
 		global $rsgOption;
 		jimport("joomla.filter.output");
-
+		JHTML::_('behavior.formvalidation');
 		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES );
-
 		$editor =& JFactory::getEditor();
-		
 		?>
 		<script type="text/javascript">
-		function submitbutton(pressbutton) {
-			var form = document.adminForm;
-			if (pressbutton == 'cancel') {
-				submitform( pressbutton );
-				return;
-			}
-
-			// do field validation
-			if (form.title.value == ""){
-				alert( "Image must have a title" );
-			} else if (form.gallery_id.value == "0"){
-				alert( "You must select a category." );
+		Joomla.submitbutton = function(task) {
+			if (document.formvalidator.isValid(document.id('adminForm'))) {
+				// Basic validation ok (input name required): 
+				// Validate gallery_id
+				if (document.adminForm.gallery_id.value <= "0"){//'document'+form name+input name+'value'
+					alert('<?php echo JText::_('COM_RSGALLERY2_YOU_MUST_SELECT_A_GALLERY');?>');
+					return;
+				}
+				Joomla.submitform(task, document.getElementById('adminForm'));
 			} else {
-				<?php echo $editor->save( 'descr' ) ;?>
-				submitform( pressbutton );
+				if (document.adminForm.title.value == ""){
+					alert('<?php echo JText::_('COM_RSGALLERY2_PLEASE_PROVIDE_A_VALID_IMAGE_TITLE');?>');
+					return;
+				}
 			}
 		}
 		</script>
 		
-		<form action="index.php" method="post" name="adminForm" id="adminForm">
+		<form action="index.php" method="post" name="adminForm" id="adminForm" class="form-validate">
 		<table class="adminheading">
 			<tr>
 				<th><?php echo JText::_('COM_RSGALLERY2_ITEM').': '?><small><?php echo $row->id ? JText::_('COM_RSGALLERY2_EDIT') : JText::_('COM_RSGALLERY2_NEW');?></small></th>
@@ -210,7 +207,7 @@ class html_rsg2_images {
 						<tr>
 							<td width="20%" align="right"><?php echo JText::_('COM_RSGALLERY2_NAME')?></td>
 							<td width="80%">
-								<input class="text_area" type="text" name="title" size="50" maxlength="250" value="<?php echo $row->title;?>" />
+								<input class="text_area required" type="text" name="title" size="50" maxlength="250" value="<?php echo $row->title;?>" />
 							</td>
 						</tr>
 						<tr>
@@ -363,34 +360,32 @@ class html_rsg2_images {
 	*/
 	function uploadImage( $lists, $option ) {
 		global $rsgOption;
+		JHTML::_('behavior.formvalidation');
 		$editor =& JFactory::getEditor();
 		
 		?>
 		<script type="text/javascript">
-		function submitbutton(pressbutton) {
-			var form = document.adminForm;
-			if (pressbutton == 'cancel') {
-				submitform( pressbutton );
+		Joomla.submitbutton = function(task) {
+			if (task == 'cancel') {
+				Joomla.submitform(task);
 				return;
 			}
-        
-			// do field validation
-			if (form.gallery_id.value <= 0){
-				alert( "<?php echo JText::_('COM_RSGALLERY2_YOU_MUST_SELECT_A_GALLERY')?>" );
-			} else if (form.images.value == ''){
-				alert( "<?php echo JText::_('COM_RSGALLERY2_NO_FILE_WAS_SELECTED_IN_ONE_OR_MORE_FIELDS')?>" );
+
+			if (document.formvalidator.isValid(document.id('uploadForm'))) {
+				if (document.adminForm.gallery_id.value <= '0'){
+					alert('<?php echo JText::_('COM_RSGALLERY2_YOU_MUST_SELECT_A_GALLERY');?>');
+					return;
+				}
+				Joomla.submitform(task, document.getElementById('uploadForm'));
 			} else {
-					<?php echo $editor->save('descr') ; ?>
-				submitform( pressbutton );
+				alert( "<?php echo JText::_('COM_RSGALLERY2_NO_FILE_WAS_SELECTED_IN_ONE_OR_MORE_FIELDS')?>" );
 			}
 		}
 		</script>
 		<?php 
-		//translated text into javascript -> javascript to .php file
-		/*<script type="text/javascript" src="<?php echo JURI_SITE;?>/administrator/components/com_rsgallery2/includes/script.php"></script>*/
 		require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'script.php');
 		?>
-		<form action="index.php" method="post" name="adminForm" id="adminForm" enctype="multipart/form-data">
+		<form action="<?php echo JRoute::_('index.php'); ?>" method="post" name="adminForm" id="uploadForm" enctype="multipart/form-data" class="form-validate">
 		<table class="adminheading">
 		<tr>
 			<th>
@@ -437,7 +432,7 @@ class html_rsg2_images {
 					</td>
 					<td width="80%">
 						<?php echo JText::_('COM_RSGALLERY2_TITLE')?>&nbsp;<input class="text" type="text" id= "title" name="title[]" value="" size="60" maxlength="250" /><br /><br />
-						<?php echo JText::_('COM_RSGALLERY2_FILE')?>&nbsp;<input type="file" size="48" id="images" name="images[]" /><br /><hr />
+						<?php echo JText::_('COM_RSGALLERY2_FILE')?>&nbsp;<input type="file" size="48" id="images" name="images[]" class="required" /><br /><hr />
     					<span id="moreAttachments"></span>
     					<a href="javascript:addAttachment(); void(0);"><?php echo JText::_('COM_RSGALLERY2_MORE_FILES')?></a><br />
     					<noscript><input type="file" size="48" name="images[]" /><br /></noscript>
@@ -476,68 +471,65 @@ class html_rsg2_images {
 	* @param string The option
 	*/
 	function batchupload($option) {
+		/* Info for javascript on input element names and values:
+		Step 1
+		Button: Next -->	task=batchupload
+		Radio zip/ftp name:	batchmethod (values: zip, ftp)
+		filename:		zip_file
+		ftppathname:		ftppath
+		Radio yes/no name:	selcat (values: 1 (select now), 0 (select in step 2)
+		select gal.name:	xcat
+		*/
+	
         global $rsgConfig, $task, $rsgOption;
+		JHTML::_('behavior.formvalidation');
         $FTP_path = $rsgConfig->get('ftp_path');
         $size = round( ini_get('upload_max_filesize') * 1.024 );
         ?>
         <script language="javascript" type="text/javascript">
-        <!--
-        function submitbutton(pressbutton) {
+        Joomla.submitbutton = function(task) {
             var form = document.adminForm;
  
+			//Get the upload method and galleryselect method (2 options each)
             for (i=0;i<document.forms[0].batchmethod.length;i++) {
                 if (document.forms[0].batchmethod[i].checked) {
                     upload_method = document.forms[0].batchmethod[i].value;
-                    }
+                }
             }
-            
             for (i=0;i<document.forms[0].selcat.length;i++) {
                 if (document.forms[0].selcat[i].checked) {
                     selcat_method = document.forms[0].selcat[i].value;
-                    }
-            }
-        if (pressbutton == 'controlPanel') {
-        	location = "index.php?option=com_rsgallery2";
-        	return;
-        }
-        if (pressbutton == 'batchupload')
-            {
-            // do field validation
-            if (upload_method == 'zip')
-                {
-                if (form.zip_file.value == '')
-                    {
-                    alert( "<?php echo JText::_('COM_RSGALLERY2_ZIP-UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN');?>" );
-                    }        
-                else if (form.xcat.value <= '0' & selcat_method == '1')
-                    {
-                    alert("<?php echo JText::_('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST');?>");
-                    }
-                else
-                    {
-                    form.submit();
-                    }
                 }
-            else if (upload_method == 'ftp')
-            	{
-            	if (form.ftppath.value == '')
-            		{
-            		alert( " <?php echo JText::_('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP-PATH_PROVIDED');?>" );	
-            		}
-            	else if (form.xcat.value == '0' & selcat_method == '1')
-            		{
-					alert("<?php echo JText::_('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST');?>");
-            		}
-            	else
-            		{
-            		form.submit();
-            		}
-            	}
+            }
+
+			if (task == 'batchupload') {
+				// do field validation
+				if (upload_method == 'zip') {
+					if (form.zip_file.value == '') {
+						alert( "<?php echo JText::_('COM_RSGALLERY2_ZIP-UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN');?>" );
+						return;
+					} else if (form.xcat.value <= 0 & selcat_method == '1') {
+						alert("<?php echo JText::_('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST');?>");
+						return;
+					} else {
+						form.submit();
+					}
+				} else if (upload_method == 'ftp') {
+					if (form.ftppath.value == '') {
+						alert( " <?php echo JText::_('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP-PATH_PROVIDED');?>" );	
+						return;
+					} else if (form.xcat.value <= 0 & selcat_method == '1') {
+						alert("<?php echo JText::_('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST');?>");
+						return;
+					} else {
+						form.submit();
+					}
+				}
             }
         }
-        //-->
         </script>
-        <form name="adminForm" action="index.php" method="post" enctype="multipart/form-data">
+
+        <form name="adminForm" action="index.php" method="post" enctype="multipart/form-data" class="form-validate">
         <table width="100%">
         <tr>
             <td width="300">&nbsp;</td>
@@ -562,7 +554,6 @@ class html_rsg2_images {
                         </div>
                     </td>
                 </tr>
-                <tr>
                 <tr>
                     <td>&nbsp;</td>
                     <td>
@@ -618,13 +609,22 @@ class html_rsg2_images {
 	* Second step in batchupload: displays all images to be uploaded. Specifics of images
 	* can be changed here
 	*
-	* All uploaded images are shown. The can be deleted, get a title and/or description and
+	* All uploaded images are shown. They can be deleted, get a title and/or description and
 	* the gallery can be choosen if that wasn't done in step 1.
 	* @param array Array with stings: filenames of uploaded images 
 	* @param string Location where files are extracted
 	*/
 	function batchupload_2( $ziplist, $extractDir ){
+		/* Info for javascript on input element names and values:
+		Step 2
+		Button: Upload --> 	task=save_batchupload
+		Delete checkbox name: 	delete[1]
+		Item title field name:	ptitle[]
+		Gallery select name:	category[]
+		Description area name:	descr[]
+		*/
         global $rsgOption;
+		JHTML::_('behavior.formvalidation');
         JHTML::_('behavior.mootools');
 		
 		$database = JFactory::getDBO();
@@ -636,32 +636,25 @@ class html_rsg2_images {
 		
         ?>
 		<script language="javascript" type="text/javascript">
-        <!--
-        function submitbutton(pressbutton) {
+        Joomla.submitbutton = function(task) {
             var form = document.adminForm,
 				missingCat = false,
 				categories = $$('#adminForm input[name^=category]', '#adminForm select[name^=category]');
-           
+         
             for (i=0 ; i<categories.length ; i++) {
 				if (categories[i].value <= 0) {
-					missingCat = true;
-					break;
+					alert("<?php echo JText::_('COM_RSGALLERY2_ALL_IMAGES_MUST_BE_PART_OF_A_GALERY');?>"+' (#'+i+')');
+					return;
 				}
             }
-
-			if (pressbutton == 'save_batchupload'){
-				if (missingCat == true) {
-					alert("<?php echo JText::_('COM_RSGALLERY2_ALL_IMAGES_MUST_BE_PART_OF_A_GALERY');?>");
-				}
-				else {
-					form.submit();
-				}
+  
+			if (task == 'save_batchupload'){
+				Joomla.submitform(task);
 			}
         }
-        //-->
         </script>
 
-        <form action="index.php" method="post" name="adminForm" id="adminForm">
+        <form action="index.php" method="post" name="adminForm" id="adminForm" class="form-validate">
         <table class="adminform">
         <tr>
             <th colspan="5" class="sectionname"><font size="4"><?php echo JText::_('COM_RSGALLERY2_STEP_2');?></font></th>

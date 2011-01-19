@@ -12,7 +12,7 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
 
-Check for the latest version of RSGallery2 at http://rsgallery2.net/
+Check for the latest version of RSGallery2 at http://www.rsgallery2.nl/
 
 1. Changelog
 ------------
@@ -31,6 +31,9 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+
+2011-01-19 Mirjam - SVN 1007
+# Fixed javascript alerts/checks in backend: (batch)upload, galleryname, itemname with galleryselect.
 
 2011-01-17 Mirjam - SVN 1006
 # Control panel icon does not show after installation on installation info page.
