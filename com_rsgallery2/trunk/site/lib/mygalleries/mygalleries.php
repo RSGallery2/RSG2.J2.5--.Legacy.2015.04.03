@@ -1,9 +1,9 @@
 <?php
 /**
 * This file contains code for frontend My Galleries.
-* @version xxx
+* @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2010 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -66,6 +66,10 @@ function showMyGalleries() {
 	//Check if My Galleries is enabled in config, if not .............. 
 	if ( !$rsgConfig->get('show_mygalleries') ) die(JText::_('Unauthorized access attempt to My Galleries!'));
 	
+	//Add gallery pathway items
+	$pathway =& $mainframe->getPathway();
+	$pathway->addItem( JText::_('my galleries') );
+
 	//Set limits for pagenav
 	$limit      = trim(rsgInstance::getInt( 'limit', 10 ) );
 	$limitstart = trim(rsgInstance::getInt( 'limitstart', 0 ) );
