@@ -3,7 +3,7 @@
  * Class handles all configuration parameters for RSGallery2
  * @version $Id$
  * @package RSGallery2
- * @copyright (C) 2003 - 2010 RSGallery2
+ * @copyright (C) 2003 - 2011 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
@@ -98,7 +98,7 @@ class rsgConfig {
     // watermarking
     var $watermark           = 0;
     var $watermark_type		 = "text"; //Values are text or image
-    var $watermark_text      = "(c) 2010 - RSGallery2";
+    var $watermark_text      = "(c) 2011 - RSGallery2";
     var $watermark_image	 = "watermark.png";
     var $watermark_angle     = 0;
     var $watermark_position  = 5;

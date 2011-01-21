@@ -125,7 +125,7 @@ function galleryParentSelectList( &$row ) {
 
     // assemble menu items to the array
     $mitems     = array();
-    $mitems[]   = JHTMLSelect::option( '0', JText::_('Top') );
+    $mitems[]   = JHTMLSelect::option( '0', JText::_('Top Gallery') );
 
     foreach ( $list as $item ) {
         $mitems[] = JHTMLSelect::option( $item->id, '&nbsp;&nbsp;&nbsp;'. $item->treename );

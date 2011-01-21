@@ -26,7 +26,7 @@ class rsgalleryVersion {
     /** @var int Sub Release Level */
     var $DEV_LEVEL  = '0';					//Dev level z for x.y.z
     /** @var int build Number */
-    var $BUILD      = 'SVN 993';
+    var $BUILD      = 'SVN 1008';
     /** @var string Codename */
     var $CODENAME   = '';
     /** @var string Date */
@@ -36,7 +36,7 @@ class rsgalleryVersion {
     /** @var string Timezone */
     var $RELTZ      = 'UTC';
     /** @var string Copyright Text */
-    var $COPYRIGHT  = '&copy; 2005 - 2010 <strong><a class="rsg2-footer" href="http://www.rsgallery2.nl">RSGallery2</a></strong>. All rights reserved.';
+    var $COPYRIGHT  = '&copy; 2005 - 2011 <strong><a class="rsg2-footer" href="http://www.rsgallery2.nl">RSGallery2</a></strong>. All rights reserved.';
     /** @var string URL */
     var $URL        = '<strong><a class="rsg2-footer" href="http://www.rsgallery2.nl">RSGallery2</a></strong>';
     /** @var string Whether site is a production = 1 or demo site = 0: 1 is default */

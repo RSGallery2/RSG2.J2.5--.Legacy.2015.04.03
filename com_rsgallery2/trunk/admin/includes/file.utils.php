@@ -3,7 +3,7 @@
 * This file handles image manipulation functions RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2005 - 2010 RSGallery2
+* @copyright (C) 2005 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
@@ -46,7 +46,7 @@ class imageUploadError{
     }
     
     function toString(){
-        return JText::_(' - Error Image Upload : ') . $this->filename . " : " . $this->error . "<br>";
+        return JText::_('COM_RSGALLERY2_ERROR_IMAGE_UPLOAD').' '. $this->filename . ":<p> " . $this->error . "<br>";
     }
 }
 
@@ -95,7 +95,7 @@ class fileUtils{
                 return audioUtils::importImage( $imgTmpName, $imgName, $imgCat, $imgTitle, $imgDesc );
             break;
             default:
-                return new imageUploadError( $imgName, "$imgName".JText::_(' not a supported file type.') );
+                return new imageUploadError( $imgName, "$imgName".' '.JText::_('COM_RSGALLERY2_NOT_A_SUPPORTED_FILE_TYPE') );
         }
     }
 

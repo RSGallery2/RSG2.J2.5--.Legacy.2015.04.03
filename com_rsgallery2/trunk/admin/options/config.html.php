@@ -3,7 +3,7 @@
 * Galleries option for RSGallery2 - HTML display code
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2010 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -416,7 +416,7 @@ class html_rsg2_config{
 						<table width="100%">
 							<tr>
 								<td><?php echo JText::_('Commenting enabled');?></td>
-								<td><?php echo JHTML::_("select.booleanlist",'comment', '', $config->comment);?></td>
+								<td width="110px"><?php echo JHTML::_("select.booleanlist",'comment', '', $config->comment);?></td>
 							</tr>
 							<tr>
 								<td>Use  <a href="http://www.waltercedric.com" target="_blank"><?php echo JText::_('SecurityImages_component')?></a> <?php echo $security_notice;?></td>
@@ -437,7 +437,7 @@ class html_rsg2_config{
 						<table width="100%">
 							<tr>
 								<td><?php echo JText::_('Voting enabled');?></td>
-								<td><?php echo JHTML::_("select.booleanlist",'voting', '', $config->voting);?></td>
+								<td width="110px"><?php echo JHTML::_("select.booleanlist",'voting', '', $config->voting);?></td>
 							</tr>
 							<tr>
 								<td><?php echo JText::_('User can only vote once(cookie based)');?></td>
