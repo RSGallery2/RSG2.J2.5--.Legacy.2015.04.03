@@ -2,7 +2,7 @@
 /**
  * @version		$Id: router.php 7380 2007-05-06 21:26:03Z eddieajau $
  * @package		Joomla changed by RSGallery2
- * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2011 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -24,6 +24,12 @@ function Rsgallery2BuildRoute(&$query)
 	$currentMenu = null;
 	$segments	= array();
 	$itemid		= isset($query['Itemid']) ? $query['Itemid'] : null;
+	
+	//if $rsgOption exists (e.g. myGalleries or rsgComments)
+	if (isset($query['rsgOption'])) {
+		//do not SEFify (return now)
+		return $segments;
+	}
 	
 	// Get the menu items for this component.
 	if (!$items) {

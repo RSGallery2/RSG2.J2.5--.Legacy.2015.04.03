@@ -30,10 +30,17 @@ Legend:
 - -> Removed
 ! -> Note
 
+2011-01-21 Mirjam - SVN 1009
+# Watermark display image was showing original image
++ Added "My galleries" breadcrumb to pathway
+# SEF (not advancedSEF) showed error when deleting images in 'My galleries'
+
 2011-01-21 Mirjam - SVN 1008
 # System gave a fatal error if a user requested an item that did not exist: changed into JError::raiseError
 + Menu items translatable: menu language file included for english en-GB and dutch nl-NL
 # Javascript alerts now translatable and has improved errorhandling
+# Fixed breadcrumb pathway: showing correct gallery and item
+^ MyGalleries message "User galleries was disabled by the administrator" changed into "You need to log on to access 'My galleries'"
 
 2010-12-28 Mirjam - SVN 1003
 # Corrected pathway: show correct gallery, depending on menulink, and added item to pathway.

@@ -3,7 +3,7 @@
 * This file handles image manipulation functions RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2005 - 2010 RSGallery2
+* @copyright (C) 2005 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
@@ -882,14 +882,14 @@ class waterMarker extends GD2 {
 
 		$pepper = 'RSG2Watermarked';
 		$salt = JApplication::getCfg('secret');
-		$filename = md5($pepper.$imagename.$salt).'.jpg';
+		$filename = $imagetype.md5($pepper.$imagename.$salt).'.jpg';
 		
 		if(!JFile::exists(JPATH_WATERMARKED. DS . $filename)){
-			if ( $imagetype == 'display')
+			if ( $imagetype == 'display') {
 				$imagepath = JPATH_DISPLAY . DS . $imagename.".jpg";
-			else
+			} else {
 				$imagepath = JPATH_ORIGINAL . DS . $imagename;
-			
+			}
 			$imark = new waterMarker();
 			$imark->waterMarkText = $rsgConfig->get('watermark_text');
 			$imark->imagePath = $imagepath;
@@ -899,7 +899,6 @@ class waterMarker extends GD2 {
 			$imark->angle = $rsgConfig->get('watermark_angle');
 			$imark->imageTargetPath = JPATH_WATERMARKED . DS . $filename;
 			$imark->mark($imagetype); //draw watermark
-			
 		}
 		return trim(JURI_SITE,'/') . $rsgConfig->get('imgPath_watermarked') . '/' . $filename ;
     
