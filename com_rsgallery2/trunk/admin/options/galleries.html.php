@@ -3,7 +3,7 @@
 * Galleries option for RSGallery2 - HTML display code
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -223,6 +223,7 @@ class html_rsg2_galleries{
 	
 		$task = rsgInstance::getVar( 'task'  , '');
 		
+		JHTML::_('behavior.formvalidation');
 		JHTML::_("Behavior.mootools");
 		?>
 		<script type="text/javascript">
@@ -235,7 +236,7 @@ class html_rsg2_galleries{
 	
 			// do field validation
 			if (form.name.value == ""){
-				alert( "Gallery must have a name" );
+				alert("<?php echo JText::_('YOU MUST PROVIDE A GALLERY NAME.');?>");
 			} else {
 				<?php echo $editor->save('description') ; ?>
 				submitform( pressbutton );
@@ -254,7 +255,7 @@ class html_rsg2_galleries{
 			}
 		}
 		</script>
-		<form action="index2.php" method="post" name="adminForm" id="adminForm">
+		<form action="index2.php" method="post" name="adminForm" id="adminForm" class="form-validate">
 		<table class="adminheading">
 		<tr>
 			<th>
@@ -280,7 +281,7 @@ class html_rsg2_galleries{
 					<?php echo JText::_('Name')?>
 					</td>
 					<td width="80%">
-					<input class="text_area" type="text" name="name" size="50" maxlength="250" value="<?php echo stripslashes($row->name);?>" />
+					<input class="text_area required" type="text" name="name" size="50" maxlength="250" value="<?php echo stripslashes($row->name);?>" />
 					</td>
 				</tr>
 				<tr>

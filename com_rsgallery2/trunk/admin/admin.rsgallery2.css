@@ -124,3 +124,11 @@ margin-bottom:0.5em;
 
 #cpanel div.icon-bar img { margin-top: 13px; }
 #cpanel div.icon-bar span { display: block; padding-top: 3px;}
+
+/*  Styling for required/invalid fields */
+input.invalid {
+	border: 1px solid red;
+	}
+input.required {
+	background-color: #D5EEFF;
+	}

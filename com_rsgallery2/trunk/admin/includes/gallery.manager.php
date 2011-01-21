@@ -35,6 +35,8 @@ class rsgGalleryManager{
 		
 		if ($gid) {
 			return rsgGalleryManager::get( $gid );	
+		} else {
+			JError::raiseError( 'RSG2 ERROR ID', JText::sprintf('COM_RSGALLERY2_ITEM_ID_DOES_NOT_EXIST', $id));
 		}
 	}
 	

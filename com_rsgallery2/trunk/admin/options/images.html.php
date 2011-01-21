@@ -3,7 +3,7 @@
 * Images option for RSGallery2 - HTML display code
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2010 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -166,7 +166,7 @@ class html_rsg2_images {
 		jimport("joomla.filter.output");
 
 		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES );
-
+		JHTML::_('behavior.formvalidation');
 		$editor =& JFactory::getEditor();
 		
 		?>
@@ -180,9 +180,9 @@ class html_rsg2_images {
 
 			// do field validation
 			if (form.title.value == ""){
-				alert( "Image must have a title" );
-			} else if (form.gallery_id.value == "0"){
-				alert( "You must select a category." );
+				alert( "<?php echo JText::_('PLEASE PROVIDE A VALID IMAGE TITLE');?>" );
+			} else if (form.gallery_id.value <= "0"){
+				alert( "<?php echo JText::_('YOU MUST SELECT A GALLERY.');?>" );
 			} else {
 				<?php echo $editor->save( 'descr' ) ;?>
 				submitform( pressbutton );
@@ -190,7 +190,7 @@ class html_rsg2_images {
 		}
 		</script>
 		
-		<form action="index2.php" method="post" name="adminForm" id="adminForm">
+		<form action="index2.php" method="post" name="adminForm" id="adminForm" class="form-validate" >
 		<table class="adminheading">
 			<tr>
 				<th><?php echo JText::_('Item')?>:<small><?php echo $row->id ? JText::_('Edit') : JText::_('New');?></small></th>
@@ -207,7 +207,7 @@ class html_rsg2_images {
 						<tr>
 							<td width="20%" align="right"><?php echo JText::_('Name')?></td>
 							<td width="80%">
-								<input class="text_area" type="text" name="title" size="50" maxlength="250" value="<?php echo $row->title;?>" />
+								<input class="text_area required" type="text" name="title" size="50" maxlength="250" value="<?php echo $row->title;?>" />
 							</td>
 						</tr>
 						<tr>
@@ -351,6 +351,7 @@ class html_rsg2_images {
 	*/
 	function uploadImage( $lists, $option ) {
 		global $rsgOption;
+		JHTML::_('behavior.formvalidation');
 		$editor =& JFactory::getEditor();
 		
 		?>
@@ -378,7 +379,7 @@ class html_rsg2_images {
 		/*<script type="text/javascript" src="<?php echo JURI_SITE;?>/administrator/components/com_rsgallery2/includes/script.php"></script>*/
 		require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'script.php');
 		?>
-		<form action="index2.php" method="post" name="adminForm" id="adminForm" enctype="multipart/form-data">
+		<form action="index2.php" method="post" name="adminForm" id="adminForm" enctype="multipart/form-data" class="form-validate">
 		<table class="adminheading">
 		<tr>
 			<th>
@@ -405,7 +406,7 @@ class html_rsg2_images {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					<?php echo JText::_('Generic Description')?>:
+					<?php echo JText::_('Generic Description')?>
 					</td>
 					<td>
 				<?php echo $editor->display( 'descr',  '' , '100%', '200', '10', '20' ,false ) ; ?>
@@ -421,11 +422,11 @@ class html_rsg2_images {
 				</tr>
 				<tr>
 					<td  width="20%" valign="top" align="right">
-					<?php echo JText::_('Items')?>:
+					<?php echo JText::_('Items')?>
 					</td>
 					<td width="80%">
-						<?php echo JText::_('Title')?>:&nbsp;<input class="text" type="text" id= "title" name="title[]" value="" size="60" maxlength="250" /><br /><br />
-						<?php echo JText::_('File')?>:&nbsp;&nbsp;<input type="file" size="48" id="images" name="images[]" /><br /><hr />
+						<?php echo JText::_('Title')?>&nbsp;<input class="text" type="text" id= "title" name="title[]" value="" size="60" maxlength="250" /><br /><br />
+						<?php echo JText::_('File')?>&nbsp;<input type="file" size="48" id="images" name="images[]" class="required" /><br /><hr />
     					<span id="moreAttachments"></span>
     					<a href="javascript:addAttachment(); void(0);"><?php echo JText::_('(more files)')?></a><br />
     					<noscript><input type="file" size="48" name="images[]" /><br /></noscript>
@@ -462,7 +463,7 @@ class html_rsg2_images {
         $size = round( ini_get('upload_max_filesize') * 1.024 );
         ?>
         <script language="javascript" type="text/javascript">
-        <!--
+
         function submitbutton(pressbutton) {
             var form = document.adminForm;
  
@@ -516,8 +517,8 @@ class html_rsg2_images {
             	}
             }
         }
-        //-->
         </script>
+
         <form name="adminForm" action="index2.php" method="post" enctype="multipart/form-data">
         <table width="100%">
         <tr>
@@ -547,11 +548,11 @@ class html_rsg2_images {
                     <td>&nbsp;</td>
                     <td>
                         <input type="radio" value="ftp" name="batchmethod" />
-                        <?php echo JText::_('FTP-path');?></td>
+                        <?php echo JText::_('FTP-path');?> <?php echo JHTML::tooltip( JText::_('BATCH_FTP_PATH_OVERL'), JText::_('FTP-path') ); ?>
+					</td>
                     <td>
-
-                        <input type="text" name="ftppath" value="<?php echo $FTP_path; ?>" size="30" /><?php echo JHTML::tooltip( JText::_('BATCH_FTP_PATH_OVERL'), JText::_('FTP-path') ); ?>
-						<br/><?php echo JText::sprintf('FTP_BASE_PATH', JPATH_SITE); ?>
+                        <input type="text" name="ftppath" value="<?php echo $FTP_path; ?>" size="30" />
+						<br/><?php echo JText::sprintf('FTP_BASE_PATH', JPATH_SITE).DS; ?>
                     </td>
                 </tr>
                 <tr>
@@ -595,6 +596,14 @@ class html_rsg2_images {
         }
 
 	function batchupload_2( $ziplist, $extractDir ){
+		/* Info for javascript on input element names and values:
+		Step 2
+		Button: Upload --> 	task=save_batchupload
+		Delete checkbox name: 	delete[1]
+		Item title field name:	ptitle[]
+		Gallery select name:	category[]
+		Description area name:	descr[]
+		*/
         global $rsgOption;
         JHTML::_('behavior.mootools');
 		
@@ -615,6 +624,8 @@ class html_rsg2_images {
            
             for (i=0 ; i<categories.length ; i++) {
 				if (categories[i].value <= 0) {
+					alert("<?php echo JText::_('All images must be part of a galery');?>"+' (#'+i+')');
+					return;
 					missingCat = true;
 					break;
 				}

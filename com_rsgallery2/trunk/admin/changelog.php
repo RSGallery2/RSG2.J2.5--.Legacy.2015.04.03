@@ -30,6 +30,11 @@ Legend:
 - -> Removed
 ! -> Note
 
+2011-01-21 Mirjam - SVN 1008
+# System gave a fatal error if a user requested an item that did not exist: changed into JError::raiseError
++ Menu items translatable: menu language file included for english en-GB and dutch nl-NL
+# Javascript alerts now translatable and has improved errorhandling
+
 2010-12-28 Mirjam - SVN 1003
 # Corrected pathway: show correct gallery, depending on menulink, and added item to pathway.
 # (De)installation now uses RSGallery2's language files: strings are translatable
