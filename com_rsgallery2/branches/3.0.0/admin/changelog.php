@@ -32,6 +32,10 @@ Legend:
 
 ---------------- Recent ----------------
 
+2011-01-26 Mirjam
+# Description now shows in Slideshow Parth
+# Fixed batch (zip) upload
+
 2011-01-19 Mirjam - SVN 1007
 # Fixed javascript alerts/checks in backend: (batch)upload, galleryname, itemname with galleryselect.
 

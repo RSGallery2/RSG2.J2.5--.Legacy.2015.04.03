@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: pagination.php 11229 2008-10-29 20:57:11Z instance $
+ * @version		$Id$
  * @package		RSgallery2 Component
  * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
