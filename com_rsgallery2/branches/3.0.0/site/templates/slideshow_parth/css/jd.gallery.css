@@ -75,17 +75,17 @@
 .jdGallery .slideInfoZone h2
 {
 	padding: 0;
-	font-size: 80%;
+	font-size: 90%;
 	margin: 0;
 	margin: 2px 5px;
-	font-weight: bold;
-	color: inherit;
+	font-weight: normal;
+	color: #EEEEEE;
 }
 
 .jdGallery .slideInfoZone p
 {
 	padding: 0;
-	font-size: 60%;
+	font-size: 90%;
 	margin: 2px 5px;
 	color: #eee;
 }

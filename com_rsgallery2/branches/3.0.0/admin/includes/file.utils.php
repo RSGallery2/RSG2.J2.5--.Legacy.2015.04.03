@@ -3,7 +3,7 @@
 * This file handles image manipulation functions RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2005 - 2010 RSGallery2
+* @copyright (C) 2005 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
@@ -409,70 +409,66 @@ class fileHandler {
         closedir( $current_dir );
         return rmdir( $dir );
     }
+	
     /**
-     * Uploads archive (with original name)and Extracts archive to designated folder
-     * This function replaces handleZIP used in J!1.5 and allows for all archive formats
+     * Uploads archive (with original name) and extracts archive to designated folder.
+     * (This function replaces handleZIP used in J!1.5 and allows for all archive formats.)
      * 
      * @param	array 	Archive tmp path from upload form
      * @param 	string	Absolute path to destination folder, defaults to joomla /media folder
      * @return	array	Array with filenames
      */
     function extractArchive($archive, $destination = '') {
-    	global $rsgConfig;
-    	$mainframe =& JFactory::getApplication();
+    	//This is what is given to this function: $archive = JRequest::getVar('uploadFile', null, 'FILES', 'ARRAY');
 
-    	//Before extracting upload the archive to /JOOMLAROOT/tmp
-    	$uploadError = 0;
-    	//$archive = JRequest::getVar('uploadFile', null, 'FILES', 'ARRAY'); //(this is what is given to this function)
-    	
-    	//To make sure that a file was uploaded, we simply need to check that $uploadFile is an array:
+		global $rsgConfig;
+    	$mainframe =& JFactory::getApplication();
+		$uploadError = 0;
+
+    	//Make sure that a file was uploaded, so check that $uploadFile is an array, and verify that the upload (form) was indeed successfull.
 		if (!is_array($archive)) {
 			$uploadError	= 1;
 			$mainframe->enqueueMessage(JText::_('COM_RSGALLERY2_NO_FILE_TO_UPLOAD_PRESENT'), 'error');
 		}
-		//The next step is to verify that the upload was indeed successful.
 		if (($archive['error']) || $archive['size'] < 1) {
 			$uploadError	= 1;
 			$mainframe->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_IN_UPLOAD'), 'error');
 		}
-    	
-		//JFile::upload() transfers a file from the source file path to the destination path,
-		//which is /JOOMLAROOT/tmp/ here. Filename is made safe.
-		$config = & JFactory::getConfig();
-		$fileDestination = JFolder::makeSafe($config->getValue('config.tmp_path')). DS .  JFile::makeSafe(JFile::getName($archive['name']));
-		// Move uploaded file
+
+		//Before extracting upload the archive to /JOOMLAROOT/images/rsgallery/tmp/ with JFile::upload(). It transfers a file from the source file path to the destination path. Filename is made safe.
+		$fileDestination = JPATH_ROOT.DS.'images'.DS.'rsgallery'.DS.'tmp'.DS.JFile::makeSafe(JFile::getName($archive['name']));		
+		// Move uploaded file (this is truely uploading the file)
 		if (!JFile::upload($archive['tmp_name'], $fileDestination)){
-			//handle upload (move file from user to server) error
 			$uploadError	= 1;
-			$mainframe->enqueueMessage(JText::_('COM_RSGALLERY2_UNABLE_TO_TRANSFER_FILE_TO_UPLOAD_TO_SERVER'), 'error');
+			$mainframe->enqueueMessage(JText::_('COM_RSGALLERY2_UNABLE_TO_TRANSFER_FILE_TO_UPLOAD_TO_SERVER').'destination: '.$fileDestination, 'error');
 		}
+
+		//If there was an upload error: return, else get ready to exctract the archive
 		if ($uploadError){
 			return false;			
 		} else {
 			$archive['tmp_name'] = $fileDestination;
 		}
-    	
-    	//Create unique install directory
+
+    	//Create unique install directory and store it for cleanup at the end.
         $tmpdir         = uniqid( 'rsginstall_' );
-        
-        //Store dirname for cleanup at the end.
         $this->extractDir = $tmpdir;
-        
-        //Clean paths for archive extraction
+        //Clean paths for archive extraction and create extractdir
     	$archivename 	= JPath::clean( $archive['tmp_name'] );
     	if (!$destination) {
             $extractdir = JPath::clean( JPATH_ROOT.DS . 'media' . DS . $tmpdir . DS );
     	} else {
             $extractdir = JPath::clean($destination . DS . $tmpdir . DS);
 		}
-		
+
 		//Unpack archive
 		jimport( 'joomla.filesystem.archive' );
 		$result = JArchive::extract($archivename, $extractdir);
 		if ( $result === false ) {
+			//Extraction went wrong
 			return false;
 		} else {
-			//remove tmp archive file on successfull extract
+			//Remove uploaded file on successfull extract
 			JFile::delete($archive['tmp_name']);
 		}
 		
