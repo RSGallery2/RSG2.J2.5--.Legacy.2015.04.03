@@ -30,6 +30,12 @@ Legend:
 - -> Removed
 ! -> Note
 
+---------------- Recent ----------------
+
+2011-01-26 Mirjam
+# Fixed "Notice: Array to string conversion in /.../administrator/components/com_rsgallery2/includes/config.class.php on line 182"
+# Description now shows in Slideshow Parth
+
 2011-01-21 Mirjam - SVN 1009
 # Watermark display image was showing original image
 + Added "My galleries" breadcrumb to pathway

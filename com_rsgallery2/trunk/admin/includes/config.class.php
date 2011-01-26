@@ -179,7 +179,16 @@ class rsgConfig {
 						$ak = $k;
 					}
 					if (isset($array[$ak])) {
-						$obj->$k = ($checkSlashes && get_magic_quotes_gpc()) ?  stripslashes( $array[$ak] ) : $array[$ak];
+						if ($checkSlashes && get_magic_quotes_gpc()) {
+							if (is_string($array[$ak])) {
+								//if it is a string, we can use stripslashes e.g. when multiple exifTags are selected is is an array
+								$obj->$k = stripslashes( $array[$ak] );
+							} else {							
+								$obj->$k = $array[$ak];
+							}
+						} else {
+							$obj->$k = $array[$ak];
+						}
 					}
 				}
 			}

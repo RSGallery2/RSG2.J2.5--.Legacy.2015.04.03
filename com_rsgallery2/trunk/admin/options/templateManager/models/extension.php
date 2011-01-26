@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: extension.php 9770 2007-12-30 10:16:40Z mtk $
+ * @version		$Id$
  * @package		Joomla
  * @subpackage	Installer
  * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
