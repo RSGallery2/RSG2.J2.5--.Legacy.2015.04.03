@@ -2,7 +2,7 @@
 /**
  * @version $Id$
  * @package RSGallery2
- * @copyright (C) 2003 - 2007 RSGallery2
+ * @copyright (C) 2003 - 2011 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined( '_JEXEC' ) or die( 'Restricted Access' );
@@ -11,7 +11,7 @@ defined( '_JEXEC' ) or die( 'Restricted Access' );
  * Slideshow class for RSGallery2
  * Based on Smoothgallery from Johndesign.net
  * @package RSGallery2
- * @author Ronald Smit <ronald.smit@rsdev.nl>, based on contribution by Parth<parth.lawate@tekdi.net>
+ * @author Ronald Smit <ronald.smit@rsdev.nl>, based on contribution by Parth <parth.lawate@tekdi.net>
  */
 class rsgDisplay_slideshow_parth extends rsgDisplay{
 
@@ -32,6 +32,14 @@ class rsgDisplay_slideshow_parth extends rsgDisplay{
 			$display = $item->display();
 			$thumb = $item->thumb();
 
+			//The subtitleSelector for jd.gallery.js is p. This interferes with any
+			//p-tags in the item desciption. Changing p tag to div.descr tag works for Firefox
+			//but not for IE (tested IE7). So removing p tags from item description:
+			$search[] = '<p>';
+			$search[] = '</p>';
+			$replace = ' ';
+			$item->descr = str_replace($search, $replace, $item->descr);
+					
 			$text .= "<div class=\"imageElement\">" .
 					"<h3>$item->title</h3>" .
 					"<p>$item->descr</p>" .

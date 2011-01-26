@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: view.php $
+ * @version		$Id$
  * @package		RSGallery2
  * @subpackage	Template installer
  * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
