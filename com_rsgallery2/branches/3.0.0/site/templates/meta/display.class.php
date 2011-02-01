@@ -3,7 +3,7 @@
  * This class encapsulates the HTML for the non-administration RSGallery pages.
  * @version $Id$
  * @package RSGallery2
- * @copyright (C) 2003 - 2006 RSGallery2
+ * @copyright (C) 2003 - 2011 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined( '_JEXEC' ) or die( 'Restricted Access' );
@@ -44,6 +44,8 @@ class rsgDisplay extends JObject{
 		switch( $page ){
 			case 'slideshow':
 				$gallery = rsgGalleryManager::get();
+				JRequest::setVar( 'rsgTemplate', $rsgConfig->get('current_slideshow'));
+				//@todo This bit is leftover from J!1.5: look into whether or not this can be removed and how.
 				rsgInstance::instance( array( 'rsgTemplate' => $rsgConfig->get('current_slideshow'), 'gid' => $gallery->id ));
 			break;
 			case 'inline':
@@ -197,10 +199,9 @@ class rsgDisplay extends JObject{
 			}
 		}
 
-		// check if an image is displayed
-		$isImage = JRequest::getInt( 'id', 0 );
-		$isImage = JRequest::getInt( 'limitstart', $isImage );
-		if ($isImage) {
+		//Add image name to pathway if an image is displayed (page in URL is the string 'inline')
+		$page = JRequest::getString( 'page', 0 );
+		if ($page == 'inline') {
 			$pathway->addItem( $item->title );
 		}
 	}

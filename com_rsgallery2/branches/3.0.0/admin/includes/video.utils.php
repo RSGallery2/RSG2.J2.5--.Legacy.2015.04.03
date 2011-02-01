@@ -135,7 +135,7 @@ class videoUtils extends fileUtils{
 			$title = mysql_real_escape_string($title);
 			$database->setQuery("INSERT INTO #__rsgallery2_files".
 					" (title, name, descr, gallery_id, date, ordering, userid, alias) VALUES".
-					" ('$title', '$newName', '$desc', '$cat', now(), '$ordering', '$my->id'), '$alias'");
+					" ('$title', '$newName', '$desc', '$cat', now(), '$ordering', '$my->id', '$alias')");
 			
 			if (!$database->query()){
 				$result = new imageUploadError( $parts['basename'], $database->stderr(true) );

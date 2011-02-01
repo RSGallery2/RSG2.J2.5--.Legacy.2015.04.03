@@ -39,11 +39,12 @@ class rsgDisplay_slideshow_parth extends rsgDisplay{
 			$search[] = '</p>';
 			$replace = ' ';
 			$item->descr = str_replace($search, $replace, $item->descr);
-					
+			$openImageLink = 'index.php?option=com_rsgallery2&page=inline&Itemid='.JRequest::getVar('Itemid').'&id='.$item->id;
+			
 			$text .= "<div class=\"imageElement\">" .
 					"<h3>$item->title</h3>" .
 					"<p>$item->descr</p>" .
-					"<a href=\"#\" title=\"open image\" class=\"open\"></a>" .
+					"<a href=\"$openImageLink\" title=\"open image\" class=\"open\"></a>" .
 					"<img src=\"".$display->url()."\" class=\"full\" />" .
 					"<img src=\"".$thumb->url()."\" class=\"thumbnail\" />" .
 					"</div>";

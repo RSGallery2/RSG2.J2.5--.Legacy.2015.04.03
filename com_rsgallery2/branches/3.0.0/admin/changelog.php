@@ -30,7 +30,17 @@ Legend:
 - -> Removed
 ! -> Note
 
+! To do: Implement J!1.6 ACL! – now there is NO ACL at all (not even the ACL that was present in J!1.5)
+! To do: Installation of template does not function (yet)
+
 ---------------- Recent ----------------
+
+2011-02-01 Mirjam - SVN 1012
+# Adjusted pathway so that item name is only added when item is shown
+^ There are only J!1.0 migration classes plus two debug migration classes. The latter two 'work'. Show 'Migration Options' only in debug mode.
+^ Updated Template Manager and template details
+^ Updated slideshows, JonDesign's SmoothGallery v2.1beta is now used in slideshow_parth for its compatibility with Mootools 1.3
+! PhatFusion slideshow does not work, it's only Mootools 1.11 compatible
 
 2011-01-26 Mirjam
 # Description now shows in Slideshow Parth
@@ -47,7 +57,6 @@ Legend:
 ^ FTP example path has trailing slash, and tooltip has moved.
 ^ Zip upload is renamed to Batch upload at it also refers to FTP
 ^ Upload of item of unsupported type now redirects to Item Upload
-! Javascript alerts don't function
 
 2011-01-13 Mirjam - SVN 1005
 ^ Changed advanced router
@@ -92,13 +101,6 @@ FRONTEND
 ^ Changed JHTML::_("date", $kid->date,"d-m-Y" ) to JHTML::_("date", $kid->date,JText::_('DATE_FORMAT_LC3')
 ^ Pathway now working (global $option; replaced by $option = JRequest::getCmd('option');) and adjusted for the fact that subgalleries now also may be menu items.
 ^ With some help of EasyCreator all language strings have been converted: no spaces in keys, keys start with COM_RSGALLERY2_, no punctuation marks in keys; values in double quotes. E.g. COM_RSGALLERY2_KEY=”Value”. Removed redundand keys, or when they have all translations, commented them. Comment sign is a semi-colon ;. Needs to be checked by translators.
-
-! To do: Implement J!1.6 ACL! – now there is NO ACL at all (not even the ACL that was present in J!1.5)
-! To do: Make slideshows work
-! To do: Remove Migration Options menu item
-! To do: Check Maintenance
-! To do: Check Template Manager
-! To do: Test, check and double check...
 
 2010-10-20 Mirjam
 ! Domain rsgallery2.net was lost to the RSGallery2 Team in september 2010.

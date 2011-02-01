@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<mosinstall type="rsgTemplate">
-	<name>Slideshow Parth</name>
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="rsgTemplate">
+	<name>Slideshow_Parth</name>
 	<creationDate>2007</creationDate>
 	<author>RSGallery2</author>
 	<copyright>Open Source, GPL</copyright>
 	<authorEmail>team@rsgallery2.nl</authorEmail>
-	<authorUrl>rsgallery2.nl</authorUrl>
+	<authorUrl>http://www.rsgallery2.nl</authorUrl>
 	<version>1.0</version>
 	<description>Slideshow implementation, based on the SmoothGallery solution by Johndesign.net.</description>
 	<files>
@@ -42,4 +42,4 @@
 		<filename>css/template.css</filename>
 		<filename>css/jd.gallery.css</filename>
 	</css>
-</mosinstall>
+</install>

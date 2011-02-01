@@ -2,7 +2,7 @@
 /**
  * @package		RSGallery2
  * @subpackage	TemplateManager
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2011 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  */
 
@@ -56,8 +56,8 @@ class InstallerModelTemplates extends InstallerModel
 			$template->client = $clientInfo->id;
 			$template->baseDir = $clientInfo->path.DS.'templates';
 
-			if ($this->_state->get('filter.string')) {
-				if (strpos($template->folder, $this->_state->get('filter.string')) !== false) {
+			if ($this->state->get('filter.string')) {
+				if (strpos($template->folder, $this->state->get('filter.string')) !== false) {
 					$templates[] = $template;
 				}
 			} else {
@@ -103,8 +103,8 @@ class InstallerModelTemplates extends InstallerModel
 			}
 		}
 		$this->setState('pagination.total', count($rows));
-		if($this->_state->get('pagination.limit') > 0) {
-			$this->_items = array_slice( $rows, $this->_state->get('pagination.offset'), $this->_state->get('pagination.limit') );
+		if($this->state->get('pagination.limit') > 0) {
+			$this->_items = array_slice( $rows, $this->state->get('pagination.offset'), $this->state->get('pagination.limit') );
 		} else {
 			$this->_items = $rows;
 		}

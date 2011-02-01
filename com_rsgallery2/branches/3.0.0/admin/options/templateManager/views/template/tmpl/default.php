@@ -41,7 +41,7 @@
 					<?php echo JText::_( 'COM_RSGALLERY2_AUTHOR' ); ?>:
 				</td>
 				<td>
-					<?php echo JText::_($this->item->row->author) .  "(" .JText::_($this->item->row->authorEmail) . ")" ; ?>
+					<?php echo JText::_($this->item->row->author) .  " (" .JText::_($this->item->row->authorEmail) . ")" ; ?>
 				</td>
 			</tr>
 			<tr>

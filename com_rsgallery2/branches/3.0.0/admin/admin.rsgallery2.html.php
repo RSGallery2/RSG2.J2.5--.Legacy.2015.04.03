@@ -4,7 +4,7 @@
 *
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2010 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -84,8 +84,7 @@ Please keep the following in mind:
 <li>This version is not ready yet to be used on production sites</li>
 <li>The following options are known not to function in this version:</li>
 	<ul>
-	<li>Backend: Maintenance, Migration Options, Template Manager</li>
-	<li>Frontend: My Galleries, slideshows</li>
+	<li>Frontend: My Galleries, slideshow PhatFusion (to be removed since it uses Mootools 1.11)</li>
 	<li>Access Control: the access control used in v2.x for Joomla 1.5 is removed and 
 	access control for Joomla 1.6 is not implemented yet.</li>
 	</ul>
@@ -312,8 +311,6 @@ Please keep the following in mind:
     				$link = 'index.php?option=com_rsgallery2&rsgOption=maintenance';
 					HTML_RSGALLERY::quickiconButton( $link, 'maintenance.png', JText::_('COM_RSGALLERY2_MAINTENANCE'));
     				
-                    $link = 'index.php?option=com_rsgallery2&rsgOption=maintenance&task=showMigration';
-                    HTML_RSGALLERY::quickiconButton( $link, 'dbrestore.png', JText::_('COM_RSGALLERY2_MIGRATION_OPTIONS') );
                 endif;
 
 				$link = 'index.php?option=com_rsgallery2&rsgOption=installer';
@@ -324,7 +321,7 @@ Please keep the following in mind:
                 <div id='rsg2-cpanelDebug'><?php echo JText::_('COM_RSGALLERY2_C_DEBUG_ON');?>
                     <?php
                     if ( 1 )://MK// [change] [only admin + may see this] $user->get('gid') > 23
-                        $link = 'index.php?option=com_rsgallery2&task=purgeEverything';
+						$link = 'index.php?option=com_rsgallery2&task=purgeEverything';
                         HTML_RSGALLERY::quickiconButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING') );
     
                         $link = 'index.php?option=com_rsgallery2&task=reallyUninstall';
@@ -336,6 +333,10 @@ Please keep the following in mind:
                     
                     $link = 'index.php?option=com_rsgallery2&task=config_dumpVars';
                     HTML_RSGALLERY::quickiconButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_-_VIEW') );
+					
+					//Moved Migration Options: only show when debug is on since there are only test migration options and four Joomla 1.0.x options.
+					$link = 'index.php?option=com_rsgallery2&rsgOption=maintenance&task=showMigration';
+					HTML_RSGALLERY::quickiconButton( $link, 'dbrestore.png', JText::_('COM_RSGALLERY2_MIGRATION_OPTIONS') );
                     ?>
                     <div class='rsg2-clr'>&nbsp;</div>
                 </div>

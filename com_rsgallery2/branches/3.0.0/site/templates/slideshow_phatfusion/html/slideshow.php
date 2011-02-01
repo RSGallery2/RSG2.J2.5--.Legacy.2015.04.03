@@ -1,17 +1,19 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-global $rsgConfig;
-$mainframe =& JFactory::getApplication();
-//Add stylesheets and scripts to header
-$css1 = "<link rel=\"stylesheet\" href=\"components/com_rsgallery2/templates/slideshow_phatfusion/css/slideshow.css\" type=\"text/css\" media=\"screen\" charset=\"utf-8\" />";
-$mainframe->AddCustomHeadTag($css1);
 
+global $rsgConfig;
+$doc =& JFactory::getDocument();
 JHTML::_("behavior.mootools");
-$js1 = "<script src=\"components/com_rsgallery2/templates/slideshow_phatfusion/js/backgroundSlider.js\" type=\"text/javascript\"></script>";
-$mainframe->AddCustomHeadTag($js1);
-$js2 = "<script src=\"components/com_rsgallery2/templates/slideshow_phatfusion/js/slideshow.js\" type=\"text/javascript\"></script>";
-$mainframe->AddCustomHeadTag($js2);
+
+//Add stylesheets and scripts to header
+$css1 = JURI::base().'components/com_rsgallery2/templates/slideshow_phatfusion/css/slideshow.css';
+$doc->addStyleSheet($css1);
+$js1 = JURI::base().'components/com_rsgallery2/templates/slideshow_phatfusion/js/backgroundSlider.js';
+$doc->addScript($js1);
+$js2 = JURI::base().'components/com_rsgallery2/templates/slideshow_phatfusion/js/slideshow.js';
+$doc->addScript($js2);
 ?>
+
 <!-- Override default CSS styles -->
 <style>
 .slideshowContainer {
@@ -23,8 +25,11 @@ $mainframe->AddCustomHeadTag($js2);
 </style>
 <!-- show main slideshow screen -->
 <div id="container">
-	<h3><?php echo $this->galleryname;?></h3>
-	<div id="slideshowContainer" class="slideshowContainer"></div>
+	<h3>
+		<?php echo $this->galleryname;?>
+	</h3>
+	<div id="slideshowContainer" class="slideshowContainer">
+	</div>
 	<div id="thumbnails">
 		<?php echo $this->slides;?>
   		<p>
