@@ -1,8 +1,17 @@
-<form action="index.php" method="post" name="adminForm">
+<?php
+/**
+ * @version		$Id$
+ * @package		RSGallery2
+ * @subpackage	Template installer
+ * @copyright	Copyright (C) 2005 - 2011 Open Source Matters. All rights reserved.
+ * @license		GNU/GPL, see LICENSE.php
+ */
+ ?>
+ <form action="index.php" method="post" name="adminForm">
 	<table class="adminform">
 		<tbody>
 			<tr>
-				<td width="100%"><?php echo JText::_( 'COM_RSGALLERY2_DESCTEMPLATES' ); ?></td>
+				<td width="100%"><?php echo JText::_( 'COM_RSGALLERY2_DESCTEMPLATES' );echo " ".JText::_( 'COM_RSGALLERY2_DESCTEMPLATES_NOTE' ); ?></td>
 			</tr>
 		</tbody>
 	</table>

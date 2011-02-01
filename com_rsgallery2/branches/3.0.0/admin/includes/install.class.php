@@ -3,7 +3,7 @@
 * This file contains the install class for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -80,8 +80,8 @@ class rsgInstall {
         );
 
         if( $rsgConfig->get( 'debug' )){
-            $this->galleryList[] = new testMigrator;
-            $this->galleryList[] = new testMigratorFail;
+            $this->galleryList[] = new migrate_testMigrator;
+            $this->galleryList[] = new migrate_testMigratorFail;
         }
         
     }
@@ -1344,7 +1344,7 @@ class GenericMigrator{
  * test migrator - always succesfull
  * @package RSGallery2
  */
-class testMigrator extends GenericMigrator{
+class migrate_testMigrator extends GenericMigrator{
     function getTechName(){
         return 'testMigrator';
     }
@@ -1354,6 +1354,10 @@ class testMigrator extends GenericMigrator{
     function detect(){
         return true;
     }
+	/**
+     * do the migration thing
+     * @return true on success, anything else a failure
+     */
     function migrate(){
         return true;
     }
@@ -1362,7 +1366,7 @@ class testMigrator extends GenericMigrator{
  * test migrator - always fails
  * @package RSGallery2
  */
-class testMigratorFail extends GenericMigrator{
+class migrate_testMigratorFail extends GenericMigrator{
     function getTechName(){
         return 'testMigratorFail';
     }
@@ -1372,6 +1376,10 @@ class testMigratorFail extends GenericMigrator{
     function detect(){
         return true;
     }
+	/**
+     * do the migration thing
+     * @return true on success, anything else a failure
+     */
     function migrate(){
         return "this test migrator always fails.  :-p";
     }

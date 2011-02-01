@@ -404,12 +404,10 @@ function Rsgallery2GetGalleryIdFromItemId($id){
 		//Redirect user and display error...
 		if ($countRows == 0) {			
 			//...item not found
-			$msg = JText::_('COM_RSGALLERY2_ROUTER_IMAGE_ID_NOT_FOUND');//todo add to languange file
-			//todo
+			$msg = JText::sprintf('COM_RSGALLERY2_ROUTER_IMAGE_ID_NOT_FOUND', $id);
 		} else {
-			$msg = JText::_('COM_RSGALLERY2_SHOULD_NEVER_HAPPEN');//todo add to languange file
 			//...non unique id in table, should never happen
-			//todo
+			$msg = JText::_('COM_RSGALLERY2_SHOULD_NEVER_HAPPEN');
 		}
 		$app = &JFactory::getApplication();
 		JFactory::getLanguage()->load("com_rsgallery2");

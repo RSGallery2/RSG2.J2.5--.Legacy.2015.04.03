@@ -5,7 +5,7 @@
 	<author>RSGallery2</author>
 	<copyright>Open Source, GPL</copyright>
 	<authorEmail>team@rsgallery2.nl</authorEmail>
-	<authorUrl>rsgallery2.nl</authorUrl>
+	<authorUrl>http://www.rsgallery2.nl</authorUrl>
 	<description>Default semantic template.</description>
 	<version>3.0</version>
 	<files>
@@ -26,14 +26,14 @@
 	<css>
 		<filename>css/template.css</filename>
 	</css>
-  <params>
-    <param name="testParameter" type="list" default="white" label="Color Variation" description="Color variation to use">
-      <option value="blue">Blue</option>
-      <option value="red">Red</option>
-      <option value="green">Green</option>
-      <option value="orange">Orange</option>
-      <option value="black">Black</option>
-      <option value="white">White</option>
-    </param>
-  </params>
-  </install>
+	<params>
+		<param name="testParameter" type="list" default="white" label="Color Variation" description="Color variation to use">
+		  <option value="blue">Blue</option>
+		  <option value="red">Red</option>
+		  <option value="green">Green</option>
+		  <option value="orange">Orange</option>
+		  <option value="black">Black</option>
+		  <option value="white">White</option>
+		</param>
+	</params>
+</install>
