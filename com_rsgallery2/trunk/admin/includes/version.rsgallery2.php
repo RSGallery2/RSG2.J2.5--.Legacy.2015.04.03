@@ -3,7 +3,7 @@
 * This class handles version management for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2010 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -24,13 +24,13 @@ class rsgalleryVersion {
     /** @var string Development Status */
     var $DEV_STATUS = '';					//as of 2.1.1 'beta' removed
     /** @var int Sub Release Level */
-    var $DEV_LEVEL  = '0';					//Dev level z for x.y.z
+    var $DEV_LEVEL  = '1';					//Dev level z for x.y.z
     /** @var int build Number */
-    var $BUILD      = 'SVN 1009';
+    var $BUILD      = 'Nightly SVN 1013';
     /** @var string Codename */
     var $CODENAME   = '';
     /** @var string Date */
-    var $RELDATE    = '21 January 2011';
+    var $RELDATE    = '7 February 2011';
     /** @var string Time */
     var $RELTIME    = '14:00';
     /** @var string Timezone */

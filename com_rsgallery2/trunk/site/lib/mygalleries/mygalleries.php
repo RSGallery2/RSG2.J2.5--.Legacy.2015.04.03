@@ -281,6 +281,7 @@ function editCat($catid) {
 
 function saveCat() {
 	global $rsgConfig, $mainframe;
+	
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
 
@@ -299,6 +300,7 @@ function saveCat() {
 	$maxcats        = $rsgConfig->get('uu_maxCat');	
 
 	//escape strings for sql query
+	$alias			= $database->getEscaped(JFilterOutput::stringURLSafe($catname1));
 	$catname1 		= $database->getEscaped($catname1);
 	$description 	= $database->getEscaped($description);
 
@@ -329,14 +331,15 @@ function saveCat() {
 				</script>
 				<?php
 			//$mainframe->redirect( $redirect ,JText::_('MAX_USERCAT_ALERT'));
+			
 		} else {
 			//Create ordering, start at last position
 			$database->setQuery("SELECT MAX(ordering) FROM #__rsgallery2_galleries WHERE uid = '$my->id'");
 			$ordering = $database->loadResult() + 1;
 			//Insert into database
 			$database->setQuery("INSERT INTO #__rsgallery2_galleries ".
-				"(name, description, ordering, parent, published, user, uid, date) VALUES ".
-				"('$catname1','$description','$ordering','$parent','$published','1' ,'$my->id', now())");
+				"(name, description, alias, ordering, parent, published, user, uid, date) VALUES ".
+				"('$catname1','$description','$alias','$ordering','$parent','$published','1' ,'$my->id', now())");
 				
 			if ($database->query()) {
 				//Create initial permissions for this gallery

@@ -280,7 +280,18 @@ class html_rsg2_config{
 -->
 							<tr>
 								<td><?php echo JText::_('Advanced SEF (all category names and item titles must be unique)'); ?></td>
-								<td><?php echo JHTML::_("select.booleanlist",'advancedSef', '', $config->advancedSef); ?></td>
+								<td><?php 
+									//echo JHTML::_("select.booleanlist",'advancedSef', '', $config->advancedSef); 
+									$options = array();
+									$options[] = JHTML::_('select.option', '0', JText::_('No'));
+									$options[] = JHTML::_('select.option', '1', JText::_('Yes'));
+									$options[] = JHTML::_('select.option', '2', JText::_('Yes use number and name no need for unique names'));
+									echo JHTML::_('select.radiolist', $options, 'advancedSef', '', 'value', 'text', $config->advancedSef);
+								?>
+
+
+
+								</td>
 							</tr>
 						</table>
 					</fieldset>

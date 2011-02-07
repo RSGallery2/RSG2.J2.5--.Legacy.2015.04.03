@@ -214,6 +214,7 @@ function editImage( $option, $id ) {
 */
 function saveImage( $option, $redirect = true ) {
 	global  $rsgOption, $mainframe;
+	
 	$database =& JFactory::getDBO();
 	$my =& JFactory::getUser();
 
@@ -223,6 +224,11 @@ function saveImage( $option, $redirect = true ) {
 		exit();
 	}
 	$row->descr = JRequest::getVar( 'descr', '', 'post', 'string', JREQUEST_ALLOWRAW );
+	//Make the alias for SEF
+	if(empty($row->alias)) {
+            $row->alias = $row->title;
+    }
+    $row->alias = JFilterOutput::stringURLSafe($row->alias);
 	
 	//XHTML COMPLIANCE
 	$row->descr = str_replace( '<br>', '<br />', $row->descr );

@@ -32,6 +32,11 @@ Legend:
 
 ---------------- Recent ----------------
 
+2011-01-28 Mirjam - SVN 1013
++ Added SEF option: advanced SEF with using aliases that don't need to be unique since the id's are used as well. There are three 'Advanced SEF' options now: no, yes, yes... where the third is the new option.
+# Adjusted pathway so that item name is only added when item is shown
+^ Bumped version number to 2.1.1 (to allow db update for alias)
+
 2011-01-26 Mirjam
 # Fixed "Notice: Array to string conversion in /.../administrator/components/com_rsgallery2/includes/config.class.php on line 182"
 # Description now shows in Slideshow Parth
