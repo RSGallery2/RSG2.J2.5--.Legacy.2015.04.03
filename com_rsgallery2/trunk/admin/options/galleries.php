@@ -204,6 +204,7 @@ function edit( $option, $id ) {
 function save( $option ) {
     global $rsgOption, $rsgAccess, $rsgConfig, $mainframe;
 	
+	
 	$my =& JFactory::getUser();
 	$database =& JFactory::getDBO();
 	
@@ -213,7 +214,13 @@ function save( $option ) {
         exit();
     }
 	$row->description = JRequest::getVar( 'description', '', 'post', 'string', JREQUEST_ALLOWRAW );
-
+	//Make the alias for SEF
+	if(empty($row->alias)) {
+            $row->alias = $row->name;
+    }
+    $row->alias = JFilterOutput::stringURLSafe($row->alias);
+	
+	
     // save params
     $params = rsgInstance::getVar( 'params', array() );
     if (is_array( $params )) {

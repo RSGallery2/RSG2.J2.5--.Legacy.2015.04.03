@@ -3,7 +3,7 @@
 * This file contains the install class for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -1248,7 +1248,7 @@ class GenericMigrator{
 	        $id             = $row->$old_catid + $max_id;
 	        $catname        = $row->$old_catname;
 	        $description    = $row->$old_descr_name;
-	        
+			$alias			= $database->getEscaped(JFilterOutput::stringURLSafe($catname));	        
 	        if ($row->$old_parent_id == 0) {
 	            $parent_id  = 0;
 	        } else {
@@ -1257,8 +1257,8 @@ class GenericMigrator{
 	        
 	        //Insert values into RSGallery2 gallery table
 	        $sql2 = "INSERT INTO #__rsgallery2_galleries ".
-	                "(id, name, parent, description, published) VALUES ".
-	                "('$id','$catname','$parent_id','$description', '1')";
+	                "(id, name, parent, description, published, alias) VALUES ".
+	                "('$id','$catname','$parent_id','$description', '1', '$alias')";
 	        $database->setQuery($sql2);
 			//Count errors and migrated files
 	        if (!$database->query()) {
@@ -1306,11 +1306,12 @@ class GenericMigrator{
 	        $descr      = $row->$old_description;
 	        $uid        = $row->$old_uid;
 	        $catid      = $row->$old_catid + $max_id;
+			$alias		= $database->getEscaped(JFilterOutput::stringURLSafe($imagename));
 	        
 	        //Insert data into RSGallery2 files table
 	        $sql2 = "INSERT INTO #__rsgallery2_files ".
-	                "(name, descr, title, date, userid, gallery_id) VALUES ".
-	                "('$filename', '$descr', '$imagename', '$date', '$uid', '$catid')";
+	                "(name, descr, title, date, userid, gallery_id, alias) VALUES ".
+	                "('$filename', '$descr', '$imagename', '$date', '$uid', '$catid', '$alias')";
 	        $database->setQuery($sql2);
 	        
 	        //Error and file counting
@@ -1923,7 +1924,7 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
 	        $id             = $row->$old_catid + $max_id;
 	        $catname        = $row->$old_catname;
 	        $description    = $row->$old_descr_name;
-	        
+	        $alias			= $database->getEscaped(JFilterOutput::stringURLSafe($catname));
 	        if ($row->$old_parent_id == 0) {
 	            $parent_id  = 0;
 	        } else {
@@ -1932,8 +1933,8 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
 	        
 	        //Insert values into RSGallery2 gallery table
 	        $sql2 = "INSERT INTO #__rsgallery2_galleries ".
-	                "(id, name, parent, description, published) VALUES ".
-	                "('$id','$catname','$parent_id','$description', '1')";
+	                "(id, name, parent, description, published, alias) VALUES ".
+	                "('$id','$catname','$parent_id','$description', '1', '$alias')";
 	        $database->setQuery($sql2);
 			//Count errors and migrated files
 	        if (!$database->query()) {
@@ -1986,11 +1987,12 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
 	        $descr      = $row->$old_description;
 	        $uid        = $row->$old_uid;
 	        $catid      = $row->$old_catid + $max_id;
-	        
+	        $alias		= $database->getEscaped(JFilterOutput::stringURLSafe($imagename));
+			
 	        //Insert data into RSGallery2 files table
 	        $sql2 = "INSERT INTO #__rsgallery2_files ".
-	                "(name, descr, title, date, userid, gallery_id) VALUES ".
-	                "('$filename', '$descr', '$imagename', '$date', '$uid', '$catid')";
+	                "(name, descr, title, date, userid, gallery_id, alias) VALUES ".
+	                "('$filename', '$descr', '$imagename', '$date', '$uid', '$catid', '$alias')";
 	        $database->setQuery($sql2);
 	        
 	        //Error and file counting
@@ -2128,6 +2130,10 @@ function detect(){
 			case $this->beforeVersion( '1.14.1' ):
 				$this->handleSqlFile( 'upgrade_1.14.0_to_1.14.1.sql' );
 			
+			case $this->beforeVersion( '2.2.1' ):
+				$this->handleSqlFile( 'upgrade_2.2.0_to_2.2.1.sql' );
+				$this->upgradeTo_2_2_1();			
+			
 			default:
 				// if we reach this point then everything was a success, update the version number and exit.
 				$this->updateVersionNumber();
@@ -2215,6 +2221,63 @@ function detect(){
             $database->query();
         }
     }
+	function upgradeTo_2_2_1(){
+		//There is a new field 'alias in tables #__rsgallery2_galleries and 
+		// #__rsgallery2_files and it needs to be filled as our SEF router uses it
+		$error = false;
+		$db =& JFactory::getDBO();
+		
+		//Get id, name for the galleries
+		$query = 'SELECT id, name FROM #__rsgallery2_galleries';
+		$db->setQuery($query);
+		$result = $db->loadAssocList();
+		//...and make alias from name
+		foreach ($result as $key => $value) {
+			jimport( 'joomla.filter.filteroutput' );
+			$result[$key]['alias'] = JFilterOutput::stringURLSafe($value['name']);
+		}
+		//save the alias
+		foreach ($result as $key => $value) {
+			$query = 'UPDATE #__rsgallery2_galleries '
+					.' SET `alias` = '. $db->quote($value['alias'])
+					.' WHERE `id` = '. $db->quote($value['id']);
+			$db->setQuery($query);
+			$result = $db->query();
+			if (!$result) {
+				$msg = JText::_('COM_RSGALLERY2_MIGRATE_ERROR_FILLING_ALIAS_GALLERY',$value[id], $value[name]);
+				JError::raiseNotice( 100, $msg);
+				$error = true;
+			}
+		}
+	
+		//Get id, title for the items
+		$query = 'SELECT id, title FROM #__rsgallery2_files';
+		$db->setQuery($query);
+		$result = $db->loadAssocList();
+		//...and make alias from title
+		foreach ($result as $key => $value) {
+			jimport( 'joomla.filter.filteroutput' );
+			$result[$key]['alias'] = JFilterOutput::stringURLSafe($value['title']);
+		}
+		//save the alias
+		foreach ($result as $key => $value) {
+			$query = 'UPDATE #__rsgallery2_files '
+					.' SET `alias` = '. $db->quote($value['alias'])
+					.' WHERE `id` = '. $db->quote($value['id']);
+			$db->setQuery($query);
+			$result = $db->query();
+			if (!$result) {
+				$msg = JText::_('COM_RSGALLERY2_MIGRATE_ERROR_FILLING_ALIAS_ITEM',$value[id], $value[title]);
+				JError::raiseNotice( 100, $msg);
+				$error = true;
+			}
+		}
+		if ($error) {
+			rsgInstall::writeInstallMsg(JText::_('COM_RSGALLERY2_FINISHED_CREATING_ALIASES'), 'error');
+		} else {		
+			rsgInstall::writeInstallMsg(JText::_('COM_RSGALLERY2_FINISHED_CREATING_ALIASES'), 'ok');
+		}
+	}
 }
 
 /**

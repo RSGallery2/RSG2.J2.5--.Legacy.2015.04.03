@@ -194,10 +194,9 @@ class rsgDisplay extends JObject{
 			}
 		}
 
-		//Add image name to pathway if an image is displayed (then either id or limistart is available)
-		$isImage = rsgInstance::getInt( 'id', 0 );
-		$isImage = rsgInstance::getInt( 'limitstart', $isImage );
-		if ($isImage) {
+		//Add image name to pathway if an image is displayed (page in URL is the string 'inline')
+		$page = JRequest::getString( 'page', 0 );
+		if ($page == 'inline') {
 			$pathway->addItem( $item->title );
 		}
 	}

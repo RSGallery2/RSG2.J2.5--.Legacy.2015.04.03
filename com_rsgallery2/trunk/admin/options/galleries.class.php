@@ -21,6 +21,7 @@ class rsgGalleriesItem extends JTable {
     var $id = null;
     var $parent = 0;
     var $name = null;
+	var $alias = null;
     var $description = null;
     var $published = null;
     var $checked_out        = null;
