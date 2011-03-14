@@ -30,10 +30,19 @@ Legend:
 - -> Removed
 ! -> Note
 
-! To do: Implement J!1.6 ACL! – now there is NO ACL at all (not even the ACL that was present in J!1.5)
+! To do: Implement rules – now there is NO ACL at all (not even the ACL that was present in J!1.5)
+	The following examples get the correct rules, but are not implemented in the code yet:
+	$user->authorise('core.admin', 'com_rsgallery2');
+	$user->authorise('core.delete', 'com_rsgallery2.gallery.77');
+	$user->authorise('core.edit', 'com_rsgallery2.item.42');
+! To do: move/copy image: set correct parent asset (is ok for changing parent gallery for images of subgalleries in edit screens)
 ! To do: Installation of template does not function (yet)
 
 ---------------- Recent ----------------
+
+2011-03-14 Mirjam - SVN 1014
++ Save button on edit image and edit gallery pages (addition to save & close)
++ J!1.6 ACL: rules can be set for the component, galleries and images
 
 2011-02-01 Mirjam - SVN 1012
 # Adjusted pathway so that item name is only added when item is shown

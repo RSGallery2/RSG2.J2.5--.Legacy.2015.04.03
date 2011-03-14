@@ -28,7 +28,8 @@ switch( $task ){
     case 'editA':
         edit( $option, $id );
         break;
-
+	
+	case 'apply':
     case 'save':
         save( $option );
         break;
@@ -212,6 +213,8 @@ function save( $option ) {
 
 	$my =& JFactory::getUser();
 	$database =& JFactory::getDBO();
+
+	$task = JRequest::getCmd(task);
 	
     $row = new rsgGalleriesItem( $database );
     if (!$row->bind( JRequest::get('post') )) {	//here we get id, parent, ... from the user's input
@@ -236,6 +239,25 @@ function save( $option ) {
         $row->params = implode( "\n", $txt );
     }
 	
+	// Get the rules which are in the form … with the name ‘rules’ with type array (default value array())
+	$data[rules]		= JRequest::getVar('rules', array(), 'post', 'array');
+	
+	// Get the form library, add a path for the form XML and get the form instantiated
+	jimport( 'joomla.form.form' );
+	JForm::addFormPath(JPATH_ADMINISTRATOR.'/components/com_rsgallery2/models/forms/');
+	$form = &JForm::getInstance('com_rsgallery2.params','gallery',array( 'load_data' => false ));
+	
+	// Filter $data which means that for $data[rules] the Null values are removed
+	$data = $form->filter($data);
+
+	if (isset($data[rules]) && is_array($data[rules])) {
+		// Instantiate a JRules object with the rules posted in the form
+		$rules = new JRules($data[rules]);
+		// $row is an rsgGalleriesItem object that extends JTable with method setRules
+		// this binds the JRules object to $row->_rules
+		$row->setRules($rules);
+	}
+   	
 	// code cleaner for xhtml transitional compliance 
 	$row->description = str_replace( '<br>', '<br />', $row->description );
 
@@ -256,8 +278,13 @@ function save( $option ) {
     	$perms = $rsgAccess->makeArrayComplete( JRequest::getVar( 'perm', array() ) );
     	$rsgAccess->savePermissions($perms, $row->id);
     }
-	
-    $mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
+
+	//Redirect based on save or apply task
+	if ($task == 'save') {
+		$mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
+	} else { //apply
+		$mainframe->redirect("index.php?option=$option&rsgOption=$rsgOption&task=editA&hidemainmenu=1&id=$row->id");
+	}
 }
 
 

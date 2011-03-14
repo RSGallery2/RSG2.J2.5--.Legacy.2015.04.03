@@ -225,6 +225,19 @@ class html_rsg2_images {
 							<td><?php echo $lists['gallery_id']; ?></td>
 						</tr>
 						<tr>
+						<td>
+						<?php echo JText::_('COM_RSGALLERY2_PERMISSIONS');?>
+						</td>
+							<td>
+								<div class="button2-left">
+									<div class="blank">
+										<button type="button" onclick="document.location.href='#access-rules';">
+										<?php echo JText::_('JGLOBAL_PERMISSIONS_ANCHOR'); ?></button>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
 							<td valign="top" align="right"><?php echo JText::_('COM_RSGALLERY2_DESCRIPTION')?></td>
 							<td>
 								<?php
@@ -338,6 +351,31 @@ class html_rsg2_images {
 				</td>
 			</tr>
 		</table>
+
+		<?php 
+		//Get form for J!1.6 ACL rules (load library, get path to XML, get specific form)
+		jimport( 'joomla.form.form' );
+		JForm::addFormPath(JPATH_ADMINISTRATOR.'/components/com_rsgallery2/models/forms/');
+		$form = &JForm::getInstance('com_rsgallery2.params','item',array( 'load_data' => true ));
+
+		//Get the data for the form from $row (but only matching XML fields will get data here: asset_id)
+		$form->bind($row);
+
+		//Create the rules slider at the bottom of the page
+		?>
+		<div class="clr"></div>
+
+		<?php //if ($this->canDo->get('core.admin')): ?>
+		  <div  class="width-100 fltlft">
+			<?php echo JHtml::_('sliders.start','permissions-sliders-'.$row->id, array('useCookie'=>1)); ?>
+			<?php echo JHtml::_('sliders.panel',JText::_('COM_RSGALLERY2_FIELDSET_RULES'), 'access-rules'); ?>	
+			<fieldset class="panelform">
+			  <?php echo $form->getLabel('rules'); ?>
+			  <?php echo $form->getInput('rules'); ?>
+			</fieldset>
+			<?php echo JHtml::_('sliders.end'); ?>
+		  </div>
+		<?php //endif; ?>
 
 		<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
 		<input type="hidden" name="name" value="<?php echo $row->name; ?>" />

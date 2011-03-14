@@ -51,6 +51,8 @@ class rsgImagesItem extends JTable {
 	var $ordering			= null;
 	/** @var string */
 	var $params				= null;
+	/** @var int */
+	var $asset_id = null;
 
 	/**
 	* @param database A database connector object
@@ -82,6 +84,57 @@ class rsgImagesItem extends JTable {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Method to compute the default name of the asset.
+	 * The default name is in the form `table_name.id`
+	 * where id is the value of the primary key of the table.
+	 *
+	 * @return      string
+	 */
+	protected function _getAssetName() {
+		$k = $this->_tbl_key;
+		return 'com_rsgallery2.item.'.(int) $this->$k;
+	}
+
+	/**
+	 * Method to return the title to use for the asset table.
+	 *
+	 * @return      string
+	 */
+	protected function _getAssetTitle() {
+		return $this->title;
+	}
+
+	/**
+	 * Get the parent asset id for the item (which is the asset id of the gallery)
+	 *
+	 * @return      int
+	 */
+	protected function _getAssetParentId() {
+		// Initialise variables
+		$assetId = null;
+		$db		= $this->getDbo();	//$this is the rsgImagesItem object
+
+		// Build the query to get the asset id for the gallery to which this item belongs
+		$query	= $db->getQuery(true);
+		$query->select('asset_id');
+		$query->from('#__rsgallery2_galleries');
+		$query->where('id = '.(int) $this->gallery_id);
+
+		// Get the asset id from the database.
+		$db->setQuery($query);
+		if ($result = $db->loadResult()) {
+			$assetId = (int) $result;
+		}
+
+		// Return the asset id.
+		if ($assetId) {
+			return $assetId;
+		} else {
+			return parent::_getAssetParentId($table, $id);
+		}
 	}
 }
 ?>

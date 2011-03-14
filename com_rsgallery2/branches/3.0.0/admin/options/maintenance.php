@@ -68,6 +68,7 @@ switch ($task) {
 }
 
 function test() {
+	// http://JOOMLA/administrator/index.php?option=com_rsgallery2&rsgOption=maintenance&task=test
 	$gid = 1;
 	$gallery = rsgGalleryManager::_get( $gid );
     $images = $gallery->items();
