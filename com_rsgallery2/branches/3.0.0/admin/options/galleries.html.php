@@ -227,7 +227,14 @@ class html_rsg2_galleries{
 		$my =& JFactory::getUser();
 		$editor =& JFactory::getEditor();
 		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES );
-	
+
+		//Get form for J!1.6 ACL rules (load library, get path to XML, get form)
+		jimport( 'joomla.form.form' );
+		JForm::addFormPath(JPATH_ADMINISTRATOR.'/components/com_rsgallery2/models/forms/');
+		$form = &JForm::getInstance('com_rsgallery2.params','gallery',array( 'load_data' => true ));
+		//Get the data for the form from $row (but only matching XML fields will get data here: asset_id)
+		$form->bind($row);
+
 		$task = JRequest::getVar( 'task'  , '');
 		
 		JHTML::_("Behavior.mootools");
@@ -309,6 +316,19 @@ class html_rsg2_galleries{
 					</td>
 				</tr>
 				<tr>
+					<td>
+						<?php echo JText::_('COM_RSGALLERY2_PERMISSIONS');?>
+					</td>
+					<td>
+						<div class="button2-left">
+						<div class="blank">
+							<button type="button" onclick="document.location.href='#access-rules';">
+							<?php echo JText::_('JGLOBAL_PERMISSIONS_ANCHOR'); ?></button>
+						</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
 					<td valign="top" align="right">
 					<?php echo JText::_('COM_RSGALLERY2_DESCRIPTION')?>
 					</td>
@@ -365,80 +385,25 @@ class html_rsg2_galleries{
 					</td>
 				</tr>
 				</table><br/>
-				<table class="adminform">
-				<?php
-				if ($rsgConfig->get('acl_enabled')) {
-					?>
-					<tr>
-						<th colspan="1"><?php echo JText::_('COM_RSGALLERY2_PERMISSIONS')?></th>
-					</tr>	                
-					<?php
-					if ( !isset($row->id) ) {
-					?>
-	
-					<tr>
-						<td><?php echo JText::_('COM_RSGALLERY2_GAL_DEF_PERM_CREATE')?></td>
-					</tr>
-					<?php
-					} else {
-						$perms = $rsgAccess->returnPermissions($row->id);
-	
-						if ( !$perms ) {
-							?>
-							<tr>
-								<td colspan="6"><?php echo JText::_('COM_RSGALLERY2_GAL_NO_PERM_FOUND')?></td>
-							</tr>
-							<?php	
-						} else {
-							?>
-							<tr>
-								<td>
-								<table class="adminform" border="0" width="100%">
-								<tr>
-									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo JText::_('COM_RSGALLERY2_USERTYPE')?></span></td>
-									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo JText::_('COM_RSGALLERY2_VIEW_GALLERY')?></span></td>
-									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_EDIT_IMAGES')?></span></td>
-									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo JText::_('COM_RSGALLERY2_DELETE_IMAGE')?></span></td>
-									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo JText::_('COM_RSGALLERY2_MODIFY_GALLERY')?></span></td>
-									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo JText::_('COM_RSGALLERY2_DELETE_GALLERY')?></span></td>
-									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo JText::_('COM_RSGALLERY2_VIEW_VOTES')?></span></td>
-									<td valign="top" width="50"><span style="font-weight:bold;"><?php echo JText::_('COM_RSGALLERY2_VOTE')?></span></td>
-								</tr>
-								<tr>
-									<td><span style="font-weight:bold;"><?php echo JText::_('COM_RSGALLERY2_PUBLIC')?></span></td>
-									<td><input id="p0" type="checkbox" name="perm[0]" value="1" <?php if ($perms->public_view == 1) echo "CHECKED";?>></td>
-									<td><input id="p1" type="checkbox" name="perm[1]" value="1" <?php if ($perms->public_up_mod_img == 1) echo "CHECKED";?>></td>
-									<td><input id="p2" type="checkbox" name="perm[2]" value="1" <?php if ($perms->public_del_img == 1) echo "CHECKED";?>></td>
-									<td><input id="p3" type="checkbox" name="perm[3]" value="1" <?php if ($perms->public_create_mod_gal == 1) echo "CHECKED";?>></td>
-									<td><input id="p4" type="checkbox" name="perm[4]" value="1" <?php if ($perms->public_del_gal == 1) echo "CHECKED";?>></td>
-									<td><input id="p5" type="checkbox" name="perm[5]" value="1" <?php if ($perms->public_vote_view == 1) echo "CHECKED";?>></td>
-									<td><input id="p6" type="checkbox" name="perm[6]" value="1" <?php if ($perms->public_vote_vote == 1) echo "CHECKED";?>></td>
-								</tr>
-								<tr>
-									<td><span style="font-weight:bold;"><?php echo JText::_('COM_RSGALLERY2_REGISTERED')?></span></td>
-									<td><input id="p7" type="checkbox" name="perm[7]" value="1" <?php if ($perms->registered_view == 1) echo "CHECKED";?>></td>
-									<td><input id="p8" type="checkbox" name="perm[8]" value="1" <?php if ($perms->registered_up_mod_img == 1) echo "CHECKED";?>></td>
-									<td><input id="p9" type="checkbox" name="perm[9]" value="1" <?php if ($perms->registered_del_img == 1) echo "CHECKED";?>></td>
-									<td><input id="p10" type="checkbox" name="perm[10]" value="1" <?php if ($perms->registered_create_mod_gal == 1) echo "CHECKED";?>></td>
-									<td><input id="p11" type="checkbox" name="perm[11]" value="1" <?php if ($perms->registered_del_gal == 1) echo "CHECKED";?>></td>
-									<td><input id="p12" type="checkbox" name="perm[12]" value="1" <?php if ($perms->registered_vote_view == 1) echo "CHECKED";?>></td>
-									<td><input id="p13" type="checkbox" name="perm[13]" value="1" <?php if ($perms->registered_vote_vote == 1) echo "CHECKED";?>></td>
-								</tr>
-								<tr>
-									<td colspan="6"><input type="checkbox" name="checkbox0" value="true" onClick='selectAll()'><?php echo ' '.JText::_('COM_RSGALLERY2_SELECT_DESELECT_ALL')?></td>
-								</tr>
-								</table>
-								</td>
-							</tr>
-							<?php
-						}
-					}
-				}
-				?>
-				</table>
 			</td>
 		</tr>
 		</table>
+
+		<div class="clr"></div>
+
+<?php //Create the rules slider at the bottom of the page
+//if ($this->canDo->get('core.admin')): ?>
+			<div  class="width-100 fltlft">
+				<?php echo JHtml::_('sliders.start','permissions-sliders-'.$row->id, array('useCookie'=>1)); ?>
+				<?php echo JHtml::_('sliders.panel',JText::_('COM_RSGALLERY2_FIELDSET_RULES'), 'access-rules'); ?>	
+					<fieldset class="panelform">
+						<?php echo $form->getLabel('rules'); ?>
+						<?php echo $form->getInput('rules'); ?>
+					</fieldset>
+				<?php echo JHtml::_('sliders.end'); ?>
+			</div>
+<?php //endif; ?>
+
 		<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
 		<input type="hidden" name="rsgOption" value="<?php echo $rsgOption;?>" />
 		<input type="hidden" name="option" value="<?php echo $option;?>" />

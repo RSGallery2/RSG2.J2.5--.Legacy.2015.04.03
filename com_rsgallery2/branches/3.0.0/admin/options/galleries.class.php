@@ -3,7 +3,7 @@
 * category class
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2005 - 2006 RSGallery2
+* @copyright (C) 2005 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 **/
@@ -34,6 +34,7 @@ class rsgGalleriesItem extends JTable {
     var $uid = null;
     var $allowed = null;
     var $thumb_id = null;
+	var $asset_id = null;
 
     /**
     * @param database A database connector object
@@ -80,6 +81,63 @@ class rsgGalleriesItem extends JTable {
         }
         return true;
     }
+	/**
+	 * Method to compute the default name of the asset.
+	 * The default name is in the form `com_rsgallery2.gallery.id`
+	 * where id is the value of the primary key of the table.
+	 *
+	 * @return      string
+	 */
+	protected function _getAssetName() {
+		$k = $this->_tbl_key;
+		return 'com_rsgallery2.gallery.'.(int) $this->$k;
+	}
+	/**
+	 * Method to return the title to use for the asset table.
+	 *
+	 * @return      string
+	 */
+	protected function _getAssetTitle() {
+		return $this->name;
+	}
+	/**
+	 * Get the parent asset id for the gallery
+	 *
+	 * @return      int
+	 */
+	protected function _getAssetParentId() {
+		// Initialise variables
+		$assetId = null;
+		$db		= $this->getDbo();	//$this is the rsgGalleriesItem object
+
+		//If the current gallery has the Top gallery as a parent, the parent asset is the one of the extension
+		if ($this->parent == 0){
+			$asset = JTable::getInstance('Asset');
+			$asset->loadByName('com_rsgallery2');
+			$assetId = $asset->id;
+		}
+		//else the parent asset is the asset of the parent gallery 
+		else {
+			// Build the query to get the asset id for the parent category.
+			$query	= $db->getQuery(true);
+			$query->select('asset_id');
+			$query->from('#__rsgallery2_galleries');
+			$query->where('id = '.(int) $this->parent);
+
+			// Get the asset id from the database.
+			$db->setQuery($query);
+			if ($result = $db->loadResult()) {
+				$assetId = (int) $result;
+			}
+		}
+	
+		// Return the asset id.
+		if ($assetId) {
+			return $assetId;
+		} else {
+			return parent::_getAssetParentId($table, $id);
+		}
+	}
 }
 
 /**

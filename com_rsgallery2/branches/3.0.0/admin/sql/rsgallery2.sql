@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS `#__rsgallery2_galleries` (
   `uid` int(11) unsigned NOT NULL default '0',
   `allowed` varchar(100) NOT NULL default '0',
   `thumb_id` int(11) unsigned NOT NULL default '0',
+  `asset_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'FK to the #__assets table.',
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
 
@@ -41,6 +42,7 @@ CREATE TABLE IF NOT EXISTS `#__rsgallery2_files` (
   `approved` tinyint(1) unsigned NOT NULL default '1',
   `userid` int(10) NOT NULL,
   `params` text NOT NULL,
+  `asset_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'FK to the #__assets table.',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `UK_name` (`name`),
   KEY `id` (`id`)

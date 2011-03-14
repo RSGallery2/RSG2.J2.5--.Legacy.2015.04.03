@@ -3,7 +3,7 @@
 * RSGallery2 Toolbar Menu HTML
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2010 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 **/
 
@@ -91,7 +91,8 @@ class menu_rsg2_images{
     function edit() {
         global $id;
 
-        JToolBarHelper::save();
+        JToolBarHelper::apply();
+		JToolBarHelper::save();
         JToolBarHelper::spacer();
         if ( $id ) {
             // for existing content items the button is renamed `close`
@@ -137,7 +138,8 @@ class menu_rsg2_galleries{
     function edit() {
         global $id;
 
-        JToolBarHelper::save();
+        JToolBarHelper::apply();
+		JToolBarHelper::save();
         JToolBarHelper::spacer();
         if ( $id ) {
             // for existing content items the button is renamed `close`
@@ -262,6 +264,8 @@ class menuRSGallery {
 
 	function simple(){
         JToolBarHelper::title( JText::_('COM_RSGALLERY2_CONTROL_PANEL'), 'generic.png' );
+		//options button, only for uses who are allowed to see/use this
+		JToolBarHelper::preferences('com_rsgallery2');
         JToolBarHelper::help('screen.rsgallery2', true);
         //menuRSGallery::adminTasksMenu();
     }
