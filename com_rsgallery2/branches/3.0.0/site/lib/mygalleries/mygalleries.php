@@ -1,9 +1,9 @@
 <?php
 /**
 * This file contains code for frontend My Galleries.
-* @version xxx
+* @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2010 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -12,10 +12,11 @@ global $rsgConfig;//MK// [not used check]	$mainframe
 $document=& JFactory::getDocument();
 
 if($document->getType() == 'html') {
-	$css = "<link rel=\"stylesheet\" href=\"".JURI::root()."components/com_rsgallery2/lib/mygalleries/mygalleries.css\" type=\"text/css\" />";	
-	$document->addCustomTag($css);
-	$css = "<link rel=\"stylesheet\" href=\"".JURI::root()."components/com_rsgallery2/templates/".$rsgConfig->template."/css/template.css\" type=\"text/css\" />";
-	$document->addCustomTag($css);
+	$cssTemplate = JURI_SITE."components/com_rsgallery2/templates/".$rsgConfig->template."/css/template.css";
+	$document->addStyleSheet($cssTemplate);
+	$cssMyGalleries = JURI_SITE."components/com_rsgallery2/lib/mygalleries/mygalleries.css";	
+	$document->addStyleSheet($cssMyGalleries);
+	
 }
 
 //Load required class file
@@ -26,7 +27,8 @@ require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'mygalleries' . DS . 'my
 //$cid	= JRequest::getInt('gid', $cid );//no longer neccessary?
 $task   = JRequest::getVar('task', '' );
 $id		= JRequest::getInt('id','' );
-$gid	= JRequest::getInt('gid','' );	//Mirjam: In v1.13 catid was used where since v1.14 gid is used
+$gid	= JRequest::getInt('gid','' );
+$currentState = JRequest::getInt('currentstate','' );
 
 switch( $task ){
     case 'saveUploadedItem':
@@ -53,6 +55,12 @@ switch( $task ){
     case 'deleteCat':
     	deleteCat();
     	break;
+	case 'editStateGallery':
+		editStateGallery($gid, 1-$currentState);
+		break;
+	case 'editStateItem':
+		editStateItem($id, 1-$currentState);
+		break;
 	default:
 		showMyGalleries();
 		break;
@@ -64,6 +72,11 @@ function showMyGalleries() {
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
 	
+//MK change this: if user has 
+//(core.login.site) and 
+//((core.create on a gallery or the rsg2 component) OR
+//(edit OR edit.state OR edit.own OR delete for a gallery or the RSG2 component))
+//then it's ok
 	//Check if My Galleries is enabled in config, if not .............. 
 	if ( !$rsgConfig->get('show_mygalleries') ) die(JText::_('COM_RSGALLERY2_UNAUTHORIZED_ACCESS_ATTEMPT_TO_MY_GALLERIES'));
 	
@@ -105,17 +118,19 @@ function deleteItem() {
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
 	$id = JRequest::getInt( 'id'  , '');
+	$Itemid = JRequest::getInt( 'Itemid'  , '');
 	if ($id) {		
 		//Get gallery id
 		$gallery_id = galleryUtils::getCatidFromFileId($id);
 		
+//MK Change: if core.delete is allowed in this gallery		
 		//Check if file deletion is allowed in this gallery
 		if ($rsgAccess->checkGallery('del_img', $gallery_id )) {
 			$filename 	= galleryUtils::getFileNameFromId($id);
 			imgUtils::deleteImage($filename);
-			$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries"), JText::_('COM_RSGALLERY2_IMAGE_IS_DELETED') );
+			$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid",false), JText::_('COM_RSGALLERY2_IMAGE_IS_DELETED') );
 		} else {
-			$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries"), JText::_('COM_RSGALLERY2_USERIMAGE_NOTOWNER') );
+			$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid",false), JText::_('COM_RSGALLERY2_USERIMAGE_NOTOWNER') );
 		}
 	} else {
 		//No ID sent, no delete possible, back to my galleries
@@ -412,4 +427,49 @@ function deleteCat() {
 		$mainframe->redirect( $redirect ,JText::_('COM_RSGALLERY2_USER_CAT_NOTOWNER'));
 	}
 }
+
+//--
+function editStateGallery($galleryId, $newState) {
+	global $rsgConfig;
+	$mainframe =& JFactory::getApplication();
+	$my = JFactory::getUser();
+	$database = JFactory::getDBO();
+
+	//If gallery creation is disabled, unauthorized attempts die here.
+	if (!$rsgConfig->get('uu_createCat')) die ("User category creation is disabled by administrator.");
+	
+	//Set redirect URL
+	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
+	
+	if ($galleryId) {
+		$database->setQuery("UPDATE #__rsgallery2_galleries SET ".
+			"published = $newState ".
+			"WHERE id = $galleryId ");
+		if ($database->query()) {
+			$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_GALLERY_DETAILS_UPDATED') );
+		} else {
+			$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_COULD_NOT_UPDATE_GALLERY_DETAILS') );
+		}
+	}
+	//$mainframe->redirect( $redirect  );
+}
+function editStateItem($id, $newState) {
+	$mainframe =& JFactory::getApplication();
+	$database = JFactory::getDBO();
+	
+	//Set redirect URL
+	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
+	
+	$database->setQuery("UPDATE #__rsgallery2_files SET ".
+			"published = $newState ".
+			"WHERE id= '$id'");
+
+	if ($database->query()) {
+		$mainframe->redirect(JRoute::_( $redirect ), JText::_('COM_RSGALLERY2_DETAILS_SAVED_SUCCESFULLY') );
+	} else {
+		//echo JText::_('COM_RSGALLERY2_ERROR-').mysql_error();
+		$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_COULD_NOT_UPDATE_IMAGE_DETAILS') );
+	}
+}
+//--
 ?>
