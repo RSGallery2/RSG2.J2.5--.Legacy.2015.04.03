@@ -3,7 +3,7 @@
 * Changelog for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2010 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 **/
@@ -39,6 +39,9 @@ Legend:
 ! To do: Installation of template does not function (yet)
 
 ---------------- Recent ----------------
+
+2011-03-21 Mirjam - SVN 1015
+^ Frontend My galleries works (also with Joomla SEF): edit/delete/create image/gallery, but without ACL
 
 2011-03-14 Mirjam - SVN 1014
 + Save button on edit image and edit gallery pages (addition to save & close)

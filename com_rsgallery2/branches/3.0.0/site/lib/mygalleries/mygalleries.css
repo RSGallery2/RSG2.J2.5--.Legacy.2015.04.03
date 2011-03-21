@@ -7,7 +7,7 @@ table.adminlist {
 	background-color: #FFFFFF;
 	margin: 0px;
 	padding: 0px;
-	border: 1px solid #ddd;
+	border: 0px solid #ddd;
 	border-spacing: 0px;
 	width: 100%;
 	border-collapse: collapse;
@@ -41,8 +41,9 @@ table.adminlist tr.row0 {
 table.adminlist tr.row1 {
 	background-color: #FFF;
 }
-table.adminlist td {
+table.adminlist td, tr {
 	border-bottom: 1px solid #e5e5e5;
+	border: 0px;
 	padding: 4px;
 }
 table.adminlist tr.row0:hover {
@@ -99,10 +100,10 @@ table.adminform td.editor {
 /*Added JToolBar styling to mygalleries.css*/
 /** toolbar icons: in dir JOOMLAROOT\components\com_rsgallery2\images **/
 .icon-32-cancel { 
-	background-image: url(../../images/cancel_f2.png); 
+	background-image: url(../../images/icon-32-cancel.png); 
 }
 .icon-32-save{ 
-	background-image: url(../../images/save_f2.png); 
+	background-image: url(../../images/icon-32-save.png); 
 }
 /* Main toolbars J!1.6 */
 div.toolbar-list {
