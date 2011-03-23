@@ -10,6 +10,7 @@
 		<action name="core.delete" title="JACTION_DELETE" description="JACTION_DELETE_COMPONENT_DESC" />
 		<action name="core.edit" title="JACTION_EDIT" description="JACTION_EDIT_COMPONENT_DESC" />
 		<action name="core.edit.state" title="JACTION_EDITSTATE" description="JACTION_EDITSTATE_COMPONENT_DESC" />
+		<action name="core.edit.own" title="JACTION_EDITOWN" description="JACTION_EDITOWN_COMPONENT_DESC" />
 	</section>
 	<!-- define actions for com_rsgallery2 gallery (permissions at bottom of edit gallery screen) -->
 	<section name="gallery">
@@ -17,6 +18,7 @@
 		<action name="core.delete" title="JACTION_DELETE" description="COM_RSGALLERY2_ACCESS_GALLERY_DELETE_DESC" />
 		<action name="core.edit" title="JACTION_EDIT" description="COM_RSGALLERY2_ACCESS_GALLERY_EDIT_DESC" />
 		<action name="core.edit.state" title="JACTION_EDITSTATE" description="COM_RSGALLERY2_ACCESS_GALLERY_EDITSTATE_DESC" />
+		<action name="core.edit.own" title="JACTION_EDITOWN" description="COM_RSGALLERY2_ACCESS_GALLERY_EDITOWN_DESC" />
 	</section>
 	<!-- define actions for com_rsgallery2 images (permissions at bottom of edit gallery screen) -->
 	<section name="item">

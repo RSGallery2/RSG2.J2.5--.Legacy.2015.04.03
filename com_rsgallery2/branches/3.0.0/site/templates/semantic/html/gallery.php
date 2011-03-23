@@ -1,9 +1,18 @@
-<?php defined('_JEXEC') or die('Restricted access'); ?>
-
 <?php
+/**
+ * RSGallery2
+ * @version $Id$
+ * @package RSGallery2
+ * @copyright (C) 2003 - 2011 RSGallery2
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ */
+defined('_JEXEC') or die('Restricted access');
+
+//Testing
 echo('<!-- using template parameter: testParameter = ' . $this->params->get('testParameter') .' -->');
-//Show My Galleries link
-if ($rsgConfig->get('show_mygalleries')) {
+
+//Show My Galleries link (if user is logged in (user id not 0))
+if ($rsgConfig->get('show_mygalleries') AND (JFactory::getUser()->id)) {
 	echo $this->showRsgHeader();
 }
 //show search box

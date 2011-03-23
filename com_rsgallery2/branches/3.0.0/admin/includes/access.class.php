@@ -64,11 +64,15 @@ class rsgAccess extends JObject{
 	/**
 	 * Checks whether Access Control is activated by the user
 	 * @return boolean True or False
+	 * @depracated since v3
 	 */
 	function aclActivated() {
+		/*acl_enabled is depracated since v3, so always return 0
 		global $rsgConfig;
 		$enabled = $rsgConfig->get('acl_enabled');
 		return $enabled;
+		*/
+		return 0;
 	}
 	
 	/**

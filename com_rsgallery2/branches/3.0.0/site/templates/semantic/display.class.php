@@ -214,7 +214,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 		if(( $my->id <> 0 ) and (( $this->gallery->uid == $my->id ) OR ( $my->usertype == 'Super Administrator' )))
 			$this->allowEdit = true;
 		else
-			$this->allowEdit = false;
+			$this->allowEdit = true;
 
 		switch( $rsgConfig->get( 'display_thumbs_style' )){
 			case 'float':

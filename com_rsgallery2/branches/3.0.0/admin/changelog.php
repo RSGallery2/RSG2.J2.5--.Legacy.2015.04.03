@@ -30,18 +30,28 @@ Legend:
 - -> Removed
 ! -> Note
 
-! To do: Implement rules – now there is NO ACL at all (not even the ACL that was present in J!1.5)
-	The following examples get the correct rules, but are not implemented in the code yet:
-	$user->authorise('core.admin', 'com_rsgallery2');
-	$user->authorise('core.delete', 'com_rsgallery2.gallery.77');
-	$user->authorise('core.edit', 'com_rsgallery2.item.42');
-! To do: move/copy image: set correct parent asset (is ok for changing parent gallery for images of subgalleries in edit screens)
-! To do: Installation of template does not function (yet)
+! To do: Frontend: Newly created objects in My galleries should get an asset.
+! To do: Frontend: My galleries only shows two levels of galleries due to is implementation: change to show all levels.
+! To do: Frontend: When in My galleries an object gets a new parent, its asset should get a new parent.
+! To do: Backend: Implement ACL core.edit/edit.own/edit.state/delete.
+! To do: Backend: Move/copy button for images: set correct parent asset (it is ok for changing parent gallery for images of subgalleries in Edit screens).
+! To do: Backend: Installation of template does not function (yet).
+! To do: Remove deprecated rsgAccess (class extending JObject) in v3.
+! To do: For logged in users v2 has (non functional) edit/delete buttons for admin within gallery (template semantic/html/thumbs_float.php and thumbs_table.php within div id="rsg2-adminButtons") with permission in template/semantic/display class: either remove or implement this.
+! To do: Backend item owner changes upon save: should be choice if allowed like with galleries, and should show.
+! To do: "//MK// [todo]" things
 
 ---------------- Recent ----------------
 
+2011-03-23 Mirjam - SVN 1016
+- Removed pre-J!1.6 ACL config variables uu_createCat (can user create categories) and acl_enabled (enable ACL)
+^ Implemented ACL in My galleries (frontend user upload/edit/create/editstate)!!!
+! To do: Newly created objects in My galleries should get an asset.
+! To do: When in My galleries an object gets a new parent, its asset should get a new parent.
+
 2011-03-21 Mirjam - SVN 1015
 ^ Frontend My galleries works (also with Joomla SEF): edit/delete/create image/gallery, but without ACL
+^ Backend implemented ACL core.admin & core.manage (edit/delete/etc. is available to users with core.manage at this point).
 
 2011-03-14 Mirjam - SVN 1014
 + Save button on edit image and edit gallery pages (addition to save & close)

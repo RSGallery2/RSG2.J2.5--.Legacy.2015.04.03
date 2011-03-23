@@ -728,32 +728,22 @@ class html_rsg2_config{
 		//$tmpl->displayParsedTemplate( 'configTableFrontDisplay' );
 		echo $tabs->endPanel();
 	
-		echo $tabs->startPanel( JText::_('COM_RSGALLERY2_PERMISSIONS'), 'rsgConfig' );
+		echo $tabs->startPanel( JText::_('COM_RSGALLERY2_MY_GALLERIES'), 'rsgConfig' );
 		?>
 		<table border="0" width="100%">
 			<tr>
 				<td>
 					<fieldset>
-					<legend><?php echo JText::_('COM_RSGALLERY2_ACCESS_CONTROL_SETTINGS')?></legend>
-					<table width="100%">
-					<tr>
-						<td width="200"><?php echo JText::_('COM_RSGALLERY2_ENABLE_ACCESS_CONTROL')?></td>
-						<td><fieldset id="jform_block" class="radio">
-						<?php echo JHTML::_("select.booleanlist",'acl_enabled', '', $config->acl_enabled)?></fieldset>
-						</td>
-					</tr>
-					<tr>
-						<td><?php echo JText::_('COM_RSGALLERY2_SHOW_MY_GALLERIES')?></td>
-						<td><fieldset id="jform_block" class="radio">
-						<?php echo JHTML::_("select.booleanlist",'show_mygalleries', '', $config->show_mygalleries)?></fieldset></td>
-					</tr>	
-					<tr>
-						<td><?php echo JText::_('COM_RSGALLERY2_CAN_USER_CREATE_GALLERIES')?></td>
-						<td><fieldset id="jform_block" class="radio">
-						<?php echo JHTML::_("select.booleanlist",'uu_createCat', '', $config->uu_createCat)?>
-						</fieldset></td>
-					</tr>	
-					</table>
+					<legend><?php echo JText::_('COM_RSGALLERY2_MY_GALLERIES_SETTINGS')?></legend>
+						<table width="100%">
+							<tr>
+								<td width="200"><?php echo JHTML::tooltip(JText::_('COM_RSGALLERY2_SHOW_MY_GALLERIES_TOOLTIP'), JText::_('COM_RSGALLERY2_SHOW_MY_GALLERIES'), 
+							'', JText::_('COM_RSGALLERY2_SHOW_MY_GALLERIES')); ?>
+								</td>
+								<td><fieldset id="jform_block" class="radio">
+								<?php echo JHTML::_("select.booleanlist",'show_mygalleries', '', $config->show_mygalleries)?></fieldset></td>
+							</tr>
+						</table>
 					</fieldset>
 				</td>
 			</tr>
