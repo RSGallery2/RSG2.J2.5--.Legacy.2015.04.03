@@ -77,20 +77,21 @@ class rsgGalleryManager{
 
 		$gallery = rsgGalleryManager::_get( $id );
 
+/*	//MK removed published check in v3 since acl_enabled is deprecated @todo
 		// if gallery is unpublished don't show it unless ACL is enabled and users has permissions to modify (owners can view their unpublished galleries).
 		if( $gallery->get('published') < 1 ) {
-			
 			// if user is admin or superadmin then always return the gallery
 			if ( 1			   ){ //MK// [change] [only admin + may see this]
 		//	if ( $my->gid > 23 ) //MK// [change] [only admin + may see this]
 				return $gallery;
 			}
-			if( $rsgConfig->get( 'acl_enabled' )){
+			if( $rsgConfig->get( 'acl_enabled' )){//MK this checks for edit permission of gallery
 				if( !$rsgAccess->checkGallery( 'create_mod_gal', $id )) die("RSGallery2: Access denied to gallery $id");
 			}
 			else
 				die("RSGallery2: Access denied to gallery $id");
 		}
+*/
 
 		return $gallery;
 	}
@@ -144,19 +145,12 @@ class rsgGalleryManager{
         $galleries = array();
 
         foreach( $rows as $row ){
-            // check if user has view access
-            if( !$rsgAccess->checkGallery( 'view', $row['id'] )) continue;
-
             // if gallery is unpublished don't show it unless ACL is enabled and users has permissions to modify (owners can view their unpublished galleries).
             if( $row['published']<1 ){
-                if( $rsgConfig->get( 'acl_enabled' )){
-                    if( !$rsgAccess->checkGallery( 'create_mod_gal', $row['id'] )) continue;
-                }
-                else{
-                    continue;
-                }
+				//MK// [todo] [if logged in user has no edit permission 'continue']
+				continue;
+				//MK// [todo] else return the gallery, it'll display a red H icon to show that the gallery is unpublished in the frontend]
             }
-            
             $galleries[] = new rsgGallery( $row );
         }
 

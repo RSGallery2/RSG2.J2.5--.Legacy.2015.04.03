@@ -4,7 +4,7 @@
 *
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 **/
@@ -98,7 +98,8 @@ class galleryUtils {
      * @todo Make all categories visible if user is Super Administrator
      */
     function showCategories($s_id = 0, $uid, $selectname = 'i_cat') {
-	global $database, $dropdown_html;
+	global $dropdown_html;
+	$database =& JFactory::getDBO();
 	$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE parent = '0' AND uid = '$uid' ORDER BY ordering ASC");
 	$rows = $database->loadObjectList();
 	$dropdown_html = "<select name=\"$selectname\"><option value=\"0\" SELECTED>".JText::_('COM_RSGALLERY2_SELECT_GALLERY_FROM_LIST')."</option>\n";
@@ -133,16 +134,30 @@ class galleryUtils {
 	 * @param string Action type
 	 * @param string Name of the select box, defaults to 'catid'
 	 * @param integer ID of selected gallery
+	 * @param string Additional select tag attributes
 	 * @return HTML to show selectbox
 	 */
-	function showUserGalSelectList($action = '', $select_name = 'catid', $gallery_id = null, $js = '') {
+	function showUserGalSelectList($action = '', $select_name = 'catid', $gallery_id = null, $js = '',$showTopGallery = false) {
 		global $rsgAccess;
-		
+		$user = JFactory::getUser();
+
 		//Get gallery Id's where action is permitted and write to string
-		$galleries = $rsgAccess->actionPermitted($action);
+		//$galleries = $rsgAccess->actionPermitted($action);//MK ACL deprecated
+		$galleriesAllowed = galleryUtils::getAuthorisedGalleries($action);
+
+		$dropdown_html = '<select name="'.$select_name.'" '.$js.'><option value="-1" selected="selected" >'.JText::_('COM_RSGALLERY2_SELECT_GALLERY_FROM_LIST').'</option>';
 		
-		$dropdown_html = "<select name=\"$select_name\" $js><option value=\"0\" SELECTED>".JText::_('COM_RSGALLERY2_SELECT_GALLERY_FROM_LIST')."</option>\n";
-		$dropdown_html .= galleryUtils::addToGalSelectList(0, 0, $gallery_id, $galleries);
+		if ($showTopGallery) {
+			$dropdown_html .= "<option value=0";
+			// Disable when action not allowed or user not owner
+			if (!$user->authorise($action, 'com_rsgallery2'))
+				$dropdown_html .= ' disabled="disabled"';
+			if ($row->id == 0)
+				$dropdown_html .= ' selected="selected"';
+			$dropdown_html .= ' >- '.JText::_('COM_RSGALLERY2_TOP_GALLERY').' -</option>';
+		}
+		
+		$dropdown_html .= galleryUtils::addToGalSelectList(0, 0, $gallery_id, $galleriesAllowed);
 		echo $dropdown_html."</select>";
 	}
 
@@ -154,22 +169,22 @@ class galleryUtils {
 	 * @param list of permitted galleries
 	 * @return HTML to add
 	 */
-	function addToGalSelectList($level, $galid, $gallery_id, $galleries) {
+	function addToGalSelectList($level, $galid, $gallery_id, $galleriesAllowed) {
 		// provided by Klaas on Dec.13.2007
 		$database = JFactory::getDBO();		
-		
+
 		$dropdown_html = "";
 		$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE parent = '$galid' ORDER BY ordering ASC");
 		$rows = $database->loadObjectList();
 		foreach ($rows as $row) {
 			$dropdown_html .= "<option value=\"$row->id\"";
 			// Disable when action not allowed or user not owner
-			if (!in_array($row->id, $galleries))
-				$dropdown_html .= " DISABLED";
+			if (!in_array($row->id, $galleriesAllowed))
+				$dropdown_html .= ' disabled="disabled"';
 
 			if ($row->id == $gallery_id)
-				$dropdown_html .= " SELECTED";
-			
+				$dropdown_html .= ' selected="selected"';
+
 			$dropdown_html .= " >";
 			$indent = "";
 			for ($i = 0; $i < $level; $i++) {
@@ -178,12 +193,12 @@ class galleryUtils {
 			if ($level)
 				$indent .= "|--&nbsp;";
 			$dropdown_html .=  $indent.$row->name."</option>\n";
-			$dropdown_html .=  galleryUtils::addToGalSelectList($level + 1, $row->id, $gallery_id, $galleries);
+			$dropdown_html .=  galleryUtils::addToGalSelectList($level + 1, $row->id, $gallery_id, $galleriesAllowed);
 		}
 		return $dropdown_html;
 	}
 	
-    /**
+    /** //MK// [todo] only for allowed parents...
      * build the select list to choose a parent gallery for a specific user
      * @param int current gallery id
      * @param string selectbox name
@@ -310,7 +325,6 @@ class galleryUtils {
      */
      
     function getThumb($catid, $height = 0, $width = 0,$class = "") {
-	    //global $mainframe ; //MK// [removed for Joomla 1.6]	
 		$database = JFactory::getDBO();
 	    
 	    //Setting attributes for image tag
@@ -428,7 +442,7 @@ class galleryUtils {
      * @param Category ID
      */
     function regenerateThumbs ($catid = NULL) {
-    global $database, $rsgConfig;
+    global $rsgConfig;
     $i = 0;
     $files  = mosReadDirectory( JPATH_ROOT.$rsgConfig->get('imgPath_original') );
     //check if size is changed
@@ -746,7 +760,6 @@ class galleryUtils {
 	 * @return HTML for downloadlink
 	 */
 	 function writeDownloadLink($id, $showtext = true, $type = 'button') {
-	 	//global $mainframe; //MK// [removed for Joomla 1.6]	
 	 	echo "<div class=\"rsg2-toolbar\">";
 	 	if ($type == 'button')
 	 		{
@@ -773,7 +786,7 @@ class galleryUtils {
 	 }
 	 
 	function writeGalleryStatus( $gallery ) {
-		global $rsgConfig, $rsgAccess; //MK// [removed for Joomla 1.6]	only $mainframe
+		global $rsgConfig;
 		$my =& JFactory::getUser();
 		
 		// return if status is not displayed
@@ -803,8 +816,8 @@ class galleryUtils {
 		//Check if gallery is published
 		if ($gallery->published == 0)
 			$html .= $unpublished;
-		
-		if ( $rsgAccess->checkGallery('up_mod_img', $gallery->id) )
+
+		if ($my->authorise('core.create','com_rsgallery2.gallery.'.$gallery->id)) 
 			$html .= $upload;
 
 		return $html;
@@ -912,7 +925,7 @@ class galleryUtils {
 	                    }
 	                    $position = $position + strlen($replace_string);
 	                }
-	            } 
+	            }
 	        }
 	    }
 	    return $string;
@@ -926,5 +939,33 @@ class galleryUtils {
 			return false;
 		}
 	}
-}//end class
+
+   /**
+	* Method to return a list of all galleries that a user has permission for a given action
+	* @param	string	$action	The action
+	* @return	array	List of galleries that the user can do this action to (empty array if none). Galleries may be unpublished
+	*/
+	
+	function getAuthorisedGalleries($action){
+		$user = JFactory::getUser();
+		// Brute force method: get all gallery rows for the component and check each one
+		$db = JFactory::getDbo();
+		$query  = $db->getQuery(true)
+				->select('id')
+				->from('#__rsgallery2_galleries');
+		//		->where('published = 1');
+		$db->setQuery($query);
+		$allGalleries = $db->loadObjectList('id');
+		$allowedGalleries = array();
+		foreach ($allGalleries as $gallery) {
+			$asset = 'com_rsgallery2.gallery.'.$gallery->id;
+			$allowed = $user->authorise($action, $asset);
+			if ($allowed) {
+				$allowedGalleries[] = (int) $gallery->id;     
+			}
+		}
+		return $allowedGalleries;
+	}
+	
+}//end class galleryUtils
 ?>

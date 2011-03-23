@@ -28,7 +28,7 @@ $i = 0;
 				<span class="rsg2_thumb_name">
 					<?php echo htmlspecialchars(stripslashes($item->title), ENT_QUOTES); ?>
 				</span>
-				<?php endif; ?>
+				<?php endif;?>
 				<?php if( $this->allowEdit ): ?>
 				<div id="rsg2-adminButtons">
 					<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&page=edit_image&id=".$item->id); ?>"><img src="<?php echo JURI::base(); ?>/administrator/images/edit_f2.png" alt="" height="15" /></a>

@@ -208,7 +208,7 @@ function edit( $option, $id ) {
  * @param database A database connector object
  */
 function save( $option ) {
-    global $rsgOption, $rsgAccess, $rsgConfig;
+    global $rsgOption, $rsgConfig;
 	$mainframe = &JFactory::getApplication();
 
 	$my =& JFactory::getUser();
@@ -273,12 +273,6 @@ function save( $option ) {
     $row->checkin();
     $row->reorder( );
     
-    //If acl is enabled, set permissions array and save them to the DB
-    if ( $rsgConfig->get('acl_enabled') ) {
-    	$perms = $rsgAccess->makeArrayComplete( JRequest::getVar( 'perm', array() ) );
-    	$rsgAccess->savePermissions($perms, $row->id);
-    }
-
 	//Redirect based on save or apply task
 	if ($task == 'save') {
 		$mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption" );

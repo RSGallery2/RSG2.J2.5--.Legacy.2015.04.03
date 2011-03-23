@@ -8,7 +8,7 @@
 * RSGallery is Free Software
 */
 defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
-global $rsgConfig;//MK// [not used check]	$mainframe
+global $rsgConfig;
 $document=& JFactory::getDocument();
 
 if($document->getType() == 'html') {
@@ -23,8 +23,6 @@ if($document->getType() == 'html') {
 require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'mygalleries' . DS . 'mygalleries.class.php' );
 
 //Get parameters from URL and/or form
-//$cid	= JRequest::getInt('cid', array(0) );//no longer neccessary?
-//$cid	= JRequest::getInt('gid', $cid );//no longer neccessary?
 $task   = JRequest::getVar('task', '' );
 $id		= JRequest::getInt('id','' );
 $gid	= JRequest::getInt('gid','' );
@@ -93,11 +91,14 @@ function showMyGalleries() {
 	$pageNav = new JPagination( $total, $limitstart, $limit );
 	
 	$database->setQuery("SELECT * FROM #__rsgallery2_files" .
-						" WHERE userid = '$my->id'" .
+	//					" WHERE userid = '$my->id'" .	//Limit to items for this user
 						" ORDER BY date DESC" .
 						" LIMIT $pageNav->limitstart, $pageNav->limit");
 	$images = $database->loadObjectList();
-	$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE parent = 0 AND uid = '$my->id'");
+	$database->setQuery("SELECT * FROM #__rsgallery2_galleries"
+						." WHERE parent = 0 " 
+	//					." AND uid = '$my->id'" 		//Limit to galleries for this user
+						);
 	$rows = $database->loadObjectList();
 	
 	if($my->id) {
@@ -105,7 +106,7 @@ function showMyGalleries() {
 		myGalleries::viewMyGalleriesPage($rows, $images, $pageNav);
 	} else {
 		//Not logged in, back to main page
-		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2"), JText::_('COM_RSGALLERY2_USER_GALLERIES_ARE_DISABLED_BY_ADMINISTRATOR') );
+		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2"), JText::_('COM_RSGALLERY2_MY_GALLERIES_NEED_TO_LOGIN') );
 	}	
 }
 
@@ -299,9 +300,6 @@ function saveCat() {
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
 
-	//If gallery creation is disabled, unauthorized attempts die here.
-	if (!$rsgConfig->get('uu_createCat')) die ("User category creation is disabled by administrator.");
-	
 	//Set redirect URL
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
 	
@@ -434,9 +432,6 @@ function editStateGallery($galleryId, $newState) {
 	$mainframe =& JFactory::getApplication();
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
-
-	//If gallery creation is disabled, unauthorized attempts die here.
-	if (!$rsgConfig->get('uu_createCat')) die ("User category creation is disabled by administrator.");
 	
 	//Set redirect URL
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);

@@ -89,10 +89,10 @@ class rsgConfig {
     // user uploads
 	var $uu_enabled         = 0;
 	//var $uu_registeredOnly  = 1;
-	var $uu_createCat       = 0;
+	var $uu_createCat       = 0;	//deprecated in v3 (Can user create galleries?)
 	var $uu_maxCat          = 5;
 	var $uu_maxImages       = 50;
-	var $acl_enabled		= 0;
+	var $acl_enabled		= 0;	//deprecated in v3 (Enable ACL (J!1.0/5))
 	var $show_mygalleries	= 0;
     
     // watermarking

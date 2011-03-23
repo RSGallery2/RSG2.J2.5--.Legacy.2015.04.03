@@ -18,8 +18,8 @@ class myGalleries {
    	
     /**
      * This presents the main My Galleries page
-     * @param array Result array with category details for logged in users
-     * @param array Result array with image details for logged in users
+     * @param array Result array with galleries with parent 0 (no longer only for logged in users)
+     * @param array Result array with image details (no longer only for logged in users)
      * @param array Result array with pagenav information
      */
     function viewMyGalleriesPage($rows, $images, $pageNav) {
@@ -27,49 +27,46 @@ class myGalleries {
 		$mainframe =& JFactory::getApplication();
 		$my = JFactory::getUser();
 		$database = JFactory::getDBO();
+		$user = JFactory::getUser();
 
-//MK change this: if user has 
-//(core.login.site) and 
-//((core.create on a gallery or the rsg2 component) OR
-//(edit OR edit.state OR edit.own OR delete for a gallery or the RSG2 component))
-//then it's ok
-        if (!$rsgConfig->get('show_mygalleries'))
-            $mainframe->redirect( $this->myg_url,JText::_('COM_RSGALLERY2_USER_GALLERIES_WAS_DISABLED_BY_THE_ADMINISTRATOR'));
+		//User needs to be logged in and My galleries need to be enabled - check is in mygalleries.php function showMyGalleries
+
         ?>
 		<div class="rsg2">
         <h2><?php echo JText::_('COM_RSGALLERY2_MY_GALLERIES');?></h2>
 
-		
 		<?php
 		//Load My Galleries javascript file after core-uncompressed.js to override its Joomla.submitbutton function
 //		$filename = 'mygalleries.js';
 //		$path = 'components/com_rsgallery2/lib/mygalleries/';
 //		JHTML::script($filename, $path);
-		//As long as I'm unable to get JText with .js files working use this fucntion:
+		//As long as I'm unable to get JText with .js files working use this function:
 		myGalleries::mygalleriesJavascript();
 		
         //Show User information
         myGalleries::RSGalleryUSerInfo($my->id);
 
+		//Is there at least one gallery for which I have core.create?
+		$createAllowedInAnyGallery = count(galleryUtils::getAuthorisedGalleries('core.create'));
+		
         //Start tabs
 		jimport("joomla.html.pane");
         $tabs =& JPane::getInstance("Tabs");
 		echo $tabs->startPane( 'tabs' );
 			echo $tabs->startPanel( JText::_('COM_RSGALLERY2_MY_IMAGES'), 'my_images' );
 				myGalleries::showMyImages($images, $pageNav);
-//MK change: showImageUpload only with core.create for 1 or more galleries:
-				myGalleries::showImageUpload();
+				//showImageUpload only with core.create for one or more galleries:
+				if ($createAllowedInAnyGallery) {
+					myGalleries::showImageUpload();
+				}
 		echo $tabs->endPanel();
-//MK change: not depending on uu_createCat
-        if ($rsgConfig->get('uu_createCat')) {
-            echo $tabs->startPanel( JText::_('COM_RSGALLERY2_MY_GALLERIES'), 'my_galleries' );
-//MK change: show My Galleries tab only if 
-//core.edit/edit.state/edit.own/delete for rsg2 component/its galleries
-				myGalleries::showMyGalleries($rows);
-//MK change: show My Galleries tab only if core.create component
-                myGalleries::showCreateGallery(NULL);
-            echo $tabs->endPanel();
-        }
+		echo $tabs->startPanel( JText::_('COM_RSGALLERY2_MY_GALLERIES'), 'my_galleries' );
+			myGalleries::showMyGalleries($rows);
+			//Only show Create Gallery when creation of galleries is allowed in component or in one or more galleries
+			if (($user->authorise('core.create','com_rsgallery2')) OR ($createAllowedInAnyGallery)) {
+				myGalleries::showCreateGallery(NULL);
+			} //MK// [todo] [add message about not being allowed to create galleries]
+		echo $tabs->endPanel();
 		echo $tabs->endPane();
 		?>
 		</div>
@@ -95,8 +92,7 @@ class myGalleries {
 	            $user           = $row->user;
 	            $parent         = $row->parent;
 	        }
-	    }
-	    else{
+	    } else{
 	        $catname        = "";
 	        $description    = "";
 	        $ordering       = "";
@@ -133,15 +129,13 @@ class myGalleries {
 					</td>
 				</tr>
 				<tr>
-					<td><?php echo JText::_('COM_RSGALLERY2_TOP_GALLERY');?></td>
+					<td><?php echo JText::_('COM_RSGALLERY2_PARENT_ITEM');?></td>
 					<td>
 						<?php
-						if (!$rsgConfig->get('acl_enabled')) {
-							galleryUtils::showCategories(NULL, $my->id, 'parent');
-						} else {
-							galleryUtils::showUserGalSelectList('up_mod_img', 'parent');
-						}
-
+						//Show all galleries where galleries without 'core.create' are disabled, select name is 'parent', no gallery is selected, no additional select atributes, showTopGallery
+						galleryUtils::showUserGalSelectList('core.create', 'parent', '', '',true);
+						//Limits to only user owned, does not use permissions:
+						//galleryUtils::showCategories(NULL, $my->id, 'parent');
 						?>
 					</td>
 				</tr>
@@ -157,10 +151,12 @@ class myGalleries {
 						<?php echo $editor->display( 'description',  $description , '100%', '200', '10', '20' ,false) ; ?>
 					</td>
 				</tr>
+				<!--<?php //Publish option should only show with correct permissions, so removed for now ?>
 				<tr>
-					<td><?php echo JText::_('COM_RSGALLERY2_PUBLISHED'); ?></td>
-					<td align="left"><input type="checkbox" name="published" value="1" <?php if ($published==1) echo "checked"; ?> /></td>
+					<td><?php //echo JText::_('COM_RSGALLERY2_PUBLISHED'); ?></td>
+					<td align="left"><input type="checkbox" name="published" value="1" <?php //if ($published==1) echo "checked"; ?> /></td>
 				</tr>
+				-->
 			</table>
 			<input type="hidden" name="task" value="" />
 			<input type="hidden" name="option" value="com_rsgallery2" />
@@ -247,18 +243,12 @@ class myGalleries {
 				</td>
 				<td>
 					<?php 
-					/*echo galleryUtils::galleriesSelectList(null, 'i_cat', false);*/
-
-//MK change: acl_enabled no longer needed
-//MK change: check galleryUtils::showCategories(gives fatal error)/showUserGalSelectList
-//must be a list of galleries for which core.create is allowed (rest disabled 
-//through JHTML::Select option where $disable is true is not allowed to use)
-					if (!$rsgConfig->get('acl_enabled')) {
-						galleryUtils::showCategories(NULL, $my->id, 'i_cat');
-					} else {
-						galleryUtils::showUserGalSelectList('up_mod_img', 'i_cat');
-					}
-					
+					//Show all galleries where galleries without 'core.ceate' are disabled, select name is 'i_cat', no gallery is selected, no gallery is selected, no additional select atributes, don't showTopGallery
+					galleryUtils::showUserGalSelectList('core.create', 'i_cat');
+					//Deprecated:
+					//galleryUtils::galleriesSelectList(null, 'i_cat', false);*/
+					//Limits to only user owned, does not use permissions:
+					//galleryUtils::showCategories(NULL, $my->id, 'i_cat');
 					?>
 				</td>
 			</tr>
@@ -441,16 +431,20 @@ class myGalleries {
         }
     }
     
-    
+    /**
+     * This presents the list of galleries shown in My galleries
+     * @param array $rows Galleries with parent 0 (no longer only for logged in users)
+     */
     function showMyGalleries($rows) {
+	////MK// [todo] @todo: get all rows, not only with parent 0, and change this function to show all children and not only one sublevel
 		$my = JFactory::getUser();
 		$database = JFactory::getDBO();
 		$Itemid = JRequest::getInt('Itemid');
 		//Set variables
 		$count = count($rows);
+		$user = JFactory::getUser();
+		$userId = $user->id;
 		
-//MK change: get permissions in $canDo with the helper...
-
 		?>
 		<div class="rsg2">
 		<table class="adminlist" >
@@ -470,10 +464,15 @@ class myGalleries {
                 <?php
             } else { //List of galleries
                 foreach ($rows as $row) {
+					//Get permissions
+					$can[EditGallery]		= $user->authorise('core.edit',		'com_rsgallery2.gallery.'.$row->id);
+					$can[EditOwnGallery]	= $user->authorise('core.edit.own',	'com_rsgallery2.gallery.'.$row->id) OR ($row->uid == $userId);
+					$can[EditStateGallery]	= $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$row->id);
+					$can[DeleteGallery] 	= $user->authorise('core.delete',	'com_rsgallery2.gallery.'.$row->id);
                     ?>
                     <script type="text/javascript">
 						//<![CDATA[
-						function deletePres(catid) {
+						function deleteGallery(catid) {
 							var yesno = confirm ("<?php echo JText::_('COM_RSGALLERY2_DELCAT_TEXT');?>");
 							if (yesno == true) {
 								location = "<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=deleteCat", false);?>"+"&gid="+catid;
@@ -484,42 +483,89 @@ class myGalleries {
 
                     <tr>
                         <td>
-<?php
-//MK change: if core.edit on comp. then link else only name
-?>
-                        	<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editCat&gid='.$row->id);?>">
-                        		<?php echo stripslashes($row->name);?>
-                        	</a>
+							<?php
+							if ($can[EditGallery] OR $can[EditOwnGallery]){
+								//name with link
+								?>
+								<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editCat&gid='.$row->id);?>">
+									<?php echo stripslashes($row->name);?>
+								</a>
+								<?php
+							} else {
+								//name without link
+								?>
+									<?php echo stripslashes($row->name);?>
+								<?php
+							}
+							?>
                         </td>
-                        <?php
-//MK change: publish image source:
-                        if ($row->published == 1)
-                            $img = "published-active.png";
-                        else
-                            $img = "unpublished-active.png";?>
                         <td>
-<?php //MK change: only publish image if core.edit.state for comp. else grey image ?>
-							<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editStateGallery&gid='.$row->id.'&currentstate='.$row->published);?>">
+							<?php //MK change: only publish image if core.edit.state for comp. else grey image 
+							if ($can[EditStateGallery]){
+								//active image with link
+								if ($row->published == 1) $img = "published-active.png";
+								else $img = "unpublished-active.png";
+								?>
+								<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editStateGallery&gid='.$row->id.'&currentstate='.$row->published);?>">
+									<div align="center">
+										<img src="<?php echo JURI_SITE;?>components/com_rsgallery2/images/<?php echo $img;?>" alt="<?php echo JText::_('JACTION_EDITSTATE'); ?>" width="19" position="top" >
+									</div>
+								</a>
+								<?php
+							} else {
+								//inactive image without link
+								if ($row->published == 1) $img = "published-inactive.png";
+								else $img = "unpublished-inactive.png";
+								?>
 								<div align="center">
 									<img src="<?php echo JURI_SITE;?>components/com_rsgallery2/images/<?php echo $img;?>" alt="<?php echo JText::_('JACTION_EDITSTATE'); ?>" width="19" position="top" >
 								</div>
-							</a>
+								<?php
+							}
+							?>
 						</td>
                         <td>
-<?php //MK change: only delete icon if core.delete for comp. else grey image ?>
-							<a href="javascript:deletePres(<?php echo $row->id;?>);">
-                        		<div align="center">
-                        			<img src="<?php echo JURI_SITE;?>components/com_rsgallery2/images/delete-active.png" alt="<?php echo JText::_('JACTION_DELETE'); ?>" width="19" >
-                        		</div>
-                        	</a>
+							<?php 
+							if ($can[DeleteGallery]) {
+								//active image with link
+								?>
+								<a href="javascript:deleteGallery(<?php echo $row->id;?>);">
+									<div align="center">
+										<img src="<?php echo JURI_SITE;?>components/com_rsgallery2/images/delete-active.png" alt="<?php echo JText::_('JACTION_DELETE'); ?>" width="19" >
+									</div>
+								</a>
+								
+								<?php
+							} else {
+								//inactive image without link
+								?>
+								<div align="center">
+									<img src="<?php echo JURI_SITE;?>components/com_rsgallery2/images/delete-inactive.png" alt="<?php echo JText::_('JACTION_DELETE'); ?>" width="19" >
+								</div>
+								<?php
+							}
+							?>
                         </td>
                         <td>
-<?php //MK change: only edit icon if core.edit or owner and core.edit.own for comp. else grey image ?>
-                        	<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editCat&gid='.$row->id);?>">
-                        		<div align="center">
-                        			<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/edit-active.png" alt="<?php echo JText::_('JACTION_EDIT'); ?>" width="19" >
-                        		</div>
-                        	</a>
+						<?php
+							if ($can[EditGallery] OR $can[EditOwnGallery]) {
+								//active image with link
+								?>
+								<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editCat&gid='.$row->id);?>">
+									<div align="center">
+										<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/edit-active.png" alt="<?php echo JText::_('JACTION_EDIT'); ?>" width="19" >
+									</div>
+								</a>
+								<?php
+							} else {
+								//inactive image without link
+								?>
+								<div align="center">
+									<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/edit-inactive.png" alt="<?php echo JText::_('JACTION_EDIT'); ?>" width="19" >
+								</div>
+								<?php								
+							}
+							?>
                         </td>
                     </tr>
                     <?php
@@ -548,7 +594,7 @@ class myGalleries {
 								</a>
                             </td>
                             <td>
-                                <a href="javascript:deletePres(<?php echo $row2->id;?>);">
+                                <a href="javascript:deleteGallery(<?php echo $row2->id;?>);">
                                     <div align="center">
 										<img src="<?php echo JURI_SITE;?>components/com_rsgallery2/images/delete-active.png" alt="<?php echo JText::_('JACTION_DELETE'); ?>" width="19" >
                                     </div>
@@ -586,8 +632,10 @@ class myGalleries {
         global $rsgAccess;
         JHTML::_('behavior.tooltip');
 		$Itemid = JRequest::getInt('Itemid');
+		$user = JFactory::getUser();
+		$userId = $user->id;
         ?>
-		
+
         <table class="adminlist" >
 			<tr>
 				<td colspan="5"><h3><?php echo JText::_('COM_RSGALLERY2_MY_IMAGES'); ?></h3></td>
@@ -601,9 +649,9 @@ class myGalleries {
 			<tr>
 				<th><?php echo JText::_('COM_RSGALLERY2_NAME'); ?></th>
 				<th><?php echo JText::_('COM_RSGALLERY2_GALLERY'); ?></th>
-				<th width="50"><?php echo JText::_('COM_RSGALLERY2_PUBLISHED'); ?></th>
-				<th width="50"><?php echo JText::_('COM_RSGALLERY2_DELETE'); ?></th>
-				<th width="50"><?php echo JText::_('COM_RSGALLERY2_EDIT'); ?></th>
+				<th width="50" align="center"><?php echo JText::_('COM_RSGALLERY2_PUBLISHED'); ?></th>
+				<th width="50" align="center"><?php echo JText::_('COM_RSGALLERY2_DELETE'); ?></th>
+				<th width="50" align="center"><?php echo JText::_('COM_RSGALLERY2_EDIT'); ?></th>
 			</tr>
 			
 			<?php
@@ -613,7 +661,7 @@ class myGalleries {
 					function deleteImage(id,itemid) {
 						var yesno = confirm ('<?php echo JText::_('COM_RSGALLERY2_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_IMAGE');?>');
 						if (yesno == true) {
-							location = 'index.php?option=com_rsgallery2&TEST&Itemid='+itemid+'&rsgOption=myGalleries&task=deleteItem&id='+id;
+							location = 'index.php?option=com_rsgallery2&Itemid='+itemid+'&rsgOption=myGalleries&task=deleteItem&id='+id;
 						}
 					}
 				</script>
@@ -621,74 +669,96 @@ class myGalleries {
 				<?php
 				foreach ($images as $image) {
 					global $rsgConfig;
-				   ?>
+					//Get permissions
+					$can[EditImage]		= $user->authorise('core.edit',		'com_rsgallery2.item.'.$image->id);
+					$can[EditOwnImage]	= $user->authorise('core.edit.own',	'com_rsgallery2.item.'.$image->id) OR ($image->userid == $userId);
+					$can[EditStateImage]= $user->authorise('core.edit.state','com_rsgallery2.item.'.$image->id);
+					$can[DeleteImage] 	= $user->authorise('core.delete',	'com_rsgallery2.item.'.$image->id);
+					?>
 					<tr>
 						<td>
-	<?php //MK change: add Itemid to edit URL ?>
 							<?php 
-							if (!$rsgAccess->checkGallery('up_mod_img', $image->gallery_id)) {
-								echo $image->name;
-							} else {
-							//tooltip: tip, tiptitle, tipimage, tiptext, url, depreciated bool=1 (@todo: this link has two // in it between root and imgPath_thumb)
-							 echo JHTML::tooltip('<img src="'.JURI::root().$rsgConfig->get('imgPath_thumb').'/'.$image->name.'.jpg" alt="'.$image->name.'" />',
-							 $image->name,
-							 "",
-							 htmlspecialchars($image->title,ENT_QUOTES,'UTF-8').'&nbsp;('.$image->name.')',	//turns into javascript safe so ENT_QUOTES needed with htmlspeciahlchars
-						"index.php?option=com_rsgallery2&Itemid=".$Itemid."&rsgOption=myGalleries&task=editItem&id=".$image->id,1);
+							if ($can[EditImage] OR $can[EditOwnImage]){
+								//image title with link
+								//tooltip: tip, tiptitle, tipimage, tiptext, url, depreciated bool=1 (@todo: this link has two // in it between root and imgPath_thumb)
+								 echo JHTML::tooltip('<img src="'.JURI::root().$rsgConfig->get('imgPath_thumb').'/'.$image->name.'.jpg" alt="'.$image->name.'" />',
+								 $image->name,
+								 "",
+								 htmlspecialchars($image->title,ENT_QUOTES,'UTF-8').'&nbsp;('.$image->name.')',	//turns into javascript safe so ENT_QUOTES needed with htmlspeciahlchars
+							"index.php?option=com_rsgallery2&Itemid=".$Itemid."&rsgOption=myGalleries&task=editItem&id=".$image->id,1);
+								} else {
+								//image title without link
+								echo $image->title.' ('.$image->name.')';
 							}
 							?>
 						</td>
-						<td><?php echo galleryUtils::getCatnameFromId($image->gallery_id)?></td>
+						<td><?php echo galleryUtils::getCatnameFromId($image->gallery_id)?>
+						</td>
 						<td>
 							<?php 
-	//MK change: publish image source:
-							if ($image->published == 1)
-								$img = "published-active.png";
-							else
-								$img = "unpublished-active.png";
-							?>
-							<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editStateItem&id='.$image->id.'&currentstate='.$image->published);?>">
+							if ($can[EditStateImage]){
+								//active images with link
+								if ($image->published == 1) $img = "published-active.png";
+								else $img = "unpublished-active.png";
+								?>
+								<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editStateItem&id='.$image->id.'&currentstate='.$image->published);?>">
 								<div align="center">
 									<img src="<?php echo JURI_SITE;?>components/com_rsgallery2/images/<?php echo $img;?>" alt="<?php echo JText::_('JACTION_EDITSTATE'); ?>" width="19" position="top" >
 								</div>
-							</a>
-						</td>
-						<td>
-							<?php
-							if (!$rsgAccess->checkGallery('del_img', $image->gallery_id)) {
-								?>
-								<div align="center">
-									<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/no_delete.png" alt="<?php echo JText::_('JACTION_DELETE'); ?>" width="12" height="12" >
-								</div>
+								</a>
 								<?php
 							} else {
-							?>
-							<a href="javascript:deleteImage(<?php echo $image->id.','.$Itemid;?>);">
+								//inactive images without link
+								if ($image->published == 1) $img = "published-inactive.png";
+								else $img = "unpublished-inactive.png";
+								?>
 								<div align="center">
-									<img src="<?php echo JURI_SITE;?>components/com_rsgallery2/images/delete-active.png" alt="<?php echo JText::_('JACTION_DELETE'); ?>" width="19"  >
+									<img src="<?php echo JURI_SITE;?>components/com_rsgallery2/images/<?php echo $img;?>" alt="<?php echo JText::_('JACTION_EDITSTATE'); ?>" width="19" position="top" >
 								</div>
-							</a>
-							<?php
+								<?php
 							}
 							?>
 						</td>
 						<td>
 							<?php
-							if ( !$rsgAccess->checkGallery('up_mod_img', $image->gallery_id) ) {
+							if ($can[DeleteImage]) {
+								//active image with link
+								?>
+								<a href="javascript:deleteImage(<?php echo $image->id.','.$Itemid;?>);">
+									<div align="center">
+										<img src="<?php echo JURI_SITE;?>components/com_rsgallery2/images/delete-active.png" alt="<?php echo JText::_('JACTION_DELETE'); ?>" width="19"  >
+									</div>
+								</a>
+								<?php
+								} else {
+								//inactive image without link
 								?>
 								<div align="center">
-									<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/no_edit.png" alt="<?php echo JText::_('JACTION_EDIT'); ?>" width="15" height="15" >
+									<img src="<?php echo JURI_SITE;?>components/com_rsgallery2/images/delete-inactive.png" alt="<?php echo JText::_('JACTION_DELETE'); ?>" width="19"  >
 								</div>
 								<?php
-							} else {
+								}
 							?>
-							<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editItem&id=$image->id");?>">
-							<div align="center">
-								<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/edit-active.png" alt="<?php echo JText::_('JACTION_EDIT'); ?>" width="19" >
-							</div>
-							</a>
+						</td>
+						<td>
 							<?php
-							}
+							if ($can[EditImage] OR $can[EditOwnImage]){
+								//active image with link
+								?>
+								<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editItem&id=$image->id");?>">
+								<div align="center">
+									<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/edit-active.png" alt="<?php echo JText::_('JACTION_EDIT'); ?>" width="19" >
+								</div>
+								</a>
+								<?php
+								} else {
+								//inactive image without link
+								?>
+								<div align="center">
+									<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/edit-inactive.png" alt="<?php echo JText::_('JACTION_EDIT'); ?>" width="19" >
+								</div>
+								<?php
+								}
 							?>
 						</td>
 					</tr>
@@ -780,7 +850,12 @@ class myGalleries {
 				<tr>
 					<td align="left"><?php echo JText::_('COM_RSGALLERY2_CATEGORY_NAME'); ?></td>
 					<td align="left">
-						<?php galleryUtils::showUserGalSelectList('up_mod_img', 'catid', $catid);?>
+						<?php 
+						//Show all galleries where galleries without 'core.create' are disabled, select name is 'catid', $catid is selected, no additional select atributes, don't showTopGallery
+						galleryUtils::showUserGalSelectList('core.create', 'catid', $catid);
+						//Limits to only user owned, does not use permissions:
+						//galleryUtils::showCategories(NULL, $my->id, 'i_cat');
+						?>
 					</td>
 					<td rowspan="3"><img src="<?php echo imgUtils::getImgThumb($filename); ?>" alt="<?php echo $title; ?>"  /></td>
 				</tr>
@@ -836,8 +911,8 @@ function editCat($rows = null) {
 				alert( "<?php echo JText::_('COM_RSGALLERY2_YOU_MUST_PROVIDE_A_GALLERY_NAME'); ?>" );
 			} else if (form.description.value == ""){
 				alert( "<?php echo JText::_('COM_RSGALLERY2_YOU_MUST_PROVIDE_A_DESCRIPTION'); ?>" );
-			} else if (form.parent.value < "0"){
-				alert( "<?php echo JText::_('COM_RSGALLERY2_YOU_MUST_SELECT_A_GALLERY'); ?>" );
+			} else if (form.parent.value < "0"){ //Top gallery may be allowed
+				alert( "<?php echo JText::_('COM_RSGALLERY2_YOU_NEED_TO_SELECT_A_PARENT_GALLERY'); ?>" );
 			} else {
 				Joomla.submitform(task, form);
 				return;
@@ -885,11 +960,12 @@ function editCat($rows = null) {
 				</th>
 			</tr>
 			<tr>
-				<td><?php echo JText::_('COM_RSGALLERY2_TOP_GALLERY');?></td>
+				<td><?php echo JText::_('COM_RSGALLERY2_PARENT_ITEM');?></td>
 				<td>
-					<?php //galleryUtils::showCategories(NULL, $my->id, 'parent');?>
-					<?php echo galleryUtils::galleriesSelectList( $parent, 'parent', false );?>
-					<?php //galleryUtils::createGalSelectList( NULL, $listName='parent', true );?>
+					<?php 
+					//Show all galleries where galleries without 'core.create' are disabled, select name is 'parent', $parent is selected, no additional select atributes, showTopGallery
+					galleryUtils::showUserGalSelectList('core.create', 'parent', $row->parent, '', true);
+					?>
 				</td>
 			</tr>
 			<tr>
@@ -903,10 +979,12 @@ function editCat($rows = null) {
 					echo $editor->display( 'description',  $description , '100%', '200', '10', '20', false ) ; ?>
 				</td>
 			</tr>
+			<!--<?php //Publish option should only show with correct permissions, so removed for now ?>
 			<tr>
 				<td><?php echo JText::_('COM_RSGALLERY2_PUBLISHED'); ?></td>
-				<td align="left"><input type="checkbox" name="published" value="1" <?php if ($published==1) echo "checked"; ?> /></td>
+				<td align="left"><input type="checkbox" name="published" value="1" <?php //if ($published==1) echo "checked"; ?> /></td>
 			</tr>
+			-->
         <input type="hidden" name="catid" value="<?php echo $catid; ?>" />
         <input type="hidden" name="ordering" value="<?php echo $ordering; ?>" />
 		<input type="hidden" name="task" 	value="" />
@@ -961,10 +1039,7 @@ function mygalleriesJavascript() {
 				//form.task = imgUpload.saveUploadedItem
 				<?php echo $editor->save('descr') ; ?>
 				//Field validation, if OK then submit
-				if (form.i_cat.value == "-1") {
-					alert( "<?php echo JText::_('COM_RSGALLERY2_YOU_MUST_SELECT_A_GALLERY'); ?>" );
-				} 
-				else if (form.i_cat.value == "0") {
+				if (form.i_cat.value <= 0) {
 					alert( "<?php echo JText::_('COM_RSGALLERY2_YOU_MUST_SELECT_A_GALLERY'); ?>" );
 				} 
 				else if (form.i_file.value == "") {
