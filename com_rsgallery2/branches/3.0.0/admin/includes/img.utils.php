@@ -204,6 +204,137 @@ class imgUtils extends fileUtils{
         $database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id = '$imgCat'");
         $ordering = $database->loadResult() + 1;
 
+        //Set alias
+        $imgAlias = JFilterOutput::stringURLSafe($imgTitle);
+
+		$row = new rsgImagesItem( $database );
+		//"Binding" information to row
+		$row->name			= $newName;
+		$row->alias			= $imgAlias;
+		$row->title			= $imgTitle;
+		$row->descr			= $imgDesc;
+		$row->gallery_id	= $imgCat;
+		$row->date			= date( 'Y-m-d H:i:s' );
+		$row->ordering		= $ordering;
+		$row->userid		= $my->id;
+		// save params
+		$params = JRequest::getVar( 'params', '' );
+		if (is_array( $params )) {
+			$txt = array();
+			foreach ( $params as $k=>$v) {
+				$txt[] = "$k=$v";
+			}
+			$row->params = implode( "\n", $txt );
+		}
+		if (!$row->check()) {
+			imgUtils::deleteImage( $newName );
+			return new imageUploadError( $imgName, $row->getError() );
+		}
+		if (!$row->store()) {	//The actual save to the database, this handles escaping?!
+			imgUtils::deleteImage( $newName );
+			return new imageUploadError( $imgName, $row->getError() );
+		}
+		$row->checkin();
+		$row->reorder( "gallery_id = " . (int) $row->gallery_id );
+
+        //check if original image needs to be kept, otherwise delete it.
+        if ( !$rsgConfig->get('keepOriginalImage') ) {
+            JFile::delete( imgUtils::getImgOriginal( $newName, true ) );
+        }
+
+        return true;
+    }
+//function importImage originally did not use rsgImagesItem class/object
+    function importImageORIGINAL($imgTmpName, $imgName, $imgCat, $imgTitle='', $imgDesc='') {
+        global $rsgConfig;
+		$my =& JFactory::getUser();
+		$database =& JFactory::getDBO();
+
+        //First move uploaded file to original directory
+        $destination = fileUtils::move_uploadedFile_to_orignalDir( $imgTmpName, $imgName );
+
+        if( is_a( $destination, 'imageUploadError' ) )
+            return $destination;
+
+        $parts = pathinfo( $destination );
+
+		// If IPTC parameter in config is true and the user left either the image title
+		// or description empty in the upload step we want to get that IPTC data.
+		if ($rsgConfig->get( 'useIPTCinformation' )){
+			if (($imgTitle == '') OR ($imgDesc == '')) {
+				getimagesize( $destination , $imageInfo);
+				if(isset($imageInfo['APP13'])) {
+					$iptc = iptcparse($imageInfo['APP13']);
+					//Get Iptc.Caption for the description (null if it does not exist)
+					$IPTCcaption = $iptc["2#120"][0]; 
+					//Get Iptc.ObjectName for the title
+					$IPTCtitle = $iptc["2#005"][0]; 
+					//If the field (description or title) in the import step is emtpy, and we have IPTC info, then use the IPTC info:
+					if (($imgDesc == '') and !is_null($IPTCcaption)) {
+						$imgDesc = $IPTCcaption;
+					}
+					if (($imgTitle == '') and !is_null($IPTCtitle)) {
+						$imgTitle = $IPTCtitle;
+					}
+				}
+			}
+		}
+		
+        // fill $imgTitle if empty
+        if( $imgTitle == '' ) 
+            $imgTitle = substr( $parts['basename'], 0, -( strlen( $parts['extension'] ) + ( $parts['extension'] == '' ? 0 : 1 )));
+
+        // replace names with the new name we will actually use
+        $parts = pathinfo( $destination );
+        $newName = $parts['basename'];
+        $imgName = $parts['basename'];
+        
+        //Get details of the original image.
+        $width = getimagesize( $destination );
+        if( !$width ){
+            imgUtils::deleteImage( $newName );
+            return new imageUploadError( $destination, JText::_('COM_RSGALLERY2_NOT_AN_IMAGE_OR_CANNOT_READ')." ". $destination );
+        } else {
+            //the actual image width and height and its max
+            $height = $width[1];
+			$width = $width[0];
+			if ($height > $width) {
+				$maxSideImage = $height;
+			} else {
+				$maxSideImage = $width;
+			}
+        }
+        //Destination becomes original image, just for readability
+        $original_image = $destination;
+        
+        // if original is wider or higher than display size, create a display image
+        if( $maxSideImage > $rsgConfig->get('image_width') ) {
+            $result = imgUtils::makeDisplayImage( $original_image, $newName, $rsgConfig->get('image_width') );
+            if( !$result ){
+                imgUtils::deleteImage( $newName );
+				return new imageUploadError( $imgName, JText::_('COM_RSGALLERY2_ERROR_CREATING_DISPLAY_IMAGE'). ": ".$newName);
+            }
+        } else {
+            $result = imgUtils::makeDisplayImage( $original_image, $newName, $maxSideImage );
+            if( !$result ){
+                imgUtils::deleteImage( $newName );
+                return new imageUploadError( $imgName, JText::_('COM_RSGALLERY2_ERROR_CREATING_DISPLAY_IMAGE'). ": ".$newName);
+                }
+        }
+           
+        // if original is wider or higher than thumb, create a thumb image
+        if( $maxSideImage > $rsgConfig->get('thumb_width') ){
+            $result = imgUtils::makeThumbImage( $original_image, $newName );
+            if( !$result){
+                imgUtils::deleteImage( $newName );
+                return new imageUploadError( $imgName, JText::_('COM_RSGALLERY2_ERROR_CREATING_THUMB_IMAGE'). ": ".$newName);
+            }
+        }
+
+        // determine ordering
+        $database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id = '$imgCat'");
+        $ordering = $database->loadResult() + 1;
+
         //Store image details in database
         $imgAlias = $database->getEscaped(JFilterOutput::stringURLSafe($imgTitle));
 		$imgDesc = $database->getEscaped($imgDesc);
@@ -259,15 +390,19 @@ class imgUtils extends fileUtils{
 			}
 		}
 		
-        $database->setQuery("SELECT gallery_id FROM #__rsgallery2_files WHERE name = '$name'");
-        $gallery_id = $database->loadResult();
-                
-        $database->setQuery("DELETE FROM #__rsgallery2_files WHERE name = '$name'");
-        if( !$database->query()){
-            JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_DATABASE_ENTRY_FOR_IMAGE') .": ". $name);
-			return false;
+		//Get the id and gallery id of the current item
+		$database->setQuery("SELECT id, gallery_id FROM #__rsgallery2_files WHERE name = '$name'");
+        $itemDetails = $database->loadAssoc();
+		$id 	= $itemDetails['id'];
+		$gid 	= $itemDetails['gallery_id']; 
+		
+		//Delete the current item
+		$row = new rsgImagesItem( $database );
+		if (!$row->delete($id)){
+			JError::raiseError(500, $row->getError() );
 		}
-        galleryUtils::reorderRSGallery('#__rsgallery2_files', "gallery_id = '$gallery_id'");
+
+		galleryUtils::reorderRSGallery('#__rsgallery2_files', "gallery_id = '$gid'");
         
         return true;
     }

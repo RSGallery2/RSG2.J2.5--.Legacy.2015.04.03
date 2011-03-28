@@ -42,7 +42,7 @@ class InstallerModelTemplates extends InstallerModel
 
 	function _loadItems()
 	{
-		global $option, $rsgConfig;//MK// [removed][mainframe]
+		global $option, $rsgConfig;
 
 		$db = &JFactory::getDBO();
 

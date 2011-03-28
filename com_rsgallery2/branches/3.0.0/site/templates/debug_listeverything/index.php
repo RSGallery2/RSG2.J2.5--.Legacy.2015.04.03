@@ -13,7 +13,6 @@ defined( '_JEXEC' ) or die( 'Restricted Access' );
 $templatePath = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'debug_listeverything';
 require_once( $templatePath . DS . 'display.class.php');
 
-//global $mainframe;//MK// [not used check]	
 $template_dir = "JURI_SITE/components/com_rsgallery2/templates/debug_listeverything";
 ?>
 <link href="<?php echo $template_dir ?>/css/template.css" rel="stylesheet" type="text/css" />

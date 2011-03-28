@@ -57,16 +57,20 @@ class myGalleries {
 				myGalleries::showMyImages($images, $pageNav);
 				//showImageUpload only with core.create for one or more galleries:
 				if ($createAllowedInAnyGallery) {
-					myGalleries::showImageUpload();
+					echo $tabs->startPanel(JText::_('COM_RSGALLERY2_ADD_IMAGE'),'image_upload');
+						myGalleries::showImageUpload();
+					echo $tabs->endPanel();
 				}
-		echo $tabs->endPanel();
+			echo $tabs->endPanel();
 		echo $tabs->startPanel( JText::_('COM_RSGALLERY2_MY_GALLERIES'), 'my_galleries' );
 			myGalleries::showMyGalleries($rows);
 			//Only show Create Gallery when creation of galleries is allowed in component or in one or more galleries
 			if (($user->authorise('core.create','com_rsgallery2')) OR ($createAllowedInAnyGallery)) {
-				myGalleries::showCreateGallery(NULL);
-			} //MK// [todo] [add message about not being allowed to create galleries]
-		echo $tabs->endPanel();
+				echo $tabs->startPanel(JText::_('COM_RSGALLERY2_CREATE_GALLERY'),'create_gallery');
+					myGalleries::showCreateGallery(NULL);
+				echo $tabs->endPanel();
+			}
+			echo $tabs->endPanel();
 		echo $tabs->endPane();
 		?>
 		</div>
@@ -141,7 +145,7 @@ class myGalleries {
 				</tr>
 				<tr>
 					<td><?php echo JText::_('COM_RSGALLERY2_GALLERY_NAME'); ?></td>
-					<td align="left"><input type="text" name="catname1" size="30" value="<?php echo $catname; ?>" /></td>
+					<td align="left"><input type="text" name="name" size="30" value="<?php echo $catname; ?>" /></td>
 				</tr>
 				<tr>
 					<td>
@@ -624,11 +628,6 @@ class myGalleries {
      * @param array Result array with pagenav details
      */
     function showMyImages($images, $pageNav) {
-//MK change
-//column Name: only linked to edit page when core.edit for image of core.edit.own and user is owner
-//column gallery = ok
-//column delete: only with core.delete (else grey?)
-//column published (to be added): only with core.edit.state (else grey?)
         global $rsgAccess;
         JHTML::_('behavior.tooltip');
 		$Itemid = JRequest::getInt('Itemid');
@@ -647,7 +646,7 @@ class myGalleries {
 				</div></th>
 			</tr>
 			<tr>
-				<th><?php echo JText::_('COM_RSGALLERY2_NAME'); ?></th>
+				<th maxwidth="20%"><?php echo JText::_('COM_RSGALLERY2_NAME'); ?></th>
 				<th><?php echo JText::_('COM_RSGALLERY2_GALLERY'); ?></th>
 				<th width="50" align="center"><?php echo JText::_('COM_RSGALLERY2_PUBLISHED'); ?></th>
 				<th width="50" align="center"><?php echo JText::_('COM_RSGALLERY2_DELETE'); ?></th>
@@ -678,18 +677,20 @@ class myGalleries {
 					<tr>
 						<td>
 							<?php 
+							//Tooltip with or without link
 							if ($can[EditImage] OR $can[EditOwnImage]){
-								//image title with link
 								//tooltip: tip, tiptitle, tipimage, tiptext, url, depreciated bool=1 (@todo: this link has two // in it between root and imgPath_thumb)
-								 echo JHTML::tooltip('<img src="'.JURI::root().$rsgConfig->get('imgPath_thumb').'/'.$image->name.'.jpg" alt="'.$image->name.'" />',
-								 $image->name,
-								 "",
-								 htmlspecialchars($image->title,ENT_QUOTES,'UTF-8').'&nbsp;('.$image->name.')',	//turns into javascript safe so ENT_QUOTES needed with htmlspeciahlchars
-							"index.php?option=com_rsgallery2&Itemid=".$Itemid."&rsgOption=myGalleries&task=editItem&id=".$image->id,1);
+								echo JHTML::tooltip('<img src="'.JURI::root().$rsgConfig->get('imgPath_thumb').'/'.$image->name.'.jpg" alt="'.$image->name.'" />',
+								$image->name,
+								JURI_SITE."components/com_rsgallery2/images/notice-info_19.png",
+								'',
+								"index.php?option=com_rsgallery2&Itemid=".$Itemid."&rsgOption=myGalleries&task=editItem&id=".$image->id);
 								} else {
-								//image title without link
-								echo $image->title.' ('.$image->name.')';
+								echo JHTML::tooltip('<img src="'.JURI::root().$rsgConfig->get('imgPath_thumb').'/'.$image->name.'.jpg" alt="'.$image->name.'" />',
+								$image->name,
+								JURI_SITE."components/com_rsgallery2/images/notice-info_19.png", '', '', '');
 							}
+							echo galleryUtils::subText($image->title,30).' ('.galleryUtils::subText($image->name).') ';
 							?>
 						</td>
 						<td><?php echo galleryUtils::getCatnameFromId($image->gallery_id)?>
@@ -886,7 +887,6 @@ class myGalleries {
     }
     
 function editCat($rows = null) {
-	//Mirjam: In v1.13 catid was used where since v1.14 gid is used, but locally in a function catid is fine
     global $rsgConfig;
 	$my = JFactory::getUser();
 	$editor =& JFactory::getEditor();
@@ -907,7 +907,7 @@ function editCat($rows = null) {
 			<?php echo $editor->save( 'description' ) ; ?>
 
 			// Field validation, when OK submit.
-			if (form.catname1.value == "") {
+			if (form.name.value == "") {
 				alert( "<?php echo JText::_('COM_RSGALLERY2_YOU_MUST_PROVIDE_A_GALLERY_NAME'); ?>" );
 			} else if (form.description.value == ""){
 				alert( "<?php echo JText::_('COM_RSGALLERY2_YOU_MUST_PROVIDE_A_DESCRIPTION'); ?>" );
@@ -923,22 +923,22 @@ function editCat($rows = null) {
     <?php
     if ($rows) {
         foreach ($rows as $row){
-            $catname        = htmlspecialchars($row->name, ENT_QUOTES);
+            $name        = htmlspecialchars($row->name, ENT_QUOTES);
             $description    = htmlspecialchars($row->description, ENT_QUOTES);
             $ordering       = $row->ordering;
             $uid            = $row->uid;
-            $catid          = $row->id;
+            $gid          	= $row->id;
             $published      = $row->published;
             $user           = $row->user;
             $parent         = $row->parent;
         }
     }
     else{
-        $catname        = "";
+        $name	        = "";
         $description    = "";
         $ordering       = "";
         $uid            = "";
-        $catid          = "";
+        $gid          	= "";
         $published      = "";
         $user           = "";
         $parent         = "";
@@ -970,7 +970,7 @@ function editCat($rows = null) {
 			</tr>
 			<tr>
 				<td><?php echo JText::_('COM_RSGALLERY2_GALLERY_NAME'); ?></td>
-				<td align="left"><input type="text" name="catname1" size="30" value="<?php echo $catname; ?>" /></td>
+				<td align="left"><input type="text" name="name" size="30" value="<?php echo $name; ?>" /></td>
 			</tr>
 			<tr>
 				<td><?php echo JText::_('COM_RSGALLERY2_DESCRIPTION'); ?></td>
@@ -985,7 +985,7 @@ function editCat($rows = null) {
 				<td align="left"><input type="checkbox" name="published" value="1" <?php //if ($published==1) echo "checked"; ?> /></td>
 			</tr>
 			-->
-        <input type="hidden" name="catid" value="<?php echo $catid; ?>" />
+        <input type="hidden" name="gid" value="<?php echo $gid; ?>" />
         <input type="hidden" name="ordering" value="<?php echo $ordering; ?>" />
 		<input type="hidden" name="task" 	value="" />
 		<input type="hidden" name="option" 	value="com_rsgallery2>" />
@@ -1020,7 +1020,7 @@ function mygalleriesJavascript() {
 				// Field validation, if OK then submit
 				if (form.parent.value == "-1") {
 					alert( "<?php echo JText::_('COM_RSGALLERY2_YOU_NEED_TO_SELECT_A_PARENT_GALLERY'); ?>" );
-				} else if (form.catname1.value == "") {
+				} else if (form.name.value == "") {
 					alert( "<?php echo JText::_('COM_RSGALLERY2_YOU_MUST_PROVIDE_A_GALLERY_NAME'); ?>" );
 				} else if (form.description.value == ""){
 					alert( "<?php echo JText::_('COM_RSGALLERY2_YOU_MUST_PROVIDE_A_DESCRIPTION'); ?>" );

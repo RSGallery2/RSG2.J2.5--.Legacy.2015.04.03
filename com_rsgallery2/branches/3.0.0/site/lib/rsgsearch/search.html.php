@@ -13,7 +13,6 @@ defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 class html_rsg2_search {
 	
 	function showSearchBox() {
-//    	global $mainframe;//MK// [not used check]	
 		$document=& JFactory::getDocument();
 		
 		if($document->getType() == 'html') {

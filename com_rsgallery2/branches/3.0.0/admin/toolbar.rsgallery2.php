@@ -17,7 +17,6 @@ else
     $rsgOption = '';
 
 require_once( JApplicationHelper::getPath('toolbar_html') );
-//MK// [removed for Joomla 1.6] require_once( JApplicationHelper::getPath('toolbar_default') );//MK///--> includes/HTML_toolbar.php --> /../plugins/system/legacy/toolbar.php; not used in J15?!
 
 menu_rsg2_submenu::addRSG2Submenu($rsgOption, $task);
 

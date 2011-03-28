@@ -99,7 +99,7 @@ class rsgAccess extends JObject{
 	 * @return int 1 if allowed, 0 if not allowed.
 	 */
 	function checkGallery($action, $gallery_id ) {
-		global $check; //MK// [removed for Joomla 1.6]	 only $mainframe
+		global $check;
 		$database =& JFactory::getDBO();
 		$my =& JFactory::getUser();
 

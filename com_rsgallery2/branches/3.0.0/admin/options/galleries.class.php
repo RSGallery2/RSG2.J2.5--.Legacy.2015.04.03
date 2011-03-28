@@ -46,6 +46,7 @@ class rsgGalleriesItem extends JTable {
      * overloaded check function 
      */
     function check() {
+		$db =& JFactory::getDBO();
         // filter malicious code
         $ignoreList = array( 'params','description' );
 		
@@ -68,9 +69,9 @@ class rsgGalleriesItem extends JTable {
 
         /** check for existing name */
         $query = "SELECT id"
-        . "\n FROM #__rsgallery2_galleries"
-        . "\n WHERE name = '".$this->name."'"
-        . "\n AND parent = ".$this->parent
+        . " FROM #__rsgallery2_galleries"
+        . " WHERE name = ".$db->quote($this->name)
+        . " AND parent = ".(int) $this->parent
         ;
         $this->_db->setQuery( $query );
 
@@ -189,7 +190,7 @@ function galleryParentSelectList( &$row ) {
 
     foreach ( $list as $item ) {
     	$item->treename = str_replace  ( '&#160;&#160;'  ,  '...' ,  $item->treename  ); //MK// [hack] [the original treename holds &#160; as a non breacking space for subgalleries, but JHTMLSelect::option cannot handle that, nor &nbsp;] 
-        $mitems[] = JHTMLSelect::option( $item->id, '...'. $item->treename );// //MK// [change] [Non-breaking space: HTML name: &nbsp; replaced by '...']
+        $mitems[] = JHTMLSelect::option( $item->id, '...'. $item->treename );//MK// [change] [Non-breaking space: HTML name: &nbsp; replaced by '...']
     }
     
 //genericlist(array of objects, value of HMTL name attribute, additional HTML attributes for <select> tag, name of objectvarialbe for the option value, name of objectvariable for option text, key that is selected,???,???)

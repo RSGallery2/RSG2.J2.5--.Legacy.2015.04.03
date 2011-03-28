@@ -21,6 +21,10 @@ if($document->getType() == 'html') {
 
 //Load required class file
 require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'mygalleries' . DS . 'mygalleries.class.php' );
+//Need galleries.class.php for rsgGalleriesItem that extends JTable
+$rsgOptions_path = JPATH_RSGALLERY2_ADMIN .DS. 'options' .DS;	
+require_once( $rsgOptions_path . 'galleries.class.php' );
+require_once( $rsgOptions_path . 'images.class.php' );
 
 //Get parameters from URL and/or form
 $task   = JRequest::getVar('task', '' );
@@ -48,7 +52,7 @@ switch( $task ){
     	editCat($gid);  		
     	break;
     case 'saveCat':
-    	saveCat();
+    	saveCat($gid);
     	break;
     case 'deleteCat':
     	deleteCat();
@@ -70,11 +74,6 @@ function showMyGalleries() {
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
 	
-//MK change this: if user has 
-//(core.login.site) and 
-//((core.create on a gallery or the rsg2 component) OR
-//(edit OR edit.state OR edit.own OR delete for a gallery or the RSG2 component))
-//then it's ok
 	//Check if My Galleries is enabled in config, if not .............. 
 	if ( !$rsgConfig->get('show_mygalleries') ) die(JText::_('COM_RSGALLERY2_UNAUTHORIZED_ACCESS_ATTEMPT_TO_MY_GALLERIES'));
 	
@@ -152,31 +151,31 @@ function editItem() {
 function saveItem() {
 	$mainframe =& JFactory::getApplication();
 	$database = JFactory::getDBO();
-	
+
 	//Set redirect URL
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
 	
+	//Create item object and get details
+	$row = new rsgImagesItem( $database );
 	$id 	= JRequest::getInt( 'id'  , '');
-	$title 	= JRequest::getString( 'title'  , '');
-	$descr 	= JRequest::getVar( 'descr'  , '', 'post', 'string', JREQUEST_ALLOWRAW);
-	$catid 	= JRequest::getInt( 'catid'  , '');
-
-	//escape strings for sql query
-	$title 	= $database->getEscaped($title);
-	$descr 	= $database->getEscaped($descr);
+	$row->load($id);
+	//Not using $row->bind( JRequest::get('post') ) here, too few variables that don't need attention
+	$row->title 	= JRequest::getString( 'title'  , '');
+	$row->descr 	= JRequest::getVar( 'descr'  , '', 'post', 'string', JREQUEST_ALLOWRAW);
+	$row->descr 	= str_replace( '<br>', '<br />', $row->descr );
+	$row->gallery_id= JRequest::getInt( 'gallery_id'  , '');
+	//Make the alias for SEF
+    $row->alias 	= JFilterOutput::stringURLSafe($row->title);
 	
-	$database->setQuery("UPDATE #__rsgallery2_files SET ".
-			"title = '$title', ".
-			"descr = '$descr', ".
-			"gallery_id = '$catid' ".
-			"WHERE id= '$id'");
-
-	if ($database->query()) {
-		$mainframe->redirect(JRoute::_( $redirect ), JText::_('COM_RSGALLERY2_DETAILS_SAVED_SUCCESFULLY') );
-	} else {
-		//echo JText::_('COM_RSGALLERY2_ERROR-').mysql_error();
+	if (!$row->check()) {
 		$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_COULD_NOT_UPDATE_IMAGE_DETAILS') );
 	}
+	if (!$row->store()) {
+		$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_COULD_NOT_UPDATE_IMAGE_DETAILS') );	
+	}
+	
+	//Redirect after successfull save
+	$mainframe->redirect(JRoute::_( $redirect ), JText::_('COM_RSGALLERY2_DETAILS_SAVED_SUCCESFULLY') );
 }
 
 function saveUploadedItem() {
@@ -220,7 +219,9 @@ function saveUploadedItem() {
 		}
 
 		switch ($file_ext) {
-			case 'zip':
+/*Remove zip option for now since handleZIP uses pclzip.lib.php that was removed in J!1.6
+Can get it to work with new function?
+		case 'zip':
         		if ($upload->checkSize($i_file) == 1) {
             		$ziplist = $upload->handleZIP($i_file);
             		
@@ -243,7 +244,7 @@ function saveUploadedItem() {
             		$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_ZIP-FILE_IS_TOO_BIG'));
         		}
 				break;
-			case 'image':
+*/			case 'image':
 				//Check if image is too big
 				if ($i_file['error'] == 1)
 					$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_IMAGE_SIZE_IS_TOO_BIG_FOR_UPLOAD') );
@@ -265,6 +266,7 @@ function saveUploadedItem() {
 				}
 				break;
 			case 'error':
+			default:
 				$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_WRONG_IMAGE_FORMAT_WE_WILL_REDIRECT_YOU_TO_THE_UPLOAD_SCREEN') );
 				break;
 		}
@@ -294,7 +296,7 @@ function editCat($catid) {
 	}
 }
 
-function saveCat() {
+function saveCat($gid) {
 	global $rsgConfig;
 	$mainframe =& JFactory::getApplication();
 	$my = JFactory::getUser();
@@ -302,69 +304,64 @@ function saveCat() {
 
 	//Set redirect URL
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
-	
-	$parent 		= JRequest::getVar( 'parent'  , 0);
-	$id 			= JRequest::getInt( 'catid'  , null);
-	$catname1 		= JRequest::getString( 'catname1'  , null);
-	$description 	= JRequest::getVar( 'description'  , null, 'post', 'string', JREQUEST_ALLOWRAW);
-	$published 		= JRequest::getInt( 'published'  , 0);
-	$ordering 		= JRequest::getInt( 'ordering'  , null);
-	$maxcats        = $rsgConfig->get('uu_maxCat');	
+	//Get number of galleries allowed and already present
+	$maxcats  = $rsgConfig->get('uu_maxCat');	
+	$userCatTotal = galleryUtils::userCategoryTotal($my->id);
 
-	//escape strings for sql query
-	$alias			= $database->getEscaped(JFilterOutput::stringURLSafe($catname1));
-	$catname1 		= $database->getEscaped($catname1);
-	$description 	= $database->getEscaped($description);
-
-	if ($id) {
-		$database->setQuery("UPDATE #__rsgallery2_galleries SET ".
-			"name = '$catname1', ".
-			"description = '$description', ".
-			"published = '$published', ".
-			"parent = '$parent' ".
-			"WHERE id = '$id' ");
-		if ($database->query()) {
-			$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_GALLERY_DETAILS_UPDATED') );
-		} else {
-			$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_COULD_NOT_UPDATE_GALLERY_DETAILS') );
-		}
+	//Check if user is allowed to create more galleries (only if this is a new gallery)
+	if ((!$gid) AND ($userCatTotal >= $maxcats)) {
+		?>
+		<script type="text/javascript">
+			alert('<?php echo JText::_('COM_RSGALLERY2_MAX_USERCAT_ALERT');?>');
+			location = '<?php echo JRoute::_("index.php?option=com_rsgallery2&page=my_galleries", false); ?>';
+		</script>
+		<?php
+		//$mainframe->redirect( $redirect ,JText::_('COM_RSGALLERY2_MAX_USERCAT_ALERT'));
 	} else {
-		//New category
-		$userCatTotal = galleryUtils::userCategoryTotal($my->id);
-		if (!isset($parent))
-			$parent = 0;
-		if ($userCatTotal >= $maxcats) {
-			?>
-				<script type="text/javascript">
-				//<![CDATA[
-				alert('<?php echo JText::_('COM_RSGALLERY2_MAX_USERCAT_ALERT');?>');
-				location = '<?php echo JRoute::_("index.php?option=com_rsgallery2&page=my_galleries", false); ?>';
-				//]]>
-				</script>
-				<?php
-			//$mainframe->redirect( $redirect ,JText::_('COM_RSGALLERY2_MAX_USERCAT_ALERT'));
-		} else {
-			//Create ordering, start at last position
-			$database->setQuery("SELECT MAX(ordering) FROM #__rsgallery2_galleries WHERE uid = '$my->id'");
-			$ordering = $database->loadResult() + 1;
-			//Insert into database
-			$database->setQuery("INSERT INTO #__rsgallery2_galleries ".
-				"(name, description, alias, ordering, parent, published, user, uid, date) VALUES ".
-				"('$catname1','$description','$alias','$ordering','$parent','$published','1' ,'$my->id', now())");
-				
-			if ($database->query()) {
-				//Create initial permissions for this gallery
-				$database->setQuery("SELECT id FROM #__rsgallery2_galleries WHERE name = '$catname1' LIMIT 1");
-				$gallery_id = $database->loadResult();
-				$acl = new rsgAccess();
-				if ( $acl->createDefaultPermissions($gallery_id) )
-					$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_NEW_GALLERY_CREATED') );
-			} else {
-				$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_ALERT_NONEWCAT') );
-			}
+		//Instantiate the gallery object
+		$row = new rsgGalleriesItem( $database );
+		//Not a new gallery? then load its data
+		if ($gid){
+			$row->load($gid);
+		}
+		//Bind user input to $row (parent, name, description, existing gallery: gid, ordering)
+		if (!$row->bind( JRequest::get('post') )) {
+			echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
+			exit();
+		}
+		//Description: html is allowed
+		$row->description = JRequest::getVar( 'description', '', 'post', 'string', JREQUEST_ALLOWRAW );
+		//Code cleaner for xhtml transitional compliance 
+		$row->description = str_replace( '<br>', '<br />', $row->description );
+		//Make the alias for SEF (no matter if it existed or not for frontend editing)
+		$row->alias = JFilterOutput::stringURLSafe($row->name);
+		//Get/do some additional stuff
+		$row->date = date( 'Y-m-d H:i:s' );
+		if (!$row->uid){	//Don't change owner
+			$row->uid = $my->id;
+		}
+		//Do some checks (overloads JTable::check() with rsgGalleriesItem::check())
+		if (!$row->check()) {
+			echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
+			exit();
+		}
+		//And store the row (this is where the asset is also stored; JTable::store())
+		if (!$row->store()) {
+			echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
+			exit();
+		}
+		//Then checkin and reorder (JTable:checkin() and JTable::reorder())
+		$row->checkin();
+		$row->reorder( );
+		//Finally redirect with success message
+		if ($gid) {
+			$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_GALLERY_DETAILS_UPDATED') );
+		} else {		
+			$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_NEW_GALLERY_CREATED') );
 		}
 	}
-	//$mainframe->redirect( $redirect  );
+	//JText::_('COM_RSGALLERY2_ALERT_NONEWCAT')
+	//JText::_('COM_RSGALLERY2_COULD_NOT_UPDATE_GALLERY_DETAILS')
 }
 
 function deleteCat() {
@@ -374,30 +371,31 @@ function deleteCat() {
 	$database = JFactory::getDBO();
 
 	//Get values from URL
-	$catid = JRequest::getInt( 'gid'  , null);//Mirjam: catid is gid as of v1.14
-
+	$gid = JRequest::getInt( 'gid'  , null);
 	//Set redirect URL
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries",false);
-	
-	//Get category details
-	$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE id = '$catid'");
-	$rows = $database->LoadObjectList();
-	foreach ($rows as $row) {
-		$uid = $row->uid;
-		$parent = $row->parent;
-	}
+
+	//Is user allowed to delete this gallery?
+	$canDelete = $my->authorise($core.delete, 'com_rsgallery2.gallery.'.$gid);
+
+	if (!$canDelete) {
+		$mainframe->redirect( $redirect ,JText::_('COM_RSGALLERY2_PERMISSION_NOT_ALLOWED_DELETE_GALLERY'));
+	} else {
+		//Check if gallery has children
+		$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_galleries WHERE parent = '$gid'");
+		$count = $database->loadResult();
+		if ($count > 0) {
+			$mainframe->redirect( $redirect ,JText::_('COM_RSGALLERY2_USERCAT_SUBCATS'));
+		}
 		
-	//Check if gallery has children
-	$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_galleries WHERE parent = '$catid'");
-	$count = $database->loadResult();
-	if ($count > 0) {
-		$mainframe->redirect( $redirect ,JText::_('COM_RSGALLERY2_USERCAT_SUBCATS'));
-	}
-	
-	//No children from here, so lets continue
-	if ($uid == $my->id OR $my->usertype == 'Super Administrator') {
+		//No children from here, so lets continue
+		//Get rsgImagesItem object
+		$gallery_row = new rsgGalleriesItem( $database );
+		//Get category details
+		$gallery_row->load($gid);
+
 		//Delete images
-		$database->setQuery("SELECT name FROM #__rsgallery2_files WHERE gallery_id = '$catid'");
+		$database->setQuery("SELECT name FROM #__rsgallery2_files WHERE gallery_id = '$gid'");
 		$result = $database->loadResultArray();
 		$error = 0;
 		foreach ($result as $filename) {
@@ -408,25 +406,19 @@ function deleteCat() {
 		//Error checking
 		if ($error == 0) {
 			//Gallery can be deleted
-			$database->setQuery("DELETE FROM #__rsgallery2_galleries WHERE id = '$catid'");
-			if ( !$database->query() ) {
-				//Error message, gallery could not be deleted
+			if (!$gallery_row->delete($gid)){
 				$mainframe->redirect( $redirect ,JText::_('COM_RSGALLERY2_GALLERY_COULD_NOT_BE_DELETED'));
 			} else {
 				//Ok, goto mainpage
 				$mainframe->redirect( $redirect ,JText::_('COM_RSGALLERY2_GALLERY_DELETED'));
 			}
 		} else {
-			//There were errors. Gallery will not be deleted
-			$mainframe->redirect( $redirect ,JText::_('COM_RSGALLERY2_GALLERY_COULD_NOT_BE_DELETED'));
+			//Abort and return to mainscreen
+			$mainframe->redirect( $redirect ,JText::_('COM_RSGALLERY2_GALLERY_NOT_DELETED_SINCE_NOT_ALL_IMAGES_DELETED'));
 		}
-	} else {
-		//Abort and return to mainscreen
-		$mainframe->redirect( $redirect ,JText::_('COM_RSGALLERY2_USER_CAT_NOTOWNER'));
 	}
 }
 
-//--
 function editStateGallery($galleryId, $newState) {
 	global $rsgConfig;
 	$mainframe =& JFactory::getApplication();
@@ -466,5 +458,4 @@ function editStateItem($id, $newState) {
 		$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_COULD_NOT_UPDATE_IMAGE_DETAILS') );
 	}
 }
-//--
 ?>

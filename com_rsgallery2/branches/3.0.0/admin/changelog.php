@@ -30,9 +30,7 @@ Legend:
 - -> Removed
 ! -> Note
 
-! To do: Frontend: Newly created objects in My galleries should get an asset.
 ! To do: Frontend: My galleries only shows two levels of galleries due to is implementation: change to show all levels.
-! To do: Frontend: When in My galleries an object gets a new parent, its asset should get a new parent.
 ! To do: Backend: Implement ACL core.edit/edit.own/edit.state/delete.
 ! To do: Backend: Move/copy button for images: set correct parent asset (it is ok for changing parent gallery for images of subgalleries in Edit screens).
 ! To do: Backend: Installation of template does not function (yet).
@@ -43,11 +41,13 @@ Legend:
 
 ---------------- Recent ----------------
 
+2011-03-28 Mirjam - SVN 1017
+^ Moved .sys.ini files to admin/language/en-GB/en-GB.com_rsgallery2.sys.ini etc (to show translated XML string in installation).
+^ Changed My galleries to work with rsgImagesItem and rsgGalleriesItem objects instead of maken UPDATE sql statements (these are extension classes for JTable for which the store() and delete() methods create/remove assets).
+
 2011-03-23 Mirjam - SVN 1016
 - Removed pre-J!1.6 ACL config variables uu_createCat (can user create categories) and acl_enabled (enable ACL)
 ^ Implemented ACL in My galleries (frontend user upload/edit/create/editstate)!!!
-! To do: Newly created objects in My galleries should get an asset.
-! To do: When in My galleries an object gets a new parent, its asset should get a new parent.
 
 2011-03-21 Mirjam - SVN 1015
 ^ Frontend My galleries works (also with Joomla SEF): edit/delete/create image/gallery, but without ACL

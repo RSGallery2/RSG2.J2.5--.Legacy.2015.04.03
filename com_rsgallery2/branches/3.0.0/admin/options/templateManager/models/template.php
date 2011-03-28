@@ -42,8 +42,6 @@ class InstallerModelTemplate extends InstallerModel
 	
 	function getItem()
 	{
-		//MK// [removed][mainframe]//global $mainframe;
-		
 		jimport('joomla.filesystem.path');
 		if (!$this->template) {
 			return JError::raiseWarning( 500, 'Template not specified' );

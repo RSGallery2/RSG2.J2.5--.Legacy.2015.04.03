@@ -24,7 +24,6 @@ class rsgComments {
  */
  
  function rsgComments() {
-//	global $mainframe;//MK// [not used check]	$mainframe
  	$this->_buttons = array(
 		"b" 	=> "ubb_bold.gif",
 		"i" 	=> "ubb_italicize.gif",
@@ -66,7 +65,6 @@ class rsgComments {
  * Shows toolbar for BBCode editor
  */
 function showButtons() {
-//	global $mainframe;//MK// [not used check]	$mainframe
 	//Define codes and corresponding images for toolbar
 
 	echo "<div style='float: left;'>";
@@ -113,8 +111,6 @@ function showButtons() {
  * Shows block of smilies for BBCode editor
  */
 function showSmilies() {
-//	global $mainframe;//MK// [not used check]	$mainframe
-	
 	$i = 0;
 	foreach ($this->_emoticons as $tag => $filename) {
 		?>
@@ -246,7 +242,7 @@ function parse( $html ) {
  * Shows the form for the 
  */
 function editComment( $item_id ) {
-	global $rsgConfig ;//MK// [not used check]	$mainframe
+	global $rsgConfig ;
 	$my =& JFactory::getUser();/* JPATH_SITE is only there to accomodate SecurityImages for now*/
 	$doc =& JFactory::getDocument();
 	$doc->addScript(JURI_SITE."/components/com_rsgallery2/lib/rsgcomments/js/client.js");

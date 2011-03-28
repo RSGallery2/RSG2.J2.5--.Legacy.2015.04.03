@@ -337,7 +337,7 @@ class rsgDisplay extends JObject{
      * @return HTML representation of image block.
      */
     function showImages($type="latest", $number = 3, $style = "hor") {
-    	global $rsgConfig;//MK// [not used check] $mainframe
+    	global $rsgConfig;
     	$database = JFactory::getDBO();
 		
 		//Check if backend permits showing these images
@@ -456,7 +456,7 @@ class rsgDisplay extends JObject{
 	 * @return HTML for downloadlink
 	 */
 	function _writeDownloadLink($id, $showtext = true, $type = 'button') {
-		global $rsgConfig;//MK// [not used check] $mainframe
+		global $rsgConfig;
 		if ( $rsgConfig->get('displayDownload') ) {
 			echo "<div class=\"rsg2-toolbar\">";
 			if ($type == 'button') {

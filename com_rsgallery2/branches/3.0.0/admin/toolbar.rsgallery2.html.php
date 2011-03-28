@@ -263,9 +263,14 @@ class menuRSGallery {
 	}
 
 	function simple(){
+		$user = JFactory::getUser();
+		$canConfigure = $user->authorise('core.admin', 	'com_rsgallery2');
+		
         JToolBarHelper::title( JText::_('COM_RSGALLERY2_CONTROL_PANEL'), 'generic.png' );
 		//options button, only for uses who are allowed to see/use this
-		JToolBarHelper::preferences('com_rsgallery2');
+		if ($canConfigure){
+			JToolBarHelper::preferences('com_rsgallery2');
+		}
         JToolBarHelper::help('screen.rsgallery2', true);
         //menuRSGallery::adminTasksMenu();
     }
