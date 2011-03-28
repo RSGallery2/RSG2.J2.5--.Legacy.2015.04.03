@@ -3,7 +3,7 @@
 * This file handles gallery manipulation functions for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2005 - 2006 RSGallery2
+* @copyright (C) 2005 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
@@ -276,16 +276,11 @@ class rsgGalleryManager{
             // delete gallery
             $id = $gallery->get('id');
             if( !is_numeric( $id )) return false;
-
-            $query = "DELETE FROM #__rsgallery2_galleries WHERE id = $id";
-            echo "<br>deleting gallery $id";
-
-            $database->setQuery( $query );
-            if (!$database->query())
-                echo $database->error();
-
-            // Delete permissions here
-            $rsgAccess->deletePermissions( $id );
-        }
+			
+			$row = new rsgGalleriesItem( $database );
+			if (!$row->delete($id)){
+				JError::raiseError(500, $row->getError() );
+			}
+		}
     }
 }

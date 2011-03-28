@@ -429,7 +429,6 @@ Please keep the following in mind:
      * Inserts the HTML placed at the top of all RSGallery Admin pages.
      */
     function RSGalleryHeader($type='', $text=''){
-        //global $mainframe; //MK// [removed for Joomla 1.6]	
         ?>
         <table class="adminheading">
           <tr>

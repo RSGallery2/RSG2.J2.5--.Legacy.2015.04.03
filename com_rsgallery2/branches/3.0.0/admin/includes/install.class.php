@@ -52,7 +52,7 @@ class rsgInstall {
     
     /** Constructor */
     function rsgInstall(){
-		global $rsgConfig;//MK// [removed][mainframe]
+		global $rsgConfig;
         $app =JFactory::getApplication();
 		
 		if (!defined("JURI_SITE")){
@@ -2079,7 +2079,6 @@ class migrate_com_rsgallery extends GenericMigrator {
      * @return true or false
      */
 	function detect(){
-		//MK// [removed][mainframe] global $mainframe; 
 		$database =& JFactory::getDBO();
 		
 		if( in_array( $database->getPrefix().'rsgallery2_config', $database->getTableList() ) === false ){ 

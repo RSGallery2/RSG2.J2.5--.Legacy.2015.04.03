@@ -240,7 +240,7 @@ class rsgDisplay_semantic extends rsgDisplay{
      * Shows main item
      */
 	function showItem(){
-		global $rsgConfig;//MK// [not used check]	$mainframe
+		global $rsgConfig;
 		
 		$item = rsgInstance::getItem();
 

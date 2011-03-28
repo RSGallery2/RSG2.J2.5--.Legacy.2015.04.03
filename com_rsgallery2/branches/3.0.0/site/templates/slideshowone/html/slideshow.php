@@ -1,8 +1,6 @@
 <?php defined('_JEXEC') or die('Restricted access'); ?>
 
 <?php
-//global $mainframe;//MK// [not used check]	
-
 $firstImage = $this->gallery->getItem();
 $firstImage = $firstImage->display();
 ?>

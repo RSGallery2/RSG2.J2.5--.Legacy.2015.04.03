@@ -20,7 +20,7 @@ class html_rsg2_galleries{
      */
     function show( &$rows, &$lists, &$search, &$pageNav ){
         global $rsgOption;
-		$option = JRequest::getCmd('option');//MK// [change] [option]	
+		$option = JRequest::getCmd('option');
 
 		$my =& JFactory::getUser();
 		JHTML::_("behavior.mootools");
@@ -174,7 +174,7 @@ class html_rsg2_galleries{
      */
     function removeWarn( $galleries ){
         global $rsgOption;
-		$option = JRequest::getCmd('option');//MK// [change] [optionn]		
+		$option = JRequest::getCmd('option');
         ?>
         <form action="index.php" method="post" name="adminForm">
         <input type="hidden" name="option" value="<?php echo $option;?>" />

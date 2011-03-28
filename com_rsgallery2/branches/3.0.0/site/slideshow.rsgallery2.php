@@ -9,7 +9,7 @@
 **/
 
 defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
-global $rsgConfig, $name, $imagepath;//MK// [not used check]	$mainframe
+global $rsgConfig, $name, $imagepath;
 $imagepath = $rsgConfig->get('imgPath_display'); 
 $k = 0;
 $text = "";

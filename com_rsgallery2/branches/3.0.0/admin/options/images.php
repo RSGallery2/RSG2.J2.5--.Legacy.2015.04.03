@@ -110,7 +110,7 @@ switch ($task) {
 * @param database A database connector object
 */
 function showImages( $option ) {
-	global $mosConfig_list_limit; //MK// [removed for Joomla 1.6]	 only $mainframe
+	global $mosConfig_list_limit;
 	$mainframe =& JFactory::getApplication();
 	$database = JFactory::getDBO();
 	
@@ -137,7 +137,6 @@ function showImages( $option ) {
 	$database->setQuery( $query );
 	$total = $database->loadResult();
 
-//	require_once( JPATH_ADMINISTRATOR . '/includes/pageNavigation.php' );//MK// [removed for Joomla 1.6]	and added the line jimport('joomla.html.pagination');
 	jimport('joomla.html.pagination');
 	$pageNav = new JPagination( $total, $limitstart, $limit  );
 
@@ -333,19 +332,14 @@ function removeImages( $cid, $option ) {
 				return;
 				}
 			}
+			//Delete from database
+			$row = new rsgImagesItem( $database );
+			if (!$row->delete($id)){
+				JError::raiseError(500, $row->getError() );
+			}
 		}
 		
-		//Delete from database
-		$cids = implode( ',', $cid );
-		$query = "DELETE FROM #__rsgallery2_files"
-		. "\n WHERE id IN ( $cids )"
-		;
-		$database->setQuery( $query );
-		if (!$database->query()) {
-			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
-		}
 	}
-
 	$mainframe->redirect( $return , JText::_('COM_RSGALLERY2_MAGE-S_DELETED_SUCCESFULLY') );
 }
 
@@ -650,7 +644,7 @@ function copyImage( $cid, $option ) {
 }
 
 function batchupload($option) {
-	global $rsgConfig;//MK// [removed][mainframe]
+	global $rsgConfig;
 	$database = JFactory::getDBO();
 	$mainframe =& JFactory::getApplication();
 	$FTP_path = $rsgConfig->get('ftp_path');
