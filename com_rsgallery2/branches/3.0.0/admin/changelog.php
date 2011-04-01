@@ -34,12 +34,18 @@ Legend:
 ! To do: Backend: Implement ACL core.edit/edit.own/edit.state/delete.
 ! To do: Backend: Move/copy button for images: set correct parent asset (it is ok for changing parent gallery for images of subgalleries in Edit screens).
 ! To do: Backend: Installation of template does not function (yet).
+! To do: Frontend: zip upload (as v2) and/or multiple file (new) upload.
 ! To do: Remove deprecated rsgAccess (class extending JObject) in v3.
 ! To do: For logged in users v2 has (non functional) edit/delete buttons for admin within gallery (template semantic/html/thumbs_float.php and thumbs_table.php within div id="rsg2-adminButtons") with permission in template/semantic/display class: either remove or implement this.
 ! To do: Backend item owner changes upon save: should be choice if allowed like with galleries, and should show.
 ! To do: "//MK// [todo]" things
 
 ---------------- Recent ----------------
+
+2011-04-01 Mirjam - SVN 1018
++ Frontend My galleries uses token for forms and all functions check assets.
++ Used IE disabled option fix in My galleries form http://www.lattimore.id.au/2005/07/01/select-option-disabled-and-the-javascript-solution/
+
 
 2011-03-28 Mirjam - SVN 1017
 ^ Moved .sys.ini files to admin/language/en-GB/en-GB.com_rsgallery2.sys.ini etc (to show translated XML string in installation).
