@@ -84,9 +84,8 @@ Please keep the following in mind:
 <li>This version is not ready yet to be used on production sites</li>
 <li>The following options are known not to function in this version:</li>
 	<ul>
-	<li>Frontend: My Galleries, slideshow PhatFusion (to be removed since it uses Mootools 1.11)</li>
-	<li>Access Control: the access control used in v2.x for Joomla 1.5 is removed and 
-	access control for Joomla 1.6 is not implemented yet.</li>
+	<li>Frontend: slideshow PhatFusion (to be removed since it uses Mootools 1.11)</li>
+	<li>Backend Access Control: access control for Joomla 1.6 is not fully implemented yet.</li>
 	</ul>
 <li>Available languages:</li>
 	<ul>

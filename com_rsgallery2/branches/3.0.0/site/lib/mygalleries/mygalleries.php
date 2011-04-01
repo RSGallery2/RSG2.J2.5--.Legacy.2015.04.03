@@ -115,23 +115,21 @@ function showMyGalleries() {
 function deleteItem() {
 	global $rsgAccess;
 	$mainframe =& JFactory::getApplication();
-	$my = JFactory::getUser();
+	$user = JFactory::getUser();
 	$database = JFactory::getDBO();
 	$id = JRequest::getInt( 'id'  , '');
 	$Itemid = JRequest::getInt( 'Itemid'  , '');
+	
+	//Check if delete is allowed for this item
+	if (!$user->authorise('core.delete', 'com_rsgallery2.item.'.$id)){
+		JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+		$mainframe->redirect(JRoute::_( $redirect ));
+	}
+
 	if ($id) {		
-		//Get gallery id
-		$gallery_id = galleryUtils::getCatidFromFileId($id);
-		
-//MK Change: if core.delete is allowed in this gallery		
-		//Check if file deletion is allowed in this gallery
-		if ($rsgAccess->checkGallery('del_img', $gallery_id )) {
-			$filename 	= galleryUtils::getFileNameFromId($id);
-			imgUtils::deleteImage($filename);
-			$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid",false), JText::_('COM_RSGALLERY2_IMAGE_IS_DELETED') );
-		} else {
-			$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid",false), JText::_('COM_RSGALLERY2_USERIMAGE_NOTOWNER') );
-		}
+		$filename 	= galleryUtils::getFileNameFromId($id);
+		imgUtils::deleteImage($filename);
+		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid",false), JText::_('COM_RSGALLERY2_IMAGE_IS_DELETED') );
 	} else {
 		//No ID sent, no delete possible, back to my galleries
 		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries"), JText::_('COM_RSGALLERY2_NO_ID_PROVIDED_CONTACT_COMPONENT_DEVELOPER') );
@@ -141,6 +139,15 @@ function deleteItem() {
 function editItem() {
 	$database = JFactory::getDBO();
 	$id = JRequest::getInt('id'  , null);
+	$user = JFactory::getUser();
+	$mainframe =& JFactory::getApplication();
+	
+	//Check if user is allowed to upload in this gallery
+	if (!$user->authorise('core.edit', 'com_rsgallery2.item.'.$id)){
+		JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+		$mainframe->redirect(JRoute::_( $redirect ));
+	}
+
 	if ($id) {
 		$database->setQuery("SELECT * FROM #__rsgallery2_files WHERE id = '$id'");
 		$rows = $database->loadObjectList();
@@ -149,15 +156,26 @@ function editItem() {
 }
 
 function saveItem() {
+	// Check for request forgeries
+	JRequest::checkToken() or jexit( 'Invalid Token' );
+
 	$mainframe =& JFactory::getApplication();
 	$database = JFactory::getDBO();
-
+	$user = JFactory::getUser();
+	
 	//Set redirect URL
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
 	
+	$id 	= JRequest::getInt( 'id'  , '');
+	//Check if user is allowed to edit this item
+	if (!$user->authorise('core.edit',      
+	   'com_rsgallery2.item.'.$id)){
+		JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+		$mainframe->redirect(JRoute::_( $redirect ));
+	}
+	
 	//Create item object and get details
 	$row = new rsgImagesItem( $database );
-	$id 	= JRequest::getInt( 'id'  , '');
 	$row->load($id);
 	//Not using $row->bind( JRequest::get('post') ) here, too few variables that don't need attention
 	$row->title 	= JRequest::getString( 'title'  , '');
@@ -179,32 +197,41 @@ function saveItem() {
 }
 
 function saveUploadedItem() {
+	// Check for request forgeries
+	JRequest::checkToken() or jexit( 'Invalid Token' );
+
 	global $rsgConfig, $rsgAccess;
 	$mainframe =& JFactory::getApplication();
 	$database = JFactory::getDBO();
+	$user = JFactory::getUser();
 	//Set redirect URL
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries",false);
-	
-	//Get category ID to check rights
-	$i_cat = JRequest::getVar( 'i_cat'  , '');
-	
+
 	//Get maximum number of images to upload
 	$max_images = $rsgConfig->get('uu_maxImages');
+
+	//Get category ID to check rights
+	$gallery_id = JRequest::getVar( 'gallery_id'  , '');
 	
-	//Check if user can upload in this gallery
-	if ( !$rsgAccess->checkGallery('up_mod_img', $i_cat) ) die('Unauthorized upload attempt!');
+	//Check if user is allowed to upload in this gallery
+	if (!$user->authorise('core.create', 'com_rsgallery2.gallery.'.$gallery_id)){
+		JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+		$mainframe->redirect(JRoute::_( $redirect ));
+	}
 	
 	//Check if number of images is not exceeded
 	$count = 0;
 	if ($count > $max_images) {
 		//Notify user and redirect
+		JError::raiseWarning(404, JText::_('COM_RSGALLERY2_MAXIMUM_NUMBER_OF_IMAGES_UPLOADED_REACHED_DELETE_SOME_IMAGES_FIRST'));
+		$mainframe->redirect(JRoute::_( $redirect ));
 	} else {
 		//Go ahead and upload
 		$upload = new fileHandler();
 		
 		//Get parameters from form
 		$i_file = JRequest::getVar( 'i_file', null, 'files', 'array'); 
-		$i_cat = JRequest::getInt( 'i_cat'  , ''); 
+		$gallery_id = JRequest::getInt( 'gallery_id'  , ''); 
 		$title = JRequest::getVar( 'title'  , ''); 
 		$descr = JRequest::getVar( 'descr', '', 'post', 'string', JREQUEST_ALLOWRAW );
 		$uploader = JRequest::getVar( 'uploader'  , ''); 
@@ -219,7 +246,7 @@ function saveUploadedItem() {
 		}
 
 		switch ($file_ext) {
-/*Remove zip option for now since handleZIP uses pclzip.lib.php that was removed in J!1.6
+/*Removed zip option for now since handleZIP uses pclzip.lib.php that was removed in J!1.6
 Can get it to work with new function?
 		case 'zip':
         		if ($upload->checkSize($i_file) == 1) {
@@ -230,7 +257,7 @@ Can get it to work with new function?
             		
             		//Import images into right folder
             		for ($i = 0; $i<sizeof($ziplist); $i++) {
-            			$import = imgUtils::importImage($extractdir . $ziplist[$i], $ziplist[$i], $i_cat);
+            			$import = imgUtils::importImage($extractdir . $ziplist[$i], $ziplist[$i], $gallery_id);
             		}
             		
             		//Clean mediadir
@@ -252,7 +279,7 @@ Can get it to work with new function?
 				$file_name = $i_file['name'];
 				if ( move_uploaded_file($i_file['tmp_name'], JPATH_ROOT . DS ."media" . DS . $file_name) ) {
 					//Import into database and copy to the right places
-					$imported = imgUtils::importImage(JPATH_ROOT . DS ."media" . DS . $file_name, $file_name, $i_cat, $title, $descr);
+					$imported = imgUtils::importImage(JPATH_ROOT . DS ."media" . DS . $file_name, $file_name, $gallery_id, $title, $descr);
 					
 					if ($imported == 1) {
 						if (file_exists( JPATH_ROOT . DS ."media" . DS . $file_name ))
@@ -273,20 +300,26 @@ Can get it to work with new function?
 	}
 }
 
-function editCat($catid) {
-	//Mirjam: In v1.13 catid was used where since v1.14 gid is used, but locally in a function catid is fine
+function editCat($id) {
 	global $rsgConfig;
-	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
+	$user = JFactory::getUser();
+	$mainframe =& JFactory::getApplication();
 
-	if ($catid) {
+	//Check if user is allowed to upload in this gallery
+	if (!$user->authorise('core.edit', 'com_rsgallery2.gallery.'.$id)){
+		JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+		$mainframe->redirect(JRoute::_( $redirect ));
+	}
+
+	if ($id) {
 		//Edit category
-		$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE id ='$catid'");
+		$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE id ='$id'");
 		$rows = $database->LoadObjectList();
 		myGalleries::editCat($rows);
 	} else {
 		//Check if maximum number of usercats are already made
-		$count = galleryUtils::userCategoryTotal($my->id);
+		$count = galleryUtils::userCategoryTotal($user->id);
 		if ($count >= $rsgConfig->get('uu_maxCat') ) {
 			$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&page=my_galleries"), JText::_('COM_RSGALLERY2_MAX_USERCAT_ALERT') );
 		} else {
@@ -297,16 +330,27 @@ function editCat($catid) {
 }
 
 function saveCat($gid) {
+	// Check for request forgeries
+	JRequest::checkToken() or jexit( 'Invalid Token' );
+	
 	global $rsgConfig;
 	$mainframe =& JFactory::getApplication();
-	$my = JFactory::getUser();
+	$user = JFactory::getUser();
 	$database = JFactory::getDBO();
 
 	//Set redirect URL
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
+	
+	//Check if user is allowed to upload in the choosen gallery
+	$parent_gallery = JRequest::getVar( 'parent');
+	if (!$user->authorise('core.create', 'com_rsgallery2.gallery.'.$parent_gallery)){
+		JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+		$mainframe->redirect(JRoute::_( $redirect ));
+	}
+
 	//Get number of galleries allowed and already present
 	$maxcats  = $rsgConfig->get('uu_maxCat');	
-	$userCatTotal = galleryUtils::userCategoryTotal($my->id);
+	$userCatTotal = galleryUtils::userCategoryTotal($user->id);
 
 	//Check if user is allowed to create more galleries (only if this is a new gallery)
 	if ((!$gid) AND ($userCatTotal >= $maxcats)) {
@@ -338,7 +382,7 @@ function saveCat($gid) {
 		//Get/do some additional stuff
 		$row->date = date( 'Y-m-d H:i:s' );
 		if (!$row->uid){	//Don't change owner
-			$row->uid = $my->id;
+			$row->uid = $user->id;
 		}
 		//Do some checks (overloads JTable::check() with rsgGalleriesItem::check())
 		if (!$row->check()) {
@@ -420,13 +464,18 @@ function deleteCat() {
 }
 
 function editStateGallery($galleryId, $newState) {
-	global $rsgConfig;
 	$mainframe =& JFactory::getApplication();
-	$my = JFactory::getUser();
+	$user = JFactory::getUser();
 	$database = JFactory::getDBO();
 	
 	//Set redirect URL
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
+
+	//Check if user is allowed to edit the state of this gallery
+	if (!$user->authorise('core.edit.state', 'com_rsgallery2.gallery.'.$galleryId)){
+		JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+		$mainframe->redirect(JRoute::_( $redirect ));
+	}
 	
 	if ($galleryId) {
 		$database->setQuery("UPDATE #__rsgallery2_galleries SET ".
@@ -443,9 +492,15 @@ function editStateGallery($galleryId, $newState) {
 function editStateItem($id, $newState) {
 	$mainframe =& JFactory::getApplication();
 	$database = JFactory::getDBO();
-	
+	$user = JFactory::getUser();
 	//Set redirect URL
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
+	
+	//Check if user is allowed to edit the state of this item
+	if (!$user->authorise('core.edit.state', 'com_rsgallery2.item.'.$id)){
+		JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+		$mainframe->redirect(JRoute::_( $redirect ));
+	}
 	
 	$database->setQuery("UPDATE #__rsgallery2_files SET ".
 			"published = $newState ".

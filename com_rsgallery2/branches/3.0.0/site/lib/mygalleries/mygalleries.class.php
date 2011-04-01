@@ -25,7 +25,6 @@ class myGalleries {
     function viewMyGalleriesPage($rows, $images, $pageNav) {
         global $rsgConfig;
 		$mainframe =& JFactory::getApplication();
-		$my = JFactory::getUser();
 		$database = JFactory::getDBO();
 		$user = JFactory::getUser();
 
@@ -43,8 +42,14 @@ class myGalleries {
 		//As long as I'm unable to get JText with .js files working use this function:
 		myGalleries::mygalleriesJavascript();
 		
+		//IE has a bug for 'disabled' options in a select box. Fix used from http://www.lattimore.id.au/2005/07/01/select-option-disabled-and-the-javascript-solution/
+	?>	<!--[if lt IE 8]>
+		<script type="text/javascript" src="<?php echo JURI_SITE;?>components/com_rsgallery2/lib/mygalleries/select-option-disabled-emulation.js"></script>
+		<![endif]-->
+	<?php
+		
         //Show User information
-        myGalleries::RSGalleryUSerInfo($my->id);
+        myGalleries::RSGalleryUSerInfo($user->id);
 
 		//Is there at least one gallery for which I have core.create?
 		$createAllowedInAnyGallery = count(galleryUtils::getAuthorisedGalleries('core.create'));
@@ -79,8 +84,10 @@ class myGalleries {
 	}
 	
 	function showCreateGallery($rows) {
+		//This form is only shown when a user is allowed to create a gallery
+		
     	global $rsgConfig;
-		$my = JFactory::getUser();
+		$user = JFactory::getUser();
 		$editor =& JFactory::getEditor();
 
 		//Script for this form is found in myGalleries::mygalleriesJavascript();
@@ -106,7 +113,8 @@ class myGalleries {
 	        $user           = "";
 	        $parent         = 0;
 	    }
-	    ?>
+		
+		?>
         <form name="createGallery" id="createGallery" method="post" action="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=saveCat",true); ?>">
 			<table class="adminlist">
 				<tr>
@@ -166,49 +174,41 @@ class myGalleries {
 			<input type="hidden" name="option" value="com_rsgallery2" />
 			<input type="hidden" name="rsgOption" value="<?php echo JRequest::getCmd('rsgOption'); ?>" />
 			<input type="hidden" name="Itemid" value="<?php echo JRequest::getCmd('Itemid'); ?>" />
+			<?php echo JHTML::_('form.token'); ?>
         </form>
         <?php
 	}
 	
-	/**
-     * Displays details about the logged in user and the privileges he/she has
-     * $param integer User ID from Joomla user table
-     */
-     function RSGalleryUserInfo($id) {
-//MK change: shows username, user level, max usergalleries, max userimage
-//user level becomes an idea of what the user can do or will be removed
-//Might be some table showing what you may do:
-//create gallery/upload image, edit (state) gallery/image, delete gallery/image, publish gallery/image
-	     global $rsgConfig;
-				$my = JFactory::getUser();
-
-	     if ($my->usertype == "Super Administrator" OR $my->usertype == "Administrator") {
-	        $maxcat = "unlimited";
-	        $max_images = "unlimited";
-	     } else {
-	        $maxcat = $rsgConfig->get('uu_maxCat');
-	        $max_images = $rsgConfig->get('uu_maxImages');
-	     }
-	     ?>
-	     <table class="adminform">
-			 <tr>
+   /**
+	* Displays details about the logged in user and the privileges he/she has
+	* $param integer User ID from Joomla user table
+	*/
+	function RSGalleryUserInfo($id) {
+		global $rsgConfig;
+		$user = JFactory::getUser();
+		$maxcat = $rsgConfig->get('uu_maxCat');
+		$max_images = $rsgConfig->get('uu_maxImages');
+		?>
+		<div class="current">
+			<table class="adminlist">
+			<tr>
 				<th colspan="2"><?php echo JText::_('COM_RSGALLERY2_USER_INFORMATION'); ?></th>
-			 </tr>
-			 <tr>
-				<td width="250"><?php echo JText::_('COM_RSGALLERY2_USERNAME'); ?></td>
-				<td><?php echo $my->username;?></td>
-			 </tr>
-			 <tr>
+			</tr>
+			<tr>
+				<td><?php echo JText::_('COM_RSGALLERY2_USERNAME'); ?></td>
+				<td><?php echo $user->username;?></td>
+			</tr>
+			<tr>
 				<td><?php echo JText::_('COM_RSGALLERY2_MAXIMUM_USERGALLERIES'); ?></td>
-				<td><?php echo $maxcat;?>&nbsp;&nbsp;(<font color="#008000"><strong><?php echo galleryUtils::userCategoryTotal($my->id);?></strong></font> <?php echo JText::_('COM_RSGALLERY2_NR_OF_USERGALLERIES_CREATED');?>)</td>
-			 </tr>
-			 <tr>
+				<td><?php echo $maxcat;?>&nbsp;(<font color="#008000"><strong><?php echo galleryUtils::userCategoryTotal($user->id);?></strong></font> <?php echo JText::_('COM_RSGALLERY2_NR_OF_USERGALLERIES_CREATED');?>)</td>
+			</tr>
+			<tr>
 				<td><?php echo JText::_('COM_RSGALLERY2_MAXIMUM_IMAGES_ALLOWED'); ?></td>
-				<td><?php echo $max_images;?>&nbsp;&nbsp;(<font color="#008000"><strong><?php echo galleryUtils::userImageTotal($my->id);?></strong></font> <?php echo JText::_('COM_RSGALLERY2_NR_OF_IMAGES_UPLOADED'); ?>)</td>
-			 </tr>
-	     </table>
-	     <br><br>
-	     <?php
+				<td><?php echo $max_images;?>&nbsp;(<font color="#008000"><strong><?php echo galleryUtils::userImageTotal($user->id);?></strong></font> <?php echo JText::_('COM_RSGALLERY2_NR_OF_IMAGES_UPLOADED'); ?>)</td>
+			</tr>
+			</table>
+		</div>
+		<?php
 	}
 	
 	function showImageUpload() {
@@ -216,12 +216,11 @@ class myGalleries {
 		$my = JFactory::getUser();
 		$editor = JFactory::getEditor();
 
-//MK change: showImageUpload only with core.create for 1 or more galleries (double check?)
+		//function showImageUpload should only be called when user has core.create for 1 or more galleries
         
         //Script for this form is found in myGalleries::mygalleriesJavascript();
         ?>
 
-		
         <form name="imgUpload" id="imgUpload" method="post" action="
 <?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=saveUploadedItem"); ?>" enctype="multipart/form-data">
 		<div class="rsg2">
@@ -247,12 +246,12 @@ class myGalleries {
 				</td>
 				<td>
 					<?php 
-					//Show all galleries where galleries without 'core.ceate' are disabled, select name is 'i_cat', no gallery is selected, no gallery is selected, no additional select atributes, don't showTopGallery
-					galleryUtils::showUserGalSelectList('core.create', 'i_cat');
+					//Show all galleries where galleries without 'core.ceate' are disabled, select name is 'gallery_id', no gallery is selected, no gallery is selected, no additional select atributes, don't showTopGallery
+					galleryUtils::showUserGalSelectList('core.create', 'gallery_id');
 					//Deprecated:
-					//galleryUtils::galleriesSelectList(null, 'i_cat', false);*/
+					//galleryUtils::galleriesSelectList(null, 'gallery_id', false);*/
 					//Limits to only user owned, does not use permissions:
-					//galleryUtils::showCategories(NULL, $my->id, 'i_cat');
+					//galleryUtils::showCategories(NULL, $my->id, 'gallery_id');
 					?>
 				</td>
 			</tr>
@@ -282,6 +281,7 @@ class myGalleries {
         </div>
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="option" value="com_rsgallery2" />
+		<?php echo JHTML::_('form.token'); ?>
 		</form>
         <?php
 	}
@@ -293,8 +293,9 @@ class myGalleries {
      * @param integer Number of thumbs per page
      * @param integer pagenav stuff
      * @param integer pagenav stuff
+	 * deprecated
      */
-    function RSShowPictures ($catid, $limit, $limitstart){
+/*    function RSShowPictures ($catid, $limit, $limitstart){
         global $rsgConfig;
 		$my = JFactory::getUser();
 		$database = JFactory::getDBO();
@@ -331,11 +332,9 @@ class myGalleries {
         ?>
         <div class="rsg2-pageNav">
                 <?php
-                /*
-                if( $numPics > $PageSize ){
-                    echo $pagenav->writePagesLinks("index.php?option=com_rsgallery2&catid=".$catid);
-                }
-                */
+//                if( $numPics > $PageSize ){
+//                    echo $pagenav->writePagesLinks("index.php?option=com_rsgallery2&catid=".$catid);
+//                }
                 ?>
         </div>
         <br />
@@ -433,7 +432,7 @@ class myGalleries {
         else {
             if (!$catid == 0)echo JText::_('COM_RSGALLERY2_NO_IMAGES_IN_GALLERY');
         }
-    }
+    }end function RSShowPictures*/
     
     /**
      * This presents the list of galleries shown in My galleries
@@ -476,10 +475,10 @@ class myGalleries {
                     ?>
                     <script type="text/javascript">
 						//<![CDATA[
-						function deleteGallery(catid) {
+						function deleteGallery(gid) {
 							var yesno = confirm ("<?php echo JText::_('COM_RSGALLERY2_DELCAT_TEXT');?>");
 							if (yesno == true) {
-								location = "<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=deleteCat", false);?>"+"&gid="+catid;
+								location = "<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=deleteCat", false);?>"+"&gid="+gid;
 							}
 						}
 						//]]>
@@ -504,7 +503,7 @@ class myGalleries {
 							?>
                         </td>
                         <td>
-							<?php //MK change: only publish image if core.edit.state for comp. else grey image 
+							<?php
 							if ($can[EditStateGallery]){
 								//active image with link
 								if ($row->published == 1) $img = "published-active.png";
@@ -799,9 +798,14 @@ class myGalleries {
             $description    = htmlspecialchars($row->descr, ENT_QUOTES);
             $id             = $row->id;
             $limitstart     = $row->ordering - 1;
-            $catid          = $row->gallery_id;
+            $gallery_id     = $row->gallery_id;
         }
-		?>
+
+		//IE has a bug for 'disabled' options in a select box. Fix used from http://www.lattimore.id.au/2005/07/01/select-option-disabled-and-the-javascript-solution/
+	?>	<!--[if lt IE 8]>
+		<script type="text/javascript" src="<?php echo JURI_SITE;?>components/com_rsgallery2/lib/mygalleries/select-option-disabled-emulation.js"></script>
+		<![endif]-->
+		
 		<script type="text/javascript">
 			Joomla.submitbutton = function(formTask) {
 				var action = formTask.split('.');
@@ -817,7 +821,7 @@ class myGalleries {
 				<?php echo $editor->save('descr') ; ?>
 
 				// Field validation, when OK submit.
-				if (form.catid.value <= "0") {
+				if (form.gallery_id.value <= "0") {
 					alert( "<?php echo JText::_('COM_RSGALLERY2_YOU_MUST_SELECT_A_GALLERY'); ?>" );
 				}
 				else if (form.descr.value == ""){
@@ -852,10 +856,10 @@ class myGalleries {
 					<td align="left"><?php echo JText::_('COM_RSGALLERY2_CATEGORY_NAME'); ?></td>
 					<td align="left">
 						<?php 
-						//Show all galleries where galleries without 'core.create' are disabled, select name is 'catid', $catid is selected, no additional select atributes, don't showTopGallery
-						galleryUtils::showUserGalSelectList('core.create', 'catid', $catid);
+						//Show all galleries where galleries without 'core.create' are disabled, select name is 'gallery_id', $gallery_id is selected, no additional select atributes, don't showTopGallery
+						galleryUtils::showUserGalSelectList('core.create', 'gallery_id', $gallery_id);
 						//Limits to only user owned, does not use permissions:
-						//galleryUtils::showCategories(NULL, $my->id, 'i_cat');
+						//galleryUtils::showCategories(NULL, $my->id, 'gallery_id');
 						?>
 					</td>
 					<td rowspan="3"><img src="<?php echo imgUtils::getImgThumb($filename); ?>" alt="<?php echo $title; ?>"  /></td>
@@ -882,6 +886,7 @@ class myGalleries {
 			<input type="hidden" name="option" 	value="com_rsgallery2>" />
 			<input type="hidden" name="Itemid"	value="<?php echo JRequest::getCmd('Itemid'); ?>" />
 			<input type="hidden" name="rsgOption"	value="<?php echo JRequest::getCmd('rsgOption'); ?>" />
+			<?php echo JHTML::_('form.token'); ?>
         </form>
         <?php
     }
@@ -890,8 +895,12 @@ function editCat($rows = null) {
     global $rsgConfig;
 	$my = JFactory::getUser();
 	$editor =& JFactory::getEditor();
+
+	//IE has a bug for 'disabled' options in a select box. Fix used from http://www.lattimore.id.au/2005/07/01/select-option-disabled-and-the-javascript-solution/
+?>	<!--[if lt IE 8]>
+	<script type="text/javascript" src="<?php echo JURI_SITE;?>components/com_rsgallery2/lib/mygalleries/select-option-disabled-emulation.js"></script>
+	<![endif]-->	
 	
-    ?>
     <script type="text/javascript">
         Joomla.submitbutton = function(formTask) {
 			var action = formTask.split('.');
@@ -989,6 +998,7 @@ function editCat($rows = null) {
         <input type="hidden" name="ordering" value="<?php echo $ordering; ?>" />
 		<input type="hidden" name="task" 	value="" />
 		<input type="hidden" name="option" 	value="com_rsgallery2>" />
+		<?php echo JHTML::_('form.token'); ?>
         </table>
 	</form>
         <?php
@@ -1039,7 +1049,7 @@ function mygalleriesJavascript() {
 				//form.task = imgUpload.saveUploadedItem
 				<?php echo $editor->save('descr') ; ?>
 				//Field validation, if OK then submit
-				if (form.i_cat.value <= 0) {
+				if (form.gallery_id.value <= 0) {
 					alert( "<?php echo JText::_('COM_RSGALLERY2_YOU_MUST_SELECT_A_GALLERY'); ?>" );
 				} 
 				else if (form.i_file.value == "") {
