@@ -155,10 +155,9 @@ function galleryParentSelectList( &$row ) {
         $id = " AND id != $row->id";
     }
 
-    // get a list of the menu items
-    // excluding the current menu item and its child elements
-    //$query = "SELECT *" //MK// [change] [J!1.6 has parent_id instead of parent and title instead of name]
-    $query = "SELECT *, parent AS parent_id, name AS title"
+    // Get a list of the items
+    // [J!1.6 has parent_id instead of parent and title instead of name in menu.treerecurse]
+    $query = "SELECT *, parent AS parent_id, name AS title"	
     . " FROM #__rsgallery2_galleries"
     . " WHERE published != -2"
     . $id
@@ -186,11 +185,20 @@ function galleryParentSelectList( &$row ) {
 
     // assemble menu items to the array
     $mitems     = array();
-    $mitems[]   = JHTMLSelect::option( '0', JText::_('COM_RSGALLERY2_TOP_GALLERY') );
+	//Only add Top gallery as a choice is galleries may be created there or if the current parent is the Top gallery
+	if ((JFactory::getUser()->authorise('core.create', 'com_rsgallery2')) OR ($row->parent == 0)) {
+		$mitems[]   = JHTMLSelect::option( '0', JText::_('COM_RSGALLERY2_TOP_GALLERY') );
+	}
 
     foreach ( $list as $item ) {
-    	$item->treename = str_replace  ( '&#160;&#160;'  ,  '...' ,  $item->treename  ); //MK// [hack] [the original treename holds &#160; as a non breacking space for subgalleries, but JHTMLSelect::option cannot handle that, nor &nbsp;] 
-        $mitems[] = JHTMLSelect::option( $item->id, '...'. $item->treename );//MK// [change] [Non-breaking space: HTML name: &nbsp; replaced by '...']
+		//[hack] [the original treename holds &#160; as a non breacking space for subgalleries, but JHTMLSelect::option cannot handle that, nor &nbsp;] 
+    	$item->treename = str_replace  ( '&#160;&#160;'  ,  '...' ,  $item->treename  ); 
+		//Check create permission for each possible parent
+		$canCreateInParentGallery = JFactory::getUser()->authorise('core.create', 'com_rsgallery2.gallery.'.$item->id);
+		//Get the allowed parents and the current parent
+		if (($canCreateInParentGallery) OR ($row->parent == $item->id)) {
+			$mitems[] = JHTMLSelect::option( $item->id, '...'. $item->treename);
+		}
     }
     
 //genericlist(array of objects, value of HMTL name attribute, additional HTML attributes for <select> tag, name of objectvarialbe for the option value, name of objectvariable for option text, key that is selected,???,???)

@@ -22,7 +22,8 @@ class html_rsg2_galleries{
         global $rsgOption;
 		$option = JRequest::getCmd('option');
 
-		$my =& JFactory::getUser();
+		$user =& JFactory::getUser();
+		$userId = $user->id;
 		JHTML::_("behavior.mootools");
 		
 		//Create 'lookup array' to find whether or not galleries with the same parent
@@ -94,12 +95,19 @@ class html_rsg2_galleries{
             $alt    = $row->published ? 'Published' : 'Unpublished';
 
             $checked    = JHTML::_('grid.checkedout', $row, $i );
-
+			
+			//Get permissions
+			$can[EditGallery]		= $user->authorise('core.edit',		'com_rsgallery2.gallery.'.$row->id);
+			$can[EditOwnGallery]	= $user->authorise('core.edit.own',	'com_rsgallery2.gallery.'.$row->id) AND ($row->uid == $userId);
+			$can[EditStateGallery]	= $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$row->id);
+			
 			//Use the $orderLookup array to determine if for the same 
 			// parent one can still move up/down. First look up the parent info.
+			// combine this with permission
 			$orderkey = array_search($row->id, $orderLookup[$row->parent]);
-			$showMoveUpIcon		= isset($orderLookup[$row->parent][$orderkey - 1]);
-			$showMoveDownIcon	= isset($orderLookup[$row->parent][$orderkey + 1]);
+			$showMoveUpIcon		= ((isset($orderLookup[$row->parent][$orderkey - 1])) AND ($can[EditStateGallery]));
+			$showMoveDownIcon	= ((isset($orderLookup[$row->parent][$orderkey + 1])) AND ($can[EditStateGallery]));
+			$disabled = $can[EditStateGallery] ?  '' : 'disabled="disabled"';
 			
             ?>
             <tr class="<?php echo "row$k"; ?>">
@@ -111,8 +119,9 @@ class html_rsg2_galleries{
                 </td>
                 <td>
 					<?php
-					if ( $row->checked_out && ( $row->checked_out != $my->id ) ) {
-						echo stripslashes($row->name);
+					//Checked out and not owning this item OR not allowed to edit (own) gallery: show name, else show linked name
+					if ( $row->checked_out && ( $row->checked_out != $user->id ) OR !($can[EditGallery] OR $can[EditOwnGallery])) {
+						echo stripslashes($row->treename);
 					} else { 
 						?>
 						<a href="<?php echo $link; ?>" name="Edit Gallery">
@@ -128,18 +137,18 @@ class html_rsg2_galleries{
 					
                 </td>
                 <td align="center">
-                	<?php echo JHtml::_('jgrid.published', $row->published, $i); ?>
+                	<?php echo JHtml::_('jgrid.published', $row->published, $i, '', $can[EditStateGallery]); ?>
                 </td>
                 <td class="order">
                 	<span>
-					<?php echo $pageNav->orderUpIcon( $i , $showMoveUpIcon); ?>
+					<?php echo $pageNav->orderUpIcon( $i , $showMoveUpIcon ); ?>
 					</span>
                 	<span>
 					<?php echo $pageNav->orderDownIcon( $i, $n , $showMoveDownIcon); ?>
 					</span>
                 </td>
                 <td colspan="2" align="center">
-					<input type="text" name="order[]" size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" />
+					<input type="text" name="order[]" <?php echo $disabled; ?> size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" />
                 </td>
                 <td align="center">
 					<?php $gallery = rsgGalleryManager::get( $row->id ); echo $gallery->itemCount()?>
@@ -224,9 +233,13 @@ class html_rsg2_galleries{
 
 		JHTML::_('behavior.formvalidation');
 		jimport("joomla.filter.output");
-		$my =& JFactory::getUser();
+		$user =& JFactory::getUser();
 		$editor =& JFactory::getEditor();
 		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES );
+
+		//Can user see/change permissions?
+		$canAdmin = $user->authorise('core.admin', 'com_rsgallery2');
+		$canEditStateGallery = $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$row->id);
 
 		//Get form for J!1.6 ACL rules (load library, get path to XML, get form)
 		jimport( 'joomla.form.form' );
@@ -315,6 +328,7 @@ class html_rsg2_galleries{
 					<?php echo $lists['uid']; ?>
 					</td>
 				</tr>
+<?php			if ($canAdmin) { ?>
 				<tr>
 					<td>
 						<?php echo JText::_('COM_RSGALLERY2_PERMISSIONS');?>
@@ -328,6 +342,7 @@ class html_rsg2_galleries{
 						</div>
 					</td>
 				</tr>
+<?php			} ?>
 				<tr>
 					<td valign="top" align="right">
 					<?php echo JText::_('COM_RSGALLERY2_DESCRIPTION')?>
@@ -354,6 +369,7 @@ class html_rsg2_galleries{
 					<?php echo imgUtils::showThumbNames($row->id, $row->thumb_id); ?>
 					</td>
 				</tr>
+		<?php	if ($canEditStateGallery) {	?>
 				<tr>
 					<td valign="top" align="right">
 					<?php echo JText::_('COM_RSGALLERY2_ORDERING');?>
@@ -362,6 +378,7 @@ class html_rsg2_galleries{
 					<?php echo $lists['ordering']; ?>
 					</td>
 				</tr>
+		<?php	}	?>
 				<tr>
 					<td valign="top" align="right">
 					<?php echo JText::_('COM_RSGALLERY2_PUBLISHED');?>
@@ -391,9 +408,9 @@ class html_rsg2_galleries{
 
 		<div class="clr"></div>
 
-<?php //Create the rules slider at the bottom of the page
-//if ($this->canDo->get('core.admin')): ?>
-			<div  class="width-100 fltlft">
+<?php 	//Create the rules slider at the bottom of the page
+		if ($canAdmin) { 
+?>			<div  class="width-100 fltlft">
 				<?php echo JHtml::_('sliders.start','permissions-sliders-'.$row->id, array('useCookie'=>1)); ?>
 				<?php echo JHtml::_('sliders.panel',JText::_('COM_RSGALLERY2_FIELDSET_RULES'), 'access-rules'); ?>	
 					<fieldset class="panelform">
@@ -402,7 +419,7 @@ class html_rsg2_galleries{
 					</fieldset>
 				<?php echo JHtml::_('sliders.end'); ?>
 			</div>
-<?php //endif; ?>
+<?php 	} ?>
 
 		<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
 		<input type="hidden" name="rsgOption" value="<?php echo $rsgOption;?>" />

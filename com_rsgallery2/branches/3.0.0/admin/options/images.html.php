@@ -19,7 +19,7 @@ class html_rsg2_images {
 
 	function showImages( $option, &$rows, &$lists, &$search, &$pageNav ) {
 		global $rsgOption, $rsgConfig;
-		$my 	= JFactory::getUser();
+		$user 	= JFactory::getUser();
 		$option = JRequest::getCmd('option')
 		?>
  		<form action="index.php" method="post" name="adminForm">
@@ -63,12 +63,16 @@ class html_rsg2_images {
 		$k = 0;
 		for ($i=0, $n=count( $rows ); $i < $n; $i++) {
 			$row = &$rows[$i];
+			//Get permissions
+			$can[EditItem]		= $user->authorise('core.edit',		'com_rsgallery2.item.'.$row->id);
+			$can[EditOwnItem]	= $user->authorise('core.edit.own',	'com_rsgallery2.item.'.$row->id) AND ($row->uid == $userId);
+			$can[EditStateItem]	= $user->authorise('core.edit.state','com_rsgallery2.item.'.$row->id);
+			$can[EditGallery]		= $user->authorise('core.edit',		'com_rsgallery2.gallery.'.$row->gallery_id);
+			$showMoveUpIcon = (($row->gallery_id == @$rows[$i-1]->gallery_id) AND ($can[EditStateItem]));
+			$showMoveDownIcon = (($row->gallery_id == @$rows[$i+1]->gallery_id) AND ($can[EditStateItem]));
+			$disabled = $can[EditStateItem] ?  '' : 'disabled="disabled"';
 
 			$link 	= 'index.php?option=com_rsgallery2&rsgOption='.$rsgOption.'&task=editA&hidemainmenu=1&id='. $row->id;
-
-			$task 	= $row->published ? 'unpublish' : 'publish';
-			$img 	= $row->published ? 'publish_g.png' : 'publish_x.png';
-			$alt 	= $row->published ? 'Published' : 'Unpublished';
 
 			$checked 	= JHTML::_('grid.checkedout', $row, $i );
 
@@ -83,8 +87,9 @@ class html_rsg2_images {
 				</td>
 				<td>
 					<?php
-					if ( $row->checked_out && ( $row->checked_out != $my->id ) ) {
-						echo $row->title;
+					//Checked out and not owning this item OR not allowed to edit (own) gallery: show name, else show linked name
+					if (( $row->checked_out && ( $row->checked_out != $user->id )) OR !($can[EditItem] OR $can[EditOwnItem]) ) {
+						echo $row->title.'&nbsp;('.$row->name.')';
 					} else {
 						$gallery = rsgGalleryManager::getGalleryByItemID($row->id);
 						if($gallery !== null){
@@ -104,27 +109,27 @@ class html_rsg2_images {
 					?>
 				</td>
 				<td align="center">
-<!--				 <a href="javascript: void(0);" onclick="return listItemTask('cb<?php echo $i;?>','<?php echo $task;?>')">
-					<img src="images/<?php echo $img;?>" width="12" height="12" border="0" alt="<?php echo $alt; ?>" />
-					</a>
- -->
- 					<?php echo JHtml::_('jgrid.published', $row->published, $i); ?>
+ 					<?php echo JHtml::_('jgrid.published', $row->published, $i, '', $can[EditStateItem]); ?>
 				</td>
 				<td class="order">
 					<span>
-						<?php echo $pageNav->orderUpIcon( $i, ($row->gallery_id == @$rows[$i-1]->gallery_id) ); ?>
+						<?php echo $pageNav->orderUpIcon( $i, $showMoveUpIcon ); ?>
 					</span>
 					<span>
-						<?php echo $pageNav->orderDownIcon( $i, $n, ($row->gallery_id == @$rows[$i+1]->gallery_id) ); ?>
+						<?php echo $pageNav->orderDownIcon( $i, $n, $showMoveDownIcon); ?>
 					</span>
 				</td>
 				<td colspan="2" align="center">
-				<input type="text" name="order[]" size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" />
+				<input type="text" name="order[]" <?php echo $disabled; ?> size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" />
 				</td>
 				<td>
-				<a href="<?php echo $row->cat_link; ?>" title="Edit Category">
-				<?php echo $row->category; ?>
-				</a>
+		<?php 	if ($can[EditGallery]) { ?>
+					<a href="<?php echo $row->cat_link; ?>" title="Edit Category">
+		<?php 		echo $row->category; ?>
+					</a>
+		<?php 	} else { 
+					echo $row->category;
+				}	?>
 				</td>
 				<td align="left">
 				<?php echo $row->hits; ?>
@@ -170,6 +175,11 @@ class html_rsg2_images {
 		JHTML::_('behavior.formvalidation');
 		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES );
 		$editor =& JFactory::getEditor();
+
+		//Can user see/change permissions?
+		$canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
+		$canEditStateItem = JFactory::getUser()->authorise('core.edit.state','com_rsgallery2.item.'.$row->id);
+
 		?>
 		<script type="text/javascript">
 		Joomla.submitbutton = function(task) {
@@ -217,6 +227,14 @@ class html_rsg2_images {
 							</td>
 						</tr>
 						<tr>
+							<td align="right">
+							<?php echo JText::_('COM_RSGALLERY2_OWNER');?>
+							</td>
+							<td>
+							<?php echo $lists['userid']; ?>
+							</td>
+						</tr>
+						<tr>
 							<td width="20%" align="right"><?php echo JText::_('COM_RSGALLERY2_FILENAME')?></td>
 							<td width="80%"><?php echo $row->name;?></td>
 						</tr>
@@ -224,6 +242,7 @@ class html_rsg2_images {
 							<td valign="top" align="right"><?php echo JText::_('COM_RSGALLERY2_GALLERY')?></td>
 							<td><?php echo $lists['gallery_id']; ?></td>
 						</tr>
+<?php					if ($canAdmin) { ?>
 						<tr>
 						<td>
 						<?php echo JText::_('COM_RSGALLERY2_PERMISSIONS');?>
@@ -237,6 +256,7 @@ class html_rsg2_images {
 								</div>
 							</td>
 						</tr>
+<?php					} ?>
 						<tr>
 							<td valign="top" align="right"><?php echo JText::_('COM_RSGALLERY2_DESCRIPTION')?></td>
 							<td>
@@ -245,10 +265,12 @@ class html_rsg2_images {
 								echo $editor->display('descr',  $row->descr , '100%', '200', '10', '20' ,false) ; ?>
 							</td>
 						</tr>
+				<?php	if ($canEditStateItem) {	?>
 						<tr>
 							<td valign="top" align="right"><?php echo JText::_('COM_RSGALLERY2_ORDERING')?></td>
 							<td><?php echo $lists['ordering']; ?></td>
 						</tr>
+				<?php	}	?>
 						<tr>
 							<td valign="top" align="right"><?php echo JText::_('COM_RSGALLERY2_PUBLISHED')?></td>
 							<td><?php echo $lists['published']; ?></td>
@@ -364,8 +386,7 @@ class html_rsg2_images {
 		//Create the rules slider at the bottom of the page
 		?>
 		<div class="clr"></div>
-
-		<?php //if ($this->canDo->get('core.admin')): ?>
+<?php	if ($canAdmin) { ?>
 		  <div  class="width-100 fltlft">
 			<?php echo JHtml::_('sliders.start','permissions-sliders-'.$row->id, array('useCookie'=>1)); ?>
 			<?php echo JHtml::_('sliders.panel',JText::_('COM_RSGALLERY2_FIELDSET_RULES'), 'access-rules'); ?>	
@@ -375,7 +396,7 @@ class html_rsg2_images {
 			</fieldset>
 			<?php echo JHtml::_('sliders.end'); ?>
 		  </div>
-		<?php //endif; ?>
+<?php	} ?>
 
 		<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
 		<input type="hidden" name="name" value="<?php echo $row->name; ?>" />

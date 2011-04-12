@@ -89,17 +89,20 @@ function showMyGalleries() {
 	jimport('joomla.html.pagination');
 	$pageNav = new JPagination( $total, $limitstart, $limit );
 	
+	//Get all images
 	$database->setQuery("SELECT * FROM #__rsgallery2_files" .
 	//					" WHERE userid = '$my->id'" .	//Limit to items for this user
 						" ORDER BY date DESC" .
 						" LIMIT $pageNav->limitstart, $pageNav->limit");
 	$images = $database->loadObjectList();
-	$database->setQuery("SELECT * FROM #__rsgallery2_galleries"
+	//Get all galleries based on hierarchy
+	$rows = myGalleries::recursiveGalleriesList();
+/*	$database->setQuery("SELECT * FROM #__rsgallery2_galleries"
 						." WHERE parent = 0 " 
 	//					." AND uid = '$my->id'" 		//Limit to galleries for this user
 						);
 	$rows = $database->loadObjectList();
-	
+*/	
 	if($my->id) {
 		//User is logged in, show it all!
 		myGalleries::viewMyGalleriesPage($rows, $images, $pageNav);

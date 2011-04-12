@@ -77,7 +77,7 @@ switch( $task ){
  * @param database A database connector object
  */
 function show(){
-    global $mosConfig_list_limit;
+    global $mosConfig_list_limit;	//Todo: $app = &JFactory::getApplication();$limit = $app->getCfg('list_limit'); replaces $mosConfig_list_limit
 	$mainframe =& JFactory::getApplication();
 	$option = JRequest::getCmd('option');
 	$database =& JFactory::getDBO();
@@ -91,8 +91,8 @@ function show(){
     // note, since this is a tree we have to do the limits code-side
     if ($search) {
         $query = "SELECT id"
-        . "\n FROM #__rsgallery2_galleries"
-        . "\n WHERE LOWER( name ) LIKE '%" . strtolower( $search ) . "%'"
+        . " FROM #__rsgallery2_galleries"
+        . " WHERE LOWER( name ) LIKE '%" . strtolower( $search ) . "%'"
         ;
         $database->setQuery( $query );
         $search_rows = $database->loadResultArray();
@@ -100,9 +100,9 @@ function show(){
 
 //  $query = "SELECT a.*, u.name AS editor"	//J!1.6 has parent_id instead of parent and title instead of name
     $query = "SELECT a.*, u.name AS editor, a.parent AS parent_id, a.name AS title" //MK// [change] [J!1.6 has parent_id instead of parent and title instead of name]	
-    . "\n FROM #__rsgallery2_galleries AS a"
-    . "\n LEFT JOIN #__users AS u ON u.id = a.checked_out"
-    . "\n ORDER BY a.ordering"
+    . " FROM #__rsgallery2_galleries AS a"
+    . " LEFT JOIN #__users AS u ON u.id = a.checked_out"
+    . " ORDER BY a.ordering"
     ;
     $database->setQuery( $query );
 
@@ -142,6 +142,7 @@ function show(){
 	jimport("joomla.html.pagination");
     $pageNav = new JPagination( $total, $limitstart, $limit  );
 
+	//@todo: is this $lists['levellist'] unused?
     $lists['levellist'] = JHTML::_("Select.integerlist", 1, 20, 1, 'levellimit', 'size="1" onchange="document.adminForm.submit();"', $levellimit );
 
     // slice out elements based on limits
@@ -172,6 +173,9 @@ function edit( $option, $id ) {
         $mainframe->redirect( 'index.php?option='. $option, 'The module $row->title is currently being edited by another administrator.' );
     }
 
+	$canAdmin	= $my->authorise('core.admin', 'com_rsgallery2');
+	$canEditStateGallery = $my->authorise('core.edit.state','com_rsgallery2.gallery.'.$row->id);
+	
     if ($id) {
         $row->checkout( $my->id );
     } else {
@@ -187,14 +191,23 @@ function edit( $option, $id ) {
     . "\n ORDER BY ordering"
     ;
 
-	// build list of users
-	$lists['uid'] 			= JHTML::_('list.users', 'uid', $row->uid, 1, NULL, 'name', 0 );
+	// build list of users when user has core.admin, else give owners name
+	if ($canAdmin) {
+		$lists['uid'] 			= JHTML::_('list.users', 'uid', $row->uid, 1, NULL, 'name', 0 );
+	} else {
+		$lists['uid'] 			= JFactory::getUser($row->uid)->name;
+	}
     // build the html select list for ordering
     $lists['ordering']          = JHTML::_('list.specificordering', $row, $id, $query, 1 );
-    // build the html select list for paraent item
+    // build the html select list for parent item
     $lists['parent']        = galleryParentSelectList( $row );
-    // build the html select list
-    $lists['published']         = JHTML::_("select.booleanlist", 'published', 'class="inputbox"', $row->published );
+    // build the html select list for published if allowed to change state
+	if ($canEditStateGallery) {
+		$lists['published'] = JHTML::_("select.booleanlist", 'published', 'class="inputbox"', $row->published ); 
+	} else {
+		$lists['published'] = ($row->published ? JText::_('JYES') : JText::_('JNO'));
+	}
+	
 
     $file   = $rsgOptions_path .'galleries.item.xml';
     $params = new JParameter( $row->params, $file );
@@ -215,8 +228,10 @@ function save( $option ) {
 	$database =& JFactory::getDBO();
 
 	$task = JRequest::getCmd(task);
+	$id = JRequest::getInt('id');
 	
     $row = new rsgGalleriesItem( $database );
+	$row->load($id);
     if (!$row->bind( JRequest::get('post') )) {	//here we get id, parent, ... from the user's input
         echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
         exit();
@@ -238,24 +253,24 @@ function save( $option ) {
         }
         $row->params = implode( "\n", $txt );
     }
-	
+
 	// Get the rules which are in the form … with the name ‘rules’ with type array (default value array())
 	$data[rules]		= JRequest::getVar('rules', array(), 'post', 'array');
-	
-	// Get the form library, add a path for the form XML and get the form instantiated
-	jimport( 'joomla.form.form' );
-	JForm::addFormPath(JPATH_ADMINISTRATOR.'/components/com_rsgallery2/models/forms/');
-	$form = &JForm::getInstance('com_rsgallery2.params','gallery',array( 'load_data' => false ));
-	
-	// Filter $data which means that for $data[rules] the Null values are removed
-	$data = $form->filter($data);
-
-	if (isset($data[rules]) && is_array($data[rules])) {
-		// Instantiate a JRules object with the rules posted in the form
-		$rules = new JRules($data[rules]);
-		// $row is an rsgGalleriesItem object that extends JTable with method setRules
-		// this binds the JRules object to $row->_rules
-		$row->setRules($rules);
+	//Only save rules when there are rules (which were only shown to those with core.admin)
+	if (!empty($data[rules])) {
+		// Get the form library, add a path for the form XML and get the form instantiated
+		jimport( 'joomla.form.form' );
+		JForm::addFormPath(JPATH_ADMINISTRATOR.'/components/com_rsgallery2/models/forms/');
+		$form = &JForm::getInstance('com_rsgallery2.params','gallery',array( 'load_data' => false ));
+		// Filter $data which means that for $data[rules] the Null values are removed
+		$data = $form->filter($data);
+		if (isset($data[rules]) && is_array($data[rules])) {
+			// Instantiate a JRules object with the rules posted in the form
+			$rules = new JRules($data[rules]);
+			// $row is an rsgGalleriesItem object that extends JTable with method setRules
+			// this binds the JRules object to $row->_rules
+			$row->setRules($rules);
+		}
 	}
    	
 	// code cleaner for xhtml transitional compliance 

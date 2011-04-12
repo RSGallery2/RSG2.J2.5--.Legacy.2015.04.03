@@ -171,11 +171,14 @@ function editImage( $option, $id ) {
 	$database = JFactory::getDBO();
 	
 	$lists = array();
-
+	
 	$row = new rsgImagesItem( $database );
 	// load the row from the db table
 	$row->load( (int)$id );
 
+	$canAdmin	= $my->authorise('core.admin', 'com_rsgallery2');
+	$canEditStateItem = $my->authorise('core.edit.state','com_rsgallery2.item.'.$row->id);
+	
 	// fail if checked out not by 'me'
 	if ($row->isCheckedOut( $my->id )) {
 		$mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption", "The module $row->title is currently being edited by another administrator." );
@@ -197,13 +200,21 @@ function editImage( $option, $id ) {
 	. "\n WHERE gallery_id = " . (int) $row->gallery_id
 	. "\n ORDER BY ordering"
 	;
-	$lists['ordering'] 			= JHTML::_('list.specificordering', $row, $id, $query, 1 );
-
+	$lists['ordering'] 		= JHTML::_('list.specificordering', $row, $id, $query, 1 );
 	// build list of categories
-	$lists['gallery_id']			= galleryUtils::galleriesSelectList( $row->gallery_id, 'gallery_id', true );
+	$lists['gallery_id']	= galleryUtils::galleriesSelectList( $row->gallery_id, 'gallery_id', true );
 	// build the html select list
-	$lists['published'] 		= JHTML::_("select.booleanlist", 'published', 'class="inputbox"', $row->published );
-
+	if ($canEditStateItem) {
+		$lists['published'] = JHTML::_("select.booleanlist", 'published', 'class="inputbox"', $row->published );
+	} else {
+		$lists['published'] = ($row->published ? JText::_('JYES') : JText::_('JNO'));
+	}
+	// build list of users when user has core.admin, else give owners name
+	if ($canAdmin) {
+		$lists['userid'] 		= JHTML::_('list.users', 'userid', $row->userid, 1, NULL, 'name', 0 );
+	} else {
+		$lists['userid'] 		= JFactory::getUser($row->userid)->name;
+	}
 	$file 	= JPATH_SITE .'/administrator/components/com_rsgallery2/options/images.item.xml';
 	$params = new JParameter( $row->params, $file);
 
@@ -220,12 +231,14 @@ function saveImage( $option, $redirect = true ) {
 	$database =& JFactory::getDBO();
 	$my =& JFactory::getUser();
 
+	$id = JRequest::getInt('id');
 	$task = JRequest::getCmd('task');
 	// Get the rules which are in the form … with the name ‘rules’ 
 	// with type array (default value array())
 	$data[rules]		= JRequest::getVar('rules', array(), 'post', 'array');
 	
 	$row = new rsgImagesItem( $database );
+	$row->load($id);
 	if (!$row->bind( JRequest::get('post') )) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
@@ -251,19 +264,22 @@ function saveImage( $option, $redirect = true ) {
 	}
 
 	// Joomla 1.6 ACL
-	// Get the form library
-	jimport( 'joomla.form.form' );
-	// Add a path for the form XML and get the form instantiated
-	JForm::addFormPath(JPATH_ADMINISTRATOR.'/components/com_rsgallery2/models/forms/');
-	$form = &JForm::getInstance('com_rsgallery2.params','item',array( 'load_data' => false ));
-	// Filter $data which means that for $data[rules] the Null values are removed
-	$data = $form->filter($data);
-	if (isset($data[rules]) && is_array($data[rules])) {
-		// Instantiate a JRules object with the rules posted in the form
-		$rules = new JRules($data[rules]);
-		// $row is an rsgImagesItem object that extends JTable with method setRules
-		// this binds the JRules object to $row->_rules
-		$row->setRules($rules);
+	//Only save rules when there are rules (which were only shown to those with core.admin)
+	if (!empty($data[rules])) {
+		// Get the form library
+		jimport( 'joomla.form.form' );
+		// Add a path for the form XML and get the form instantiated
+		JForm::addFormPath(JPATH_ADMINISTRATOR.'/components/com_rsgallery2/models/forms/');
+		$form = &JForm::getInstance('com_rsgallery2.params','item',array( 'load_data' => false ));
+		// Filter $data which means that for $data[rules] the Null values are removed
+		$data = $form->filter($data);
+		if (isset($data[rules]) && is_array($data[rules])) {
+			// Instantiate a JRules object with the rules posted in the form
+			$rules = new JRules($data[rules]);
+			// $row is an rsgImagesItem object that extends JTable with method setRules
+			// this binds the JRules object to $row->_rules
+			$row->setRules($rules);
+		}
 	}
 	
 	$row->date = date( 'Y-m-d H:i:s' );

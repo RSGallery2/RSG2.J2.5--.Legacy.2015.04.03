@@ -3,7 +3,7 @@
 * category class
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2005 - 2006 RSGallery2
+* @copyright (C) 2005 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
@@ -45,10 +45,12 @@ class rsgImagesItem extends JTable {
 	var $checked_out		= null;
 	/** @var time */
 	var $checked_out_time	= null;
-	/** @var int */
-	var $approved			= null;
 	/** @var boolean */
 	var $ordering			= null;
+	/** @var int */
+	var $approved			= null;
+	/** @var int */
+	var $userid				= null;
 	/** @var string */
 	var $params				= null;
 	/** @var int */
