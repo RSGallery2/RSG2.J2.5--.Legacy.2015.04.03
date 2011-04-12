@@ -3,7 +3,7 @@
 * Galleries option for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -12,60 +12,58 @@ defined( '_JEXEC' ) or die( 'Restricted Access' );
 
 require_once( $rsgOptions_path . 'config.html.php' );
 
-// anyone can use these config functions
-switch( $task ){
-    case 'cancel';
-    	cancelConfig($option);
+// Only those with core.manage can get here via $rsgOption = config
+// Check if core.admin is allowed
+if (!JFactory::getUser()->authorise('core.admin', 'com_rsgallery2')) {
+	JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+	return;
+} else {
+	switch( $task ){
+		case 'cancel';
+			cancelConfig($option);
+			break;
+		case 'config_dumpVars':
+			//HTML_RSGallery::RSGalleryHeader('viewChangelog', JText::_('COM_RSGALLERY2_CONFIGURATION_VARIABLES'));
+			config_dumpVars();
+			HTML_RSGallery::RSGalleryFooter();
+			break;
+		case 'applyConfig':
+			//HTML_RSGallery::RSGalleryHeader('config', JText::_('COM_RSGALLERY2_CONFIGURATION'));
+			saveConfig();
+			showConfig($option);
+			HTML_RSGallery::RSGalleryFooter();
 		break;
-    case 'config_dumpVars':
-        //HTML_RSGallery::RSGalleryHeader('viewChangelog', JText::_('COM_RSGALLERY2_CONFIGURATION_VARIABLES'));
-        config_dumpVars();
-        HTML_RSGallery::RSGalleryFooter();
-    break;
-}
+		case 'saveConfig':
+			//HTML_RSGallery::RSGalleryHeader('cpanel', JText::_('COM_RSGALLERY2_CONTROL_PANEL'));
+			saveConfig();
+			HTML_RSGallery::showCP();
+			HTML_RSGallery::RSGalleryFooter();
+		break;
+		case "showConfig":
+			//HTML_RSGallery::RSGalleryHeader('config', JText::_('COM_RSGALLERY2_CONFIGURATION'));
+			showConfig();
+			HTML_RSGallery::RSGalleryFooter();
+		break;
 
-$user = &JFactory::getUser();
-// these config functions require an admin check
-if (1 )//MK// [change] [only admin + may see this]  $user->get('gid') > 23
-switch( $task ){
-    case 'applyConfig':
-        //HTML_RSGallery::RSGalleryHeader('config', JText::_('COM_RSGALLERY2_CONFIGURATION'));
-        saveConfig();
-        showConfig($option);
-        HTML_RSGallery::RSGalleryFooter();
-    break;
-    case 'saveConfig':
-        //HTML_RSGallery::RSGalleryHeader('cpanel', JText::_('COM_RSGALLERY2_CONTROL_PANEL'));
-        saveConfig();
-        HTML_RSGallery::showCP();
-        HTML_RSGallery::RSGalleryFooter();
-    break;
-    case "showConfig":
-        //HTML_RSGallery::RSGalleryHeader('config', JText::_('COM_RSGALLERY2_CONFIGURATION'));
-        showConfig();
-        HTML_RSGallery::RSGalleryFooter();
-    break;
-
-    case 'config_rawEdit_apply':
-        //HTML_RSGallery::RSGalleryHeader('config_rawEdit', JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'));
-        saveConfig();
-        config_rawEdit( );
-        HTML_RSGallery::RSGalleryFooter();
-    break;
-    case 'config_rawEdit_save':
-        //HTML_RSGallery::RSGalleryHeader('cpanel', JText::_('COM_RSGALLERY2_CONTROL_PANEL'));
-        saveConfig();
-        HTML_RSGallery::showCP();
-        HTML_RSGallery::RSGalleryFooter();
-    break;
-    case 'config_rawEdit':
-        //HTML_RSGallery::RSGalleryHeader('config_rawEdit', JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'));
-        config_rawEdit( );
-        HTML_RSGallery::RSGalleryFooter();
-    break;
+		case 'config_rawEdit_apply':
+			//HTML_RSGallery::RSGalleryHeader('config_rawEdit', JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'));
+			saveConfig();
+			config_rawEdit( );
+			HTML_RSGallery::RSGalleryFooter();
+		break;
+		case 'config_rawEdit_save':
+			//HTML_RSGallery::RSGalleryHeader('cpanel', JText::_('COM_RSGALLERY2_CONTROL_PANEL'));
+			saveConfig();
+			HTML_RSGallery::showCP();
+			HTML_RSGallery::RSGalleryFooter();
+		break;
+		case 'config_rawEdit':
+			//HTML_RSGallery::RSGalleryHeader('config_rawEdit', JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'));
+			config_rawEdit( );
+			HTML_RSGallery::RSGalleryFooter();
+		break;
+	}	//end of task switch
 }
-else
-    HTML_RSGALLERY::printAdminMsg( 'Access denied OR config feature does not exist.' );
 
 function config_dumpVars(){
     global $rsgConfig;
@@ -112,24 +110,6 @@ function showConfig(){
     //$imageLib   = array();
     $lists      = array();
 
-    // PRE-PROCESS SOME LISTS
-
-    // -- Languages --
-	/*
-    if ($handle = opendir( JPATH_RSGALLERY2_ADMIN.'/language/' )) {
-        $i=0;
-        while (false !== ($file = readdir( $handle ))) {
-            if (!strcasecmp(substr($file,-4),".php") && $file <> "." && $file <> ".." && strcasecmp(substr($file,-11),".ignore.php")) {
-                //$langs[] = mosHTML::makeOption( substr($file,0,-4) );
-            }
-        }
-    }
-    
-
-    // sort list of languages
-    sort( $langs );
-    reset( $langs );
-	*/
     /**
      * detect available graphics libraries
      * @todo call imgUtils graphics lib detection when it is built

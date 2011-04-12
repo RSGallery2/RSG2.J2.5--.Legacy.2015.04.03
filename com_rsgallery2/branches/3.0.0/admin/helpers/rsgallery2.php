@@ -3,7 +3,7 @@
 * RSGallery2 Helper
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2010 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 **/
 
@@ -25,24 +25,22 @@ class RSGallery2Helper
 	 * @param	int		The gallery ID.
 	 * @return	JObject
 	 */
-	public static function getActions($galleryId = 0)
-	{
+	public static function getActions($galleryId = 0) {
 		$user	= JFactory::getUser();
 		$result	= new JObject;
 
 		if (empty($galleryId)) {
 			$assetName = 'com_rsgallery2';
-		}
-		else {
+		} else {
 			$assetName = 'com_rsgallery2.gallery.'.(int) $galleryId;
 		}
 
 		$actions = array(
-			'core.admin', 'core.manage', 'core.create', 'core.edit', 'core.edit.state', 'core.delete'
+			'core.admin', 'core.manage', 'core.create', 'core.delete', 'core.edit', 'core.edit.state', 'core.edit.own'
 		);
 
 		foreach ($actions as $action) {
-			$result->set($action,	$user->authorise($action, $assetName));
+			$result->set($action, $user->authorise($action, $assetName));
 		}
 
 		return $result;

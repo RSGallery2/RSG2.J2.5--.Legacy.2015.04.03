@@ -30,17 +30,22 @@ Legend:
 - -> Removed
 ! -> Note
 
-! To do: Frontend: My galleries only shows two levels of galleries due to is implementation: change to show all levels.
-! To do: Backend: Implement ACL core.edit/edit.own/edit.state/delete.
+
 ! To do: Backend: Move/copy button for images: set correct parent asset (it is ok for changing parent gallery for images of subgalleries in Edit screens).
 ! To do: Backend: Installation of template does not function (yet).
 ! To do: Frontend: zip upload (as v2) and/or multiple file (new) upload.
 ! To do: Remove deprecated rsgAccess (class extending JObject) in v3.
 ! To do: For logged in users v2 has (non functional) edit/delete buttons for admin within gallery (template semantic/html/thumbs_float.php and thumbs_table.php within div id="rsg2-adminButtons") with permission in template/semantic/display class: either remove or implement this.
-! To do: Backend item owner changes upon save: should be choice if allowed like with galleries, and should show.
+! To do: find all 'config_' links that don't have rsgOption=config and add it.
 ! To do: "//MK// [todo]" things
 
 ---------------- Recent ----------------
+
+2011-04-12 Mirjam - SVN 1019
+^ Backend item owner no longer changes upon save. User with core.admin may change owner for item and gallery.
++ Backend: implemented basic ACL core.edit/edit.own/edit.state/delete (e.g. checks on core.edit for component to show edit button, does not check on filtered galleries).
++ Backend: implemented ACL core.admin & core.manage
+^ Frontend My galleries shows all levels of galleries up to a depth of 20.
 
 2011-04-01 Mirjam - SVN 1018
 + Frontend My galleries uses token for forms and all functions check assets.
@@ -57,7 +62,6 @@ Legend:
 
 2011-03-21 Mirjam - SVN 1015
 ^ Frontend My galleries works (also with Joomla SEF): edit/delete/create image/gallery, but without ACL
-^ Backend implemented ACL core.admin & core.manage (edit/delete/etc. is available to users with core.manage at this point).
 
 2011-03-14 Mirjam - SVN 1014
 + Save button on edit image and edit gallery pages (addition to save & close)
