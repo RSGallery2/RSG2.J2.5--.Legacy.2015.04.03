@@ -31,7 +31,7 @@ Legend:
 ! -> Note
 
 
-! To do: Backend: Move/copy button for images: set correct parent asset (it is ok for changing parent gallery for images of subgalleries in Edit screens).
+
 ! To do: Backend: Installation of template does not function (yet).
 ! To do: Frontend: zip upload (as v2) and/or multiple file (new) upload.
 ! To do: Remove deprecated rsgAccess (class extending JObject) in v3.
@@ -41,9 +41,15 @@ Legend:
 
 ---------------- Recent ----------------
 
+2011-04-18 Mirjam - SVN 1020
+- Removed slideshow phatfusion since it uses Mootools 1.11 and J!1.6 uses a later version of Mootools
++ Backend: implemented basic ACL core.edit/edit.own/edit.state/delete (e.g. checks on core.edit for component to show edit button, checks also with filtered galleries).
+# Corrected path to galleries.item.xml file for gallery parameters.
+^ Backend: Move/copy button for images: set correct parent asset.
++ Added language .sys.ini files for all available language, although they have en-GB strings (except nl-NL)
+
 2011-04-12 Mirjam - SVN 1019
 ^ Backend item owner no longer changes upon save. User with core.admin may change owner for item and gallery.
-+ Backend: implemented basic ACL core.edit/edit.own/edit.state/delete (e.g. checks on core.edit for component to show edit button, does not check on filtered galleries).
 + Backend: implemented ACL core.admin & core.manage
 ^ Frontend My galleries shows all levels of galleries up to a depth of 20.
 

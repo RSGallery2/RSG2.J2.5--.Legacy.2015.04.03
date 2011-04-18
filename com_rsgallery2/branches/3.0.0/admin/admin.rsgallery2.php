@@ -3,26 +3,30 @@
 * This file contains the non-presentation processing for the Admin section of RSGallery.
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2010 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
 defined( '_JEXEC' ) or die( 'Access Denied.' );
 
-// initialize RSG2 core functionality
+//Initialize RSG2 core functionality
 require_once( JPATH_SITE.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
 
-// instantate user variables but don't show a frontend template
+//Instantate user variables but don't show a frontend template
 rsgInstance::instance( 'request', false );
-
-// XML library
-//MK// [removed for Joomla 1.6] require_once( JPATH_SITE .'/includes/domit/xml_domit_lite_include.php' );
 
 //Load Tooltips
 JHTML::_('behavior.tooltip');
 
-//MK// [change] [include for J!1.6 ACL]	
 require_once JPATH_COMPONENT.'/helpers/rsgallery2.php';
+
+//Access check
+$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+$canManage	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
+if (!$canManage) {
+	return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+}
+
 
 ?>
 <link href="<?php echo JURI_SITE; ?>/administrator/components/com_rsgallery2/admin.rsgallery2.css" rel="stylesheet" type="text/css" />
@@ -73,30 +77,20 @@ switch( $rsgOption ) {
 
 // only use the legacy task switch if rsgOption is not used. [MK not truely legacy but still used!]
 // these tasks require admin or super admin privledges.
-//MK// [change] [J16 ACL]	original line "if( $rsgOption == '' && $my->gid > 23 )" where $my->gid > 23 indicates that the user group that the user belongs to is 23 Administrator or bigger, e.g. 24 Super administrator in J!.5. ACL works differently in J1.6. so removed this check for priviliges for now.
-if( $rsgOption == '' )	//MK// [change] [J16 ACL] if( $rsgOption == '' && $my->gid > 23 )
+if( $rsgOption == '' )	
 switch ( JRequest::getVar('task', null) ){
-//     special/debug tasks
+	//Special/debug tasks
     case 'purgeEverything':
-        /* Replace all headers with JToolBarHelper::title() in toolbar.rsgallery2.html.php
-        HTML_RSGallery::RSGalleryHeader('cpanel', JText::_('COM_RSGALLERY2_CONTROL_PANEL'));
-        */
-        purgeEverything();
+        purgeEverything();	//canAdmin check in this function
         HTML_RSGallery::showCP();
         HTML_RSGallery::RSGalleryFooter();
         break;
     case 'reallyUninstall':
-        //HTML_RSGallery::RSGalleryHeader('cpanel', JText::_('COM_RSGALLERY2_CONTROL_PANEL'));
-        reallyUninstall();
+        reallyUninstall();	//canAdmin check in this function
         HTML_RSGallery::showCP();
         HTML_RSGallery::RSGalleryFooter();
         break;
-}
-
-// only use the legacy task switch if rsgOption is not used.
-if( $rsgOption == '' )
-switch ( JRequest::getVar('task', null ) ){
-    // config tasks
+    //Config tasks
     // this is just a kludge until all links and form vars to configuration functions have been updated to use $rsgOption = 'config';
     /*
     case 'applyConfig':
@@ -110,9 +104,7 @@ switch ( JRequest::getVar('task', null ) ){
 		$rsgOption = 'config';
 		require_once( $rsgOptions_path . 'config.php' );
     break;
-
-//     image tasks
-
+	//Image tasks
     case "edit_image":
         HTML_RSGallery::RSGalleryHeader('edit', JText::_('COM_RSGALLERY2_EDIT'));
         editImageX($option, $cid[0]);
@@ -133,8 +125,7 @@ switch ( JRequest::getVar('task', null ) ){
     case "save_batchuploadX":
         save_batchupload();
         break;
-
-    //image and category tasks
+    //Image and category tasks
     case "categories_orderup":
     case "images_orderup":
         orderRSGallery( $cid[0], -1, $option, $task );
@@ -143,8 +134,7 @@ switch ( JRequest::getVar('task', null ) ){
     case "images_orderdown":
         orderRSGallery( $cid[0], 1, $option, $task );
         break;
-
-//  special/debug tasks
+	//Special/debug tasks
     case 'viewChangelog':
         HTML_RSGallery::RSGalleryHeader('viewChangelog', JText::_('COM_RSGALLERY2_CHANGELOG'));
         viewChangelog();
@@ -152,7 +142,6 @@ switch ( JRequest::getVar('task', null ) ){
         break;
     case "controlPanel":
     default:
-        //HTML_RSGallery::RSGalleryHeader('cpanel', JText::_('COM_RSGALLERY2_CONTROL_PANEL'));
         HTML_RSGallery::showCP();
         HTML_RSGallery::RSGalleryFooter();
         break;
@@ -199,36 +188,42 @@ function viewChangelog(){
  */
 function purgeEverything(){
     global $rsgConfig;
-    
-    $fullPath_thumb = JPATH_ROOT.$rsgConfig->get('imgPath_thumb') . '/';
-    $fullPath_display = JPATH_ROOT.$rsgConfig->get('imgPath_display') . '/';
-    $fullPath_original = JPATH_ROOT.$rsgConfig->get('imgPath_original') . '/';
 
-    processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_files', JText::_('COM_RSGALLERY2_PURGED_IMAGE_ENTRIES_FROM_DATABASE') );
-    processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_galleries', JText::_('COM_RSGALLERY2_PURGED_GALLERIES_FROM_DATABASE') );
-    processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_config', JText::_('COM_RSGALLERY2_PURGED_CONFIG_FROM_DATABASE') );
-    processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_comments', JText::_('COM_RSGALLERY2_PURGED_COMMENTS_FROM_DATABASE') );
-	processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_acl', JText::_('COM_RSGALLERY2_ACCESS_CONTROL_DATA_DELETED' ));
-    
-    // remove thumbnails
-    HTML_RSGALLERY::printAdminMsg( JText::_('COM_RSGALLERY2_REMOVING_THUMB_IMAGES') );
-    foreach ( glob( $fullPath_thumb.'*' ) as $filename ) {
-        if( is_file( $filename )) unlink( $filename );
-    }
-    
-    // remove display imgs
-    HTML_RSGALLERY::printAdminMsg( JText::_('COM_RSGALLERY2_REMOVING_ORIGINAL_IMAGES') );
-    foreach ( glob( $fullPath_display.'*' ) as $filename ) {
-        if( is_file( $filename )) unlink( $filename );
-    }
-    
-    // remove display imgs
-    HTML_RSGALLERY::printAdminMsg( JText::_('COM_RSGALLERY2_REMOVING_ORIGINAL_IMAGES') );
-    foreach ( glob( $fullPath_original.'*' ) as $filename ) {
-        if( is_file( $filename )) unlink( $filename );
-    }
-    
-    HTML_RSGALLERY::printAdminMsg( JText::_('COM_RSGALLERY2_PURGED'), true );
+	//Access check
+	$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+	if (!$canAdmin) {
+		return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+	} else {
+		$fullPath_thumb = JPATH_ROOT.$rsgConfig->get('imgPath_thumb') . '/';
+		$fullPath_display = JPATH_ROOT.$rsgConfig->get('imgPath_display') . '/';
+		$fullPath_original = JPATH_ROOT.$rsgConfig->get('imgPath_original') . '/';
+
+		processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_files', JText::_('COM_RSGALLERY2_PURGED_IMAGE_ENTRIES_FROM_DATABASE') );
+		processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_galleries', JText::_('COM_RSGALLERY2_PURGED_GALLERIES_FROM_DATABASE') );
+		processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_config', JText::_('COM_RSGALLERY2_PURGED_CONFIG_FROM_DATABASE') );
+		processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_comments', JText::_('COM_RSGALLERY2_PURGED_COMMENTS_FROM_DATABASE') );
+		processAdminSqlQueryVerbosely( 'DELETE FROM #__rsgallery2_acl', JText::_('COM_RSGALLERY2_ACCESS_CONTROL_DATA_DELETED' ));
+		
+		// remove thumbnails
+		HTML_RSGALLERY::printAdminMsg( JText::_('COM_RSGALLERY2_REMOVING_THUMB_IMAGES') );
+		foreach ( glob( $fullPath_thumb.'*' ) as $filename ) {
+			if( is_file( $filename )) unlink( $filename );
+		}
+		
+		// remove display imgs
+		HTML_RSGALLERY::printAdminMsg( JText::_('COM_RSGALLERY2_REMOVING_ORIGINAL_IMAGES') );
+		foreach ( glob( $fullPath_display.'*' ) as $filename ) {
+			if( is_file( $filename )) unlink( $filename );
+		}
+		
+		// remove display imgs
+		HTML_RSGALLERY::printAdminMsg( JText::_('COM_RSGALLERY2_REMOVING_ORIGINAL_IMAGES') );
+		foreach ( glob( $fullPath_original.'*' ) as $filename ) {
+			if( is_file( $filename )) unlink( $filename );
+		}
+		
+		HTML_RSGALLERY::printAdminMsg( JText::_('COM_RSGALLERY2_PURGED'), true );
+	}
 }
 
 /**
@@ -238,18 +233,23 @@ function purgeEverything(){
  */
 function reallyUninstall(){
     
-    
-    passthru( "rm -r ".JPATH_SITE."/images/rsgallery");
-    HTML_RSGALLERY::printAdminMsg( JText::_('COM_RSGALLERY2_USED_RM_-R_TO_ATTEMPT_TO_REMOVE_JPATH_SITE_IMAGES_RSGALLERY') );
+    //Access check
+	$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+	if (!$canAdmin) {
+		return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+	} else {
+		passthru( "rm -r ".JPATH_SITE."/images/rsgallery");
+		HTML_RSGALLERY::printAdminMsg( JText::_('COM_RSGALLERY2_USED_RM_-R_TO_ATTEMPT_TO_REMOVE_JPATH_SITE_IMAGES_RSGALLERY') );
 
-    processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_acl', JText::_('COM_RSGALLERY2_DROPED_TABLE___RSGALLERY2_GALLERIES') );
-    processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_files', JText::_('COM_RSGALLERY2_DROPED_TABLE___RSGALLERY2_FILES') );
-    processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_cats', JText::_('COM_RSGALLERY2_DROPED_TABLE___RSGALLERY2_GALLERIES') );
-    processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_galleries', JText::_('COM_RSGALLERY2_DROPED_TABLE___RSGALLERY2_GALLERIES') );
-    processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_config', JText::_('COM_RSGALLERY2_DROPED_TABLE___RSGALLERY2_CONFIG') );
-    processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_comments', JText::_('COM_RSGALLERY2_DROPED_TABLE___RSGALLERY2_COMMENTS') );
+		processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_acl', JText::_('COM_RSGALLERY2_DROPED_TABLE___RSGALLERY2_GALLERIES') );
+		processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_files', JText::_('COM_RSGALLERY2_DROPED_TABLE___RSGALLERY2_FILES') );
+		processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_cats', JText::_('COM_RSGALLERY2_DROPED_TABLE___RSGALLERY2_GALLERIES') );
+		processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_galleries', JText::_('COM_RSGALLERY2_DROPED_TABLE___RSGALLERY2_GALLERIES') );
+		processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_config', JText::_('COM_RSGALLERY2_DROPED_TABLE___RSGALLERY2_CONFIG') );
+		processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_comments', JText::_('COM_RSGALLERY2_DROPED_TABLE___RSGALLERY2_COMMENTS') );
 
-    HTML_RSGALLERY::printAdminMsg( JText::_('COM_RSGALLERY2_REAL_UNINST_DONE') );
+		HTML_RSGALLERY::printAdminMsg( JText::_('COM_RSGALLERY2_REAL_UNINST_DONE') );
+	}
 }
 
 /**

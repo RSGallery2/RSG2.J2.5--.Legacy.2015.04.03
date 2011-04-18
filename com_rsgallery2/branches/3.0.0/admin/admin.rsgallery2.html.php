@@ -73,30 +73,12 @@ class HTML_RSGALLERY{
 
         // Get the current JUser object
 		$user = &JFactory::getUser();
+		$canDo	= Rsgallery2Helper::getActions();
 
         //Show Warningbox if some preconditions are not met
         galleryUtils::writeWarningBox();
         ?>
-		
-You have installed an alpha version of RSGallery2 for Joomla 1.6.
-Please keep the following in mind:
-<ul>
-<li>This version is not ready yet to be used on production sites</li>
-<li>The following options are known not to function in this version:</li>
-	<ul>
-	<li>Frontend: slideshow PhatFusion (to be removed since it uses Mootools 1.11)</li>
-	<li>Backend Access Control: access control for Joomla 1.6 is not fully implemented yet.</li>
-	</ul>
-<li>Available languages:</li>
-	<ul>
-	<li>Tested: english (en-GB), dutch (nl-NL)</li>
-	<li>Not tested (translators and feedback from users appreciated): danish (da-DK), german (de-DE), greek (el-GR), spanish (es-ES),
-	finnish (fi-FI), french (fr-FR), hebrew (he-IL), croatian (hr-HR), hungarian (hu-HU), 
-	italian (it-IT), norwegian (nb-NO), brazilian portugese (pt-BR), slovenian (sl-SI), 
-	turkish (tr-TR)</li>
-	</ul>
-</ul>
-		
+	
         <div id="rsg2-thisform">
             <div id='rsg2-infoTabs'>
                 <table width="100%">
@@ -281,10 +263,10 @@ Please keep the following in mind:
 
             <div id='cpanel'>
                 <?php
-                if ( 1 )://MK// [change] [only admin + may see this] $user->get('gid') > 23
+                if ( $canDo->get('core.admin') ){
                     $link = 'index.php?option=com_rsgallery2&rsgOption=config&task=showConfig';
                     HTML_RSGALLERY::quickiconButton( $link, 'config.png',  JText::_('COM_RSGALLERY2_CONFIGURATION') );
-                endif;
+                }
 
                 $link = 'index.php?option=com_rsgallery2&rsgOption=images&task=upload';
                 HTML_RSGALLERY::quickiconButton( $link, 'upload.png', JText::_('COM_RSGALLERY2_UPLOAD') );
@@ -302,44 +284,43 @@ Please keep the following in mind:
                 $link = 'index.php?option=com_rsgallery2&rsgOption=galleries';
                 HTML_RSGALLERY::quickiconButton( $link, 'categories.png', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') );
 
-                if ( 1 )://MK// [change] [only admin + may see this] $user->get('gid') > 23
+                if ( $canDo->get('core.admin') ){
                     /*
                     $link = 'index.php?option=com_rsgallery2&task=consolidate_db';
                     HTML_RSGALLERY::quickiconButton( $link, 'dbrestore.png', JText::_('COM_RSGALLERY2_CONSOLIDATE_DATABASE') );
     				*/
     				$link = 'index.php?option=com_rsgallery2&rsgOption=maintenance';
 					HTML_RSGALLERY::quickiconButton( $link, 'maintenance.png', JText::_('COM_RSGALLERY2_MAINTENANCE'));
-    				
-                endif;
+					
+					$link = 'index.php?option=com_rsgallery2&rsgOption=installer';
+					HTML_RSGALLERY::quickiconButton( $link, 'template.png', JText::_('COM_RSGALLERY2_TEMPLATE_MANAGER'));
+    			}
 
-				$link = 'index.php?option=com_rsgallery2&rsgOption=installer';
-				HTML_RSGALLERY::quickiconButton( $link, 'template.png', JText::_('COM_RSGALLERY2_TEMPLATE_MANAGER'));
+
 			
                 // if debug is on, display advanced options
-                if( $rsgConfig->get( 'debug' )): ?>
+                if( ($rsgConfig->get( 'debug' )) AND ( $canDo->get('core.admin') ) ){ ?>
                 <div id='rsg2-cpanelDebug'><?php echo JText::_('COM_RSGALLERY2_C_DEBUG_ON');?>
                     <?php
-                    if ( 1 )://MK// [change] [only admin + may see this] $user->get('gid') > 23
-						$link = 'index.php?option=com_rsgallery2&task=purgeEverything';
-                        HTML_RSGALLERY::quickiconButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING') );
-    
-                        $link = 'index.php?option=com_rsgallery2&task=reallyUninstall';
-                        HTML_RSGALLERY::quickiconButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL') );
-        
-                        $link = 'index.php?option=com_rsgallery2&task=config_rawEdit';
-                        HTML_RSGALLERY::quickiconButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_-_RAW_EDIT') );
-                    endif;
-                    
-                    $link = 'index.php?option=com_rsgallery2&task=config_dumpVars';
-                    HTML_RSGALLERY::quickiconButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_-_VIEW') );
+					$link = 'index.php?option=com_rsgallery2&task=purgeEverything';
+					HTML_RSGALLERY::quickiconButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING') );
+
+					$link = 'index.php?option=com_rsgallery2&task=reallyUninstall';
+					HTML_RSGALLERY::quickiconButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL') );
+	
+					$link = 'index.php?option=com_rsgallery2&task=config_rawEdit';
+					HTML_RSGALLERY::quickiconButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_-_RAW_EDIT') );
 					
 					//Moved Migration Options: only show when debug is on since there are only test migration options and four Joomla 1.0.x options.
 					$link = 'index.php?option=com_rsgallery2&rsgOption=maintenance&task=showMigration';
 					HTML_RSGALLERY::quickiconButton( $link, 'dbrestore.png', JText::_('COM_RSGALLERY2_MIGRATION_OPTIONS') );
+                    
+                    $link = 'index.php?option=com_rsgallery2&task=config_dumpVars';
+                    HTML_RSGALLERY::quickiconButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_-_VIEW') );
                     ?>
                     <div class='rsg2-clr'>&nbsp;</div>
                 </div>
-                <?php endif; ?>
+                <?php } ?>
                 <div class='rsg2-clr'>&nbsp;</div>
             </div>
         </div>

@@ -264,7 +264,7 @@ class galleryUtils {
      * @param string javascript entries ( e.g: 'onChange="form.submit();"' )
      * @return string HTML representation for selectlist
      */
-    function galleriesSelectList( $galleryid=null, $listName='gallery_id', $style = true, $javascript = NULL ) 
+    function galleriesSelectList( $galleryid=null, $listName='gallery_id', $style = true, $javascript = NULL , $showUnauthorised = 1) 
 	{
 		$database =& JFactory::getDBO();
 		if ($style == true)
@@ -305,8 +305,15 @@ class galleryUtils {
 		$mitems[] 	= JHTML::_("Select.option", '0', '- '.JText::_('COM_RSGALLERY2_TOP_GALLERY').' -' );
 
 		foreach ( $list as $item ) {
+			$canCreateInGallery = JFactory::getUser()->authorise('core.create', 'com_rsgallery2.gallery.'.$item->id);
 			$item->treename = str_replace  ( '&#160;&#160;'  ,  '...' ,  $item->treename  );//MK [hack] [the original treename holds &#160; as a non breacking space for subgalleries, but JHTMLSelect::option cannot handle that, nor &nbsp;, so replaced string]
-			$mitems[] = JHTML::_("Select.option", $item->id, ''. $item->treename );
+			//When $showUnauthorised is false only galleries where create is allowed or which are the current selected gallery can be choosen.
+			if ($canCreateInGallery OR $showUnauthorised OR $galleryid == $item->id) {
+				$mitems[] = JHTML::_("Select.option", $item->id, ''. $item->treename );
+			} else {
+				//May not be selected: give 0 value instead of $item->id
+				$mitems[] = JHTML::_("Select.option", 0, ''. $item->treename .' - '.JText::_('JDISABLED'), 'value', 'text', true );
+			}
 		}
 
 		$output = JHTML::_("select.genericlist", $mitems, $listName, 'class="inputbox"'.$size.' '.$javascript, 'value', 'text', $galleryid, false );

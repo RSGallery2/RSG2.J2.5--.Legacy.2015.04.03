@@ -208,8 +208,7 @@ function edit( $option, $id ) {
 		$lists['published'] = ($row->published ? JText::_('JYES') : JText::_('JNO'));
 	}
 	
-
-    $file   = $rsgOptions_path .'galleries.item.xml';
+	$file 	= JPATH_SITE .'/administrator/components/com_rsgallery2/options/galleries.item.xml';
     $params = new JParameter( $row->params, $file );
 
     html_rsg2_galleries::edit( $row, $lists, $params, $option );
