@@ -96,8 +96,22 @@
 		<language tag="sl-SI">languages/sl-SI.com_rsgallery2.ini</language>
 		<language tag="tr-TR">languages/tr-TR.com_rsgallery2.ini</language>
 		<!-- Note: .sys.ini for menu and install-->
+		<language tag="da-DK">admin/language/da-DK/da-DK.com_rsgallery2.sys.ini</language>
+		<language tag="de-DE">admin/language/de-DE/de-DE.com_rsgallery2.sys.ini</language>
+		<language tag="el-GR">admin/language/el-GR/el-GR.com_rsgallery2.sys.ini</language>
 		<language tag="en-GB">admin/language/en-GB/en-GB.com_rsgallery2.sys.ini</language>
+		<language tag="es-ES">admin/language/es-ES/es-ES.com_rsgallery2.sys.ini</language>
+		<language tag="fi-FI">admin/language/fi-FI/fi-FI.com_rsgallery2.sys.ini</language>
+		<language tag="fr-FR">admin/language/fr-FR/fr-FR.com_rsgallery2.sys.ini</language>
+		<language tag="he-IL">admin/language/he-IL/he-IL.com_rsgallery2.sys.ini</language>
+		<language tag="hr-HR">admin/language/hr-HR/hr-HR.com_rsgallery2.sys.ini</language>
+		<language tag="hu-HU">admin/language/hu-HU/hu-HU.com_rsgallery2.sys.ini</language>
+		<language tag="it-IT">admin/language/it-IT/it-IT.com_rsgallery2.sys.ini</language>
+		<language tag="nb-NO">admin/language/nb-NO/nb-NO.com_rsgallery2.sys.ini</language>
 		<language tag="nl-NL">admin/language/nl-NL/nl-NL.com_rsgallery2.sys.ini</language>
+		<language tag="pt-BR">admin/language/pt-BR/pt-BR.com_rsgallery2.sys.ini</language>
+		<language tag="sl-SI">admin/language/sl-SI/sl-SI.com_rsgallery2.sys.ini</language>
+		<language tag="tr-TR">admin/language/tr-TR/tr-TR.com_rsgallery2.sys.ini</language>
 		</languages>
   </administration>
 </extension>

@@ -633,7 +633,7 @@ class html_rsg2_images {
                         <input type="radio" name="selcat" value="1" CHECKED/>&nbsp;&nbsp;<?php echo JText::_('COM_RSGALLERY2_YES_ALL_ITEMS_IN');?>&nbsp;
                     </td>
                     <td valign="top">
-                        <?php echo galleryUtils::galleriesSelectList( null, 'xcat', false );?>
+                        <?php echo galleryUtils::galleriesSelectList( null, 'xcat', false, Null, 0);?>
                     </td>
                 </tr>
                 <tr>

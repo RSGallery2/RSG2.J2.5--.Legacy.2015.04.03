@@ -156,9 +156,9 @@ function showImages( $option ) {
 	}
 
 	// build list of categories
-	$javascript 	= 'onchange="document.adminForm.submit();"';
-	$lists['gallery_id']			= galleryUtils::galleriesSelectList( $gallery_id, 'gallery_id', false, $javascript );
-	$lists['move_id']			= galleryUtils::galleriesSelectList( $gallery_id, 'move_id', false, '' );
+	$javascript = 'onchange="document.adminForm.submit();"';
+	$lists['gallery_id'] = galleryUtils::galleriesSelectList( $gallery_id, 'gallery_id', false, $javascript );
+	$lists['move_id'] = galleryUtils::galleriesSelectList( $gallery_id, 'move_id', false, '', 0 );
 	html_rsg2_images::showImages( $option, $rows, $lists, $search, $pageNav );
 }
 
@@ -169,6 +169,7 @@ function showImages( $option ) {
 function editImage( $option, $id ) {
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
+	$mainframe =& JFactory::getApplication();
 	
 	$lists = array();
 	
@@ -177,7 +178,12 @@ function editImage( $option, $id ) {
 	$row->load( (int)$id );
 
 	$canAdmin	= $my->authorise('core.admin', 'com_rsgallery2');
+	$canEditItem = $my->authorise('core.edit','com_rsgallery2.item.'.$row->id);
 	$canEditStateItem = $my->authorise('core.edit.state','com_rsgallery2.item.'.$row->id);
+
+	if (!$canEditItem){
+		$mainframe->redirect( "index.php?option=$option&rsgOption=images", JText::_('JERROR_ALERTNOAUTHOR'), 'error' );
+	}
 	
 	// fail if checked out not by 'me'
 	if ($row->isCheckedOut( $my->id )) {
@@ -202,7 +208,7 @@ function editImage( $option, $id ) {
 	;
 	$lists['ordering'] 		= JHTML::_('list.specificordering', $row, $id, $query, 1 );
 	// build list of categories
-	$lists['gallery_id']	= galleryUtils::galleriesSelectList( $row->gallery_id, 'gallery_id', true );
+	$lists['gallery_id']	= galleryUtils::galleriesSelectList( $row->gallery_id, 'gallery_id', true, Null, 0 );
 	// build the html select list
 	if ($canEditStateItem) {
 		$lists['published'] = JHTML::_("select.booleanlist", 'published', 'class="inputbox"', $row->published );
@@ -359,33 +365,42 @@ function removeImages( $cid, $option ) {
 	$mainframe->redirect( $return , JText::_('COM_RSGALLERY2_MAGE-S_DELETED_SUCCESFULLY') );
 }
 
-
+/**
+* Moves one or more items (images) to another gallery, ordering each item as the last one.
+* @param array An array of unique category id numbers
+* @param string The current url option
+*/
 function moveImages( $cid, $option ) {
 	$mainframe =& JFactory::getApplication();
 	$database =& JFactory::getDBO();
-	
+
+	//Get gallery id to move item(s) to
 	$new_id = JRequest::getInt( 'move_id', '' );
 	if ($new_id == 0) {
 		echo "<script> alert('No gallery selected to move to'); window.history.go(-1);</script>\n";
 		exit;
 	}
-	
-	//Move images to another gallery
+
+	$row = new rsgImagesItem( $database );
+
+	//Load each row, get new gallery_id/order and store (asset is stored as well with new gallery)
 	foreach ($cid as $id) {
-		$query = "UPDATE #__rsgallery2_files"
-		. "\n SET gallery_id = " . intval( $new_id )
-		. "\n WHERE id = ". intval ( $id )
-		;
-		$database->setQuery( $query );
-		if (!$database->query()) {
+		$row->load( (int)$id );
+		if ($row->gallery_id == $new_id) {
+			//Item is already in this gallery:
+			continue;
+		}
+		$row->gallery_id = $new_id;
+		$row->ordering = $row->getNextOrder("gallery_id = " . (int) $row->gallery_id);
+		if (!$row->store()) {
 			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
-			
 			exit();
 		}
 	}
+
 	$mainframe->redirect( "index.php?option=$option&rsgOption=images", '' );
-	
 }
+
 /**
 * Publishes or Unpublishes one or more records
 * @param array An array of unique category id numbers
@@ -468,7 +483,7 @@ function uploadImage( $option ) {
     }
     
 	//Create gallery selectlist
-	$lists['gallery_id'] = galleryUtils::galleriesSelectList( NULL, 'gallery_id', false );
+	$lists['gallery_id'] = galleryUtils::galleriesSelectList( NULL, 'gallery_id', false , Null, 0);
 	html_rsg2_images::uploadImage( $lists, $option );
 }
 
@@ -597,14 +612,20 @@ function saveOrder( &$cid ) {
 	$mainframe->redirect( 'index.php?option=com_rsgallery2&rsgOption=images', $msg );
 } // saveOrder
 
-function copyImage( $cid, $option ) {	
+/**
+* Copies one or more items (images) to the selected gallery, ordering each item as the last one.
+* @param array An array of unique category id numbers
+* @param string The current url option
+*/
+function copyImage( $cid, $option ) {
 	$mainframe =& JFactory::getApplication();
 	$database =& JFactory::getDBO();
 
 	//For each error that is found, store error message in array
 	$errors = array();
 	
-	$cat_id = JRequest::getInt('move_id', '' );//get gallery id to copy item to
+	//Get gallery id to copy item(s) to
+	$cat_id = JRequest::getInt('move_id', '' );
 	if (!$cat_id) {
 		echo "<script> alert('No gallery selected to move to'); window.history.go(-1);</script>\n";
 		exit;
