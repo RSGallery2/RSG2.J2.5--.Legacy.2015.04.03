@@ -116,7 +116,6 @@ function showMyGalleries() {
  * Deletes an item through the frontend My Galleries part
  */
 function deleteItem() {
-	global $rsgAccess;
 	$mainframe =& JFactory::getApplication();
 	$user = JFactory::getUser();
 	$database = JFactory::getDBO();
@@ -203,7 +202,7 @@ function saveUploadedItem() {
 	// Check for request forgeries
 	JRequest::checkToken() or jexit( 'Invalid Token' );
 
-	global $rsgConfig, $rsgAccess;
+	global $rsgConfig;
 	$mainframe =& JFactory::getApplication();
 	$database = JFactory::getDBO();
 	$user = JFactory::getUser();

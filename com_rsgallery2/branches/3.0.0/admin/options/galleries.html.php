@@ -229,7 +229,7 @@ class html_rsg2_galleries{
 	* @param string The option
 	*/
 	function edit( &$row, &$lists, &$params, $option ) {
-		global $rsgOption, $rsgAccess, $rsgConfig;
+		global $rsgOption, $rsgConfig;
 
 		JHTML::_('behavior.formvalidation');
 		jimport("joomla.filter.output");

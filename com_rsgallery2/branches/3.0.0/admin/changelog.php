@@ -31,22 +31,25 @@ Legend:
 ! -> Note
 
 
-
+! To do: Don't install/remove database table #__rsgallery2_acl
 ! To do: Backend: Installation of template does not function (yet).
 ! To do: Frontend: zip upload (as v2) and/or multiple file (new) upload.
-! To do: Remove deprecated rsgAccess (class extending JObject) in v3.
 ! To do: For logged in users v2 has (non functional) edit/delete buttons for admin within gallery (template semantic/html/thumbs_float.php and thumbs_table.php within div id="rsg2-adminButtons") with permission in template/semantic/display class: either remove or implement this.
 ! To do: find all 'config_' links that don't have rsgOption=config and add it.
 ! To do: "//MK// [todo]" things
+  To do: Delete galleries: create filter in gallery view and check that delete-permission is granted for deleting subgalleries/images. Right now you may delete everything if you have delete permission for the component, even if an item/(sub)gallery doesn't have delete permission.
 
 ---------------- Recent ----------------
+
+- Removed deprecated rsgAccess functions (class extending JObject) in v3.
++ Added 'Unpublished' text to items that are unpublished and are only shown to users with core.admin.
 
 2011-04-18 Mirjam - SVN 1020
 - Removed slideshow phatfusion since it uses Mootools 1.11 and J!1.6 uses a later version of Mootools
 + Backend: implemented basic ACL core.edit/edit.own/edit.state/delete (e.g. checks on core.edit for component to show edit button, checks also with filtered galleries).
 # Corrected path to galleries.item.xml file for gallery parameters.
 ^ Backend: Move/copy button for images: set correct parent asset.
-+ Added language .sys.ini files for all available language, although they have en-GB strings (except nl-NL)
++ Added language .sys.ini files for all available language (all en-GB values except nl-NL)
 
 2011-04-12 Mirjam - SVN 1019
 ^ Backend item owner no longer changes upon save. User with core.admin may change owner for item and gallery.

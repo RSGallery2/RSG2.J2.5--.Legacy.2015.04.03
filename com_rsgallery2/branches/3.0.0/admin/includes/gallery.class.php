@@ -165,14 +165,10 @@ class rsgGallery extends JObject{
 	
 			$where = ' WHERE gallery_id = '. $this->get('id');
 
-			//MK// [todo] [In J!1.5 JUser gid is the group id, corresponding to the usertype, 
-			// 25 = Super Administrator, 24 = Adminisitrator, etc. with the following line an item
-			// still shows in 'images view', but when you click it you get a fatal error when you're
-			// not a Super Administrator and the image is unpublished. Therefore I think this can be left
-			// out, and yes/not showing images depending on being (un)published and usertype in J!1.6
-			// should be handled differently. Thus commenting these lines...]
-//			if($my->get('gid') != 25)
-//				$where .= ' AND published = 1 ';
+			//Show only published items except for users with core.admin
+			//MK// [todo] Show user with core.admin that which item is unpublished
+			if (!JFactory::getUser()->authorise('core.admin','com_rsgallery2'))
+				$where .= ' AND published = 1 ';
 			
 			$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir;
 	

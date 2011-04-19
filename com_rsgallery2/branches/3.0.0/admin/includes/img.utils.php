@@ -366,6 +366,19 @@ class imgUtils extends fileUtils{
         global  $rsgConfig;
 
 		$database =& JFactory::getDBO();
+
+		//Get the id and gallery id of the current item
+		$database->setQuery("SELECT id, gallery_id FROM #__rsgallery2_files WHERE name = '$name'");
+        $itemDetails = $database->loadAssoc();
+		$id 	= $itemDetails['id'];
+		$gid 	= $itemDetails['gallery_id'];
+
+//MK// [todo] check that this access check works		
+		//Item deletion permission check
+		if (JFactory::getUser()->authorise('core.delete','com_rsgallery2.item.'.$id)) {
+			JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_PERMISSION_NOT_ALLOWED_DELETE_ITEM') .": ". $name);
+			return false;
+		}
 		
         $thumb      = JPATH_THUMB . DS . imgUtils::getImgNameThumb( $name );
         $display    = JPATH_DISPLAY . DS . imgUtils::getImgNameDisplay( $name );
@@ -389,12 +402,6 @@ class imgUtils extends fileUtils{
 				return false;
 			}
 		}
-		
-		//Get the id and gallery id of the current item
-		$database->setQuery("SELECT id, gallery_id FROM #__rsgallery2_files WHERE name = '$name'");
-        $itemDetails = $database->loadAssoc();
-		$id 	= $itemDetails['id'];
-		$gid 	= $itemDetails['gallery_id']; 
 		
 		//Delete the current item
 		$row = new rsgImagesItem( $database );

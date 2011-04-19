@@ -307,12 +307,10 @@ class rsgDisplay extends JObject{
      * Shows the voting screen
      */
     function _showVotes() {
-    	global  $rsgConfig , $rsgAccess;
+    	global  $rsgConfig;
 		$mainframe =& JFactory::getApplication();
 		$gallery = rsgGalleryManager::get();
-		$vote_view = $rsgConfig->get('voting') && 
-					($rsgAccess->checkGallery("vote_view", $gallery->id) || 
-					 $rsgAccess->checkGallery("vote_vote", $gallery->id) ) ;
+		$vote_view = $rsgConfig->get('voting') ;
 		
 		if ($vote_view) {
 			//Adding stylesheet for comments 
@@ -320,10 +318,8 @@ class rsgDisplay extends JObject{
 			$doc->addStyleSheet(JURI_SITE."/components/com_rsgallery2/lib/rsgvoting/rsgvoting.css");
     		
 			$voting = new rsgVoting();
-			if($rsgAccess->checkGallery("vote_view", $gallery->id))
-				$voting->showScore();
-			if($rsgAccess->checkGallery("vote_vote", $gallery->id))
-    			$voting->showVoting();
+			$voting->showScore();
+   			$voting->showVoting();
     	} else {
     		echo JText::_('COM_RSGALLERY2_VOTING_IS_DISABLED');
     	}

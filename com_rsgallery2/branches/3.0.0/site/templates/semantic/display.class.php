@@ -245,7 +245,9 @@ class rsgDisplay_semantic extends rsgDisplay{
 		$item = rsgInstance::getItem();
 
     	// increase hit counter
-		$item->hit();
+		if (is_object($item)){	//Can this be achieved in a better way? When an item is unpublished (there is no $item object) a user gets a "Call to a member function hit() on a non-object" error without this check. With Joomla SEF we get a Notice "Could not find an image with image id ." (without the id number) and without Joomla SEF we get a blank page?!
+			$item->hit();
+		}
 		
 		?>
 		<table border="0" cellspacing="0" cellpadding="0" width="100%">
@@ -310,7 +312,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 	 * Shows details of image
 	 */
 	function showDisplayImageDetails() {
-		global $rsgConfig, $rsgAccess;
+		global $rsgConfig;
 		
 		$gallery = rsgGalleryManager::get();
 

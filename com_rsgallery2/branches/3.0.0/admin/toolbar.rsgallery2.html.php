@@ -156,7 +156,7 @@ class menu_rsg2_galleries{
         JToolBarHelper::help( 'screen.rsgallery2',true );
     }
     
-    function remove() {
+    function remove() {	//When a gallery is checked and delete is clicked this function is called to confirm removal
         JToolBarHelper::cancel();
         JToolBarHelper::spacer();
         JToolBarHelper::trash('removeReal', JText::_('COM_RSGALLERY2_CONFIRM_REMOVAL'), false);

@@ -16,17 +16,18 @@ defined( '_JEXEC' ) or die( 'Access Denied.' );
 * @package RSGallery2
 * @author Ronald Smit <ronald.smit@rsdev.nl>
 * @author Jonah Braun <Jonah@WhaleHosting.ca>
+* Deprecated in v3!
 */
 class rsgAccess extends JObject{
 	/** @var array List of rights per gallery for a specific user type */
-	var $actions;
+//	var $actions;
 	/** @var array List of rights per gallery for a all user types */
-	var $allActions;
+//	var $allActions;
 	/** @var string table name */
-	var $_table;
+//	var $_table;
 	
 	/** Constructor */
-	function __construct() {
+/*	function __construct() {
 		$this->actions = array(
 				'view',				//View gallery from frontend
 				'up_mod_img',		//Upload and modify images to gallery
@@ -60,27 +61,27 @@ class rsgAccess extends JObject{
 		}				
 		$this->_table = "#__rsgallery2_acl";
 	}
-	
+*/	
 	/**
 	 * Checks whether Access Control is activated by the user
 	 * @return boolean True or False
 	 * @depracated since v3
 	 */
-	function aclActivated() {
-		/*acl_enabled is depracated since v3, so always return 0
-		global $rsgConfig;
-		$enabled = $rsgConfig->get('acl_enabled');
-		return $enabled;
-		*/
+/*	function aclActivated() {
+		//acl_enabled is depracated since v3, so always return 0
+		//global $rsgConfig;
+		//$enabled = $rsgConfig->get('acl_enabled');
+		//return $enabled;
+		//
 		return 0;
 	}
-	
+*/
 	/**
 	 * Returns an array with all permissions for a specific gallery
 	 * @param int Gallery ID
 	 * @return array actions as key, permissions as value
 	 */
-	function checkGalleryAll($gallery_id) {
+/*	function checkGalleryAll($gallery_id) {
 		$database =& JFactory::getDBO();
 		foreach ($this->actions as $action) {
 			$list[] = rsgAccess::checkGallery($action, $gallery_id);
@@ -98,7 +99,7 @@ class rsgAccess extends JObject{
 	 * @param int gallery ID of gallery to perform action on
 	 * @return int 1 if allowed, 0 if not allowed.
 	 */
-	function checkGallery($action, $gallery_id ) {
+/*	function checkGallery($action, $gallery_id ) {
 		global $check;
 		$database =& JFactory::getDBO();
 		$my =& JFactory::getUser();
@@ -144,7 +145,7 @@ class rsgAccess extends JObject{
 	/**
 	 * Returns formatted usertype from $my for use in checkGallery().
 	 */
-	function returnUserType() {
+/*	function returnUserType() {
 		$my =& JFactory::getUser();
 		if ( isset($my->usertype) && $my->usertype != "" )
 			$type = strtolower($my->usertype);
@@ -158,7 +159,7 @@ class rsgAccess extends JObject{
 	 * @param int gallery id
 	 * @return array gallery permissions
 	 */
-	function returnPermissions($id) {
+/*	function returnPermissions($id) {
 		$database =& JFactory::getDBO();
 		$sql = "SELECT * FROM $this->_table WHERE gallery_id = '$id'";
 		$database->setQuery( $sql );
@@ -180,7 +181,7 @@ class rsgAccess extends JObject{
 	 * @param integer Action we want to check
 	 * @return array Array with selected gallery_id's
 	 */
-	function actionPermitted($action) {
+/*	function actionPermitted($action) {
 		$database =& JFactory::getDBO();
 		$my =& JFactory::getUser();
 //MK// [todo] [In J1.6 usertypes, e.g. public, registered, are deprecated. So we won't check on usertype and for now give everybody the same admin priviliges!!!]		
@@ -195,7 +196,7 @@ class rsgAccess extends JObject{
 			$sql = "SELECT id FROM #__rsgallery2_galleries ";
 			$database->setQuery( $sql );
 			$galleries = $database->loadResultArray();
-/*/MK	}
+/*MK	}
 		else
 		{
 			// get galleries where action is permitted for the user group
@@ -214,7 +215,7 @@ class rsgAccess extends JObject{
 				$galleries = array_merge($galleries, $database->loadResultArray());	
 			}
 		}
-MK*/		
+
 		return $galleries;
 	}
 	
@@ -225,7 +226,7 @@ MK*/
 	 * @param array Array with permissions
 	 * @return boolean True if succesfull, false if otherwise
 	 */
-	function savePermissions( $perms, $gallery_id ) {
+/*	function savePermissions( $perms, $gallery_id ) {
 		$database =& JFactory::getDBO();
 		
 		//Check if permissions are set, if not, create them
@@ -261,7 +262,7 @@ MK*/
 	 * $param int Gallery ID
 	 * @return boolean True if succesfull, false if not.
 	 */
-	function createDefaultPermissions($gallery_id) {
+/*	function createDefaultPermissions($gallery_id) {
 		$database =& JFactory::getDBO();
 		$parent_id = galleryUtils::getParentId($gallery_id);
 		
@@ -280,7 +281,7 @@ MK*/
 	 * @param int Gallery ID
 	 * @return boolean True if succesfull, false if otherwise
 	 */
-	function deletePermissions( $gallery_id ) {
+/*	function deletePermissions( $gallery_id ) {
 		$database =& JFactory::getDBO();
 		
 		$sql = "DELETE FROM $this->_table WHERE gallery_id = '$gallery_id'";
@@ -295,7 +296,7 @@ MK*/
 	 * function will create initial permissions for all existing galleries
 	 * Is called only once from install script on upgrade.
 	 */
-	function initializePermissions() {
+/*	function initializePermissions() {
 		$database =& JFactory::getDBO();
 		$i = 0;
 		$sql = "SELECT id FROM #__rsgallery2_galleries";
@@ -315,13 +316,13 @@ MK*/
 			return true;
 		else
 			return false;
-	}
+	}*/
 	/**
 	 * Checks if a set of permissions is available for this specific gallery
 	 * @param integer Gallery id
 	 * @return boolean True or false
 	 */
-	function arePermissionsSet($gallery_id) {
+/*	function arePermissionsSet($gallery_id) {
 		$database =& JFactory::getDBO();
 		$sql = "SELECT COUNT(1) FROM $this->_table WHERE gallery_id = '$gallery_id'";
 		$database->setQuery($sql);
@@ -338,7 +339,7 @@ MK*/
 	 * @param array Checkbox data from the permissions form
 	 * @return array Padded array, containing all values for the ACL table
 	 */
-	function makeArrayComplete($array) {
+/*	function makeArrayComplete($array) {
 		//For PHP versions < 5.x
 		if (!function_exists('array_combine')) {
 			function array_combine($a, $b) {
@@ -359,6 +360,8 @@ MK*/
 		$array_complete = array_combine($this->allActions, $newArr);
 		return $array_complete;	 	
 	}
+*/
 }
 //end class //
+
 ?>

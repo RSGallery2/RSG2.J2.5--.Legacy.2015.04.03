@@ -55,12 +55,11 @@ class rsgGalleryManager{
      * and if those are not found then checks for (item) id in $_GET 
      * to get gallery id. 
      * @param id of the gallery
-     * @todo move published check to rsgAccess
      */
 	function get( $id = null ){
-		global $rsgAccess, $rsgConfig;
+		global $rsgConfig;
 		$my =& JFactory::getUser();
-		
+
 		if( $id === null ){
 			$id = JRequest::getInt( 'catid', 0 );
 			$id = JRequest::getInt( 'gid', $id );
@@ -72,26 +71,17 @@ class rsgGalleryManager{
 			}
 		}
 
-		// since the user will never be offered the chance to view a gallery they can't, unauthorized attempts at viewing are a hacking attempt, so it is ok to print an unfriendly error.
-		$rsgAccess->checkGallery( 'view', $id ) or die("RSGallery2: Access denied to gallery $id");
-
 		$gallery = rsgGalleryManager::_get( $id );
 
-/*	//MK removed published check in v3 since acl_enabled is deprecated @todo
-		// if gallery is unpublished don't show it unless ACL is enabled and users has permissions to modify (owners can view their unpublished galleries).
+		// if gallery is unpublished don't show it unless user has core.admin ($my->gid > 23)
 		if( $gallery->get('published') < 1 ) {
 			// if user is admin or superadmin then always return the gallery
-			if ( 1			   ){ //MK// [change] [only admin + may see this]
-		//	if ( $my->gid > 23 ) //MK// [change] [only admin + may see this]
+			if (JFactory::getUser()->authorise('core.admin','com_rsgallery2')){
 				return $gallery;
 			}
-			if( $rsgConfig->get( 'acl_enabled' )){//MK this checks for edit permission of gallery
-				if( !$rsgAccess->checkGallery( 'create_mod_gal', $id )) die("RSGallery2: Access denied to gallery $id");
-			}
-			else
-				die("RSGallery2: Access denied to gallery $id");
+			die("RSGallery2: Access denied to gallery $id");
 		}
-*/
+
 
 		return $gallery;
 	}
@@ -131,13 +121,10 @@ class rsgGalleryManager{
      * @param id of parent gallery
      */
     function getList( $parent ){
-        global $rsgAccess, $rsgConfig;
+        global $rsgConfig;
 		$database = JFactory::getDBO();
         if( !is_numeric( $parent )) return false;
         
-        // since the user will never be offered the chance to view a gallery they can't, unauthorized attempts at viewing are a hacking attempt, so it is ok to print an unfriendly error.
-        $rsgAccess->checkGallery( 'view', $parent ) or die("RSGallery2: Access denied to gallery $parent");
-
         $database->setQuery("SELECT * FROM #__rsgallery2_galleries".
                             " WHERE parent = '$parent'".
                             " ORDER BY ordering ASC");
@@ -162,16 +149,7 @@ class rsgGalleryManager{
      * @param array of gallery ids
      */
     function deleteArray( $cid ){
-        global $rsgAccess;
-
-        // check if user has access
-        // note we don't check sub galleries of these galleries.  if a user has the right to delete a gallery, they automatically have the right to delete any sub galleries therein.
-        foreach( $cid as $gid ){
-            // an unfriendly error since the user will never be offered the chance to delete a gallery they cannot.
-            $rsgAccess->checkGallery( 'delete', $gid ) or die("RSGallery2: Access denied to delete gallery $gallery");
-        }
-
-        // delete all galleries and sub galleries
+		// delete all galleries and sub galleries
         $galleries = rsgGalleryManager::_getArray( $cid );
 
         return rsgGalleryManager::_deleteTree( $galleries );
@@ -263,24 +241,30 @@ class rsgGalleryManager{
      * @todo this is a quick hack.  galleryUtils and imgUtils need to be reorganized; and a rsgImage class created to do this proper
      */
     function _deleteTree( $galleries ){
-        global $rsgAccess;
 		$database =& JFactory::getDBO();
         foreach( $galleries as $gallery ){
             rsgGalleryManager::_deleteTree( $gallery->kids() );
 
             // delete images in gallery
             foreach( $gallery->items() as $item ){
-                imgUtils::deleteImage( galleryUtils::getFileNameFromId( $item->id ));
+				if (!imgUtils::deleteImage( galleryUtils::getFileNameFromId( $item->id ))) {
+					//MK// [todo] show error on image deletion: check & report & don't continue with gallery deletion!
+				}
             }
 
             // delete gallery
             $id = $gallery->get('id');
             if( !is_numeric( $id )) return false;
 			
-			$row = new rsgGalleriesItem( $database );
-			if (!$row->delete($id)){
-				JError::raiseError(500, $row->getError() );
+			//Check delete authorisation for this gallery
+			if (!JFactory::getUser()->authorise('core.delete','com_rsgallery2.gallery.'.$id)) {
+				return false;	//MK// todo check if this works correctly
+			} else {
+				$row = new rsgGalleriesItem( $database );
+				if (!$row->delete($id)){
+					JError::raiseError(500, $row->getError() );
+				}
 			}
 		}
-    }
+	}
 }
