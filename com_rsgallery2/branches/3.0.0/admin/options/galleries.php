@@ -323,8 +323,7 @@ function removeReal( $cid, $option ) {
 
     $result = rsgGalleryManager::deleteArray( $cid );
 
-    if( !$rsgConfig->get( 'debug' ))
-        $mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
+	$mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
 }
 
 /**

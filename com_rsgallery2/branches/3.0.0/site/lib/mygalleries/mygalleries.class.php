@@ -589,7 +589,6 @@ class myGalleries {
      * @param array Result array with pagenav details
      */
     function showMyImages($images, $pageNav) {
-        global $rsgAccess;
         JHTML::_('behavior.tooltip');
 		$Itemid = JRequest::getInt('Itemid');
 		$user = JFactory::getUser();

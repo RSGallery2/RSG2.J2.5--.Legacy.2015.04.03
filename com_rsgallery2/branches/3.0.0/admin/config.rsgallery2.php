@@ -138,11 +138,9 @@ class galleryUtils {
 	 * @return HTML to show selectbox
 	 */
 	function showUserGalSelectList($action = '', $select_name = 'catid', $gallery_id = null, $js = '',$showTopGallery = false) {
-		global $rsgAccess;
 		$user = JFactory::getUser();
 
 		//Get gallery Id's where action is permitted and write to string
-		//$galleries = $rsgAccess->actionPermitted($action);//MK ACL deprecated
 		$galleriesAllowed = galleryUtils::getAuthorisedGalleries($action);
 
 		$dropdown_html = '<select name="'.$select_name.'" '.$js.'><option value="-1" selected="selected" >'.JText::_('COM_RSGALLERY2_SELECT_GALLERY_FROM_LIST').'</option>';

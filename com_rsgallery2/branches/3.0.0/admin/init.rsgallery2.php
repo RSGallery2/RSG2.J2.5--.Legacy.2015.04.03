@@ -10,7 +10,7 @@
 defined( '_JEXEC' ) or die( 'Access Denied.' );
 
 // create global variables in case we are not in the global scope.
-global $rsgConfig, $rsgAccess, $rsgVersion, $rsgOption, $mainframe ;
+global $rsgConfig, $rsgVersion, $rsgOption, $mainframe ;
 
 
 //Set path globals for RSGallery2
@@ -44,7 +44,6 @@ $rsgVersion = new rsgalleryVersion();
 
 //include ACL class
 require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'access.class.php');
-$rsgAccess = new rsgAccess();
 
 // include rsgInstance
 require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'instance.class.php');

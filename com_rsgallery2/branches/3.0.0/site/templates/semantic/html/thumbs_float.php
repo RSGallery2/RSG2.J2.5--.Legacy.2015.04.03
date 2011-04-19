@@ -1,4 +1,12 @@
-<?php defined('_JEXEC') or die('Restricted access'); ?>
+<?php 
+/**
+ * RSGallery2
+ * @version $Id$
+ * @package RSGallery2
+ * @copyright (C) 2003 - 2011 RSGallery2
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ */
+defined('_JEXEC') or die('Restricted access'); ?>
 
 <?php
 $floatDirection = $rsgConfig->get( 'display_thumbs_floatDirection' );
@@ -11,7 +19,7 @@ foreach( $this->gallery->currentItems() as $item ):
 			continue;  // we only handle images
 
 		$thumb = $item->thumb(); ?>
-		
+
 	<li <?php echo "style=\"float:$floatDirection;\""; ?> >
 		<a href="<?php echo JRoute::_( "index.php?option=com_rsgallery2&page=inline&id=".$item->id ); ?>">
 			<!--<div class="img-shadow">-->
