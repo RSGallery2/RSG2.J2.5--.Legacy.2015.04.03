@@ -58,6 +58,7 @@ class rsgGalleryManager{
      */
 	function get( $id = null ){
 		global $rsgConfig;
+		$mainframe =& JFactory::getApplication();
 		$my =& JFactory::getUser();
 
 		if( $id === null ){
@@ -72,14 +73,15 @@ class rsgGalleryManager{
 		}
 
 		$gallery = rsgGalleryManager::_get( $id );
-
-		// if gallery is unpublished don't show it unless user has core.admin ($my->gid > 23)
+		// If gallery is unpublished don't show it unless user has core.login.admin ($my->gid > 23)
+		// This means that an unpublished gallery will only be shown in the backend, whereas in the frontend you'll be redirected.
 		if( $gallery->get('published') < 1 ) {
 			// if user is admin or superadmin then always return the gallery
-			if (JFactory::getUser()->authorise('core.admin','com_rsgallery2')){
+			if (JFactory::getUser()->authorise('core.login.admin','com_rsgallery2')){
 				return $gallery;
 			}
-			die("RSGallery2: Access denied to gallery $id");
+			$mainframe->redirect("index.php", JText::_('JERROR_ALERTNOAUTHOR'));
+			//die("RSGallery2: Access denied to gallery $id");
 		}
 
 

@@ -40,10 +40,10 @@ $i = 0;
 				</span>
 				<?php endif;?>
 				<?php if( $this->allowEdit ): ?>
-				<div id="rsg2-adminButtons">
+<!--			<div id="rsg2-adminButtons">
 					<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&page=edit_image&id=".$item->id); ?>"><img src="<?php echo JURI::base(); ?>/administrator/images/edit_f2.png" alt="" height="15" /></a>
 					<a href="#" onClick="if(window.confirm('<?php echo JText::_('COM_RSGALLERY2_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_IMAGE');?>')) location='<?php echo JRoute::_("index.php?option=com_rsgallery2&page=delete_image&id=".$item->id); ?>'"><img src="<?php echo JURI::base(); ?>/administrator/images/delete_f2.png" alt="" height="15" /></a>
-				</div>
+				</div>-->
 				<?php endif; ?>
 				<?php echo '<i>'.((!$item->published) ? JText::_('JUNPUBLISHED') : '').'</i>';?>
 			</td>

@@ -19,8 +19,10 @@ class html_rsg2_images {
 
 	function showImages( $option, &$rows, &$lists, &$search, &$pageNav ) {
 		global $rsgOption, $rsgConfig;
+		$option = JRequest::getCmd('option');
 		$user 	= JFactory::getUser();
-		$option = JRequest::getCmd('option')
+		$userId = $user->id;
+		
 		?>
  		<form action="index.php" method="post" name="adminForm">
 		<table border="0" width="100%">
@@ -64,13 +66,13 @@ class html_rsg2_images {
 		for ($i=0, $n=count( $rows ); $i < $n; $i++) {
 			$row = &$rows[$i];
 			//Get permissions
-			$can[EditItem]		= $user->authorise('core.edit',		'com_rsgallery2.item.'.$row->id);
-			$can[EditOwnItem]	= $user->authorise('core.edit.own',	'com_rsgallery2.item.'.$row->id) AND ($row->uid == $userId);
-			$can[EditStateItem]	= $user->authorise('core.edit.state','com_rsgallery2.item.'.$row->id);
-			$can[EditGallery]		= $user->authorise('core.edit',		'com_rsgallery2.gallery.'.$row->gallery_id);
-			$showMoveUpIcon = (($row->gallery_id == @$rows[$i-1]->gallery_id) AND ($can[EditStateItem]));
-			$showMoveDownIcon = (($row->gallery_id == @$rows[$i+1]->gallery_id) AND ($can[EditStateItem]));
-			$disabled = $can[EditStateItem] ?  '' : 'disabled="disabled"';
+			$can['EditItem']		= $user->authorise('core.edit',		'com_rsgallery2.item.'.$row->id);
+			$can['EditOwnItem']	= $user->authorise('core.edit.own',	'com_rsgallery2.item.'.$row->id) AND ($row->userid == $userId);
+			$can['EditStateItem']	= $user->authorise('core.edit.state','com_rsgallery2.item.'.$row->id);
+			$can['EditGallery']		= $user->authorise('core.edit',		'com_rsgallery2.gallery.'.$row->gallery_id);
+			$showMoveUpIcon = (($row->gallery_id == @$rows[$i-1]->gallery_id) AND ($can['EditStateItem']));
+			$showMoveDownIcon = (($row->gallery_id == @$rows[$i+1]->gallery_id) AND ($can['EditStateItem']));
+			$disabled = $can['EditStateItem'] ?  '' : 'disabled="disabled"';
 
 			$link 	= 'index.php?option=com_rsgallery2&rsgOption='.$rsgOption.'&task=editA&hidemainmenu=1&id='. $row->id;
 
@@ -88,7 +90,7 @@ class html_rsg2_images {
 				<td>
 					<?php
 					//Checked out and not owning this item OR not allowed to edit (own) gallery: show name, else show linked name
-					if (( $row->checked_out && ( $row->checked_out != $user->id )) OR !($can[EditItem] OR $can[EditOwnItem]) ) {
+					if (( $row->checked_out && ( $row->checked_out != $user->id )) OR !($can['EditItem'] OR $can['EditOwnItem']) ) {
 						echo $row->title.'&nbsp;('.$row->name.')';
 					} else {
 						$gallery = rsgGalleryManager::getGalleryByItemID($row->id);
@@ -109,7 +111,7 @@ class html_rsg2_images {
 					?>
 				</td>
 				<td align="center">
- 					<?php echo JHtml::_('jgrid.published', $row->published, $i, '', $can[EditStateItem]); ?>
+ 					<?php echo JHtml::_('jgrid.published', $row->published, $i, '', $can['EditStateItem']); ?>
 				</td>
 				<td class="order">
 					<span>
@@ -123,7 +125,7 @@ class html_rsg2_images {
 				<input type="text" name="order[]" <?php echo $disabled; ?> size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" />
 				</td>
 				<td>
-		<?php 	if ($can[EditGallery]) { ?>
+		<?php 	if ($can['EditGallery']) { ?>
 					<a href="<?php echo $row->cat_link; ?>" title="Edit Category">
 		<?php 		echo $row->category; ?>
 					</a>

@@ -34,13 +34,19 @@ Legend:
 ! To do: Don't install/remove database table #__rsgallery2_acl
 ! To do: Backend: Installation of template does not function (yet).
 ! To do: Frontend: zip upload (as v2) and/or multiple file (new) upload.
-! To do: For logged in users v2 has (non functional) edit/delete buttons for admin within gallery (template semantic/html/thumbs_float.php and thumbs_table.php within div id="rsg2-adminButtons") with permission in template/semantic/display class: either remove or implement this.
 ! To do: find all 'config_' links that don't have rsgOption=config and add it.
 ! To do: "//MK// [todo]" things
   To do: Delete galleries: create filter in gallery view and check that delete-permission is granted for deleting subgalleries/images. Right now you may delete everything if you have delete permission for the component, even if an item/(sub)gallery doesn't have delete permission.
 
 ---------------- Recent ----------------
 
+2011-04-20 Mirjam - SVN 1022
+# Fixed "Notice: Use of undefined constant" in galleries.html.php
+^ Rearranged some of the Control Panel tabs contents.
+# Fixed backend Control Panel tabs problem with Internet Explorer.
+^ Commented out (non functional) edit/delete buttons for logged in frontend users within gallery (template semantic/html/thumbs_float.php and thumbs_table.php within div id="rsg2-adminButtons").
+
+2011-04-19 Mirjam - SVN 1021
 - Removed deprecated rsgAccess functions (class extending JObject) in v3.
 + Added 'Unpublished' text to items that are unpublished and are only shown to users with core.admin.
 
