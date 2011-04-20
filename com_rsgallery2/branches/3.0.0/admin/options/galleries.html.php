@@ -97,17 +97,17 @@ class html_rsg2_galleries{
             $checked    = JHTML::_('grid.checkedout', $row, $i );
 			
 			//Get permissions
-			$can[EditGallery]		= $user->authorise('core.edit',		'com_rsgallery2.gallery.'.$row->id);
-			$can[EditOwnGallery]	= $user->authorise('core.edit.own',	'com_rsgallery2.gallery.'.$row->id) AND ($row->uid == $userId);
-			$can[EditStateGallery]	= $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$row->id);
+			$can['EditGallery']		= $user->authorise('core.edit',		'com_rsgallery2.gallery.'.$row->id);
+			$can['EditOwnGallery']	= $user->authorise('core.edit.own',	'com_rsgallery2.gallery.'.$row->id) AND ($row->uid == $userId);
+			$can['EditStateGallery']	= $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$row->id);
 			
 			//Use the $orderLookup array to determine if for the same 
 			// parent one can still move up/down. First look up the parent info.
 			// combine this with permission
 			$orderkey = array_search($row->id, $orderLookup[$row->parent]);
-			$showMoveUpIcon		= ((isset($orderLookup[$row->parent][$orderkey - 1])) AND ($can[EditStateGallery]));
-			$showMoveDownIcon	= ((isset($orderLookup[$row->parent][$orderkey + 1])) AND ($can[EditStateGallery]));
-			$disabled = $can[EditStateGallery] ?  '' : 'disabled="disabled"';
+			$showMoveUpIcon		= ((isset($orderLookup[$row->parent][$orderkey - 1])) AND ($can['EditStateGallery']));
+			$showMoveDownIcon	= ((isset($orderLookup[$row->parent][$orderkey + 1])) AND ($can['EditStateGallery']));
+			$disabled = $can['EditStateGallery'] ?  '' : 'disabled="disabled"';
 			
             ?>
             <tr class="<?php echo "row$k"; ?>">
@@ -120,7 +120,7 @@ class html_rsg2_galleries{
                 <td>
 					<?php
 					//Checked out and not owning this item OR not allowed to edit (own) gallery: show name, else show linked name
-					if ( $row->checked_out && ( $row->checked_out != $user->id ) OR !($can[EditGallery] OR $can[EditOwnGallery])) {
+					if ( $row->checked_out && ( $row->checked_out != $user->id ) OR !($can['EditGallery'] OR $can['EditOwnGallery'])) {
 						echo stripslashes($row->treename);
 					} else { 
 						?>
@@ -137,7 +137,7 @@ class html_rsg2_galleries{
 					
                 </td>
                 <td align="center">
-                	<?php echo JHtml::_('jgrid.published', $row->published, $i, '', $can[EditStateGallery]); ?>
+                	<?php echo JHtml::_('jgrid.published', $row->published, $i, '', $can['EditStateGallery']); ?>
                 </td>
                 <td class="order">
                 	<span>
