@@ -150,7 +150,7 @@ class galleryUtils {
 			// Disable when action not allowed or user not owner
 			if (!$user->authorise($action, 'com_rsgallery2'))
 				$dropdown_html .= ' disabled="disabled"';
-			if ($row->id == 0)
+			if ($gallery_id == 0)
 				$dropdown_html .= ' selected="selected"';
 			$dropdown_html .= ' >- '.JText::_('COM_RSGALLERY2_TOP_GALLERY').' -</option>';
 		}
@@ -176,10 +176,12 @@ class galleryUtils {
 		$rows = $database->loadObjectList();
 		foreach ($rows as $row) {
 			$dropdown_html .= "<option value=\"$row->id\"";
-			// Disable when action not allowed or user not owner
-			if (!in_array($row->id, $galleriesAllowed))
-				$dropdown_html .= ' disabled="disabled"';
-
+			// Disable when action not allowed and disallowed parent is not current parent
+			if (!in_array($row->id, $galleriesAllowed)){
+				if ($row->id != $gallery_id) {
+					$dropdown_html .= ' disabled="disabled"';
+				}
+			}
 			if ($row->id == $gallery_id)
 				$dropdown_html .= ' selected="selected"';
 
@@ -364,7 +366,7 @@ class galleryUtils {
     }
     
     /**
-     * Returns number of files within a specific gallery and it's children
+     * Returns number of published files within a specific gallery and it's children
      * @deprecated use rsgGallery->itemCount() instead.
      * @param int Category id
      * @return int Number of files in category
@@ -372,7 +374,7 @@ class galleryUtils {
     function getFileCount($id) {
         $database =& JFactory::getDBO();
         $list = galleryUtils::getChildList( $id );
-        $database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id IN ($list)");
+		$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE ((gallery_id IN ($list)) AND (published = 1))");
         $count = $database->loadResult();
         return $count;
     }

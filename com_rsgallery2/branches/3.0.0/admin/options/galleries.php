@@ -226,7 +226,7 @@ function save( $option ) {
 	$my =& JFactory::getUser();
 	$database =& JFactory::getDBO();
 
-	$task = JRequest::getCmd(task);
+	$task = JRequest::getCmd('task');
 	$id = JRequest::getInt('id');
 	
     $row = new rsgGalleriesItem( $database );
@@ -254,18 +254,18 @@ function save( $option ) {
     }
 
 	// Get the rules which are in the form … with the name ‘rules’ with type array (default value array())
-	$data[rules]		= JRequest::getVar('rules', array(), 'post', 'array');
+	$data['rules']		= JRequest::getVar('rules', array(), 'post', 'array');
 	//Only save rules when there are rules (which were only shown to those with core.admin)
-	if (!empty($data[rules])) {
+	if (!empty($data['rules'])) {
 		// Get the form library, add a path for the form XML and get the form instantiated
 		jimport( 'joomla.form.form' );
 		JForm::addFormPath(JPATH_ADMINISTRATOR.'/components/com_rsgallery2/models/forms/');
 		$form = &JForm::getInstance('com_rsgallery2.params','gallery',array( 'load_data' => false ));
 		// Filter $data which means that for $data[rules] the Null values are removed
 		$data = $form->filter($data);
-		if (isset($data[rules]) && is_array($data[rules])) {
+		if (isset($data['rules']) && is_array($data['rules'])) {
 			// Instantiate a JRules object with the rules posted in the form
-			$rules = new JRules($data[rules]);
+			$rules = new JRules($data['rules']);
 			// $row is an rsgGalleriesItem object that extends JTable with method setRules
 			// this binds the JRules object to $row->_rules
 			$row->setRules($rules);

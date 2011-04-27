@@ -397,11 +397,11 @@ class fileHandler {
         $old_umask = umask(0);
         while ($entryname = readdir( $current_dir )) {
             if ($entryname != '.' and $entryname != '..') {
-                if (is_dir( $dir . $entryname )) {
-                    fileHandler::deldir( JPath::clean( $dir . $entryname ) );
+                if (is_dir( $dir .DS. $entryname )) {
+                    fileHandler::deldir( JPath::clean( $dir .DS. $entryname ) );
                 } else {
-                    @chmod($dir . $entryname, 0777);
-                    unlink( $dir . $entryname );
+                    @chmod($dir .DS. $entryname, 0777);
+                    unlink( $dir .DS. $entryname );
                 }
             }
         }

@@ -466,10 +466,10 @@ class myGalleries {
             } else { //List of galleries
                 foreach ($rows as $row) {
 					//Get permissions
-					$can[EditGallery]		= $user->authorise('core.edit',		'com_rsgallery2.gallery.'.$row->id);
-					$can[EditOwnGallery]	= $user->authorise('core.edit.own',	'com_rsgallery2.gallery.'.$row->id) AND ($row->uid == $userId);
-					$can[EditStateGallery]	= $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$row->id);
-					$can[DeleteGallery] 	= $user->authorise('core.delete',	'com_rsgallery2.gallery.'.$row->id);
+					$can['EditGallery']		= $user->authorise('core.edit',		'com_rsgallery2.gallery.'.$row->id);
+					$can['EditOwnGallery']	= $user->authorise('core.edit.own',	'com_rsgallery2.gallery.'.$row->id) AND ($row->uid == $userId);
+					$can['EditStateGallery']	= $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$row->id);
+					$can['DeleteGallery'] 	= $user->authorise('core.delete',	'com_rsgallery2.gallery.'.$row->id);
                     ?>
                     <script type="text/javascript">
 						//<![CDATA[
@@ -490,7 +490,7 @@ class myGalleries {
 								$indent .= "&nbsp;&nbsp;&nbsp;&nbsp;";
 								if ($i == $row->level -1) $indent .= "<sup>|_</sup>";
 							}
-							if ($can[EditGallery] OR $can[EditOwnGallery]){
+							if ($can['EditGallery'] OR $can['EditOwnGallery']){
 								//name with link
 								echo $indent;?>
 								<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editCat&gid='.$row->id);?>">
@@ -507,7 +507,7 @@ class myGalleries {
                         </td>
                         <td>
 							<?php
-							if ($can[EditStateGallery]){
+							if ($can['EditStateGallery']){
 								//active image with link
 								if ($row->published == 1) $img = "published-active.png";
 								else $img = "unpublished-active.png";
@@ -532,7 +532,7 @@ class myGalleries {
 						</td>
                         <td>
 							<?php 
-							if ($can[DeleteGallery]) {
+							if ($can['DeleteGallery']) {
 								//active image with link
 								?>
 								<a href="javascript:deleteGallery(<?php echo $row->id;?>);">
@@ -554,7 +554,7 @@ class myGalleries {
                         </td>
                         <td>
 						<?php
-							if ($can[EditGallery] OR $can[EditOwnGallery]) {
+							if ($can['EditGallery'] OR $can['EditOwnGallery']) {
 								//active image with link
 								?>
 								<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editCat&gid='.$row->id);?>">
@@ -629,16 +629,16 @@ class myGalleries {
 				foreach ($images as $image) {
 					global $rsgConfig;
 					//Get permissions
-					$can[EditImage]		= $user->authorise('core.edit',		'com_rsgallery2.item.'.$image->id);
-					$can[EditOwnImage]	= $user->authorise('core.edit.own',	'com_rsgallery2.item.'.$image->id) OR ($image->userid == $userId);
-					$can[EditStateImage]= $user->authorise('core.edit.state','com_rsgallery2.item.'.$image->id);
-					$can[DeleteImage] 	= $user->authorise('core.delete',	'com_rsgallery2.item.'.$image->id);
+					$can['EditImage']		= $user->authorise('core.edit',		'com_rsgallery2.item.'.$image->id);
+					$can['EditOwnImage']	= $user->authorise('core.edit.own',	'com_rsgallery2.item.'.$image->id) OR ($image->userid == $userId);
+					$can['EditStateImage']= $user->authorise('core.edit.state','com_rsgallery2.item.'.$image->id);
+					$can['DeleteImage'] 	= $user->authorise('core.delete',	'com_rsgallery2.item.'.$image->id);
 					?>
 					<tr>
 						<td>
 							<?php 
 							//Tooltip with or without link
-							if ($can[EditImage] OR $can[EditOwnImage]){
+							if ($can['EditImage'] OR $can['EditOwnImage']){
 								//tooltip: tip, tiptitle, tipimage, tiptext, url, depreciated bool=1 (@todo: this link has two // in it between root and imgPath_thumb)
 								echo JHTML::tooltip('<img src="'.JURI::root().$rsgConfig->get('imgPath_thumb').'/'.$image->name.'.jpg" alt="'.$image->name.'" />',
 								$image->name,
@@ -657,7 +657,7 @@ class myGalleries {
 						</td>
 						<td>
 							<?php 
-							if ($can[EditStateImage]){
+							if ($can['EditStateImage']){
 								//active images with link
 								if ($image->published == 1) $img = "published-active.png";
 								else $img = "unpublished-active.png";
@@ -682,7 +682,7 @@ class myGalleries {
 						</td>
 						<td>
 							<?php
-							if ($can[DeleteImage]) {
+							if ($can['DeleteImage']) {
 								//active image with link
 								?>
 								<a href="javascript:deleteImage(<?php echo $image->id.','.$Itemid;?>);">
@@ -703,7 +703,7 @@ class myGalleries {
 						</td>
 						<td>
 							<?php
-							if ($can[EditImage] OR $can[EditOwnImage]){
+							if ($can['EditImage'] OR $can['EditOwnImage']){
 								//active image with link
 								?>
 								<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editItem&id=$image->id");?>">

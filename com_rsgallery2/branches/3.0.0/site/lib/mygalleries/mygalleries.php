@@ -81,8 +81,8 @@ function showMyGalleries() {
 	$limit      = trim(JRequest::getInt( 'limit', 10 ) );
 	$limitstart = trim(JRequest::getInt( 'limitstart', 0 ) );
 	
-	//Get total number of records for paging
-	$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE userid = '$my->id'");
+	//Get total number of records for pagination
+	$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files");
 	$total = $database->loadResult();
 	
 	//New instance of mosPageNav

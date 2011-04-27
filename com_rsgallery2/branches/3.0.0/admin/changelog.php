@@ -40,6 +40,14 @@ Legend:
 
 ---------------- Recent ----------------
 
+2011-04-27 Mirjam - SVN 1023
++ Added 2nd Help button for RSG2 ACL information on Control Panel page, only visible to those with core.admin (=configure permission).
+# Use JHtml::_('select.option'... instead of JHTMLSelect::option since "The JHTML widgets are lazily included depending on usage" (http://forum.joomla.org/viewtopic.php?p=1158553#p1158553)
+# Fixed several "Use of undefined constant"-notices.
+# In select list current parent may not be disabled in selectlist.
+^ Used 'total' number of items for pagination in My galleries is no longer dependent on owned items, but return all items.
+# Number of item shown is now number of published items, not total number of items.
+
 2011-04-20 Mirjam - SVN 1022
 # Fixed "Notice: Use of undefined constant" in galleries.html.php
 ^ Rearranged some of the Control Panel tabs contents.
@@ -48,7 +56,7 @@ Legend:
 
 2011-04-19 Mirjam - SVN 1021
 - Removed deprecated rsgAccess functions (class extending JObject) in v3.
-+ Added 'Unpublished' text to items that are unpublished and are only shown to users with core.admin.
++ Added 'Unpublished' text to items that are unpublished, they are only shown in the frontend to users with core.admin.
 
 2011-04-18 Mirjam - SVN 1020
 - Removed slideshow phatfusion since it uses Mootools 1.11 and J!1.6 uses a later version of Mootools
