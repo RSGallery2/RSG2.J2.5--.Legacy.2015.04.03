@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="module" version="1.5.0" method="upgrade">
+	<name>RSGallery2 Search Module</name>
+	<creationDate>28 April 2011</creationDate>
+	<author>RSGallery2 Team</author>
+	<copyright>This module is released under the GNU/ GPL license</copyright>
+	<authorEmail>team@rsgallery2.nl</authorEmail>
+	<authorUrl>http://www.rsgallery2.nl</authorUrl>
+	<version>2.0.0</version>
+	<description>
+		This module show the RSGallery2 search box. (Don't forget to enable this module!) Note: this probably won't work with some 3rd party SEF components.
+	</description>
+	<files>
+		<filename module="mod_rsg2_search">mod_rsg2_search.php</filename>
+	</files>
+</install>
