@@ -1,9 +1,9 @@
 <?php
 /**
-* This file contains xxxxxxxxxxxxxxxxxxxxxxxxxxx.
-* @version xxx
+* This file contains myGalleries class
+* @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2010 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -840,6 +840,10 @@ function editCat($rows = null) {
          <?php echo $editor->save( 'description' ) ; ?>
         
         // do field validation
+		if (form.parent.value < 0) {
+            alert( "<?php echo JText::_('You must select a gallery.'); ?>" );
+			return;
+        }
         if (form.catname1.value == "") {
             alert( "<?php echo JText::_('You must provide a gallery name.'); ?>" );
         }

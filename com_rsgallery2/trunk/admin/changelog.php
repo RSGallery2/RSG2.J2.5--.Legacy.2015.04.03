@@ -3,7 +3,7 @@
 * Changelog for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2010 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 **/
@@ -31,6 +31,10 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+
+2011-05-04 Mirjam - SVN 1024
+# galleryUtils::showCategories: fixed 'global $database' ($database =& JFactory::getDBO();)
+# Corrected path to galleries.item.xml file for gallery parameters. 
 
 2011-01-28 Mirjam - SVN 1013
 + Added SEF option: advanced SEF with using aliases that don't need to be unique since the id's are used as well. There are three 'Advanced SEF' options now: no, yes, yes... where the third is the new option.

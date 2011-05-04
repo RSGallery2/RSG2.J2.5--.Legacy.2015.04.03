@@ -3,7 +3,7 @@
 * Galleries option for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2010 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -190,7 +190,7 @@ function edit( $option, $id ) {
     // build the html select list
     $lists['published']         = JHTML::_("select.booleanlist", 'published', 'class="inputbox"', $row->published );
 
-    $file   = $rsgOptions_path .'galleries.item.xml';
+    $file 	= JPATH_SITE .'/administrator/components/com_rsgallery2/options/galleries.item.xml';
     $params = new JParameter( $row->params, $file );
 
     html_rsg2_galleries::edit( $row, $lists, $params, $option );
