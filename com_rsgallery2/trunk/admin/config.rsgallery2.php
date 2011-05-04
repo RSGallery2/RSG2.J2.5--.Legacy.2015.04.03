@@ -4,7 +4,7 @@
 *
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 **/
@@ -98,7 +98,8 @@ class galleryUtils {
      * @todo Make all categories visible if user is Super Administrator
      */
     function showCategories($s_id = 0, $uid, $selectname = 'i_cat') {
-	global $database, $dropdown_html;
+	global $dropdown_html;
+	$database =& JFactory::getDBO();
 	$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE parent = '0' AND uid = '$uid' ORDER BY ordering ASC");
 	$rows = $database->loadObjectList();
 	$dropdown_html = "<select name=\"$selectname\"><option value=\"0\" SELECTED>".JText::_('- Select gallery -')."</option>\n";
