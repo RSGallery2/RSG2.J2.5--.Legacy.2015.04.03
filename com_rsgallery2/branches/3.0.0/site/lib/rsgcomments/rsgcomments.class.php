@@ -3,7 +3,7 @@
 * Comments plugin for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2007 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
@@ -333,7 +333,8 @@ function showComments( $item_id ) {
 	$deleteComment = false;
 
 	// user is admin or super admin and can delete the comment
-	if( $user->get('gid') > 22 ):
+	
+	if (JFactory::getUser()->authorise('core.admin','com_rsgallery2')):
 		$deleteComment = true;
 	?>
 	<script type="text/javascript">
