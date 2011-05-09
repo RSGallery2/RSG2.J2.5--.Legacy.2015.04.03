@@ -1,9 +1,9 @@
 <?php
 /**
-* This file contains xxxxxxxxxxxxxxxxxxxxxxxxxxx.
-* @version xxx
+* This file contains Comments logic
+* @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 20011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -58,9 +58,11 @@ function saveComment( $option ) {
 	$comment 	= get_magic_quotes_gpc() ? JRequest::getVar( 'tcomment'  , '') : addslashes(JRequest::getVar( 'tcomment'  , ''));
 	$item_id 	= JRequest::getInt( 'item_id'  , '');
 	$catid 		= JRequest::getInt( 'catid'  , '');
+	$Itemid 	= JRequest::getInt( 'Itemid'  , '');
+
+	$redirect_url = JRoute::_("index.php?option=".$option."&Itemid=$Itemid&page=inline&id=".$item_id, false);
 	
 	//Check if commenting is enabled
-	$redirect_url = JRoute::_("index.php?option=".$option."&page=inline&id=".$item_id);
 	if ($rsgConfig->get('comment') == 0) {
 		$mainframe->redirect($redirect_url, JText::_('COM_RSGALLERY2_COMMENTING_IS_DISABLED') );
 		exit();
@@ -141,14 +143,16 @@ function deleteComments( $option ) {
 	// Get the current JUser object
 	$user = &JFactory::getUser();
 
-	if ( $user->get('gid') < 23 )
+	//Check permission to delete (only for users with core.admin on RSG2)
+	if (!JFactory::getUser()->authorise('core.admin','com_rsgallery2'))
 		die('Only admins can delete comments.');
 
 	//Get parameters
 	$id			= JRequest::getInt( 'id', '' );
 	$item_id 	= JRequest::getInt( 'item_id'  , '');
 	$catid 		= JRequest::getInt( 'catid'  , '');
-	
+	$Itemid 	= JRequest::getInt( 'Itemid'  , '');
+
 	if ( !empty($id) ) {
 		$query = "DELETE FROM #__rsgallery2_comments WHERE id = '$id'";
 		$database->setQuery( $query );
@@ -156,5 +160,5 @@ function deleteComments( $option ) {
 			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 		}
 	}
-	$mainframe->redirect(JRoute::_("index.php?option=".$option."&page=inline&id=".$item_id."&catid=".$catid), JText::_('COM_RSGALLERY2_COMMENT_DELETED_SUCCESFULLY') );
+	$mainframe->redirect(JRoute::_("index.php?option=".$option."&Itemid=$Itemid&page=inline&id=".$item_id."&catid=".$catid, false), JText::_('COM_RSGALLERY2_COMMENT_DELETED_SUCCESFULLY') );
 }

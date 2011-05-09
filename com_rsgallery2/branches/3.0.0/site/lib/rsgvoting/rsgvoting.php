@@ -1,9 +1,9 @@
 <?php
 /**
-* This file contains xxxxxxxxxxxxxxxxxxxxxxxxxxx.
-* @version xxx
+* This file contains Voting in RSG2
+* @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -37,24 +37,24 @@ function saveVote( $option ) {
 	
 	global $rsgConfig;
 	$mainframe =& JFactory::getApplication();
-	
 	$database = JFactory::getDBO();
 	$my = JFactory::getUser();
+	$Itemid 	= JRequest::getInt('Itemid', '');	
 	
 	if ( $rsgConfig->get('voting') < 1 ) {
-		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2"), JText::_('COM_RSGALLERY2_VOTING_IS_DISABLED'));
+		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2", false), JText::_('COM_RSGALLERY2_VOTING_IS_DISABLED'));
 	} else {
 		$rating 	= JRequest::getInt('rating', '');
 		$id 		= JRequest::getInt('id', '');
 		$vote 		= new rsgVoting();
 		//Check if user can vote
 		if (!$vote->voteAllowed() ) {
-			$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&page=inline&id=$id"), JText::_('COM_RSGALLERY2_YOU_ARE_NOT_AUTHORIZED_TO_VOTE'));
+			$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id", false), JText::_('COM_RSGALLERY2_YOU_ARE_NOT_AUTHORIZED_TO_VOTE'));
 		}
 		
 		//Check if user has already voted for this image
 		if ($vote->alreadyVoted($id)) {
-		 	$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&page=inline&id=$id"), JText::_('COM_RSGALLERY2_YOU_ALREADY_VOTED_FOR_THIS_ITEM'));
+		 	$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id", false), JText::_('COM_RSGALLERY2_YOU_ALREADY_VOTED_FOR_THIS_ITEM'));
 		}
 		
 		//All checks OK, store vote in DB
@@ -70,7 +70,7 @@ function saveVote( $option ) {
 			//Store cookie on system
 			setcookie($rsgConfig->get('cookie_prefix').$id, $my->id, time()+60*60*24*365, "/");
 		}
-		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&page=inline&id=$id"), $msg);
+		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id", false), $msg);
 	}
 }
 ?>

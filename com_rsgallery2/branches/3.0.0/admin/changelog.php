@@ -40,6 +40,11 @@ Legend:
 
 ---------------- Recent ----------------
 
+2011-05-08 Mirjam - SVN 1026
+# Redirect link voting includes Itemid
+# Redirect link (delete) comments includes Itemid
+# Delete comments from frontend available for users with core.admin
+
 2011-04-27 Mirjam - SVN 1023
 + Added 2nd Help button for RSG2 ACL information on Control Panel page, only visible to those with core.admin (=configure permission).
 # Use JHtml::_('select.option'... instead of JHTMLSelect::option since "The JHTML widgets are lazily included depending on usage" (http://forum.joomla.org/viewtopic.php?p=1158553#p1158553)

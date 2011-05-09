@@ -1,9 +1,9 @@
 <?php
 /**
-* This file contains xxxxxxxxxxxxxxxxxxxxxxxxxxx.
-* @version xxx
+* This file contains the class used for voging.
+* @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -83,14 +83,13 @@ class rsgVoting {
 	 * @return True or False
 	 */
 	function voteAllowed() {
-		global $rsgConfig, $rsgAccess;
+		global $rsgConfig;
 		
 		//Check if voting is enabled
 		if ($rsgConfig->get('voting') < 1)
 			return false;
 		else {
-			$gallery = rsgGalleryManager::get();
-			return $rsgAccess->checkGallery("vote_vote", $gallery->id);
+			return true;
 		}
 			
 	}
