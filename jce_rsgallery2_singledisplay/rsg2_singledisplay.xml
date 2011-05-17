@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<install version="1.5.0" type="plugin" plugin="rsg2_singledisplay" method="upgrade">
+   <name>RSG2_SingleDisplay</name>
+   <version>1.0.0</version>
+   <creationDate>17 May 2011</creationDate>
+   <author>Mirjam Kaizer - RSGallery2 Team</author>
+   <authorEmail>team@rsgallery2.nl	</authorEmail>
+   <authorUrl>http://www.rsgallery2.nl</authorUrl>
+   <copyright>Mirjam Kaizer - RSGallery2</copyright>
+   <license>GNU / GPL 2 : http://www.gnu.org/licenses/gpl-2.0.html</license>
+   <description>This RSGallery2 Single Image Display plugin for JCE inserts {rsg2_singledisplay: imageid, size, caption, format} based on chosen options. For use with RSGallery2 Single Image Display plugin for Joomla.</description>
+   <icon>rsg2_singledisplay</icon>
+   <layout>rsg2_singledisplay</layout>
+   <files>
+        <file>editor_plugin.js</file>
+		<file>langs/en.js</file>
+		<file>langs/index.html</file>
+		<file>img/rsg2_singledisplay.gif</file>
+		<file>img/index.html</file>
+    </files>
+</install>
