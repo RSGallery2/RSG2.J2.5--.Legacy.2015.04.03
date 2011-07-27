@@ -6,7 +6,7 @@
   <copyright>This component is released under the GNU/GPL License</copyright>
   <authorEmail>team@rsgallery2.nl</authorEmail>
   <authorUrl>http://www.rsgallery2.nl</authorUrl>
-  <version>3 RC1 SVN 1026</version>
+  <version>3.0.0</version>
   <description>COM_RSGALLERY2_XML_DESCRIPTION</description>
 
   <files folder="site">
@@ -32,6 +32,7 @@
 	<language tag="el-GR">el-GR.com_rsgallery2.ini</language>
 	<language tag="en-GB">en-GB.com_rsgallery2.ini</language>
 	<language tag="es-ES">es-ES.com_rsgallery2.ini</language>
+	<language tag="fa-IR">fa-IR.com_rsgallery2.ini</language>
     <language tag="fi-FI">fi-FI.com_rsgallery2.ini</language>
     <language tag="fr-FR">fr-FR.com_rsgallery2.ini</language>
     <language tag="he-IL">he-IL.com_rsgallery2.ini</language>
@@ -46,14 +47,14 @@
   </languages>
 
   <administration>
-    <menu img="components/com_rsgallery2/images/rsg2_menu.png">com_rsgallery2</menu>
+    <menu view="com_rsgallery2" img="components/com_rsgallery2/images/rsg2_menu.png">com_rsgallery2</menu>
     <submenu>
 	  <!-- Note that all & must be escaped to &amp; for the file to be valid XML and be parsed by the installer -->
-      <menu link="option=com_rsgallery2" img="class:config">COM_RSGALLERY2_MENU_CONTROL_PANEL</menu>
-      <menu link="option=com_rsgallery2&amp;rsgOption=images&amp;task=batchupload">COM_RSGALLERY2_MENU_BATCH_UPLOAD</menu>
-      <menu link="option=com_rsgallery2&amp;rsgOption=images&amp;task=upload">COM_RSGALLERY2_MENU_UPLOAD</menu>
-      <menu link="option=com_rsgallery2&amp;rsgOption=galleries">COM_RSGALLERY2_MENU_GALLERIES</menu>
-      <menu link="option=com_rsgallery2&amp;rsgOption=images">COM_RSGALLERY2_MENU_ITEMS</menu>
+      <menu view="COM_RSGALLERY2_MENU_CONTROL_PANEL" link="option=com_rsgallery2" img="class:config">COM_RSGALLERY2_MENU_CONTROL_PANEL</menu>
+      <menu view="COM_RSGALLERY2_MENU_BATCH_UPLOAD" link="option=com_rsgallery2&amp;rsgOption=images&amp;task=batchupload">COM_RSGALLERY2_MENU_BATCH_UPLOAD</menu>
+      <menu view="COM_RSGALLERY2_MENU_UPLOAD" link="option=com_rsgallery2&amp;rsgOption=images&amp;task=upload">COM_RSGALLERY2_MENU_UPLOAD</menu>
+      <menu view="COM_RSGALLERY2_MENU_GALLERIES" link="option=com_rsgallery2&amp;rsgOption=galleries">COM_RSGALLERY2_MENU_GALLERIES</menu>
+      <menu view="COM_RSGALLERY2_MENU_ITEMS" link="option=com_rsgallery2&amp;rsgOption=images">COM_RSGALLERY2_MENU_ITEMS</menu>
     </submenu>
 
     <files folder="admin">
@@ -84,6 +85,7 @@
 		<language tag="el-GR">languages/el-GR.com_rsgallery2.ini</language>
 		<language tag="en-GB">languages/en-GB.com_rsgallery2.ini</language>
 		<language tag="es-ES">languages/es-ES.com_rsgallery2.ini</language>
+		<language tag="fa-IR">languages/fa-IR.com_rsgallery2.ini</language>
 		<language tag="fi-FI">languages/fi-FI.com_rsgallery2.ini</language>
 		<language tag="fr-FR">languages/fr-FR.com_rsgallery2.ini</language>
 		<language tag="he-IL">languages/he-IL.com_rsgallery2.ini</language>
@@ -101,6 +103,7 @@
 		<language tag="el-GR">admin/language/el-GR/el-GR.com_rsgallery2.sys.ini</language>
 		<language tag="en-GB">admin/language/en-GB/en-GB.com_rsgallery2.sys.ini</language>
 		<language tag="es-ES">admin/language/es-ES/es-ES.com_rsgallery2.sys.ini</language>
+		<language tag="fa-IR">admin/language/fa-IR/fa-IR.com_rsgallery2.sys.ini</language>
 		<language tag="fi-FI">admin/language/fi-FI/fi-FI.com_rsgallery2.sys.ini</language>
 		<language tag="fr-FR">admin/language/fr-FR/fr-FR.com_rsgallery2.sys.ini</language>
 		<language tag="he-IL">admin/language/he-IL/he-IL.com_rsgallery2.sys.ini</language>
@@ -114,4 +117,15 @@
 		<language tag="tr-TR">admin/language/tr-TR/tr-TR.com_rsgallery2.sys.ini</language>
 		</languages>
   </administration>
+
+  <updateservers>
+	<!-- Note: No spaces or linebreaks allowed between the server tags -->
+	<server type="extension" priority="1" name="RSGallery2 Update Site">http://www.mirj4m.nl/update/rsgallery2.xml</server>
+	<!-- 
+	on http://joomlacode.org/gf/project/embedchessboard/scmsvn/?action=browse&path=%2Ftrunk%2Fjoomla-1.6%2Fembedchessboard.xml&view=markup
+	it says
+	<server type="extension" priority="1" name="EmbedChessboard update site">http://anonymous:doesnotmatter@joomlacode.org/svn/embedchessboard/trunk/joomla-1.6-update</server>
+	</updateservers>
+ -->
+  </updateservers>  
 </extension>
