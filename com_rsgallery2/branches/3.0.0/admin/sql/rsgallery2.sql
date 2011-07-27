@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `#__rsgallery2_galleries` (
   `thumb_id` int(11) unsigned NOT NULL default '0',
   `asset_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'FK to the #__assets table.',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `#__rsgallery2_files` (
   `id` int(9) unsigned NOT NULL auto_increment,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `#__rsgallery2_files` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `UK_name` (`name`),
   KEY `id` (`id`)
-)TYPE=MyISAM ;
+)ENGINE=MyISAM ;
 
 CREATE TABLE `#__rsgallery2_comments` (
   `id` int(11) NOT NULL auto_increment,
@@ -66,14 +66,14 @@ CREATE TABLE `#__rsgallery2_comments` (
   `params` text,
   `hits` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `#__rsgallery2_config` (
   `id` int(9) unsigned NOT NULL auto_increment,
   `name` text NOT NULL,
   `value` text NOT NULL,
  PRIMARY KEY `id` (`id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `#__rsgallery2_acl` (
   `id` int(11) NOT NULL auto_increment,
@@ -94,4 +94,4 @@ CREATE TABLE IF NOT EXISTS `#__rsgallery2_acl` (
   `registered_vote_view` tinyint( 1 ) NOT NULL default '1',
   `registered_vote_vote` tinyint( 1 ) NOT NULL default '1',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;

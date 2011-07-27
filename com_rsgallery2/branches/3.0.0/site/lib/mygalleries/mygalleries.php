@@ -248,35 +248,31 @@ function saveUploadedItem() {
 		}
 
 		switch ($file_ext) {
-/*Removed zip option for now since handleZIP uses pclzip.lib.php that was removed in J!1.6
-Can get it to work with new function?
-		case 'zip':
+			case 'zip':
         		if ($upload->checkSize($i_file) == 1) {
-            		$ziplist = $upload->handleZIP($i_file);
-            		
+					$ziplist = $upload->extractArchive($i_file);
             		//Set extract dir for uninstall purposes
             		$extractdir = JPATH_ROOT . DS . "media" . DS . $upload->extractDir . DS;
-            		
             		//Import images into right folder
             		for ($i = 0; $i<sizeof($ziplist); $i++) {
-            			$import = imgUtils::importImage($extractdir . $ziplist[$i], $ziplist[$i], $gallery_id);
+            			$import = imgUtils::importImage($extractdir . $ziplist[$i], $ziplist[$i], $gallery_id, $title, $descr);
             		}
             		
             		//Clean mediadir
             		fileHandler::cleanMediaDir( $upload->extractDir );
-            		
+
             		//Redirect
             		$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_ITEM_UPLOADED_SUCCESFULLY') );
-            		
         		} else {
             		//Error message
             		$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_ZIP-FILE_IS_TOO_BIG'));
         		}
 				break;
-*/			case 'image':
+			case 'image':
 				//Check if image is too big
-				if ($i_file['error'] == 1)
+				if ($i_file['error'] == 1){
 					$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_IMAGE_SIZE_IS_TOO_BIG_FOR_UPLOAD') );
+				}
 				
 				$file_name = $i_file['name'];
 				if ( move_uploaded_file($i_file['tmp_name'], JPATH_ROOT . DS ."media" . DS . $file_name) ) {
@@ -298,7 +294,7 @@ Can get it to work with new function?
 			default:
 				$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_WRONG_IMAGE_FORMAT_WE_WILL_REDIRECT_YOU_TO_THE_UPLOAD_SCREEN') );
 				break;
-		}
+		}	//end switch ($file_ext)
 	}
 }
 

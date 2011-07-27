@@ -33,12 +33,18 @@ Legend:
 
 ! To do: Don't install/remove database table #__rsgallery2_acl
 ! To do: Backend: Installation of template does not function (yet).
-! To do: Frontend: zip upload (as v2) and/or multiple file (new) upload.
 ! To do: find all 'config_' links that don't have rsgOption=config and add it.
 ! To do: "//MK// [todo]" things
   To do: Delete galleries: create filter in gallery view and check that delete-permission is granted for deleting subgalleries/images. Right now you may delete everything if you have delete permission for the component, even if an item/(sub)gallery doesn't have delete permission.
 
 ---------------- Recent ----------------
+
+2011-07-27 Mirjam - SVN
++ Added persian language files (fa-IR)
++ Added zip upload in frontend MyGalleries
+^ changed 'TYPE=MyISAM' to 'ENGINE=MyISAM' since TYPE is deprecated in MySQL 4/5
+
+---------------- 3 RC1 -- SVN 1026 -- 2011-05-08 -------------
 
 2011-05-08 Mirjam - SVN 1026
 # Redirect link voting includes Itemid

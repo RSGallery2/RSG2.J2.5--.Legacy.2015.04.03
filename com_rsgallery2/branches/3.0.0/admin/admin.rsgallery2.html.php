@@ -168,7 +168,9 @@ class HTML_RSGALLERY{
         <dt>Norwegian</dt> 
 			<dd><b>Ronny Tjelle</b></dd>
             <dd><b>Steinar Vikholt</b></dd>
-        <dt>Polish</dt> 
+        <dt>Persian</dt> 
+			<dd><b>Joomir</b> <a href='http://www.joomir.com/' target='_blank'>http://www.joomir.com</a></dd>
+		<dt>Polish</dt> 
 			<dd><b>Zbyszek Rosiek</b></dd>
         <dt>Russian</dt>
 			<dd><b>Ragnaar</b></dd>

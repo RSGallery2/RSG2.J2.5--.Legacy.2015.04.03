@@ -405,8 +405,10 @@ class imgUtils extends fileUtils{
 		
 		//Delete the current item
 		$row = new rsgImagesItem( $database );
-		if (!$row->delete($id)){
-			JError::raiseError(500, $row->getError() );
+		if ($id){	//When upload goes wrong, there is no item in the database when this function is called to remove the thumb/display/original images + database entry
+			if (!$row->delete($id)){
+				JError::raiseError(500, $row->getError() );
+			}
 		}
 
 		galleryUtils::reorderRSGallery('#__rsgallery2_files', "gallery_id = '$gid'");
