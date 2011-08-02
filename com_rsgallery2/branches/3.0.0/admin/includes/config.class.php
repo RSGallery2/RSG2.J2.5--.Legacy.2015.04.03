@@ -34,6 +34,7 @@ class rsgConfig {
 
 	//Image upload settings
 	var $useIPTCinformation = false;
+	var $uploadState 		= true;
 	
 	// graphics manipulation
 	var $graphicsLib        = 'gd2';   // imagemagick, netbpm, gd1, gd2

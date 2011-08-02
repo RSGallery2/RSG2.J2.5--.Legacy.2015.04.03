@@ -217,6 +217,12 @@ class imgUtils extends fileUtils{
 		$row->date			= date( 'Y-m-d H:i:s' );
 		$row->ordering		= $ordering;
 		$row->userid		= $my->id;
+		//Published only when user has edit state permission and default state setting is published on upload
+		if (JFactory::getUser()->authorise('core.edit.state','com_rsgallery2.gallery.'.$row->gallery_id)) {
+			if ($rsgConfig->uploadState){
+				$row->published		= 1;
+			}
+		}
 		// save params
 		$params = JRequest::getVar( 'params', '' );
 		if (is_array( $params )) {
@@ -1028,7 +1034,7 @@ class waterMarker extends GD2 {
 
 		$pepper = 'RSG2Watermarked';
 		$salt = JApplication::getCfg('secret');
-		$filename = md5($pepper.$imagename.$salt).'.jpg';
+		$filename = $imagetype.md5($pepper.$imagename.$salt).'.jpg';
 		
 		if(!JFile::exists(JPATH_WATERMARKED. DS . $filename)){
 			if ( $imagetype == 'display')
