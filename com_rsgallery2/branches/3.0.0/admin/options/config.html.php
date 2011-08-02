@@ -157,7 +157,11 @@ class html_rsg2_config{
 		$galcountNrs[] = JHTML::_("select.option",'25','25');
 		$galcountNrs[] = JHTML::_("select.option",'30','30');
 		$galcountNrs[] = JHTML::_("select.option",'50','50');
-		
+	
+		// Upload state
+		$uploadState[] = JHTML::_("select.option", 0, JText::_('JUNPUBLISHED'));
+		$uploadState[] = JHTML::_("select.option", 1, JText::_('JPUBLISHED'));
+
 		// watermark
 		$watermarkAngles[] = JHTML::_("select.option",'0','0');
 		$watermarkAngles[] = JHTML::_("select.option",'45','45');
@@ -332,6 +336,14 @@ class html_rsg2_config{
                     '', JText::_('COM_RSGALLERY2_RSG2_USE_IPTC')); ?></td>
 								<td width="78%"><fieldset id="jform_block" class="radio">
 						<?php echo JHTML::_("select.booleanlist",'useIPTCinformation', '', $config->useIPTCinformation);?></fieldset></td>
+							</tr>
+							<tr>
+								<td width="200"><?php echo JHTML::tooltip(JText::_('COM_RSGALLERY2_DEFAULT_UPLOAD_STATE_TOOLTIP'), JText::_('COM_RSGALLERY2_DEFAULT_UPLOAD_STATE_TOOLTIP_TITLE'), 
+                    '', JText::_('COM_RSGALLERY2_DEFAULT_UPLOAD_STATE')); ?>
+								</td>
+								<td width="78%"><fieldset id="jform_block" class="radio">
+									<?php echo JHTML::_("select.genericlist",$uploadState, 'uploadState','','value', 'text', $config->uploadState)?></fieldset>
+								</td>
 							</tr>
 						</table>
 					</fieldset>

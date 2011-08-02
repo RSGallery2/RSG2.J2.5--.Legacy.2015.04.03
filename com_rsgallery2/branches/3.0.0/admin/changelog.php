@@ -39,10 +39,14 @@ Legend:
 
 ---------------- Recent ----------------
 
-2011-07-27 Mirjam - SVN
+2011-08-02 Mirjam - SVN 1034
++ Added option to set default state for uploaded images to (un)published (for users with Edit State permission for the chosen gallery)
+# Watermark display image was showing original image
+
+2011-07-27 Mirjam - SVN 1033
 + Added persian language files (fa-IR)
 + Added zip upload in frontend MyGalleries
-^ changed 'TYPE=MyISAM' to 'ENGINE=MyISAM' since TYPE is deprecated in MySQL 4/5
+^ changed 'TYPE=MyISAM' to 'ENGINE=MyISAM' since TYPE is removed in MySQL 5.5
 
 ---------------- 3 RC1 -- SVN 1026 -- 2011-05-08 -------------
 
