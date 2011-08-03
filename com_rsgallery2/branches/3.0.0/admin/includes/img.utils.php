@@ -77,6 +77,7 @@ class imgUtils extends fileUtils{
             return imgUtils::resizeImage( $source, $target, $rsgConfig->get('thumb_width') );
         }
     }
+
     
     /**
       * generic image resize function
@@ -251,6 +252,7 @@ class imgUtils extends fileUtils{
         return true;
     }
 //function importImage originally did not use rsgImagesItem class/object
+/*
     function importImageORIGINAL($imgTmpName, $imgName, $imgCat, $imgTitle='', $imgDesc='') {
         global $rsgConfig;
 		$my =& JFactory::getUser();
@@ -362,6 +364,7 @@ class imgUtils extends fileUtils{
             
         return true;
     }
+*/
 
     /**
       * deletes all elements of image on disk and in database
