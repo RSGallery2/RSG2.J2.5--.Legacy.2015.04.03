@@ -87,12 +87,13 @@ class html_rsg2_maintenance {
 					<td valign="top" width="300"><p><?php echo JText::_('COM_RSGALLERY2_SELECT_GALLERIES_TO_REGENERATE_THUMBNAILS_FROM')?></p></td>
 					<td valign="top">
 						<fieldset>
-						<legend>Select galleries</legend>
+						<legend><?php echo JText::_('COM_RSGALLERY2_SELECT_GALLERY')?></legend>
 						<?php echo $lists['gallery_dropdown'];?>
 						</fieldset>
 						<p>
-							<span style="font-weight: bold;">New width:</span>&nbsp;
-							<?php echo $rsgConfig->get('thumb_width');?>&nbsp;pixels<br />
+							<?php echo JText::sprintf('COM_RSGALLERY2_NEW_WIDTH_DISPLAY', $rsgConfig->get('image_width'))?>
+							<br>
+							<?php echo JText::sprintf('COM_RSGALLERY2_NEW_WIDTH_THUMB', $rsgConfig->get('thumb_width'))?>
 						</p>
 					</td>
 					<td width="10">&nbsp;</td>

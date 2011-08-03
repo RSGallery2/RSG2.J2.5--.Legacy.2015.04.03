@@ -42,6 +42,27 @@ class rsg2_maintenance {
     		return true;
     	}
     }
+    /**
+     * Samples a random display image from the specified gallery and compares dimensions against Config settings
+     * @param Integer Gallery ID
+     * @return Boolean True if size has changed, false if not.
+     */
+    function displaySizeChanged( $gid ) {
+    	global $rsgConfig;
+    	$gallery = rsgGalleryManager::_get( $gid );
+    	$images = $gallery->items();
+    	foreach ($images as $image) {
+    		$imgname[] = $image->name;
+    	}
+    	$image = array_rand($imgname);
+
+    	$imgdata = getimagesize( imgUtils::getImgDisplay($imgname[$image], true) );
+    	if ( $imgdata[0] == $rsgConfig->get('image_width') ) {
+    		return false;
+    	} else {
+    		return true;
+    	}
+    }
 }
 
 class rsg2_consolidate extends rsg2_maintenance {

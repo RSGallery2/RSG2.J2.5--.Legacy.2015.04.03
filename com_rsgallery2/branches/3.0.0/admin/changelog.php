@@ -39,6 +39,9 @@ Legend:
 
 ---------------- Recent ----------------
 
+2011-08-03 Mirjam - SVN 1036
++ Added regenerate display images option (watermarked images are made from these display images at first view)
+
 2011-08-02 Mirjam - SVN 1034
 + Added option to set default state for uploaded images to (un)published (for users with Edit State permission for the chosen gallery)
 # Watermark display image was showing original image

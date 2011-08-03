@@ -52,7 +52,8 @@ class menu_rsg2_maintenance{
 		// Check if core.admin is allowed
 		$canDo	= Rsgallery2Helper::getActions();
 		if ($canDo->get('core.admin')) {
-			JToolBarHelper::custom('executeRegenerateImages','forward.png','forward.png','COM_RSGALLERY2_MAINT_REGEN_BUTTON', false);
+			JToolBarHelper::custom('executeRegenerateDisplayImages','forward.png','forward.png','COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY', false);
+			JToolBarHelper::custom('executeRegenerateThumbImages','forward.png','forward.png','COM_RSGALLERY2_MAINT_REGEN_THUMBS', false);
 			JToolBarHelper::spacer();
 			JToolBarHelper::help( 'screen.rsgallery2',true);
 		}

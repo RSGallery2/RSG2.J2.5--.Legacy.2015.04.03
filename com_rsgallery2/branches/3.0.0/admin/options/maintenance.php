@@ -30,10 +30,12 @@ if (!JFactory::getUser()->authorise('core.admin', 'com_rsgallery2')) {
 			regenerateImages();
 			HTML_RSGALLERY::RSGalleryFooter();
 			break;
-		case 'executeRegenerateImages':
-			executeRegenerateImages();
+		case 'executeRegenerateThumbImages':
+			executeRegenerateThumbImages();
 			break;
-			
+		case 'executeRegenerateDisplayImages';
+			executeRegenerateDisplayImages();
+			break;
 		/* Consolidate database calls */
 		case 'consolidateDB':
 			consolidateDB();
@@ -205,7 +207,7 @@ function regenerateImages() {
  * @todo Check if width really changed, else no resize needed. 
  * Perhaps by sampling the oldest thumb from the gallery and checking dimensions against current setting. 
  */
-function executeRegenerateImages() {
+function executeRegenerateThumbImages() {
 	global $rsgConfig;
 	$mainframe =& JFactory::getApplication();
 	$error = 0;
@@ -241,7 +243,68 @@ function executeRegenerateImages() {
     }
     $mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs", $msg);
 }
+/**
+ * Function will regenerate display images for a specific gallery or set of galleries
+ * @todo Check if width really changed, else no resize needed. 
+ */
+function executeRegenerateDisplayImages() {
+	global $rsgConfig;
+	$mainframe =& JFactory::getApplication();
+	$error = 0;
+	$gid = JRequest::getVar( 'gid', array());
+	if ( empty($gid) ) {
+		$mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs", JText::_('COM_RSGALLERY2_NO_GALLERY_SELECTED'));
+		return;
+	}
 
+	foreach ($gid as $id) {
+    	if ($id > 0) {
+			$gallery = rsgGalleryManager::_get($id);
+			$images = $gallery->items();
+			foreach ($images as $image) {
+				//Get full path of the original image
+				$originalImageFullPath = imgUtils::getImgOriginal($image->name, true);
+				//Get the name of the image
+				$parts = pathinfo( $originalImageFullPath );
+				$newName = $parts['basename'];
+				//Get the correct width for the display image
+				$width = getimagesize( $originalImageFullPath );
+				if( !$width ){
+					//error (no width found)
+					$mainframe->enqueueMessage(JText::sprintf('COM_RSGALLERY2_COULD_NOT_CREATE_DISPLAY_IMAGE_WITH_NOT_FOUND', $newName), $type= 'error');
+					$error++;
+				} else {
+					//the actual image width and height and its max
+					$height = $width[1];
+					$width = $width[0];
+					if ($height > $width) {
+						$maxSideImage = $height;
+					} else {
+						$maxSideImage = $width;
+					}
+					// if original is wider or higher than display size, create a display image
+					if( $maxSideImage > $rsgConfig->get('image_width') ) {
+						$result = imgUtils::makeDisplayImage( $originalImageFullPath, $newName, $rsgConfig->get('image_width') );
+					} else {
+						$result = imgUtils::makeDisplayImage( $originalImageFullPath, $newName, $maxSideImage );
+					}
+					//If creation of image failed: let user know
+					if( !$result ){
+					//	imgUtils::deleteImage( $newName );
+						$mainframe->enqueueMessage(JText::sprintf('COM_RSGALLERY2_COULD_NOT_CREATE_DISPLAY_IMAGE', $newName), $type= 'error');
+						$error++;
+					}
+				}
+			}
+    	}
+    }
+    if ($error > 0) {
+    	$msg = JText::_('COM_RSGALLERY2_MAINT_REGEN_ERRORS_DISPLAY');
+    } else {
+		$msg = JText::_('COM_RSGALLERY2_MAINT_REGEN_NO_ERRORS');
+    }
+    $mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs", $msg);
+}
 
 function consolidateDB() {
 	$consolidate = new rsg2_consolidate();
