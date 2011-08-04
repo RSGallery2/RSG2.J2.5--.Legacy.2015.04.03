@@ -31,6 +31,7 @@ $task   = JRequest::getVar('task', '' );
 $id		= JRequest::getInt('id','' );
 $gid	= JRequest::getInt('gid','' );
 $currentState = JRequest::getInt('currentstate','' );
+$cid    = JRequest::getVar('cid', array(0) );
 
 switch( $task ){
     case 'saveUploadedItem':
@@ -63,6 +64,15 @@ switch( $task ){
 	case 'editStateItem':
 		editStateItem($id, 1-$currentState);
 		break;
+	case 'publishItems':
+		editStateItems($cid,1);
+		break;
+	case 'unpublishItems':
+		editStateItems($cid,0);
+		break;
+	case 'deleteItems':
+		deleteItems($cid);
+		break;
 	default:
 		showMyGalleries();
 		break;
@@ -77,10 +87,12 @@ function showMyGalleries() {
 	//Check if My Galleries is enabled in config, if not .............. 
 	if ( !$rsgConfig->get('show_mygalleries') ) die(JText::_('COM_RSGALLERY2_UNAUTHORIZED_ACCESS_ATTEMPT_TO_MY_GALLERIES'));
 	
-	//Set limits for pagenav
-	$limit      = trim(JRequest::getInt( 'limit', 10 ) );
-	$limitstart = trim(JRequest::getInt( 'limitstart', 0 ) );
-	
+	//Set limits for pagenav (remembering the pages with getUserSTateFromRequest)
+	$limit 		= $mainframe->getUserStateFromRequest('global.list.limit',
+'limit', $mainframe->getCfg('list_limit'), 'int'); 	
+	$limitstart = $mainframe->getUserStateFromRequest( 'limitstart', 'limitstart', 0, 'int' );
+
+
 	//Get total number of records for pagination
 	$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files");
 	$total = $database->loadResult();
@@ -89,20 +101,26 @@ function showMyGalleries() {
 	jimport('joomla.html.pagination');
 	$pageNav = new JPagination( $total, $limitstart, $limit );
 	
-	//Get all images
+	//Get all images (ordering: galleries ordering then files ordering
+
+	$query = "SELECT files.*, galleries.ordering" //galleries.name AS category, users.name AS editor"
+		." FROM #__rsgallery2_files AS files"
+		." LEFT JOIN #__rsgallery2_galleries AS galleries ON galleries.id = files.gallery_id"
+		." LEFT JOIN #__users AS users ON users.id = files.checked_out"
+		." ORDER BY galleries.ordering, files.ordering"	
+		." LIMIT $pageNav->limitstart, $pageNav->limit";
+	$database->setQuery($query);
+	/*//original query:
 	$database->setQuery("SELECT * FROM #__rsgallery2_files" .
 	//					" WHERE userid = '$my->id'" .	//Limit to items for this user
 						" ORDER BY date DESC" .
 						" LIMIT $pageNav->limitstart, $pageNav->limit");
+	*/
+	
 	$images = $database->loadObjectList();
 	//Get all galleries based on hierarchy
 	$rows = myGalleries::recursiveGalleriesList();
-/*	$database->setQuery("SELECT * FROM #__rsgallery2_galleries"
-						." WHERE parent = 0 " 
-	//					." AND uid = '$my->id'" 		//Limit to galleries for this user
-						);
-	$rows = $database->loadObjectList();
-*/	
+
 	if($my->id) {
 		//User is logged in, show it all!
 		myGalleries::viewMyGalleriesPage($rows, $images, $pageNav);
@@ -489,10 +507,11 @@ function editStateGallery($galleryId, $newState) {
 }
 function editStateItem($id, $newState) {
 	$mainframe =& JFactory::getApplication();
+	$Itemid = JRequest::getInt( 'Itemid'  , '');
 	$database = JFactory::getDBO();
 	$user = JFactory::getUser();
 	//Set redirect URL
-	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
+	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid", false);
 	
 	//Check if user is allowed to edit the state of this item
 	if (!$user->authorise('core.edit.state', 'com_rsgallery2.item.'.$id)){
@@ -510,5 +529,49 @@ function editStateItem($id, $newState) {
 		//echo JText::_('COM_RSGALLERY2_ERROR-').mysql_error();
 		$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_COULD_NOT_UPDATE_IMAGE_DETAILS') );
 	}
+}
+function editStateItems($cid,$newstate=0) {
+	$mainframe =& JFactory::getApplication();
+	$Itemid = JRequest::getInt( 'Itemid'  , '');
+	$database = JFactory::getDBO();
+	$user = JFactory::getUser();
+	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid", false);
+	
+	//Get array of items where user is allowed to edit the state of the item
+	foreach ($cid as &$value) {
+		if ($user->authorise('core.edit.state', 'com_rsgallery2.item.'.$value)){
+			$allowedId[] = $value;
+		}
+	}
+	
+	//Create query to edit state of allowed items
+	$database->setQuery("UPDATE #__rsgallery2_files SET ".
+		"published = $newstate ".
+		"WHERE id ".
+		"IN (" .implode(",",$allowedId).")");
+	//Execute query
+	if ($database->query()) {
+		$mainframe->redirect(JRoute::_( $redirect ), JText::_('COM_RSGALLERY2_DETAILS_SAVED_SUCCESFULLY') );
+	} else {
+		//echo JText::_('COM_RSGALLERY2_ERROR-').mysql_error();
+		$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_COULD_NOT_UPDATE_IMAGE_DETAILS') );
+	}
+}
+function deleteItems($cid) {
+	$mainframe =& JFactory::getApplication();
+	$Itemid = JRequest::getInt( 'Itemid'  , '');
+	$database = JFactory::getDBO();
+	$user = JFactory::getUser();
+	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid", false);
+	
+	//Get array of items where user is allowed to delete the item
+	foreach ($cid as &$value) {
+		if ($user->authorise('core.delete', 'com_rsgallery2.item.'.$value)){
+			$filename 	= galleryUtils::getFileNameFromId($value);
+			//delete the image
+			imgUtils::deleteImage($filename);
+		}
+	}
+	$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid",false), JText::_('COM_RSGALLERY2_MAGE-S_DELETED_SUCCESFULLY') );
 }
 ?>

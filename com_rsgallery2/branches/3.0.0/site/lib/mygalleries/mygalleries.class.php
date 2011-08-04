@@ -590,14 +590,31 @@ class myGalleries {
      */
     function showMyImages($images, $pageNav) {
         JHTML::_('behavior.tooltip');
+		$option = JRequest::getCmd('option');
+		$rsgOption = JRequest::getCmd('rsgOption');
 		$Itemid = JRequest::getInt('Itemid');
+		$limit = JRequest::getInt('limit');
 		$user = JFactory::getUser();
 		$userId = $user->id;
+		jimport( 'joomla.html.html.grid' );
         ?>
-
+		<form action="index.php?option=<?php echo $option;?>&rsgOption=<?php echo $rsgOption;?>&Itemid=<?php echo $Itemid;?>" method="post" name="adminForm">
         <table class="adminlist" >
 			<tr>
-				<td colspan="5"><h3><?php echo JText::_('COM_RSGALLERY2_MY_IMAGES'); ?></h3></td>
+				<td colspan="2"><h3><?php echo JText::_('COM_RSGALLERY2_MY_IMAGES'); ?></h3></td>
+				<td colspan="4">
+					<div style="float: right;">
+						<a href="javascript:Joomla.submitbutton('myImages.publishItems')" class="toolbar">
+							<img src="<?php echo JURI_SITE;?>components/com_rsgallery2/images/published-active.png" alt="<?php echo JText::_('JSAVE'); ?>" width="32" />
+						</a>
+						<a href="javascript:Joomla.submitbutton('myImages.unpublishItems')" class="toolbar">
+							<img src="<?php echo JURI_SITE;?>components/com_rsgallery2/images/unpublished-active.png" alt="<?php echo JText::_('JSAVE'); ?>" width="32" />
+						</a>
+						<a href="javascript:Joomla.submitbutton('myImages.deleteItems')" class="toolbar">
+							<img src="<?php echo JURI_SITE;?>components/com_rsgallery2/images/delete-active.png" alt="<?php echo JText::_('JCANCEL'); ?>" width="32" />
+						</a>	
+					</div>
+				</td>
 			</tr>
 			<tr>
 				<th colspan="5"><div align="right">
@@ -606,6 +623,9 @@ class myGalleries {
 				</div></th>
 			</tr>
 			<tr>
+				<th width="1%">
+					<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $images ); ?>);" />
+				</th>
 				<th maxwidth="20%"><?php echo JText::_('COM_RSGALLERY2_NAME'); ?></th>
 				<th><?php echo JText::_('COM_RSGALLERY2_GALLERY'); ?></th>
 				<th width="50" align="center"><?php echo JText::_('COM_RSGALLERY2_PUBLISHED'); ?></th>
@@ -626,7 +646,9 @@ class myGalleries {
 				</script>
 				
 				<?php
-				foreach ($images as $image) {
+				for ($i=0, $n=count( $images ); $i < $n; $i++) {
+					$image = &$images[$i];
+				//foreach ($images as $image) {
 					global $rsgConfig;
 					//Get permissions
 					$can['EditImage']		= $user->authorise('core.edit',		'com_rsgallery2.item.'.$image->id);
@@ -635,6 +657,10 @@ class myGalleries {
 					$can['DeleteImage'] 	= $user->authorise('core.delete',	'com_rsgallery2.item.'.$image->id);
 					?>
 					<tr>
+						<td>
+							<?php $checked 	= JHTML::_('grid.checkedout', $image, $i );?>
+							<?php echo $checked; ?>
+						</td>
 						<td>
 							<?php 
 							//Tooltip with or without link
@@ -724,7 +750,7 @@ class myGalleries {
 						</td>
 					</tr>
 					<?php
-				}
+				} // End foreach ($images as $image)
 			} //End list of images
 			else
 			{ //No images for this user
@@ -737,13 +763,18 @@ class myGalleries {
 					<td colspan="5">
 						<div class="pagination">
 							<?php 
-								echo $pageNav->getPagesLinks();
-								echo "<br>".$pageNav->getPagesCounter();
+								echo "<br>".$pageNav->getListFooter();
 							?>
 						</div>
 					</td>
 				</tr>
 		</table>
+		<input type="hidden" name="option" value="<?php echo $option;?>" />
+		<input type="hidden" name="rsgOption" value="<?php echo $rsgOption;?>" />
+		<input type="hidden" name="Itemid" value="<?php echo $Itemid;?>" />
+		<input type="hidden" name="task" value="" />
+		<input type="hidden" name="boxchecked" value="0" />
+		</form>
 		<?php
     }
     
@@ -977,8 +1008,19 @@ function mygalleriesJavascript() {
 		var action = formTask.split('.');
 		var formName = action[0];
 		var task = action[1];
-		
-		//Two forms available: createGallery and imgUpload
+
+		//Three forms available: createGallery, imgUpload and myImages
+		if (formName == 'myImages') {
+			if (task == 'deleteItems') {
+				var answer = confirm ("<?php echo JText::_('COM_RSGALLERY2_ARE_YOU_SURE_YOU_WANT_TO_DELETE_SELECTED_ITEMS'); ?>")
+				if (!answer) {
+					//Don't delete!
+					return;
+				}
+			}
+			Joomla.submitform(task, form);
+			return;
+		}
 		if (formName == 'createGallery') {
 			var form = document.createGallery; //since J!1.6: specific formname different than adminForm possible
 			if (task == 'cancel') {
