@@ -598,7 +598,7 @@ class myGalleries {
 		$userId = $user->id;
 		jimport( 'joomla.html.html.grid' );
         ?>
-		<form action="index.php?option=<?php echo $option;?>&rsgOption=<?php echo $rsgOption;?>&Itemid=<?php echo $Itemid;?>" method="post" name="adminForm">
+		<form action="<?php echo JRoute::_('index.php?option='.$option.'&rsgOption='.$rsgOption.'&Itemid='.$Itemid); ?>" method="post" name="adminForm">
         <table class="adminlist" >
 			<tr>
 				<td colspan="2"><h3><?php echo JText::_('COM_RSGALLERY2_MY_IMAGES'); ?></h3></td>
