@@ -493,7 +493,7 @@ class myGalleries {
 							if ($can['EditGallery'] OR $can['EditOwnGallery']){
 								//name with link
 								echo $indent;?>
-								<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editCat&gid='.$row->id);?>">
+								<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid='.$Itemid.'&task=editCat&gid='.$row->id);?>">
 									<?php echo stripslashes($row->name);?>
 								</a>
 								<?php
@@ -512,7 +512,7 @@ class myGalleries {
 								if ($row->published == 1) $img = "published-active.png";
 								else $img = "unpublished-active.png";
 								?>
-								<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editStateGallery&gid='.$row->id.'&currentstate='.$row->published);?>">
+								<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid='.$Itemid.'&task=editStateGallery&gid='.$row->id.'&currentstate='.$row->published);?>">
 									<div align="center">
 										<img src="<?php echo JURI_SITE;?>components/com_rsgallery2/images/<?php echo $img;?>" alt="<?php echo JText::_('JACTION_EDITSTATE'); ?>" width="19" position="top" >
 									</div>
@@ -557,7 +557,7 @@ class myGalleries {
 							if ($can['EditGallery'] OR $can['EditOwnGallery']) {
 								//active image with link
 								?>
-								<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editCat&gid='.$row->id);?>">
+								<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid='.$Itemid.'&task=editCat&gid='.$row->id);?>">
 									<div align="center">
 										<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/edit-active.png" alt="<?php echo JText::_('JACTION_EDIT'); ?>" width="19" >
 									</div>
@@ -688,7 +688,7 @@ class myGalleries {
 								if ($image->published == 1) $img = "published-active.png";
 								else $img = "unpublished-active.png";
 								?>
-								<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editStateItem&id='.$image->id.'&currentstate='.$image->published);?>">
+								<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid='.$Itemid.'&task=editStateItem&id='.$image->id.'&currentstate='.$image->published);?>">
 								<div align="center">
 									<img src="<?php echo JURI_SITE;?>components/com_rsgallery2/images/<?php echo $img;?>" alt="<?php echo JText::_('JACTION_EDITSTATE'); ?>" width="19" position="top" >
 								</div>
@@ -732,7 +732,7 @@ class myGalleries {
 							if ($can['EditImage'] OR $can['EditOwnImage']){
 								//active image with link
 								?>
-								<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editItem&id=$image->id");?>">
+								<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid='.$Itemid.'&task=editItem&id=$image->id");?>">
 								<div align="center">
 									<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/edit-active.png" alt="<?php echo JText::_('JACTION_EDIT'); ?>" width="19" >
 								</div>
