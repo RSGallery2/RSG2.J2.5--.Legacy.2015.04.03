@@ -39,10 +39,10 @@ Legend:
 
 ---------------- Recent ----------------
 
-2011-08-04 Mirjam - SVN 1038
+2011-08-04 Mirjam - SVN 1038/1039
 + Frontend My Galleries: images list has selectboxes to (un)publish/delete multiple items (user needs Edit State/Delete permission for individual items)
 + Frontend My Galleries: now has pagination: choice of items per page and after a change the page the user was on is remembered.
-
+# Added Itemid to some MyGalleries links (for Joomla SEF)
 
 2011-08-03 Mirjam - SVN 1037
 + Added regenerate display images option (watermarked images are made from these display images at first view)
