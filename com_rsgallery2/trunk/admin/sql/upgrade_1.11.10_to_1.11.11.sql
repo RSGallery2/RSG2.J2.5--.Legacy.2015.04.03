@@ -17,4 +17,4 @@
   `registered_create_mod_gal` tinyint(1) NOT NULL default '1',
   `registered_del_gal` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;

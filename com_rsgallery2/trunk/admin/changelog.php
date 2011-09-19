@@ -31,6 +31,11 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+---------------- 2.2.1 ------- svn 1041 -- 2011-09-19 -------------
+
+2011-09-19 Mirjam - SVN 1041
+^ MySQL 5.5 doesn't support TYPE: changed TYPE=MyISAM to ENGINE=MyISAM 
++ Added upgrade_2.2.0_to_2.2.1.sql to allow for database table change (add columns 'alias')
 
 2011-05-04 Mirjam - SVN 1024
 # galleryUtils::showCategories: fixed 'global $database' ($database =& JFactory::getDBO();)
@@ -39,7 +44,7 @@ Legend:
 2011-01-28 Mirjam - SVN 1013
 + Added SEF option: advanced SEF with using aliases that don't need to be unique since the id's are used as well. There are three 'Advanced SEF' options now: no, yes, yes... where the third is the new option.
 # Adjusted pathway so that item name is only added when item is shown
-^ Bumped version number to 2.1.1 (to allow db update for alias)
+^ Bumped version number to 2.2.1 (to allow db update for alias)
 
 2011-01-26 Mirjam
 # Fixed "Notice: Array to string conversion in /.../administrator/components/com_rsgallery2/includes/config.class.php on line 182"
@@ -73,7 +78,6 @@ Legend:
 + In backend view of all galleries an image is added that links to the backend view of images, filtered on that gallery.
 # Instead of the fi-FI language fr-FR was installed: corrected.
 
----------------- Recent ----------------
 ---------------- 2.2.0 ------- svn 993 -- 2010-11-04 -------------
 
 2010-10-25 Mirjam - SVN 992
