@@ -31,9 +31,9 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
----------------- 2.2.1 ------- svn 1041 -- 2011-09-19 -------------
+---------------- 2.2.1 ------- svn 1044 -- 2011-09-19 -------------
 
-2011-09-19 Mirjam - SVN 1041
+2011-09-19 Mirjam - SVN 1042/1043
 ^ MySQL 5.5 doesn't support TYPE: changed TYPE=MyISAM to ENGINE=MyISAM 
 + Added upgrade_2.2.0_to_2.2.1.sql to allow for database table change (add columns 'alias')
 
