@@ -130,6 +130,9 @@ class HTML_RSGALLERY{
 <div id='rsg2-credits'>
     <h3>Core Team</h3>
     <dl>
+		<dt>2011</dt>
+			<dd><b>Johan Ravenzwaaij</b></dd>
+        	<dd><b>Mirjam Kaizer</b></dd>
 		<dt>2010</dt>
 			<dd><b>Johan Ravenzwaaij</b></dd>
 			<dd><b>Mihir Chhatre</b> <a href="http://www.thoughtfulviewfinder.com">Thoughtfulviewfinder Services </a></dd>

@@ -796,7 +796,7 @@ class rsgInstall {
                     " `value` text NOT NULL,".
                     " PRIMARY KEY  (`id`),".
                     " KEY `id` (`id`)".
-                    ") TYPE=MyISAM;";
+                    ") ENGINE=MyISAM;";
                     
                 for ($i = 0;$i <= 3;$i++)
                     {
@@ -870,7 +870,7 @@ class rsgInstall {
                     " `value` text NOT NULL,".
                     " PRIMARY KEY  (`id`),".
                     " KEY `id` (`id`)".
-                    ") TYPE=MyISAM;";
+                    ") ENGINE=MyISAM;";
                     
                 for ($i = 0;$i <= 3;$i++)
                     {

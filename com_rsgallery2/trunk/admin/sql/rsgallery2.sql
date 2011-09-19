@@ -92,4 +92,4 @@ CREATE TABLE IF NOT EXISTS `#__rsgallery2_acl` (
   `registered_vote_view` tinyint( 1 ) NOT NULL default '1',
   `registered_vote_vote` tinyint( 1 ) NOT NULL default '1',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
