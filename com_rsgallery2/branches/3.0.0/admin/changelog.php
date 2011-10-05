@@ -34,10 +34,10 @@ Legend:
 ! To do: Don't install/remove database table #__rsgallery2_acl
 ! To do: Backend: Installation of template does not function (yet).
 ! To do: find all 'config_' links that don't have rsgOption=config and add it.
-! To do: "//MK// [todo]" things
   To do: Delete galleries: create filter in gallery view and check that delete-permission is granted for deleting subgalleries/images. Right now you may delete everything if you have delete permission for the component, even if an item/(sub)gallery doesn't have delete permission.
 
 ---------------- Recent ----------------
+---------------- 3.0.1 -- SVN 1046 -- 2011-10-05 -------------
 
 2011-08-04 Mirjam - SVN 1038/1039/1040
 + Frontend My Galleries: images list has selectboxes to (un)publish/delete multiple items (user needs Edit State/Delete permission for individual items)
