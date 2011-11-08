@@ -65,6 +65,9 @@ class html_rsg2_galleries{
             <th width="5%">
 				<?php echo JText::_('COM_RSGALLERY2_PUBLISHED')?>
             </th>
+            <th width="5%">
+				<?php echo JText::_('JGRID_HEADING_ACCESS')?>
+            </th>
 			<th width="5%">
 				<?php echo JText::_('COM_RSGALLERY2_REORDER')?>
             </th>
@@ -139,6 +142,9 @@ class html_rsg2_galleries{
                 <td align="center">
                 	<?php echo JHtml::_('jgrid.published', $row->published, $i, '', $can['EditStateGallery']); ?>
                 </td>
+				<td>
+					<?php echo $row->access_level;?>
+				</td>
                 <td class="order">
                 	<span>
 					<?php echo $pageNav->orderUpIcon( $i , $showMoveUpIcon ); ?>
@@ -326,6 +332,17 @@ class html_rsg2_galleries{
 					</td>
 					<td>
 					<?php echo $lists['uid']; ?>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<?php echo JText::_('JFIELD_ACCESS_LABEL');?>
+					</td>
+					<td>
+						<?php 
+						//3rd argument = id selected, e.g. 1: Public, 2: Registered, etc.
+						echo JHtml::_('access.assetgrouplist', 'access', $row->access);
+						?>
 					</td>
 				</tr>
 <?php			if ($canAdmin) { ?>

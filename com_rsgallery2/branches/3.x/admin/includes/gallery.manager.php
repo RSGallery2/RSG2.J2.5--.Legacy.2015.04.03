@@ -59,7 +59,8 @@ class rsgGalleryManager{
 	function get( $id = null ){
 		global $rsgConfig;
 		$mainframe =& JFactory::getApplication();
-		$my =& JFactory::getUser();
+		$user	= JFactory::getUser();
+		$groups	= $user->getAuthorisedViewLevels();
 
 		if( $id === null ){
 			$id = JRequest::getInt( 'catid', 0 );
@@ -73,18 +74,23 @@ class rsgGalleryManager{
 		}
 
 		$gallery = rsgGalleryManager::_get( $id );
-		// If gallery is unpublished don't show it unless user has core.login.admin ($my->gid > 23)
-		// This means that an unpublished gallery will only be shown in the backend, whereas in the frontend you'll be redirected.
-		if( $gallery->get('published') < 1 ) {
-			// if user is admin or superadmin then always return the gallery
-			if (JFactory::getUser()->authorise('core.login.admin','com_rsgallery2')){
-				return $gallery;
-			}
-			$mainframe->redirect("index.php", JText::_('JERROR_ALERTNOAUTHOR'));
-			//die("RSGallery2: Access denied to gallery $id");
+
+		// Only show a gallery in the frontend if it's published and user has view access, 
+		// else only show it when user is owner (shows red H icon to show that the gallery is
+		// unpublished in the frontend) --> View Access Levels
+		// In the backend they all galleries are shown.
+		if ($mainframe->isSite()) {	// Frontend check
+			$owner 		= ($user->id == $gallery->uid);			// Owner check
+			$access 	= in_array($gallery->access, $groups);	// Access check
+			$published	= ($gallery->published == 1);			// Published check
+			if (!($published AND $access)) {
+				if (!$owner) {
+					// "You are not authorised to view this resource."
+					$mainframe->redirect("index.php", JText::_('JERROR_ALERTNOAUTHOR'));
+				}
+			} 
 		}
-
-
+		//Add gallery to list to show
 		return $gallery;
 	}
 
@@ -119,13 +125,17 @@ class rsgGalleryManager{
     }
     
     /**
-     * returns an array of galleries
+     * returns an array of galleries: the children of the given gallery that will be shown
      * @param id of parent gallery
      */
     function getList( $parent ){
         global $rsgConfig;
 		$database = JFactory::getDBO();
+		$app =& JFactory::getApplication();
         if( !is_numeric( $parent )) return false;
+		
+		$user	= JFactory::getUser();
+		$groups	= $user->getAuthorisedViewLevels();
         
         $database->setQuery("SELECT * FROM #__rsgallery2_galleries".
                             " WHERE parent = '$parent'".
@@ -134,15 +144,22 @@ class rsgGalleryManager{
         $galleries = array();
 
         foreach( $rows as $row ){
-            // if gallery is unpublished don't show it unless ACL is enabled and users has permissions to modify (owners can view their unpublished galleries).
-            if( $row['published']<1 ){
-				//MK// [todo] [if logged in user has no edit permission 'continue']
-				continue;
-				//MK// [todo] else return the gallery, it'll display a red H icon to show that the gallery is unpublished in the frontend]
-            }
-            $galleries[] = new rsgGallery( $row );
+			// Only show gallery in the frontend if it's published and user has view access, 
+			// else only show it when user is owner (shows red H icon to show that the gallery 
+			// is unpublished in the frontend) --> View Access Levels
+			if ($app->isSite()) {	// Frontend check
+				$owner 		= ($user->id == $row['uid']);			// Check user is owner
+				$access 	= in_array($row['access'], $groups);	// Check view access
+				$published	= ($row['published'] == 1);			// Check published
+				if (!($published AND $access)) {
+					if (!$owner) {
+						continue;	// don't show this gallery, e.g. don't add it to the array
+					}
+				}
+				//Add gallery to list to show
+				$galleries[] = new rsgGallery( $row );
+			}
         }
-
         return $galleries;
     }
 
@@ -178,6 +195,7 @@ class rsgGalleryManager{
 			$query = "SELECT * FROM #__rsgallery2_galleries ".
 								"WHERE id = '$gallery' ".
 								"ORDER BY ordering ASC ";
+				//MK don't check on viewing access here: requires logic which is in functions getList and get
 			$database->setQuery($query);
 			$row = $database->loadAssocList();
 			if( count($row)==0 && $gallery!=0 ){
@@ -220,7 +238,8 @@ class rsgGalleryManager{
             'user'=>'',
             'uid'=>'',
             'allowed'=>'',
-            'thumb_id'=>''
+            'thumb_id'=>'',
+            'access'=>1		// Access is Public
         ));
     }
     

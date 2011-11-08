@@ -1081,6 +1081,11 @@ function mygalleriesJavascript() {
 	* return	Array
 	*/
 	function recursiveGalleriesList(){
+		$user = JFactory::getUser();
+		$groups	= $user->getAuthorisedViewLevels();
+		$groupsIN = implode(", ",array_unique ($groups));
+		$superAdmin = $user->authorise('core.admin');
+
 		//Function to help out
 		function treerecurse($id,  $list, &$children, $maxlevel=20, $level=0) {
 			//if there are children for this id and the max.level isn't reached
@@ -1098,10 +1103,15 @@ function mygalleriesJavascript() {
 		}
 		// Get a list of all galleries (id/parent) ordered by parent/ordering
 		$database =& JFactory::getDBO();
-		$query = "SELECT * "
-				. " FROM #__rsgallery2_galleries"
-			//	. " WHERE published != -2"
-				. " ORDER BY parent, ordering";
+		$query = $database->getQuery(true);
+		$query->select('*');
+		$query->from('#__rsgallery2_galleries');
+		$query->order('parent, ordering');
+		// If users is not a Super Admin then use View Access Levels
+		if (!$superAdmin) { // No View Access check for Super Administrators
+			$query->where('access IN ('.$groupsIN.')'); //@todo use trash state: published=-2
+		}	
+
 		$database->setQuery( $query );
 		$allGalleries = $database->loadObjectList();
 		// Establish the hierarchy by first getting the children: 2dim. array $children[parentid][]

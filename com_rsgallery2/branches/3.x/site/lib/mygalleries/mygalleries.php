@@ -82,6 +82,9 @@ function showMyGalleries() {
 	global $rsgConfig;
 	$mainframe =& JFactory::getApplication();
 	$my = JFactory::getUser();
+	$groups	= $my->getAuthorisedViewLevels();
+	$groupsIN = implode(", ",array_unique ($groups));
+	$superAdmin = $my->authorise('core.admin');
 	$database = JFactory::getDBO();
 	
 	//Check if My Galleries is enabled in config, if not .............. 
@@ -102,20 +105,16 @@ function showMyGalleries() {
 	$pageNav = new JPagination( $total, $limitstart, $limit );
 	
 	//Get all images (ordering: galleries ordering then files ordering
-
-	$query = "SELECT files.*, galleries.ordering" //galleries.name AS category, users.name AS editor"
-		." FROM #__rsgallery2_files AS files"
-		." LEFT JOIN #__rsgallery2_galleries AS galleries ON galleries.id = files.gallery_id"
-		." LEFT JOIN #__users AS users ON users.id = files.checked_out"
-		." ORDER BY galleries.ordering, files.ordering"	
-		." LIMIT $pageNav->limitstart, $pageNav->limit";
-	$database->setQuery($query);
-	/*//original query:
-	$database->setQuery("SELECT * FROM #__rsgallery2_files" .
-	//					" WHERE userid = '$my->id'" .	//Limit to items for this user
-						" ORDER BY date DESC" .
-						" LIMIT $pageNav->limitstart, $pageNav->limit");
-	*/
+	$query = $database->getQuery(true);
+	$query->select('files.*, galleries.ordering, galleries.access');
+	$query->from('#__rsgallery2_files AS files');
+	$query->leftJoin('#__rsgallery2_galleries AS galleries ON galleries.id = files.gallery_id');
+	$query->leftJoin('#__users AS users ON users.id = files.checked_out');
+	if (!$superAdmin) {	// No View Access check for Super Administrators
+		$query->where('galleries.access IN ('.$groupsIN.')');
+	}
+	$query->order('galleries.ordering, files.ordering');
+	$database->setQuery($query, $pageNav->limitstart, $pageNav->limit); //setQuery($query, $limitstart, $limit)
 	
 	$images = $database->loadObjectList();
 	//Get all galleries based on hierarchy

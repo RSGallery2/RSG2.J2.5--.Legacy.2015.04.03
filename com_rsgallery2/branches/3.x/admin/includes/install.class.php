@@ -2141,6 +2141,9 @@ class migrate_com_rsgallery extends GenericMigrator {
 			
 			case $this->beforeVersion( '3.0.0' ):
 				$this->handleSqlFile( 'upgrade_2.x.x_to_3.0.0.sql' );
+				
+			case $this->beforeVersion( '3.0.2' ):
+				$this->handleSqlFile( 'upgrade_3.0.0_to_3.0.2.sql' );
 			
 			default:
 				// if we reach this point then everything was a success, update the version number and exit.

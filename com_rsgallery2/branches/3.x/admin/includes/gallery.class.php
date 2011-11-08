@@ -52,6 +52,10 @@ class rsgGallery extends JObject{
 	var $allowed = null;
 	/** @var int */
 	var $thumb_id = null;
+	/** @var int */
+	var $asset_id = null;
+	/** @var int */
+	var $access = null;
 
 //     variables for sub galleries and image items
 	/** @var array representing child galleries.  generated on demand!  use kids() */
