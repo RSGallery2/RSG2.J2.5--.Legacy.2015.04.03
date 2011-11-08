@@ -38,7 +38,10 @@ Legend:
 
 ---------------- Recent ----------------
 
-2011-10-11 Mirjam - SVN 1049
+2011-11-08 Mirjam - SVN 1050
++ Added choice for menu-item that links directly to the slideshow.
+
+2011-11-08 Mirjam - SVN 1049
 + Added View Access Level to galleries: 
 	* Galleries in the frontend are only shown 1) if the gallery is published and the user has
 		view access, or 2) if the user is the owner of the gallery (a red H icon will indicate

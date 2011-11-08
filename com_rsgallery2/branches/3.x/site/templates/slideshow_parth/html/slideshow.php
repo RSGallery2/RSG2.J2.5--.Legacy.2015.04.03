@@ -61,11 +61,19 @@ $doc->addScript($js2);
 </script>
 
 <div class="content">
-	<div style="float: right;">
-		<a href="index.php?option=com_rsgallery2&Itemid=<?php echo JRequest::getVar('Itemid');?>&gid=<?php echo $this->gid;?>">
-			<?php echo JText::_('COM_RSGALLERY2_BACK_TO_GALLERY');?>
-		</a>
-	</div>
+
+<?php
+	//Show link only when menu-item is a direct link to the slideshow
+	if (JRequest::getVar('view') !== 'slideshow') {
+?>
+		<div style="float: right;">
+			<a href="index.php?option=com_rsgallery2&Itemid=<?php echo JRequest::getVar('Itemid');?>&gid=<?php echo $this->gid;?>">
+				<?php echo JText::_('COM_RSGALLERY2_BACK_TO_GALLERY');?>
+			</a>
+		</div>
+<?php
+	}
+?>
 	<div class="rsg2-clr">
 	</div>
 	<div style="text-align:center;font-size:24px;">
