@@ -35,6 +35,7 @@ class rsgGalleriesItem extends JTable {
     var $allowed = null;
     var $thumb_id = null;
 	var $asset_id = null;
+	var $access = null;
 
     /**
     * @param database A database connector object

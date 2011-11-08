@@ -37,6 +37,24 @@ Legend:
   To do: Delete galleries: create filter in gallery view and check that delete-permission is granted for deleting subgalleries/images. Right now you may delete everything if you have delete permission for the component, even if an item/(sub)gallery doesn't have delete permission.
 
 ---------------- Recent ----------------
+
+2011-10-11 Mirjam - SVN 1049
++ Added View Access Level to galleries: 
+	* Galleries in the frontend are only shown 1) if the gallery is published and the user has
+		view access, or 2) if the user is the owner of the gallery (a red H icon will indicate
+		unpublished galleries)
+	* Items (e.g. images) in the frontend are only shown 1) if the gallery to which they belong to
+		is published and the user has view access for the gallery, or 2) if the user is the owner
+		of the gallery to which the item belongs and the item is published
+	* In My Galleries only those items and galleries are shown for which the user has View
+		Access. Exception: Super Administrators see all items and galleries
+	* Note: View Access is not 'inherited': If you're not allowed to see gallery Fruit, then
+		you won't see its subgallery Apples even when you have View Access to that gallery (if there
+		is a menu-item linking directly to the subgallery Apples it will show, it's parent View
+		Access does not matter).
+	Note: anyone who knows where the images are stored on the server and knows what the image
+	name is can access the image directly. 
+
 ---------------- 3.0.1 -- SVN 1046 -- 2011-10-05 -------------
 
 2011-08-04 Mirjam - SVN 1038/1039/1040

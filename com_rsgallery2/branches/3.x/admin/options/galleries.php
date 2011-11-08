@@ -99,9 +99,10 @@ function show(){
     }
 
 //  $query = "SELECT a.*, u.name AS editor"	//J!1.6 has parent_id instead of parent and title instead of name
-    $query = "SELECT a.*, u.name AS editor, a.parent AS parent_id, a.name AS title" //MK// [change] [J!1.6 has parent_id instead of parent and title instead of name]	
+    $query = "SELECT a.*, u.name AS editor, a.parent AS parent_id, a.name AS title, vl.title as access_level" //MK// [change] [J!1.6 has parent_id instead of parent and title instead of name]	
     . " FROM #__rsgallery2_galleries AS a"
     . " LEFT JOIN #__users AS u ON u.id = a.checked_out"
+	. " LEFT JOIN #__viewlevels AS vl ON vl.id = a.access"
     . " ORDER BY a.ordering"
     ;
     $database->setQuery( $query );

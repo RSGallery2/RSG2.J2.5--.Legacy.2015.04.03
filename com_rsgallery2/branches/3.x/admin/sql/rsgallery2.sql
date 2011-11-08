@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `#__rsgallery2_galleries` (
   `allowed` varchar(100) NOT NULL default '0',
   `thumb_id` int(11) unsigned NOT NULL default '0',
   `asset_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'FK to the #__assets table.',
+  `access` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM;
 
