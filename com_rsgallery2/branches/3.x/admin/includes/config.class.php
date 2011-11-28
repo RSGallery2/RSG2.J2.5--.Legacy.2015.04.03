@@ -108,13 +108,27 @@ class rsgConfig {
     var $watermark_transparency = 50;
     
     // Commenting system
-    var $comment						= 1;
+    //var $comment						= 1;	//deprecated: v3.0.2 uses permissions
     var $comment_security				= 0;
     var $comment_once		 			= 0;
-    var $comment_allowed_public			= 1;
+    //var $comment_allowed_public		= 1;	//deprecated: v3.0.2 uses permissions
     
+	//CAPTCHA options
+	var $captcha_case_sensitive  = false;       // true to use case sensitive codes
+	var $captcha_image_height    = 60;          // width in pixels of the image
+	var $captcha_perturbation    = 0.75;        // 1.0 = high distortion, higher numbers = more distortion
+	var $captcha_image_bg_color  = "#0099CC";   // image background color
+	var $captcha_text_color      = "#EAEAEA";   // captcha text color
+	var $captcha_line_color      = "#0000CC";   // color of lines over the image
+	var $captcha_charset         = 'ABCDEFGHKLMNPRSTUVWYZabcdefghklmnprstuvwyz23456789';
+	var $captcha_type    = '0'; 		// The type of captcha: alphanumeric or math problem:
+										// 0: Securimage::SI_CAPTCHA_STRING or
+										// 1: Securimage::SI_CAPTCHA_MATHEMATIC
+	var $captcha_code_length	 = 6;
+	var $captcha_num_lines		 = 2;	// how many lines to draw over the image	
+	
     //Voting system
-    var $voting					= 1;
+    //var $voting					= 1;			//deprecated: v3.0.2 uses permissions
     var $voting_once			= 1;
     var $cookie_prefix			= "rsgvoting_";
 

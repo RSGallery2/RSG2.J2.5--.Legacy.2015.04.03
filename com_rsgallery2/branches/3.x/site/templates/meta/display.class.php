@@ -284,10 +284,10 @@ class rsgDisplay extends JObject{
      */
     function _showComments() {
      	global $rsgConfig;
-		$mainframe =& JFactory::getApplication();
-		
-		if ($rsgConfig->get('comment')) {
-			$gallery = rsgGalleryManager::get();
+		$gallery = rsgGalleryManager::get();
+
+		//Check if user is allowed to comment (permission rsgallery2.comment on asset com_rsgallery2.gallery."gallery id"
+		if (JFactory::getUser()->authorise('rsgallery2.comment','com_rsgallery2.gallery.'.$gallery->id)) {
 			$item = $gallery->getItem();
 			$id = $item->id;
 			
@@ -308,11 +308,10 @@ class rsgDisplay extends JObject{
      */
     function _showVotes() {
     	global  $rsgConfig;
-		$mainframe =& JFactory::getApplication();
 		$gallery = rsgGalleryManager::get();
-		$vote_view = $rsgConfig->get('voting') ;
-		
-		if ($vote_view) {
+
+		//Check if user is allowed to vote (permission rsgallery2.vote on asset com_rsgallery2.gallery."gallery id"
+		if (JFactory::getUser()->authorise('rsgallery2.vote','com_rsgallery2.gallery.'.$gallery->id)) {
 			//Adding stylesheet for comments 
 			$doc =& JFactory::getDocument();
 			$doc->addStyleSheet(JURI_SITE."/components/com_rsgallery2/lib/rsgvoting/rsgvoting.css");

@@ -218,13 +218,10 @@ class html_rsg2_config{
 		$watermarkType[] = JHTML::_("select.option",'image','Image');
 		$watermarkType[] = JHTML::_("select.option",'text','Text');
 		
-		//Commenting options
-		if ( galleryUtils::isComponentInstalled('com_securityimages') == 1 ) {
-			$security_notice = "<span style=\"color:#009933;font-weight:bold;\">" . JText::_('COM_RSGALLERY2_SECURITYIMAGES_COMPONENT_DETECTED')." </span>";
-		} else {
-			$security_notice = "<span style=\"color:#FF0000;font-weight:bold;\">".JText::_('COM_RSGALLERY2_SECURITYIMAGES_COMPONENT_NOT_INSTALLED')." </span>";
-		}
-
+		//Captcha
+		$captcha_type[] = JHTML::_("select.option",'0',JText::_('COM_RSGALLERY2_CAPTCHA_ALFANUMERIC'));
+		$captcha_type[] = JHTML::_("select.option",'1',JText::_('COM_RSGALLERY2_CAPTCHA_MATH'));
+		
 		/**
 			* Routine checks if Freetype library is compiled with GD2
 			* @return boolean True or False
@@ -407,8 +404,12 @@ class html_rsg2_config{
 						<?php echo JHTML::_("select.booleanlist",'keepOriginalImage', '', $config->keepOriginalImage)?></fieldset></td>
 							</tr>
 							<tr>
-								<td><?php echo JText::_('COM_RSGALLERY2_ORIGINAL_IMAGE_PATH') ?></td>
-								<td><input class="text_area" style="width:300px;" type="text" name="imgPath_original" size="10" value="<?php echo $config->imgPath_original?>"/></td>
+								<td>
+									<?php echo JText::_('COM_RSGALLERY2_ORIGINAL_IMAGE_PATH') ?>
+								</td>
+								<td>
+									<input class="text_area" style="width:300px;" type="text" name="imgPath_original" size="10" value="<?php echo $config->imgPath_original?>"/>
+								</td>
 							</tr>
 							<tr>
 								<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_IMAGE_PATH') ?></td>
@@ -420,8 +421,11 @@ class html_rsg2_config{
 							</tr>
 							<tr>
 								<td><?php echo JText::_("COM_RSGALLERY2_CREATE_DIRECTORIES_IF_THEY_DONT_EXIST") ?></td>
-								<td><fieldset id="jform_block" class="radio">
-						<?php echo JHTML::_("select.booleanlist",'createImgDirs', '', $config->createImgDirs)?></fieldset></td>
+								<td>
+									<fieldset id="jform_block" class="radio">
+									<?php echo JHTML::_("select.booleanlist",'createImgDirs', '', $config->createImgDirs)?>
+									</fieldset>
+								</td>
 							</tr>
 						</table>
 					</fieldset>
@@ -434,21 +438,103 @@ class html_rsg2_config{
 						<table width="100%">
 							<tr>
 								<td width="200"><?php echo JText::_('COM_RSGALLERY2_COMMENTING_ENABLED');?></td>
-								<td width="78%"><fieldset id="jform_block" class="radio">
-						<?php echo JHTML::_("select.booleanlist",'comment', '', $config->comment);?></fieldset></td>
+								<td width="78%"><?php echo JText::_('COM_RSGALLERY2_USE_PERMISSIONS_FOR_COMMENTING_VOTING');?>
+								</td>
 							</tr>
 							<tr>
-								<td><?php echo JText::sprintf('COM_RSGALLERY2_SECURITYIMAGES_COMPONENT', '<a href="http://www.waltercedric.com" target="_blank">', '</a>')?> <?php echo $security_notice;?></td>	
-								<td><fieldset id="jform_block" class="radio">
-						<?php echo JHTML::_("select.booleanlist",'comment_security', '', $config->comment_security && galleryUtils::isComponentInstalled('com_securityimages'))?></fieldset></td>
+								<td><?php echo JText::_('COM_RSGALLERY2_USE_CAPTCHA_COMMENT_FORM')?>
+								</td>	
+								<td>
+									<fieldset id="jform_block" class="radio">
+									<?php echo JHTML::_("select.booleanlist",'comment_security', '', $config->comment_security)?>
+									</fieldset>
+								</td>
 							</tr>
 							<tr>
-								<td><?php echo JText::_('COM_RSGALLERY2_ALLOW_PUBLIC_USERS_TO_COMMENT');?></td>
-								<td><fieldset id="jform_block" class="radio">
-						<?php echo JHTML::_("select.booleanlist",'comment_allowed_public', '', $config->comment_allowed_public)?></fieldset></td>
+								<td>&nbsp;
+								</td>
+								<td>
+									<table>
+										<tr>
+											<td><?php echo JText::_('COM_RSGALLERY2_CAPTCHA_TYPE');?>
+											</td>
+											<td>
+												<?php echo JHTML::_("select.genericlist", $captcha_type, 'captcha_type', '', 'value', 'text', $config->captcha_type ) ?>
+											</td>
+										</tr>
+										<tr>
+											<td><?php echo JText::_('COM_RSGALLERY2_CAPTCHA_IMAGE_HEIGHT');?>
+											</td>
+											<td>
+												<input class="text_area" type="text" name="captcha_image_height" size="10" value="<?php echo $config->captcha_image_height;?>"/>
+											</td>
+										</tr>
+										<tr>
+											<td><?php echo JText::_('COM_RSGALLERY2_CAPTCHA_PERTURBATION');?>
+											</td>
+											<td>
+												<input class="text_area" type="text" name="captcha_perturbation" size="10" value="<?php echo $config->captcha_perturbation;?>"/>
+											</td>
+										</tr>
+										<tr>
+											<td><?php echo JText::_('COM_RSGALLERY2_CAPTCHA_NUM_LINES');?>
+											</td>
+											<td>
+												<input class="text_area" type="text" name="captcha_num_lines" size="10" value="<?php echo $config->captcha_num_lines;?>"/>
+											</td>
+										</tr>
+
+										<tr>
+											<td><?php echo JText::_('COM_RSGALLERY2_CAPTCHA_IMAGE_BG_COLOR');?>
+											</td>
+											<td>
+												<input class="text_area" type="text" name="captcha_image_bg_color" size="10" value="<?php echo $config->captcha_image_bg_color;?>"/>
+											</td>
+										</tr>
+										<tr>
+											<td><?php echo JText::_('COM_RSGALLERY2_CAPTCHA_TEXT_COLOR');?>
+											</td>
+											<td>
+												<input class="text_area" type="text" name="captcha_text_color" size="10" value="<?php echo $config->captcha_text_color;?>"/>
+											</td>
+										</tr>
+										<tr>
+											<td><?php echo JText::_('COM_RSGALLERY2_CAPTCHA_LINE_COLOR');?>
+											</td>
+											<td>
+												<input class="text_area" type="text" name="captcha_line_color" size="10" value="<?php echo $config->captcha_line_color;?>"/>
+											</td>
+										</tr>
+										<tr>
+											<td width="200">
+												<?php echo JText::_('COM_RSGALLERY2_CAPTCHA_CASE_SENSITIVE');?>
+											</td>
+											<td>
+												<fieldset id="jform_block" class="radio">
+												<?php echo JHTML::_("select.booleanlist",'captcha_case_sensitive', '', $config->captcha_case_sensitive)?>
+												</fieldset>
+											</td>
+										</tr>
+										<tr>
+											<td><?php echo JText::_('COM_RSGALLERY2_CAPTCHA_CHARSET');?>
+											</td>
+											<td>
+												<input class="text_area" style="width:330px;" type="text" name="captcha_charset" size="10" value="<?php echo $config->captcha_charset?>"/>
+											</td>
+										</tr>
+
+										<tr>
+											<td><?php echo JText::_('COM_RSGALLERY2_CAPTCHA_CODE_LENGTH');?>
+											</td>
+											<td>
+												<input class="text_area" type="text" name="captcha_code_length" size="10" value="<?php echo $config->captcha_code_length;?>"/>
+											</td>
+										</tr>
+									</table>
+								</td>
 							</tr>
 							<tr>
-								<td><?php echo JText::_('COM_RSGALLERY2_USER_CAN_ONLY_COMMENT_ONCE');?>(Not working yet!)</td>
+								<td><?php echo JText::_('COM_RSGALLERY2_USER_CAN_ONLY_COMMENT_ONCE')." (".JText::_('COM_RSGALLERY2_NOT_WORKING_YET').")";?></td>
 								<td><fieldset id="jform_block" class="radio">
 						<?php echo JHTML::_("select.booleanlist",'comment_once', '', $config->comment_once)?></fieldset></td>
 							</tr>
@@ -459,8 +545,8 @@ class html_rsg2_config{
 						<table width="100%">
 							<tr>
 								<td width="200"><?php echo JText::_('COM_RSGALLERY2_VOTING_ENABLED');?></td>
-								<td width="78%"><fieldset id="jform_block" class="radio">
-						<?php echo JHTML::_("select.booleanlist",'voting', '', $config->voting);?></fieldset></td>
+								<td width="78%"><?php echo JText::_('COM_RSGALLERY2_USE_PERMISSIONS_FOR_COMMENTING_VOTING');?>
+								</td>
 							</tr>
 							<tr>
 								<td><?php echo JText::_('COM_RSGALLERY2_USER_CAN_ONLY_VOTE_ONCE_COOKIE_BASED');?></td>

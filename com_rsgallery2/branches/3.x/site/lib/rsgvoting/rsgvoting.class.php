@@ -17,8 +17,10 @@ class rsgVoting {
     
     function showVoting( $option = "com_rsgallery2") {
     	global $rsgConfig;
-    	if ($rsgConfig->get('voting')) {
-			$item = rsgInstance::getItem();
+		$item = rsgInstance::getItem();
+		$gid = $item->gallery_id;
+		
+    	if (JFactory::getUser()->authorise('rsgallery2.vote','com_rsgallery2.gallery.'.$gid)) {
 			$id = $item->id;
 			require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgvoting' . DS .'tmpl' . DS . 'form.php');
 	    }
@@ -77,21 +79,17 @@ class rsgVoting {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Checks if it is allowed to vote in this gallery
 	 * @return True or False
 	 */
 	function voteAllowed() {
-		global $rsgConfig;
+		$item_id	= JRequest::getVar('id');
+		$gid		= galleryUtils::getCatIdFromFileId($item_id);
 		
-		//Check if voting is enabled
-		if ($rsgConfig->get('voting') < 1)
-			return false;
-		else {
-			return true;
-		}
-			
+		$voteAllowed = (JFactory::getUser()->authorise('rsgallery2.vote','com_rsgallery2.gallery.'.$gid) ? true : false);
+		return $voteAllowed;
 	}
 }
 ?>

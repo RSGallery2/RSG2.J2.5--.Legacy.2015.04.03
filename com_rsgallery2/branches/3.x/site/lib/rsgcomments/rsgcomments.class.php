@@ -243,15 +243,11 @@ function parse( $html ) {
  */
 function editComment( $item_id ) {
 	global $rsgConfig ;
-	$my =& JFactory::getUser();/* JPATH_SITE is only there to accomodate SecurityImages for now*/
+	$my =& JFactory::getUser();
 	$doc =& JFactory::getDocument();
 	$doc->addScript(JURI_SITE."/components/com_rsgallery2/lib/rsgcomments/js/client.js");
 	$doc->addStyleSheet(JURI_SITE."/components/com_rsgallery2/lib/rsgcomments/rsgcomments.css");
-
-	if( ! $rsgConfig->get( 'comment_allowed_public' )){
-		if( ! $my->id )
-			return;
-	}
+	$gid=galleryUtils::getCatIdFromFileId($item_id);//galleryid gid used to be named catid
 	?>
 	<script type="text/javascript">
         function submitbutton(pressbutton) {
@@ -260,7 +256,6 @@ function editComment( $item_id ) {
                 form.reset();
                 return;
             }
-        
         // do field validation
         if (form.tname.value == "") {
             alert( '<?php echo JText::_('COM_RSGALLERY2_YOU_SHOULD_ENTER_YOUR_NAME'); ?>' );
@@ -301,11 +296,24 @@ function editComment( $item_id ) {
 			<?php
 			//Implement security images only for 
 			if ( $rsgConfig->get('comment_security') == 1 ) {
+				//Securimage captcha - http://www.phpcaptcha.org
 				?>
-			<img src="<?php echo JRoute::_("index.php?option=com_securityimages&task=displayCaptcha"); ?>">  
-			<br />  
-			<?php echo JText::_('COM_RSGALLERY2_ENTER_WHAT_YOU_SEE_IN_THE_IMAGE_ABOVE');?><input type="text" name="securityImageRSGallery2" />  
-			<?php
+				<img id="captcha" src="<?php echo JURI_SITE;?>components/com_rsgallery2/lib/rsgcomments/securimage/securimage_show.php" alt="CAPTCHA Image" />
+				<a href="#" onclick="document.getElementById('captcha').src = '<?php echo JURI_SITE;?>components/com_rsgallery2/lib/rsgcomments/securimage/securimage_show.php?' + Math.random(); return false">
+					<IMG SRC="<?php echo JURI_SITE;?>components/com_rsgallery2/images/refresh.png" alt="<?php echo JText::_('COM_RSGALLERY2_REFRESH')?>" width="16">
+				</a>
+				<?php
+				/* This object is an example of how audio could be implemented - not functional
+				<object type="application/x-shockwave-flash" data="<?php echo JURI_SITE;?>components/com_rsgallery2/lib/rsgcomments/securimage/securimage_play.swf?audio_file=<?php echo JURI_SITE;?>components/com_rsgallery2/lib/rsgcomments/securimage/securimage_play.php&amp;bgColor1=#fff&amp;bgColor2=#fff&amp;iconColor=#777&amp;borderWidth=1&amp;borderColor=#000" height="32" width="32">
+					<param name="movie" value="<?php echo JURI_SITE;?>components/com_rsgallery2/lib/rsgcomments/securimage/securimage_play.swf?audio_file=<?php echo JURI_SITE;?>components/com_rsgallery2/lib/rsgcomments/securimage/securimage_play.php&amp;bgColor1=#fff&amp;bgColor2=#fff&amp;iconColor=#777&amp;borderWidth=1&amp;borderColor=#000">
+				</object>
+				*/
+				?>
+				<br />  
+				<?php echo JText::_('COM_RSGALLERY2_ENTER_WHAT_YOU_SEE_IN_THE_IMAGE_ABOVE');?>
+				<input type="text" name="captcha_code" size="10" maxlength="10" />
+				<?php
+				//Securimage captcha - http://www.phpcaptcha.org - end
 			}
 			?>
 		</td>
@@ -319,7 +327,7 @@ function editComment( $item_id ) {
 	</table>
 	<input type="hidden" name="item_id" value="<?php echo $item_id;?>" />
 	<input type="hidden" name="rsgOption" value="rsgComments" />
-	<input type="hidden" name="catid" value="<?php echo JRequest::getInt('catid'  , null);?>" />
+	<input type="hidden" name="gid" value="<?php echo $gid;?>" />
 	</form>
 	<a name="comment2"></a>
 	<?php

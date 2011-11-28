@@ -49,7 +49,7 @@ function saveComment( $option ) {
 	$mainframe =& JFactory::getApplication();
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
-	
+
 	//Retrieve parameters
 	$user_ip	= $_SERVER['REMOTE_ADDR'];
 	$rsgOption	= JRequest::getVar('rsgOption'  , '');
@@ -57,13 +57,13 @@ function saveComment( $option ) {
 	$user_name	= JRequest::getVar( 'tname', '');
 	$comment 	= get_magic_quotes_gpc() ? JRequest::getVar( 'tcomment'  , '') : addslashes(JRequest::getVar( 'tcomment'  , ''));
 	$item_id 	= JRequest::getInt( 'item_id'  , '');
-	$catid 		= JRequest::getInt( 'catid'  , '');
+	$gid 		= JRequest::getInt( 'gid'  , '');
 	$Itemid 	= JRequest::getInt( 'Itemid'  , '');
 
 	$redirect_url = JRoute::_("index.php?option=".$option."&Itemid=$Itemid&page=inline&id=".$item_id, false);
 	
 	//Check if commenting is enabled
-	if ($rsgConfig->get('comment') == 0) {
+	if (!JFactory::getUser()->authorise('rsgallery2.comment','com_rsgallery2.gallery.'.$gid)) {
 		$mainframe->redirect($redirect_url, JText::_('COM_RSGALLERY2_COMMENTING_IS_DISABLED') );
 		exit();
 	}
@@ -83,24 +83,25 @@ function saveComment( $option ) {
 			}
 		}
 	} else {
-		if( ! $rsgConfig->get( 'comment_allowed_public' )){
-			$mainframe->redirect($redirect_url, JText::_('COM_RSGALLERY2_YOU_MUST_LOGIN_TO_COMMENT'));
-		}
 		$user_id = 0;
 		//Check for unique IP-address and see if only one comment from this IP=address is allowed
 	}
 	
+	//Captcha check
 	if ($rsgConfig->get('comment_security') == 1) {
-		
-		$checkSecurity = null;
-		$userEntry = JRequest::getVar('securityImageRSGallery2', false, '', 'CMD'); 
-		$mainframe->triggerEvent('onSecurityImagesCheck', array($userEntry, &$checkSecurity));
-		
-		//Check if security check was OK
-		if ($checkSecurity == false ) 
-			$mainframe->redirect( $redirect_url, JText::_('COM_RSGALLERY2_INCORRECT_CAPTCHA_CHECK_COMMENT_IS_NOT_SAVED'));
+		//Securimage check - http://www.phpcaptcha.org
+		//Include and call Securimage class
+		include_once(JPATH_SITE.DS.'components'.DS.'com_rsgallery2'.DS.'lib'.DS.'rsgcomments'.DS.'securimage'.DS.'securimage.php');
+		$securimage = new Securimage();
+		//Check if user input is correct
+		if ($securimage->check(JRequest::getVar('captcha_code','','POST')) == false) {
+			// The code was incorrect, go back (IE loses comment, Firefox & Safari keep it)
+			echo "<script>confirm('".JText::_('COM_RSGALLERY2_INCORRECT_CAPTCHA_CHECK_COMMENT_IS_NOT_SAVED')."');window.history.go(-1);</script>";
+			exit;
+		} 
+		//Securimage check - http://www.phpcaptcha.org - end
 	}
-	
+
 	//If we are here, start database thing
 	$sql = "INSERT INTO #__rsgallery2_comments (id, user_id, user_name, user_ip, parent_id, item_id, item_table, datetime, subject, comment, published, checked_out, checked_out_time, ordering, params, hits)" .
 			" VALUES (" .
