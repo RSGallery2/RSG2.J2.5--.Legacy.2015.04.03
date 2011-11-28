@@ -38,6 +38,11 @@ Legend:
 
 ---------------- Recent ----------------
 
+2011-11-28 Mirjam - SVN 1051
+^ Comment and vote permission is no longer set in the Control Panel > Configuration > tab: Images > Commenting/Voting enabled, but in the Permission settings: Options button for the component and Set Permission button per gallery when editing a gallery (added message upon upgrade about this)
++ Captcha option for commenting on images: now uses Securimage 3.0 by Drew Philips (www.phpcaptcha.org)
+- Removed Captcha that used Security Images component in comment form
+
 2011-11-08 Mirjam - SVN 1050
 + Added choice for menu-item that links directly to the slideshow.
 
@@ -57,6 +62,8 @@ Legend:
 		Access does not matter).
 	Note: anyone who knows where the images are stored on the server and knows what the image
 	name is can access the image directly. 
+	
+^ Database changes: Added `access` field to `#__rsgallery2_galleries` and set to 1 (Public access) for all galleries; increase in the length of fields `name` and `title` for the items.
 
 ---------------- 3.0.1 -- SVN 1046 -- 2011-10-05 -------------
 

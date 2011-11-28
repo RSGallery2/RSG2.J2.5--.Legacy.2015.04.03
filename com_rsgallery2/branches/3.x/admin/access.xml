@@ -11,6 +11,9 @@
 		<action name="core.edit" title="JACTION_EDIT" description="JACTION_EDIT_COMPONENT_DESC" />
 		<action name="core.edit.state" title="JACTION_EDITSTATE" description="JACTION_EDITSTATE_COMPONENT_DESC" />
 		<action name="core.edit.own" title="JACTION_EDITOWN" description="JACTION_EDITOWN_COMPONENT_DESC" />
+		<!-- RSGallery2 specific actions for the component -->
+		<action name="rsgallery2.vote" title="COM_RSGALLERY2_ACCESS_COMPONENT_VOTE" description="COM_RSGALLERY2_ACCESS_COMPONENT_VOTE_DESC" />
+		<action name="rsgallery2.comment" title="COM_RSGALLERY2_ACCESS_COMPONENT_COMMENT" description="COM_RSGALLERY2_ACCESS_COMPONENT_COMMENT_DESC" />
 	</section>
 	<!-- define actions for com_rsgallery2 gallery (permissions at bottom of edit gallery screen) -->
 	<section name="gallery">
@@ -19,6 +22,9 @@
 		<action name="core.edit" title="JACTION_EDIT" description="COM_RSGALLERY2_ACCESS_GALLERY_EDIT_DESC" />
 		<action name="core.edit.state" title="JACTION_EDITSTATE" description="COM_RSGALLERY2_ACCESS_GALLERY_EDITSTATE_DESC" />
 		<action name="core.edit.own" title="JACTION_EDITOWN" description="COM_RSGALLERY2_ACCESS_GALLERY_EDITOWN_DESC" />
+		<!-- RSGallery2 specific actions for galleries -->
+		<action name="rsgallery2.vote" title="COM_RSGALLERY2_ACCESS_GALLERY_VOTE" description="COM_RSGALLERY2_ACCESS_GALLERY_VOTE_DESC" />
+		<action name="rsgallery2.comment" title="COM_RSGALLERY2_ACCESS_GALLERY_COMMENT" description="COM_RSGALLERY2_ACCESS_GALLERY_COMMENT_DESC" />
 	</section>
 	<!-- define actions for com_rsgallery2 images (permissions at bottom of edit gallery screen) -->
 	<section name="item">

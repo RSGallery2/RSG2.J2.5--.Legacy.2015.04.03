@@ -34,43 +34,38 @@ function test( $id ) {
 
 }
 function saveVote( $option ) {
-	
 	global $rsgConfig;
 	$mainframe =& JFactory::getApplication();
 	$database = JFactory::getDBO();
 	$my = JFactory::getUser();
 	$Itemid 	= JRequest::getInt('Itemid', '');	
-	
-	if ( $rsgConfig->get('voting') < 1 ) {
-		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2", false), JText::_('COM_RSGALLERY2_VOTING_IS_DISABLED'));
-	} else {
-		$rating 	= JRequest::getInt('rating', '');
-		$id 		= JRequest::getInt('id', '');
-		$vote 		= new rsgVoting();
-		//Check if user can vote
-		if (!$vote->voteAllowed() ) {
-			$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id", false), JText::_('COM_RSGALLERY2_YOU_ARE_NOT_AUTHORIZED_TO_VOTE'));
-		}
-		
-		//Check if user has already voted for this image
-		if ($vote->alreadyVoted($id)) {
-		 	$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id", false), JText::_('COM_RSGALLERY2_YOU_ALREADY_VOTED_FOR_THIS_ITEM'));
-		}
-		
-		//All checks OK, store vote in DB
-		$total 		= $vote->getTotal( $id ) + $rating;
-		$votecount 	= $vote->getVoteCount( $id ) + 1;
-		
-		$sql = "UPDATE #__rsgallery2_files SET rating = '$total', votes = '$votecount' WHERE id = '$id'";
-		$database->setQuery( $sql );
-		if ( !$database->query() ) {
-			$msg = JText::_('COM_RSGALLERY2_VOTE_COULD_NOT_BE_ADDED_TO_THE_DATABASE');
-		} else {
-			$msg = JText::_('COM_RSGALLERY2_VOTE_ADDED_TO_DATABASE');
-			//Store cookie on system
-			setcookie($rsgConfig->get('cookie_prefix').$id, $my->id, time()+60*60*24*365, "/");
-		}
-		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id", false), $msg);
+	$rating 	= JRequest::getInt('rating', '');
+	$id 		= JRequest::getInt('id', '');
+	$vote 		= new rsgVoting();
+
+	//Check if user can vote
+	if (!$vote->voteAllowed()) {
+		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id", false), JText::_('COM_RSGALLERY2_YOU_ARE_NOT_AUTHORIZED_TO_VOTE'));
 	}
+	
+	//Check if user has already voted for this image
+	if ($vote->alreadyVoted($id)) {
+		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id", false), JText::_('COM_RSGALLERY2_YOU_ALREADY_VOTED_FOR_THIS_ITEM'));
+	}
+	
+	//All checks OK, store vote in DB
+	$total 		= $vote->getTotal( $id ) + $rating;
+	$votecount 	= $vote->getVoteCount( $id ) + 1;
+	
+	$sql = "UPDATE #__rsgallery2_files SET rating = '$total', votes = '$votecount' WHERE id = '$id'";
+	$database->setQuery( $sql );
+	if ( !$database->query() ) {
+		$msg = JText::_('COM_RSGALLERY2_VOTE_COULD_NOT_BE_ADDED_TO_THE_DATABASE');
+	} else {
+		$msg = JText::_('COM_RSGALLERY2_VOTE_ADDED_TO_DATABASE');
+		//Store cookie on system
+		setcookie($rsgConfig->get('cookie_prefix').$id, $my->id, time()+60*60*24*365, "/");
+	}
+	$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id", false), $msg);
 }
 ?>
