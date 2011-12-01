@@ -38,6 +38,9 @@ Legend:
 
 ---------------- Recent ----------------
 
+2011-12-01 Mirjam - SVN 1052
++ Added the possibility of using parameters in Slideshow Parth (template parameters are saved upon RSGallery2 upgrade)
+
 2011-11-28 Mirjam - SVN 1051
 ^ Comment and vote permission is no longer set in the Control Panel > Configuration > tab: Images > Commenting/Voting enabled, but in the Permission settings: Options button for the component and Set Permission button per gallery when editing a gallery (added message upon upgrade about this)
 + Captcha option for commenting on images: now uses Securimage 3.0 by Drew Philips (www.phpcaptcha.org)

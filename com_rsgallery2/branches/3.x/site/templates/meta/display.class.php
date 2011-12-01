@@ -18,8 +18,14 @@ class rsgDisplay extends JObject{
 		
 		$this->gallery = rsgInstance::getGallery();
 
-		$template = $rsgConfig->get('template');
-
+		//Pre 3.0.2: always got template 'semantic' even when showing a slideshow; $template is only used here to get templateparameters
+		//Does the page show the slideshow? Then get slideshow name, else get template name.
+		if (JRequest::getVar('page') == 'slideshow') {
+			$template = $rsgConfig->get('current_slideshow');
+		} else {
+			$template = $rsgConfig->get('template');
+		}
+		
 		// load template parameters
 		jimport('joomla.filesystem.file');
 		// Read the ini file
@@ -28,6 +34,8 @@ class rsgDisplay extends JObject{
 			$content = JFile::read($ini);
 		} else {
 			$content = null;
+			$ini_contents = '';
+			JFile::write($ini,$ini_contents);
 		}
 		$xml	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template .DS.'templateDetails.xml';
 		$this->params = new JParameter($content, $xml, 'template');
