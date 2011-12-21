@@ -38,6 +38,13 @@ Legend:
 
 ---------------- Recent ----------------
 
+2011-12-21 Mirjam - SVN 1054
++ Updated it-IT language file (based on SVN1053) and it-IT menu-items thanks to user Scioz (updated credits)
++ Updated nl-NL language file (based on SVN1053)
+
+2011-12-15 Mirjam - SVN 1053
++ Updated it-IT language file (based on v3.0.1) thanks to user Scioz
+
 2011-12-01 Mirjam - SVN 1052
 + Added the possibility of using parameters in Slideshow Parth (template parameters are saved upon RSGallery2 upgrade)
 

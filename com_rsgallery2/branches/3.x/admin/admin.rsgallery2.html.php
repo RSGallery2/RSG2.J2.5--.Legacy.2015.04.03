@@ -164,7 +164,10 @@ class HTML_RSGALLERY{
 			<dd><b>theNoam</b><a href='http://www.theNoam.com/' target='_blank'>http://www.theNoam.com/</a></dd>
         <dt>Hungarian</dt> 
 			<dd><b>Jozsef Tamas Herczeg</b> <a href='http://www.soft-trans.hu' target='_blank'>SOFT-TRANS</a></dd>
-		<dt>Italian</dt><dd><b>Michele Monaco</b><a href='http://www.mayavoyage.com' target='_blank'>Maya Voyages</a>
+		<dt>Italian</dt>
+			<dd><b>Michele Monaco</b><a href='http://www.mayavoyage.com' target='_blank'>Maya Voyages</a></dd>
+			<dd><b>Marco Galimberti</b>
+			</dd>
         <dt>Norwegian</dt> 
 			<dd><b>Ronny Tjelle</b></dd>
             <dd><b>Steinar Vikholt</b></dd>
