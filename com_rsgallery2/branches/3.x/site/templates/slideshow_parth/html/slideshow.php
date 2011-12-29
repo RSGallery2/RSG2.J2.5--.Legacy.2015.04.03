@@ -54,6 +54,7 @@ $doc->addScript($js3);
 	/* Carousel backgroundcolor thumbs-text */
 	.jdGallery a.carouselBtn {
 		background: <?php echo $this->params->get('carouselBackgroundcolor','#333333'); ?>;
+		color:		<?php echo $this->params->get('carouselTextcolor','#FFFFFF'); ?>;
 	}
 	/* Carousel color numberlabel */
 	.jdGallery .carousel .label .number {
