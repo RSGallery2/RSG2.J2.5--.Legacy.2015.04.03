@@ -262,10 +262,11 @@ function save( $option ) {
 		jimport( 'joomla.form.form' );
 		JForm::addFormPath(JPATH_ADMINISTRATOR.'/components/com_rsgallery2/models/forms/');
 		$form = &JForm::getInstance('com_rsgallery2.params','gallery',array( 'load_data' => false ));
-		// Filter $data which means that for $data[rules] the Null values are removed
+		// Filter $data which means that for $data['rules'] the Null values are removed
 		$data = $form->filter($data);
 		if (isset($data['rules']) && is_array($data['rules'])) {
 			// Instantiate a JRules object with the rules posted in the form
+			jimport( 'joomla.access.rules' );
 			$rules = new JRules($data['rules']);
 			// $row is an rsgGalleriesItem object that extends JTable with method setRules
 			// this binds the JRules object to $row->_rules

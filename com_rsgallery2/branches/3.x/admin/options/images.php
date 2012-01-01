@@ -241,7 +241,7 @@ function saveImage( $option, $redirect = true ) {
 	$task = JRequest::getCmd('task');
 	// Get the rules which are in the form … with the name ‘rules’ 
 	// with type array (default value array())
-	$data[rules]		= JRequest::getVar('rules', array(), 'post', 'array');
+	$data['rules']		= JRequest::getVar('rules', array(), 'post', 'array');
 	
 	$row = new rsgImagesItem( $database );
 	$row->load($id);
@@ -271,17 +271,18 @@ function saveImage( $option, $redirect = true ) {
 
 	// Joomla 1.6 ACL
 	//Only save rules when there are rules (which were only shown to those with core.admin)
-	if (!empty($data[rules])) {
+	if (!empty($data['rules'])) {
 		// Get the form library
 		jimport( 'joomla.form.form' );
 		// Add a path for the form XML and get the form instantiated
 		JForm::addFormPath(JPATH_ADMINISTRATOR.'/components/com_rsgallery2/models/forms/');
 		$form = &JForm::getInstance('com_rsgallery2.params','item',array( 'load_data' => false ));
-		// Filter $data which means that for $data[rules] the Null values are removed
+		// Filter $data which means that for $data['rules'] the Null values are removed
 		$data = $form->filter($data);
-		if (isset($data[rules]) && is_array($data[rules])) {
+		if (isset($data['rules']) && is_array($data['rules'])) {
 			// Instantiate a JRules object with the rules posted in the form
-			$rules = new JRules($data[rules]);
+			jimport( 'joomla.access.rules' );
+			$rules = new JRules($data['rules']);
 			// $row is an rsgImagesItem object that extends JTable with method setRules
 			// this binds the JRules object to $row->_rules
 			$row->setRules($rules);

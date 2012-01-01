@@ -38,6 +38,15 @@ Legend:
 
 ---------------- Recent ----------------
 
+2012-01-01 Mirjam - SVN 1056
+! Changes to let RSG2 work on J!2.5 (backwards compatibility issues to be solved in extension):
+^ Get $task and $option in admin.rsgallery2.php
+^ Get jimport( 'joomla.access.rules' ); where new JRules object is declared
+^ Submenu toolbar (contents of file: toolbar.rsgallery2.php) only executed from backend
+
+2011-12-21 Mirjam - SVN 1055
+^ Added text color to 'Caroussel backgroundcolor and color thumbs-text'
+
 2011-12-21 Mirjam - SVN 1054
 + Updated it-IT language file (based on SVN1053) and it-IT menu-items thanks to user Scioz (updated credits)
 + Updated nl-NL language file (based on SVN1053)
