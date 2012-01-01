@@ -35,6 +35,8 @@ if (!$canManage) {
 require_once( JApplicationHelper::getPath('admin_html') );
 
 global $opt, $catid, $uploadStep, $numberOfUploads, $e_id ;
+$task 				= JRequest::getString('task');
+$option 			= strtolower(JRequest::getCmd('option'));
 $opt                = JRequest::getVar('opt', null );
 $catid 				= JRequest::getInt('catid', null);
 $uploadStep         = JRequest::getInt('uploadStep', 0 );
