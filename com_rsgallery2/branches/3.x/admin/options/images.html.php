@@ -3,7 +3,7 @@
 * Images option for RSGallery2 - HTML display code
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2011 RSGallery2
+* @copyright (C) 2003 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -621,9 +621,8 @@ class html_rsg2_images {
                         <input type="radio" value="ftp" name="batchmethod" />
                         <?php echo JText::_('COM_RSGALLERY2_FTP-PATH');?>&nbsp;<?php echo JHTML::tooltip( JText::_('COM_RSGALLERY2_BATCH_FTP_PATH_OVERL'), JText::_('COM_RSGALLERY2_FTP-PATH') ); ?></td>
                     <td>
-
+						<?php echo JText::sprintf('COM_RSGALLERY2_FTP_BASE_PATH', JPATH_SITE.DS); ?>
                         <input type="text" name="ftppath" value="<?php echo $FTP_path; ?>" size="30" />
-						<br/><?php echo JText::sprintf('COM_RSGALLERY2_FTP_BASE_PATH', JPATH_SITE.DS); ?>
                     </td>
                 </tr>
                 <tr>

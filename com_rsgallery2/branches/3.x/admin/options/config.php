@@ -3,7 +3,7 @@
 * Galleries option for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2011 RSGallery2
+* @copyright (C) 2003 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -91,14 +91,12 @@ function saveConfig(){
     $rsgConfig = new rsgConfig();
     
     if( $rsgConfig->saveConfig( $_REQUEST )){
-            HTML_RSGALLERY::printAdminMsg(JText::_('COM_RSGALLERY2_CONFIGURATION_SAVED'));
-
-            // save successful, try creating some image directories if we were asked to
-            if( JRequest::getVar( 'createImgDirs' ))
-                HTML_RSGALLERY::printAdminMsg(JText::_('COM_RSGALLERY2_CREATING_IMAGE_DIRECTORIES_NOT_IMPLEMENTED_YET'), true);
-            
-    }else{
-            HTML_RSGALLERY::printAdminMsg(JText::_('COM_RSGALLERY2_ERROR_SAVING_CONFIGURATION'));
+		JFactory::getApplication()->enqueueMessage( JText::_('COM_RSGALLERY2_CONFIGURATION_SAVED') );
+		// save successful, try creating some image directories if we were asked to
+		if( JRequest::getVar( 'createImgDirs' ))
+			JFactory::getApplication()->enqueueMessage( JText::_('COM_RSGALLERY2_CREATING_IMAGE_DIRECTORIES_NOT_IMPLEMENTED_YET') );
+    } else {
+			JFactory::getApplication()->enqueueMessage( JText::_('COM_RSGALLERY2_ERROR_SAVING_CONFIGURATION'), 'Error' );
     }
     
 }

@@ -2,7 +2,7 @@
 /**
  * @version		$Id$
  * @package		RSgallery2 Component
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2012 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -237,8 +237,8 @@ class JGPagination extends JPagination
 		}
 
 		// Set the start and previous data objects
-		$data->start	= new JPaginationObject(JText::_('COM_RSGALLERY2_START'));
-		$data->previous	= new JPaginationObject(JText::_('COM_RSGALLERY2_PREV'));
+		$data->start	= new JPaginationObject(JText::_('JLIB_HTML_START'));
+		$data->previous	= new JPaginationObject(JText::_('JPREVIOUS'));
 
 		if ($this->get('pages.current') > 1)
 		{
@@ -253,8 +253,8 @@ class JGPagination extends JPagination
 		}
 
 		// Set the next and end data objects
-		$data->next	= new JPaginationObject(JText::_('COM_RSGALLERY2_NEXT'));
-		$data->end	= new JPaginationObject(JText::_('COM_RSGALLERY2_END'));
+		$data->next	= new JPaginationObject(JText::_('JNEXT'));
+		$data->end	= new JPaginationObject(JText::_('JLIB_HTML_END'));
 
 		if ($this->get('pages.current') < $this->get('pages.total'))
 		{

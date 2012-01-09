@@ -3,7 +3,7 @@
 * This file contains the non-presentation processing for the Admin section of RSGallery.
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2011 RSGallery2
+* @copyright (C) 2003 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -114,17 +114,20 @@ switch ( JRequest::getVar('task', null) ){
         break;
 
     case "uploadX":
+		JFactory::getApplication()->enqueueMessage( 'Marked for removal: uploadX', 'Notice' );
         HTML_RSGallery::RSGalleryHeader('browser', JText::_('COM_RSGALLERY2_UPLOAD'));
         showUpload();
         HTML_RSGallery::RSGalleryFooter();
         break;
 
     case "batchuploadX":
+		JFactory::getApplication()->enqueueMessage( 'Marked for removal: batchuploadX', 'Notice' );
         HTML_RSGallery::RSGalleryHeader('', JText::_('COM_RSGALLERY2_UPLOAD_ZIP-FILE'));
         batch_upload($option, $task);
         HTML_RSGallery::RSGalleryFooter();
         break;
     case "save_batchuploadX":
+		JFactory::getApplication()->enqueueMessage( 'Marked for removal: save_batchuploadX', 'Notice' );
         save_batchupload();
         break;
     //Image and category tasks
