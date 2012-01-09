@@ -3,7 +3,7 @@
  * Class handles all configuration parameters for RSGallery2
  * @version $Id$
  * @package RSGallery2
- * @copyright (C) 2003 - 2011 RSGallery2
+ * @copyright (C) 2003 - 2012 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
@@ -18,11 +18,11 @@ class rsgConfig {
 
 	//	General
 	var $intro_text 		= '';
-	var $version    		= 'depreciated';  // this is set and loaded from includes/version.rsgallery2.php
+	var $version    		= 'depreciated';	// this is set and loaded from includes/version.rsgallery2.php
 	var $debug      		= false;
 	var $allowedFileTypes 	= "jpg,jpeg,gif,png";
-	var $hideRoot			= false; //Deprecated in v3, is not used anywhere; hide the root gallery and it's listing.  this is to publish multiple independant galleries.
-	var $advancedSef		= false; // use category and image name instead of numeric identifiers in url.
+	var $hideRoot			= false; 	//Deprecated in v3, is not used anywhere; hide the root gallery and it's listing.  this is to publish multiple independant galleries.
+	var $advancedSef		= false; 	// use category and image name instead of numeric identifiers in url.
 	
 	// new image paths, use imgUtils::getImg*() instead of calling these directly
 	var $imgPath_thumb 		= '/images/rsgallery/thumb';
@@ -30,20 +30,20 @@ class rsgConfig {
 	var $imgPath_original 	= '/images/rsgallery/original';
 	var $imgPath_watermarked 	= '/images/rsgallery/watermarked';
 	var $createImgDirs 		= false;
-	var $gallery_folders	= false; // defines if galleries are stored in separate folders
+	var $gallery_folders	= false;	// defines if galleries are stored in separate folders
 
 	//Image upload settings
 	var $useIPTCinformation = false;
 	var $uploadState 		= true;
 	
 	// graphics manipulation
-	var $graphicsLib        = 'gd2';   // imagemagick, netbpm, gd1, gd2
+	var $graphicsLib        = 'gd2';	// imagemagick, netbpm, gd1, gd2
 	var $keepOriginalImage	= true;
 	var $jpegQuality        = '85';
-	var $image_width		= '400';  //todo: rename to imgWidth_display
-	var $resize_portrait_by_height = true;
-    var $thumb_style        = 1; //0 = proportional, 1 = square
-	var $thumb_width        = '80';  //todo: rename to imgWidth_thumb
+	var $image_width		= '400';	//todo: rename to imgWidth_display
+	//var $resize_portrait_by_height = true;	// Not used in v3
+    var $thumb_style        = 1; 		//0 = proportional, 1 = square
+	var $thumb_width        = '80';		//todo: rename to imgWidth_thumb
 	var $imageMagick_path	= '';
 	var $netpbm_path		= '';
 	var $ftp_path			= '';
@@ -54,12 +54,12 @@ class rsgConfig {
 	var $videoConverter_extension			= 'flv';
 	
 	// front display
-    var $display_thumbs_style = 'table'; // float, table, magic
-    var $display_thumbs_floatDirection = 'left'; // left, right
+    var $display_thumbs_style = 'table';	// float, table, magic
+    var $display_thumbs_floatDirection = 'left';	// left, right
 	var $display_thumbs_colsPerPage	= 3;
     var $display_thumbs_maxPerPage = 9;
     var $display_thumbs_showImgName = true;
-	var $display_img_dynamicResize	= 5;
+	//var $display_img_dynamicResize	= 5;	// Not used in v3
     var $displayRandom	            = 1;
 	var $displayLatest	            = 1;
 	var $displayBranding			= true;
@@ -72,9 +72,9 @@ class rsgConfig {
 	var $displaySearch				= 1;
 	var $current_slideshow			= "slideshow_parth";
 	var $displayDownload			= true;
-	var $displayPopup				= 1; //0 = Off; 1 = Normal; 2 = Fancy;
+	var $displayPopup				= 1;	//0 = Off; 1 = Normal; 2 = Fancy;
 	var $displayStatus				= 1;
-	var $dispLimitbox				= 1; //0 = never; 1 = If more galleries then limit; 2 = always
+	var $dispLimitbox				= 1;	//0 = never; 1 = If more galleries then limit; 2 = always
 	var $galcountNrs				= 5;
 	var $template					= 'semantic';
 	var $showGalleryOwner			= 1;
@@ -85,7 +85,7 @@ class rsgConfig {
 	var $filter_order				= 'ordering';
 	var $filter_order_Dir			= 'ASC';
 	
-	/* var $gallery_sort_order			= 'order_id';*/ //'order_id' = ordering by DB ordering field; 'desc' = Last uploaded first; 'asc' = Last uploaded last
+	//var $gallery_sort_order			= 'order_id';	//'order_id' = ordering by DB ordering field; 'desc' = Last uploaded first; 'asc' = Last uploaded last
 
     // user uploads
 	var $uu_enabled         = 0;
@@ -98,8 +98,8 @@ class rsgConfig {
     
     // watermarking
     var $watermark           = 0;
-    var $watermark_type		 = "text"; //Values are text or image
-    var $watermark_text      = "(c) 2011 - RSGallery2";
+    var $watermark_type		 = "text";	//Values are text or image
+    var $watermark_text      = "(c) 2012 - RSGallery2";
     var $watermark_image	 = "watermark.png";
     var $watermark_angle     = 0;
     var $watermark_position  = 5;
@@ -128,7 +128,7 @@ class rsgConfig {
 	var $captcha_num_lines		 = 2;	// how many lines to draw over the image	
 	
     //Voting system
-    //var $voting					= 1;			//deprecated: v3.0.2 uses permissions
+    //var $voting					= 1;		//deprecated: v3.0.2 uses permissions
     var $voting_once			= 1;
     var $cookie_prefix			= "rsgvoting_";
 

@@ -3,7 +3,7 @@
 * Galleries option for RSGallery2 - HTML display code
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2011 RSGallery2
+* @copyright (C) 2003 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -291,22 +291,23 @@ class html_rsg2_config{
 		<?php
 		echo $tabs->endPanel();
 		echo $tabs->startPanel( JText::_('COM_RSGALLERY2_IMAGES'), 'rsgConfig' );
+
+		$tabsImages =& JPane::getInstance("Sliders");
+		echo $tabsImages->startPane( 'rsgConfig_Images' );
+		echo $tabsImages->startPanel( JText::_('COM_RSGALLERY2_IMAGE_MANIPULATION'), 'rsgConfig_Images ' );
 		?>
-		<table border="0" width="100%">
-			<tr>
-				<td width="50%" valign="top">
 					<fieldset>
-						<legend><?php echo JText::_('COM_RSGALLERY2_IMAGE_MANIPULATION') ?></legend>
 						<table width="100%">
 							<tr>
 								<td width="200"><?php echo JText::_('COM_RSGALLERY2_DISPLAY_PICTURE_WIDTH') ?></td>
 								<td width="78%"><input class="text_area" type="text" name="image_width" size="10" value="<?php echo $config->image_width;?>"/></td>
 							</tr>
+							<!-- Removed after v3.0.2 - was not used
 							<tr>
-								<td><?php echo JText::_('COM_RSGALLERY2_RESIZE_PORTRAIT_IMAGES_BY_HEIGHT_USING_DISPLAY_PICTURE_WIDTH') ; ?></td>
+								<td><?php //echo JText::_('COM_RSGALLERY2_RESIZE_PORTRAIT_IMAGES_BY_HEIGHT_USING_DISPLAY_PICTURE_WIDTH') ; ?></td>
 								<td><fieldset id="jform_block" class="radio">
-						<?php echo JHTML::_("select.booleanlist",'resize_portrait_by_height', '', $config->resize_portrait_by_height);?></fieldset></td>
-							</tr>
+						<?php //echo JHTML::_("select.booleanlist",'resize_portrait_by_height', '', $config->resize_portrait_by_height);?></fieldset></td>
+							</tr>	-->
 							<tr>
 								<td><?php echo JText::_('COM_RSGALLERY2_THUMBNAIL_WIDTH') ?></td>
 								<td><input class="text_area" type="text" name="thumb_width" size="10" value="<?php echo $config->thumb_width;?>"/></td>
@@ -321,13 +322,30 @@ class html_rsg2_config{
 							</tr>
 							<tr>
 								<td><?php echo JText::_('COM_RSGALLERY2_ALLOWED_FILETYPES') ?></td>
-								<td><input class="text_area" type="text" name="allowedFileTypes" size="30" value="<?php echo $config->allowedFileTypes;?>"/></td>
+								<td>
+									<!--
+									Sorry, currently only support for jpg/jpeg, gif and png (hardcoded)
+									<input class="text_area" type="text" name="allowedFileTypes" size="30" value="<?php echo $config->allowedFileTypes;?>"/>-->
+									<?php echo implode(", ",imgUtils::allowedFileTypes()); ?>
+								</td>
 							</tr>
 						</table>
 					</fieldset>
+		<?php
+		echo $tabsImages->endPanel();
+		echo $tabsImages->startPanel( JText::_('COM_RSGALLERY2_IMAGE_UPLOAD'), 'rsgConfig_Images ' );
+		?>					
 					<fieldset>
-						<legend><?php echo JText::_('COM_RSGALLERY2_IMAGE_UPLOAD') ?></legend>
 						<table width="100%">
+							<tr>
+								<td width="200">
+									<?php echo JText::_('COM_RSGALLERY2_FTP_PATH') ?>
+								</td>
+								<td>
+									<?php echo JText::sprintf('COM_RSGALLERY2_FTP_BASE_PATH', JPATH_SITE.DS); ?><br />
+									<input class="text_area" type="text" name="ftp_path" size="50" value="<?php echo $config->ftp_path?>"/>
+								</td>
+							</tr>
 							<tr>
 								<td width="200"><?php echo JHTML::tooltip(JText::_('COM_RSGALLERY2_RSG2_IPTC_TOOLTIP'), JText::_('COM_RSGALLERY2_RSG2_IPTC_TOOLTIP_TITLE'), 
                     '', JText::_('COM_RSGALLERY2_RSG2_USE_IPTC')); ?></td>
@@ -345,12 +363,11 @@ class html_rsg2_config{
 						</table>
 					</fieldset>
 <!--end of addition-->					
-				</td>
-			</tr>
-			<tr>
-				<td width="50%" valign="top">
+		<?php
+		echo $tabsImages->endPanel();
+		echo $tabsImages->startPanel( JText::_('COM_RSGALLERY2_GRAPHICS_LIBRARY'), 'rsgConfig_Images ' );
+		?>
 					<fieldset>
-						<legend><?php echo JText::_('COM_RSGALLERY2_GRAPHICS_LIBRARY') ?></legend>
 						<table width="100%">
 							<tr>
 								<td width=200><?php echo JText::_('COM_RSGALLERY2_GRAPHICS_LIBRARY') ?></td>
@@ -368,12 +385,11 @@ class html_rsg2_config{
 								<td><input class="text_area" type="text" name="netpbm_path" size="50" value="<?php echo $config->netpbm_path;?>"/></td>
 							</tr>
 							<tr>
-								<td><?php echo JText::_('COM_RSGALLERY2_FTP_PATH') ?></td>
-								<td><input class="text_area" type="text" name="ftp_path" size="50" value="<?php echo $config->ftp_path?>"/>(<?php echo JText::_('COM_RSGALLERY2_HTML-ROOT_IS')?>: <?php  print $_SERVER['DOCUMENT_ROOT']?>)</td>
-							</tr>
-							<tr>
 								<td><?php echo JText::_('COM_RSGALLERY2_VIDEO_CONVERTER_PATH') ?></td>
-								<td><input class="text_area" type="text" name="videoConverter_path" size="50" value="<?php echo $config->videoConverter_path;?>"/>(ex. "C:\ffmpeg\ffmpeg.exe")</td>
+								<td>
+									<input class="text_area" type="text" name="videoConverter_path" size="50" value="<?php echo $config->videoConverter_path;?>"/>
+									<?php echo JText::_('COM_RSGALLERY2_PAREN_EXAMPLE') ?></td>
+								</td>
 							</tr>
 							<tr>
 								<td><?php echo JText::_('COM_RSGALLERY2_VIDEO_CONVERTER_PARAMETERS') ?></td>
@@ -389,14 +405,11 @@ class html_rsg2_config{
 							</tr>
 						</table>
 					</fieldset>
-				</td>
-			</tr>
-		</table>
-		<table border="0" width="100%">
-			<tr>
-				<td width="50%" valign="top">
+		<?php
+		echo $tabsImages->endPanel();
+		echo $tabsImages->startPanel( JText::_('COM_RSGALLERY2_IMAGE_STORAGE'), 'rsgConfig_Images ' );
+		?>
 					<fieldset>
-						<legend><?php echo JText::_('COM_RSGALLERY2_IMAGE_STORAGE') ?></legend>
 						<table width="100%">
 							<tr>
 								<td width="200"><?php echo JText::_('COM_RSGALLERY2_KEEP_ORIGINAL_IMAGE') ?></td>
@@ -419,22 +432,22 @@ class html_rsg2_config{
 								<td><?php echo JText::_('COM_RSGALLERY2_THUMB_PATH') ?></td>
 								<td><input class="text_area" style="width:300px;" type="text" name="imgPath_thumb" size="10" value="<?php echo $config->imgPath_thumb?>"/></td>
 							</tr>
+							<!-- not implemented yet
 							<tr>
 								<td><?php echo JText::_("COM_RSGALLERY2_CREATE_DIRECTORIES_IF_THEY_DONT_EXIST") ?></td>
 								<td>
 									<fieldset id="jform_block" class="radio">
-									<?php echo JHTML::_("select.booleanlist",'createImgDirs', '', $config->createImgDirs)?>
+									<?php //echo JHTML::_("select.booleanlist",'createImgDirs', '', $config->createImgDirs)?>
 									</fieldset>
 								</td>
-							</tr>
+							</tr>	-->
 						</table>
 					</fieldset>
-				</td>
-			</tr>
-			<tr>
-				<td width="50%" valign="top">
+		<?php
+		echo $tabsImages->endPanel();
+		echo $tabsImages->startPanel( JText::_('COM_RSGALLERY2_COMMENTS'), 'rsgConfig_Images ' );
+		?>
 					<fieldset>
-						<legend><?php echo JText::_('COM_RSGALLERY2_COMMENTS');?></legend>
 						<table width="100%">
 							<tr>
 								<td width="200"><?php echo JText::_('COM_RSGALLERY2_COMMENTING_ENABLED');?></td>
@@ -533,15 +546,19 @@ class html_rsg2_config{
 									</table>
 								</td>
 							</tr>
+							<!--
 							<tr>
-								<td><?php echo JText::_('COM_RSGALLERY2_USER_CAN_ONLY_COMMENT_ONCE')." (".JText::_('COM_RSGALLERY2_NOT_WORKING_YET').")";?></td>
+								<td><?php //echo JText::_('COM_RSGALLERY2_USER_CAN_ONLY_COMMENT_ONCE')." (".JText::_('COM_RSGALLERY2_NOT_WORKING_YET').")";?></td>
 								<td><fieldset id="jform_block" class="radio">
-						<?php echo JHTML::_("select.booleanlist",'comment_once', '', $config->comment_once)?></fieldset></td>
-							</tr>
+						<?php //echo JHTML::_("select.booleanlist",'comment_once', '', $config->comment_once)?></fieldset></td>
+							</tr>	-->
 						</table>
 					</fieldset>
+		<?php
+		echo $tabsImages->endPanel();
+		echo $tabsImages->startPanel( JText::_('COM_RSGALLERY2_VOTING'), 'rsgConfig_Images ' );
+		?>
 					<fieldset>
-						<legend><?php echo JText::_('COM_RSGALLERY2_VOTING');?></legend>
 						<table width="100%">
 							<tr>
 								<td width="200"><?php echo JText::_('COM_RSGALLERY2_VOTING_ENABLED');?></td>
@@ -559,10 +576,11 @@ class html_rsg2_config{
 							</tr>
 						</table>
 					</fieldset>
-				</td>
-			</tr>
-		</table>
 		<?php
+		
+		echo $tabsImages->endPanel();
+		echo $tabsImages->endPane();
+
 		echo $tabs->endPanel();
 	
 		echo $tabs->startPanel( JText::_('COM_RSGALLERY2_DISPLAY'), 'rsgConfig' );
@@ -650,10 +668,11 @@ class html_rsg2_config{
 							<td width="200"><?php echo JText::_('COM_RSGALLERY2_POPUP_STYLE')?></td>
 							<td width="78%"><?php echo JHTML::_("select.genericlist", $displayPopup, 'displayPopup', '', 'value', 'text', $config->displayPopup )?></td>
 						</tr>
+						<!-- Not used in v3
 						<tr>
-							<td><?php echo JText::_('COM_RSGALLERY2_RESIZE_OPTION')?></td>
-							<td><?php echo JHTML::_("select.genericlist", $resizeOptions, 'display_img_dynamicResize', '', 'value', 'text', $config->display_img_dynamicResize )?></td>
-						</tr>
+							<td><?php //echo JText::_('COM_RSGALLERY2_RESIZE_OPTION')?></td>
+							<td><?php //echo JHTML::_("select.genericlist", $resizeOptions, 'display_img_dynamicResize', '', 'value', 'text', $config->display_img_dynamicResize )?></td>
+						</tr>	-->
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_DESCRIPTION')?></td>
 							<td><fieldset id="jform_block" class="radio">
@@ -719,7 +738,6 @@ class html_rsg2_config{
 									<?php echo JText::_('COM_RSGALLERY2_SELECT_EXIF_TAGS_TO_DISPLAY')?>
 								</td>
 								<td valign="top">
-									<label class="examples"></label>
 									<?php echo JHTML::_("select.genericlist", $exif, 'exifTags[]', 'MULTIPLE size="15"', 'value', 'text', $exifSelect );?>
 								</td>
 							</tr>

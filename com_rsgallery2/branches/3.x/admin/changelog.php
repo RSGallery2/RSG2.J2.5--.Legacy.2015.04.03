@@ -3,7 +3,7 @@
 * Changelog for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2011 RSGallery2
+* @copyright (C) 2003 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 **/
@@ -37,6 +37,16 @@ Legend:
   To do: Delete galleries: create filter in gallery view and check that delete-permission is granted for deleting subgalleries/images. Right now you may delete everything if you have delete permission for the component, even if an item/(sub)gallery doesn't have delete permission.
 
 ---------------- Recent ----------------
+
+2012-01-01 Mirjam - SVN 1057
+^ Created sliders for Configuration’s tab Images
+^ Removed unused settings “Resize portrait images by height using Display Picture Width”, “Create directories if they don't exist “, “Resize Option” and “User can only comment once” (all commented).
+^ The Allowed filetypes are hardcoded (images: "jpg",'jpeg',"gif","png"), no longer showing them in input box. 
+^ Moved setting FTP Path tot Image Upload section and corrected base path information. 
+^ Hardcoded textstring “(ex. C:\ffmpeg\ffmpeg.exe)” now translatable.
+^ Upon Save in Configuration now using Joomla messages instread of RSG2 printAdminMsg
+# Corrected missing language strings showing in pagination when you have a paginated list of galleries in the front-end
+- Removed directory preparedLanguages that held a number of language files that were automatically converted from RSGallery2 1.x to 2.x, they had to be changed since the way Joomla handled language strings changed. Reason: there were no volunteers to update those langages from Joomla 1.0.x & RSGallery2 1.x to Joomla 1.5.x & RSGallery2 2.x nor the conversion to Joomla 1.6/1.7/2.5 & RSGallery2 3.x.
 
 2012-01-01 Mirjam - SVN 1056
 ! Changes to let RSG2 work on J!2.5 (backwards compatibility issues to be solved in extension):
