@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cbinstall version="0.02" type="plugin" group="user">
+<cbinstall version="1.0" type="plugin" group="user">
 	<name>RSGallery2</name>
-	<author>Dave Ludwigsen</author>
-	<creationDate>Nov 2006</creationDate>
-	<copyright>(C) 2006 Dave Ludwigsen</copyright>
+	<author>Dave Ludwigsen and RSGallery2 Team</author>
+	<creationDate>9 January 2012</creationDate>
+	<copyright>(C) 2006 Dave Ludwigsen (c) 2012 RSGallery2 Team</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>palamangelus@gmail.com</authorEmail>
 	<authorUrl>http://daveludwigsen.com</authorUrl>
-	<version>1.0 RC 2</version>
-	<description>Displays a rudimentary tab with RSGallery2 information. This alpha release contains a listing of all galleries the user has uploaded with a random image for the thumbnail. If the user is in his or her own gallery, it also displays a link to edit his or her own galleries. There are currently no parameters.</description>
+	<version>1.3</version>
+	<description>Displays a tab with RSGallery2 galleries on the Community Builder User profile. This tab contains a list of all published galleries owned by the user with either a random image for the thumbnail or the thumbnail that is assigned to the gallery. If My Galleries is enabled in the RSGallery2 configuration a link to edit his or her own galleries is displayed. There are currently no parameters. (Note: Since there is no way to detect the proper RSGallery2 menu item, because there can be many of them, the CB User profile menu item is used in the breadcrumb trail.)</description>
+	
 	<files>
 		<filename plugin="rsgallery2.plugin">rsgallery2.plugin.php</filename>
 		<filename>index.html</filename>
-
 	</files>
-	<params>
 	
-	<param name="rsgallery2Link" type="text" size="30" default="Edit My Galleries" label="Gallery Link text" description="RSGallery2 Link Text" />
-
+	<params>
+		<param name="rsgallery2Link" type="text" size="30" default="Edit My Galleries" label="Gallery Link text" description="RSGallery2 Link Text" />
 	</params>
+
     <tabs>
 		<tab name="My Galleries" description="" class="getrsgallery2Tab" fields="0" position="cb_tabmain" displaytype="tab">
-			
 			<fields>
 			</fields>
 		</tab>
