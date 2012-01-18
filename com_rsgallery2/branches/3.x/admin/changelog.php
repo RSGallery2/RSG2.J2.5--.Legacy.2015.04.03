@@ -38,6 +38,10 @@ Legend:
 
 ---------------- Recent ----------------
 
+2012-01-18 Mirjam - SVN 1059
+# New gallery saves by default to first position, text describing this in Gallery New screen was wrong
+# Fixed meta description and page title
+
 2012-01-01 Mirjam - SVN 1057
 ^ Created sliders for Configuration’s tab Images
 ^ Removed unused settings “Resize portrait images by height using Display Picture Width”, “Create directories if they don't exist “, “Resize Option” and “User can only comment once” (all commented).
