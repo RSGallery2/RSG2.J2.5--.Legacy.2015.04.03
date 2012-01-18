@@ -3,7 +3,7 @@
  * This class encapsulates the HTML for the non-administration RSGallery pages.
  * @version $Id$
  * @package RSGallery2
- * @copyright (C) 2003 - 2011 RSGallery2
+ * @copyright (C) 2003 - 2012 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined( '_JEXEC' ) or die( 'Restricted Access' );
@@ -215,38 +215,61 @@ class rsgDisplay extends JObject{
 	}
 
 	/**
-		insert meta data into head
-	**/
+	 * Insert meta data and page title into head
+	 */
 	function metadata(){
-		global $option;
-		$mainframe =& JFactory::getApplication();
+		$app =& JFactory::getApplication();
+		$document=& JFactory::getDocument();
 		
-		// if rsg2 isn't the component being displayed, do not append meta data
+		$option 	= JRequest::getCmd('option');
+		$Itemid 	= JRequest::getInt('Itemid',Null);
+		$gid 		= JRequest::getInt('gid',Null);
+		$id 		= JRequest::getInt('id',Null);
+		$limitstart = JRequest::getInt('limitstart',Null);
+
+		// Get the gid in the URL of the active menu item
+		$menuGid = JSite::getMenu()->getActive()->query['gid'];
+		
+		// If RSG2 isn't the component being displayed, don't append meta data
 		if( $option != 'com_rsgallery2' )
 			return;
-
-		// check if an image is displayed
-		$isImage = JRequest::getInt( 'id', 0 );
-		$isImage = JRequest::getInt( 'limit', $isImage );
-		
-		if($isImage)
-		{
-			$item = rsgInstance::getItem();
-			$title = $item->title;
-			$description = htmlspecialchars(stripslashes(strip_tags($item->descr)), ENT_QUOTES );
+			
+		// Get the title and description from gallery and (if shown) item
+		if (isset($gid)) {
+			if ($menuGid == $gid) {
+				// Do nothing: showing menu item
+				return;
+			} else {
+				// Get gallery title/description
+				$title = $this->gallery->name;
+				$description = $this->gallery->description;
+				if (isset($limitstart)) {
+					// Get current item, add item title to pagetitle 
+					// and set item description in favor of gallery description
+					$item = array_slice($this->gallery->items, $limitstart, 1);
+					$title .= ' - '.$item[0]->title;
+					$description = $item[0]->descr;
+				}
+			}
+		} else {
+			// No gid, only id
+			// $this rsgDisplay_semantic object holds rsgGallery2 object with current gallery info
+			$title = $this->gallery->name;
+			$title .= ' - ';
+			// Add image title
+			$title .= rsgInstance::getItem()->title;
+			// Get image description
+			$description = rsgInstance::getItem()->descr;
 		}
-		else
-		{
 
-			if($this->gallery->id == 0)
-				$title = $mainframe->getPageTitle();
-			else
-				$title = $this->gallery->get('name');
-			$description = htmlspecialchars(stripslashes(strip_tags($this->gallery->get('description'))), ENT_QUOTES );
-		}
-		
-		$mainframe->setPageTitle( ' '. $title );
-		$mainframe->appendMetaTag( 'description',  $description );
+		// Clean up description
+		$description = htmlspecialchars(stripslashes(strip_tags($description)), ENT_QUOTES );
+
+		// Set page title and meta description
+		$document->setTitle($title);
+		$document->setMetadata('description', $description);
+
+		return;
 	}
 
 	function getGalleryLimitBox(){

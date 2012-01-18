@@ -198,8 +198,8 @@ function edit( $option, $id ) {
 	} else {
 		$lists['uid'] 			= JFactory::getUser($row->uid)->name;
 	}
-    // build the html select list for ordering
-    $lists['ordering']          = JHTML::_('list.specificordering', $row, $id, $query, 1 );
+    // build the html select list for ordering (5th arg: 0=text: 'New items default to the first position')
+    $lists['ordering']          = JHTML::_('list.specificordering', $row, $id, $query, 0 );
     // build the html select list for parent item
     $lists['parent']        = galleryParentSelectList( $row );
     // build the html select list for published if allowed to change state
