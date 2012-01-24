@@ -38,6 +38,8 @@ Legend:
 
 ---------------- Recent ----------------
 
+---------------- 3.0.1 -- SVN 1061 -- 2012-01-24 -------------
+
 2012-01-18 Mirjam - SVN 1059
 # New gallery saves by default to first position, text describing this in Gallery New screen was wrong
 # Fixed meta description and page title
