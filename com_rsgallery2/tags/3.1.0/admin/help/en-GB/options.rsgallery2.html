@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<title>RSGallery2 Help</title>
+<style>
+div.helpform {
+    font-family: arial, verdana;
+	font-size:12px;
+    background-color: #F7F8F9;
+    border: solid 1px #d5d5d5;
+    width: 98%;
+    padding: 5px;
+    margin: 5px;
+    border-collapse: collapse;
+    }
+a:link, a:visited{
+	color:#666666;
+	text-decoration:underline;
+	}
+a:hover{
+	color:#666666;
+	text-decoration:none;
+	}
+</style>
+</head>
+
+<body>
+<div class="helpform">
+<img src="../../images/rsg2-logo.png" alt="" width="220" height="58" border="0">
+<h1>RSGallery2 Options (ACL) Help</h1>
+To see RSGallery2's Control Panel in the backend users need <br />
+<ul>
+<li><u>Admin Login</u> Permission to login to the backend (set in Global Configuration > Permissions; default groups Manager, Super Users and their children have that permission) </li>
+<li>Viewing Acces level set to Special (set in Users > Access Levels; default groups Manager, Author and Super Users and their children have that)</li>
+<li><u>Access Component</u> Permission for the component (set in Component Options or in Global Configuration > Permissions; default groups Administrator and Super Users have that set in Global Configuration) </li>
+</ul> 
+
+With those permissions set you can see the buttons
+<ul>
+<li>Upload</li>
+<li>Batch upload</li>
+<li>Manage Items</li>
+<li>Manage Galleries</li>
+</ul> 
+in RSGallery2's Control Panel. 
+<p>
+To properly be able to use those buttons you'll need Create, Delete, Edit, Edit State and Edit Own permissions set. Those permissions can be set in the Global Configuration, RSGallery2's component options or a specific gallery or item. Be sure to read and understand <a href="http://docs.joomla.org/ACL_Tutorial_for_Joomla_1.6" target="_blank">ACL Tutorial for Joomla 1.6</a> to get an idea of how J!1.6 ACL works, it is implemented like that in RSGallery2.
+<p>
+<u>Create Permission</u><br />
+When allowed in Global Configuration or component options: allows to create a gallery with 'Top gallery' as a parent and allows to upload images in these galleries. Of course by inheritance it is allowed to create subgalleries and upload images in all the subgalleries as well, unless explicitly denied.<br />
+When allowed for a gallery: allows to create subgalleries to this gallery and allows to upload images in these galleries. Of course by inheritance it is allowed to create subgalleries and upload images in all the subgalleries as well, unless explicitly denied.
+<p>
+<u>Delete Permission</u><br />
+At the moment (v3.0.0) deleting galleries or items is only possible if you have Delete permission on the component level (set in the Component Options or in the Global Configuration).
+<p>
+<u>Edit/Edit Own Permission</u><br />
+You may edit galleries or items that you have either Edit permission for or Edit Own permission if you are the owner of the gallery or item. This allows you to change the name, alias and/or description and move a gallery or item to another parent gallery if you have create permission for the new gallery. 
+<p>
+<u>Edit State Permission</u><br />
+With Edit State permission you are allowed to (un)publish a gallery or item and/or change the ordering.
+<p>
+
+
+With <u>Configure</u> permission you'll also see the Configuration Panel buttons 
+<ul>
+<li>Configuration</li>
+<li>Maintenance</li>
+<li>Template Manager</li>
+<li>Options (toolbar button to set permissions for the component)</li>
+</ul> 
+
+
+
+
+<br>
+
+<p>
+</div>
+<div class="helpform" style=text-align:center;>
+    <FORM>
+        <INPUT TYPE="button" VALUE="Close Window" onClick="window.close()">
+    </FORM>
+</div>
+
+</body>
+</html>
