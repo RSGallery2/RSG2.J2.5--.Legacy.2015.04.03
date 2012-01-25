@@ -38,7 +38,11 @@ Legend:
 
 ---------------- Recent ----------------
 
----------------- 3.0.1 -- SVN 1061 -- 2012-01-24 -------------
+2012-01-258 Mirjam - SVN
+# Fixed fatal error when deleting gallery with images
+^ When item could not be deleted from database an error was thrown not specifying the problem. Now user is told which item is causing the problem, and deletion of rest is halted. (Error could be with asset-deletion handled by Joomla: re-saving the item fixed this problem; problem with asset deletion is that there is no good error message coming from Joomla).
+
+---------------- 3.1.0 -- SVN 1061 -- 2012-01-24 -------------
 
 2012-01-18 Mirjam - SVN 1059
 # New gallery saves by default to first position, text describing this in Gallery New screen was wrong

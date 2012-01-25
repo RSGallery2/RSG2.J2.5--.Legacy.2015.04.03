@@ -269,7 +269,10 @@ class rsgGalleryManager{
             // delete images in gallery
             foreach( $gallery->items() as $item ){
 				if (!imgUtils::deleteImage( galleryUtils::getFileNameFromId( $item->id ))) {
-					//MK// [todo] show error on image deletion: check & report & don't continue with gallery deletion!
+					$msg = JText::sprintf('COM_RSGALLERY2_UNABLE_DELETE_IMAGE', $item->name, $item->id);
+					JFactory::getApplication()->enqueueMessage( $msg, 'Error' );
+					JFactory::getApplication()->enqueueMessage( JText::_('COM_RSGALLERY2_DID_NOT_CONTINU_DELETING_GALLERY_AND_CONTENTS'), 'Error' );
+					return false;
 				}
             }
 
