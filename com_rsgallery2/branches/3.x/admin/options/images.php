@@ -358,7 +358,9 @@ function removeImages( $cid, $option ) {
 			//Delete from database
 			$row = new rsgImagesItem( $database );
 			if (!$row->delete($id)){
-				JError::raiseError(500, $row->getError() );
+				JError::raiseNotice('ERROR_CODE', JText::sprintf('COM_RSGALLERY2_ERROR_DELETING_ITEMINFORMATION_DATABASE_ID',$id ));
+				$mainframe->redirect( $return );
+				return;
 			}
 		}
 		

@@ -12,6 +12,7 @@ defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 
 require_once( $rsgOptions_path . 'galleries.html.php' );
 require_once( $rsgOptions_path . 'galleries.class.php' );
+require_once( $rsgOptions_path . 'images.class.php' );
 
 $cid = JRequest::getVar( 'cid' , array(), 'default', 'array' );
 
