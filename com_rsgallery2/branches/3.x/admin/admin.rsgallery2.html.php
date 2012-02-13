@@ -130,9 +130,10 @@ class HTML_RSGALLERY{
 
                         
 <div id='rsg2-credits'>
-    <h3>Core Team - RSGallery2 3.x (Joomla 1.6)</h3>
+    <h3>Core Team - RSGallery2 3.x</h3>
+	(Joomla 1.6/1.7/2.5)
     <dl>
-		<dt>2011</dt>
+		<dt>2011-2012</dt>
         	<dd><b>Johan Ravenzwaaij</b></dd>
             <dd><b>Mirjam Kaizer</b></dd>
     </dl>
@@ -155,7 +156,9 @@ class HTML_RSGALLERY{
 			<dd><b>Antti</b></dd>
 		<dt>French</dt>
 			<dd><b>Fabien de Silvestre</b></dd>
-        <dt>German</dt> <dd><b>woelzen</b><a href='http://conseil.silvestre.fr' target='_blank'>http://conseil.silvestre.fr</a></dd>
+        <dt>German</dt> 
+			<dd><b>woelzen</b><a href='http://conseil.silvestre.fr' target='_blank'>http://conseil.silvestre.fr</a></dd>
+			<dd><b>chfrey</b></dd>
 		<dt>Greek</dt>
 			<dd><b>Charis Argyropoulos</b><a href='http://www.symenox.gr' target='_blank'>http://www.symenox.gr</a></dd>
 			<dd><b>George Fakas</b></dd>

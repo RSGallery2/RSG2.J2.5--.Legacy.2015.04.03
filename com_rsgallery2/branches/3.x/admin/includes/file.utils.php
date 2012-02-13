@@ -550,10 +550,10 @@ class fileHandler {
      * @param string Absolute path to destination folder, defaults to Joomla /media folder
      */
     function handleFTP($source, $destination = '') {
-        global $ziplist, $mainframe;
+		$mainframe =& JFactory::getApplication();
         
         //Create unique install directory
-        $tmpdir         = uniqid( 'rsginstall_' );
+        $tmpdir = uniqid( 'rsginstall_' );
         
         //Set destinatiopn
         if (!$destination)
@@ -565,22 +565,23 @@ class fileHandler {
         
         //Store dirname for cleanup at the end.
         $this->extractDir = $tmpdir;
-        
-        //Check for trailing slash in source path and add one if necessary
-        $source = JPath::clean($source);
-         
-        //check source directory
+
+        //Add trailing slash to source path, clean function will remove it when unnecessery
+        $source = JPath::clean($source.DS);
+
+        //Check source directory
         if (!file_exists( $source ) OR !is_dir ( $source )) {
-            echo $source.JText::_('COM_RSGALLERY2_FU_FTP_DIR_NOT_EXIST');
-            $mainframe->redirect('index.php?option=com_rsgallery2&task=batchupload', $source.JText::_('COM_RSGALLERY2_FU_FTP_DIR_NOT_EXIST'));
+            $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload', $source.JText::_('COM_RSGALLERY2_FU_FTP_DIR_NOT_EXIST'));
         }
-        //Read files from FTP-directory
+		
+        //Read (all) files from FTP-directory
         $files = JFolder::files($source, '');
         if (!$files) {
-            $mainframe->redirect('index.php?option=com_rsgallery2&task=batchupload', JText::_('COM_RSGALLERY2_NO_VALID_IMAGES_FOUND_IN').' '.$source.'. '.JText::_('COM_RSGALLERY2_PLEASE_CHECK_THE_PATH'));
+            $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload', JText::_('COM_RSGALLERY2_NO_VALID_IMAGES_FOUND_IN').' '.$source.JText::_('COM_RSGALLERY2_PLEASE_CHECK_THE_PATH'));
         }
         
         //Create imagelist from FTP-directory
+		$list = array();	// This array will hold all files to process
         foreach($files as $file) {
             if ( is_dir($source . $file) ) {
                 continue;
@@ -594,11 +595,12 @@ class fileHandler {
                 }
             }
         }
-
+		
+		//Return imagelist only when there are images in it, else redirect
         if (count($list) == 0) {
-            echo JText::_('COM_RSGALLERY2_NO_FILES_FOUND_TO_PROCESS');
+			$mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload', JText::_('COM_RSGALLERY2_NO_FILES_FOUND_TO_PROCESS'));
         } else {
-        return $list;            
+			return $list;            
         }
     }
     

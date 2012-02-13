@@ -38,7 +38,11 @@ Legend:
 
 ---------------- Recent ----------------
 
-2012-01-258 Mirjam - SVN
+2012-02-13 Mirjam - SVN 1062
++ Updated de-DE language file (based on SVN1061) and de-DE menu-items thanks to user Chfrey (updated credits)
+# In case of an error in Step 1 of the FTP upload, the user will get redirected to the Batchupload screen and the error message is more user friendly.
+
+2012-01-25 Mirjam - SVN 1062
 # Fixed fatal error when deleting gallery with images
 ^ When item could not be deleted from database an error was thrown not specifying the problem. Now user is told which item is causing the problem, and deletion of rest is halted. (Error could be with asset-deletion handled by Joomla: re-saving the item fixed this problem; problem with asset deletion is that there is no good error message coming from Joomla).
 
