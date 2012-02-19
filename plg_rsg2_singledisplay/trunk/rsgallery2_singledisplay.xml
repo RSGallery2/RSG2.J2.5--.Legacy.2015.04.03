@@ -1,25 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<install version="1.5" type="plugin" group="content" method="upgrade">
-	<name>RSGallery2 Single Image Display</name>
+<extension version="2.5" type="plugin" group="content" method="upgrade">
+	<name>PLG_CONTENT_RSGALLERY2_SINGLEDISPLAY</name>
 	<author>Jonathan DeLaigle, Radek Kafka, Mirjam Kaizer</author>
-	<creationDate>15 May 2011</creationDate>
-	<copyright>(C) 2007 Jonathan DeLaigle. 2010 Radek Kafka. 2011 RSGallery2 Team. All rights reserved.</copyright>
+	<creationDate>19 February 2012</creationDate>
+	<copyright>(C) 2007 Jonathan DeLaigle. 2010 Radek Kafka. 2011-2012 RSGallery2 Team. All rights reserved.</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorUrl>www.rsgallery2.nl</authorUrl>
-	<version>2.1</version>
-	<description>RSGallery2 Single Display plugin</description>
+	<version>3.0</version>
+	<description>PLG_CONTENT_RSGALLERY2_SINGLEDISPLAY_XML_DESCRIPTION</description>
+
 	<files>
 		<filename plugin="rsgallery2_singledisplay">rsgallery2_singledisplay.php</filename>
 	</files>
-	<languages>
-		<language tag="en-GB">en-GB.plg_content_rsgallery2_singledisplay.ini</language>
+
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_content_rsgallery2_singledisplay.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_content_rsgallery2_singledisplay.sys.ini</language>
 	</languages>
-	<params>
-		<param name="popup_style" type="list" default="normal_popup" label="POPUP_STYLE" description="POPUP_STYLE_DESCRIPTION">
-			<option value="no_popup">No popup</option>
-			<option value="use_link">Use Link and Link Text</option>
-			<option value="normal_popup">Normal popup</option>
-			<option value="highslide">Highslide</option>
-		</param>
-	</params>
-</install>
+
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="popup_style" type="list" default="normal_popup" label="PLG_CONTENT_RSGALLERY2_SINGLEDISPLAY_POPUP_STYLE_LABEL" description="PLG_CONTENT_RSGALLERY2_SINGLEDISPLAY_POPUP_STYLE_DESCRIPTION">
+					<option value="no_popup">PLG_CONTENT_RSGALLERY2_SINGLEDISPLAY_NO_POPUP</option>
+					<option value="use_link">PLG_CONTENT_RSGALLERY2_SINGLEDISPLAY_USE_LINK</option>
+					<option value="normal_popup">PLG_CONTENT_RSGALLERY2_SINGLEDISPLAY_NORMAL_POPUP</option>
+					<option value="modal">PLG_CONTENT_RSGALLERY2_SINGLEDISPLAY_MODAL</option>
+					<option value="highslide">PLG_CONTENT_RSGALLERY2_SINGLEDISPLAY_HIGHSLIDE</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+
+</extension>
+
+
+
+
