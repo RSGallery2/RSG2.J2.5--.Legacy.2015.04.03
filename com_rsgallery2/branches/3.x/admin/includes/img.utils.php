@@ -618,7 +618,8 @@ class Netpbm extends genericImageLib{
         $cmd = $netpbm_path . "anytopnm $source | " .
             $netpbm_path . "pnmscale -width=$targetWidth | " .
             $netpbm_path . "pnmtojpeg -quality=" . $rsgConfig->get( "jpegQuality" ) . " > $target";
-        @exec($cmd);
+        @exec($cmd,$output);	// If anything goes wrong, the error messages are returned in $output: resize is successfull when !$output is true.
+        return !$output;
     }
 
     /**

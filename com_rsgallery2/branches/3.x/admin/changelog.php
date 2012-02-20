@@ -37,8 +37,10 @@ Legend:
   To do: Delete galleries: create filter in gallery view and check that delete-permission is granted for deleting subgalleries/images. Right now you may delete everything if you have delete permission for the component, even if an item/(sub)gallery doesn't have delete permission.
 
 ---------------- Recent ----------------
+2012-02-20 Mirjam - SVN 1067
+# Fixed upload with graphics library Netpbm
 
-2012-02-13 Mirjam - SVN 1062
+2012-02-13 Mirjam - SVN 1063
 + Updated de-DE language file (based on SVN1061) and de-DE menu-items thanks to user Chfrey (updated credits)
 # In case of an error in Step 1 of the FTP upload, the user will get redirected to the Batchupload screen and the error message is more user friendly.
 
