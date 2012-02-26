@@ -5,7 +5,7 @@
 * @copyright Copyright (C) 2007 Jonathan DeLaigle. (plugin for Joomla 1.0.x.)
 * @copyright Copyright (C) 2010 Radek Kafka. (Migration of plugin to Joomla 1.5.x and addition of Highslide using Highslide JS for Joomla plugin)
 * @copyright Copyright (C) 2011 RSGallery2 Team. (Addition of popup options and the popup styles: No popup, Normal popup, Joomla Modal. Code slightly re-arranged.)
-* @copyright Copyright (C) 2012 RSGallery2 Team. (Code changed for Joomla 2.5 and addition of clearfloat and modal behaviour)
+* @copyright Copyright (C) 2012 RSGallery2 Team. (Code changed for Joomla 2.5;  addition of clearfloat and modal behaviour; added parameters and userfriendly messages in case of problems)
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 * Usage example: {rsg2_singledisplay:9999,thumb,true,left;float:left,both}
 *	 imageid: Backend > Components > RSGallery2 > Items: use the number from the ID column.
@@ -14,10 +14,28 @@
 *	 format: text-align style property
 *	 clearfloat: both, left, right (clears float after image with extra div with style clear:both/left/right) or false for no added div
 */
-/* ensure this file is being included by a parent file */
+
+// Ensure this file is being included by a parent file
 defined( '_JEXEC' ) or die();
 
 class plgContentrsgallery2_singledisplay extends JPlugin {
+	
+	var $popup_style	= 'normal_popup';
+	var $debug			= 0;
+	
+	/**
+	 * Constructor
+	 *
+	 * @access      protected
+	 * @param       object  $subject The object to observe
+	 * @param       array   $config  An array that holds the plugin configuration
+	 * @since       1.5
+	 */
+	public function __construct(& $subject, $config)
+	{
+		parent::__construct($subject, $config);
+		$this->loadLanguage();
+	}
 
 	/**
 	 * @param	string	The context of the content being passed to the plugin.
@@ -31,10 +49,13 @@ class plgContentrsgallery2_singledisplay extends JPlugin {
 			return true;
 		}
 
-		// Define the regular expression for the bot.
+		// Get the parameters
+		$this->rsgallery2_singledisplay_parameters();
+
+		// Define the regular expression for the plugin
 		$regex = "#{rsg2_singledisplay\:*(.*?)}#s";
 
-		// Perform the replacement.
+		// Perform the replacement
 		$article->text = preg_replace_callback($regex, array(&$this, '_replacer'), $article->text);
 
 		return true;
@@ -43,15 +64,17 @@ class plgContentrsgallery2_singledisplay extends JPlugin {
 	/**
 	 * Replaces the matched tags.
 	 *
-	 * @param	array	An array of matches (see preg_match_all)
+	 * @param	array	An array of matches
 	 * @return	string
 	 */
 	protected function _replacer( &$matches ) {
+		$app =& JFactory::getApplication();
+
 		if( $matches ) {
-			// initialize RSGallery2 
+			// Initialize RSGallery2 
 			require_once( JPATH_BASE.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
 
-			// get attributes from matches and create array
+			// Get attributes from matches and create array
 			$attribs = explode( ',',$matches[1] );
 			if ( is_array( $attribs ) ) {
 				$clean_attribs = array ();
@@ -61,12 +84,16 @@ class plgContentrsgallery2_singledisplay extends JPlugin {
 					array_push( $clean_attribs, $clean_attrib );
 				}
 			} else {
+				if ($this->debug) {
+					$msg = JText::_('PLG_CONTENT_RSGALLERY2_SINGLEDISPLAY_NOT_AN_ARRAY');
+					$app->enqueueMessage($msg,'message');
+				}
 				return false;
 			}
 		
-			// check if imageID is numeric
+			// Check if image id is numeric
 			if ( (int)$clean_attribs[0] ) {
-				// Get imageID from attribs
+				// Get image id from attribs
 				$image_id = $clean_attribs[0];
 				// If Size is set get it from attribs
 				if ( isset( $clean_attribs[1] ) ) {
@@ -92,28 +119,38 @@ class plgContentrsgallery2_singledisplay extends JPlugin {
 				} else {
 					$clearfloat = NULL;
 				}
-			// no (numerid) imageID
+			// No (numerid) image id
 			} else {
 				// if nothing is set then the User did not use bot correctly SHOW NOTHING!
+				if ($this->debug) {
+					$msg = JText::sprintf('PLG_CONTENT_RSGALLERY2_SINGLEDISPLAY_ITEM_ID_NOT_NUMERIC',$clean_attribs[0]);
+					$app->enqueueMessage($msg,'message');
+				}
 				return false;
 			}
+			
+			// Perform checks
+			if (!$this->rsgallery2_singledisplay_checks($image_id)) return false;
 		
 			// obtain gallery object by the Images ID
 			$gallery_object = rsgGalleryManager::getGalleryByItemID( $image_id );
-			
 			// check if gallery object was returned from ImageID
 			if ( is_object( $gallery_object ) ) {
 				// get image array from gallery object	
-				$image_object = $gallery_object->getItem( $image_id );
+				if (isset($gallery_object->items[$image_id])) {
+					$image_object = $gallery_object->getItem( $image_id );
+				} else {
+					return false;				
+				}
 			} else {
 				// if image object is not returned from gallery object then user specified wrong imageID SHOW NOTHING!
-				return false; 
+				return false;
 			}
 			
 			// Check if image array was returned
 			if ( is_object( ( $image_object ) ) ) {
 				$output = $this->bot_rsg2_singledisplay_display( $image_object, $image_size, $image_caption, $image_align, $clearfloat);
-				// start output buffer (trun output buffering on)
+				// start output buffer (turn output buffering on)
 				ob_start(); 
 					// output content
 					echo $output;
@@ -124,7 +161,8 @@ class plgContentrsgallery2_singledisplay extends JPlugin {
 				// return output content buffer
 				return $display_output; 
 			} else {
-				return true;// Something messed up some how not sure but SHOW NOTHING!
+				// There is no image object returned if image is unpublished
+				return false;
 			}
 		}	//endif matches
 	}
@@ -140,12 +178,9 @@ class plgContentrsgallery2_singledisplay extends JPlugin {
 	 * Example: {rsg2_singledisplay:9999,thumb,true,left;float:left} 
 	 */
 	function bot_rsg2_singledisplay_display ( $image_object, $image_size ,$image_caption, $image_align, $clearfloat) {
-		// Get plugin info
-		$pluginName = 'rsgallery2_singledisplay';
-		$plugin =& JPluginHelper::getPlugin('content', $pluginName);
-		// Parameters
-		$pluginParams = new JParameter( $plugin->params );
-		$popupStyle = $pluginParams->get('popup_style', 'normal_popup');
+		
+		//Plugin parameter
+		$popupStyle = $this->popup_style;
 
 		//Get parameters of item object (e.g. Link and Link Text)
 		$params_obj = $image_object->parameters();
@@ -356,5 +391,73 @@ class plgContentrsgallery2_singledisplay extends JPlugin {
 		$attrib = str_replace( "&nbsp;", '', "$attrib" );
 
 		return trim( $attrib );
+	}
+	
+	/**
+	 * Get plugin parameters
+	 *
+	 * @return object
+	 */
+	function rsgallery2_singledisplay_parameters () {
+		$pluginName = 'rsgallery2_singledisplay';
+		$plugin =& JPluginHelper::getPlugin('content', $pluginName);
+		$pluginParams = new JParameter( $plugin->params );
+
+		$this->popup_style = $pluginParams->get('popup_style', 'normal_popup');
+		$this->debug = $pluginParams->get('debug', '0');
+
+		return;
+	}	
+	
+	function rsgallery2_singledisplay_checks ($image_id) {
+		$app =& JFactory::getApplication();
+		$db = JFactory::getDbo();
+		
+		// Get the image and gallery details for the checks
+		$query = $db->getQuery(true);
+		$query->select('itemTable.id as item_id, itemTable.title as item_title, itemTable.gallery_id as gallery_id, itemTable.published as item_published, galleryTable.published as gallery_published, galleryTable.access AS gallery_access, galleryTable.name as gallery_name'); // Perhaps access could be checked as well
+		$query->from('#__rsgallery2_files as itemTable');
+		$query->where('itemTable.id = '. (int) $image_id);
+		$query->leftJoin('#__rsgallery2_galleries AS galleryTable ON itemTable.gallery_id = galleryTable.id');
+		$db->setQuery($query);
+		$details = $db->loadAssoc();
+
+		//Check: are there results with this id?
+		if(!isset($details)) {
+			if ($this->debug) {
+				$msg = JText::sprintf('PLG_CONTENT_RSGALLERY2_SINGLEDISPLAY_ITEM_ID_NOT_FOUND',$image_id);
+				$app->enqueueMessage($msg,'message');
+			}
+			return false;
+		}
+		//Check image is published (the RSG2 classes won't allow to show unpublished items)
+		if (!$details['item_published']){
+			if ($this->debug) {
+				$msg = JText::sprintf('PLG_CONTENT_RSGALLERY2_SINGLEDISPLAY_ITEM_UNPUBLISHED',$details['item_title'],$image_id);
+				$app->enqueueMessage($msg,'message');
+			}
+			return false;
+		}
+		//Check image gallery is published (depending on parameter)
+		if (!$details['gallery_published']){
+			if ($this->debug) {
+				$msg = JText::sprintf('PLG_CONTENT_RSGALLERY2_SINGLEDISPLAY_GALLERY_UNPUBLISHED',$details['gallery_name'],$image_id);
+				$app->enqueueMessage($msg,'message');
+			}
+			return false;
+		}		
+		//Check user has view access for image gallery
+		$user	= JFactory::getUser();
+		$groups	= $user->getAuthorisedViewLevels();
+		$access = in_array($details['gallery_access'], $groups);
+		if (!$access){
+			if ($this->debug) {
+				$msg = JText::sprintf('PLG_CONTENT_RSGALLERY2_SINGLEDISPLAY_NO_ACCESS_TO_GALLERY',$details['gallery_name'],$details['item_title'],$image_id);
+				$app->enqueueMessage($msg,'message');
+			}
+			return false;		
+		}
+		//All checks OK!
+		return true;
 	}
 }

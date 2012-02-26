@@ -2,11 +2,11 @@
 <extension version="2.5" type="plugin" group="content" method="upgrade">
 	<name>PLG_CONTENT_RSGALLERY2_SINGLEDISPLAY</name>
 	<author>Jonathan DeLaigle, Radek Kafka, Mirjam Kaizer</author>
-	<creationDate>19 February 2012</creationDate>
+	<creationDate>26 February 2012</creationDate>
 	<copyright>(C) 2007 Jonathan DeLaigle. 2010 Radek Kafka. 2011-2012 RSGallery2 Team. All rights reserved.</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorUrl>www.rsgallery2.nl</authorUrl>
-	<version>3.0</version>
+	<version>3.1.0</version>
 	<description>PLG_CONTENT_RSGALLERY2_SINGLEDISPLAY_XML_DESCRIPTION</description>
 
 	<files>
@@ -27,6 +27,10 @@
 					<option value="normal_popup">PLG_CONTENT_RSGALLERY2_SINGLEDISPLAY_NORMAL_POPUP</option>
 					<option value="modal">PLG_CONTENT_RSGALLERY2_SINGLEDISPLAY_MODAL</option>
 					<option value="highslide">PLG_CONTENT_RSGALLERY2_SINGLEDISPLAY_HIGHSLIDE</option>
+				</field>
+				<field name="debug" type="list" default="0" label="PLG_CONTENT_RSGALLERY2_SINGLEDISPLAY_DEBUG_LABEL" description="PLG_CONTENT_RSGALLERY2_SINGLEDISPLAY_DEBUG_DESCRIPTION">
+					<option value="0">JDISABLED</option>
+					<option value="1">JENABLED</option>
 				</field>
 			</fieldset>
 		</fields>
