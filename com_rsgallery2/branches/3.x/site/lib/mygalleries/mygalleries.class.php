@@ -3,7 +3,7 @@
 * This file contains My galleries class
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2011 RSGallery2
+* @copyright (C) 2003 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -467,7 +467,7 @@ class myGalleries {
                 foreach ($rows as $row) {
 					//Get permissions
 					$can['EditGallery']		= $user->authorise('core.edit',		'com_rsgallery2.gallery.'.$row->id);
-					$can['EditOwnGallery']	= $user->authorise('core.edit.own',	'com_rsgallery2.gallery.'.$row->id) AND ($row->uid == $userId);
+					$can['EditOwnGallery']	= ($user->authorise('core.edit.own',	'com_rsgallery2.gallery.'.$row->id) AND ($row->uid == $userId));
 					$can['EditStateGallery']	= $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$row->id);
 					$can['DeleteGallery'] 	= $user->authorise('core.delete',	'com_rsgallery2.gallery.'.$row->id);
                     ?>
@@ -652,7 +652,7 @@ class myGalleries {
 					global $rsgConfig;
 					//Get permissions
 					$can['EditImage']		= $user->authorise('core.edit',		'com_rsgallery2.item.'.$image->id);
-					$can['EditOwnImage']	= $user->authorise('core.edit.own',	'com_rsgallery2.item.'.$image->id) OR ($image->userid == $userId);
+					$can['EditOwnImage']	= (($user->authorise('core.edit.own',	'com_rsgallery2.item.'.$image->id)) AND ($image->userid == $userId));
 					$can['EditStateImage']= $user->authorise('core.edit.state','com_rsgallery2.item.'.$image->id);
 					$can['DeleteImage'] 	= $user->authorise('core.delete',	'com_rsgallery2.item.'.$image->id);
 					?>
