@@ -37,6 +37,9 @@ Legend:
   To do: Delete galleries: create filter in gallery view and check that delete-permission is granted for deleting subgalleries/images. Right now you may delete everything if you have delete permission for the component, even if an item/(sub)gallery doesn't have delete permission.
 
 ---------------- Recent ----------------
+2012-02-29 Mirjam - SVN 1069
+# Authorisation checks on frontend My Galleries (create gallery in top gallery, edit permission also checks edit.own combined with ownership)
+
 2012-02-20 Mirjam - SVN 1067
 # Fixed upload with graphics library Netpbm
 
