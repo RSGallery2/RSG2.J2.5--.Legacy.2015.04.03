@@ -3,7 +3,7 @@
 * Galleries option for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2011 RSGallery2
+* @copyright (C) 2003 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -75,9 +75,13 @@ switch( $task ){
  * @param database A database connector object
  */
 function show(){
-    global $mainframe, $mosConfig_list_limit, $option;
+    global $mainframe, $option;
 	$database =& JFactory::getDBO();
-    $limit      = $mainframe->getUserStateFromRequest( "viewlistlimit", 'limit', $mosConfig_list_limit );
+
+	$app = &JFactory::getApplication();
+	$list_limit = $app->getCfg('list_limit');
+	
+    $limit      = $mainframe->getUserStateFromRequest( "viewlistlimit", 'limit', $list_limit );
     $limitstart = $mainframe->getUserStateFromRequest( "view{$option}limitstart", 'limitstart', 0 );
     $levellimit = $mainframe->getUserStateFromRequest( "view{$option}limit", 'levellimit', 10 );
     $search     = $mainframe->getUserStateFromRequest( "search{$option}", 'search', '' );
