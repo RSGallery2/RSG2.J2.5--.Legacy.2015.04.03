@@ -3,7 +3,7 @@
 * This file contains myGalleries class
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2011 RSGallery2
+* @copyright (C) 2003 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -485,26 +485,26 @@ class myGalleries {
         }
     }
     
-    
+    /**
+     * This presents the list of galleries shown in My galleries
+     * @param array $rows All galleries (no longer only for logged in users)
+     */   
     function showMyGalleries($rows) {
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
     //Set variables
     $count = count($rows);
     ?>
-		<div class="rsg2">
+	<div class="rsg2">
     <table class="adminform" width="100%" border="1">
             <tr>
                 <td colspan="4"><h3><?php echo JText::_('My galleries');?></h3></td>
-				<td></td>
             </tr>
             <tr>
                 <th><div align="center"><?php echo JText::_('Gallery'); ?></div></th>
                 <th width="75"><div align="center"><?php echo JText::_('Published'); ?></div></th>
                 <th width="75"><div align="center"><?php echo JText::_('Delete'); ?></div></th>
                 <th width="75"><div align="center"><?php echo JText::_('Edit'); ?></div></th>
-                <th width="75"><div align="center"><?php //echo JText::_('Permissions'); ?></div></th>
-
             </tr>
             <?php
             if ($count == 0) {
@@ -527,6 +527,14 @@ class myGalleries {
                     </script>
                     <tr>
                         <td>
+							<?php
+							$indent = "";
+							for ($i = 0; $i < $row->level; $i++) {
+								$indent .= "&nbsp;&nbsp;&nbsp;&nbsp;";
+								if ($i == $row->level -1) $indent .= "<sup>|_</sup>";
+							}
+							echo $indent;
+							?>
                         	<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editCat&gid='.$row->id);?>">
                         		<?php echo stripslashes($row->name);?>
                         	</a>
@@ -552,65 +560,14 @@ class myGalleries {
                         		</div>
                         	</a>
                         </td>
-                        <td>
-<!--							<a href="#" onclick="alert('Feature not implemented yet')"><div align="center"><img src="<?php //echo JURI_SITE;?>/administrator/images/users.png" alt="" width="22" height="22"></div>-->
-						</td>
                     </tr>
                     <?php
-                    $sql2 = "SELECT * FROM #__rsgallery2_galleries WHERE parent = $row->id ORDER BY ordering ASC";
-                    $database->setQuery($sql2);
-                    $rows2 = $database->loadObjectList();
-                    foreach ($rows2 as $row2) {
-                        if ($row2->published == 1)
-                            $img = "publish_g.png";
-                        else
-                            $img = "publish_r.png";?>
-                        <tr>
-                            <td>
-                                <img src="<?php echo JURI_SITE;?>/administrator/components/com_rsgallery2/images/sub_arrow.png" alt="" width="12" height="12" >
-                                &nbsp;
-                                <a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editCat&gid='.$row2->id);?>">
-                                	<?php echo $row2->name;?>
-                                </a>
-                            </td>
-                            <td>
-                                <div align="center">
-                                    <img src="<?php echo JURI_SITE;?>/administrator/images/<?php echo $img;?>" alt="" width="12" height="12" >
-                                </div>
-                            </td>
-                            <td>
-                                <a href="javascript:deletePres(<?php echo $row2->id;?>);">
-                                    <div align="center">
-                                    <img src="<?php echo JURI_SITE;?>/administrator/images/publish_x.png" alt="" width="12" height="12" >
-                                    </div>
-                                </a>
-                            </td>
-                            <td>
-                                <a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&task=editCat&gid='.$row2->id)?>">
-                                <div align="center">
-                                    <img src="<?php echo JURI_SITE;?>/administrator/images/edit_f2.png" alt="" width="18" height="18" >
-                                </div>
-                                </a>
-                            </td>
-                            <td>
-<!--                            <a href="#" onclick="alert('<?php //echo JText::_('Feature not implemented yet')?>')">
-                                <div align="center">
-                                    <img src="<?php //echo JURI_SITE; ?>/administrator/images/users.png" alt="" width="22" height="22" >
-                                </div>
-                                </a>
--->                         </td>
-
-                        </tr>
-                        <?php
-                        }
-                    }
-                }
+				}	//foreach ($rows as $row) - end
+			}	//If count not 0 - end
                     ?>
-                    <tr>
-                        <th colspan="5">&nbsp;</th>
-                    </tr>
-                </table>
-				</div>
+	</table>
+	</div>
+	<p></p>
     <?php
     }
     /**
@@ -927,6 +884,53 @@ function editCat($rows = null) {
         </form>
         <?php
     }
+
+   /* 
+	* Function recursiveGalleriesList gets a list of galleries with their id, parent en hierarchy level ordered by ordering and subgalleries grouped by their parent.
+	* $id		Gallery parent number
+	* $list		The list to return
+	* $children	The 2dim. array with children
+	* $maxlevel Maximum depth of levels
+	* $level	Hierarchy level (e.g. sub gallery of root is level 1)
+	* return	Array
+	*/
+	function recursiveGalleriesList(){
+		$user = JFactory::getUser();
+
+		//Function to help out
+		function treerecurse($id,  $list, &$children, $maxlevel=20, $level=0) {
+			//if there are children for this id and the max.level isn't reached
+			if (@$children[$id] && $level <= $maxlevel) {
+				//add each child to the $list and ask for its children
+				foreach ($children[$id] as $v) {
+					$id = $v->id;	//gallery id
+					$list[$id] = $v;
+					$list[$id]->level = $level;
+					//$list[$id]->children = count(@$children[$id]);
+					$list = treerecurse($id,  $list, $children, $maxlevel, $level+1);
+				}
+			}
+			return $list;
+		}
+		// Get a list of all galleries (id/parent) ordered by parent/ordering
+		$database =& JFactory::getDBO();
+		$query = "SELECT * FROM #__rsgallery2_galleries ORDER BY parent, ordering";
+		$database->setQuery( $query );
+		$allGalleries = $database->loadObjectList();
+		// Establish the hierarchy by first getting the children: 2dim. array $children[parentid][]
+		$children = array();
+		if ( $allGalleries ) {
+			foreach ( $allGalleries as $v ) {
+				$pt     = $v->parent;
+				$list   = @$children[$pt] ? $children[$pt] : array();
+				array_push( $list, $v );
+				$children[$pt] = $list;
+			}
+		}
+		// Get list of galleries with (grand)children in the right order and with level info
+		$recursiveGalleriesList = treerecurse( 0, array(), $children, 20, 0 );
+		return $recursiveGalleriesList;
+	}
 
 }//end class
 ?>

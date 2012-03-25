@@ -31,6 +31,11 @@ Legend:
 ! -> Note
 
 ---------------- Recent ----------------
+
+2012-03-25 Mirjam - SVN 1070
+# List limit was "All" by default, now takes the Global Configuration List Length
+# Frontend My Galleries showed only two levels deep: now up to 20 levels.
+
 ---------------- 2.2.1 ------- svn 1044 -- 2011-09-19 -------------
 
 2011-09-19 Mirjam - SVN 1042/1043

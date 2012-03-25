@@ -3,7 +3,7 @@
 * This file contains code for frontend My Galleries.
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2011 RSGallery2
+* @copyright (C) 2003 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -82,14 +82,15 @@ function showMyGalleries() {
 	jimport('joomla.html.pagination');
 	$pageNav = new JPagination( $total, $limitstart, $limit );
 	
+	//Get all images
 	$database->setQuery("SELECT * FROM #__rsgallery2_files" .
 						" WHERE userid = '$my->id'" .
 						" ORDER BY date DESC" .
 						" LIMIT $pageNav->limitstart, $pageNav->limit");
 	$images = $database->loadObjectList();
-	$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE parent = 0 AND uid = '$my->id'");
-	$rows = $database->loadObjectList();
-	
+	//Get all galleries based on hierarchy (up to 20 levels deep, with level property to show the level)
+	$rows = myGalleries::recursiveGalleriesList();
+
 	if($my->id) {
 		//User is logged in, show it all!
 		myGalleries::viewMyGalleriesPage($rows, $images, $pageNav);
