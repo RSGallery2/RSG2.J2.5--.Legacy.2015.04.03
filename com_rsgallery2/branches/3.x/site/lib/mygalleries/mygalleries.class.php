@@ -43,7 +43,7 @@ class myGalleries {
 		myGalleries::mygalleriesJavascript();
 		
 		//IE has a bug for 'disabled' options in a select box. Fix used from http://www.lattimore.id.au/2005/07/01/select-option-disabled-and-the-javascript-solution/
-	?>	<!--[if lt IE 8]>
+	?>	<!--[if lte IE 9]>
 		<script type="text/javascript" src="<?php echo JURI_SITE;?>components/com_rsgallery2/lib/mygalleries/select-option-disabled-emulation.js"></script>
 		<![endif]-->
 	<?php
@@ -51,17 +51,19 @@ class myGalleries {
         //Show User information
         myGalleries::RSGalleryUSerInfo($user->id);
 
-		//Is there at least one gallery for which I have core.create?
-		$createAllowedInAnyGallery = count(galleryUtils::getAuthorisedGalleries('core.create'));
-		
+		//Is there at least one gallery where the user is allowed to create a gallery or an item?
+		$createAllowedInAGallery = count(rsgAuthorisation::authorisationCreate_galleryList());
+		//Is it allowed to create a gallery on the component permission level (e.g. create a gallery with the root (gid = 0) as parent?
+		$createAllowedInRoot = rsgAuthorisation::authorisationCreate(0);
+
         //Start tabs
 		jimport("joomla.html.pane");
         $tabs =& JPane::getInstance("Tabs");
 		echo $tabs->startPane( 'tabs' );
 			echo $tabs->startPanel( JText::_('COM_RSGALLERY2_MY_IMAGES'), 'my_images' );
 				myGalleries::showMyImages($images, $pageNav);
-				//showImageUpload only with core.create for one or more galleries:
-				if ($createAllowedInAnyGallery) {
+				//showImageUpload only with create permission for one or more galleries:
+				if ($createAllowedInAGallery) {
 					echo $tabs->startPanel(JText::_('COM_RSGALLERY2_ADD_IMAGE'),'image_upload');
 						myGalleries::showImageUpload();
 					echo $tabs->endPanel();
@@ -70,7 +72,7 @@ class myGalleries {
 		echo $tabs->startPanel( JText::_('COM_RSGALLERY2_MY_GALLERIES'), 'my_galleries' );
 			myGalleries::showMyGalleries($rows);
 			//Only show Create Gallery when creation of galleries is allowed in component or in one or more galleries
-			if (($user->authorise('core.create','com_rsgallery2')) OR ($createAllowedInAnyGallery)) {
+			if ($createAllowedInRoot OR $createAllowedInAGallery) {
 				echo $tabs->startPanel(JText::_('COM_RSGALLERY2_CREATE_GALLERY'),'create_gallery');
 					myGalleries::showCreateGallery(NULL);
 				echo $tabs->endPanel();
@@ -144,8 +146,8 @@ class myGalleries {
 					<td><?php echo JText::_('COM_RSGALLERY2_PARENT_ITEM');?></td>
 					<td>
 						<?php
-						//Show all galleries where galleries without 'core.create' are disabled, select name is 'parent', no gallery is selected, no additional select atributes, showTopGallery
-						galleryUtils::showUserGalSelectList('core.create', 'parent', '', '',true);
+						//Show all galleries where galleries without create permission are disabled, select name is 'parent', no gallery is selected, no additional select atributes, showTopGallery
+						galleryUtils::showUserGalSelectListCreateAllowed('parent', '', '',true);
 						//Limits to only user owned, does not use permissions:
 						//galleryUtils::showCategories(NULL, $my->id, 'parent');
 						?>
@@ -216,7 +218,7 @@ class myGalleries {
 		$my = JFactory::getUser();
 		$editor = JFactory::getEditor();
 
-		//function showImageUpload should only be called when user has core.create for 1 or more galleries
+		//function showImageUpload should only be called when user has create permission for one or more galleries
         
         //Script for this form is found in myGalleries::mygalleriesJavascript();
         ?>
@@ -246,8 +248,8 @@ class myGalleries {
 				</td>
 				<td>
 					<?php 
-					//Show all galleries where galleries without 'core.ceate' are disabled, select name is 'gallery_id', no gallery is selected, no gallery is selected, no additional select atributes, don't showTopGallery
-					galleryUtils::showUserGalSelectList('core.create', 'gallery_id');
+					//Show all galleries where galleries without ceate permission are disabled, select name is 'gallery_id', no gallery is selected, no additional select atributes, don't showTopGallery
+					galleryUtils::showUserGalSelectListCreateAllowed('gallery_id');
 					//Deprecated:
 					//galleryUtils::galleriesSelectList(null, 'gallery_id', false);*/
 					//Limits to only user owned, does not use permissions:
@@ -466,10 +468,9 @@ class myGalleries {
             } else { //List of galleries
                 foreach ($rows as $row) {
 					//Get permissions
-					$can['EditGallery']		= $user->authorise('core.edit',		'com_rsgallery2.gallery.'.$row->id);
-					$can['EditOwnGallery']	= ($user->authorise('core.edit.own',	'com_rsgallery2.gallery.'.$row->id) AND ($row->uid == $userId));
-					$can['EditStateGallery']	= $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$row->id);
-					$can['DeleteGallery'] 	= $user->authorise('core.delete',	'com_rsgallery2.gallery.'.$row->id);
+					$can['EditGallery']		= rsgAuthorisation::authorisationEditGallery($row->id);
+					$can['EditStateGallery']	= rsgAuthorisation::authorisationEditStateGallery($row->id);
+					$can['DeleteGallery'] 	= rsgAuthorisation::authorisationDeleteGallery($row->id);
                     ?>
                     <script type="text/javascript">
 						//<![CDATA[
@@ -490,7 +491,7 @@ class myGalleries {
 								$indent .= "&nbsp;&nbsp;&nbsp;&nbsp;";
 								if ($i == $row->level -1) $indent .= "<sup>|_</sup>";
 							}
-							if ($can['EditGallery'] OR $can['EditOwnGallery']){
+							if ($can['EditGallery']){
 								//name with link
 								echo $indent;?>
 								<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid='.$Itemid.'&task=editCat&gid='.$row->id);?>">
@@ -554,7 +555,7 @@ class myGalleries {
                         </td>
                         <td>
 						<?php
-							if ($can['EditGallery'] OR $can['EditOwnGallery']) {
+							if ($can['EditGallery']) {
 								//active image with link
 								?>
 								<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid='.$Itemid.'&task=editCat&gid='.$row->id);?>">
@@ -651,20 +652,19 @@ class myGalleries {
 				//foreach ($images as $image) {
 					global $rsgConfig;
 					//Get permissions
-					$can['EditImage']		= $user->authorise('core.edit',		'com_rsgallery2.item.'.$image->id);
-					$can['EditOwnImage']	= (($user->authorise('core.edit.own',	'com_rsgallery2.item.'.$image->id)) AND ($image->userid == $userId));
-					$can['EditStateImage']= $user->authorise('core.edit.state','com_rsgallery2.item.'.$image->id);
-					$can['DeleteImage'] 	= $user->authorise('core.delete',	'com_rsgallery2.item.'.$image->id);
+					$can['EditImage']		= rsgAuthorisation::authorisationEditItem($image->id);	
+					$can['EditStateImage']	= rsgAuthorisation::authorisationEditStateItem($image->id);	
+					$can['DeleteImage'] 	= rsgAuthorisation::authorisationDeleteItem($image->id);
 					?>
 					<tr>
 						<td>
 							<?php $checked 	= JHTML::_('grid.checkedout', $image, $i );?>
-							<?php echo $checked; ?>
+							<?php echo $checked;?>
 						</td>
 						<td>
 							<?php 
 							//Tooltip with or without link
-							if ($can['EditImage'] OR $can['EditOwnImage']){
+							if ($can['EditImage']){
 								//tooltip: tip, tiptitle, tipimage, tiptext, url, depreciated bool=1 (@todo: this link has two // in it between root and imgPath_thumb)
 								echo JHTML::tooltip('<img src="'.JURI::root().$rsgConfig->get('imgPath_thumb').'/'.$image->name.'.jpg" alt="'.$image->name.'" />',
 								$image->name,
@@ -729,7 +729,7 @@ class myGalleries {
 						</td>
 						<td>
 							<?php
-							if ($can['EditImage'] OR $can['EditOwnImage']){
+							if ($can['EditImage']){
 								//active image with link
 								?>
 								<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid='.$Itemid.'&task=editItem&id=$image->id");?>">
@@ -848,8 +848,8 @@ class myGalleries {
 					<td align="left"><?php echo JText::_('COM_RSGALLERY2_CATEGORY_NAME'); ?></td>
 					<td align="left">
 						<?php 
-						//Show all galleries where galleries without 'core.create' are disabled, select name is 'gallery_id', $gallery_id is selected, no additional select atributes, don't showTopGallery
-						galleryUtils::showUserGalSelectList('core.create', 'gallery_id', $gallery_id);
+						//Show all galleries where galleries without create permission are disabled, select name is 'gallery_id', $gallery_id is selected, no additional select atributes, don't showTopGallery
+						galleryUtils::showUserGalSelectListCreateAllowed('gallery_id', $gallery_id);
 						//Limits to only user owned, does not use permissions:
 						//galleryUtils::showCategories(NULL, $my->id, 'gallery_id');
 						?>
@@ -964,8 +964,8 @@ function editCat($rows = null) {
 				<td><?php echo JText::_('COM_RSGALLERY2_PARENT_ITEM');?></td>
 				<td>
 					<?php 
-					//Show all galleries where galleries without 'core.create' are disabled, select name is 'parent', $parent is selected, no additional select atributes, showTopGallery
-					galleryUtils::showUserGalSelectList('core.create', 'parent', $row->parent, '', true);
+					//Show all galleries where galleries without create permission are disabled, select name is 'parent', $parent is selected, no additional select atributes, showTopGallery
+					galleryUtils::showUserGalSelectListCreateAllowed('parent', $row->parent, '', true);			
 					?>
 				</td>
 			</tr>

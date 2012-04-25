@@ -44,6 +44,8 @@ $rsgVersion = new rsgalleryVersion();
 
 //include ACL class
 require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'access.class.php');
+// include authorisation check class
+require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'authorisation.class.php');
 
 // include rsgInstance
 require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'instance.class.php');
