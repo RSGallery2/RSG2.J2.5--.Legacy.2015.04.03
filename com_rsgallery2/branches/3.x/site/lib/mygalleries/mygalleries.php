@@ -138,17 +138,21 @@ function deleteItem() {
 	$database = JFactory::getDBO();
 	$id = JRequest::getInt( 'id'  , '');
 	$Itemid = JRequest::getInt( 'Itemid'  , '');
+	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=".$Itemid, false);
 	
 	//Check if delete is allowed for this item
-	if (!$user->authorise('core.delete', 'com_rsgallery2.item.'.$id)){
+	if (!rsgAuthorisation::authorisationDeleteItem($id)){
 		JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 		$mainframe->redirect(JRoute::_( $redirect ));
 	}
 
 	if ($id) {		
 		$filename 	= galleryUtils::getFileNameFromId($id);
-		imgUtils::deleteImage($filename);
-		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid",false), JText::_('COM_RSGALLERY2_IMAGE_IS_DELETED') );
+		if (imgUtils::deleteImage($filename)) {
+			$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid",false), JText::_('COM_RSGALLERY2_IMAGE_IS_DELETED') );
+		} else {
+			$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid",false) );
+		}
 	} else {
 		//No ID sent, no delete possible, back to my galleries
 		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries"), JText::_('COM_RSGALLERY2_NO_ID_PROVIDED_CONTACT_COMPONENT_DEVELOPER') );
@@ -157,42 +161,15 @@ function deleteItem() {
 
 function editItem() {
 	$database = JFactory::getDBO();
-	$id = JRequest::getInt('id'  , null);
+	$id = JRequest::getInt('id', null);
 	$user = JFactory::getUser();
 	$mainframe =& JFactory::getApplication();
-	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
+	$Itemid = JRequest::getInt('Itemid', null);
+	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=".$Itemid, false);
 
 	//Is the user allowed to edit the item?
 	//(Check on users that "know the URL" to access the edit screen)
-	$allowed = false;	//By default: no
-	$canEditImage 	 = $user->authorise('core.edit', 'com_rsgallery2.item.'.$id);
-	if ($canEditImage){
-		//User is allowed to edit the image
-		$allowed = true;
-	} else {
-		$canEditOwnImage = $user->authorise('core.edit.own', 'com_rsgallery2.item.'.$id);
-		if ($canEditOwnImage) {
-			//Check if user owns the image
-			$db = JFactory::getDBO();
-			$query = $db->getQuery(true);
-			$query->select('userid');
-			$query->from('#__rsgallery2_files');
-			$query->where('id = '.$id);
-			$db->setQuery((string)$query);
-			$ownerid = $db->loadResult();
-			$isOwner = ($ownerid == $user->id);
-			if ($isOwner) {
-				//Owner is allowed to edit the image
-				$allowed = true;
-			} else {
-				//Not the owner so not  allowed to edit the image
-				$allowed = false;
-			}
-		} else {
-			//Not allowed to edit the image
-			$allowed = false;
-		}
-	}
+	$allowed = rsgAuthorisation::authorisationEditItem($id);
 	//Redirect if user is not allowed to edit the item 
 	if (!$allowed){
 		JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
@@ -213,24 +190,20 @@ function saveItem() {
 	$mainframe =& JFactory::getApplication();
 	$database = JFactory::getDBO();
 	$user = JFactory::getUser();
+	$Itemid = JRequest::getInt('Itemid', '');
 
 	//Get id of item
 	$id = JRequest::getInt( 'id'  , '');
 	
 	//Set redirect URL
-	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
+	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=".$Itemid, false);
 
 	//Create item object and get details
 	$row = new rsgImagesItem( $database );
 	$row->load($id);
-	
-	//Determine if the user is owner and has edit or edit.own permission
-	$isOwner		 = ($row->userid == $user->id);
-	$canEditImage 	 = $user->authorise('core.edit', 'com_rsgallery2.item.'.$id);
-	$canEditOwnImage = $user->authorise('core.edit.own', 'com_rsgallery2.item.'.$id);
 
-	//Check if user is allowed to edit this item, if not allowed: redirect
-	$allowed =(($canEditImage) or ($canEditOwnImage AND $isOwner));
+	//Determine if the user is allewed to edit (and thus save) this item
+	$allowed = rsgAuthorisation::authorisationEditItem($id);
 	if (!$allowed){
 		JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 		$mainframe->redirect(JRoute::_( $redirect ));
@@ -273,8 +246,8 @@ function saveUploadedItem() {
 	//Get category ID to check rights
 	$gallery_id = JRequest::getVar( 'gallery_id'  , '');
 	
-	//Check if user is allowed to upload in this gallery
-	if (!$user->authorise('core.create', 'com_rsgallery2.gallery.'.$gallery_id)){
+	//Check if user is allowed to upload in this gallery (parent gallery has id $gallery_id)
+	if (!rsgAuthorisation::authorisationCreate($gallery_id)){
 		JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 		$mainframe->redirect(JRoute::_( $redirect ));
 	}
@@ -363,38 +336,10 @@ function editCat($id) {
 	$mainframe =& JFactory::getApplication();
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
 
-//Only when $id exists!
+	//Only when $id exists!
 	if ($id) {
-		//Is the user allowed to edit the item?
-		//(Check on users that "know the URL" to access the edit screen)
-		$allowed = false;	//By default: no
-		$canEditGallery = $user->authorise('core.edit', 'com_rsgallery2.gallery.'.$id);
-		if ($canEditGallery) {
-			//User is allowed to edit the gallery
-			$allowed = true;
-		} else {
-			$canEditOwnGallery = $user->authorise('core.edit.own', 'com_rsgallery2.gallery.'.$id);
-			if ($canEditOwnGallery) {
-				//Check if user owns the image
-				$db = JFactory::getDBO();
-				$query = $db->getQuery(true);
-				$query->select('uid');
-				$query->from('#__rsgallery2_galleries');
-				$query->where('id = '.$id);
-				$db->setQuery((string)$query);
-				$ownerid = $db->loadResult();
-				$isOwner = ($ownerid == $user->id);
-				if ($isOwner) {
-					//Owner is allowed to edit the image
-					$allowed = true;
-				} else {
-					//Not the owner so not  allowed to edit the image
-					$allowed = false;
-				}
-			}
-		}
-
 		//Check if user is allowed to edit this gallery 
+		$allowed = rsgAuthorisation::authorisationEditGallery($id);
 		if (!$allowed){
 			JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 			$mainframe->redirect(JRoute::_( $redirect ));
@@ -417,10 +362,14 @@ function editCat($id) {
 	}
 }
 
+	/**
+	 * Saves gallery, either new or the one that was edited
+	 * $param int gallery id (0 in case of a new gallery)
+	 */
+
 function saveCat($gid) {
 	// Check for request forgeries
 	JRequest::checkToken() or jexit( 'Invalid Token' );
-	
 	global $rsgConfig;
 	$mainframe =& JFactory::getApplication();
 	$user = JFactory::getUser();
@@ -429,17 +378,19 @@ function saveCat($gid) {
 	//Set redirect URL
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
 	
-	//Check if user is allowed to upload in the chosen gallery:
-	// If the parent gallery is the root gallery (id 0), check component permission, 
-	// otherwise check parent gallery permission.
-	$parent_gallery = JRequest::getVar( 'parent');
-	if ($parent_gallery) {
-		if (!$user->authorise('core.create', 'com_rsgallery2.gallery.'.$parent_gallery)){
+	// When saving a gallery that was edited: gid <> 0 => Check edit permission (of this gallery)
+	// When saving a new gallery: gid = 0 => Check create permission (for the parent gallery)
+	if ($gid) {
+		// Check edit permission on the (existing) gallery that is being saved
+		$allowed = rsgAuthorisation::authorisationEditGallery($gid);
+		if (!$allowed){
 			JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 			$mainframe->redirect(JRoute::_( $redirect ));
 		}
 	} else {
-		if (!$user->authorise('core.create', 'com_rsgallery2')){
+		//Check if user is allowed to create a gallery in the chosen gallery:
+		$parent_gallery = JRequest::getVar( 'parent');
+		if (!rsgAuthorisation::authorisationCreate($parent_gallery)){
 			JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 			$mainframe->redirect(JRoute::_( $redirect ));
 		}
@@ -517,9 +468,8 @@ function deleteCat() {
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries",false);
 
 	//Is user allowed to delete this gallery?
-	$canDelete = $my->authorise($core.delete, 'com_rsgallery2.gallery.'.$gid);
-
-	if (!$canDelete) {
+	$allowed = rsgAuthorisation::authorisationDeleteGallery($gid);
+	if (!$allowed) {
 		$mainframe->redirect( $redirect ,JText::_('COM_RSGALLERY2_PERMISSION_NOT_ALLOWED_DELETE_GALLERY'));
 	} else {
 		//Check if gallery has children
@@ -568,8 +518,8 @@ function editStateGallery($galleryId, $newState) {
 	//Set redirect URL
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
 
-	//Check if user is allowed to edit the state of this gallery
-	if (!$user->authorise('core.edit.state', 'com_rsgallery2.gallery.'.$galleryId)){
+	//Check if user is allowed to edit the state of this gallery (to prevent direct access)
+	if (!rsgAuthorisation::authorisationEditStateGallery($galleryId)){
 		JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 		$mainframe->redirect(JRoute::_( $redirect ));
 	}
@@ -593,13 +543,13 @@ function editStateItem($id, $newState) {
 	$user = JFactory::getUser();
 	//Set redirect URL
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid", false);
-	
-	//Check if user is allowed to edit the state of this item
-	if (!$user->authorise('core.edit.state', 'com_rsgallery2.item.'.$id)){
+
+	//Check if user is allowed to edit the state of this item (to prevent direct access)
+	if (!rsgAuthorisation::authorisationEditStateItem($id)){
 		JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 		$mainframe->redirect(JRoute::_( $redirect ));
 	}
-	
+
 	$database->setQuery("UPDATE #__rsgallery2_files SET ".
 			"published = $newState ".
 			"WHERE id= '$id'");
@@ -618,9 +568,9 @@ function editStateItems($cid,$newstate=0) {
 	$user = JFactory::getUser();
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid", false);
 	
-	//Get array of items where user is allowed to edit the state of the item
+	//Get array of item ids where user is allowed to edit the state of the item
 	foreach ($cid as &$value) {
-		if ($user->authorise('core.edit.state', 'com_rsgallery2.item.'.$value)){
+		if (rsgAuthorisation::authorisationEditStateItem($value)){
 			$allowedId[] = $value;
 		}
 	}
@@ -634,25 +584,35 @@ function editStateItems($cid,$newstate=0) {
 	if ($database->query()) {
 		$mainframe->redirect(JRoute::_( $redirect ), JText::_('COM_RSGALLERY2_DETAILS_SAVED_SUCCESFULLY') );
 	} else {
-		//echo JText::_('COM_RSGALLERY2_ERROR-').mysql_error();
 		$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_COULD_NOT_UPDATE_IMAGE_DETAILS') );
 	}
 }
+
 function deleteItems($cid) {
 	$mainframe =& JFactory::getApplication();
 	$Itemid = JRequest::getInt( 'Itemid'  , '');
 	$database = JFactory::getDBO();
 	$user = JFactory::getUser();
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid", false);
+	$success = false;
 	
 	//Get array of items where user is allowed to delete the item
 	foreach ($cid as &$value) {
-		if ($user->authorise('core.delete', 'com_rsgallery2.item.'.$value)){
+		if (rsgAuthorisation::authorisationDeleteItem($value)){
 			$filename 	= galleryUtils::getFileNameFromId($value);
 			//delete the image
 			imgUtils::deleteImage($filename);
+			$success = true;
+		} else {
+			$title = galleryUtils::getTitleFromId($value);
+			JError::raiseWarning(404, JText::_("COM_RSGALLERY2_PERMISSION_NOT_ALLOWED_DELETE_ITEM"));
+			JError::raiseWarning(404, $title);
 		}
+		
 	}
-	$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid",false), JText::_('COM_RSGALLERY2_MAGE-S_DELETED_SUCCESFULLY') );
+	if ($success) {
+		$msg = JText::_('COM_RSGALLERY2_MAGE-S_DELETED_SUCCESFULLY');
+	}
+	$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid",false), $msg );
 }
 ?>

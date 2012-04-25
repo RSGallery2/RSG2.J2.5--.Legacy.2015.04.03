@@ -135,6 +135,7 @@ class galleryUtils {
 	 * @param string Name of the select box, defaults to 'catid'
 	 * @param integer ID of selected gallery
 	 * @param string Additional select tag attributes
+	 * @param bool show Top Gallery to select, default no
 	 * @return HTML to show selectbox
 	 */
 	function showUserGalSelectList($action = '', $select_name = 'catid', $gallery_id = null, $js = '',$showTopGallery = false) {
@@ -149,6 +150,36 @@ class galleryUtils {
 			$dropdown_html .= "<option value=0";
 			// Disable when action not allowed or user not owner
 			if (!$user->authorise($action, 'com_rsgallery2'))
+				$dropdown_html .= ' disabled="disabled"';
+			if ($gallery_id == 0)
+				$dropdown_html .= ' selected="selected"';
+			$dropdown_html .= ' >- '.JText::_('COM_RSGALLERY2_TOP_GALLERY').' -</option>';
+		}
+		
+		$dropdown_html .= galleryUtils::addToGalSelectList(0, 0, $gallery_id, $galleriesAllowed);
+		echo $dropdown_html."</select>";
+	}
+	
+	/**
+	 * Show gallery select list according to the permissions of the logged in user
+	 * @param string Name of the select box, defaults to 'catid'
+	 * @param integer ID of selected gallery
+	 * @param string Additional select tag attributes
+	 * @param bool show Top Gallery to select, default no
+	 * @return HTML to show selectbox
+	 */
+	function showUserGalSelectListCreateAllowed($select_name = 'catid', $gallery_id = null, $js = '',$showTopGallery = false) {
+		$user = JFactory::getUser();
+
+		//Get gallery Id's where create is allowed and write to string
+		$galleriesAllowed = rsgAuthorisation::authorisationCreate_galleryList();
+
+		$dropdown_html = '<select name="'.$select_name.'" '.$js.'><option value="-1" selected="selected" >'.JText::_('COM_RSGALLERY2_SELECT_GALLERY_FROM_LIST').'</option>';
+		
+		if ($showTopGallery) {
+			$dropdown_html .= "<option value=0";
+			// Disable Top gallery when no create permission for component
+			if (!$user->authorise('core.create', 'com_rsgallery2'))
 				$dropdown_html .= ' disabled="disabled"';
 			if ($gallery_id == 0)
 				$dropdown_html .= ' selected="selected"';

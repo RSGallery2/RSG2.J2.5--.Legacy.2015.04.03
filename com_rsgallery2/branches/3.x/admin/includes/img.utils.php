@@ -382,9 +382,9 @@ class imgUtils extends fileUtils{
 		$id 	= $itemDetails['id'];
 		$gid 	= $itemDetails['gallery_id'];
 
-//MK// [todo] check that this access check works		
 		//Item deletion permission check
-		if (!JFactory::getUser()->authorise('core.delete','com_rsgallery2.item.'.$id)) {
+		if (!rsgAuthorisation::authorisationDeleteItem($id)) {
+//mk	if (!JFactory::getUser()->authorise('core.delete','com_rsgallery2.item.'.$id)) {
 			JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_PERMISSION_NOT_ALLOWED_DELETE_ITEM') .": ". $name);
 			return false;
 		}
