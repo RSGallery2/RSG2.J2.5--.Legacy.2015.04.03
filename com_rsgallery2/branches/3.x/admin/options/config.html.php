@@ -21,7 +21,8 @@ class html_rsg2_config{
      * raw configuration editor, debug only
      */
     function config_rawEdit(){
-        global $rsgConfig, $option;
+        global $rsgConfig;
+		$option = JRequest::getCmd('option');
         $config = get_object_vars( $rsgConfig );
 
         ?>
@@ -46,7 +47,7 @@ class html_rsg2_config{
      * @todo get rid of patTemplate!!!
     **/
 	function showconfig( &$lists ){
-		global $rsgConfig, $mainframe;
+		global $rsgConfig;
 
 		$config = $rsgConfig;
 		

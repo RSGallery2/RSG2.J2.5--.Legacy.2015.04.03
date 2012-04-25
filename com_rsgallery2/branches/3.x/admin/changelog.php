@@ -37,6 +37,10 @@ Legend:
   To do: Delete galleries: create filter in gallery view and check that delete-permission is granted for deleting subgalleries/images. Right now you may delete everything if you have delete permission for the component, even if an item/(sub)gallery doesn't have delete permission.
 
 ---------------- Recent ----------------
+2012-04-25 Mirjam - SVN 1072
+# Fixed apply/save in Configuration Raw Edit screen
++ added the authorisation.class.php missing from the last commit
+
 2012-04-25 Mirjam - SVN 1071
 + Added *.own permssions in Frontend (!) My Galleries (e.g. permission to delete (etc.) items/galleries owned by the logged in user)
 	Create Own: set at component and gallery level. This allows the user to upload images to galleries that he owns and create galleries in parent galleries that he owns.
