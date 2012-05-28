@@ -37,6 +37,10 @@ Legend:
   To do: Delete galleries: create filter in gallery view and check that delete-permission is granted for deleting subgalleries/images. Right now you may delete everything if you have delete permission for the component, even if an item/(sub)gallery doesn't have delete permission.
 
 ---------------- Recent ----------------
+
+2012-05-28 Mirjam - SVN 1074
+^ New finnish language file thanks to user Ripley
+
 2012-05-14 Mirjam - SVN 1073
 # "Class 'JFormFieldList' not found" when translating RSG2 menu item with JoomFish 2.5 alpha
 
