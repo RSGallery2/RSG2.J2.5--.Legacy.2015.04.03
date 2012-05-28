@@ -154,6 +154,7 @@ class HTML_RSGALLERY{
         	<dd><b>Mirjam Kaizer</b></dd>
 		<dt>Finnish</dt>
 			<dd><b>Antti</b></dd>
+			<dd><b>Ripley</b></dd>
 		<dt>French</dt>
 			<dd><b>Fabien de Silvestre</b></dd>
         <dt>German</dt> 
