@@ -397,14 +397,18 @@ class galleryUtils {
     }
     
     /**
-     * Returns number of published files within a specific gallery and it's children
-     * @deprecated use rsgGallery->itemCount() instead.
-     * @param int Category id
-     * @return int Number of files in category
+     * Returns number of published items within a specific gallery and perhaps its children
+     * @param int Gallery id
+	 * @param bool Get the number if items in the child-galleries or not
+     * @return int Number of items in gallery and possibly subgalleries
      */
-    function getFileCount($id) {
+    function getFileCount($id, $withKids=true) {
         $database =& JFactory::getDBO();
-        $list = galleryUtils::getChildList( $id );
+		if ($withKids) {
+			$list = galleryUtils::getChildList( $id );
+		} else {
+			$list = $id;
+		}
 		$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE ((gallery_id IN ($list)) AND (published = 1))");
         $count = $database->loadResult();
         return $count;

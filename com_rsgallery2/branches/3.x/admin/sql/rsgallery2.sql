@@ -26,11 +26,11 @@ CREATE TABLE IF NOT EXISTS `#__rsgallery2_galleries` (
 
 CREATE TABLE IF NOT EXISTS `#__rsgallery2_files` (
   `id` int(9) unsigned NOT NULL auto_increment,
-  `name` varchar(100) NOT NULL default '',
+  `name` varchar(255) NOT NULL default '',
   `alias` varchar(255) NOT NULL DEFAULT '',
   `descr` text,
   `gallery_id` int(9) unsigned NOT NULL default '0',
-  `title` varchar(50) NOT NULL default '',
+  `title` varchar(255) NOT NULL default '',
   `hits` int(11) unsigned NOT NULL default '0',
   `date` datetime NOT NULL default '0000-00-00 00:00:00',
   `rating` int(10) unsigned NOT NULL default '0',
