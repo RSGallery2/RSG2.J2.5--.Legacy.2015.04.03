@@ -291,7 +291,7 @@ class html_rsg2_config{
 		</table>
 		<?php
 		echo $tabs->endPanel();
-		echo $tabs->startPanel( JText::_('COM_RSGALLERY2_IMAGES'), 'rsgConfig' );
+		echo $tabs->startPanel( JText::_('COM_RSGALLERY2_CONTROL_PANEL_TAB_IMAGES'), 'rsgConfig' );
 
 		$tabsImages =& JPane::getInstance("Sliders");
 		echo $tabsImages->startPane( 'rsgConfig_Images' );

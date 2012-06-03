@@ -3,7 +3,7 @@
 * This file handles image manipulation functions RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2005 - 2011 RSGallery2
+* @copyright (C) 2005 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
@@ -899,10 +899,16 @@ class waterMarker extends GD2 {
      * this function draws the watermark over the image
      */
     function mark($imagetype = 'display'){
-    global $rsgConfig;
+		global $rsgConfig;
+
+		// A bit of housekeeping: we want an index.html in the directory storing these images
+		if (!JFile::exists(JPATH_WATERMARKED.DS.'index.html')) {
+			$buffer = '';	//needed: Cannot pass parameter 2 [of JFile::write()] by reference...
+			JFile::write(JPATH_WATERMARKED.DS.'index.html',$buffer);
+		}
     
-    //get basic properties of the image file
-    list($width, $height, $type, $attr) = getimagesize($this->imagePath); 
+		//get basic properties of the image file
+		list($width, $height, $type, $attr) = getimagesize($this->imagePath); 
         
         switch ($this->imageType) {
                 case "png":
@@ -1056,7 +1062,6 @@ class waterMarker extends GD2 {
 			$imark->angle = $rsgConfig->get('watermark_angle');
 			$imark->imageTargetPath = JPATH_WATERMARKED . DS . $filename;
 			$imark->mark($imagetype); //draw watermark
-			
 		}
 		return trim(JURI_SITE,'/') . $rsgConfig->get('imgPath_watermarked') . '/' . $filename ;
     

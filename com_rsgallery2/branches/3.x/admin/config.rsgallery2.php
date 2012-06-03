@@ -4,7 +4,7 @@
 *
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2011 RSGallery2
+* @copyright (C) 2003 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 **/
@@ -768,16 +768,18 @@ class galleryUtils {
 			'/media'
 			);
 		foreach ($folders as $folder) {
-			if (file_exists(JPATH_ROOT.$folder) && is_dir(JPATH_ROOT.$folder) )
-				{
+			if (file_exists(JPATH_ROOT.$folder) && is_dir(JPATH_ROOT.$folder) ) {
 				$perms = substr(sprintf('%o', fileperms(JPATH_ROOT.$folder)), -4);
 				if (!is_writable(JPATH_ROOT.$folder) )
 					$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;<strong>".JPATH_ROOT.$folder."</strong>".JText::_('COM_RSGALLERY2_IS_NOT_WRITABLE')."($perms)";
+				// Check if the folder has a file index.html, if not, create it, but not for media folder
+				if ((!JFile::exists(JPATH_ROOT.$folder.DS.'index.html')) AND ($folder != "/media")) {
+					$buffer = '';	//needed: Cannot pass parameter 2 [of JFile::write()] by reference...
+					JFile::write(JPATH_ROOT.$folder.DS.'index.html',$buffer);
 				}
-			else
-				{
+			} else {
 				$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"".JURI_SITE."/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;<strong>".JPATH_ROOT.$folder."</strong>".JText::_('COM_RSGALLERY2_FOLDER_NOTEXIST');	
-				}
+			}
 		}
 		if ($html !== '') {
 			?>

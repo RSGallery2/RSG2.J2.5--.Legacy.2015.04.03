@@ -38,6 +38,10 @@ Legend:
 
 ---------------- Recent ----------------
 
+2012-06-03 Mirjam - SVN 1075
+^ The language string COM_RSGALLERY2_IMAGES was used for both "Images" and "images": a new string is introduced, COM_RSGALLERY2_CONTROL_PANEL_TAB_IMAGES to be able to have the difference (thanks to user Ripley). For all available languages the extra string was added with the same translation as COM_RSGALLERY2_IMAGES.
++ Automatically add index.html to directories that RSGallery2 uses for its images (when you open the RSG2 Control Panel/use the watermark functions for the first time)
+
 2012-05-28 Mirjam - SVN 1074
 ^ New finnish language file thanks to user Ripley
 
