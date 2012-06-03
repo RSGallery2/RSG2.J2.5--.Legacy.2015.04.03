@@ -79,6 +79,7 @@ class rsgConfig {
 	var $template					= 'semantic';
 	var $showGalleryOwner			= 1;
 	var $showGallerySize			= 1;
+	var $includeKids				= 1;	// Include items in childgalleries in gallerysize
 	var $showGalleryDate			= 1;
 	var $exifTags					= 'FileName|FileDateTime|resolution';
 	
@@ -141,7 +142,7 @@ class rsgConfig {
         // get version
         // global $rsgVersion;
         // $this->version = $rsgVersion->getVersionOnly();
-        $this->version = '3.1.0';
+        $this->version = '3.1.1';
 
         if( $loadFromDB )
             $this->_loadConfig();

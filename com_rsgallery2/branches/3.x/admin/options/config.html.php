@@ -651,6 +651,11 @@ class html_rsg2_config{
 							<?php echo JHTML::_("select.booleanlist",'showGallerySize', '', $config->showGallerySize)?></fieldset></td>
 						</tr>
 						<tr>
+							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_NUMBER_OF_ITEMS_IN_GALLERY_INCLUDE_KIDS');?></td>
+							<td><fieldset id="jform_block" class="radio">
+							<?php echo JHTML::_("select.booleanlist",'includeKids', '', $config->includeKids)?></fieldset></td>
+						</tr>
+						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_CREATION_DATE');?></td>
 							<td><fieldset id="jform_block" class="radio">
 							<?php echo JHTML::_("select.booleanlist",'showGalleryDate', '', $config->showGalleryDate)?></fieldset>

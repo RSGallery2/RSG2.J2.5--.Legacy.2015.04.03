@@ -38,6 +38,11 @@ Legend:
 
 ---------------- Recent ----------------
 
+2012-06-03 Mirjam - SVN 1076
+^ Bumped version number to 3.1.1 (for sql updates)
+^ Increased the length of fields `name` and `title` for the items to 255 characters and changed these numbers for fresh installations as well.
++ Added the option to include the items in any child galleries when displaying the number of items in a gallery (Configuration > tab: Display > Slider: Front Page (default: yes).
+
 2012-06-03 Mirjam - SVN 1075
 ^ The language string COM_RSGALLERY2_IMAGES was used for both "Images" and "images": a new string is introduced, COM_RSGALLERY2_CONTROL_PANEL_TAB_IMAGES to be able to have the difference (thanks to user Ripley). For all available languages the extra string was added with the same translation as COM_RSGALLERY2_IMAGES.
 + Automatically add index.html to directories that RSGallery2 uses for its images (when you open the RSG2 Control Panel/use the watermark functions for the first time)

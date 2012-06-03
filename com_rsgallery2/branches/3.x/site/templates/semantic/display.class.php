@@ -2,7 +2,7 @@
 /**
  * @version $Id$
  * @package RSGallery2
- * @copyright (C) 2003 - 2010 RSGallery2
+ * @copyright (C) 2003 - 2012 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined( '_JEXEC' ) or die( 'Restricted Access' );
@@ -59,11 +59,12 @@ class rsgDisplay_semantic extends rsgDisplay{
 	 */
 	function _showGalleryDetails( $kid ) {
 		global $rsgConfig;
-		$slideshow = $rsgConfig->get('displaySlideshow') && $kid->itemCount() > 1;
-		$owner 		= $rsgConfig->get('showGalleryOwner');
-		$size 		= $rsgConfig->get('showGallerySize');
-		$date 		= $rsgConfig->get('showGalleryDate');
-		
+		$slideshow   = $rsgConfig->get('displaySlideshow') && $kid->itemCount() > 1;
+		$owner 		 = $rsgConfig->get('showGalleryOwner');
+		$size 		 = $rsgConfig->get('showGallerySize');
+		$date 		 = $rsgConfig->get('showGalleryDate');
+		$includeKids = $rsgConfig->get('includeKids',true);
+
 		//Check if items need to be shown
 		if ( ($slideshow + $owner + $size + $date) > 0 ) {
 			?>
@@ -73,23 +74,30 @@ class rsgDisplay_semantic extends rsgDisplay{
 			if ($slideshow) {
 				?>
 				<a href='<?php echo JRoute::_("index.php?option=com_rsgallery2&page=slideshow&gid=".$kid->get('id')); ?>'>
-				<?php echo JText::_('COM_RSGALLERY2_SLIDESHOW'); ?></a><br />
+				<?php echo JText::_('COM_RSGALLERY2_SLIDESHOW'); ?></a>
+				<br />
 				<?php
 			}
 			
 			if ($owner) {
-				echo JText::_('COM_RSGALLERY2_OWNER-'); echo $kid->owner;?><br />
+				echo JText::_('COM_RSGALLERY2_OWNER-'); 
+				echo $kid->owner;?>
+				<br />
 				<?php
 			} 
 			
 			if ($size) {
-				echo JText::_('COM_RSGALLERY2_SIZE-'); echo galleryUtils::getFileCount($kid->get('id')). ' ' . JText::_('COM_RSGALLERY2_IMAGES');?><br />
-			<?php
+				echo JText::_('COM_RSGALLERY2_SIZE-'); 
+				echo galleryUtils::getFileCount($kid->get('id'), $includeKids). ' ' . JText::_('COM_RSGALLERY2_IMAGES');?>
+				<br />
+				<?php
 			}
 			
 			if ($date) {
-				echo JText::_('COM_RSGALLERY2_CREATED-').""; echo JHTML::_("date", $kid->date,JText::_('COM_RSGALLERY2_DATE_FORMAT_LC3') );
-				?><br />
+				echo JText::_('COM_RSGALLERY2_CREATED-').""; 
+				echo JHTML::_("date", $kid->date,JText::_('COM_RSGALLERY2_DATE_FORMAT_LC3') );
+				?>
+				<br />
 				<?php
 			}
 			?>

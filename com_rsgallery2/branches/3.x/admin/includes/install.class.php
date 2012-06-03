@@ -2146,6 +2146,9 @@ class migrate_com_rsgallery extends GenericMigrator {
 				$this->handleSqlFile( 'upgrade_3.0.0_to_3.0.2.sql' );
 				rsgInstall::writeInstallMsg( JText::_('COM_RSGALLERY2_UPDATEINFO_302'), 'ok');
 			
+			case $this->beforeVersion( '3.1.1' ):
+				$this->handleSqlFile( 'upgrade_3.1.0_to_3.1.1.sql' );
+			
 			default:
 				// if we reach this point then everything was a success, update the version number and exit.
 				$this->updateVersionNumber();
