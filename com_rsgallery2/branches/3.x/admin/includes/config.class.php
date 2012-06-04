@@ -68,7 +68,9 @@ class rsgConfig {
 	var $displayVoting	            = 1;
 	var $displayComments	        = 1;
 	var $displayEXIF		        = 1;
-	var $displaySlideshow 			= 1;
+	var $displaySlideshow 			= 1;		// On "home" page, where gid=0
+	var $displaySlideshowImageDisplay	= 0;	// When 1 item is displayed
+	var $displaySlideshowGalleryView	= 0;	// When several items are displayed
 	var $displaySearch				= 1;
 	var $current_slideshow			= "slideshow_parth";
 	var $displayDownload			= true;

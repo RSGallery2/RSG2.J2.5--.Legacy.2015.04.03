@@ -671,6 +671,12 @@ class html_rsg2_config{
 					<legend><?php //echo JText::_('COM_RSGALLERY2_IMAGE_DISPLAY')?></legend>
 					<table width="100%">
 						<tr>
+							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_SLIDESHOW_IMAGE_DISPLAY')?></td>
+							<td><fieldset id="jform_block" class="radio">
+							<?php echo JHTML::_("select.booleanlist",'displaySlideshowImageDisplay', '', $config->displaySlideshowImageDisplay)?></fieldset>
+							</td>
+						</tr>
+						<tr>
 							<td width="200"><?php echo JText::_('COM_RSGALLERY2_POPUP_STYLE')?></td>
 							<td width="78%"><?php echo JHTML::_("select.genericlist", $displayPopup, 'displayPopup', '', 'value', 'text', $config->displayPopup )?></td>
 						</tr>
@@ -777,6 +783,12 @@ class html_rsg2_config{
 								<td><?php echo JText::_('COM_RSGALLERY2_SHOW_IMAGE_NAME_BELOW_THUMBNAIL')?></td>
 								<td><fieldset id="jform_block" class="radio">
 								<?php echo JHTML::_("select.booleanlist", 'display_thumbs_showImgName','', $config->display_thumbs_showImgName )?></fieldset>
+								</td>
+							</tr>
+							<tr>
+								<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_SLIDESHOW_GALLERY_VIEW')?></td>
+								<td><fieldset id="jform_block" class="radio">
+								<?php echo JHTML::_("select.booleanlist", 'displaySlideshowGalleryView','', $config->displaySlideshowGalleryView )?></fieldset>
 								</td>
 							</tr>
 						</table>

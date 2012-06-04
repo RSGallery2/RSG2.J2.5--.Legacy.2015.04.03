@@ -3,7 +3,7 @@
  * RSGallery2
  * @version $Id$
  * @package RSGallery2
- * @copyright (C) 2003 - 2011 RSGallery2
+ * @copyright (C) 2003 - 2012 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die('Restricted access'); ?>
@@ -11,6 +11,16 @@ defined('_JEXEC') or die('Restricted access'); ?>
 <?php
 $cols = $rsgConfig->get( 'display_thumbs_colsPerPage' );
 $i = 0;
+
+// Show slideshow link when viewing thumbs in table?
+$slideshow   = $rsgConfig->get('displaySlideshowGalleryView',0);
+if ($slideshow) {
+	?>
+	<a href='<?php echo JRoute::_("index.php?option=com_rsgallery2&page=slideshow&gid=".$this->gallery->id); ?>'>
+	<?php echo JText::_('COM_RSGALLERY2_SLIDESHOW'); ?></a>
+	<br />
+	<?php
+}
 ?>
 
 <table id="rsg2-thumbsList" border="0">
