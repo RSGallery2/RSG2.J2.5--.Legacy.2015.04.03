@@ -35,8 +35,14 @@ Legend:
 ! To do: Backend: Installation of template does not function (yet).
 ! To do: find all 'config_' links that don't have rsgOption=config and add it.
   To do: Delete galleries: create filter in gallery view and check that delete-permission is granted for deleting subgalleries/images. Right now you may delete everything if you have delete permission for the component, even if an item/(sub)gallery doesn't have delete permission.
+  To do: Convert JParameter to JForm http://docs.joomla.org/Adapting_a_Joomla_1.5_extension_to_Joomla_1.6#Converting_Your_JParameters_to_JForms
 
 ---------------- Recent ----------------
+
+2012-06-04 Mirjam - SVN 1077
++ Added options where user can choose to show a link to the slideshow from the gallery view (table and float) and the display image view. There are now three options for three different locations.
+# In frontpage galleries view there is a dropdown box (depending on settings, e.g. set "Display gallery limitbox" to "Always") with option COM_RSGALLERY2_ALL which did not show any galleries. Not only is this fixed, this is now also done with Joomla default pagination.
+# Added params section in Slideshow One's templateDetails.xml to remove "Notice: Undefined property: JSimpleXMLElement::$params"
 
 2012-06-03 Mirjam - SVN 1076
 ^ Bumped version number to 3.1.1 (for sql updates)

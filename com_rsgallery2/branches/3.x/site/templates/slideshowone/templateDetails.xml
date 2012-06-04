@@ -16,4 +16,7 @@
 	<css>
 		<filename>css/template.css</filename>
 	</css>
+	<params>
+		<!-- No parameters-->
+	</params>
 </install>

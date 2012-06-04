@@ -23,13 +23,14 @@ class rsgDisplay_semantic extends rsgDisplay{
 	*/
 	function showMainGalleries() {
 		global $rsgConfig;
+		$app =& JFactory::getApplication();
 		
 		$gallery =  rsgInstance::getGallery();
 		$this->gallery = $gallery;
 		
 		//Get values for page navigation from URL
-		$limit = JRequest::getInt( 'limitg', $rsgConfig->get('galcountNrs') );
-		$limitstart = JRequest::getInt( 'limitstartg', 0 );
+		$limit = $app->getUserStateFromRequest("galleryviewlimit", 'limit', $rsgConfig->get('galcountNrs'), 'int');
+		$limitstart = JRequest::getInt( 'limitstart', 0 );
 		//Get number of galleries including main gallery
 		$this->kids = $gallery->kids();
 		$kidCountTotal = count( $gallery->kids() );
@@ -41,9 +42,12 @@ class rsgDisplay_semantic extends rsgDisplay{
 		    $kidCountTotal > $limit )  ||
 			$rsgConfig->get('dispLimitbox') == 2 )
 			{
-			require_once( JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'gpagination.php' );
-			$this->kids = array_slice( $this->kids, $limitstart, $limit );
-			$this->pageNav = new JGPagination($kidCountTotal, $limitstart, $limit );
+//			require_once( JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'gpagination.php' );
+			//When users wants "All" galleries to show, $limit = 0, no need to slice
+			if ($limit) {
+				$this->kids = array_slice( $this->kids, $limitstart, $limit );
+			}
+			$this->pageNav = new JPagination($kidCountTotal, $limitstart, $limit );
 
 		}
 		$this->display( 'gallery.php' );
