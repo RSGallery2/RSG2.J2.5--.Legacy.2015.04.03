@@ -98,6 +98,8 @@ class rsgConfig {
 	var $uu_maxImages       = 50;
 	var $acl_enabled		= 0;	//deprecated in v3 (Enable ACL (J!1.0/5))
 	var $show_mygalleries	= 0;
+	var $show_mygalleries_onlyOwnItems		= 0;		//Since 3.1.1
+	var $show_mygalleries_onlyOwnGalleries 	= 0;	//Since 3.1.1
     
     // watermarking
     var $watermark           = 0;

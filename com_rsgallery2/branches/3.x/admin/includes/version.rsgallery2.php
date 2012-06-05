@@ -26,11 +26,11 @@ class rsgalleryVersion {
     /** @var int Sub Release Level */
     var $DEV_LEVEL  = '1';					//Dev level z for x.y.z
     /** @var int build Number */
-    var $BUILD      = 'SVN 1077';
+    var $BUILD      = 'SVN 1078';
     /** @var string Codename */
     var $CODENAME   = '';
     /** @var string Date */
-    var $RELDATE    = '3 June 2012';
+    var $RELDATE    = '5 June 2012';
     /** @var string Time */
     var $RELTIME    = '14:00';
     /** @var string Timezone */
