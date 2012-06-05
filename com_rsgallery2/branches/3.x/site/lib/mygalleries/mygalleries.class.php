@@ -487,9 +487,12 @@ class myGalleries {
                         <td>
 							<?php
 							$indent = "";
-							for ($i = 0; $i < $row->level; $i++) {
-								$indent .= "&nbsp;&nbsp;&nbsp;&nbsp;";
-								if ($i == $row->level -1) $indent .= "<sup>|_</sup>";
+							// Only indent according to the 'level' when there is one
+							if (isset($row->level)) {
+								for ($i = 0; $i < $row->level; $i++) {
+									$indent .= "&nbsp;&nbsp;&nbsp;&nbsp;";
+									if ($i == $row->level -1) $indent .= "<sup>|_</sup>";
+								}
 							}
 							if ($can['EditGallery']){
 								//name with link
@@ -1081,6 +1084,7 @@ function mygalleriesJavascript() {
 	* return	Array
 	*/
 	function recursiveGalleriesList(){
+		global $rsgConfig;
 		$user = JFactory::getUser();
 		$groups	= $user->getAuthorisedViewLevels();
 		$groupsIN = implode(", ",array_unique ($groups));
@@ -1101,32 +1105,47 @@ function mygalleriesJavascript() {
 			}
 			return $list;
 		}
+		
 		// Get a list of all galleries (id/parent) ordered by parent/ordering
 		$database =& JFactory::getDBO();
 		$query = $database->getQuery(true);
 		$query->select('*');
 		$query->from('#__rsgallery2_galleries');
 		$query->order('parent, ordering');
-		// If users is not a Super Admin then use View Access Levels
+		// If user is not a Super Admin then use View Access Levels
 		if (!$superAdmin) { // No View Access check for Super Administrators
 			$query->where('access IN ('.$groupsIN.')'); //@todo use trash state: published=-2
-		}	
+		}
+		if ($rsgConfig->get('show_mygalleries_onlyOwnGalleries')) {
+			// Show only galleries owned by current user?
+			$query->where('uid = '.$user->id);
+		}		
 
 		$database->setQuery( $query );
 		$allGalleries = $database->loadObjectList();
-		// Establish the hierarchy by first getting the children: 2dim. array $children[parentid][]
-		$children = array();
-		if ( $allGalleries ) {
-			foreach ( $allGalleries as $v ) {
-				$pt     = $v->parent;
-				$list   = @$children[$pt] ? $children[$pt] : array();
-				array_push( $list, $v );
-				$children[$pt] = $list;
+		
+		// Two options: either 1. frontend logged in My Galleries user will see all 
+		// galleries, or 2. (s)he wil see only the galleries that (s)he owns. In case of 1.
+		// I want to show the hierarchy, in case of 2 I won't show the hierarchy. Reason 
+		// not to show the hierarchy: what if the user does not own the parent?
+		if ($rsgConfig->get('show_mygalleries_onlyOwnGalleries')) {
+			// Show the user all galleries
+			return $allGalleries;
+		} else {
+			// Establish the hierarchy by first getting the children: 2dim. array $children[parentid][]
+			$children = array();
+			if ( $allGalleries ) {
+				foreach ( $allGalleries as $v ) {
+					$pt     = $v->parent;
+					$list   = @$children[$pt] ? $children[$pt] : array();
+					array_push( $list, $v );
+					$children[$pt] = $list;
+				}
 			}
+			// Get list of galleries with (grand)children in the right order and with level info
+			$recursiveGalleriesList = treerecurse( 0, array(), $children, 20, 0 );
+			return $recursiveGalleriesList;
 		}
-		// Get list of galleries with (grand)children in the right order and with level info
-		$recursiveGalleriesList = treerecurse( 0, array(), $children, 20, 0 );
-		return $recursiveGalleriesList;
 	}
 	
 }//end class

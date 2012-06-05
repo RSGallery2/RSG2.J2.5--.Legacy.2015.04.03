@@ -39,6 +39,10 @@ Legend:
 
 ---------------- Recent ----------------
 
+2012-06-05 Mirjam - SVN 1078
+^ Two new options in RSGallery2's Configuration: Show only items owned by the logged in user in My Galleries (default no) and Show only galleries owned by the logged in user in My Galleries (default no)
+# Frontend My Galleries now checks number of images allowed per user correctly upon upload
+
 2012-06-04 Mirjam - SVN 1077
 + Added options where user can choose to show a link to the slideshow from the gallery view (table and float) and the display image view. There are now three options for three different locations.
 # In frontpage galleries view there is a dropdown box (depending on settings, e.g. set "Display gallery limitbox" to "Always") with option COM_RSGALLERY2_ALL which did not show any galleries. Not only is this fixed, this is now also done with Joomla default pagination.

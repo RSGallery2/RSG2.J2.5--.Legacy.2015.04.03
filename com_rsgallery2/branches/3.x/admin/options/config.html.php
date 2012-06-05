@@ -884,6 +884,26 @@ class html_rsg2_config{
 									<?php echo JHTML::_("select.booleanlist",'show_mygalleries', '', $config->show_mygalleries)?></fieldset>
 								</td>
 							</tr>
+							<tr>
+								<td width="200">
+									<?php echo JHTML::tooltip(JText::_('COM_RSGALLERY2_SHOW_ONLY_OWN_ITEMS_IN_MY_GALLERIES_TOOLTIP'), JText::_('COM_RSGALLERY2_SHOW_ONLY_OWN_ITEMS_IN_MY_GALLERIES'), 
+							'', JText::_('COM_RSGALLERY2_SHOW_ONLY_OWN_ITEMS_IN_MY_GALLERIES')); ?>
+								</td>
+								<td width="78%">
+									<fieldset id="jform_block" class="radio">
+									<?php echo JHTML::_("select.booleanlist",'show_mygalleries_onlyOwnItems', '', $config->show_mygalleries_onlyOwnItems)?></fieldset>
+								</td>
+							</tr>
+							<tr>
+								<td width="200">
+									<?php echo JHTML::tooltip(JText::_('COM_RSGALLERY2_SHOW_ONLY_OWN_GALLERIES_IN_MY_GALLERIES_TOOLTIP'), JText::_('COM_RSGALLERY2_SHOW_ONLY_OWN_GALLERIES_IN_MY_GALLERIES'), 
+							'', JText::_('COM_RSGALLERY2_SHOW_ONLY_OWN_GALLERIES_IN_MY_GALLERIES')); ?>
+								</td>
+								<td width="78%">
+									<fieldset id="jform_block" class="radio">
+									<?php echo JHTML::_("select.booleanlist",'show_mygalleries_onlyOwnGalleries', '', $config->show_mygalleries_onlyOwnGalleries)?></fieldset>
+								</td>
+							</tr>
 						</table>
 					</fieldset>
 				</td>

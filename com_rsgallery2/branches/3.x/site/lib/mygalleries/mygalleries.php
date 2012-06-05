@@ -86,37 +86,47 @@ function showMyGalleries() {
 	$groupsIN = implode(", ",array_unique ($groups));
 	$superAdmin = $my->authorise('core.admin');
 	$database = JFactory::getDBO();
-	
+
 	//Check if My Galleries is enabled in config, if not .............. 
 	if ( !$rsgConfig->get('show_mygalleries') ) die(JText::_('COM_RSGALLERY2_UNAUTHORIZED_ACCESS_ATTEMPT_TO_MY_GALLERIES'));
-	
-	//Set limits for pagenav (remembering the pages with getUserSTateFromRequest)
+
+	//We want to use pagination
+	jimport('joomla.html.pagination');	
+	//Set limits for pagenav (remembering the pages with getUserSTateFromRequest), total comes later
 	$limit 		= $mainframe->getUserStateFromRequest('global.list.limit',
 'limit', $mainframe->getCfg('list_limit'), 'int'); 	
 	$limitstart = $mainframe->getUserStateFromRequest( 'limitstart', 'limitstart', 0, 'int' );
 
-
-	//Get total number of records for pagination
-	$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files");
-	$total = $database->loadResult();
-	
-	//New instance of mosPageNav
-	jimport('joomla.html.pagination');
-	$pageNav = new JPagination( $total, $limitstart, $limit );
-	
-	//Get all images (ordering: galleries ordering then files ordering
+	//This query gets all the images (ordering: galleries ordering then files ordering)
+	//	Create the query for the images
 	$query = $database->getQuery(true);
 	$query->select('files.*, galleries.ordering, galleries.access');
 	$query->from('#__rsgallery2_files AS files');
 	$query->leftJoin('#__rsgallery2_galleries AS galleries ON galleries.id = files.gallery_id');
 	$query->leftJoin('#__users AS users ON users.id = files.checked_out');
-	if (!$superAdmin) {	// No View Access check for Super Administrators
+	if (!$superAdmin) {	
+		// No View Access check for Super Administrators
 		$query->where('galleries.access IN ('.$groupsIN.')');
 	}
+	if ($rsgConfig->get('show_mygalleries_onlyOwnItems')) {
+		// Show only items owned by current user?
+		$query->where('files.userid = '.$my->id);
+	}
 	$query->order('galleries.ordering, files.ordering');
-	$database->setQuery($query, $pageNav->limitstart, $pageNav->limit); //setQuery($query, $limitstart, $limit)
+	//	Now that is The Query for the images, all of them
 	
+	//	Get image count to use with the pagination:
+	$database->setQuery($query);
+	$allImages = $database->loadObjectList();
+	$image_count = count($allImages);
+	//	Get pagination instance: with our total number, the limit and the limitstart
+	$pageNav = new JPagination( $image_count, $limitstart, $limit );
+	
+	//	Finally, get the set of images to show on this page, which is the
+	//	same query as before, but with a limit: setQuery($query, $limitstart, $limit)
+	$database->setQuery($query, $pageNav->limitstart, $pageNav->limit); 
 	$images = $database->loadObjectList();
+
 	//Get all galleries based on hierarchy
 	$rows = myGalleries::recursiveGalleriesList();
 
@@ -252,9 +262,15 @@ function saveUploadedItem() {
 		$mainframe->redirect(JRoute::_( $redirect ));
 	}
 	
-	//Check if number of images is not exceeded
-	$count = 0;
-	if ($count > $max_images) {
+	//Check if number of images is not exceeded for this user
+	$query = $database->getQuery(true);
+	$query->select('files.id, files.userid');
+	$query->from('#__rsgallery2_files AS files');
+	$query->where('files.userid = '.$user->id);
+	$database->setQuery($query);
+	$allImages = $database->loadObjectList();
+	$image_count = count($allImages);
+	if ($image_count >= $max_images) {
 		//Notify user and redirect
 		JError::raiseWarning(404, JText::_('COM_RSGALLERY2_MAXIMUM_NUMBER_OF_IMAGES_UPLOADED_REACHED_DELETE_SOME_IMAGES_FIRST'));
 		$mainframe->redirect(JRoute::_( $redirect ));
