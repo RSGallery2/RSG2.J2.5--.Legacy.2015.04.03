@@ -39,6 +39,13 @@ Legend:
 
 ---------------- Recent ----------------
 
+2012-06-06 Mirjam - SVN 1080
+# Moved pageNav object for galleries in My Galleries out of "Display gallery limitbox"-if-statement
+# Fixed "Notice: Undefined property: stdClass::$editor in ...\libraries\joomla\html\html\grid.php on line 327": Checked out images in My Galleries now show username of the 'editor' who checked it out
+
+2012-06-06 Mirjam - SVN 1079
+! All available languages now have all language strings (new ones in English). Cleaned up list of unused and duplicate strings of before version 3. Intention is to add new language strings not only to en-GB file, but also to the other language files at the bottom of those files (although they will be in english then).
+
 2012-06-05 Mirjam - SVN 1078
 ^ Two new options in RSGallery2's Configuration: Show only items owned by the logged in user in My Galleries (default no) and Show only galleries owned by the logged in user in My Galleries (default no)
 # Frontend My Galleries now checks number of images allowed per user correctly upon upload

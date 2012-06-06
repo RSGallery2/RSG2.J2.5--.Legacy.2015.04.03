@@ -661,8 +661,14 @@ class myGalleries {
 					?>
 					<tr>
 						<td>
-							<?php $checked 	= JHTML::_('grid.checkedout', $image, $i );?>
-							<?php echo $checked;?>
+							<?php 
+							// If the image is checked out, get the username ('editor') who checked it out
+							if ($image->checked_out) {
+								$image->editor = JFactory::getUser($image->checked_out)->get('username');
+							} 
+							$checked 	= JHTML::_('grid.checkedout', $image, $i );
+							echo $checked;
+							?>
 						</td>
 						<td>
 							<?php 
