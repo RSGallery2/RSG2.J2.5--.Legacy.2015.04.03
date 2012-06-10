@@ -390,6 +390,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 	* @param rsgGallery parent gallery
 	*/
 	function _subGalleryList( $parent ){
+		$user =& JFactory::getUser();
 		$kids = $parent->kids();
 
 		if( count( $kids ) == 0 ) return;
@@ -403,6 +404,19 @@ class rsgDisplay_semantic extends rsgDisplay{
 			<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&gid=".$kid->id); ?>">
 				<?php echo htmlspecialchars(stripslashes($kid->name), ENT_QUOTES); ?>
 				(<?php echo $kid->itemCount(); ?>)</a><?php
+				
+				//Show owner icon (blue with O)
+				if ( $kid->uid == $user->id ) {
+					echo JHTML::tooltip(JText::_('COM_RSGALLERY2_YOU_ARE_THE_OWNER_OF_THIS_GALLERY'), null, '../../../components/com_rsgallery2/images/status_owner.png',null,null,0);
+				}
+				//Show unpublished icon (red with H)
+				if ($kid->published == 0) {
+					echo JHTML::tooltip(JText::_('COM_RSGALLERY2_THIS_GALLERY_IS_NOT_PUBLISHED'), 	null, '../../../components/com_rsgallery2/images/status_hidden.png',null,null,0);
+				}
+				//Show upload possible icon (green with U)
+				if (rsgAuthorisation::authorisationCreate($kid->id)) {
+					echo JHTML::tooltip(JText::_('COM_RSGALLERY2_YOU_CAN_UPLOAD_IN_THIS_GALLERY'), null, '../../../components/com_rsgallery2/images/status_upload.png',null,null,0);
+				}
 
 			if( $kid = array_shift( $kids ))
 				echo ', ';

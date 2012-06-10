@@ -39,6 +39,14 @@ Legend:
 
 ---------------- Recent ----------------
 
+2012-06-10 Mirjam - SVN 1082
+# Gallery thumbnail can no longer be a thumbnail of a published item in a unpublished subgallery.
++ When user is logged in, the blue/red/green icons showing that the user is owner/gallery is unpublished/user can upload are now showing for the list of subgalleries as well.
+^ Some changes to the fi-FI finnish language file.
+
+2012-06-07 Mirjam - SVN 1081
+^ Small changes for duplicate language strings in all language files.
+
 2012-06-06 Mirjam - SVN 1080
 # Moved pageNav object for galleries in My Galleries out of "Display gallery limitbox"-if-statement
 # Fixed "Notice: Undefined property: stdClass::$editor in ...\libraries\joomla\html\html\grid.php on line 327": Checked out images in My Galleries now show username of the 'editor' who checked it out

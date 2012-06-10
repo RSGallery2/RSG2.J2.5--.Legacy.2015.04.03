@@ -861,30 +861,51 @@ class galleryUtils {
 		if ($gallery->published == 0)
 			$html .= $unpublished;
 
-		if ($my->authorise('core.create','com_rsgallery2.gallery.'.$gallery->id)) 
+		if (rsgAuthorisation::authorisationCreate($gallery->id)) 
 			$html .= $upload;
 
 		return $html;
 	}
 
-	 function getChildList( $gallery_id ) {
-	 	$database =& JFactory::getDBO();
-	 	$array[] = $gallery_id;
-	 	$sql = "SELECT * FROM #__rsgallery2_galleries WHERE parent = '$gallery_id'";
-	 	$database->setQuery( $sql );
-	 	$rows = $database->loadObjectList();
-	 	foreach ($rows as $row) {
-	 		$array[] = $row->id;
-	 		$sql = "SELECT * FROM #__rsgallery2_galleries WHERE parent = '$row->id'";
-		 	$database->setQuery( $sql );
-		 	$rows = $database->loadObjectList();
-		 	foreach ($rows as $row) {
-		 		$array[] = $row->id;
-		 	}
-	 	}
-	 	$list = implode(",", $array);
+	/**
+     * Get a list of published (gran)child galleries
+     * @param int Gallery id for which the child galleries must be found
+     * @return string String with all child galleries separated by a comma (e.g. 1,2,3)
+     */
+	function getChildList( $gallery_id ) {
+		$array = galleryUtils::getChildListArray($gallery_id);
+	 	$list = implode(",", array_unique($array));
 	 	return $list;
-	 }
+	}
+	/**
+     * Get a list of published (gran)child galleries
+     * @param int Gallery id for which the child galleries must be found
+     * @return array Array with all child galleries separated by a comma
+     */
+	function getChildListArray( $gallery_id, $array = Null) {
+	 	$database =& JFactory::getDBO();
+		
+	 	$array[] = $gallery_id;
+
+		$query = $database->getQuery(true);
+		$query->select("id");
+		$query->from("#__rsgallery2_galleries");
+		$query->where("`parent` = ".$gallery_id);
+		$query->where("`published` = 1");
+		$database->setQuery($query);
+		$database->query();
+		$result = $database->loadResultArray();
+		
+		//If there are children in the array, merge them with the ones we know off ($array)
+		if(count($result) > 0 && is_array($result)){      
+			$array = array_merge($array,$result);
+		}
+	 	foreach ($result as $value) {
+			$array = array_merge(galleryUtils::getChildListArray($value, $array),$array);
+	 	}
+	 	return array_unique($array);
+	}
+	
 	 
 	function showFontList() {
 	 	global $rsgConfig;
