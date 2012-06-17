@@ -200,7 +200,8 @@ class rsgDisplay_semantic extends rsgDisplay{
 	function showThumbs() {
 		global $rsgConfig;
 		$my = JFactory::getUser();
-
+		
+		// For superadministrators (they have core.admin) this includes the unpublished items
 		$itemCount = $this->gallery->itemCount();
 
 		$limit = $rsgConfig->get("display_thumbs_maxPerPage") ;
@@ -259,9 +260,9 @@ class rsgDisplay_semantic extends rsgDisplay{
 		if (is_object($item)){	//Can this be achieved in a better way? When an item is unpublished (there is no $item object) a user gets a "Call to a member function hit() on a non-object" error without this check. With Joomla SEF we get a Notice "Could not find an image with image id ." (without the id number) and without Joomla SEF we get a blank page?!
 			$item->hit();
 		}
-		
+
 		?>
-		<table border="0" cellspacing="0" cellpadding="0" width="100%">
+		<table <?php echo ($item->published) ? "" : "class='system-unpublished'";?> border="0" cellspacing="0" cellpadding="0" width="100%">
 			<tr>
 				<td><h2 class='rsg2_display_name' align="center"><?php echo htmlspecialchars(stripslashes($item->title), ENT_QUOTES); ?></h2></td>
 			</tr>
@@ -390,6 +391,8 @@ class rsgDisplay_semantic extends rsgDisplay{
 	* @param rsgGallery parent gallery
 	*/
 	function _subGalleryList( $parent ){
+		global $rsgConfig;
+		$includeKids = $rsgConfig->get('includeKids',true);
 		$user =& JFactory::getUser();
 		$kids = $parent->kids();
 
@@ -403,7 +406,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 			?>
 			<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&gid=".$kid->id); ?>">
 				<?php echo htmlspecialchars(stripslashes($kid->name), ENT_QUOTES); ?>
-				(<?php echo $kid->itemCount(); ?>)</a><?php
+				(<?php echo galleryUtils::getFileCount($kid->get('id'), $includeKids). ' ' . JText::_('COM_RSGALLERY2_IMAGES'); ?>)</a><?php
 				
 				//Show owner icon (blue with O)
 				if ( $kid->uid == $user->id ) {

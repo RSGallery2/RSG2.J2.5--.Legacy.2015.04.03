@@ -39,7 +39,7 @@ endif;
 
 foreach( $this->kids as $kid ):
 ?>
-<div class="rsg_galleryblock">
+<div class="rsg_galleryblock<?php echo ($kid->published) ? "" : " system-unpublished";?>">
 	<div class="rsg2-galleryList-status"><?php echo $kid->status;?></div>
 	<div class="rsg2-galleryList-thumb">
 		<?php echo $kid->thumbHTML; ?>

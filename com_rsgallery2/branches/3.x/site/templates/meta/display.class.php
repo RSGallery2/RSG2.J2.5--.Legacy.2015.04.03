@@ -226,6 +226,7 @@ class rsgDisplay extends JObject{
 		$gid 		= JRequest::getInt('gid',Null);
 		$id 		= JRequest::getInt('id',Null);
 		$limitstart = JRequest::getInt('limitstart',Null);
+		$page		= JRequest::getVar('page',Null);
 
 		// Get the gid in the URL of the active menu item
 		$menuGid = JSite::getMenu()->getActive()->query['gid'];
@@ -233,7 +234,7 @@ class rsgDisplay extends JObject{
 		// If RSG2 isn't the component being displayed, don't append meta data
 		if( $option != 'com_rsgallery2' )
 			return;
-			
+
 		// Get the title and description from gallery and (if shown) item
 		if (isset($gid)) {
 			if ($menuGid == $gid) {
@@ -243,7 +244,8 @@ class rsgDisplay extends JObject{
 				// Get gallery title/description
 				$title = $this->gallery->name;
 				$description = $this->gallery->description;
-				if (isset($limitstart)) {
+				// Only add item title/description when item is shown (when page=='inline')
+				if (isset($page) and $page = 'inline') {
 					// Get current item, add item title to pagetitle 
 					// and set item description in favor of gallery description
 					$item = array_slice($this->gallery->items, $limitstart, 1);

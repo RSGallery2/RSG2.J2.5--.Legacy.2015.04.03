@@ -431,9 +431,15 @@ function Rsgallery2GetItemIdFromGalleryIdAndLimitstart($gid,$limitstart){
 	
 	// Getch the gallery id (gid) from the database based on the id of an item
 	$dbo = JFactory::getDBO();
-	$query = 'SELECT id FROM #__rsgallery2_files'
-				.' WHERE `gallery_id`='. (int) $gid .' AND `published` = 1' //published items!
-				.' ORDER BY `ordering`';
+	$query = $dbo->getQuery(true);
+	$query->select('id');
+	$query->from('#__rsgallery2_files');
+	$query->where('`gallery_id`='. (int) $gid);
+	// Only for superadministrators this includes the unpublished items
+	if (!JFactory::getUser()->authorise('core.admin','com_rsgallery2')) {
+		$query->where('`published` = 1');
+	}
+	$query->order('ordering');
 	$result = $dbo->query($query);
 	$dbo->setQuery($query);
 	$result = $dbo->query();
