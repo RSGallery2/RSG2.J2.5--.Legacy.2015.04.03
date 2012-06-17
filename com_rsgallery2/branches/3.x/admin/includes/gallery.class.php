@@ -3,7 +3,7 @@
 * This file contains the class representing a gallery.
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2005 - 2006 RSGallery2
+* @copyright (C) 2005 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
@@ -124,11 +124,20 @@ class rsgGallery extends JObject{
 	*/
 	function itemCount(){
 		if( $this->_itemCount === null ){
-			$database =& JFactory::getDBO();
+			$db =& JFactory::getDBO();
 			
 			$gid = $this->id;
-			$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id='$gid' AND published = '1'");
-			$this->_itemCount = $database->loadResult();
+
+			$query = $db->getQuery(true);
+			$query->select('count(1)');
+			$query->from('#__rsgallery2_files');
+			$query->where('gallery_id='.$gid);
+			// Only for superadministrators this includes the unpublished items
+			if (!JFactory::getUser()->authorise('core.admin','com_rsgallery2'))
+				$query->where('published = 1');
+			$db->setQuery($query);
+			
+			$this->_itemCount = $db->loadResult();
 		}
 		return $this->_itemCount;
 	}

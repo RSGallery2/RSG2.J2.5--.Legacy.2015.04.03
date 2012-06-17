@@ -3,7 +3,7 @@
 * Galleries option for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2011 RSGallery2
+* @copyright (C) 2003 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -418,7 +418,7 @@ function saveOrder( &$cid ) {
 		if ($row->ordering != $order[$i]) {
 			$row->ordering = $order[$i];
 			if (!$row->store()) {
-				JError::raiseError(500, $db->getErrorMsg());
+				JError::raiseError(500, $mainframe->getErrorMsg());
 			} // if
 		} // if
 	} // for

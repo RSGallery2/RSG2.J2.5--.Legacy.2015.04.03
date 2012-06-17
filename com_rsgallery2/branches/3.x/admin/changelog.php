@@ -39,6 +39,11 @@ Legend:
 
 ---------------- Recent ----------------
 
+2012-06-17 Mirjam - SVN 1084
+# Metadata: only item title/description when item is showing (new condition: not limitstart but page=inline).
+^ Superadministrators (they have core.admin) can see the unpublished items/galleries in the frontend. Their styling has class system-unpublished with style inherited from the Joomla template.
+# The number of indicated galleries shown between parentheses for subgalleries of a gallery (gallery view) can now include the items in their subgalleries (with setting "Include items in child galleries when displaying number of items in a gallery" = Yes).
+
 2012-06-17 Mirjam - SVN 1083
 ^ Now using JHtmlTabs instead of JPane for My Galleries tabs
 # Fixed Fatal error when deleting item via Consolidate Database (Class 'rsgImagesItem' not found in .../administrator/components/com_rsgallery2/includes/img.utils.php on line 416)
