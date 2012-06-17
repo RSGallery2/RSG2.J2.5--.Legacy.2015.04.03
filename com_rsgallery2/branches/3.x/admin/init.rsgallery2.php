@@ -3,7 +3,7 @@
 * This file handles the initialization required for core functionality.
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2010 RSGallery2
+* @copyright (C) 2003 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -62,6 +62,8 @@ require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'gallery.manager.ph
 require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'gallery.class.php');
 require_once(JPATH_RSGALLERY2_LIBS . DS . 'rsgcomments' . DS . 'rsgcomments.class.php');
 require_once(JPATH_RSGALLERY2_LIBS . DS . 'rsgvoting' . DS . 'rsgvoting.class.php');
+
+require_once( $rsgOptions_path . 'images.class.php' );
 
 //Load Joomla library files
 jimport( 'joomla.html.parameter' );		//JParameter

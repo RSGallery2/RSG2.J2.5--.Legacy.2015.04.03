@@ -2,7 +2,7 @@
 /**
  * @version		$Id$
  * @package		RSGallery2
- * @copyright	Copyright (C) 2005 - 2011 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2012 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -432,7 +432,7 @@ function Rsgallery2GetItemIdFromGalleryIdAndLimitstart($gid,$limitstart){
 	// Getch the gallery id (gid) from the database based on the id of an item
 	$dbo = JFactory::getDBO();
 	$query = 'SELECT id FROM #__rsgallery2_files'
-				.' WHERE `gallery_id`='. (int) $gid 
+				.' WHERE `gallery_id`='. (int) $gid .' AND `published` = 1' //published items!
 				.' ORDER BY `ordering`';
 	$result = $dbo->query($query);
 	$dbo->setQuery($query);
@@ -442,7 +442,7 @@ function Rsgallery2GetItemIdFromGalleryIdAndLimitstart($gid,$limitstart){
 		$column= $dbo->loadResultArray();
 		$id = $column[$limitstart];
 	} else {
-		//todo: error //need to have non-zero number
+		//todo: error //need to have non-zero number of items
 		//Redirect user and display error...
 		$app = &JFactory::getApplication();
 		JFactory::getLanguage()->load("com_rsgallery2");
