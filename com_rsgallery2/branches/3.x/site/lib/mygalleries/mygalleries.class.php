@@ -56,29 +56,40 @@ class myGalleries {
 		//Is it allowed to create a gallery on the component permission level (e.g. create a gallery with the root (gid = 0) as parent?
 		$createAllowedInRoot = rsgAuthorisation::authorisationCreate(0);
 
-        //Start tabs
-		jimport("joomla.html.pane");
-        $tabs =& JPane::getInstance("Tabs");
-		echo $tabs->startPane( 'tabs' );
-			echo $tabs->startPanel( JText::_('COM_RSGALLERY2_MY_IMAGES'), 'my_images' );
-				myGalleries::showMyImages($images, $pageNav);
-				//showImageUpload only with create permission for one or more galleries:
-				if ($createAllowedInAGallery) {
-					echo $tabs->startPanel(JText::_('COM_RSGALLERY2_ADD_IMAGE'),'image_upload');
-						myGalleries::showImageUpload();
-					echo $tabs->endPanel();
-				}
-			echo $tabs->endPanel();
-		echo $tabs->startPanel( JText::_('COM_RSGALLERY2_MY_GALLERIES'), 'my_galleries' );
-			myGalleries::showMyGalleries($rows);
-			//Only show Create Gallery when creation of galleries is allowed in component or in one or more galleries
-			if ($createAllowedInRoot OR $createAllowedInAGallery) {
-				echo $tabs->startPanel(JText::_('COM_RSGALLERY2_CREATE_GALLERY'),'create_gallery');
-					myGalleries::showCreateGallery(NULL);
-				echo $tabs->endPanel();
-			}
-			echo $tabs->endPanel();
-		echo $tabs->endPane();
+		JHTML::_('behavior.framework',true);
+        // Set My Galleries tabs options
+		$tabOptions = array(
+			'onActive' => 'function(title, description){
+				description.setStyle("display", "block");
+				title.addClass("open").removeClass("closed");
+			}',
+			'onBackground' => 'function(title, description){
+				description.setStyle("display", "none");
+				title.addClass("closed").removeClass("open");
+			}',
+			'startOffset' => 0,  // 0 starts on the first tab, 1 starts the second, etc...
+			'useCookie' => true, // this must not be a string. Don't use quotes.
+		);
+		// Start My Galleries tabs 
+		echo JHtml::_('tabs.start', 'tab_group_id', $tabOptions);
+		// Show My Galleries: My Images tab
+		echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_MY_IMAGES'), 'my_images');
+		myGalleries::showMyImages($images, $pageNav);
+		// Show My Galleries: My Add Image tab: showImageUpload only with create permission for one or more galleries:
+		if ($createAllowedInAGallery) {
+			echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_ADD_IMAGE'), 'image_upload');
+			myGalleries::showImageUpload();
+		}
+		// Show My Galleries: My Galleries tab
+		echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_MY_GALLERIES'), 'my_galleries');
+		myGalleries::showMyGalleries($rows);
+		// Show My Galleries: Create Gallery tab: only when creation of galleries is allowed in component or in one or more galleries
+		if ($createAllowedInRoot OR $createAllowedInAGallery) {
+			echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_CREATE_GALLERY'), 'create_gallery');
+			myGalleries::showCreateGallery(NULL);
+		}
+		// End My Galleries tabs
+		echo JHtml::_('tabs.end');
 		?>
 		</div>
         <div class='rsg2-clr'>&nbsp;</div>

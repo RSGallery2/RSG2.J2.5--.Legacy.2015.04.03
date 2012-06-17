@@ -39,8 +39,17 @@ Legend:
 
 ---------------- Recent ----------------
 
+2012-06-17 Mirjam - SVN 1083
+^ Now using JHtmlTabs instead of JPane for My Galleries tabs
+# Fixed Fatal error when deleting item via Consolidate Database (Class 'rsgImagesItem' not found in .../administrator/components/com_rsgallery2/includes/img.utils.php on line 416)
+! When you get a message "Item could not be deleted from the database" and "Image(s) were not deleted!" after attempying to delete an item via Consolidate Database, it could be a problem with the asset: find the item in RSGallery2's backend, open the item and save it. Then try deleting it again.
+# Fixed: Regenerate display images can be used on images with spaces in their filenames.
+# Fixed: Item pagination was incorrect when having unpublished items in a gallery.
+^ Mouse pointer will be a "hand" for an item showing when Joomla Modal is used as popup option.
+
 2012-06-10 Mirjam - SVN 1082
 # Gallery thumbnail can no longer be a thumbnail of a published item in a unpublished subgallery.
+# (Published) Items in unpublished subgalleries no longer count for the number of images their parent gallery (with setting "Include items in child galleries when displaying number of items in a gallery" = Yes).
 + When user is logged in, the blue/red/green icons showing that the user is owner/gallery is unpublished/user can upload are now showing for the list of subgalleries as well.
 ^ Some changes to the fi-FI finnish language file.
 

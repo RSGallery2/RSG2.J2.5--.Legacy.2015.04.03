@@ -262,8 +262,14 @@ function executeRegenerateDisplayImages() {
 			$gallery = rsgGalleryManager::_get($id);
 			$images = $gallery->items();
 			foreach ($images as $image) {
-				//Get full path of the original image
+				//Get full path of the original image, e.g. 
+				//  "C:\xampp\htdocs\images\rsgallery\original\test space in name.jpg" or 
+				//  "/public_html/httpdocs/images/rsgallery/original/test space in name.jpg"
+				//  So get path not URL (2nd argument "local" false in getImgOriginal)
+				//  clean it (get correct Directory Seperator and remove double slashes)
+				//  and convert "%20" to spaces: " " with rawurldecode.
 				$originalImageFullPath = imgUtils::getImgOriginal($image->name, true);
+				$originalImageFullPath = rawurldecode(JPath::clean($originalImageFullPath));
 				//Get the name of the image
 				$parts = pathinfo( $originalImageFullPath );
 				$newName = $parts['basename'];
