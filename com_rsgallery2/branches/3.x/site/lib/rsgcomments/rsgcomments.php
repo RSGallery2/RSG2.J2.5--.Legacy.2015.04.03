@@ -13,9 +13,8 @@ defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgcomments' . DS . 'rsgcomments.class.php' );
 
 $cid    = JRequest::getInt('cid', array(0) );
-$task    = JRequest::getVar('task', '' );
-$option    = JRequest::getVar('option', '' );
-
+$task    = JRequest::getCmd('task', '' );
+$option    = JRequest::getCmd('option', '' );
 switch( $task ){
     case 'save':
     	//test( $option );
@@ -46,19 +45,20 @@ function test( $option ) {
  */
 function saveComment( $option ) {
 	global $rsgConfig;
-	$mainframe =& JFactory::getApplication();
-	$my = JFactory::getUser();
-	$database = JFactory::getDBO();
+	$mainframe 	=& JFactory::getApplication();
+	$my 		= JFactory::getUser();
+	$database 	= JFactory::getDBO();
 
 	//Retrieve parameters
-	$user_ip	= $_SERVER['REMOTE_ADDR'];
-	$rsgOption	= JRequest::getVar('rsgOption'  , '');
-	$subject 	= JRequest::getVar('ttitle'  , '');
-	$user_name	= JRequest::getVar( 'tname', '');
-	$comment 	= get_magic_quotes_gpc() ? JRequest::getVar( 'tcomment'  , '') : addslashes(JRequest::getVar( 'tcomment'  , ''));
+	$user_ip	= $database->quote($_SERVER['REMOTE_ADDR']);			// Used in sql!
+	$rsgOption	= JRequest::getCmd('rsgOption'  , '');
+	$subject 	= $database->quote(JRequest::getString('ttitle'  , ''));	// Used in sql!
+	$user_name	= $database->quote(JRequest::getString('tname'   , ''));	// Used in sql!
+	$comment 	= $database->quote(JRequest::getVar('tcomment', ''));	// Used in sql!
 	$item_id 	= JRequest::getInt( 'item_id'  , '');
 	$gid 		= JRequest::getInt( 'gid'  , '');
 	$Itemid 	= JRequest::getInt( 'Itemid'  , '');
+	$dateTime	= $database->quote(date('Y-m-d H:i:s'));				// Used in sql!
 
 	$redirect_url = JRoute::_("index.php?option=".$option."&Itemid=$Itemid&page=inline&id=".$item_id, false);
 	
@@ -70,11 +70,11 @@ function saveComment( $option ) {
 	
 	//Check if user is logged in
 	if ($my->id) {
-		$user_id = $my->id;
+		$user_id = (int) $my->id;
 		//Check if only one comment is allowed
 		if ($rsgConfig->get('comment_once') == 1) {
 			//Check how many comments the user already made on this item
-			$sql = "SELECT COUNT(1) FROM #__rsgallery2_comments WHERE user_id = '$user_id' AND item_id='$item_id'";
+			$sql = 'SELECT COUNT(1) FROM `#__rsgallery2_comments` WHERE `user_id` = '. (int) $user_id .' AND `item_id` = '. (int) $item_id;
 			$database->setQuery( $sql );
 			$result = $database->loadResult();
 			if ($result > 0 ) {
@@ -94,7 +94,7 @@ function saveComment( $option ) {
 		include_once(JPATH_SITE.DS.'components'.DS.'com_rsgallery2'.DS.'lib'.DS.'rsgcomments'.DS.'securimage'.DS.'securimage.php');
 		$securimage = new Securimage();
 		//Check if user input is correct
-		if ($securimage->check(JRequest::getVar('captcha_code','','POST')) == false) {
+		if ($securimage->check(JRequest::getString('captcha_code','','POST')) == false) {
 			// The code was incorrect, go back (IE loses comment, Firefox & Safari keep it)
 			echo "<script>confirm('".JText::_('COM_RSGALLERY2_INCORRECT_CAPTCHA_CHECK_COMMENT_IS_NOT_SAVED')."');window.history.go(-1);</script>";
 			exit;
@@ -102,25 +102,25 @@ function saveComment( $option ) {
 		//Securimage check - http://www.phpcaptcha.org - end
 	}
 
-	//If we are here, start database thing
+	//If we are here, start database thing !Make sure text is quoted and numbers are integers!
 	$sql = "INSERT INTO #__rsgallery2_comments (id, user_id, user_name, user_ip, parent_id, item_id, item_table, datetime, subject, comment, published, checked_out, checked_out_time, ordering, params, hits)" .
 			" VALUES (" .
-			"''," . 				//Autoincrement id
-			"'$user_id'," .			//User id
-			"'$user_name'," .		//User name
-			"'$user_ip'," .			//User IP address
-			"''," .					//Parent id, defaults to zero.
-			"'$item_id'," .			//Item id
-			"'com_rsgallery2'," .	//Item table, if rsgallery2 commenting, field is empty
-			"now()," .				//Datetime 
-			"'$subject'," .			//Subject
-			"'$comment'," .			//Comment text
-			"1," .					//Published, defaults to 1
-			"''," .					//Checked out
-			"''," .					//Checked_out_time
-			"''," .					//Ordering
-			"''," .					//Params
-			"''" .					//Hits
+			"''," . 				//Autoincrement id (int)
+			$user_id	."," .		//User id (int)
+			$user_name	."," .		//User name (varchar(100)) -> quoted above
+			$user_ip	."," .		//User IP address (varchar(50)) -> quoted above
+			"''," .					//Parent id, defaults to zero. (int)
+			$item_id."," .			//Item id (int)
+			"'com_rsgallery2'," .	//Item table, if rsgallery2 commenting, field is empty (varchar(50))
+			$dateTime	."," .		//Datetime (datetime)
+			$subject	."," .		//Subject (varchar(100)) -> quoted above
+			$comment	."," .		//Comment text (text) -> quoted above
+			"1," .					//Published, defaults to 1 (int)
+			"''," .					//Checked out (int)
+			"''," .					//Checked_out_time (datetime)
+			"''," .					//Ordering (int)
+			"''," .					//Params (text)
+			"''" .					//Hits (int)
 			")";
 	$database->setQuery( $sql );
 	if ( $database->query() ) {
@@ -155,7 +155,7 @@ function deleteComments( $option ) {
 	$Itemid 	= JRequest::getInt( 'Itemid'  , '');
 
 	if ( !empty($id) ) {
-		$query = "DELETE FROM #__rsgallery2_comments WHERE id = '$id'";
+		$query = 'DELETE FROM `#__rsgallery2_comments` WHERE `id` = '. (int) $id;
 		$database->setQuery( $query );
 		if (!$database->query()) {
 			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";

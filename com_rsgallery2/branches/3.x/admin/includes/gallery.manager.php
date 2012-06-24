@@ -23,18 +23,24 @@ class rsgGalleryManager{
 	 */
 	function getGalleryByItemID( $id = null ) {
 		$database =& JFactory::getDBO();
-		
+		$mainframe =& JFactory::getApplication();
+
+		// Make sure that the $id is an integer
 		if( $id === null ){
 			$id = JRequest::getInt( 'id', 0 );
 		}
-		
-		if( !is_numeric( $id )) return false;
-		$query = "SELECT f.gallery_id FROM #__rsgallery2_files AS f WHERE f.id = $id";
+		$query = 'SELECT `gallery_id` FROM `#__rsgallery2_files` WHERE `id` = '. (int) $id;
+
 		$database->setQuery ($query);
 		$gid = $database->loadResult();
 		
 		if ($gid) {
-			return rsgGalleryManager::get( $gid );	
+			$rsgGalleryObject = rsgGalleryManager::get( $gid );
+			return $rsgGalleryObject;	
+		} else {
+			// Redirect the user when the id of the gallery is not available
+			$msg = JText::_('COM_RSGALLERY2_REQUESTED_GALLERY_DOES_NOT_EXIST');
+			$mainframe->redirect("index.php",$msg);
 		}
 	}
 	
@@ -137,9 +143,10 @@ class rsgGalleryManager{
 		$user	= JFactory::getUser();
 		$groups	= $user->getAuthorisedViewLevels();
         
-        $database->setQuery("SELECT * FROM #__rsgallery2_galleries".
-                            " WHERE parent = '$parent'".
-                            " ORDER BY ordering ASC");
+		$query = 'SELECT * FROM `#__rsgallery2_galleries` '.
+                    ' WHERE `parent` = '. (int) $parent .
+                    ' ORDER BY ordering ASC ';
+        $database->setQuery($query);
         $rows = $database->loadAssocList();
         $galleries = array();
 
@@ -192,9 +199,9 @@ class rsgGalleryManager{
 		
 			if( !is_numeric( $gallery )) die("gallery id is not a number: $gallery");
 			
-			$query = "SELECT * FROM #__rsgallery2_galleries ".
-								"WHERE id = '$gallery' ".
-								"ORDER BY ordering ASC ";
+			$query = 'SELECT * FROM `#__rsgallery2_galleries` '.
+						' WHERE id = '. (int) $gallery .
+						' ORDER BY `ordering` ASC ';
 				//MK don't check on viewing access here: requires logic which is in functions getList and get
 			$database->setQuery($query);
 			$row = $database->loadAssocList();

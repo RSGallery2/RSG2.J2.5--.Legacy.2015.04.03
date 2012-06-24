@@ -347,13 +347,14 @@ class fileHandler {
      * Checks the number of images against the number of images to upload.
      * @return boolean True if number is within boundaries, false if number exceeds maximum
      * @todo Check if user is Super Administrator. Limits do not count for him
+	 * Does not seem to be used anywhere in 3.1.0
      */
-    function checkMaxImages($zip = false, $zip_count = '' ) {
+    function checkMaxImages($zip = false, $zip_count = '' ) {dump('checkMaxImages');
     global $my, $database, $rsgConfig;
         $maxImages = $rsgConfig->get('uu_maxImages');
         
         //Check if maximum number of images is exceeded
-        $database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE userid = $my->id");
+        $database->setQuery('SELECT COUNT(1) FROM `#__rsgallery2_files` WHERE `userid` = '. (int) $my->id);
         $count = $database->loadResult();
         
         if ($zip == true) {

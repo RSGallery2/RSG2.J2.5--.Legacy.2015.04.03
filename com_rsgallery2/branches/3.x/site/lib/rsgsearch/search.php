@@ -14,7 +14,7 @@ global $rsgOptions_path;
 require_once( $rsgOptions_path . 'search.html.php' );
 
 $cid = JRequest::getVar( 'cid' , array(), 'default', 'array' );
-$task = JRequest::getVar( 'task', null);
+$task = JRequest::getCmd( 'task', null);
 
 //Load stylesheet from current template
 global  $rsgConfig;
@@ -31,19 +31,32 @@ switch ($task) {
 	function showResults() {
 		$database = JFactory::getDBO();
 		//Retrieve search string
-		$searchtext 	= JRequest::getVar( 'searchtext'  , '');
+		$searchtext = JRequest::getVar( 'searchtext'  , '');
 		
 		//Check searchtext against database
-		$sql = "SELECT *, a.name as itemname, a.id as item_id FROM #__rsgallery2_files as a, #__rsgallery2_galleries as b " .
-				"WHERE a.gallery_id = b.id " .
-				"AND (" .
-				"a.title LIKE '%$searchtext%' OR " .
-				"a.descr LIKE '%$searchtext%'" .
-				") " .
-				"AND a.published = 1 " .
-				"AND b.published = 1 " .
-				"GROUP BY a.id " .
-				"ORDER BY a.id DESC";
+		// See http://docs.joomla.org/Secure_coding_guidelines. Example given (2012 June 23):
+		/* Special attention should be paid to LIKE clauses which contain the % wildcard
+			character as these require special escaping in order to avoid possible denial of
+			service attacks. LIKE clauses can be handled like this:
+			Construct the search term by escaping the user-supplied string and, if
+			required, adding the % wildcard characters manually.
+				$search = '%' . $db->getEscaped( $search, true ) . '%' );
+			Construct the SQL query, being careful to suppress the default behaviour of
+			Quote so as to prevent double-escaping.
+				$query = 'SELECT * FROM #__table WHERE `field` LIKE ' . $db->quote( $search, false );
+		*/
+		$escapedSearchtext = '%' . $database->getEscaped( $searchtext, true) . '%';
+		$safeSearchtext = $database->quote( $escapedSearchtext, false);
+		$sql = 'SELECT *, a.name as itemname, a.id as item_id FROM #__rsgallery2_files as a, #__rsgallery2_galleries as b ' .
+				' WHERE a.gallery_id = b.id ' .
+				' AND (' .
+				' a.title LIKE '. $safeSearchtext .' OR ' .	
+				' a.descr LIKE '. $safeSearchtext .
+				' ) ' .
+				' AND a.published = 1 ' .
+				' AND b.published = 1 ' .
+				' GROUP BY a.id ' .
+				' ORDER BY a.id DESC ';
 		$database->setQuery($sql);
 		$result = $database->loadObjectList();
 		

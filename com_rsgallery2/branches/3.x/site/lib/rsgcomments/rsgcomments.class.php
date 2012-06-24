@@ -415,6 +415,7 @@ function showComments( $item_id ) {
 /**
  * returns a comment object for a specific id
  * @param id
+ * Is this used anywhere in 3.1.0? Seems not...
  */
 function _get( $id ){
     $database =& JFactory::getDBO();
@@ -422,10 +423,11 @@ function _get( $id ){
     if( !is_numeric( $id )) die("item id is not a number: $id");
     
     //Retrieve 
-    $database->setQuery("SELECT * FROM #__rsgallery2_comments ".
-                        "WHERE id = '$id' " .
-                        "AND published = '1' ".
-                        "ORDER BY ordering ASC ");
+	$query = 'SELECT * FROM `#__rsgallery2_comments` '.
+				' WHERE `id` = '. (int) $id  .
+				' AND `published` = 1 '.
+				' ORDER BY `ordering` ASC ';
+    $database->setQuery($query);
 
     $results = $database->loadAssocList();
 
@@ -445,9 +447,9 @@ function _getList( $item_id ) {
 	$database =& JFactory::getDBO();
 	
 	$result = array();
-	$sql = "SELECT * FROM #__rsgallery2_comments " .
-			"WHERE item_id = '$item_id' " .
-			"ORDER BY datetime DESC";
+	$sql = 'SELECT * FROM `#__rsgallery2_comments` ' .
+			' WHERE `item_id` = '. (int) $item_id .
+			' ORDER BY `datetime` DESC';
 	$database->setQuery( $sql );
 	$result = $database->loadAssocList();
 	/*

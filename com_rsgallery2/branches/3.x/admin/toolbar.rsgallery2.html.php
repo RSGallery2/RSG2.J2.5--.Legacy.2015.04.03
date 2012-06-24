@@ -186,7 +186,7 @@ class menuRSGallery {
     
     function image_batchUpload() {
 		JToolBarHelper::title( JText::_('COM_RSGALLERY2_BATCH_UPLOAD'), 'generic.png' );
-        if( JRequest::getVar('uploaded'  , null) )
+        if( JRequest::getBool('uploaded'  , null) )
         	JToolBarHelper::custom('save_batchupload','upload.png','upload.png','COM_RSGALLERY2_UPLOAD', false);
 		else
         	JToolBarHelper::custom('batchupload','forward.png','forward.png','COM_RSGALLERY2_NEXT', false);

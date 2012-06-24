@@ -94,16 +94,16 @@ class rsgInstall {
 	 * Deprecated in v3.0 for J!1.6
      */
     function changeMenuIcon() {
-    $database =& JFactory::getDBO();
-	$database->setQuery("UPDATE #__extensions SET admin_menu_img='../administrator/components/com_rsgallery2/images/rsg2_menu.png' WHERE admin_menu_link='option=com_rsgallery2'");
-	if ($database->query())
-        {
-        $this->writeInstallMsg(JText::_('COM_RSGALLERY2_MENU_IMAGE_RSGALLERY2_SUCCESFULLY_CHANGED'), 'ok');
-        }
-    else
-        {
-        $this->writeInstallMsg(JText::_('COM_RSGALLERY2_MENU_IMAGE_COULD_NOT_BE_CHANGED'), 'error');
-        }
+		$database =& JFactory::getDBO();
+		$database->setQuery("UPDATE #__extensions SET admin_menu_img='../administrator/components/com_rsgallery2/images/rsg2_menu.png' WHERE admin_menu_link='option=com_rsgallery2'");
+		if ($database->query())
+			{
+			$this->writeInstallMsg(JText::_('COM_RSGALLERY2_MENU_IMAGE_RSGALLERY2_SUCCESFULLY_CHANGED'), 'ok');
+			}
+		else
+			{
+			$this->writeInstallMsg(JText::_('COM_RSGALLERY2_MENU_IMAGE_COULD_NOT_BE_CHANGED'), 'error');
+			}
     }
     
     /** 
@@ -462,19 +462,18 @@ class rsgInstall {
      * @return True or False
      */
     function componentInstalled($component){
-    $database =& JFactory::getDBO();
-    $sql = "SELECT COUNT(1) FROM #__extensions as a WHERE a.element = '$component'";
-    $database->setQuery($sql);
-    $result = $database->loadResult($sql);
-    
-    if ($result > 0)
-        {
-        return true;
-        }
-    else
-        {
-        return false;
-        }
+		$database =& JFactory::getDBO();
+		
+		$component = $database->quote($component);
+		$sql = "SELECT COUNT(1) FROM #__extensions as a WHERE a.element = '$component'";
+		$database->setQuery($sql);
+		$result = $database->loadResult($sql);
+		
+		if ($result > 0) {
+			return true;
+		} else {
+			return false;
+		}
     }
 
     /**
@@ -613,12 +612,13 @@ class rsgInstall {
 	    $old = $database->loadObjectList();
 	    foreach ($old as $row)
 	        {
-	        $filename   = $row->$old_image_filename;
-	        $imagename  = $row->$old_image_name;
-	        $date       = $row->$old_image_date;
-	        $descr      = $row->$old_description;
-	        $uid        = $row->$old_uid;
+	        $filename   = $database->quote($row->$old_image_filename);
+			$descr      = $database->quote($row->$old_description);
+	        $imagename  = $database->quote($row->$old_image_name);
+	        $date       = $database->quote($row->$old_image_date);
+	        $uid        = (int) $row->$old_uid;
 	        $catid      = $row->$old_catid + $max_id;
+			$catid		= (int) $catid;
 	        $sql2 = "INSERT INTO #__rsgallery2_files ".
 	                "(name, descr, title, date, userid, gallery_id) VALUES ".
 	                "('$filename', '$descr', '$imagename', '$date', '$uid', '$catid')";
@@ -1067,23 +1067,22 @@ class rsgInstall {
      * @return True or False
      */
     function tableExists($table) {
-    global $mosConfig_dbprefix;
-	$database =& JFactory::getDBO();
-		
-    $table = substr($table, 3);
-    $sql = "SHOW TABLES LIKE '$mosConfig_dbprefix$table'";
-    $database->setQuery($sql);
-    if ($database->query())
-        $result = $database->getNumRows();
-    if ($result > 0)
-        {
-        return true;
-        }
-    else
-        {
-        return false;
-        }
-    
+		global $mosConfig_dbprefix;
+		$database =& JFactory::getDBO();
+			
+		$table = substr($table, 3);
+		$sql = "SHOW TABLES LIKE '$mosConfig_dbprefix$table'";
+		$database->setQuery($sql);
+		if ($database->query())
+			$result = $database->getNumRows();
+		if ($result > 0)
+			{
+			return true;
+			}
+		else
+			{
+			return false;
+			}
     }
     /**
      * Returns the extension of a file
@@ -1244,9 +1243,11 @@ class GenericMigrator{
 	    foreach ($old as $row) {
 			//Create new category ID
 	        $id             = $row->$old_catid + $max_id;
-	        $catname        = $row->$old_catname;
-	        $description    = $row->$old_descr_name;
-	        $alias			= $database->getEscaped(JFilterOutput::stringURLSafe($catname));
+			$id				= (int) $id;
+	        $catname        = $database->quote($row->$old_catname);
+			$parent_id		= (int) $parent_id;
+	        $description    = $database->quote($row->$old_descr_name);
+	        $alias			= $database->quote(JFilterOutput::stringURLSafe($catname));
 	        if ($row->$old_parent_id == 0) {
 	            $parent_id  = 0;
 	        } else {
@@ -1298,13 +1299,14 @@ class GenericMigrator{
 	    $old = $database->loadObjectList();
 	    
 	    foreach ($old as $row) {
-	        $filename   = $prefix.$row->$old_image_filename;
-	        $imagename  = $row->$old_image_name;
-	        $date       = $row->$old_image_date;
-	        $descr      = $row->$old_description;
-	        $uid        = $row->$old_uid;
+	        $filename   = $database->quote($prefix.$row->$old_image_filename);
+			$descr      = $database->quote($row->$old_description);
+	        $imagename  = $database->quote($row->$old_image_name);
+	        $date       = $database->quote($row->$old_image_date);
+	        $uid        = (int) $row->$old_uid;
 	        $catid      = $row->$old_catid + $max_id;
-			$alias		= $database->getEscaped(JFilterOutput::stringURLSafe($imagename));
+			$catid		= (int) $catid;
+			$alias		= $database->quote(JFilterOutput::stringURLSafe($imagename));
 	        
 	        //Insert data into RSGallery2 files table
 	        $sql2 = "INSERT INTO #__rsgallery2_files ".
@@ -1464,7 +1466,8 @@ class migrate_com_akogallery extends GenericMigrator{
 	/**
 	 * add a new category for every category in #__categories that has section set to com_akogallery
      */
-    function migrateCategories(){
+// #__rsgallery2_cat does not exist in v3.1.0, so comment entire function
+/*    function migrateCategories(){
         
         $database =& JFactory::getDBO();
         $objects = 0;
@@ -1503,7 +1506,7 @@ class migrate_com_akogallery extends GenericMigrator{
             else
                 $parent_id = $oldnewcats[ $oldCat->$stringParentId ];
 
-            $insertSQL = 'INSERT INTO #__rsgallery2_cats ' .
+            $insertSQL = 'INSERT INTO #__rsgallery2_cats ' .	// #__rsgallery2_cat does not exist in v3.1.0, so comment entire function
             '( id, catname, parent, description ) VALUES ' .
             "( $id, '$catname', $parent_id, '$desc' )";
             $database->setQuery( $insertSQL );
@@ -1533,7 +1536,7 @@ class migrate_com_akogallery extends GenericMigrator{
             rsgInstall::writeInstallMsg( "All Category entries successfully imported into RSG2 table. " . $objects . " objects imported", "ok" );
             return $oldnewcats;
         }
-    }
+    }/**/
 
     function migrateImages( $imgDir, $oldnewcats ){
         /*
@@ -1565,8 +1568,8 @@ class migrate_com_akogallery extends GenericMigrator{
         return $finalResult;
     }
 
-
-    function migrateComments() {
+//picid and name do not exist in #__rsgallery2_comments in v3.1.0, so comment entire function?!
+/*	function migrateComments() {
         $database =& JFactory::getDBO();
         $error = 0;
         $objects = 0;
@@ -1584,7 +1587,7 @@ class migrate_com_akogallery extends GenericMigrator{
 
             $insertSQL = "INSERT INTO #__rsgallery2_comments " .
             "( picid, name, comment ) VALUES " .
-            "( $picId, '$name', '$commentText' )";
+            "( $picId, '$name', '$commentText' )";	//picid and name do not exist in #__rsgallery2_comments in v3.1.0, so comment entire function?!
             $database->setQuery( $insertSQL );
 
             if( !$database->query() )
@@ -1602,7 +1605,7 @@ class migrate_com_akogallery extends GenericMigrator{
                 return true;
             }
         }
-    }
+    }/**/
 }
 /**
  * Pony Gallery ML version 2.4.1 migrator
@@ -1917,6 +1920,8 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
 	    $error = 0;
 	    $file = 0;
 	    
+		$old_catname = $database->quote($old_catname);
+		
 	    //Select all category details from other gallery system
 	    $sql = "SELECT $old_catid, $old_catname, $old_parent_id, $old_descr_name " .
 	    		"FROM $old_table " .
@@ -1927,10 +1932,11 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
 	    
 	    foreach ($old as $row) {
 			//Create new category ID
-	        $id             = $row->$old_catid + $max_id;
-	        $catname        = $row->$old_catname;
-	        $description    = $row->$old_descr_name;
-	        $alias			= $database->getEscaped(JFilterOutput::stringURLSafe($catname));
+	        $id             = (int) $row->$old_catid + $max_id;
+	        $catname        = $database->quote(($row->$old_catname);
+			$parent_id		= (int) $parent_id;
+	        $description    = $database->quote($row->$old_descr_name);
+	        $alias			= $database->quote(JFilterOutput::stringURLSafe($catname));
 	        if ($row->$old_parent_id == 0) {
 	            $parent_id  = 0;
 	        } else {
@@ -1980,20 +1986,20 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
 	    $file = 0;
 	    
 	    //Get all information from images table
-	    $sql = "SELECT * FROM $old_table";
+	    $sql = "SELECT * FROM `$old_table`";
 	    $database->setQuery($sql);
 	    $old = $database->loadObjectList();
 	    
 	    foreach ($old as $row) {
 	        //Retrieve correct filename, without path information
 	        $filename 	= array_reverse( explode("/", $row->$old_image_filename) );
-	        $filename   = $prefix.$filename[0];
-	        $imagename  = $row->$old_image_name;
-	        $date       = $row->$old_image_date;
-	        $descr      = $row->$old_description;
-	        $uid        = $row->$old_uid;
-	        $catid      = $row->$old_catid + $max_id;
-			$alias		= $database->getEscaped(JFilterOutput::stringURLSafe($imagename));
+	        $filename   = $database->quote($prefix.$filename[0]);
+	        $imagename  = $database->quote($row->$old_image_name);
+	        $date       = $database->quote($row->$old_image_date);
+	        $descr      = $database->quote($row->$old_description);
+	        $uid        = (int) $row->$old_uid;
+	        $catid      = (int) $row->$old_catid + $max_id;
+			$alias		= $database->quote(JFilterOutput::stringURLSafe($imagename));
 	        
 	        //Insert data into RSGallery2 files table
 	        $sql2 = "INSERT INTO #__rsgallery2_files ".
@@ -2255,7 +2261,7 @@ class migrate_com_rsgallery extends GenericMigrator {
 		foreach ($result as $key => $value) {
 			$query = 'UPDATE #__rsgallery2_galleries '
 					.' SET `alias` = '. $db->quote($value[alias])
-					.' WHERE `id` = '. $db->quote($value[id]);
+					.' WHERE `id` = '. (int) $value[id];
 			$db->setQuery($query);
 			$result = $db->query();
 			if (!$result) {
@@ -2278,7 +2284,7 @@ class migrate_com_rsgallery extends GenericMigrator {
 		foreach ($result as $key => $value) {
 			$query = 'UPDATE #__rsgallery2_files '
 					.' SET `alias` = '. $db->quote($value[alias])
-					.' WHERE `id` = '. $db->quote($value[id]);
+					.' WHERE `id` = '. (int) $value[id];
 			$db->setQuery($query);
 			$result = $db->query();
 			if (!$result) {

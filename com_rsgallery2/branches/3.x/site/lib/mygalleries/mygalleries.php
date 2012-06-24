@@ -27,7 +27,7 @@ require_once( $rsgOptions_path . 'galleries.class.php' );
 require_once( $rsgOptions_path . 'images.class.php' );
 
 //Get parameters from URL and/or form
-$task   = JRequest::getVar('task', '' );
+$task   = JRequest::getCmd('task', '' );
 $id		= JRequest::getInt('id','' );
 $gid	= JRequest::getInt('gid','' );
 $currentState = JRequest::getInt('currentstate','' );
@@ -110,11 +110,11 @@ function showMyGalleries() {
 	}
 	if ($rsgConfig->get('show_mygalleries_onlyOwnItems')) {
 		// Show only items owned by current user?
-		$query->where('files.userid = '.$my->id);
+		$query->where('files.userid = '. (int) $my->id);
 	}
 	$query->order('galleries.ordering, files.ordering');
 	//	Now that is The Query for the images, all of them
-	
+
 	//	Get image count to use with the pagination:
 	$database->setQuery($query);
 	$allImages = $database->loadObjectList();
@@ -179,7 +179,7 @@ function editItem() {
 
 	//Is the user allowed to edit the item?
 	//(Check on users that "know the URL" to access the edit screen)
-	$allowed = rsgAuthorisation::authorisationEditItem($id);
+	$allowed = rsgAuthorisation::authorisationEditItem( (int) $id);
 	//Redirect if user is not allowed to edit the item 
 	if (!$allowed){
 		JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
@@ -187,7 +187,8 @@ function editItem() {
 	}
 
 	if ($id) {
-		$database->setQuery("SELECT * FROM #__rsgallery2_files WHERE id = '$id'");
+		$query = 'SELECT * FROM `#__rsgallery2_files` WHERE `id` = '. (int) $id;
+		$database->setQuery($query);
 		$rows = $database->loadObjectList();
 		myGalleries::editItem($rows);
 	}
@@ -254,10 +255,10 @@ function saveUploadedItem() {
 	$max_images = $rsgConfig->get('uu_maxImages');
 
 	//Get category ID to check rights
-	$gallery_id = JRequest::getVar( 'gallery_id'  , '');
+	$gallery_id = JRequest::getInt( 'gallery_id'  , '');
 	
 	//Check if user is allowed to upload in this gallery (parent gallery has id $gallery_id)
-	if (!rsgAuthorisation::authorisationCreate($gallery_id)){
+	if (!rsgAuthorisation::authorisationCreate( (int) $gallery_id)){
 		JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 		$mainframe->redirect(JRoute::_( $redirect ));
 	}
@@ -266,7 +267,7 @@ function saveUploadedItem() {
 	$query = $database->getQuery(true);
 	$query->select('files.id, files.userid');
 	$query->from('#__rsgallery2_files AS files');
-	$query->where('files.userid = '.$user->id);
+	$query->where('files.userid = '. (int) $user->id);
 	$database->setQuery($query);
 	$allImages = $database->loadObjectList();
 	$image_count = count($allImages);
@@ -281,9 +282,9 @@ function saveUploadedItem() {
 		//Get parameters from form
 		$i_file = JRequest::getVar( 'i_file', null, 'files', 'array'); 
 		$gallery_id = JRequest::getInt( 'gallery_id'  , ''); 
-		$title = JRequest::getVar( 'title'  , ''); 
+		$title = JRequest::getString( 'title'  , '');
 		$descr = JRequest::getVar( 'descr', '', 'post', 'string', JREQUEST_ALLOWRAW );
-		$uploader = JRequest::getVar( 'uploader'  , ''); 
+		//$uploader = JRequest::getVar( 'uploader'  , ''); //No longer used in 3.1.0
 		
 		//Get filetype
 		$file_ext = $upload->checkFileType($i_file['name']);
@@ -362,7 +363,8 @@ function editCat($id) {
 		}
 		
 		//Edit category
-		$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE id ='$id'");
+		$query = 'SELECT * FROM `#__rsgallery2_galleries` WHERE `id` ='. (int) $id;
+		$database->setQuery($query);
 		$rows = $database->LoadObjectList();
 		myGalleries::editCat($rows);
 
@@ -405,7 +407,7 @@ function saveCat($gid) {
 		}
 	} else {
 		//Check if user is allowed to create a gallery in the chosen gallery:
-		$parent_gallery = JRequest::getVar( 'parent');
+		$parent_gallery = JRequest::getInt( 'parent');
 		if (!rsgAuthorisation::authorisationCreate($parent_gallery)){
 			JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 			$mainframe->redirect(JRoute::_( $redirect ));
@@ -484,12 +486,13 @@ function deleteCat() {
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries",false);
 
 	//Is user allowed to delete this gallery?
-	$allowed = rsgAuthorisation::authorisationDeleteGallery($gid);
+	$allowed = rsgAuthorisation::authorisationDeleteGallery( (int) $gid);
 	if (!$allowed) {
 		$mainframe->redirect( $redirect ,JText::_('COM_RSGALLERY2_PERMISSION_NOT_ALLOWED_DELETE_GALLERY'));
 	} else {
 		//Check if gallery has children
-		$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_galleries WHERE parent = '$gid'");
+		$query = 'SELECT COUNT(1) FROM `#__rsgallery2_galleries` WHERE `parent` = '. (int) $gid;
+		$database->setQuery($query);
 		$count = $database->loadResult();
 		if ($count > 0) {
 			$mainframe->redirect( $redirect ,JText::_('COM_RSGALLERY2_USERCAT_SUBCATS'));
@@ -502,7 +505,8 @@ function deleteCat() {
 		$gallery_row->load($gid);
 
 		//Delete images
-		$database->setQuery("SELECT name FROM #__rsgallery2_files WHERE gallery_id = '$gid'");
+		$query = 'SELECT `name` FROM `#__rsgallery2_files` WHERE `gallery_id` = '. (int) $gid;
+		$database->setQuery($query);
 		$result = $database->loadResultArray();
 		$error = 0;
 		foreach ($result as $filename) {
@@ -535,23 +539,24 @@ function editStateGallery($galleryId, $newState) {
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
 
 	//Check if user is allowed to edit the state of this gallery (to prevent direct access)
-	if (!rsgAuthorisation::authorisationEditStateGallery($galleryId)){
+	if (!rsgAuthorisation::authorisationEditStateGallery( (int) $galleryId)){
 		JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 		$mainframe->redirect(JRoute::_( $redirect ));
 	}
 	
 	if ($galleryId) {
-		$database->setQuery("UPDATE #__rsgallery2_galleries SET ".
-			"published = $newState ".
-			"WHERE id = $galleryId ");
+		$query = 'UPDATE `#__rsgallery2_galleries` '.
+			' SET `published` = '. (int) $newState .
+			' WHERE `id` = '. (int) $galleryId;
+		$database->setQuery($query);
 		if ($database->query()) {
 			$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_GALLERY_DETAILS_UPDATED') );
 		} else {
 			$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_COULD_NOT_UPDATE_GALLERY_DETAILS') );
 		}
 	}
-	//$mainframe->redirect( $redirect  );
 }
+
 function editStateItem($id, $newState) {
 	$mainframe =& JFactory::getApplication();
 	$Itemid = JRequest::getInt( 'Itemid'  , '');
@@ -561,14 +566,15 @@ function editStateItem($id, $newState) {
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid", false);
 
 	//Check if user is allowed to edit the state of this item (to prevent direct access)
-	if (!rsgAuthorisation::authorisationEditStateItem($id)){
+	if (!rsgAuthorisation::authorisationEditStateItem( (int) $id)){
 		JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 		$mainframe->redirect(JRoute::_( $redirect ));
 	}
 
-	$database->setQuery("UPDATE #__rsgallery2_files SET ".
-			"published = $newState ".
-			"WHERE id= '$id'");
+	$query = 'UPDATE `#__rsgallery2_files` '.
+			' SET `published` = ' . (int) $newState .
+			' WHERE `id` = ' . (int) $id;
+	$database->setQuery($query);
 
 	if ($database->query()) {
 		$mainframe->redirect(JRoute::_( $redirect ), JText::_('COM_RSGALLERY2_DETAILS_SAVED_SUCCESFULLY') );
@@ -585,21 +591,28 @@ function editStateItems($cid,$newstate=0) {
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid", false);
 	
 	//Get array of item ids where user is allowed to edit the state of the item
+	$allowedId = Null;
 	foreach ($cid as &$value) {
-		if (rsgAuthorisation::authorisationEditStateItem($value)){
-			$allowedId[] = $value;
+		if (rsgAuthorisation::authorisationEditStateItem( (int) $value)){
+			$allowedId[] = (int) $value;
 		}
 	}
-	
-	//Create query to edit state of allowed items
-	$database->setQuery("UPDATE #__rsgallery2_files SET ".
-		"published = $newstate ".
-		"WHERE id ".
-		"IN (" .implode(",",$allowedId).")");
-	//Execute query
-	if ($database->query()) {
-		$mainframe->redirect(JRoute::_( $redirect ), JText::_('COM_RSGALLERY2_DETAILS_SAVED_SUCCESFULLY') );
+
+	// Are there galleries for which we have permission?
+	if ($allowedId) {
+		//Create query to edit state of allowed items
+		$query = 'UPDATE `#__rsgallery2_files` SET '.
+			' `published` = ' . (int) $newstate .
+			' WHERE `id` '.
+			' IN (' .implode(',',$allowedId).')';
+		$database->setQuery($query);
+		if ($database->query()) {
+			$mainframe->redirect(JRoute::_( $redirect ), JText::_('COM_RSGALLERY2_DETAILS_SAVED_SUCCESFULLY') );
+		} else {
+			$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_COULD_NOT_UPDATE_IMAGE_DETAILS') );
+		}
 	} else {
+		// Not allowed to update anything
 		$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_COULD_NOT_UPDATE_IMAGE_DETAILS') );
 	}
 }
@@ -611,7 +624,7 @@ function deleteItems($cid) {
 	$user = JFactory::getUser();
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid", false);
 	$success = false;
-	
+
 	//Get array of items where user is allowed to delete the item
 	foreach ($cid as &$value) {
 		if (rsgAuthorisation::authorisationDeleteItem($value)){

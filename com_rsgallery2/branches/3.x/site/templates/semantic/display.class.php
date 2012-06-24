@@ -116,8 +116,9 @@ class rsgDisplay_semantic extends rsgDisplay{
 
     /**
      * @todo this alternate gallery view needs to be moved to an html file and added as a template parameter
+	 * Seems to be used nowhere
      */
-    function _showDouble( $kids ) {
+/*    function _showDouble( $kids ) {
 		global $rsgConfig;
         $i = 0;
 		echo"<div class='rsg_double_fix'>";
@@ -147,12 +148,13 @@ class rsgDisplay_semantic extends rsgDisplay{
 			}
         }
 		echo "</div>";
-    }
+    }/**/
     
     /**
      * @todo this alternate gallery view needs to be moved to an html file and added as a template parameter
+	 * Seems to be used nowhere
      */
-    function _showBox( $kids, $subgalleries ) {
+/*    function _showBox( $kids, $subgalleries ) {
         ?>
 		<div class="rsg_box_block">
             <?php
@@ -192,7 +194,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 			?>
             </div>
         <?php
-    }
+    }/**/
 
 	/**
 	 * Shows thumbnails for gallery

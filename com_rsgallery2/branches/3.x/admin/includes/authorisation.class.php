@@ -33,16 +33,16 @@ class rsgAuthorisation{
 			$allowed = true;
 		} else {
 			// No edit permission, check for edit own permission
-			$canEditStateGallery = $user->authorise('core.edit.own', 'com_rsgallery2.gallery.'.$gallery_id);
-			if ($canEditStateGallery) {
+			$canEditOwnGallery = $user->authorise('core.edit.own', 'com_rsgallery2.gallery.'.$gallery_id);
+			if ($canEditOwnGallery) {
 				// User has edit own permission, check ownership
 				// Get the number of items with this id and with this user as its owner
 				$db = JFactory::getDBO();
 				$query = $db->getQuery(true);
 				$query->select("id, uid");
 				$query->from("#__rsgallery2_galleries");
-				$query->where("id = ".$gallery_id);
-				$query->where("uid = ".$user->id);
+				$query->where("id = ". (int) $gallery_id);
+				$query->where("uid = ". (int) $user->id);
 				$db->setQuery($query);
 				$db->query();
 				if( $db->getNumRows()) {
@@ -79,8 +79,8 @@ class rsgAuthorisation{
 				$query = $db->getQuery(true);
 				$query->select("id, userid");
 				$query->from("#__rsgallery2_files");
-				$query->where("id = ".$item_id);
-				$query->where("userid = ".$user->id);
+				$query->where("id = ". (int) $item_id);
+				$query->where("userid = ". (int) $user->id);
 				$db->setQuery($query);
 				$db->query();
 				if( $db->getNumRows()) {
@@ -117,8 +117,8 @@ class rsgAuthorisation{
 				$query = $db->getQuery(true);
 				$query->select("id, uid");
 				$query->from("#__rsgallery2_galleries");
-				$query->where("id = ".$gallery_id);
-				$query->where("uid = ".$user->id);
+				$query->where("id = ". (int) $gallery_id);
+				$query->where("uid = ". (int) $user->id);
 				$db->setQuery($query);
 				$db->query();
 				if( $db->getNumRows()) {
@@ -155,8 +155,8 @@ class rsgAuthorisation{
 				$query = $db->getQuery(true);
 				$query->select("id, userid");
 				$query->from("#__rsgallery2_files");
-				$query->where("id = ".$item_id);
-				$query->where("userid = ".$user->id);
+				$query->where("id = ". (int) $item_id);
+				$query->where("userid = ". (int) $user->id);
 				$db->setQuery($query);
 				$db->query();
 				if( $db->getNumRows()) {
@@ -192,8 +192,8 @@ class rsgAuthorisation{
 				$query = $db->getQuery(true);
 				$query->select("id, uid");
 				$query->from("#__rsgallery2_galleries");
-				$query->where("id = ".$gallery_id);
-				$query->where("uid = ".$user->id);
+				$query->where("id = ". (int) $gallery_id);
+				$query->where("uid = ". (int) $user->id);
 				$db->setQuery($query);
 				$db->query();
 				if( $db->getNumRows()) {
@@ -229,8 +229,8 @@ class rsgAuthorisation{
 				$query = $db->getQuery(true);
 				$query->select("id, userid");
 				$query->from("#__rsgallery2_files");
-				$query->where("id = ".$item_id);
-				$query->where("userid = ".$user->id);
+				$query->where("id = ". (int) $item_id);
+				$query->where("userid = ". (int) $user->id);
 				$db->setQuery($query);
 				$db->query();
 				if( $db->getNumRows()) {
@@ -250,7 +250,7 @@ class rsgAuthorisation{
 	function authorisationCreate($parent_gallery = Null) {
 		$user = JFactory::getUser();
 		$allowed = false;
-		
+
 		// If the parent gallery is the root gallery (id 0), check component permission, 
 		// otherwise check parent gallery permission.
 		if (isset($parent_gallery)) {
@@ -270,8 +270,8 @@ class rsgAuthorisation{
 						$query = $db->getQuery(true);
 						$query->select("id, uid");
 						$query->from("#__rsgallery2_galleries");
-						$query->where("id = ".$parent_gallery);
-						$query->where("uid = ".$user->id);
+						$query->where("id = ". (int) $parent_gallery);
+						$query->where("uid = ". (int) $user->id);
 						$db->setQuery($query);
 						$db->query();
 						if( $db->getNumRows()) {
@@ -288,7 +288,7 @@ class rsgAuthorisation{
 				}
 			}
 		}
-		
+
 		return $allowed;
 	}
 
