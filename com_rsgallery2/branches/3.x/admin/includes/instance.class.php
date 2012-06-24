@@ -62,7 +62,7 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	* This is the main task switch where we decide what to do.
 	*/
 	function mainSwitch(){
-		switch( JRequest::getVar( 'rsgOption', '' )) {
+		switch( JRequest::getCmd( 'rsgOption', '' )) {
 			case 'rsgComments':
 				require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgcomments' . DS . 'rsgcomments.php');
 				break;
@@ -76,7 +76,7 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 				require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgsearch' . DS . 'search.php');
 				break;
 			default:
-				switch( JRequest::getVar( 'task', '' ) ){
+				switch( JRequest::getCmd( 'task', '' ) ){
 					case 'xml':
 						xmlFile();
 						break;
@@ -114,7 +114,12 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 */
 	function getItem(){
 		$gallery = rsgInstance::getGallery();
-		return $gallery->getItem();
+	//	if (isset($gallery)){
+			$result = $gallery->getItem();
+	//	} else {
+	//		$result = Null;
+	//	}var_dump($result,'result');
+		return $result;
 	}
 	
 	/**
@@ -132,6 +137,7 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 		JRequest functions
 		
 		Here we override functions necessary to use our rsgInstance::instance array.
+		In v3: always use JRequest::get* functions and NOT rsgInstance::get* functions!
 	**/
 	
 	/**

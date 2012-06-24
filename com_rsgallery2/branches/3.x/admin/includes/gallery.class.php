@@ -114,7 +114,8 @@ class rsgGallery extends JObject{
 		$database =& JFactory::getDBO();
 		$lastweek  = mktime (0, 0, 0, date("m"),    date("d") - $days, date("Y"));
 		$lastweek = date("Y-m-d H:m:s",$lastweek);
-		$database->setQuery("SELECT * FROM #__rsgallery2_files WHERE date >= '$lastweek' AND gallery_id = '{$this->id}' AND published = '1'");
+		$query = 'SELECT * FROM `#__rsgallery2_files` WHERE `date` >= '. $database->quote($lastweek). ' AND `gallery_id` = '. (int) $this->id .' AND `published` = 1';
+		$database->setQuery($query);
 		$database->query();
 		return (bool) $database->getNumRows();
 	}
@@ -131,7 +132,7 @@ class rsgGallery extends JObject{
 			$query = $db->getQuery(true);
 			$query->select('count(1)');
 			$query->from('#__rsgallery2_files');
-			$query->where('gallery_id='.$gid);
+			$query->where('gallery_id='. (int) $gid);
 			// Only for superadministrators this includes the unpublished items
 			if (!JFactory::getUser()->authorise('core.admin','com_rsgallery2'))
 				$query->where('published = 1');
@@ -172,20 +173,20 @@ class rsgGallery extends JObject{
 			global $rsgConfig;
 			$my =& JFactory::getUser();
 			$database =& JFactory::getDBO();
-			
+		
 			$filter_order = JRequest::getWord( 'filter_order',  $rsgConfig->get("filter_order") );
 			$filter_order_Dir = JRequest::getWord( 'filter_order_Dir', $rsgConfig->get("filter_order_Dir"));
 	
-			$where = ' WHERE gallery_id = '. $this->get('id');
+			$where = ' WHERE `gallery_id` = '. (int) $this->get('id');
 
 			//Show only published items except for users with core.admin
 			//MK// [todo] Show user with core.admin that which item is unpublished
 			if (!JFactory::getUser()->authorise('core.admin','com_rsgallery2'))
-				$where .= ' AND published = 1 ';
+				$where .= ' AND `published` = 1 ';
 			
-			$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir;
+			$orderby 	= ' ORDER BY `'.$filter_order.'` '.$filter_order_Dir;
 	
-			$query = ' SELECT * FROM #__rsgallery2_files '
+			$query = ' SELECT * FROM `#__rsgallery2_files` '
 				. $where
 				. $orderby;
 
@@ -312,8 +313,8 @@ class rsgGallery extends JObject{
 	 * @todo doesn't work right now
 	 */
 	function hit(){
-		$query = "UPDATE #__rsgallery2_galleries SET hits = hits + 1 WHERE id = {$this->id}";
-		
+		$query = 'UPDATE `#__rsgallery2_galleries` SET `hits` = hits + 1 WHERE `id` = '. (int) $this->id;
+
 		$database =& JFactory::getDBO();
 		$database->setQuery( $query );
 		

@@ -3,7 +3,7 @@
 * This file contains the class used for voging.
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2011 RSGallery2
+* @copyright (C) 2003 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -29,7 +29,7 @@ class rsgVoting {
 	
 	function getTotal( $id ) {
 		$database =& JFactory::getDBO();
-		$sql = "SELECT rating FROM #__rsgallery2_files WHERE id = '$id'";
+		$sql = 'SELECT `rating` FROM `#__rsgallery2_files` WHERE `id` = '. (int) $id;
 		$database->setQuery($sql);
 		$total = $database->loadResult();
 		
@@ -38,7 +38,7 @@ class rsgVoting {
 	
 	function getVoteCount( $id ) {
 		$database =& JFactory::getDBO();
-		$sql = "SELECT votes FROM #__rsgallery2_files WHERE id = '$id'";
+		$sql = 'SELECT `votes` FROM `#__rsgallery2_files` WHERE `id` = '. (int) $id;
 		$database->setQuery($sql);
 		$votes = $database->loadResult();
 		
@@ -85,7 +85,7 @@ class rsgVoting {
 	 * @return True or False
 	 */
 	function voteAllowed() {
-		$item_id	= JRequest::getVar('id');
+		$item_id	= JRequest::getInt('id');
 		$gid		= galleryUtils::getCatIdFromFileId($item_id);
 		
 		$voteAllowed = (JFactory::getUser()->authorise('rsgallery2.vote','com_rsgallery2.gallery.'.$gid) ? true : false);

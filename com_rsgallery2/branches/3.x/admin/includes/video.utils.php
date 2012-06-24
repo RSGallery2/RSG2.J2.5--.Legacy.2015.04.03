@@ -126,13 +126,18 @@ class videoUtils extends fileUtils{
 			}
 			
 			// determine ordering
+			$cat = (int) $cat;
 			$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id = '$cat'");
 			$ordering = $database->loadResult() + 1;
 			
 			//Store image details in database
-			$alias = mysql_real_escape_string(JFilterOutput::stringURLSafe($title));
-			$desc = mysql_real_escape_string($desc);
-			$title = mysql_real_escape_string($title);
+			$alias = $database->quote(JFilterOutput::stringURLSafe($title));
+			$title = $database->quote($title);
+			$newName = $database->quote($newName);
+			$desc = $database->quote($desc);
+			$cat = (int) $cat;
+			$ordering = (int) $ordering;
+			$my->id = (int) $my->id;
 			$database->setQuery("INSERT INTO #__rsgallery2_files".
 					" (title, name, descr, gallery_id, date, ordering, userid, alias) VALUES".
 					" ('$title', '$newName', '$desc', '$cat', now(), '$ordering', '$my->id', '$alias')");

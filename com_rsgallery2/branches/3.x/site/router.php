@@ -284,7 +284,7 @@ function Rsgallery2GetGalleryName($gid){
 	// else return the numerical value	
 	if($config->get("advancedSef") == true) {
 		$dbo = JFactory::getDBO();
-		$query = 'SELECT alias FROM #__rsgallery2_galleries WHERE `id`='. (int) $gid;
+		$query = 'SELECT `alias` FROM `#__rsgallery2_galleries` WHERE `id`='. (int) $gid;
 		$dbo->setQuery($query);
 		$result = $dbo->query();
 		if($dbo->getNumRows($result) != 1){
@@ -360,7 +360,7 @@ function Rsgallery2GetItemName($id){
 	// else return the numerical value	
 	if($config->get("advancedSef") == true) {
 		$dbo = JFactory::getDBO();
-		$query = 'SELECT alias FROM #__rsgallery2_files WHERE `id`='. (int) $id;
+		$query = 'SELECT `alias` FROM `#__rsgallery2_files` WHERE `id`='. (int) $id;
 		$result = $dbo->query($query);
 		
 		$dbo->setQuery($query);
@@ -391,7 +391,7 @@ function Rsgallery2GetGalleryIdFromItemId($id){
 	
 	// Getch the gallery id (gid) from the database based on the id of an item
 	$dbo = JFactory::getDBO();
-	$query = 'SELECT gallery_id FROM #__rsgallery2_files WHERE `id`='. (int) $id;
+	$query = 'SELECT `gallery_id` FROM `#__rsgallery2_files` WHERE `id`='. (int) $id;
 	$result = $dbo->query($query);
 	
 	$dbo->setQuery($query);

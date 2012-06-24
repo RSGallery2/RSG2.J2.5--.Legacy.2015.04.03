@@ -20,7 +20,7 @@ class rsgDisplay extends JObject{
 
 		//Pre 3.0.2: always got template 'semantic' even when showing a slideshow; $template is only used here to get templateparameters
 		//Does the page show the slideshow? Then get slideshow name, else get template name.
-		if (JRequest::getVar('page') == 'slideshow') {
+		if (JRequest::getCmd('page') == 'slideshow') {
 			$template = $rsgConfig->get('current_slideshow');
 		} else {
 			$template = $rsgConfig->get('template');
@@ -47,7 +47,7 @@ class rsgDisplay extends JObject{
 	 */
 	function mainPage(){
 		global $rsgConfig;
-		$page = JRequest::getWord( 'page', '' );
+		$page = JRequest::getCmd( 'page', '' );
 
 		switch( $page ){
 			case 'slideshow':
@@ -111,7 +111,7 @@ class rsgDisplay extends JObject{
 	 */
 	function display( $file = null ){
 		global $rsgConfig;
-		$template = preg_replace( '#\W#', '', JRequest::getVar( 'rsgTemplate', $rsgConfig->get('template') ));
+		$template = preg_replace( '#\W#', '', JRequest::getCmd( 'rsgTemplate', $rsgConfig->get('template') ));
 		$templateDir = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template . DS . 'html';
 	
 		$file = preg_replace('/[^A-Z0-9_\.-]/i', '', $file);
@@ -123,8 +123,8 @@ class rsgDisplay extends JObject{
 	 * Shows the top bar for the RSGallery2 screen
 	 */
 	function showRsgHeader() {
-		$rsgOption 	= JRequest::getVar( 'rsgOption'  , '');
-		$gid 		= JRequest::getVar( 'gid'  , null);
+		$rsgOption 	= JRequest::getCmd( 'rsgOption'  , '');
+		$gid 		= JRequest::getInt( 'gid'  , null);
 		
 		if (!$rsgOption == 'mygalleries' AND !$gid) {
 			?>
@@ -208,7 +208,7 @@ class rsgDisplay extends JObject{
 		}
 
 		//Add image name to pathway if an image is displayed (page in URL is the string 'inline')
-		$page = JRequest::getString( 'page', 0 );
+		$page = JRequest::getCmd( 'page', '' );
 		if ($page == 'inline') {
 			$pathway->addItem( $item->title );
 		}
@@ -226,7 +226,7 @@ class rsgDisplay extends JObject{
 		$gid 		= JRequest::getInt('gid',Null);
 		$id 		= JRequest::getInt('id',Null);
 		$limitstart = JRequest::getInt('limitstart',Null);
-		$page		= JRequest::getVar('page',Null);
+		$page		= JRequest::getCmd('page',Null);
 
 		// Get the gid in the URL of the active menu item
 		$menuGid = JSite::getMenu()->getActive()->query['gid'];
@@ -377,18 +377,20 @@ class rsgDisplay extends JObject{
 		
     	switch ($type) {
     		case 'random':
-    			$database->setQuery("SELECT file.date, file.gallery_id, file.ordering, file.id, file.name, file.title".
-                        " FROM #__rsgallery2_files as file, #__rsgallery2_galleries as gal".
-                        " WHERE file.gallery_id=gal.id and gal.published=1 AND file.published=1".
-                        " ORDER BY rand() limit $number");
+				$query = 'SELECT file.date, file.gallery_id, file.ordering, file.id, file.name, file.title '.
+                        ' FROM #__rsgallery2_files as file, #__rsgallery2_galleries as gal '.
+                        ' WHERE file.gallery_id = gal.id and gal.published = 1 AND file.published = 1 '.
+                        ' ORDER BY rand() limit '. (int) $number ;
+    			$database->setQuery($query);
     			$rows = $database->loadObjectList();
     			$title = JText::_('COM_RSGALLERY2_RANDOM_IMAGES');
     			break;
     		case 'latest':
-				$database->setQuery("SELECT file.date, file.gallery_id, file.ordering, file.id, file.name, file.title".
-                        " FROM #__rsgallery2_files as file, #__rsgallery2_galleries as gal".
-                        " WHERE file.gallery_id=gal.id AND gal.published=1 AND file.published=1".
-                        " ORDER BY file.date DESC LIMIT $number");
+				$query = 'SELECT file.date, file.gallery_id, file.ordering, file.id, file.name, file.title '.
+                        ' FROM #__rsgallery2_files as file, #__rsgallery2_galleries as gal '.
+                        ' WHERE file.gallery_id = gal.id AND gal.published = 1 AND file.published = 1 '.
+                        ' ORDER BY file.date DESC LIMIT '. (int) $number;
+				$database->setQuery($query);
     			$rows = $database->loadObjectList();
     			$title = JText::_('COM_RSGALLERY2_LATEST_IMAGES');
     			break;
@@ -553,7 +555,7 @@ class rsgDisplay extends JObject{
     function showRSTopBar() {
         global $my, $mainframe, $rsgConfig,;
         $catid =JRequest::getInt( 'catid', 0 );
-        $page = JRequest::getVar( 'page'  , null);
+        $page = JRequest::getCmd( 'page'  , null);
         ?>
         <div style="float:right; text-align:right;">
         <ul id='rsg2-navigation'>

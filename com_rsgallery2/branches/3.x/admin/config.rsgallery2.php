@@ -23,11 +23,11 @@ class galleryUtils {
      * contributed by Jeckel
 	 * Deprecated? It seems that galleryUtils::showRSPath is not used in v2.1.0 anymore.
      */
-    function showRSPath($catid, $imgid = 0){
+    /*function showRSPath($catid, $imgid = 0){
         global $mainframe, $database;
     
         if ($catid != 0) {
-            $database->setQuery('SELECT * FROM #__rsgallery2_galleries WHERE id = "'. $catid . '"');
+//            $database->setQuery('SELECT * FROM `#__rsgallery2_galleries` WHERE `id` = '. (int) $catid);
             $rows = $database->loadObjectList();
 
             $cat = $rows[0];
@@ -35,7 +35,7 @@ class galleryUtils {
             array_push($cats, $cat);
             
             while ($cat->parent != 0) {
-                $database->setQuery('SELECT * FROM #__rsgallery2_galleries WHERE id = "' . $cat->parent . '"');
+                $database->setQuery('SELECT * FROM `#__rsgallery2_galleries` WHERE `id` = ' . (int) $cat->parent );
                 $rows = $database->loadObjectList();
                 $cat = $rows[0];
                 array_unshift($cats, $cat);
@@ -52,42 +52,44 @@ class galleryUtils {
         }    // if
         
         if (!empty($imgid)) {
-            $database->setQuery('SELECT title FROM #__rsgallery2_files WHERE id = "'. $imgid . '"');
+//            $database->setQuery('SELECT `title` FROM `#__rsgallery2_files` WHERE `id` = '. (int) $imgid);
             $imgTitle = $database->loadResult();
             $mainframe->appendPathWay($imgTitle);
         }    // if
         
-    }
+    }/**/
 
     /**
      * Shows random images for display on main page
+	 * Seems to be deprecated
      */
-    function showRandom() {
+    /*function showRandom() {
     $database =& JFactory::getDBO();
 
-    $database->setQuery("SELECT file.gallery_id, file.ordering, file.id, file.name, file.descr".
+//    $database->setQuery("SELECT file.gallery_id, file.ordering, file.id, file.name, file.descr".
                         " FROM #__rsgallery2_files file, #__rsgallery2_galleries gal".
-                        " WHERE file.gallery_id=gal.id and gal.published=1".
+                        " WHERE file.gallery_id= (int) gal.id and gal.published=1".
                         " ORDER BY rand() limit 3");
     $rows = $database->loadObjectList();
 
     HTML_RSGALLERY::showRandom($rows);
-    }
+    }/**/
 
     /**
      * Shows latest uploaded images for display on main page
+	 * Seems to be deprecated
      */
-    function showLatest() {
+    /*function showLatest() {
     $database =& JFactory::getDBO();
     
-    $database->setQuery("SELECT file.gallery_id, file.ordering, file.id, file.name, file.descr".
+//    $database->setQuery("SELECT file.gallery_id, file.ordering, file.id, file.name, file.descr".
                         " FROM #__rsgallery2_files file, #__rsgallery2_galleries gal".
-                        " WHERE file.gallery_id=gal.id and gal.published=1".
+                        " WHERE file.gallery_id= (int) gal.id and gal.published=1".
                         " ORDER BY file.date DESC limit 3");
     $rows = $database->loadObjectList();
     
     HTML_RSGALLERY::showLatest($rows);
-    }
+    }/**/
     
     /**
      * Shows a dropdownlist with all categories, owned by the logged in user
@@ -96,38 +98,39 @@ class galleryUtils {
      * @param string Name of select form element
      * @return string HTML representation of dropdown box
      * @todo Make all categories visible if user is Super Administrator
+	 * Seems to be no longer used in v3(RC1)
      */
-    function showCategories($s_id = 0, $uid, $selectname = 'i_cat') {
-	global $dropdown_html;
-	$database =& JFactory::getDBO();
-	$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE parent = '0' AND uid = '$uid' ORDER BY ordering ASC");
-	$rows = $database->loadObjectList();
-	$dropdown_html = "<select name=\"$selectname\"><option value=\"0\" SELECTED>".JText::_('COM_RSGALLERY2_SELECT_GALLERY_FROM_LIST')."</option>\n";
+    /*function showCategories($s_id = 0, $uid, $selectname = 'i_cat') {
+		global $dropdown_html;
+		$database =& JFactory::getDBO();
+		$database->setQuery('SELECT * FROM `#__rsgallery2_galleries` WHERE `parent` = 0 AND `uid` = '. (int) $uid .' ORDER BY `ordering` ASC');
+		$rows = $database->loadObjectList();
+		$dropdown_html = "<select name=\"$selectname\"><option value=\"0\" SELECTED>".JText::_('COM_RSGALLERY2_SELECT_GALLERY_FROM_LIST')."</option>\n";
 
-    foreach ($rows as $row)
-		{
-		$id = $row->id;
-		$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE parent = '$id' AND uid = '$uid' ORDER BY ordering ASC");
-		$rows2 = $database->loadObjectList();
-
-		if (!isset($s_id))
+		foreach ($rows as $row)
 			{
-			$s_id=0;
-			}
-        $dropdown_html .= "<option value=\"$row->id\"";
-        if ($row->id == $s_id)
-            $dropdown_html .= " SELECTED>";
-        else
-            $dropdown_html .= ">";
-        $dropdown_html .=  $row->name."</option>\n";
+			$id = $row->id;
+			$database->setQuery('SELECT * FROM `#__rsgallery2_galleries` WHERE `parent` = '. (int) $id .' AND `uid` = '. (int) $uid .' ORDER BY `ordering` ASC');
+			$rows2 = $database->loadObjectList();
 
-		foreach($rows2 as $row2)
-			{
-            $dropdown_html .= "<option value=\"$row2->id\">-->$row2->name</option>\n";
+			if (!isset($s_id))
+				{
+				$s_id=0;
+				}
+			$dropdown_html .= "<option value=\"$row->id\"";
+			if ($row->id == $s_id)
+				$dropdown_html .= " SELECTED>";
+			else
+				$dropdown_html .= ">";
+			$dropdown_html .=  $row->name."</option>\n";
+
+			foreach($rows2 as $row2)
+				{
+				$dropdown_html .= "<option value=\"$row2->id\">-->$row2->name</option>\n";
+				}
 			}
-		}
-        echo $dropdown_html."</select>";
-	}
+			echo $dropdown_html."</select>";
+	}*/
     
 	/**
 	 * Show gallery select list according to the permissions of the logged in user
@@ -201,9 +204,11 @@ class galleryUtils {
 	function addToGalSelectList($level, $galid, $gallery_id, $galleriesAllowed) {
 		// provided by Klaas on Dec.13.2007
 		$database = JFactory::getDBO();		
-
 		$dropdown_html = "";
-		$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE parent = '$galid' ORDER BY ordering ASC");
+
+		$query = 'SELECT * FROM `#__rsgallery2_galleries` WHERE `parent` = '. (int) $galid .' ORDER BY `ordering` ASC';
+		$database->setQuery($query);
+
 		$rows = $database->loadObjectList();
 		foreach ($rows as $row) {
 			$dropdown_html .= "<option value=\"$row->id\"";
@@ -235,55 +240,56 @@ class galleryUtils {
      * @param string selectbox name
      * @param boolean Dropdown(false) or Liststyle(true)
      * @return string HTML representation for selectlist
+	 * Seems to be unused in v3.1.0
      */
     function createGalSelectList( $galleryid=null, $listName='galleryid', $style = true ) {
-    $database = JFactory::getDBO();
-	$my =& JFactory::getUser();
-    $my_id = $my->id;
-    if ($style == true)
-        $size = ' size="10"';
-    else
-        $size = ' size="1"';
-    // get a list of the menu items
-    // excluding the current menu item and its child elements
-    $query = "SELECT *"
-    . " FROM #__rsgallery2_galleries"
-    . " WHERE published != -2"
-    . " AND uid = '$my_id'"
-    . " ORDER BY parent, ordering";
-    
-    $database->setQuery( $query );
-    
-    $mitems = $database->loadObjectList();
+		$database = JFactory::getDBO();
+		$my =& JFactory::getUser();
+		$my_id = $my->id;
+		if ($style == true)
+			$size = ' size="10"';
+		else
+			$size = ' size="1"';
+		// get a list of the menu items
+		// excluding the current menu item and its child elements
+		$query = 'SELECT *'
+		. ' FROM `#__rsgallery2_galleries`'
+		. ' WHERE `published` != -2'
+		. ' AND `uid` = '. (int) $my_id
+		. ' ORDER BY `parent`, `ordering`';
+		
+		$database->setQuery( $query );
+		
+		$mitems = $database->loadObjectList();
 
-    // establish the hierarchy of the menu
-    $children = array();
+		// establish the hierarchy of the menu
+		$children = array();
 
-    if ( $mitems ) {
-        // first pass - collect children
-        foreach ( $mitems as $v ) {
-            $pt     = $v->parent;
-            $list   = @$children[$pt] ? $children[$pt] : array();
-            array_push( $list, $v );
-            $children[$pt] = $list;
-        }
-    }
+		if ( $mitems ) {
+			// first pass - collect children
+			foreach ( $mitems as $v ) {
+				$pt     = $v->parent;
+				$list   = @$children[$pt] ? $children[$pt] : array();
+				array_push( $list, $v );
+				$children[$pt] = $list;
+			}
+		}
 
-    // second pass - get an indent list of the items
-    $list = JHTML::_('menu.treerecurse', 0, '', array(), $children, 9999, 0, 0 );
+		// second pass - get an indent list of the items
+		$list = JHTML::_('menu.treerecurse', 0, '', array(), $children, 9999, 0, 0 );
 
-    // assemble menu items to the array
-    $mitems     = array();
-    $mitems[]   = JHTML::_("Select.option", '0', JText::_('COM_RSGALLERY2_TOP_GALLERY'));
+		// assemble menu items to the array
+		$mitems     = array();
+		$mitems[]   = JHTML::_("Select.option", '0', JText::_('COM_RSGALLERY2_TOP_GALLERY'));
 
-    foreach ( $list as $item ) {
-        $mitems[] = JHTML::_("Select.option", $item->id, '&nbsp;&nbsp;&nbsp;'. $item->treename );
-    }
+		foreach ( $list as $item ) {
+			$mitems[] = JHTML::_("Select.option", $item->id, '&nbsp;&nbsp;&nbsp;'. $item->treename );
+		}
 
-    $output = JHTML::_("select.genericlist", $mitems, $listName, 'class="inputbox"'.$size, 'value', 'text', $galleryid );
+		$output = JHTML::_("select.genericlist", $mitems, $listName, 'class="inputbox"'.$size, 'value', 'text', $galleryid );
 
-    echo $output;
-}
+		echo $output;
+	}
 
     
     /**
@@ -305,11 +311,11 @@ class galleryUtils {
 		// get a list of the menu items
 		// excluding the current menu item and its child elements
 		//$query = "SELECT *"; //MK [change] [J1.6 needs parent_id and title instead of parent and name]
-		$query = "SELECT *, parent AS parent_id, name AS title "
-		. " FROM #__rsgallery2_galleries"
-		. " WHERE published != -2"			//MK// [change] [What is -2 for: not J1.0 nor J1.5...]	
-		. " ORDER BY parent, ordering";
-		
+		$query = "SELECT *, `parent` AS `parent_id`, `name` AS `title` "
+		. " FROM `#__rsgallery2_galleries`"
+		. " WHERE `published` != -2"			//MK// [change] [What is -2 for: not J1.0 nor J1.5...]	
+		. " ORDER BY `parent`, `ordering`";
+
 		$database->setQuery( $query );
 		
 		$mitems = $database->loadObjectList();
@@ -378,13 +384,13 @@ class galleryUtils {
 	        $thumb_html = "<img $imgatt src=\"".JURI_SITE."/components/com_rsgallery2/images/no_pics.gif\" alt=\"No pictures in gallery\" />";
 	    } else {
 	    	//Select thumb setting for specific gallery("Random" or "Specific thumb")
-	        $sql = "SELECT thumb_id FROM #__rsgallery2_galleries WHERE id = '$catid'";
+	        $sql = 'SELECT `thumb_id` FROM `#__rsgallery2_galleries` WHERE `id` = '. (int) $catid;
 	        $database->setQuery($sql);
 	        $thumb_id = $database->loadResult();
-	        $list = galleryUtils::getChildList( $catid );
+	        $list = galleryUtils::getChildList( (int) $catid );
 	        if ( $thumb_id == 0 ) {
 	            //Random thumbnail
-	            $sql = "SELECT name FROM #__rsgallery2_files WHERE gallery_id IN ($list) AND published=1 ORDER BY rand() LIMIT 1";
+	            $sql = "SELECT `name` FROM `#__rsgallery2_files` WHERE `gallery_id` IN ($list) AND `published` = 1 ORDER BY rand() LIMIT 1";
 	            $database->setQuery($sql);
 	            $thumb_name = $database->loadResult();
 	        } else {
@@ -405,11 +411,12 @@ class galleryUtils {
     function getFileCount($id, $withKids=true) {
         $database =& JFactory::getDBO();
 		if ($withKids) {
-			$list = galleryUtils::getChildList( $id );
+			$list = galleryUtils::getChildList( (int) $id );
 		} else {
-			$list = $id;
+			$list = (int) $id;
 		}
-		$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE ((gallery_id IN ($list)) AND (published = 1))");
+		$query = 'SELECT COUNT(1) FROM `#__rsgallery2_files` WHERE ((`gallery_id` IN ('. $list .')) AND (`published` = 1))';
+		$database->setQuery($query);
         $count = $database->loadResult();
         return $count;
     }
@@ -419,52 +426,52 @@ class galleryUtils {
      * @param integer The ID of the currently selected category
      * @return string Category Name
      */
-    function getCatnameFromId($id)
-        {
+    function getCatnameFromId($id) {
         $database =& JFactory::getDBO();
-        $database->setQuery("SELECT name FROM #__rsgallery2_galleries WHERE id = '$id'");
+		$query = 'SELECT `name` FROM `#__rsgallery2_galleries` WHERE `id` = '. (int) $id;
+        $database->setQuery($query);
         $catname = $database->loadResult();
         return $catname;
-        }
+	}
      
     /**
      * Retrieves category ID, based on the filename id
      * @param integer The ID of the currently selected file
      * @return string Category ID
      */
-    function getCatIdFromFileId($id)
-        {
+    function getCatIdFromFileId($id) {
         $database =& JFactory::getDBO();
-        $database->setQuery("SELECT gallery_id FROM #__rsgallery2_files WHERE id = '$id'");
+		$query = 'SELECT `gallery_id` FROM `#__rsgallery2_files` WHERE `id` = '. (int) $id;
+        $database->setQuery($query);
         $gallery_id = $database->loadResult();
         return $gallery_id;
-        }
+	}
         
      /**
       * Retrieves filename, based on the filename id
       * @param integer The ID of the currently selected file
       * @return string Filename
       */    
-     function getFileNameFromId($id)
-        {
+    function getFileNameFromId($id) {
         $database =& JFactory::getDBO();
-        $database->setQuery("SELECT name FROM #__rsgallery2_files WHERE id = '$id'");
+		$query = 'SELECT `name` FROM `#__rsgallery2_files` WHERE `id` = '. (int) $id;
+        $database->setQuery($query);
         $filename = $database->loadResult();
         return $filename;
-        }
+	}
     
     /**
       * Retrieves title, based on the filename id
       * @param integer The ID of the currently selected file
       * @return string title
       */    
-     function getTitleFromId($id)
-        {
+    function getTitleFromId($id) {
         $database =& JFactory::getDBO();
-        $database->setQuery("SELECT title FROM #__rsgallery2_files WHERE id = '$id'");
+		$query = 'SELECT `title` FROM `#__rsgallery2_files` WHERE `id` = '. (int) $id;
+        $database->setQuery($query);
         $title = $database->loadResult();
         return $title;
-        }
+	}
     
     /**
      * Returns parent ID from chosen gallery
@@ -473,7 +480,7 @@ class galleryUtils {
      */
      function getParentId($gallery_id) {
      	$database =& JFactory::getDBO();
-     	$sql = "SELECT parent FROM #__rsgallery2_galleries WHERE id = '$gallery_id'";
+     	$sql = 'SELECT `parent` FROM `#__rsgallery2_galleries` WHERE `id` = '. (int) $gallery_id;
      	$database->setQuery($sql);
      	$parent = $database->loadResult();
      	return $parent;
@@ -484,109 +491,112 @@ class galleryUtils {
      * @param Category ID
      */
     function regenerateThumbs ($catid = NULL) {
-    global $rsgConfig;
-    $i = 0;
-    $files  = mosReadDirectory( JPATH_ROOT.$rsgConfig->get('imgPath_original') );
-    //check if size is changed
-    foreach ($files as $file)
-        {
-        if ( imgUtils::makeThumbImage( JPATH_ROOT.$rsgConfig->get('imgPath_original').$file ) )
-            continue;
-        else
-            $error[] = $file;
-            $i++;
-        }
+		global $rsgConfig;
+		$i = 0;
+		$files  = mosReadDirectory( JPATH_ROOT.$rsgConfig->get('imgPath_original') );
+		//check if size is changed
+		foreach ($files as $file) {
+			if ( imgUtils::makeThumbImage( JPATH_ROOT.$rsgConfig->get('imgPath_original').$file ) )
+				continue;
+			else
+				$error[] = $file;
+				$i++;
+		}
     }
-    
-    function addHit($id)
+
+	/**
+     * Seems to be no longer used in v3.1.0, so removed it for v3.1.1
+     */
+/*    function addHit($id) {
+        $database =& JFactory::getDBO();
+        //Get hits from DB
+        $database->setQuery('SELECT `hits` FROM `#__rsgallery2_files` WHERE `id` = '. (int) $id);
+        $hits = $database->loadResult();
+        $hits++;
+        $database->setQuery('UPDATE `#__rsgallery2_files` SET `hits` = '. (int) $hits. ' WHERE `id` = '. (int) $id);
+        if ($database->query()) {
+            return(1);//OK
+		} else {
+            return(0);//Not OK
+		}
+	}/**/
+
+	/**
+     * Seems to be no longer used in v3.1.0, so removed it for v3.1.1
+     */    
+/*    function addCatHit($hid)
         {
         $database =& JFactory::getDBO();
         //Get hits from DB
-        $database->setQuery("SELECT hits FROM #__rsgallery2_files WHERE id = '$id'");
+        $database->setQuery('SELECT `hits` FROM `#__rsgallery2_galleries` WHERE `id` = '. (int) $hid);
         $hits = $database->loadResult();
         $hits++;
-        $database->setQuery("UPDATE #__rsgallery2_files SET hits = '$hits' WHERE id = '$id'");
-        if ($database->query())
-            {
+        $database->setQuery('UPDATE `#__rsgallery2_galleries` SET `hits` = '. (int) $hits. ' WHERE `id` = '. (int) $hid);
+        if ($database->query()) {
             return(1);//OK
-            }
-        else
-            {
+		} else {
             return(0);//Not OK
-            }
-        }
-    
-    function addCatHit($hid)
-        {
-        $database =& JFactory::getDBO();
-        //Get hits from DB
-        $database->setQuery("SELECT hits FROM #__rsgallery2_galleries WHERE id = '$hid'");
-        $hits = $database->loadResult();
-        $hits++;
-        $database->setQuery("UPDATE #__rsgallery2_galleries SET hits = '$hits' WHERE id = '$hid'");
-        if ($database->query())
-            {
-            return(1);//OK
-            }
-        else
-            {
-            return(0);//Not OK
-            }
-        }
-        
-    function showRating($id) {
+		}
+	}/**/
+
+	/**
+     * Seems to be no longer used in v3.1.0, so removed it for v3.1.1
+     */ 	
+/*    function showRating($id) {
         $database = JFactory::getDBO();
-        $database->setQuery("SELECT * FROM #__rsgallery2_files WHERE id = '$id'");
+        $database->setQuery('SELECT * FROM `#__rsgallery2_files` WHERE `id` = '. (int) $id);
         $values = array(JText::_('COM_RSGALLERY2_NO_RATING'),JText::_('COM_RSGALLERY2_NBSP;VERY_BADNBSP;'),JText::_('COM_RSGALLERY2_NBSP;BADNBSP;'),JText::_('COM_RSGALLERY2_NBSP;OKNBSP;'),JText::_('COM_RSGALLERY2_NBSP;GOODNBSP;'),JText::_('COM_RSGALLERY2_NBSP;VERY_GOODNBSP;'));
         $rows = $database->loadObjectList();
         $images = "";
-        foreach ($rows as $row)
-            {
+        foreach ($rows as $row) {
             $average = $row->rating/$row->votes;
             $average1 = round($average);
-            for ($t = 1; $t <= $average1; $t++)
-                {
+            for ($t = 1; $t <= $average1; $t++) {
                 $images .= "<img src=\"JURI_SITE/images/M_images/rating_star.png\">&nbsp;";
-                }
-            }
+			}
+		}
             return $images;
-        }
+	}/**/
         
 	/**
 	 * @depreciated use rsgGallery->hasNewImages() instead;
 	 */
     function newImages($xid) {
-    $database =& JFactory::getDBO();
-    $lastweek  = mktime (0, 0, 0, date("m"),    date("d") - 7, date("Y"));
-    $lastweek = date("Y-m-d H:m:s",$lastweek);
-    $database->setQuery("SELECT * FROM #__rsgallery2_files WHERE date >= '$lastweek' AND published=1 AND gallery_id = '$xid'");
-    $rows = $database->loadObjectList();
-    if (count($rows) > 0)
-        {
-        foreach ($rows as $row)
-            {
-            $gallery_id = $row->gallery_id;
-            if ($gallery_id == $xid)
-                {
-                echo JText::_('COM_RSGALLERY2_NEW-');
-                break;
-                }
-            }
-        }
-    else
-        {
-        echo "";
-        }
-    }
+		$database =& JFactory::getDBO();
+		$lastweek  = mktime (0, 0, 0, date("m"),    date("d") - 7, date("Y"));
+		$lastweek = date("Y-m-d H:m:s",$lastweek);
+		
+		$query = 'SELECT * FROM `#__rsgallery2_files` WHERE `date` >= '. $database->quote($lastweek) .' AND `published` = 1 AND `gallery_id` = '. (int) $xid;
+		$database->setQuery($query);
+		$rows = $database->loadObjectList();
+		if (count($rows) > 0)
+			{
+			foreach ($rows as $row)
+				{
+				$gallery_id = $row->gallery_id;
+				if ($gallery_id == $xid)
+					{
+					echo JText::_('COM_RSGALLERY2_NEW-');
+					break;
+					}
+				}
+			}
+		else
+			{
+			echo "";
+			}
+	}
     
     /**
      * This function will retrieve the user Id's of the owner of this gallery.
      * @param integer id of category
      * @return the requested user id
+	 * Seems to be no longer used in 3.1.0
      */
     function getUID($catid) {
         $database =& JFactory::getDBO();
-        $database->setQuery("SELECT uid FROM #__rsgallery2_galleries WHERE id = '$catid'");
+		$query = 'SELECT `uid` FROM `#__rsgallery2_galleries` WHERE `id` = '. (int) $catid;
+        $database->setQuery($query);
         $uid = $database->loadResult();
         return $uid;
         }
@@ -598,7 +608,8 @@ class galleryUtils {
      */
     function userCategoryTotal($id) {
         $database =& JFactory::getDBO();
-        $database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_galleries WHERE uid = '$id'");
+		$query = 'SELECT COUNT(1) FROM `#__rsgallery2_galleries` WHERE `uid` = '. (int) $id;
+        $database->setQuery($query);
         $cats = $database->loadResult();
         return $cats;
         }
@@ -610,7 +621,8 @@ class galleryUtils {
      */
     function userImageTotal($id) {
         $database =& JFactory::getDBO();
-        $database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE userid = '$id'");
+		$query = 'SELECT COUNT(1) FROM `#__rsgallery2_files` WHERE `userid` = '. (int) $id;
+        $database->setQuery($query);
         $result = $database->loadResult();
         return $result;
         }
@@ -624,12 +636,11 @@ class galleryUtils {
 		$my = JFactory::getUser();
 		$database = JFactory::getDBO();
 
-    $database->setQuery("SELECT * FROM #__rsgallery2_galleries ORDER BY id DESC LIMIT 0,5");
-    $rows = $database->loadObjectList();
-    if (count($rows) > 0)
-            {
-            foreach ($rows as $row)
-                {
+		$query = "SELECT * FROM `#__rsgallery2_galleries` ORDER BY `id` DESC LIMIT 0,5";
+		$database->setQuery($query);
+		$rows = $database->loadObjectList();
+		if (count($rows) > 0) {
+            foreach ($rows as $row) {
                 ?>
                 <tr>
                     <td><?php echo $row->name;?></td>
@@ -637,12 +648,10 @@ class galleryUtils {
                     <td><?php echo $row->id;?></td>
                 </tr>
                 <?php
-                }
-            }
-        else
-            {
+			}
+		} else {
             echo "<tr><td colspan=\"3\">".JText::_('COM_RSGALLERY2_NO_NEW_ENTRIES')."</td></tr>";
-            }
+		}
     }
     
     /**
@@ -656,7 +665,8 @@ class galleryUtils {
 		$database = JFactory::getDBO();
 		global $name;
 
-        $database->setQuery("SELECT username FROM #__users WHERE id = '$uid'");
+		$query = 'SELECT `username` FROM `#__users` WHERE `id` = '. (int) $uid;
+        $database->setQuery($query);
         $name = $database->loadResult();
         
         return $name;
@@ -670,28 +680,26 @@ class galleryUtils {
 		$my = JFactory::getUser();
 		$database = JFactory::getDBO();
 		
-    $lastweek  = mktime (0, 0, 0, date("m"),    date("d") - 7, date("Y"));
-    $lastweek = date("Y-m-d H:m:s",$lastweek);
-    $database->setQuery("SELECT * FROM #__rsgallery2_files WHERE date >= '$lastweek' and published=1 ORDER BY id DESC LIMIT 0,5");
-    $rows = $database->loadObjectList();
-    if (count($rows) > 0)
-        {
-        foreach ($rows as $row)
-            {
-            ?>
-            <tr>
-                <td><?php echo $row->name;?></td>
-                <td><?php echo galleryUtils::getCatnameFromId($row->gallery_id);?></td>
-                <td><?php echo $row->date;?></td>
-                <td><?php echo galleryUtils::genericGetUsername($row->userid);?></td>
-            </tr>
-            <?php
-            }
-        }
-    else
-        {
-        echo "<tr><td colspan=\"4\">".JText::_('COM_RSGALLERY2_NO_NEW_ENTRIES')."</td></tr>";
-        }
+		$lastweek  = mktime (0, 0, 0, date("m"),    date("d") - 7, date("Y"));
+		$lastweek = date("Y-m-d H:m:s",$lastweek);
+		$query = 'SELECT * FROM `#__rsgallery2_files` WHERE (`date` >= '. $database->quote($lastweek) .' AND `published` = 1) ORDER BY `id` DESC LIMIT 0,5';
+
+		$database->setQuery($query);
+		$rows = $database->loadObjectList();
+		if (count($rows) > 0) {
+			foreach ($rows as $row) {
+				?>
+				<tr>
+					<td><?php echo $row->name;?></td>
+					<td><?php echo galleryUtils::getCatnameFromId($row->gallery_id);?></td>
+					<td><?php echo $row->date;?></td>
+					<td><?php echo galleryUtils::genericGetUsername($row->userid);?></td>
+				</tr>
+				<?php
+			}
+		} else {
+			echo "<tr><td colspan=\"4\">".JText::_('COM_RSGALLERY2_NO_NEW_ENTRIES')."</td></tr>";
+		}
     }
     
     /**
@@ -713,42 +721,39 @@ class galleryUtils {
      */
     function getFileIdFromName($filename) {
     	$database =& JFactory::getDBO();
-        $sql = "SELECT id FROM #__rsgallery2_files WHERE name = '$filename'";
+        $sql = 'SELECT `id` FROM `#__rsgallery2_files` WHERE `name` = '. $database->quote($filename);
         $database->setQuery($sql);
         $id = $database->loadResult();
         return $id;
     }
     
-    /**
-     * !!!!!!!!!!!!!!!!!!!! DUPLICATE FUNCTION !!!!!!!!!!!!!!!!!!!!!!
-     * This is a duplicate from admin.rsgallery2.php
-     * This is called both from the front- and backend. Better to put here I think
-     * For now it remains in both admin.rsgallery2.php and config.rsgallery2.php
-    */
     function reorderRSGallery ($tbl, $where = NULL ) {
-       // reorders either the categories or images within a category
-       // it is necessary to call this whenever a shuffle or deletion is performed
-       $database =& JFactory::getDBO();
+		// reorders either the categories or images within a category
+		// it is necessary to call this whenever a shuffle or deletion is performed
+		$database =& JFactory::getDBO();
+
+		$query = 'SELECT `id`, `ordering` FROM '.$tbl
+          . ($where ? ' WHERE '.$where : '')
+          . ' ORDER BY `ordering` ';
+		$database->setQuery($query);
+		if (!($rows = $database->loadObjectList())) {
+			return false;
+		}
+
+		// first pass, compact the ordering numbers
+		$n=count( $rows );
     
-       $database->setQuery( "SELECT id, ordering FROM $tbl"
-          . ($where ? "\nWHERE $where" : '')
-          . "\nORDER BY ordering"
-          );
-       if (!($rows = $database->loadObjectList())) {
-          return false;
-       }
-       // first pass, compact the ordering numbers
-       $n=count( $rows );
-    
-       for ($i=0;  $i < $n; $i++) {
-         $rows[$i]->ordering = $i+1;
-         $database->setQuery( "UPDATE $tbl"
-            . "\nSET ordering='".$rows[$i]->ordering."' WHERE id ='".$rows[$i]->id."'"
-            );
-         $database->query();
-       }
-       return true;
-    }
+		for ($i=0;  $i < $n; $i++) {
+			$rows[$i]->ordering = $i+1;
+			$query =  'UPDATE '.$tbl.' ' 
+				. ' SET `ordering`='. (int) $rows[$i]->ordering
+				. ' WHERE `id` ='. (int) $rows[$i]->id;
+			$database->setQuery($query);
+			$database->query();
+		}
+		return true;
+	}
+	
     /**
      * Functions shows a warning box above the control panel is something is preventing
      * RSGallery2 from functioning properly
@@ -888,10 +893,10 @@ class galleryUtils {
 	 	$array[] = $gallery_id;
 
 		$query = $database->getQuery(true);
-		$query->select("id");
-		$query->from("#__rsgallery2_galleries");
-		$query->where("`parent` = ".$gallery_id);
-		$query->where("`published` = 1");
+		$query->select('id');
+		$query->from('#__rsgallery2_galleries');
+		$query->where('parent = '. (int) $gallery_id);
+		$query->where('published =  1');
 		$database->setQuery($query);
 		$database->query();
 		$result = $database->loadResultArray();
@@ -951,7 +956,7 @@ class galleryUtils {
 	 */
 	function isComponentInstalled( $component_name ) {
 		$database =& JFactory::getDBO();
-		$sql = "SELECT COUNT(1) FROM #__extensions as a WHERE a.element = '$component_name'";
+		$sql = 'SELECT COUNT(1) FROM `#__extensions` WHERE `element` = '. $database->quote($component_name);
 		$database->setQuery( $sql );
 		$result = $database->loadResult();
 		if ($result > 0) {

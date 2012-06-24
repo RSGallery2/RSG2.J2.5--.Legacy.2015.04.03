@@ -186,7 +186,7 @@ class myGalleries {
 			<input type="hidden" name="task" value="" />
 			<input type="hidden" name="option" value="com_rsgallery2" />
 			<input type="hidden" name="rsgOption" value="<?php echo JRequest::getCmd('rsgOption'); ?>" />
-			<input type="hidden" name="Itemid" value="<?php echo JRequest::getCmd('Itemid'); ?>" />
+			<input type="hidden" name="Itemid" value="<?php echo JRequest::getInt('Itemid'); ?>" />
 			<?php echo JHTML::_('form.token'); ?>
         </form>
         <?php
@@ -752,7 +752,7 @@ class myGalleries {
 							if ($can['EditImage']){
 								//active image with link
 								?>
-								<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid='.$Itemid.'&task=editItem&id=$image->id");?>">
+								<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid='.$Itemid.'&task=editItem&id='.$image->id);?>">
 								<div align="center">
 									<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/edit-active.png" alt="<?php echo JText::_('JACTION_EDIT'); ?>" width="19" >
 								</div>
@@ -896,7 +896,7 @@ class myGalleries {
 			<input type="hidden" name="id" 		value="<?php echo $id; ?>" />
 			<input type="hidden" name="task" 	value="" />
 			<input type="hidden" name="option" 	value="com_rsgallery2>" />
-			<input type="hidden" name="Itemid"	value="<?php echo JRequest::getCmd('Itemid'); ?>" />
+			<input type="hidden" name="Itemid"	value="<?php echo JRequest::getInt('Itemid'); ?>" />
 			<input type="hidden" name="rsgOption"	value="<?php echo JRequest::getCmd('rsgOption'); ?>" />
 			<?php echo JHTML::_('form.token'); ?>
         </form>
@@ -1135,7 +1135,7 @@ function mygalleriesJavascript() {
 		}
 		if ($rsgConfig->get('show_mygalleries_onlyOwnGalleries')) {
 			// Show only galleries owned by current user?
-			$query->where('uid = '.$user->id);
+			$query->where('uid = '. (int) $user->id);
 		}		
 
 		$database->setQuery( $query );

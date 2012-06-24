@@ -52,7 +52,7 @@ class rsgDisplay_slideshow_parth extends rsgDisplay{
 			$search[] = '</p>';
 			$replace = ' ';
 			$item->descr = str_replace($search, $replace, $item->descr);
-			$openImageLink = 'index.php?option=com_rsgallery2&page=inline&Itemid='.JRequest::getVar('Itemid').'&id='.$item->id;
+			$openImageLink = 'index.php?option=com_rsgallery2&page=inline&Itemid='.JRequest::getInt('Itemid').'&id='.$item->id;
 			
 			$text .= "<div class=\"imageElement\">" .
 					"<h3>$item->title</h3>" .

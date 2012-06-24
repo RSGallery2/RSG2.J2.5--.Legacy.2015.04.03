@@ -78,73 +78,13 @@ if (!JFactory::getUser()->authorise('core.admin', 'com_rsgallery2')) {
 
 function test() {
 	// http://JOOMLA/administrator/index.php?option=com_rsgallery2&rsgOption=maintenance&task=test
-/*	$gid = 1;
-	$gallery = rsgGalleryManager::_get( $gid );
-    $images = $gallery->items();
-    foreach ($images as $image) {
-    	$imgname[] = $image->name;
-    }
-    $image = array_rand($imgname);
-    echo "De image name is: ".$imgname[$image];
-    echo "<pre>";
-    var_dump($imgname);
-    echo "</pre>";
-*/
-   /* 
-	* Function recursiveGalleriesList gets a list of galleries with their id, parent en hierarchy level ordered by ordering and subgalleries grouped by their parent.
-	* $id		Gallery parent number
-	* $list		The list to return
-	* $children	The 2dim. array with children
-	* $maxlevel Maximum depth of levels
-	* $level	Hierarchy level (e.g. sub gallery of root is level 1)
-	* return	Array
-	*/
-	function recursiveGalleriesList(){
-		//Function to help out
-		function treerecurse($id,  $list, &$children, $maxlevel=20, $level=0) {
-			//if there are children for this id and the max.level isn't reached
-			if (@$children[$id] && $level <= $maxlevel) {
-				//add each child to the $list and ask for its children
-				foreach ($children[$id] as $v) {
-					$id = $v->id;	//gallery id
-					$list[$id] = $v;
-					$list[$id]->level = $level;
-					//$list[$id]->children = count(@$children[$id]);
-					$list = treerecurse($id,  $list, $children, $maxlevel, $level+1);
-				}
-			}
-			return $list;
-		}
-		// Get a list of all galleries (id/parent) ordered by parent/ordering
-		$database =& JFactory::getDBO();
-		$query = "SELECT `id`, `parent`, `name` "
-				. " FROM #__rsgallery2_galleries"
-			//	. " WHERE published != -2"
-				. " ORDER BY parent, ordering";
-		$database->setQuery( $query );
-		$allGalleries = $database->loadObjectList();
-		// Establish the hierarchy by first getting the children: 2dim. array $children[parentid][]
-		$children = array();
-		if ( $allGalleries ) {
-			foreach ( $allGalleries as $v ) {
-				$pt     = $v->parent;
-				$list   = @$children[$pt] ? $children[$pt] : array();
-				array_push( $list, $v );
-				$children[$pt] = $list;
-			}
-		}
-		// Get list of galleries with (grand)children in the right order and with level info
-		$recursiveGalleriesList = treerecurse( 0, array(), $children, 20, 0 );
-		return $recursiveGalleriesList;
-	}
-	$list = recursiveGalleriesList();
-	foreach ($list as $listItem) {
-		$indent = "";
-		for ($i = 0; $i < $listItem->level; $i++) {
-			$indent .= "&nbsp;&nbsp;&nbsp;";
-		}
-		echo $indent.$listItem->id.' '.$listItem->name.'<br>';
-	}
+	echo '<a href='.JRoute::_('index.php?option=com_rsgallery2&rsgOption=maintenance&task=test').'>function test() in admin/options/maintenance </a><p></p>';
+	// Put test code here:
+	
+	//echo galleryUtils::newImages(1);
+	
+	
+
 
 
 

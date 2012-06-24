@@ -35,18 +35,18 @@ if (!$canManage) {
 require_once( JApplicationHelper::getPath('admin_html') );
 
 global $opt, $catid, $uploadStep, $numberOfUploads, $e_id ;
-$task 				= JRequest::getString('task');
-$option 			= strtolower(JRequest::getCmd('option'));
-$opt                = JRequest::getVar('opt', null );
-$catid 				= JRequest::getInt('catid', null);
-$uploadStep         = JRequest::getInt('uploadStep', 0 );
-$numberOfUploads    = JRequest::getInt('numberOfUploads', 1 );
-$e_id               = JRequest::getInt('e_id', 1 );
+$task				= JRequest::getCmd('task');
+$option				= strtolower(JRequest::getCmd('option'));
+//$opt				= JRequest::getCmd('opt', null );//Removed after 3.1.0
+$catid				= JRequest::getInt('catid', null);
+$uploadStep			= JRequest::getInt('uploadStep', 0 );
+$numberOfUploads	= JRequest::getInt('numberOfUploads', 1 );
+//$e_id				= JRequest::getInt('e_id', 1 );//Removed after 3.1.0
 
 $cid    = JRequest::getInt('cid', array(0) );
 $id     = JRequest::getInt('id', 0 );
 
-$rsgOption = JRequest::getVar('rsgOption', null );
+$rsgOption = JRequest::getCmd('rsgOption', null );
 
 $my = JFactory::getUser();
 
@@ -80,7 +80,7 @@ switch( $rsgOption ) {
 // only use the legacy task switch if rsgOption is not used. [MK not truely legacy but still used!]
 // these tasks require admin or super admin privledges.
 if( $rsgOption == '' )	
-switch ( JRequest::getVar('task', null) ){
+switch ( JRequest::getCmd('task', null) ){
 	//Special/debug tasks
     case 'purgeEverything':
         purgeEverything();	//canAdmin check in this function
@@ -278,6 +278,7 @@ function processAdminSqlQueryVerbosely( $query, $successMsg ){
     }
 }
 
+/* Removed after v3.1.0
 function save_batchuploadX() {
     global $database, $mainframe, $rsgConfig;
     
@@ -342,66 +343,9 @@ function save_batchuploadX() {
         //Everything went smoothly, back to Control Panel
         $mainframe->redirect("index.php?option=com_rsgallery2", JText::_('COM_RSGALLERY2_ITEM_UPLOADED_SUCCESFULLY'));
     }
-}
+}/**/
 
 function cancelGallery($option) {
     $mainframe->redirect("index.php?option=$option");
 }
-
-/**
- * This function is called when you select batchupload from the backend. It
- * detects whether you choose ZIP or FTP and acts accordingly.
- * When you choose ZIP it unzips the file you upload to "/media" for further
- * handling, if you choose FTP it reads the files from the directory you uploaded
- * the files to and copies them to "/media".(this dir must be on the local server).
- * @todo Better error trapping
- * @todo Check FTP handling bit
- */
-/* //MK// [not used check]	
-function batch_uploadX($option) {
-	global $mainframe, $rsgConfig;
-	$database = JFactory::getDBO();
-	$FTP_path = $rsgConfig->get('ftp_path');
-	
-	//Retrieve data from submit form
-	$batchmethod 	= JRequest::getVar('batchmethod', null);
-	$uploaded 		= JRequest::getVar('uploaded', null);
-	$selcat 		= JRequest::getInt('selcat', null);
-	$zip_file 		= JRequest::getVar('zip_file', null, 'FILES'); 
-	$ftppath 		= JRequest::getVar('ftppath', null);
-	$xcat 			= JRequest::getInt('xcat', null);
-	
-	//Check if a gallery exists, if not link to gallery creation
-	$database->setQuery( "SELECT id FROM #__rsgallery2_galleries" );
-	$database->query();
-	if( $database->getNumRows()==0 ){
-		HTML_RSGALLERY::requestCatCreation( );
-		return;
-	}
-	
-	//New instance of fileHandler
-	$uploadfile = new fileHandler();
-	
-	if (isset($uploaded)) {
-		if ($batchmethod == "zip") {
-			//Check if file is really a ZIP-file
-			if (!eregi( '.zip$', $zip_file['name'] )) {
-				$mainframe->redirect( "index.php?option=com_rsgallery2&task=batchupload", $zip_file['name'].' '.JText::_('COM_RSGALLERY2_NO_VALID_ARCHIVE_ONLY_ZIP_ALLOWED'));
-			} else {
-				//Valid ZIP-file, continue
-				if ($uploadfile->checkSize($zip_file) == 1) {
-					$ziplist = $uploadfile->handleZIP($zip_file);
-				} else {
-					//Error message
-					$mainframe->redirect( "index.php?option=com_rsgallery2&task=batchupload", JText::_('COM_RSGALLERY2_ZIP-FILE_IS_TOO_BIG'));
-				}
-			}
-		} else {
-			$ziplist = $uploadfile->handleFTP($ftppath);
-		}
-		HTML_RSGALLERY::batch_upload_2($ziplist, $uploadfile->extractDir);
-	} else {
-		HTML_RSGALLERY::batch_upload($option);
-	}
-}*/ //MK// [not used check]	-end
 ?>

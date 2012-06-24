@@ -493,7 +493,7 @@ function uploadImage( $option ) {
 function saveUploadedImage( $option ) {
 	global $id, $rsgOption;
 	$mainframe = &JFactory::getApplication();
-	$title = JRequest::getVar('title'  , '');  
+	$title = JRequest::getVar('title'  , array(), 'default', 'array');// We get an array of titles here  
 	$descr = JRequest::getVar('descr'  , '', 'post', 'string', JREQUEST_ALLOWRAW); 
 	$gallery_id = JRequest::getInt('gallery_id'  , '');
 	$files = JRequest::getVar('images','', 'FILES');
@@ -548,19 +548,13 @@ function resetHits ( &$cid ) {
 	$mainframe =& JFactory::getApplication();
 	$database =& JFactory::getDBO();
 
-	$total		= count( $cid );
-	/*
-	echo "Reset hits for $total images";
-	echo "<pre>";
-	print_r( $cid );
-	echo "</pre>";
-	*/
 	//Reset hits
 	$cids = implode( ',', $cid );
 
-	$database->setQuery("UPDATE #__rsgallery2_files SET ".
-			"hits = 0 ".
-			"WHERE id IN ( $cids )");
+	$query = 'UPDATE `#__rsgallery2_files` SET '.
+			' `hits` = 0 '.
+			' WHERE `id` IN ( '.$cids.' )';
+	$database->setQuery($query);
 
 	if (!$database->query()) {
 		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
@@ -688,10 +682,10 @@ function batchupload($option) {
 	$database = JFactory::getDBO();
 	$mainframe =& JFactory::getApplication();
 	$FTP_path = $rsgConfig->get('ftp_path');
-	
+
 	//Retrieve data from submit form
-	$batchmethod 	= JRequest::getVar('batchmethod', null);
-	$uploaded 		= JRequest::getVar('uploaded', null);
+	$batchmethod 	= JRequest::getCmd('batchmethod', null);
+	$uploaded 		= JRequest::getBool('uploaded', null);
 	$selcat 		= JRequest::getInt('selcat', null);
 	$zip_file 		= JRequest::getVar('zip_file', null, 'FILES'); 
 	$ftppath 		= JRequest::getVar('ftppath', null);
@@ -740,15 +734,15 @@ function save_batchupload() {
     $FTP_path = $rsgConfig->get('ftp_path');
 
     $teller 	= JRequest::getInt('teller'  , null);
-    $delete 	= JRequest::getVar('delete'  , null);
-    $filename 	= JRequest::getVar('filename'  , null);
-    $ptitle 	= JRequest::getVar('ptitle'  , null);
-    $descr 		= JRequest::getVar('descr'  , array(0));
-	$extractdir = JRequest::getVar('extractdir'  , null);
+    $delete 	= JRequest::getVar('delete'  , null, 'post', 'array');
+    $filename 	= JRequest::getVar('filename'  , null, 'post', 'array');
+    $ptitle 	= JRequest::getVar('ptitle'  , null, 'post', 'array');
+    $descr 		= JRequest::getVar('descr'  , array(0), 'post', 'array');
+	$extractdir = JRequest::getCmd('extractdir'  , null);
 	
     //Check if all categories are chosen
 	if (isset($_REQUEST['category']))
-		$category = JRequest::getVar('category'  , array(0));
+		$category = JRequest::getVar('category'  , array(0), 'post', 'array');
     else
         $category = array(0);
 

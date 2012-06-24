@@ -99,10 +99,10 @@ $doc->addScript($js3);
 
 <?php
 	//Show link only when menu-item is a direct link to the slideshow
-	if (JRequest::getVar('view') !== 'slideshow') {
+	if (JRequest::getCmd('view') !== 'slideshow') {
 ?>
 		<div style="float: right;">
-			<a href="index.php?option=com_rsgallery2&Itemid=<?php echo JRequest::getVar('Itemid');?>&gid=<?php echo $this->gid;?>">
+			<a href="index.php?option=com_rsgallery2&Itemid=<?php echo JRequest::getInt('Itemid');?>&gid=<?php echo $this->gid;?>">
 				<?php echo JText::_('COM_RSGALLERY2_BACK_TO_GALLERY');?>
 			</a>
 		</div>

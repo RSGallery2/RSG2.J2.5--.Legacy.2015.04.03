@@ -254,7 +254,7 @@ class html_rsg2_galleries{
 		//Get the data for the form from $row (but only matching XML fields will get data here: asset_id)
 		$form->bind($row);
 
-		$task = JRequest::getVar( 'task'  , '');
+		$task = JRequest::getCmd( 'task'  , '');
 		
 		JHTML::_("Behavior.mootools");
 		?>

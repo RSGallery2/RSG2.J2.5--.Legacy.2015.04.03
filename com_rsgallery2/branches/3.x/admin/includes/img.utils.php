@@ -202,7 +202,8 @@ class imgUtils extends fileUtils{
         }
 
         // determine ordering
-        $database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id = '$imgCat'");
+		$query = 'SELECT COUNT(1) FROM `#__rsgallery2_files` WHERE `gallery_id` = '. (int) $imgCat;
+        $database->setQuery($query);
         $ordering = $database->loadResult() + 1;
 
         //Set alias
@@ -251,120 +252,6 @@ class imgUtils extends fileUtils{
 
         return true;
     }
-//function importImage originally did not use rsgImagesItem class/object
-/*
-    function importImageORIGINAL($imgTmpName, $imgName, $imgCat, $imgTitle='', $imgDesc='') {
-        global $rsgConfig;
-		$my =& JFactory::getUser();
-		$database =& JFactory::getDBO();
-
-        //First move uploaded file to original directory
-        $destination = fileUtils::move_uploadedFile_to_orignalDir( $imgTmpName, $imgName );
-
-        if( is_a( $destination, 'imageUploadError' ) )
-            return $destination;
-
-        $parts = pathinfo( $destination );
-
-		// If IPTC parameter in config is true and the user left either the image title
-		// or description empty in the upload step we want to get that IPTC data.
-		if ($rsgConfig->get( 'useIPTCinformation' )){
-			if (($imgTitle == '') OR ($imgDesc == '')) {
-				getimagesize( $destination , $imageInfo);
-				if(isset($imageInfo['APP13'])) {
-					$iptc = iptcparse($imageInfo['APP13']);
-					//Get Iptc.Caption for the description (null if it does not exist)
-					$IPTCcaption = $iptc["2#120"][0]; 
-					//Get Iptc.ObjectName for the title
-					$IPTCtitle = $iptc["2#005"][0]; 
-					//If the field (description or title) in the import step is emtpy, and we have IPTC info, then use the IPTC info:
-					if (($imgDesc == '') and !is_null($IPTCcaption)) {
-						$imgDesc = $IPTCcaption;
-					}
-					if (($imgTitle == '') and !is_null($IPTCtitle)) {
-						$imgTitle = $IPTCtitle;
-					}
-				}
-			}
-		}
-		
-        // fill $imgTitle if empty
-        if( $imgTitle == '' ) 
-            $imgTitle = substr( $parts['basename'], 0, -( strlen( $parts['extension'] ) + ( $parts['extension'] == '' ? 0 : 1 )));
-
-        // replace names with the new name we will actually use
-        $parts = pathinfo( $destination );
-        $newName = $parts['basename'];
-        $imgName = $parts['basename'];
-        
-        //Get details of the original image.
-        $width = getimagesize( $destination );
-        if( !$width ){
-            imgUtils::deleteImage( $newName );
-            return new imageUploadError( $destination, JText::_('COM_RSGALLERY2_NOT_AN_IMAGE_OR_CANNOT_READ')." ". $destination );
-        } else {
-            //the actual image width and height and its max
-            $height = $width[1];
-			$width = $width[0];
-			if ($height > $width) {
-				$maxSideImage = $height;
-			} else {
-				$maxSideImage = $width;
-			}
-        }
-        //Destination becomes original image, just for readability
-        $original_image = $destination;
-        
-        // if original is wider or higher than display size, create a display image
-        if( $maxSideImage > $rsgConfig->get('image_width') ) {
-            $result = imgUtils::makeDisplayImage( $original_image, $newName, $rsgConfig->get('image_width') );
-            if( !$result ){
-                imgUtils::deleteImage( $newName );
-				return new imageUploadError( $imgName, JText::_('COM_RSGALLERY2_ERROR_CREATING_DISPLAY_IMAGE'). ": ".$newName);
-            }
-        } else {
-            $result = imgUtils::makeDisplayImage( $original_image, $newName, $maxSideImage );
-            if( !$result ){
-                imgUtils::deleteImage( $newName );
-                return new imageUploadError( $imgName, JText::_('COM_RSGALLERY2_ERROR_CREATING_DISPLAY_IMAGE'). ": ".$newName);
-                }
-        }
-           
-        // if original is wider or higher than thumb, create a thumb image
-        if( $maxSideImage > $rsgConfig->get('thumb_width') ){
-            $result = imgUtils::makeThumbImage( $original_image, $newName );
-            if( !$result){
-                imgUtils::deleteImage( $newName );
-                return new imageUploadError( $imgName, JText::_('COM_RSGALLERY2_ERROR_CREATING_THUMB_IMAGE'). ": ".$newName);
-            }
-        }
-
-        // determine ordering
-        $database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id = '$imgCat'");
-        $ordering = $database->loadResult() + 1;
-
-        //Store image details in database
-        $imgAlias = $database->getEscaped(JFilterOutput::stringURLSafe($imgTitle));
-		$imgDesc = $database->getEscaped($imgDesc);
-        $imgTitle = $database->getEscaped($imgTitle);
-		
-        $database->setQuery("INSERT INTO #__rsgallery2_files".
-                " (title, name, descr, gallery_id, date, ordering, userid, alias) VALUES".
-                " ('$imgTitle', '$newName', '$imgDesc', '$imgCat', now(), '$ordering', '$my->id', '$imgAlias')");
-        
-        if (!$database->query()){
-            imgUtils::deleteImage( $newName );
-            return new imageUploadError( $imgName, $database->stderr(true) );
-        }
-        
-        //check if original image needs to be kept, otherwise delete it.
-        if ( !$rsgConfig->get('keepOriginalImage') ) {
-            JFile::delete( imgUtils::getImgOriginal( $newName, true ) );
-        }
-            
-        return true;
-    }
-*/
 
     /**
       * deletes all elements of image on disk and in database
@@ -377,7 +264,8 @@ class imgUtils extends fileUtils{
 		$database =& JFactory::getDBO();
 
 		//Get the id and gallery id of the current item
-		$database->setQuery("SELECT id, gallery_id FROM #__rsgallery2_files WHERE name = '$name'");
+		$query = 'SELECT `id`, `gallery_id` FROM `#__rsgallery2_files` WHERE `name` = '. $database->quote($name);
+		$database->setQuery($query);
         $itemDetails = $database->loadAssoc();
 		$id 	= $itemDetails['id'];
 		$gid 	= $itemDetails['gallery_id'];
@@ -421,8 +309,9 @@ class imgUtils extends fileUtils{
 			}
 		}
 
-		galleryUtils::reorderRSGallery('#__rsgallery2_files', "gallery_id = '$gid'");
-        
+		// Todo: use reorder method
+		galleryUtils::reorderRSGallery('`#__rsgallery2_files`', '`gallery_id` = '. (int) $gid);
+
         return true;
     }
     
@@ -538,11 +427,10 @@ class imgUtils extends fileUtils{
 			echo JText::_('COM_RSGALLERY2_NO_IMAGES_IN_GALLERY_YET');
 			return;
 		}
-        $list = galleryUtils::getChildList( $id );
-        //$sql = "SELECT name, id FROM #__rsgallery2_files WHERE gallery_id in ($list)";
+        $list = galleryUtils::getChildList( (int) $id );
         $sql = "SELECT a.name, a.id, b.name as gname FROM #__rsgallery2_files AS a " .
             "LEFT JOIN #__rsgallery2_galleries AS b ON a.gallery_id = b.id " .
-            "WHERE gallery_id IN ($list) " .
+            "WHERE `gallery_id` IN ($list) " .
             "ORDER BY gname, a.id ASC";
         $database->setQuery($sql);
         $list = $database->loadObjectList();
