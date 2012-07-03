@@ -101,7 +101,7 @@ class rsgDisplay extends JObject{
 	 */
 	function display( $file = null ){
 		global $rsgConfig;
-		$template = preg_replace( '#\W#', '', rsgInstance::getVar( 'rsgTemplate', $rsgConfig->get('template') ));
+		$template = preg_replace( '#\W#', '', rsgInstance::getCmd( 'rsgTemplate', $rsgConfig->get('template') ));
 		$templateDir = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template . DS . 'html';
 	
 		$file = preg_replace('/[^A-Z0-9_\.-]/i', '', $file);
@@ -113,8 +113,8 @@ class rsgDisplay extends JObject{
 	 * Shows the top bar for the RSGallery2 screen
 	 */
 	function showRsgHeader() {
-		$rsgOption 	= rsgInstance::getVar( 'rsgOption'  , '');
-		$gid 		= rsgInstance::getVar( 'gid'  , null);
+		$rsgOption 	= rsgInstance::getCmd( 'rsgOption'  , '');
+		$gid 		= rsgInstance::getInt( 'gid'  , null);
 		
 		if (!$rsgOption == 'mygalleries' AND !$gid) {
 			?>
@@ -339,18 +339,20 @@ class rsgDisplay extends JObject{
 		
     	switch ($type) {
     		case 'random':
-    			$database->setQuery("SELECT file.date, file.gallery_id, file.ordering, file.id, file.name, file.title".
-                        " FROM #__rsgallery2_files as file, #__rsgallery2_galleries as gal".
-                        " WHERE file.gallery_id=gal.id and gal.published=1 AND file.published=1".
-                        " ORDER BY rand() limit $number");
+				$query = 'SELECT file.date, file.gallery_id, file.ordering, file.id, file.name, file.title '.
+                        ' FROM #__rsgallery2_files as file, #__rsgallery2_galleries as gal '.
+                        ' WHERE file.gallery_id = gal.id and gal.published = 1 AND file.published = 1 '.
+                        ' ORDER BY rand() limit '. (int) $number;
+    			$database->setQuery($query);
     			$rows = $database->loadObjectList();
     			$title = JText::_('Random images');
     			break;
     		case 'latest':
-				$database->setQuery("SELECT file.date, file.gallery_id, file.ordering, file.id, file.name, file.title".
-                        " FROM #__rsgallery2_files as file, #__rsgallery2_galleries as gal".
-                        " WHERE file.gallery_id=gal.id AND gal.published=1 AND file.published=1".
-                        " ORDER BY file.date DESC LIMIT $number");
+				$query = 'SELECT file.date, file.gallery_id, file.ordering, file.id, file.name, file.title '.
+                        ' FROM #__rsgallery2_files as file, #__rsgallery2_galleries as gal '.
+                        ' WHERE file.gallery_id = gal.id AND gal.published = 1 AND file.published = 1 '.
+                        ' ORDER BY file.date DESC LIMIT '. (int) $number;
+				$database->setQuery($query);
     			$rows = $database->loadObjectList();
     			$title = JText::_('Latest images');
     			break;
@@ -511,47 +513,5 @@ class rsgDisplay extends JObject{
     	</div>
     	<?php
     }
-    /*
-    function showRSTopBar() {
-        global $my, $mainframe, $rsgConfig,;
-        $catid =rsgInstance::getInt( 'catid', 0 );
-        $page = rsgInstance::getVar( 'page'  , null);
-        ?>
-        <div style="float:right; text-align:right;">
-        <ul id='rsg2-navigation'>
-            <li>
-                <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2"); ?>">
-                <?php echo JText::_('Main gallery page'); ?>
-                </a>
-            </li>
-            <?php 
-            if ( !$my->id == "" && $page != "my_galleries" && $rsgConfig->get('show_mygalleries') == 1):
-            ?>
-            <li>
-                <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries");?>">
-                <?php echo JText::_('My galleries'); ?>
-                </a>
-            </li>
-            <?php
-            elseif( $page == "slideshow" ): 
-            ?>
-            <li>
-                <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&page=inline&catid=".$catid."&id=".$_GET['id']);?>">
-                <?php echo JText::_('Exit slideshow'); ?>
-                </a>
-            </li>
-        <?php endif; ?>
-        </ul>
-        </div>
-        <div style="float:left;">
-        <?php if( isset( $catid )): ?>
-            <h2 id='rsg2-galleryTitle'><?php htmlspecialchars(stripslashes(galleryUtils::getCatNameFromId($catid)), ENT_QUOTES) ?></h2>
-        <?php elseif( $page != "my_galleries" ): ?>
-            <h2 id='rsg2-galleryTitle'><?php echo JText::_('Gallery') ?></h2>
-        <?php endif; ?>
-        </div>
-        <?php
-    }
-	*/
 }
 ?>

@@ -3,7 +3,7 @@ defined('_JEXEC') or die('Restricted access');
 JHTML::_('behavior.mootools');
 
 $item = $this->currentItem;
-$templatePath = JURI_SITE . "components/com_rsgallery2/templates/". rsgInstance::getVar( 'rsgTemplate', $rsgConfig->get('template'));
+$templatePath = JURI_SITE . "components/com_rsgallery2/templates/". rsgInstance::getCmd( 'rsgTemplate', $rsgConfig->get('template'));
 
 $jsSwf = '
 		window.addEvent("domready", function() {

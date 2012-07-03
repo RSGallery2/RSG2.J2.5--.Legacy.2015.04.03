@@ -349,11 +349,15 @@ class fileHandler {
      * @todo Check if user is Super Administrator. Limits do not count for him
      */
     function checkMaxImages($zip = false, $zip_count = '' ) {
-    global $my, $database, $rsgConfig;
+		global $my, $rsgConfig;
+		$database = JFactory::getDBO();
+		$my = JFactory::getUser();
+		
         $maxImages = $rsgConfig->get('uu_maxImages');
         
         //Check if maximum number of images is exceeded
-        $database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE userid = $my->id");
+		$query = 'SELECT COUNT(1) FROM #__rsgallery2_files WHERE userid = '. (int) $my->id;
+        $database->setQuery($query);
         $count = $database->loadResult();
         
         if ($zip == true) {

@@ -126,16 +126,23 @@ class videoUtils extends fileUtils{
 			}
 			
 			// determine ordering
-			$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id = '$cat'");
+			$query = 'SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id = '. (int) $cat;
+			$database->setQuery($query);
 			$ordering = $database->loadResult() + 1;
 			
-			//Store image details in database
-			$alias = mysql_real_escape_string(JFilterOutput::stringURLSafe($title));
-			$desc = mysql_real_escape_string($desc);
-			$title = mysql_real_escape_string($title);
-			$database->setQuery("INSERT INTO #__rsgallery2_files".
-					" (title, name, descr, gallery_id, date, ordering, userid, alias) VALUES".
-					" ('$title', '$newName', '$desc', '$cat', now(), '$ordering', '$my->id', '$alias')");
+			//Store image details in database - make sure everything is escaped/quoted and typecasted
+			$alias = $database->Quote(JFilterOutput::stringURLSafe($title));
+			$title = $database->Quote($title);
+			$newName = $database->Quote($newName);
+			$desc = $database->Quote($desc);
+			$date = $database->Quote(date('Y-m-d H:i:s'));
+			$cat = (int) $cat;
+			$ordering = (int) $ordering;
+			$userid = (int) $my->id;
+			$query = 'INSERT INTO #__rsgallery2_files '.
+					' (title, name, descr, gallery_id, date, ordering, userid, alias) VALUES '.
+					' ('.$title.', '.$newName.', '.$desc.', '.$cat.', '.$date.', '.$ordering.', '.$userid.', '.$alias.')';
+			$database->setQuery($query);
 			
 			if (!$database->query()){
 				$result = new imageUploadError( $parts['basename'], $database->stderr(true) );

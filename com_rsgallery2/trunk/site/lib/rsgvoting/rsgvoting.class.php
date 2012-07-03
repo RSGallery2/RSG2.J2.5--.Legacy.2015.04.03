@@ -27,7 +27,7 @@ class rsgVoting {
 	
 	function getTotal( $id ) {
 		$database =& JFactory::getDBO();
-		$sql = "SELECT rating FROM #__rsgallery2_files WHERE id = '$id'";
+		$sql = 'SELECT rating FROM #__rsgallery2_files WHERE id = '. (int) $id;
 		$database->setQuery($sql);
 		$total = $database->loadResult();
 		
@@ -36,7 +36,7 @@ class rsgVoting {
 	
 	function getVoteCount( $id ) {
 		$database =& JFactory::getDBO();
-		$sql = "SELECT votes FROM #__rsgallery2_files WHERE id = '$id'";
+		$sql = 'SELECT votes FROM #__rsgallery2_files WHERE id = '. (int) $id;
 		$database->setQuery($sql);
 		$votes = $database->loadResult();
 		

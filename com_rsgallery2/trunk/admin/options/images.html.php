@@ -619,7 +619,7 @@ class html_rsg2_images {
         $selcat 		= rsgInstance::getInt('selcat'  , null);
         $ftppath 		= rsgInstance::getVar('ftppath'  , null);
         $xcat 			= rsgInstance::getInt('xcat'  , null);
-        $batchmethod 	= rsgInstance::getVar('batchmethod'  , null);
+        $batchmethod 	= rsgInstance::getCmd('batchmethod'  , null);
 		
         ?>
 		<script language="javascript" type="text/javascript">

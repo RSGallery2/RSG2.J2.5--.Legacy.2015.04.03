@@ -29,7 +29,7 @@ class rsgGalleryManager{
 		}
 		
 		if( !is_numeric( $id )) return false;
-		$query = "SELECT f.gallery_id FROM #__rsgallery2_files AS f WHERE f.id = $id";
+		$query = 'SELECT f.gallery_id FROM #__rsgallery2_files AS f WHERE f.id = '. (int) $id;
 		$database->setQuery ($query);
 		$gid = $database->loadResult();
 		
@@ -132,9 +132,10 @@ class rsgGalleryManager{
         // since the user will never be offered the chance to view a gallery they can't, unauthorized attempts at viewing are a hacking attempt, so it is ok to print an unfriendly error.
         $rsgAccess->checkGallery( 'view', $parent ) or die("RSGallery2: Access denied to gallery $parent");
 
-        $database->setQuery("SELECT * FROM #__rsgallery2_galleries".
-                            " WHERE parent = '$parent'".
-                            " ORDER BY ordering ASC");
+		$query = 'SELECT * FROM #__rsgallery2_galleries '.
+                    ' WHERE parent = '. (int) $parent.
+                    ' ORDER BY ordering ASC';
+        $database->setQuery($query);
         $rows = $database->loadAssocList();
         $galleries = array();
 
@@ -195,9 +196,10 @@ class rsgGalleryManager{
 		
 			if( !is_numeric( $gallery )) die("gallery id is not a number: $gallery");
 			
-			$database->setQuery("SELECT * FROM #__rsgallery2_galleries ".
-								"WHERE id = '$gallery' ".
-								"ORDER BY ordering ASC ");
+			$query = 'SELECT * FROM #__rsgallery2_galleries '.
+						' WHERE id = '. (int) $gallery.
+						' ORDER BY ordering ASC';
+			$database->setQuery($query);
 		
 			$row = $database->loadAssocList();
 			if( count($row)==0 && $gallery!=0 ){
@@ -274,10 +276,10 @@ class rsgGalleryManager{
             }
 
             // delete gallery
-            $id = $gallery->get('id');
+            $id = (int) $gallery->get('id');
             if( !is_numeric( $id )) return false;
 
-            $query = "DELETE FROM #__rsgallery2_galleries WHERE id = $id";
+            $query = 'DELETE FROM #__rsgallery2_galleries WHERE id = '. (int) $id;
             echo "<br>deleting gallery $id";
 
             $database->setQuery( $query );

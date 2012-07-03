@@ -246,7 +246,7 @@ function Rsgallery2ParseRoute($segments) {
 				}
 			}
 		}
-		
+
 		for ($index = 0 ; $index < count($segments) ; $index++){
 			switch ($segments[$index]){
 				// gallery link (subgallery of the gallery shown with the menu-item)
@@ -258,7 +258,7 @@ function Rsgallery2ParseRoute($segments) {
 				}
 				// item link
 				case 'item':
-				{
+				{//Stupid: segment automatically converst hyphen (-) to colon (:)...
 					$vars['id']  = Rsgallery2GetItemId($segments[++$index]);
 					break;
 				}
@@ -341,7 +341,7 @@ function Rsgallery2GetCategoryName($categoryId){ //advancedSef is 0 or 1
  **/
 function Rsgallery2GetCategoryId($categoryName){ //advancedSef is 0 or 1
 	global $config;
-	
+
 	Rsgallery2InitConfig();
 	
 	// fetch the gallery id from the database if advanced sef is active
@@ -349,7 +349,7 @@ function Rsgallery2GetCategoryId($categoryName){ //advancedSef is 0 or 1
 	{
 		$dbo = JFactory::getDBO();
 		//Use getEscaped for when gallerynames have ' in them!
-		$query = "SELECT id FROM #__rsgallery2_galleries WHERE `name`='".$dbo->getEscaped($categoryName)."'";
+		$query = 'SELECT id FROM #__rsgallery2_galleries WHERE `name`='.$dbo->Quote($categoryName);
 		$dbo->setQuery($query);
 		$result = $dbo->query();
 
@@ -385,16 +385,15 @@ function Rsgallery2GetCategoryId($categoryName){ //advancedSef is 0 or 1
  * 
  **/
 function Rsgallery2GetItemId($itemName){ //advancedSef is 0 or 1
-	
 	global $config;
-	
+
 	Rsgallery2InitConfig();
 	
 	// fetch the gallery id from the database if advanced sef is active
 	if($config->get("advancedSef") == true)
 	{
 		$dbo = JFactory::getDBO();
-		$query = "SELECT id FROM #__rsgallery2_files WHERE `title`='".$dbo->getEscaped($itemName)."'";
+		$query = 'SELECT id FROM #__rsgallery2_files WHERE `title`='.$dbo->Quote($itemName);//Going from gallery view to single item. Annoying: in segments (here: itemName) a hyphen (-) is automatically converted to a colon (:)...
 		$dbo->setQuery($query);
 		$result = $dbo->query();
 

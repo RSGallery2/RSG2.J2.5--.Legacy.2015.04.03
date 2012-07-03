@@ -24,7 +24,7 @@ require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'mygalleries' . DS . 'my
 //Get parameters from URL and/or form
 //$cid	= rsgInstance::getInt('cid', array(0) );//no longer neccessary?
 //$cid	= rsgInstance::getInt('gid', $cid );//no longer neccessary?
-$task   = rsgInstance::getVar('task', '' );
+$task   = rsgInstance::getCmd('task', '' );
 $id		= rsgInstance::getInt('id','' );
 $gid	= rsgInstance::getInt('gid','' );	//Mirjam: In v1.13 catid was used where since v1.14 gid is used
 
@@ -75,7 +75,8 @@ function showMyGalleries() {
 	$limitstart = trim(rsgInstance::getInt( 'limitstart', 0 ) );
 	
 	//Get total number of records for paging
-	$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE userid = '$my->id'");
+	$query = 'SELECT COUNT(1) FROM #__rsgallery2_files WHERE userid = '. (int) $my->id;
+	$database->setQuery($query);
 	$total = $database->loadResult();
 	
 	//New instance of mosPageNav
@@ -83,10 +84,11 @@ function showMyGalleries() {
 	$pageNav = new JPagination( $total, $limitstart, $limit );
 	
 	//Get all images
-	$database->setQuery("SELECT * FROM #__rsgallery2_files" .
-						" WHERE userid = '$my->id'" .
-						" ORDER BY date DESC" .
-						" LIMIT $pageNav->limitstart, $pageNav->limit");
+	$query = 'SELECT * FROM #__rsgallery2_files ' .
+						' WHERE userid = '. (int) $my->id .
+						' ORDER BY date DESC ' .
+						' LIMIT '. (int) $pageNav->limitstart.', '.(int) $pageNav->limit;
+	$database->setQuery($query);
 	$images = $database->loadObjectList();
 	//Get all galleries based on hierarchy (up to 20 levels deep, with level property to show the level)
 	$rows = myGalleries::recursiveGalleriesList();
@@ -130,7 +132,8 @@ function editItem() {
 	$database = JFactory::getDBO();
 	$id = rsgInstance::getInt('id'  , null);
 	if ($id) {
-		$database->setQuery("SELECT * FROM #__rsgallery2_files WHERE id = '$id'");
+		$query = 'SELECT * FROM #__rsgallery2_files WHERE id = '. (int) $id;
+		$database->setQuery($query);
 		$rows = $database->loadObjectList();
 		myGalleries::editItem($rows);
 	}
@@ -144,19 +147,20 @@ function saveItem() {
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
 	
 	$id 	= rsgInstance::getInt( 'id'  , '');
-	$title 	= rsgInstance::getstring( 'title'  , '');
+	$title 	= rsgInstance::getString( 'title'  , '');
 	$descr 	= rsgInstance::getVar( 'descr'  , '', 'post', 'string', JREQUEST_ALLOWRAW);
 	$catid 	= rsgInstance::getInt( 'catid'  , '');
 
 	//escape strings for sql query
-	$title 	= $database->getEscaped($title);
-	$descr 	= $database->getEscaped($descr);
+	$title 	= $database->Quote($title);
+	$descr 	= $database->Quote($descr);
 	
-	$database->setQuery("UPDATE #__rsgallery2_files SET ".
-			"title = '$title', ".
-			"descr = '$descr', ".
-			"gallery_id = '$catid' ".
-			"WHERE id= '$id'");
+	$query = 'UPDATE #__rsgallery2_files SET '.
+			' title = '. $title .', '.
+			' descr = '. $descr .', '.
+			' gallery_id = '. (int) $catid .
+			' WHERE id= '. (int) $id;
+	$database->setQuery($query);
 
 	if ($database->query()) {
 		$mainframe->redirect(JRoute::_( $redirect ), JText::_('Details saved succesfully') );
@@ -173,7 +177,7 @@ function saveUploadedItem() {
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries",false);
 	
 	//Get category ID to check rights
-	$i_cat = rsgInstance::getVar( 'i_cat'  , '');
+	$i_cat = rsgInstance::getInt( 'i_cat'  , '');
 	
 	//Get maximum number of images to upload
 	$max_images = $rsgConfig->get('uu_maxImages');
@@ -194,7 +198,7 @@ function saveUploadedItem() {
 		$i_cat = rsgInstance::getInt( 'i_cat'  , ''); 
 		$title = rsgInstance::getVar( 'title'  , ''); 
 		$descr = rsgInstance::getVar( 'descr', '', 'post', 'string', JREQUEST_ALLOWRAW );
-		$uploader = rsgInstance::getVar( 'uploader'  , ''); 
+		$uploader = rsgInstance::getInt( 'uploader'  , '');
 		
 		//Get filetype
 		$file_ext = $upload->checkFileType($i_file['name']);
@@ -265,7 +269,8 @@ function editCat($catid) {
 
 	if ($catid) {
 		//Edit category
-		$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE id ='$catid'");
+		$query = 'SELECT * FROM #__rsgallery2_galleries WHERE id = '. (int) $catid;
+		$database->setQuery($query);
 		$rows = $database->LoadObjectList();
 		myGalleries::editCat($rows);
 	} else {
@@ -292,26 +297,27 @@ function saveCat() {
 	//Set redirect URL
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
 	
-	$parent 		= rsgInstance::getVar( 'parent'  , 0);
+	$parent 		= rsgInstance::getInt( 'parent'  , 0);
 	$id 			= rsgInstance::getInt( 'catid'  , null);
-	$catname1 		= rsgInstance::getstring( 'catname1'  , null);
+	$catname1 		= rsgInstance::getString( 'catname1'  , null);
 	$description 	= rsgInstance::getVar( 'description'  , null, 'post', 'string', JREQUEST_ALLOWRAW);
 	$published 		= rsgInstance::getInt( 'published'  , 0);
 	$ordering 		= rsgInstance::getInt( 'ordering'  , null);
 	$maxcats        = $rsgConfig->get('uu_maxCat');	
 
 	//escape strings for sql query
-	$alias			= $database->getEscaped(JFilterOutput::stringURLSafe($catname1));
-	$catname1 		= $database->getEscaped($catname1);
-	$description 	= $database->getEscaped($description);
+	$alias			= $database->Quote(JFilterOutput::stringURLSafe($catname1));
+	$catname1 		= $database->Quote($catname1);
+	$description 	= $database->Quote($description);
 
 	if ($id) {
-		$database->setQuery("UPDATE #__rsgallery2_galleries SET ".
-			"name = '$catname1', ".
-			"description = '$description', ".
-			"published = '$published', ".
-			"parent = '$parent' ".
-			"WHERE id = '$id' ");
+		$query = 'UPDATE #__rsgallery2_galleries SET '.
+			' name = '. $catname1 .', '.
+			' description = '. $description .', '.
+			' published = '. (int) $published .', '.
+			' parent = '. (int) $parent.
+			' WHERE id = '. (int) $id;
+		$database->setQuery($query);
 		if ($database->query()) {
 			$mainframe->redirect( $redirect , JText::_('Gallery details updated!') );
 		} else {
@@ -335,16 +341,22 @@ function saveCat() {
 			
 		} else {
 			//Create ordering, start at last position
-			$database->setQuery("SELECT MAX(ordering) FROM #__rsgallery2_galleries WHERE uid = '$my->id'");
+			$query = 'SELECT MAX(ordering) FROM #__rsgallery2_galleries WHERE uid = '. (int) $my->id;
+			$database->setQuery($query);
 			$ordering = $database->loadResult() + 1;
+			$date = $database->Quote(date('Y-m-d H:i:s'));
 			//Insert into database
-			$database->setQuery("INSERT INTO #__rsgallery2_galleries ".
-				"(name, description, alias, ordering, parent, published, user, uid, date) VALUES ".
-				"('$catname1','$description','$alias','$ordering','$parent','$published','1' ,'$my->id', now())");
+			//$catname1, $description, $alias have been quoted/escaped above via $database->Quote()
+			$query = 'INSERT INTO #__rsgallery2_galleries '.
+				' (name, description, alias, ordering, parent, published, user, uid, date) VALUES '.
+				' ('.$catname1.','.$description.','.$alias.','. (int) $ordering.','. (int) $parent.','. (int) $published.',1 ,'. (int) $my->id.', '.$date.')';
+			$database->setQuery($query,'b');
 				
 			if ($database->query()) {
 				//Create initial permissions for this gallery
-				$database->setQuery("SELECT id FROM #__rsgallery2_galleries WHERE name = '$catname1' LIMIT 1");
+				//$catname1 has been quoted/escaped above via $database->Quote()
+				$query = 'SELECT id FROM #__rsgallery2_galleries WHERE name = '.$catname1.' LIMIT 1';
+				$database->setQuery($query);
 				$gallery_id = $database->loadResult();
 				$acl = new rsgAccess();
 				if ( $acl->createDefaultPermissions($gallery_id) )
@@ -369,7 +381,8 @@ function deleteCat() {
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries",false);
 	
 	//Get category details
-	$database->setQuery("SELECT * FROM #__rsgallery2_galleries WHERE id = '$catid'");
+	$query = 'SELECT * FROM #__rsgallery2_galleries WHERE id = '. (int) $catid;
+	$database->setQuery($query);
 	$rows = $database->LoadObjectList();
 	foreach ($rows as $row) {
 		$uid = $row->uid;
@@ -377,7 +390,8 @@ function deleteCat() {
 	}
 		
 	//Check if gallery has children
-	$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_galleries WHERE parent = '$catid'");
+	$query = 'SELECT COUNT(1) FROM #__rsgallery2_galleries WHERE parent = '. (int) $catid;
+	$database->setQuery($query);
 	$count = $database->loadResult();
 	if ($count > 0) {
 		$mainframe->redirect( $redirect ,JText::_('USERCAT_SUBCATS'));
@@ -386,7 +400,8 @@ function deleteCat() {
 	//No children from here, so lets continue
 	if ($uid == $my->id OR $my->usertype == 'Super Administrator') {
 		//Delete images
-		$database->setQuery("SELECT name FROM #__rsgallery2_files WHERE gallery_id = '$catid'");
+		$query = 'SELECT name FROM #__rsgallery2_files WHERE gallery_id = '. (int) $catid;
+		$database->setQuery($query);
 		$result = $database->loadResultArray();
 		$error = 0;
 		foreach ($result as $filename) {
@@ -397,7 +412,8 @@ function deleteCat() {
 		//Error checking
 		if ($error == 0) {
 			//Gallery can be deleted
-			$database->setQuery("DELETE FROM #__rsgallery2_galleries WHERE id = '$catid'");
+			$query = 'DELETE FROM #__rsgallery2_galleries WHERE id = '. (int) $catid;
+			$database->setQuery($query);
 			if ( !$database->query() ) {
 				//Error message, gallery could not be deleted
 				$mainframe->redirect( $redirect ,JText::_('Gallery could not be deleted!'));

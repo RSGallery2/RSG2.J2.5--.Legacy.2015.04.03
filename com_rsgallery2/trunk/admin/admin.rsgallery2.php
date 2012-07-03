@@ -28,7 +28,7 @@ JHTML::_('behavior.tooltip');
 require_once( JApplicationHelper::getPath('admin_html') );
 
 global $opt, $catid, $uploadStep, $numberOfUploads, $e_id ;
-$opt                = rsgInstance::getVar('opt', null );
+$opt                = rsgInstance::getCmd('opt', null );
 $catid 				= rsgInstance::getInt('catid', null);
 $uploadStep         = rsgInstance::getInt('uploadStep', 0 );
 $numberOfUploads    = rsgInstance::getInt('numberOfUploads', 1 );
@@ -37,7 +37,7 @@ $e_id               = rsgInstance::getInt('e_id', 1 );
 $cid    = rsgInstance::getInt('cid', array(0) );
 $id     = rsgInstance::getInt('id', 0 );
 
-$rsgOption = rsgInstance::getVar('rsgOption', null );
+$rsgOption = rsgInstance::getCmd('rsgOption', null );
 
 $my = JFactory::getUser();
 
@@ -90,7 +90,7 @@ if( $rsgOption != '' ){
 // only use the legacy task switch if rsgOption is not used.
 // these tasks require admin or super admin privledges.
 if( $rsgOption == '' && $my->gid > 23 )
-switch ( rsgInstance::getVar('task', null) ){
+switch ( rsgInstance::getCmd('task', null) ){
 //     special/debug tasks
     case 'purgeEverything':
         /* Replace all headers with JToolBarHelper::title() in toolbar.rsgallery2.html.php
@@ -110,7 +110,7 @@ switch ( rsgInstance::getVar('task', null) ){
 
 // only use the legacy task switch if rsgOption is not used.
 if( $rsgOption == '' )
-switch ( rsgInstance::getVar('task', null ) ){
+switch ( rsgInstance::getCmd('task', null ) ){
     // config tasks
     // this is just a kludge until all links and form vars to configuration functions have been updated to use $rsgOption = 'config';
     /*
@@ -288,6 +288,7 @@ function processAdminSqlQueryVerbosely( $query, $successMsg ){
     }
 }
 
+/* Seems to be no longer used in v2.2.1
 function save_batchuploadX() {
     global $database, $mainframe, $rsgConfig;
     
@@ -352,7 +353,7 @@ function save_batchuploadX() {
         //Everything went smoothly, back to Control Panel
         $mainframe->redirect("index2.php?option=com_rsgallery2", JText::_('Item uploaded succesfully!'));
     }
-}
+}/**/
 
 function cancelGallery($option) {
     $mainframe->redirect("index2.php?option=$option");
@@ -367,15 +368,15 @@ function cancelGallery($option) {
  * @todo Better error trapping
  * @todo Check FTP handling bit
  */
- 
+/* Seems to be no longer used in v2.2.1
 function batch_uploadX($option) {
 	global $mainframe, $rsgConfig;
 	$database = JFactory::getDBO();
 	$FTP_path = $rsgConfig->get('ftp_path');
 	
 	//Retrieve data from submit form
-	$batchmethod 	= rsgInstance::getVar('batchmethod', null);
-	$uploaded 		= rsgInstance::getVar('uploaded', null);
+	$batchmethod 	= rsgInstance::getBool('batchmethod', null);
+	$uploaded 		= rsgInstance::getBool('uploaded', null);
 	$selcat 		= rsgInstance::getInt('selcat', null);
 	$zip_file 		= rsgInstance::getVar('zip_file', null, 'FILES'); 
 	$ftppath 		= rsgInstance::getVar('ftppath', null);
@@ -413,5 +414,5 @@ function batch_uploadX($option) {
 	} else {
 		HTML_RSGALLERY::batch_upload($option);
 	}
-}//End function
+}/**///End function
 ?>

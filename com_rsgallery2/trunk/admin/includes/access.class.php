@@ -109,7 +109,7 @@ class rsgAccess extends JObject{
 		} else {	
 			// first check if user is the owner.  if so we can assume user has access to do anything
 			if( $my->id ){  // check that user is logged in
-				$sql = "SELECT uid FROM #__rsgallery2_galleries WHERE id = '$gallery_id'";
+				$sql = 'SELECT uid FROM #__rsgallery2_galleries WHERE id = '. (int) $gallery_id;
 				$database->setQuery( $sql );
 				if ( $my->id == $database->loadResult() )
 					return 1;
@@ -129,9 +129,10 @@ class rsgAccess extends JObject{
 				return 1;
 			else{
 				// get permission from acl table
-				$sql = "SELECT ".$type."_".$action." FROM $this->_table WHERE gallery_id = '$gallery_id'";
+				$sql = 'SELECT '.$database->nameQuote($type.'_'.$action).' FROM '.$this->_table.' WHERE gallery_id = '. (int) $gallery_id;
 				$database->setQuery( $sql );
-				return intval( $database->loadResult() );
+				$result = intval( $database->loadResult() );
+				return $result;
 			}
 		}
 	}
@@ -155,7 +156,7 @@ class rsgAccess extends JObject{
 	 */
 	function returnPermissions($id) {
 		$database =& JFactory::getDBO();
-		$sql = "SELECT * FROM $this->_table WHERE gallery_id = '$id'";
+		$sql = 'SELECT * FROM '.$this->_table.' WHERE gallery_id = '. (int) $id;
 		$database->setQuery( $sql );
 		$rows = $database->loadObjectList();
 		if ($rows)
@@ -194,14 +195,14 @@ class rsgAccess extends JObject{
 			// get galleries where action is permitted for the user group
 			$type = $type."_".$action;
 
-			$sql = "SELECT gallery_id FROM $this->_table WHERE ".$type." = 1";
+			$sql = 'SELECT gallery_id FROM '.$this->_table.' WHERE '. $database->nameQuote($type) .' = 1';
 			$database->setQuery($sql);
 			$galleries = $database->loadResultArray();
-			
+
 			// check if user is logged in
 			if( $my->id ){
 				// if so add galleries owned by users to list
-				$sql = "SELECT id FROM #__rsgallery2_galleries WHERE uid = '$my->id'";
+				$sql = 'SELECT id FROM #__rsgallery2_galleries WHERE uid = '. (int) $my->id;
 				$database->setQuery( $sql );
 				$galleries = array_merge($galleries, $database->loadResultArray());	
 			}
@@ -230,11 +231,11 @@ class rsgAccess extends JObject{
 			// assemble actions and add them to sql query 							
 			foreach ($this->levels as $level) {
 				foreach ($this->actions	as $action) {
-					$sql .= $level.'_'.$action." = '".$perms[$level.'_'.$action]."', "; 
+					$sql .= $database->nameQuote($level.'_'.$action)." = '".$perms[$level.'_'.$action]."', "; 
 				}
 			}
 			$sql = substr($sql, 0, - 2);
-			$sql .= " WHERE gallery_id = '$gallery_id'";
+			$sql .= ' WHERE gallery_id = '. (int) $gallery_id;
 			$database->setQuery($sql);
 			if ( $database->query() )
 				return true;
@@ -260,7 +261,7 @@ class rsgAccess extends JObject{
 		
 		$sql = "INSERT INTO $this->_table ".
 			"(gallery_id, parent_id) VALUES ".
-			"('$gallery_id','$parent_id')";
+			'('. (int) $gallery_id.','. (int) $parent_id.')';
 		$database->setQuery($sql);
 		if ($database->query())
 			return true;
@@ -276,7 +277,7 @@ class rsgAccess extends JObject{
 	function deletePermissions( $gallery_id ) {
 		$database =& JFactory::getDBO();
 		
-		$sql = "DELETE FROM $this->_table WHERE gallery_id = '$gallery_id'";
+		$sql = 'DELETE FROM '.$this->_table.' WHERE gallery_id = '. (int) $gallery_id;
 		$database->setQuery($sql);
 		if ($database->query())
 			return true;
@@ -316,7 +317,7 @@ class rsgAccess extends JObject{
 	 */
 	function arePermissionsSet($gallery_id) {
 		$database =& JFactory::getDBO();
-		$sql = "SELECT COUNT(1) FROM $this->_table WHERE gallery_id = '$gallery_id'";
+		$sql = 'SELECT COUNT(1) FROM #__rsgallery2_acl WHERE gallery_id = '. (int) $gallery_id;
 		$database->setQuery($sql);
 		$count = $database->loadresult();
 		if ($count > 0) {

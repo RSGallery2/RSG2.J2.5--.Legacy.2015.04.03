@@ -221,7 +221,7 @@ class html_rsg2_galleries{
 		$editor =& JFactory::getEditor();
 		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES );
 	
-		$task = rsgInstance::getVar( 'task'  , '');
+		$task = rsgInstance::getCmd( 'task'  , '');
 		
 		JHTML::_('behavior.formvalidation');
 		JHTML::_("Behavior.mootools");
