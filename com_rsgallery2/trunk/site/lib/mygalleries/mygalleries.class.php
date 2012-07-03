@@ -353,7 +353,8 @@ class myGalleries {
         $PageSize                   = $rsgConfig->get("display_thumbs_maxPerPage");
         //$my_id                      = $my->id;
     
-        $database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id='$catid'");
+		$query = 'SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id='. (int) $catid;
+        $database->setQuery($query);
         $numPics = $database->loadResult();
         
         if(!isset($limitstart))
@@ -391,10 +392,11 @@ class myGalleries {
         <br />
         <?php
         if ($picsThisPage) {
-        $database->setQuery("SELECT * FROM #__rsgallery2_files".
-                                " WHERE gallery_id='$catid'".
-                                " ORDER BY ordering ASC".
-                                " LIMIT $limitstart, $PageSize");
+			$query = 'SELECT * FROM #__rsgallery2_files '.
+                                ' WHERE gallery_id='. (int) $catid.
+                                ' ORDER BY ordering ASC '.
+                                ' LIMIT '. (int) $limitstart.', '. (int) $PageSize;
+		$database->setQuery($query);
         $rows = $database->loadObjectList();
         
         switch( $rsgConfig->get( 'display_thumbs_style' )):
@@ -743,7 +745,7 @@ class myGalleries {
                 </td>
             </tr>
         </table>
-        <table class="adminlist" border="2" width="100%">
+        <table class="adminlist" border="0" width="100%">
             <tr>
                 <th colspan="3"><?php echo JText::_('Edit image'); ?></th>
             </tr>
@@ -752,7 +754,7 @@ class myGalleries {
                 <td align="left">
                     <?php galleryUtils::showUserGalSelectList('up_mod_img', 'catid', $catid);?>
                 </td>
-                <td rowspan="2"><img src="<?php echo imgUtils::getImgThumb($filename); ?>" alt="<?php echo $title; ?>"  /></td>
+                <td rowspan="3"><img src="<?php echo imgUtils::getImgThumb($filename); ?>" alt="<?php echo $title; ?>"  /></td>
             </tr>
             <tr>
                 <td align="left"><?php echo JText::_('Filename'); ?></td>
@@ -767,9 +769,6 @@ class myGalleries {
                 <td align="left" colspan="2">
 				<?php echo $editor->display( 'descr', stripslashes($description) , '100%', '200', '10', '20',false ) ; ?>
                 </td>
-            </tr>
-            <tr>
-                <th colspan="3">&nbsp;</th>
             </tr>
         </table>
         </form>
@@ -914,7 +913,7 @@ function editCat($rows = null) {
 		}
 		// Get a list of all galleries (id/parent) ordered by parent/ordering
 		$database =& JFactory::getDBO();
-		$query = "SELECT * FROM #__rsgallery2_galleries ORDER BY parent, ordering";
+		$query = 'SELECT * FROM #__rsgallery2_galleries ORDER BY parent, ordering';
 		$database->setQuery( $query );
 		$allGalleries = $database->loadObjectList();
 		// Establish the hierarchy by first getting the children: 2dim. array $children[parentid][]

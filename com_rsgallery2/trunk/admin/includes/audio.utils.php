@@ -47,16 +47,22 @@ class audioUtils extends fileUtils{
             $title = substr( $parts['basename'], 0, -( strlen( $parts['extension'] ) + ( $parts['extension'] == '' ? 0 : 1 )));
 
         // determine ordering
-        $database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id = '$cat'");
+		$query = 'SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id = '. (int) $cat;
+        $database->setQuery($query);
         $ordering = $database->loadResult() + 1;
         
-        //Store image details in database
-        $alias = mysql_real_escape_string(JFilterOutput::stringURLSafe($title));
-		$desc = mysql_real_escape_string($desc);
-        $title = mysql_real_escape_string($title);
-        $database->setQuery("INSERT INTO #__rsgallery2_files".
-                " (title, name, descr, gallery_id, date, ordering, userid, alias) VALUES".
-                " ('$title', '$newName', '$desc', '$cat', now(), '$ordering', '$my->id', '$alias')");
+        //Store image details in database - make sure everything is typecasted/escaped
+        $alias 		= $database->quote(JFilterOutput::stringURLSafe($title));
+		$title 		= $database->quote($title);
+		$newName	= $database->quote($newName);
+		$desc 		= $database->quote($desc);
+		$cat		= (int) $cat;
+		$date		= $database->quote(date('Y-m-d H:i:s'));
+		$ordering	= (int) $ordering;
+		$query = 'INSERT INTO #__rsgallery2_files'.
+                ' (title, name, descr, gallery_id, date, ordering, userid, alias) VALUES '.
+                ' ('.$title.', '.$newName.', '.$desc.', '.$cat.', '.$date.', '.$ordering.', '. (int) $my->id.', '.$alias.')';
+        $database->setQuery($query);
         
         if (!$database->query()){
 			audioUtils::deleteAudio( $parts['basename'] );
@@ -85,8 +91,9 @@ class audioUtils extends fileUtils{
     * @return true if success or notice and false if error
     */
 	function deleteAudio($name){
-        global $database, $rsgConfig;
-        
+        global $rsgConfig;
+		$database = JFactory::getDBO();
+		
         $original   = JPATH_ORIGINAL . DS . $name;
         
         if( file_exists( $original )){
@@ -95,10 +102,12 @@ class audioUtils extends fileUtils{
 				return false;
 			}
 		}
-        $database->setQuery("SELECT gallery_id FROM #__rsgallery2_files WHERE name = '$name'");
+		$query = 'SELECT gallery_id FROM #__rsgallery2_files WHERE name = '. $database->Quote($name);
+        $database->setQuery($query);
         $gallery_id = $database->loadResult();
                 
-        $database->setQuery("DELETE FROM #__rsgallery2_files WHERE name = '$name'");
+		$query = 'DELETE FROM #__rsgallery2_files WHERE name = '. $database->Quote($name);
+        $database->setQuery($query);
         if( !$database->query()){
             JError::raiseNotice('ERROR_CODE', JText::_('ERROR DELETING DATABASE ENTRY FOR IMAGE').": ".$name);
 			return false;

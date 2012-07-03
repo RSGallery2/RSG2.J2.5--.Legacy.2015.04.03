@@ -96,7 +96,7 @@ function saveConfig(){
             HTML_RSGALLERY::printAdminMsg(JText::_('Configuration Saved'));
 
             // save successful, try creating some image directories if we were asked to
-            if( rsgInstance::getVar( 'createImgDirs' ))
+            if( rsgInstance::getBool( 'createImgDirs' ))
                 HTML_RSGALLERY::printAdminMsg(JText::_('Creating Image directories not Implemented yet.'), true);
             
     }else{

@@ -13,8 +13,8 @@ defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgcomments' . DS . 'rsgcomments.class.php' );
 
 $cid    = rsgInstance::getInt('cid', array(0) );
-$task    = rsgInstance::getVar('task', '' );
-$option    = rsgInstance::getVar('option', '' );
+$task    = rsgInstance::getCmd('task', '' );
+$option    = rsgInstance::getCmd('option', '' );
 
 switch( $task ){
     case 'save':
@@ -49,15 +49,17 @@ function saveComment( $option ) {
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
 	
-	//Retrieve parameters
-	$user_ip	= $_SERVER['REMOTE_ADDR'];
-	$rsgOption	= rsgInstance::getVar('rsgOption'  , '');
-	$subject 	= rsgInstance::getVar('ttitle'  , '');
-	$user_name	= rsgInstance::getVar( 'tname', '');
-	$comment 	= get_magic_quotes_gpc() ? rsgInstance::getVar( 'tcomment'  , '') : addslashes(rsgInstance::getVar( 'tcomment'  , ''));
+	//Retrieve parameters (stripped from html, bbcode used)
+	$user_ip	= $database->Quote($_SERVER['REMOTE_ADDR']);
+	$rsgOption	= rsgInstance::getCmd('rsgOption'  , '');
+	$subject 	= $database->Quote(rsgInstance::getVar('ttitle'  , ''));
+	$user_name	= $database->Quote(rsgInstance::getVar( 'tname', ''));
+//@@ todo: use editor for comments and allow HTML	
+	$comment 	= $database->Quote(rsgInstance::getVar( 'tcomment'  , ''));
 	$item_id 	= rsgInstance::getInt( 'item_id'  , '');
 	$catid 		= rsgInstance::getInt( 'catid'  , '');
-	
+	$date		= $database->Quote(date('Y-m-d H:i:s'));
+
 	//Check if commenting is enabled
 	$redirect_url = JRoute::_("index.php?option=".$option."&page=inline&id=".$item_id);
 	if ($rsgConfig->get('comment') == 0) {
@@ -71,7 +73,7 @@ function saveComment( $option ) {
 		//Check if only one comment is allowed
 		if ($rsgConfig->get('comment_once') == 1) {
 			//Check how many comments the user already made on this item
-			$sql = "SELECT COUNT(1) FROM #__rsgallery2_comments WHERE user_id = '$user_id' AND item_id='$item_id'";
+			$sql = 'SELECT COUNT(1) FROM #__rsgallery2_comments WHERE user_id = '. (int) $user_id.' AND item_id='. (int) $item_id;
 			$database->setQuery( $sql );
 			$result = $database->loadResult();
 			if ($result > 0 ) {
@@ -97,26 +99,22 @@ function saveComment( $option ) {
 		if ($checkSecurity == false ) 
 			$mainframe->redirect( $redirect_url, JText::_('Incorrect CAPTCHA check, comment is NOT saved!'));
 	}
-	
+
 	//If we are here, start database thing
-	$sql = "INSERT INTO #__rsgallery2_comments (id, user_id, user_name, user_ip, parent_id, item_id, item_table, datetime, subject, comment, published, checked_out, checked_out_time, ordering, params, hits)" .
-			" VALUES (" .
-			"''," . 				//Autoincrement id
-			"'$user_id'," .			//User id
-			"'$user_name'," .		//User name
-			"'$user_ip'," .			//User IP address
-			"''," .					//Parent id, defaults to zero.
-			"'$item_id'," .			//Item id
-			"'com_rsgallery2'," .	//Item table, if rsgallery2 commenting, field is empty
-			"now()," .				//Datetime 
-			"'$subject'," .			//Subject
-			"'$comment'," .			//Comment text
-			"1," .					//Published, defaults to 1
-			"''," .					//Checked out
-			"''," .					//Checked_out_time
-			"''," .					//Ordering
-			"''," .					//Params
-			"''" .					//Hits
+	$sql = 'INSERT INTO #__rsgallery2_comments (user_id, user_name, user_ip, item_id, item_table, datetime, subject, comment, published, checked_out, checked_out_time, params)' .
+			' VALUES (' .
+			(int) $user_id.',' .	//User id (int)
+			$user_name.',' .		//User name
+			$user_ip.',' .			//User IP address
+			(int) $item_id.',' .	//Item id (int)
+			$database->Quote('com_rsgallery2').',' .	//Item table, if rsgallery2 commenting, field is empty
+			$date.',' .				//Datetime 
+			$subject.',' .			//Subject
+			$comment.',' .			//Comment text
+			'1,' .					//Published, defaults to 1 (int)
+			"''," .					//Checked out (needs to be empty)
+			"''," .					//Checked_out_time (needs to be empty)
+			"''" .					//Params (needs to be empty)
 			")";
 	$database->setQuery( $sql );
 	if ( $database->query() ) {
@@ -149,7 +147,7 @@ function deleteComments( $option ) {
 	$catid 		= rsgInstance::getInt( 'catid'  , '');
 	
 	if ( !empty($id) ) {
-		$query = "DELETE FROM #__rsgallery2_comments WHERE id = '$id'";
+		$query = 'DELETE FROM #__rsgallery2_comments WHERE id = '. (int) $id;
 		$database->setQuery( $query );
 		if (!$database->query()) {
 			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";

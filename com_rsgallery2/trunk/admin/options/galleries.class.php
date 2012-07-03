@@ -45,6 +45,7 @@ class rsgGalleriesItem extends JTable {
      * overloaded check function 
      */
     function check() {
+		$database = JFactory::getDBO();
         // filter malicious code
         $ignoreList = array( 'params','description' );
 		
@@ -66,11 +67,10 @@ class rsgGalleriesItem extends JTable {
         }
 
         /** check for existing name */
-        $query = "SELECT id"
-        . "\n FROM #__rsgallery2_galleries"
-        . "\n WHERE name = '".$this->name."'"
-        . "\n AND parent = ".$this->parent
-        ;
+        $query = 'SELECT id '
+        . ' FROM #__rsgallery2_galleries '
+        . ' WHERE name = '. $database->Quote($this->name)
+        . ' AND parent = '. (int) $this->parent;
         $this->_db->setQuery( $query );
 
         $xid = intval( $this->_db->loadResult() );
@@ -92,18 +92,18 @@ function galleryParentSelectList( &$row ) {
     $database =& JFactory::getDBO();
 
     $id = '';
+	$idWhere = '';
     if ( $row->id ) {
-        $id = " AND id != $row->id";
+        $idWhere = ' AND id != '. (int) $row->id;
     }
 
     // get a list of the menu items
     // excluding the current menu item and its child elements
-    $query = "SELECT *"
-    . " FROM #__rsgallery2_galleries"
-    . " WHERE published != -2"
-    . $id
-    . " ORDER BY parent, ordering"
-    ;
+    $query = 'SELECT * '
+			. ' FROM #__rsgallery2_galleries '
+			. 'WHERE published != -2 '
+			. $idWhere
+			. ' ORDER BY parent, ordering ';
     $database->setQuery( $query );
     
     $mitems = $database->loadObjectList();
@@ -144,11 +144,11 @@ function galleryParentSelectList( &$row ) {
  */
 function subList( $gallery_id ) {
 	$database =& JFactory::getDBO();
-	$sql = "SELECT id FROM #__rsgallery2_galleries WHERE parent = '$gallery_id'";
+	$sql = 'SELECT id FROM #__rsgallery2_galleries WHERE parent = '. (int) $gallery_id;
 	$database->setQuery( $sql );
 	$result = $database->loadResultArray();
 	if (count($result) > 0)
-		return result;
+		return $result;
 	else
 		return 0;
 }

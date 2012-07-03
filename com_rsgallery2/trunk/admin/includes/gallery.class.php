@@ -110,7 +110,8 @@ class rsgGallery extends JObject{
 		$database =& JFactory::getDBO();
 		$lastweek  = mktime (0, 0, 0, date("m"),    date("d") - $days, date("Y"));
 		$lastweek = date("Y-m-d H:m:s",$lastweek);
-		$database->setQuery("SELECT * FROM #__rsgallery2_files WHERE date >= '$lastweek' AND gallery_id = '{$this->id}' AND published = '1'");
+		$query = 'SELECT * FROM #__rsgallery2_files WHERE date >= '. $database->Quote($lastweek). ' AND gallery_id = '. (int) $this->id .' AND published = 1';
+		$database->setQuery($query);
 		$database->query();
 		return (bool) $database->getNumRows();
 	}
@@ -123,7 +124,8 @@ class rsgGallery extends JObject{
 			$database =& JFactory::getDBO();
 			
 			$gid = $this->id;
-			$database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id='$gid' AND published = '1'");
+			$query = 'SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id='. (int) $gid. ' AND published = 1';
+			$database->setQuery($query);
 			$this->_itemCount = $database->loadResult();
 		}
 		return $this->_itemCount;
@@ -163,7 +165,7 @@ class rsgGallery extends JObject{
 			$filter_order = rsgInstance::getWord( 'filter_order',  $rsgConfig->get("filter_order") );
 			$filter_order_Dir = rsgInstance::getWord( 'filter_order_Dir', $rsgConfig->get("filter_order_Dir"));
 	
-			$where = ' WHERE gallery_id = '. $this->get('id');
+			$where = ' WHERE gallery_id = '. (int) $this->get('id');
 
 			if($my->get('gid') != 25)
 				$where .= ' AND published = 1 ';
@@ -297,7 +299,7 @@ class rsgGallery extends JObject{
 	 * @todo doesn't work right now
 	 */
 	function hit(){
-		$query = "UPDATE #__rsgallery2_galleries SET hits = hits + 1 WHERE id = {$this->id}";
+		$query = 'UPDATE #__rsgallery2_galleries SET hits = hits + 1 WHERE id = '. (int) $this->id;
 		
 		$database =& JFactory::getDBO();
 		$database->setQuery( $query );

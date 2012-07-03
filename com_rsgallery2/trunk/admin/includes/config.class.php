@@ -234,14 +234,15 @@ class rsgConfig {
 				$this->exifTags = implode("|", $config['exifTags']);
 		}
 	
-		$db->setQuery( "TRUNCATE #__rsgallery2_config" );
+		$query = "TRUNCATE #__rsgallery2_config";
+		$db->setQuery( $query );
 		$db->query() or JError::raiseError( $dg->getErrorNum, $db->getErrorMsg() ); 
 
 		$query = "INSERT INTO #__rsgallery2_config ( `name`, `value` ) VALUES ";
 
 		$vars = $this->getPublicVars();
 		foreach ( $vars as $name ){
-			$query .= "( '$name', '" . addslashes($this->$name) . "' ), ";
+			$query .= '( '. $db->Quote($name).', ' . $db->Quote($this->$name) . ' ), ';
 		}
 
 		$query = substr( $query, 0, -2 );

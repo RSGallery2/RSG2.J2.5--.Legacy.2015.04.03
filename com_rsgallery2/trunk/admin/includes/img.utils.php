@@ -201,17 +201,24 @@ class imgUtils extends fileUtils{
         }
 
         // determine ordering
-        $database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id = '$imgCat'");
+		$query = 'SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id = '. (int) $imgCat;
+        $database->setQuery($query);
         $ordering = $database->loadResult() + 1;
 
-        //Store image details in database
-		$imgAlias = $database->getEscaped(JFilterOutput::stringURLSafe($imgTitle));
-        $imgDesc = $database->getEscaped($imgDesc);
-        $imgTitle = $database->getEscaped($imgTitle);
+        //Store image details in database - make sure everything is quoted/escaped and typecasted
+		$imgAlias = $database->Quote(JFilterOutput::stringURLSafe($imgTitle));
+        $imgTitle = $database->Quote($imgTitle);
+		$newName = $database->Quote($newName);
+        $imgDesc = $database->Quote($imgDesc);
+		$imgCat = (int) $imgCat;
+		$date = $database->Quote(date('Y-m-d H:i:s'));
+		$ordering = (int) $ordering;
+		$userid = (int) $my->id;
         
-		$database->setQuery("INSERT INTO #__rsgallery2_files".
-                " (title, name, descr, gallery_id, date, ordering, userid, alias) VALUES".
-                " ('$imgTitle', '$newName', '$imgDesc', '$imgCat', now(), '$ordering', '$my->id', '$imgAlias')");
+		$query = 'INSERT INTO #__rsgallery2_files '.
+                ' (title, name, descr, gallery_id, date, ordering, userid, alias) VALUES '.
+                ' ('.$imgTitle.', '.$newName.', '.$imgDesc.', '.$imgCat.', '.$date.', '. $ordering.', '.$userid.', '.$imgAlias.')';
+		$database->setQuery($query);
         
         if (!$database->query()){
             imgUtils::deleteImage( $newName );
@@ -259,10 +266,12 @@ class imgUtils extends fileUtils{
 			}
 		}
 		
-        $database->setQuery("SELECT gallery_id FROM #__rsgallery2_files WHERE name = '$name'");
+		$query = 'SELECT gallery_id FROM #__rsgallery2_files WHERE name = '. $database->Quote($name);
+        $database->setQuery($query);
         $gallery_id = $database->loadResult();
-                
-        $database->setQuery("DELETE FROM #__rsgallery2_files WHERE name = '$name'");
+
+		$query = 'DELETE FROM #__rsgallery2_files WHERE name = '. $database->Quote($name);
+        $database->setQuery($query);
         if( !$database->query()){
             JError::raiseNotice('ERROR_CODE', JText::_('ERROR DELETING DATABASE ENTRY FOR IMAGE') .": ". $name);
 			return false;
@@ -384,12 +393,12 @@ class imgUtils extends fileUtils{
 			echo JText::_('NO IMAGES IN GALLERY YET');
 			return;
 		}
-        $list = galleryUtils::getChildList( $id );
+        $list = galleryUtils::getChildList( (int) $id );
         //$sql = "SELECT name, id FROM #__rsgallery2_files WHERE gallery_id in ($list)";
-        $sql = "SELECT a.name, a.id, b.name as gname FROM #__rsgallery2_files AS a " .
-            "LEFT JOIN #__rsgallery2_galleries AS b ON a.gallery_id = b.id " .
-            "WHERE gallery_id IN ($list) " .
-            "ORDER BY gname, a.id ASC";
+        $sql = 'SELECT a.name, a.id, b.name as gname FROM #__rsgallery2_files AS a ' .
+            ' LEFT JOIN #__rsgallery2_galleries AS b ON a.gallery_id = b.id ' .
+            'WHERE gallery_id IN ('.$list.') ' .
+            ' ORDER BY gname, a.id ASC';
         $database->setQuery($sql);
         $list = $database->loadObjectList();
 

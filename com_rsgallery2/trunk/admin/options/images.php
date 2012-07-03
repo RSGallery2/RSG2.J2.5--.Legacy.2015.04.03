@@ -116,35 +116,34 @@ function showImages( $option ) {
 	$limit		= $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');	
 	$limitstart = intval( $mainframe->getUserStateFromRequest( "view{$option}limitstart", 'limitstart', 0 ) );
 	$search 	= $mainframe->getUserStateFromRequest( "search{$option}", 'search', '' );
-	$search 	= $database->getEscaped( trim( strtolower( $search ) ) );
+	$search 	= trim(strtolower($search));
 
 	$where = array();
 
 	if ($gallery_id > 0) {
-		$where[] = "a.gallery_id = $gallery_id";
+		$where[] = 'a.gallery_id = '. (int) $gallery_id;
 	}
 	if ($search) {
-		$where[] = "LOWER(a.title) LIKE '%$search%'";
+		$searchLike = '%' . $database->getEscaped($search, true). '%';
+		$where[] = 'LOWER(a.title) LIKE '. $database->Quote ($searchLike, false);
 	}
 
 	// get the total number of records
-	$query = "SELECT COUNT(1)"
-	. "\n FROM #__rsgallery2_files AS a"
-	. (count( $where ) ? "\n WHERE " . implode( ' AND ', $where ) : "")
-	;
+	$query = 'SELECT COUNT(1) '
+			. ' FROM #__rsgallery2_files AS a '
+			. (count( $where ) ? ' WHERE ' . implode( ' AND ', $where ) : "");
 	$database->setQuery( $query );
 	$total = $database->loadResult();
 
 	require_once( JPATH_ADMINISTRATOR . '/includes/pageNavigation.php' );
 	$pageNav = new JPagination( $total, $limitstart, $limit  );
 
-	$query = "SELECT a.*, cc.name AS category, u.name AS editor"
-	. "\n FROM #__rsgallery2_files AS a"
-	. "\n LEFT JOIN #__rsgallery2_galleries AS cc ON cc.id = a.gallery_id"
-	. "\n LEFT JOIN #__users AS u ON u.id = a.checked_out"
-	. ( count( $where ) ? "\n WHERE " . implode( ' AND ', $where ) : "")
-	. "\n ORDER BY a.gallery_id, a.ordering"
-	;
+	$query = 'SELECT a.*, cc.name AS category, u.name AS editor '
+			. ' FROM #__rsgallery2_files AS a '
+			. ' LEFT JOIN #__rsgallery2_galleries AS cc ON cc.id = a.gallery_id '
+			. ' LEFT JOIN #__users AS u ON u.id = a.checked_out '
+			. ( count( $where ) ? ' WHERE ' . implode( ' AND ', $where ) : "")
+			. ' ORDER BY a.gallery_id, a.ordering ';
 	$database->setQuery( $query, $pageNav->limitstart, $pageNav->limit );
 
 	$rows = $database->loadObjectList();
@@ -164,7 +163,7 @@ function showImages( $option ) {
 * Compiles information to add or edit
 * @param integer The unique id of the record to edit (0 if new)
 */
-function editImage( $option, $id ) {
+function editImage( $option, $id ) {dump('editImage');
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
 	
@@ -186,7 +185,7 @@ function editImage( $option, $id ) {
 		$row->published = 1;
 		$row->approved 	= 1;
 		$row->order 	= 0;
-		$row->gallery_id 	= intval( rsgInstance::getInt( 'gallery_id', 0 ) );
+		$row->gallery_id 	= rsgInstance::getInt( 'gallery_id', 0 );
 	}
 
 	// build the html select list for ordering
@@ -332,10 +331,9 @@ function moveImages( $cid, $option ) {
 	
 	//Move images to another gallery
 	foreach ($cid as $id) {
-		$query = "UPDATE #__rsgallery2_files"
-		. "\n SET gallery_id = " . intval( $new_id )
-		. "\n WHERE id = ". intval ( $id )
-		;
+		$query = 'UPDATE #__rsgallery2_files '
+					. ' SET gallery_id = ' . (int) $new_id
+					. ' WHERE id = '. (int) $id;
 		$database->setQuery( $query );
 		if (!$database->query()) {
 			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
@@ -365,11 +363,10 @@ function publishImages( $cid=null, $publish=1,  $option ) {
 
 	$cids = implode( ',', $cid );
 
-	$query = "UPDATE #__rsgallery2_files"
-	. "\n SET published = " . intval( $publish )
-	. "\n WHERE id IN ( $cids )"
-	. "\n AND ( checked_out = 0 OR ( checked_out = $my->id ) )"
-	;
+	$query = 'UPDATE #__rsgallery2_files '
+				. ' SET published = ' . (int) $publish
+				. ' WHERE id IN ( '.$cids.' ) '
+				. ' AND (checked_out = 0 OR (checked_out = '.(int) $my->id.')) ';
 	$database->setQuery( $query );
 	if (!$database->query()) {
 		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
@@ -620,8 +617,8 @@ function batchupload($option) {
 	$FTP_path = $rsgConfig->get('ftp_path');
 	
 	//Retrieve data from submit form
-	$batchmethod 	= rsgInstance::getVar('batchmethod', null);
-	$uploaded 		= rsgInstance::getVar('uploaded', null);
+	$batchmethod 	= rsgInstance::getCmd('batchmethod', null);
+	$uploaded 		= rsgInstance::getBool('uploaded', null);
 	$selcat 		= rsgInstance::getInt('selcat', null);
 	$zip_file 		= rsgInstance::getVar('zip_file', null, 'FILES'); 
 	$ftppath 		= rsgInstance::getVar('ftppath', null);
@@ -670,11 +667,11 @@ function save_batchupload() {
     $FTP_path = $rsgConfig->get('ftp_path');
 
     $teller 	= rsgInstance::getInt('teller'  , null);
-    $delete 	= rsgInstance::getVar('delete'  , null);
-    $filename 	= rsgInstance::getVar('filename'  , null);
-    $ptitle 	= rsgInstance::getVar('ptitle'  , null);
-    $descr 		= rsgInstance::getVar('descr'  , array(0));
-	$extractdir = rsgInstance::getVar('extractdir'  , null);
+    $delete 	= rsgInstance::getVar('delete'  , null, 'post', 'array');//array
+    $filename 	= rsgInstance::getVar('filename', null, 'post', 'array');//array
+    $ptitle 	= rsgInstance::getVar('ptitle'  , null, 'post', 'array');//array
+    $descr 		= rsgInstance::getVar('descr'   , array(0), 'post', 'array');
+	$extractdir = rsgInstance::getCmd('extractdir'  , null);
 	
     //Check if all categories are chosen
 	if (isset($_REQUEST['category']))

@@ -464,19 +464,16 @@ class rsgInstall {
      * @return True or False
      */
     function componentInstalled($component){
-    $database =& JFactory::getDBO();
-    $sql = "SELECT COUNT(1) FROM #__components as a WHERE a.option = '$component'";
-    $database->setQuery($sql);
-    $result = $database->loadResult($sql);
-    
-    if ($result > 0)
-        {
-        return true;
-        }
-    else
-        {
-        return false;
-        }
+		$database =& JFactory::getDBO();
+		$sql = 'SELECT COUNT(1) FROM #__components as a WHERE a.option = '.$database->Quote($component);
+		$database->setQuery($sql);
+		$result = $database->loadResult($sql);
+   
+		if ($result > 0) {
+			return true;
+		} else {
+			return false;
+		}
     }
 
     /**
@@ -587,9 +584,9 @@ class rsgInstall {
      * @param integer Autoincrement ID for the table
      * @return integer Highest value for ID in table
      */
-    function maxId($tablename = "#__rsgallery2_cats", $id = "id") {
+    function maxId() {
         $database =& JFactory::getDBO();
-        $sql = "SELECT MAX($id) FROM $tablename";
+        $sql = "SELECT MAX(id) FROM #__rsgallery2_cats";
         $database->setQuery($sql);
         $max_id = $database->loadResult();
         return $max_id;
@@ -606,7 +603,8 @@ class rsgInstall {
      * @param integer Old category ID
      * @param integer Highest value in new table
      */
-    function migrateOldFilesX($old_table, $old_image_name, $old_image_filename, $old_image_date, $old_description, $old_uid, $old_catid, $max_id) {
+//No longer used in v2.1.0
+/*    function migrateOldFilesX($old_table, $old_image_name, $old_image_filename, $old_image_date, $old_description, $old_uid, $old_catid, $max_id) {
 		$database = JFactory::getDBO();
 	    $error = 0;
 	    $file = 0;
@@ -637,7 +635,7 @@ class rsgInstall {
 		} else{
 	        $this->writeInstallMsg(JText::_('All file information migrated to RSGallery2 database(')."<strong>$file</strong>".JText::_(' entries processed)'),"ok");
 		}
-	}
+	}/**/
     /**
      * Function migrates category information of other gallery systems to RSGallery2
      *
@@ -1073,7 +1071,7 @@ class rsgInstall {
 	$database =& JFactory::getDBO();
 		
     $table = substr($table, 3);
-    $sql = "SHOW TABLES LIKE '$mosConfig_dbprefix$table'";
+    $sql = 'SHOW TABLES LIKE '. $database->nameQuote($mosConfig_dbprefix.$table);
     $database->setQuery($sql);
     if ($database->query())
         $result = $database->getNumRows();
@@ -1239,26 +1237,32 @@ class GenericMigrator{
 	    $file = 0;
 	    
 	    //Select all category details from other gallery system
-	    $sql = "SELECT $old_catid, $old_catname, $old_parent_id, $old_descr_name FROM $old_table ORDER BY $old_catname ASC";
+	    $sql = 'SELECT '.$database->nameQuote($old_catid).', '
+						.$database->nameQuote($old_catname).', '
+						.$database->nameQuote($old_parent_id).', '
+						.$database->nameQuote($old_descr_name)
+				.' FROM '.$database->nameQuote($old_table)
+				.' ORDER BY '.$database->nameQuote($old_catname).' ASC';
 	    $database->setQuery($sql);
 	    $old = $database->loadObjectList();
 	    
 	    foreach ($old as $row) {
 			//Create new category ID
 	        $id             = $row->$old_catid + $max_id;
-	        $catname        = $row->$old_catname;
-	        $description    = $row->$old_descr_name;
-			$alias			= $database->getEscaped(JFilterOutput::stringURLSafe($catname));	        
+			$id				= (int) $id;
+	        $catname        = $database->Quote($row->$old_catname);
+	        $description    = $database->Quote($row->$old_descr_name);
+			$alias			= $database->Quote(JFilterOutput::stringURLSafe($catname));	        
 	        if ($row->$old_parent_id == 0) {
 	            $parent_id  = 0;
 	        } else {
 	            $parent_id  = $row->$old_parent_id + $max_id;
 	        }
-	        
+	        $parent_id = (int) $parent_id;
 	        //Insert values into RSGallery2 gallery table
-	        $sql2 = "INSERT INTO #__rsgallery2_galleries ".
-	                "(id, name, parent, description, published, alias) VALUES ".
-	                "('$id','$catname','$parent_id','$description', '1', '$alias')";
+	        $sql2 = 'INSERT INTO #__rsgallery2_galleries '.
+	                ' (id, name, parent, description, published, alias) VALUES '.
+	                ' ('.$id.','.$catname.','.$parent_id.','.$description.', 1, '.$alias.')';
 	        $database->setQuery($sql2);
 			//Count errors and migrated files
 	        if (!$database->query()) {
@@ -1300,18 +1304,19 @@ class GenericMigrator{
 	    $old = $database->loadObjectList();
 	    
 	    foreach ($old as $row) {
-	        $filename   = $prefix.$row->$old_image_filename;
-	        $imagename  = $row->$old_image_name;
-	        $date       = $row->$old_image_date;
-	        $descr      = $row->$old_description;
-	        $uid        = $row->$old_uid;
+	        $filename   = $database->Quote($prefix.$row->$old_image_filename);
+	        $imagename  = $database->Quote($row->$old_image_name);
+	        $date       = $database->Quote($row->$old_image_date);
+	        $descr      = $database->Quote($row->$old_description);
+	        $uid        = (int) $row->$old_uid;
 	        $catid      = $row->$old_catid + $max_id;
-			$alias		= $database->getEscaped(JFilterOutput::stringURLSafe($imagename));
+			$catid 		= (int) $catid;
+			$alias		= $database->Quote(JFilterOutput::stringURLSafe($imagename));
 	        
 	        //Insert data into RSGallery2 files table
-	        $sql2 = "INSERT INTO #__rsgallery2_files ".
-	                "(name, descr, title, date, userid, gallery_id, alias) VALUES ".
-	                "('$filename', '$descr', '$imagename', '$date', '$uid', '$catid', '$alias')";
+	        $sql2 = 'INSERT INTO #__rsgallery2_files '.
+	                ' (name, descr, title, date, userid, gallery_id, alias) VALUES '.
+	                ' ('.$filename.', '.$descr.', '.$imagename.', '.$date.', '.$uid.', '.$catid.', '.$alias.')';
 	        $database->setQuery($sql2);
 	        
 	        //Error and file counting
@@ -1475,7 +1480,7 @@ class migrate_com_akogallery extends GenericMigrator{
         $parent_id = 0; 
         $insertSQL= '';
         
-        $selectSQL = "SELECT $stringId, $stringCatName, $stringParentId, $stringDesc FROM " . $this->categoryTable . " WHERE section = '" . $this->getTechName() .
+        $selectSQL = "SELECT $stringId, $stringCatName, $stringParentId, $stringDesc FROM " . $database->nameQuote($this->categoryTable) . " WHERE section = '" . $database->Quote($this->getTechName()) .
             "' ORDER BY $stringCatName ASC";
         $database->setQuery( $selectSQL );
         $AKOCat = $database->loadObjectList();
@@ -1489,17 +1494,18 @@ class migrate_com_akogallery extends GenericMigrator{
         foreach ( $AKOCat as $oldCat ) {
             $oldnewcats[ $oldCat->$stringId ] = rsgInstall::maxId() + 1;
             $id         = $oldnewcats[ $oldCat->$stringId ];
-            $catname    = $oldCat->$stringCatName;
-            $desc       = $oldCat->$stringDesc;
+			$id			= (int) $id;
+            $catname    = $database->Quote($oldCat->$stringCatName);
+            $desc       = $database->Quote($oldCat->$stringDesc);
     
             if( $oldCat->$stringParentId == 0 )
                 $parent_id = 0;
             else
                 $parent_id = $oldnewcats[ $oldCat->$stringParentId ];
-
+			$parent_id = (int) $parent_id;
             $insertSQL = 'INSERT INTO #__rsgallery2_cats ' .
-            '( id, catname, parent, description ) VALUES ' .
-            "( $id, '$catname', $parent_id, '$desc' )";
+						'( id, catname, parent, description ) VALUES ' .
+						"( $id, '$catname', $parent_id, '$desc' )";
             $database->setQuery( $insertSQL );
             
             if( ! $database->query() )
@@ -1535,7 +1541,7 @@ class migrate_com_akogallery extends GenericMigrator{
         */
         $database =& JFactory::getDBO();
         
-        $selectSQL = "SELECT imgfilename, imgtitle, catid FROM $this->imgTable";
+        $selectSQL = 'SELECT imgfilename, imgtitle, catid FROM '. $database->nameQuote($this->imgTable);
         $database->setQuery( $selectSQL );
         $AKOFile = $database->loadObjectList();
 
@@ -1565,20 +1571,20 @@ class migrate_com_akogallery extends GenericMigrator{
         $error = 0;
         $objects = 0;
 
-        $selectSQL = "SELECT cmtpic, cmtname, cmttext FROM $this->commentTable";
+        $selectSQL = 'SELECT cmtpic, cmtname, cmttext FROM '. $database->nameQuote($this->commentTable);
         $database->setQuery( $selectSQL );
         $AKOComment = $database->loadObjectList();
         // Again - We want everything or nothing to work.
         $database->setQuery( "BEGIN" );
 
         foreach ( $AKOComment as $comment ) {
-            $picId      = $comment->cmtpic;
-            $name       = $comment->cmtname;
-            $commentText= $comment->cmttext;
+            $picId      = (int) $comment->cmtpic;
+            $name       = $database->Quote($comment->cmtname);
+            $commentText= $database->Quote($comment->cmttext);
 
-            $insertSQL = "INSERT INTO #__rsgallery2_comments " .
-            "( picid, name, comment ) VALUES " .
-            "( $picId, '$name', '$commentText' )";
+            $insertSQL = 'INSERT INTO #__rsgallery2_comments ' .
+						' ( picid, name, comment ) VALUES ' .
+						' ( '.$picId.', '.$name.', '.$commentText.' )';
             $database->setQuery( $insertSQL );
 
             if( !$database->query() )
@@ -1912,29 +1918,30 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
 	    $file = 0;
 	    
 	    //Select all category details from other gallery system
-	    $sql = "SELECT $old_catid, $old_catname, $old_parent_id, $old_descr_name " .
-	    		"FROM $old_table " .
-	    		"WHERE section = 'com_easygallery'" .
-	    		"ORDER BY $old_catname ASC";
+	    $sql = 'SELECT '.$database->Quote($old_catid).', '.$database->Quote($old_catname).', '.$database->Quote($old_parent_id).', '.$database->Quote($old_descr_name). 
+	    		' FROM '. $database->nameQuote($old_table) .
+	    		' WHERE section = com_easygallery ' .
+	    		' ORDER BY '.$database->Quote($old_catname).' ASC';
 	    $database->setQuery($sql);
 	    $old = $database->loadObjectList();
 	    
 	    foreach ($old as $row) {
 			//Create new category ID
 	        $id             = $row->$old_catid + $max_id;
-	        $catname        = $row->$old_catname;
-	        $description    = $row->$old_descr_name;
-	        $alias			= $database->getEscaped(JFilterOutput::stringURLSafe($catname));
+			$id				= (int) $id;
+	        $catname        = $database->Quote($row->$old_catname);
+	        $description    = $database->Quote($row->$old_descr_name);
+	        $alias			= $database->Quote(JFilterOutput::stringURLSafe($catname));
 	        if ($row->$old_parent_id == 0) {
 	            $parent_id  = 0;
 	        } else {
 	            $parent_id  = $row->$old_parent_id + $max_id;
 	        }
-	        
+	        $parent_id 		= (int) $parent_id;
 	        //Insert values into RSGallery2 gallery table
-	        $sql2 = "INSERT INTO #__rsgallery2_galleries ".
-	                "(id, name, parent, description, published, alias) VALUES ".
-	                "('$id','$catname','$parent_id','$description', '1', '$alias')";
+	        $sql2 = 'INSERT INTO #__rsgallery2_galleries '.
+	                ' (id, name, parent, description, published, alias) VALUES '.
+	                ' ('.$id.','.$catname.','.$parent_id.','.$description.', 1, '.$alias.')';
 	        $database->setQuery($sql2);
 			//Count errors and migrated files
 	        if (!$database->query()) {
@@ -1981,18 +1988,18 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
 	    foreach ($old as $row) {
 	        //Retrieve correct filename, without path information
 	        $filename 	= array_reverse( explode("/", $row->$old_image_filename) );
-	        $filename   = $prefix.$filename[0];
-	        $imagename  = $row->$old_image_name;
-	        $date       = $row->$old_image_date;
-	        $descr      = $row->$old_description;
-	        $uid        = $row->$old_uid;
-	        $catid      = $row->$old_catid + $max_id;
-	        $alias		= $database->getEscaped(JFilterOutput::stringURLSafe($imagename));
+	        $filename   = $database->Quote($prefix.$filename[0]);
+	        $imagename  = $database->Quote($row->$old_image_name);
+	        $date       = $database->Quote($row->$old_image_date);
+	        $descr      = $database->Quote($row->$old_description);
+	        $uid        = (int) $row->$old_uid;
+	        $catid      = (int) $row->$old_catid + $max_id;
+	        $alias		= $database->Quote(JFilterOutput::stringURLSafe($imagename));
 			
 	        //Insert data into RSGallery2 files table
-	        $sql2 = "INSERT INTO #__rsgallery2_files ".
-	                "(name, descr, title, date, userid, gallery_id, alias) VALUES ".
-	                "('$filename', '$descr', '$imagename', '$date', '$uid', '$catid', '$alias')";
+	        $sql2 = 'INSERT INTO #__rsgallery2_files '.
+	                ' (name, descr, title, date, userid, gallery_id, alias) VALUES '.
+	                ' ('.$filename.', '.$descr.', '.$imagename.', '.$date.', '.$uid.', '.$catid.', '.$alias.')';
 	        $database->setQuery($sql2);
 	        
 	        //Error and file counting
@@ -2240,7 +2247,7 @@ function detect(){
 		foreach ($result as $key => $value) {
 			$query = 'UPDATE #__rsgallery2_galleries '
 					.' SET `alias` = '. $db->quote($value['alias'])
-					.' WHERE `id` = '. $db->quote($value['id']);
+					.' WHERE `id` = '. (int) $value['id'];
 			$db->setQuery($query);
 			$result = $db->query();
 			if (!$result) {
@@ -2263,7 +2270,7 @@ function detect(){
 		foreach ($result as $key => $value) {
 			$query = 'UPDATE #__rsgallery2_files '
 					.' SET `alias` = '. $db->quote($value['alias'])
-					.' WHERE `id` = '. $db->quote($value['id']);
+					.' WHERE `id` = '. (int) $value['id'];
 			$db->setQuery($query);
 			$result = $db->query();
 			if (!$result) {

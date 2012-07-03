@@ -64,7 +64,7 @@ class rsgItem extends JObject{
 	 * increases the hit counter for this object
 	 */
 	function hit(){
-		$query = "UPDATE #__rsgallery2_files SET hits = hits + 1 WHERE id = {$this->id}";
+		$query = 'UPDATE #__rsgallery2_files SET hits = hits + 1 WHERE id = '. (int) $this->id;
 		
 		$database =& JFactory::getDBO();
 		$database->setQuery( $query );
@@ -81,12 +81,13 @@ class rsgItem extends JObject{
 	 * move the item to a different gallery
 	 * @param int id of the target gallery
 	 * @return bool true if succesfull
+	 * Is this funtion used anywhere?
 	 */
 	function move($target_gallery){
 	
 		if($target_gallery == null) return false;
 
-		$query = "UPDATE #__rsgallery2_files SET gallery_id = $target_gallery WHERE id = $this->id";
+		$query = 'UPDATE #__rsgallery2_files SET gallery_id = '. (int) $target_gallery.' WHERE id = '. (int) $this->id;
 		
 		global $database,$rsgConfig;
 		$database->setQuery( $query );
@@ -138,6 +139,7 @@ class rsgItem extends JObject{
 	/**
 	* remove the item from the gallery
 	* @return bool true if succesfull
+	* Is this function used anywhere?
 	*/
 	function remove($target_gallery){
 		
@@ -145,7 +147,7 @@ class rsgItem extends JObject{
 		
 		global $database,$rsgConfig;
 
-		$query = "DELETE #__rsgallery2_files WHERE id = $this->id";
+		$query = 'DELETE #__rsgallery2_files WHERE id = '. (int) $this->id;
 		$database->setQuery( $query );
 		
 		if( !$database->query() ) {
@@ -153,7 +155,7 @@ class rsgItem extends JObject{
 			return false;
 		}
 		
-		$query = "DELETE #__rsgallery2_comments WHERE id = $this->id";
+		$query = 'DELETE #__rsgallery2_comments WHERE id = '. (int) $this->id;
 		$database->setQuery( $query );
 		$database->query();
 		

@@ -85,24 +85,23 @@ function show(){
     $limitstart = $mainframe->getUserStateFromRequest( "view{$option}limitstart", 'limitstart', 0 );
     $levellimit = $mainframe->getUserStateFromRequest( "view{$option}limit", 'levellimit', 10 );
     $search     = $mainframe->getUserStateFromRequest( "search{$option}", 'search', '' );
-    $search     = $database->getEscaped( trim( strtolower( $search ) ) );
-
+    $search     = trim(strtolower($search));
+	$searchLike	= '%' . $database->getEscaped($search, true) . '%';
+	
     // select the records
     // note, since this is a tree we have to do the limits code-side
     if ($search) {
-        $query = "SELECT id"
-        . "\n FROM #__rsgallery2_galleries"
-        . "\n WHERE LOWER( name ) LIKE '%" . strtolower( $search ) . "%'"
-        ;
+        $query = 'SELECT id '
+        . ' FROM #__rsgallery2_galleries '
+        . ' WHERE LOWER( name ) LIKE '.$database->Quote( $searchLike, false );
         $database->setQuery( $query );
         $search_rows = $database->loadResultArray();
     }
 
-    $query = "SELECT a.*, u.name AS editor"
-    . "\n FROM #__rsgallery2_galleries AS a"
-    . "\n LEFT JOIN #__users AS u ON u.id = a.checked_out"
-    . "\n ORDER BY a.ordering"
-    ;
+    $query = 'SELECT a.*, u.name AS editor '
+    . ' FROM #__rsgallery2_galleries AS a '
+    . ' LEFT JOIN #__users AS u ON u.id = a.checked_out '
+    . ' ORDER BY a.ordering ';
     $database->setQuery( $query );
 
     $rows = $database->loadObjectList();
@@ -311,11 +310,10 @@ function publish( $cid=null, $publish=1,  $option ) {
 
     $cids = implode( ',', $cid );
 
-    $query = "UPDATE #__rsgallery2_galleries"
-    . "\n SET published = " . intval( $publish )
-    . "\n WHERE id IN ( $cids )"
-    . "\n AND ( checked_out = 0 OR ( checked_out = $my->id ) )"
-    ;
+    $query = 'UPDATE #__rsgallery2_galleries '
+    . ' SET published = ' . (int) $publish
+    . ' WHERE id IN ( '.$cids.' )'
+    . ' AND ( checked_out = 0 OR ( checked_out = '. (int) $my->id.' ) )';
     $database->setQuery( $query );
     if (!$database->query()) {
         echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";

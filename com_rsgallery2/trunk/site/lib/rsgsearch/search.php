@@ -14,7 +14,7 @@ global $rsgOptions_path;
 require_once( $rsgOptions_path . 'search.html.php' );
 
 $cid = JRequest::getVar( 'cid' , array(), 'default', 'array' );
-$task = rsgInstance::getVar( 'task', null);
+$task = rsgInstance::getCmd( 'task', null);
 
 //Load stylesheet from current template
 global  $rsgConfig;
@@ -32,18 +32,20 @@ switch ($task) {
 		$database = JFactory::getDBO();
 		//Retrieve search string
 		$searchtext 	= rsgInstance::getVar( 'searchtext'  , '');
+		$searchtextLike = '%' . $database->getEscaped( $searchtext ) . '%';
+		$searchtextSafe = $database->quote($searchtextLike, false);
 		
 		//Check searchtext against database
-		$sql = "SELECT *, a.name as itemname, a.id as item_id FROM #__rsgallery2_files as a, #__rsgallery2_galleries as b " .
-				"WHERE a.gallery_id = b.id " .
-				"AND (" .
-				"a.title LIKE '%$searchtext%' OR " .
-				"a.descr LIKE '%$searchtext%'" .
-				") " .
-				"AND a.published = 1 " .
-				"AND b.published = 1 " .
-				"GROUP BY a.id " .
-				"ORDER BY a.id DESC";
+		$sql = 'SELECT *, a.name as itemname, a.id as item_id FROM #__rsgallery2_files as a, #__rsgallery2_galleries as b ' .
+				' WHERE a.gallery_id = b.id ' .
+				' AND ( ' .
+				' a.title LIKE '.$searchtextSafe.' OR ' .
+				' a.descr LIKE '.$searchtextSafe.
+				' ) ' .
+				' AND a.published = 1 ' .
+				' AND b.published = 1 ' .
+				' GROUP BY a.id ' .
+				' ORDER BY a.id DESC';
 		$database->setQuery($sql);
 		$result = $database->loadObjectList();
 		

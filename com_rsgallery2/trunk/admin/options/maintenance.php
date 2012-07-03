@@ -15,7 +15,7 @@ require_once( $rsgOptions_path . 'maintenance.html.php' );
 require_once( $rsgOptions_path . 'maintenance.class.php' );
 
 $cid = JRequest::getVar("cid", array(), 'default', 'array' );
-$task = rsgInstance::getVar( 'task', null);
+$task = rsgInstance::getCmd( 'task', null);
 
 switch ($task) {
 	/* Regenerate thumbs calls */
@@ -68,17 +68,21 @@ switch ($task) {
 }
 
 function test() {
-	$gid = 1;
-	$gallery = rsgGalleryManager::_get( $gid );
-    $images = $gallery->items();
-    foreach ($images as $image) {
-    	$imgname[] = $image->name;
-    }
-    $image = array_rand($imgname);
-    echo "De image name is: ".$imgname[$image];
-    echo "<pre>";
-    var_dump($imgname);
-    echo "</pre>";
+	// Test function
+	echo 'Test function found in admin/options/maintenance.php<br />';
+	echo '<a href='.JRoute::_('index.php?option=com_rsgallery2&rsgOption=maintenance&task=test').'>index.php?option=com_rsgallery2&rsgOption=maintenance&task=test</a><p></p>';
+	// Test code - start
+
+/*
+$database =& JFactory::getDBO();
+$gallery_id = '3a';var_dump($gallery_id);
+$parent_id = galleryUtils::getParentId($gallery_id);var_dump($parent_id);
+*/
+//include(JPATH_BASE.DS.'components'.DS.'com_rsgallery2'.DS.'includes'.DS.'install.class.php');
+//include (JPATH_BASE.DS.'components'.DS.'com_rsgallery2'.DS.'options'.DS.'galleries.class.php');
+
+
+	// Test code - end
 }
 
 /**
@@ -112,7 +116,7 @@ function showMigration() {
 }
 
 function doMigration() {
-	$type  	= rsgInstance::getVar('type', null);
+	$type  	= rsgInstance::getCmd('type', null);
 	require_once(JPATH_RSGALLERY2_ADMIN.'/includes/install.class.php');
 	
 	$migrate_class = "migrate_".$type; 
@@ -141,7 +145,7 @@ function regenerateImages() {
 function executeRegenerateImages() {
 	global $rsgConfig, $mainframe;
 	$error = 0;
-	$gid = rsgInstance::getVar( 'gid', array());
+	$gid = rsgInstance::getVar( 'gid', array());//array so use getVar and not getInt
 	if ( empty($gid) ) {
 		$mainframe->redirect("index2.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs", JText::_('NO_GALLERY_SELECTED'));
 		return;
@@ -235,23 +239,11 @@ function deleteImages() {
     }
     
     $mainframe->redirect("index2.php?option=com_rsgallery2&rsgOption=maintenance&task=consolidateDB", $txt);
-    /*
-    //Check if file is in database
-    $sql ="SELECT count(name) FROM #__rsgallery2_files WHERE name = '$name'";
-    $database->setQuery($sql);
-    $result = $database->loadResult();
-    
-    if ($result > 0) {
-    	//Delete from database
-    	imgUtils::deleteImage( $name );
-    }
-    $mainframe->redirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB", JText::_('Image(s) deleted succesfully!'));
-    */
 }
 
 function createDbEntries() {
 	$name = rsgInstance::getVar('name'  , null);
-	$t_id = rsgInstance::getVar('t_id'  , null);
+	$t_id = rsgInstance::getInt('t_id'  , null);
     $gid = rsgInstance::getInt('gallery_id'  , null);
     echo "<pre>";
     print_r($name);
@@ -262,6 +254,7 @@ function createDbEntries() {
 /**
  * Used in the consolidate database function
  * Creates images based on an image id or an image name
+ * Note: Does not seem to be used in 2.2.1
  */
 function regenerateImage() {
 	global $mainframe;
@@ -313,9 +306,10 @@ function optimizeDB() {
 	$install = new rsgInstall();
 	$tables = $install->tablelistNew;
 	foreach ($tables as $table) {
-		$database->setQuery("OPTIMIZE $table");
+		$query = "OPTIMIZE TABLE". $database->nameQuote($table);
+		$database->setQuery($query);
 		$database->query();
 	}
-	$mainframe->redirect("index2.php?option=com_rsgallery2&amp;rsgOption=maintenance",JText::_('RSGALLERY_MAINT_OPTIMIZE_SUCCESS'));
+	$mainframe->redirect("index2.php?option=com_rsgallery2&rsgOption=maintenance",JText::_('RSGALLERY_MAINT_OPTIMIZE_SUCCESS'));
 }
 ?>

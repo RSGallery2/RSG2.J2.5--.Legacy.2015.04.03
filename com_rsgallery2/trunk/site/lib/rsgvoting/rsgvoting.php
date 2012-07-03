@@ -12,7 +12,7 @@ defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgvoting' . DS . 'rsgvoting.class.php' );
 
 $cid    = rsgInstance::getInt('cid', array(0) );
-$task    = rsgInstance::getVar('task', '' );
+$task    = rsgInstance::getCmd('task', '' );
 $id    = rsgInstance::getInt('id','' );
 
 switch( $task ){
@@ -60,7 +60,7 @@ function saveVote( $option ) {
 		$total 		= $vote->getTotal( $id ) + $rating;
 		$votecount 	= $vote->getVoteCount( $id ) + 1;
 		
-		$sql = "UPDATE #__rsgallery2_files SET rating = '$total', votes = '$votecount' WHERE id = '$id'";
+		$sql = 'UPDATE #__rsgallery2_files SET rating = '. (int) $total.', votes = '. (int) $votecount.' WHERE id = '. (int) $id;
 		$database->setQuery( $sql );
 		if ( !$database->query() ) {
 			$msg = JText::_('Vote could not be added to the database!');
