@@ -32,6 +32,9 @@ Legend:
 
 ---------------- Recent ----------------
 
+---------------- 2.3.0 ------- svn 1087 -- 2012-07-05 -------------
+^ Comments no longer use BBCode and are now saved as HTML
+
 2012-03-25 Mirjam - SVN 1070
 # List limit was "All" by default, now takes the Global Configuration List Length
 # Frontend My Galleries showed only two levels deep: now up to 20 levels.
