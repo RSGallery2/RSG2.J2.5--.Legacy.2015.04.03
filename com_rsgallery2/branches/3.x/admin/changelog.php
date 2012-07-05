@@ -39,6 +39,9 @@ Legend:
 
 ---------------- Recent ----------------
 
+---------------- 3.2.0 -- SVN 1088 -- 2012-07-05 -------------
+^ Comments no longer use BBCode and are now saved as HTML
+
 2012-06-17 Mirjam - SVN 1084
 # Metadata: only item title/description when item is showing (new condition: not limitstart but page=inline).
 ^ Superadministrators (they have core.admin) can see the unpublished items/galleries in the frontend. Their styling has class system-unpublished with style inherited from the Joomla template.

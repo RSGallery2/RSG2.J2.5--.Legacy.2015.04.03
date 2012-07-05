@@ -248,6 +248,8 @@ function editComment( $item_id ) {
 	$doc->addScript(JURI_SITE."/components/com_rsgallery2/lib/rsgcomments/js/client.js");
 	$doc->addStyleSheet(JURI_SITE."/components/com_rsgallery2/lib/rsgcomments/rsgcomments.css");
 	$gid=galleryUtils::getCatIdFromFileId($item_id);//galleryid gid used to be named catid
+	
+	$editor =& JFactory::getEditor();
 	?>
 	<script type="text/javascript">
         function submitbutton(pressbutton) {
@@ -256,19 +258,20 @@ function editComment( $item_id ) {
                 form.reset();
                 return;
             }
-        // do field validation
-        if (form.tname.value == "") {
-            alert( '<?php echo JText::_('COM_RSGALLERY2_YOU_SHOULD_ENTER_YOUR_NAME'); ?>' );
-        }
-        else if (form.tcomment.value == ""){
-            alert( '<?php echo JText::_('COM_RSGALLERY2_NO_COMMENT_ENTERED'); ?>' );
-        }
-        else{
-            form.submit();
-        }
+			<?php echo $editor->save( 'tcomment' ) ; ?>
+			// do field validation
+			if (form.tname.value == "") {
+				alert('<?php echo JText::_('COM_RSGALLERY2_YOU_SHOULD_ENTER_YOUR_NAME'); ?>');
+				return;
+			} else if (form.tcomment.value == "") {
+				alert('<?php echo JText::_('COM_RSGALLERY2_NO_COMMENT_ENTERED'); ?>');
+				return;
+			} else {
+				form.submit();
+			}
         }
     </script>
-    
+    <a name="comment2"></a>
 	<form name="rsgcommentform" method="post" action="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=rsgComments&task=save");?>">
 	<table border="0" width="100%" class="adminForm">
 	<tr>
@@ -276,19 +279,46 @@ function editComment( $item_id ) {
 	</tr>
 	<tr>
 		<td><?php echo JText::_('COM_RSGALLERY2_YOUR_NAME');?>:</td>
-		<td><input name='tname' type='text' class='inputbox' size='40' value='<?php if (!$my->username == '') echo $my->username;?>' /></td>
+		<td>
+			<input name='tname' type='text' class='inputbox' size='40' value='<?php if (!$my->username == '') echo $my->username;?>' />
+		</td>
 	</tr>
 	<tr>
 		<td><?php echo JText::_('COM_RSGALLERY2_TITLE');?>:</td>
-		<td><input name='ttitle' type='text' class='inputbox' size='40'/></td>
+		<td>
+			<input name='ttitle' type='text' class='inputbox' size='40'/>
+		</td>
 	</tr>
 	<tr>
 		<td><?php echo JText::_('COM_RSGALLERY2_COMMENT_TEXT');?>:</td>
-		<td><div class='buttoncontainer'><?php rsgComments::showButtons();?></div></td>
-	</tr>
-	<tr>
-		<td><?php rsgComments::showSmilies();?></td>
-		<td><textarea name='tcomment' class='inputbox' cols='40' rows='10'></textarea></td>
+		<td>
+			<?php 
+				//Get Joomla! configuration setting: is TinyMCE used as editor?
+				$app =& JFactory::getApplication();
+				if ( $app->getCfg('editor') == 'tinymce'){
+					// Get TinyMCE, but with limited number of buttons
+					?>
+					<script type="text/javascript">
+						tinyMCE.init({
+							mode : "textareas",
+							theme : "advanced",
+							width : "300",
+							theme_advanced_buttons1 : "bold,italic,underline,separator,link,unlink",
+							theme_advanced_buttons2 : "",
+							theme_advanced_buttons3 : "",
+							theme_advanced_toolbar_location : "top",
+							theme_advanced_toolbar_align : "left",
+							theme_advanced_statusbar_location : "none",
+						});
+					</script>
+					<textarea name="tcomment" id="tcomment" style="width:100%"></textarea>
+					<?php
+				} else {
+					// parameters : control name, content, width, height, cols, rows, show editor buttons, params
+					echo $editor->display('tcomment',  '' , '300px', '100px', '8', '20' ,false) ;
+				}
+			?>
+		</td>
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
@@ -329,7 +359,6 @@ function editComment( $item_id ) {
 	<input type="hidden" name="rsgOption" value="rsgComments" />
 	<input type="hidden" name="gid" value="<?php echo $gid;?>" />
 	</form>
-	<a name="comment2"></a>
 	<?php
 }
 
@@ -387,7 +416,7 @@ function showComments( $item_id ) {
 				<td valign="top" class="content_area">
 				<?php echo JHTML::_("date",$comment['datetime']);?>
 				<hr />
-				<?php echo rsgComments::parse( $comment['comment'] );?>
+				<?php echo $comment['comment']; ?>
 				<?php if ( $deleteComment ): ?>
 					<div style="float:right;"><a href="javascript:void(0);" onclick="javascript:delComment(<?php echo $comment['id'];?>, <?php echo $comment['item_id'];?>, <?php echo $catid;?>);"><?php echo JText::_('COM_RSGALLERY2_DELETE_COMMENT')?></a></div>
 				<?php endif; ?>

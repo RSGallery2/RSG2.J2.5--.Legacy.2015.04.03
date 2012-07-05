@@ -82,7 +82,7 @@ class rsgItem extends JObject{
 	 * @param int id of the target gallery
 	 * @return bool true if succesfull
 	 */
-	function move($target_gallery){dump('move');
+	function move($target_gallery){
 	
 		if($target_gallery == null) return false;
 

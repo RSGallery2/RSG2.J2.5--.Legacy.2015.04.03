@@ -118,7 +118,7 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 			$result = $gallery->getItem();
 	//	} else {
 	//		$result = Null;
-	//	}var_dump($result,'result');
+	//	}
 		return $result;
 	}
 	
