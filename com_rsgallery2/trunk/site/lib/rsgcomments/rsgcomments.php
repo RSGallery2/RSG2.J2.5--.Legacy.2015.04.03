@@ -52,16 +52,21 @@ function saveComment( $option ) {
 	//Retrieve parameters (stripped from html, bbcode used)
 	$user_ip	= $database->Quote($_SERVER['REMOTE_ADDR']);
 	$rsgOption	= rsgInstance::getCmd('rsgOption'  , '');
-	$subject 	= $database->Quote(rsgInstance::getVar('ttitle'  , ''));
-	$user_name	= $database->Quote(rsgInstance::getVar( 'tname', ''));
-//@@ todo: use editor for comments and allow HTML	
-	$comment 	= $database->Quote(rsgInstance::getVar( 'tcomment'  , ''));
+	$subject 	= $database->Quote(rsgInstance::getString('ttitle'  , ''));
+	$user_name	= $database->Quote(rsgInstance::getString( 'tname', ''));
 	$item_id 	= rsgInstance::getInt( 'item_id'  , '');
 	$catid 		= rsgInstance::getInt( 'catid'  , '');
 	$date		= $database->Quote(date('Y-m-d H:i:s'));
-
+	// Get comment with HTML, then filter with limited allowed tags/attributes, then quote for database
+	$comment 	= JRequest::getVar('tcomment','','POST','STRING',JREQUEST_ALLOWHTML); 
+	//$allowedTags 	= array('strong','em','a','b','i','u');
+	//$allowedAttribs = array('href');
+	//$filter 	= & JFilterInput::getInstance($allowedTags,$allowedAttribs);
+	//$comment 	= $filter->clean($comment);
+	$comment 	= $database->Quote($comment); 
+	
 	//Check if commenting is enabled
-	$redirect_url = JRoute::_("index.php?option=".$option."&page=inline&id=".$item_id);
+	$redirect_url = JRoute::_("index.php?option=".$option."&page=inline&id=".$item_id, false);
 	if ($rsgConfig->get('comment') == 0) {
 		$mainframe->redirect($redirect_url, JText::_('Commenting is disabled') );
 		exit();
@@ -153,5 +158,5 @@ function deleteComments( $option ) {
 			echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 		}
 	}
-	$mainframe->redirect(JRoute::_("index.php?option=".$option."&page=inline&id=".$item_id."&catid=".$catid), JText::_('Comment deleted succesfully') );
+	$mainframe->redirect(JRoute::_("index.php?option=".$option."&page=inline&id=".$item_id."&catid=".$catid,false), JText::_('Comment deleted succesfully') );
 }

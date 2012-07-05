@@ -2139,7 +2139,10 @@ function detect(){
 			
 			case $this->beforeVersion( '2.2.1' ):
 				$this->handleSqlFile( 'upgrade_2.2.0_to_2.2.1.sql' );
-				$this->upgradeTo_2_2_1();			
+				$this->upgradeTo_2_2_1();
+			
+			case $this->beforeVersion( '2.3.0' ):
+				$this->upgradeTo_2_3_0();
 			
 			default:
 				// if we reach this point then everything was a success, update the version number and exit.
@@ -2256,6 +2259,8 @@ function detect(){
 				$error = true;
 			}
 		}
+		
+		
 	
 		//Get id, title for the items
 		$query = 'SELECT id, title FROM #__rsgallery2_files';
@@ -2285,6 +2290,31 @@ function detect(){
 			rsgInstall::writeInstallMsg(JText::_('COM_RSGALLERY2_FINISHED_CREATING_ALIASES'), 'ok');
 		}
 	}
+	
+	function upgradeTo_2_3_0(){
+		// Change comments in table from BB Code to HTML
+		$database =& JFactory::getDBO();
+
+		$query = 'SELECT id, comment FROM #__rsgallery2_comments';
+		$database->setQuery( $query );
+		$comments = $database->loadAssocList();
+
+		$rsgComment = new rsgComments();
+
+		foreach($comments as $comment) {
+			//Parse BBCode comment to HTML comment
+			$comment['comment'] = $rsgComment->parse( $comment['comment']);
+			//Strip HTML tags with the exception of these allowed tags: line break, paragraph, bold, italic, underline, link image (for smileys) and allowed attribute: link, src; then clean comment.
+			$allowedTags = array('strong','em','a','img','b','i','u');
+			$allowedAttribs = array('href','src');
+			$filter = & JFilterInput::getInstance($allowedTags,$allowedAttribs);
+			@$comment['comment'] = $filter->clean($comment['comment']);
+			// Update comment in table
+			$query = 'UPDATE #__rsgallery2_comments SET comment  = '.$database->Quote($comment['comment']).' where id ='. (int) $comment['id'];
+			$database->setQuery( $query );
+			$result = $database->query();
+		}
+	} // end of function upgradeTo_2_3_0
 }
 
 /**
@@ -2302,6 +2332,158 @@ class migrate_com_rsgallery_flat_structure extends GenericMigrator {
 class migrate_com_rsgallery_hierarchical_structure extends GenericMigrator {
 	// TODO:implement	
 }
+
+/**
+ * (Stripped) Class for the comments plugin - only here for converting comments from 2.2.1 to 2.3.0
+ * @author Ronald Smit <ronald.smit@rsdev.nl>
+ */
+class rsgComments {
+	var $_buttons;
+	var $_emoticons;
+	/**
+	 * Constructor
+	 */
+	function rsgComments() {
+		global $mainframe;
+		$this->_buttons = array(
+		"b" 	=> "ubb_bold.gif",
+		"i" 	=> "ubb_italicize.gif",
+		"u" 	=> "ubb_underline.gif",
+		"url" 	=> "ubb_url.gif",
+		"quote" => "ubb_quote.gif",
+		"code" 	=> "ubb_code.gif",
+		"img" 	=> "ubb_image.gif"
+		);
+		$this->_emoticons = array(
+		":D" 			=> "icon_biggrin.gif",
+		":)" 			=> "icon_smile.gif",
+		":(" 			=> "icon_sad.gif",	
+		":O" 			=> "icon_surprised.gif",
+		":shock:" 		=> "icon_eek.gif",
+		":confused:" 	=> "icon_confused.gif",
+		"8)" 			=> "icon_cool.gif",
+		":lol:" 		=> "icon_lol.gif",
+		":x" 			=> "icon_mad.gif",
+		":P" 			=> "icon_razz.gif",
+		":oops:" 		=> "icon_redface.gif",
+		":cry:" 		=> "icon_cry.gif",
+		":evil:" 		=> "icon_evil.gif",
+		":twisted:" 	=> "icon_twisted.gif",
+		":roll:" 		=> "icon_rolleyes.gif",
+		":wink:" 		=> "icon_wink.gif",
+		":!:" 			=> "icon_exclaim.gif",
+		":?:" 			=> "icon_question.gif",
+		":idea:" 		=> "icon_idea.gif",
+		":arrow:" 		=> "icon_arrow.gif"
+		);	
+		$this->_emoticons_path 		= JURI_SITE."/components/com_rsgallery2/lib/rsgcomments/emoticons/default/";
+	}
+	
+	/**
+	 * Retrieves raw text and converts bbcode to HTML
+	 */
+	function parseUBB($html, $hide = 0) {	//needed
+		$html = str_replace(']www.', ']http://www.', $html);
+		$html = str_replace('=www.', '=http://www.', $html);
+		$patterns = array('/\[b\](.*?)\[\/b\]/i',
+			'/\[u\](.*?)\[\/u\]/i',
+			'/\[i\](.*?)\[\/i\]/i',
+			'/\[url=(.*?)\](.*?)\[\/url\]/i',
+			'/\[url\](.*?)\[\/url\]/i',
+			'#\[email\]([a-z0-9\-_.]+?@[\w\-]+\.([\w\-\.]+\.)?[\w]+)\[/email\]#',
+			'#\[email=([a-z0-9\-_.]+?@[\w\-]+\.([\w\-\.]+\.)?[\w]+)\](.*?)\[/email\]#',
+			'/\[font=(.*?)\](.*?)\[\/font\]/i',
+			'/\[size=(.*?)\](.*?)\[\/size\]/i',
+			'/\[color=(.*?)\](.*?)\[\/color\]/i');
+		$replacements = array('<b>\\1</b>',
+			'<u>\\1</u>',
+			'<i>\\1</i>',
+			'<a href=\'\\1\' title=\'Visit \\1\'>\\2</a>',
+			'<a href=\'\\1\' title=\'Visit \\1\'>\\1</a>',
+			'<a href=\'mailto:\\1\'>\\1</a>',
+			'<a href=\'mailto:\\1\'>\\3</a>',
+			'<span style=\'font-family: \\1\'>\\2</span>',
+			'<span style=\'font-size: \\1\'>\\2</span>');
+		if ($hide) 
+			$replacements[] = '\\2';
+		else 
+			$replacements[] = '<span style=\'color: \\1\'>\\2</span>';
+		$html = preg_replace($patterns, $replacements, $html);
+		return $html;
+    }
+
+	/**
+	 * Replaces emoticons code with emoticons 
+	 */
+	function parseEmoticons($html) { //needed
+		foreach ($this->_emoticons as $ubb => $icon) {
+			$html = str_replace($ubb, "<img src='" . $this->_emoticons_path . $icon . "' border='0' alt='' />", $html);
+		}
+		return $html;
+	}
+
+	/**
+	 * Parses an image element to HTML
+	 */
+	function parseImgElement($html) {	//needed
+			return preg_replace('/\[img\](.*?)\[\/img\]/i', '<img src=\'\\1\' alt=\'Posted image\' />', $html);
+	}
+
+	/**
+	 * Parse a quote element to HTML
+	 */
+	function parseQuoteElement($html) {	//needed
+        $q1 = substr_count($html, "[/quote]");
+        $q2 = substr_count($html, "[quote=");
+        if ($q1 > $q2) $quotes = $q1;
+        else $quotes = $q2;
+        $patterns = array("/\[quote\](.+?)\[\/quote\]/is",
+            "/\[quote=(.+?)\](.+?)\[\/quote\]/is");
+        $replacements = array(
+						"<div class='quote'><div class='genmed'><b>".JText::_('Quote')."</b></div><div class='quotebody'>\\1</div></div>",
+            			"<div class='quote'><div class='genmed'><b>\\1".JText::_('Wrote')."</b></div><div class='quotebody'>\\2</div></div>"
+            			);
+        while ($quotes > 0) {
+            $html = preg_replace($patterns, $replacements, $html);
+            $quotes--;
+        }
+        return $html;
+    }
+
+	function parseCodeElement($html) {	//needed
+		if (preg_match_all('/\[code\](.+?)\[\/code\]/is', $html, $replacementI)) {
+			foreach($replacementI[0] as $val) $html = str_replace($val, $this->code_unprotect($val), $html);
+		}
+		$pattern = array();
+		$replacement = array();
+		$pattern[] = "/\[code\](.+?)\[\/code\]/is";
+		$replacement[] = "<div class='code'><div class='genmed'><b>".JText::_('Code')."</b></div><div class='codebody'><pre>\\1</pre></div></div>";
+		return preg_replace($pattern, $replacement, $html);
+    }
+
+	/**
+	 * Parse a BB-encoded message to HTML
+	 */
+	function parse( $html ) {	//needed
+		$html = $this->parseEmoticons($html);
+        $html = $this->parseImgElement($html);
+		$html = $this->parseUBB($html, 0);
+		$html = $this->parseCodeElement($html);
+		$html = $this->parseQuoteElement($html);
+		$html = stripslashes($html);
+		return str_replace('&#13;', "\r", nl2br($html));
+    }
+	
+	function code_unprotect($val) {	//needed
+		$val = str_replace("{ : }", ":", $val);
+		$val = str_replace("{ ; }", ";", $val);
+		$val = str_replace("{ [ }", "[", $val);
+		$val = str_replace("{ ] }", "]", $val);
+		$val = str_replace(array("\n\r", "\r\n"), "\r", $val);
+		$val = str_replace("\r", '&#13;', $val);
+		return $val;
+    }
+}	//end class rsgComments
 
 
 ?>

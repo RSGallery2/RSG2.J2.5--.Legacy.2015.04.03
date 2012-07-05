@@ -72,16 +72,10 @@ function test() {
 	echo 'Test function found in admin/options/maintenance.php<br />';
 	echo '<a href='.JRoute::_('index.php?option=com_rsgallery2&rsgOption=maintenance&task=test').'>index.php?option=com_rsgallery2&rsgOption=maintenance&task=test</a><p></p>';
 	// Test code - start
-
-/*
-$database =& JFactory::getDBO();
-$gallery_id = '3a';var_dump($gallery_id);
-$parent_id = galleryUtils::getParentId($gallery_id);var_dump($parent_id);
-*/
-//include(JPATH_BASE.DS.'components'.DS.'com_rsgallery2'.DS.'includes'.DS.'install.class.php');
-//include (JPATH_BASE.DS.'components'.DS.'com_rsgallery2'.DS.'options'.DS.'galleries.class.php');
-
-
+/*	$database =& JFactory::getDBO();
+//	include(JPATH_BASE.DS.'components'.DS.'com_rsgallery2'.DS.'includes'.DS.'install.class.php');
+	
+/**/
 	// Test code - end
 }
 

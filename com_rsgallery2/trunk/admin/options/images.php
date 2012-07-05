@@ -163,7 +163,7 @@ function showImages( $option ) {
 * Compiles information to add or edit
 * @param integer The unique id of the record to edit (0 if new)
 */
-function editImage( $option, $id ) {dump('editImage');
+function editImage( $option, $id ) {
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
 	
