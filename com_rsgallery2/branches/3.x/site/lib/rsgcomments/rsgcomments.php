@@ -52,14 +52,20 @@ function saveComment( $option ) {
 	//Retrieve parameters
 	$user_ip	= $database->quote($_SERVER['REMOTE_ADDR']);			// Used in sql!
 	$rsgOption	= JRequest::getCmd('rsgOption'  , '');
-	$subject 	= $database->quote(JRequest::getString('ttitle'  , ''));	// Used in sql!
-	$user_name	= $database->quote(JRequest::getString('tname'   , ''));	// Used in sql!
-	$comment 	= $database->quote(JRequest::getVar('tcomment', ''));	// Used in sql!
+	$subject 	= $database->quote(JRequest::getString('ttitle', ''));	// Used in sql!
+	$user_name	= $database->quote(JRequest::getString('tname', ''));	// Used in sql!
 	$item_id 	= JRequest::getInt( 'item_id'  , '');
 	$gid 		= JRequest::getInt( 'gid'  , '');
 	$Itemid 	= JRequest::getInt( 'Itemid'  , '');
 	$dateTime	= $database->quote(date('Y-m-d H:i:s'));				// Used in sql!
 
+	$comment 	= JRequest::getVar('tcomment','','POST','STRING',JREQUEST_ALLOWHTML); 
+	//$allowedTags 		= array('strong','em','a','b','i','u');
+	//$allowedAttribs 	= array('href');
+	//$filter 	= & JFilterInput::getInstance($allowedTags,$allowedAttribs);
+	//$comment 	= $filter->clean($comment);
+	$comment 	= $database->Quote($comment);							// Used in sql!
+	
 	$redirect_url = JRoute::_("index.php?option=".$option."&Itemid=$Itemid&page=inline&id=".$item_id, false);
 	
 	//Check if commenting is enabled
@@ -127,7 +133,6 @@ function saveComment( $option ) {
 		$mainframe->redirect( $redirect_url, JText::_('COM_RSGALLERY2_COMMENT_ADDED_SUCCESFULLY') );
 	} else {
 		$mainframe->redirect( $redirect_url, JText::_('COM_RSGALLERY2_COMMENT_COULD_NOT_BE_ADDED') );
-		//echo $sql;
 	}
 	
 }
