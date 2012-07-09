@@ -41,8 +41,16 @@ Legend:
 
 ---------------- 3.2.0 -- SVN 1088 -- 2012-07-05 -------------
 
-^ Comments no longer use BBCode and are now saved as HTML
+2012-07-09 Mirjam - SVN 1090
+! Added Control Panel note for those with "Configure" permission about Create Own/Delete Own/Edit State Own being limited to frontend for now
+^ Help screen for permissions (options.rsgallery2.html) is updated)
+^ "Default state for uploaded images (for users with Edit State permission)" now also takes "Edit State Own" permission into account (in the frontend)
+
+2012-07-09 Mirjam - SVN 1089
 ^ Now using JHtmlTabs instead of JPane for description/voting/comment/exif tabs
+
+2012-07-05 Mirjam - SVN 1088
+^ Comments no longer use BBCode and are now saved as HTML
 
 2012-06-17 Mirjam - SVN 1084
 # Metadata: only item title/description when item is showing (new condition: not limitstart but page=inline).

@@ -27,7 +27,7 @@ class rsgAuthorisation{
 		$allowed = false;
 		
 		// User has to have edit permission or edit own permission and be the owner
-		// Check for edit state permission
+		// Check for edit permission
 		$canEditGallery = $user->authorise('core.edit', 'com_rsgallery2.gallery.'.$gallery_id);
 		if ($canEditGallery){
 			$allowed = true;
@@ -261,7 +261,7 @@ class rsgAuthorisation{
 				if ($canCreate){
 					$allowed = true;
 				} else {
-					// No edit state permission, check for edit state own permission
+					// No create permission, check for create own permission
 					$canCreateOwn = $user->authorise('rsgallery2.create.own', 'com_rsgallery2.gallery.'.$parent_gallery);
 					if ($canCreateOwn) {
 						// User has create own permission, check ownership
@@ -318,7 +318,7 @@ class rsgAuthorisation{
 			if ($canCreate){
 				$allowed = true;
 			} else {
-				// No edit state permission, check for edit state own permission
+				// No create permission, check for create own permission
 				$canCreateOwn = $user->authorise('rsgallery2.create.own', 'com_rsgallery2.gallery.'.$gallery->id);
 				if ($canCreateOwn) {
 					// User has create own permission, check ownership

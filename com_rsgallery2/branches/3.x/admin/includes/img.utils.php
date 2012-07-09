@@ -219,8 +219,8 @@ class imgUtils extends fileUtils{
 		$row->date			= date( 'Y-m-d H:i:s' );
 		$row->ordering		= $ordering;
 		$row->userid		= $my->id;
-		//Published only when user has edit state permission and default state setting is published on upload
-		if (JFactory::getUser()->authorise('core.edit.state','com_rsgallery2.gallery.'.$row->gallery_id)) {
+		//Published only when a) default state setting is published on upload and b) either 1) user has edit state permission or 2) user has edit state own permission and owns the gallery to which the item is uploaded
+		if (rsgAuthorisation::authorisationEditStateGallery($row->gallery_id)) {
 			if ($rsgConfig->uploadState){
 				$row->published		= 1;
 			}
