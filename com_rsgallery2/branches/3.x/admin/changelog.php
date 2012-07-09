@@ -40,7 +40,9 @@ Legend:
 ---------------- Recent ----------------
 
 ---------------- 3.2.0 -- SVN 1088 -- 2012-07-05 -------------
+
 ^ Comments no longer use BBCode and are now saved as HTML
+^ Now using JHtmlTabs instead of JPane for description/voting/comment/exif tabs
 
 2012-06-17 Mirjam - SVN 1084
 # Metadata: only item title/description when item is showing (new condition: not limitstart but page=inline).

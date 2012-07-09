@@ -335,36 +335,42 @@ class rsgDisplay_semantic extends rsgDisplay{
 		if (! ( $rsgConfig->get("displayDesc") || $rsgConfig->get("displayVoting") || $rsgConfig->get("displayComments") || $rsgConfig->get("displayEXIF") ))
 			return;
 
-		jimport("joomla.html.pane");
-		
-		$tabs =& JPane::getInstance("Tabs",array("useCookies" => true));
-		echo $tabs->startPane( 'tabs' );
+		// JHtmlTabs
+		$options = array(
+			'onActive' => 'function(title, description){
+				description.setStyle("display", "block");
+				title.addClass("open").removeClass("closed");
+			}',
+			'onBackground' => 'function(title, description){
+				description.setStyle("display", "none");
+				title.addClass("closed").removeClass("open");
+			}',
+			'startOffset' => 0,  // 0 starts on the first tab, 1 starts the second, etc...
+			'useCookie' => true, // this must not be a string. Don't use quotes.
+		);
+		echo JHtml::_('tabs.start', 'page_inline_tabs', $options);
 		
 		if ( $rsgConfig->get("displayDesc") ) {
-			echo $tabs->startPanel(JText::_('COM_RSGALLERY2_DESCRIPTION'), 'rs-description' );
+			echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_DESCRIPTION'), 'page_inline_tabs_description');
 			$this->_showDescription(); 
-			echo $tabs->endPanel();
 		}
 		
 		if ( $rsgConfig->get("displayVoting") ) {
-			echo $tabs->startPanel(JText::_('COM_RSGALLERY2_VOTING'), 'Voting' );
+			echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_VOTING'), 'page_inline_tabs_voting');
 			$this->_showVotes();
-			echo $tabs->endPanel();
 		}
 		
 		if ( $rsgConfig->get("displayComments") ) {
-			echo $tabs->startPanel(JText::_('COM_RSGALLERY2_COMMENTS'), 'Comments' );
+			echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_COMMENTS'), 'page_inline_tabs_comments');
 			$this->_showComments();
-			echo $tabs->endPanel();
 		}
 	
 		if ($rsgConfig->get("displayEXIF") ) {
-			echo $tabs->startPanel(JText::_('COM_RSGALLERY2_EXIF'), 'EXIF' );
+			echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_EXIF'), 'page_inline_tabs_exif');
 			$this->_showEXIF();
-			echo $tabs->endPanel();
 		}
-		echo $tabs->endPanel();
-		
+
+		echo JHtml::_('tabs.end');
 	}
 
     /**
