@@ -4,7 +4,7 @@
 *
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2011 RSGallery2
+* @copyright (C) 2003 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -304,9 +304,20 @@ class HTML_RSGALLERY{
 					$link = 'index.php?option=com_rsgallery2&rsgOption=installer';
 					HTML_RSGALLERY::quickiconButton( $link, 'template.png', JText::_('COM_RSGALLERY2_TEMPLATE_MANAGER'));
     			}
-
-
-			
+				
+				// Temporary not for v3.2.0: permissions in frontend need to be implemented in next release and this message can then be removed.
+				if ($user->authorise('core.admin', 	'com_rsgallery2')){
+					echo '<div style="clear:left;"><p>';
+					echo '<b>Note for the site administrator about RSGallery2 permissions</b><br />';
+					echo 'In version 3.2.0 some permissions were added so that the Site Administrator can allow <b>frontend</b> users via My Galleries to delete images/galleries <i>they own</i>, edit the state of images/galleries <i>they own</i> and create images/galleries <i>in galleries they own</i>. Descriptions of these new permissions:
+					<ul>
+						<li>Create Own: set at component and gallery level. This allows the user to upload images to galleries that he owns and create galleries in parent galleries that he owns.</li>
+						<li>Delete Own: set at component, gallery and item level. This allows the user to delete images or galleries that he owns.</li>
+						<li>Edit State Own: set at component, gallery and item level. This allows the user to edit the state (published or not) of images or galleries that he owns.</li>
+					</ul>
+					Note that these three "own" permissions are not implemented in the backend, users logged in via the backend need Create permission, Delete permission or Edit State permission, they will be implemented in the backend in the next release. ("Edit Own" is already implemented in the backend.)';
+					echo '</p>';
+				}			
                 // if debug is on, display advanced options
                 if( ($rsgConfig->get( 'debug' )) AND ( $canDo->get('core.admin') ) ){ ?>
                 <div id='rsg2-cpanelDebug'><?php echo JText::_('COM_RSGALLERY2_C_DEBUG_ON');?>

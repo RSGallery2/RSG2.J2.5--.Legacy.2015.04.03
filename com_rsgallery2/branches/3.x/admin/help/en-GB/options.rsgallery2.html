@@ -32,7 +32,7 @@ To see RSGallery2's Control Panel in the backend users need <br />
 <ul>
 <li><u>Admin Login</u> Permission to login to the backend (set in Global Configuration > Permissions; default groups Manager, Super Users and their children have that permission) </li>
 <li>Viewing Acces level set to Special (set in Users > Access Levels; default groups Manager, Author and Super Users and their children have that)</li>
-<li><u>Access Component</u> Permission for the component (set in Component Options or in Global Configuration > Permissions; default groups Administrator and Super Users have that set in Global Configuration) </li>
+<li><u>Access Administration Interface</u> Permission for the component (set in Component Options or in Global Configuration > Permissions; default groups Administrator and Super Users have that set in Global Configuration) </li>
 </ul> 
 
 With those permissions set you can see the buttons
@@ -49,15 +49,31 @@ To properly be able to use those buttons you'll need Create, Delete, Edit, Edit 
 <u>Create Permission</u><br />
 When allowed in Global Configuration or component options: allows to create a gallery with 'Top gallery' as a parent and allows to upload images in these galleries. Of course by inheritance it is allowed to create subgalleries and upload images in all the subgalleries as well, unless explicitly denied.<br />
 When allowed for a gallery: allows to create subgalleries to this gallery and allows to upload images in these galleries. Of course by inheritance it is allowed to create subgalleries and upload images in all the subgalleries as well, unless explicitly denied.
+<br />
+Create permission can be set in the Global Configuration Permissions tab, in the Component Options and in the Gallery.
 <p>
 <u>Delete Permission</u><br />
 At the moment (v3.0.0) deleting galleries or items is only possible if you have Delete permission on the component level (set in the Component Options or in the Global Configuration).
 <p>
 <u>Edit/Edit Own Permission</u><br />
 You may edit galleries or items that you have either Edit permission for or Edit Own permission if you are the owner of the gallery or item. This allows you to change the name, alias and/or description and move a gallery or item to another parent gallery if you have create permission for the new gallery. 
+<br />
+Edit/Edit Own permission can be set in the Global Configuration Permissions tab, in the Component Options, via the Gallery Permissions and in via the Item Permissions.
 <p>
 <u>Edit State Permission</u><br />
 With Edit State permission you are allowed to (un)publish a gallery or item and/or change the ordering.
+<br />
+Edit State permission can be set in the Global Configuration Permissions tab, in the Component Options, via the Gallery Permissions and in via the Item Permissions.
+<p>
+<u>Vote Permission</u><br />
+Users with Vote permission are allowed to vote on RSGallery2 items in the frontend. 
+<br />
+Vote permission can be set in the Component Options and via the Gallery Permissions. The item inherits the setting for the Vote Permission from the gallery.
+<p>
+<u>Comment Permission</u><br />
+Users with Comment permission are allowed to comment on RSGallery2 items in the frontend. 
+<br />
+Comment permission can be set in the Component Options and via the Gallery Permissions. The item inherits the setting for the Comment Permission from the gallery.
 <p>
 
 
@@ -69,8 +85,16 @@ With <u>Configure</u> permission you'll also see the Configuration Panel buttons
 <li>Options (toolbar button to set permissions for the component)</li>
 </ul> 
 
-
-
+<p>
+Note: <br />
+In version 3.2.0 some permissions were added so that the Site Administrator can allow <b>frontend</b> users via My Galleries to delete images/galleries <i>they own</i>, edit the state of images/galleries <i>they own</i> and create images/galleries <i>in galleries they own</i>. Descriptions of these new permissions:
+<ul>
+	<li>Create Own: set at component and gallery level. This allows the user to upload images to galleries that he owns and create galleries in parent galleries that he owns.</li>
+	<li>Delete Own: set at component, gallery and item level. This allows the user to delete images or galleries that he owns.</li>
+	<li>Edit State Own: set at component, gallery and item level. This allows the user to edit the state (published or not) of images or galleries that he owns.</li>
+</ul>
+Note that these three "own" permissions are not implemented in the backend, users logged in via the backend need Create permission, Delete permission or Edit State permission, they will be implemented in the backend in the next release.
+</p>
 
 <br>
 
