@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="1.6.0"  method="upgrade">
   <name>com_rsgallery2</name>
-  <creationDate>5 July 2012</creationDate>
+  <creationDate>13 July 2012</creationDate>
   <author>RSGallery2 Team</author>
   <copyright>This component is released under the GNU/GPL License</copyright>
   <authorEmail>team@rsgallery2.nl</authorEmail>
@@ -15,6 +15,7 @@
 	<folder>lib</folder>
     <folder>templates</folder>
     <folder>views</folder>
+	<filename>index.html</filename>
     <filename>main.rsgallery2.php</filename>
 	<filename>picklist.js</filename>
 	<filename>router.php</filename>
@@ -73,6 +74,7 @@
       <filename>changelog.php</filename>
       <filename>config.rsgallery2.php</filename>
       <filename>config.xml</filename>
+	  <filename>index.html</filename>
 	  <filename>init.rsgallery2.php</filename>
       <filename>toolbar.rsgallery2.html.php</filename>
       <filename>toolbar.rsgallery2.php</filename>

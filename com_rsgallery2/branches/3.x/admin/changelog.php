@@ -39,7 +39,10 @@ Legend:
 
 ---------------- Recent ----------------
 
----------------- 3.2.0 -- SVN 1088 -- 2012-07-05 -------------
+---------------- 3.2.0 -- SVN 1091 -- 2012-07-13 -------------
+
+2011-07-13 Mirjam - SVN 1091
++ Added (empty) index.html to each directory
 
 2012-07-09 Mirjam - SVN 1090
 ! Added Control Panel note for those with "Configure" permission about Create Own/Delete Own/Edit State Own being limited to frontend for now
