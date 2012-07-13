@@ -32,7 +32,12 @@ Legend:
 
 ---------------- Recent ----------------
 
----------------- 2.3.0 ------- svn 1087 -- 2012-07-05 -------------
+---------------- 2.3.0 ------- svn 1092 -- 2012-07-13 -------------
+
+2011-07-13 Mirjam - SVN 1092
++ Added (empty) index.html to each directory
+
+2011-07-05 Mirjam - SVN 1087
 ^ Comments no longer use BBCode and are now saved as HTML
 
 2012-03-25 Mirjam - SVN 1070
