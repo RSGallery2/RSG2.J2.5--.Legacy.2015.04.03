@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<updates>
+	<update>
+		<name>RSGallery2</name>
+		<description>RSGallery2 is a fully featured gallery component for Joomla!  Visit the official site for FAQ, support forums and latest news: www.rsgallery2.nl.</description>
+		<element>com_rsgallery2</element>
+		<type>component</type>
+		<!-- Release version number -->
+		<version>3.1.0</version>
+		<infourl title="RSGallery2 URL">http://www.rsgallery2.nl</infourl>
+		<downloads>
+			<!-- where to download the package from -->
+			<downloadurl type="full" format="zip">http://joomlacode.org/gf/download/frsrelease/16416/71645/com_rsgallery2_3.1.0.zip</downloadurl>
+		</downloads>
+		<maintainer>RSGallery2 Team</maintainer>
+		<maintainerurl>http://www.rsgallery2.nl</maintainerurl>
+		<!-- one <update> definition per joomla version -->
+		<targetplatform name="joomla" version="2.5" />
+	</update>
+	
+	<update>
+		<name>RSGallery2 - testing</name>
+		<description>RSGallery2 is a fully featured gallery component for Joomla!  Visit the official site for FAQ, support forums and latest news: www.rsgallery2.nl.</description>
+		<element>com_rsgallery2</element>
+		<type>component</type>
+		<!-- Release version number -->
+		<version>3.1.1</version>
+		<infourl title="RSGallery2 URL">http://www.rsgallery2.nl</infourl>
+		<downloads>
+			<!-- where to download the package from -->
+			<downloadurl type="full" format="zip">http://joomlacode.org/gf/download/frsrelease/16416/71645/com_rsgallery2_3.1.0.zip</downloadurl>
+		</downloads>
+		<maintainer>RSGallery2 Team</maintainer>
+		<maintainerurl>http://www.rsgallery2.nl</maintainerurl>
+		<!-- one <update> definition per joomla version -->
+		<targetplatform name="joomla" version="2.5" />
+	</update>
+</updates>
