@@ -3,7 +3,7 @@
 * This file contains xxxxxxxxxxxxxxxxxxxxxxxxxxx.
 * @version xxx
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -57,20 +57,37 @@ function saveComment( $option ) {
 	$item_id 	= rsgInstance::getInt( 'item_id'  , '');
 	$catid 		= rsgInstance::getInt( 'catid'  , '');
 	$date		= $database->Quote(date('Y-m-d H:i:s'));
-	// Get comment with HTML, then filter with limited allowed tags/attributes, then quote for database
-	$comment 	= JRequest::getVar('tcomment','','POST','STRING',JREQUEST_ALLOWHTML); 
-	//$allowedTags 	= array('strong','em','a','b','i','u');
-	//$allowedAttribs = array('href');
-	//$filter 	= & JFilterInput::getInstance($allowedTags,$allowedAttribs);
-	//$comment 	= $filter->clean($comment);
-	$comment 	= $database->Quote($comment); 
 	
-	//Check if commenting is enabled
 	$redirect_url = JRoute::_("index.php?option=".$option."&page=inline&id=".$item_id, false);
+
+	//Check if commenting is enabled
 	if ($rsgConfig->get('comment') == 0) {
 		$mainframe->redirect($redirect_url, JText::_('Commenting is disabled') );
 		exit();
 	}
+	
+	//Retrieve comment, filter it, do some more tests, get it database ready...
+	$comment 	= JRequest::getVar('tcomment','','POST','STRING',JREQUEST_ALLOWHTML); 
+	//	Clean the comment with the filter: strong, emphasis, underline (not a with attrib href for now)
+	$allowedTags 		= array('strong','em','u','p','br');
+	$allowedAttribs 	= array('');//array('href');
+	$filter 			= & JFilterInput::getInstance($allowedTags,$allowedAttribs);
+	$comment 			= $filter->clean($comment);
+	//	Now do some extra tests on this comment and if they not pass, redirect the user
+	$testFailed = false;
+	if (preg_match_all('/target="(.....)/',$comment,$matches)) {
+		foreach ($matches[1] as $match) {
+			// allowed are target="_self" and target="_blank" (whitch has one letter too many)
+			if (($match != "_self") AND ($match != "_blan")) {
+				$testFailed = true;
+			}
+		}
+		if ($testFailed){
+			$mainframe->redirect( $redirect_url, JText::_('Comment could not be added') );
+		}
+	}
+	//	Get comment "database ready"
+	$comment 	= $database->Quote($comment);							// Used in sql!	
 	
 	//Check if user is logged in
 	if ($my->id) {

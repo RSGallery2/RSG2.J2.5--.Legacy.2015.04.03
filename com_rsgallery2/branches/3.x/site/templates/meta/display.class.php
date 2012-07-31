@@ -229,7 +229,11 @@ class rsgDisplay extends JObject{
 		$page		= JRequest::getCmd('page',Null);
 
 		// Get the gid in the URL of the active menu item
-		$menuGid = JSite::getMenu()->getActive()->query['gid'];
+		if (isset(JSite::getMenu()->getActive()->query['gid'])){
+			$menuGid = JSite::getMenu()->getActive()->query['gid'];
+		} else {
+			$menuGid = Null;
+		}
 		
 		// If RSG2 isn't the component being displayed, don't append meta data
 		if( $option != 'com_rsgallery2' )

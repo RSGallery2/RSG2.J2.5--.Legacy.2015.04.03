@@ -39,9 +39,16 @@ Legend:
 
 ---------------- Recent ----------------
 
----------------- 3.2.0 -- SVN 1091 -- 2012-07-13 -------------
+* --------------- 3.2.0 -- SVN 1098 -- 2012-07-31 -------------
 
-2011-07-13 Mirjam - SVN 1091
+2012-07-31 Mirjam - SVN 1096
+^ Comment form allows only bold/italic/underline and saves accordingly
+
+2012-07-26 Mirjam - SVN 1094
+^ Comments are limited to only have bold/italic/underline in them.
+^ For metadata: only get gid from menu item URL when one is set to avoid Notice.
+
+2012-07-13 Mirjam - SVN 1091
 + Added (empty) index.html to each directory
 
 2012-07-09 Mirjam - SVN 1090

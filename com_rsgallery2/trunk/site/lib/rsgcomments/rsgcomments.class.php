@@ -3,7 +3,7 @@
 * Comments plugin for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2003 - 2007 RSGallery2
+* @copyright (C) 2003 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
@@ -299,8 +299,8 @@ function editComment( $item_id ) {
 			<td>
 				<?php 
 				//Get Joomla! configuration setting: is TinyMCE used as editor?
-				$app =& JFactory::getApplication();
-				if ( $app->getCfg('editor') == 'tinymce'){
+				//$app =& JFactory::getApplication();
+				//if ( $app->getCfg('editor') == 'tinymce'){
 					// Get TinyMCE, but with limited number of buttons
 					?>
 					<script type="text/javascript">
@@ -308,7 +308,8 @@ function editComment( $item_id ) {
 							mode : "textareas",
 							theme : "advanced",
 							width : "300",
-							theme_advanced_buttons1 : "bold,italic,underline,separator,link,unlink",
+							theme_advanced_buttons1 : "bold,italic,underline",
+							//theme_advanced_buttons2 : "link,unlink",
 							theme_advanced_buttons2 : "",
 							theme_advanced_buttons3 : "",
 							theme_advanced_toolbar_location : "top",
@@ -318,10 +319,10 @@ function editComment( $item_id ) {
 					</script>
 					<textarea name="tcomment" id="tcomment" style="width:100%"></textarea>
 					<?php
-				} else {
+				//} else {
 					// parameters : control name, content, width, height, cols, rows, show editor buttons, params
-					echo $editor->display('tcomment',  '' , '200px', '100px', '10', '20' ,false) ;
-				}
+				//	echo $editor->display('tcomment',  '' , '200px', '100px', '10', '20' ,false) ;
+				//}
 				?>
 			</td>
 		</tr>
