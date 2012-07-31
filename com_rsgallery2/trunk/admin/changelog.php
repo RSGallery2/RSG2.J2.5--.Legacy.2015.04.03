@@ -32,12 +32,15 @@ Legend:
 
 ---------------- Recent ----------------
 
----------------- 2.3.0 ------- svn 1092 -- 2012-07-13 -------------
+* --------------- 2.3.0 ------- svn 1097 -- 2012-07-31 -------------
 
-2011-07-13 Mirjam - SVN 1092
+2012-07-31 Mirjam - SVN 1096
+^ Comment form allows only bold/italic/underline and saves accordingly
+
+2012-07-13 Mirjam - SVN 1092
 + Added (empty) index.html to each directory
 
-2011-07-05 Mirjam - SVN 1087
+2012-07-05 Mirjam - SVN 1087
 ^ Comments no longer use BBCode and are now saved as HTML
 
 2012-03-25 Mirjam - SVN 1070

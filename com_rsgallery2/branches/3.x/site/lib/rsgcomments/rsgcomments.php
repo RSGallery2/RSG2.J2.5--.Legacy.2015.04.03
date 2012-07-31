@@ -59,20 +59,36 @@ function saveComment( $option ) {
 	$Itemid 	= JRequest::getInt( 'Itemid'  , '');
 	$dateTime	= $database->quote(date('Y-m-d H:i:s'));				// Used in sql!
 
-	$comment 	= JRequest::getVar('tcomment','','POST','STRING',JREQUEST_ALLOWHTML); 
-	//$allowedTags 		= array('strong','em','a','b','i','u');
-	//$allowedAttribs 	= array('href');
-	//$filter 	= & JFilterInput::getInstance($allowedTags,$allowedAttribs);
-	//$comment 	= $filter->clean($comment);
-	$comment 	= $database->Quote($comment);							// Used in sql!
-	
 	$redirect_url = JRoute::_("index.php?option=".$option."&Itemid=$Itemid&page=inline&id=".$item_id, false);
-	
-	//Check if commenting is enabled
+
+	//Check if commenting is enabled (need $gid and $redirect_url)
 	if (!JFactory::getUser()->authorise('rsgallery2.comment','com_rsgallery2.gallery.'.$gid)) {
 		$mainframe->redirect($redirect_url, JText::_('COM_RSGALLERY2_COMMENTING_IS_DISABLED') );
 		exit();
 	}
+	
+	//Retrieve comment, filter it, do some more tests, get it database ready...
+	$comment 	= JRequest::getVar('tcomment','','POST','STRING',JREQUEST_ALLOWHTML); 
+	//	Clean the comment with the filter: strong, emphasis, underline (not a with attrib href for now)
+	$allowedTags 		= array('strong','em','u','p','br');
+	$allowedAttribs 	= array('');//array('href');
+	$filter 			= & JFilterInput::getInstance($allowedTags,$allowedAttribs);
+	$comment 			= $filter->clean($comment);
+	//	Now do some extra tests on this comment and if they not pass, redirect the user
+	$testFailed = false;
+	if (preg_match_all('/target="(.....)/',$comment,$matches)) {
+		foreach ($matches[1] as $match) {
+			// allowed are target="_self" and target="_blank" (whitch has one letter too many)
+			if (($match != "_self") AND ($match != "_blan")) {
+				$testFailed = true;
+			}
+		}
+		if ($testFailed){
+			$mainframe->redirect( $redirect_url, JText::_('COM_RSGALLERY2_COMMENT_COULD_NOT_BE_ADDED') );
+		}
+	}
+	//	Get comment "database ready"
+	$comment 	= $database->Quote($comment);							// Used in sql!	
 	
 	//Check if user is logged in
 	if ($my->id) {
