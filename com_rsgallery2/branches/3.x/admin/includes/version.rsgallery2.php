@@ -22,11 +22,11 @@ class rsgalleryVersion {
     /** @var int Main Release Level */
     var $RELEASE    = '3.2';				//Main Release Level: x.y for x.y.z
     /** @var string Development Status */
-    var $DEV_STATUS = 'Nightly';
+    var $DEV_STATUS = '';
     /** @var int Sub Release Level */
     var $DEV_LEVEL  = '0';					//Dev level z for x.y.z
     /** @var int build Number */
-    var $BUILD      = '';
+    var $BUILD      = 'SVN 1098';
     /** @var string Codename */
     var $CODENAME   = '';
     /** @var string Date */

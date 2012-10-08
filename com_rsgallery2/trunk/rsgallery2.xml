@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <install type="component" version="1.5.0" method="upgrade">
   <name>RSGallery2</name>
-  <creationDate>13 July 2012</creationDate>
+  <creationDate>31 July 2012</creationDate>
   <author>RSGallery2 Team</author>
   <copyright>This component is released under the GNU/GPL License</copyright>
   <authorEmail>team@rsgallery2.nl</authorEmail>

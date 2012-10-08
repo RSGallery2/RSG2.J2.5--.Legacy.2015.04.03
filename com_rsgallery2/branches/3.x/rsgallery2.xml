@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="1.6.0"  method="upgrade">
   <name>com_rsgallery2</name>
-  <creationDate>13 July 2012</creationDate>
+  <creationDate>31 July 2012</creationDate>
   <author>RSGallery2 Team</author>
   <copyright>This component is released under the GNU/GPL License</copyright>
   <authorEmail>team@rsgallery2.nl</authorEmail>

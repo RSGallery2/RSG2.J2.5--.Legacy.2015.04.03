@@ -311,6 +311,7 @@ table#rsg2-thumbsList tr{
 	display:inline;
 	border:1px solid #919B9C;
 	padding:0.25em 0.5em;
+	float: left;
 }
 .rsg2 dl.tabs dt.open
 {
@@ -322,6 +323,10 @@ table#rsg2-thumbsList tr{
 	border:1px solid #919B9C;
 	padding:0.5em;
 	margin-top:0.25em;
+	clear: both;
+}
+.rsg2 dl.tabs dt.tabs span h3 {
+	margin: 0.25em;
 }
 
 /****************** OLD CLASSES ********************/
@@ -454,4 +459,26 @@ p.rsg2-popup-description
 }
 img.rsg2-displayImage{
 	cursor:pointer;
+}
+
+/*** Pagination (based on http://joomla-css.nl/index.php/en/content-a-component-styles-en-16/pagination-general-en-16) ***/
+div.rsg_sem_inl_Nav div div.pagination{
+	border-top: 1px solid #DDDDDD;
+	border-bottom: 1px solid #DDDDDD;
+	clear: both;
+	text-align: center;
+	margin: 10px 0 10px 0;
+}
+div.rsg_sem_inl_Nav div div.pagination p.counter{
+	font-style: italic;
+}
+div.rsg_sem_inl_Nav div div.pagination ul{
+	list-style: none;
+	padding: 0 0 0 0;
+	margin: 1em 1em 1em 0;
+}
+div.rsg_sem_inl_Nav div div.pagination ul li{
+	list-style: none;
+	display: inline;		/* Display Start Prev 123 Next End on one line */
+	padding: 0 5px 0 5px;	/* Spacing between numbers */
 }
