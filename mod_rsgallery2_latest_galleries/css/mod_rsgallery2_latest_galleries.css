@@ -1,0 +1,45 @@
+/*	The entire module is contained in a div tag with class mod_rsgallery2_latest_galleries.
+	Inside that div, there is a table with class mod_rsgallery2_latest_galleries_table.
+	The table consists of rows, alternating between the name (with a colspan) and the images.
+	The images are in a link, so <td>-<a href...>-<img...>-</a>-</td>m none of them with classes.
+
+*/
+
+div.mod_rsgallery2_latest_galleries {
+	width:100%;
+	margin:0;
+	padding:0;
+	border-style: none;		/* no border */
+	overflow: visible;		/*visible/hidden/scroll/auto*/
+}
+table.mod_rsgallery2_latest_galleries_table {
+	margin: 10px;			/* a little room around the table */
+}
+table.mod_rsgallery2_latest_galleries_table tr {
+	border-style: none;		/* no border for table row */
+}
+table.mod_rsgallery2_latest_galleries_table td {
+	border-style: none;		/* no border for table cell */
+	padding: 4px 0 0 0;		/* a little space at the top of the cell */
+}
+.mod_rsgallery2_latest_galleries-cell {
+	margin: 2px;			/* Spacing between images */
+	text-align: center;
+}
+div.mod_rsgallery2_latest_galleries_name {
+	text-align: center;
+}
+div.mod_rsgallery2_latest_galleries_date {
+	text-align: center;
+}
+.mod_rsgallery2_latest_galleries-cell img {
+	display: 		block;
+	position: 		relative;
+	margin-left:	auto;
+	margin-right:	auto;
+}
+div.mod_rsgallery2_latest_galleries_attibutes{
+	/* If you don't set a height/width in the backend, you can use this to set it. */
+	/* width: 100px;  */
+	/* height: 100px; */
+}
