@@ -399,8 +399,9 @@ class plgContentrsgallery2_singledisplay extends JPlugin {
 	 * @return object
 	 */
 	function rsgallery2_singledisplay_parameters () {
+		jimport('joomla.html.parameter');
 		$pluginName = 'rsgallery2_singledisplay';
-		$plugin =& JPluginHelper::getPlugin('content', $pluginName);
+		$plugin = JPluginHelper::getPlugin('content', $pluginName);
 		$pluginParams = new JParameter( $plugin->params );
 
 		$this->popup_style = $pluginParams->get('popup_style', 'normal_popup');
