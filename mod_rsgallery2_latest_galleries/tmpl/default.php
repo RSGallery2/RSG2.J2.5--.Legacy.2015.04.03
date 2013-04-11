@@ -7,25 +7,25 @@
 
 defined('_JEXEC') or die('Restricted access');
 ?>
-<div class="mod_rsgallery2_latest_galleries">
-	<table class="mod_rsgallery2_latest_galleries_table" >
-		<?php
+<div class="mod_rsgallery2_latest_images">
+	<table class="mod_rsgallery2_latest_images_table" >
+		<?php 
 		$item = 0;
 		for ($row = 1; $row <= $countrows; $row++) {
-			// If there still is a gallery image to show, start a new row
-			if (!isset($latestGalleries[$item])) {
+			// If there still is am image to show, start a new row
+			if (!isset($latestImages[$item])) {
 				continue;
 			}
 			echo '<tr>';
 			for ($column = 1; $column <= $countcolumns; $column++) {
 				echo '<td>';
 				// If there still is a gallery image to show, show it, otherwise, continue
-				if (!isset($latestGalleries[$item])) {
+				if (!isset($latestImages[$item])) {
 					continue;
 				}
-				// Get the gallery, and the name of the item to show
-				$gallery = new rsgGallery($latestGalleries[$item]);
-				$itemName = $gallery->thumb->name;
+				$image = $latestImages[$item];
+				// Get the name of the item to show
+				$itemName = $image['name'];
 				
 				// Create HTML for image: get the url (with/without watermark) with img attribs
 				if ($displaytype == 1) {
@@ -40,34 +40,31 @@ defined('_JEXEC') or die('Restricted access');
 					$HTML = '<img class="rsg2-displayImage" src="'.$imageOriginalUrl.'" alt="'.$itemName.'" title="'.$itemName.'" '.$imgAttributes.'/>';
 				} else {
 					// *** thumb ***
-					$HTML = galleryUtils::getThumb( $gallery->get('id'),$imageheight,$imagewidth,"mod_rsgallery2_latest_galleries_img" );	// thumbid, height, width, class				
+					$imageThumbUrl = imgUtils::getImgThumb( $itemName );
+					$HTML = '<img class="rsg2-displayImage" src="'.$imageThumbUrl.'" alt="'.$itemName.'" title="'.$itemName.'" '.$imgAttributes.'/>';
 				}
-				$name	= $gallery->name;
-				$date	= $gallery->date;
+				$name	= $image['name'];
+				$date	= $image['date'];
 
 				// Show it
 				?>
-				<div class="mod_rsgallery2_latest_galleries_attibutes" <?php echo $divAttributes;?>>
-					<div class="mod_rsgallery2_latest_galleries-cell">
-						<a href="<?php echo $gallery->url;?>">
-							
+				<div class="mod_rsgallery2_latest_images_attibutes" <?php echo $divAttributes;?>>
+					<div class="mod_rsgallery2_latest_images-cell">
 							<?php echo $HTML;?>
-							
-						</a>
 					</div>
 					
 					<div style="clear:both;"></div>
 					<?php
 					if ($displayname) {
 					?>
-						<div class="mod_rsgallery2_latest_galleries_name" <?php echo $divNameAttributes;?>>
+						<div class="mod_rsgallery2_latest_images_name" <?php echo $divNameAttributes;?>>
 							<?php echo $name;?>
 						</div>
 					<?php
 					}
 					if ($displaydate) {
 					?>
-						<div class="mod_rsgallery2_latest_galleries_date">
+						<div class="mod_rsgallery2_latest_images_date">
 							<?php echo date($dateformat,strtotime($date));  ?>
 						</div>
 					<?php 
@@ -83,7 +80,7 @@ defined('_JEXEC') or die('Restricted access');
 		
 	?>
 	</table>
-	<table class="mod_rsgallery2_latest_galleries_table" >
+	<table class="mod_rsgallery2_latest_images_table" >
 	<?php
 		?>
 	</table>
