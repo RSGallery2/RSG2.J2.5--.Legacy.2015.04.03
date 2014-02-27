@@ -921,6 +921,7 @@ class waterMarker extends GD2 {
     /**
      * Function that takes an image and returns the url to watermarked image
      * @param string Name of the image in question
+	 * @param string ImageType is either 'display' or 'original' and will precide the output filename
      * @param string Font used for watermark
      * @param string Text size in pixels
      * @param int Vertical spacing between text
@@ -931,11 +932,11 @@ class waterMarker extends GD2 {
     function showMarkedImage($imagename, $imagetype = 'display', $font="arial.ttf", $shadow = true){
     global $rsgConfig, $mainframe;
 
-		$pepper = 'RSG2Watermarked';
-		$salt = JApplication::getCfg('secret');
-		$filename = $imagetype.md5($pepper.$imagename.$salt).'.jpg';
-		
-		if(!JFile::exists(JPATH_WATERMARKED. DS . $filename)){
+    	
+        $watermarkfilename = waterMarker::createWatermarkedFileName ($imagename, $imagetype);
+	    $watermarkpathfilename = waterMarker::PathFileName ($watermarkfilename);
+	    
+		if(!JFile::exists($watermarkpathfilename)){
 			if ( $imagetype == 'display')
 				$imagepath = JPATH_DISPLAY . DS . $imagename.".jpg";
 			else
@@ -948,11 +949,53 @@ class waterMarker extends GD2 {
 			$imark->size = $rsgConfig->get('watermark_font_size');
 			$imark->shadow= $shadow;
 			$imark->angle = $rsgConfig->get('watermark_angle');
-			$imark->imageTargetPath = JPATH_WATERMARKED . DS . $filename;
+			$imark->imageTargetPath = $watermarkpathfilename;
+			
 			$imark->mark($imagetype); //draw watermark
 		}
-		return trim(JURI_SITE,'/') . $rsgConfig->get('imgPath_watermarked') . '/' . $filename ;
-    
+		return trim(JURI_SITE,'/') . $rsgConfig->get('imgPath_watermarked') . '/' . $watermarkfilename ;
 	}
+	
+	
+	/**
+	 * Function creates file name of watermarked image using MD5 on name
+	 * Three functions exists for the access of the filename to do the MD5 just once
+	 * @param string Name of the image in question
+	 * @param string Image type is either 'display' or 'original' and will precide the output filename
+	 * @return MD5 name of watermarked image (example "displayc4cef3bababbff9e68015992ff6b8cbb.jpg")
+	 */
+	
+    function createWatermarkedFileName ($imagename, $imagetype) {
+
+		$pepper = 'RSG2Watermarked';
+		$salt = JApplication::getCfg('secret');
+		$filename = $imagetype.md5($pepper.$imagename.$salt).'.jpg';
+		
+		return $filename;
+	}
+		
+	/**
+	 * Function adds the path to the given watermarked Md5 file name 
+	 * @return url to watermarked image
+	 */
+	
+	function PathFileName ($watermarkedfilename) {
+		$pathfilename = JPATH_WATERMARKED . DS . $watermarkedfilename;
+	
+		return $pathfilename;
+	}
+	
+	/** 
+	 * Function creates path and file name of watermarked image
+	 * @param string Name of the image in question
+	 * @return url to watermarked image
+	 */
+	
+	function createWatermarkedPathFileName ($imagename, $imagetype) {
+		$pathfilename = waterMarker::PathFileName(waterMarker::createWatermarkedFileName ($imagename, $imagetype));
+		
+		return $pathfilename;
+	} 
+		
 }//END CLASS WATERMARKER
 ?>
