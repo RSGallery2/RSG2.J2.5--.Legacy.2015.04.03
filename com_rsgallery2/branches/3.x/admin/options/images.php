@@ -312,6 +312,7 @@ function saveImage( $option, $redirect = true ) {
 
 /**
 * Deletes one or more records
+* Deletes the sister images in pathes original, display, thumb and watermark  too
 * @param array An array of unique category id numbers
 * @param string The current url option
 */
@@ -327,13 +328,20 @@ function removeImages( $cid, $option ) {
 	}
 	//Delete images from filesystem
 	if (count( $cid )) {
+		
+		$isWatermarked = $rsgConfig->get('watermark');
+		
 		//Delete images from filesystem
 		foreach ($cid as $id) {
 			$name 		= galleryUtils::getFileNameFromId($id);
 			$thumb 		= JPATH_ROOT.$rsgConfig->get('imgPath_thumb') . '/' . imgUtils::getImgNameThumb( $name );
         	$display 	= JPATH_ROOT.$rsgConfig->get('imgPath_display') . '/' . imgUtils::getImgNameDisplay( $name );
         	$original 	= JPATH_ROOT.$rsgConfig->get('imgPath_original') . '/' . $name;
-        
+
+        	$oWaterMarker = new waterMarker();
+       		$WaterMakerDisplay = $oWaterMarker->createWatermarkedPathFileName ($name,'display');
+       		$WaterMakerOriginal = $oWaterMarker->createWatermarkedPathFileName ($name,'original');
+        	
         	if( file_exists( $thumb )){
             	if( !JFile::delete( $thumb )){
 				JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_THUMB_IMAGE') ." ". $thumb);
@@ -355,6 +363,22 @@ function removeImages( $cid, $option ) {
 				return;
 				}
 			}
+			
+        	if( file_exists( $WaterMakerDisplay )){
+				if( !JFile::delete( $WaterMakerDisplay )){
+					JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_$WATERMARKED_DISPLAY_IMAGE') ." ". $WaterMakerDisplay);
+					$mainframe->redirect( $return );
+					return;
+				}
+			}
+        	if( file_exists( $WaterMakerOriginal )){
+				if( !JFile::delete( $WaterMakerOriginal )){
+					JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_WATERMARKED_ORIGINAL_IMAGE') ." ". $WaterMakerOriginal);
+					$mainframe->redirect( $return );
+					return;
+				}
+			}
+		
 			//Delete from database
 			$row = new rsgImagesItem( $database );
 			if (!$row->delete($id)){
