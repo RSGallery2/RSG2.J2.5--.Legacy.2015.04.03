@@ -146,11 +146,15 @@ function showImages( $option ) {
 	. ( count( $where ) ? "\n WHERE " . implode( ' AND ', $where ) : "")
 	. "\n ORDER BY a.gallery_id, a.ordering"
 	;
-	$database->setQuery( $query, $pageNav->limitstart, $pageNav->limit );
-
-	$rows = $database->loadObjectList();
-	if ($database->getErrorNum()) {
-		echo $database->stderr();
+	
+	try
+	{
+		$database->setQuery( $query, $pageNav->limitstart, $pageNav->limit );
+		$rows = $database->loadObjectList();
+	}
+	catch (RuntimeException $e)
+	{
+		echo $e->getMessage() ); 
 		return false;
 	}
 
@@ -159,6 +163,8 @@ function showImages( $option ) {
 	$lists['gallery_id'] = galleryUtils::galleriesSelectList( $gallery_id, 'gallery_id', false, $javascript );
 	$lists['move_id'] = galleryUtils::galleriesSelectList( $gallery_id, 'move_id', false, '', 0 );
 	html_rsg2_images::showImages( $option, $rows, $lists, $search, $pageNav );
+	
+	return true;
 }
 
 /**

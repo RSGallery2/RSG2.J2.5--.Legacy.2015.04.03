@@ -253,9 +253,17 @@ class rsgConfig {
 				$this->exifTags = implode("|", $config['exifTags']);
 		}
 	
-		$db->setQuery( "TRUNCATE #__rsgallery2_config" );
-		$db->query() or JError::raiseError( $dg->getErrorNum, $db->getErrorMsg() ); 
-
+		try
+		{
+			$db->setQuery( "TRUNCATE #__rsgallery2_config" );
+			$db->query();
+		}	
+		catch (RuntimeException $e)
+		{
+			echo $e->getMessage() ); 
+			return false;
+		}
+		
 		$query = 'INSERT INTO `#__rsgallery2_config` ( `name`, `value` ) VALUES ';
 
 		$vars = $this->getPublicVars();
@@ -264,8 +272,16 @@ class rsgConfig {
 		}
 
 		$query = substr( $query, 0, -2 );
-		$db->setQuery( $query );
-		$db->query() or JError::raiseError( $dg->getErrorNum, $db->getErrorMsg() ); 
+		try
+		{
+			$db->setQuery( $query );
+			$db->query();
+		}	
+		catch (RuntimeException $e)
+		{
+			echo $e->getMessage() ); 
+			return false;
+		}
 
 		return true;
 	}

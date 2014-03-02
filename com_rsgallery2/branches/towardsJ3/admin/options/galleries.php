@@ -106,14 +106,17 @@ function show(){
 	. " LEFT JOIN #__viewlevels AS vl ON vl.id = a.access"
     . " ORDER BY a.ordering"
     ;
-    $database->setQuery( $query );
-
-    $rows = $database->loadObjectList();
-    if ($database->getErrorNum()) {
-        echo $database->stderr();
-        return false;
-    }
-
+	try
+	{
+		$database->setQuery( $query );
+		$rows = $database->loadObjectList();
+	}
+	catch (RuntimeException $e)
+	{
+		echo $e->getMessage() ); 
+		return false;
+	}
+		
     // establish the hierarchy of the menu
     $children = array();
     // first pass - collect children
