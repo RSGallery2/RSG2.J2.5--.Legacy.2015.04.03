@@ -8,6 +8,8 @@
 * RSGallery2 is Free Software
 */
 
+defined( '_JEXEC' ) or die( 'Access Denied.' ); 
+
 /**
 * The generic item class
 * @package RSGallery2

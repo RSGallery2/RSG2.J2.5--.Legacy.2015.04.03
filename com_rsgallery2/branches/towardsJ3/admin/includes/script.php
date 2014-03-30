@@ -1,3 +1,17 @@
+/**
+ * ???
+ * @version $Id: script.php 1011 2014-03-22 15:36:02Z mirjam $
+ * @package RSGallery2
+ * @copyright (C) 2003 - 2006 RSGallery2
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ */
+  
+/* 
+	Looks more like a javascript file than a php file
+	
+	defined( '_JEXEC' ) or die( 'Access Denied.' ); 	// Set for JED Checker
+*/
+
 <script type="text/javascript">
 // Set the "inside" HTML of an element.
 function setInnerHTML(element, toValue)
