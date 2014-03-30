@@ -1,6 +1,15 @@
 <?php
 
 /**
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * RSGallery is Free Software
+ * Header included for use of JED Checker
+ * Textfile for "deprecated" tasks to do or done for RSGallery2
+ * 
+ */ 
+
+ 
+/**
  * Project:     Securimage: A PHP class for creating and managing form CAPTCHA images<br />
  * File:        securimage_show.php<br />
  *

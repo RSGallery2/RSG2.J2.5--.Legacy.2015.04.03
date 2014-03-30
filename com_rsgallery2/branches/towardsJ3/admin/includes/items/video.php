@@ -7,6 +7,7 @@
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
+defined( '_JEXEC' ) or die( 'Access Denied.' ); 
 
 /**
 * The generic item class
@@ -32,7 +33,7 @@ class rsgItem_video extends rsgItem{
 	
 	/**
 	 * @return the thumbnail
-	 * @todo: we need to return video humbnail
+	 * @todo: we need to return video thumbnail
 	 */
 	function thumb(){
 		return $this->thumb;
