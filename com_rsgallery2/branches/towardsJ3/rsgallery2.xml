@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="component" version="2.5"  method="upgrade">
+<extension type="component" version="3.0"  method="upgrade">
   <name>com_rsgallery2</name>
   <creationDate>October 2013</creationDate>
   <author>RSGallery2 Team</author>
-  <copyright>This component is released under the GNU/GPL License</copyright>
+  <copyright>(c) 2014 RSGallery2 Team</copyright>
+  <license>This component is released under the GNU/GPL License</license>
   <authorEmail>team@rsgallery2.nl</authorEmail>
   <authorUrl>http://www.rsgallery2.nl</authorUrl>
-  <version>3.3.0a</version>
+  <version>4.0.0</version>
   <description>COM_RSGALLERY2_XML_DESCRIPTION</description>
   
   <scriptfile>install.rsgallery2.php</scriptfile>
   <install folder="admin">
 	<sql>
-		<file driver="mysql" charset="utf8">sql/rsgallery2.sql</file>
+		<file driver="mysql" charset="utf8">sql/install.mysql.rsgallery2.sql</file>
 	</sql>
-  </install> 	
-  
+  </install> 
+  <uninstall>
+	<sql>
+		<file driver="mysql" charset="utf8">sql/uninstall.mysql.rsgallery2.sql</file>
+	</sql>
+  </uninstall> 	
+  <update> <!-- Runs on update; New in 2.5 -->
+	<schemas>
+       <schemapath type="mysql">sql/updates/mysql</schemapath>
+	</schemas>
+  </update> 
+
   <files folder="site">
     <folder>flash</folder>
     <folder>images</folder>
@@ -31,10 +42,10 @@
     <filename>slideshow.rsgallery2.php</filename>
   </files>
 
-  <installfile>install.rsgallery2.php</installfile>
-  <uninstallfile>uninstall.rsgallery2.php</uninstallfile>
+  <scriptfile>install.rsgallery2.php</scriptfile>
+  <scriptfile>uninstall.rsgallery2.php</scriptfile>
 
-  <languages folder="languages">
+  <languages folder="language">
     <language tag="da-DK">da-DK.com_rsgallery2.ini</language>
 	<language tag="de-DE">de-DE.com_rsgallery2.ini</language>
 	<language tag="el-GR">el-GR.com_rsgallery2.ini</language>
@@ -55,14 +66,21 @@
   </languages>
 
   <administration>
-    <menu view="com_rsgallery2" img="components/com_rsgallery2/images/rsg2_menu.png">com_rsgallery2</menu>
+    <menu view="com_rsgallery2" 
+		img="components/com_rsgallery2/images/rsg2_menu.png">com_rsgallery2</menu>
     <submenu>
 	  <!-- Note that all & must be escaped to &amp; for the file to be valid XML and be parsed by the installer -->
-      <menu view="COM_RSGALLERY2_MENU_CONTROL_PANEL" link="option=com_rsgallery2" img="class:config">COM_RSGALLERY2_MENU_CONTROL_PANEL</menu>
-      <menu view="COM_RSGALLERY2_MENU_BATCH_UPLOAD" link="option=com_rsgallery2&amp;rsgOption=images&amp;task=batchupload">COM_RSGALLERY2_MENU_BATCH_UPLOAD</menu>
-      <menu view="COM_RSGALLERY2_MENU_UPLOAD" link="option=com_rsgallery2&amp;rsgOption=images&amp;task=upload">COM_RSGALLERY2_MENU_UPLOAD</menu>
-      <menu view="COM_RSGALLERY2_MENU_GALLERIES" link="option=com_rsgallery2&amp;rsgOption=galleries">COM_RSGALLERY2_MENU_GALLERIES</menu>
-      <menu view="COM_RSGALLERY2_MENU_ITEMS" link="option=com_rsgallery2&amp;rsgOption=images">COM_RSGALLERY2_MENU_ITEMS</menu>
+      <menu view="COM_RSGALLERY2_MENU_CONTROL_PANEL" 
+			img="class:config"
+			link="option=com_rsgallery2">COM_RSGALLERY2_MENU_CONTROL_PANEL</menu>
+      <menu view="COM_RSGALLERY2_MENU_BATCH_UPLOAD" 
+			link="option=com_rsgallery2&amp;rsgOption=images&amp;task=batchupload">COM_RSGALLERY2_MENU_BATCH_UPLOAD</menu>
+      <menu view="COM_RSGALLERY2_MENU_UPLOAD" 
+			link="option=com_rsgallery2&amp;rsgOption=images&amp;task=upload">COM_RSGALLERY2_MENU_UPLOAD</menu>
+      <menu view="COM_RSGALLERY2_MENU_GALLERIES" 
+			link="option=com_rsgallery2&amp;rsgOption=galleries">COM_RSGALLERY2_MENU_GALLERIES</menu>
+      <menu view="COM_RSGALLERY2_MENU_ITEMS"
+			link="option=com_rsgallery2&amp;rsgOption=images">COM_RSGALLERY2_MENU_ITEMS</menu>
     </submenu>
 
     <files folder="admin">
@@ -106,6 +124,8 @@
 		<language tag="pt-BR">languages/pt-BR.com_rsgallery2.ini</language>
 		<language tag="sl-SI">languages/sl-SI.com_rsgallery2.ini</language>
 		<language tag="tr-TR">languages/tr-TR.com_rsgallery2.ini</language>
+		<!-- TODO:: Following files are missing ? reverence to other files -->
+		<!-- TODO:: Divide files into site and admin parts -->
 		<!-- Note: .sys.ini for menu and install-->
 		<language tag="da-DK">admin/language/da-DK/da-DK.com_rsgallery2.sys.ini</language>
 		<language tag="de-DE">admin/language/de-DE/de-DE.com_rsgallery2.sys.ini</language>
@@ -125,21 +145,18 @@
 		<language tag="sl-SI">admin/language/sl-SI/sl-SI.com_rsgallery2.sys.ini</language>
 		<language tag="tr-TR">admin/language/tr-TR/tr-TR.com_rsgallery2.sys.ini</language>
 	</languages>
-
-
 	
   </administration>
 
 
   
   <updateservers>
-	<!-- Note: No spaces or linebreaks allowed between the server tags -->
+	<!-- Note: No spaces or line breaks allowed between the server tags -->
 	<!-- 
 	<server type="extension" priority="1" name="RSGallery2 Update Site">http://.../update/rsgallery2.xml</server>
 	on http://joomlacode.org/gf/project/embedchessboard/scmsvn/?action=browse&path=%2Ftrunk%2Fjoomla-1.6%2Fembedchessboard.xml&view=markup
 	it says
 	<server type="extension" priority="1" name="EmbedChessboard update site">http://anonymous:doesnotmatter@joomlacode.org/svn/embedchessboard/trunk/joomla-1.6-update</server>
-	</updateservers>
- -->
+	-->
   </updateservers>  
 </extension>
