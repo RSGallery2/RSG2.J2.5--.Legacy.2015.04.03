@@ -37,8 +37,30 @@ Legend:
   To do: Delete galleries: create filter in gallery view and check that delete-permission is granted for deleting subgalleries/images. Right now you may delete everything if you have delete permission for the component, even if an item/(sub)gallery doesn't have delete permission.
   To do: Convert JParameter to JForm http://docs.joomla.org/Adapting_a_Joomla_1.5_extension_to_Joomla_1.6#Converting_Your_JParameters_to_JForms
 
+! To do: 
+	^ Language files in rsgallery2.xml moved according "Language file naming conventions
+	  and precedence: www.http://docs.joomla.org/Specification_of_language_files"
+	  Example folder path: language/en-GB/en-GB.com_rsgallery2.ini
+	  Lang files for backend are just copied from the common ones 
+! To do: 
+	^ Language files missing
+		language/en-GB/en-GB.com_rsgallery2.sys.ini
+		
+		
 ---------------- Recent ----------------
 
+
+* --------------- 4.0.0 -- SVN 1109 -- 2014-??-?? -------------
+
+2014.04.01 whazzup
+Improved sql upgrade. It resides in an own folder sql/update now. Updated rsgallery2.xml for it.
+
+Didn't check if all changes do install. Did try to use "sql - upgrade" on other sources though which have worked
+Don't know if "scriptfile" works in rsgallery2.xml for uninstall 
+  <scriptfile>install.rsgallery2.php</scriptfile>
+  <scriptfile>uninstall.rsgallery2.php</scriptfile>
+
+  
 * --------------- 3.2.0 -- SVN 1098 -- 2012-07-31 -------------
 
 2012-07-31 Mirjam - SVN 1096

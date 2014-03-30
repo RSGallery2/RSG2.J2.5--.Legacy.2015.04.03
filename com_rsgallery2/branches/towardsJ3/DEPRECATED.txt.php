@@ -1,7 +1,28 @@
+<?php
+/**
+* Textfile for "deprecated" tasks to do or done for RSGallery2
+* @version $Id: Deprecated.txt.php 1085 2014-03-22 13:44:29Z whazzup $
+* @package RSGallery2
+* @copyright (C) 2003 - 2006 RSGallery2
+* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+* RSGallery is Free Software
+*/
+defined( '_JEXEC' ) or die();
+
+/**
+ * Header included for use of JED Checker
+ * Textfile for "deprecated" tasks to do or done for RSGallery2
+ * 
+ */ 
+
+ 
+ 
+ 
+
 In Joomla 2.5 Backend > Extensions > Plug-in Manager > Plugin: System - Debug > Setting: Logging: Log deprecated API = Yes, gives us a file with notices about functions used that are deprecated in J2.5 (and thus will not be available in J3).
 - Googling notices might give info on what to change where and how to change it
 - Finding out which function triggers such notice ("find in files" of (part of) the text on Joomla's code) might give some insight in what to change
-=> A start is made here with a TODO and a DONE list, including informating on what to change
+=> A start is made here with a TODO and a DONE list, including information on what to change
 
 TODO
 ? JDatabase::getErrorMsg() is deprecated, use exception handling instead. ==> J3 is still using this?
