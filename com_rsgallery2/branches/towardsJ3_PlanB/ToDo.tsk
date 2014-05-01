@@ -1,0 +1,26 @@
+// SimpleTaskFile: ToDo, FileId: Base@20140427_155758.333, Version: 100::
+- ToDo: ..::Install preflight
+-> install: delete folder and database left overs (see other acces for preflights
+-> update: check if database and fiolders exists
+- ToDo: ..::after install: ??COM_RSGALLERY2_INSTALLATION_OF_RSGALLERY_IS_COMPLETED??
+??COM_RSGALLERY2_CONTROL_PANEL??
+??COM_RSGALLERY2_CONTROL_PANEL??
+- ToDo: ..::after install: ??COM_RSGALLERY2_DIRECTORY_STRUCTURE_DELETED??
+??COM_RSGALLERY2_FOLDER_IS_CREATED?
+
+- ToDo: ...::2014-04-27T16:26:46+00:00	WARNING	deprecated	JError::raiseWarning() is deprecated.
+2014-04-27T16:26:46+00:00	WARNING	deprecated	JError::raise() is deprecated.
+2014-04-27T16:26:46+00:00	WARNING	deprecated	JException is deprecated.
+2014-04-27T16:26:46+00:00	WARNING	deprecated	JError::addToStack() is deprecated.
+2014-04-27T16:26:46+00:00	WARNING	deprecated	JError::throwError() is deprecated.
+2014-04-27T16:26:46+00:00	WARNING	deprecated	JException::get is deprecated.
+2014-04-27T16:26:46+00:00	WARNING	deprecated	JError::getErrorHandling() is deprecated.
+2014-04-27T16:26:46+00:00	WARNING	deprecated	JError::hanleMessage() is deprecated.
+2014-04-27T16:26:46+00:00	WARNING	deprecated	JException::get is deprecated.
+2014-04-27T16:26:46+00:00	WARNING	deprecated	JException::get is deprecated.
+
+- ToDo: ...:: Use PHP Exception for JError::raiseWarning -> trigger_error() Using E_WARNING as the 2nd argument
+- ToDo: ...:: Use PHP Exception for JError::raiseNotice -> 
+- ToDo: ...:: Use PHP Exception for JError::raiseError -> throw new Exception('Division durch Null.');
+- ToDo: ...:: 
+- ToDo: ...:: 
