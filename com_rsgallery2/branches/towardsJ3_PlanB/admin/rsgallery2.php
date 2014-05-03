@@ -12,7 +12,7 @@ defined( '_JEXEC' ) or die( 'Access Denied.' );
 //Initialize RSG2 core functionality
 require_once( JPATH_SITE.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
 
-//Instantate user variables but don't show a frontend template
+//Instantiate user variables but don't show a front end template
 rsgInstance::instance( 'request', false );
 
 //Load Tooltips
@@ -44,7 +44,15 @@ $uploadStep			= JRequest::getInt('uploadStep', 0 );
 $numberOfUploads	= JRequest::getInt('numberOfUploads', 1 );
 //$e_id				= JRequest::getInt('e_id', 1 );//Removed after 3.1.0
 
-$cid    = JRequest::getInt('cid', array(0) );
+
+// 140503: wrong: init int with array Array 
+// $cid    = JRequest::getInt('cid', array(0) );
+// better:
+// $cid    = JRequest::getVar('cid', array(0) );
+// or use 
+//	$order 		= JRequest::getVar( 'order', array(0), 'post', 'array' );
+// 	JArrayHelper::toInteger($order, array(0));
+$firstCid = JRequest::getInt('cid', 0);
 $id     = JRequest::getInt('id', 0 );
 
 $rsgOption = JRequest::getCmd('rsgOption', null );
@@ -81,79 +89,80 @@ switch( $rsgOption ) {
     	break;
 }
 
-// only use the legacy task switch if rsgOption is not used. [MK not truely legacy but still used!]
+// only use the legacy task switch if rsgOption is not used. [MK not truly legacy but still used!]
 // these tasks require admin or super admin privledges.
-if( $rsgOption == '' )	
-switch ( JRequest::getCmd('task', null) ){
-	//Special/debug tasks
-    case 'purgeEverything':
-        purgeEverything();	//canAdmin check in this function
-        HTML_RSGallery::showCP();
-        HTML_RSGallery::RSGalleryFooter();
-        break;
-    case 'reallyUninstall':
-        reallyUninstall();	//canAdmin check in this function
-        HTML_RSGallery::showCP();
-        HTML_RSGallery::RSGalleryFooter();
-        break;
-    //Config tasks
-    // this is just a kludge until all links and form vars to configuration functions have been updated to use $rsgOption = 'config';
-    /*
-    case 'applyConfig':
-    case 'saveConfig':
-    case "showConfig":
-    */
-    case 'config_dumpVars':
-    case 'config_rawEdit_apply':
-    case 'config_rawEdit_save':
-    case 'config_rawEdit':
-		$rsgOption = 'config';
-		require_once( $rsgOptions_path . 'config.php' );
-    break;
-	//Image tasks
-    case "edit_image":
-        HTML_RSGallery::RSGalleryHeader('edit', JText::_('COM_RSGALLERY2_EDIT'));
-        editImageX($option, $cid[0]);
-        HTML_RSGallery::RSGalleryFooter();
-        break;
+if( $rsgOption == '' ){
+	switch ( JRequest::getCmd('task', null) ){
+		//Special/debug tasks
+		case 'purgeEverything':
+			purgeEverything();	//canAdmin check in this function
+			HTML_RSGallery::showCP();
+			HTML_RSGallery::RSGalleryFooter();
+			break;
+		case 'reallyUninstall':
+			reallyUninstall();	//canAdmin check in this function
+			HTML_RSGallery::showCP();
+			HTML_RSGallery::RSGalleryFooter();
+			break;
+		//Config tasks
+		// this is just a kludge until all links and form vars to configuration functions have been updated to use $rsgOption = 'config';
+		/*
+		case 'applyConfig':
+		case 'saveConfig':
+		case "showConfig":
+		*/
+		case 'config_dumpVars':
+		case 'config_rawEdit_apply':
+		case 'config_rawEdit_save':
+		case 'config_rawEdit':
+			$rsgOption = 'config';
+			require_once( $rsgOptions_path . 'config.php' );
+		break;
+		//Image tasks
+		case "edit_image":
+			HTML_RSGallery::RSGalleryHeader('edit', JText::_('COM_RSGALLERY2_EDIT'));
+			editImageX($option, firstCid);
+			HTML_RSGallery::RSGalleryFooter();
+			break;
 
-    case "uploadX":
-		JFactory::getApplication()->enqueueMessage( 'Marked for removal: uploadX', 'Notice' );
-        HTML_RSGallery::RSGalleryHeader('browser', JText::_('COM_RSGALLERY2_UPLOAD'));
-        showUpload();
-        HTML_RSGallery::RSGalleryFooter();
-        break;
+		case "uploadX":
+			JFactory::getApplication()->enqueueMessage( 'Marked for removal: uploadX', 'Notice' );
+			HTML_RSGallery::RSGalleryHeader('browser', JText::_('COM_RSGALLERY2_UPLOAD'));
+			showUpload();
+			HTML_RSGallery::RSGalleryFooter();
+			break;
 
-    case "batchuploadX":
-		JFactory::getApplication()->enqueueMessage( 'Marked for removal: batchuploadX', 'Notice' );
-        HTML_RSGallery::RSGalleryHeader('', JText::_('COM_RSGALLERY2_UPLOAD_ZIP-FILE'));
-        batch_upload($option, $task);
-        HTML_RSGallery::RSGalleryFooter();
-        break;
-    case "save_batchuploadX":
-		JFactory::getApplication()->enqueueMessage( 'Marked for removal: save_batchuploadX', 'Notice' );
-        save_batchupload();
-        break;
-    //Image and category tasks
-    case "categories_orderup":
-    case "images_orderup":
-        orderRSGallery( $cid[0], -1, $option, $task );
-        break;
-    case "categories_orderdown":
-    case "images_orderdown":
-        orderRSGallery( $cid[0], 1, $option, $task );
-        break;
-	//Special/debug tasks
-    case 'viewChangelog':
-        HTML_RSGallery::RSGalleryHeader('viewChangelog', JText::_('COM_RSGALLERY2_CHANGELOG'));
-        viewChangelog();
-        HTML_RSGallery::RSGalleryFooter();
-        break;
-    case "controlPanel":
-    default:
-        HTML_RSGallery::showCP();
-        HTML_RSGallery::RSGalleryFooter();
-        break;
+		case "batchuploadX":
+			JFactory::getApplication()->enqueueMessage( 'Marked for removal: batchuploadX', 'Notice' );
+			HTML_RSGallery::RSGalleryHeader('', JText::_('COM_RSGALLERY2_UPLOAD_ZIP-FILE'));
+			batch_upload($option, $task);
+			HTML_RSGallery::RSGalleryFooter();
+			break;
+		case "save_batchuploadX":
+			JFactory::getApplication()->enqueueMessage( 'Marked for removal: save_batchuploadX', 'Notice' );
+			save_batchupload();
+			break;
+		//Image and category tasks
+		case "categories_orderup":
+		case "images_orderup":
+			orderRSGallery( firstCid, -1, $option, $task );
+			break;
+		case "categories_orderdown":
+		case "images_orderdown":
+			orderRSGallery( firstCid, 1, $option, $task );
+			break;
+		//Special/debug tasks
+		case 'viewChangelog':
+			HTML_RSGallery::RSGalleryHeader('viewChangelog', JText::_('COM_RSGALLERY2_CHANGELOG'));
+			viewChangelog();
+			HTML_RSGallery::RSGalleryFooter();
+			break;
+		case "controlPanel":
+		default:
+			HTML_RSGallery::showCP();
+			HTML_RSGallery::RSGalleryFooter();
+			break;
+	}
 }
 
 /**

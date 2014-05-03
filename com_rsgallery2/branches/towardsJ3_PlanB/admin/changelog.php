@@ -30,28 +30,27 @@ Legend:
 - -> Removed
 ! -> Note
 
+
+! To do: Don't install/remove database table #__rsgallery2_acl
+! To do: Backend: Installation of template does not function (yet).
+! To do: find all 'config_' links that don't have rsgOption=config and add it.
+  To do: Delete galleries: create filter in gallery view and check that delete-permission is granted for deleting subgalleries/images. Right now you may delete everything if you have delete permission for the component, even if an item/(sub)gallery doesn't have delete permission.
+  To do: Convert JParameter to JForm http://docs.joomla.org/Adapting_a_Joomla_1.5_extension_to_Joomla_1.6#Converting_Your_JParameters_to_JForms
+
+! To do: 
+	^ Language files in rsgallery2.xml moved according "Language file naming conventions
+	  and precedence: www.http://docs.joomla.org/Specification_of_language_files"
+	  Example folder path: language/en-GB/en-GB.com_rsgallery2.ini
+	  Lang files for backend are just copied from the common ones 
+! To do: 
+	^ Language files missing
+		language/en-GB/en-GB.com_rsgallery2.sys.ini
 		
 		
 ---------------- Recent ----------------
 
 
-* --------------- 4.0.0 -- SVN  -- 2014-,05-01 -------------
-2014.05.01 whazzup
-(Sorry wrong markers, too late today for improve ;-)
-* Took File from towardsJ3
-+ Installation like J3 wants it see install.rsgallery2.php
-* Added "static" in front of most functions
-* Replaced $database->query with $database->execute
-* Remover references $database = JFactory::getDBO()
-* Replaced JSubMenuHelper with JHtmlSidebar
-* Moved languages
-* 
---- Known issues:
-* There may be too many "static" before "function"
-* Error on many pages: 
-  Notice: Undefined index: in D:\xampp\htdocs\Joomla3x\administrator\templates\isis\html\message.php on line 24
-  Always near: require_once( 'D:\xampp\htdocs\Joomla3x\administrator\components\com_rsgallery2\rsgallery2.php')
-* Only admin part tested, site untested
+* --------------- 4.0.0 -- SVN 1109 -- 2014-??-?? -------------
 
 2014.04.01 whazzup
 Improved sql upgrade. It resides in an own folder sql/update now. Updated rsgallery2.xml for it.

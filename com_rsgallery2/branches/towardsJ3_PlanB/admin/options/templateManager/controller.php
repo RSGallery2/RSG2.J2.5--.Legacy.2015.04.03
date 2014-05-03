@@ -34,7 +34,7 @@ class InstallerController extends JControllerLegacy
 	 * @return	void
 	 * @since	1.5
 	 */
-	static function installform()
+	function installform()
 	{
 		$model	= &$this->getModel( 'Install' );
 		$view	= &$this->getView( 'Install', '', '', array( 'base_path'=>rsgOptions_installer_path ) );
