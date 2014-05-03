@@ -22,5 +22,11 @@
 - ToDo: ...:: Use PHP Exception for JError::raiseWarning -> trigger_error() Using E_WARNING as the 2nd argument
 - ToDo: ...:: Use PHP Exception for JError::raiseNotice -> 
 - ToDo: ...:: Use PHP Exception for JError::raiseError -> throw new Exception('Division durch Null.');
+- ToDo: ...:: JRequest is replaced by Jinput like
+	$jinput = JFactory::getApplication()->input;	
+	$fields = $jinput->get('jform','','array');
+- ToDo: ...:: 
+- ToDo: ...:: 
+- ToDo: ...:: 
 - ToDo: ...:: 
 - ToDo: ...:: 

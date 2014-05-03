@@ -200,7 +200,7 @@ class com_rsgallery2InstallerScript
 			$result = print_r( $result, true );
 			$rsgInstall->writeInstallMsg( JText::_('COM_RSGALLERY2_FAILURE')."\n<br><pre>$result\n</pre>", 'error');
 		}
-		/*}*/
+
 		
 		JLog::add('view update text');
 		echo '<p>' . JText::_('COM_RSGALLERY2_UPDATE_TEXT') . '</p>';

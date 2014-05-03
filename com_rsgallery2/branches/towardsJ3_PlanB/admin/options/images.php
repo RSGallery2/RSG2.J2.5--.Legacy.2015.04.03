@@ -203,7 +203,7 @@ function editImage( $option, $id ) {
 		// initialise new record
 		$row->published = 1;
 		$row->approved 	= 1;
-		$row->order 	= 0;
+		$row->ordering 	= 0;
 		$row->gallery_id 	= intval( JRequest::getInt( 'gallery_id', 0 ) );
 	}
 
@@ -213,7 +213,7 @@ function editImage( $option, $id ) {
 	. "\n WHERE gallery_id = " . (int) $row->gallery_id
 	. "\n ORDER BY ordering"
 	;
-	$lists['ordering'] 		= JHTML::_('list.specificordering', $row, $id, $query, 1 );
+	$lists['ordering'] 		= JHTML::_('list.specificordering', $row, $id, $query, true );
 	// build list of categories
 	$lists['gallery_id']	= galleryUtils::galleriesSelectList( $row->gallery_id, 'gallery_id', true, Null, 0 );
 	// build the html select list

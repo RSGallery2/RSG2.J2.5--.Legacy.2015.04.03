@@ -344,7 +344,8 @@ function publish( $cid=null, $publish=1,  $option ) {
 	$database = JFactory::getDBO();
 	$my =& JFactory::getUser();
 
-    $catid = JRequest::getInt( 'catid', array(0) );
+	// 140503 $catid not used
+    // $catid = JRequest::getInt( 'catid', array(0) );
 
     if (!is_array( $cid ) || count( $cid ) < 1) {
         $action = $publish ? 'publish' : 'unpublish';

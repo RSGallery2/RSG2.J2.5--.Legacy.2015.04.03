@@ -12,7 +12,8 @@ defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 
 require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgcomments' . DS . 'rsgcomments.class.php' );
 
-$cid    = JRequest::getInt('cid', array(0) );
+// 140503 $cid not used
+// $cid    = JRequest::getInt('cid', array(0) );
 $task    = JRequest::getCmd('task', '' );
 $option    = JRequest::getCmd('option', '' );
 switch( $task ){

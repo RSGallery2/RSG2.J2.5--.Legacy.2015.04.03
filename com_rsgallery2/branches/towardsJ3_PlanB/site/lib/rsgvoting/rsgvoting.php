@@ -11,7 +11,8 @@ defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 
 require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgvoting' . DS . 'rsgvoting.class.php' );
 
-$cid   = JRequest::getInt('cid', array(0) );
+// 140503 $cid not used
+//$cid   = JRequest::getInt('cid', array(0) );
 $task  = JRequest::getCmd('task', '' );
 $id    = JRequest::getInt('id','' );
 

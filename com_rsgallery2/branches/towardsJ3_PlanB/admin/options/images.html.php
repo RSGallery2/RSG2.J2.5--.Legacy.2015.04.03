@@ -263,7 +263,7 @@ class html_rsg2_images {
 							<td valign="top" align="right"><?php echo JText::_('COM_RSGALLERY2_DESCRIPTION')?></td>
 							<td>
 								<?php
-								// parameters : areaname, content, hidden field, width, height, rows, cols
+								// parameters : area name, content, hidden field, width, height, rows, cols
 								echo $editor->display('descr',  $row->descr , '100%', '200', '10', '20' ,false) ; ?>
 							</td>
 						</tr>
