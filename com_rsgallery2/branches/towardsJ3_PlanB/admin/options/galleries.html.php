@@ -24,7 +24,7 @@ class html_rsg2_galleries{
 
 		$user = JFactory::getUser();
 		$userId = $user->id;
-		JHTML::_("behavior.framework");
+		JHtml::_("behavior.framework");
 
 		//Create 'lookup array' to find whether or not galleries with the same parent
 		// can move up/down in their order: $orderLookup[id parent][#] = id child
@@ -96,7 +96,7 @@ class html_rsg2_galleries{
             $img    = $row->published ? 'publish_g.png' : 'publish_x.png';
             $alt    = $row->published ? 'Published' : 'Unpublished';
 
-            $checked    = JHTML::_('grid.checkedout', $row, $i );
+            $checked    = JHtml::_('grid.checkedout', $row, $i );
 			
 			//Get permissions
 			$can['EditGallery']		= $user->authorise('core.edit',		'com_rsgallery2.gallery.'.$row->id);
@@ -236,7 +236,7 @@ class html_rsg2_galleries{
 	static function edit( &$row, &$lists, &$params, $option ) {
 		global $rsgOption, $rsgConfig;
 
-		JHTML::_('behavior.formvalidation');
+		JHtml::_('behavior.formvalidation');
 		jimport("joomla.filter.output");
 		$user = JFactory::getUser();
 		$editor = JFactory::getEditor();
@@ -255,7 +255,7 @@ class html_rsg2_galleries{
 
 		$task = JRequest::getCmd( 'task'  , '');
 	
-		JHTML::_("Behavior.framework");
+		JHtml::_("Behavior.framework");
 		?>
 		<script type="text/javascript">
 		Joomla.submitbutton = function(task) {

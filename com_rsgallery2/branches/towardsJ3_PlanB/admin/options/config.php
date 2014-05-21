@@ -116,24 +116,24 @@ function showConfig(){
 
     $result = GD2::detect();
 	if( $result )
-		$graphicsLib[] = JHTML::_("select.option", 'gd2', $result );
+		$graphicsLib[] = JHtml::_("select.option", 'gd2', $result );
 	else
-		$graphicsLib[] = JHTML::_("select.option", 'gd2', JText::_('COM_RSGALLERY2_GD2_NOT_DETECTED') );
+		$graphicsLib[] = JHtml::_("select.option", 'gd2', JText::_('COM_RSGALLERY2_GD2_NOT_DETECTED') );
 
     $result = ImageMagick::detect();
     if( $result )
-        $graphicsLib[] = JHTML::_("select.option", 'imagemagick', $result );
+        $graphicsLib[] = JHtml::_("select.option", 'imagemagick', $result );
     else
-        $graphicsLib[] = JHTML::_("select.option", 'imagemagick', JText::_('COM_RSGALLERY2_IMAGEMAGICK_NOT_DETECTED') );
+        $graphicsLib[] = JHtml::_("select.option", 'imagemagick', JText::_('COM_RSGALLERY2_IMAGEMAGICK_NOT_DETECTED') );
 
     $result = Netpbm::detect();
     if( $result )
-        $graphicsLib[] = JHTML::_("select.option", 'netpbm', $result );
+        $graphicsLib[] = JHtml::_("select.option", 'netpbm', $result );
     else
-        $graphicsLib[] = JHTML::_("select.option", 'netpbm', JText::_('COM_RSGALLERY2_NETPBM_NOT_DETECTED') );
+        $graphicsLib[] = JHtml::_("select.option", 'netpbm', JText::_('COM_RSGALLERY2_NETPBM_NOT_DETECTED') );
     
     
-    $lists['graphicsLib'] = JHTML::_("select.genericlist",$graphicsLib, 'graphicsLib', '', 'value', 'text', $rsgConfig->graphicsLib );
+    $lists['graphicsLib'] = JHtml::_("select.genericlist",$graphicsLib, 'graphicsLib', '', 'value', 'text', $rsgConfig->graphicsLib );
 
     html_rsg2_config::showconfig( $lists );
 }

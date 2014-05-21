@@ -9,6 +9,29 @@
 */
 defined( '_JEXEC' ) or die( 'Access Denied.' );
 
+// Include the JLog class.
+jimport('joomla.log.log');
+
+// Get the date for log file name
+$date = JFactory::getDate()->format('Y-m-d');
+
+// Add the logger.
+JLog::addLogger(
+     // Pass an array of configuration options
+    array(
+            // Set the name of the log file
+            //'text_file' => substr($application->scope, 4) . ".log.php",
+            'text_file' => 'rsgallery2.log.'.$date.'.php',
+
+            // (optional) you can change the directory
+            'text_file_path' => 'logs'
+     ) 
+);
+
+// start logging...
+JLog::add('Starting to log rsgallery2.php in admin');
+
+
 //Initialize RSG2 core functionality
 require_once( JPATH_SITE.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
 
@@ -16,7 +39,7 @@ require_once( JPATH_SITE.'/administrator/components/com_rsgallery2/init.rsgaller
 rsgInstance::instance( 'request', false );
 
 //Load Tooltips
-JHTML::_('behavior.tooltip');
+JHtml::_('behavior.tooltip');
 
 require_once JPATH_COMPONENT.'/helpers/rsgallery2.php';
 
@@ -177,7 +200,7 @@ function uploadFile( $filename, $userfile_name, $msg ) {
 	if (file_exists( $baseDir )) {
 		if (is_writable( $baseDir )) {
 			if (move_uploaded_file( $filename, $baseDir . $userfile_name )) {
-				if (JFTP::chmod( $baseDir . $userfile_name )) {
+				if (JClientFtp::chmod( $baseDir . $userfile_name )) {
 					return true;
 				} else {
 					$msg = JText::_('COM_RSGALLERY2_FAILED_TO_CHANGE_THE_PERMISSIONS_OF_THE_UPLOADED_FILE');

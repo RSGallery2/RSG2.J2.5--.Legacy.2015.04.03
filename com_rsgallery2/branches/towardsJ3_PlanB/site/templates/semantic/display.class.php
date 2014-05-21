@@ -87,7 +87,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 			}
 			
 			if ($date) {
-				echo JText::_('Created').": "; echo JHTML::_("date", $kid->date,"%d-%m-%Y" );?><br />
+				echo JText::_('Created').": "; echo JHtml::_("date", $kid->date,"%d-%m-%Y" );?><br />
 				<?php
 			}
 			?>

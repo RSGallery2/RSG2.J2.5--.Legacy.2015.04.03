@@ -50,5 +50,5 @@
 	<input type="hidden" name="option" value="com_rsgallery2" />
 	<input type="hidden" name="rsgOption" value="installer" />
 	<input type="hidden" name="type" value="templates" />
-	<?php echo JHTML::_( 'form.token' ); ?>
+	<?php echo JHtml::_( 'form.token' ); ?>
 </form>

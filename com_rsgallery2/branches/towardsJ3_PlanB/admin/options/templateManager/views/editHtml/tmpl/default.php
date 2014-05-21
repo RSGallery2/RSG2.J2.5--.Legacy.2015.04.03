@@ -26,5 +26,5 @@
 	<input type="hidden" name="option" value="com_rsgallery2" />
 	<input type="hidden" name="filename" value="<?php echo $this->item->filename;?>" />
 	<input type="hidden" name="task" value="" />
-	<?php echo JHTML::_( 'form.token' ); ?>
+	<?php echo JHtml::_( 'form.token' ); ?>
 </form>

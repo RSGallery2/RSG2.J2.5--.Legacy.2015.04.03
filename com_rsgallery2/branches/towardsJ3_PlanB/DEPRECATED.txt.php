@@ -93,14 +93,14 @@ JPaneTabs::endPane is deprecated.
 	echo JHtml::_('tabs.end');
 ?>
 *JDatabase::getEscaped() is deprecated. Use JDatabase::escape().
-*JBehavior::mootools is deprecated. == JHTML::_("behavior.mootools");
+*JBehavior::mootools is deprecated. == JHtml::_("behavior.mootools");
 In Joomla 1.5, if you needed load MooTools libraries, you needed add a line in your code something like this:
-<?php JHTML::_('behavior.mootools');?>
+<?php JHtml::_('behavior.mootools');?>
 And for backward compatibility purpose in Joomla 1.6, 1.7 and 2.5 this line works, too.
 But in Joomla 3.0, it’s been deprecated and you need to use the new standard. For adding MooTools Core libraries you need to add:
-<?php JHTML::_('behavior.framework');?>
+<?php JHtml::_('behavior.framework');?>
 and if you want to add both MooTools Core and MooTools More libraries, you need to add:
-<?php JHTML::_('behavior.framework', true);?>
+<?php JHtml::_('behavior.framework', true);?>
 *JApplicationHelper::parseXMLInstallFile is deprecated. Use JInstaller::parseXMLInstallFile instead.
 *JAccess::getActions is deprecated. Use JAccess::getActionsFromFile or JAcces::getActionsFromData instead.
 function getActions does this: (where <?php $section = 'component'?>)
@@ -120,9 +120,9 @@ RSGallery2 has "public static function getActions($galleryId = 0)" where
 so here the $section is not always $component ($assetName here).
 Assets are com_rsgallery2, com_rsgallery2.gallery.1 (etc) and com_rsgallery2.item.1 (etc).
 *JImage::site is deprecated. (funcion, filename, path, ?, ?, alt)
-<?php echo JHTML::_('image.site', $image, '/components/com_rsgallery2/images/', NULL , NULL , $text);?>
+<?php echo JHtml::_('image.site', $image, '/components/com_rsgallery2/images/', NULL , NULL , $text);?>
 becomes (path including filename, alt)
-<?php echo JHTML::image('administrator/components/com_rsgallery2/images/'.$image, $text); ?>
+<?php echo JHtml::image('administrator/components/com_rsgallery2/images/'.$image, $text); ?>
 *Files in the format toolbar.COMPONENTNAME.php are considered deprecated and will not be loaded in Joomla 3.0. ==> not autoloaded, so do it ourselves
 not <?php require_once( JApplicationHelper::getPath('toolbar') );?>
 <?php require_once( '/components/com_rsgallery2/toolbar.rsgallery2.php');?>

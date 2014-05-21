@@ -182,7 +182,7 @@ function galleryParentSelectList( &$row ) {
     }
 
     // second pass - get an indent list of the items
-    $list = JHTML::_('menu.treerecurse', 0, '', array(), $children, 9999, 0, 0 );
+    $list = JHtml::_('menu.treerecurse', 0, '', array(), $children, 9999, 0, 0 );
 
     // assemble menu items to the array
     $mitems     = array();
@@ -192,18 +192,18 @@ function galleryParentSelectList( &$row ) {
 	}
 
     foreach ( $list as $item ) {
-		//[hack] [the original treename holds &#160; as a non breacking space for subgalleries, but JHTMLSelect::option cannot handle that, nor &nbsp;] 
+		//[hack] [the original treename holds &#160; as a non breacking space for subgalleries, but JHtmlSelect::option cannot handle that, nor &nbsp;] 
     	$item->treename = str_replace  ( '&#160;&#160;'  ,  '...' ,  $item->treename  ); 
 		//Check create permission for each possible parent
 		$canCreateInParentGallery = JFactory::getUser()->authorise('core.create', 'com_rsgallery2.gallery.'.$item->id);
 		//Get the allowed parents and the current parent
 		if (($canCreateInParentGallery) OR ($row->parent == $item->id)) {
-			$mitems[] = JHTML::_('select.option', $item->id, '...'. $item->treename);
+			$mitems[] = JHtml::_('select.option', $item->id, '...'. $item->treename);
 		}
     }
     
 	//genericlist(array of objects, value of HMTL name attribute, additional HTML attributes for <select> tag, name of objectvarialbe for the option value, name of objectvariable for option text, key that is selected,???,???)
-    $output = JHTML::_("select.genericlist", $mitems, 'parent', 'class="inputbox" size="10"', 'value', 'text', $row->parent );
+    $output = JHtml::_("select.genericlist", $mitems, 'parent', 'class="inputbox" size="10"', 'value', 'text', $row->parent );
 
     return $output;
 }

@@ -5,7 +5,7 @@ global $mainframe, $rsgConfig;
 $css1 = "<link rel=\"stylesheet\" href=\"components/com_rsgallery2/templates/slideshow_phatfusion/css/slideshow.css\" type=\"text/css\" media=\"screen\" charset=\"utf-8\" />";
 $mainframe->AddCustomHeadTag($css1);
 
-JHTML::_("behavior.mootools");
+JHtml::_("behavior.mootools");
 $js1 = "<script src=\"components/com_rsgallery2/templates/slideshow_phatfusion/js/backgroundSlider.js\" type=\"text/javascript\"></script>";
 $mainframe->AddCustomHeadTag($js1);
 $js2 = "<script src=\"components/com_rsgallery2/templates/slideshow_phatfusion/js/slideshow.js\" type=\"text/javascript\"></script>";

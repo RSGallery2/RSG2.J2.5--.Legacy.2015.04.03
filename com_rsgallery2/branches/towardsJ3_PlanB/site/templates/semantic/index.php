@@ -31,7 +31,7 @@ $rsgDisplay->metadata();
 $rsgDisplay->showRSPathWay();
 
 //Load Tooltips
-JHTML::_('behavior.tooltip');
+JHtml::_('behavior.tooltip');
 
 //include page navigation
 require_once(JPATH_ROOT.'/includes/pageNavigation.php');

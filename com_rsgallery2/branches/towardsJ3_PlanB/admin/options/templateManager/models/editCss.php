@@ -48,7 +48,8 @@ class InstallerModelEditCss extends InstallerModel
 		$dir = JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$this->template.DS.'css';
 		$file = $dir .DS. $this->filename;
 
-		$content = JFile::read($file);
+		//$content = JFile::read($ini); J3
+		$content = JFile::file_get_contents($ini);
 
 		if ($content == false)
 		{

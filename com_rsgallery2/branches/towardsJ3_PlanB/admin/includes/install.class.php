@@ -19,21 +19,21 @@ if(!defined('DS')){
 jimport('joomla.log.log');
 
 
-// Add the logger.
+/* Add the logger.
 JLog::addLogger(
      // Pass an array of configuration options
     array(
             // Set the name of the log file
-            'text_file' => 'rsgallery.install.log.php',
 			//'text_file' => substr($application->scope, 4) . ".log.php",
+            'text_file' => 'rsgallery.install.log.php',
 
             // (optional) you can change the directory
-            //'text_file_path' => 'd:/Entwickl/Entwickl.2014/rsgallery2.Source.TowardsJ3.140421/'
             'text_file_path' => 'logs'
      ) 
 );
 
-JLog::add('Starting to log install class');
+JLog::add('Starting to log install.class.php');
+*/
 
 //require_once( $rsgClasses_path . 'file.utils.php' );
 
@@ -89,7 +89,7 @@ class rsgInstall {
         $app =JFactory::getApplication();
 		
 		if (!defined("JURI_SITE")){
-			define('JURI_SITE', $app->isSite() ? JURI::base() : JURI::root());
+			define('JURI_SITE', $app->isSite() ? JUri::base() : JUri::root());
 		}
 		
         $this->galleryDir   = '/images/rsgallery';
@@ -113,13 +113,14 @@ class rsgInstall {
             new migrate_com_easygallery_10B5
         );
 
-		JLog::add('rsgInstall: debug');
 		
         if( $rsgConfig->get( 'debug' )){
             $this->galleryList[] = new migrate_testMigrator;
             $this->galleryList[] = new migrate_testMigratorFail;
         }
         
+		JLog::add('rsgInstall: exit constructor');
+
     }
     /** For debug purposes only */
     static function echo_values(){
@@ -391,10 +392,10 @@ class rsgInstall {
      */
     function deleteGalleryDir($target, $exceptions, $output=false) {
     
-		JLog::add('rsgInstall: deleteGalleryDir');
+		JLog::add('rsgInstall: deleteGalleryDir: ' + $target);
 		
 		if (file_exists($target) && is_dir($target))
-			{
+		{
 			$sourcedir = opendir($target);
 			while(false !== ($filename = readdir($sourcedir)))
 				{
@@ -406,7 +407,7 @@ class rsgInstall {
 						}
 					if(is_dir($target."/".$filename))
 						{
-						// recurse subdirectory; call of function recursive
+						// recourse subdirectory; call of function recursive
 						$this->deleteGalleryDir($target."/".$filename, $exceptions);
 						}
 					else if(is_file($target."/".$filename))
@@ -567,7 +568,7 @@ class rsgInstall {
 	}
         
      /**
-      * Shows the "Installation complete" box with a link to the controlpanel
+      * Shows the "Installation complete" box with a link to the control panel
       */
      static function installComplete($msg = null){
 		if($msg == null) $msg = JText::_('COM_RSGALLERY2_INSTALLATION_OF_RSGALLERY_IS_COMPLETED');
@@ -743,6 +744,11 @@ class rsgInstall {
 
     function upgradeInstallX() {
     global $rsgConfig, $database, $mosConfig_absolute_path;
+	
+		JLog::add('upgradeInstallX()');
+
+
+	
         $imagepath_old = $mosConfig_absolute_path."/images/gallery";
         /**
          * 0. We assume:
@@ -761,13 +767,14 @@ class rsgInstall {
             $config_file = JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "language" . DS . "english.php";
             if (file_exists($config_file))
                 {
-                //Supress notices on duplicate definitions with @, as we loaded the new english.php already
+                //Suppress notices on duplicate definitions with @, as we loaded the new english.php already
                 @include_once( JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "language" . DS . "english.php");
                 $version = _RSGALLERY_VERSION;
                 }
             else
                 {
                 //Well, component is installed, but no version information can be established
+				JLog::add('-  redirect: no version information can be established: ' + COM_RSGALLERY2_UPGRADE_REC_FULL);
                 $mainframe->redirect("index.php?option=com_rsgallery2&task=install",JText::_('COM_RSGALLERY2_UPGRADE_REC_FULL'));
                 }
             /**
@@ -965,12 +972,14 @@ class rsgInstall {
                 $exceptions = array(".","..");
                 $this->deleteGalleryDir(JPATH_SITE.$this->galleryDir, $exceptions, $output=false);
                 //Abort upgrade. Gallery structure present but no version information could be retrieved
+				JLog::add('-  redirect: Abort upgrade. Gallery structure present but no version information could be retrieved: ' + COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE);
                 $mainframe->redirect("index.php?option=com_rsgallery2&task=install",JText::_('COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE'));
                 }
             }
         else
             {
             //No, component is not installed
+			JLog::add('-  redirect: No, component is not installed: ' + COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE);
             $mainframe->redirect("index.php?option=com_rsgallery2&task=install",JText::_('COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE'));
             }
         /**
