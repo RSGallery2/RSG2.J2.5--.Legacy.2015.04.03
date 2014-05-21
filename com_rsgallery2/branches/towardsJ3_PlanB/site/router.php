@@ -18,6 +18,11 @@
 		If start then add ‘itemPage’ and limitstart value - 1
 		If page then add ‘as’ concatenated with page value
   */
+
+  if(!defined('DS')){
+	define('DS',DIRECTORY_SEPARATOR);
+}
+
  
 function Rsgallery2BuildRoute(&$query) {
 	//Get config values

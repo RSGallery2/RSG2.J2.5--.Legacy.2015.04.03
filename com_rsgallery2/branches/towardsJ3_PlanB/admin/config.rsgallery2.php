@@ -276,17 +276,17 @@ class galleryUtils {
 		}
 
 		// second pass - get an indent list of the items
-		$list = JHTML::_('menu.treerecurse', 0, '', array(), $children, 9999, 0, 0 );
+		$list = JHtml::_('menu.treerecurse', 0, '', array(), $children, 9999, 0, 0 );
 
 		// assemble menu items to the array
 		$mitems     = array();
-		$mitems[]   = JHTML::_("Select.option", '0', JText::_('COM_RSGALLERY2_TOP_GALLERY'));
+		$mitems[]   = JHtml::_("Select.option", '0', JText::_('COM_RSGALLERY2_TOP_GALLERY'));
 
 		foreach ( $list as $item ) {
-			$mitems[] = JHTML::_("Select.option", $item->id, '&nbsp;&nbsp;&nbsp;'. $item->treename );
+			$mitems[] = JHtml::_("Select.option", $item->id, '&nbsp;&nbsp;&nbsp;'. $item->treename );
 		}
 
-		$output = JHTML::_("select.genericlist", $mitems, $listName, 'class="inputbox"'.$size, 'value', 'text', $galleryid );
+		$output = JHtml::_("select.genericlist", $mitems, $listName, 'class="inputbox"'.$size, 'value', 'text', $galleryid );
 
 		echo $output;
 	}
@@ -334,26 +334,26 @@ class galleryUtils {
 		}
 
 		// second pass - get an indent list of the items
-			$list = JHTML::_('menu.treerecurse', 0, '', array(), $children, 9999, 0, 0 );
+			$list = JHtml::_('menu.treerecurse', 0, '', array(), $children, 9999, 0, 0 );
 
 		// assemble menu items to the array
 		$mitems     = array();
-		$mitems[] 	= JHTML::_("Select.option", '-1', JText::_('COM_RSGALLERY2_SELECT_GALLERY') );
-		$mitems[] 	= JHTML::_("Select.option", '0', '- '.JText::_('COM_RSGALLERY2_TOP_GALLERY').' -' );
+		$mitems[] 	= JHtml::_("Select.option", '-1', JText::_('COM_RSGALLERY2_SELECT_GALLERY') );
+		$mitems[] 	= JHtml::_("Select.option", '0', '- '.JText::_('COM_RSGALLERY2_TOP_GALLERY').' -' );
 
 		foreach ( $list as $item ) {
 			$canCreateInGallery = JFactory::getUser()->authorise('core.create', 'com_rsgallery2.gallery.'.$item->id);
-			$item->treename = str_replace  ( '&#160;&#160;'  ,  '...' ,  $item->treename  );//MK [hack] [the original treename holds &#160; as a non breacking space for subgalleries, but JHTMLSelect::option cannot handle that, nor &nbsp;, so replaced string]
+			$item->treename = str_replace  ( '&#160;&#160;'  ,  '...' ,  $item->treename  );//MK [hack] [the original treename holds &#160; as a non breacking space for subgalleries, but JHtmlSelect::option cannot handle that, nor &nbsp;, so replaced string]
 			//When $showUnauthorised is false only galleries where create is allowed or which are the current selected gallery can be choosen.
 			if ($canCreateInGallery OR $showUnauthorised OR $galleryid == $item->id) {
-				$mitems[] = JHTML::_("Select.option", $item->id, ''. $item->treename );
+				$mitems[] = JHtml::_("Select.option", $item->id, ''. $item->treename );
 			} else {
 				//May not be selected: give 0 value instead of $item->id
-				$mitems[] = JHTML::_("Select.option", 0, ''. $item->treename .' - '.JText::_('JDISABLED'), 'value', 'text', true );
+				$mitems[] = JHtml::_("Select.option", 0, ''. $item->treename .' - '.JText::_('JDISABLED'), 'value', 'text', true );
 			}
 		}
 
-		$output = JHTML::_("select.genericlist", $mitems, $listName, 'class="inputbox"'.$size.' '.$javascript, 'value', 'text', $galleryid, false );
+		$output = JHtml::_("select.genericlist", $mitems, $listName, 'class="inputbox"'.$size.' '.$javascript, 'value', 'text', $galleryid, false );
 
 		return $output;
 }
@@ -842,14 +842,14 @@ class galleryUtils {
 		if ( !$rsgConfig->get('displayStatus') )
 			return;
 		
-		$owner = JHTML::tooltip(JText::_('COM_RSGALLERY2_YOU_ARE_THE_OWNER_OF_THIS_GALLERY'), 
+		$owner = JHtml::tooltip(JText::_('COM_RSGALLERY2_YOU_ARE_THE_OWNER_OF_THIS_GALLERY'), 
 				null, 
 				'../../../components/com_rsgallery2/images/status_owner.png',null,null,0);
-		$upload = JHTML::tooltip(JText::_('COM_RSGALLERY2_YOU_CAN_UPLOAD_IN_THIS_GALLERY'), 
+		$upload = JHtml::tooltip(JText::_('COM_RSGALLERY2_YOU_CAN_UPLOAD_IN_THIS_GALLERY'), 
 				null, 
 				'../../../components/com_rsgallery2/images/status_upload.png',null,null,0);
 		
-		$unpublished = JHTML::tooltip(JText::_('COM_RSGALLERY2_THIS_GALLERY_IS_NOT_PUBLISHED'), 
+		$unpublished = JHtml::tooltip(JText::_('COM_RSGALLERY2_THIS_GALLERY_IS_NOT_PUBLISHED'), 
 				null, 
 				'../../../components/com_rsgallery2/images/status_hidden.png',null,null,0);
 
@@ -919,9 +919,9 @@ class galleryUtils {
 	 	$selected = $rsgConfig->get('watermark_font');
 	 	$fonts = JFolder::files(JPATH_RSGALLERY2_ADMIN.DS.'fonts', 'ttf');
 	 	foreach ($fonts as $font) {
-	 		$fontlist[] = JHTML::_("Select.option", $font );
+	 		$fontlist[] = JHtml::_("Select.option", $font );
 	 	}
-	 	$list = JHTML::_("select.genericlist", $fontlist, 'watermark_font', '', 'value', 'text', $selected );
+	 	$list = JHtml::_("select.genericlist", $fontlist, 'watermark_font', '', 'value', 'text', $selected );
 	 	return $list;
 	 	
 	 }
@@ -938,7 +938,7 @@ class galleryUtils {
 		$txtl = strlen($text);
 		jimport('joomla.filter.output');
 		
-		$tail = JHTML::tooltip(JFilterOutput::ampReplace($text), null, null, $tail, null, 0);
+		$tail = JHtml::tooltip(JFilterOutput::ampReplace($text), null, null, $tail, null, 0);
 		if($txtl > $length) {
 			for($i=1;$text[$length-$i]!=" ";$i++) {
 				if($i == $length) {

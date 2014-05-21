@@ -53,7 +53,7 @@ class HTML_RSGALLERY{
         <div class="icon">
             <a href="<?php echo $link; ?>">
                 <div class="iconimage">
-					<?php echo JHTML::image('administrator/components/com_rsgallery2/images/'.$image, $text); ?>
+					<?php echo JHtml::image('administrator/components/com_rsgallery2/images/'.$image, $text); ?>
                 </div>
                 <?php echo $text; ?>
             </a>
@@ -544,7 +544,7 @@ class HTML_RSGALLERY{
                     <?php echo JText::_('COM_RSGALLERY2_NUMBER_OF_UPLOADS') ;?>
                     </td>
                     <td>
-                    <?php echo JHTML::_("select.integerlist", 1, 25, 1, 'numberOfUploads', 'onChange="form.submit()"', 1 ); ?>
+                    <?php echo JHtml::_("select.integerlist", 1, 25, 1, 'numberOfUploads', 'onChange="form.submit()"', 1 ); ?>
                     </td>
                 </tr>
                 <tr>

@@ -76,7 +76,7 @@ class html_rsg2_images {
 
 			$link 	= 'index.php?option=com_rsgallery2&rsgOption='.$rsgOption.'&task=editA&hidemainmenu=1&id='. $row->id;
 
-			$checked 	= JHTML::_('grid.checkedout', $row, $i );
+			$checked 	= JHtml::_('grid.checkedout', $row, $i );
 
 			$row->cat_link 	= 'index.php?option=com_rsgallery2&rsgOption=galleries&task=editA&hidemainmenu=1&id='. $row->gallery_id;
 			?>
@@ -101,7 +101,7 @@ class html_rsg2_images {
 								$type = 'image';
 							}
 						}
-						echo JHTML::tooltip('<img src="'.JURI_SITE.$rsgConfig->get('imgPath_thumb').'/'.$row->name.'.jpg" alt="'.$row->name.'" />',
+						echo JHtml::tooltip('<img src="'.JURI_SITE.$rsgConfig->get('imgPath_thumb').'/'.$row->name.'.jpg" alt="'.$row->name.'" />',
 						 JText::_('COM_RSGALLERY2_EDIT_IMAGES'),
 						 $row->name,
 						 htmlspecialchars(stripslashes($row->title), ENT_QUOTES).'&nbsp;('.$row->name.')',
@@ -137,7 +137,7 @@ class html_rsg2_images {
 				<?php echo $row->hits; ?>
 				</td>
 				<td align="left">
-				<?php echo JHTML::Date($row->date, JText::_('COM_RSGALLERY2_DATE_FORMAT_WITH_TIME'));?>
+				<?php echo JHtml::Date($row->date, JText::_('COM_RSGALLERY2_DATE_FORMAT_WITH_TIME'));?>
 				</td>
 			</tr>
 			</tbody>
@@ -174,7 +174,7 @@ class html_rsg2_images {
 	static function editImage( &$row, &$lists, &$params, $option ) {
 		global $rsgOption;
 		jimport("joomla.filter.output");
-		JHTML::_('behavior.formvalidation');
+		JHtml::_('behavior.formvalidation');
 		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES );
 		$editor =& JFactory::getEditor();
 
@@ -422,7 +422,7 @@ class html_rsg2_images {
 	*/
 	static function uploadImage( $lists, $option ) {
 		global $rsgOption;
-		JHTML::_('behavior.formvalidation');
+		JHtml::_('behavior.formvalidation');
 		$editor = JFactory::getEditor();
 		
 		?>
@@ -544,7 +544,7 @@ class html_rsg2_images {
 		*/
 	
         global $rsgConfig, $task, $rsgOption;
-		JHTML::_('behavior.formvalidation');
+		JHtml::_('behavior.formvalidation');
         $FTP_path = $rsgConfig->get('ftp_path');
         $size = round( ini_get('upload_max_filesize') * 1.024 );
         ?>
@@ -603,7 +603,7 @@ class html_rsg2_images {
                 <tr>
                     <td width="200"><strong><?php echo JText::_('COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD');?></strong>
                     <?php
-                    echo JHTML::tooltip( JText::_('COM_RSGALLERY2_BATCH_METHOD_TIP'), JText::_('COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD') );
+                    echo JHtml::tooltip( JText::_('COM_RSGALLERY2_BATCH_METHOD_TIP'), JText::_('COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD') );
                     ?>
                     </td>
                     <td width="200">
@@ -620,7 +620,7 @@ class html_rsg2_images {
                     <td>&nbsp;</td>
                     <td>
                         <input type="radio" value="ftp" name="batchmethod" />
-                        <?php echo JText::_('COM_RSGALLERY2_FTP-PATH');?>&nbsp;<?php echo JHTML::tooltip( JText::_('COM_RSGALLERY2_BATCH_FTP_PATH_OVERL'), JText::_('COM_RSGALLERY2_FTP-PATH') ); ?></td>
+                        <?php echo JText::_('COM_RSGALLERY2_FTP-PATH');?>&nbsp;<?php echo JHtml::tooltip( JText::_('COM_RSGALLERY2_BATCH_FTP_PATH_OVERL'), JText::_('COM_RSGALLERY2_FTP-PATH') ); ?></td>
                     <td>
 						<?php echo JText::sprintf('COM_RSGALLERY2_FTP_BASE_PATH', JPATH_SITE.DS); ?>
                         <input type="text" name="ftppath" value="<?php echo $FTP_path; ?>" size="30" />
@@ -685,8 +685,8 @@ class html_rsg2_images {
 		Description area name:	descr[]
 		*/
         global $rsgOption;
-		JHTML::_('behavior.formvalidation');
-        JHTML::_('behavior.framework');
+		JHtml::_('behavior.formvalidation');
+        JHtml::_('behavior.framework');
 		
 		$database = JFactory::getDBO();
         //Get variables from form

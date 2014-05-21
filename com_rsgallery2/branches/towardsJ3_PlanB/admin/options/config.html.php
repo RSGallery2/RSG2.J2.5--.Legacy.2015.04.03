@@ -102,126 +102,126 @@ class html_rsg2_config{
 		//Format selected items
 		$exifSelected = explode("|", $config->exifTags);
 		foreach ($exifSelected as $select) {
-			$exifSelect[] = JHTML::_("select.option",$select,$select);
+			$exifSelect[] = JHtml::_("select.option",$select,$select);
 		}
 		//Format values for dropdownbox
 		foreach ($exifTagsArray as $key=>$value) {
-			$exif[] = JHTML::_("select.option",$key,$key);
+			$exif[] = JHtml::_("select.option",$key,$key);
 		}
 		
 		//Format values for slideshow dropdownbox
 		$folders = JFolder::folders(JPATH_RSGALLERY2_SITE. DS . '/templates');
 		foreach ($folders as $folder) {
 			if (preg_match("/slideshow/i", $folder)) {
-				$current_slideshow[] = JHTML::_("select.option",$folder,$folder);
+				$current_slideshow[] = JHtml::_("select.option",$folder,$folder);
 			}
 		}
 		
 		// front display
-		$display_thumbs_style[] = JHTML::_("select.option",'table',JText::_('COM_RSGALLERY2_TABLE'));
-		$display_thumbs_style[] = JHTML::_("select.option",'float',JText::_('COM_RSGALLERY2_FLOAT'));
-		$display_thumbs_style[] = JHTML::_("select.option",'magic',JText::_('COM_RSGALLERY2_MAGIC_NOT_SUPPORTED_YET'));
+		$display_thumbs_style[] = JHtml::_("select.option",'table',JText::_('COM_RSGALLERY2_TABLE'));
+		$display_thumbs_style[] = JHtml::_("select.option",'float',JText::_('COM_RSGALLERY2_FLOAT'));
+		$display_thumbs_style[] = JHtml::_("select.option",'magic',JText::_('COM_RSGALLERY2_MAGIC_NOT_SUPPORTED_YET'));
 		
-		$display_thumbs_floatDirection[] = JHTML::_("select.option",'left',JText::_('COM_RSGALLERY2_LEFT_TO_RIGHT'));
-		$display_thumbs_floatDirection[] = JHTML::_("select.option",'right',JText::_('COM_RSGALLERY2_RIGHT_TO_LEFT'));
+		$display_thumbs_floatDirection[] = JHtml::_("select.option",'left',JText::_('COM_RSGALLERY2_LEFT_TO_RIGHT'));
+		$display_thumbs_floatDirection[] = JHtml::_("select.option",'right',JText::_('COM_RSGALLERY2_RIGHT_TO_LEFT'));
 		
-		$thumb_style[] = JHTML::_("select.option",'0',JText::_('COM_RSGALLERY2_PROPORTIONAL'));
-		$thumb_style[] = JHTML::_("select.option",'1',JText::_('COM_RSGALLERY2_SQUARE'));
+		$thumb_style[] = JHtml::_("select.option",'0',JText::_('COM_RSGALLERY2_PROPORTIONAL'));
+		$thumb_style[] = JHtml::_("select.option",'1',JText::_('COM_RSGALLERY2_SQUARE'));
 		
-		$thum_order[] = JHTML::_("select.option",'ordering',JText::_('COM_RSGALLERY2_DEFAULT'));
-		$thum_order[] = JHTML::_("select.option",'date',JText::_('COM_RSGALLERY2_DATE'));
-		$thum_order[] = JHTML::_("select.option",'name',JText::_('COM_RSGALLERY2_NAME'));
-		$thum_order[] = JHTML::_("select.option",'rating',JText::_('COM_RSGALLERY2_RATING'));
-		$thum_order[] = JHTML::_("select.option",'hits',JText::_('COM_RSGALLERY2_HITS'));
+		$thum_order[] = JHtml::_("select.option",'ordering',JText::_('COM_RSGALLERY2_DEFAULT'));
+		$thum_order[] = JHtml::_("select.option",'date',JText::_('COM_RSGALLERY2_DATE'));
+		$thum_order[] = JHtml::_("select.option",'name',JText::_('COM_RSGALLERY2_NAME'));
+		$thum_order[] = JHtml::_("select.option",'rating',JText::_('COM_RSGALLERY2_RATING'));
+		$thum_order[] = JHtml::_("select.option",'hits',JText::_('COM_RSGALLERY2_HITS'));
 		
-		$thum_order_direction[] = JHTML::_("select.option",'ASC',JText::_('COM_RSGALLERY2_ASCENDING'));
-		$thum_order_direction[] = JHTML::_("select.option",'DESC',JText::_('COM_RSGALLERY2_DESCENDING'));
+		$thum_order_direction[] = JHtml::_("select.option",'ASC',JText::_('COM_RSGALLERY2_ASCENDING'));
+		$thum_order_direction[] = JHtml::_("select.option",'DESC',JText::_('COM_RSGALLERY2_DESCENDING'));
 		
-		$resizeOptions[] = JHTML::_("select.option",'0',JText::_('COM_RSGALLERY2_DEFAULT_SIZE'));
-		$resizeOptions[] = JHTML::_("select.option",'1',JText::_('COM_RSGALLERY2_RESIZE_LARGER_PICS'));
-		$resizeOptions[] = JHTML::_("select.option",'2',JText::_('COM_RSGALLERY2_RESIZE_SMALLER_PICS'));
-		$resizeOptions[] = JHTML::_("select.option",'3',JText::_('COM_RSGALLERY2_RESIZE_PICS_TO_FIT'));
+		$resizeOptions[] = JHtml::_("select.option",'0',JText::_('COM_RSGALLERY2_DEFAULT_SIZE'));
+		$resizeOptions[] = JHtml::_("select.option",'1',JText::_('COM_RSGALLERY2_RESIZE_LARGER_PICS'));
+		$resizeOptions[] = JHtml::_("select.option",'2',JText::_('COM_RSGALLERY2_RESIZE_SMALLER_PICS'));
+		$resizeOptions[] = JHtml::_("select.option",'3',JText::_('COM_RSGALLERY2_RESIZE_PICS_TO_FIT'));
 		
-		$displayPopup[] = JHTML::_("select.option",'0',JText::_('COM_RSGALLERY2_NO_POPUP'));
-		$displayPopup[] = JHTML::_("select.option",'1',JText::_('COM_RSGALLERY2_NORMAL_POPUP'));
-		$displayPopup[] = JHTML::_("select.option",'2',JText::_('COM_RSGALLERY2_JOOMLA_MODAL'));
+		$displayPopup[] = JHtml::_("select.option",'0',JText::_('COM_RSGALLERY2_NO_POPUP'));
+		$displayPopup[] = JHtml::_("select.option",'1',JText::_('COM_RSGALLERY2_NORMAL_POPUP'));
+		$displayPopup[] = JHtml::_("select.option",'2',JText::_('COM_RSGALLERY2_JOOMLA_MODAL'));
 		
 		//Number of galleries dropdown field
-		$dispLimitbox[] = JHTML::_("select.option",'0',JText::_('COM_RSGALLERY2_NEVER'));
-		$dispLimitbox[] = JHTML::_("select.option",'1',JText::_('COM_RSGALLERY2_IF_MORE_GALLERIES_THAN_LIMIT'));
-		$dispLimitbox[] = JHTML::_("select.option",'2',JText::_('COM_RSGALLERY2_ALWAYS'));
+		$dispLimitbox[] = JHtml::_("select.option",'0',JText::_('COM_RSGALLERY2_NEVER'));
+		$dispLimitbox[] = JHtml::_("select.option",'1',JText::_('COM_RSGALLERY2_IF_MORE_GALLERIES_THAN_LIMIT'));
+		$dispLimitbox[] = JHtml::_("select.option",'2',JText::_('COM_RSGALLERY2_ALWAYS'));
 		
-		$galcountNrs[] = JHTML::_("select.option",'5','5');
-		$galcountNrs[] = JHTML::_("select.option",'10','10');
-		$galcountNrs[] = JHTML::_("select.option",'15','15');
-		$galcountNrs[] = JHTML::_("select.option",'20','20');
-		$galcountNrs[] = JHTML::_("select.option",'25','25');
-		$galcountNrs[] = JHTML::_("select.option",'30','30');
-		$galcountNrs[] = JHTML::_("select.option",'50','50');
+		$galcountNrs[] = JHtml::_("select.option",'5','5');
+		$galcountNrs[] = JHtml::_("select.option",'10','10');
+		$galcountNrs[] = JHtml::_("select.option",'15','15');
+		$galcountNrs[] = JHtml::_("select.option",'20','20');
+		$galcountNrs[] = JHtml::_("select.option",'25','25');
+		$galcountNrs[] = JHtml::_("select.option",'30','30');
+		$galcountNrs[] = JHtml::_("select.option",'50','50');
 	
 		// Upload state
-		$uploadState[] = JHTML::_("select.option", 0, JText::_('JUNPUBLISHED'));
-		$uploadState[] = JHTML::_("select.option", 1, JText::_('JPUBLISHED'));
+		$uploadState[] = JHtml::_("select.option", 0, JText::_('JUNPUBLISHED'));
+		$uploadState[] = JHtml::_("select.option", 1, JText::_('JPUBLISHED'));
 
 		// watermark
-		$watermarkAngles[] = JHTML::_("select.option",'0','0');
-		$watermarkAngles[] = JHTML::_("select.option",'45','45');
-		$watermarkAngles[] = JHTML::_("select.option",'90','90');
-		$watermarkAngles[] = JHTML::_("select.option",'135','135');
-		$watermarkAngles[] = JHTML::_("select.option",'180','180');
+		$watermarkAngles[] = JHtml::_("select.option",'0','0');
+		$watermarkAngles[] = JHtml::_("select.option",'45','45');
+		$watermarkAngles[] = JHtml::_("select.option",'90','90');
+		$watermarkAngles[] = JHtml::_("select.option",'135','135');
+		$watermarkAngles[] = JHtml::_("select.option",'180','180');
 		
-		$watermarkPosition[] = JHTML::_("select.option",'1',JText::_('COM_RSGALLERY2_TOP_LEFT'));
-		$watermarkPosition[] = JHTML::_("select.option",'2',JText::_('COM_RSGALLERY2_TOP_CENTER'));
-		$watermarkPosition[] = JHTML::_("select.option",'3',JText::_('COM_RSGALLERY2_TOP_RIGHT'));
-		$watermarkPosition[] = JHTML::_("select.option",'4',JText::_('COM_RSGALLERY2_LEFT'));
-		$watermarkPosition[] = JHTML::_("select.option",'5',JText::_('COM_RSGALLERY2_CENTER'));
-		$watermarkPosition[] = JHTML::_("select.option",'6',JText::_('COM_RSGALLERY2_RIGHT'));
-		$watermarkPosition[] = JHTML::_("select.option",'7',JText::_('COM_RSGALLERY2_BOTTOM_LEFT'));
-		$watermarkPosition[] = JHTML::_("select.option",'8',JText::_('COM_RSGALLERY2_BOTTOM_CENTER'));
-		$watermarkPosition[] = JHTML::_("select.option",'9',JText::_('COM_RSGALLERY2_BOTTOM_RIGHT'));
+		$watermarkPosition[] = JHtml::_("select.option",'1',JText::_('COM_RSGALLERY2_TOP_LEFT'));
+		$watermarkPosition[] = JHtml::_("select.option",'2',JText::_('COM_RSGALLERY2_TOP_CENTER'));
+		$watermarkPosition[] = JHtml::_("select.option",'3',JText::_('COM_RSGALLERY2_TOP_RIGHT'));
+		$watermarkPosition[] = JHtml::_("select.option",'4',JText::_('COM_RSGALLERY2_LEFT'));
+		$watermarkPosition[] = JHtml::_("select.option",'5',JText::_('COM_RSGALLERY2_CENTER'));
+		$watermarkPosition[] = JHtml::_("select.option",'6',JText::_('COM_RSGALLERY2_RIGHT'));
+		$watermarkPosition[] = JHtml::_("select.option",'7',JText::_('COM_RSGALLERY2_BOTTOM_LEFT'));
+		$watermarkPosition[] = JHtml::_("select.option",'8',JText::_('COM_RSGALLERY2_BOTTOM_CENTER'));
+		$watermarkPosition[] = JHtml::_("select.option",'9',JText::_('COM_RSGALLERY2_BOTTOM_RIGHT'));
 		
-		$watermarkFontSize[] = JHTML::_("select.option",'5','5');
-		$watermarkFontSize[] = JHTML::_("select.option",'6','6');
-		$watermarkFontSize[] = JHTML::_("select.option",'7','7');
-		$watermarkFontSize[] = JHTML::_("select.option",'8','8');
-		$watermarkFontSize[] = JHTML::_("select.option",'9','9');
-		$watermarkFontSize[] = JHTML::_("select.option",'10','10');
-		$watermarkFontSize[] = JHTML::_("select.option",'11','11');
-		$watermarkFontSize[] = JHTML::_("select.option",'12','12');
-		$watermarkFontSize[] = JHTML::_("select.option",'13','13');
-		$watermarkFontSize[] = JHTML::_("select.option",'14','14');
-		$watermarkFontSize[] = JHTML::_("select.option",'15','15');
-		$watermarkFontSize[] = JHTML::_("select.option",'16','16');
-		$watermarkFontSize[] = JHTML::_("select.option",'17','17');
-		$watermarkFontSize[] = JHTML::_("select.option",'18','18');
-		$watermarkFontSize[] = JHTML::_("select.option",'19','19');
-		$watermarkFontSize[] = JHTML::_("select.option",'20','20');
-		$watermarkFontSize[] = JHTML::_("select.option",'22','22');
-		$watermarkFontSize[] = JHTML::_("select.option",'24','24');
-		$watermarkFontSize[] = JHTML::_("select.option",'26','26');
-		$watermarkFontSize[] = JHTML::_("select.option",'28','28');
-		$watermarkFontSize[] = JHTML::_("select.option",'30','30');
-		$watermarkFontSize[] = JHTML::_("select.option",'36','36');
-		$watermarkFontSize[] = JHTML::_("select.option",'40','40');
+		$watermarkFontSize[] = JHtml::_("select.option",'5','5');
+		$watermarkFontSize[] = JHtml::_("select.option",'6','6');
+		$watermarkFontSize[] = JHtml::_("select.option",'7','7');
+		$watermarkFontSize[] = JHtml::_("select.option",'8','8');
+		$watermarkFontSize[] = JHtml::_("select.option",'9','9');
+		$watermarkFontSize[] = JHtml::_("select.option",'10','10');
+		$watermarkFontSize[] = JHtml::_("select.option",'11','11');
+		$watermarkFontSize[] = JHtml::_("select.option",'12','12');
+		$watermarkFontSize[] = JHtml::_("select.option",'13','13');
+		$watermarkFontSize[] = JHtml::_("select.option",'14','14');
+		$watermarkFontSize[] = JHtml::_("select.option",'15','15');
+		$watermarkFontSize[] = JHtml::_("select.option",'16','16');
+		$watermarkFontSize[] = JHtml::_("select.option",'17','17');
+		$watermarkFontSize[] = JHtml::_("select.option",'18','18');
+		$watermarkFontSize[] = JHtml::_("select.option",'19','19');
+		$watermarkFontSize[] = JHtml::_("select.option",'20','20');
+		$watermarkFontSize[] = JHtml::_("select.option",'22','22');
+		$watermarkFontSize[] = JHtml::_("select.option",'24','24');
+		$watermarkFontSize[] = JHtml::_("select.option",'26','26');
+		$watermarkFontSize[] = JHtml::_("select.option",'28','28');
+		$watermarkFontSize[] = JHtml::_("select.option",'30','30');
+		$watermarkFontSize[] = JHtml::_("select.option",'36','36');
+		$watermarkFontSize[] = JHtml::_("select.option",'40','40');
 	
-		$watermarkTransparency[] = JHTML::_("select.option",'0','0');
-		$watermarkTransparency[] = JHTML::_("select.option",'10','10');
-		$watermarkTransparency[] = JHTML::_("select.option",'20','20');
-		$watermarkTransparency[] = JHTML::_("select.option",'30','30');
-		$watermarkTransparency[] = JHTML::_("select.option",'40','40');
-		$watermarkTransparency[] = JHTML::_("select.option",'50','50');
-		$watermarkTransparency[] = JHTML::_("select.option",'60','60');
-		$watermarkTransparency[] = JHTML::_("select.option",'70','70');
-		$watermarkTransparency[] = JHTML::_("select.option",'80','80');
-		$watermarkTransparency[] = JHTML::_("select.option",'90','90');
-		$watermarkTransparency[] = JHTML::_("select.option",'100','100');
+		$watermarkTransparency[] = JHtml::_("select.option",'0','0');
+		$watermarkTransparency[] = JHtml::_("select.option",'10','10');
+		$watermarkTransparency[] = JHtml::_("select.option",'20','20');
+		$watermarkTransparency[] = JHtml::_("select.option",'30','30');
+		$watermarkTransparency[] = JHtml::_("select.option",'40','40');
+		$watermarkTransparency[] = JHtml::_("select.option",'50','50');
+		$watermarkTransparency[] = JHtml::_("select.option",'60','60');
+		$watermarkTransparency[] = JHtml::_("select.option",'70','70');
+		$watermarkTransparency[] = JHtml::_("select.option",'80','80');
+		$watermarkTransparency[] = JHtml::_("select.option",'90','90');
+		$watermarkTransparency[] = JHtml::_("select.option",'100','100');
 	
-		$watermarkType[] = JHTML::_("select.option",'image','Image');
-		$watermarkType[] = JHTML::_("select.option",'text','Text');
+		$watermarkType[] = JHtml::_("select.option",'image','Image');
+		$watermarkType[] = JHtml::_("select.option",'text','Text');
 		
 		//Captcha
-		$captcha_type[] = JHTML::_("select.option",'0',JText::_('COM_RSGALLERY2_CAPTCHA_ALFANUMERIC'));
-		$captcha_type[] = JHTML::_("select.option",'1',JText::_('COM_RSGALLERY2_CAPTCHA_MATH'));
+		$captcha_type[] = JHtml::_("select.option",'0',JText::_('COM_RSGALLERY2_CAPTCHA_ALFANUMERIC'));
+		$captcha_type[] = JHtml::_("select.option",'1',JText::_('COM_RSGALLERY2_CAPTCHA_MATH'));
 		
 		/**
 			* Routine checks if Freetype library is compiled with GD2
@@ -286,7 +286,7 @@ class html_rsg2_config{
 								<td><?php echo JText::_('COM_RSGALLERY2_DEBUG') ?></td>
 								<td>
 								<fieldset id="jform_block" class="radio">
-								<?php echo JHTML::_("select.booleanlist",'debug', '', $config->debug); ?>
+								<?php echo JHtml::_("select.booleanlist",'debug', '', $config->debug); ?>
 								</fieldset>
 								</td>
 							</tr>
@@ -294,7 +294,7 @@ class html_rsg2_config{
 								<td><?php echo JText::_('COM_RSGALLERY2_ADVANCED_SEF_ALL_CATEGORY_NAMES_AND_ITEM_TITLES_MUST_BE_UNIQUE'); ?></td>
 								<td>
 								<fieldset id="jform_block" class="radio">
-								<?php echo JHTML::_("select.booleanlist",'advancedSef', '', $config->advancedSef); ?>
+								<?php echo JHtml::_("select.booleanlist",'advancedSef', '', $config->advancedSef); ?>
 								</fieldset>
 								</td>
 							</tr>
@@ -318,7 +318,7 @@ class html_rsg2_config{
 							<tr>
 								<td><?php //echo JText::_('COM_RSGALLERY2_RESIZE_PORTRAIT_IMAGES_BY_HEIGHT_USING_DISPLAY_PICTURE_WIDTH') ; ?></td>
 								<td><fieldset id="jform_block" class="radio">
-						<?php //echo JHTML::_("select.booleanlist",'resize_portrait_by_height', '', $config->resize_portrait_by_height);?></fieldset></td>
+						<?php //echo JHtml::_("select.booleanlist",'resize_portrait_by_height', '', $config->resize_portrait_by_height);?></fieldset></td>
 							</tr>	-->
 							<tr>
 								<td><?php echo JText::_('COM_RSGALLERY2_THUMBNAIL_WIDTH') ?></td>
@@ -326,7 +326,7 @@ class html_rsg2_config{
 							</tr>
 							<tr>
 								<td><?php echo JText::_('COM_RSGALLERY2_THUMBNAIL_STYLE') ?></td>
-								<td><?php echo JHTML::_("select.genericlist", $thumb_style, 'thumb_style', '', 'value', 'text', $config->thumb_style ) ?></td>
+								<td><?php echo JHtml::_("select.genericlist", $thumb_style, 'thumb_style', '', 'value', 'text', $config->thumb_style ) ?></td>
 							</tr>
 							<tr>
 								<td><?php echo JText::_('COM_RSGALLERY2_JPEG_QUALITY_PERCENTAGE') ?></td>
@@ -358,17 +358,17 @@ class html_rsg2_config{
 								</td>
 							</tr>
 							<tr>
-								<td width="200"><?php echo JHTML::tooltip(JText::_('COM_RSGALLERY2_RSG2_IPTC_TOOLTIP'), JText::_('COM_RSGALLERY2_RSG2_IPTC_TOOLTIP_TITLE'), 
+								<td width="200"><?php echo JHtml::tooltip(JText::_('COM_RSGALLERY2_RSG2_IPTC_TOOLTIP'), JText::_('COM_RSGALLERY2_RSG2_IPTC_TOOLTIP_TITLE'), 
                     '', JText::_('COM_RSGALLERY2_RSG2_USE_IPTC')); ?></td>
 								<td width="78%"><fieldset id="jform_block" class="radio">
-						<?php echo JHTML::_("select.booleanlist",'useIPTCinformation', '', $config->useIPTCinformation);?></fieldset></td>
+						<?php echo JHtml::_("select.booleanlist",'useIPTCinformation', '', $config->useIPTCinformation);?></fieldset></td>
 							</tr>
 							<tr>
-								<td width="200"><?php echo JHTML::tooltip(JText::_('COM_RSGALLERY2_DEFAULT_UPLOAD_STATE_TOOLTIP'), JText::_('COM_RSGALLERY2_DEFAULT_UPLOAD_STATE_TOOLTIP_TITLE'), 
+								<td width="200"><?php echo JHtml::tooltip(JText::_('COM_RSGALLERY2_DEFAULT_UPLOAD_STATE_TOOLTIP'), JText::_('COM_RSGALLERY2_DEFAULT_UPLOAD_STATE_TOOLTIP_TITLE'), 
                     '', JText::_('COM_RSGALLERY2_DEFAULT_UPLOAD_STATE')); ?>
 								</td>
 								<td width="78%"><fieldset id="jform_block" class="radio">
-									<?php echo JHTML::_("select.genericlist",$uploadState, 'uploadState','','value', 'text', $config->uploadState)?></fieldset>
+									<?php echo JHtml::_("select.genericlist",$uploadState, 'uploadState','','value', 'text', $config->uploadState)?></fieldset>
 								</td>
 							</tr>
 						</table>
@@ -423,7 +423,7 @@ class html_rsg2_config{
 							<tr>
 								<td width="200"><?php echo JText::_('COM_RSGALLERY2_KEEP_ORIGINAL_IMAGE') ?></td>
 								<td width="78%"><fieldset id="jform_block" class="radio">
-						<?php echo JHTML::_("select.booleanlist",'keepOriginalImage', '', $config->keepOriginalImage)?></fieldset></td>
+						<?php echo JHtml::_("select.booleanlist",'keepOriginalImage', '', $config->keepOriginalImage)?></fieldset></td>
 							</tr>
 							<tr>
 								<td>
@@ -446,7 +446,7 @@ class html_rsg2_config{
 								<td><?php echo JText::_("COM_RSGALLERY2_CREATE_DIRECTORIES_IF_THEY_DONT_EXIST") ?></td>
 								<td>
 									<fieldset id="jform_block" class="radio">
-									<?php //echo JHTML::_("select.booleanlist",'createImgDirs', '', $config->createImgDirs)?>
+									<?php //echo JHtml::_("select.booleanlist",'createImgDirs', '', $config->createImgDirs)?>
 									</fieldset>
 								</td>
 							</tr>	-->
@@ -467,7 +467,7 @@ class html_rsg2_config{
 								</td>	
 								<td>
 									<fieldset id="jform_block" class="radio">
-									<?php echo JHTML::_("select.booleanlist",'comment_security', '', $config->comment_security)?>
+									<?php echo JHtml::_("select.booleanlist",'comment_security', '', $config->comment_security)?>
 									</fieldset>
 								</td>
 							</tr>
@@ -480,7 +480,7 @@ class html_rsg2_config{
 											<td><?php echo JText::_('COM_RSGALLERY2_CAPTCHA_TYPE');?>
 											</td>
 											<td>
-												<?php echo JHTML::_("select.genericlist", $captcha_type, 'captcha_type', '', 'value', 'text', $config->captcha_type ) ?>
+												<?php echo JHtml::_("select.genericlist", $captcha_type, 'captcha_type', '', 'value', 'text', $config->captcha_type ) ?>
 											</td>
 										</tr>
 										<tr>
@@ -532,7 +532,7 @@ class html_rsg2_config{
 											</td>
 											<td>
 												<fieldset id="jform_block" class="radio">
-												<?php echo JHTML::_("select.booleanlist",'captcha_case_sensitive', '', $config->captcha_case_sensitive)?>
+												<?php echo JHtml::_("select.booleanlist",'captcha_case_sensitive', '', $config->captcha_case_sensitive)?>
 												</fieldset>
 											</td>
 										</tr>
@@ -558,7 +558,7 @@ class html_rsg2_config{
 							<tr>
 								<td><?php //echo JText::_('COM_RSGALLERY2_USER_CAN_ONLY_COMMENT_ONCE')." (".JText::_('COM_RSGALLERY2_NOT_WORKING_YET').")";?></td>
 								<td><fieldset id="jform_block" class="radio">
-						<?php //echo JHTML::_("select.booleanlist",'comment_once', '', $config->comment_once)?></fieldset></td>
+						<?php //echo JHtml::_("select.booleanlist",'comment_once', '', $config->comment_once)?></fieldset></td>
 							</tr>	-->
 						</table>
 					</fieldset>
@@ -575,7 +575,7 @@ class html_rsg2_config{
 							<tr>
 								<td><?php echo JText::_('COM_RSGALLERY2_USER_CAN_ONLY_VOTE_ONCE_COOKIE_BASED');?></td>
 								<td><fieldset id="jform_block" class="radio">
-						<?php echo JHTML::_("select.booleanlist",'voting_once', '', $config->voting_once)?></fieldset></td>
+						<?php echo JHtml::_("select.booleanlist",'voting_once', '', $config->voting_once)?></fieldset></td>
 							</tr>
 							<tr>
 								<td><?php echo JText::_('COM_RSGALLERY2_COOKIE_PREFIX');?></td>
@@ -596,69 +596,69 @@ class html_rsg2_config{
 						<tr>
 							<td width="200"><?php echo JText::_('COM_RSGALLERY2_DISPLAY_SEARCH')?></td>
 							<td width="78%"><fieldset id="jform_block" class="radio">
-							<?php echo JHTML::_("select.booleanlist", 'displaySearch', '', $config->displaySearch)?></fieldset></td>
+							<?php echo JHtml::_("select.booleanlist", 'displaySearch', '', $config->displaySearch)?></fieldset></td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_RANDOM')?></td>
 							<td><fieldset id="jform_block" class="radio">
-							<?php echo JHTML::_("select.booleanlist",'displayRandom', '', $config->displayRandom)?></fieldset></td>
+							<?php echo JHtml::_("select.booleanlist",'displayRandom', '', $config->displayRandom)?></fieldset></td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_LATEST')?></td>
 							<td><fieldset id="jform_block" class="radio">
-							<?php echo JHTML::_("select.booleanlist",'displayLatest', '', $config->displayLatest)?></fieldset></td>
+							<?php echo JHtml::_("select.booleanlist",'displayLatest', '', $config->displayLatest)?></fieldset></td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_BRANDING')?></td>
 							<td><fieldset id="jform_block" class="radio">
-							<?php echo JHTML::_("select.booleanlist",'displayBranding','', $config->displayBranding)?></fieldset></td>
+							<?php echo JHtml::_("select.booleanlist",'displayBranding','', $config->displayBranding)?></fieldset></td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_DOWNLOADLINK')?></td>
 							<td><fieldset id="jform_block" class="radio">
-							<?php echo JHTML::_("select.booleanlist",'displayDownload','', $config->displayDownload)?></fieldset></td>
+							<?php echo JHtml::_("select.booleanlist",'displayDownload','', $config->displayDownload)?></fieldset></td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_STATUS_ICONS')?></td>
 							<td><fieldset id="jform_block" class="radio">
-							<?php echo JHTML::_("select.booleanlist",'displayStatus', '', $config->displayStatus)?></fieldset></td>
+							<?php echo JHtml::_("select.booleanlist",'displayStatus', '', $config->displayStatus)?></fieldset></td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_GALLERY_LIMITBOX')?></td>
-							<td><?php echo JHTML::_("select.genericlist",$dispLimitbox, 'dispLimitbox','','value', 'text', $config->dispLimitbox)?></td>
+							<td><?php echo JHtml::_("select.genericlist",$dispLimitbox, 'dispLimitbox','','value', 'text', $config->dispLimitbox)?></td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DEFAULT_NUMBER_OF_GALLERIES_ON_FRONTPAGE')?></td>
-							<td><?php echo JHTML::_("select.genericlist",$galcountNrs, 'galcountNrs','','value', 'text', $config->galcountNrs)?></td>
+							<td><?php echo JHtml::_("select.genericlist",$galcountNrs, 'galcountNrs','','value', 'text', $config->galcountNrs)?></td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_SLIDESHOW')?></td>
 							<td><fieldset id="jform_block" class="radio">
-							<?php echo JHTML::_("select.booleanlist",'displaySlideshow', '', $config->displaySlideshow)?></fieldset></td>
+							<?php echo JHtml::_("select.booleanlist",'displaySlideshow', '', $config->displaySlideshow)?></fieldset></td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_SELECT_SLIDESHOW')?></td>
-							<td><?php echo JHTML::_("select.genericlist",$current_slideshow, 'current_slideshow','','value', 'text', $config->current_slideshow);?></td>
+							<td><?php echo JHtml::_("select.genericlist",$current_slideshow, 'current_slideshow','','value', 'text', $config->current_slideshow);?></td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_OWNER_INFORMATION'); ?></td>
 							<td><fieldset id="jform_block" class="radio">
-							<?php echo JHTML::_("select.booleanlist",'showGalleryOwner', '', $config->showGalleryOwner)?></fieldset></td>
+							<?php echo JHtml::_("select.booleanlist",'showGalleryOwner', '', $config->showGalleryOwner)?></fieldset></td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_NUMBER_OF_ITEMS_IN_GALLERY');?></td>
 							<td><fieldset id="jform_block" class="radio">
-							<?php echo JHTML::_("select.booleanlist",'showGallerySize', '', $config->showGallerySize)?></fieldset></td>
+							<?php echo JHtml::_("select.booleanlist",'showGallerySize', '', $config->showGallerySize)?></fieldset></td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_NUMBER_OF_ITEMS_IN_GALLERY_INCLUDE_KIDS');?></td>
 							<td><fieldset id="jform_block" class="radio">
-							<?php echo JHTML::_("select.booleanlist",'includeKids', '', $config->includeKids)?></fieldset></td>
+							<?php echo JHtml::_("select.booleanlist",'includeKids', '', $config->includeKids)?></fieldset></td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_CREATION_DATE');?></td>
 							<td><fieldset id="jform_block" class="radio">
-							<?php echo JHTML::_("select.booleanlist",'showGalleryDate', '', $config->showGalleryDate)?></fieldset>
+							<?php echo JHtml::_("select.booleanlist",'showGalleryDate', '', $config->showGalleryDate)?></fieldset>
 							</td>
 						</tr>
 					</table>
@@ -672,40 +672,40 @@ class html_rsg2_config{
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_SLIDESHOW_IMAGE_DISPLAY')?></td>
 							<td><fieldset id="jform_block" class="radio">
-							<?php echo JHTML::_("select.booleanlist",'displaySlideshowImageDisplay', '', $config->displaySlideshowImageDisplay)?></fieldset>
+							<?php echo JHtml::_("select.booleanlist",'displaySlideshowImageDisplay', '', $config->displaySlideshowImageDisplay)?></fieldset>
 							</td>
 						</tr>
 						<tr>
 							<td width="200"><?php echo JText::_('COM_RSGALLERY2_POPUP_STYLE')?></td>
-							<td width="78%"><?php echo JHTML::_("select.genericlist", $displayPopup, 'displayPopup', '', 'value', 'text', $config->displayPopup )?></td>
+							<td width="78%"><?php echo JHtml::_("select.genericlist", $displayPopup, 'displayPopup', '', 'value', 'text', $config->displayPopup )?></td>
 						</tr>
 						<!-- Not used in v3
 						<tr>
 							<td><?php //echo JText::_('COM_RSGALLERY2_RESIZE_OPTION')?></td>
-							<td><?php //echo JHTML::_("select.genericlist", $resizeOptions, 'display_img_dynamicResize', '', 'value', 'text', $config->display_img_dynamicResize )?></td>
+							<td><?php //echo JHtml::_("select.genericlist", $resizeOptions, 'display_img_dynamicResize', '', 'value', 'text', $config->display_img_dynamicResize )?></td>
 						</tr>	-->
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_DESCRIPTION')?></td>
 							<td><fieldset id="jform_block" class="radio">
-							<?php echo JHTML::_("select.booleanlist",'displayDesc', '', $config->displayDesc)?></fieldset>
+							<?php echo JHtml::_("select.booleanlist",'displayDesc', '', $config->displayDesc)?></fieldset>
 							</td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_HITS')?></td>
 							<td><fieldset id="jform_block" class="radio">
-							<?php echo JHTML::_("select.booleanlist",'displayHits', '', $config->displayHits)?></fieldset>
+							<?php echo JHtml::_("select.booleanlist",'displayHits', '', $config->displayHits)?></fieldset>
 							</td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_VOTING')?></td>
 							<td><fieldset id="jform_block" class="radio">
-							<?php echo JHTML::_("select.booleanlist",'displayVoting', '', $config->displayVoting)?></fieldset>
+							<?php echo JHtml::_("select.booleanlist",'displayVoting', '', $config->displayVoting)?></fieldset>
 							</td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_COMMENTS')?></td>
 							<td><fieldset id="jform_block" class="radio">
-							<?php echo JHTML::_("select.booleanlist",'displayComments', '', $config->displayComments)?></fieldset>
+							<?php echo JHtml::_("select.booleanlist",'displayComments', '', $config->displayComments)?></fieldset>
 							</td>
 						</tr>
 					</table>
@@ -718,11 +718,11 @@ class html_rsg2_config{
 						<table width="100%">
 							<tr>
 								<td width="200"><?php echo JText::_('COM_RSGALLERY2_ORDER_IMAGES_BY')?></td>
-								<td width="78%"><?php echo JHTML::_("select.genericlist",$thum_order, 'filter_order','','value', 'text', $config->filter_order)?></td>
+								<td width="78%"><?php echo JHtml::_("select.genericlist",$thum_order, 'filter_order','','value', 'text', $config->filter_order)?></td>
 							</tr>
 							<tr>
 								<td><?php echo JText::_('COM_RSGALLERY2_ORDER_DIRECTION')?></td>
-								<td><?php echo JHTML::_("select.genericlist",$thum_order_direction, 'filter_order_Dir','','value', 'text', $config->filter_order_Dir)?></td>
+								<td><?php echo JHtml::_("select.genericlist",$thum_order_direction, 'filter_order_Dir','','value', 'text', $config->filter_order_Dir)?></td>
 							</tr>
 						</table>
 					</fieldset>
@@ -739,7 +739,7 @@ class html_rsg2_config{
 								</td>
 								<td width="78%">
 									<fieldset id="jform_block" class="radio">
-									<?php echo JHTML::_("select.booleanlist",'displayEXIF', '', $config->displayEXIF)?></fieldset>
+									<?php echo JHtml::_("select.booleanlist",'displayEXIF', '', $config->displayEXIF)?></fieldset>
 								</td>
 							</tr>
 							<tr>
@@ -747,7 +747,7 @@ class html_rsg2_config{
 									<?php echo JText::_('COM_RSGALLERY2_SELECT_EXIF_TAGS_TO_DISPLAY')?>
 								</td>
 								<td valign="top">
-									<?php echo JHTML::_("select.genericlist", $exif, 'exifTags[]', 'MULTIPLE size="15"', 'value', 'text', $exifSelect );?>
+									<?php echo JHtml::_("select.genericlist", $exif, 'exifTags[]', 'MULTIPLE size="15"', 'value', 'text', $exifSelect );?>
 								</td>
 							</tr>
 						</table>
@@ -761,15 +761,15 @@ class html_rsg2_config{
 						<table width="100%">
 							<tr>
 								<td width="200"><?php echo JText::_('COM_RSGALLERY2_THUMBNAIL_STYLE_USE_FLOAT_FOR_VARIABLE_WIDTH_TEMPLATES')?></td>
-								<td width="78%"><?php echo JHTML::_("select.genericlist", $display_thumbs_style, 'display_thumbs_style', '', 'value', 'text', $config->display_thumbs_style );?></td>
+								<td width="78%"><?php echo JHtml::_("select.genericlist", $display_thumbs_style, 'display_thumbs_style', '', 'value', 'text', $config->display_thumbs_style );?></td>
 							</tr>
 							<tr>
 								<td><?php echo JText::_('COM_RSGALLERY2_DIRECTION_ONLY_WORKS_FOR_FLOAT')?></td>
-								<td><?php echo JHTML::_("select.genericlist", $display_thumbs_floatDirection, 'display_thumbs_floatDirection', '', 'value', 'text', $config->display_thumbs_floatDirection )?></td>
+								<td><?php echo JHtml::_("select.genericlist", $display_thumbs_floatDirection, 'display_thumbs_floatDirection', '', 'value', 'text', $config->display_thumbs_floatDirection )?></td>
 							</tr>
 							<tr>
 								<td><?php echo JText::_('COM_RSGALLERY2_NUMBER_OF_THUMBNAIL_COLUMNS_ONLY_FOR_TABLE')?></td>
-								<td><?php echo JHTML::_("select.integerlist",1, 19, 1, 'display_thumbs_colsPerPage', '', $config->display_thumbs_colsPerPage)?></td>
+								<td><?php echo JHtml::_("select.integerlist",1, 19, 1, 'display_thumbs_colsPerPage', '', $config->display_thumbs_colsPerPage)?></td>
 							</tr>
 							<tr>
 								<td><?php echo JText::_('COM_RSGALLERY2_THUMBNAILS_PER_PAGE')?></td>
@@ -778,13 +778,13 @@ class html_rsg2_config{
 							<tr>
 								<td><?php echo JText::_('COM_RSGALLERY2_SHOW_IMAGE_NAME_BELOW_THUMBNAIL')?></td>
 								<td><fieldset id="jform_block" class="radio">
-								<?php echo JHTML::_("select.booleanlist", 'display_thumbs_showImgName','', $config->display_thumbs_showImgName )?></fieldset>
+								<?php echo JHtml::_("select.booleanlist", 'display_thumbs_showImgName','', $config->display_thumbs_showImgName )?></fieldset>
 								</td>
 							</tr>
 							<tr>
 								<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_SLIDESHOW_GALLERY_VIEW')?></td>
 								<td><fieldset id="jform_block" class="radio">
-								<?php echo JHTML::_("select.booleanlist", 'displaySlideshowGalleryView','', $config->displaySlideshowGalleryView )?></fieldset>
+								<?php echo JHtml::_("select.booleanlist", 'displaySlideshowGalleryView','', $config->displaySlideshowGalleryView )?></fieldset>
 								</td>
 							</tr>
 						</table>
@@ -808,14 +808,14 @@ class html_rsg2_config{
 							</td>
 							<td width="78%">
 								<fieldset id="jform_block" class="radio">
-								<?php echo JHTML::_("select.booleanlist",'watermark','', $config->watermark)?>
+								<?php echo JHtml::_("select.booleanlist",'watermark','', $config->watermark)?>
 								</fieldset>
 							</td>
 						</tr>
 						<!--
 						<tr>
 							<td width="40%">* Watermark type *</td>
-							<td><?php // echo JHTML::_("select.genericlist",$watermarkType, 'watermark_type','','value', 'text', $config->watermark_type)?></td>
+							<td><?php // echo JHtml::_("select.genericlist",$watermarkType, 'watermark_type','','value', 'text', $config->watermark_type)?></td>
 						</tr>
 						<tr>
 							<td valign="top" width="40%">* Watermark upload *</td>
@@ -833,21 +833,21 @@ class html_rsg2_config{
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_WATERMARK_FONT_SIZE')." (points)";?></td>
 							<td>
-								<?php echo JHTML::_("select.genericlist",$watermarkFontSize, 'watermark_font_size','','value', 'text', $config->watermark_font_size)?>
+								<?php echo JHtml::_("select.genericlist",$watermarkFontSize, 'watermark_font_size','','value', 'text', $config->watermark_font_size)?>
 							</td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_WATERMARK_TEXT_ANGLE')?></td>
-							<td><?php echo JHTML::_("select.genericlist",$watermarkAngles, 'watermark_angle','','value', 'text', $config->watermark_angle)?></td>
+							<td><?php echo JHtml::_("select.genericlist",$watermarkAngles, 'watermark_angle','','value', 'text', $config->watermark_angle)?></td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_WATERMARK_POSITION')?></td>
-							<td><?php echo JHTML::_("select.genericlist",$watermarkPosition, 'watermark_position','','value', 'text', $config->watermark_position)?></td>
+							<td><?php echo JHtml::_("select.genericlist",$watermarkPosition, 'watermark_position','','value', 'text', $config->watermark_position)?></td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_WATERMARK_TRANSPARENCY') . " (%)";?></td>
 							<td>
-								<?php echo JHTML::_("select.genericlist",$watermarkTransparency, 'watermark_transparency','','value', 'text', $config->watermark_transparency)?>
+								<?php echo JHtml::_("select.genericlist",$watermarkTransparency, 'watermark_transparency','','value', 'text', $config->watermark_transparency)?>
 							</td>
 						</tr>
 						<tr>
@@ -868,32 +868,32 @@ class html_rsg2_config{
 						<table width="100%">
 							<tr>
 								<td width="200">
-									<?php echo JHTML::tooltip(JText::_('COM_RSGALLERY2_SHOW_MY_GALLERIES_TOOLTIP'), JText::_('COM_RSGALLERY2_SHOW_MY_GALLERIES'), 
+									<?php echo JHtml::tooltip(JText::_('COM_RSGALLERY2_SHOW_MY_GALLERIES_TOOLTIP'), JText::_('COM_RSGALLERY2_SHOW_MY_GALLERIES'), 
 							'', JText::_('COM_RSGALLERY2_SHOW_MY_GALLERIES')); ?>
 								</td>
 								<td width="78%">
 									<fieldset id="jform_block" class="radio">
-									<?php echo JHTML::_("select.booleanlist",'show_mygalleries', '', $config->show_mygalleries)?></fieldset>
+									<?php echo JHtml::_("select.booleanlist",'show_mygalleries', '', $config->show_mygalleries)?></fieldset>
 								</td>
 							</tr>
 							<tr>
 								<td width="200">
-									<?php echo JHTML::tooltip(JText::_('COM_RSGALLERY2_SHOW_ONLY_OWN_ITEMS_IN_MY_GALLERIES_TOOLTIP'), JText::_('COM_RSGALLERY2_SHOW_ONLY_OWN_ITEMS_IN_MY_GALLERIES'), 
+									<?php echo JHtml::tooltip(JText::_('COM_RSGALLERY2_SHOW_ONLY_OWN_ITEMS_IN_MY_GALLERIES_TOOLTIP'), JText::_('COM_RSGALLERY2_SHOW_ONLY_OWN_ITEMS_IN_MY_GALLERIES'), 
 							'', JText::_('COM_RSGALLERY2_SHOW_ONLY_OWN_ITEMS_IN_MY_GALLERIES')); ?>
 								</td>
 								<td width="78%">
 									<fieldset id="jform_block" class="radio">
-									<?php echo JHTML::_("select.booleanlist",'show_mygalleries_onlyOwnItems', '', $config->show_mygalleries_onlyOwnItems)?></fieldset>
+									<?php echo JHtml::_("select.booleanlist",'show_mygalleries_onlyOwnItems', '', $config->show_mygalleries_onlyOwnItems)?></fieldset>
 								</td>
 							</tr>
 							<tr>
 								<td width="200">
-									<?php echo JHTML::tooltip(JText::_('COM_RSGALLERY2_SHOW_ONLY_OWN_GALLERIES_IN_MY_GALLERIES_TOOLTIP'), JText::_('COM_RSGALLERY2_SHOW_ONLY_OWN_GALLERIES_IN_MY_GALLERIES'), 
+									<?php echo JHtml::tooltip(JText::_('COM_RSGALLERY2_SHOW_ONLY_OWN_GALLERIES_IN_MY_GALLERIES_TOOLTIP'), JText::_('COM_RSGALLERY2_SHOW_ONLY_OWN_GALLERIES_IN_MY_GALLERIES'), 
 							'', JText::_('COM_RSGALLERY2_SHOW_ONLY_OWN_GALLERIES_IN_MY_GALLERIES')); ?>
 								</td>
 								<td width="78%">
 									<fieldset id="jform_block" class="radio">
-									<?php echo JHTML::_("select.booleanlist",'show_mygalleries_onlyOwnGalleries', '', $config->show_mygalleries_onlyOwnGalleries)?></fieldset>
+									<?php echo JHtml::_("select.booleanlist",'show_mygalleries_onlyOwnGalleries', '', $config->show_mygalleries_onlyOwnGalleries)?></fieldset>
 								</td>
 							</tr>
 						</table>

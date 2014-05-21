@@ -252,7 +252,7 @@ Don't know if "scriptfile" works in rsgallery2.xml for uninstall
 
 2011-04-27 Mirjam - SVN 1023
 + Added 2nd Help button for RSG2 ACL information on Control Panel page, only visible to those with core.admin (=configure permission).
-# Use JHtml::_('select.option'... instead of JHTMLSelect::option since "The JHTML widgets are lazily included depending on usage" (http://forum.joomla.org/viewtopic.php?p=1158553#p1158553)
+# Use JHtml::_('select.option'... instead of JHtmlSelect::option since "The JHtml widgets are lazily included depending on usage" (http://forum.joomla.org/viewtopic.php?p=1158553#p1158553)
 # Fixed several "Use of undefined constant"-notices.
 # In select list current parent may not be disabled in selectlist.
 ^ Used 'total' number of items for pagination in My galleries is no longer dependent on owned items, but return all items.
@@ -363,7 +363,7 @@ FRONTEND
 - Removed (legacy) mosToolBar
 ^ Added JToolBar styling to mygalleries.css
 ^ Minor adjustments to CSS
-^ Changed JHTML::_("date", $kid->date,"d-m-Y" ) to JHTML::_("date", $kid->date,JText::_('DATE_FORMAT_LC3')
+^ Changed JHtml::_("date", $kid->date,"d-m-Y" ) to JHtml::_("date", $kid->date,JText::_('DATE_FORMAT_LC3')
 ^ Pathway now working (global $option; replaced by $option = JRequest::getCmd('option');) and adjusted for the fact that subgalleries now also may be menu items.
 ^ With some help of EasyCreator all language strings have been converted: no spaces in keys, keys start with COM_RSGALLERY2_, no punctuation marks in keys; values in double quotes. E.g. COM_RSGALLERY2_KEY=”Value”. Removed redundand keys, or when they have all translations, commented them. Comment sign is a semi-colon ;. Needs to be checked by translators.
 

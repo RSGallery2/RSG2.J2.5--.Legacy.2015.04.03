@@ -46,10 +46,10 @@ class JFormFieldGallerynoroot extends JFormFieldList
 		$galleries = $db->loadObjectList();
 		
 		//Add default option (no value)
-		//$options[] = JHTML::_('select.option', 0, JText::_('COM_RSGALLERY2_ROOT_GALLERY'));
+		//$options[] = JHtml::_('select.option', 0, JText::_('COM_RSGALLERY2_ROOT_GALLERY'));
 		foreach($galleries as $gallery)
 		{	
-			$options[] = JHTML::_('select.option', $gallery->gid, $gallery->name);
+			$options[] = JHtml::_('select.option', $gallery->gid, $gallery->name);
 		}
 		$options = array_merge(parent::getOptions() , $options);
 		

@@ -8,6 +8,9 @@
  */
 defined( '_JEXEC' ) or die( 'Restricted Access' );
 
+//require_once( 'joomla.filesystem.files' );
+jimport( 'joomla.filesystem.files' );
+
 class rsgDisplay extends JObject{
 	
 	var $params = null;
@@ -24,12 +27,17 @@ class rsgDisplay extends JObject{
 		// Read the ini file
 		$ini	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'params.ini';
 		if (JFile::exists($ini)) {
-			$content = JFile::read($ini);
+			$content = JFile::read($ini); // ? J3
+			//wrong: $content = JFile::file_get_contents($ini);
 		} else {
 			$content = null;
 		}
 		$xml	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template .DS.'templateDetails.xml';
-		$this->params = new JParameter($content, $xml, 'template');
+		
+		// J3 $this->params = new JParameter($content, $xml, 'template');
+		
+		yyyyxxx here and above ....
+		$this->params = new JInput($content, $xml, 'template');
 		
 	}
 	
@@ -370,7 +378,7 @@ class rsgDisplay extends JObject{
                                 </a>
                             	</div>
                                 <div class="rsg2-clr"></div>
-                                <div class="rsg2_details"><?php echo JHTML::_("date",$row->date);?></div>
+                                <div class="rsg2_details"><?php echo JHtml::_("date",$row->date);?></div>
                             </div>
                         </td>
                         </tr>
@@ -410,7 +418,7 @@ class rsgDisplay extends JObject{
                             	</a>
                             	</div>
                             	<div class="rsg2-clr"></div>
-								<div class="rsg2_details"><?php echo JText::_('Uploaded') ?>&nbsp;<?php echo JHTML::_("date",$row->date);?></div>
+								<div class="rsg2_details"><?php echo JText::_('Uploaded') ?>&nbsp;<?php echo JHtml::_("date",$row->date);?></div>
                             </div>
                             </td>
                             <?php

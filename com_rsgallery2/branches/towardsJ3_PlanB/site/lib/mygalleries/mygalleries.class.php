@@ -38,7 +38,7 @@ class myGalleries {
 		//Load My Galleries javascript file after core-uncompressed.js to override its Joomla.submitbutton function
 //		$filename = 'mygalleries.js';
 //		$path = 'components/com_rsgallery2/lib/mygalleries/';
-//		JHTML::script($filename, $path);
+//		JHtml::script($filename, $path);
 		//As long as I'm unable to get JText with .js files working use this function:
 		myGalleries::mygalleriesJavascript();
 		
@@ -56,7 +56,7 @@ class myGalleries {
 		//Is it allowed to create a gallery on the component permission level (e.g. create a gallery with the root (gid = 0) as parent?
 		$createAllowedInRoot = rsgAuthorisation::authorisationCreate(0);
 
-		JHTML::_('behavior.framework',true);
+		JHtml::_('behavior.framework',true);
         // Set My Galleries tabs options
 		$tabOptions = array(
 			'onActive' => 'function(title, description){
@@ -187,7 +187,7 @@ class myGalleries {
 			<input type="hidden" name="option" value="com_rsgallery2" />
 			<input type="hidden" name="rsgOption" value="<?php echo JRequest::getCmd('rsgOption'); ?>" />
 			<input type="hidden" name="Itemid" value="<?php echo JRequest::getInt('Itemid'); ?>" />
-			<?php echo JHTML::_('form.token'); ?>
+			<?php echo JHtml::_('form.token'); ?>
         </form>
         <?php
 	}
@@ -294,7 +294,7 @@ class myGalleries {
         </div>
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="option" value="com_rsgallery2" />
-		<?php echo JHTML::_('form.token'); ?>
+		<?php echo JHtml::_('form.token'); ?>
 		</form>
         <?php
 	}
@@ -604,7 +604,7 @@ class myGalleries {
      * @param array Result array with pagenav details
      */
     static function showMyImages($images, $pageNav) {
-        JHTML::_('behavior.tooltip');
+        JHtml::_('behavior.tooltip');
 		$option = JRequest::getCmd('option');
 		$rsgOption = JRequest::getCmd('rsgOption');
 		$Itemid = JRequest::getInt('Itemid');
@@ -677,7 +677,7 @@ class myGalleries {
 							if ($image->checked_out) {
 								$image->editor = JFactory::getUser($image->checked_out)->get('username');
 							} 
-							$checked 	= JHTML::_('grid.checkedout', $image, $i );
+							$checked 	= JHtml::_('grid.checkedout', $image, $i );
 							echo $checked;
 							?>
 						</td>
@@ -686,13 +686,13 @@ class myGalleries {
 							//Tooltip with or without link
 							if ($can['EditImage']){
 								//tooltip: tip, tiptitle, tipimage, tiptext, url, depreciated bool=1 (@todo: this link has two // in it between root and imgPath_thumb)
-								echo JHTML::tooltip('<img src="'.JURI::root().$rsgConfig->get('imgPath_thumb').'/'.$image->name.'.jpg" alt="'.$image->name.'" />',
+								echo JHtml::tooltip('<img src="'.JUri::root().$rsgConfig->get('imgPath_thumb').'/'.$image->name.'.jpg" alt="'.$image->name.'" />',
 								$image->name,
 								JURI_SITE."components/com_rsgallery2/images/notice-info_19.png",
 								'',
 								"index.php?option=com_rsgallery2&Itemid=".$Itemid."&rsgOption=myGalleries&task=editItem&id=".$image->id);
 								} else {
-								echo JHTML::tooltip('<img src="'.JURI::root().$rsgConfig->get('imgPath_thumb').'/'.$image->name.'.jpg" alt="'.$image->name.'" />',
+								echo JHtml::tooltip('<img src="'.JUri::root().$rsgConfig->get('imgPath_thumb').'/'.$image->name.'.jpg" alt="'.$image->name.'" />',
 								$image->name,
 								JURI_SITE."components/com_rsgallery2/images/notice-info_19.png", '', '', '');
 							}
@@ -898,7 +898,7 @@ class myGalleries {
 			<input type="hidden" name="option" 	value="com_rsgallery2>" />
 			<input type="hidden" name="Itemid"	value="<?php echo JRequest::getInt('Itemid'); ?>" />
 			<input type="hidden" name="rsgOption"	value="<?php echo JRequest::getCmd('rsgOption'); ?>" />
-			<?php echo JHTML::_('form.token'); ?>
+			<?php echo JHtml::_('form.token'); ?>
         </form>
         <?php
     }
@@ -1010,7 +1010,7 @@ function editCat($rows = null) {
         <input type="hidden" name="ordering" value="<?php echo $ordering; ?>" />
 		<input type="hidden" name="task" 	value="" />
 		<input type="hidden" name="option" 	value="com_rsgallery2>" />
-		<?php echo JHTML::_('form.token'); ?>
+		<?php echo JHtml::_('form.token'); ?>
         </table>
 	</form>
         <?php

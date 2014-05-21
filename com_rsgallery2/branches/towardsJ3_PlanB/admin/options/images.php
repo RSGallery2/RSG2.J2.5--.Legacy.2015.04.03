@@ -213,18 +213,18 @@ function editImage( $option, $id ) {
 	. "\n WHERE gallery_id = " . (int) $row->gallery_id
 	. "\n ORDER BY ordering"
 	;
-	$lists['ordering'] 		= JHTML::_('list.specificordering', $row, $id, $query, true );
+	$lists['ordering'] 		= JHtml::_('list.specificordering', $row, $id, $query, true );
 	// build list of categories
 	$lists['gallery_id']	= galleryUtils::galleriesSelectList( $row->gallery_id, 'gallery_id', true, Null, 0 );
 	// build the html select list
 	if ($canEditStateItem) {
-		$lists['published'] = JHTML::_("select.booleanlist", 'published', 'class="inputbox"', $row->published );
+		$lists['published'] = JHtml::_("select.booleanlist", 'published', 'class="inputbox"', $row->published );
 	} else {
 		$lists['published'] = ($row->published ? JText::_('JYES') : JText::_('JNO'));
 	}
 	// build list of users when user has core.admin, else give owners name
 	if ($canAdmin) {
-		$lists['userid'] 		= JHTML::_('list.users', 'userid', $row->userid, 1, NULL, 'name', 0 );
+		$lists['userid'] 		= JHtml::_('list.users', 'userid', $row->userid, 1, NULL, 'name', 0 );
 	} else {
 		$lists['userid'] 		= JFactory::getUser($row->userid)->name;
 	}

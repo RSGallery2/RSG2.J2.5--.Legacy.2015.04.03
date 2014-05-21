@@ -11,31 +11,33 @@
 // no direct access
 defined('_JEXEC') or die;
 
+// Get the date for log file name
+$date = JFactory::getDate()->format('Y-m-d');
+
 // Include the JLog class.
 jimport('joomla.log.log');
-
 
 // Add the logger.
 JLog::addLogger(
      // Pass an array of configuration options
     array(
             // Set the name of the log file
-            'text_file' => 'rsgallery.install.log.php',
             //'text_file' => substr($application->scope, 4) . ".log.php",
+            'text_file' => 'rsgallery2.install.log.'.$date.'.php',
 
             // (optional) you can change the directory
-            //'text_file_path' => 'd:/Entwickl/Entwickl.2014/rsgallery2.Source.TowardsJ3.140421/'
             'text_file_path' => 'logs'
      ) 
 );
 
 // start logging...
-JLog::add('Starting to log base installation');
+JLog::add('-------------------------------------------------------');
+JLog::add('Starting to log install.rsgallery2.php for installation');
 		
 class com_rsgallery2InstallerScript
 {
 
-	// ToDo: use information on link and use it on all following functions
+	// ToDo: use information on links and use it on all following functions
 	// http://docs.joomla.org/J2.5:Managing_Component_Updates_%28Script.php%29
 
 	// http://www.joomla-wiki.de/dokumentation/Joomla!_Programmierung/Programmierung/Aktualisierung_einer_Komponente/Teil_3
@@ -50,6 +52,9 @@ class com_rsgallery2InstallerScript
 	is passed to preflight in the $type operand. Your code can use this string
 	to execute different checks and responses for the three cases. 
 	-------------------------------------------------------------------------*/
+
+// ToDO: #__schemas" Tabelle reparieren ??? -> http://vi-solutions.de/de/enjoy-joomla-blog/116-knowledgbase-tutorials
+
 	function preflight($type, $parent)
 	{
 		JLog::add('preflight: '.$type);
@@ -59,24 +64,29 @@ class com_rsgallery2InstallerScript
 		$jversion = new JVersion();
 		
 		// Installing component manifest file version
-		$this->release = $parent->get( "manifest" )->version;
+		$this->newRelease = $parent->get( "manifest" )->version;
+		$this->oldRelease = $this->getParam('version');
 
         // Manifest file minimum Joomla version
         $this->minimum_joomla_release = $parent->get( "manifest" )->attributes()->version;   
- 
+		$this->actual_joomla_release = $jversion->getShortVersion();
+
         // Show the essential information at the install/update back-end
-        echo '<p>Installing component manifest file version = ' . $this->release;
-        echo '<br />Current manifest cache component version = ' . $this->getParam('version');
-        echo '<br />Installing component manifest file minimum Joomla version = ' . $this->minimum_joomla_release;
-        echo '<br />Current Joomla version = ' . $jversion->getShortVersion();
- 
-        JLog::add('<p>Installing component manifest file version = ' . $this->release);
-		JLog::add('<br />Current manifest cache component version = ' . $this->getParam('version'));
-        JLog::add('<br />Installing component manifest file minimum Joomla version = ' . $this->minimum_joomla_release);
-        JLog::add('<br />Current Joomla version = ' . $jversion->getShortVersion());
+        echo 'Installing component manifest file version = ' . $this->newRelease;
+        JLog::add('Installing component manifest file version = ' . $this->newRelease);
+        if ( $type == 'update' ) {
+			echo 'Old/current component version (manifest cache) = ' . $this->oldRelease;
+			JLog::add('Old/current component version (manifest cache) = ' . $this->oldRelease);
+		}
+        //echo 'Installing component manifest file minimum Joomla version = ' . $this->minimum_joomla_release;
+        JLog::add('Installing component manifest file minimum Joomla version = ' . $this->minimum_joomla_release);
+        //echo 'Current Joomla version = ' . $this->actual_joomla_release;
+        JLog::add('Current Joomla version = ' . $this->actual_joomla_release);
  
        // Abort if the current Joomla release is older
-        if (version_compare( $jversion->getShortVersion(), $this->minimum_joomla_release, 'lt' )) {
+        if (version_compare( $this->actual_joomla_release, $this->minimum_joomla_release, 'lt' )) {
+            echo '    Installing component manifest file minimum Joomla version = ' . $this->minimum_joomla_release;
+            echo '    Current Joomla version = ' . $this->actual_joomla_release;
             Jerror::raiseWarning(null, 'Cannot install com_rsgallery2 in a Joomla release prior to '.$this->minimum_joomla_release);
             return false;
         }
@@ -87,13 +97,10 @@ class com_rsgallery2InstallerScript
         if ( $type == 'update' ) {
 		
 			JLog::add('-> type update');
-		    /**/
-			$oldRelease = $this->getParam('version');
-			$newRelease = $this->release;
-			$rel = $oldRelease . ' to ' . $newRelease;
+			$rel = $this->$oldRelease . ' to ' . $this->$newRelease;
 			
 			//if ( version_compare( $this->release, $oldRelease, 'le' ) ) {
-			if ( version_compare( $newRelease, $oldRelease, 'lt' ) ) {
+			if ( version_compare( this->$newRelease, this->$oldRelease, 'lt' ) ) {
 					Jerror::raiseWarning(null, 'Incorrect version sequence. Cannot upgrade ' . $rel);
 					return false;
 			}
@@ -102,7 +109,7 @@ class com_rsgallery2InstallerScript
         else 
 		{ 
 			JLog::add('-> type freshInstall');
-			$rel = $this->release; 
+			$rel = $this->newRelease; 
 			
 			/* ToDo: use RemoveAccidentallyLeftovers or do it directly
 			
@@ -116,8 +123,10 @@ class com_rsgallery2InstallerScript
 				$this->deleteTable($table);
 			}        
 			*/
+
 		}
- 
+
+ 		JLog::add('COM_RSGALLERY2_PREFLIGHT_' . strtoupper($type). '_TEXT');
         echo '<p>' . JText::_('COM_RSGALLERY2_PREFLIGHT_' . strtoupper($type). '_TEXT') . ' ' . $rel . '</p>';		
 		JLog::add('exit preflight');
 	}

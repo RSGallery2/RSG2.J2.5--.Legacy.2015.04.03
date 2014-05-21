@@ -82,5 +82,5 @@
 	<input type="hidden" name="task" value="doInstall" />
 	<input type="hidden" name="option" value="com_rsgallery2" />
 	<input type="hidden" name="rsgOption" value="installer" />
-	<?php echo JHTML::_( 'form.token' ); ?>
+	<?php echo JHtml::_( 'form.token' ); ?>
 </form>

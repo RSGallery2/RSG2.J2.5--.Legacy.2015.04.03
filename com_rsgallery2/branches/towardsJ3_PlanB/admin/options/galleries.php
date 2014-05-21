@@ -127,7 +127,7 @@ function show(){
         $children[$pt] = $list;
     }
     // second pass - get an indent list of the items
-    $list = JHTML::_('menu.treerecurse',  0, '', array(), $children, max( 0, $levellimit-1 ) );
+    $list = JHtml::_('menu.treerecurse',  0, '', array(), $children, max( 0, $levellimit-1 ) );
     // eventually only pick out the searched items.
     if ($search) {
         $list1 = array();
@@ -148,7 +148,7 @@ function show(){
     $pageNav = new JPagination( $total, $limitstart, $limit  );
 
 	//@todo: is this $lists['levellist'] unused?
-    $lists['levellist'] = JHTML::_("Select.integerlist", 1, 20, 1, 'levellimit', 'size="1" onchange="document.adminForm.submit();"', $levellimit );
+    $lists['levellist'] = JHtml::_("Select.integerlist", 1, 20, 1, 'levellimit', 'size="1" onchange="document.adminForm.submit();"', $levellimit );
 
     // slice out elements based on limits
     $list = array_slice( $list, $pageNav->limitstart, $pageNav->limit );
@@ -198,17 +198,17 @@ function edit( $option, $id ) {
 
 	// build list of users when user has core.admin, else give owners name
 	if ($canAdmin) {
-		$lists['uid'] 			= JHTML::_('list.users', 'uid', $row->uid, 1, NULL, 'name', 0 );
+		$lists['uid'] 			= JHtml::_('list.users', 'uid', $row->uid, 1, NULL, 'name', 0 );
 	} else {
 		$lists['uid'] 			= JFactory::getUser($row->uid)->name;
 	}
     // build the html select list for ordering
-    $lists['ordering']          = JHTML::_('list.ordering', 'ordering', $query, Null, $id, 0 );
+    $lists['ordering']          = JHtml::_('list.ordering', 'ordering', $query, Null, $id, 0 );
     // build the html select list for parent item
     $lists['parent']        = galleryParentSelectList( $row );
     // build the html select list for published if allowed to change state
 	if ($canEditStateGallery) {
-		$lists['published'] = JHTML::_("select.booleanlist", 'published', 'class="inputbox"', $row->published ); 
+		$lists['published'] = JHtml::_("select.booleanlist", 'published', 'class="inputbox"', $row->published ); 
 	} else {
 		$lists['published'] = ($row->published ? JText::_('JYES') : JText::_('JNO'));
 	}

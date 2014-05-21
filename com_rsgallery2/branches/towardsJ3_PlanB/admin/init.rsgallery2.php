@@ -25,7 +25,7 @@ if (!defined('JPATH_RSGALLERY2_ADMIN')){	//might also be defined in router.php i
 define('JPATH_RSGALLERY2_LIBS',JPATH_ROOT. DS . 'components' . DS . 'com_rsgallery2' . DS . 'lib');
 
 $app =JFactory::getApplication();
-define('JURI_SITE', $app->isSite() ? JURI::base() : JURI::root());
+define('JURI_SITE', $app->isSite() ? JUri::base() : JUri::root());
 
 // check if this file has been included yet.
 if( isset( $rsgConfig )) return;
