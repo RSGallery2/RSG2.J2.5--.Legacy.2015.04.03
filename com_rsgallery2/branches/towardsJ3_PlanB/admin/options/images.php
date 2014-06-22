@@ -180,6 +180,8 @@ function editImage( $option, $id ) {
 	
 	$lists = array();
 	
+//	jimport('joomla.html.html.list'); 
+
 	$row = new rsgImagesItem( $database );
 	// load the row from the db table
 	$row->load( (int)$id );
@@ -213,7 +215,8 @@ function editImage( $option, $id ) {
 	. "\n WHERE gallery_id = " . (int) $row->gallery_id
 	. "\n ORDER BY ordering"
 	;
-	$lists['ordering'] 		= JHtml::_('list.specificordering', $row, $id, $query, true );
+	//$lists['ordering'] 		= JHtml::_('list.specificordering', $row, $id, $query, true );
+	$lists['ordering'] 		= JHtml::_('list.ordering', "", $query, $row, $id, true );
 	// build list of categories
 	$lists['gallery_id']	= galleryUtils::galleriesSelectList( $row->gallery_id, 'gallery_id', true, Null, 0 );
 	// build the html select list
@@ -229,7 +232,10 @@ function editImage( $option, $id ) {
 		$lists['userid'] 		= JFactory::getUser($row->userid)->name;
 	}
 	$file 	= JPATH_SITE .'/administrator/components/com_rsgallery2/options/images.item.xml';
-	$params = new JParameter( $row->params, $file);
+	//$params = new JParameter( $row->params, $file);
+	$jparams = new JRegistry();
+	$params = $jparams->get($row->params, $file);
+
 ///Try this for J3:
 /*$params2 = new JForm('params');
 $params2->loadFile($file);///var_dump($row);
@@ -251,9 +257,9 @@ foreach( $fields AS $field => $obj ){
 */
 function saveImage( $option, $redirect = true ) {
 	global  $rsgOption;
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	$database = JFactory::getDBO();
-	$my =& JFactory::getUser();
+	$my = JFactory::getUser();
 
 	$id = JRequest::getInt('id');
 	$task = JRequest::getCmd('task');
@@ -336,7 +342,7 @@ function saveImage( $option, $redirect = true ) {
 */
 function removeImages( $cid, $option ) {
 	global  $rsgOption, $rsgConfig;
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	$database = JFactory::getDBO();
 	
 	$return="index.php?option=$option&rsgOption=images";
@@ -416,7 +422,7 @@ function removeImages( $cid, $option ) {
 * @param string The current url option
 */
 function moveImages( $cid, $option ) {
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	$database = JFactory::getDBO();
 
 	//Get gallery id to move item(s) to
@@ -454,9 +460,9 @@ function moveImages( $cid, $option ) {
 */
 function publishImages( $cid=null, $publish=1,  $option ) {
 	global  $rsgOption;
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	$database = JFactory::getDBO();
-	$my =& JFactory::getUser();
+	$my = JFactory::getUser();
 
 	if (!is_array( $cid ) || count( $cid ) < 1) {
 		$action = $publish ? 'publish' : 'unpublish';
@@ -489,7 +495,7 @@ function publishImages( $cid=null, $publish=1,  $option ) {
 */
 function orderImages( $uid, $inc, $option ) {
 	global  $rsgOption;
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	$database = JFactory::getDBO();
 	
 	$row = new rsgImagesItem( $database );
@@ -505,7 +511,7 @@ function orderImages( $uid, $inc, $option ) {
 */
 function cancelImage( $option ) {
 	global $rsgOption;
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	$database = JFactory::getDBO();
 	
 	$row = new rsgImagesItem( $database );
@@ -587,7 +593,7 @@ function saveUploadedImage( $option ) {
  * @todo Warn user with alert before actually deleting
  */
 function resetHits ( &$cid ) {
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	$database = JFactory::getDBO();
 
 	//Reset hits
@@ -606,7 +612,7 @@ function resetHits ( &$cid ) {
 }
 
 function saveOrder( &$cid ) {
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	$database = JFactory::getDBO();
 
 	$total		= count( $cid );
@@ -644,7 +650,7 @@ function saveOrder( &$cid ) {
 	} // foreach
 
 	// clean any existing cache files
-	$cache =& JFactory::getCache();
+	$cache = JFactory::getCache();
 	$cache->clean( 'com_rsgallery2' );
 
 	$msg 	= JText::_('COM_RSGALLERY2_NEW_ORDERING_SAVED');
@@ -657,7 +663,7 @@ function saveOrder( &$cid ) {
 * @param string The current url option
 */
 function copyImage( $cid, $option ) {
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	$database = JFactory::getDBO();
 
 	//For each error that is found, store error message in array
@@ -768,7 +774,7 @@ function batchupload($option) {
 
 function save_batchupload() {
     global  $rsgConfig;
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	$database = JFactory::getDBO();
     //Try to bypass max_execution_time as set in php.ini
     set_time_limit(0);

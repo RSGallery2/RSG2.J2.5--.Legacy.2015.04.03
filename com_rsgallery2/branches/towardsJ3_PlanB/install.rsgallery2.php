@@ -11,11 +11,11 @@
 // no direct access
 defined('_JEXEC') or die;
 
-// Get the date for log file name
-$date = JFactory::getDate()->format('Y-m-d');
-
 // Include the JLog class.
 jimport('joomla.log.log');
+
+// Get the date for log file name
+$date = JFactory::getDate()->format('Y-m-d');
 
 // Add the logger.
 JLog::addLogger(
@@ -72,16 +72,16 @@ class com_rsgallery2InstallerScript
 		$this->actual_joomla_release = $jversion->getShortVersion();
 
         // Show the essential information at the install/update back-end
-        echo 'Installing component manifest file version = ' . $this->newRelease;
-        JLog::add('Installing component manifest file version = ' . $this->newRelease);
+        echo '<br/>Installing component manifest file version = ' . $this->newRelease;
+        JLog::add('<br/>Installing component manifest file version = ' . $this->newRelease);
         if ( $type == 'update' ) {
-			echo 'Old/current component version (manifest cache) = ' . $this->oldRelease;
+			echo '<br/>Old/current component version (manifest cache) = ' . $this->oldRelease;
 			JLog::add('Old/current component version (manifest cache) = ' . $this->oldRelease);
 		}
         //echo 'Installing component manifest file minimum Joomla version = ' . $this->minimum_joomla_release;
-        JLog::add('Installing component manifest file minimum Joomla version = ' . $this->minimum_joomla_release);
+        JLog::add('<br/>Installing component manifest file minimum Joomla version = ' . $this->minimum_joomla_release);
         //echo 'Current Joomla version = ' . $this->actual_joomla_release;
-        JLog::add('Current Joomla version = ' . $this->actual_joomla_release);
+        JLog::add('<br/>Current Joomla version = ' . $this->actual_joomla_release);
  
        // Abort if the current Joomla release is older
         if (version_compare( $this->actual_joomla_release, $this->minimum_joomla_release, 'lt' )) {
@@ -93,41 +93,37 @@ class com_rsgallery2InstallerScript
 
 		JLog::add('After version compare');
 
-        // abort if the component being installed is not newer or not equal (overwrite) than the currently installed version
         if ( $type == 'update' ) {
 		
-			JLog::add('-> type update');
-			$rel = $this->$oldRelease . ' to ' . $this->$newRelease;
+			JLog::add('-> pre update');
+			$rel = $this->oldRelease . ' to ' . $this->newRelease;
 			
+        // abort if the component being installed is not newer or not equal (overwrite) than the currently installed version
 			//if ( version_compare( $this->release, $oldRelease, 'le' ) ) {
-			if ( version_compare( this->$newRelease, this->$oldRelease, 'lt' ) ) {
+			if ( version_compare( $this->newRelease, $this->oldRelease, 'lt' ) ) {
 					Jerror::raiseWarning(null, 'Incorrect version sequence. Cannot upgrade ' . $rel);
 					return false;
 			}
 			/**/
+
+			// ??? Install options ?
+
+			echo '<br/>' . JText::_('COM_RSGALLERY2_PREFLIGHT_UPDATE_TEXT') . ' ' . $rel;		
         }
         else 
-		{ 
-			JLog::add('-> type freshInstall');
+		{ // $type == 'install'
+			JLog::add('-> pre freshInstall');
 			$rel = $this->newRelease; 
 			
-			/* ToDo: use RemoveAccidentallyLeftovers or do it directly
+			// Remove accidentally left overs (Image Files or Database) -> uncomment for use
+			// Only for developers use !!!
+			// RemoveManualInstallationParts ()
 			
-		   //Delete images and directories if exist
-			$exceptions = array(".", "..");
-			$this->deleteGalleryDir(JPATH_SITE.$this->galleryDir, $exceptions, false);
+			// ??? Install options ?
 
-			//Delete database tables
-			foreach ($this->tablelistNew as $table)
-			{
-				$this->deleteTable($table);
-			}        
-			*/
-
+			echo '<br/>' . JText::_('COM_RSGALLERY2_PREFLIGHT_INSTALL_TEXT') . ' ' . $rel;		
 		}
 
- 		JLog::add('COM_RSGALLERY2_PREFLIGHT_' . strtoupper($type). '_TEXT');
-        echo '<p>' . JText::_('COM_RSGALLERY2_PREFLIGHT_' . strtoupper($type). '_TEXT') . ' ' . $rel . '</p>';		
 		JLog::add('exit preflight');
 	}
 
@@ -230,7 +226,7 @@ class com_rsgallery2InstallerScript
 	function postflight($type, $parent)
 	{
 		JLog::add('postflight');
-		echo '<p>' . JText::_('COM_RSGALLERY2_POSTFLIGHT_' . $type . '_TEXT') . '</p>';
+		echo '<p>' . JText::_('COM_RSGALLERY2_POSTFLIGHT_' . strtoupper($type) . '_TEXT') . '</p>';
 		
 		JLog::add('exit postflight');
 	}

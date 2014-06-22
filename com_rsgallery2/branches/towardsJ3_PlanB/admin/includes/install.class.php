@@ -1073,7 +1073,7 @@ class rsgInstall {
         echo '<b>'.JText::_('COM_RSGALLERY2_FRESH_INSTALL').'</b>';
 
         //Delete images and directories if exist
-		$this->RemoveAccidentallyLeftovers ();
+//		$this->RemoveAccidentallyLeftovers ();
 
 		/* ToDo: Too late here -> use preflight 
         //Delete database tables

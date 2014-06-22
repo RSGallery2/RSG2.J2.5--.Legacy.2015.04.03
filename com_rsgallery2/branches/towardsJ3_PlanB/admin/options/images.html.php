@@ -126,7 +126,7 @@ class html_rsg2_images {
 				</td>
 				<td>
 		<?php 	if ($can['EditGallery']) { ?>
-					<a href="<?php echo $row->cat_link; ?>" title="Edit Category">
+					<a href="<?php echo $row->cat_link; ?>" title="Edit Image">
 		<?php 		echo $row->category; ?>
 					</a>
 		<?php 	} else { 
@@ -176,7 +176,7 @@ class html_rsg2_images {
 		jimport("joomla.filter.output");
 		JHtml::_('behavior.formvalidation');
 		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES );
-		$editor =& JFactory::getEditor();
+		$editor = JFactory::getEditor();
 
 		//Can user see/change permissions?
 		$canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
@@ -381,7 +381,7 @@ class html_rsg2_images {
 		//Get form for J!1.6 ACL rules (load library, get path to XML, get specific form)
 		jimport( 'joomla.form.form' );
 		JForm::addFormPath(JPATH_ADMINISTRATOR.'/components/com_rsgallery2/models/forms/');
-		$form = &JForm::getInstance('com_rsgallery2.params','item',array( 'load_data' => true ));
+		$form = JForm::getInstance('com_rsgallery2.params','item',array( 'load_data' => true ));
 
 		//Get the data for the form from $row (but only matching XML fields will get data here: asset_id)
 		$form->bind($row);
