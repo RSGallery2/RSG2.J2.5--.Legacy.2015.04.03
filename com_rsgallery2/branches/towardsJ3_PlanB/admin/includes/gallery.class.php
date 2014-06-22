@@ -1,4 +1,4 @@
-<?php
+260<?php
 /**
 * This file contains the class representing a gallery.
 * @version $Id: gallery.class.php 1085 2012-06-24 13:44:29Z mirjam $
@@ -246,7 +246,6 @@ class rsgGallery extends JObject{
 			return $this->$key;
 	}
 
-	
 	
 	/**
 	*  returns item by it's db id
