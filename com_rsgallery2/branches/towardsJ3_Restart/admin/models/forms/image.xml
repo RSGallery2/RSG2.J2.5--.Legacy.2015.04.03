@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id$ -->
+<form>
+	<fieldset>	
+		<field
+			name			= "id"
+			type			= "hidden"
+		/>
+
+		<field
+			name			= "name"
+			type			= "text"
+			label           = "COM_RSG2_NAME"
+			description     = ""
+			maxlength       = "250"
+			filter          = ""
+			size            = "60"
+		/>
+
+		<field
+			name			= "alias"
+			type			= "text"
+			label           = "COM_RSG2_ALIAS"
+			description     = ""
+			maxlength       = "250"
+			filter          = ""
+			size            = "60"
+		/>
+		
+		<field
+			name			= "uid"
+			type			= "user"
+			label           = "COM_RSG2_OWNER"
+			description     = ""
+			filter			= "unset"
+		/>
+
+
+
+		<field
+			name			= "alias"
+			type			= "text"
+			label           = "COM_RSG2_FILENAME"
+			description     = ""
+			maxlength       = "250"
+			filter          = ""
+			size            = "60"
+		/>
+
+		<field
+			name			= "alias"
+			type			= "text"
+			label           = "COM_RSG2_GALLERY"
+			description     = ""
+			maxlength       = "250"
+			filter          = ""
+			size            = "60"
+		/>
+
+		<field
+			name			= "permissios"
+			type			= "text"
+			label           = "COM_RSG2_PERMISSIONS"
+			description     = ""
+			filter			= "unset"
+			class			= "readonly"
+			readonly		= "true"			
+		/>
+
+
+		<field
+			name			= "description"
+			type			= "editor"
+			label           = "COM_RSG2_DESCRIPTION"
+			description     = ""
+			width 			= "30%"
+			height 			= "20"
+			rows 			= "5"
+			cols   			= "10"			
+			filter          = "safehtml"
+			class			= "span5"
+		/>
+
+
+
+		<field
+			name			= "ordering"
+			type			= "text"
+			label           = "COM_RSG2_ORDERING"
+		/>
+
+
+
+		<field
+			name			= "alias"
+			type			= "text"
+			label           = "COM_RSG2_PUBLISHED"
+			description     = ""
+			maxlength       = "250"
+			filter          = ""
+			size            = "60"
+		/>
+
+
+
+		<field
+			name			= "alias"
+			type			= "text"
+			label           = "COM_RSG2_ITEM_PREVIEW"
+			description     = ""
+			maxlength       = "250"
+			filter          = ""
+			size            = "60"
+		/>
+
+
+
+		<field
+			name			= "alias"
+			type			= "text"
+			label           = "COM_RSG2_THUMB"
+			description     = ""
+			maxlength       = "250"
+			filter          = ""
+			size            = "60"
+		/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</fieldset>	
+</form>
