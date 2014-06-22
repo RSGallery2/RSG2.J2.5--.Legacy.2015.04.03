@@ -1,0 +1,1 @@
+Additional libraries which support missing functions in php or Joomla

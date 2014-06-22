@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id$ -->
+
+
+<!-- possible attributes ...........................
+
+
+Form field 	Description
+accesslevel 	provides a drop down list of viewing access levels.
+cachehandler 	provides a list of available cache handling options.
+calendar 		provides a text box for entry of a date. An icon next to the text box provides a link to a pop-up calendar, which can also be used to enter the date value.
+category 		provides a drop down list of categories from a given section.
+category 		provides a drop down list of categories from a given extension.
+checkbox 		provides a single checkbox to be checked or unchecked.
+checkboxes 		provides unlimited checkboxes that can be used for multi-select.
+combo 			provides a combo box field.
+componentlayout provides a grouped list of core and template alternate layouts for a component item.
+contentlanguage provides a list of installed content languages for use in conjunction with the language switcher plugin.
+editor 			provides an editor area field
+ditors 			provides a drop down list of the available WYSIWYG editors.
+file 	
+filelist 		provides a drop down list of files from a specified directory.
+folderlist 		provides a drop down list of folders from a specified directory.
+groupedlist 	provides a drop down list of items organized into groups.
+helpsite 		provides a drop down list of the help sites for your Joomla installation.
+hidden 			provides a hidden field for saving a parameter whose value cannot be altered directly by a user in the Administrator (it can be altered in code or by editing the params.ini file).
+imagelist 		provides a drop down list of image files in a specified directory.
+integer 		provides a drop down list of integers between a minimum and maximum.
+languages 	 	provides a drop down list of the installed languages for the Front-end or Back-end.
+list 			provides a drop down list of custom-defined entries.
+media 			provides modal access to the media manager for insertion of images with upload for users with appropriate permissions.
+menu 			provides a drop down list of the available menus from your Joomla site.
+menuitem 		provides a drop down list of the available menu items from your Joomla site.
+modulelayout 	provides a list of alternative layout for a module grouped by core and template.
+password 	 	provides a text box for entry of a password. The password characters will be obscured as they are entered.
+radio 			provides radio buttons to select different options.
+rules 			provides a matrix of group by action options for managing access control. Display depends on context.
+sessionhandler 	provides a drop down list of session handler options.
+section 		provides a drop down list of the sections from your Joomla site. Sections have been removed in favour of subcategories in Joomla 2.5 onwards.
+spacer 			provides a visual separator between parameter field elements. It is purely a visual aid and no parameter value is stored.
+sql 			provides a drop down list of entries obtained by running a query on the Joomla Database. The first results column returned by the query provides the values for the drop down box.
+templatestyle 	provides a drop down list of template styles.
+text 			provides a text box for data entry.
+textarea 		provides a text area for entry of multi-line text.
+timezone 		provides a drop down list of time zones.
+user 			provides a modal list of users.
+usergroup 		provides an array of check boxes allowing multi-select.
+.................................................... -->
+
+<!-- possible attributes ...........................
+
+type 		(mandatory) must be text.
+name 		(mandatory) is the unique name of the field.
+label 		(mandatory) (translatable) is the descriptive title of the field.
+size 		(optional) is the width of the text box in characters. If omitted the width is determined by the browser. The value of size does not limit the number of characters that may be entered.
+maxlength 	(optional) limits the number of characters that may be entered.
+default 	(optional) (not translatable) is the default value.
+description (optional) (translatable) is text that will be shown as a tooltip when the user moves the mouse over the drop-down box.
+class 		(optional) is a CSS class name for the HTML form field. If omitted this will default to 'text_area'.
+readonly 	(optional) The field cannot be changed and will automatically inherit the default value
+disabled 	(optional) The field cannot be changed and will automatically inherit the default value - it will also not submit
+required 	(optional) The field must be filled before submitting the form.
+filter 		(optional) allow the system to save certain html tags or raw data.
+message 	(optional) The error message that will be displayed instead of the default message. 
+.................................................... -->
+<form>
+	<fieldset>
+		<field
+			name			= "id"
+			type			= "hidden"
+		/>
+
+		<field
+			name			= "name"
+			type			= "text"
+			label           = "COM_RSG2_NAME"
+			description     = ""
+			maxlength       = "250"
+			filter          = ""
+			size            = "60"
+		/>
+
+		<field
+			name			= "alias"
+			type			= "text"
+			label           = "COM_RSG2_ALIAS"
+			description     = ""
+			maxlength       = "250"
+			filter          = ""
+			size            = "60"
+		/>
+		
+		<field
+			name			= "uid"
+			type			= "user"
+			label           = "COM_RSG2_OWNER"
+			description     = ""
+			filter			= "unset"
+		/>
+		<!--
+			class			= "readonly"
+			readonly		= "true"
+			-->
+		<field
+			name			= "access"
+			type			= "accesslevel"
+			label           = "JFIELD_ACCESS_LABEL"
+			class			= "span12 small" />
+		/>
+
+		<!-- ToDo: Permissions - - >
+		<field
+			name			= "permissios"
+			type			= "accesslevel"
+			label           = "COM_RSG2_PERMISSIONS"
+		/ -->
+		<field
+			name			= "permissios"
+			type			= "text"
+			label           = "COM_RSG2_PERMISSIONS"
+			description     = ""
+			filter			= "unset"
+			class			= "readonly"
+			readonly		= "true"			
+		/>
+
+		
+		<field
+			name			= "description"
+			type			= "editor"
+			label           = "COM_RSG2_DESCRIPTION"
+			description     = ""
+			width 			= "30%"
+			height 			= "20"
+			rows 			= "5"
+			cols   			= "10"			
+			filter          = "safehtml"
+			class			= "span5"
+		/>
+
+		<!-- ToDO: fill list -->
+		<!-- 
+		
+		sql type:Using this generic form field type forces you to write SQL in an XML file and is rather limited. For more flexibility, consider creating your own, specific form field type by subclassing the JFormField class.
+		
+		<field
+			name			= "parent"
+			type			= "list"
+			label           = "COM_RSG2_PARENT_ITEM"
+			value			= "parent"
+		/ -->
+
+		<field
+			name			= "parent"
+			type			= "text"
+			label           = "COM_RSG2_PARENT_ITEM"
+		/>
+
+		<field
+			name			= "thumb_id"
+			type			= "text"
+			label           = "COM_RSG2_GALLERY_THUMBNAIL"
+			filter			= "unset"
+			class			= "readonly"
+			readonly		= "true"			
+		/>
+
+		
+		<field
+			name			= "ordering"
+			type			= "text"
+			label           = "COM_RSG2_ORDERING"
+		/>
+
+		<field
+			name			= "published"
+			type			= "radio"
+			label           = "COM_RSG2_PUBLISHED"
+			default			= "1" 
+			description     = ""
+		>
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>		
+		</field>
+
+		<!-- field
+			name			= ""
+			type			= ""
+			label           = ""
+		/>
+
+<field name="ar" type="list" label="Audience Match" description="Select your audience">
+<option value="0">JSELECT</option>
+<option value="1">DEPT_SALES</option>
+<option value="2">DEPT_SUPPORT</option>
+<option value="3">DEPT_BILLING</option>
+<option value="4">DEPT_OTHER</option>
+</field>
+
+		<field
+			name			= ""
+			type			= ""
+			label           = ""
+		/>
+
+		<field
+			name			= ""
+			type			= ""
+			label           = ""
+		/>
+
+		<field
+			name			= ""
+			type			= ""
+			label           = ""
+		/>
+
+		<field
+			name			= ""
+			type			= ""
+			label           = ""
+		/>
+
+		<field
+			name			= ""
+			type			= ""
+			label           = ""
+		/>
+
+		<field
+			name			= ""
+			type			= ""
+			label           = ""
+		/>
+
+		<field
+			name			= ""
+			type			= ""
+			label           = ""
+		/>
+
+		<field
+			name			= ""
+			type			= ""
+			label           = ""
+		/>
+
+		<field
+			name			= ""
+			type			= ""
+			label           = ""
+		/ -->
+
+
+	</fieldset>	
+</form>
