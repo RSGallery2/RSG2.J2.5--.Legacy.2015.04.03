@@ -7,9 +7,10 @@ class Rsg2Html
 
 	 /**
       * Used by showCP to generate buttons
-      * @param string URL for button link
-      * @param string Image name for button image
-      * @param string Text to show in button
+      * @param string  $link URL for button link
+      * @param string $image Image name for button image
+      * @param string $title Title of ...
+      * @param string $text Text to show in button
       */
 	static function quickiconBar( $link, $image, $title, $text = "" ) {
 	    ?>

@@ -10,12 +10,13 @@
  */
 // No direct access
 defined('_JEXEC') or die('Restricted access');
+
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.keepalive');
 
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_rsg2&view=image&layout=edit&id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="image-form"  class="form-validate">
+<form action="<?php echo JRoute::_('index.php?option=com_rsg2&view=image&layout=edit&id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm"  class="form-validate">
 
 	<div class="width-60 fltlft">
 		<fieldset class="adminform">

@@ -33,12 +33,12 @@ class Rsg2ViewGalleries extends JViewLegacy
         // Set the toolbar and number of found items
         $this->addToolBar($this->pagination->total);	
         $this->sidebar = JHtmlSidebar::render();
-		
+
+        // Set the document
+        $this->setDocument();
+
         // Display the template
 		parent::display ($tpl);
- 
-		// Set the document
-		$this->setDocument();
 	}
 
         /**
@@ -50,16 +50,20 @@ class Rsg2ViewGalleries extends JViewLegacy
 
         //Reflect number of items in title!
 //		JToolBarHelper::title(JText::_('Total: ').($total?' <span style="font-size: 0.5em; vertical-align: middle;">('.$total.')</span>':''), 'helloworld');
-		// if ($canDo->get('core.edit.state')) 
+		// if ($canDo->get('core.edit.state'))
+        if (count($this->items))
 		{
 			JToolBarHelper::publishList();
 			JToolBarHelper::unpublishList();
 			JToolBarHelper::spacer();
 		}
 		JToolBarHelper::addNew('gallery.add','JTOOLBAR_NEW');
-		JToolBarHelper::editList('gallery.edit','JTOOLBAR_EDIT');
-		JToolBarHelper::deleteList('', 'galleries.delete','JTOOLBAR_DELETE');
-	}
+        if (count($this->items))
+		{
+            JToolBarHelper::editList('gallery.edit','JTOOLBAR_EDIT');
+            JToolBarHelper::deleteList('', 'galleries.delete','JTOOLBAR_DELETE');
+        }
+    }
 
 	/*
 		 parameters
@@ -94,51 +98,6 @@ class Rsg2ViewGalleries extends JViewLegacy
             $document = JFactory::getDocument();
             $document->setTitle(JText::_('COM_RSG2_MENU_GALLERIES'));
     }
-	
-	
-        /**
-         * Setting the toolbar
-         */
-	protected function addSideBar ($total=null)
-	{
-	
-	
-				//Control Panel
-			JHtmlSidebar::addEntry(
-				JText::_('COM_RSG2_SUBMENU_CONTROL-PANEL'),
-				'index.php?option=COM_RSG2',
-		        true);
-			/*
-			//Upload
-			JHtmlSidebar::addEntry(
-				JText::_('COM_RSG2_SUBMENU_UPLOAD'),
-				'index.php?option=COM_RSG2&rsgOption=images&task=upload',
-		        true);
-		    //Batch Upload
-			JHtmlSidebar::addEntry(
-				JText::_('COM_RSG2_SUBMENU_BATCH-UPLOAD'),
-				'index.php?option=COM_RSG2&rsgOption=images&task=batchupload',
-		        true);
-			*/
-			//Items
-			JHtmlSidebar::addEntry(
-				JText::_('COM_RSG2_SUBMENU_ITEMS'),
-				'index.php?option=COM_RSG2&view=images',
-		        true);
-		    //Galleries
-			JHtmlSidebar::addEntry(
-				JText::_('COM_RSG2_SUBMENU_GALLERIES'),
-				'index.php?option=COM_RSG2&view=galleries',
-				true);
-
-	}
-	
-	
-	
-	
-	
-	
-	
 	
 }
 

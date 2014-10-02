@@ -9,7 +9,9 @@ jimport('joomla.application.component.modeladmin');
  */
 class rsg2ModelImage extends  JModelAdmin
 {
-	/**
+    protected $text_prefix = 'COM_RSG2';
+
+    /**
 	 * Returns a reference to the a Table object, always creating it.
 	 *
 	 * @param       type    The table type to instantiate
@@ -57,4 +59,13 @@ class rsg2ModelImage extends  JModelAdmin
 		}
 		return $data;
 	}
+
+    // Transform some data before it is displayed
+    /* extension development 129 bottom
+    protected function prepareTable ($table)
+    {
+        $table->title = htmlspecialchars_decode ($table->title, ENT_Quotes);
+    }
+    */
+
 }

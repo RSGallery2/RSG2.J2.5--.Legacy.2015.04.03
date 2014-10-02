@@ -11,15 +11,15 @@
 // no direct access
 defined('_JEXEC') or die;
 
-if(!defined('DS'))
-{
-	define('DS',DIRECTORY_SEPARATOR);
-}
-
 // /includes/defines.php
-require_once (JPATH_BASE.DS.'includes'.DS.'defines.php' );
+require_once (JPATH_BASE.'/includes/defines.php' );
 
 // Include the JLog class.
+// ToDo: USE: To check whether the Website is in the debug mode, test the JDEBUG variable:
+if(JDEBUG)
+{
+	//whatever debugging code you want to run
+}
 jimport('joomla.log.log');
 
 // Get the date for log file name
@@ -40,7 +40,7 @@ JLog::addLogger(
 
 // start logging...
 JLog::add('-------------------------------------------------------');
-JLog::add('Starting to log install.rsgallery2.php for installation');
+JLog::add('Starting to log install.rsg2.php for installation');
 		
 class com_rsg2InstallerScript
 {
@@ -127,12 +127,7 @@ class com_rsg2InstallerScript
 			echo '<br/>' . JText::_('COM_RSG2_PREFLIGHT_INSTALL_TEXT') . ' ' . $rel;		
 		}
 
- 		/*
-		JLog::add('Test: ' . 'COM_RSG2_PREFLIGHT_' . strtoupper($type). '_TEXT');
- 		JLog::add('Test: ' . JText::_('COM_RSG2_PREFLIGHT_' . strtoupper($type). '_TEXT'));
-        echo '<p>' . JText::_('COM_RSG2_PREFLIGHT_' . strtoupper($type). '_TEXT') . ' ' . $rel . '</p>';		
-		*/
-		JLog::add('exit preflight');
+ 		JLog::add('exit preflight');
 	}
 
 	/*-------------------------------------------------------------------------
@@ -150,7 +145,7 @@ class com_rsg2InstallerScript
 
 		// Path definitions
 		// may not be needed change it
-		require_once( JPATH_SITE . '/administrator/components/com_rsg2/classes/rsg2_Paths.php' );
+		// require_once( JPATH_SITE . '/administrator/components/com_rsg2/classes/rsg2_Paths.php' );
 	
 		// Remove accidentally left overs (Image files or database tables) -> uncomment for use
 		// Only for developers use !!!
@@ -162,19 +157,18 @@ class com_rsg2InstallerScript
 
 		//--- Create new directories -----------------------------
 		
+		/*
 		$imgPaths = new rsg2_Paths ();
 		JLog::add('rsg2_Paths: ' . $imgPaths.text());
         
 		$imgPaths.createRsg2ImagePaths ();
 		$imgPaths.createIndexHtmlFilesInImagePaths ();
-
+		*/
+		
 		//--- Handle config -----------------------------
 		
         // save config to populate database with default config values
         // $rsgConfig->saveConfig();
-        
-		
-		
 
 		JLog::add('exit install');
 	}
@@ -301,8 +295,8 @@ class com_rsg2InstallerScript
 			$msg = JText::_('COM_RSG2_INSTALLATION_OF_RSGALLERY_IS_COMPLETED', $this->newRelease);
 		}
 		// $icon = preg_replace('#\.[^.]*$#', '', $icon);
-		// $icon = preg_replace('#\.[^.]*$#', '', JUri::base().'components'.DS.'com_rsg2'.DS.'images'.DS.'icon-48-config.png');
-		$icon = str_replace('\\', '/', JUri::base().'components'.DS.'com_rsg2'.DS.'images'.DS.'icon-48-config.png');
+		// $icon = preg_replace('#\.[^.]*$#', '', JUri::base().'components/com_rsg2/images/icon-48-config.png');
+		$icon = str_replace('\\', '/', JUri::base().'components/com_rsg2/images/icon-48-config.png');
 		?>
 		<br/>Icon: <?php echo $icon; ?> <br/>
 		<br/>

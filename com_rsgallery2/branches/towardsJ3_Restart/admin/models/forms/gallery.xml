@@ -64,7 +64,7 @@ filter 		(optional) allow the system to save certain html tags or raw data.
 message 	(optional) The error message that will be displayed instead of the default message. 
 .................................................... -->
 <form>
-	<fieldset>
+	<fieldset name='gallery' addfieldpath="/administrator/components/com_rsg2/models/fields">
 		<field
 			name			= "id"
 			type			= "hidden"
@@ -97,23 +97,18 @@ message 	(optional) The error message that will be displayed instead of the defa
 			description     = ""
 			filter			= "unset"
 		/>
-		<!--
-			class			= "readonly"
-			readonly		= "true"
-			-->
-		<field
+		<!-- field
 			name			= "access"
 			type			= "accesslevel"
 			label           = "JFIELD_ACCESS_LABEL"
 			class			= "span12 small" />
-		/>
+		/-->
 
 		<!-- ToDo: Permissions - - >
 		<field
 			name			= "permissios"
 			type			= "accesslevel"
 			label           = "COM_RSG2_PERMISSIONS"
-		/ -->
 		<field
 			name			= "permissios"
 			type			= "text"
@@ -123,6 +118,7 @@ message 	(optional) The error message that will be displayed instead of the defa
 			class			= "readonly"
 			readonly		= "true"			
 		/>
+		/ -->
 
 		
 		<field
@@ -138,19 +134,9 @@ message 	(optional) The error message that will be displayed instead of the defa
 			class			= "span5"
 		/>
 
-		<!-- ToDO: fill list -->
-		<!-- 
-		
-		sql type:Using this generic form field type forces you to write SQL in an XML file and is rather limited. For more flexibility, consider creating your own, specific form field type by subclassing the JFormField class.
-		
-		<field
-			name			= "parent"
-			type			= "list"
-			label           = "COM_RSG2_PARENT_ITEM"
-			value			= "parent"
-		/ -->
+        <!-- ==================================================================== -->
 
-		<field
+        <!--field
 			name			= "parent"
 			type			= "text"
 			label           = "COM_RSG2_PARENT_ITEM"
@@ -162,10 +148,10 @@ message 	(optional) The error message that will be displayed instead of the defa
 			label           = "COM_RSG2_GALLERY_THUMBNAIL"
 			filter			= "unset"
 			class			= "readonly"
-			readonly		= "true"			
+			readonly		= "true"
 		/>
 
-		
+
 		<field
 			name			= "ordering"
 			type			= "text"
@@ -183,73 +169,119 @@ message 	(optional) The error message that will be displayed instead of the defa
 			<option value="1">JYES</option>		
 		</field>
 
-		<!-- field
-			name			= ""
-			type			= ""
-			label           = ""
-		/>
-
-<field name="ar" type="list" label="Audience Match" description="Select your audience">
-<option value="0">JSELECT</option>
-<option value="1">DEPT_SALES</option>
-<option value="2">DEPT_SUPPORT</option>
-<option value="3">DEPT_BILLING</option>
-<option value="4">DEPT_OTHER</option>
-</field>
-
 		<field
-			name			= ""
-			type			= ""
+			name			= "checked_out"
+			type			= "hidden"
 			label           = ""
 		/>
 
 		<field
-			name			= ""
-			type			= ""
+			name			= "checked_out_time"
+			type			= "hidden"
 			label           = ""
 		/>
 
 		<field
-			name			= ""
-			type			= ""
+			name			= "date"
+			type			= "hidden"
 			label           = ""
 		/>
 
 		<field
-			name			= ""
-			type			= ""
+			name			= "hits"
+			type			= "hidden"
 			label           = ""
 		/>
 
 		<field
-			name			= ""
-			type			= ""
+			name			= "params"
+			type			= "text"
 			label           = ""
 		/>
 
-		<field
-			name			= ""
-			type			= ""
-			label           = ""
-		/>
+        <field
+            name			= "allowed"
+            type			= "hidden"
+            label           = ""
+        />
 
-		<field
-			name			= ""
-			type			= ""
-			label           = ""
-		/>
+        <field
+            name			= "asset_id"
+            type			= "hidden"
+            label           = ""
+        />
 
-		<field
-			name			= ""
-			type			= ""
-			label           = ""
-		/>
+        < field
+            name			= ""
+            type			= ""
+            label           = ""
+            />
 
-		<field
-			name			= ""
-			type			= ""
-			label           = ""
-		/ -->
+        <field
+            name			= ""
+            type			= ""
+            label           = ""
+            />
+
+        <field
+            name			= ""
+            type			= ""
+            label           = ""
+            />
+
+        <field
+            name			= ""
+            type			= ""
+            label           = ""
+            />
+
+        <field
+            name			= ""
+            type			= ""
+            label           = ""
+            />
+
+        <field
+            name			= ""
+            type			= ""
+            label           = ""
+            />
+
+        <field
+            name			= ""
+            type			= ""
+            label           = ""
+            />
+
+        <field
+            name			= ""
+            type			= ""
+            label           = ""
+            />
+
+        <field
+            name			= ""
+            type			= ""
+            label           = ""
+            />
+
+        <field
+            name			= ""
+            type			= ""
+            label           = ""
+            />
+
+        <field
+            name			= ""
+            type			= ""
+            label           = ""
+            />
+
+        <field
+            name			= ""
+            type			= ""
+            label           = ""
+    	/ -->
 
 
 	</fieldset>	

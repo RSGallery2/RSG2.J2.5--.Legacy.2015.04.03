@@ -2,15 +2,15 @@
 <extension type="component" version="3.0" method="upgrade">
 	<name>com_rsg2</name>
 	<author>RSGallery2 Team</author>
-	<creationDate>Mai 2014</creationDate>
+	<creationDate>Jul 2014</creationDate>
 	<copyright>(c) 2014 RSGallery2 Team</copyright>
 	<license>This component is released under the GNU/GPL License</license>
 	<authorEmail>team@rsgallery2.nl</authorEmail>
 	<authorUrl>http://www.rsgallery2.nl</authorUrl>
-	<version>1.0.1.0007</version>
+	<version>1.0.1.0009</version>
 	<description>COM_RSG2_XML_DESCRIPTION</description>
 
-	<scriptfile>install.rsgallery2.php</scriptfile>
+	<scriptfile>install.rsg2.php</scriptfile>
 	<install>
 		<sql>
 			<file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
@@ -47,6 +47,8 @@
 				link="option=com_rsg2&amp;view=galleries">COM_RSG2_MENU_GALLERIES</menu>
 			<menu view="COM_RSG2_MENU_ITEMS" 
 				link="option=com_rsg2&amp;view=images">COM_RSG2_MENU_ITEMS</menu>
+			<menu view="COM_RSG2_SUMMARY_TREE_VIEW" 
+				link="option=com_rsg2&amp;view=summarytreeview">COM_RSG2_SUMMARY_TREE_VIEW</menu>
 		</submenu>
 		
 		<files folder="admin">

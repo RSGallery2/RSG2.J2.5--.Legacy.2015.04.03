@@ -40,7 +40,7 @@ class rsg2ModelImages extends JModelList
 		
 		$sql = 'SELECT `name` FROM `#__rsgallery2_galleries` WHERE `id` = '. (int) $id;
 		$db->setQuery($sql);
-		$db->query();
+		$db->execute();
 		// loadObjectstdClass(), loadObjectList,loadObject or any 
 		// other methods you can use for fetching based on list or 
 		// single row. ? any way the result return as array. ?

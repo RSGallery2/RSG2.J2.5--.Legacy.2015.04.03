@@ -9,8 +9,10 @@ jimport('joomla.application.component.modeladmin');
  */
 class rsg2ModelGallery extends  JModelAdmin
 {
+    protected $text_prefix = 'COM_RSG2';
+
 	/**
-	 * Returns a reference to the a Table object, always creating it.
+	 * Returns a reference to a Table object, always creating it.
 	 *
 	 * @param       type    The table type to instantiate
 	 * @param       string  A prefix for the table class name. Optional.
@@ -31,7 +33,9 @@ class rsg2ModelGallery extends  JModelAdmin
 	 * @since       2.5
 	 */
 	public function getForm($data = array(), $loadData = true) 
-	{		
+	{
+        $app = JFactory::getApplication();
+
 		$options = array('control' => 'jform', 'load_data' => $loadData);
 		// Get the form.
 		$form = $this->loadForm('galleries', 'gallery', $options);
@@ -58,4 +62,13 @@ class rsg2ModelGallery extends  JModelAdmin
 		}
 		return $data;
 	}
+
+    // Transform some data before it is displayed
+    /* extension development 129 bottom
+    protected function prepareTable ($table)
+    {
+        $table->title = htmlspecialchars_decode ($table->title, ENT_Quotes);
+    }
+    */
+
 }
