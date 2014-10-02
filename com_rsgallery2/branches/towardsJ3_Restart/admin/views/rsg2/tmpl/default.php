@@ -91,8 +91,11 @@ defined( '_JEXEC' ) or die( 'Restricted access' );?>
 			
 			<?php // This renders the end part of the tabs code. ?>
 			<?php echo JHtml::_('bootstrap.endTabSet');?>
-   			<?php echo JHtml::_('form.token'); ?>
 		</div>
 	</div>
+    <div>
+		<input type="hidden" name="task" value="" />
+		<?php echo JHtml::_('form.token'); ?>
+	</div>	
 </form>
 

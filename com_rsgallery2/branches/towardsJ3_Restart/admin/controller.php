@@ -1,6 +1,12 @@
 <?php
 defined('_JEXEC') or die;
 
+// Include the JLog class.
+jimport('joomla.log.log');
+
+// identify active file
+JLog::add('==> base.controller.php ');
+
 // import Joomla controller library
 jimport('joomla.application.component.controller');
  
@@ -17,10 +23,18 @@ class Rsg2Controller extends JControllerLegacy
 	{
 
 		require_once JPATH_COMPONENT.'/helpers/rsg2.php';
-
+/*
 		$view   = $this->input->get('view', 'rsg2');
+		JLog::add('  base.controller.view: ', json_encode($view));
+		
 		$layout = $this->input->get('layout', 'default');
+		JLog::add('  base.controller.layout: ', json_encode($layout));
+		
 		$id     = $this->input->getInt('id');
+		JLog::add('  base.controller.id: ', json_encode($id));
+*/
+		$task = $this->input->get('task');
+		JLog::add('  base.controller.task: ', json_encode($task));
 		
 /* ToDo:: Activate following: book extension entwickeln  page 208
 		if ($view == 'rsg2' && $layout == 'edit' && !$this->checkEditId('com_rsg2.edit.rsgallery2', $id))
@@ -36,5 +50,6 @@ class Rsg2Controller extends JControllerLegacy
 
 		return $this;
 	}
-	
+
+
 }

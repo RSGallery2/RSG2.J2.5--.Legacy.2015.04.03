@@ -47,15 +47,6 @@
 			size            = "60"
 		/>
 
-		<field
-			name			= "alias"
-			type			= "text"
-			label           = "COM_RSG2_GALLERY"
-			description     = ""
-			maxlength       = "250"
-			filter          = ""
-			size            = "60"
-		/>
 
 		<field
 			name			= "permissios"
@@ -69,7 +60,7 @@
 
 
 		<field
-			name			= "description"
+			name			= "descr"
 			type			= "editor"
 			label           = "COM_RSG2_DESCRIPTION"
 			description     = ""
@@ -89,10 +80,10 @@
 			label           = "COM_RSG2_ORDERING"
 		/>
 
+<!-- ==================================================================== -->
 
-
-		<field
-			name			= "alias"
+		<!-- field
+			name			= "gallery_id"
 			type			= "text"
 			label           = "COM_RSG2_PUBLISHED"
 			description     = ""
@@ -104,9 +95,9 @@
 
 
 		<field
-			name			= "alias"
+			name			= "title"
 			type			= "text"
-			label           = "COM_RSG2_ITEM_PREVIEW"
+			label           = ""
 			description     = ""
 			maxlength       = "250"
 			filter          = ""
@@ -114,30 +105,116 @@
 		/>
 
 
-
-		<field
-			name			= "alias"
-			type			= "text"
-			label           = "COM_RSG2_THUMB"
-			description     = ""
-			maxlength       = "250"
-			filter          = ""
-			size            = "60"
-		/>
+        <field
+                name			= "hits"
+                type			= "hidden"
+                label           = ""
+                />
 
 
+        <field
+                name			= "date"
+                type			= "hidden"
+                label           = ""
+                />
 
 
+        <field
+                name			= "rating"
+                type			= ""
+                label           = ""
+                />
+
+        <field
+                name			= "votes"
+                type			= ""
+                label           = ""
+                />
+
+        <field
+                name			= "comments"
+                type			= ""
+                label           = ""
+                />
+
+        <field
+                name			= "published"
+                type			= ""
+                label           = ""
+                />
+
+        <field
+                name			= "checked_out"
+                type			= "hidden"
+                label           = ""
+                />
+
+        <field
+                name			= "checked_out_time"
+                type			= "hidden"
+                label           = ""
+                />
+
+        <field
+                name			= "ordering"
+                type			= "text"
+                label           = "COM_RSG2_ORDERING"
+                />
+
+        <field
+                name			= "approved"
+                type			= "text"
+                label           = ""
+                />
+
+        <field
+                name			= "userid"
+                type			= "hidden"
+                label           = ""
+                />
+
+        <field
+                name			= "params"
+                type			= "text"
+                label           = ""
+                />
+
+        <field
+                name			= "asset_id"
+                type			= "hidden"
+                label           = ""
+                />
+
+        <field
+            name			= ""
+            type			= ""
+            label           = ""
+            />
+
+        <field
+            name			= ""
+            type			= ""
+            label           = ""
+            />
+
+        <field
+            name			= ""
+            type			= ""
+            label           = ""
+            />
+
+        <field
+            name			= ""
+            type			= ""
+            label           = ""
+            />
+
+        <field
+			name			= ""
+			type			= ""
+			label           = ""
+		/ -->
 
 
-
-
-
-
-
-
-
-
-
-	</fieldset>	
+    </fieldset>
 </form>

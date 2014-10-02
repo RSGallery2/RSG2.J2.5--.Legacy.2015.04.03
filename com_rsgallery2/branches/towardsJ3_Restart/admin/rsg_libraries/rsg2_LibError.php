@@ -37,14 +37,17 @@ class rsg2_LibError
 	$info 	mixed 	null 	Optional: Additional error information (usually only developer-relevant information that the user should never see, like a database DSN).
 	------------------------------------------------------------------------------------*/
 	public static function raiseError (
-        $code
-        $msg
+        $code,
+        $msg,
         $info=null)
 	{
 
-trigger_error (
-trigger_error("Kann nicht durch 0 teilen", E_USER_ERROR);
-bool trigger_error ( string $error_msg [, int $error_type = E_USER_NOTICE ] )
+
+/* ????
+        trigger_error (
+        trigger_error("Kann nicht durch 0 teilen", E_USER_ERROR),
+        bool trigger_error ( string $error_msg [, int $error_type = E_USER_NOTICE ] ));
+*/
 	}
 
 
@@ -59,8 +62,8 @@ bool trigger_error ( string $error_msg [, int $error_type = E_USER_NOTICE ] )
 		   database DSN).	
     ----------------------------------------------------------------------------------*/
 	public static function raiseWarning (
-		$code
-		$msg
+		$code,
+		$msg,
 		$info=null)	
 	{
 
@@ -80,8 +83,8 @@ bool trigger_error ( string $error_msg [, int $error_type = E_USER_NOTICE ] )
 		   database DSN).	
     ----------------------------------------------------------------------------------*/
 	public static function raiseNotice (
-        $code
-        $msg
+        $code,
+        $msg,
         $info=null)
 	{
 

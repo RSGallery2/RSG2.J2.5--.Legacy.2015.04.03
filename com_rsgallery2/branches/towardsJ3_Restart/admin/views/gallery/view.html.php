@@ -11,9 +11,6 @@ class Rsg2ViewGallery extends JViewLegacy
 	
 	public function display ($tpl = null)
 	{
-		
-		//JFactory::getApplication()->input->set('hidemainmanu',true);
-	
 		$this->item = $this->get('Item');
 		$this->form = $this->get('Form');
 
@@ -29,48 +26,48 @@ class Rsg2ViewGallery extends JViewLegacy
 		$this->form = $form;
 		// $this->item = $item;
 		*/
-	
+
+        // Set the document
+        // $this->setDocument();
+
 		$this->addToolbar ();
 		
 		parent::display ($tpl);
-		
-		// Set the document
-		$this->setDocument();
 	}
 
 	protected function addToolbar ()
 	{
+        $TitleText = "Dummy";
+
 		// Disable main menu
-		JRequest::setVar('hidemainmenu', true);
+        JFactory::getApplication()->input ->set ('hidemainmenu', true);
 
 		// Toolbar
-			
 		$item=$this->item;
 		if($item->id == 0) {
-			JToolBarHelper::title(JText::_('COM_RSG2_NEW'));
+            $TitleText = JText::_('COM_RSG2_CREATE_GALLERY'); // COM_RSG2_NEW'
 		} else {
-			JToolBarHelper::title(JText::_('COM_RSG2_EDIT'));
-		}		
-		
+            $TitleText = JText::_('COM_RSG2_EDIT_GALLERY');
+		}
+
+        JToolBarHelper::title($TitleText, 'generic.png');
+
 		/*
         JToolBarHelper::save();
         JToolBarHelper::cancel();
         JToolBarHelper::spacer();
 		*/
 	
-		JToolBarHelper::apply('gallery.apply', 'JTOOLBAR_APPLY');
-        JToolBarHelper::save('gallery.save', 'JTOOLBAR_SAVE');
-        JToolBarHelper::save2copy('gallery.save2copy');
+		JToolBarHelper::apply('gallery.apply', 'JTOOLBAR_APPLY'); // -> save
+        JToolBarHelper::save('gallery.save', 'JTOOLBAR_SAVE'); //  -> save and close
+        //JToolBarHelper::save2copy('gallery.save2copy');
         JToolBarHelper::save2new('gallery.save2new');
         JToolBarHelper::spacer();
 		if($item->id == 0) {
 			JToolBarHelper::cancel('gallery.cancel', 'JTOOLBAR_CANCEL');
 		} else {
 			JToolBarHelper::cancel('gallery.cancel', 'JTOOLBAR_CLOSE');
-		}		
-		
-		
-		
+		}
 	}
 
 	/*

@@ -1,5 +1,5 @@
 <?php // no direct access
 defined( '_JEXEC' ) or die; ?>
-<?php echo 'content rsg2: image ....'; ?>
+<?php echo 'content rsg2: image default ....'; ?>
 
 

@@ -59,7 +59,9 @@ if (!defined('JPATH_RSG_ADMIN_IMAGES')) // ??? might also be defined in router.p
 
 class rsg2_Paths
 {
-	static const JPATH_RSG_ADMIN_IMAGES = JPATH_ROOT. DS .'administrator' . DS . 'components' . DS . 'com_rsg2' .DS. 'images';
+    // ToDo fix: expression not allowed as class constant ... and others
+
+	const JPATH_RSG_ADMIN_IMAGES = JPATH_ROOT . '/administrator/components/com_rsg2/images';
 
 	/* const may not be assingned by function ... use get functions instead 
 	static const RSG2_IMAGES_BASE_DIR = rsg2_LibPaths::join_paths ('images', 'rsgallery');	
@@ -184,7 +186,7 @@ if(JFolder::exists(JPATH_ROOT.'/pfad/zum/verzeichnis'))
 
 if( JFolder::delete(JPATH_ROOT.DS.'pfad'.DS.'zum'.DS.'ordner') )
 {
-   echo 'Der Ordner wurde gelöscht';
+   echo 'Der Ordner wurde gelï¿½scht';
 }
 
 jimport( 'joomla.filesystem.file' );

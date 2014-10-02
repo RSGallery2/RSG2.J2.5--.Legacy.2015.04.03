@@ -35,6 +35,15 @@ $saveOrder	= $listOrder == 'a.ordering';
 <?php endif;?>
 	
 	<div class="clearfix"> </div>		
+	<?php
+	// Search tools bar
+	// echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
+	?>
+	<?php if (empty($this->items)) : ?>
+		<div class="alert alert-no-items">
+			<?php echo JText::_('No existing gallery'); ?>
+		</div>
+	<?php else : ?>  		
 		<table class="adminlist table table-striped" id="GalleryList">
 			<thead>
 				<tr>
@@ -138,19 +147,33 @@ $saveOrder	= $listOrder == 'a.ordering';
 				</tr>
 				<?php endforeach; ?>
 			</tbody>
-			<tfoot>
+			
+			
+			
+			
+			
+			<!-- tfoot>
 				<tr>
 					<td colspan="10">
-						<!-- ?php echo $this->item->pagination->getListFooter(); ? -->
-						<!-- ?php echo $pageNav->getListFooter(); ? -->
+						<! - - ?php echo $this->item->pagination->getListFooter(); ? - - >
+						<! - - ?php echo $pageNav->getListFooter(); ? - - >
 					</td>
 				</tr>
-			</tfoot>
+			</tfoot -->
 		</table>
-	</div>
-    <div>
-		<input type="hidden" name="task" value="" />
+		
+		<?php endif; ?>
+		<?php echo $this->pagination->getListFooter(); ?>
+		<!-- ?php //Load the batch processing form. ? -->
+		<!-- ?php echo $this->loadTemplate('batch'); ? -->
+
+ 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="boxchecked" value="0" />
+
+        <!-- filter_order
+ yyy       filter_order_dir
+        -->
+
 		<?php echo JHtml::_('form.token'); ?>
 	</div>
 </form>

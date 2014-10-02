@@ -61,13 +61,19 @@ class Rsg2Helper
 			$vName == 'images'
 		);
 		
-/*		JHtmlSidebar::addEntry(
-			JText::_('COM_RSG2_MENU_CONTROL_PANEL'),
-			'index.php?option=com_rsg2&view=rsg2',
-			$vName == 'rsg2'
+		JHtmlSidebar::addEntry(
+			JText::_('COM_RSG2_SUMMARY_TREE_VIEW'),
+			'index.php?option=com_rsg2&view=summarytreeview',
+			$vName == 'summarytreeview'
 		);
-		
-		
+				
+/*		
+		JHtmlSidebar::addEntry(
+			JText::_('com_rsg2_SUBMENU_CATEGORIES'),
+			'index.php?option=com_categories&extension=com_rsg2',
+			$vName == 'categories'
+		);
+
 /*		
 		JHtmlSidebar::addEntry(
 			JText::_('com_rsg2_SUBMENU_CATEGORIES'),
