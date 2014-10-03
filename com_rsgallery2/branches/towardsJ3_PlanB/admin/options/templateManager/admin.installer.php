@@ -24,6 +24,11 @@ $controller = new InstallerController( array(
 			'view_path'=>rsgOptions_installer_path.DS.'views'
 	));
 
-$controller->set('task_type', JRequest::getCmd('type'));
-$controller->execute( JRequest::getCmd('task') );
+// 140701 original: $controller->set('task_type', JRequest::getCmd('type'));
+// 140701 original: $controller->execute( JRequest::getCmd('task') );
+$input =JFactory::getApplication()->input;
+$type = $input->get( 'type', '', 'CMD');		
+$task = $input->get( 'task', '', 'CMD');			
+$controller->set('task_type', $type);
+$controller->execute( $task );
 $controller->redirect();

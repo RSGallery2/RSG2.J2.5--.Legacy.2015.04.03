@@ -45,12 +45,63 @@ Legend:
 ! To do: 
 	^ Language files missing
 		language/en-GB/en-GB.com_rsgallery2.sys.ini
-		
+! To do: 2014.10.03 Activate logfiles only when debug rsg2 is on (? flag for backend 
+      user necessary ? -> hint for log file per day	
 		
 ---------------- Recent ----------------
 
+* --------------- 4.0.0 -- SVN 1117 -- 2014-10-03 -------------
 
-* --------------- 4.0.0 -- SVN 1109 -- 2014-??-?? -------------
+2014.10.03 whazzup
+following changes occur in folder planB
+
+^ ->redirect with message needs need moved message with command ->enqueueMessage before
+^ JRequest::get needs use of JFactory::getApplication()->input; with $input->get( ..., 'type')
+  !!! Attention: The previous use of the JRequest::get function could not be translated 1:1 . 
+  There is left the feeling that some former used parameter combination are not working !!!
+  Old code is therefore left in the sources commented out
+^ JModel -> JModelLegacy
+^ Added static to function and sometimes removed it again 
+^ Removed assignRef used direct assignment
+^ $row->bind( JRequest::get('post') -> $row->bind( $input->post->getArray()
+^ behavior.mootools -> behavior.framework
+^ Replaced $dbo->loadResultArray() -> $dbo->loadColumn()
++ added file controler.php
++ Activated log file for backend per day 
+
+
+
+
+
+Revision: 1116
++ This project aims for a complete redevelopment of rsgallery2 with joomla 3 methods and file system.
+It can be installed parallel to an existing rsgallery2 installation on joomla 3
+
+Revision: 1114
+* Next improvements like renaming JURI to Juri ...
+
+Revision: 1113
+- Fixed:     $catid = JRequest::getInt( 'catid', array(0) ); -> 
+* Small changes
+
+Revision: 1112
+* Took File from towardsJ3
++ Installation like J3 wants it see install.rsgallery2.php
+* Added "static" in front of most functions
+* Replaced $database->query with $database->execute
+* Remover references $database = JFactory::getDBO()
+* Replaced JSubMenuHelper with JHtmlSidebar
+* Moved languages
+* 
+--- Known issues:
+* There may be too many "static" before "function"
+* Error on many pages: 
+  Notice: Undefined index: in D:\xampp\htdocs\Joomla3x\administrator\templates\isis\html\message.php on line 24
+  Always near: require_once( 'D:\xampp\htdocs\Joomla3x\administrator\components\com_rsgallery2\rsgallery2.php')
+* Only admin part tested, site untested
+
+
+* --------------- 4.0.0 -- SVN 1109-1111 -- 2014-??-?? -------------
 
 2014.04.01 whazzup
 Improved sql upgrade. It resides in an own folder sql/update now. Updated rsgallery2.xml for it.
@@ -60,6 +111,10 @@ Don't know if "scriptfile" works in rsgallery2.xml for uninstall
   <scriptfile>install.rsgallery2.php</scriptfile>
   <scriptfile>uninstall.rsgallery2.php</scriptfile>
 
+  
+Revision: 1108
+Replaced deprecated $dg->getErrorNum, $db->getErrorMsg() with try catch handling
+  
   
 * --------------- 3.2.0 -- SVN 1098 -- 2012-07-31 -------------
 

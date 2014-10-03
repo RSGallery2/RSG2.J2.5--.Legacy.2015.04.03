@@ -22,7 +22,7 @@ include_once(dirname(__FILE__).DS.'..'.DS.'default'.DS.'view.php');
 
 class InstallerViewSelectCss extends InstallerViewDefault
 {
-	static function display($tpl=null)
+	function display($tpl=null)
 	{
 		/*
 		 * Set toolbar items for the page
@@ -34,7 +34,7 @@ class InstallerViewSelectCss extends InstallerViewDefault
 		
 		// Get data from the model
 		$item = &$this->get('Items');
-		$this->assignRef('item', $item);
+		$this->item = $item;
 		
 		parent::showTemplateHeader();
 		parent::display($tpl);

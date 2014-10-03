@@ -40,7 +40,7 @@ class InstallerController extends JControllerLegacy
 		$view	= &$this->getView( 'Install', '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
-		$view->assignRef('ftp', $ftp);
+		$view->ftp = $ftp;
 		
 		$view->setModel( $model, true );
 		$view->display();
@@ -62,7 +62,7 @@ class InstallerController extends JControllerLegacy
 		$view	= &$this->getView( 'Install' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
-		$view->assignRef('ftp', $ftp);
+		$view->ftp = $ftp;
 		
 		if ($model->install()) {
 			$cache = &JFactory::getCache('mod_menu');
@@ -86,7 +86,7 @@ class InstallerController extends JControllerLegacy
 		$view	= &$this->getView( 'templates' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
-		$view->assignRef('ftp', $ftp);
+		$view->ftp = $ftp;
 		
 		$view->setModel( $model, true );
 		$view->display();
@@ -106,7 +106,10 @@ class InstallerController extends JControllerLegacy
 		// Check for request forgeries
 		JRequest::checkToken( 'request' ) or die( 'Invalid Token' );
 		
-		$template = JRequest::getVar( 'template' );
+		//$template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
+		
 		$rsgConfig->set('template', $template);
 		$rsgConfig->saveConfig();
 		$this->manage();
@@ -127,7 +130,9 @@ class InstallerController extends JControllerLegacy
 		// Check for request forgeries
 		JRequest::checkToken() or die( 'Invalid Token' );
 		
-		$template = JRequest::getVar( 'template' );
+		//$template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
 		
 		if($rsgConfig->template == $template) {
 			JError::raiseWarning( 500, 'Can not delete default template.', "Select an other template and then delete this one." );
@@ -165,9 +170,12 @@ class InstallerController extends JControllerLegacy
 		$view	= &$this->getView( 'template' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
-		$view->assignRef('ftp', $ftp);
+		$view->ftp = $ftp;
 		
-		$template = JRequest::getVar( 'template' );
+		//$template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
+		
 		$model->template = $template;
 		
 		$view->setModel( $model, true );
@@ -187,11 +195,15 @@ class InstallerController extends JControllerLegacy
 		$view	= &$this->getView( 'template' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
-		$view->assignRef('ftp', $ftp);
+		$view->ftp = $ftp;
 		
-		$template = JRequest::getVar( 'template' );
-		$params	= JRequest::getVar('params', array(), 'post', 'array');
+		//$template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
 		
+		//$params	= JRequest::getVar('params', array(), 'post', 'array');
+		$params = $input->post->get( 'params', array(), 'ARRAY');
+
 		$model->set('template', $template);
 		$model->set('params' , $params);
 		$model->update();
@@ -211,8 +223,12 @@ class InstallerController extends JControllerLegacy
 		
 		$model	= &$this->getModel( 'template' );
 		
-		$template = JRequest::getVar( 'template' );
-		$params	= JRequest::getVar('params', array(), 'post', 'array');
+		//$template = JRequest::getVar( 'template' );
+		$input = JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
+		
+		//$params	= JRequest::getVar('params', array(), 'post', 'array');
+		$params = $input->post->get( 'params', array(), 'ARRAY');	
 		
 		$model->set('template', $template);
 		$model->set('params' , $params);
@@ -237,9 +253,12 @@ class InstallerController extends JControllerLegacy
 		$view	= &$this->getView( 'selectCss' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
-		$view->assignRef('ftp', $ftp);
+		$view->ftp = $ftp;
 		
-		$template = JRequest::getVar( 'template' );
+		//$template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
+		
 		$model->template = $template;
 		
 		$view->setModel( $model, true );
@@ -260,11 +279,15 @@ class InstallerController extends JControllerLegacy
 		$view	= &$this->getView( 'editCss' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
-		$view->assignRef('ftp', $ftp);
+		$view->ftp = $ftp;
 		
-		$template = JRequest::getVar( 'template' );
+		//$template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
+		
 		$model->template = $template;
-		$model->filename = JRequest::getVar( 'filename' );
+		//$model->filename = JRequest::getVar( 'filename' );
+		$model->filename = $input->get( 'filename' );
 		
 		$view->setModel( $model, true );
 		$view->display();
@@ -275,9 +298,15 @@ class InstallerController extends JControllerLegacy
 		JRequest::checkToken() or die( 'Invalid Token' );
 		
 		$model	= &$this->getModel( 'editCss' );
-		$model->filename = JRequest::getVar( 'filename' );
-		$model->content = JRequest::getVar('csscontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
-		$model->template = JRequest::getVar( 'template' );
+		//$model->filename = JRequest::getVar( 'filename' );
+		$input =JFactory::getApplication()->input;
+		$model->filename = $input->get( 'filename' );
+		
+		//$model->content = JRequest::getVar('csscontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
+		$model->content = $input->post->get( 'csscontent' '', RAW);
+		//$model->template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
 		
 		$model->save();
 
@@ -289,10 +318,16 @@ class InstallerController extends JControllerLegacy
 		JRequest::checkToken() or die( 'Invalid Token' );
 		
 		$model	= &$this->getModel( 'editCss' );
-		$model->filename = JRequest::getVar( 'filename' );
-		$model->content = JRequest::getVar('csscontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
-		$model->template = JRequest::getVar( 'template' );
+		//$model->filename = JRequest::getVar( 'filename' );
+		$input =JFactory::getApplication()->input;
+		$model->filename = $input->get( 'filename' );
 		
+		//$model->content = JRequest::getVar('csscontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
+		$model->content = $input->post->get( 'csscontent' '', RAW);
+		//$model->template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
+
 		$model->save();
 		
 		$this->editCSS();
@@ -317,9 +352,11 @@ class InstallerController extends JControllerLegacy
 		$view	= &$this->getView( 'selectHtml' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
-		$view->assignRef('ftp', $ftp);
+		$view->ftp = $ftp;
 		
-		$template = JRequest::getVar( 'template' );
+		//$template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
 		$model->template = $template;
 		
 		$view->setModel( $model, true );
@@ -340,11 +377,15 @@ class InstallerController extends JControllerLegacy
 		$view	= &$this->getView( 'editHtml' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
-		$view->assignRef('ftp', $ftp);
+		$view->ftp = $ftp;
 		
-		$template = JRequest::getVar( 'template' );
+		//$template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
+		
 		$model->template = $template;
-		$model->filename = JRequest::getVar( 'filename' );
+		//$model->filename = JRequest::getVar( 'filename' );
+		$model->filename = $input->get( 'filename' );
 		
 		$view->setModel( $model, true );
 		$view->display();
@@ -355,9 +396,15 @@ class InstallerController extends JControllerLegacy
 		JRequest::checkToken() or die( 'Invalid Token' );
 		
 		$model	= &$this->getModel( 'editHtml' );
-		$model->filename = JRequest::getVar( 'filename' );
-		$model->content = JRequest::getVar('htmlcontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
-		$model->template = JRequest::getVar( 'template' );
+		//$model->filename = JRequest::getVar( 'filename' );
+		$input =JFactory::getApplication()->input;
+		$model->filename = $input->get( 'filename' );
+
+		//$model->content = JRequest::getVar('htmlcontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
+		$model->content = $input->post->get( 'htmlcontent' '', RAW);
+		//$model->template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
 		
 		$model->save();
 		
@@ -369,9 +416,15 @@ class InstallerController extends JControllerLegacy
 		JRequest::checkToken() or die( 'Invalid Token' );
 		
 		$model	= &$this->getModel( 'editHtml' );
-		$model->filename = JRequest::getVar( 'filename' );
-		$model->content = JRequest::getVar('htmlcontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
-		$model->template = JRequest::getVar( 'template' );
+		//$model->filename = JRequest::getVar( 'filename' );
+		$input =JFactory::getApplication()->input;
+		$model->filename = $input->get( 'filename' );
+
+		//$model->content = JRequest::getVar('htmlcontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
+		$model->content = $input->post->get( 'htmlcontent' '', RAW);
+		//$model->template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
 		
 		$model->save();
 		

@@ -17,7 +17,9 @@ require_once( $rsgOptions_path . 'images.html.php' );
 require_once( $rsgOptions_path . 'images.class.php' );
 require_once( JPATH_RSGALLERY2_ADMIN . DS . 'admin.rsgallery2.html.php' );
 
-$cid = JRequest::getVar("cid", array(), 'default', 'array' );
+//$cid = JRequest::getVar("cid", array(), 'default', 'array' );
+$input =JFactory::getApplication()->input;
+$cid = $input->get( 'cid', array(), 'ARRAY');
 
 switch ($task) {
 	case 'new':
@@ -42,7 +44,7 @@ switch ($task) {
 		saveUploadedImage( $option );
 		break;
 		
-	case 'edit':
+	case 'edit': // ToDO: deprecated JRequest::setVar
 		JRequest::setVar('id', $cid[0]);
 		editImage( $option, $cid[0] );
 		break;
@@ -174,6 +176,7 @@ function showImages( $option ) {
 * @param integer The unique id of the record to edit (0 if new)
 */
 function editImage( $option, $id ) {
+    global $rsgOption;
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
 	$mainframe = JFactory::getApplication();
@@ -191,12 +194,15 @@ function editImage( $option, $id ) {
 	$canEditStateItem = $my->authorise('core.edit.state','com_rsgallery2.item.'.$row->id);
 
 	if (!$canEditItem){
-		$mainframe->redirect( "index.php?option=$option&rsgOption=images", JText::_('JERROR_ALERTNOAUTHOR'), 'error' );
+        $mainframe->enqueueMessage( JText::_('JERROR_ALERTNOAUTHOR'), 'error' );
+		$mainframe->redirect( "index.php?option=$option&rsgOption=images" );
 	}
 	
 	// fail if checked out not by 'me'
 	if ($row->isCheckedOut( $my->id )) {
-		$mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption", "The module $row->title is currently being edited by another administrator." );
+		// ToDo Translate
+	    $mainframe->enqueueMessage( "The module $row->title is currently being edited by another administrator." );
+		$mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
 	}
 
 	if ($id) {
@@ -206,7 +212,9 @@ function editImage( $option, $id ) {
 		$row->published = 1;
 		$row->approved 	= 1;
 		$row->ordering 	= 0;
-		$row->gallery_id 	= intval( JRequest::getInt( 'gallery_id', 0 ) );
+		//$row->gallery_id 	= intval( JRequest::getInt( 'gallery_id', 0 ) );
+		$input =JFactory::getApplication()->input;
+		$row->gallery_id 	= $input->get( 'gallery_id', 0 , 'INT' );
 	}
 
 	// build the html select list for ordering
@@ -261,19 +269,27 @@ function saveImage( $option, $redirect = true ) {
 	$database = JFactory::getDBO();
 	$my = JFactory::getUser();
 
-	$id = JRequest::getInt('id');
-	$task = JRequest::getCmd('task');
+	$input =JFactory::getApplication()->input;
+	// $id = JRequest::getInt('id');
+	$id = $input->get( 'id', 0, 'INT');					
+	//$task = JRequest::getCmd('task');
+	$task = $input->get( 'task', '', 'CMD');		
 	// Get the rules which are in the form … with the name ‘rules’ 
 	// with type array (default value array())
-	$data['rules']		= JRequest::getVar('rules', array(), 'post', 'array');
-	
+	//$data['rules']		= JRequest::getVar('rules', array(), 'post', 'array');
+	$data['rules']		= $input->post->get( 'rules', array(), 'ARRAY');		
+
 	$row = new rsgImagesItem( $database );
 	$row->load($id);
-	if (!$row->bind( JRequest::get('post') )) {
+	//if (!$row->bind( JRequest::get('post') )) {
+    // ToDo: Revisit check if $input->post->getArray(); is proper replacement for above
+	if (!$row->bind( $input->post->getArray() )) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
-	$row->descr = JRequest::getVar( 'descr', '', 'post', 'string', JREQUEST_ALLOWRAW );
+	//$row->descr = JRequest::getVar( 'descr', '', 'post', 'string', JREQUEST_ALLOWRAW );
+	$row->descr = $input->post->get('descr', '', 'RAW');
+
 	//Make the alias for SEF
 	if(empty($row->alias)) {
             $row->alias = $row->title;
@@ -284,7 +300,9 @@ function saveImage( $option, $redirect = true ) {
 	$row->descr = str_replace( '<br>', '<br />', $row->descr );
 	
 	// save params
-	$params = JRequest::getVar( 'params', '' );
+	//$params = JRequest::getVar( 'params', '' );
+	$input =JFactory::getApplication()->input;
+	$params = $input->get( 'params', array(), 'ARRAY');		
 	if (is_array( $params )) {
 		$txt = array();
 		foreach ( $params as $k=>$v) {
@@ -413,7 +431,9 @@ function removeImages( $cid, $option ) {
 		}
 		
 	}
-	$mainframe->redirect( $return , JText::_('COM_RSGALLERY2_MAGE-S_DELETED_SUCCESFULLY') );
+	// ToDo: Check below text constant
+    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_MAGE-S_DELETED_SUCCESFULLY') );
+	$mainframe->redirect( $return );
 }
 
 /**
@@ -426,7 +446,9 @@ function moveImages( $cid, $option ) {
 	$database = JFactory::getDBO();
 
 	//Get gallery id to move item(s) to
-	$new_id = JRequest::getInt( 'move_id', '' );
+	//$new_id = JRequest::getInt( 'move_id', '' );
+	$input =JFactory::getApplication()->input;
+	$new_id = $input->get( 'move_id', 0, 'INT');					
 	if ($new_id == 0) {
 		echo "<script> alert('No gallery selected to move to'); window.history.go(-1);</script>\n";
 		exit;
@@ -515,7 +537,11 @@ function cancelImage( $option ) {
 	$database = JFactory::getDBO();
 	
 	$row = new rsgImagesItem( $database );
-	$row->bind( $_POST );
+    //$row->bind( $_POST );
+	$input =JFactory::getApplication()->input;
+    // ToDo: Revisit check if $input->post->getArray(); is proper replacement for above
+    $row->bind( $input->post->getArray() );
+
 	$row->checkin();
 	$mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
 }
@@ -541,46 +567,56 @@ function uploadImage( $option ) {
 function saveUploadedImage( $option ) {
 	global $id, $rsgOption;
 	$mainframe = JFactory::getApplication();
-	$title = JRequest::getVar('title'  , array(), 'default', 'array');// We get an array of titles here  
-	$descr = JRequest::getVar('descr'  , '', 'post', 'string', JREQUEST_ALLOWRAW); 
-	$gallery_id = JRequest::getInt('gallery_id'  , '');
-	$files = JRequest::getVar('images','', 'FILES');
+	$input =JFactory::getApplication()->input;
+	
+	//$title = JRequest::getVar('title'  , array(), 'default', 'array');// We get an array of titles here  
+	$title = $input->get( 'title', array(), 'ARRAY');		
+	//$descr = JRequest::getVar('descr'  , '', 'post', 'string', JREQUEST_ALLOWRAW); 
+	$descr = $input->post->get( 'descr', '', RAW);
+	//$gallery_id = JRequest::getInt('gallery_id'  , '');
+	$gallery_id = $input->get( 'gallery_id', 0, 'INT');
+    // Old deprecated below: Each of 5 properties like name error .. had its own array
+    // $files = JRequest::getVar('images', '', 'FILES');
+    // New access is a list of files containing the 5 properties as seperate array
+    $files = $input->files->get('images', array(), 'FILES'); //
 
-	//For each error that is found, store error message in array
+    //For each error that is found, store error message in array
 	$errors = array();
-	foreach ($files["error"] as $key => $error) {
-		if( $error != UPLOAD_ERR_OK ) {
+    foreach ($files as $key => $file) {
+        $error = $file['error'];
+        if( $error != UPLOAD_ERR_OK ) {
 			if ($error == 4) {//If no file selected, ignore
 				continue;
 			} else {
 				//Create meaning full error messages and add to error array
 				$error = fileHandler::returnUploadError( $error );
-				$errors[] = new imageUploadError($files["name"][$key], $error);
+                $errors[] = new imageUploadError($file["name"], $error);
 				continue;
 			}
 		}
 
 		//Special error check to make sure the file was not introduced another way.
-		if( !is_uploaded_file( $files["tmp_name"][$key] )) {
-			$errors[] = new imageUploadError( $files["tmp_name"][$key], "not an uploaded file, potential malice detected!" );
+		if( !is_uploaded_file( $file["tmp_name"] )) {
+			$errors[] = new imageUploadError( $file["tmp_name"], "not an uploaded file, potential malice detected!" );
 			continue;
 		}
 		//Actually importing the image
-		$e = fileUtils::importImage($files["tmp_name"][$key], $files["name"][$key], $gallery_id, $title[$key], $descr);
+		$e = fileUtils::importImage($file["tmp_name"], $file["name"], $gallery_id, $title[$key], $descr);
 		if ( $e !== true )
 			$errors[] = $e;
 
 	}
 	//Error handling if necessary
 	if ( count( $errors ) == 0){
-		$mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption", JText::_('COM_RSGALLERY2_ITEM_UPLOADED_SUCCESFULLY') );
+        $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_ITEM_UPLOADED_SUCCESFULLY') );
+		$mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
 	} else {
 		//Show error message for each error encountered
 		foreach( $errors as $e ) {
 			JError::raiseWarning(0, $e->toString());
 		}
 		//If there were more files than errors, assure the user the rest went well
-		if ( count( $errors ) < count( $files["error"] ) ) {
+		if ( count( $errors ) < count( $files ) ) {
 			echo "<br>".JText::_('COM_RSGALLERY2_THE_REST_OF_YOUR_FILES_WERE_UPLOADED_FINE');
 		}
 		$mainframe->redirect( "index.php?option=com_rsgallery2&rsgOption=images&task=upload");
@@ -608,7 +644,8 @@ function resetHits ( &$cid ) {
 		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 	}
 
-	$mainframe->redirect( "index.php?option=com_rsgallery2&rsgOption=images", JText::_('COM_RSGALLERY2_HITS_RESET_TO_ZERO_SUCCESFULL') );
+    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_HITS_RESET_TO_ZERO_SUCCESFULL') );
+	$mainframe->redirect( "index.php?option=com_rsgallery2&rsgOption=images" );
 }
 
 function saveOrder( &$cid ) {
@@ -616,9 +653,11 @@ function saveOrder( &$cid ) {
 	$database = JFactory::getDBO();
 
 	$total		= count( $cid );
-	$order 		= JRequest::getVar("order", array(), 'default', 'array' );
+	//$order 		= JRequest::getVar("order", array(), 'default', 'array' );
+	$input = JFactory::getApplication()->input;
+	$order = $input->get( 'order', array(), 'ARRAY');
 
-	$row 		= new rsgImagesItem( $database );
+	$row   = new rsgImagesItem( $database );
 	
 	$conditions = array();
 
@@ -654,7 +693,8 @@ function saveOrder( &$cid ) {
 	$cache->clean( 'com_rsgallery2' );
 
 	$msg 	= JText::_('COM_RSGALLERY2_NEW_ORDERING_SAVED');
-	$mainframe->redirect( 'index.php?option=com_rsgallery2&rsgOption=images', $msg );
+    $mainframe->enqueueMessage( $msg );
+	$mainframe->redirect( 'index.php?option=com_rsgallery2&rsgOption=images');
 } // saveOrder
 
 /**
@@ -670,7 +710,9 @@ function copyImage( $cid, $option ) {
 	$errors = array();
 	
 	//Get gallery id to copy item(s) to
-	$cat_id = JRequest::getInt('move_id', '' );
+	//$cat_id = JRequest::getInt('move_id', '' );
+	$input =JFactory::getApplication()->input;
+	$cat_id = $input->get( 'move_id', 0, 'INT');	
 	if (!$cat_id) {
 		echo "<script> alert('No gallery selected to move to'); window.history.go(-1);</script>\n";
 		exit;
@@ -707,19 +749,24 @@ function copyImage( $cid, $option ) {
 			}
 	    }
 	    
-	    if(!rmdir($copyDir)) $errors[] = 'Unable to delete the temp directory' . $copyDir;	
+	    if(!rmdir($copyDir)) {
+            $errors[] = 'Unable to delete the temp directory' . $copyDir;
+        }
     }
 
 	//Error handling if necessary
 	if ( count( $errors ) == 0){
-		$mainframe->redirect( "index.php?option=$option&rsgOption=images", JText::_('COM_RSGALLERY2_ITEM-S_COPIED_SUCCESSFULLY') );
+	    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_ITEM-S_COPIED_SUCCESSFULLY') );
+		$mainframe->redirect( "index.php?option=$option&rsgOption=images" );
 	} else {
 		//Show error message for each error encountered
 		foreach( $errors as $e ) {
 			echo $e->toString();
 		}
 		//If there were more files than errors, assure the user the rest went well
-		if ( count( $errors ) < count( $files["error"] ) ) {
+		// Old : missing vat $files if ( count( $errors ) < count( $files["error"] ) ) {
+        // ToDo: Debug if the change to $cid hold true
+        if ( count( $errors ) < count( $cid )) {
 			echo "<br>".JText::_('COM_RSGALLERY2_REST_OF_THE_ITEMS_COPIED_SUCCESSFULLY');
 		}
 	}
@@ -732,12 +779,27 @@ function batchupload($option) {
 	$FTP_path  = $rsgConfig->get('ftp_path');
 
 	//Retrieve data from submit form
-	$batchmethod 	= JRequest::getCmd('batchmethod', null);
-	$uploaded 		= JRequest::getBool('uploaded', null);
-	$selcat 		= JRequest::getInt('selcat', null);
-	$zip_file 		= JRequest::getVar('zip_file', null, 'FILES'); 
-	$ftppath 		= JRequest::getVar('ftppath', null);
-	$xcat 			= JRequest::getInt('xcat', null);
+	$input =JFactory::getApplication()->input;
+	//$batchmethod 	= JRequest::getCmd('batchmethod', null);
+	$batchmethod    = $input->get( 'batchmethod', '', 'CMD');		
+	$config         = get_object_vars( $rsgConfig );
+	//$uploaded 		= JRequest::getBool('uploaded', null);
+	$uploaded		= $input->get( 'uploaded', null, 'BOOL');		
+	//$selcat 		= JRequest::getInt('selcat', null);
+	$selcat         = $input->get( 'selcat', null, 'INT');					
+	//$zip_file 		= JRequest::getVar('zip_file', null, 'FILES');
+    $OldZipFile 	= JRequest::getVar('zip_file', null, 'FILES');
+    // ToDo: see above upload ->getArray() ??
+	//$zip_file00 	= $input->get( 'zip_file', null, 'FILES');
+    //$zip_file01     = $input->files->get('zip_file', array(), 'FILES'); //
+
+    $zip_file = $input->files->get('zip_file', array(), 'FILES'); //
+
+
+    //$ftppath 		= JRequest::getVar('ftppath', null);
+	$ftppath 		= $input->get( 'ftppath', null);
+	//$xcat 			= JRequest::getInt('xcat', null);
+	$xcat           = $input->get( 'xcat', null, 'INT');					
 	
 	//Check if at least one gallery exists, if not link to gallery creation
 	$database->setQuery( "SELECT id FROM #__rsgallery2_galleries" );
@@ -761,7 +823,8 @@ function batchupload($option) {
 				}
 			} else {
 				//Error message: file size
-				$mainframe->redirect( "index.php?option=com_rsgallery2&rsgOption=images&task=batchupload", JText::_('COM_RSGALLERY2_ZIP-FILE_IS_TOO_BIG'));
+				$mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_ZIP-FILE_IS_TOO_BIG') );
+				$mainframe->redirect( "index.php?option=com_rsgallery2&rsgOption=images&task=batchupload");
 			}
 		} else {//not zip thus ftp
 			$ziplist = $uploadfile->handleFTP($ftppath);
@@ -779,24 +842,36 @@ function save_batchupload() {
     //Try to bypass max_execution_time as set in php.ini
     set_time_limit(0);
     
-    $FTP_path = $rsgConfig->get('ftp_path');
+	$input =JFactory::getApplication()->input;
 
-    $teller 	= JRequest::getInt('teller'  , null);
-    $delete 	= JRequest::getVar('delete'  , null, 'post', 'array');
-    $filename 	= JRequest::getVar('filename'  , null, 'post', 'array');
-    $ptitle 	= JRequest::getVar('ptitle'  , null, 'post', 'array');
-    $descr 		= JRequest::getVar('descr'  , array(0), 'post', 'array');
-	$extractdir = JRequest::getCmd('extractdir'  , null);
+    $FTP_path = $rsgConfig->get('ftp_path');
+    //$teller 	= JRequest::getInt('teller'  , null);
+	$teller     = $input->get( 'teller', null, 'INT');					
+    //$delete 	= JRequest::getVar('delete'  , null, 'post', 'array');
+	$delete = $input->post->get( 'delete', null, 'ARRAY');		
+    //$filename 	= JRequest::getVar('filename'  , null, 'post', 'array');
+	$filename 	= $input->post->get( 'filename', null, 'ARRAY');		
+    //$ptitle 	= JRequest::getVar('ptitle'  , null, 'post', 'array');
+	$ptitle 	= $input->post->get( 'ptitle', null, 'ARRAY');		
+    //$descr 		= JRequest::getVar('descr'  , array(0), 'post', 'array');
+	$descr 		= $input->post->get( 'descr', array(0), 'ARRAY');		
+	//$extractdir = JRequest::getCmd('extractdir'  , null);
+	$extractdir = $input->get( 'extractdir', null, 'CMD');		
 	
     //Check if all categories are chosen
 	if (isset($_REQUEST['category']))
-		$category = JRequest::getVar('category'  , array(0), 'post', 'array');
+	{
+		//$category = JRequest::getVar('category'  , array(0), 'post', 'array');
+		$category = $input->post->get( 'category', array(0), 'ARRAY');		
+	}
     else
         $category = array(0);
 
     if ( in_array('0', $category) || 
-		 in_array('-1', $category)) {
-        $mainframe->redirect("index.php?option=com_rsgallery2&task=batchupload", JText::_('COM_RSGALLERY2_ALERT_NOCATSELECTED'));
+		 in_array('-1', $category)) 
+	{
+	    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_ALERT_NOCATSELECTED') );
+        $mainframe->redirect("index.php?option=com_rsgallery2&task=batchupload");
 	}
 
      for($i=0;$i<$teller;$i++) {
@@ -836,6 +911,7 @@ function save_batchupload() {
         }
     } else {
         //Everything went smoothly, back to Control Panel
-		$mainframe->redirect("index.php?option=com_rsgallery2", JText::_('COM_RSGALLERY2_ITEM_UPLOADED_SUCCESFULLY'));
+	    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_ITEM_UPLOADED_SUCCESFULLY') );
+		$mainframe->redirect("index.php?option=com_rsgallery2" );
     }
 }

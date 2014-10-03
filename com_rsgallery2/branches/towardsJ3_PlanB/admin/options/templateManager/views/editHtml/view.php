@@ -22,7 +22,7 @@ include_once(dirname(__FILE__).DS.'..'.DS.'default'.DS.'view.php');
 
 class InstallerViewEditHtml extends InstallerViewDefault
 {
-	static function display($tpl=null)
+	function display($tpl=null)
 	{
 		/*
 		 * Set toolbar items for the page
@@ -36,7 +36,7 @@ class InstallerViewEditHtml extends InstallerViewDefault
 		
 		// Get data from the model
 		$item = &$this->get('Item');
-		$this->assignRef('item', $item);
+		$this->item = $item;
 		
 		parent::showTemplateHeader();
 		parent::display($tpl);

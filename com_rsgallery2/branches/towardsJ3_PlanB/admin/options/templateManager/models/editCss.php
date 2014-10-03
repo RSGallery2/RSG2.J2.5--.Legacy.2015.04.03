@@ -40,7 +40,7 @@ class InstallerModelEditCss extends InstallerModel
 		$this->setState('filter.string', $mainframe->getUserStateFromRequest( "com_rsgallery2_com_installer.templates.string", 'filter', '', 'string' ));
 	}
 	
-	static function getItem()
+	function getItem()
 	{
 		jimport('joomla.filesystem.file');
 
@@ -49,6 +49,7 @@ class InstallerModelEditCss extends InstallerModel
 		$file = $dir .DS. $this->filename;
 
 		//$content = JFile::read($ini); J3
+        // ToDo: Fix undefined variable $ini
 		$content = JFile::file_get_contents($ini);
 
 		if ($content == false)
@@ -58,15 +59,17 @@ class InstallerModelEditCss extends InstallerModel
 		
 		$item = new stdClass();
 		$this->item = $item;
+        //ToDo fix: filename not defined
 		$item->filename = $this->filename;
 		$item->content = $content;
 		$item->path = $file;
+        //ToDo fix: template not defined
 		$item->template = $this->template;
 		
 		return $item;
 	}
 	
-	static function save(){
+	function save(){
 		
 		$app = & JFactory::getApplication();
 

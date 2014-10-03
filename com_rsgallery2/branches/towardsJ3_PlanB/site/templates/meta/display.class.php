@@ -27,8 +27,10 @@ class rsgDisplay extends JObject{
 		// Read the ini file
 		$ini	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'params.ini';
 		if (JFile::exists($ini)) {
-			$content = JFile::read($ini); // ? J3
-			//wrong: $content = JFile::file_get_contents($ini);
+			//wrong 1401.??: 
+			// old: $content = JFile::read($ini); // ? J3
+			// 140630: put new version in again finnern
+			$content = JFile::file_get_contents($ini);
 		} else {
 			$content = null;
 		}

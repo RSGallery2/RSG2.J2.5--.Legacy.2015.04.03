@@ -12,10 +12,16 @@ defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 
 require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgcomments' . DS . 'rsgcomments.class.php' );
 
+$input =JFactory::getApplication()->input;
+
 // 140503 $cid not used
 // $cid    = JRequest::getInt('cid', array(0) );
-$task    = JRequest::getCmd('task', '' );
-$option    = JRequest::getCmd('option', '' );
+$cid = $input->get( 'cid', 0, 'INT');	
+// $task    = JRequest::getCmd('task', '' );
+$task = $input->get( 'task', '', 'CMD');		
+
+//$option    = JRequest::getCmd('option', '' );
+$option = $input->get( 'option', '', 'CMD');
 switch( $task ){
     case 'save':
     	//test( $option );
@@ -32,9 +38,13 @@ switch( $task ){
  * @param string The current url option
  */
 function test( $option ) {
-	$id	= JRequest::getInt('id'  , '');
-	$item_id 	= JRequest::getInt('item_id'  , '');
-	$catid 		= JRequest::getInt('catid'  , '');
+	$input =JFactory::getApplication()->input;
+	//$id	= JRequest::getInt('id'  , '');
+	$id = $input->get( 'id', 0, 'INT');	
+	//$item_id 	= JRequest::getInt('item_id'  , '');
+	$item_id = $input->get( 'item_id', 0, 'INT');		
+	//$catid 		= JRequest::getInt('catid'  , '');
+	$catid = $input->get( 'catid', 0, 'INT');		
 	$redirect_url = JRoute::_("index.php?option=".$option."&page=inline&id=".$item_id."&catid=".$catid);
 	echo "Here we will delete comment number ".$id."\\n and redirect to ".$redirect_url;
 }
@@ -46,18 +56,25 @@ function test( $option ) {
  */
 function saveComment( $option ) {
 	global $rsgConfig;
-	$mainframe 	=& JFactory::getApplication();
+	$mainframe 	= JFactory::getApplication();
 	$my 		= JFactory::getUser();
 	$database 	= JFactory::getDBO();
 
 	//Retrieve parameters
+	$input =JFactory::getApplication()->input;
 	$user_ip	= $database->quote($_SERVER['REMOTE_ADDR']);			// Used in sql!
-	$rsgOption	= JRequest::getCmd('rsgOption'  , '');
-	$subject 	= $database->quote(JRequest::getString('ttitle', ''));	// Used in sql!
-	$user_name	= $database->quote(JRequest::getString('tname', ''));	// Used in sql!
-	$item_id 	= JRequest::getInt( 'item_id'  , '');
-	$gid 		= JRequest::getInt( 'gid'  , '');
-	$Itemid 	= JRequest::getInt( 'Itemid'  , '');
+	//$rsgOption	= JRequest::getCmd('rsgOption'  , '');
+	$rsgOption = $input->get( 'rsgOption', null, 'CMD');		
+	// $subject 	= $database->quote(JRequest::getString('ttitle', ''));	// Used in sql!
+	$subject 	= $database->quote($input->get( 'ttitle', '', 'STRING'););	// Used in sql!
+	//$user_name	= $database->quote(JRequest::getString('tname', ''));	// Used in sql!
+	$user_name 	= $database->quote($input->get( 'tname', '', 'STRING'););	// Used in sql!
+	//$item_id 	= JRequest::getInt( 'item_id'  , '');
+	$item_id    = $input->get( 'item_id', 0, 'INT');		
+	//$gid 		= JRequest::getInt( 'gid'  , '');
+	$gid 		= $input->get( 'gid', 0, 'INT');		
+	//$Itemid 	= JRequest::getInt( 'Itemid'  , '');
+	$Itemid 	= $input->get( 'Itemid', 0, 'INT');		
 	$dateTime	= $database->quote(date('Y-m-d H:i:s'));				// Used in sql!
 
 	$redirect_url = JRoute::_("index.php?option=".$option."&Itemid=$Itemid&page=inline&id=".$item_id, false);
@@ -69,7 +86,9 @@ function saveComment( $option ) {
 	}
 	
 	//Retrieve comment, filter it, do some more tests, get it database ready...
-	$comment 	= JRequest::getVar('tcomment','','POST','STRING',JREQUEST_ALLOWHTML); 
+	//$comment 	= JRequest::getVar('tcomment','','POST','STRING',JREQUEST_ALLOWHTML); 
+	$comment 	= $input->post->get( 'tcomment', '',HTML); 
+	
 	//	Clean the comment with the filter: strong, emphasis, underline (not a with attrib href for now)
 	$allowedTags 		= array('strong','em','u','p','br');
 	$allowedAttribs 	= array('');//array('href');
@@ -117,7 +136,10 @@ function saveComment( $option ) {
 		include_once(JPATH_SITE.DS.'components'.DS.'com_rsgallery2'.DS.'lib'.DS.'rsgcomments'.DS.'securimage'.DS.'securimage.php');
 		$securimage = new Securimage();
 		//Check if user input is correct
-		if ($securimage->check(JRequest::getString('captcha_code','','POST')) == false) {
+		//$captcha_code = JRequest::getString('captcha_code','','POST');
+		$captcha_code = $input->post->get( 'captcha_code', '', STRING);
+		
+		if ($securimage->check($captcha_code) == false) {
 			// The code was incorrect, go back (IE loses comment, Firefox & Safari keep it)
 			echo "<script>confirm('".JText::_('COM_RSGALLERY2_INCORRECT_CAPTCHA_CHECK_COMMENT_IS_NOT_SAVED')."');window.history.go(-1);</script>";
 			exit;
@@ -171,10 +193,15 @@ function deleteComments( $option ) {
 		die('Only admins can delete comments.');
 
 	//Get parameters
-	$id			= JRequest::getInt( 'id', '' );
-	$item_id 	= JRequest::getInt( 'item_id'  , '');
-	$catid 		= JRequest::getInt( 'catid'  , '');
-	$Itemid 	= JRequest::getInt( 'Itemid'  , '');
+	$input =JFactory::getApplication()->input;
+	//$id			= JRequest::getInt( 'id', '' );
+	$id = $input->get( 'id', 0, 'INT');		
+	//$item_id 	= JRequest::getInt( 'item_id'  , '');
+	$item_id = $input->get( 'item_id', 0, 'INT');		
+	//$catid 		= JRequest::getInt( 'catid'  , '');
+	$catid = $input->get( 'catid', 0, 'INT');		
+	//$Itemid 	= JRequest::getInt( 'Itemid'  , '');
+	$Itemid = $input->get( 'Itemid', 0, 'INT');		
 
 	if ( !empty($id) ) {
 		$query = 'DELETE FROM `#__rsgallery2_comments` WHERE `id` = '. (int) $id;

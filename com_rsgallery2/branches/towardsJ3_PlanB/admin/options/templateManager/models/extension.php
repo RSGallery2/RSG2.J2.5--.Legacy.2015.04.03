@@ -25,7 +25,9 @@ jimport( 'joomla.application.component.model' );
  * @subpackage	Installer
  * @since		1.5
  */
-class InstallerModel extends JModel
+
+// ToDo deprecated: Fix undefined JModel
+class InstallerModel extends JModelLegacy
 {
 	/** @var array Array of installed components */
 	var $_items = array();
@@ -50,7 +52,7 @@ class InstallerModel extends JModel
 		$this->setState('pagination.total',	0);
 	}
 
-	static function &getItems()
+	function &getItems()
 	{
 		if (empty($this->_items)) {
 			// Load the items
@@ -59,7 +61,7 @@ class InstallerModel extends JModel
 		return $this->_items;
 	}
 
-	static function &getPagination()
+	function &getPagination()
 	{
 		if (empty($this->_pagination)) {
 			// Make sure items are loaded for a proper total
@@ -82,7 +84,7 @@ class InstallerModel extends JModel
 	 * @return	boolean	True on success
 	 * @since 1.0
 	 */
-	static function remove($eid=array())
+	function remove($eid=array())
 	{
 		$mainframe =& JFactory::getApplication();
 
@@ -138,7 +140,7 @@ class InstallerModel extends JModel
 		return $result;
 	}
 
-	static function _loadItems()
+	function _loadItems()
 	{
 		return JError::raiseError( 500, JText::_('COM_RSGALLERY2_METHOD_NOT_IMPLEMENTED'));
 	}

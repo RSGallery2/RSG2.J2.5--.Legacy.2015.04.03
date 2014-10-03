@@ -27,7 +27,7 @@ include_once(dirname(__FILE__).DS.'..'.DS.'default'.DS.'view.php');
 
 class InstallerViewInstall extends InstallerViewDefault
 {
-	static function display($tpl=null)
+	function display($tpl=null)
 	{
 		/*
 		 * Set toolbar items for the page
@@ -37,8 +37,8 @@ class InstallerViewInstall extends InstallerViewDefault
 		$paths = new stdClass();
 		$paths->first = '';
 
-		$this->assignRef('paths', $paths);
-		$this->assignRef('state', $this->get('state'));
+		$this->paths = $paths;
+		$this->state = $this->get('state');
 
 		parent::showHeader();
 		parent::display($tpl);

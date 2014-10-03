@@ -72,7 +72,10 @@ class menu_rsg2_images{
     }
 
     static function show() {
-		$galleryId = JRequest::getInt('gallery_id',0);
+	
+		// $galleryId = JRequest::getInt('gallery_id',0);
+		$input =JFactory::getApplication()->input;
+		$galleryId = $input->get( 'gallery_id', 0, 'INT');					
 		$canDo	= Rsgallery2Helper::getActions($galleryId);
 
         JToolBarHelper::title( JText::_('COM_RSGALLERY2_MANAGE_ITEMS'), 'generic.png' );
@@ -186,7 +189,11 @@ class menuRSGallery {
     
     static function image_batchUpload() {
 		JToolBarHelper::title( JText::_('COM_RSGALLERY2_BATCH_UPLOAD'), 'generic.png' );
-        if( JRequest::getBool('uploaded'  , null) )
+		
+        // 140701 original: if( JRequest::getBool('uploaded'  , null) )
+		$input =JFactory::getApplication()->input;
+		$uploaded		= $input->get( 'uploaded', null, 'BOOL');		
+        if( $uploaded )
         	JToolBarHelper::custom('save_batchupload','upload.png','upload.png','COM_RSGALLERY2_UPLOAD', false);
 		else
         	JToolBarHelper::custom('batchupload','forward.png','forward.png','COM_RSGALLERY2_NEXT', false);

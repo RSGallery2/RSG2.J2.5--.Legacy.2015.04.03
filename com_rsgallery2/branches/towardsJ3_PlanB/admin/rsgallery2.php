@@ -25,12 +25,16 @@ JLog::addLogger(
 
             // (optional) you can change the directory
             'text_file_path' => 'logs'
-     ) 
+     ) ,
+	  JLog::ALL ^ JLog::DEBUG // leave out db messages
 );
 
 // start logging...
-JLog::add('Starting to log rsgallery2.php in admin');
-
+if(JDEBUG)
+{
+    // identify active file
+//    JLog::add('==> base.rsgallery2.php');
+}
 
 //Initialize RSG2 core functionality
 require_once( JPATH_SITE.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
@@ -59,28 +63,42 @@ if (!$canManage) {
 require_once( '/components/com_rsgallery2/admin.rsgallery2.html.php');///J3
 
 global $opt, $catid, $uploadStep, $numberOfUploads, $e_id ;
-$task				= JRequest::getCmd('task');
-$option				= strtolower(JRequest::getCmd('option'));
-//$opt				= JRequest::getCmd('opt', null );//Removed after 3.1.0
-$catid				= JRequest::getInt('catid', null);
-$uploadStep			= JRequest::getInt('uploadStep', 0 );
-$numberOfUploads	= JRequest::getInt('numberOfUploads', 1 );
-//$e_id				= JRequest::getInt('e_id', 1 );//Removed after 3.1.0
+$input =JFactory::getApplication()->input;
+//$task				= JRequest::getCmd('task');
+$task               = $input->get( 'task', '', 'CMD');		
+//$option			= strtolower(JRequest::getCmd('option'));
+$option             = strtolower($input->get( 'option', '', 'CMD'));		
+//$catid			= JRequest::getInt('catid', null);
+$catid              = $input->get( 'catid', null, 'INT');		
 
+//$uploadStep			= JRequest::getInt('uploadStep', 0 );
+$uploadStep = $input->get( 'uploadStep', 0, 'INT');		
+//$numberOfUploads	= JRequest::getInt('numberOfUploads', 1 );
+$numberOfUploads = $input->get( 'numberOfUploads', 1, 'INT');		
 
-// 140503: wrong: init int with array Array 
-// $cid    = JRequest::getInt('cid', array(0) );
-// better:
-// $cid    = JRequest::getVar('cid', array(0) );
-// or use 
-//	$order 		= JRequest::getVar( 'order', array(0), 'post', 'array' );
-// 	JArrayHelper::toInteger($order, array(0));
-$firstCid = JRequest::getInt('cid', 0);
-$id     = JRequest::getInt('id', 0 );
+//$firstCid = JRequest::getInt('cid', 0);
+$firstCid = $input->get( 'cid', 0, 'INT');					
+//$id     = JRequest::getInt('id', 0 );
+$id     = $input->get( 'id', 0, 'INT');					
 
-$rsgOption = JRequest::getCmd('rsgOption', null );
+//$rsgOption = JRequest::getCmd('rsgOption', null );
+$rsgOption = $input->get( 'rsgOption', null, 'CMD');		
 
 $my = JFactory::getUser();
+
+if(JDEBUG)
+{
+    // show active task
+    $DebTxt = "==> base.rsgallery2.php\n-----------\n";
+    $DebTxt = $DebTxt . "\$task: $task\n";
+    $DebTxt = $DebTxt . "\$option: $option\n";
+    $DebTxt = $DebTxt . "\$catid: $catid\n";
+    $DebTxt = $DebTxt . "\$firstCid: $firstCid\n";
+    $DebTxt = $DebTxt . "\$id: $id\n";
+    $DebTxt = $DebTxt . "\$rsgOption: $rsgOption";
+
+    JLog::add($DebTxt);
+}
 
 ///Get the toolbar in here for J3 compatibility (since toolbar.rsgallery2.php is no longer autoloaded)
 require_once( '/components/com_rsgallery2/toolbar.rsgallery2.php');
@@ -113,9 +131,11 @@ switch( $rsgOption ) {
 }
 
 // only use the legacy task switch if rsgOption is not used. [MK not truly legacy but still used!]
-// these tasks require admin or super admin privledges.
+// these tasks require admin or super admin privileges.
 if( $rsgOption == '' ){
-	switch ( JRequest::getCmd('task', null) ){
+	// 140701 original: switch ( JRequest::getCmd('task', null) ){
+	$task = $input->get( 'task', '', 'CMD');		
+	switch ( $task ){
 		//Special/debug tasks
 		case 'purgeEverything':
 			purgeEverything();	//canAdmin check in this function
@@ -189,17 +209,18 @@ if( $rsgOption == '' ){
 }
 
 /**
-* @param string The name of the php (temporary) uploaded file
-* @param string The name of the file to put in the temp directory
-* @param string The message to return
+* @param string $filename The name of the php (temporary) uploaded file
+* @param string $userfile_name The name of the file to put in the temp directory
+* @param string $msg The message to return
 */
-function uploadFile( $filename, $userfile_name, $msg ) {
+function uploadFile( $filename, $userfile_name, &$msg ) {
 	
 	$baseDir = JPATH_SITE . '/media' ;
 
 	if (file_exists( $baseDir )) {
 		if (is_writable( $baseDir )) {
 			if (move_uploaded_file( $filename, $baseDir . $userfile_name )) {
+// ToDo FIX: Missing parameter chmod , 755 -> directory, ... ???
 				if (JClientFtp::chmod( $baseDir . $userfile_name )) {
 					return true;
 				} else {
@@ -314,74 +335,8 @@ function processAdminSqlQueryVerbosely( $query, $successMsg ){
     }
 }
 
-/* Removed after v3.1.0
-function save_batchuploadX() {
-    global $database, $mainframe, $rsgConfig;
-    
-    //Try to bypass max_execution_time as set in php.ini
-    set_time_limit(0);
-    
-    $FTP_path = $rsgConfig->get('ftp_path');
-
-    $teller 	= JRequest::getInt('teller'  , null);
-    $delete 	= JRequest::getVar('delete'  , null);
-    $filename 	= JRequest::getVar('filename'  , null);
-    $ptitle 	= JRequest::getVar('ptitle'  , null);
-    $descr 		= JRequest::getVar('descr'  , array(0));
-	$extractdir = JRequest::getVar('extractdir'  , null);
-	
-    //Check if all categories are chosen
-    if (isset($_REQUEST['category']))
-        $category = JRequest::getVar('category'  , null);
-    else
-        $category = array(0);
-
-    if ( in_array("0",$category) ) {
-        $mainframe->redirect("index.php?option=com_rsgallery2&task=batchupload", JText::_('COM_RSGALLERY2_ALERT_NOCATSELECTED'));
-	}
-
-     for($i=0;$i<$teller;$i++) {
-        //If image is marked for deletion, delete and continue with next iteration
-        if (isset($delete[$i]) AND ($delete[$i] == 'true')) {
-            //Delete file from server
-            unlink(JPATH_ROOT.DS."media".DS.$extractdir.DS.$filename[$i]);
-            continue;
-        } else {
-            //Setting variables for importImage()
-            $imgTmpName = JPATH_ROOT.DS."media".DS.$extractdir.DS.$filename[$i];
-            $imgName 	= $filename[$i];
-            $imgCat	 	= $category[$i];
-            $imgTitle 	= $ptitle[$i];
-            $imgDesc 	= $descr[$i];
-            
-            //Import image
-            $e = imgUtils::importImage($imgTmpName, $imgName, $imgCat, $imgTitle, $imgDesc);
-            
-            //Check for errors
-            if ( $e !== true ) {
-                $errors[] = $e;
-            }
-        }
-    }
-    //Clean up mediadir
-    fileHandler::cleanMediaDir( $extractdir );
-    
-    // Error handling
-    if (isset($errors )) {
-        if ( count( $errors ) == 0) {
-            echo JText::_('COM_RSGALLERY2_ITEM_UPLOADED_SUCCESFULLY');
-        } else {
-            foreach( $errors as $err ) {
-                echo $err->toString();
-            }
-        }
-    } else {
-        //Everything went smoothly, back to Control Panel
-        $mainframe->redirect("index.php?option=com_rsgallery2", JText::_('COM_RSGALLERY2_ITEM_UPLOADED_SUCCESFULLY'));
-    }
-}/**/
-
 function cancelGallery($option) {
+// ToDo FIX: $mainframe undefined ???
     $mainframe->redirect("index.php?option=$option");
 }
 ?>

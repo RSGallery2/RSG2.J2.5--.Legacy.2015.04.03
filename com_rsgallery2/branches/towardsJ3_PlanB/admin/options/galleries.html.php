@@ -20,7 +20,9 @@ class html_rsg2_galleries{
      */
     static function show( &$rows, &$lists, &$search, &$pageNav ){
         global $rsgOption;
-		$option = JRequest::getCmd('option');
+		//$option = JRequest::getCmd('option');
+		$input =JFactory::getApplication()->input;
+		$option = $input->get( 'option', '', 'CMD');	
 
 		$user = JFactory::getUser();
 		$userId = $user->id;
@@ -188,7 +190,12 @@ class html_rsg2_galleries{
      */
     static function removeWarn( $galleries ){
         global $rsgOption;
-		$option = JRequest::getCmd('option');
+		//$option = JRequest::getCmd('option');
+        $input =JFactory::getApplication()->input;
+		$option = $input->get( 'option', '', 'CMD');
+
+// ToDo FIX: Undefined $rsgConfig
+        $config = get_object_vars( $rsgConfig );
         ?>
         <form action="index.php" method="post" name="adminForm">
         <input type="hidden" name="option" value="<?php echo $option;?>" />
@@ -239,7 +246,10 @@ class html_rsg2_galleries{
 		JHtml::_('behavior.formvalidation');
 		jimport("joomla.filter.output");
 		$user = JFactory::getUser();
-		$editor = JFactory::getEditor();
+		// $editor = JFactory::getEditor();
+		$editor = JFactory::getConfig()->get('editor');
+		$editor = JEditor::getInstance($editor);
+		
 		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES );
 
 		//Can user see/change permissions?
@@ -253,7 +263,9 @@ class html_rsg2_galleries{
 		//Get the data for the form from $row (but only matching XML fields will get data here: asset_id)
 		$form->bind($row);
 
-		$task = JRequest::getCmd( 'task'  , '');
+		//$task = JRequest::getCmd( 'task'  , '');
+		$input =JFactory::getApplication()->input;
+		$task = $input->get( 'task', '', 'CMD');		
 	
 		JHtml::_("Behavior.framework");
 		?>

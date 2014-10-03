@@ -40,7 +40,7 @@ class InstallerModelSelectCss extends InstallerModel
 		$this->setState('filter.string', $mainframe->getUserStateFromRequest( "com_rsgallery2_com_installer.templates.string", 'filter', '', 'string' ));
 	}
 	
-	static function getItems()
+	function getItems()
 	{
 		// Determine template CSS directory
 		$dir = JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$this->template.DS.'css';

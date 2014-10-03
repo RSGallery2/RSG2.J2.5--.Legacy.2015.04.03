@@ -450,7 +450,7 @@ function Rsgallery2GetItemIdFromGalleryIdAndLimitstart($gid,$limitstart){
 	$result = $dbo->execute();
 	$countRows = $dbo->getNumRows($result);
 	if ($countRows > 0) {
-		$column= $dbo->loadResultArray();
+		$column= $dbo->loadColumn();
 		$id = $column[$limitstart];
 	} else {
 		//todo: error //need to have non-zero number of items

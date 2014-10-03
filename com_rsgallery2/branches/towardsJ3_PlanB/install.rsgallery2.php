@@ -228,6 +228,18 @@ class com_rsgallery2InstallerScript
 		JLog::add('postflight');
 		echo '<p>' . JText::_('COM_RSGALLERY2_POSTFLIGHT_' . strtoupper($type) . '_TEXT') . '</p>';
 		
+        if ( $type == 'update' ) {
+			JLog::add('-> post update');
+			
+			// $this->installComplete(JText::_('COM_RSGALLERY2_UPGRADE_SUCCESS'));
+        }
+        else 
+		{ // $type == 'install'
+			JLog::add('-> post freshInstall');
+			
+			//$this->installComplete(JText::_('COM_RSGALLERY2_INSTALLATION_OF_RSGALLERY_IS_COMPLETED'));
+		}
+ 
 		JLog::add('exit postflight');
 	}
 

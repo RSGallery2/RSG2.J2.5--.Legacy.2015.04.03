@@ -11,10 +11,14 @@ defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 
 require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgvoting' . DS . 'rsgvoting.class.php' );
 
-// 140503 $cid not used
+$input =JFactory::getApplication()->input;
+// 140503 $cid not used ?
 //$cid   = JRequest::getInt('cid', array(0) );
-$task  = JRequest::getCmd('task', '' );
-$id    = JRequest::getInt('id','' );
+$cid = $input->get( 'cid', 0, 'INT');	
+//$task  = JRequest::getCmd('task', '' );
+$task = $input->get( 'task', '', 'CMD');		
+//$id    = JRequest::getInt('id','' );
+$id = $input->get( 'id', 0, 'INT');	
 
 switch( $task ){
     case 'save':
@@ -39,9 +43,13 @@ function saveVote( $option ) {
 	$mainframe =& JFactory::getApplication();
 	$database = JFactory::getDBO();
 	$my = JFactory::getUser();
-	$Itemid 	= JRequest::getInt('Itemid', '');	
-	$rating 	= JRequest::getInt('rating', '');
-	$id 		= JRequest::getInt('id', '');
+	$input =JFactory::getApplication()->input;
+	//$Itemid 	= JRequest::getInt('Itemid', '');	
+	$Itemid = $input->get( 'Itemid', 0, 'INT');		
+	//$rating 	= JRequest::getInt('rating', '');
+	$rating = $input->get( 'rating', 0, 'INT');		
+	//$id 		= JRequest::getInt('id', '');
+	$id = $input->get( 'id', 0, 'INT');		
 	$vote 		= new rsgVoting();
 
 	//Check if user can vote

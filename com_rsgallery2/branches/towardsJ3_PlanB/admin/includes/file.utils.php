@@ -574,13 +574,15 @@ class fileHandler {
 
         //Check source directory
         if (!file_exists( $source ) OR !is_dir ( $source )) {
-            $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload', $source.JText::_('COM_RSGALLERY2_FU_FTP_DIR_NOT_EXIST'));
+	        $mainframe->enqueueMessage( $source.JText::_('COM_RSGALLERY2_FU_FTP_DIR_NOT_EXIST') );
+			$mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
         }
 		
         //Read (all) files from FTP-directory
         $files = JFolder::files($source, '');
         if (!$files) {
-            $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload', JText::_('COM_RSGALLERY2_NO_VALID_IMAGES_FOUND_IN').' '.$source.JText::_('COM_RSGALLERY2_PLEASE_CHECK_THE_PATH'));
+	        $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_NO_VALID_IMAGES_FOUND_IN').' '.$source.JText::_('COM_RSGALLERY2_PLEASE_CHECK_THE_PATH') );
+            $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
         }
         
         //Create imagelist from FTP-directory
@@ -601,7 +603,8 @@ class fileHandler {
 		
 		//Return imagelist only when there are images in it, else redirect
         if (count($list) == 0) {
-			$mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload', JText::_('COM_RSGALLERY2_NO_FILES_FOUND_TO_PROCESS'));
+	        $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_NO_FILES_FOUND_TO_PROCESS') );
+			$mainframe->redirect( 'index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
         } else {
 			return $list;            
         }

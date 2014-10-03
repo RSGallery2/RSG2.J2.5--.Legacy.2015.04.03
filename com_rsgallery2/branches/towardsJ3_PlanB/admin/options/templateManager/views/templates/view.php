@@ -22,7 +22,7 @@ include_once(dirname(__FILE__).DS.'..'.DS.'default'.DS.'view.php');
 
 class InstallerViewTemplates extends InstallerViewDefault
 {
-	static function display($tpl=null)
+	function display($tpl=null)
 	{
 		/*
 		 * Set toolbar items for the page
@@ -37,14 +37,14 @@ class InstallerViewTemplates extends InstallerViewDefault
 		$items		= &$this->get('Items');
 		$pagination	= &$this->get('Pagination');
 
-		$this->assignRef('items',		$items);
-		$this->assignRef('pagination',	$pagination);
+		$this->items = $items;
+		$this->pagination = $pagination;
 
 		parent::showHeader();
 		parent::display($tpl);
 	}
 
-	static function loadItem($index=0)
+	function loadItem($index=0)
 	{
 		$item =& $this->items[$index];
 		$item->id		= $item->directory;

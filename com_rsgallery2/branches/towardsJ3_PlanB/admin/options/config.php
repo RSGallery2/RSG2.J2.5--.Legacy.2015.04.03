@@ -93,7 +93,12 @@ function saveConfig(){
     if( $rsgConfig->saveConfig( $_REQUEST )){
 		JFactory::getApplication()->enqueueMessage( JText::_('COM_RSGALLERY2_CONFIGURATION_SAVED') );
 		// save successful, try creating some image directories if we were asked to
-		if( JRequest::getBool( 'createImgDirs' ))
+
+		
+		// 140701 original: if( JRequest::getBool( 'createImgDirs' ))
+		$input =JFactory::getApplication()->input;		
+		$createImgDirs = $input->get( 'createImgDirs', false , 'BOOL');		
+		if( $createImgDirs)
 			JFactory::getApplication()->enqueueMessage( JText::_('COM_RSGALLERY2_CREATING_IMAGE_DIRECTORIES_NOT_IMPLEMENTED_YET') );
     } else {
 			JFactory::getApplication()->enqueueMessage( JText::_('COM_RSGALLERY2_ERROR_SAVING_CONFIGURATION'), 'Error' );

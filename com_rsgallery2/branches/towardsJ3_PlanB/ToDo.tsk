@@ -6,6 +6,8 @@
 //   '*': Standard (8)
 //   '+': Nice to have (16)
 //   '!': Error (32)
+- ToDo: **++::JRequest::setVar replace with ...
+- ToDo: **+++:: search for ToDO: deprecated 
 - ToDo: **+::JParameter ? $this->params = new JParameter($content, $xml, 'template'); wrong parameter number ? 
 - ToDo: *+.::Access control GACL
 - ToDo: **.::JRequest is replaced by Jinput like

@@ -85,7 +85,9 @@ class rsgVoting {
 	 * @return True or False
 	 */
 	static function voteAllowed() {
-		$item_id	= JRequest::getInt('id');
+		//$item_id	= JRequest::getInt('id');
+		$input =JFactory::getApplication()->input;
+		$item_id = $input->get( 'id', 0, 'INT');		
 		$gid		= galleryUtils::getCatIdFromFileId($item_id);
 		
 		$voteAllowed = (JFactory::getUser()->authorise('rsgallery2.vote','com_rsgallery2.gallery.'.$gid) ? true : false);

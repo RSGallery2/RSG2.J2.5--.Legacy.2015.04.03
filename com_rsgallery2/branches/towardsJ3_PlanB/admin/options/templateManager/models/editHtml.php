@@ -40,7 +40,7 @@ class InstallerModelEditHtml extends InstallerModel
 		$this->setState('filter.string', $mainframe->getUserStateFromRequest( "com_rsgallery2_com_installer.templates.string", 'filter', '', 'string' ));
 	}
 	
-	static function getItem()
+	function getItem()
 	{
 		jimport('joomla.filesystem.file');
 		
@@ -49,24 +49,29 @@ class InstallerModelEditHtml extends InstallerModel
 		$file = $dir .DS. $this->filename;
 		
 		//$content = JFile::read($ini); J3
+        // ToDo: Fix undefined variable $ini
+        // ToDo: Fix undefined function file_get_contents
 		$content = JFile::file_get_contents($ini);
 		
 		if ($content == false)
 		{
+            // ToDo deprecated:
 			JError::raiseWarning( 500, JText::sprintf('COM_RSGALLERY2_OPERATION_FAILED_COULD_NOT_OPEN', $client->path.$filename) );
 		}
 		
 		$item = new stdClass();
 		$this->item = $item;
+        // ToDo: Fix undefined variable $filename
 		$item->filename = $this->filename;
 		$item->content = $content;
 		$item->path = $file;
+        // ToDo: Fix undefined variable template
 		$item->template = $this->template;
 		
 		return $item;
 	}
 	
-	static function save(){
+	function save(){
 		
 		$app = & JFactory::getApplication();
 		
