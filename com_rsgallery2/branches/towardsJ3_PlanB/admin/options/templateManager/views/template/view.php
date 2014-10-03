@@ -22,7 +22,7 @@ include_once(dirname(__FILE__).DS.'..'.DS.'default'.DS.'view.php');
 
 class InstallerViewTemplate extends InstallerViewDefault
 {
-	static function display($tpl=null)
+	function display($tpl=null)
 	{
 		/*
 		 * Set toolbar items for the page
@@ -36,14 +36,14 @@ class InstallerViewTemplate extends InstallerViewDefault
 		// Get data from the model
 		$item = &$this->get('Item');
 		
-		$this->assignRef('item', $item);
+		$this->item = $item;
 		
 		parent::showTemplateHeader();
 		parent::display($tpl);
 		
 	}
 	
-	static function isParamWriteable(){
+	function isParamWriteable(){
 		
 		$templatefile = JPATH_RSGALLERY2_SITE .DS. 'templates' .DS. $this->item->template .DS. 'params.ini';
 		return is_writable($templatefile) ? JText::_( 'COM_RSGALLERY2_WRITABLE' ):JText::_( 'COM_RSGALLERY2_UNWRITABLE' );

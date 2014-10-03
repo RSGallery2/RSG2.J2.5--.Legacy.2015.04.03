@@ -1,4 +1,4 @@
-260<?php
+<?php
 /**
 * This file contains the class representing a gallery.
 * @version $Id: gallery.class.php 1085 2012-06-24 13:44:29Z mirjam $
@@ -174,8 +174,11 @@ class rsgGallery extends JObject{
 			$my = JFactory::getUser();
 			$database = JFactory::getDBO();
 		
-			$filter_order = JRequest::getWord( 'filter_order',  $rsgConfig->get("filter_order") );
-			$filter_order_Dir = JRequest::getWord( 'filter_order_Dir', $rsgConfig->get("filter_order_Dir"));
+			//$filter_order = JRequest::getWord( 'filter_order',  $rsgConfig->get("filter_order") );
+			$input =JFactory::getApplication()->input;
+			$filter_order = $input->get( 'filter_order',  $rsgConfig->get("filter_order"), 'WORD');					
+			//$filter_order_Dir = JRequest::getWord( 'filter_order_Dir', $rsgConfig->get("filter_order_Dir"));
+			$filter_order_Dir = $input->get( 'filter_order_Dir',  $rsgConfig->get("filter_order_Dir"), 'WORD');					
 	
 			$where = ' WHERE `gallery_id` = '. (int) $this->get('id');
 
@@ -226,8 +229,11 @@ class rsgGallery extends JObject{
 		if( $length == 0 )
 			return $this->items; // 0 means display all
 
-		$current = $this->indexOfItem(JRequest::getInt( 'id', 0 ));
-		$current = JRequest::getInt( 'limitstart', $current );
+		$input =JFactory::getApplication()->input;
+		//$current = $this->indexOfItem(JRequest::getInt( 'id', 0 ));
+		$current = $input->get( 'id', 0, 'INT');		
+		//$current = JRequest::getInt( 'limitstart', $current );
+		$current = $input->get( 'limitstart', $current, 'INT');		
 		
 		// calculate page from current position
 		$start =  floor($current  / $length) * $length;
@@ -258,11 +264,14 @@ class rsgGallery extends JObject{
 		if( $id !== null )
 			return $this->items[$id];
 
-		$id = JRequest::getInt( 'id', null );
+		//$id = JRequest::getInt( 'id', null );
+		$input =JFactory::getApplication()->input;
+		$id = $input->get( 'id', null, 'INT');		
 		if( $id !== null )
 			return $this->items[$id];
 			
-		$id = JRequest::getInt( 'limitstart', 0 );
+		//$id = JRequest::getInt( 'limitstart', 0 );
+		$id = $input->get( 'limitstart', 0, 'INT');		
 		return array_pop(array_slice($this->items, $id, 1));
 
 	}
@@ -270,7 +279,9 @@ class rsgGallery extends JObject{
 	function indexOfItem($id = null){
 	
 		if( $id === null ){
-			$id = JRequest::getInt( 'id', null );
+			// $id = JRequest::getInt( 'id', null );
+			$input =JFactory::getApplication()->input;
+			$id = $input->get( 'id', null, 'INT');		
 			if( $id === null ){
 				return 0;
 			}
@@ -337,7 +348,12 @@ class rsgGallery extends JObject{
 		if (empty($this->_pagination))
 		{
 			jimport('joomla.html.pagination');
-			$this->_pagination = new JPagination( $this->itemCount(), JRequest::getInt( 'limitstart', 0 ), JRequest::getInt( 'limit', 1 ) );
+			$input =JFactory::getApplication()->input;
+			//$limitstart = JRequest::getInt( 'limitstart', 0 );
+			$limitstart = $input->get( 'limitstart', 0, 'INT');					
+			//$limit = JRequest::getInt( 'limit', 1 ) ;
+			$limit = $input->get( 'limit', 1, 'INT');					
+			$this->_pagination = new JPagination( $this->itemCount(), $limitstart, $limit);
 		}
 
 		return $this->_pagination;

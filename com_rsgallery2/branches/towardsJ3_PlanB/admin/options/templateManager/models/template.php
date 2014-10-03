@@ -40,7 +40,7 @@ class InstallerModelTemplate extends InstallerModel
 		$this->setState('filter.string', $mainframe->getUserStateFromRequest( "com_rsgallery2_com_installer.templates.string", 'filter', '', 'string' ));
 	}
 	
-	static function getItem()
+	function getItem()
 	{
 		jimport('joomla.filesystem.path');
 		if (!$this->template) {
@@ -88,7 +88,7 @@ class InstallerModelTemplate extends InstallerModel
 	 * Updates the template parameter file
 	 * @access protected
 	 */
-	static function update(){
+	function update(){
 		
 		global $rsgConfig;
 		

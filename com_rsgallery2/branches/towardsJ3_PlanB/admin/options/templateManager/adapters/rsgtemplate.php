@@ -44,7 +44,7 @@ class JInstaller_rsgTemplate extends JObject
 	 * @return	boolean	True on success
 	 * @since	1.5
 	 */
-	static function install()
+	function install()
 	{
 		// Get database connector object
 		$db =& $this->parent->getDBO();
@@ -149,7 +149,7 @@ class JInstaller_rsgTemplate extends JObject
 	 * @return	boolean	True on success
 	 * @since	1.5
 	 */
-	static function uninstall( $name, $clientId )
+	function uninstall( $name, $clientId )
 	{
 		// Initialize variables
 		$retval	= true;

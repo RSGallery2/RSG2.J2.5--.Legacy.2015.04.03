@@ -196,20 +196,20 @@ class rsgItem extends JObject{
 	 */
 	static function getCorrectItemObject( &$gallery, $row ){
 		// get mime type of file
-		$mimetype = MimeTypes::getMimeType( $row['name'] );
+		$mimeType = MimeTypes::getMimeType( $row['name'] );
 		
 		// get only the general content type
-		$type = explode( '/', $mimetype );
+		$type = explode( '/', $mimeType );
 		$type = $type[0];
 		
 		if( file_exists( JPATH_RSGALLERY2_ADMIN.'/includes/items/'. $type .'.php' )){
 			require_once( JPATH_RSGALLERY2_ADMIN.'/includes/items/'. $type .'.php' );
 			$itemClass = "rsgItem_$type";
-			return new $itemClass( $type, $mimetype, $gallery, $row );
+			return new $itemClass( $type, $mimeType, $gallery, $row );
 		}
 		else{
 			$itemClass = "rsgItem";
-			return new $itemClass( $type, $mimetype, $gallery, $row );
+			return new $itemClass( $type, $mimeType, $gallery, $row );
 		}
 	}
 }

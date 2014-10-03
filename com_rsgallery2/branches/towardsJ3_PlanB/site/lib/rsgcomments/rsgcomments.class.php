@@ -249,7 +249,9 @@ function editComment( $item_id ) {
 	$doc->addStyleSheet(JURI_SITE."/components/com_rsgallery2/lib/rsgcomments/rsgcomments.css");
 	$gid=galleryUtils::getCatIdFromFileId($item_id);//galleryid gid used to be named catid
 	
-	$editor =& JFactory::getEditor();
+	//$editor =& JFactory::getEditor();
+	$editor = JFactory::getConfig()->get('editor'); // name of editor ?
+	$editor = JEditor::getInstance($editor);
 	?>
 	<script type="text/javascript">
         function submitbutton(pressbutton) {

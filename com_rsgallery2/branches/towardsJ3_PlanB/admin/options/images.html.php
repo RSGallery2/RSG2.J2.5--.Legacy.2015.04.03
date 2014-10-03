@@ -19,7 +19,9 @@ class html_rsg2_images {
 
 	static function showImages( $option, &$rows, &$lists, &$search, &$pageNav ) {
 		global $rsgOption, $rsgConfig;
-		$option = JRequest::getCmd('option');
+		// $option = JRequest::getCmd('option');
+		$input =JFactory::getApplication()->input;		
+		$option = $input->get( 'option', '', 'CMD');		
 		$user 	= JFactory::getUser();
 		$userId = $user->id;
 		
@@ -176,7 +178,9 @@ class html_rsg2_images {
 		jimport("joomla.filter.output");
 		JHtml::_('behavior.formvalidation');
 		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES );
-		$editor = JFactory::getEditor();
+		//$editor = JFactory::getEditor();
+		$editor = JFactory::getConfig()->get('editor'); // name of editor ?
+		$editor = JEditor::getInstance($editor);
 
 		//Can user see/change permissions?
 		$canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
@@ -423,7 +427,9 @@ class html_rsg2_images {
 	static function uploadImage( $lists, $option ) {
 		global $rsgOption;
 		JHtml::_('behavior.formvalidation');
-		$editor = JFactory::getEditor();
+		//$editor = JFactory::getEditor();
+		$editor = JFactory::getConfig()->get('editor'); // name of editor ?
+		$editor = JEditor::getInstance($editor);
 		
 		?>
 		<script type="text/javascript">
@@ -688,13 +694,18 @@ class html_rsg2_images {
 		JHtml::_('behavior.formvalidation');
         JHtml::_('behavior.framework');
 		
+		$input =JFactory::getApplication()->input;
+		
 		$database = JFactory::getDBO();
         //Get variables from form
-        $selcat 		= JRequest::getInt('selcat'  , null);
-        $ftppath 		= JRequest::getVar('ftppath'  , null);
-        $xcat 			= JRequest::getInt('xcat'  , null);
-        $batchmethod 	= JRequest::getVar('batchmethod'  , null);
-		
+        //$selcat 		= JRequest::getInt('selcat'  , null);
+		$selcat         = $input->get( 'selcat', null, 'INT');
+        //$ftppath 		= JRequest::getVar('ftppath'  , null);
+		$ftppath 		= $input->get( 'ftppath', null, 'STRING');
+        //$xcat 			= JRequest::getInt('xcat'  , null);
+		$xcat           = $input->get( 'xcat', null, 'INT');
+        //$batchmethod 	= JRequest::getVar('batchmethod'  , null);
+		$ftppath 		= $input->get( 'batchmethod', null, 'STRING');
         ?>
 		<script language="javascript" type="text/javascript">
         Joomla.submitbutton = function(task) {

@@ -228,7 +228,9 @@ class imgUtils extends fileUtils{
 			}
 		}
 		// save params
-		$params = JRequest::getVar( 'params', '' );
+		// $params = JRequest::getVar( 'params', '' );
+		$input =JFactory::getApplication()->input;
+		$params = $input->get( 'params', array(), 'ARRAY');		
 		if (is_array( $params )) {
 			$txt = array();
 			foreach ( $params as $k=>$v) {
@@ -788,7 +790,7 @@ class waterMarker extends GD2 {
     /**
      * this function draws the watermark over the image
      */
-    static function mark($imagetype = 'display'){
+    function mark($imagetype = 'display'){
 		global $rsgConfig;
 
 		// A bit of housekeeping: we want an index.html in the directory storing these images
@@ -821,6 +823,7 @@ class waterMarker extends GD2 {
         }
         
 		//create the image with generalized image create function
+// ToDo FIX: $createProc maybe undefined ???
         $im = $createProc($this->imagePath); 
 		
    		//create copy of image
@@ -934,6 +937,7 @@ class waterMarker extends GD2 {
     static function showMarkedImage($imagename, $imagetype = 'display', $font="arial.ttf", $shadow = true){
     global $rsgConfig, $mainframe;
 
+    // ToDO: Don't know why image type can be 'display' fro creating watermarked file ? Just display on screen ??
 		
         $watermarkfilename = waterMarker::createWatermarkedFileName ($imagename, $imagetype);
 	    $watermarkpathfilename = waterMarker::PathFileName ($watermarkfilename);
@@ -970,7 +974,8 @@ class waterMarker extends GD2 {
     static function createWatermarkedFileName ($imagename, $imagetype) {
 
 		$pepper = 'RSG2Watermarked';
-		$salt = JApplication::getCfg('secret');
+		$app = JFactory::getApplication();
+		$salt = $app->getCfg('secret');
 		$filename = $imagetype.md5($pepper.$imagename.$salt).'.jpg';
 		
 		return $filename;

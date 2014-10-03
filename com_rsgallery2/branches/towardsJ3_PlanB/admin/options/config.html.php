@@ -22,7 +22,9 @@ class html_rsg2_config{
      */
     static function config_rawEdit(){
         global $rsgConfig;
-		$option = JRequest::getCmd('option');
+		//$option = JRequest::getCmd('option');
+		$input =JFactory::getApplication()->input;		
+		$option = $input->get( 'option', '', 'CMD');		
         $config = get_object_vars( $rsgConfig );
 
         ?>
@@ -252,7 +254,9 @@ class html_rsg2_config{
 		);
 
 		jimport("joomla.html.pane");
-		$editor = JFactory::getEditor();
+		//$editor = JFactory::getEditor();
+		$editor = JFactory::getConfig()->get('editor'); // name of editor ?
+		$editor = JEditor::getInstance($editor);
 
 		?>
 		<script  type="text/javascript">

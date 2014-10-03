@@ -27,11 +27,18 @@ require_once( $rsgOptions_path . 'galleries.class.php' );
 require_once( $rsgOptions_path . 'images.class.php' );
 
 //Get parameters from URL and/or form
-$task   = JRequest::getCmd('task', '' );
-$id		= JRequest::getInt('id','' );
-$gid	= JRequest::getInt('gid','' );
-$currentState = JRequest::getInt('currentstate','' );
-$cid    = JRequest::getVar('cid', array(0) );
+$input =JFactory::getApplication()->input;
+//$task   = JRequest::getCmd('task', '' );
+$task = $input->get( 'task', '', 'CMD');		
+//$id		= JRequest::getInt('id','' );
+$id = $input->get( 'id', 0, 'INT');		
+//$gid	= JRequest::getInt('gid','' );
+$gid = $input->get( 'gid', 0, 'INT');
+//$currentState = JRequest::getInt('currentstate','' );
+$currentState = $input->get( 'currentstate', 0, 'INT');
+
+//$cid    = JRequest::getVar('cid', array(0) );
+$cid = $input->get( 'cid', array(0), 'ARRAY');
 
 switch( $task ){
     case 'saveUploadedItem':
@@ -146,8 +153,11 @@ function deleteItem() {
 	$mainframe =& JFactory::getApplication();
 	$user = JFactory::getUser();
 	$database = JFactory::getDBO();
-	$id = JRequest::getInt( 'id'  , '');
-	$Itemid = JRequest::getInt( 'Itemid'  , '');
+	$input =JFactory::getApplication()->input;
+	//$id = JRequest::getInt( 'id'  , '');
+	$id = $input->get( 'id', 0, 'INT');		
+	//$Itemid = JRequest::getInt( 'Itemid'  , '');
+	$Itemid = $input->get( 'Itemid', 0, 'INT');		
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=".$Itemid, false);
 	
 	//Check if delete is allowed for this item
@@ -171,10 +181,13 @@ function deleteItem() {
 
 function editItem() {
 	$database = JFactory::getDBO();
-	$id = JRequest::getInt('id', null);
+	$input =JFactory::getApplication()->input;
+	//$id = JRequest::getInt('id', null);
+	$id = $input->get( 'id', null, 'INT');		
 	$user = JFactory::getUser();
 	$mainframe =& JFactory::getApplication();
-	$Itemid = JRequest::getInt('Itemid', null);
+	//$Itemid = JRequest::getInt('Itemid', null);
+	$Itemid = $input->get( 'Itemid', 0, 'INT');		
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=".$Itemid, false);
 
 	//Is the user allowed to edit the item?
@@ -201,10 +214,13 @@ function saveItem() {
 	$mainframe =& JFactory::getApplication();
 	$database = JFactory::getDBO();
 	$user = JFactory::getUser();
-	$Itemid = JRequest::getInt('Itemid', '');
+	$input =JFactory::getApplication()->input;
+	//$Itemid = JRequest::getInt('Itemid', '');
+	$Itemid = $input->get( 'Itemid', 0, 'INT');		
 
 	//Get id of item
-	$id = JRequest::getInt( 'id'  , '');
+	//$id = JRequest::getInt( 'id'  , '');
+	$id = $input->get( 'id', 0, 'INT');		
 	
 	//Set redirect URL
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=".$Itemid, false);
@@ -222,10 +238,15 @@ function saveItem() {
 	
 	//Get the POST variables:
 	//Not using $row->bind( JRequest::get('post') ) here, too few variables that don't need attention
-	$row->title 	= JRequest::getString( 'title'  , '');
-	$row->descr 	= JRequest::getVar( 'descr'  , '', 'post', 'string', JREQUEST_ALLOWRAW);
+	//$row->title 	= JRequest::getString( 'title'  , '');
+	$row->title 	= $input->get( 'title', '', 'STRING');
+		
+	//$row->descr 	= JRequest::getVar( 'descr'  , '', 'post', 'string', JREQUEST_ALLOWRAW);
+	//$row->descr = $input->post->get('descr', '', RAW);
 	$row->descr 	= str_replace( '<br>', '<br />', $row->descr );
-	$row->gallery_id= JRequest::getInt( 'gallery_id'  , '');
+	//$row->gallery_id= JRequest::getInt( 'gallery_id'  , '');
+	$row->gallery_id= $input->get( 'gallery_id', 0, 'INT');		
+
 	//Make the alias for SEF
     $row->alias 	= JFilterOutput::stringURLSafe($row->title);
 	
@@ -255,7 +276,9 @@ function saveUploadedItem() {
 	$max_images = $rsgConfig->get('uu_maxImages');
 
 	//Get category ID to check rights
-	$gallery_id = JRequest::getInt( 'gallery_id'  , '');
+	//$gallery_id = JRequest::getInt( 'gallery_id'  , '');
+	$input =JFactory::getApplication()->input;
+	$gallery_id = $input->get( 'gallery_id', 0, 'INT');		
 	
 	//Check if user is allowed to upload in this gallery (parent gallery has id $gallery_id)
 	if (!rsgAuthorisation::authorisationCreate( (int) $gallery_id)){
@@ -280,10 +303,16 @@ function saveUploadedItem() {
 		$upload = new fileHandler();
 		
 		//Get parameters from form
-		$i_file = JRequest::getVar( 'i_file', null, 'files', 'array'); 
-		$gallery_id = JRequest::getInt( 'gallery_id'  , ''); 
-		$title = JRequest::getString( 'title'  , '');
-		$descr = JRequest::getVar( 'descr', '', 'post', 'string', JREQUEST_ALLOWRAW );
+		$input =JFactory::getApplication()->input;
+		//$i_file = JRequest::getVar( 'i_file', null, 'files', 'array'); 
+		$i_file = $input->get( 'i_file', null, 'FILES');		
+		//$gallery_id = JRequest::getInt( 'gallery_id'  , ''); 
+		$gallery_id = $input->get( 'gallery_id', 0, 'INT');		
+		//$title = JRequest::getString( 'title'  , '');
+		$title = $input->get( 'title', '', 'STRING');
+		//$descr = JRequest::getVar( 'descr', '', 'post', 'string', JREQUEST_ALLOWRAW );
+		$descr = $input->post->get('desc', '', RAW); 
+
 		//$uploader = JRequest::getVar( 'uploader'  , ''); //No longer used in 3.1.0
 		
 		//Get filetype
@@ -407,7 +436,10 @@ function saveCat($gid) {
 		}
 	} else {
 		//Check if user is allowed to create a gallery in the chosen gallery:
-		$parent_gallery = JRequest::getInt( 'parent');
+		//$parent_gallery = JRequest::getInt( 'parent');
+		$input =JFactory::getApplication()->input;
+		$parent_gallery = $input->get( 'parent', 0, 'INT');		
+
 		if (!rsgAuthorisation::authorisationCreate($parent_gallery)){
 			JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 			$mainframe->redirect(JRoute::_( $redirect ));
@@ -435,12 +467,17 @@ function saveCat($gid) {
 			$row->load($gid);
 		}
 		//Bind user input to $row (parent, name, description, existing gallery: gid, ordering)
-		if (!$row->bind( JRequest::get('post') )) {
+		//if (!$row->bind( JRequest::get('post') )) {
+		$input =JFactory::getApplication()->input;
+		if (!$row->bind( $input->post)) {
 			echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 			exit();
 		}
 		//Description: html is allowed
-		$row->description = JRequest::getVar( 'description', '', 'post', 'string', JREQUEST_ALLOWRAW );
+		//$row->description = JRequest::getVar( 'description', '', 'post', 'string', JREQUEST_ALLOWRAW );
+		$input =JFactory::getApplication()->input;
+		$row->description = $input->post->get('description', $default, RAW); 
+
 		//Code cleaner for xhtml transitional compliance 
 		$row->description = str_replace( '<br>', '<br />', $row->description );
 		//Make the alias for SEF (no matter if it existed or not for frontend editing)
@@ -481,7 +518,10 @@ function deleteCat() {
 	$database = JFactory::getDBO();
 
 	//Get values from URL
-	$gid = JRequest::getInt( 'gid'  , null);
+	//$gid = JRequest::getInt( 'gid'  , null);
+	$input =JFactory::getApplication()->input;
+	$gid = $input->get( 'gid', null, 'INT');		
+	
 	//Set redirect URL
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries",false);
 
@@ -507,7 +547,7 @@ function deleteCat() {
 		//Delete images
 		$query = 'SELECT `name` FROM `#__rsgallery2_files` WHERE `gallery_id` = '. (int) $gid;
 		$database->setQuery($query);
-		$result = $database->loadResultArray();
+		$result = $database->loadColumn();
 		$error = 0;
 		foreach ($result as $filename) {
 			if ( !imgUtils::deleteImage($filename) ) 
@@ -559,7 +599,9 @@ function editStateGallery($galleryId, $newState) {
 
 function editStateItem($id, $newState) {
 	$mainframe =& JFactory::getApplication();
-	$Itemid = JRequest::getInt( 'Itemid'  , '');
+	//$Itemid = JRequest::getInt( 'Itemid'  , '');
+	$input =JFactory::getApplication()->input;
+	$Itemid = $input->get( 'Itemid', 0, 'INT');		
 	$database = JFactory::getDBO();
 	$user = JFactory::getUser();
 	//Set redirect URL
@@ -585,7 +627,9 @@ function editStateItem($id, $newState) {
 }
 function editStateItems($cid,$newstate=0) {
 	$mainframe =& JFactory::getApplication();
-	$Itemid = JRequest::getInt( 'Itemid'  , '');
+	//$Itemid = JRequest::getInt( 'Itemid'  , '');
+	$input =JFactory::getApplication()->input;
+	$Itemid = $input->get( 'Itemid', 0, 'INT');		
 	$database = JFactory::getDBO();
 	$user = JFactory::getUser();
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid", false);
@@ -619,7 +663,9 @@ function editStateItems($cid,$newstate=0) {
 
 function deleteItems($cid) {
 	$mainframe =& JFactory::getApplication();
-	$Itemid = JRequest::getInt( 'Itemid'  , '');
+	//$Itemid = JRequest::getInt( 'Itemid'  , '');
+	$input =JFactory::getApplication()->input;
+	$Itemid = $input->get( 'Itemid', 0, 'INT');		
 	$database = JFactory::getDBO();
 	$user = JFactory::getUser();
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid", false);

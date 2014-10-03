@@ -101,7 +101,9 @@ class myGalleries {
 		
     	global $rsgConfig;
 		$user = JFactory::getUser();
-		$editor =& JFactory::getEditor();
+		//$editor =& JFactory::getEditor();
+		$editor = JFactory::getConfig()->get('editor'); // name of editor ?
+		$editor = JEditor::getInstance($editor);
 
 		//Script for this form is found in myGalleries::mygalleriesJavascript();
 
@@ -185,8 +187,10 @@ class myGalleries {
 			</table>
 			<input type="hidden" name="task" value="" />
 			<input type="hidden" name="option" value="com_rsgallery2" />
-			<input type="hidden" name="rsgOption" value="<?php echo JRequest::getCmd('rsgOption'); ?>" />
-			<input type="hidden" name="Itemid" value="<?php echo JRequest::getInt('Itemid'); ?>" />
+			<!--input type="hidden" name="rsgOption" value="<?php echo JRequest::getCmd('rsgOption'); ?>" / -->
+			<input type="hidden" name="rsgOption" value="<?php echo JFactory::getApplication()->input->get( 'rsgOption', '', CMD); ?>" />
+			<!--input type="hidden" name="Itemid" value="<?php echo JRequest::getInt('Itemid'); ?>" /-->
+			<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get( 'Itemid', 0, INT); ?>" />
 			<?php echo JHtml::_('form.token'); ?>
         </form>
         <?php
@@ -227,7 +231,9 @@ class myGalleries {
 	static function showImageUpload() {
         global $rsgConfig;
 		$my = JFactory::getUser();
-		$editor = JFactory::getEditor();
+		//$editor = JFactory::getEditor();
+		$editor = JFactory::getConfig()->get('editor'); // name of editor ?
+		$editor = JEditor::getInstance($editor);
 
 		//function showImageUpload should only be called when user has create permission for one or more galleries
         
@@ -453,7 +459,9 @@ class myGalleries {
      */
     static function showMyGalleries($rows) {
 		$database = JFactory::getDBO();
-		$Itemid = JRequest::getInt('Itemid');
+		//$Itemid = JRequest::getInt('Itemid');
+		$input =JFactory::getApplication()->input;
+		$Itemid = $input->get( 'Itemid', 0, 'INT');		
 		//Set variables
 		$count = count($rows);
 		$user = JFactory::getUser();
@@ -605,10 +613,15 @@ class myGalleries {
      */
     static function showMyImages($images, $pageNav) {
         JHtml::_('behavior.tooltip');
-		$option = JRequest::getCmd('option');
-		$rsgOption = JRequest::getCmd('rsgOption');
-		$Itemid = JRequest::getInt('Itemid');
-		$limit = JRequest::getInt('limit');
+		$input =JFactory::getApplication()->input;
+		//$option = JRequest::getCmd('option');
+		$option = $input->get( 'option', '', 'CMD');
+		//$rsgOption = JRequest::getCmd('rsgOption');
+		$rsgOption = $input->get( 'rsgOption', null, 'CMD');		
+		//$Itemid = JRequest::getInt('Itemid');
+		$Itemid = $input->get( 'Itemid', 0, 'INT');		
+		//$limit = JRequest::getInt('limit');
+		$limit = $input->get( 'limit', 0, 'INT');		
 		$user = JFactory::getUser();
 		$userId = $user->id;
 		jimport( 'joomla.html.html.grid' );
@@ -801,7 +814,9 @@ class myGalleries {
     static function editItem($rows) {
         global $rsgConfig;
 		$my = JFactory::getUser();
-		$editor = JFactory::getEditor();
+		//$editor = JFactory::getEditor();
+		$editor = JFactory::getConfig()->get('editor'); // name of editor ?
+		$editor = JEditor::getInstance($editor);
 
         foreach ($rows as $row) {
             $filename       = $row->name;
@@ -896,8 +911,11 @@ class myGalleries {
 			<input type="hidden" name="id" 		value="<?php echo $id; ?>" />
 			<input type="hidden" name="task" 	value="" />
 			<input type="hidden" name="option" 	value="com_rsgallery2>" />
-			<input type="hidden" name="Itemid"	value="<?php echo JRequest::getInt('Itemid'); ?>" />
-			<input type="hidden" name="rsgOption"	value="<?php echo JRequest::getCmd('rsgOption'); ?>" />
+			<!-- input type="hidden" name="Itemid" value="<?php echo JRequest::getInt('Itemid'); ?>" / -->
+			<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get( 'Itemid', 0, INT); ?>" />
+			<!-- input type="hidden" name="rsgOption" value="<?php echo JRequest::getCmd('rsgOption'); ?>" / -->
+			<input type="hidden" name="rsgOption" value="<?php echo JFactory::getApplication()->input->get( 'rsgOption', '', CMD); ?>" />
+			
 			<?php echo JHtml::_('form.token'); ?>
         </form>
         <?php
@@ -906,7 +924,9 @@ class myGalleries {
 function editCat($rows = null) {
     global $rsgConfig;
 	$my = JFactory::getUser();
-	$editor =& JFactory::getEditor();
+	//$editor =& JFactory::getEditor();
+	$editor = JFactory::getConfig()->get('editor'); // name of editor ?
+	$editor = JEditor::getInstance($editor);
 
 	//IE has a bug for 'disabled' options in a select box. Fix used from http://www.lattimore.id.au/2005/07/01/select-option-disabled-and-the-javascript-solution/
 ?>	<!--[if lt IE 8]>
@@ -1021,7 +1041,9 @@ function editCat($rows = null) {
  * toolbarbutton sends information in formname.task format.
  */
 function mygalleriesJavascript() {
-	$editor =& JFactory::getEditor();
+	//$editor =& JFactory::getEditor();
+	$editor = JFactory::getConfig()->get('editor'); // name of editor ?
+	$editor = JEditor::getInstance($editor);	
 	?>
 	<script type="text/javascript">
 	Joomla.submitbutton = function(formTask) {

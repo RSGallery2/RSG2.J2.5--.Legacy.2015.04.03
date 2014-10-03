@@ -24,7 +24,7 @@ jimport('joomla.application.component.view');
  * @subpackage	Installer
  * @since		1.5
  */
-class InstallerViewDefault extends JView
+class InstallerViewDefault extends JViewLegacy
 {
 	function __construct($config = null)
 	{
@@ -32,7 +32,7 @@ class InstallerViewDefault extends JView
 		$this->_addPath('template', $this->_basePath.DS.'views'.DS.'default'.DS.'tmpl');
 	}
 
-	static function display($tpl=null)
+	function display($tpl=null)
 	{
 		/*
 		 * Set toolbar items for the page
@@ -56,7 +56,7 @@ class InstallerViewDefault extends JView
 		}
 
 		$this->assign('showMessage',	$showMessage);
-		$this->assignRef('state',		$state);
+		$this->state = $state;
 
 		JHtml::_('behavior.tooltip');
 		parent::display($tpl);
@@ -67,13 +67,15 @@ class InstallerViewDefault extends JView
 	 *
 	 * @param	int $index
 	 */
-	static function loadItem($index=0)
+	function loadItem($index=0)
 	{
 	}
 	
 	static function showHeader(){
 		
-		$ext	= JRequest::getWord('type');
+		//$ext	= JRequest::getWord('type');
+		$input =JFactory::getApplication()->input;
+		$ext = $input->get( 'type',  '', 'WORD');					
 		
 		$subMenus = array(
 				JText::_('COM_RSGALLERY2_MANAGE') => 'templates'
@@ -89,8 +91,11 @@ class InstallerViewDefault extends JView
 
 	static function showTemplateHeader(){
 		
-		$ext	= JRequest::getWord('type', 'templateGeneral');
-		if($ext =='templates') $ext = 'templateGeneral';
+		//$ext	= JRequest::getWord('type', 'templateGeneral');
+		$input =JFactory::getApplication()->input;
+		$ext = $input->get( 'type',  'templateGeneral', 'WORD');					
+		if($ext =='templates') 
+			$ext = 'templateGeneral';
 		
 		$subMenus = array(
 				JText::_('COM_RSGALLERY2_GENERAL') => 'templateGeneral',
@@ -104,3 +109,4 @@ class InstallerViewDefault extends JView
 		
 	}
 }
+

@@ -14,7 +14,9 @@ require_once( $rsgOptions_path . 'galleries.html.php' );
 require_once( $rsgOptions_path . 'galleries.class.php' );
 require_once( $rsgOptions_path . 'images.class.php' );
 
-$cid = JRequest::getVar( 'cid' , array(), 'default', 'array' );
+//$cid = JRequest::getVar( 'cid' , array(), 'default', 'array' );
+$input =JFactory::getApplication()->input;
+$cid = $input->get( 'cid', array(), 'ARRAY');
 
 switch( $task ){
     case 'new':
@@ -80,7 +82,9 @@ switch( $task ){
 function show(){
     global $mosConfig_list_limit;	//Todo: $app = &JFactory::getApplication();$limit = $app->getCfg('list_limit'); replaces $mosConfig_list_limit
 	$mainframe = JFactory::getApplication();
-	$option = JRequest::getCmd('option');
+	//$option = JRequest::getCmd('option');
+	$input =JFactory::getApplication()->input;
+	$option = $input->get( 'option', '', 'CMD');	
 	$database = JFactory::getDBO();
     $limit      = $mainframe->getUserStateFromRequest( "viewlistlimit", 'limit', $mosConfig_list_limit );
     $limitstart = $mainframe->getUserStateFromRequest( "view{$option}limitstart", 'limitstart', 0 );
@@ -175,7 +179,9 @@ function edit( $option, $id ) {
 
     // fail if checked out not by 'me'
     if ($row->isCheckedOut( $my->id )) {
-        $mainframe->redirect( 'index.php?option='. $option, 'The module $row->title is currently being edited by another administrator.' );
+		// ToDS: Translate 
+	    $mainframe->enqueueMessage(  'The module $row->title is currently being edited by another administrator.' );
+        $mainframe->redirect( 'index.php?option='. $option );
     }
 
 	$canAdmin	= $my->authorise('core.admin', 'com_rsgallery2');
@@ -216,6 +222,7 @@ function edit( $option, $id ) {
 	$file 	= JPATH_SITE .'/administrator/components/com_rsgallery2/options/galleries.item.xml';
 ///    $params = new JParameter( $row->params, $file );
 
+// ToDo FIX: Undefined params
     html_rsg2_galleries::edit( $row, $lists, $params, $option );
 }
 
@@ -231,25 +238,38 @@ function save( $option ) {
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
 
-	$task = JRequest::getCmd('task');
-	$id = JRequest::getInt('id');
+	$input =JFactory::getApplication()->input;
+	//$task = JRequest::getCmd('task');
+	$task = $input->get( 'task', '', 'CMD');		
+	//$id = JRequest::getInt('id');
+	$id = $input->get( 'id', 0, 'INT');					
 	
     $row = new rsgGalleriesItem( $database );
 	$row->load($id);
-    if (!$row->bind( JRequest::get('post') )) {	//here we get id, parent, ... from the user's input
+    //if (!$row->bind( JRequest::get('post') )) {	//here we get id, parent, ... from the user's input
+    //if (!$row->bind( $input->post)) {	//here we get id, parent, ... from the user's input
+    // ToDo: Revisit a) check if $input->post->getArray(); is proper replacement for above b) Remove debug code below
+    //$OrgOldPost = JRequest::get('post');
+    //$Test7Post = $input->post->getArray();
+    if (!$row->bind( $input->post->getArray() )) {	//here we get id, parent, ... from the user's input
         echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
         exit();
     }
-	$row->description = JRequest::getVar( 'description', '', 'post', 'string', JREQUEST_ALLOWRAW );
+
+	//$row->description = JRequest::getVar( 'description', '', 'post', 'string', JREQUEST_ALLOWRAW );
+	$input =JFactory::getApplication()->input;
+	$row->description = $input->post->get('description', '', 'RAW');
+	
 	//Make the alias for SEF
 	if(empty($row->alias)) {
             $row->alias = $row->name;
     }
     $row->alias = JFilterOutput::stringURLSafe($row->alias);
 	
-
     // save params
-    $params = JRequest::getVar( 'params', array() );
+    //$params = JRequest::getVar( 'params', array() );
+	$input =JFactory::getApplication()->input;
+	$params = $input->get( 'params', array(), 'ARRAY');		
     if (is_array( $params )) {
         $txt = array();
         foreach ( $params as $k=>$v) {
@@ -258,8 +278,11 @@ function save( $option ) {
         $row->params = implode( "\n", $txt );
     }
 
-	// Get the rules which are in the form … with the name ‘rules’ with type array (default value array())
-	$data['rules']		= JRequest::getVar('rules', array(), 'post', 'array');
+	// Get the rules which are in the form … with the name 'rules' with type array (default value array())
+	//$data['rules']	= JRequest::getVar('rules', array(), 'post', 'array');
+	$input =JFactory::getApplication()->input;
+	$data['rules']		= $input->post->get( 'rules', array(), 'ARRAY');
+	
 	//Only save rules when there are rules (which were only shown to those with core.admin)
 	if (!empty($data['rules'])) {
 		// Get the form library, add a path for the form XML and get the form instantiated
@@ -398,8 +421,12 @@ function cancel( $option ) {
 	$database = JFactory::getDBO();
 
 	$row = new rsgGalleriesItem( $database );
-    $row->bind( $_POST );
-    $row->checkin();
+    //$row->bind( $_POST );
+	$input =JFactory::getApplication()->input;
+    // ToDo: Revisit check if $input->post->getArray(); is proper replacement for above
+    $row->bind( $input->post->getArray() );
+
+	$row->checkin();
     $mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
 }
 
@@ -408,7 +435,9 @@ function saveOrder( &$cid ) {
 	$database = JFactory::getDBO();
 
 	$total		= count( $cid );
-	$order 		= JRequest::getVar( 'order', array(0), 'post', 'array' );
+	// $order 		= JRequest::getVar( 'order', array(0), 'post', 'array' );
+	$input =JFactory::getApplication()->input;
+	$order = $input->post->get( 'order', array(), 'ARRAY');
 	JArrayHelper::toInteger($order, array(0));
 
 	$row 		= new rsgGalleriesItem( $database );
@@ -438,6 +467,7 @@ function saveOrder( &$cid ) {
 	$cache->clean( 'com_rsgallery2' );
 
 	$msg 	= JText::_( 'COM_RSGALLERY2_NEW_ORDERING_SAVED' );
-	$mainframe->redirect( 'index.php?option=com_rsgallery2&rsgOption=galleries', $msg );
+	$mainframe->enqueueMessage( $msg );
+	$mainframe->redirect( 'index.php?option=com_rsgallery2&rsgOption=galleries');
 } // saveOrder
 ?>

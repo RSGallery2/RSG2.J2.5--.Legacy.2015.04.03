@@ -123,7 +123,7 @@ class rsgInstall {
 
     }
     /** For debug purposes only */
-    static function echo_values(){
+    function echo_values(){
 		echo JText::_('COM_RSGALLERY2_THUMBDIRECTORY_IS').$this->dirThumbs;
     }
 	
@@ -326,7 +326,7 @@ class rsgInstall {
      * @param boolean Subdirectory copying yes or no
      * @return boolean true on success, false on failure
      */
-    static function copyFiles($source, $target, $chmod=0777, $subdir=false){
+    function copyFiles($source, $target, $chmod=0777, $subdir=false){
 		$errorcount = 0;
 		$exceptions = array('.','..');
 		/** 
@@ -715,6 +715,7 @@ class rsgInstall {
         {
 			include_once(JPATH_SITE."/components/com_zoom/etc/zoom_config.php");
 			//First check if the right version is installed
+            // ToDO FIX: $zoomConfig undefined variable ?
 			if ($zoomConfig['version'] == "2.5.1 RC1" OR $zoomConfig['version'] == "2.5.1 RC2")
             {
 				$basedir = JPATH_SITE."/".$zoomConfig['imagepath'];
@@ -775,7 +776,9 @@ class rsgInstall {
                 {
                 //Well, component is installed, but no version information can be established
 				JLog::add('-  redirect: no version information can be established: ' + COM_RSGALLERY2_UPGRADE_REC_FULL);
-                $mainframe->redirect("index.php?option=com_rsgallery2&task=install",JText::_('COM_RSGALLERY2_UPGRADE_REC_FULL'));
+                // ToDo Fix: Undefined variable mainframe ?
+					$mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_UPGRADE_REC_FULL') );
+                    $mainframe->redirect("index.php?option=com_rsgallery2&task=install");
                 }
             /**
              * 2. Then we need to create the new directory structure.
@@ -973,14 +976,16 @@ class rsgInstall {
                 $this->deleteGalleryDir(JPATH_SITE.$this->galleryDir, $exceptions, $output=false);
                 //Abort upgrade. Gallery structure present but no version information could be retrieved
 				JLog::add('-  redirect: Abort upgrade. Gallery structure present but no version information could be retrieved: ' + COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE);
-                $mainframe->redirect("index.php?option=com_rsgallery2&task=install",JText::_('COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE'));
+				$mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE') );
+                $mainframe->redirect("index.php?option=com_rsgallery2&task=install");
                 }
             }
         else
             {
             //No, component is not installed
 			JLog::add('-  redirect: No, component is not installed: ' + COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE);
-            $mainframe->redirect("index.php?option=com_rsgallery2&task=install",JText::_('COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE'));
+			$mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE') );
+            $mainframe->redirect("index.php?option=com_rsgallery2&task=install");
             }
         /**
          * 8. Finally a check if everything went OK (rights, etc)
@@ -1521,6 +1526,7 @@ class migrate_com_akogallery extends GenericMigrator{
             return 'Image Directory does not exist.';
         }
 
+        // ToDo Deprecated set_magic_quotes_runtime
         set_magic_quotes_runtime(1);
         
         $oldnewcats = $this->migrateCategories();

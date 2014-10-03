@@ -21,16 +21,39 @@ class html_rsg2_maintenance {
 		?>
 		<div id="rsg2-thisform">
 		<div id='cpanel'>
-			<?php
-			$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB';
-		html_rsg2_maintenance::quickiconBar( $link, 'blockdevice.png', JText::_('COM_RSGALLERY2_MAINT_CONSOLDB'), JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_TXT') );
-
-			$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=regenerateThumbs';
-		html_rsg2_maintenance::quickiconBar( $link, 'menu.png', JText::_('COM_RSGALLERY2_MAINT_REGEN'), JText::_('COM_RSGALLERY2_MAINT_REGEN_TXT') );
-
-			$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=optimizeDB';
-		html_rsg2_maintenance::quickiconBar( $link, 'db_optimize.png', JText::_('COM_RSGALLERY2_MAINT_OPTDB'), JText::_('COM_RSGALLERY2_MAINT_OPTDB_TXT') );
-		?>
+			<p>
+				<?php
+				$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB';
+				html_rsg2_maintenance::quickiconBar( $link, 'blockdevice.png', 
+					JText::_('COM_RSGALLERY2_MAINT_CONSOLDB'), JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_TXT') );
+				?>
+				<br>
+				<br>
+				<br>
+				<br>
+			</p>
+			<p>
+				<?php
+				$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=regenerateThumbs';
+				html_rsg2_maintenance::quickiconBar( $link, 'menu.png', 
+					JText::_('COM_RSGALLERY2_MAINT_REGEN'), JText::_('COM_RSGALLERY2_MAINT_REGEN_TXT') );
+				?>
+				<br>
+				<br>
+				<br>
+				<br>
+			</p>
+			<p>
+				<?php
+				$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=optimizeDB';
+				html_rsg2_maintenance::quickiconBar( $link, 'db_optimize.png', JText::_('COM_RSGALLERY2_MAINT_OPTDB'), 
+					JText::_('COM_RSGALLERY2_MAINT_OPTDB_TXT') );
+				?>
+				<br>
+				<br>
+				<br>
+				<br>
+			</p>
 		</div>
 		<div class='rsg2-clr'>&nbsp;</div>
 		</div>

@@ -15,7 +15,7 @@ defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 /**
 * The HTML_RSGALLERY class is used to encapsulate the HTML processing for RSGallery.
 * @package RSGallery2
-* @todo Move this class to a seperate class file and add loose functions to it
+* @todo Move this class to a separate class file and add loose functions to it
 **/
 class HTML_RSGALLERY{
 
@@ -129,7 +129,7 @@ class HTML_RSGALLERY{
                                 <td><strong><?php echo JText::_('COM_RSGALLERY2_DATE'); ?></strong></td>
                                 <td><strong><?php echo JText::_('COM_RSGALLERY2_USER'); ?></strong></td>
                             </tr>
-                            <?php echo galleryUtils::latestImages();?>
+                            <?php galleryUtils::latestImages();?>
                             <tr>
                                 <th colspan="4">&nbsp;</th>
                             </tr>
@@ -523,7 +523,9 @@ class HTML_RSGALLERY{
      * asks user to choose how many files to upload
      */
     static function showUploadStep2( ){
-        $catid = JRequest::getInt('catid', null); 
+        //$catid = JRequest::getInt('catid', null); 
+		$input =JFactory::getApplication()->input;
+		$catid = $input->get( 'catid', null, 'INT');		
         ?>
         <table width="100%">
         <tr>
@@ -566,9 +568,13 @@ class HTML_RSGALLERY{
      * asks user to choose what files to upload
      */
     static function showUploadStep3( ){
-        $catid = JRequest::getInt('catid', null); 
-        $uploadstep = JRequest::getInt('uploadstep', null); 
-        $numberOfUploads = JRequest::getInt('numberOfUploads', null); 
+		$input =JFactory::getApplication()->input;
+        //$catid = JRequest::getInt('catid', null); 
+		$catid = $input->get( 'catid', null, 'INT');		
+        //$uploadstep = JRequest::getInt('uploadstep', null); 
+		$uploadstep = $input->get( 'uploadstep', null, 'INT');		
+        //$numberOfUploads = JRequest::getInt('numberOfUploads', null); 
+		$numberOfUploads = $input->get( 'numberOfUploads', null, 'INT');		
 
         ?>
         <script language="javascript" type="text/javascript">
@@ -587,7 +593,7 @@ class HTML_RSGALLERY{
             <td>
             <table class="adminform">
             <tr>
-                <th colspan="2"><font size="4"><?php echo JText::_('COM_RSGALLERY2_STEP_3');?></font></td>
+                <th colspan="2"><font size="4"><?php echo JText::_('COM_RSGALLERY2_STEP_3');?></font></th>
             </tr>
             <?php for( $t=1; $t < ($numberOfUploads+1); $t++ ): ?>
             <tr>

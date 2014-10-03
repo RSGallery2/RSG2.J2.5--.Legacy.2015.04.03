@@ -195,7 +195,7 @@ class rsgAccess extends JObject{
 			// all actions permitted for admin users
 			$sql = "SELECT id FROM #__rsgallery2_galleries ";
 			$database->setQuery( $sql );
-			$galleries = $database->loadResultArray();
+			$galleries = $database->loadColumn();
 /*MK	}
 		else
 		{
@@ -205,14 +205,14 @@ class rsgAccess extends JObject{
 			$sql = "SELECT gallery_id FROM $this->_table WHERE ".$type." = 1";
 				//table #__rsgallery2_acl
 			$database->setQuery($sql);
-			$galleries = $database->loadResultArray();
+			$galleries = $database->loadColumn();
 			
 			// check if user is logged in
 			if( $my->id ){
 				// if so add galleries owned by users to list
 				$sql = "SELECT id FROM #__rsgallery2_galleries WHERE uid = '$my->id'";
 				$database->setQuery( $sql );
-				$galleries = array_merge($galleries, $database->loadResultArray());	
+				$galleries = array_merge($galleries, $database->loadColumn());	
 			}
 		}
 
@@ -301,7 +301,7 @@ class rsgAccess extends JObject{
 		$i = 0;
 		$sql = "SELECT id FROM #__rsgallery2_galleries";
 		$database->setQuery($sql);
-		$row = $database->loadResultArray();
+		$row = $database->loadColumn();
 		if (count($row) < 1) {
 			return false;
 		} else {

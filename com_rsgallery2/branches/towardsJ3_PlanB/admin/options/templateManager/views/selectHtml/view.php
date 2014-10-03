@@ -35,7 +35,7 @@ class InstallerViewSelectHtml extends InstallerViewDefault
 		
 		// Get data from the model
 		$item = &$this->get('Items');
-		$this->assignRef('item', $item);
+		$this->item = $item;
 		
 		parent::showTemplateHeader();
 		parent::display($tpl);

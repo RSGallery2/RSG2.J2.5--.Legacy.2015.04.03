@@ -80,6 +80,7 @@ class videoUtils extends fileUtils{
 
 		$parts = pathinfo( $destination );
         // fill $imgTitle if empty
+        // ToDO Fix: undefined variable ? not use d an<yhow ? or global ?
         if( $imgTitle == '' ) 
             $imgTitle = substr( $parts['basename'], 0, -( strlen( $parts['extension'] ) + ( $parts['extension'] == '' ? 0 : 1 )));
 
