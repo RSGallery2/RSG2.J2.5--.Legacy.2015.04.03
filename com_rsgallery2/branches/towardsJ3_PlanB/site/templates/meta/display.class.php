@@ -27,26 +27,22 @@ class rsgDisplay extends JObject{
 		// Read the ini file
 		$ini	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'params.ini';
 		if (JFile::exists($ini)) {
-			//wrong 1401.??: 
-			// old: $content = JFile::read($ini); // ? J3
 			// 140630: put new version in again finnern
-			$content = JFile::file_get_contents($ini);
+			//$content = JFile::read($ini); J3
+			$content = file_get_contents($ini);
 		} else {
 			$content = null;
 		}
-		$xml	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template .DS.'templateDetails.xml';
-		
-		// J3 $this->params = new JParameter($content, $xml, 'template');
-		
-		yyyyxxx here and above ....
-		$this->params = new JInput($content, $xml, 'template');
-		
+		$xml	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template .DS.'templateDetails.xml';		
+		// $this->params = new JParameter($content, $xml, 'template');
+		$jparams = new JRegistry();
+		$this->params = $jparams->get($content, $xml);  // Ignore parameter 'template' ?		
 	}
 	
 	/**
 	 * Switch for the main page, when not handled by rsgOption
 	 */
-	static function mainPage(){
+	function mainPage(){
 		global $rsgConfig;
 		$page = rsgInstance::getWord( 'page', '' );
 
@@ -108,7 +104,7 @@ class rsgDisplay extends JObject{
 	/**
 	 * 
 	 */
-	static function display( $file = null ){
+	function display( $file = null ){
 		global $rsgConfig;
 		$template = preg_replace( '#\W#', '', rsgInstance::getVar( 'rsgTemplate', $rsgConfig->get('template') ));
 		$templateDir = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template . DS . 'html';
@@ -203,7 +199,7 @@ class rsgDisplay extends JObject{
 	/**
 		insert meta data into head
 	**/
-	static function metadata(){
+	function metadata(){
 		global $mainframe, $option;
 
 		// if rsg2 isn't the component being displayed, don not append meta data
@@ -234,7 +230,7 @@ class rsgDisplay extends JObject{
 		$mainframe->appendMetaTag( 'description',  $description );
 	}
 
-	static function getGalleryLimitBox(){
+	 function getGalleryLimitBox(){
 		$pagelinks = $this->pageNav->getLimitBox("index.php?option=com_rsgallery2");
 		// add form for LimitBox
 		$pagelinks = '<form action="'.JRoute::_("index.php?option=com_rsgallery2&gid=".$this->gallery->id).'" method="post">' .
@@ -243,12 +239,12 @@ class rsgDisplay extends JObject{
 
 		return $pagelinks; 
 	}
-	static function getGalleryPageLinks(){
+	function getGalleryPageLinks(){
 		$pagelinks = $this->pageNav->getPagesLinks("index.php?option=com_rsgallery2");
 		return $pagelinks;
 		
 	}
-	static function getGalleryPagesCounter(){
+	function getGalleryPagesCounter(){
 		return $this->pageNav->getPagesCounter();
 	}
 	

@@ -69,10 +69,6 @@ following changes occur in folder planB
 + added file controler.php
 + Activated log file for backend per day 
 
-
-
-
-
 Revision: 1116
 + This project aims for a complete redevelopment of rsgallery2 with joomla 3 methods and file system.
 It can be installed parallel to an existing rsgallery2 installation on joomla 3

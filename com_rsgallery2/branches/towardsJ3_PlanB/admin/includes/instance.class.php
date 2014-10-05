@@ -168,7 +168,7 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * @param	string	$default	Default value if the variable does not exist
 	 * @param	string	$hash		Where the var should come from (POST, GET, FILES, COOKIE, METHOD)
 	 * @param	string	$type		Return type for the variable, for valid values see {@link JInputFilter::clean()}
-	 * @param	int		$mask		Filter mask for the variable
+	 * @param	int		$mask		Filter mask for the variable only used for signature now
 	 * @return	mixed	Requested variable
 	 * @since	1.5
 	 */
@@ -232,8 +232,9 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 		{
 			if (isset($input[$name]) && $input[$name] !== null) {
 				// Get the variable from the input hash and clean it
-                // ToDo Deprecated: JRequest ... clean var
-				$var = JRequest::_cleanVar($input[$name], $mask, $type);
+				//$var = JRequest::_cleanVar($input[$name], $mask, $type);
+				$noHtmlFilter = JFilterInput::getInstance();
+				$var = $noHtmlFilter->clean($input[$name], $type);
 
 				// Handle magic quotes compatability
 				if (get_magic_quotes_gpc() && ($var != $default) && ($hash != 'FILES')) {
@@ -244,8 +245,10 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 				$GLOBALS['_JREQUEST'][$name][$sig] = $var;
 			} elseif ($default !== null) {
 				// Clean the default value
-                // ToDo Deprecated: JRequest ... clean var
-				$var = JRequest::_cleanVar($default, $mask, $type);
+				//$var = JRequest::_cleanVar($default, $mask, $type);
+				$noHtmlFilter = JFilterInput::getInstance();
+				$var = $noHtmlFilter->clean($default, $type);
+	
 			} else {
 				$var = $default;
 			}

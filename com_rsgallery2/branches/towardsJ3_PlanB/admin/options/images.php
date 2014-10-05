@@ -18,7 +18,7 @@ require_once( $rsgOptions_path . 'images.class.php' );
 require_once( JPATH_RSGALLERY2_ADMIN . DS . 'admin.rsgallery2.html.php' );
 
 //$cid = JRequest::getVar("cid", array(), 'default', 'array' );
-$input =JFactory::getApplication()->input;
+$input = JFactory::getApplication()->input;
 $cid = $input->get( 'cid', array(), 'ARRAY');
 
 switch ($task) {
@@ -44,8 +44,9 @@ switch ($task) {
 		saveUploadedImage( $option );
 		break;
 		
-	case 'edit': // ToDO: deprecated JRequest::setVar
-		JRequest::setVar('id', $cid[0]);
+	case 'edit': 
+		// JRequest::setVar('id', $cid[0]);
+		$input->set ('id', $cid[0]);
 		editImage( $option, $cid[0] );
 		break;
 
@@ -240,6 +241,8 @@ function editImage( $option, $id ) {
 		$lists['userid'] 		= JFactory::getUser($row->userid)->name;
 	}
 	$file 	= JPATH_SITE .'/administrator/components/com_rsgallery2/options/images.item.xml';
+
+	// ToDo: Debug / Test to check if following replacement is working 
 	//$params = new JParameter( $row->params, $file);
 	$jparams = new JRegistry();
 	$params = $jparams->get($row->params, $file);
