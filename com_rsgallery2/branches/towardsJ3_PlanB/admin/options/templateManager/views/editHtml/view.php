@@ -32,7 +32,10 @@ class InstallerViewEditHtml extends InstallerViewDefault
 		JToolBarHelper::cancel( 'cancelHTML');
 		JToolBarHelper::help( 'screen.installerSelectCss' );
 		
-		JRequest::setVar( 'hidemainmenu', 1 );
+		// JRequest::setVar( 'hidemainmenu', 1 );
+		$app = JFactory::getApplication();
+		$input = $app->input;
+		$input->set('hidemainmenu', 1);
 		
 		// Get data from the model
 		$item = &$this->get('Item');

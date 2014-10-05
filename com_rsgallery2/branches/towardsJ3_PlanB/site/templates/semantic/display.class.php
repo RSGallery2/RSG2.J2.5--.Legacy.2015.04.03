@@ -14,14 +14,14 @@ defined( '_JEXEC' ) or die( 'Restricted Access' );
  */
 class rsgDisplay_semantic extends rsgDisplay{
 
-	static function inline(){
+	function inline(){
 		$this->display( 'inline.php' );
 	}
 
 	/**
 	* Show main gallery page
 	*/
-	static function showMainGalleries() {
+	function showMainGalleries() {
 		global $rsgConfig;
 		
 		$gallery =  rsgInstance::getGallery();
@@ -57,7 +57,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 	/**
 	 * Shows the gallery details block when set in the backend
 	 */
-	static function _showGalleryDetails( $kid ) {
+	function _showGalleryDetails( $kid ) {
 		global $rsgConfig;
 		$slideshow = $rsgConfig->get('displaySlideshow') && $kid->itemCount() > 1;
 		$owner 		= $rsgConfig->get('showGalleryOwner');

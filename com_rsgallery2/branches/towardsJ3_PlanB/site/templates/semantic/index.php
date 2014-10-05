@@ -34,9 +34,12 @@ $rsgDisplay->showRSPathWay();
 JHtml::_('behavior.tooltip');
 
 //include page navigation
-require_once(JPATH_ROOT.'/includes/pageNavigation.php');
+// Not found 20141004
+// require_once(JPATH_ROOT.'/includes/pageNavigation.php');
+jimport('joomla.html.pagination');
 
-$doc =& JFactory::getDocument();
+
+$doc = JFactory::getDocument();
 $doc->addStyleSheet($template_dir."/css/template.css","text/css");
 ?>
 

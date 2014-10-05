@@ -220,9 +220,11 @@ function edit( $option, $id ) {
 	}
 	
 	$file 	= JPATH_SITE .'/administrator/components/com_rsgallery2/options/galleries.item.xml';
-///    $params = new JParameter( $row->params, $file );
 
-// ToDo FIX: Undefined params
+	// ToDo: Debug / Test to check if following replacement is working 
+	//$params = new JParameter( $row->params, $file );
+	$jparams = new JRegistry();
+	$params = $jparams->get($row->params, $file);
     html_rsg2_galleries::edit( $row, $lists, $params, $option );
 }
 
