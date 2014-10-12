@@ -11,8 +11,8 @@
  * See COPYRIGHT.php for copyright notices and details.
  */
 
- /*	- 	avanced SEF logic at the bottom of this file
-	-	not advanced SEF logic:
+ /*	- 	Advanced SEF logic at the bottom of this file
+	-	Not advanced SEF logic:
 		If gid, and it’s not part of a menulink: add ‘gallery’ (category was used <= v2.1.1) and add gid number
 		If id then add ‘item’ and id number
 		If start then add ‘itemPage’ and limitstart value - 1
