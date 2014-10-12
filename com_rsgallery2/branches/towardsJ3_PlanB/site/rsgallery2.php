@@ -29,9 +29,11 @@ JLog::addLogger(
      ) 
 );
 
-// start logging...
-JLog::add('Starting to log rsgallery2.php in site');
-
+if(JDEBUG)
+{
+	// start logging...
+	JLog::add('Starting to log rsgallery2.php in site');
+}
 
 // initialize RSG2 core functionality
 require_once( JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "init.rsgallery2.php" );

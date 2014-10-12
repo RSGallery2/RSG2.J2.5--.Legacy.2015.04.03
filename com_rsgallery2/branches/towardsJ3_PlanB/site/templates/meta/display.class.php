@@ -9,11 +9,13 @@
 defined( '_JEXEC' ) or die( 'Restricted Access' );
 
 //require_once( 'joomla.filesystem.files' );
+// ToDo: Remove call of file . reason of need see comment inside file 
+require_once JPATH_COMPONENT_ADMINISTRATOR.'/helpers/parameter.php';
 jimport( 'joomla.filesystem.files' );
 
 class rsgDisplay extends JObject{
 	
-	var $params = null;
+	var $params = null; // Type of JParameter    ToDo: change type to Jregistry ...
 	
 	function __construct(){
 		global $rsgConfig;
@@ -34,9 +36,28 @@ class rsgDisplay extends JObject{
 			$content = null;
 		}
 		$xml	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template .DS.'templateDetails.xml';		
-		// $this->params = new JParameter($content, $xml, 'template');
-		$jparams = new JRegistry();
-		$this->params = $jparams->get($content, $xml);  // Ignore parameter 'template' ?		
+		//
+		/*changed code from -
+		$module=JModuleHelper::getModule('jbolo');
+		$moduleParams=new JParameter($module->params);
+		$chatmode=intval($moduleParams->get('modorbar',1));
+		//to
+		$module=JModuleHelper::getModule('jbolo');
+		$moduleParams=json_decode($module->params);
+		$chatmode=$moduleParams->modorbar;
+		*/
+		// 
+		// JRegistry: get($path, $default = null)
+		// $this->get($path, $default);
+		//--------------------------------------------------------------------
+		// Original:
+		$this->params = new JParameter($content, $xml, 'template');
+		//--------------------------------------------------------------------
+		//$jparams = new JRegistry(trim($content));
+		//if ($xml)
+		//{
+		//	$this->params = $jparams->loadSetupFile($xml);
+		//} 		
 	}
 	
 	/**
