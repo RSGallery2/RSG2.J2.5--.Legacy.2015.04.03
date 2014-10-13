@@ -1,0 +1,23 @@
+The RSGallery2 documentation was created using Dobudish and XMLmind XML Editor:
+
+This is Dobudish' info: http://www.agynamix.de/products/dobudish/
+*******************************************************
+DobuDish is a Docbook publishing framework. It was designed with portability and extensibility in mind. DobuDish can run on any Windows or Unix platform that supports Java.
+
+DobuDish was developed during a project for T-Systems Germany. T-Systems generously agreed to open source the newly developed parts of DobuDish (Ant script and Docbook customization layer) for which we are very grateful.
+
+We have agreed to host DobuDish here on our website as a free product we want to give back to the DocBook community. The DobuDish framework is distributed under the GNU General Public License. The various parts of the DobuDish framework are distributed under their respective (free) licenses.
+*******************************************************
+
+This is XMLmind XML Editor's info: http://www.xmlmind.com/xmleditor/
+*******************************************************
+XMLmind XML Editor is a strictly validating, near WYSIWYG, DocBook editor, DITA editor, MathML editor, XHTML editor, XML editor. Because XMLmind XML Editor is highly extensible, it may be also be used to create documents conforming to your own custom schema. Its users are generally technical writers who need to author large, complex, modular, documents.
+
+*******************************************************
+
+In the SVN the RSG2 documentation is here:
+\Documentation\Dobudish\documents\RSGallery2_documentation\ 
+
+That directory holds a directory \Images Root gallery\ which holds the images that are used in the RSG2 installation on Joomla that are used in the documentation. These images are made by RSG2 developer Mirjam (or her husband). Permission is, hereby, given to use these images for RSGallery2 documentation purposes.
+
+The \documents\ directory also holds previous versions of the RSG2 documentation.

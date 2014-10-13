@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title>Installation</title>
+
+  <para></para>
+
+  <section>
+    <title>Installation &amp; update</title>
+
+    <section>
+      <title>Download RSGallery2 package</title>
+
+      <para>On RSGallery2's homepage, <link
+      xlink:href="www.rsgallery2.nl">www.rsgallery2.nl</link>, there is a link
+      to the latest release of RSGallery2. Each release shows a version number
+      and on which version of Joomla! it can be used.</para>
+
+      <para>Older versions are available on <link
+      xlink:href="http://joomlacode.org/gf/project/rsgallery2/frs/">JoomlaCode</link>
+      where you'll see the available releases when you click the Package
+      "RSGallery2". The release name will be something like <tag
+      class="attribute">RSGallery2_2.1.1_J15</tag> which tells you it is
+      version 2.1.1 and intended for Joomla! 1.5 whereas <tag
+      class="attribute">RSGallery2_3.0.1_J16J17</tag> is version 3.0.1 and
+      intended for Joomla! 1.6 and 1.7.</para>
+    </section>
+
+    <section xml:id="sec-installing-rsgallery2">
+      <title>Installing RSGallery2</title>
+
+      <para>RSGallery2 is installed as any other Joomla! extension. First you
+      have to log in to the Administrator section, also called Backend. Click
+      on Extensions &gt; Extension Manager (see <xref
+      linkend="fig-extension-manager-install" />). Then click the Browse
+      button and find and select the downloaded package file. Back on the
+      Extension Manager page you'll see that the path to your selected package
+      file is shown in Package File. Now click Upload &amp; Install.</para>
+
+      <figure floatstyle="" xml:id="fig-extension-manager-install">
+        <title>Backend Extension Manager showing the drop-down menu for
+        Extensions.</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resource/Backend/Extension%20manager%20-%20Install_1325686868967.png"
+                       scalefit="1" width="100%"></imagedata>
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>Joomla! will tell you when the component is installed successfully
+      (<xref linkend="fig-message-installation-successful" />).</para>
+
+      <figure floatstyle="" xml:id="fig-message-installation-successful">
+        <title>Message: Installing component was successful.</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resource/Backend/Message%20Installing%20component%20was%20successful..jpg"
+                       scalefit="1" width="100%"></imagedata>
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>You will see a number of messages, green checkmarks indicate what
+      went well. Below that, there is a button that'll take you to
+      RSGallery2's Control Panel.</para>
+
+      <figure>
+        <title>After successful fresh installation: Control Panel
+        button.</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resource/Backend/Fresh%20install%20-%20Control%20Panel%20button.jpg"></imagedata>
+          </imageobject>
+        </mediaobject>
+      </figure>
+    </section>
+
+    <section>
+      <title>Updating RSGallery2</title>
+
+      <para>Updating RSGallery2 to the latest version is no different than
+      installing RSGallery2 for the first time. Either visit RSGallery2's
+      homepage, <link xlink:href="www.rsgallery2.nl">www.rsgallery2.nl</link>,
+      or the download section on <link
+      xlink:href="http://joomlacode.org/gf/project/rsgallery2/frs/">JoomlaCode</link>
+      to find out what the latest version is. If there is a new release, for
+      the Joomla! version you are using, download it and install as indicated
+      in <xref linkend="sec-installing-rsgallery2" />.</para>
+
+      <important>
+        <para>Always keep a recent backup of your site! See <link
+        xlink:href="http://docs.joomla.org/Backup">http://docs.joomla.org/Backup</link>.</para>
+      </important>
+
+      <para>Upon successfull update of RSGallery2 you will see some messages,
+      e.g. telling you what version you updated from and what version you
+      updated to (see <xref linkend="fig-Successfull-update" />). If there is
+      something you should know it will be posted with these messages.</para>
+
+      <figure xml:id="fig-Successfull-update">
+        <title>Update of RSGallery2 from 3.0.2 to 3.1.0 was
+        successfull.</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resource/Backend/Update%20successful%20-%20302%20to%20310.png"
+                       scalefit="1" width="100%"></imagedata>
+          </imageobject>
+        </mediaobject>
+      </figure>
+    </section>
+
+    <section>
+      <title>First steps after installation</title>
+
+      <para>After you have installed you will want to make one or more
+      galleries first. See <xref linkend="sec-create-a-gallery" /> on how to
+      create a gallery. Then you can upload one or more images. See <xref
+      linkend="sec-upload-single-item" /> on how to upload a single image and
+      <xref linkend="sec-upload-batch" /> on how to upload a batch of images.
+      Then you will have to create a menu item linking to RSGallery2 for your
+      frontend users to see your gallery/galleries with your uploaded images.
+      See <xref linkend="sec-create-RSGalelry2-menu-item" /> on how to create
+      a menu item linking to your gallery/galleries. This will get you going
+      and start learning how RSGallery2 works.</para>
+
+      <para>After you have done this you will probably see some things you
+      want to adapt to your wishes. See <xref
+      linkend="sec-Configuration-Settings" /> about the RSGallery2
+      Configuration options.</para>
+    </section>
+  </section>
+</chapter>

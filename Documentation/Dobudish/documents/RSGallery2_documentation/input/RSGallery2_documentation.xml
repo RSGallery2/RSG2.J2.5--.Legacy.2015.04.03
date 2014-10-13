@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book version="5.0" xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:svg="http://www.w3.org/2000/svg"
+      xmlns:m="http://www.w3.org/1998/Math/MathML"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:db="http://docbook.org/ns/docbook">
+  <info>
+    <title>RSGallery2 Documentation</title>
+
+    <author>
+      <personname><firstname>RSGallery2 Team</firstname></personname>
+    </author>
+
+    <pubdate>February 2012</pubdate>
+
+    <abstract>
+      <para>RSGallery2 is a full featured, easy to use, highly customisable,
+      gallery component for Joomla! </para>
+
+      <para>Users can upload their images via frontend and backend, via single
+      file upload, batch upload or ftp upload. Galleries containing images can
+      have as many (nested) subgalleries that you want. Galleries and images
+      can be moved around easily. Three graphics libraries, used to make
+      display and thumbnail images, are supported: GD2, ImageMagick and
+      Netpbm. Images can have a watermark. Images can be regenerated after the
+      settings for display image size and thumbnail image size are changed.
+      The site administrator can set permissions for usergroups to be allowed
+      to upload images, create galleries, edit, delete, (un)publish both
+      images and galleries, vote and comment on images, just like the
+      permissions for Joomla core components are set. View access for
+      galleries can be set by the site administrator just like view acces for
+      Joomla Categories. The look and feel can be customised by creating your
+      own RSGallery2 templates. </para>
+
+      <para>This document will show you what RSGallery2 can do and what it
+      looks like (<xref linkend="chapter-frontend" /> and <xref
+      linkend="chapter-backend" />). It's main goal is to get new users
+      started, but we hope it can be a reference to all. </para>
+
+      <para>The RSGallery2 Team loves to see a user community where people
+      with different skill levels are welcome and people help each other,
+      thereby improving RSGallery2.</para>
+
+      <para><emphasis>"We are all volunteers!"</emphasis></para>
+
+      <para>For support and discussions: www.rsgallery2.nl!</para>
+    </abstract>
+
+    <legalnotice>
+      <para>This document is licensed under a Creative Commons
+      Attribution-NonCommercial-ShareAlike 3.0 Unported License [<link
+      xlink:href="http://creativecommons.org/licenses/by-nc-sa/3.0/">http://creativecommons.org/licenses/by-nc-sa/3.0/</link>].</para>
+    </legalnotice>
+
+    <authorgroup>
+      <author>
+        <firstname>Mirjam</firstname>
+
+        <surname>Kaizer</surname>
+      </author>
+
+      <author>
+        <firstname>Johan</firstname>
+
+        <surname>van Ravenzwaaij</surname>
+      </author>
+    </authorgroup>
+  </info>
+
+  <!--Note that all screenshots are take with a user that has super administrator permissions. The text
+indicates for some options that a user needs to have Permission.
+
+There can be more than one way to get to a certain screen, but only one of the ways is mentioned
+throughout this document.
+-->
+
+  <xi:include href="RSGallery2_installation.xml" xpointer="element(/1)" />
+
+  <xi:include href="RSGallery2_frontend.xml" xpointer="element(/1)" />
+
+  <xi:include href="RSGallery2_backend.xml" xpointer="element(/1)" />
+
+  <xi:include href="RSGallery2_misc.xml" xpointer="element(/1)" />
+</book>

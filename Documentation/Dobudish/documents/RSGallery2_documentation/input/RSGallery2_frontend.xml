@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter version="5.0" xml:id="chapter-frontend"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title>Frontend</title>
+
+  <para>The intention of this chapter is to show you what RSGallery2 looks
+  like using its default template Semantic on Joomla 2.5.x with its default
+  template Beez2. Two assumptions are made: you are not logged in unless
+  stated otherwise, and you have created a menu item called Photos linking to
+  RSGallery2 (see <xref linkend="sec-create-RSGalelry2-menu-item" />). These
+  are the galleries that are set up (just like in <xref
+  linkend="sec-example-galleries" />).</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Cakes (6 images)</para>
+    </listitem>
+
+    <listitem>
+      <para>Flowers (6 images)</para>
+    </listitem>
+
+    <listitem>
+      <para>Hollidays (no images; 2 subgalleries)</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>France Embrun 2010 (22 images)</para>
+        </listitem>
+
+        <listitem>
+          <para>Switzerland 2009 (11 images)</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+
+  <para>Whenever something is shown that depends on a configuration setting
+  set in the backend, the setting name will be mentioned in parenthesis. See
+  section <xref linkend="sec-Configuration-Settings" /> for further
+  information on these, and more, settings.</para>
+
+  <section>
+    <title>Main page</title>
+
+    <para>Go to your frontend and locate the menu item Photos (see <xref
+    linkend="fig-Frontend_with_Photos_menu_item" />). When you click on the
+    menu item Photos you are taken to RSGallery2's main page (<xref
+    linkend="fig_Frontend_MainPage" />). The page shows three galleries:
+    Cakes, Flowers and Hollidays each with some details:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Gallery Name, e.g. Cakes.</para>
+      </listitem>
+
+      <listitem>
+        <para>A link to a slideshow for this gallery (setting Display
+        Slideshow and setting Select slideshow).</para>
+      </listitem>
+
+      <listitem>
+        <para>The owner of the gallery, which is admin in the figure shown
+        here (setting Display Owner Information).</para>
+      </listitem>
+
+      <listitem>
+        <para>The size of the gallery, e.g. 6 images for gallery Cakes
+        (setting Display number of items in gallery).</para>
+      </listitem>
+
+      <listitem>
+        <para>The creation date of the gallery (setting Display creation
+        date).</para>
+      </listitem>
+
+      <listitem>
+        <para>If the gallery has subgalleries, these are mentioned here with
+        the number of images they contain. E.g. Gallery Hollidays has two
+        subgalleries.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>The thumbnail next to the details is a link to the images that are
+    in the gallery. This thumbnail can either be one of the thumbnail images
+    for this gallery at random, or you can select a specific one. See <xref
+    linkend="sec-create-a-gallery" />, setting Gallery thumbnail.</para>
+
+    <para>Directly above these three galleries is a search box (setting
+    Display Search) that allows the user to search within gallery and image
+    titles and descriptions. Below these three galleries is a block with
+    Random images (setting Display Random) and a block with the Latest
+    (uploaded) images (setting Display Latest).</para>
+
+    <para>Also notice the pathway, just above the About Joomla! menu, that
+    indicates 'Home &gt; Photos' in the figure.</para>
+
+    <para><figure xml:id="fig_Frontend_MainPage">
+        <title>RSGallery2's main page in the frontend</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resource/Frontend/Frontend_MainPage.png"
+                       scalefit="1" width="100%"></imagedata>
+          </imageobject>
+        </mediaobject>
+      </figure></para>
+  </section>
+
+  <section>
+    <title>Gallery</title>
+
+    <para>When we click on a thumbnail for a gallery, e.g. the thumbnail with
+    the white flowers for gallery Flowers in <xref
+    linkend="fig_Frontend_MainPage" />, all the images in this particular
+    gallery are shown. See <xref
+    linkend="fig-Frontend_Gallery_Flowers" />.</para>
+
+    <para>These thumbnails are square (setting Thumbnail Style) and there
+    widht/height is (maximally) 80 pixels (setting Thumbnail Width). In this
+    figure the thumnails have their title belown them (setting Show image name
+    below thumbnail), the thumbnails are shown in a table (setting Thumbnail
+    Style) in 3 columns (setting Number of Thumnail Columns).</para>
+
+    <para>The thumbnails are created when images are uploaded and have the
+    size and style (square/proportional) as set at the time of upload. It is
+    possible to change these settings and then regenerate the thumbnails (see
+    <xref linkend="sec-Maintenance" />).</para>
+
+    <para>The searchbox is still present right above the thumbnails (setting
+    Display Search).</para>
+
+    <para>In the pathway, right above the menu About Joomla!, the galleryname
+    Flowers is appended after the name of the menu item. You can go back to
+    the main page via the Photos menu link or the Photos link in the
+    pathway.</para>
+
+    <para><figure xml:id="fig-Frontend_Gallery_Flowers">
+        <title>Gallery page showing all images in gallery Flowers</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resource/Frontend/Frontend_Gallery_Flowers.png"
+                       scalefit="1" width="100%"></imagedata>
+          </imageobject>
+        </mediaobject>
+      </figure></para>
+
+    <para>You can set the maximum number of thumbnails shown in this page
+    (setting Thumbnails per Page). See <xref
+    linkend="fig-Frontend_Gallery_FranceEmbrun2010_Page2" />. There are 22
+    images in gallery France Embrun 2010, and nine thumbnails are shown per
+    page (setting Thumbnails per Page). Below the images you find the
+    pagination buttons to allow you to go to each of the three pages with (up
+    to) nine thumbnails.</para>
+
+    <para>Notice the pathway where the structure of galleries is shown: via
+    the menu item Photos and the gallery Hollidays the subgallery France
+    Embrun 2010 in shown.<figure
+        xml:id="fig-Frontend_Gallery_FranceEmbrun2010_Page2">
+        <title>Gallery page showing the second set of nine images in gallery
+        France Embrun 2010</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resource/Frontend/Frontend_Gallery_FranceEmbrun2010_Page2.png"
+                       scalefit="1" width="100%"></imagedata>
+          </imageobject>
+        </mediaobject>
+      </figure></para>
+  </section>
+
+  <section>
+    <title>Items (images)</title>
+
+    <para>Let's go back to the Flowers gallery. Click one of the thumbnail
+    images, e.g. Flowers 2011 5. <xref
+    linkend="fig-Frontend_Item_Flowers_Flowers20115" /> shows the item
+    page.</para>
+
+    <para>The image shown is the display image, it is 400px wide (setting
+    Display Picture Width). For a portrait image, as opposed to this landscape
+    image, the height would be maximally 400px. Above this display image, the
+    image title (name) is shown, and below the image is a download link
+    (setting Display Downloadlink). This downloadlink allows the user to
+    download the image in its original size (as long as original image is
+    still on you webserver: setting Keep original image, otherwise the display
+    image is used). The title, display image and downloadlink are 'sandwiched'
+    between pagination links allowing the user to go to another image within
+    this gallery.</para>
+
+    <para>The display images are created when images are uploaded and have the
+    size as set at the time of upload. It is possible to change these settings
+    and then regenerate the display images (see <xref
+    linkend="sec-Maintenance" />).</para>
+
+    <para>At the bottom of the page there are four tabs</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Description (setting Display Description): this tab shows the
+        item description when there is a description. In the description HTML
+        can be used to make text bold for example or to enter a link to a
+        webpage. It also show the number of hits (setting Display Hits, off by
+        default, but on in the figure)</para>
+      </listitem>
+
+      <listitem>
+        <para>Voting (setting Display Voting): Voting needs to be enabled for
+        the usergroup the user belongs to be able to vote and to see the
+        voting results (see <xref linkend="sec-permissions" />). When Voting
+        is enable the user can give one to five stars for an image and a user
+        can only vote once (setting User van only vote once (cookie
+        based)).</para>
+      </listitem>
+
+      <listitem>
+        <para>Comments (setting Display Comments): Comments need to be enabled
+        for the usergroup the user belongs to be able to comment and to see
+        the comments (see <xref linkend="sec-permissions" />). When Comments
+        are enable users can enter their Name, a Title for the comment and the
+        Comment text. A Captcha can be integrated in the comment form (setting
+        Use CAPTCHA check, in comment form).</para>
+      </listitem>
+
+      <listitem>
+        <para>EXIF (setting Display EXIF Data): a selection of EXIF Data tags
+        can be shown (setting Select EXIF tags to display)</para>
+      </listitem>
+    </itemizedlist>
+
+    <para><figure xml:id="fig-Frontend_Item_Flowers_Flowers20115">
+        <title>Item page showing the display image of one item and its
+        details</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resource/Frontend/Frontend_Item_Flowers_Flowers20115.png"
+                       scalefit="1" width="100%"></imagedata>
+          </imageobject>
+        </mediaobject>
+      </figure></para>
+
+    <para>At the bottom of the page, information about the RSGallery2
+    component is shown (setting Display Branding) with version information and
+    a link to http://www.rsgallery2.nl/.</para>
+
+    <para>The pathway, right above the About Joomla! menu, has the image title
+    added to it, just after the name of the gallery it belongs to.</para>
+
+    <para>What happens when the users clicks on the display image depends on
+    the setting Popup style in the backend, these are the options:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>No popup</para>
+      </listitem>
+
+      <listitem>
+        <para>Normal popup (dafault): a new window will open showing the
+        original image (as long as original image is still on you webserver:
+        setting Keep original image, otherwise the display image is
+        used)</para>
+      </listitem>
+
+      <listitem>
+        <para>Joomla Modal: a modal window with the original image (as long as
+        original image is still on you webserver: setting Keep original image,
+        otherwise the display image is used) will popup</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+
+  <section>
+    <title>Slideshow</title>
+
+    <para>On the main page there is a link to a slideshow for each gallery,
+    see <xref linkend="fig_Frontend_MainPage" />. Currently (v3.1.0) there are
+    two slideshows: Slideshow Parth (default) and Slideshow One (setting
+    Select slideshow).</para>
+
+    <para>The slideshow will show all items in the gallery with display
+    images, not the images in subgalleries.</para>
+
+    <section>
+      <title>Slideshow Parth</title>
+
+      <para>Slideshow parth has a number of settings (see <xref
+      linkend="sec-SlideshowParth_settings" />) and looks by default like
+      <xref linkend="fig-Frontend_SlideshowParth_imageInfopaneNoCaroussel" />
+      and <xref
+      linkend="fig-Frontend_SlideshowParth_imageNoInfopaneCaroussel" />. In
+      the first figure you can see the Infopane at the bottom, the arrows at
+      the left and right to allow the user to go to the previous and next
+      image and at the top there is at tab with the text "Thumbnails" that
+      opens a carousel with small images.</para>
+
+      <para><figure
+          xml:id="fig-Frontend_SlideshowParth_imageInfopaneNoCaroussel">
+          <title>Slideshow Parth: with infopane, without Caroussel</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="resource/Frontend/Frontend_SlideshowParth_imageInfopaneNoCaroussel.png"
+                         scalefit="1" width="100%"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </figure><figure
+          xml:id="fig-Frontend_SlideshowParth_imageNoInfopaneCaroussel">
+          <title>Slideshow Parth: without infopane, with Caroussel</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="resource/Frontend/Frontend_SlideshowParth_imageNoInfopaneCaroussel.png"
+                         scalefit="1" width="100%"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </figure>In the second figure, there is no infopane at the bottom. At
+      the top the thumbnails-caroussel is showing because the user clicked on
+      the tab Thumbnails. Another click on this Thumbnails tab will hide the
+      caroussel.</para>
+    </section>
+
+    <section>
+      <title>Slideshow One</title>
+
+      <para>Slideshow One is a really simple slideshow that only has four
+      buttons: start, stop, previous and next. See <xref
+      linkend="fig-SlideshowOne" />. There are no settings for this
+      slideshow.</para>
+
+      <para><figure xml:id="fig-SlideshowOne">
+          <title>Slidewhow One</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="resource/Frontend/Frontend_SlideshowOne.png"
+                         scalefit="1" width="100%"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </figure></para>
+    </section>
+  </section>
+
+  <section>
+    <title>My Galleries</title>
+
+    <para>A site administrator can enable My Galleries (setting Show My
+    Galleries, 'no' by default). When a user logs in in the frontend the main
+    page wil then show an extra link: My galleries, right above the searchbox.
+    Clicking on that link will show a page like in <xref
+    linkend="fig-Frontend_MyGalleries_noPermissions" /> or in <xref
+    linkend="fig-Frontend_MyGalleries_allPermissions" />.</para>
+
+    <para><figure xml:id="fig-Frontend_MyGalleries_noPermissions">
+        <title>My Galleries page for a user without any permissions</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resource/Frontend/Frontend_MyGalleries_noPermissions.png"
+                       scalefit="1" width="100%"></imagedata>
+          </imageobject>
+        </mediaobject>
+      </figure></para>
+
+    <para>The differences in these two figures arise from the different
+    permissions a user can have (see <xref linkend="sec-permissions" />), e.g.
+    Edit Permission, Edit State Permission (to publish or unpublish an item or
+    gallery), Delete Permission and Create Permission for items and
+    galleries.</para>
+
+    <para>A user with none of these permissions can only see the items and
+    galleries, but cannot publish, delete, edit or create items or galleries.
+    That is reflected on the tabs My Images and My galleries by the grey icons
+    for the items and galleries. That user will also not see the Add Image and
+    Create Gallery tabs.</para>
+
+    <para>However, when a user has all permissions, the icons are no longer
+    greyed out, and there are two more tabs: Add Image and Create
+    Gallery.</para>
+
+    <para>A site administrator can choose to give only specific permissions to
+    a usergroup, e.g. only Edit permission, and only give that permission for
+    a specific gallery. Then the user will see from the icons being grey (and
+    non-functional) or not if they have that permission.</para>
+
+    <para>At the top of the page there is a box with User information: the
+    username of the user who is currently logged in, the number of galleries
+    this user has already created and its allowed maximum (setting Maximum
+    number of galleries a user can have) and the number of items for which the
+    user is the owner and its allowed maximum (setting Max numbers of pictures
+    a user can have).</para>
+
+    <para>We will assume for the following sections that the user has all
+    permissions for all galleries and items and that My Galleries are
+    enabled.</para>
+
+    <para><figure xml:id="fig-Frontend_MyGalleries_allPermissions">
+        <title>My Galleries page for a user with all permissions</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resource/Frontend/Frontend_MyGalleries_allPermissions.png"
+                       scalefit="1" width="100%"></imagedata>
+          </imageobject>
+        </mediaobject>
+      </figure></para>
+
+    <section>
+      <title>Galleries</title>
+
+      <para>Go to My Galleries via the menu item Photos and then My galleries.
+      You are now on the My galleries page.</para>
+
+      <section>
+        <title>Create a gallery</title>
+
+        <para>On the My galleries page click the Create Gallery tab. This tab
+        only shows when the user that is logged in has Create permission. To
+        create a new gallery, first choose its parent (choose Top gallery when
+        you want the gallery to be on the same 'level' as e.g. the gallery
+        Cakes, or choose an existing gallery, like gallery Cakes, for that to
+        be the parent. Then give the a name and a description and click the
+        little disk button at the top right of the Create Gallery tab. See
+        <xref linkend="fig-Frontend_MyGalleries_CreateGallery" />. Next to the
+        disk button is a red round button with a white cross inside: this is
+        the cancel button that will clear all fields.</para>
+
+        <para>Saving the gallery details returns you to this page and this
+        tab, but with the extra gallery created (note: this gallery is
+        unpublished by default). Unless of course the user already is at its
+        maximum allowed galleries, then the gallery will not be
+        created.</para>
+
+        <para><figure xml:id="fig-Frontend_MyGalleries_CreateGallery">
+            <title>My Galleries: tab Create Gallery</title>
+
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="resource/Frontend/Frontend_MyGalleries_CreateGallery.png"
+                           scalefit="1" width="100%"></imagedata>
+              </imageobject>
+            </mediaobject>
+          </figure></para>
+      </section>
+
+      <section>
+        <title>Change the state of a gallery: published or unpublished</title>
+
+        <para>On the My galleries page click the My galleries tab (<xref
+        linkend="fig-Frontend_MyGalleries_MyGalleries" />). This shows a list
+        of galleries. In the Published column the user can tell by the icon if
+        the gallery is published (green icon with white checkmark) or
+        unpublished (red icon with white dot inside). When the user is not
+        allowed to change the state, the icons are grey, but with either the
+        checkmark or the dot.</para>
+
+        <para>A click on the icon toggles the state from unpublished to
+        published and vice versa.</para>
+
+        <para><figure xml:id="fig-Frontend_MyGalleries_MyGalleries">
+            <title>My galleries: tab My galleries</title>
+
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="resource/Frontend/Frontend_MyGalleries_MyGalleries.png"
+                           scalefit="1" width="100%"></imagedata>
+              </imageobject>
+            </mediaobject>
+          </figure></para>
+      </section>
+
+      <section>
+        <title>Edit a gallery</title>
+
+        <para>The details like the name and description of the gallery can be
+        edited and a different parent gallery can be chosen. The gallery can
+        be edited by either clicking on the gallery name or on its Edit icon
+        (see <xref linkend="fig-Frontend_MyGalleries_MyGalleries" />). Doing
+        this shows a new window with the gallery details (<xref
+        linkend="fig-Frontend_MyGalleries_EditGallery" />). You can save your
+        changes by clicking the disk-icon on the top right, or you can cancel
+        your changes by clicking the red round icon with the wtithe cross
+        inside. Both save and cancel will take you back to the My Galleries
+        page.</para>
+
+        <figure xml:id="fig-Frontend_MyGalleries_EditGallery">
+          <title>My galleries: Edit gallery</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="resource/Frontend/Frontend_MyGalleries_EditGallery.png"
+                         scalefit="1" width="100%"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </figure>
+      </section>
+
+      <section>
+        <title>Delete a gallery</title>
+
+        <para>A gallery can be deleted by clicking on the Delete icon (see
+        <xref linkend="fig-Frontend_MyGalleries_MyGalleries" />). You will be
+        asked to confirm the deletion of the gallery. Images still in the
+        gallery will be deleted as well.</para>
+      </section>
+    </section>
+
+    <section>
+      <title>Items (images)</title>
+
+      <para>Go to My Galleries via the menu item Photos and then My galleries.
+      You are now on the My galleries page.</para>
+
+      <section>
+        <title>Create an item (e.g. upload one or more images)</title>
+
+        <para>On the My galleries page click the Add Image tab. This tab only
+        shows when the user that is logged in has Create permission for one or
+        more galleries. You can either add a single image, or a set of images
+        in a zipfile.</para>
+
+        <para>To add your image(s), first choose the gallery that will hold
+        the image(s). Browse to the file to select it and give the item a
+        title and a description. In case of multiple images in a zipfile, this
+        title and description will be used for each image. To upload your
+        image(s) and save the details, click the disk button at the top right
+        of the Create Gallery tab. See <xref
+        linkend="fig-Frontend_MyGalleries_AddItem" />. Next to the disk button
+        is a red round button with a white cross inside: this is the cancel
+        button that will clear all fields.</para>
+
+        <para>Saving the item returns you to this page and this tab, but with
+        the extra image(s) created (note: the newly uploaded image will be
+        unpublished by default). Unless of course the user already is at its
+        maximum allowed item, then the items will not be created.</para>
+
+        <figure xml:id="fig-Frontend_MyGalleries_AddItem">
+          <title>My galleries: Add images</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="resource/Frontend/Frontend_MyGalleries_AddItem.png"
+                         scalefit="1" width="100%"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </figure>
+      </section>
+
+      <section>
+        <title>Change the state of a item: published or unpublished</title>
+
+        <para>On the My galleries page click the My Images tab (<xref
+        linkend="fig-Frontend_MyGalleries_MyImages" />). This shows a list of
+        galleries. In the Published column the user can tell by the icon if
+        the gallery is published (green icon with white checkmark) or
+        unpublished (red icon with white dot inside). When the user is not
+        allowed to change the state, the icons are grey, but with either the
+        checkmark or the dot.</para>
+
+        <para>A click on the icon toggles the state from unpublished to
+        published and vice versa.</para>
+
+        <figure xml:id="fig-Frontend_MyGalleries_MyImages">
+          <title>My galleries: My Images</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="resource/Frontend/Frontend_MyGalleries_MyImages.png"
+                         scalefit="1" width="100%"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </figure>
+      </section>
+
+      <section>
+        <title>Edit an item</title>
+
+        <para>The details like the title and description of the image can be
+        edited and a different gallery to which the item belongs to can be
+        chosen. The item can be edited by clicking on its Edit icon (see <xref
+        linkend="fig-Frontend_MyGalleries_MyImages" />). Doing this shows a
+        new window with the item details (<xref
+        linkend="fig-Frontend_MyGalleries_EditImage" />). You can save your
+        changes by clicking the disk-icon on the top right, or you can cancel
+        your changes by clicking the red round icon with the wtithe cross
+        inside. Both save and cancel will take you back to the My Galleries
+        page.</para>
+
+        <figure xml:id="fig-Frontend_MyGalleries_EditImage">
+          <title>My galleries: edit image</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="resource/Frontend/Frontend_MyGalleries_EditImage.png"
+                         scalefit="1" width="100%"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </figure>
+      </section>
+
+      <section>
+        <title>Delete an item</title>
+
+        <para>An item can be deleted by clicking on the Delete icon (see <xref
+        linkend="fig-Frontend_MyGalleries_MyImages" />). You will be asked to
+        confirm the deletion of the item.</para>
+      </section>
+    </section>
+  </section>
+</chapter>
