@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title>Test stuff - DocBook5 on XMLMind</title>
+
+  <section>
+    <title>Section</title>
+
+    <para>Note<note>
+        <para>Note text.</para>
+      </note></para>
+
+    <para>Message set<msgset>
+        <msgentry>
+          <msg>
+            <msgmain>
+              <msgtext>
+                <para>Message text.</para>
+              </msgtext>
+            </msgmain>
+          </msg>
+        </msgentry>
+      </msgset></para>
+
+    <para>Important<important>
+        <para>Important text.</para>
+      </important>Warning<warning>
+        <para>warning text</para>
+      </warning></para>
+
+    <para>Caution</para>
+
+    <para><caution>
+        <para>Caution text.</para>
+      </caution></para>
+
+    <para>Tip</para>
+
+    <tip>
+      <para>Tip text.</para>
+    </tip>
+
+    <para>Remark</para>
+
+    <remark>Remark text.</remark>
+
+    <section>
+      <title>Test stuff</title>
+
+      <para>text</para>
+
+      <para>Some text. test file at c:\ with smaller images 2</para>
+
+      <figure>
+        <title>2</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resource/1_defaultJoomlaTemplate_floatStyle.jpg"
+                       width="200"></imagedata>
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <figure>
+        <title>1 default Joomla...</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resource/quodo.jpeg" width="50"></imagedata>
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>Some more text. A whole lot more text to fill some space.
+      Repeated. Over and over again. Some more text. A whole lot more text to
+      fill some space. Repeated. Over and over again. Some more text. A whole
+      lot more text to fill some space. Repeated. Over and over again. Some
+      more text. A whole lot more text to fill some space. Repeated. Over and
+      over again. Some more text. A whole lot more text to fill some space.
+      Repeated. Over and over again. Some more text. A whole lot more text to
+      fill some space. Repeated. Over and over again. Some more text. A whole
+      lot more text to fill some space. Repeated. Over and over again.</para>
+
+      <para></para>
+
+      <para>ome more text. A whole lot more text to fill some space. Repeated.
+      Over and over again. Some more text. A whole lot more text to fill some
+      space. Repeated. Over and over again. Some more text. A whole lot more
+      text to fill some space. Repeated. Over and over again. Some more text.
+      A whole lot more text to fill some space. Repeated. Over and over again.
+      Some more text. A whole lot more text to fill some space. Repeated. Over
+      and over again. Some more text. A whole lot more text to fill some
+      space. Repeated. Over and over again. Some more text. A whole lot more
+      text to fill some space. Repeated. Over and over again. Some more text.
+      A whole lot more text to fill some space. Repeated. Over and over
+      again.</para>
+
+      <figure>
+        <title>Figure title</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resource/DobuDish_1325620248058.png"
+                       scalefit="1" width="100%"></imagedata>
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>Some more text. A whole lot more text to fill some space.
+      Repeated. Over and over again. Some more text. A whole lot more text to
+      fill some space. Repeated. Over and over again. Some more text. A whole
+      lot more text to fill some space. Repeated. Over and over again. Some
+      more text. A whole lot more text to fill some space. Repeated. Over and
+      over again. Some more text. A whole lot more text to fill some space.
+      Repeated. Over and over again. Some more text. A whole lot more text to
+      fill some space. Repeated. Over and over again. Some more text. A whole
+      lot more text to fill some space. Repeated. Over and over again.</para>
+
+      <para>Some more text. A whole lot more text to fill some space.
+      Repeated. Over and over again. Some more text. A whole lot more text to
+      fill some space. Repeated. Over and over again. Some more text. A whole
+      lot more text to fill some space. Repeated. Over and over again. Some
+      more text. A whole lot more text to fill some space. Repeated. Over and
+      over again. Some more text. A whole lot more text to fill some space.
+      Repeated. Over and over again. Some more text. A whole lot more text to
+      fill some space. Repeated. Over and over again. Some more text. A whole
+      lot more text to fill some space. Repeated. Over and over again. Some
+      more text. A whole lot more text to fill some space. Repeated. Over and
+      over again.</para>
+    </section>
+  </section>
+</chapter>

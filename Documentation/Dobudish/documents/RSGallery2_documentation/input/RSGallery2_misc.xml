@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title>Miscellaneous</title>
+
+  <para></para>
+
+  <section>
+    <title>Translations</title>
+
+    <para><emphasis>Work in progress... (Information from
+    http://www.rsgallery2.nl/general_language_and_translation_questions/how_create_language_translation_file_16639.0.html
+    should be included here.)</emphasis></para>
+
+    <para><emphasis>Translators are always welcome!</emphasis></para>
+  </section>
+
+  <section>
+    <title>Modules</title>
+
+    <para><emphasis>Note: currently only available for RSGallery2 2.x on
+    Joomla 1.5.x, not for Joomla 2.5.x.</emphasis></para>
+  </section>
+
+  <section>
+    <title>Plugins</title>
+
+    <section xml:id="sec-Display-image-plugin">
+      <title>Display image plugin</title>
+
+      <para><emphasis>Note: currently only available for RSGallery2 2.x on
+      Joomla 1.5.x, not for Joomla 2.5.x.</emphasis></para>
+    </section>
+
+    <section xml:id="sec-Display-gallery-plugin">
+      <title>Display gallery plugin</title>
+
+      <para><emphasis>Note: currently only available for RSGallery2 2.x on
+      Joomla 1.5.x, not for Joomla 2.5.x.</emphasis></para>
+    </section>
+  </section>
+
+  <section>
+    <title>Development</title>
+
+    <para><emphasis>Work in progress... </emphasis></para>
+
+    <para><emphasis>Anyone who wants to contribute, by answering questions
+    from users, with bug fixes, new features, new (slideshow) templates,
+    language file updates, etc., etc. is more than welcome to do so. Go to
+    www.rsgallery2.nl and start sharing! (Note: RSGallery2 has always been and
+    will always be a non-commercial project!)</emphasis></para>
+  </section>
+
+  <section>
+    <title>License</title>
+
+    <para>RSGallery2 is distributed with a GNU/GPL License (GPLv2 or later).
+    See http://www.gnu.org/copyleft/gpl.html.</para>
+  </section>
+</chapter>

@@ -1,0 +1,915 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter version="5.0" xml:id="chapter-backend"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title>Backend</title>
+
+  <para>In the Backend, accessed via e.g.
+  http://www.rsgallery2.nl/administrator/, you can manage your galleries,
+  images and change the configuration settings for RSGallery2. You will find
+  that RSGallery2 works very similar to the way you would make categories in
+  Joomla (galleries in RSGallery2) or articles in Joomla (items, or images in
+  RSGallery2). We will assume that you are logged in in your Backend of your
+  Joomla site as a Super Administrator and as such have all the permissions a
+  user can have.</para>
+
+  <para>First we will create a few galleries and upload some images (refered
+  to as items here). Then a menu-item is created so our frontend users can see
+  our galleries. Finally the Configuration settings are discussed as well as
+  Permissions settings.</para>
+
+  <section>
+    <title>Galleries</title>
+
+    <para>Before you start creating galleries it's always a good idea to take
+    a moment to think about the structure of galleries. Galleries can be
+    nested, just like Joomla categories can be nested. See <xref
+    linkend="sec-example-galleries" /> for an example.</para>
+
+    <section xml:id="sec-create-a-gallery">
+      <title>Create a gallery</title>
+
+      <para>To create a gallery (users need to have Create permission) go to
+      Manage Galleries: Backend &gt; Components &gt; RSGallery2 &gt; Galleries
+      (see <xref linkend="fig-manage-galleries-screen" />) and click New. You
+      will see the screen shown in <xref
+      linkend="fig-fig-Backend_New_Gallery" />.</para>
+
+      <figure xml:id="fig-manage-galleries-screen">
+        <title>Manage Galleries screen</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resource/Backend/Backend_Manage_Galleries_empty_screen.png"
+                       scalefit="1" width="100%"></imagedata>
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <figure xml:id="fig-fig-Backend_New_Gallery">
+        <title>New Gallery screen</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resource/Backend/Backend_New_Gallery.png"
+                       scalefit="1" width="100%"></imagedata>
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>There are several settings in this screen</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Name: sets the name of your gallery, it is the only required
+          field.</para>
+        </listitem>
+
+        <listitem>
+          <para>Alias: you can leave this empty and Joomla will create an
+          alias based on the Name you entered when you save the gallery or you
+          can enter an alias yourself. The alias is used in <link
+          xlink:href="http://docs.joomla.org/Search_Engine_Friendly_URLs">Search
+          Engine Friendly URLs</link>, so the only characters allowed are
+          lowercase letters and dashes, letters with a <link
+          xlink:href="http://en.wikipedia.org/wiki/Diacritic">diacritic</link>
+          will automatically be converted (e.g. <emphasis>ü</emphasis> to
+          either <emphasis>u</emphasis> (dutch) or <emphasis>ue</emphasis>
+          (german), based on the transliteration of the language used).
+          <footnote>
+              <para>Transliteration is handled by the language pack that you
+              use. If you want to know how this works or how to override this,
+              see for example <link
+              xlink:href="http://docs.joomla.org/Making_a_Language_Pack_for_Joomla_1.6#Example_of_the_function_to_add_when_custom_transliteration_is_desired">http://docs.joomla.org/Making_a_Language_Pack_for_Joomla_1.6#Example_of_the_function_to_add_when_custom_transliteration_is_desired</link>
+              and <link
+              xlink:href="http://docs.joomla.org/International_Enhancements_for_Version_1.6">http://docs.joomla.org/International_Enhancements_for_Version_1.6</link></para>
+            </footnote></para>
+        </listitem>
+
+        <listitem>
+          <para>Owner: shows which user owns the gallery. Users with Configure
+          permission can change which user is the owner.<!--Configure permission: core.admin--></para>
+        </listitem>
+
+        <listitem>
+          <para>Access: sets wich usergroup can see this gallery in the
+          frontend.</para>
+        </listitem>
+
+        <listitem>
+          <para>Permissions: this button will take you to the Gallery
+          Permissions at the bottom of the page. It is only visible for users
+          with Configure permission.<!--Configure permission: core.admin--></para>
+        </listitem>
+
+        <listitem>
+          <para>Description: the description for the gallery.</para>
+        </listitem>
+
+        <listitem>
+          <para>Parent gallery: sets the parent of this gallery. If galleries
+          are nested you can see to which parent gallery a subgallery belongs
+          to.</para>
+        </listitem>
+
+        <listitem>
+          <para>Gallery thumbnail (only available when the gallery holds
+          items): by default a random thumbnail sized image is shown for the
+          gallery, here you can choose a specific thumbnail.</para>
+        </listitem>
+
+        <listitem>
+          <para>Ordering: by default, a new gallery is saved to the first
+          position. The order can be changed after the gallery is
+          saved.</para>
+        </listitem>
+
+        <listitem>
+          <para>Published: is the gallery published or not?</para>
+        </listitem>
+
+        <listitem>
+          <para>Gallery Permissions: users wich Configure permission can set
+          the allowed actions for each usergroup. See <xref
+          linkend="sec-permissions" /> for more information on this
+          subject.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>Give your new gallery at least a Name and click Save (to save and
+      return to this screen) or Save &amp; Close (to save and return to the
+      Manage Galleries screen (<xref
+      linkend="fig-manage-galleries-screen" />).</para>
+
+      <section xml:id="sec-example-galleries">
+        <title>Example galleries</title>
+
+        <para>As an example five galleries are created in this
+        structure:<itemizedlist>
+            <listitem>
+              <para>Cakes (only entered the Name here)</para>
+            </listitem>
+
+            <listitem>
+              <para>Flowers (only entered the Name here)</para>
+            </listitem>
+
+            <listitem>
+              <para>Hollidays (only entered the Name here)</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>France Embrun 2010 (entered the Name and chose
+                  Hollidays as Parent Gallery)</para>
+                </listitem>
+
+                <listitem>
+                  <para>Switzerland 2009 (entered the Name and chose Hollidays
+                  as Parent Gallery)</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+          </itemizedlist></para>
+
+        <para><xref
+        linkend="fig-Backend_Manage_Galleries_five_galleries_not_ordered" />
+        shows the five galleries that were just created. You can tell that
+        France Embrun 2010 and Switzerland 2009 are subgalleries of Hollidays,
+        Hollidays is their parent gallery.</para>
+
+        <figure xml:id="fig-Backend_Manage_Galleries_five_galleries_not_ordered">
+          <title>Manage Galleries screen just after creating the five example
+          galleries.</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="resource/Backend/Backend_Manage_Galleries_five_galleries_not_ordered.png"
+                         scalefit="1" width="100%"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </figure>
+      </section>
+    </section>
+
+    <section>
+      <title>Change the order of galleries</title>
+
+      <para>Changing the order of the galleries is easiest in the Manage
+      Galleries screen shown in <xref
+      linkend="fig-Backend_Manage_Galleries_five_galleries_not_ordered" />,
+      this works just like changing the order for Joomla Categories. A user
+      needs Edit State permission to be allowed to change the order.</para>
+
+      <!--Edit State permission: core.edit.state-->
+
+      <para>Go to the Manage Galleries screen via Backend &gt; Components &gt;
+      RSGallery2 &gt; Galleries. There are two ways to change the
+      order:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>In the Reorder column you can click the blue and white up and
+          down icons to move each gallery individually (these icons are not
+          shown for users without Edit State permission).</para>
+        </listitem>
+
+        <listitem>
+          <para>In the Order column you can change the numbers (but only when
+          you have Edit State permission) and click the little Save Order
+          floppy disk icon next to the Order text.</para>
+        </listitem>
+      </itemizedlist>
+    </section>
+
+    <section>
+      <title>Change the state of the gallery: published or unpublished</title>
+
+      <para>The state of the gallery, published or unpublished, can be changed
+      by users with Edit State permission. Changing the state of the galleries
+      is easiest in the Manage Galleries screen shown in <xref
+      linkend="fig-Backend_Manage_Galleries_five_galleries_not_ordered" />.
+      All galleries shown in this image are published: there is a green icon
+      with a white checkmark in the column Published. Unpublished galleries
+      would have a red icon with a white dot inside. This works the same as in
+      the rest of Joomla.</para>
+
+      <para>Go to the Manage Galleries screen via Backend &gt; Components &gt;
+      RSGallery2 &gt; Galleries. There are two ways to change the
+      state:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Click the icon in the Published column to change the state
+          from Published (green icon with with checkmark) to Unpublished (red
+          icon with white dot) and vice versa.</para>
+        </listitem>
+
+        <listitem>
+          <para>Select one or more galleries by checking the checkboxes at the
+          left of the gallery name and click the Publish or Unpublish icon in
+          the toolbar at the top of the page.</para>
+        </listitem>
+      </itemizedlist>
+    </section>
+
+    <section>
+      <title>Edit a gallery</title>
+
+      <para>You can edit the details for a saved gallery if you have Edit
+      permission or Edit Own permission and you are the owner of the gallery.
+      In the Manage Galleries screen (go there via Backend &gt; Components
+      &gt; RSGallery2 &gt; Galleries), either click on the gallery name, or
+      check the checkbox left to the gallery name and click Edit. You can
+      easily tell which galleries you are allowed to edit, because their names
+      are links to the Edit Gallery screen.</para>
+
+      <!--Edit permission: core.edit
+Edit Own permission: core.edit.own
+-->
+
+      <para>The Edit Gallery screen is almost the same as the New Gallery
+      screen (<xref linkend="fig-fig-Backend_New_Gallery" />), so refer to
+      <xref linkend="sec-create-a-gallery" /> for a descriptions of the
+      settings.</para>
+
+      <para>We edit the gallery "Switzerland 200" that has a typo to change
+      its name to "Switzerland 2009".</para>
+    </section>
+
+    <section>
+      <title>Delete a gallery</title>
+
+      <para>Deleting a galley is a two step proces, you will be asked to
+      confirm the deletion in the second step. When a gallery is deleted, its
+      items (images) and subgalleries will be deleted as well. Users need
+      Delete permission to be able to delete a gallery.</para>
+
+      <para>A gallery can be deleted via the Manage Galleries screen (go there
+      via Backend &gt; Components &gt; RSGallery2 &gt; Galleries), check the
+      checkbox left to the gallery or galleries you want to delete and click
+      Delete. When you're sure you want to delete the selected galleries and
+      their items (images) and subgalleries click Confirm Removal.</para>
+    </section>
+  </section>
+
+  <section>
+    <title>Items (images)</title>
+
+    <para>Galleries contain items, for most users these items will be images
+    with e.g. a title and description, we'll mix the usages of the words image
+    and item.<footnote>
+        <para>RSGallery2 has also some capabilities for video and MP3 files,
+        however, these capabilities are not discussed here and this function
+        is currently '<emphasis>as-is</emphasis>' and is not being
+        developed.</para>
+      </footnote></para>
+
+    <para>The types of images that can be uploaded are jpg, jpeg, gif and png
+    images.</para>
+
+    <!--Create permissin: core.create-->
+
+    <section>
+      <title>Create items</title>
+
+      <para>An RSGallery2 item is created when you upload an image. Users need
+      Create permission for a specific gallery to be able to upload images to
+      that gallery. You can either upload up to ten single images via Upload
+      or upload a batch of files via an archive (e.g. zip file) or via FTP.
+      Both are explained in the next sections.</para>
+
+      <section xml:id="sec-upload-single-item">
+        <title>Upload</title>
+
+        <para>We'll start with uploading a few images via Upload: Backend &gt;
+        Components &gt; RSGallery2 &gt; Upload. See <xref
+        linkend="fig-Backend_Upload_new_item" />.</para>
+
+        <figure xml:id="fig-Backend_Upload_new_item">
+          <title>Upload screen</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="resource/Backend/Backend_Upload_new_item.png"
+                         scalefit="1" width="100%"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>Here you can upload up to 10 single items. These are the
+        settings</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>At the top you have to select a gallery, all uploaded images
+            will go into this gallery. This list will show you all galleries
+            available, but users can only select galleries for which they have
+            Create permission. Note: "Top gallery" is not an actual gallery,
+            you cannot place images there, only galleries.</para>
+          </listitem>
+
+          <listitem>
+            <para>You can give a description wich will be the description for
+            each of the images that will be uploaded. This is not
+            required.</para>
+          </listitem>
+
+          <listitem>
+            <para>Per image you can optionally give a title. If no title is
+            given, the filename will be used, unless the image has ITPC
+            settings for the title. <emphasis>@@Todo: link to IPTC
+            configuration settings</emphasis></para>
+          </listitem>
+
+          <listitem>
+            <para>The location of the file you want to upload is required:
+            just click in the inputbox or on the Browse button and a window
+            will open that lets you select your file.</para>
+          </listitem>
+
+          <listitem>
+            <para>At the bottom of the page you can press "(more files)" which
+            will give you another set of inputboxes for a second image: title
+            and file. This way you can upload up to ten images.</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>When ready, just click Upload in the toolbar at the top of the
+        page. You are taken to the Manage Items screen when the image is
+        uploaded successfully, it shows a list of your images. In this screen
+        there is an Upload button in the toolbar that will take you to the
+        Upload screen of figure <xref linkend="fig-Backend_Upload_new_item" />
+        that you just used to upload one or more images.</para>
+      </section>
+
+      <section xml:id="sec-upload-batch">
+        <title>Batch Upload</title>
+
+        <para>Next we'll upload a batch of images via Batch Upload: Backend
+        &gt; Components &gt; RSGallery2 &gt; Batch upload. See <xref
+        linkend="fig-Backend_Batch_upload_step1" />. Batch upload is a
+        two-step proces.</para>
+
+        <figure xml:id="fig-Backend_Batch_upload_step1">
+          <title>Batch upload screen - step 1</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="resource/Backend/Backend_Batch_upload_step1.png"
+                         scalefit="1" width="100%"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>In the first step there are two choices:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Specify the upload method: Zip file (archive) or FTP.</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Zip file (archive): browse to an archive file (e.g. zip
+                file) and select it. Note: The size that such an archive file
+                can have is not only determined by the upload limit set on
+                your website, but also on time out limits. If an archive fails
+                to upload either try a smaller archive file, or use the FTP
+                method.</para>
+              </listitem>
+
+              <listitem>
+                <para>FTP: You will have to upload the images by FTP yourself
+                to a location within your webroot. The location of the webroot
+                is indicated on the screen. You can create, for example, a
+                directory <tag class="attribute">/tempupload/</tag> in your
+                webroot and put the full path to this directory here. For
+                windows users who use Xampp (webaddress
+                http://localhost/joomla25/) this may become <tag
+                class="attribute">C:\xampp\htdocs\rsgallery2\tempupload\</tag>
+                where the webroot is <tag
+                class="attribute">C:\xampp\htdocs\rsgallery2\</tag>. On *nix
+                systems this may be <tag
+                class="attribute">/home/vhosts/rsgallery2.nl/httpdocs/tempupload/</tag>
+                where the webroot is <tag
+                class="attribute">/home/vhosts/rsgallery2.nl/httpdocs/</tag> .
+                Note: do not forget the trailing slash, without it you'll get
+                a message "No files found to process!".</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>Specify the gallery: either choose the gallery that will
+            hold all images that you will upload in this batch, or choose to
+            specify the gallery for each of the images in the second step of
+            the batch upload.</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>Click the toolbar button Next at the top to go to the second
+        step.</para>
+
+        <para>In the second step you can (optionally) give each image a title
+        and description, and indicate if an image in the archive should not be
+        uploaded by marking the Delete checkbox. Depending on your choice in
+        Specify gallery, you cannot change the gallery, or you will see a
+        dropdown list of available galleries. See <xref
+        linkend="fig-Backend_Batch_upload_step2" />.</para>
+
+        <para>Click the toolbar button Upload to create the images in the
+        chosen RSGallery2 gallery.</para>
+
+        <figure xml:id="fig-Backend_Batch_upload_step2">
+          <title>Batch upload screen - step 2</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="resource/Backend/Backend_Batch_upload_step2.png"
+                         scalefit="1" width="100%"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>After the images are successfully uploaded you are redirected to
+        either the Items screen (single file upload) or the Control Panel
+        (Batch upload).</para>
+      </section>
+    </section>
+
+    <section>
+      <title>Change the order of items</title>
+
+      <para>Changing the order of the galleries is easiest in the Manage Items
+      screen shown in <xref linkend="fig-Backend_Manage_Items_with_items" />,
+      this works just like changing the order for Galleries. A user needs Edit
+      State permission to be allowed to change the order.</para>
+
+      <para>Go to the Manage Items screen via: Backend &gt; Components &gt;
+      RSGallery2 &gt; Items. There are two ways to change the order:
+      <itemizedlist>
+          <listitem>
+            <para>In the Reorder column you can click the blue and white up
+            and down icons to move each gallery individually (these icons are
+            not shown for users without Edit State permission).</para>
+          </listitem>
+
+          <listitem>
+            <para>In the Order column you can change the numbers (but only
+            when you have Edit State permission) and click the little Save
+            Order floppy disk icon next to the Order text.</para>
+          </listitem>
+        </itemizedlist></para>
+
+      <figure xml:id="fig-Backend_Manage_Items_with_items">
+        <title>Manage Items screen</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resource/Backend/Backend_Manage_Items_with_items.png"
+                       scalefit="1" width="100%"></imagedata>
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para></para>
+    </section>
+
+    <section>
+      <title>Change the state of the item: published or unpublished</title>
+
+      <para>The state of an item, published or unpublished, can be changed by
+      users with Edit State permission. Changing the state of an item is
+      easiest in the Manage Items screen shown in <xref
+      linkend="fig-Backend_Manage_Items_with_items" />. All items shown in
+      this image are published: there is a green icon with a white checkmark
+      in the column Published. Unpublished galleries would have a red icon
+      with a white dot inside. This works the same as in the rest of
+      Joomla.</para>
+
+      <para>Go to the Manage Items screen via Backend &gt; Components &gt;
+      RSGallery2 &gt; Items. There are two ways to change the state:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Click the icon in the Published column to change the state
+          from Published (green icon with with checkmark) to Unpublished (red
+          icon with white dot) and vice versa.</para>
+        </listitem>
+
+        <listitem>
+          <para>Select one or more galleries by checking the checkboxes at the
+          left of the item name and click the Publish or Unpublish icon in the
+          toolbar at the top of the page.</para>
+        </listitem>
+      </itemizedlist>
+    </section>
+
+    <section>
+      <title>Edit an item</title>
+
+      <para>You can edit the details for a saved item if you either have Edit
+      permission or you have Edit Own permission and you are the owner of the
+      item. In the Manage Item screen (go there via Backend &gt; Components
+      &gt; RSGallery2 &gt; Items), either click on the item name, or check the
+      checkbox left to the item name and click Edit. You can easily tell which
+      galleries you are allowed to edit, because their names are links to the
+      Edit Gallery screen.</para>
+
+      <!--Edit permission: core.edit
+Edit Own permission: core.edit.own
+-->
+
+      <para>The Edit Gallery screen shows these settings:</para>
+
+      <para><itemizedlist>
+          <listitem>
+            <para>Name: sets the name of your item, it is a required
+            field.</para>
+          </listitem>
+
+          <listitem>
+            <para>Alias: you can leave this empty and Joomla will create an
+            alias based on the Name you entered when you save the item or you
+            can enter an alias yourself. The alias is used in <link
+            xlink:href="http://docs.joomla.org/Search_Engine_Friendly_URLs">Search
+            Engine Friendly URLs</link>, so the only characters allowed are
+            lowercase letters and dashes, letters with a <link
+            xlink:href="http://en.wikipedia.org/wiki/Diacritic">diacritic</link>
+            will automatically be converted (e.g. <emphasis>ü</emphasis> to
+            either <emphasis>u</emphasis> (dutch) or <emphasis>ue</emphasis>
+            (german), based on the transliteration of the language used).
+            <footnote>
+                <para>Transliteration is handled by the language pack that you
+                use. If you want to know how this works or how to override
+                this, see for example <link
+                xlink:href="http://docs.joomla.org/Making_a_Language_Pack_for_Joomla_1.6#Example_of_the_function_to_add_when_custom_transliteration_is_desired">http://docs.joomla.org/Making_a_Language_Pack_for_Joomla_1.6#Example_of_the_function_to_add_when_custom_transliteration_is_desired</link>
+                and <link
+                xlink:href="http://docs.joomla.org/International_Enhancements_for_Version_1.6">http://docs.joomla.org/International_Enhancements_for_Version_1.6</link></para>
+              </footnote></para>
+          </listitem>
+
+          <listitem>
+            <para>Owner: shows which user owns the item. Users with Configure
+            permission can change which user is the owner.<!--Configure permission: core.admin--></para>
+          </listitem>
+
+          <listitem>
+            <para>Filename: shows the filename (this cannot be
+            changed).</para>
+          </listitem>
+
+          <listitem>
+            <para>Gallery: shows which gallery the item belongs to, it is a
+            required field.</para>
+          </listitem>
+
+          <listitem>
+            <para>Permissions: this button will take you to the Item
+            Permissions at the bottom of the page. It is only visible for
+            users with Configure permission.<!--Configure permission: core.admin--></para>
+          </listitem>
+
+          <listitem>
+            <para>Description: the description for the item.</para>
+          </listitem>
+
+          <listitem>
+            <para>Ordering: change the order of the items in the gallery.
+            Note: if you change the gallery an item belongs to, first save
+            your changes and then you can change the order of the items in
+            that gallery. E.g. this list only shows the items in the gallery
+            that the item belonged to when you started to Edit this
+            item.</para>
+          </listitem>
+
+          <listitem>
+            <para>Published: is the item published or not?</para>
+          </listitem>
+
+          <listitem>
+            <para>Item Permissions: users wich Configure permission can set
+            the allowed actions for each usergroup. See <xref
+            linkend="sec-permissions" /> for more information on this
+            subject.</para>
+
+            <!--BUG: name is Gallery Permissions, should be Item Permissions!-->
+          </listitem>
+        </itemizedlist>Besided these Settings in the Details section, there is
+      also an Item preview, showing the Display image for this item. Two
+      parameters called Link and Link text that are used for one of the
+      RSGallery2 plugins (see <xref linkend="sec-Display-image-plugin" />) and
+      the links to the Thumbnail, Display and Original images for this item
+      for quick display and reference for the user.</para>
+
+      <para>Make the changes you want and click either Save (to return to this
+      screen) or Save &amp; Close (to return to the Manage Items screen). If
+      you do not want to apply your changes you can click Cancel and you're
+      taken to the Manage Items screen.</para>
+    </section>
+
+    <section>
+      <title>Delete an item</title>
+
+      <para>In the Manage Item screen (<xref
+      linkend="fig-Backend_Manage_Items_with_items" />, go there via Backend
+      &gt; Components &gt; RSGallery2 &gt; Items), you can delete images for
+      which you have delete permission. Check the checkboxes corresponding to
+      the images you want to delete and click Delete. Be carefull though, you
+      won't be asked to confirm your deletion!</para>
+    </section>
+
+    <section>
+      <title>Copy of move an item</title>
+
+      <para>Items can be moved or copied to a different gallery than they
+      currently belong to in the Manage Item screen (<xref
+      linkend="fig-Backend_Manage_Items_with_items" />, go there via Backend
+      &gt; Components &gt; RSGallery2 &gt; Items). Check the checkboxes
+      corresponding to the images you want to either move or copy and in the
+      Copy/Move box select the destination gallery. Then click either Move To
+      or Copy depending on what you want.</para>
+    </section>
+
+    <section>
+      <title>Reset hits</title>
+
+      <para>In the Manage Item screen (<xref
+      linkend="fig-Backend_Manage_Items_with_items" />, go there via Backend
+      &gt; Components &gt; RSGallery2 &gt; Items) there is a column with the
+      number of Hits for each item. This counts the number of times the
+      specific image is shown individually (see <xref
+      linkend="fig-Frontend_Item_Flowers_Flowers20115" />).</para>
+
+      <para>You can reset this number to 0 by selecting the images for which
+      you want to reset the number of hits and then clicking Reset
+      hits.</para>
+    </section>
+  </section>
+
+  <section xml:id="sec-create-RSGalelry2-menu-item">
+    <title>Create an RSGallery2 menu item</title>
+
+    <para>Frontend users can only see your galleries and images if you provide
+    them with a menu link to your galleries. Such a menu link is created in
+    the Backend.</para>
+
+    <para>We're assuming that you are logged in in the Backend and that you
+    have Joomlas Sampla Data installed. We will create a menu link in the
+    About Joomla menu.</para>
+
+    <para>Go to the Menu Manager: Backend &gt; Menus &gt; Menu Manager, this
+    will show you all your available menus. Click on About Joomla. There is
+    also a shorter way to get here: Backend &gt; Menus &gt; About Joomla, you
+    can use either way. This will take you to the Menu Manager for the About
+    Joomla menu, see <xref linkend="fig-Backend_Menu_Manager_About_Joomla" />,
+    in this screen you click on New. You are taken to a screen where you can
+    enter all the details of your new menu item (<xref
+    linkend="fig-Backend_Menu_Manager_About_Joomla_RSGallery2_Item_Photos" />
+    shows the screen with the details filled out).<figure
+        xml:id="fig-Backend_Menu_Manager_About_Joomla">
+        <title>Menu Manager: About Joomla menu</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resource/Backend/Backend_Menu_Manager_About_Joomla.png"
+                       scalefit="1" width="100%"></imagedata>
+          </imageobject>
+        </mediaobject>
+      </figure></para>
+
+    <para><figure
+        xml:id="fig-Backend_Menu_Manager_About_Joomla_RSGallery2_Item_Photos">
+        <title>Menu Manager: New Menu Item with RSGallery2 View of galleries
+        chosen</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resource/Backend/Backend_Menu_Manager_About_Joomla_RSGallery2_Item_Photos.png"
+                       scalefit="1" width="100%"></imagedata>
+          </imageobject>
+        </mediaobject>
+      </figure></para>
+
+    <para>First, click on select next to Menu Item Type, a new window will
+    popup (<xref linkend="fig-Backend_Select_Menu_Item_Type.png" />). Find
+    RSGallery2 and you'll see two options, choose View of galleries.<figure
+        xml:id="fig-Backend_Select_Menu_Item_Type.png">
+        <title>Menu Manager: New Menu Item: Select a Menu Item Type</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resource/Backend/Backend_Select_Menu_Item_Type.png"
+                       scalefit="1" width="100%"></imagedata>
+          </imageobject>
+        </mediaobject>
+      </figure></para>
+
+    <para>With your choice two of the fields in the New Menu Item screen are
+    filled: the Menu Item Type and the Link. You need to give your new menu
+    item a title at Menu Title. Enter for example 'Photos'. At the right of
+    the screen you'll see some component specific settings. For this menu item
+    you can choose which gallery to use as a base gallery. By default Root
+    gallery is chosen, this is the top level that contains all galleries. This
+    Root gallery has no images of its own. We'll choose Root gallery here.
+    <xref
+    linkend="fig-Backend_Menu_Manager_About_Joomla_RSGallery2_Item_Photos" />
+    shows the settings that we've chosen. Now click on Save and your menu item
+    is created. Check this in the frontend (<xref
+    linkend="fig-Frontend_with_Photos_menu_item" />).</para>
+
+    <para><figure xml:id="fig-Frontend_with_Photos_menu_item">
+        <title>Frontend: About Joomla menu has a new link: Photos</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resource/Frontend/Frontend_with_Photos_menu_item.png"
+                       scalefit="1" width="100%"></imagedata>
+          </imageobject>
+        </mediaobject>
+      </figure>Of course you can create another menu item, also with the type
+    View of galleries, but with a different gallery. Try that and see in the
+    frontend what you'll get with this setting. And instead of the type View
+    of galleries you can also make a menu item with the type Slideshow view
+    instead of View of galleries. This will give your frontend user a menu
+    item showing a slideshow for a specific gallery. Here you cannot choose
+    the Root gallery (remember, the Root gallery only contains galleries, no
+    images), you can choose any gallery from the list.</para>
+  </section>
+
+  <section xml:id="sec-Configuration-Settings">
+    <title>Configurations settings</title>
+
+    <para>RSGallery2 has many settings to allow you to display your images the
+    way you would like to. They are all set in the Configuration. Go to the
+    Backend &gt; Components &gt; RSGallery2 &gt; Control Panel and click on
+    Configuration. The Configuration shows a set of four tabs: General,
+    Images, Display and My galleries (see <xref
+    linkend="fig-Backend_Configuration" />).<figure
+        xml:id="fig-Backend_Configuration">
+        <title>Configuration</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="resource/Backend/Backend_Configuration.png"
+                       scalefit="1" width="100%"></imagedata>
+          </imageobject>
+        </mediaobject>
+      </figure></para>
+
+    <para>The settings on each of these tabs will be explained in the next
+    sections.</para>
+
+    <para>When you want to change settings you have to click the Save button
+    after you choose a new setting, only then will a new setting be
+    applied.</para>
+
+    <section>
+      <title>Configuration: General</title>
+
+      <para><emphasis>Work in progress...</emphasis></para>
+    </section>
+
+    <section>
+      <title>Configuration: Images</title>
+
+      <para><emphasis>Work in progress...</emphasis> (all about the images,
+      most important: Display Picture Width, Thumbnail Width and Thumbnail
+      Style, these hold for new uploads only, also checkout Maintenance <xref
+      linkend="sec-Maintenance" />)</para>
+    </section>
+
+    <section>
+      <title>Configuration: Display</title>
+
+      <para><emphasis>Work in progress...</emphasis> (what to display and how
+      to display it)</para>
+    </section>
+
+    <section>
+      <title>Configuration: My galleries</title>
+
+      <para><emphasis>Work in progress...</emphasis> (about frontend
+      upload)</para>
+    </section>
+  </section>
+
+  <section xml:id="sec-permissions">
+    <title>Permissions</title>
+
+    <para>Basic information: <link
+    xlink:href="http://docs.joomla.org/ACL_Tutorial_for_Joomla_1.6#Controlling_What_Users_Can_See">http://docs.joomla.org/ACL_Tutorial_for_Joomla_1.6#Controlling_What_Users_Can_See</link>.</para>
+
+    <para>Enable/disable Voting via Options button</para>
+
+    <para>Enable/disable Comments via Options button</para>
+
+    <para>In the RSG2 Control Panel there are two Help buttons (for those with
+    Admin permission), one of them holds RSGallery2 Options (ACL) Help with
+    information on this subject.</para>
+
+    <para><emphasis>Work in progress...</emphasis></para>
+  </section>
+
+  <section xml:id="sec-Maintenance">
+    <title>Maintenance</title>
+
+    <para>Regenerate display images and thumbnails when their sizes should
+    change based on new settings.</para>
+
+    <para><emphasis>Work in progress...</emphasis></para>
+  </section>
+
+  <section xml:id="sec-Template-Manager">
+    <title>Template Manager</title>
+
+    <para>Set the default template for RSGallery2 (by default Semantic, which
+    is the only template besides some slideshow templates).</para>
+
+    <para>Should get information from thread
+    http://www.rsgallery2.nl/display_and_templates/how_create_your_own_template_or_modify_semantic_template_16758.0.html
+    in here.</para>
+
+    <para><emphasis>Work in progress...</emphasis></para>
+
+    <section xml:id="sec-SlideshowParth_settings">
+      <title>Slideshow Parth settings</title>
+
+      <para>Manage template &gt; Edit: takes you to the settings for Slideshow
+      Parth. </para>
+
+      <para>Instructions</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Go to the frontend and view a slideshow (this creates a
+          params.ini file in the slideshow parth template directory, only when
+          this file exists (and is writable) you can save your
+          settings)</para>
+        </listitem>
+
+        <listitem>
+          <para>View settings: Backend &gt; Components &gt; RSGallery2 &gt;
+          Control Panel &gt; Template Manager &gt; Manage &gt; select:
+          Slideshow_Parth &gt; click: Edit * Edit settings and click
+          Save</para>
+        </listitem>
+      </itemizedlist>
+
+      <para><emphasis>Work in progress...</emphasis></para>
+    </section>
+  </section>
+
+  <section>
+    <title>Control Panel</title>
+
+    <para><emphasis>Work in progress... (most of that is discussed in previous
+    sections without actually mentioning that, except the version, the
+    changelog, the license for RSGallery2 and the list of galleries, items and
+    credits).</emphasis></para>
+  </section>
+</chapter>
