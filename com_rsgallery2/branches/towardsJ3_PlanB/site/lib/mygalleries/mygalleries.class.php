@@ -24,7 +24,7 @@ class myGalleries {
      */
     static function viewMyGalleriesPage($rows, $images, $pageNav) {
         global $rsgConfig;
-		$mainframe =& JFactory::getApplication();
+		$mainframe = JFactory::getApplication();
 		$database = JFactory::getDBO();
 		$user = JFactory::getUser();
 

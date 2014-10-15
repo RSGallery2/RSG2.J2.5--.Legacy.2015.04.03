@@ -40,7 +40,7 @@ function test( $id ) {
 }
 function saveVote( $option ) {
 	global $rsgConfig;
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	$database = JFactory::getDBO();
 	$my = JFactory::getUser();
 	$input =JFactory::getApplication()->input;

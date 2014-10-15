@@ -9,7 +9,7 @@
 */
 defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
 global $rsgConfig;
-$document=& JFactory::getDocument();
+$document= JFactory::getDocument();
 
 if($document->getType() == 'html') {
 	$cssTemplate = JURI_SITE."components/com_rsgallery2/templates/".$rsgConfig->template."/css/template.css";
@@ -87,7 +87,7 @@ switch( $task ){
 
 function showMyGalleries() {
 	global $rsgConfig;
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	$my = JFactory::getUser();
 	$groups	= $my->getAuthorisedViewLevels();
 	$groupsIN = implode(", ",array_unique ($groups));
@@ -150,7 +150,7 @@ function showMyGalleries() {
  * Deletes an item through the frontend My Galleries part
  */
 function deleteItem() {
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	$user = JFactory::getUser();
 	$database = JFactory::getDBO();
 	$input =JFactory::getApplication()->input;
@@ -185,7 +185,7 @@ function editItem() {
 	//$id = JRequest::getInt('id', null);
 	$id = $input->get( 'id', null, 'INT');		
 	$user = JFactory::getUser();
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	//$Itemid = JRequest::getInt('Itemid', null);
 	$Itemid = $input->get( 'Itemid', 0, 'INT');		
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=".$Itemid, false);
@@ -211,7 +211,7 @@ function saveItem() {
 	// Check for request forgeries
 	JRequest::checkToken() or jexit( 'Invalid Token' );
 
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	$database = JFactory::getDBO();
 	$user = JFactory::getUser();
 	$input =JFactory::getApplication()->input;
@@ -266,7 +266,7 @@ function saveUploadedItem() {
 	JRequest::checkToken() or jexit( 'Invalid Token' );
 
 	global $rsgConfig;
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	$database = JFactory::getDBO();
 	$user = JFactory::getUser();
 	//Set redirect URL
@@ -379,7 +379,7 @@ function editCat($id) {
 	global $rsgConfig;
 	$database = JFactory::getDBO();
 	$user = JFactory::getUser();
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	$redirect = JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries", false);
 
 	//Only when $id exists!
@@ -418,7 +418,7 @@ function saveCat($gid) {
 	// Check for request forgeries
 	JRequest::checkToken() or jexit( 'Invalid Token' );
 	global $rsgConfig;
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	$user = JFactory::getUser();
 	$database = JFactory::getDBO();
 
@@ -513,7 +513,7 @@ function saveCat($gid) {
 
 function deleteCat() {
 	global $rsgConfig;
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
 
@@ -571,7 +571,7 @@ function deleteCat() {
 }
 
 function editStateGallery($galleryId, $newState) {
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	$user = JFactory::getUser();
 	$database = JFactory::getDBO();
 	
@@ -598,7 +598,7 @@ function editStateGallery($galleryId, $newState) {
 }
 
 function editStateItem($id, $newState) {
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	//$Itemid = JRequest::getInt( 'Itemid'  , '');
 	$input =JFactory::getApplication()->input;
 	$Itemid = $input->get( 'Itemid', 0, 'INT');		
@@ -626,7 +626,7 @@ function editStateItem($id, $newState) {
 	}
 }
 function editStateItems($cid,$newstate=0) {
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	//$Itemid = JRequest::getInt( 'Itemid'  , '');
 	$input =JFactory::getApplication()->input;
 	$Itemid = $input->get( 'Itemid', 0, 'INT');		
@@ -662,7 +662,7 @@ function editStateItems($cid,$newstate=0) {
 }
 
 function deleteItems($cid) {
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	//$Itemid = JRequest::getInt( 'Itemid'  , '');
 	$input =JFactory::getApplication()->input;
 	$Itemid = $input->get( 'Itemid', 0, 'INT');		

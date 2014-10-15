@@ -324,9 +324,9 @@ class rsgDisplay_semantic extends rsgDisplay{
 			// i have not found any other way to remove query variables from the router
 			// JPagination uses the router to build the current route, so removing it from the 
 			// request variables does not work.
-			$app	= &JFactory::getApplication();
-			$router = &$app->getRouter();
-
+			$app	= JFactory::getApplication();
+			$router = $app->getRouter();
+// ToDO: Improve Not working:
 			$router->_vars['gid'] = $gallery->id;
 			unset($router->_vars['id']);
 
@@ -357,7 +357,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 
 		jimport("joomla.html.pane");
 		
-		$tabs =& JPane::getInstance("Tabs",array("useCookies" => true));
+		$tabs = JPane::getInstance("Tabs",array("useCookies" => true));
 		echo $tabs->startPane( 'tabs' );
 		
 		if ( $rsgConfig->get("displayDesc") ) {

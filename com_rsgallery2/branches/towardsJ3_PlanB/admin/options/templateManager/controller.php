@@ -36,10 +36,10 @@ class InstallerController extends JControllerLegacy
 	 */
 	function installform()
 	{
-		$model	= &$this->getModel( 'Install' );
-		$view	= &$this->getView( 'Install', '', '', array( 'base_path'=>rsgOptions_installer_path ) );
+		$model	= $this->getModel( 'Install' );
+		$view	= $this->getView( 'Install', '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
-		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
+		$ftp    = JClientHelper::setCredentialsFromRequest('ftp');
 		$view->ftp = $ftp;
 		
 		$view->setModel( $model, true );
@@ -303,7 +303,7 @@ class InstallerController extends JControllerLegacy
 		$model->filename = $input->get( 'filename' );
 		
 		//$model->content = JRequest::getVar('csscontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
-		$model->content = $input->post->get( 'csscontent' '', RAW);
+		$model->content = $input->post->get( 'csscontent', RAW);
 		//$model->template = JRequest::getVar( 'template' );
 		$input =JFactory::getApplication()->input;
 		$template = $input->get( 'template' );
@@ -323,7 +323,7 @@ class InstallerController extends JControllerLegacy
 		$model->filename = $input->get( 'filename' );
 		
 		//$model->content = JRequest::getVar('csscontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
-		$model->content = $input->post->get( 'csscontent' '', RAW);
+		$model->content = $input->post->get( 'csscontent', RAW);
 		//$model->template = JRequest::getVar( 'template' );
 		$input =JFactory::getApplication()->input;
 		$template = $input->get( 'template' );
@@ -401,7 +401,7 @@ class InstallerController extends JControllerLegacy
 		$model->filename = $input->get( 'filename' );
 
 		//$model->content = JRequest::getVar('htmlcontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
-		$model->content = $input->post->get( 'htmlcontent' '', RAW);
+		$model->content = $input->post->get( 'htmlcontent', RAW);
 		//$model->template = JRequest::getVar( 'template' );
 		$input =JFactory::getApplication()->input;
 		$template = $input->get( 'template' );
@@ -421,7 +421,7 @@ class InstallerController extends JControllerLegacy
 		$model->filename = $input->get( 'filename' );
 
 		//$model->content = JRequest::getVar('htmlcontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
-		$model->content = $input->post->get( 'htmlcontent' '', RAW);
+		$model->content = $input->post->get( 'htmlcontent', RAW);
 		//$model->template = JRequest::getVar( 'template' );
 		$input =JFactory::getApplication()->input;
 		$template = $input->get( 'template' );

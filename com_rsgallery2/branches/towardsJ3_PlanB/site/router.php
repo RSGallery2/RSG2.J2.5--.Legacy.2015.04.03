@@ -223,8 +223,11 @@ function Rsgallery2ParseRoute($segments) {
 		$vars	= array();
 		
 		// Get the active menu item.
-		$menu	= &JSite::getMenu();
-		$item	= &$menu->getActive();
+		//$menu	= JSite::getMenu();
+		$app = JFactory::getApplication();
+		$menu = $app->getMenu();		
+		
+		$item	= $menu->getActive();
 
 		if(!empty($item)){
 			// We only want the gid from the menu-item-link when (this case the menulink refers to a subgallery)
@@ -414,7 +417,7 @@ function Rsgallery2GetGalleryIdFromItemId($id){
 			//...non unique id in table, should never happen
 			$msg = JText::_('COM_RSGALLERY2_SHOULD_NEVER_HAPPEN');
 		}
-		$app = &JFactory::getApplication();
+		$app = JFactory::getApplication();
 		JFactory::getLanguage()->load("com_rsgallery2");
 		$app->redirect("index.php", $msg);
 	}
@@ -455,7 +458,7 @@ function Rsgallery2GetItemIdFromGalleryIdAndLimitstart($gid,$limitstart){
 	} else {
 		//todo: error //need to have non-zero number of items
 		//Redirect user and display error...
-		$app = &JFactory::getApplication();
+		$app = JFactory::getApplication();
 		JFactory::getLanguage()->load("com_rsgallery2");
 		$app->redirect("index.php", JText::sprintf('COM_RSGALLERY2_COULD_NOT_FIND_IMAGE_BASED_ON_GALLERYID_AND_LIMITSTART', (int) $gid, (int) $limitstart));//todo add to languange file
 	}

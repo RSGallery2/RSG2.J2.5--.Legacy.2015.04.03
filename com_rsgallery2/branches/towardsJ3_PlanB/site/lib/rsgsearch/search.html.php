@@ -14,7 +14,7 @@ class html_rsg2_search {
 	
 	static function showSearchBox() {
 		$document= JFactory::getDocument();
-=& replace all 		
+
 		if($document->getType() == 'html') {
 			$css = "<link rel=\"stylesheet\" href=\"".JURI_SITE."components/com_rsgallery2/lib/rsgsearch/rsgsearch.css\" type=\"text/css\" />";
 			$document->addCustomTag($css);

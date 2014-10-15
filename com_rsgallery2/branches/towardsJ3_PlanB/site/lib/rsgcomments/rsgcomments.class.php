@@ -243,8 +243,8 @@ function parse( $html ) {
  */
 function editComment( $item_id ) {
 	global $rsgConfig ;
-	$my =& JFactory::getUser();
-	$doc =& JFactory::getDocument();
+	$my = JFactory::getUser();
+	$doc = JFactory::getDocument();
 	$doc->addScript(JURI_SITE."/components/com_rsgallery2/lib/rsgcomments/js/client.js");
 	$doc->addStyleSheet(JURI_SITE."/components/com_rsgallery2/lib/rsgcomments/rsgcomments.css");
 	$gid=galleryUtils::getCatIdFromFileId($item_id);//galleryid gid used to be named catid
@@ -367,7 +367,7 @@ function showComments( $item_id ) {
 	global $database;
 	
 	// Get the current JUser object
-	$user = &JFactory::getUser();
+	$user = JFactory::getUser();
 	$deleteComment = false;
 
 	// user is admin or super admin and can delete the comment
