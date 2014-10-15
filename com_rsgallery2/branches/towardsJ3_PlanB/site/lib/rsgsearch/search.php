@@ -22,7 +22,7 @@ $task = $input->get( 'task', '', 'CMD');
 //Load stylesheet from current template
 global  $rsgConfig;
 $template_dir = JURI_SITE . "/components/com_rsgallery2/templates/" . $rsgConfig->get('template');
-$doc =& JFactory::getDocument();
+$doc = JFactory::getDocument();
 $doc->addStyleSheet($template_dir."/css/template.css","text/css");
 
 switch ($task) {

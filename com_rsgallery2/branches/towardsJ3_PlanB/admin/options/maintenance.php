@@ -162,8 +162,8 @@ function executeRegenerateThumbImages() {
 	$gid = $input->get( 'gid', array(), 'ARRAY'); 
 
 	if ( empty($gid) ) {
-	    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_NO_GALLERY_SELECTED' );
-		$mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs"));
+	    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_NO_GALLERY_SELECTED' ) );
+		$mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs");
 		return;
 	}
 

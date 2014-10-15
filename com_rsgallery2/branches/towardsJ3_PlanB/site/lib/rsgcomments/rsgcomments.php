@@ -92,6 +92,7 @@ function saveComment( $option ) {
 	//	Clean the comment with the filter: strong, emphasis, underline (not a with attrib href for now)
 	$allowedTags 		= array('strong','em','u','p','br');
 	$allowedAttribs 	= array('');//array('href');
+	//$filter 			= & JFilterInput::getInstance($allowedTags,$allowedAttribs);
 	$filter 			= & JFilterInput::getInstance($allowedTags,$allowedAttribs);
 	$comment 			= $filter->clean($comment);
 	//	Now do some extra tests on this comment and if they not pass, redirect the user
@@ -182,11 +183,11 @@ function saveComment( $option ) {
 * @param string The current url option
 */
 function deleteComments( $option ) {
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	$database = JFactory::getDBO();
 	
 	// Get the current JUser object
-	$user = &JFactory::getUser();
+	$user = JFactory::getUser();
 
 	//Check permission to delete (only for users with core.admin on RSG2)
 	if (!JFactory::getUser()->authorise('core.admin','com_rsgallery2'))

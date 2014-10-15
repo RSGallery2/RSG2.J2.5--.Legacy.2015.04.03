@@ -193,7 +193,7 @@ class rsgDisplay extends JObject{
 
 		$galleries = array_reverse($galleries);
 
-		$pathway =& $mainframe->getPathway();
+		$pathway = $mainframe->getPathway();
 		
 		foreach( $galleries as $gallery ) {
 			if ( $gallery->id == $currentGallery && empty($item) ) {

@@ -61,10 +61,10 @@ define( 'DS', DIRECTORY_SEPARATOR );
 require_once ( JPATH_BASE .DS.'includes'.DS.'defines.php' );
 require_once ( JPATH_BASE .DS.'includes'.DS.'framework.php' );
 
-$mainframe =& JFactory::getApplication('site');
+$mainframe = JFactory::getApplication('site');
 $mainframe->initialise();
 
-$session =& JFactory::getSession();
+$session = JFactory::getSession();
 
 // initialize the rsg config file
 if (!defined('JPATH_RSGALLERY2_ADMIN')){	//might also be defined in router.php is SEF is used
