@@ -209,7 +209,8 @@ function editItem() {
 
 function saveItem() {
 	// Check for request forgeries
-	JRequest::checkToken() or jexit( 'Invalid Token' );
+    //JRequest::checkToken() or jexit( 'Invalid Token' );
+    JSession::checkToken() or jexit( 'Invalid Token' );
 
 	$mainframe = JFactory::getApplication();
 	$database = JFactory::getDBO();
@@ -263,7 +264,8 @@ function saveItem() {
 
 function saveUploadedItem() {
 	// Check for request forgeries
-	JRequest::checkToken() or jexit( 'Invalid Token' );
+	//JRequest::checkToken() or jexit( 'Invalid Token' );
+    JSession::checkToken() or jexit( 'Invalid Token' );
 
 	global $rsgConfig;
 	$mainframe = JFactory::getApplication();
@@ -416,7 +418,9 @@ function editCat($id) {
 
 function saveCat($gid) {
 	// Check for request forgeries
-	JRequest::checkToken() or jexit( 'Invalid Token' );
+	//JRequest::checkToken() or jexit( 'Invalid Token' );
+    JSession::checkToken() or jexit( 'Invalid Token' );
+
 	global $rsgConfig;
 	$mainframe = JFactory::getApplication();
 	$user = JFactory::getUser();

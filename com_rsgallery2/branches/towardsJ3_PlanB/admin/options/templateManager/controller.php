@@ -56,8 +56,9 @@ class InstallerController extends JControllerLegacy
 	static function doInstall()
 	{
 		// Check for request forgeries
-		JRequest::checkToken() or die( 'Invalid Token' );
-		
+		//JRequest::checkToken() or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
 		$model	= &$this->getModel( 'Install' );
 		$view	= &$this->getView( 'Install' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
@@ -104,8 +105,9 @@ class InstallerController extends JControllerLegacy
 		
 		global $rsgConfig;
 		// Check for request forgeries
-		JRequest::checkToken( 'request' ) or die( 'Invalid Token' );
-		
+		//JRequest::checkToken( 'request' ) or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
 		//$template = JRequest::getVar( 'template' );
 		$input =JFactory::getApplication()->input;
 		$template = $input->get( 'template' );
@@ -128,8 +130,9 @@ class InstallerController extends JControllerLegacy
 		global $rsgConfig;
 		
 		// Check for request forgeries
-		JRequest::checkToken() or die( 'Invalid Token' );
-		
+		//JRequest::checkToken() or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
 		//$template = JRequest::getVar( 'template' );
 		$input =JFactory::getApplication()->input;
 		$template = $input->get( 'template' );
@@ -164,8 +167,9 @@ class InstallerController extends JControllerLegacy
 	 */
 	static function editTemplate(){
 		// Check for request forgeries
-		JRequest::checkToken() or die( 'Invalid Token' );
-		
+		//JRequest::checkToken() or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
 		$model	= &$this->getModel( 'template' );
 		$view	= &$this->getView( 'template' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
@@ -247,8 +251,9 @@ class InstallerController extends JControllerLegacy
 	 */
 	static function selectCss(){
 		// Check for request forgeries
-		JRequest::checkToken() or die( 'Invalid Token' );
-		
+		//JRequest::checkToken() or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
 		$model	= &$this->getModel( 'selectCss' );
 		$view	= &$this->getView( 'selectCss' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
@@ -273,8 +278,9 @@ class InstallerController extends JControllerLegacy
 	*/
 	static function editCSS(){
 		// Check for request forgeries
-		JRequest::checkToken() or die( 'Invalid Token' );
-		
+		//JRequest::checkToken() or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
 		$model	= &$this->getModel( 'editCss' );
 		$view	= &$this->getView( 'editCss' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
@@ -295,8 +301,9 @@ class InstallerController extends JControllerLegacy
 	static function saveCSS()
 	{
 		// Check for request forgeries
-		JRequest::checkToken() or die( 'Invalid Token' );
-		
+		//JRequest::checkToken() or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
 		$model	= &$this->getModel( 'editCss' );
 		//$model->filename = JRequest::getVar( 'filename' );
 		$input =JFactory::getApplication()->input;
@@ -315,8 +322,9 @@ class InstallerController extends JControllerLegacy
 	static function applyCSS()
 	{
 		// Check for request forgeries
-		JRequest::checkToken() or die( 'Invalid Token' );
-		
+		//JRequest::checkToken() or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
 		$model	= &$this->getModel( 'editCss' );
 		//$model->filename = JRequest::getVar( 'filename' );
 		$input =JFactory::getApplication()->input;
@@ -346,8 +354,9 @@ class InstallerController extends JControllerLegacy
 	 */
 	static function selectHTML(){
 		// Check for request forgeries
-		JRequest::checkToken() or die( 'Invalid Token' );
-		
+		//JRequest::checkToken() or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
 		$model	= &$this->getModel( 'selectHtml' );
 		$view	= &$this->getView( 'selectHtml' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
@@ -371,8 +380,9 @@ class InstallerController extends JControllerLegacy
 	*/
 	static function editHTML() {
 		// Check for request forgeries
-		JRequest::checkToken() or die( 'Invalid Token' );
-		
+		//JRequest::checkToken() or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
 		$model	= &$this->getModel( 'editHtml' );
 		$view	= &$this->getView( 'editHtml' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
@@ -393,8 +403,9 @@ class InstallerController extends JControllerLegacy
 	static function saveHTML()
 	{
 		// Check for request forgeries
-		JRequest::checkToken() or die( 'Invalid Token' );
-		
+		//JRequest::checkToken() or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
 		$model	= &$this->getModel( 'editHtml' );
 		//$model->filename = JRequest::getVar( 'filename' );
 		$input =JFactory::getApplication()->input;
@@ -413,8 +424,9 @@ class InstallerController extends JControllerLegacy
 	static function applyHTML()
 	{
 		// Check for request forgeries
-		JRequest::checkToken() or die( 'Invalid Token' );
-		
+		//JRequest::checkToken() or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
 		$model	= &$this->getModel( 'editHtml' );
 		//$model->filename = JRequest::getVar( 'filename' );
 		$input =JFactory::getApplication()->input;

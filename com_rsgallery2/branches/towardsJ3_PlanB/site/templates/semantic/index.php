@@ -2,7 +2,7 @@
 /**
 * This file contains the main template file for RSGallery2.
 * @package RSGallery2
-* @copyright (C) 2003 - 2006 RSGallery2
+* @copyright (C) 2003 - 2010 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -34,10 +34,8 @@ $rsgDisplay->showRSPathWay();
 JHtml::_('behavior.tooltip');
 
 //include page navigation
-// Not found 20141004
-// require_once(JPATH_ROOT.'/includes/pageNavigation.php');
-jimport('joomla.html.pagination');
-
+//require_once(JPATH_ROOT.'/includes/pageNavigation.php');//J!1.0, bothering sh404SEF in J!1.5
+jimport( 'joomla.html.pagination');//J!1.5
 
 $doc = JFactory::getDocument();
 $doc->addStyleSheet($template_dir."/css/template.css","text/css");

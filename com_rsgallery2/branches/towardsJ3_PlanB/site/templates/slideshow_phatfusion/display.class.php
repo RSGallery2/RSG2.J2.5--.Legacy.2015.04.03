@@ -15,7 +15,7 @@ defined( '_JEXEC' ) or die( 'Restricted Access' );
  */
 class rsgDisplay_slideshow_phatfusion extends rsgDisplay{
 
-	static function showSlideShow(){
+	function showSlideShow(){
 		global $rsgConfig;
 		
 		$gallery = rsgGalleryManager::get();

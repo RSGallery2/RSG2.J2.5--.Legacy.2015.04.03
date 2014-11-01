@@ -38,14 +38,16 @@ class rsgGalleryManager{
 		
 		if ($gid) {
 			$rsgGalleryObject = rsgGalleryManager::get( $gid );
-			return $rsgGalleryObject;	
 		} else {
 			// Redirect the user when the id of the gallery is not available
 			$msg = JText::_('COM_RSGALLERY2_REQUESTED_GALLERY_DOES_NOT_EXIST');
 		    $mainframe->enqueueMessage( $msg );
 			$mainframe->redirect("index.php");
+            $rsgGalleryObject = null;
 		}
-	}
+
+        return $rsgGalleryObject;
+    }
 	
 	/**
 	 * Returns an rsgItem_image (or rsgItem_audio) object, which is taken from

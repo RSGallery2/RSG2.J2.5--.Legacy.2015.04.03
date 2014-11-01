@@ -7,7 +7,6 @@
 */
 class rsgXmlGalleryTemplate_generic{
     var $gallery;
-    var $output;
 
     /**
         class constructor
@@ -24,30 +23,22 @@ class rsgXmlGalleryTemplate_generic{
     /**
         Prepare XML first.  Then if there are errors we print an error before changing Content-Type to xml.
     **/
-    static function prepare(){
-        $this->output = '';
-        $this->output .= '<gallery name="'. $this->gallery->name .'">';
+    function prepare(){
+        echo '<gallery name="'. $this->gallery->name .'">';
         
         foreach( $this->gallery->itemRows() as $img ){
-            $this->output .= '  <image name="'. $img['name'] .'" />'."\n";
+            echo '  <image name="'. $img['name'] .'" />'."\n";
         }
         
-        $this->output .= '</gallery>';
+        echo '</gallery>';
     }
     
     /**
         print xml headers
     **/
-    static function printHead(){
+    function printHead(){
         header('Content-Type: application/xml');
         echo '<?xml version="1.0" encoding="iso-8859-1"?>';
-    }
-    
-    /**
-        outputs XML
-    **/
-    static function printGallery(){
-        echo $this->output;
     }
 }
 ?>

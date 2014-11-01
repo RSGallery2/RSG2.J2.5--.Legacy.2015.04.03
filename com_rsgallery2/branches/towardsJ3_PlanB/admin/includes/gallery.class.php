@@ -271,9 +271,9 @@ class rsgGallery extends JObject{
 			return $this->items[$id];
 			
 		//$id = JRequest::getInt( 'limitstart', 0 );
-		$id = $input->get( 'limitstart', 0, 'INT');		
-		return array_pop(array_slice($this->items, $id, 1));
-
+		$id = $input->get( 'limitstart', 0, 'INT');
+        $arr = array_slice($this->items, $id, 1);
+		return array_pop($arr);
 	}
 	
 	function indexOfItem($id = null){
@@ -435,14 +435,18 @@ class rsgGallery extends JObject{
 
 	static function explode_assoc($glue1, $glue2, $array)
 	{
-	  $array2=explode($glue2, $array);
-	  foreach($array2 as  $val)
-	  {
-				$pos=strpos($val,$glue1);
-				$key=substr($val,0,$pos);
-				$array3[$key] =substr($val,$pos+1,strlen($val));
-	  }
-	  return $array3;
+        //$array3 = []; // 141031 thomas
+        //$array3 = (); // 141031 thomas
+
+        $array2=explode($glue2, $array);
+        foreach($array2 as  $val)
+        {
+            $pos=strpos($val,$glue1);
+            $key=substr($val,0,$pos);
+            $array3[$key] =substr($val,$pos+1,strlen($val));
+        }
+
+	    return $array3;
 	}
 
 }

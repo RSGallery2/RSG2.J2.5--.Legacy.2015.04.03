@@ -40,11 +40,11 @@ class InstallerViewDefault extends JViewLegacy
 		JToolBarHelper::title( JText::_('COM_RSGALLERY2_RSGALLERY2_TEMPLATE_MANAGER'), 'install.png' );
 
 		// Document
-		$document = & JFactory::getDocument();
+		$document = JFactory::getDocument();
 		$document->setTitle(JText::_('COM_RSGALLERY2_RSGALLERY2_TEMPLATE_MANAGER').' : '.$this->getName());
 
 		// Get data from the model
-		$state		= &$this->get('State');
+		$state	= $this->get('State');
 
 		// Are there messages to display ?
 		$showMessage	= false;
