@@ -186,23 +186,24 @@ text-align:center;
 ul#rsg2-galleryList{
     clear: both;
     padding: 0;
+	border: 1px solid #ccc; /*Added in J1.6*/
 }
 .rsg2-galleryList-status{
     text-align: right;
 	float:right;
 }
-
 .rsg2-galleryList-item{
     clear: both;
-    
     padding: 5px;
     margin: 5px 0 5px 0;
-
     list-style: none;
     background-image: none;
-
-    border: 1px solid #ccc;
+/*    border: 1px solid #ccc;*/ /*Removed in J1.6*/
 }
+.rsg2-galleryList-item td, .rsg2-galleryList-item tr{ /*Added in J1.6*/
+	border: none;
+}
+
 .rsg2-galleryList-thumb{
     float: left;
     margin: 0 5px 5px 0;
@@ -269,8 +270,17 @@ table#rsg2-thumbsList{
 table#rsg2-thumbsList td{
     overflow: hidden;
     padding: 5px 5px;
-
     text-align: center;
+	border: none;
+}
+table#rsg2-thumbsList tr{
+	border: none;
+}
+.rsg_sem_inl_dispImg tr, .rsg_sem_inl_dispImg td{
+	border: none;
+}
+.rsg_sem_inl_ImgDetails tr, .rsg_sem_inl_ImgDetails td{
+	border: none;
 }
 
 .rsg2-pageNav{
@@ -278,7 +288,7 @@ table#rsg2-thumbsList td{
     font-size: 12px;
 }
 .rsg2-pagenav-limitbox{
-text-align:right;
+	text-align:right;
 }
 
 /* utility selector, this is common in many templates, but we can't count on it being there */
@@ -301,6 +311,7 @@ text-align:right;
 	display:inline;
 	border:1px solid #919B9C;
 	padding:0.25em 0.5em;
+	float: left;
 }
 .rsg2 dl.tabs dt.open
 {
@@ -312,6 +323,10 @@ text-align:right;
 	border:1px solid #919B9C;
 	padding:0.5em;
 	margin-top:0.25em;
+	clear: both;
+}
+.rsg2 dl.tabs dt.tabs span h3 {
+	margin: 0.25em;
 }
 
 /****************** OLD CLASSES ********************/
@@ -409,4 +424,61 @@ table.adminform td {
 }
 table.adminform td.editor {
     font-size: 9px;
+}
+
+/*************** modal popup style ************/
+
+#sbox-window.rsg2
+{
+    background-color:#fff;
+    padding:2px;
+}
+#sbox-overlay.rsg2
+{
+    background-color:#000;
+}
+
+.rsg2 #sbox-btn-close
+{
+    display:none;
+}
+
+p.rsg2-popup-description,
+p.rsg2-popup-title
+{
+    text-align:center;
+    font-size:small;
+    margin:0.5em 0 0 0;
+    padding:0;
+	color:#fff;
+}
+p.rsg2-popup-description
+{
+    border-top:1px solid #999;
+    padding-bottom:1.5em;
+}
+img.rsg2-displayImage{
+	cursor:pointer;
+}
+
+/*** Pagination (based on http://joomla-css.nl/index.php/en/content-a-component-styles-en-16/pagination-general-en-16) ***/
+div.rsg_sem_inl_Nav div div.pagination{
+	border-top: 1px solid #DDDDDD;
+	border-bottom: 1px solid #DDDDDD;
+	clear: both;
+	text-align: center;
+	margin: 10px 0 10px 0;
+}
+div.rsg_sem_inl_Nav div div.pagination p.counter{
+	font-style: italic;
+}
+div.rsg_sem_inl_Nav div div.pagination ul{
+	list-style: none;
+	padding: 0 0 0 0;
+	margin: 1em 1em 1em 0;
+}
+div.rsg_sem_inl_Nav div div.pagination ul li{
+	list-style: none;
+	display: inline;		/* Display Start Prev 123 Next End on one line */
+	padding: 0 5px 0 5px;	/* Spacing between numbers */
 }

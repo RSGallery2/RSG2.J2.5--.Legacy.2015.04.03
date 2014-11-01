@@ -47,8 +47,80 @@ Legend:
 		language/en-GB/en-GB.com_rsgallery2.sys.ini
 ! To do: 2014.10.03 Activate logfiles only when debug rsg2 is on (? flag for backend 
       user necessary ? -> hint for log file per day	
-		
+! To do: 2014.10.18 Delete chosen "Gallery thumbnail" file. It will bring an error to 
+      backend and front side. Add function in "Consolidate Database which checks and correct this
+! To do: 2014.10.18 Log files only when rsgallery2 debug switch is on -> doc that there is one log per day
+! To do: 2014.10.20  Batch upload -> internal path 
+    a) field too small
+	b) field where the resulting path is shown
+	c) Improve info: a) general b) hint for standard setup ...
+	d) Test: Does it work for linux and windows instalations (XAMPP ? path fails ?)
+! To do: 2014.10.20 replace foreign icons like  
+	  * includes/js/ThemeOffice/warning.png\
+	  * templates/bluestork/images/j_arrow.png
+	  with icomoon icons if possible
+! To do: 2014.10.21 **Categories** on Control Panel may be renamed to Galleries ??
+! To do: 2014.10.22  
+	Translate: site: ??Slideshow??, ??My galleries??, ??Owner??: ??Size??: 
+		??Images?? ??Created?? ??Random images?? ??Latest images?? ??Uploaded??
+! To do: 2014.10.22  	
+	Date of image displayed: %11-%06-%2014
+! To do: 2014.10.22  
+	General: find all untranslated texts "...", '...'-> convert to constant. Let 
+	Joomla give a list for Translation ...
+! To do: 2014.10.27
+	Does the file and structure inside the Templates > templateDetails.xml have to be 
+	updated to 2.5 & 3.x structure to work better (debug_listeverything, meta,
+	semantic, slideshow_parth, slideshow_phatfusion, slideshowone)
+! To do: 2014.10.27
+	replace all rsgInstance::getVar with JRequest::get ... and replace these with JInput ... 
+	
+	
+	
+	
 ---------------- Recent ----------------
+
+* --------------- 4.0.0 -- SVN 1124 -- 2014-10-31 -------------
+
+31.10.2014 finnern
+^ Admin: Changes required from checking plugins
+^ Site: Folder template exchanged with verwsion from tip revision
+  ==>  State: Galleries are shown in frontend, slideshow does 
+       not fall down but also does not show anything
+^ Site: Debug text only when debug in rsgallery2 config is selected
+
+
+* --------------- 4.0.0 -- SVN 1123 -- 2014-10-15 -------------
+
+15.10.2014 finnern
++ Removed reference assignments
+* State: Galleries and pictures may be seen on front site
+
+* --------------- 4.0.0 -- SVN 1120 -- 2014-10-12 -------------
+
+
+* --------------- 4.0.0 -- SVN 1121 -- 2014-10-12 -------------
+
+
+* --------------- 4.0.0 -- SVN 1120 -- 2014-10-12 -------------
+12.10.2014 finnern
++ Added old J! 2.5 Jparameter file into project as it is used but not supported by J! 3.x
+  Could not fix replacing it with other code
+- Minor fixes for compatibility with J! 3.x
+
+* --------------- 4.0.0 -- SVN 1119 -- 2014-10-04 -------------
+
+04.10.2014 finnern
+Fixed some errors viewing images in front end. Stil no view possible
+
+* --------------- 4.0.0 -- SVN 1118 -- 2014-10-04 -------------
+2014.05.04 finnern
+Fixed some errors viewing images in front end. Stil no view possible
+
+* --------------- 4.0.0 -- SVN 1118 -- 2014-10-03 -------------
+
+2014.10.03 finnern
+! Backend: Upload files, manage galleries and images is expected to work. Proper testing needed  
 
 * --------------- 4.0.0 -- SVN 1117 -- 2014-10-03 -------------
 

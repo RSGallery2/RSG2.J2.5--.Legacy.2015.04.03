@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<mosinstall type="rsgTemplate">
-	<name>Slideshow One</name>
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="rsgTemplate">
+	<name>SlideshowOne</name>
 	<creationDate>2007</creationDate>
-	<author>rsgallery2.net</author>
+	<author>RSGallery2</author>
 	<copyright>Open Source, GPL</copyright>
-	<authorEmail>info@rsgallery2.net</authorEmail>
-	<authorUrl>rsgallery2.net</authorUrl>
+	<authorEmail>team@rsgallery2.nl</authorEmail>
+	<authorUrl>http://www.rsgallery2.nl</authorUrl>
 	<version>2.0</version>
 	<description>Default slideshow that we have been shipping with for a while.</description>
 	<files>
@@ -16,4 +16,7 @@
 	<css>
 		<filename>css/template.css</filename>
 	</css>
-</mosinstall>
+	<params>
+		<!-- No parameters-->
+	</params>
+</install>

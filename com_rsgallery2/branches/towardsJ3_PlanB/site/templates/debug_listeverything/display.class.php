@@ -48,7 +48,7 @@ function dumpGallery( $parent = 0 ){
 function listEverything( $parent = 0 ){
     global $rsgConfig;
     if(! $rsgConfig->get('debug')){
-    	echo '<p>Error: Debug must be enabled to use this debug tool.</p>';
+    	echo '<p>'.JText::_('COM_RSGALLERY2_ERROR_DEBUG_MUST_BE_ENABLED_TO_USE_THIS_DEBUG_TOOL').'</p>';
     	return;
     }
     

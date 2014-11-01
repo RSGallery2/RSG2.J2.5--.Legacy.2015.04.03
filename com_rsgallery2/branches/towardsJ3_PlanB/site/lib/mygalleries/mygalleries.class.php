@@ -187,9 +187,9 @@ class myGalleries {
 			</table>
 			<input type="hidden" name="task" value="" />
 			<input type="hidden" name="option" value="com_rsgallery2" />
-			<!--input type="hidden" name="rsgOption" value="<?php echo JRequest::getCmd('rsgOption'); ?>" / -->
+			<!--input type="hidden" name="rsgOption" value="< ? php echo JRequest::getCmd('rsgOption'); ? >" / -->
 			<input type="hidden" name="rsgOption" value="<?php echo JFactory::getApplication()->input->get( 'rsgOption', '', CMD); ?>" />
-			<!--input type="hidden" name="Itemid" value="<?php echo JRequest::getInt('Itemid'); ?>" /-->
+			<!--input type="hidden" name="Itemid" value="< ?php echo JRequest::getInt('Itemid'); ? >" /-->
 			<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get( 'Itemid', 0, INT); ?>" />
 			<?php echo JHtml::_('form.token'); ?>
         </form>

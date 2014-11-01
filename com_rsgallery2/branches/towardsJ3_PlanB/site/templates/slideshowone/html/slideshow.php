@@ -16,16 +16,16 @@ $firstImage = $firstImage->display();
 <?php if( ! $this->cleanStart ): ?>
 
 <a href="javascript:;" onclick="startSS()">
-	<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/start.jpg" alt="<?php echo JText::_('Start') ?>" width="24" height="24" border="0">
+	<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/start.jpg" alt="<?php echo JText::_('COM_RSGALLERY2_START') ?>" width="24" height="24" border="0">
 </a>
 <a href="javascript:;" onclick="stopSS()">
-	<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/stop.jpg" alt="<?php echo JText::_('Stop') ?>" width="24" height="24" border="0">
+	<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/stop.jpg" alt="<?php echo JText::_('COM_RSGALLERY2_STOP') ?>" width="24" height="24" border="0">
 </a>
 <a href="javascript:;" onclick="prevSS()">
-	<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/previous.jpg" alt="<?php echo JText::_('Previous') ?>" width="24" height="24" border="0">
+	<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/previous.jpg" alt="<?php echo JText::_('COM_RSGALLERY2_PREVIOUS') ?>" width="24" height="24" border="0">
 </a>
 <a href="javascript:;" onclick="nextSS()">
-	<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/next.jpg" alt="<?php echo JText::_('Next') ?>" width="24" height="24" border="0">
+	<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/next.jpg" alt="<?php echo JText::_('COM_RSGALLERY2_NEXT') ?>" width="24" height="24" border="0">
 </a>
 
 <?php endif; ?>
