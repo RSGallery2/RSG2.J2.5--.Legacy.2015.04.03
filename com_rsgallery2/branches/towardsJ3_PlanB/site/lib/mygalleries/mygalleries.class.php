@@ -139,7 +139,7 @@ class myGalleries {
 						/* Not used since this gives a problem with Joomla SEF on: routes to http://wwww.mysite/index.php/rsgallery2-menu-item# instead of what is given in the task function
 						//	JToolBarHelper does not exist in the frontend, using JToolBar here
 						jimport( 'joomla.html.toolbar' );
-						$bar =& new JToolBar( 'MyGalleriesToolBar' );
+						$bar = new JToolBar( 'MyGalleriesToolBar' );
 						//appendButton: button type, class, display text on button, task, bool: selection from adminlist?
 						$bar->appendButton( 'Standard', 'save', 'Save', 'createGallery.saveCat', false );
 						$bar->appendButton( 'Standard', 'cancel', 'Cancel', 'createGallery.cancel', false );
@@ -241,7 +241,7 @@ class myGalleries {
         ?>
 
         <form name="imgUpload" id="imgUpload" method="post" action="
-<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=saveUploadedItem"); ?>" enctype="multipart/form-data">
+        <?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=saveUploadedItem"); ?>" enctype="multipart/form-data">
 		<div class="rsg2">
         <table class="adminlist">
             <tr>
@@ -675,7 +675,7 @@ class myGalleries {
 				
 				<?php
 				for ($i=0, $n=count( $images ); $i < $n; $i++) {
-					$image = &$images[$i];
+					$image = $images[$i];
 				//foreach ($images as $image) {
 					global $rsgConfig;
 					//Get permissions

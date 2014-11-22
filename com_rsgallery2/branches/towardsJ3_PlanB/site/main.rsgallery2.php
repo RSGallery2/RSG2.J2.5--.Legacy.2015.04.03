@@ -63,7 +63,8 @@ function xmlFile(){
  * to this very important feature!
  * @param int Id of the file to download
  */
-function downloadFile($id) {
+//function downloadFile($id) {
+function downloadFile() {
 	global $rsgConfig;
 	//Clean and delete current output buffer 
 	ob_end_clean();

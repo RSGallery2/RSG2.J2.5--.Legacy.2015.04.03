@@ -6,7 +6,7 @@
  * @copyright   Copyright (C) 2005 - 2014 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  *
- * ToDo: remove this file from project
+ * ToDo: remove this file from project or replace it
  * Attention: 
  *    File is taken from Joomla! 2-5 installation
  *    It was necessary as in site some old templates with XML files are used. 
@@ -16,15 +16,17 @@
  *    2) Remove include \site\templates\meta\display.class.php 
  *    3) remove use of Jparameter
  *
- *
+ * >>> JRegistry
  *
  *
  */
 
 defined('JPATH_PLATFORM') or die;
 
+
 // Register the element class with the loader.
-JLoader::register('JElement', dirname(__FILE__) . '/parameter/element.php');
+// JLoader::register('JElement', dirname(__FILE__) . '/parameter/element.php');
+
 
 /**
  * Parameter handler
@@ -32,7 +34,7 @@ JLoader::register('JElement', dirname(__FILE__) . '/parameter/element.php');
  * @package     Joomla.Platform
  * @subpackage  Parameter
  * @since       11.1
- * @deprecated  12.1  Use JForm instead
+ * @xdeprecated  12.1  Use JForm instead
  */
 class JParameter extends JRegistry
 {
@@ -66,7 +68,7 @@ class JParameter extends JRegistry
 	 * @param   string  $data  The raw parms text.
 	 * @param   string  $path  Path to the XML setup file.
 	 *
-	 * @deprecated  12.1
+	 * @xdeprecated  12.1
 	 * @since   11.1
 	 */
 	public function __construct($data = '', $path = '')
@@ -76,6 +78,8 @@ class JParameter extends JRegistry
 
 		parent::__construct('_default');
 
+		JLog::add('param::construct'); //, JLog::DEBUG);
+		
 		// Set base path.
 		$this->_elementPath[] = dirname(__FILE__) . '/parameter/element';
 
@@ -110,10 +114,12 @@ class JParameter extends JRegistry
 	 *
 	 * @since   11.1
 	 *
-	 * @deprecated  12.1  Use loadString passing INI as the format instead.
+	 * @xdeprecated  12.1  Use loadString passing INI as the format instead.
 	 */
 	public function loadINI($data, $namespace = null, $options = array())
 	{
+		JLog::add('param::loadIni data:"'.$data.'"'); //, JLog::DEBUG);
+		
 		// @codeCoverageIgnoreStart
 		// Deprecation warning.
 		//JLog::add('JRegistry::loadINI() is deprecated.', JLog::WARNING, 'deprecated');
@@ -121,8 +127,7 @@ class JParameter extends JRegistry
 		return $this->loadString($data, 'INI', $options);
 		// @codeCoverageIgnoreEnd
 	}
- 	
-	
+ 		
 	
 	/**
 	 * Sets a default value if not alreay assigned.
@@ -133,11 +138,13 @@ class JParameter extends JRegistry
 	 *
 	 * @return  string  The value set, or the default if the value was not previously set (or null).
 	 *
-	 * @deprecated  12.1
+	 * @xdeprecated  12.1
 	 * @since   11.1
 	 */
 	public function def($key, $default = '', $group = '_default')
 	{
+		JLog::add('param::def key: '.$key); //, JLog::DEBUG);
+
 		// Deprecation warning.
 		// JLog::add('JParameter::def is deprecated.', JLog::WARNING, 'deprecated');
 
@@ -153,11 +160,12 @@ class JParameter extends JRegistry
 	 *
 	 * @return  void
 	 *
-	 * @deprecated  12.1
+	 * @xdeprecated  12.1
 	 * @since   11.1
 	 */
 	public function setXML(&$xml)
 	{
+		JLog::add('param::setXML '); //, JLog::DEBUG);
 
 		// Deprecation warning.
 		// JLog::add('JParameter::setXML is deprecated.', JLog::WARNING, 'deprecated');
@@ -188,17 +196,18 @@ class JParameter extends JRegistry
 	 *
 	 * @return  boolean  True if the data was successfully bound, false otherwise.
 	 *
-	 * @deprecated  12.1
+	 * @xdeprecated  12.1
 	 * @since   11.1
 	 */
 	public function bind($data, $group = '_default')
 	{
+		JLog::add('param::bind '); //, JLog::DEBUG);
+
 		// Deprecation warning.
 		//JLog::add('JParameter::bind is deprecated.', JLog::WARNING, 'deprecated');
 
 		if (is_array($data))
 		{
-
 			return $this->loadArray($data);
 		}
 		elseif (is_object($data))
@@ -219,11 +228,13 @@ class JParameter extends JRegistry
 	 *
 	 * @return  string  HTML
 	 *
-	 * @deprecated  12.1
+	 * @xdeprecated  12.1
 	 * @since   11.1
 	 */
 	public function render($name = 'params', $group = '_default')
 	{
+		JLog::add('param::render '); //, JLog::DEBUG);
+
 		// Deprecation warning.
 		//JLog::add('JParameter::render is deprecated.', JLog::WARNING, 'deprecated');
 
@@ -271,11 +282,12 @@ class JParameter extends JRegistry
 	 *
 	 * @return  array
 	 *
-	 * @deprecated  12.1
+	 * @xdeprecated  12.1
 	 * @since   11.1
 	 */
 	public function renderToArray($name = 'params', $group = '_default')
 	{
+		JLog::add('param::renderToArray '); //, JLog::DEBUG);
 
 		// Deprecation warning.
 		//JLog::add('JParameter::renderToArray is deprecated.', JLog::WARNING, 'deprecated');
@@ -300,11 +312,13 @@ class JParameter extends JRegistry
 	 *
 	 * @return  mixed  False if no params exist or integer number of parameters that exist.
 	 *
-	 * @deprecated  12.1
+	 * @xdeprecated  12.1
 	 * @since   11.1
 	 */
 	public function getNumParams($group = '_default')
 	{
+		JLog::add('param::getNumParams '); //, JLog::DEBUG);
+
 		// Deprecation warning.
 		//JLog::add('JParameter::getNumParams is deprecated.', JLog::WARNING, 'deprecated');
 
@@ -323,11 +337,13 @@ class JParameter extends JRegistry
 	 *
 	 * @return  array  Array of all group names as key and parameters count as value.
 	 *
-	 * @deprecated  12.1
+	 * @xdeprecated  12.1
 	 * @since   11.1
 	 */
 	public function getGroups()
 	{
+		JLog::add('param::getGroups '); //, JLog::DEBUG);
+
 		// Deprecation warning.
 		//JLog::add('JParameter::getGroups is deprecated.', JLog::WARNING, 'deprecated');
 
@@ -353,11 +369,12 @@ class JParameter extends JRegistry
 	 *
 	 * @return  array  An array of all parameters, each as array of the label, the form element and the tooltip.
 	 *
-	 * @deprecated  12.1
+	 * @xdeprecated  12.1
 	 * @since   11.1
 	 */
 	public function getParams($name = 'params', $group = '_default')
 	{
+		JLog::add('param::getParams '); //, JLog::DEBUG);
 
 		// Deprecation warning.
 		//JLog::add('JParameter::getParams is deprecated.', JLog::WARNING, 'deprecated');
@@ -385,11 +402,13 @@ class JParameter extends JRegistry
 	 *
 	 * @return  array  Any array of the label, the form element and the tooltip.
 	 *
-	 * @deprecated  12.1
+	 * @xdeprecated  12.1
 	 * @since   11.1
 	 */
 	public function getParam(&$node, $control_name = 'params', $group = '_default')
 	{
+		JLog::add('param::getParam '); //, JLog::DEBUG);
+
 		// Deprecation warning.
 		//JLog::add('JParameter::__construct is deprecated.', JLog::WARNING, 'deprecated');
 
@@ -421,18 +440,22 @@ class JParameter extends JRegistry
 	 *
 	 * @return  object
 	 *
-	 * @deprecated  12.1
+	 * @xdeprecated  12.1
 	 * @since   11.1
 	 */
 	public function loadSetupFile($path)
 	{
+		JLog::add('param::loadSetupFile Path: "'.$path.'"'); //, JLog::DEBUG);
+
 		$result = false;
 
 		if ($path)
 		{
 			// $xml = JFactory::getXMLParser('Simple');
 			// if ($xml->loadFile($path))
-			if($xml = JFactory::getXML($path))
+            if($xml = JFactory::getXML($path))
+            // Try: simplexml_load_file
+            // if($xml = JSimpleXml::loadFile($path))
 			{
 				if ($params = $xml->document->params)
 				{
@@ -460,11 +483,13 @@ class JParameter extends JRegistry
 	 *
 	 * @return  object
 	 *
-	 * @deprecated  12.1
+	 * @xdeprecated  12.1
 	 * @since   11.1
 	 */
 	public function loadElement($type, $new = false)
 	{
+		JLog::add('param::loadElement '); //, JLog::DEBUG);
+
 		$signature = md5($type);
 
 		if ((isset($this->_elements[$signature]) && !($this->_elements[$signature] instanceof __PHP_Incomplete_Class)) && $new === false)
@@ -523,11 +548,13 @@ class JParameter extends JRegistry
 	 *
 	 * @return  void
 	 *
-	 * @deprecated  12.1
+	 * @xdeprecated  12.1
 	 * @since   11.1
 	 */
 	public function addElementPath($path)
 	{
+		JLog::add('param::addElementPath '); //, JLog::DEBUG);
+
 		// Just force path to array.
 		settype($path, 'array');
 
