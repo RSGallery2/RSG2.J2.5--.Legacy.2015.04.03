@@ -9,35 +9,35 @@
 */
 defined( '_JEXEC' ) or die( 'Access Denied.' );
 
-// Include the JLog class.
-jimport('joomla.log.log');
-
-// Get the date for log file name
-$date = JFactory::getDate()->format('Y-m-d');
-
-// Add the logger.
-JLog::addLogger(
-     // Pass an array of configuration options
-    array(
-            // Set the name of the log file
-            //'text_file' => substr($application->scope, 4) . ".log.php",
-            'text_file' => 'rsgallery2.log.'.$date.'.php',
-
-            // (optional) you can change the directory
-            'text_file_path' => 'logs'
-     ) ,
-	  JLog::ALL ^ JLog::DEBUG // leave out db messages
-);
-
-// start logging...
-if(JDEBUG)
-{
-    // identify active file
-//    JLog::add('==> base.rsgallery2.php');
-}
-
-//Initialize RSG2 core functionality
+// Initialize RSG2 core functionality
 require_once( JPATH_SITE.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
+
+$Rsg2DebugActive = $rsgConfig->get('debug');
+if ($Rsg2DebugActive)
+{
+	// Include the JLog class.
+	jimport('joomla.log.log');
+
+	// Get the date for log file name
+	$date = JFactory::getDate()->format('Y-m-d');
+
+	// Add the logger.
+	JLog::addLogger(
+		// Pass an array of configuration options
+		array(
+				// Set the name of the log file
+				//'text_file' => substr($application->scope, 4) . ".log.php",
+				'text_file' => 'rsgallery2.adm.log.'.$date.'.php',
+
+				// (optional) you can change the directory
+				'text_file_path' => 'logs'
+		 ) ,
+			JLog::ALL ^ JLog::DEBUG // leave out db messages
+	);
+	
+	// start logging...
+	JLog::add('Start rsgallery2.php in admin: debug active in RSGallery2'); //, JLog::DEBUG);
+}
 
 //Instantiate user variables but don't show a front end template
 rsgInstance::instance( 'request', false );
@@ -86,18 +86,20 @@ $rsgOption = $input->get( 'rsgOption', null, 'CMD');
 
 $my = JFactory::getUser();
 
-if(JDEBUG)
+if($Rsg2DebugActive)
 {
+	//$Delim = "\n";
+	$Delim = " ";
     // show active task
-    $DebTxt = "==> base.rsgallery2.php\n-----------\n";
-    $DebTxt = $DebTxt . "\$task: $task\n";
-    $DebTxt = $DebTxt . "\$option: $option\n";
-    $DebTxt = $DebTxt . "\$catid: $catid\n";
-    $DebTxt = $DebTxt . "\$firstCid: $firstCid\n";
-    $DebTxt = $DebTxt . "\$id: $id\n";
-    $DebTxt = $DebTxt . "\$rsgOption: $rsgOption";
+    $DebTxt = "==> base.rsgallery2.php".$Delim ."----------".$Delim;
+    $DebTxt = $DebTxt . "\$task: $task".$Delim;
+    $DebTxt = $DebTxt . "\$option: $option".$Delim;
+    $DebTxt = $DebTxt . "\$catid: $catid".$Delim;
+    $DebTxt = $DebTxt . "\$firstCid: $firstCid".$Delim;
+    $DebTxt = $DebTxt . "\$id: $id".$Delim;
+    $DebTxt = $DebTxt . "\$rsgOption: $rsgOption".$Delim;
 
-    JLog::add($DebTxt);
+    JLog::add($DebTxt); //, JLog::DEBUG);
 }
 
 ///Get the toolbar in here for J3 compatibility (since toolbar.rsgallery2.php is no longer autoloaded)
@@ -336,7 +338,8 @@ function processAdminSqlQueryVerbosely( $query, $successMsg ){
 }
 
 function cancelGallery($option) {
-// ToDo FIX: $mainframe undefined ???
+    global $mainframe;
+
     $mainframe->redirect("index.php?option=$option");
 }
 ?>

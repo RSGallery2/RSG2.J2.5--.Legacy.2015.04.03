@@ -415,7 +415,7 @@ class phpExifReader {
      * @return    void
      *
      */
-    static function debug($str,$TYPE = 0,$file="",$line=0) {
+    function debug($str,$TYPE = 0,$file="",$line=0) {
        if($this->debug) {
         echo "<br>[$file:$line:".($this->getDiffTime())."]$str";
         flush();
@@ -429,7 +429,7 @@ class phpExifReader {
      * Processes the whole file.
      *
      */
-    static function processFile() {
+    function processFile() {
         /** dont reparse the whole file. */
         if(!$this->newFile) return true;
         
@@ -630,7 +630,7 @@ class phpExifReader {
      * @param   string    JPEG file to process
      *
      */
-    static function assign($file) {
+    function assign($file) {
 
       if(!empty($file)) {
         $this->file = $file;
@@ -650,7 +650,7 @@ class phpExifReader {
      * @param   hex  Marker to specify the type of section.
      *
      */
-    static function process_SOFn($data,$marker) {
+    function process_SOFn($data,$marker) {
         $data_precision = 0;
         $num_components = 0;
 
@@ -681,7 +681,7 @@ class phpExifReader {
      * @param   int  Length of the section
      *
      */
-    static function process_COM($data,$length) {
+    function process_COM($data,$length) {
         if ($length > MAX_COMMENT) $length = MAX_COMMENT;
             /** Truncate if it won't fit in our structure. */
 
@@ -703,7 +703,7 @@ class phpExifReader {
      * @param   int  Length of exif section
      *
     */
-    static function ProcessExifDir($DirStart, $OffsetBase, $ExifLength) {
+    function ProcessExifDir($DirStart, $OffsetBase, $ExifLength) {
 
         $NumDirEntries = 0;
         $ValuePtr = array();
@@ -1400,7 +1400,7 @@ class phpExifReader {
      * @param   int  Length of the section (length of data array)
      *
      */
-	static function process_EXT_EXIF($data,$length) {
+	function process_EXT_EXIF($data,$length) {
 			//print_r($data);
 	}
 
@@ -1410,7 +1410,7 @@ class phpExifReader {
      * @param   int  Length of the section (length of data array)
      *
      */
-    static function process_EXIF($data,$length) {
+    function process_EXIF($data,$length) {
 
         $this->debug("Exif header $length bytes long\n");
         if(($data[2].$data[3].$data[4].$data[5]) != "Exif") {
@@ -1464,7 +1464,7 @@ class phpExifReader {
      * @param   int
      *
      */
-    static function Get16u($val,$by) {
+    function Get16u($val,$by) {
         if($this->MotorolaOrder){
             return ((ord($val) << 8) | ord($by));
         } else {
@@ -1482,7 +1482,7 @@ class phpExifReader {
      *
      * @return int
      */
-    static function Get32s($val1,$val2,$val3,$val4)
+    function Get32s($val1,$val2,$val3,$val4)
     {
         $val1 = ord($val1);
         $val2 = ord($val2);
@@ -1506,14 +1506,14 @@ class phpExifReader {
      * @return int
      *
      */
-    static function get32u($val1,$val2,$val3,$val4) {
+    function get32u($val1,$val2,$val3,$val4) {
         return ($this->Get32s($val1,$val2,$val3,$val4) & 0xffffffff);
     }
 
     //--------------------------------------------------------------------------
     // Evaluate number, be it int, rational, or float from directory.
     //--------------------------------------------------------------------------
-    static function ConvertAnyFormat($ValuePtr, $Format)
+    function ConvertAnyFormat($ValuePtr, $Format)
     {
         $Value = 0;
 
@@ -1556,7 +1556,7 @@ class phpExifReader {
      * @param   String   Files name to store the thumbnail
      *
      */
-    static function saveThumbnail($ThumbFile) {
+    function saveThumbnail($ThumbFile) {
          $ThumbFile = trim($ThumbFile);
          $file = basename($this->file);
 
@@ -1583,7 +1583,7 @@ class phpExifReader {
      * @return  string  File URL
      *
      */
-    static function showThumbnail() {
+    function showThumbnail() {
         return "showThumbnail.php?file=".$this->file;
         //$this->ImageInfo["h"]["Thumbnail"]
     }
@@ -1593,14 +1593,14 @@ class phpExifReader {
      * @return string   full image
      *
      */
-    static function getThumbnail() {
+    function getThumbnail() {
         return $this->ImageInfo["h"]["Thumbnail"];
     }
 
     /**
     *
     */
-    static function getImageInfo() {
+    function getImageInfo() {
 
         $imgInfo = $this->ImageInfo["h"];
 
@@ -1677,7 +1677,7 @@ class phpExifReader {
 	 * @param string Type, full list or selection.('full'/'selection')
 	 * @result HTML output for EXIF overview
 	 */
-	static function showFormattedEXIF() {
+	function showFormattedEXIF() {
 		global $rsgConfig;
 		//Retrieve EXIF data
 		$data = $this->getImageInfo();
@@ -1765,7 +1765,7 @@ class phpExifReader {
     /**
     *  Get the time difference
     */
-    static function getDiffTime() {
+    function getDiffTime() {
             return ($this->getmicrotime() - $this->timeStart);
     }
 } // end of class

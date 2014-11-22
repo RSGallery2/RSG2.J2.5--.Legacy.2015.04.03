@@ -92,8 +92,8 @@ function saveComment( $option ) {
 	//	Clean the comment with the filter: strong, emphasis, underline (not a with attrib href for now)
 	$allowedTags 		= array('strong','em','u','p','br');
 	$allowedAttribs 	= array('');//array('href');
-	//$filter 			= & JFilterInput::getInstance($allowedTags,$allowedAttribs);
-	$filter 			= & JFilterInput::getInstance($allowedTags,$allowedAttribs);
+	//$filter 			= JFilterInput::getInstance($allowedTags,$allowedAttribs);
+	$filter 			= JFilterInput::getInstance($allowedTags,$allowedAttribs);
 	$comment 			= $filter->clean($comment);
 	//	Now do some extra tests on this comment and if they not pass, redirect the user
 	$testFailed = false;

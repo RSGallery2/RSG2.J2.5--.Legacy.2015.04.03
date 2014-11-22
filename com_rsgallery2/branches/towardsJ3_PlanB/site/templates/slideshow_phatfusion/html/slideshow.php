@@ -1,15 +1,21 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-global $mainframe, $rsgConfig;
+global $rsgConfig;
+
+$doc = JFactory::getDocument();
+
+// ToDo: find all addCustomTag replace with ???
+$doc->addCustomTag('');
+
 //Add stylesheets and scripts to header
 $css1 = "<link rel=\"stylesheet\" href=\"components/com_rsgallery2/templates/slideshow_phatfusion/css/slideshow.css\" type=\"text/css\" media=\"screen\" charset=\"utf-8\" />";
-$mainframe->AddCustomHeadTag($css1);
+$doc->addCustomTag($css1);
 
 JHtml::_("behavior.framework");
 $js1 = "<script src=\"components/com_rsgallery2/templates/slideshow_phatfusion/js/backgroundSlider.js\" type=\"text/javascript\"></script>";
-$mainframe->AddCustomHeadTag($js1);
+$doc->addCustomTag($js1);
 $js2 = "<script src=\"components/com_rsgallery2/templates/slideshow_phatfusion/js/slideshow.js\" type=\"text/javascript\"></script>";
-$mainframe->AddCustomHeadTag($js2);
+$doc->addCustomTag($js2);
 ?>
 <!-- Override default CSS styles -->
 <style>
@@ -44,9 +50,9 @@ $mainframe->AddCustomHeadTag($js2);
 			thumbnails: true,
 			backgroundSlider: true,
 			onClick: function(i){alert(i)}
-		}
-		show = new SlideShow('slideshowContainer','slideshowThumbnail',obj);
+		};
+		var show = new SlideShow('slideshowContainer','slideshowThumbnail',obj);
 		show.play();
-	});
+	})
 	</script>
 </div><!-- end container -->

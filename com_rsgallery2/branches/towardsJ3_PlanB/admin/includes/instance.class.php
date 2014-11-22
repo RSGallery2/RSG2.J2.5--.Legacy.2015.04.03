@@ -518,11 +518,14 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 		}
 
         // ToDo Deprecated: JRequest ... clean var
-		$result = JRequest::_cleanVar($input, $mask);
+		#//$result = JRequest::_cleanVar($input, $mask);
+        $noHtmlFilter = JFilterInput::getInstance();
+        $result = $noHtmlFilter->clean($input, $mask);
 
-		// Handle magic quotes compatability
+        // Handle magic quotes compatability
 		if (get_magic_quotes_gpc() && ($hash != 'FILES')) {
-			$result = JRequest::_stripSlashesRecursive( $result );
+		    // ToDo Deprecated: JRequest ... clean var
+            $result = JRequest::_stripSlashesRecursive( $result );
 		}
 
 		return $result;
