@@ -1,5 +1,5 @@
 /*
-    This file is part of JonDesign's SmoothGallery v2.0.
+    This file is part of JonDesign's SmoothGallery v2.1beta1.
 
     JonDesign's SmoothGallery is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,7 +18,8 @@
     Main Developer: Jonathan Schemoul (JonDesign: http://www.jondesign.net/)
 */
 
-var gallerySet = gallery.extend({
+var gallerySet = new Class({
+	Extends: gallery,
 	initialize: function(element, options) {
 		this.setOptions({
 			manualSetData: [],
@@ -31,7 +32,8 @@ var gallerySet = gallery.extend({
 			/* Changing default options */
 			textShowCarousel: '{0}/{1} Pictures',
 			carouselPreloader: false
-		}, options);
+		});
+		this.setOptions(options);
 		this.gallerySet = this.options.manualSetData;
 		this.addEvent('onPopulated', this.createGallerySelectorTab.bind(this));
 		this.addEvent('onPopulated', this.createGallerySelector.bind(this));
@@ -52,7 +54,7 @@ var gallerySet = gallery.extend({
 			galleryDict.elements.extend(this.populateGallery(galEl, 0));
 			data.extend([galleryDict]);
 			if (this.options.destroyAfterPopulate)
-				galEl.remove();
+				galEl.dispose();
 		}, this);
 		this.gallerySet = data;
 		this.galleryData = data[0].elements;
@@ -66,7 +68,7 @@ var gallerySet = gallery.extend({
 			this.changeData(this.gallerySet[number].elements);
 			this.maxIter = this.gallerySet[number].elements.length;
 			this.currentGallery = number;
-			this.gallerySelectorBtn.setHTML(this.gallerySet[number].title);
+			this.gallerySelectorBtn.set('html', this.gallerySet[number].title);
 			this.fireEvent('onGalleryChanged');
 		}
 		this.toggleGallerySelector(false);
@@ -74,7 +76,7 @@ var gallerySet = gallery.extend({
 	createGallerySelectorTab: function() {
 		this.gallerySelectorBtn = new Element('a').addClass('gallerySelectorBtn').setProperties({
 			title: this.options.textShowGallerySelector
-		}).setHTML(this.options.textShowGallerySelector).addEvent(
+		}).set('html', this.options.textShowGallerySelector).addEvent(
 			'click',
 			function(){ this.toggleGallerySelector(true); }.bind(this)
 		).injectInside(this.galleryElement);
@@ -82,7 +84,7 @@ var gallerySet = gallery.extend({
 		this.addEvent('onCarouselHidden', function(){this.gallerySelectorBtn.setStyle('zIndex', 15)}.bind(this));
 	},
 	createGallerySelector: function() {
-		this.gallerySelector = new Fx.Styles(
+		this.gallerySelector = new Fx.Morph(
 			new Element('div').addClass(
 				'gallerySelector'
 			).injectInside(
@@ -93,11 +95,11 @@ var gallerySet = gallery.extend({
 			})
 		);
 		this.gallerySelectorTitle = 
-			new Element('h2').setHTML(
+			new Element('h2').set('html', 
 				this.options.textGallerySelector
 			).injectInside(this.gallerySelector.element);
 		var gallerySelectorHeight = this.galleryElement.offsetHeight - 50 - 10 - 2;
-		this.gallerySelectorWrapper = new Fx.Style(
+		this.gallerySelectorWrapper = new Fx.Morph(
 			new Element('div').addClass(
 				'gallerySelectorWrapper'
 			).setStyle(
@@ -140,8 +142,8 @@ var gallerySet = gallery.extend({
 				'backgroundImage',
 				"url('" + thumbnail + "')"
 			).injectInside(button);
-			new Element('h3').setHTML(galleryItem.title).injectInside(button);
-			new Element('p').addClass('info').setHTML(formatString(this.options.textGalleryInfo, galleryItem.elements.length)).injectInside(button);
+			new Element('h3').set('html', galleryItem.title).injectInside(button);
+			new Element('p').addClass('info').set('html', formatString(this.options.textGalleryInfo, galleryItem.elements.length)).injectInside(button);
 		}, this);
 		new Element('br').injectInside(this.gallerySelectorInner).setStyle('clear','both');
 	},

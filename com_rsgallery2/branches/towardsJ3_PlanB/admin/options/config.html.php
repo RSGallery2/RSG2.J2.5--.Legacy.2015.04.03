@@ -51,6 +51,11 @@ class html_rsg2_config{
 	static function showconfig( &$lists ){
 		global $rsgConfig;
 
+		/* quick fix to see tabs. ToDo: use bootstrap for tabs */
+		$document = JFactory::getDocument();
+		//$document->addStyleSheet( JURI::base( true )."/components/com_rsgallery2/admin.rsgallery2.css");
+		$document->addStyleSheet( JURI_SITE."administrator/components/com_rsgallery2/template.css");
+		
 		$config = $rsgConfig;
 		
 		//Exif tags
@@ -942,3 +947,4 @@ class html_rsg2_config{
 		<?php
 	}
 }
+

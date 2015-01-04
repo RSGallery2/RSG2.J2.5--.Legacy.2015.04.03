@@ -263,6 +263,18 @@ class html_rsg2_galleries{
 		//Get the data for the form from $row (but only matching XML fields will get data here: asset_id)
 		$form->bind($row);
 
+		//--- title of form ----------------------------
+		// image exists
+		if ($row->id > 0)
+		{
+			JToolBarHelper::title( JText::_('COM_RSGALLERY2_EDIT_GALLERY'), 'generic.png' );
+		}
+		else
+		{
+			$Text = JText::_('COM_RSGALLERY2_NEW') . " " . JText::_('COM_RSGALLERY2_GALLERY');
+			JToolBarHelper::title($Text, 'generic.png' );
+		}
+		
 		//$task = JRequest::getCmd( 'task'  , '');
 		$input =JFactory::getApplication()->input;
 		$task = $input->get( 'task', '', 'CMD');		
@@ -301,24 +313,15 @@ class html_rsg2_galleries{
 		</script>
 		
 		<form action="index.php" method="post" name="adminForm" id="adminForm" class="form-validate">
-		<table class="adminheading">
-		<tr>
-			<th>
-			<?php echo JText::_('COM_RSGALLERY2_GALLERY')?>:
-			<small>
-			<?php echo $row->id ? JText::_('COM_RSGALLERY2_EDIT') : JText::_('COM_RSGALLERY2_NEW');?>
-			</small>
-			</th>
-		</tr>
-		</table>
-	
+
 		<table width="100%">
 		<tr>
 			<td width="60%" valign="top">
 				<table class="adminform">
 				<tr>
 					<th colspan="2">
-					<?php echo JText::_('COM_RSGALLERY2_DETAILS')?>
+						&nbsp;
+						<!-- ?php echo JText::_('COM_RSGALLERY2_DETAILS')? -->
 					</th>
 				</tr>
 				<tr>
@@ -346,23 +349,25 @@ class html_rsg2_galleries{
 					</td>
 				</tr>
 				<tr>
-					<td>
+					<td size="2" align="right">
 						<?php echo JText::_('JFIELD_ACCESS_LABEL');?>
 					</td>
 					<td>
+						<div>
 						<?php 
 						//3rd argument = id selected, e.g. 1: Public, 2: Registered, etc.
 						echo JHtml::_('access.assetgrouplist', 'access', $row->access);
 						?>
+						</div>
 					</td>
 				</tr>
 <?php			if ($canAdmin) { ?>
 				<tr>
-					<td>
+					<td size="2" align="right">
 						<?php echo JText::_('COM_RSGALLERY2_PERMISSIONS');?>
 					</td>
 					<td>
-						<div class="button2-left">
+						<!--div class="button2-left"-->
 						<div class="blank">
 							<button type="button" onclick="document.location.href='#access-rules';">
 							<?php echo JText::_('JGLOBAL_PERMISSIONS_ANCHOR'); ?></button>
@@ -377,8 +382,9 @@ class html_rsg2_galleries{
 					</td>
 					<td>
 					<?php
-					// parameters : areaname, content, hidden field, width, height, rows, cols
-					echo $editor->display ( 'description',  stripslashes($row->description) , '100%', '300', '10', '20' ,false) ; ?>
+					// parameters : area name, content, hidden field, width, height, rows, cols
+					echo $editor->display ( 'description',  stripslashes($row->description) , '100%', '300', '10', '20' ,false); 
+					?>
 					</td>
 				</tr>
 				<tr>
@@ -440,7 +446,10 @@ class html_rsg2_galleries{
 
 <?php 	//Create the rules slider at the bottom of the page
 		if ($canAdmin) { 
-?>			<div  class="width-100 fltlft">
+?>
+			<br/>
+			<!--div  class="width-100 fltlft" -->
+			<div  class="fltlft">
 				<?php echo JHtml::_('sliders.start','permissions-sliders-'.$row->id, array('useCookie'=>1)); ?>
 				<?php echo JHtml::_('sliders.panel',JText::_('COM_RSGALLERY2_FIELDSET_RULES'), 'access-rules'); ?>	
 					<fieldset class="panelform">

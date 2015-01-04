@@ -249,26 +249,30 @@ class html_rsg2_images {
 							<td><?php echo $lists['gallery_id']; ?></td>
 						</tr>
 <?php					if ($canAdmin) { ?>
-						<tr>
-						<td>
-						<?php echo JText::_('COM_RSGALLERY2_PERMISSIONS');?>
-						</td>
-							<td>
-								<div class="button2-left">
-									<div class="blank">
-										<button type="button" onclick="document.location.href='#access-rules';">
-										<?php echo JText::_('JGLOBAL_PERMISSIONS_ANCHOR'); ?></button>
+							<tr>
+								<td>
+									<?php echo JText::_('COM_RSGALLERY2_PERMISSIONS');?>
+								</td>
+								<td>
+									<div class="button2-left">
+										<div class="blank">
+											<button type="button" onclick="document.location.href='#access-rules';">
+											<?php echo JText::_('JGLOBAL_PERMISSIONS_ANCHOR'); ?></button>
+										</div>
 									</div>
-								</div>
-							</td>
-						</tr>
+								</td>
+							</tr>
 <?php					} ?>
 						<tr>
-							<td valign="top" align="right"><?php echo JText::_('COM_RSGALLERY2_DESCRIPTION')?></td>
+							<td valign="top" align="right" witdth="20%">
+								<?php echo JText::_('COM_RSGALLERY2_DESCRIPTION')?>
+							</td width="80%">
 							<td>
 								<?php
-								// parameters : area name, content, hidden field, width, height, rows, cols
-								echo $editor->display('descr',  $row->descr , '100%', '200', '10', '20' ,false) ; ?>
+									// parameters : area name, content, hidden field, width, height, rows, cols
+									// display($name, $html, $width, $height, $col, $row, $buttons=true, $id=null, $params=array())
+									echo $editor->display('descr',  $row->descr , '50%', '80', '10', '20' ,false);
+								?>
 							</td>
 						</tr>
 				<?php	if ($canEditStateItem) {	?>
@@ -457,10 +461,8 @@ class html_rsg2_images {
 		<table class="adminheading">
 		<tr>
 			<th>
-			<?php echo JText::_('COM_RSGALLERY2_ITEM')?>:
-			<small>
+			<?php echo JText::_('COM_RSGALLERY2_ITEM')?>&nbsp;
 			<?php echo JText::_('COM_RSGALLERY2_UPLOAD')?>
-			</small>
 			</th>
 		</tr>
 		</table>
@@ -470,8 +472,8 @@ class html_rsg2_images {
 			<td width="60%" valign="top">
 				<table class="adminform">
 				<tr>
-					<th colspan="2">
-					<?php echo JText::_('COM_RSGALLERY2_UPLOAD_DETAILS')?>
+					<th colspan="2" width="20%">
+						<?php echo JText::_('COM_RSGALLERY2_UPLOAD_DETAILS')?>
 					</th>
 				</tr>
 				<tr>
@@ -480,10 +482,10 @@ class html_rsg2_images {
 				</tr>
 				<tr>
 					<td valign="top" align="right">
-					<?php echo JText::_('COM_RSGALLERY2_GENERIC_DESCRIPTION')?>
+						<?php echo JText::_('COM_RSGALLERY2_GENERIC_DESCRIPTION')?>
 					</td>
 					<td>
-				<?php echo $editor->display( 'descr',  '' , '100%', '200', '10', '20' ,false ) ; ?>
+						<?php echo $editor->display( 'descr',  '' , '100%', '200', '10', '20' ,false ) ; ?>
 					</td>
 				</tr>
 				</table>
@@ -532,7 +534,7 @@ class html_rsg2_images {
 	}
 	
 	/**
-	* First step in batchupload: displays form to indecate either zip (archive) or ftp upload and
+	* First step in batchupload: displays form to indicate either zip (archive) or ftp upload and
 	* which gallery to use.
 	*
 	* Either zip (archive) or ftp upload can be choosen, gallery can be specified here or in step 2.
@@ -558,7 +560,7 @@ class html_rsg2_images {
         Joomla.submitbutton = function(task) {
             var form = document.adminForm;
  
-			//Get the upload method and galleryselect method (2 options each)
+			//Get the upload method and gallery select method (2 options each)
             for (i=0;i<document.forms[0].batchmethod.length;i++) {
                 if (document.forms[0].batchmethod[i].checked) {
                     upload_method = document.forms[0].batchmethod[i].value;
@@ -600,11 +602,13 @@ class html_rsg2_images {
         <form name="adminForm" action="index.php" method="post" enctype="multipart/form-data" class="form-validate">
         <table width="100%">
         <tr>
-            <td width="300">&nbsp;</td>
+            <!-- td width="50">&nbsp;</td-->
             <td>
+				<th colspan="3"><font size="4"><?php echo JText::_('COM_RSGALLERY2_STEP_1');?></font></th>
                 <table class="adminform">
                 <tr>
-                    <th colspan="3"><font size="4"><?php echo JText::_('COM_RSGALLERY2_STEP_1');?></font></th>
+                    <!-- th colspan="3"><font size="4"><?php echo JText::_('COM_RSGALLERY2_STEP_1');?></font></th -->
+					<td>&nbsp;</td>
                 </tr>
                 <tr>
                     <td width="200"><strong><?php echo JText::_('COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD');?></strong>
@@ -634,6 +638,7 @@ class html_rsg2_images {
                 </tr>
                 <tr>
                     <td colspan="3">&nbsp;<br /></td>
+					<td>&nbsp;</td>
                 </tr>
                 <tr>
                 <td valign="top"><strong><?php echo JText::_('COM_RSGALLERY2_SPECIFY_GALLERY');?></strong></td>

@@ -27,7 +27,7 @@ switch ($task) {
 		break;
 	
 	case 'batchupload':
-		HTML_RSGallery::RSGalleryHeader('', JText::_('COM_RSGALLERY2_SUBMENU_BATCH-UPLOAD'));
+		//HTML_RSGallery::RSGalleryHeader('', JText::_('COM_RSGALLERY2_SUBMENU_BATCH-UPLOAD'));
 		batchupload($option);
 		HTML_RSGallery::RSGalleryFooter();
 		break;
