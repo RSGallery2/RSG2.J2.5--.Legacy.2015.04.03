@@ -10,7 +10,7 @@
 defined( '_JEXEC' ) or die( 'Access Denied.' );
 
 // Initialize RSG2 core functionality
-require_once( JPATH_SITE.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
+require_once( JPATH_COMPONENT.'/init.rsgallery2.php' );
 
 $Rsg2DebugActive = $rsgConfig->get('debug');
 if ($Rsg2DebugActive)
@@ -54,13 +54,12 @@ if (!$canManage) {
 	return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 }
 
+$document = JFactory::getDocument();
+//$document->addStyleSheet( JURI::base( true )."/components/com_rsgallery2/admin.rsgallery2.css");
+$document->addStyleSheet( JURI_SITE."administrator/components/com_rsgallery2/admin.rsgallery2.css");
 
-?>
-<link href="<?php echo JURI_SITE; ?>/administrator/components/com_rsgallery2/admin.rsgallery2.css" rel="stylesheet" type="text/css" />
-<?php
-
-///require_once( JApplicationHelper::getPath('admin_html') );
-require_once( '/components/com_rsgallery2/admin.rsgallery2.html.php');///J3
+//require_once( JApplicationHelper::getPath('admin_html') );
+require_once(JPATH_COMPONENT.'/admin.rsgallery2.html.php');///J3
 
 global $opt, $catid, $uploadStep, $numberOfUploads, $e_id ;
 $input =JFactory::getApplication()->input;
@@ -103,7 +102,7 @@ if($Rsg2DebugActive)
 }
 
 ///Get the toolbar in here for J3 compatibility (since toolbar.rsgallery2.php is no longer autoloaded)
-require_once( '/components/com_rsgallery2/toolbar.rsgallery2.php');
+require_once( JPATH_COMPONENT.'/toolbar.rsgallery2.php');
 
 /**
  * this is the new $rsgOption switch.  each option will have a switch for $task within it.

@@ -63,6 +63,27 @@ class HTML_RSGALLERY{
     }
     
     /**
+      * Used by showCP to generate buttons
+      * @param string URL for button link
+      * @param string Image name for button image
+      * @param string Text to show in button
+      */
+    static function quickiconDebugButton( $link, $image, $text ) {
+		?>
+        <div style="float:left;">
+        <div class="debugicon">
+            <a href="<?php echo $link; ?>">
+                <div class="iconimage">
+					<?php echo JHtml::image('administrator/components/com_rsgallery2/images/'.$image, $text); ?>
+                </div>
+                <?php echo $text; ?>
+            </a>
+        </div>
+        </div>
+        <?php
+    }
+    
+    /**
      * Shows the RSGallery Control Panel in backend.
      * @todo complete translation tags
      * @todo use div in stead of tables (LOW PRIORITY)
@@ -74,6 +95,8 @@ class HTML_RSGALLERY{
         // Get the current JUser object
 		$user = JFactory::getUser();
 		$canDo	= Rsgallery2Helper::getActions();
+
+		JToolBarHelper::title( JText::_('COM_RSGALLERY2_RSG2_CONTROL_PANEL'), 'generic.png' );
 
         //Show Warningbox if some preconditions are not met
         galleryUtils::writeWarningBox();
@@ -140,15 +163,23 @@ class HTML_RSGALLERY{
 
                         
 <div id='rsg2-credits'>
-    <h3>Core Team - RSGallery2 3.x</h3>
-	(Joomla 1.6/1.7/2.5)
+    <h3>Core Team - RSGallery2 4.x</h3>
+	<h4>(Joomla 3.x)</h4>
     <dl>
-		<dt>2011-2012</dt>
+		<dt>2015 - </dt>
+			<dd><b>Johan Ravenzwaaij</b></dd>
+			<dd><b>Mirjam Kaizer</b></dd>
+			<dd><b>Thomas Finnern</b></dd>
+    </dl>
+    
+	<h3>RSGallery2 3.x (Joomla 1.6/1.7/2.5)</h3>
+    <dl>
+		<dt>2011-2014</dt>
         	<dd><b>Johan Ravenzwaaij</b></dd>
             <dd><b>Mirjam Kaizer</b></dd>
     </dl>
     
-    <h3>Translations</h3>
+    <h3>Translations</h3>	
     <dl>
         <dt>Brazilian Portuguese</dt> 
 			<dd><b>Helio Wakasugui</b></dd>
@@ -286,6 +317,9 @@ class HTML_RSGALLERY{
                     HTML_RSGALLERY::quickiconButton( $link, 'config.png',  JText::_('COM_RSGALLERY2_CONFIGURATION') );
                 }
 
+                $link = 'index.php?option=com_rsgallery2&rsgOption=galleries';
+                HTML_RSGALLERY::quickiconButton( $link, 'categories.png', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') );
+
                 $link = 'index.php?option=com_rsgallery2&rsgOption=images&task=upload';
                 HTML_RSGALLERY::quickiconButton( $link, 'upload.png', JText::_('COM_RSGALLERY2_UPLOAD') );
 
@@ -299,9 +333,6 @@ class HTML_RSGALLERY{
                 $link = 'index.php?option=com_rsgallery2&rsgOption=images&task=view_images';
                 HTML_RSGALLERY::quickiconButton( $link, 'mediamanager.png', JText::_('COM_RSGALLERY2_MANAGE_ITEMS') );
 
-                $link = 'index.php?option=com_rsgallery2&rsgOption=galleries';
-                HTML_RSGALLERY::quickiconButton( $link, 'categories.png', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') );
-
                 if ( $canDo->get('core.admin') ){
                     /*
                     $link = 'index.php?option=com_rsgallery2&task=consolidate_db';
@@ -314,38 +345,47 @@ class HTML_RSGALLERY{
 					HTML_RSGALLERY::quickiconButton( $link, 'template.png', JText::_('COM_RSGALLERY2_TEMPLATE_MANAGER'));
     			}
 				
-				// Temporary not for v3.2.0: permissions in frontend need to be implemented in next release and this message can then be removed.
+				// Temporary not for v3.2.0: permissions in front end need to be implemented in next release and this message can then be removed.
 				if ($user->authorise('core.admin', 	'com_rsgallery2')){
-					echo '<div style="clear:left;"><p>';
-					echo '<b>Note for the site administrator about RSGallery2 permissions</b><br />';
-					echo 'In version 3.2.0 some permissions were added so that the Site Administrator can allow <b>frontend</b> users via My Galleries to delete images/galleries <i>they own</i>, edit the state of images/galleries <i>they own</i> and create images/galleries <i>in galleries they own</i>. Descriptions of these new permissions:
-					<ul>
-						<li>Create Own: set at component and gallery level. This allows the user to upload images to galleries that he owns and create galleries in parent galleries that he owns.</li>
-						<li>Delete Own: set at component, gallery and item level. This allows the user to delete images or galleries that he owns.</li>
-						<li>Edit State Own: set at component, gallery and item level. This allows the user to edit the state (published or not) of images or galleries that he owns.</li>
-					</ul>
-					Note that these three "own" permissions are not implemented in the backend, users logged in via the backend need Create permission, Delete permission or Edit State permission, they will be implemented in the backend in the next release. ("Edit Own" is already implemented in the backend.)';
-					echo '</p>';
+					echo '<div style="clear:left;">';
+					echo '<div class="CtrlPanelInfo">';
+						echo '<p>';
+						echo '<b>Note for the site administrator about RSGallery2 permissions</b><br />';
+						echo 'In version 3.2.0 some permissions were added so that the Site Administrator can allow <b>frontend</b> users via My Galleries to delete images/galleries <i>they own</i>, edit the state of images/galleries <i>they own</i> and create images/galleries <i>in galleries they own</i>. Descriptions of these new permissions:
+						<ul>
+							<li>Create Own: set at component and gallery level. This allows the user to upload images to galleries that he owns and create galleries in parent galleries that he owns.</li>
+							<li>Delete Own: set at component, gallery and item level. This allows the user to delete images or galleries that he owns.</li>
+							<li>Edit State Own: set at component, gallery and item level. This allows the user to edit the state (published or not) of images or galleries that he owns.</li>
+						</ul>
+						Note that these three "own" permissions are not implemented in the backend, users logged in via the backend need Create permission, Delete permission or Edit State permission, they will be implemented in the backend in the next release. ("Edit Own" is already implemented in the backend.)';
+						echo '</p>';
+					echo '</div>';
+					echo '<div style="clear:left;">';
 				}			
                 // if debug is on, display advanced options
                 if( ($rsgConfig->get( 'debug' )) AND ( $canDo->get('core.admin') ) ){ ?>
-                <div id='rsg2-cpanelDebug'><?php echo JText::_('COM_RSGALLERY2_C_DEBUG_ON');?>
+                <div id='rsg2-cpanelDebug'>
+					<div id='rsg2-DebugHeader'>
+						<strong>
+							<?php echo JText::_('COM_RSGALLERY2_C_DEBUG_ON');?>
+						</strong>
+					</div>
                     <?php
 					$link = 'index.php?option=com_rsgallery2&task=purgeEverything';
-					HTML_RSGALLERY::quickiconButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING') );
+					HTML_RSGALLERY::quickiconDebugButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING') );
 
 					$link = 'index.php?option=com_rsgallery2&task=reallyUninstall';
-					HTML_RSGALLERY::quickiconButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL') );
+					HTML_RSGALLERY::quickiconDebugButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL') );
 	
 					$link = 'index.php?option=com_rsgallery2&task=config_rawEdit';
-					HTML_RSGALLERY::quickiconButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_-_RAW_EDIT') );
+					HTML_RSGALLERY::quickiconDebugButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_-_RAW_EDIT') );
 					
 					//Moved Migration Options: only show when debug is on since there are only test migration options and four Joomla 1.0.x options.
 					$link = 'index.php?option=com_rsgallery2&rsgOption=maintenance&task=showMigration';
-					HTML_RSGALLERY::quickiconButton( $link, 'dbrestore.png', JText::_('COM_RSGALLERY2_MIGRATION_OPTIONS') );
+					HTML_RSGALLERY::quickiconDebugButton( $link, 'dbrestore.png', JText::_('COM_RSGALLERY2_MIGRATION_OPTIONS') );
                     
                     $link = 'index.php?option=com_rsgallery2&task=config_dumpVars';
-                    HTML_RSGALLERY::quickiconButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_-_VIEW') );
+                    HTML_RSGALLERY::quickiconDebugButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_-_VIEW') );
                     ?>
                     <div class='rsg2-clr'>&nbsp;</div>
                 </div>

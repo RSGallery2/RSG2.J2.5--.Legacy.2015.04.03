@@ -98,17 +98,70 @@ class com_rsgallery2InstallerScript
 			JLog::add('-> pre update');
 			$rel = $this->oldRelease . ' to ' . $this->newRelease;
 			
-        // abort if the component being installed is not newer or not equal (overwrite) than the currently installed version
-			//if ( version_compare( $this->release, $oldRelease, 'le' ) ) {
+			// Abort if the component being installed is older than the currently installed version 
+			// (overwrite same version is permitted)
 			if ( version_compare( $this->newRelease, $this->oldRelease, 'lt' ) ) {
 					Jerror::raiseWarning(null, 'Incorrect version sequence. Cannot upgrade ' . $rel);
 					return false;
 			}
 			/**/
 
-			// ??? Install options ?
-
 			echo '<br/>' . JText::_('COM_RSGALLERY2_PREFLIGHT_UPDATE_TEXT') . ' ' . $rel;		
+
+			//--------------------------------------------------------------------------------
+			// Check if version is already set in "_schemas" table
+			// Create table #__schema entry for rsgallery if not used before
+			//--------------------------------------------------------------------------------
+			
+            //--- Determine rsgallery2 extension id ------------------
+            $db = JFactory::getDbo();
+            $query = $db->getQuery(true);
+            $query->select($db->quoteName('extension_id'))
+                ->from('#__extensions')
+                ->where($db->quoteName('type') . ' = ' . $db->quote('component') 
+					. ' AND ' . $db->quoteName('element') . ' = ' . $db->quote('com_rsgallery2') 
+					. ' AND ' . $db->quoteName('name') . ' = ' . $db->quote('com_rsgallery2'));
+            $db->setQuery($query);		
+			$Rsg2id = $db->loadResult();
+			JLog::add('Rsg2id: ' . $Rsg2id);
+
+		
+
+			//--- Read SchemaVersion ------------------
+			/*
+			$query->clear();
+            $query->select($db->quoteName('version_id'))
+                ->from('#__schemas')
+                ->where($db->quoteName('extension_id') . ' = ' . $db->quote($Rsg2id));
+            $db->setQuery($query);		
+			$SchemaVersion = $db->loadResult();
+			JLog::add('SchemaVersion: ' . $SchemaVersion);
+			*/
+			
+            //--- Check if entry in _schemas table exists ------------------
+			
+			$query->clear();
+			$query->select('count(*)');
+			$query->from($db->quoteName('#__schemas'))
+                ->where($db->quoteName('extension_id') . ' = ' . $db->quote($Rsg2id));
+			$db->setQuery($query);
+			$SchemaVersionCount = $db->loadResult();
+			JLog::add('SchemaVersionCount: ' . $SchemaVersionCount);
+
+			// Create component entry (version) in __schemas
+			// Rsg2id not set 
+			if($SchemaVersionCount != 1)
+			{
+				JLog::add('Create RSG2 version in __schemas: ');
+				
+				//	UPDATE #__schemas SET version_id = 'NEWVERSION' WHERE extension_id = 700	
+				$query->clear();
+				$query->insert($db->quoteName('#__schemas'));
+				$query->columns(array($db->quoteName('extension_id'), $db->quoteName('version_id')));
+				$query->values($Rsg2id . ', ' . $db->quote($this->oldRelease));
+				$db->setQuery($query);
+				$db->execute();
+			}
         }
         else 
 		{ // $type == 'install'

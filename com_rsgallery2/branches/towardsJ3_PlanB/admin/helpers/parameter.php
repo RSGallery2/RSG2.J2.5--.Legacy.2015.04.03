@@ -445,6 +445,10 @@ class JParameter extends JRegistry
 	 */
 	public function loadSetupFile($path)
 	{
+	
+		/* $xml = trim(file_get_contents($path)); */
+		/* 	$this->_parse($xml); */
+	
 		JLog::add('param::loadSetupFile Path: "'.$path.'"'); //, JLog::DEBUG);
 
 		$result = false;

@@ -30,7 +30,8 @@
 /* some quirks to circumvent broken stuff in mt1.2 */
 function isBody(element){
 	return (/^(?:body|html)$/i).test(element.tagName);
-};
+}
+
 Element.implement({
 	getPosition: function(relative){
 		if (isBody(this)) return {x: 0, y: 0};
@@ -111,8 +112,8 @@ var gallery = {
 		this.galleryElement = element;
 		this.galleryData = this.options.manualData;
 		this.galleryInit = 1;
-		this.galleryElements = Array();
-		this.thumbnailElements = Array();
+		this.galleryElements = [];
+		this.thumbnailElements = [];
 		this.galleryElement.addClass(this.options.baseClass);
 		
 		if (this.options.useReMooz&&(this.options.defaultTransition=="fade"))
@@ -128,7 +129,7 @@ var gallery = {
 		if (this.options.useHistoryManager)
 			this.initHistory();
 		
-		if ((this.options.embedLinks)|(this.options.useReMooz))
+		if (this.options.embedLinks||this.options.useReMooz)
 		{
 			this.currentLink = new Element('a').addClass('open').setProperties({
 				href: '#',
@@ -176,12 +177,12 @@ var gallery = {
 				number: currentArrayPlace,
 				transition: this.options.defaultTransition
 			});
-			if ((options.showInfopane) | (options.showCarousel))
+			if (options.showInfopane || options.showCarousel)
 				elementDict.extend({
 					title: el.getElement(options.titleSelector).innerHTML,
 					description: el.getElement(options.subtitleSelector).innerHTML
 				});
-			if ((options.embedLinks) | (options.useReMooz))
+			if (options.embedLinks || (options.useReMooz)
 				elementDict.extend({
 					link: el.getElement(options.linkSelector).href||false,
 					linkTitle: el.getElement(options.linkSelector).title||false,
