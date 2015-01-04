@@ -9,8 +9,9 @@
 defined( '_JEXEC' ) or die( 'Restricted Access' );
 
 //require_once( 'joomla.filesystem.files' );
-// ToDo: Remove call of file . reason of need see comment inside file 
-require_once JPATH_COMPONENT_ADMINISTRATOR.'/helpers/parameter.php';
+// ToDo: Remove call of file helpers/parameter.php. actual needed for compatibility with 2.5
+// require_once (JPATH_COMPONENT_ADMINISTRATOR.'/helpers/parameter.php');
+require_once (JPATH_ROOT.'/administrator/components/com_rsgallery2/helpers/parameter.php');
 jimport( 'joomla.filesystem.files' );
 
 class rsgDisplay extends JObject{
@@ -152,7 +153,7 @@ class rsgDisplay extends JObject{
 		if (!$rsgOption == 'mygalleries' AND !$gid) {
 			?>
 			<div class="rsg2-mygalleries">
-			<a class="rsg2-mygalleries_link" href="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries");?>"><?php echo JText::_('COM_RSGALLERY2_MY_GALLERIES') ?></a>
+			<a class="rsg2-mygalleries_link" href="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries");?>"><?php echo JText::_('My galleries') ?></a>
 			</div>
 			<div class="rsg2-clr"></div>
 			<?php
@@ -192,7 +193,9 @@ class rsgDisplay extends JObject{
 		//Check from where the path should be taken: if there is no gid in the 
 		// menu-link, it is the root, e.g. gid=0, if there is a gid that's the 
 		// start for this pathway
-		$theMenu = JSite::getMenu();
+
+        $app = JFactory::getApplication();
+		$theMenu = $app->getMenu();
 		$theActiveMenuItem = $theMenu->getActive();
 		if (isset($theActiveMenuItem->query['gid'])) { 
 			$gidInActiveMenutItem = $theActiveMenuItem->query['gid'];
@@ -265,8 +268,9 @@ class rsgDisplay extends JObject{
 		$page = $input->get( 'page', '', 'CMD');		
 
 		// Get the gid in the URL of the active menu item
-		if (isset(JSite::getMenu()->getActive()->query['gid'])){
-			$menuGid = JSite::getMenu()->getActive()->query['gid'];
+        $app = JFactory::getApplication();
+		if (isset($app->getMenu()->getActive()->query['gid'])){
+			$menuGid = $app->getMenu()->getActive()->query['gid'];
 		} else {
 			$menuGid = Null;
 		}
@@ -544,7 +548,7 @@ class rsgDisplay extends JObject{
 				<?php
 			} else {
 				?>
-				<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>"><?php echo JText::_('COM_RSGALLERY2_DOWNLOAD');?></a>
+				<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>"><?php echo JText::_('Download');?></a>
 				<?php
 			}
 			echo "</div><div class=\"rsg2-clr\">&nbsp;</div>";
@@ -578,7 +582,7 @@ class rsgDisplay extends JObject{
     	global $mainframe;
     	$mainframe = JFactory::getApplication();		
     	$css = "<link rel=\"stylesheet\" href=\"".JURI_SITE."/components/com_rsgallery2/lib/rsgsearch/rsgsearch.css\" type=\"text/css\" />";
-    	$mainframe->addCustomHeadTag($css);
+    	$mainframe->addCustomTag($css);
     	?>
 
     	<div align="right">

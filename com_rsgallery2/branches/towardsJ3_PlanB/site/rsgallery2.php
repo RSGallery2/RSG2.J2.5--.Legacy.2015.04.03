@@ -9,22 +9,21 @@
 */
 defined( '_JEXEC' ) or die( 'Access Denied.' );
 
-// Include the JLog class.
-jimport('joomla.log.log');
-
-
-// Get the date for log file name
-$date = JFactory::getDate()->format('Y-m-d');
-
-// initialize RSG2 core functionality
+// Initialize RSG2 core functionality
 require_once( JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "init.rsgallery2.php" );
 
 $Rsg2DebugActive = $rsgConfig->get('debug');
 if ($Rsg2DebugActive)
 {
+	// Include the JLog class.
+	jimport('joomla.log.log');
+
+	// Get the date for log file name
+	$date = JFactory::getDate()->format('Y-m-d');
+
 	// Add the logger.
 	JLog::addLogger(
-		 // Pass an array of configuration options
+		// Pass an array of configuration options
 		array(
 				// Set the name of the log file
 				//'text_file' => substr($application->scope, 4) . ".log.php",
@@ -32,11 +31,12 @@ if ($Rsg2DebugActive)
 
 				// (optional) you can change the directory
 				'text_file_path' => 'logs'
-		 ) 
+		 ) ,
+			JLog::ALL ^ JLog::DEBUG // leave out db messages
 	);
 
 	// start logging...
-	JLog::add('Starting to log rsgallery2.php in site: debug active in RSGallery2');
+	JLog::add('Start rsgallery2.php in site: debug active in RSGallery2'); //, JLog::DEBUG);
 }
 
 // create a new instance of RSGallery2
