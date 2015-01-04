@@ -9,7 +9,7 @@ defined( '_JEXEC' ) or die( 'Restricted Access' );
 
 /**
  * Slideshow class for RSGallery2
- * Based on Smoothgallery from Johndesign.net
+ * Based on Smoothgallery from Jondesign.net
  * @package RSGallery2
  * @author Ronald Smit <ronald.smit@rsdev.nl>, based on contribution by Parth <parth.lawate@tekdi.net>
  */
@@ -27,8 +27,8 @@ class rsgDisplay_slideshow_parth extends rsgDisplay{
 			return;
 		
 		$k = 0;
-		$maxSlideshowHeight = 0;
-		$maxSlideshowWidth = 0;
+		$this->maxSlideshowHeight = 0;
+		$this->maxSlideshowWidth = 0;
 		$text = "";
 		foreach ($gallery->items() as $item){
 			if( $item->type != 'image' ) return;

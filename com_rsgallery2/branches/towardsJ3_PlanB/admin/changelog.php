@@ -31,54 +31,81 @@ Legend:
 ! -> Note
 
 
-! To do: Don't install/remove database table #__rsgallery2_acl
-! To do: Backend: Installation of template does not function (yet).
-! To do: find all 'config_' links that don't have rsgOption=config and add it.
-  To do: Delete galleries: create filter in gallery view and check that delete-permission is granted for deleting subgalleries/images. Right now you may delete everything if you have delete permission for the component, even if an item/(sub)gallery doesn't have delete permission.
-  To do: Convert JParameter to JForm http://docs.joomla.org/Adapting_a_Joomla_1.5_extension_to_Joomla_1.6#Converting_Your_JParameters_to_JForms
+! ToDo: Don't install/remove database table #__rsgallery2_acl
+! ToDo: Backend: Installation of template does not function (yet).
+! ToDo: find all 'config_' links that don't have rsgOption=config and add it.
+  ToDo: Delete galleries: create filter in gallery view and check that delete-permission is granted for deleting subgalleries/images. Right now you may delete everything if you have delete permission for the component, even if an item/(sub)gallery doesn't have delete permission.
+  ToDo: Convert JParameter to JForm http://docs.joomla.org/Adapting_a_Joomla_1.5_extension_to_Joomla_1.6#Converting_Your_JParameters_to_JForms
 
-! To do: 
-	^ Language files in rsgallery2.xml moved according "Language file naming conventions
-	  and precedence: www.http://docs.joomla.org/Specification_of_language_files"
-	  Example folder path: language/en-GB/en-GB.com_rsgallery2.ini
-	  Lang files for backend are just copied from the common ones 
-! To do: 
-	^ Language files missing
+! ToDo: 
+	  ^ Language files in rsgallery2.xml moved according "Language file naming conventions
+		and precedence: www.http://docs.joomla.org/Specification_of_language_files"
+		Example folder path: language/en-GB/en-GB.com_rsgallery2.ini
+		Lang files for backend are just copied from the common ones 
+! ToDo: 
+	  ^ Language files missing
 		language/en-GB/en-GB.com_rsgallery2.sys.ini
-! To do: 2014.10.03 Activate logfiles only when debug rsg2 is on (? flag for backend 
-      user necessary ? -> hint for log file per day	
-! To do: 2014.10.18 Delete chosen "Gallery thumbnail" file. It will bring an error to 
-      backend and front side. Add function in "Consolidate Database which checks and correct this
-! To do: 2014.10.18 Log files only when rsgallery2 debug switch is on -> doc that there is one log per day
-! To do: 2014.10.20  Batch upload -> internal path 
-    a) field too small
-	b) field where the resulting path is shown
-	c) Improve info: a) general b) hint for standard setup ...
-	d) Test: Does it work for linux and windows instalations (XAMPP ? path fails ?)
-! To do: 2014.10.20 replace foreign icons like  
-	  * includes/js/ThemeOffice/warning.png\
-	  * templates/bluestork/images/j_arrow.png
-	  with icomoon icons if possible
-! To do: 2014.10.21 **Categories** on Control Panel may be renamed to Galleries ??
-! To do: 2014.10.22  
-	Translate: site: ??Slideshow??, ??My galleries??, ??Owner??: ??Size??: 
-		??Images?? ??Created?? ??Random images?? ??Latest images?? ??Uploaded??
-! To do: 2014.10.22  	
-	Date of image displayed: %11-%06-%2014
-! To do: 2014.10.22  
-	General: find all untranslated texts "...", '...'-> convert to constant. Let 
-	Joomla give a list for Translation ...
-! To do: 2014.10.27
-	Does the file and structure inside the Templates > templateDetails.xml have to be 
-	updated to 2.5 & 3.x structure to work better (debug_listeverything, meta,
-	semantic, slideshow_parth, slideshow_phatfusion, slideshowone)
-! To do: 2014.10.27
-	replace all rsgInstance::getVar with JRequest::get ... and replace these with JInput ... 
-	
-	
-	
-	
+! ToDo: 2014.10.18 
+		Log files only when rsgallery2 debug switch is on -> Hint to user that there is one log per day
+! ToDo: 2014.10.18 
+		Preparation: Delete chosen "Gallery thumbnail" file by hand. It will bring an error to 
+		back end and front side. Add function in "Consolidate Database which checks and correct this
+! ToDo: 2014.10.20  
+		Batch upload -> internal path 
+			a) field too small
+			b) field where the resulting path is shown
+			c) Improve info: a) general b) hint for standard setup ...
+			d) Test: Does it work for linux and windows instalations (XAMPP ? path fails ?)
+			e) Hint for standard input in config 
+! ToDo: 2014.10.20 
+		replace foreign icons like  
+			* includes/js/ThemeOffice/warning.png\
+			* templates/bluestork/images/j_arrow.png
+		with icomoon icons if possible
+! ToDo: 2014.10.21 
+		**Categories** on Control Panel may be renamed to Galleries ??
+! ToDo: 2014.10.22  	
+		Date of image displayed: %11-%06-%2014
+! ToDo: 2014.10.22  
+		General: find all untranslated texts "...", '...'-> convert to constant. Let 
+		Joomla give a list for Translation ...
+! ToDo: 2014.10.27
+		Does the file and structure inside the Templates > templateDetails.xml have to be 
+		updated to 2.5 & 3.x structure to work better (debug_listeverything, meta,
+		semantic, slideshow_parth, slideshow_phatfusion, slideshowone)
+! ToDo: 2014.10.27
+		replace all rsgInstance::getVar with JRequest::get ... and replace these with JInput ... 
+! ToDo: 2014.11.14 *****
+		replace error handling from Joomla
+! ToDo: 2014.11.14 **
+		FIX: Missing parameter chmod , 755 -> directory, ... ???
+		--> if (JClientFtp::chmod( $baseDir . $userfile_name )) {
+! ToDo: 2015.01.02 *****
+		Check for plugin PlgDisplayGallery and PlgDisplaySingle for deprecated functions
+! ToDo: 2015.01.03 **
+		Cancel button in Upload
+! ToDo: Replace missing header selection possibility *****
+		| Kontrollzentrum | Upload | Stapel-Upload | Bilder | Galerien | 
+		with new side selection (? Pictures ?)
+  		
 ---------------- Recent ----------------
+
+* --------------- 4.0.0 -- SVN 1126 -- 2015-01-04 -------------
+
+04.01.2015 finnern
+# Fixed: install_ Sql begun with first file
+   Check if version is already set in "_schemas" table
+   Create table #__schema entry for rsgallery if not used before
++ Improved layout of configuration pages
++ tried to improve slideshow parth
+   
+
+* --------------- 4.0.0 -- SVN 1124 -- 2014-10-31 -------------
+
+22.11.2014 finnern
++ Folder Template in site exchanged with tip revision files
+^ Updated mostly on parts in site
+
 
 * --------------- 4.0.0 -- SVN 1124 -- 2014-10-31 -------------
 

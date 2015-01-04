@@ -30,8 +30,6 @@ if ($slideshow) {
 
 		$thumb = $item->thumb();
 
-		
-		
 		if( $i % $cols== 0) echo "<tr>\n";
 		?>
 			<td <?php echo ($item->published) ? "" : "class='system-unpublished'";?>>

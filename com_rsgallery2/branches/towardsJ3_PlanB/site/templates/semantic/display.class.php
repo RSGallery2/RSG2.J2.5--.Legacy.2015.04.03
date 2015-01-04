@@ -304,8 +304,8 @@ class rsgDisplay_semantic extends rsgDisplay{
 			// i have not found any other way to remove a query variable from the router
 			// JPagination uses the router to build the current route, so removing it from the 
 			// request variables only does not work.
-			$app	= &JFactory::getApplication();
-			$router = &$app->getRouter();
+			$app	= JFactory::getApplication();
+			$router = $app->getRouter();
 
 			$router->setVar('gid',$gallery->id);
 			$router->setVar('id',Null);				//unsets the var id from JRouter
