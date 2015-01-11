@@ -104,7 +104,7 @@ class rsgConfig {
     // watermarking
     var $watermark           = 0;
     var $watermark_type		 = "text";	//Values are text or image
-    var $watermark_text      = "(c) 2014 - RSGallery2";
+    var $watermark_text      = "(c) 2015 - RSGallery2";
     var $watermark_image	 = "watermark.png";
     var $watermark_angle     = 0;
     var $watermark_position  = 5;
@@ -147,7 +147,7 @@ class rsgConfig {
         // global $rsgVersion;
         // $this->version = $rsgVersion->getVersionOnly();
         //$this->version = '3.2.0';
-        $this->version = '4.0.0';
+        $this->version = '4.0.2';
 
         if( $loadFromDB )
             $this->_loadConfig();

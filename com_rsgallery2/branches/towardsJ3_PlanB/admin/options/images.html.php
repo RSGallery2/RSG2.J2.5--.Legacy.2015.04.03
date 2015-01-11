@@ -27,6 +27,16 @@ class html_rsg2_images {
 		
 		?>
  		<form action="index.php" method="post" name="adminForm">
+            <?php if (count(JHtmlSidebar::getEntries()) > 0) : ?>
+                <div id="j-sidebar-container" class="span2">
+                    <?php echo JHtmlSidebar::render( ); ?>
+                </div>
+                <div id="j-main-container" class="span10">
+            <?php else : ?>
+                <div id="j-main-container">
+            <?php endif;?>
+
+            <div class="clearfix"> </div>
 		<table border="0" width="100%">
 		<tr>
 			<td align="left" width="50%">
@@ -186,6 +196,18 @@ class html_rsg2_images {
 		$canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
 		$canEditStateItem = JFactory::getUser()->authorise('core.edit.state','com_rsgallery2.item.'.$row->id);
 
+		//--- title of form ----------------------------
+		// image exists
+		if ($row->id > 0)
+		{
+			JToolBarHelper::title( JText::_('COM_RSGALLERY2_EDIT_IMAGE'), 'generic.png' );
+		}
+		else
+		{
+			$Text = JText::_('COM_RSGALLERY2_NEW') . " " . JText::_('COM_RSGALLERY2_IMAGE');
+			JToolBarHelper::title($Text, 'generic.png' );
+		}
+		
 		?>
 		<script type="text/javascript">
 		Joomla.submitbutton = function(task) {
@@ -207,18 +229,15 @@ class html_rsg2_images {
 		</script>
 		
 		<form action="index.php" method="post" name="adminForm" id="adminForm" class="form-validate">
-		<table class="adminheading">
-			<tr>
-				<th><?php echo JText::_('COM_RSGALLERY2_ITEM').': '?><small><?php echo $row->id ? JText::_('COM_RSGALLERY2_EDIT') : JText::_('COM_RSGALLERY2_NEW');?></small></th>
-			</tr>
-		</table>
-
 		<table width="100%">
 			<tr>
 				<td width="60%" valign="top">
 					<table class="adminform">
 						<tr>
-							<th colspan="2"><?php echo JText::_('COM_RSGALLERY2_DETAILS'); ?></th>
+							<th colspan="2">
+								&nbsp;
+								<!-- ?php echo JText::_('COM_RSGALLERY2_DETAILS')? -->
+							</th>
 						</tr>
 						<tr>
 							<td width="20%" align="right"><?php echo JText::_('COM_RSGALLERY2_NAME')?></td>
@@ -250,16 +269,16 @@ class html_rsg2_images {
 						</tr>
 <?php					if ($canAdmin) { ?>
 							<tr>
-								<td>
+								<td size="2" align="right">
 									<?php echo JText::_('COM_RSGALLERY2_PERMISSIONS');?>
 								</td>
 								<td>
-									<div class="button2-left">
+									<!--div class="button2-left"-->
 										<div class="blank">
 											<button type="button" onclick="document.location.href='#access-rules';">
 											<?php echo JText::_('JGLOBAL_PERMISSIONS_ANCHOR'); ?></button>
 										</div>
-									</div>
+									<!--/div-->
 								</td>
 							</tr>
 <?php					} ?>
@@ -348,8 +367,11 @@ class html_rsg2_images {
 							<th colspan="1"><?php echo JText::_('COM_RSGALLERY2_PARAMETERS')?></th>
 						</tr>
 						<tr>
-							<td>Note: to do: the $params->render is not available in J3 (administrator/components/com_rsgallery2/options/images.html.php lin 344)
-							<?php //echo $params->render();?>&nbsp;</td>
+							<td>
+								<!-- Note: to do: the $params->render is not available in J3
+									(administrator/components/com_rsgallery2/options/images.html.php lin 344) -->
+								<?php //echo $params->render();?>&nbsp;
+							</td>
 						</tr>
 					</table>
 					<table class="adminform">
@@ -366,16 +388,18 @@ class html_rsg2_images {
 												<?php echo JText::_('COM_RSGALLERY2_THUMB'); ?>
 											</a>:
 										</td>
-										<td><input type="text" name="thumb_url" class="text_area" size="50" value="<?php echo $thumb->url();?>" /></td>
+										<td><input type="text" name="thumb_url" class="text_area" size="80" value="<?php echo $thumb->url();?>" /></td>
 									</tr>
 									<tr>
-										<td width="40%" align="right" valign="top"><a href="<?php echo $display->url();?>" target="_blank" title="<?php echo $item->name;?>"><?php echo JText::_('COM_RSGALLERY2_DISPLAY'); ?></a>:</td>
-										<td ><input type="text" name="display_url" class="text_area" size="50" value="<?php echo $display->url();?>" /></td>
+										<td width="40%" align="right" valign="top"><a href="<?php echo $display->url();?>" target="_blank" title="<?php echo $item->name;?>"><?php echo JText::_('COM_RSGALLERY2_DISPLAY'); ?></a>:
+										</td>
+										<td ><input type="text" name="display_url" class="text_area" size="80" value="<?php echo $display->url();?>" />
+										</td>
 									</tr>
 									<?php }?>
 									<tr>
 										<td width="40%" align="right" valign="top"><a href="<?php echo $original->url();?>" target="_blank" title="<?php echo $item->name;?>"><?php echo JText::_('COM_RSGALLERY2_ORIGINAL'); ?></a>:</td>
-										<td><input type="text" name="original_url" class="text_area" size="50" value="<?php echo $original->url();?>" /></td>
+										<td><input type="text" name="original_url" class="text_area" size="80" value="<?php echo $original->url();?>" /></td>
 									</tr>
 								</table>		
 							</td>
@@ -398,7 +422,9 @@ class html_rsg2_images {
 		?>
 		<div class="clr"></div>
 <?php	if ($canAdmin) { ?>
-		  <div  class="width-100 fltlft">
+			<br/>
+			<!--div  class="width-100 fltlft" -->
+			<div  class="fltlft">
 			<?php echo JHtml::_('sliders.start','permissions-sliders-'.$row->id, array('useCookie'=>1)); ?>
 			<?php echo JHtml::_('sliders.panel',JText::_('COM_RSGALLERY2_FIELDSET_RULES'), 'access-rules'); ?>	
 			<fieldset class="panelform">
@@ -466,6 +492,17 @@ class html_rsg2_images {
 			</th>
 		</tr>
 		</table>
+
+            <?php if (count(JHtmlSidebar::getEntries()) > 0) : ?>
+                <div id="j-sidebar-container" class="span2">
+                    <?php echo JHtmlSidebar::render( ); ?>
+                </div>
+                <div id="j-main-container" class="span10">
+            <?php else : ?>
+                <div id="j-main-container">
+            <?php endif;?>
+
+            <div class="clearfix"> </div>
 
 		<table width="100%">
 		<tr>
@@ -600,6 +637,16 @@ class html_rsg2_images {
         </script>
 
         <form name="adminForm" action="index.php" method="post" enctype="multipart/form-data" class="form-validate">
+            <?php if (count(JHtmlSidebar::getEntries()) > 0) : ?>
+                <div id="j-sidebar-container" class="span2">
+                    <?php echo JHtmlSidebar::render( ); ?>
+                </div>
+                <div id="j-main-container" class="span10">
+            <?php else : ?>
+                <div id="j-main-container">
+            <?php endif;?>
+
+            <div class="clearfix"> </div>
         <table width="100%">
         <tr>
             <!-- td width="50">&nbsp;</td-->
@@ -620,20 +667,29 @@ class html_rsg2_images {
                         <input type="radio" value="zip" name="batchmethod" CHECKED/>
                         <?php echo JText::_('COM_RSGALLERY2_ZIP-FILE'); ?></td>
                     <td>
-                        <input type="file" name="zip_file" size="20" />
+                        <input type="file" name="zip_file" size="20" style="border: blue solid 2px; width: 100%" />
                         <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
                         <?php echo JText::_('COM_RSGALLERY2_UPLOAD_LIMIT_IS').' ' . $size .' '.JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI');?>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <td>&nbsp;</td>
+                    <td>&nbsp;
+					</td>
                     <td>
                         <input type="radio" value="ftp" name="batchmethod" />
                         <?php echo JText::_('COM_RSGALLERY2_FTP-PATH');?>&nbsp;<?php echo JHtml::tooltip( JText::_('COM_RSGALLERY2_BATCH_FTP_PATH_OVERL'), JText::_('COM_RSGALLERY2_FTP-PATH') ); ?></td>
                     <td>
-						<?php echo JText::sprintf('COM_RSGALLERY2_FTP_BASE_PATH', JPATH_SITE.DS); ?>
-                        <input type="text" name="ftppath" value="<?php echo $FTP_path; ?>" size="30" />
+						<?php echo JText::sprintf('COM_RSGALLERY2_FTP_BASE_PATH', ""); ?><br>
+						&nbsp;&nbsp;<?php echo JPATH_SITE.DS; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;
+					</td>
+                    <td>&nbsp;                    
+					<td width="60%">
+                        <input type="text" name="ftppath" style="border: blue solid 2px; width: 100%" value="<?php echo $FTP_path; ?>" size="30" />
                     </td>
                 </tr>
                 <tr>
@@ -706,11 +762,11 @@ class html_rsg2_images {
         //$selcat 		= JRequest::getInt('selcat'  , null);
 		$selcat         = $input->get( 'selcat', null, 'INT');
         //$ftppath 		= JRequest::getVar('ftppath'  , null);
-		$ftppath 		= $input->get( 'ftppath', null, 'STRING');
+		$ftppath 		= $input->get( 'ftppath', null, 'PATH');
         //$xcat 			= JRequest::getInt('xcat'  , null);
 		$xcat           = $input->get( 'xcat', null, 'INT');
         //$batchmethod 	= JRequest::getVar('batchmethod'  , null);
-		$ftppath 		= $input->get( 'batchmethod', null, 'STRING');
+		$batchmethod 		= $input->get( 'batchmethod', null, 'STRING');
         ?>
 		<script language="javascript" type="text/javascript">
         Joomla.submitbutton = function(task) {

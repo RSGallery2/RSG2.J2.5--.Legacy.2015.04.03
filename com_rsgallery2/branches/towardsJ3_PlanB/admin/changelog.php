@@ -84,13 +84,32 @@ Legend:
 		Check for plugin PlgDisplayGallery and PlgDisplaySingle for deprecated functions
 ! ToDo: 2015.01.03 **
 		Cancel button in Upload
-! ToDo: Replace missing header selection possibility *****
+! ToDo: 2015.01.06 ******
+		Replace missing header selection possibility *****
 		| Kontrollzentrum | Upload | Stapel-Upload | Bilder | Galerien | 
 		with new side selection (? Pictures ?)
+! ToDo: 2015.01.09 **
+		fix why we can't get the version from $rsgVersion! 
+		function rsgConfig
+		Only one place for version ID -> *.xml 
+
+
   		
 ---------------- Recent ----------------
 
-* --------------- 4.0.0 -- SVN 1126 -- 2015-01-04 -------------
+* --------------- 4.0.2 -- SVN 1127 -- 2015-01-11 -------------
+
+11.01.2015 finnern
+# Fixed: FTP upload didn't find given path: The new Joomla 
+    function Jinput replacing Jrequest was deleting the given 
+	path as a backslash at the end and absolute paths are 
+	rejected. The Path is read as raw now
++ Improved layout of main pages. They show now a link to 
+  the other main pages on the left side 
++ Changed order of menus -> 1. configuration, 2. galleries, 
+	3. batch upload, 4. uplaod, 5. images
+
+* --------------- 4.0.1 -- SVN 1126 -- 2015-01-04 -------------
 
 04.01.2015 finnern
 # Fixed: install_ Sql begun with first file

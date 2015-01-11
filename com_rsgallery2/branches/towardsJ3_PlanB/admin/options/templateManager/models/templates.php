@@ -44,7 +44,7 @@ class InstallerModelTemplates extends InstallerModel
 	{
 		global $option, $rsgConfig;
 
-		$db = &JFactory::getDBO();
+		$db = JFactory::getDBO();
 
 		$clientInfo =& $rsgConfig->getClientInfo( 'site', true );
 		$client = $clientInfo->name;

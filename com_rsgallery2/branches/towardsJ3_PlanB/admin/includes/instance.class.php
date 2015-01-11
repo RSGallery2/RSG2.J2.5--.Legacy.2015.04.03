@@ -26,10 +26,10 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * Creates a new RSG2 instance and executes it.
 	 *
 	 * @static
-	 * @param $newInstance array	$instance		What parameters to use for the new instance.  Your options are:
+	 * @param array	$newInstance 		What parameters to use for the new instance.  Your options are:
 	 * array			A custom array.
 	 * 'request'	Use the request array (default).
-	 * @param $showTemplate boolean show a template or not.
+	 * @param  boolean $showTemplate show a template or not.
 	 */
 	static function instance( $newInstance = 'request', $showTemplate = true ){
 		static $instanceStack = array();
