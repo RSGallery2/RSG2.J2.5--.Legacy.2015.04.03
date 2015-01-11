@@ -9,7 +9,7 @@
 */
 
 // no direct access
-defined( '_JEXEC' ) or die( 'Restaticed access' );
+defined( '_JEXEC' ) or die();
 
 if(!defined('DS')){
 	define('DS',DIRECTORY_SEPARATOR);

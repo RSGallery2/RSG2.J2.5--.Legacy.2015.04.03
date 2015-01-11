@@ -17,6 +17,9 @@ table#rsg2-config_rawEdit input{
     width: 45%;
 }
 
+div.iconimage img {
+	border: none;
+	}
 #rsg2-credits h3{
     width: 60%;
     margin-bottom: .8ex;
