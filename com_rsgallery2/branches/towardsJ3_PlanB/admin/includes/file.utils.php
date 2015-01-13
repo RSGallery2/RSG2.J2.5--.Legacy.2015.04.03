@@ -8,7 +8,7 @@
 * RSGallery2 is Free Software
 */
 
-defined( '_JEXEC' ) or die( 'Access Denied' );
+defined( '_JEXEC' ) or die();
 
 require_once(JPATH_RSGALLERY2_ADMIN.'/includes/mimetype.php');
 //require_once(JPATH_ROOT.'/includes/PEAR/PEAR.php');				//Mirjam: no longer used since SVN 975
