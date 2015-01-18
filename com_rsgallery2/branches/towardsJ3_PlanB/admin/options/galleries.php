@@ -77,7 +77,6 @@ switch( $task ){
 
 /**
  * show galleries
- * @param database A database connector object
  */
 function show(){
     global $mosConfig_list_limit;	//Todo: $app = &JFactory::getApplication();$limit = $app->getCfg('list_limit'); replaces $mosConfig_list_limit

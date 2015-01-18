@@ -111,7 +111,7 @@ switch ($task) {
 
 /**
 * Compiles a list of records
-* @param database A database connector object
+* @param database $option A database connector object
 */
 function showImages( $option ) {
 	global $mosConfig_list_limit;
@@ -119,7 +119,7 @@ function showImages( $option ) {
 	$database = JFactory::getDBO();
 	
 	$gallery_id = intval( $mainframe->getUserStateFromRequest( "gallery_id{$option}", 'gallery_id', 0 ) );
-	$limit      = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');   
+	$limit      = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->get('list_limit'), 'int');
 	$limitstart = intval( $mainframe->getUserStateFromRequest( "view{$option}limitstart", 'limitstart', 0 ) );
 	$search 	= $mainframe->getUserStateFromRequest( "search{$option}", 'search', '' );
 	$search 	= $database->escape( trim( strtolower( $search ) ) );

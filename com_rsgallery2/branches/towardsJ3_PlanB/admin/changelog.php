@@ -34,9 +34,14 @@ Legend:
 ! ToDo: Don't install/remove database table #__rsgallery2_acl
 ! ToDo: Backend: Installation of template does not function (yet).
 ! ToDo: find all 'config_' links that don't have rsgOption=config and add it.
-  ToDo: Delete galleries: create filter in gallery view and check that delete-permission is granted for deleting subgalleries/images. Right now you may delete everything if you have delete permission for the component, even if an item/(sub)gallery doesn't have delete permission.
-  ToDo: Convert JParameter to JForm http://docs.joomla.org/Adapting_a_Joomla_1.5_extension_to_Joomla_1.6#Converting_Your_JParameters_to_JForms
-
+  ToDo: Delete galleries: create filter in gallery view and check that delete-permission 
+       is granted for deleting subgalleries/images. Right now you may delete everything
+	   if you have delete permission for the component, even if an item/(sub)gallery 
+	   doesn't have delete permission.
+  ToDo: Convert JParameter to (a)
+       JForm http://docs.joomla.org/Adapting_a_Joomla_1.5_extension_to_Joomla_1.6#Converting_Your_JParameters_to_JForms
+	   (b) Own Jparameter file (see below)
+       
 ! ToDo: 
 	  ^ Language files in rsgallery2.xml moved according "Language file naming conventions
 		and precedence: www.http://docs.joomla.org/Specification_of_language_files"
@@ -46,7 +51,8 @@ Legend:
 	  ^ Language files missing
 		language/en-GB/en-GB.com_rsgallery2.sys.ini
 ! ToDo: 2014.10.18 
-		Log files only when rsgallery2 debug switch is on -> Hint to user that there is one log per day
+		Log files only when rsgallery2 debug switch is on (ok) 
+			-> Hint to user that there is one log per day (Missing)
 ! ToDo: 2014.10.18 
 		Preparation: Delete chosen "Gallery thumbnail" file by hand. It will bring an error to 
 		back end and front side. Add function in "Consolidate Database which checks and correct this
@@ -55,7 +61,7 @@ Legend:
 			a) field too small
 			b) field where the resulting path is shown
 			c) Improve info: a) general b) hint for standard setup ...
-			d) Test: Does it work for linux and windows instalations (XAMPP ? path fails ?)
+			d) Test: Does it work for linux and windows installations (XAMPP ? path fails ?)
 			e) Hint for standard input in config 
 ! ToDo: 2014.10.20 
 		replace foreign icons like  
@@ -92,10 +98,37 @@ Legend:
 		fix why we can't get the version from $rsgVersion! 
 		function rsgConfig
 		Only one place for version ID -> *.xml 
-
-
-  		
+! ToDo: 2015.01.15 ***
+		JParameter file: support reading parameters 
+! ToDo: 2015.01.18 *****
+		Check deprecated functions with phpstorm (admit + site)
+! ToDo: 2015.01.18 ****
+		Check all slideshows for working
+! ToDo: 2015.01.18 ***
+		Redesign upload forms 		
+		- one form for all , head register and start button on foot 
+		see joomla standard loading extensions 
+! ToDo: 2015.01.18 ***
+		Make images and galleries form more sortabele (date 
+! ToDo: 2015.01.18 ***
+		mirjam had a change for a user. Privileges for foreign users galleries
+		Search change in forum and take it
+! ToDo: 2015.01.18 ***
+		Add PHP doc to every function   (goal phpstorm no yellow :-(  )
+! ToDo: 2015.01.18 ***
+		Find all "addCustomTag" replace with ???
+		
+		
 ---------------- Recent ----------------
+
+* --------------- 4.0.3 -- SVN 1127 -- 2015-01-11 -------------
+
+11.01.2015 finnern
++ Slideshow parth is working
++ Begun with adding PHP doc but may be wrong in some descriptions
++ Changed ... die('Restricted access'); to ... or die();
+	Joomla wants not to give an intruder any information 
++ Adjusted slidshow parth to mootools 1.4.5 (Removed 1.11 files in folder)	
 
 * --------------- 4.0.2 -- SVN 1127 -- 2015-01-11 -------------
 
@@ -130,7 +163,7 @@ Legend:
 
 31.10.2014 finnern
 ^ Admin: Changes required from checking plugins
-^ Site: Folder template exchanged with verwsion from tip revision
+^ Site: Folder template exchanged with version from tip revision
   ==>  State: Galleries are shown in frontend, slideshow does 
        not fall down but also does not show anything
 ^ Site: Debug text only when debug in rsgallery2 config is selected
@@ -150,8 +183,9 @@ Legend:
 
 * --------------- 4.0.0 -- SVN 1120 -- 2014-10-12 -------------
 12.10.2014 finnern
-+ Added old J! 2.5 Jparameter file into project as it is used but not supported by J! 3.x
-  Could not fix replacing it with other code
++ Added old J! 2.5 Jparameter file into project as it is used 
+  but not supported by J! 3.x. Could not fix replacing it 
+  with other code
 - Minor fixes for compatibility with J! 3.x
 
 * --------------- 4.0.0 -- SVN 1119 -- 2014-10-04 -------------

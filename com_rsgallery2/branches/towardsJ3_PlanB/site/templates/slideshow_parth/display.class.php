@@ -18,7 +18,7 @@ class rsgDisplay_slideshow_parth extends rsgDisplay{
 	var $maxSlideshowWidth;
 
 	function showSlideShow(){
-		global $rsgConfig;
+		// global $rsgConfig;
 		
 		$gallery = rsgGalleryManager::get();
 		
