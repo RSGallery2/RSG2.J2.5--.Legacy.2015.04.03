@@ -22,7 +22,8 @@ class rsgDisplay extends JObject{
 	function __construct(){
 		global $rsgConfig;
 		
-		$this->gallery = rsgInstance::getGallery();
+		//$this->gallery = rsgInstance::getGallery(); deprecated
+		$this->gallery = rsgGalleryManager::get();
 
 		//Pre 3.0.2: always got template 'semantic' even when showing a slideshow; $template is only used here to get templateparameters
 		//Does the page show the slideshow? Then get slideshow name, else get template name.
@@ -204,11 +205,15 @@ class rsgDisplay extends JObject{
 			}			
 			
 		//Get the gallery id (gid) of the currently gallery shown
-		$gallery = rsgInstance::getGallery();
+		//gallery = rsgInstance::getGallery(); deprecated
+		$gallery = rsgGalleryManager::get();
+
 		$currentGallery = $gallery->id;
 
 		//Get the current item shown
-		$item = rsgInstance::getItem();
+		// $item = rsgInstance::getItem(); deprecated
+		$gallery = rsgGalleryManager::get();
+		$item = $gallery->getItem();;
 
 		//If the current gallery id (gid) is the one in the menu, no parent 
 		// galleries are needed, if not, get the parent galleries up until 
@@ -302,10 +307,12 @@ class rsgDisplay extends JObject{
 			// $this rsgDisplay_semantic object holds rsgGallery2 object with current gallery info
 			$title = $this->gallery->name;
 			$title .= ' - ';
+			$gallery = rsgGalleryManager::get();
 			// Add image title
-			$title .= rsgInstance::getItem()->title;
+			// $title .= rsgInstance::getItem()->title;
+			$title .= $gallery->title;
 			// Get image description
-			$description = rsgInstance::getItem()->descr;
+			$description = $gallery->descr;
 		}
 
 		// Clean up description

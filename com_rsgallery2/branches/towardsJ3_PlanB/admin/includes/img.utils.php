@@ -341,7 +341,7 @@ class imgUtils extends fileUtils{
     /**
       * @param string name of the image
       * @param boolean return a local path instead of URL
-      * @return complete URL of the image
+      * @return string complete URL of the image
       */
     static function getImgDisplay($name, $local=false){
 		global  $rsgConfig,$mainframe;
@@ -358,9 +358,9 @@ class imgUtils extends fileUtils{
     }
     
     /**
-      * @param string name of the image
-      * @param boolean return a local path instead of URL
-      * @return complete URL of the image
+      * @param string $name name of the image
+      * @param bool $local return a local path instead of URL
+      * @return string complete URL of the image
       */
     static function getImgThumb($name, $local=false){
         global  $rsgConfig, $mainframe;
@@ -932,7 +932,7 @@ class waterMarker extends GD2 {
      * @param int Vertical spacing between text
      * @param int Horizontal spacing between text
      * @param boolean Shadow text yes or no
-     * @return url to watermarked image
+     * @return string url to watermarked image
      */
     static function showMarkedImage($imagename, $imagetype = 'display', $font="arial.ttf", $shadow = true){
     global $rsgConfig, $mainframe;
@@ -975,7 +975,8 @@ class waterMarker extends GD2 {
 
 		$pepper = 'RSG2Watermarked';
 		$app = JFactory::getApplication();
-		$salt = $app->getCfg('secret');
+
+		$salt = $app->get('secret');
 		$filename = $imagetype.md5($pepper.$imagename.$salt).'.jpg';
 		
 		return $filename;

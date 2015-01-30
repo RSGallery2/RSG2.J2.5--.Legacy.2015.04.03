@@ -117,9 +117,28 @@ Legend:
 		Add PHP doc to every function   (goal phpstorm no yellow :-(  )
 ! ToDo: 2015.01.18 ***
 		Find all "addCustomTag" replace with ???
-		
+! ToDo: 2015.01.30 ***
+		functions with X behind  split_sqlX ? remove or fix deprecated
+! ToDo: 2015.01.30 ***
+		file install.class.php. a lot of functions are marked red
+! ToDo: 2015.01.30 ***		
+		function _buildDataObject() -> pagination 
+		get function is deprecated, revisit function and improved
+! ToDo: 2015.01.30 ***		
+		$database->getErrorMsg() is deprecated. Has a lot of occurences
+! ToDo: 2015.01.30 ******
+		JRequest in instance.class.php multiple times
+
 		
 ---------------- Recent ----------------
+
+
+* --------------- 4.0.3 -- SVN 1131 -- 2015-01-11 -------------
+30.01.2015 finnern
++ Added phpdoc to some functions
++ removed / changed some deprecated functions
+!!! Attention some debug messages still active 
+    in templates/slideshow_phatfusion
 
 * --------------- 4.0.3 -- SVN 1127 -- 2015-01-11 -------------
 

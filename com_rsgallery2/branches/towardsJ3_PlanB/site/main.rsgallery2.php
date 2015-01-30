@@ -44,7 +44,9 @@ function xmlFile(){
 	
 	// prepare and output xml
 	$xmlTemplate = "rsgXmlGalleryTemplate_$template";
-	$xmlTemplate = new $xmlTemplate( rsgInstance::getGallery() );
+	$gallery = rsgGalleryManager::get();
+	// $xmlTemplate = new $xmlTemplate( rsgInstance::getGallery() ); getGallery deprecated
+	$xmlTemplate = new $xmlTemplate( $gallery );
 
 	ob_start();
 	$xmlTemplate->prepare();

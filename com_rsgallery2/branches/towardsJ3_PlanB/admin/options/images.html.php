@@ -330,7 +330,10 @@ class html_rsg2_images {
 								<td>
 									<div align="center">
 									<?php
-									$item = rsgGalleryManager::getItem( $row->id );//MK returns rsgItem_image for given item id (or rsgItem_audio)
+									//MK returns rsgItem_image for given item id (or rsgItem_audio)
+									//$item = rsgGalleryManager::getItem( $row->id ); -> getItem deprecated
+									$gallery = rsgGalleryManager::get();
+									$item = $gallery->getItem( $row->id );
 									$original = $item->original();
 									$thumb 		= $item->thumb();
 

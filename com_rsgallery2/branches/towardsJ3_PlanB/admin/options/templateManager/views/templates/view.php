@@ -59,6 +59,10 @@ class InstallerViewTemplates extends InstallerViewDefault
 		}
 		$item->author_information = @$item->authorEmail .'<br />'. @$item->authorUrl;
 
-		$this->assignRef('item', $item);
+		// $this->assignRef('item', $item);
+		//   function assignRef($key, &$val)
+		//      if (is_string($key) && substr($key, 0, 1) != '_')
+		//      	$this->$key = &$val;
+		$this->item = $item;
 	}
 }
