@@ -109,7 +109,7 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * @deprecated Use rsgGalleryManager::get(); instead!
 	 */
 	static function getGallery(){
-		return rsgGalleryManager::get( );
+		return rsgGalleryManager::get();
 	}
 	
 	/**
@@ -119,7 +119,8 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * @deprecated Use rsgGallery->getItem(); instead!
 	 */
 	static function getItem(){
-		$gallery = rsgInstance::getGallery();
+		//$gallery = rsgInstance::getGallery();
+		$gallery = rsgGalleryManager::get();
 	//	if (isset($gallery)){
 			$result = $gallery->getItem();
 	//	} else {
@@ -547,7 +548,7 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 */
 	static function clean()
 	{
-        // ToDo Deprecated: JRequest ... clean var
+        // ToDo: Deprecated: JRequest ... clean var
 		JRequest::_cleanArray( $_FILES );
 		JRequest::_cleanArray( $_ENV );
 		JRequest::_cleanArray( $_GET );

@@ -457,6 +457,7 @@ class JParameter extends JRegistry
 		{
 			// $xml = JFactory::getXMLParser('Simple');
 			// if ($xml->loadFile($path))
+			// ToDo:: 150130  getXML is deprecated
             if($xml = JFactory::getXML($path))
             // Try: simplexml_load_file
             // if($xml = JSimpleXml::loadFile($path))

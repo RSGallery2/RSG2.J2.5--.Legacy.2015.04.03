@@ -101,7 +101,7 @@ function showMyGalleries() {
 	jimport('joomla.html.pagination');	
 	//Set limits for pagenav (remembering the pages with getUserSTateFromRequest), total comes later
 	$limit 		= $mainframe->getUserStateFromRequest('global.list.limit',
-'limit', $mainframe->getCfg('list_limit'), 'int'); 	
+						'limit', $mainframe->get('list_limit'), 'int');
 	$limitstart = $mainframe->getUserStateFromRequest( 'limitstart', 'limitstart', 0, 'int' );
 
 	//This query gets all the images (ordering: galleries ordering then files ordering)
