@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="rsgTemplate">
+	<name>RSS Feed</name>
+	<creationDate>September 21, 2008</creationDate>
+	<author>Chef Groovy</author>
+	<copyright>Open Source, GPL</copyright>
+	<authorEmail>chefgroovy@fantasyartwork.net</authorEmail>
+	<authorUrl>http://www.fantasyartwork.net</authorUrl>
+	<version>1.0</version>
+	<description>Creates an RSS Feed of all images.</description>
+	<files>
+		<filename>index.php</filename>
+		<filename>xml.php</filename>
+		<filename>templateDetails.xml</filename>
+		<filename>params.ini</filename>
+	</files>
+
+</mosinstall>

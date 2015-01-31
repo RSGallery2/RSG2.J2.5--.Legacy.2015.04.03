@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="rsgTemplate">
+	<name>Google Site Map</name>
+	<creationDate>September 3, 2008</creationDate>
+	<author>Chef Groovy</author>
+	<copyright>Open Source, GPL</copyright>
+	<authorEmail>chefgroovy@fantasyartwork.net</authorEmail>
+	<authorUrl>http://www.fantasyartwork.net</authorUrl>
+	<version>1.1</version>
+	<description>Creates a sitemap for use in Google webmaster tools. Leave off gallery ID to list all files in database.</description>
+	<files>
+		<filename>index.php</filename>
+		<filename>xml.php</filename>
+		<filename>templateDetails.xml</filename>
+		<filename>params.ini</filename>
+	</files>
+	  <params>
+  		<param name="DateFormat" type="text" size="25" default="Y-m-d"
+				label="Format for lastmod element."
+				description="Uses date the file was uploaded. Use Y-m-d\TH:i:s\Z to show date and time.">
+		</param>
+				
+		<param name="IncludeRootGallery" type="radio" default="1" label="Include Root Gallery in Sitemap"
+		description="Include Root Gallery in Sitemap">
+		<option value="1">Yes</option>
+		<option value="0">No</option>
+		</param>
+
+   </params>
+</mosinstall>

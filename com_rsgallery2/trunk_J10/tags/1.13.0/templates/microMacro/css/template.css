@@ -1,0 +1,60 @@
+#rsg2{
+}
+
+/* eliminate the usual list styling */
+#rsg2 ul {
+	list-style: none;
+}
+#rsg2 li{
+/* 	some templates (looking at you rhuk!) set the background and line-height on li tags */
+	background: none;
+	line-height: normal;
+	
+	padding: 0;
+	margin: 0 5px;
+}
+
+
+#rsg2 div.descr{
+	margin-bottom: 0.5em;
+}
+
+#rsg2 h3{
+}
+
+#rsg2 .galleryThumb{
+	float: left;
+	padding: 0 4px 4px 0;
+}
+
+
+#rsg2 .thumbs{
+	margin-left: 12px;
+}
+#rsg2 .thumbs  li{
+	float: left;
+	width: 20px;
+	height: 20px;
+	
+	margin: 0 4px 4px 0;
+	background: none;
+/* 	border: 1px solid blue; */
+}
+#rsg2 a img{
+	border: none;
+}
+
+.clr{
+	clear: both;
+	line-height: 0;
+	height: 0;
+}
+
+.popup{
+	border: 1px solid black;
+	background: white;
+	padding: 4px;
+}
+.popup div{
+	background: white;
+}
