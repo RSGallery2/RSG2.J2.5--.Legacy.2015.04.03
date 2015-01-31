@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<mosinstall type="module">
+    <name>CG Gallery Stats</name>
+    <creationDate>August 13, 2008</creationDate>
+    <author>Chef Groovy</author>
+    <copyright>This module is released under the GNU/GPL License</copyright>
+    <authorEmail>chefgroovy@fantasyartwork.net</authorEmail>
+    <authorUrl>www.fantasyartwork.net</authorUrl>
+    <version>0.0.1</version>
+    <description>Displays various stats abut RSGallery</description>
+
+	<files>
+		<filename module="mod_cg_gallery_stats">mod_cg_gallery_stats.php</filename>
+	</files>
+
+</mosinstall>

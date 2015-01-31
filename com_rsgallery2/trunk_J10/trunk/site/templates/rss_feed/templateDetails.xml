@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="rsgTemplate">
+	<name>RSS Feed for RSGallery2</name>
+	<creationDate>November 8, 2008</creationDate>
+	<author>Chef Groovy</author>
+	<copyright>Open Source, GPL</copyright>
+	<authorEmail>chefgroovy@fantasyartwork.net</authorEmail>
+	<authorUrl>http://www.fantasyartwork.net</authorUrl>
+	<version>1.6</version>
+	<description>Creates an RSS Feed of all images.</description>
+	<files>
+		<filename>index.php</filename>
+		<filename>xml.php</filename>
+		<filename>templateDetails.xml</filename>
+		<filename>params.ini</filename>
+	</files>
+	<params>
+
+	<param name="FeedTitle" type="text" default="My RSS Feed" 
+				label="Feed Title" description="Title of the Feed" size="80" />	
+	<param name="DateFormat" type="text" default="" 
+				label="Date format" description="Format for date" size="15" />
+	<param name="ImagesToShow" type="text" default="25" 
+				label="Images to Include" description="Total Number of Images to Include"  size="10" />				
+				
+	<param name="ThumbOrDisplay" type="radio" default="thumb" label="Show Thumb or Display Image"
+		description="Show Thumb or Display Image">
+	  <option value="thumb">Thumb</option>
+	  <option value="display">Display</option>
+	</param>
+	<param name="SiteDescription" type="text" default="" 
+				label="Feed Desctiption" description="Feed Description" size="80" />
+
+	<param name="IntroText" type="textarea" default="" 
+				label="Intro Text" description="Text added to top of every feed item. No Html yet" rows="10" cols="60" />
+	
+	</params>
+</mosinstall>
