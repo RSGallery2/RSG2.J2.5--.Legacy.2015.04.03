@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id$
+ * @version		$Id: template.php 1011 2011-01-26 15:36:02Z mirjam $
  * @package		Joomla
  * @subpackage	Templates
  * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
@@ -13,7 +13,7 @@
  */
 
 // no direct access
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die();
 
 /**
  * @package		Joomla
@@ -21,14 +21,14 @@ defined('_JEXEC') or die('Restricted access');
  */
 class TemplatesHelper
 {
-	function isTemplateDefault($template, $clientId)
+	static function isTemplateDefault($template, $clientId)
 	{
 		global $rsgConfig;
 		
 		return $template == $rsgConfig->template ? 1 : 0;
 	}
 	
-	function parseXMLTemplateFiles($templateBaseDir)
+	static function parseXMLTemplateFiles($templateBaseDir)
 	{
 		// Read the template folder to find templates
 		jimport('joomla.filesystem.folder');
@@ -49,14 +49,16 @@ class TemplatesHelper
 		return $rows;
 	}
 	
-	function parseXMLTemplateFile($templateBaseDir, $templateDir)
+	static function parseXMLTemplateFile($templateBaseDir, $templateDir)
 	{
 		// Check of the xml file exists
 		if(!is_file($templateBaseDir.DS.$templateDir.DS.'templateDetails.xml')) {
 			return false;
 		}
 		
-		$xml = JApplicationHelper::parseXMLInstallFile($templateBaseDir.DS.$templateDir.DS.'templateDetails.xml');
+//		JApplicationHelper::parseXMLInstallFile is deprecated in J3, need to use JInstaller::parseXMLInstallFile instead.			
+//		$xml = JApplicationHelper::parseXMLInstallFile($templateBaseDir.DS.$templateDir.DS.'templateDetails.xml');
+		$xml = JInstaller::parseXMLInstallFile($templateBaseDir.DS.$templateDir.DS.'templateDetails.xml');
 		
 		if ($xml['type'] != 'rsgTemplate') {
 			return false;

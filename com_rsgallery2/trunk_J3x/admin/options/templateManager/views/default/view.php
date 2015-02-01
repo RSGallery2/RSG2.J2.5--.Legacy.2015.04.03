@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id$
+ * @version		$Id: view.php 1011 2011-01-26 15:36:02Z mirjam $
  * @package		Joomla
  * @subpackage	Menus
  * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
@@ -13,7 +13,7 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die();
 
 jimport('joomla.application.component.view');
 
@@ -24,7 +24,7 @@ jimport('joomla.application.component.view');
  * @subpackage	Installer
  * @since		1.5
  */
-class InstallerViewDefault extends JView
+class InstallerViewDefault extends JViewLegacy
 {
 	function __construct($config = null)
 	{
@@ -40,11 +40,11 @@ class InstallerViewDefault extends JView
 		JToolBarHelper::title( JText::_('COM_RSGALLERY2_RSGALLERY2_TEMPLATE_MANAGER'), 'install.png' );
 
 		// Document
-		$document = & JFactory::getDocument();
+		$document = JFactory::getDocument();
 		$document->setTitle(JText::_('COM_RSGALLERY2_RSGALLERY2_TEMPLATE_MANAGER').' : '.$this->getName());
 
 		// Get data from the model
-		$state		= &$this->get('State');
+		$state	= $this->get('State');
 
 		// Are there messages to display ?
 		$showMessage	= false;
@@ -56,9 +56,9 @@ class InstallerViewDefault extends JView
 		}
 
 		$this->assign('showMessage',	$showMessage);
-		$this->assignRef('state',		$state);
+		$this->state = $state;
 
-		JHTML::_('behavior.tooltip');
+		JHtml::_('behavior.tooltip');
 		parent::display($tpl);
 	}
 
@@ -71,26 +71,31 @@ class InstallerViewDefault extends JView
 	{
 	}
 	
-	function showHeader(){
+	static function showHeader(){
 		
-		$ext	= JRequest::getWord('type');
+		//$ext	= JRequest::getWord('type');
+		$input =JFactory::getApplication()->input;
+		$ext = $input->get( 'type',  '', 'WORD');					
 		
 		$subMenus = array(
 				JText::_('COM_RSGALLERY2_MANAGE') => 'templates'
 				);
 		
-		JSubMenuHelper::addEntry(JText::_('COM_RSGALLERY2_RSG2_CONTROL_PANEL'), 'index.php?option=com_rsgallery2', false);
-		JSubMenuHelper::addEntry(JText::_('COM_RSGALLERY2_INSTALL'), '#" onclick="javascript:document.adminForm.type.value=\'\';submitbutton(\'installer\');', !in_array( $ext, $subMenus));
+		JHtmlSidebar::addEntry(JText::_('COM_RSGALLERY2_RSG2_CONTROL_PANEL'), 'index.php?option=com_rsgallery2', false);
+		JHtmlSidebar::addEntry(JText::_('COM_RSGALLERY2_INSTALL'), '#" onclick="javascript:document.adminForm.type.value=\'\';submitbutton(\'installer\');', !in_array( $ext, $subMenus));
 		foreach ($subMenus as $name => $extension) {
-			JSubMenuHelper::addEntry($name , '#" onclick="javascript:document.adminForm.type.value=\''.$extension.'\';submitbutton(\'manage\');', ($extension == $ext));
+			JHtmlSidebar::addEntry($name , '#" onclick="javascript:document.adminForm.type.value=\''.$extension.'\';submitbutton(\'manage\');', ($extension == $ext));
 		}
 		
 	}
 
-	function showTemplateHeader(){
+	static function showTemplateHeader(){
 		
-		$ext	= JRequest::getWord('type', 'templateGeneral');
-		if($ext =='templates') $ext = 'templateGeneral';
+		//$ext	= JRequest::getWord('type', 'templateGeneral');
+		$input =JFactory::getApplication()->input;
+		$ext = $input->get( 'type',  'templateGeneral', 'WORD');					
+		if($ext =='templates') 
+			$ext = 'templateGeneral';
 		
 		$subMenus = array(
 				JText::_('COM_RSGALLERY2_GENERAL') => 'templateGeneral',
@@ -99,8 +104,9 @@ class InstallerViewDefault extends JView
 				);
 
 		foreach ($subMenus as $name => $extension) {
-			JSubMenuHelper::addEntry($name , '#" onclick="javascript:document.adminForm.type.value=\''.$extension.'\';submitbutton(\'template\');', ($extension == $ext));
+			JHtmlSidebar::addEntry($name , '#" onclick="javascript:document.adminForm.type.value=\''.$extension.'\';submitbutton(\'template\');', ($extension == $ext));
 		}
 		
 	}
 }
+

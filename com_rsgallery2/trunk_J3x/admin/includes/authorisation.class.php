@@ -8,7 +8,7 @@
 * RSGallery2 is Free Software
 */
 
-defined( '_JEXEC' ) or die( 'Access Denied.' );
+defined( '_JEXEC' ) or die();
 
 /**
 * Authorisation Manager
@@ -19,10 +19,10 @@ class rsgAuthorisation{
 
 	/**
 	 * Check for edit (own) authorisation on gallery
-	 * $param int gallery id
-	 * @return boolean true if authorised, false if not.
+	 * @param int $gallery_id gallery id defaults to null
+	 * @return bool true if authorised, false if not.
 	 */
-	function authorisationEditGallery($gallery_id = Null) {
+	static function authorisationEditGallery($gallery_id = Null) {
 		$user = JFactory::getUser();
 		$allowed = false;
 		
@@ -44,7 +44,7 @@ class rsgAuthorisation{
 				$query->where("id = ". (int) $gallery_id);
 				$query->where("uid = ". (int) $user->id);
 				$db->setQuery($query);
-				$db->query();
+				$db->execute();
 				if( $db->getNumRows()) {
 					// There exists an item with this gallery_id and the user as its owner
 					$allowed = true;
@@ -57,10 +57,10 @@ class rsgAuthorisation{
 
 	/**
 	 * Check for edit (own) authorisation on item
-	 * $param int item id
+	 * @param int $item_id item id
 	 * @return boolean true if authorised, false if not.
 	 */
-	function authorisationEditItem($item_id = Null) {
+	static function authorisationEditItem($item_id = Null) {
 		$user = JFactory::getUser();
 		$allowed = false;
 		
@@ -82,7 +82,7 @@ class rsgAuthorisation{
 				$query->where("id = ". (int) $item_id);
 				$query->where("userid = ". (int) $user->id);
 				$db->setQuery($query);
-				$db->query();
+				$db->execute();
 				if( $db->getNumRows()) {
 					// There exists an item with this item_id and the user as its owner
 					$allowed = true;
@@ -95,10 +95,10 @@ class rsgAuthorisation{
 
 	/**
 	 * Check for delete (own) authorisation on gallery
-	 * $param int gallery id
+	 * @param int $gallery_id gallery id
 	 * @return boolean true if authorised, false if not.
 	 */
-	function authorisationDeleteGallery($gallery_id = Null) {
+	static function authorisationDeleteGallery($gallery_id = Null) {
 		$user = JFactory::getUser();
 		$allowed = false;
 		
@@ -120,7 +120,7 @@ class rsgAuthorisation{
 				$query->where("id = ". (int) $gallery_id);
 				$query->where("uid = ". (int) $user->id);
 				$db->setQuery($query);
-				$db->query();
+				$db->execute();
 				if( $db->getNumRows()) {
 					// There exists an item with this gallery_id and the user as its owner
 					$allowed = true;
@@ -133,10 +133,10 @@ class rsgAuthorisation{
 	
 	/**
 	 * Check for delete (own) authorisation on item
-	 * $param int item id
+	 * @param int $item_id item id
 	 * @return boolean true if authorised, false if not.
 	 */
-	function authorisationDeleteItem($item_id = Null) {
+	static function authorisationDeleteItem($item_id = Null) {
 		$user = JFactory::getUser();
 		$allowed = false;
 		
@@ -158,7 +158,7 @@ class rsgAuthorisation{
 				$query->where("id = ". (int) $item_id);
 				$query->where("userid = ". (int) $user->id);
 				$db->setQuery($query);
-				$db->query();
+				$db->execute();
 				if( $db->getNumRows()) {
 					// There exists an item with this item_id and the user as its owner
 					$allowed = true;
@@ -170,10 +170,10 @@ class rsgAuthorisation{
 	}
 	/**
 	 * Check for edit state (own) authorisation on gallery
-	 * $param int gallery id
+	 * @param int $gallery_id gallery id
 	 * @return boolean true if authorised, false if not.
 	 */
-	function authorisationEditStateGallery($gallery_id = Null) {
+	static function authorisationEditStateGallery($gallery_id = Null) {
 		$user = JFactory::getUser();
 		$allowed = false;
 		
@@ -195,7 +195,7 @@ class rsgAuthorisation{
 				$query->where("id = ". (int) $gallery_id);
 				$query->where("uid = ". (int) $user->id);
 				$db->setQuery($query);
-				$db->query();
+				$db->execute();
 				if( $db->getNumRows()) {
 					// There exists an item with this gallery_id and the user as its owner
 					$allowed = true;
@@ -207,10 +207,10 @@ class rsgAuthorisation{
 	}
 	/**
 	 * Check for edit state (own) authorisation on item
-	 * $param int item id
+	 * @param int $item_id item id
 	 * @return boolean true if authorised, false if not.
 	 */
-	function authorisationEditStateItem($item_id = Null) {
+	static function authorisationEditStateItem($item_id = Null) {
 		$user = JFactory::getUser();
 		$allowed = false;
 		
@@ -232,7 +232,7 @@ class rsgAuthorisation{
 				$query->where("id = ". (int) $item_id);
 				$query->where("userid = ". (int) $user->id);
 				$db->setQuery($query);
-				$db->query();
+				$db->execute();
 				if( $db->getNumRows()) {
 					// There exists an item with this item_id and the user as its owner
 					$allowed = true;
@@ -244,10 +244,10 @@ class rsgAuthorisation{
 	}
 	/**
 	 * Check for create (own) authorisation in parent gallery (check on component permission when gid = 0)
-	 * $param int item id
+	 * @param int $parent_gallery item id
 	 * @return boolean true if authorised, false if not.
 	 */
-	function authorisationCreate($parent_gallery = Null) {
+	static function authorisationCreate($parent_gallery = Null) {
 		$user = JFactory::getUser();
 		$allowed = false;
 
@@ -273,7 +273,7 @@ class rsgAuthorisation{
 						$query->where("id = ". (int) $parent_gallery);
 						$query->where("uid = ". (int) $user->id);
 						$db->setQuery($query);
-						$db->query();
+						$db->execute();
 						if( $db->getNumRows()) {
 							// There exists an item with this item_id and the user as its owner
 							$allowed = true;
@@ -294,10 +294,9 @@ class rsgAuthorisation{
 
    /**
 	* Method to return a list of all galleries that a user has permission for a given action
-	* @param	string	$action	The action
 	* @return	array	List of galleries that the user can do this action to (empty array if none). Galleries may be unpublished
 	*/
-	function authorisationCreate_galleryList(){
+	static function authorisationCreate_galleryList(){
 		$user = JFactory::getUser();
 		
 		// Brute force method: get all gallery rows for the component and check each one
@@ -306,7 +305,7 @@ class rsgAuthorisation{
 		$query->select("id, uid");
 		$query->from("#__rsgallery2_galleries");
 		$db->setQuery($query);
-		$db->query();
+		$db->execute();
 		$allGalleries = $db->loadObjectList('id');
 		$allowedGalleries = array();
 		
@@ -338,4 +337,3 @@ class rsgAuthorisation{
 	
 }
 //end class //
-?>

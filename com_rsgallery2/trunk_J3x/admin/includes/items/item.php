@@ -1,14 +1,14 @@
 <?php
 /**
 * Item class
-* @version $Id$
+* @version $Id: item.php 1088 2012-07-05 19:28:28Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2005 - 2006 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
 
-defined( '_JEXEC' ) or die( 'Access Denied.' );
+defined( '_JEXEC' ) or die();
 
 /**
 * The generic item class
@@ -66,10 +66,12 @@ class rsgItem extends JObject{
 	function hit(){
 		$query = 'UPDATE `#__rsgallery2_files` SET `hits` = hits + 1 WHERE `id` = '.(int) $this->id;
 
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		$database->setQuery( $query );
 		
-		if( !$database->query() ) {
+		if( !$database->execute() ) {
+			// ToDo: 150130 $database->getErrorMsg deprecated
+			// ToDo: 150130 setError deprecated
 			$this->setError( $database->getErrorMsg() );
 			return false;
 		}
@@ -91,7 +93,7 @@ class rsgItem extends JObject{
 		global $database,$rsgConfig;
 		$database->setQuery( $query );
 		
-		if( !$database->query() ) {
+		if( !$database->execute() ) {
 			$this->setError( $database->getErrorMsg() );
 			return false;
 		}
@@ -148,14 +150,14 @@ class rsgItem extends JObject{
 		$query = 'DELETE `#__rsgallery2_files` WHERE `id` = '. (int) $this->id;
 		$database->setQuery( $query );
 		
-		if( !$database->query() ) {
+		if( !$database->execute() ) {
 			$this->setError( $database->getErrorMsg() );
 			return false;
 		}
 		
 		$query = 'DELETE `#__rsgallery2_comments` WHERE `id` = '. (int) $this->id;
 		$database->setQuery( $query );
-		$database->query();
+		$database->execute();
 		
 		if ( $rsgConfig->get('gallery_folders') ){
 			
@@ -180,12 +182,12 @@ class rsgItem extends JObject{
 		$database = JFactory::getDBO();
 
 		if( !$database->updateObject('#__rsgallery2_files', $this, 'id') ) {
+			// ToDo:: 150130 $database->getErrorMsg is deprecated
 			$this->setError( $database->getErrorMsg() );
 			return false;
 		}
 		
 		return true;
-		
 	}
 	
 	/**
@@ -194,22 +196,22 @@ class rsgItem extends JObject{
 	 * @param array of the database row
 	 * @return the apropriate item object
 	 */
-	function getCorrectItemObject( &$gallery, $row ){
+	static function getCorrectItemObject( &$gallery, $row ){
 		// get mime type of file
-		$mimetype = MimeTypes::getMimeType( $row['name'] );
+		$mimeType = MimeTypes::getMimeType( $row['name'] );
 		
 		// get only the general content type
-		$type = explode( '/', $mimetype );
+		$type = explode( '/', $mimeType );
 		$type = $type[0];
 		
 		if( file_exists( JPATH_RSGALLERY2_ADMIN.'/includes/items/'. $type .'.php' )){
 			require_once( JPATH_RSGALLERY2_ADMIN.'/includes/items/'. $type .'.php' );
 			$itemClass = "rsgItem_$type";
-			return new $itemClass( $type, $mimetype, $gallery, $row );
+			return new $itemClass( $type, $mimeType, $gallery, $row );
 		}
 		else{
 			$itemClass = "rsgItem";
-			return new $itemClass( $type, $mimetype, $gallery, $row );
+			return new $itemClass( $type, $mimeType, $gallery, $row );
 		}
 	}
 }

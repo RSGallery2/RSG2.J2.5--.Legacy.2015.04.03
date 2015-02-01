@@ -1,14 +1,14 @@
 <?php
 /**
 * Maintenance class for RSGallery2
-* @version $Id$
+* @version $Id: maintenance.class.php 1037 2011-08-03 14:22:00Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2003 - 2007 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
 
-defined( '_JEXEC' ) or die( 'Restricted Access' );
+defined( '_JEXEC' ) or die();
 
 /**
  * Maintenance class for RSGallery2
@@ -26,7 +26,7 @@ class rsg2_maintenance {
      * @param Integer Gallery ID
      * @return Boolean True if size has changed, false if not.
      */
-    function thumbSizeChanged( $gid ) {
+    static function thumbSizeChanged( $gid ) {
     	global $rsgConfig;
     	$gallery = rsgGalleryManager::_get( $gid );
     	$images = $gallery->items();
@@ -47,7 +47,7 @@ class rsg2_maintenance {
      * @param Integer Gallery ID
      * @return Boolean True if size has changed, false if not.
      */
-    function displaySizeChanged( $gid ) {
+    static function displaySizeChanged( $gid ) {
     	global $rsgConfig;
     	$gallery = rsgGalleryManager::_get( $gid );
     	$images = $gallery->items();
@@ -67,14 +67,14 @@ class rsg2_maintenance {
 
 class rsg2_consolidate extends rsg2_maintenance {
 	
-	function consolidateDB() {
+	static function consolidateDB() {
 	    global  $rsgConfig;
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 	    //Load all image names from DB in array
 	    $sql = "SELECT name FROM #__rsgallery2_files";
 	    $database->setQuery($sql);
-	    $names_db = rsg2_consolidate::arrayToLower($database->loadResultArray());
-	
+	    $names_db = rsg2_consolidate::arrayToLower($database->loadColumn());
+
 	    $files_display  = rsg2_consolidate::getFilenameArray($rsgConfig->get('imgPath_display'));
 	    $files_original = rsg2_consolidate::getFilenameArray($rsgConfig->get('imgPath_original'));
 	    $files_thumb    = rsg2_consolidate::getFilenameArray($rsgConfig->get('imgPath_thumb'));
@@ -88,7 +88,7 @@ class rsg2_consolidate extends rsg2_maintenance {
 	 * @param string Directory from Joomla root
 	 * @return array Array with filenames
 	 */
-	function getFilenameArray($dir){
+	static function getFilenameArray($dir){
 	    global $rsgConfig;
 	    
 	    //Load all image names from filesystem in array
@@ -131,7 +131,7 @@ class rsg2_consolidate extends rsg2_maintenance {
 	 * @param array mixed case mixed or upper case values
 	 * @return array lower case values
 	 */
-	function arrayToLower($array) {
+	static function arrayToLower($array) {
 	    $array = explode("|", strtolower(implode("|",$array)));
 	    return $array;
 	}

@@ -1,6 +1,6 @@
 <?php
 /*
-* @version $Id$
+* @version $Id: gallery.php 1073 2012-05-14 12:35:41Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2005 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -8,7 +8,7 @@
 */
 
 // Check to ensure this file is included in Joomla!
-defined('_JEXEC') or die( 'Restricted access' );
+defined('_JEXEC') or die();
 
 // import the list field type
 jimport('joomla.html.html.list');
@@ -35,7 +35,7 @@ class JFormFieldGallery extends JFormFieldList
 	 */
 	protected function getOptions() 
 	{	
-		$db =& JFactory::getDBO();
+		$db = JFactory::getDBO();
 		//Get galleries for optionlist from database
 		$query = 'SELECT id as gid, name'
 		. ' FROM #__rsgallery2_galleries'
@@ -46,10 +46,10 @@ class JFormFieldGallery extends JFormFieldList
 		$galleries = $db->loadObjectList();
 		
 		//Add default option (no value)
-		$options[] = JHTML::_('select.option', 0, JText::_('COM_RSGALLERY2_ROOT_GALLERY'));
+		$options[] = JHtml::_('select.option', 0, JText::_('COM_RSGALLERY2_ROOT_GALLERY'));
 		foreach($galleries as $gallery)
 		{	
-			$options[] = JHTML::_('select.option', $gallery->gid, $gallery->name);
+			$options[] = JHtml::_('select.option', $gallery->gid, $gallery->name);
 		}
 		$options = array_merge(parent::getOptions() , $options);
 		

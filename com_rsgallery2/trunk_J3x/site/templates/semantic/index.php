@@ -15,7 +15,7 @@ This is built to imitate the Joomla 1.5.* style of templating.  Hopefully that i
 
 **/
 
-defined( '_JEXEC' ) or die( 'Restricted Access' );
+defined( '_JEXEC' ) or die();
 
 // bring in display code
 $templatePath = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'semantic';
@@ -23,6 +23,7 @@ require_once( $templatePath . DS . 'display.class.php');
 
 $rsgDisplay = new rsgDisplay_semantic();
 
+global $mainframe;
 $template_dir = JURI_SITE . "/components/com_rsgallery2/templates/" . $rsgConfig->get('template');
 
 $rsgDisplay->metadata();
@@ -30,13 +31,13 @@ $rsgDisplay->metadata();
 $rsgDisplay->showRSPathWay();
 
 //Load Tooltips
-JHTML::_('behavior.tooltip');
+JHtml::_('behavior.tooltip');
 
 //include page navigation
 //require_once(JPATH_ROOT.'/includes/pageNavigation.php');//J!1.0, bothering sh404SEF in J!1.5
 jimport( 'joomla.html.pagination');//J!1.5
 
-$doc =& JFactory::getDocument();
+$doc = JFactory::getDocument();
 $doc->addStyleSheet($template_dir."/css/template.css","text/css");
 ?>
 

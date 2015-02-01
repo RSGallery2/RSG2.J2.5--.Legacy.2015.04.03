@@ -1,7 +1,7 @@
 <?php
 /**
 * Maintenance option for RSGallery2 - HTML display code
-* @version $Id$
+* @version $Id: maintenance.html.php 1037 2011-08-03 14:22:00Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2003 - 2006 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -9,7 +9,7 @@
 */
 
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die();
 
 /**
  * Handles HTML screens for image option 
@@ -17,20 +17,43 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
  */
 class html_rsg2_maintenance {
 
-	function showMaintenanceCP() {
+	static function showMaintenanceCP() {
 		?>
 		<div id="rsg2-thisform">
 		<div id='cpanel'>
-			<?php
-			$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB';
-		html_rsg2_maintenance::quickiconBar( $link, 'blockdevice.png', JText::_('COM_RSGALLERY2_MAINT_CONSOLDB'), JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_TXT') );
-
-			$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=regenerateThumbs';
-		html_rsg2_maintenance::quickiconBar( $link, 'menu.png', JText::_('COM_RSGALLERY2_MAINT_REGEN'), JText::_('COM_RSGALLERY2_MAINT_REGEN_TXT') );
-
-			$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=optimizeDB';
-		html_rsg2_maintenance::quickiconBar( $link, 'db_optimize.png', JText::_('COM_RSGALLERY2_MAINT_OPTDB'), JText::_('COM_RSGALLERY2_MAINT_OPTDB_TXT') );
-		?>
+			<p>
+				<?php
+				$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB';
+				html_rsg2_maintenance::quickiconBar( $link, 'blockdevice.png', 
+					JText::_('COM_RSGALLERY2_MAINT_CONSOLDB'), JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_TXT') );
+				?>
+				<br>
+				<br>
+				<br>
+				<br>
+			</p>
+			<p>
+				<?php
+				$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=regenerateThumbs';
+				html_rsg2_maintenance::quickiconBar( $link, 'menu.png', 
+					JText::_('COM_RSGALLERY2_MAINT_REGEN'), JText::_('COM_RSGALLERY2_MAINT_REGEN_TXT') );
+				?>
+				<br>
+				<br>
+				<br>
+				<br>
+			</p>
+			<p>
+				<?php
+				$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=optimizeDB';
+				html_rsg2_maintenance::quickiconBar( $link, 'db_optimize.png', JText::_('COM_RSGALLERY2_MAINT_OPTDB'), 
+					JText::_('COM_RSGALLERY2_MAINT_OPTDB_TXT') );
+				?>
+				<br>
+				<br>
+				<br>
+				<br>
+			</p>
 		</div>
 		<div class='rsg2-clr'>&nbsp;</div>
 		</div>
@@ -43,7 +66,7 @@ class html_rsg2_maintenance {
       * @param string Image name for button image
       * @param string Text to show in button
       */
-	function quickiconBar( $link, $image, $title, $text = "" ) {
+	static function quickiconBar( $link, $image, $title, $text = "" ) {
 	    ?>
 	    <div style="float:left;">
 	    <div class="icon-bar">
@@ -61,7 +84,7 @@ class html_rsg2_maintenance {
 	    <?php
 	}
 	
-	function regenerateImages($lists) {
+	static function regenerateImages($lists) {
 		global $rsgConfig;
 		?>
 		<script language="Javascript">
@@ -112,7 +135,7 @@ class html_rsg2_maintenance {
 		<?php
 	}
 	
-	function consolidateDbInformX($option){
+	static function consolidateDbInformX($option){
 	    // inform user of purpose of this function, then provide a proceed button
 		?>
 	    <script language="Javascript">
@@ -149,7 +172,7 @@ class html_rsg2_maintenance {
 	<?php
 	}
 	
-	function consolidateDB($db_name, $file_display, $file_original, $file_thumb, $files_total) {
+	static function consolidateDB($db_name, $file_display, $file_original, $file_thumb, $files_total) {
 	    global $rsgConfig;
 	    require_once( JPATH_RSGALLERY2_ADMIN.'/config.rsgallery2.php' );
 	    $file_diff = array_diff($files_total, $db_name);

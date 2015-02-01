@@ -1,7 +1,7 @@
 <?php
 /**
 * category class
-* @version $Id$
+* @version $Id: images.class.php 1019 2011-04-12 14:16:47Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2005 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -9,7 +9,7 @@
 */
 
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die();
 
 /**
 * Image database table class
@@ -114,7 +114,7 @@ class rsgImagesItem extends JTable {
 	 *
 	 * @return      int
 	 */
-	protected function _getAssetParentId() {
+	protected function _getAssetParentId(JTable $table = null, $id = null) {
 		// Initialise variables
 		$assetId = null;
 		$db		= $this->getDbo();	//$this is the rsgImagesItem object

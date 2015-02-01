@@ -62,12 +62,15 @@ class InstallerModelTemplate extends InstallerModel
 		jimport('joomla.filesystem.file');
 		// Read the ini file
 		if (JFile::exists($ini)) {
-			$content = JFile::read($ini);
+			//$content = JFile::read($ini); J3
+			$content = JFile::file_get_contents($ini);
 		} else {
 			$content = null;
 		}
 
-		$params = new JParameter($content, $xml, 'template');
+		// $params = new JParameter($content, $xml, 'template');
+		$jparams = new JRegistry();
+		$params = $jparams->get($content, $xml);  // Ignore parameter 'template' ?		
 
 		// Set FTP credentials, if given
 		jimport('joomla.client.helper');

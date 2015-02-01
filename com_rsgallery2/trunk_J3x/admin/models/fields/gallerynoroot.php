@@ -8,7 +8,7 @@
 */
 
 // Check to ensure this file is included in Joomla!
-defined('_JEXEC') or die( 'Restricted access' );
+defined('_JEXEC') or die();
 
 // import the list field type
 jimport('joomla.html.html.list');
@@ -35,7 +35,7 @@ class JFormFieldGallerynoroot extends JFormFieldList
 	 */
 	protected function getOptions() 
 	{	
-		$db =& JFactory::getDBO();
+		$db = JFactory::getDBO();
 		//Get galleries for optionlist from database
 		$query = 'SELECT id as gid, name'
 		. ' FROM #__rsgallery2_galleries'
@@ -46,10 +46,10 @@ class JFormFieldGallerynoroot extends JFormFieldList
 		$galleries = $db->loadObjectList();
 		
 		//Add default option (no value)
-		//$options[] = JHTML::_('select.option', 0, JText::_('COM_RSGALLERY2_ROOT_GALLERY'));
+		//$options[] = JHtml::_('select.option', 0, JText::_('COM_RSGALLERY2_ROOT_GALLERY'));
 		foreach($galleries as $gallery)
 		{	
-			$options[] = JHTML::_('select.option', $gallery->gid, $gallery->name);
+			$options[] = JHtml::_('select.option', $gallery->gid, $gallery->name);
 		}
 		$options = array_merge(parent::getOptions() , $options);
 		

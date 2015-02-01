@@ -1,19 +1,24 @@
 <?php
 /**
 * This file contains Voting in RSG2
-* @version $Id$
+* @version $Id: rsgvoting.php 1085 2012-06-24 13:44:29Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2003 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
-defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die();
 
 require_once( JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgvoting' . DS . 'rsgvoting.class.php' );
 
-$cid   = JRequest::getInt('cid', array(0) );
-$task  = JRequest::getCmd('task', '' );
-$id    = JRequest::getInt('id','' );
+$input =JFactory::getApplication()->input;
+// 140503 $cid not used ?
+//$cid   = JRequest::getInt('cid', array(0) );
+$cid = $input->get( 'cid', 0, 'INT');	
+//$task  = JRequest::getCmd('task', '' );
+$task = $input->get( 'task', '', 'CMD');		
+//$id    = JRequest::getInt('id','' );
+$id = $input->get( 'id', 0, 'INT');	
 
 switch( $task ){
     case 'save':
@@ -35,12 +40,16 @@ function test( $id ) {
 }
 function saveVote( $option ) {
 	global $rsgConfig;
-	$mainframe =& JFactory::getApplication();
+	$mainframe = JFactory::getApplication();
 	$database = JFactory::getDBO();
 	$my = JFactory::getUser();
-	$Itemid 	= JRequest::getInt('Itemid', '');	
-	$rating 	= JRequest::getInt('rating', '');
-	$id 		= JRequest::getInt('id', '');
+	$input =JFactory::getApplication()->input;
+	//$Itemid 	= JRequest::getInt('Itemid', '');	
+	$Itemid = $input->get( 'Itemid', 0, 'INT');		
+	//$rating 	= JRequest::getInt('rating', '');
+	$rating = $input->get( 'rating', 0, 'INT');		
+	//$id 		= JRequest::getInt('id', '');
+	$id = $input->get( 'id', 0, 'INT');		
 	$vote 		= new rsgVoting();
 
 	//Check if user can vote
@@ -59,7 +68,7 @@ function saveVote( $option ) {
 	
 	$sql = 'UPDATE `#__rsgallery2_files` SET `rating` = '. (int) $total .', `votes` = '. (int) $votecount .' WHERE `id` = '. (int) $id;
 	$database->setQuery( $sql );
-	if ( !$database->query() ) {
+	if ( !$database->execute() ) {
 		$msg = JText::_('COM_RSGALLERY2_VOTE_COULD_NOT_BE_ADDED_TO_THE_DATABASE');
 	} else {
 		$msg = JText::_('COM_RSGALLERY2_VOTE_ADDED_TO_DATABASE');

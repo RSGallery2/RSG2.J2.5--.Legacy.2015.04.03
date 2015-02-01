@@ -5,7 +5,7 @@
  * @copyright (C) 2003 - 2006 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
-defined( '_JEXEC' ) or die( 'Restricted Access' );
+defined( '_JEXEC' ) or die( );
 
 /**
  * Template class for RSGallery2
@@ -14,7 +14,7 @@ defined( '_JEXEC' ) or die( 'Restricted Access' );
  */
 class rsgDisplay_slideshowone extends rsgDisplay{
 
-	function showSlideShow(){
+	static function showSlideShow(){
 		global $rsgConfig;
 		
 		$gallery = rsgGalleryManager::get();

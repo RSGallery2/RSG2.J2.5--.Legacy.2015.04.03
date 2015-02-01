@@ -1,14 +1,14 @@
 <?php
 /**
 * RSGallery2 Toolbar Menu
-* @version $Id$
+* @version $Id: toolbar.rsgallery2.php 1056 2012-01-01 17:39:14Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2003 - 2010 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 **/
 
 // ensure this file is being included by a parent file
-defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die();
 
 // RSG2 is a metacomponent.  joomla calls components options, RSG2 calls it's components rsgOptions
 if( isset( $_REQUEST['rsgOption'] ))
@@ -16,13 +16,13 @@ if( isset( $_REQUEST['rsgOption'] ))
 else
     $rsgOption = '';
 
-require_once( JApplicationHelper::getPath('toolbar_html') );
+//require_once( JApplicationHelper::getPath('toolbar_html') );///J25
+require_once( JPATH_ADMINISTRATOR . '/components/com_rsgallery2/toolbar.rsgallery2.html.php');///J3
 
 // Only show RSG2 submenu in the backend
 $app = JFactory::getApplication();
 if ($app->isAdmin()){
 	menu_rsg2_submenu::addRSG2Submenu($rsgOption, $task);
-
 	switch( $rsgOption ){
 		case 'images':
 			switch ( $task ) {

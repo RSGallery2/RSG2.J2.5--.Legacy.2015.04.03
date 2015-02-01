@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id$
+ * @version		$Id: default_item.php 1012 2011-02-01 15:13:13Z mirjam $
  * @package		RSGallery2
  * @subpackage	Template installer
  * @copyright	Copyright (C) 2005 - 2011 Open Source Matters. All rights reserved.

@@ -1,12 +1,16 @@
 <?php
 /**
  * RSGallery2
- * @version $Id$
+ * @version $Id: gallery.php 1084 2012-06-17 15:25:18Z mirjam $
  * @package RSGallery2
  * @copyright (C) 2003 - 2012 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die();
+
+JHtml::_('behavior.framework', true);
+
+global $rsgConfig;
 
 //Testing
 echo('<!-- using template parameter: testParameter = ' . $this->params->get('testParameter') .' -->');

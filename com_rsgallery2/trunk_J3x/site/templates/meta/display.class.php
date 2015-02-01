@@ -1,26 +1,36 @@
 <?php
 /**
  * This class encapsulates the HTML for the non-administration RSGallery pages.
- * @version $Id$
+ * @version $Id: display.class.php 1098 2012-07-31 11:54:19Z mirjam $
  * @package RSGallery2
  * @copyright (C) 2003 - 2012 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
-defined( '_JEXEC' ) or die( 'Restricted Access' );
+defined( '_JEXEC' ) or die();
+
+//require_once( 'joomla.filesystem.files' );
+// ToDo: Remove call of file helpers/parameter.php. actual needed for compatibility with 2.5
+// require_once (JPATH_COMPONENT_ADMINISTRATOR.'/helpers/parameter.php');
+require_once (JPATH_ROOT.'/administrator/components/com_rsgallery2/helpers/parameter.php');
+jimport( 'joomla.filesystem.files' );
 
 class rsgDisplay extends JObject{
 	
-	var $params = null;
+	var $params = null; // Type of JParameter    ToDo: change type to Jregistry ...
 	
 	var $currentItem = null;
 	function __construct(){
 		global $rsgConfig;
 		
-		$this->gallery = rsgInstance::getGallery();
+		//$this->gallery = rsgInstance::getGallery(); deprecated
+		$this->gallery = rsgGalleryManager::get();
 
 		//Pre 3.0.2: always got template 'semantic' even when showing a slideshow; $template is only used here to get templateparameters
 		//Does the page show the slideshow? Then get slideshow name, else get template name.
-		if (JRequest::getCmd('page') == 'slideshow') {
+		// if (JRequest::getCmd('page') == 'slideshow') {
+		$input =JFactory::getApplication()->input;		
+		$page = $input->get( 'page', '', 'CMD');		
+		if ($page == 'slideshow') {
 			$template = $rsgConfig->get('current_slideshow');
 		} else {
 			$template = $rsgConfig->get('template');
@@ -31,7 +41,8 @@ class rsgDisplay extends JObject{
 		// Read the ini file
 		$ini	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template.DS.'params.ini';
 		if (JFile::exists($ini)) {
-			$content = JFile::read($ini);
+			//$content = JFile::read($ini); J3
+			$content = file_get_contents($ini);
 		} else {
 			$content = null;
 			$ini_contents = '';
@@ -47,13 +58,17 @@ class rsgDisplay extends JObject{
 	 */
 	function mainPage(){
 		global $rsgConfig;
-		$page = JRequest::getCmd( 'page', '' );
 
+		//$page = JRequest::getCmd( 'page', '' );
+		$input =JFactory::getApplication()->input;		
+		$page = $input->get( 'page', '', 'CMD');		
 		switch( $page ){
 			case 'slideshow':
 				$gallery = rsgGalleryManager::get();
-				JRequest::setVar( 'rsgTemplate', $rsgConfig->get('current_slideshow'));
-				//@todo This bit is leftover from J!1.5: look into whether or not this can be removed and how.
+				//JRequest::setVar( 'rsgTemplate', $rsgConfig->get('current_slideshow'));
+                $input->set ('rsgTemplate', $rsgConfig->get('current_slideshow'));
+
+                //@todo This bit is leftover from J!1.5: look into whether or not this can be removed and how.
 				rsgInstance::instance( array( 'rsgTemplate' => $rsgConfig->get('current_slideshow'), 'gid' => $gallery->id ));
 			break;
 			case 'inline':
@@ -74,7 +89,7 @@ class rsgDisplay extends JObject{
 	/**
 	 * Debug only
 	 */
-	function test() {
+	static function test() {
 		
 		echo "test code goes here!";
 		$folders = JFolder::folders('components/com_rsgallery2/templates');
@@ -91,7 +106,7 @@ class rsgDisplay extends JObject{
 	/**
 	 *  write the footer
 	 */
-	function showRsgFooter(){
+	static function showRsgFooter(){
 		global $rsgConfig, $rsgVersion;
 	
 		$hidebranding = '';
@@ -111,7 +126,13 @@ class rsgDisplay extends JObject{
 	 */
 	function display( $file = null ){
 		global $rsgConfig;
-		$template = preg_replace( '#\W#', '', JRequest::getCmd( 'rsgTemplate', $rsgConfig->get('template') ));
+		
+		// $template = preg_replace( '#\W#', '', JRequest::getCmd( 'rsgTemplate', $rsgConfig->get('template') ));
+		// --> JRequest::getCmd( 'rsgTemplate', $rsgConfig->get('template') )
+		$input =JFactory::getApplication()->input;		
+		$PreTemplate = $input->get( 'rsgTemplate', $rsgConfig->get('template'), 'CMD');
+		
+		$template = preg_replace( '#\W#', '', $PreTemplate);
 		$templateDir = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template . DS . 'html';
 	
 		$file = preg_replace('/[^A-Z0-9_\.-]/i', '', $file);
@@ -123,13 +144,17 @@ class rsgDisplay extends JObject{
 	 * Shows the top bar for the RSGallery2 screen
 	 */
 	function showRsgHeader() {
-		$rsgOption 	= JRequest::getCmd( 'rsgOption'  , '');
-		$gid 		= JRequest::getInt( 'gid'  , null);
+		// $rsgOption 	= JRequest::getCmd( 'rsgOption'  , '');
+		$input =JFactory::getApplication()->input;		
+		$rsgOption = $input->get( 'rsgOption', '', 'CMD');	
+		
+		//$gid 		= JRequest::getInt( 'gid', null);
+		$gid = $input->get( 'gid', null, 'INT');
 		
 		if (!$rsgOption == 'mygalleries' AND !$gid) {
 			?>
 			<div class="rsg2-mygalleries">
-			<a class="rsg2-mygalleries_link" href="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries");?>"><?php echo JText::_('COM_RSGALLERY2_MY_GALLERIES') ?></a>
+			<a class="rsg2-mygalleries_link" href="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries");?>"><?php echo JText::_('My galleries') ?></a>
 			</div>
 			<div class="rsg2-clr"></div>
 			<?php
@@ -139,7 +164,7 @@ class rsgDisplay extends JObject{
 	/**
 	 * Shows contents of changelog.php in preformatted layout
 	 */
-	function viewChangelog() {
+	static function viewChangelog() {
 		global $rsgConfig;
 	
 		if( !$rsgConfig->get('debug')){
@@ -156,18 +181,22 @@ class rsgDisplay extends JObject{
      * Shows the proper Joomla path
      */
 	function showRSPathWay() {
-		$mainframe =& JFactory::getApplication();
-		$pathway =& $mainframe->getPathway();
+		$mainframe = JFactory::getApplication();
+		$pathway = $mainframe->getPathway();
 		
 		// Only show pathway if rsg2 is the component
-		$option = JRequest::getCmd('option');
+		//$option = JRequest::getCmd('option');
+		$input =JFactory::getApplication()->input;				
+		$option = $input->get( 'Option', '', 'CMD');	
 		if( $option != 'com_rsgallery2' )
 			return;
 
 		//Check from where the path should be taken: if there is no gid in the 
 		// menu-link, it is the root, e.g. gid=0, if there is a gid that's the 
 		// start for this pathway
-		$theMenu = JSite::getMenu();
+
+        $app = JFactory::getApplication();
+		$theMenu = $app->getMenu();
 		$theActiveMenuItem = $theMenu->getActive();
 		if (isset($theActiveMenuItem->query['gid'])) { 
 			$gidInActiveMenutItem = $theActiveMenuItem->query['gid'];
@@ -176,11 +205,15 @@ class rsgDisplay extends JObject{
 			}			
 			
 		//Get the gallery id (gid) of the currently gallery shown
-		$gallery = rsgInstance::getGallery();
+		//gallery = rsgInstance::getGallery(); deprecated
+		$gallery = rsgGalleryManager::get();
+
 		$currentGallery = $gallery->id;
 
 		//Get the current item shown
-		$item = rsgInstance::getItem();
+		// $item = rsgInstance::getItem(); deprecated
+		$gallery = rsgGalleryManager::get();
+		$item = $gallery->getItem();;
 
 		//If the current gallery id (gid) is the one in the menu, no parent 
 		// galleries are needed, if not, get the parent galleries up until 
@@ -193,6 +226,7 @@ class rsgDisplay extends JObject{
 				$gallery = $gallery->parent();
 				$galleries[] = $gallery;
 			}
+
 			$galleries = array_reverse($galleries);
 			foreach( $galleries as $gallery ) {
 				if ( $gallery->id == $currentGallery && empty($item) ) {
@@ -208,29 +242,40 @@ class rsgDisplay extends JObject{
 		}
 
 		//Add image name to pathway if an image is displayed (page in URL is the string 'inline')
-		$page = JRequest::getCmd( 'page', '' );
+		//$page = JRequest::getCmd( 'page', '' );
+		$page = $input->get( 'page', '', 'CMD');		
 		if ($page == 'inline') {
 			$pathway->addItem( $item->title );
 		}
+				
 	}
 
 	/**
 	 * Insert meta data and page title into head
 	 */
 	function metadata(){
-		$app =& JFactory::getApplication();
-		$document=& JFactory::getDocument();
+		$app = JFactory::getApplication();
+		$document = JFactory::getDocument();
+
+		$input =JFactory::getApplication()->input;		
 		
-		$option 	= JRequest::getCmd('option');
-		$Itemid 	= JRequest::getInt('Itemid',Null);
-		$gid 		= JRequest::getInt('gid',Null);
-		$id 		= JRequest::getInt('id',Null);
-		$limitstart = JRequest::getInt('limitstart',Null);
-		$page		= JRequest::getCmd('page',Null);
+		//$option 	= JRequest::getCmd('option');
+		$option = $input->get( 'Option', '', 'CMD');	
+		//$Itemid 	= JRequest::getInt('Itemid',Null);
+		$Itemid = $input->get( 'Itemid', null, 'INT');					
+		//$gid 		= JRequest::getInt('gid',Null);
+		$gid 		= $input->get( 'gid', null, 'INT');					
+		//$id 		= JRequest::getInt('id',Null);
+		$id 		= $input->get( 'id', null, 'INT');					
+		//$limitstart = JRequest::getInt('limitstart',Null);
+		$limitstart = $input->get( 'limitstart', Null, 'INT');
+		//$page		= JRequest::getCmd('page',Null);
+		$page = $input->get( 'page', '', 'CMD');		
 
 		// Get the gid in the URL of the active menu item
-		if (isset(JSite::getMenu()->getActive()->query['gid'])){
-			$menuGid = JSite::getMenu()->getActive()->query['gid'];
+        $app = JFactory::getApplication();
+		if (isset($app->getMenu()->getActive()->query['gid'])){
+			$menuGid = $app->getMenu()->getActive()->query['gid'];
 		} else {
 			$menuGid = Null;
 		}
@@ -262,10 +307,12 @@ class rsgDisplay extends JObject{
 			// $this rsgDisplay_semantic object holds rsgGallery2 object with current gallery info
 			$title = $this->gallery->name;
 			$title .= ' - ';
+			$gallery = rsgGalleryManager::get();
 			// Add image title
-			$title .= rsgInstance::getItem()->title;
+			// $title .= rsgInstance::getItem()->title;
+			$title .= $gallery->title;
 			// Get image description
-			$description = rsgInstance::getItem()->descr;
+			$description = $gallery->descr;
 		}
 
 		// Clean up description
@@ -329,7 +376,7 @@ class rsgDisplay extends JObject{
 			$id = $item->id;
 			
     		//Adding stylesheet for comments (is this needed as it is in rsgcomments.class.php as well?)
-			$doc =& JFactory::getDocument();
+			$doc = JFactory::getDocument();
 			$doc->addStyleSheet(JURI_SITE."/components/com_rsgallery2/lib/rsgcomments/rsgcomments.css");
 			
 			$comment = new rsgComments();
@@ -350,7 +397,7 @@ class rsgDisplay extends JObject{
 		//Check if user is allowed to vote (permission rsgallery2.vote on asset com_rsgallery2.gallery."gallery id"
 		if (JFactory::getUser()->authorise('rsgallery2.vote','com_rsgallery2.gallery.'.$gallery->id)) {
 			//Adding stylesheet for comments 
-			$doc =& JFactory::getDocument();
+			$doc = JFactory::getDocument();
 			$doc->addStyleSheet(JURI_SITE."/components/com_rsgallery2/lib/rsgvoting/rsgvoting.css");
     		
 			$voting = new rsgVoting();
@@ -425,7 +472,7 @@ class rsgDisplay extends JObject{
                                 </a>
                             	</div>
                                 <div class="rsg2-clr"></div>
-                                <div class="rsg2_details"><?php echo JHTML::_("date",$row->date);?></div>
+                                <div class="rsg2_details"><?php echo JHtml::_("date",$row->date);?></div>
                             </div>
                         </td>
                         </tr>
@@ -508,7 +555,7 @@ class rsgDisplay extends JObject{
 				<?php
 			} else {
 				?>
-				<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>"><?php echo JText::_('COM_RSGALLERY2_DOWNLOAD');?></a>
+				<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id='.$id);?>"><?php echo JText::_('Download');?></a>
 				<?php
 			}
 			echo "</div><div class=\"rsg2-clr\">&nbsp;</div>";
@@ -539,9 +586,10 @@ class rsgDisplay extends JObject{
     }
     
     function showSearchBoxXX() {
-    	$mainframe =& JFactory::getApplication();		
+    	global $mainframe;
+    	$mainframe = JFactory::getApplication();		
     	$css = "<link rel=\"stylesheet\" href=\"".JURI_SITE."/components/com_rsgallery2/lib/rsgsearch/rsgsearch.css\" type=\"text/css\" />";
-    	$mainframe->addCustomHeadTag($css);
+    	$mainframe->addCustomTag($css);
     	?>
 
     	<div align="right">
@@ -559,7 +607,10 @@ class rsgDisplay extends JObject{
     function showRSTopBar() {
         global $my, $mainframe, $rsgConfig,;
         $catid =JRequest::getInt( 'catid', 0 );
-        $page = JRequest::getCmd( 'page'  , null);
+        // $page = JRequest::getCmd( 'page'  , null);
+		$input =JFactory::getApplication()->input;		
+		$page = $input->get( 'page', '', 'CMD');		
+				
         ?>
         <div style="float:right; text-align:right;">
         <ul id='rsg2-navigation'>

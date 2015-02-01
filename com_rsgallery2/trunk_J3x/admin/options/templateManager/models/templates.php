@@ -44,7 +44,7 @@ class InstallerModelTemplates extends InstallerModel
 	{
 		global $option, $rsgConfig;
 
-		$db = &JFactory::getDBO();
+		$db = JFactory::getDBO();
 
 		$clientInfo =& $rsgConfig->getClientInfo( 'site', true );
 		$client = $clientInfo->name;
@@ -78,7 +78,9 @@ class InstallerModelTemplates extends InstallerModel
 
 			foreach($xmlFilesInDir as $xmlfile)
 			{
-				$data = JApplicationHelper::parseXMLInstallFile($dirName . DS. $xmlfile);
+//				JApplicationHelper::parseXMLInstallFile is deprecated in J3, need to use JInstaller::parseXMLInstallFile instead.			
+//				$data = JApplicationHelper::parseXMLInstallFile($dirName . DS. $xmlfile);
+				$data = JInstaller::parseXMLInstallFile($dirName . DS. $xmlfile);
 
 				$row = new StdClass();
 				$row->id 		= $rowid;

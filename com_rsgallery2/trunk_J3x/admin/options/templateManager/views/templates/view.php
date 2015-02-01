@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id$
+ * @version		$Id: view.php 1011 2011-01-26 15:36:02Z mirjam $
  * @package		RSGallery2
  * @subpackage	Template installer
  * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
@@ -8,7 +8,7 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die();
 
 /**
  * RSGallery2 Template Manager Templates View
@@ -37,8 +37,8 @@ class InstallerViewTemplates extends InstallerViewDefault
 		$items		= &$this->get('Items');
 		$pagination	= &$this->get('Pagination');
 
-		$this->assignRef('items',		$items);
-		$this->assignRef('pagination',	$pagination);
+		$this->items = $items;
+		$this->pagination = $pagination;
 
 		parent::showHeader();
 		parent::display($tpl);
@@ -59,6 +59,10 @@ class InstallerViewTemplates extends InstallerViewDefault
 		}
 		$item->author_information = @$item->authorEmail .'<br />'. @$item->authorUrl;
 
-		$this->assignRef('item', $item);
+		// $this->assignRef('item', $item);
+		//   function assignRef($key, &$val)
+		//      if (is_string($key) && substr($key, 0, 1) != '_')
+		//      	$this->$key = &$val;
+		$this->item = $item;
 	}
 }

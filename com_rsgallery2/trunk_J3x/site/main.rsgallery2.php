@@ -1,13 +1,13 @@
 <?php
 /**
 * Main task switch for RSGallery2
-* @version $Id$
+* @version $Id: main.rsgallery2.php 1085 2012-06-24 13:44:29Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2003 - 2006 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
-defined( '_JEXEC' ) or die( 'Access Denied.' );
+defined( '_JEXEC' ) or die();
 
 /**
  * this is the primary and default function
@@ -18,7 +18,9 @@ function template(){
 	global $rsgConfig;
 
 	//Set template selection
-	$template = preg_replace( '#\W#', '', JRequest::getCmd( 'rsgTemplate', $rsgConfig->get('template') ));
+	//$template = preg_replace( '#\W#', '', JRequest::getCmd( 'rsgTemplate', $rsgConfig->get('template') ));
+	$input =JFactory::getApplication()->input;
+	$template = preg_replace( '#\W#', '', $input->get( 'rsgTemplate', $rsgConfig->get('template'), 'CMD'));
 	$template = strtolower( $template );
 
 	$templateLocation = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template . DS . 'index.php';
@@ -30,7 +32,9 @@ function template(){
 }
 
 function xmlFile(){
-	$template = preg_replace( '#\W#', '', JRequest::getCmd( 'xmlTemplate', 'meta' ) );
+	// $template = preg_replace( '#\W#', '', JRequest::getCmd( 'xmlTemplate', 'meta' ) );
+	$input =JFactory::getApplication()->input;
+	$template = preg_replace( '#\W#', '', $input->get( 'xmlTemplate', 'meta', 'CMD'));	
 	$template = strtolower( $template );
 	
 	// require generic template which all other templates should extend
@@ -40,7 +44,9 @@ function xmlFile(){
 	
 	// prepare and output xml
 	$xmlTemplate = "rsgXmlGalleryTemplate_$template";
-	$xmlTemplate = new $xmlTemplate( rsgInstance::getGallery() );
+	$gallery = rsgGalleryManager::get();
+	// $xmlTemplate = new $xmlTemplate( rsgInstance::getGallery() ); getGallery deprecated
+	$xmlTemplate = new $xmlTemplate( $gallery );
 
 	ob_start();
 	$xmlTemplate->prepare();
@@ -59,7 +65,8 @@ function xmlFile(){
  * to this very important feature!
  * @param int Id of the file to download
  */
-function downloadFile($id) {
+//function downloadFile($id) {
+function downloadFile() {
 	global $rsgConfig;
 	//Clean and delete current output buffer 
 	ob_end_clean();

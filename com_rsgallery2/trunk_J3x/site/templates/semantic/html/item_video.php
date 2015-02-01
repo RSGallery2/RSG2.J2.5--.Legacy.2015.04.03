@@ -1,9 +1,16 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
-JHTML::_('behavior.mootools');
+defined('_JEXEC') or die();
+JHTML::_('behavior.framework', true);
+global $rsgConfig;
 
 $item = $this->currentItem;
-$templatePath = JURI_SITE . "components/com_rsgallery2/templates/". JRequest::getCmd( 'rsgTemplate', $rsgConfig->get('template'));
+
+//$templatePath = JURI_SITE . "components/com_rsgallery2/templates/". 
+//	JRequest::getCmd( 'rsgTemplate', $rsgConfig->get('template'));
+$input = JFactory::getApplication()->input;		
+$PreTemplate = $input->get( 'rsgTemplate', $rsgConfig->get('template'), 'CMD');
+
+$templatePath = JURI_SITE . "components/com_rsgallery2/templates/".$PreTemplate;
 
 $jsSwf = '
 		window.addEvent("domready", function() {
@@ -23,7 +30,7 @@ $jsSwf = '
 		);
 		});';
 
-$doc =& JFactory::getDocument();
+$doc = JFactory::getDocument();
 $doc->addScriptDeclaration($jsSwf);
 $doc->addScript(JURI_SITE . '/components/com_rsgallery2/flash/script/swfobject.js');
 

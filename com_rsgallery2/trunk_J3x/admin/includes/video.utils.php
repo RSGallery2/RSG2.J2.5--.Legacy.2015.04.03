@@ -1,14 +1,16 @@
 <?php
 /**
 * This file handles image manipulation functions RSGallery2
-* @version $Id$
+* @version $Id: video.utils.php 1085 2012-06-24 13:44:29Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2005 - 2010 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
 
-defined( '_JEXEC' ) or die( 'Access Denied' );
+defined( '_JEXEC' ) or die();
+
+require_once( $rsgClasses_path . 'file.utils.php' );
 
 /**
 * Image utilities class
@@ -16,7 +18,7 @@ defined( '_JEXEC' ) or die( 'Access Denied' );
 * @author Jonah Braun <Jonah@WhaleHosting.ca>
 */
 class videoUtils extends fileUtils{
-    function allowedFileTypes(){
+    static function allowedFileTypes(){
 		global $rsgConfig;
 		
 		// check if a converter is configured 
@@ -34,7 +36,7 @@ class videoUtils extends fileUtils{
       * @param string name of original image
       * @return filename of image
       */
-    function getImgNameThumb($name){
+    static function getImgNameThumb($name){
         return $name . '.jpg';
     }
     
@@ -43,16 +45,16 @@ class videoUtils extends fileUtils{
       * @param string name of original image
       * @return filename of image
       */
-    function getImgNameDisplay($name){
+    static function getImgNameDisplay($name){
 		global $rsgConfig;
         return $name . '.' . $rsgConfig->get("videoConverter_extension");
     }
     
-//    function getVideoName($name){
+//    static function getVideoName($name){
 //        return $name . '.flv';
 //    }
     
-//    function getImgPreviewName($name){
+//    static function getImgPreviewName($name){
 //        return $name . '.jpg';
 //    }
     
@@ -66,10 +68,10 @@ class videoUtils extends fileUtils{
      * @todo deleteImage (video)
      * @return returns true if successfull otherwise returns an ImageUploadError
      */
-    function importImage($tmpName, $name, $cat, $title='', $desc='') {
+    static function importImage($tmpName, $name, $cat, $title='', $desc='') {
         global $rsgConfig;
-		$my =& JFactory::getUser();
-		$database =& JFactory::getDBO();
+		$my = JFactory::getUser();
+		$database = JFactory::getDBO();
 
         $destination = fileUtils::move_uploadedFile_to_orignalDir( $tmpName, $name );
         
@@ -78,6 +80,7 @@ class videoUtils extends fileUtils{
 
 		$parts = pathinfo( $destination );
         // fill $imgTitle if empty
+        // ToDO Fix: undefined variable ? not use d an<yhow ? or global ?
         if( $imgTitle == '' ) 
             $imgTitle = substr( $parts['basename'], 0, -( strlen( $parts['extension'] ) + ( $parts['extension'] == '' ? 0 : 1 )));
 
@@ -142,7 +145,7 @@ class videoUtils extends fileUtils{
 					" (title, name, descr, gallery_id, date, ordering, userid, alias) VALUES".
 					" ('$title', '$newName', '$desc', '$cat', now(), '$ordering', '$my->id', '$alias')");
 			
-			if (!$database->query()){
+			if (!$database->execute()){
 				$result = new imageUploadError( $parts['basename'], $database->stderr(true) );
 				break;
 			}
@@ -171,7 +174,7 @@ class genericVideoLib{
      * @return true if successfull, notice and false if error
      * @todo not final yet
      */
-    function convertVideo($source, $target){	
+    static function convertVideo($source, $target){	
 		JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_VIDEO_ABSTRACT_IMAGE_LIB_NO_RESIZE'));
 		return false;
     }
@@ -183,7 +186,7 @@ class genericVideoLib{
      * @return true if successfull, notice and false if error
      * @todo not final yet
      */
-    function capturePreviewImage($source, $target){
+    static function capturePreviewImage($source, $target){
 		JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_VIDEO_ABSTRACT_IMAGE_LIB_NO_RESIZE'));
 		return false;
     }    
@@ -191,7 +194,7 @@ class genericVideoLib{
       * detects if image library is available
       * @return false if not detected, user friendly string of library name and version if detected
       */
-    function detect(){
+    static function detect(){
         return false;
     }
 }
@@ -207,7 +210,7 @@ class Ffmpeg extends genericVideoLib{
      * @return true if successfull, notice and false if error
      * @todo not final yet
      */
-    function convertVideo($source, $target){
+    static function convertVideo($source, $target){
         global $rsgConfig;
         
 		$videoConverter_path = $rsgConfig->get( "videoConverter_path" );
@@ -223,7 +226,7 @@ class Ffmpeg extends genericVideoLib{
 		$cmd = $videoConverter_path . ' ' . $param;
 		$output = array();
 		$return = null;
-		exec($cmd, &$output, &$return);
+		exec($cmd, $output, $return);
 
 		if($return == 0){
 			return true;
@@ -241,7 +244,7 @@ class Ffmpeg extends genericVideoLib{
      * @return true if successfull, notice and false if error
      * @todo not final yet
      */
-    function capturePreviewImage($source, $target){
+    static function capturePreviewImage($source, $target){
         global $rsgConfig;
         
 		$videoConverter_path = $rsgConfig->get( "videoConverter_path" );
@@ -257,7 +260,7 @@ class Ffmpeg extends genericVideoLib{
 		$cmd = $videoConverter_path . ' ' . $param;
 		$output = array();
 		$return = null;
-		exec($cmd, &$output, &$return);
+		exec($cmd, $output, $return);
 
 		if($return == 0){
 			return true;
@@ -272,7 +275,7 @@ class Ffmpeg extends genericVideoLib{
       * detects if image library is available
       * @return false if not detected, user friendly string of library name and version if detected
       */
-    function detect($shell_cmd = '', $output = '', $status = ''){
+    static function detect($shell_cmd = '', $output = '', $status = ''){
 
 		global $rsgConfig;
 		

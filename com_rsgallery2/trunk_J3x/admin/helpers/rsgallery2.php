@@ -1,7 +1,7 @@
 <?php
 /**
 * RSGallery2 Helper
-* @version $Id$
+* @version $Id: rsgallery2.php 1019 2011-04-12 14:16:47Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -22,7 +22,7 @@ class RSGallery2Helper
 	/**
 	 * Gets a list of the actions that can be performed.
 	 *
-	 * @param	int		The gallery ID.
+	 * @param	int	$galleryId	The gallery ID.
 	 * @return	JObject
 	 */
 	public static function getActions($galleryId = 0) {

@@ -16,7 +16,7 @@ class rsgXmlGalleryTemplate_generic{
         $this->gallery = $gallery;
     }
 
-    function getName(){
+    static function getName(){
         return 'generic xml template';
     }
     

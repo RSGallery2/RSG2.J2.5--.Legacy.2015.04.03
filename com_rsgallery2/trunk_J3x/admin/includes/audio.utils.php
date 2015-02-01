@@ -1,14 +1,16 @@
 <?php
 /**
 * This file handles image manipulation functions RSGallery2
-* @version $Id$
+* @version $Id: audio.utils.php 1085 2012-06-24 13:44:29Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2005 - 2010 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
 
-defined( '_JEXEC' ) or die( 'Access Denied' );
+defined( '_JEXEC' ) or die();
+
+require_once( $rsgClasses_path . 'file.utils.php' );
 
 /**
 * Image utilities class
@@ -16,23 +18,24 @@ defined( '_JEXEC' ) or die( 'Access Denied' );
 * @author Jonah Braun <Jonah@WhaleHosting.ca>
 */
 class audioUtils extends fileUtils{
-    function allowedFileTypes(){
+    static function allowedFileTypes(){
         return array('mp3');
     }
 
     /**
      * Takes an image file, moves the file and adds database entry
-     * @param the verified REAL name of the local file including path
-     * @param name of file according to user/browser or just the name excluding path
-     * @param desired category
-     * @param title of image, if empty will be created from $name
-     * @param description of image, if empty will remain empty
-     * @return returns true if successfull otherwise returns an ImageUploadError
+     * @param $tmpName The verified REAL name of the local file including path
+     * @param $name name of file according to user/browser or just the name excluding path
+     * @param $cat desired category
+     * @param string $title title of image, if empty will be created from $name
+     * @param string $desc description of image, if empty will remain empty
+     * @return bool|imageUploadError|string returns true if successfull otherwise returns an ImageUploadError
      */
-    function importImage($tmpName, $name, $cat, $title='', $desc='') {
+
+    static function importImage($tmpName, $name, $cat, $title='', $desc='') {
         global $rsgConfig;
-		$database =& JFactory::getDBO();
-		$my =& JFactory::getUser();
+		$database = JFactory::getDBO();
+		$my = JFactory::getUser();
 
         $destination = fileUtils::move_uploadedFile_to_orignalDir( $tmpName, $name );
         
@@ -62,15 +65,21 @@ class audioUtils extends fileUtils{
                 ' ('.$title.', '.$newName.', '.$desc.', '. (int) $cat.', '.$dateNow.', '. (int) $ordering.', '. (int) $my->id.', '.$alias.')';
         $database->setQuery($query);
         
-        if (!$database->query()){
+        if (!$database->execute()){
 			audioUtils::deleteAudio( $parts['basename'] );
+            // ToDo: 150130 $database->stderr(true) deprecated
             return new imageUploadError( $parts['basename'], $database->stderr(true) );
         }
 
         return true;
     }
-    
-     function getAudio($name, $local=false){
+
+    /**
+     * @param $name
+     * @param bool $local
+     * @return string|void
+     */
+    static function getAudio($name, $local=false){
         global  $rsgConfig;
         
         $locale = $local? JPATH_ROOT : JURI_SITE;
@@ -85,7 +94,7 @@ class audioUtils extends fileUtils{
     
     /**
     * deletes all elements of image on disk and in database
-    * @param string name of image
+    * @param $name string name of image
     * @return true if success or notice and false if error
     */
 	function deleteAudio($name){
@@ -106,7 +115,7 @@ class audioUtils extends fileUtils{
 
 		$query = 'DELETE FROM `#__rsgallery2_files` WHERE `name` = '. $database->quote($name);
         $database->setQuery($query);
-        if( !$database->query()){
+        if( !$database->execute()){
             JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_DATABASE_ENTRY_FOR_IMAGE').": ".$name);
 			return false;
 		}
@@ -115,8 +124,12 @@ class audioUtils extends fileUtils{
         
         return true;
     }
-      
-    function getAudioName($name){
+
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    static function getAudioName($name){
         return $name;
     }
 }

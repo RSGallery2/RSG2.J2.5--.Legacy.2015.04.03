@@ -1,12 +1,12 @@
 <?php 
 /**
  * RSGallery2
- * @version $Id$
+ * @version $Id: thumbs_float.php 1084 2012-06-17 15:25:18Z mirjam $
  * @package RSGallery2
  * @copyright (C) 2003 - 2012 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
-defined('_JEXEC') or die('Restricted access'); ?>
+defined('_JEXEC') or die(); ?>
 
 <?php
 $floatDirection = $rsgConfig->get( 'display_thumbs_floatDirection' );

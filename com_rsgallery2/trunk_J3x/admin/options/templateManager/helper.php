@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id$
+ * @version		$Id: helper.php 1011 2011-01-26 15:36:02Z mirjam $
  * @package		Joomla
  * @subpackage	Menus
  * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
@@ -28,7 +28,7 @@ class InstallerHelper
 	 * @param string $folder
 	 * @return string
 	 */
-	function writable( $folder )
+	static function writable( $folder )
 	{
 		return is_writable( JPATH_ROOT.DS.$folder )
 			? '<strong><span class="writable">'.JText::_( 'COM_RSGALLERY2_WRITABLE' ).'</span></strong>'

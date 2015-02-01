@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id$
+ * @version		$Id: extension.php 1012 2011-02-01 15:13:13Z mirjam $
  * @package		Joomla
  * @subpackage	Installer
  * @copyright	Copyright (C) 2005 - 2011 Open Source Matters. All rights reserved.
@@ -25,7 +25,9 @@ jimport( 'joomla.application.component.model' );
  * @subpackage	Installer
  * @since		1.5
  */
-class InstallerModel extends JModel
+
+// ToDo deprecated: Fix undefined JModel
+class InstallerModel extends JModelLegacy
 {
 	/** @var array Array of installed components */
 	var $_items = array();
@@ -45,7 +47,7 @@ class InstallerModel extends JModel
 		parent::__construct();
 
 		// Set state variables from the request
-		$this->setState('pagination.limit',	$mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int'));
+		$this->setState('pagination.limit',	$mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->get('list_limit'), 'int'));
 		$this->setState('pagination.offset',$mainframe->getUserStateFromRequest('com_rsgallery2_com_installer.limitstart.'.$this->_type, 'limitstart', 0, 'int'));
 		$this->setState('pagination.total',	0);
 	}
@@ -98,7 +100,7 @@ class InstallerModel extends JModel
 		}
 
 		// Get a database connector
-		$db =& JFactory::getDBO();
+		$db = JFactory::getDBO();
 
 		// Get an installer object for the extension type
 		jimport('joomla.installer.installer');

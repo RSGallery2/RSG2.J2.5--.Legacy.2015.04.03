@@ -1,5 +1,7 @@
 <?php
-	defined('_JEXEC') or die('Restricted access');
+	defined('_JEXEC') or die();
+
+global $rsgConfig;
 
 	$item = $this->currentItem;
 	$watermark = $rsgConfig->get('watermark');
@@ -57,7 +59,7 @@
 					?>
 					<img class="rsg2-displayImage" src="<?php echo $imageUrl;?>" alt="<?php echo $item->name; ?>" title="<?php echo $item->name; ?>" />
 			<?php
-			$doc =& JFactory::getDocument();
+			$doc = JFactory::getDocument();
 			$doc->addScriptDeclaration($jsModal);
 			break;
 		}

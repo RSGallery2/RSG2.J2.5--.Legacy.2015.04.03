@@ -1,12 +1,12 @@
 <?php 
 /**
  * RSGallery2
- * @version $Id$
+ * @version $Id: thumbs_table.php 1084 2012-06-17 15:25:18Z mirjam $
  * @package RSGallery2
  * @copyright (C) 2003 - 2012 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
-defined('_JEXEC') or die('Restricted access'); ?>
+defined('_JEXEC') or die(); ?>
 
 <?php
 $cols = $rsgConfig->get( 'display_thumbs_colsPerPage' );
@@ -30,8 +30,6 @@ if ($slideshow) {
 
 		$thumb = $item->thumb();
 
-		
-		
 		if( $i % $cols== 0) echo "<tr>\n";
 		?>
 			<td <?php echo ($item->published) ? "" : "class='system-unpublished'";?>>
