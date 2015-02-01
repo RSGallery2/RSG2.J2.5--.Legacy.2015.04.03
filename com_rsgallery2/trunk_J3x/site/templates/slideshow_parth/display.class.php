@@ -1,15 +1,15 @@
 <?php
 /**
- * @version $Id$
+ * @version $Id: display.class.php 1085 2012-06-24 13:44:29Z mirjam $
  * @package RSGallery2
  * @copyright (C) 2003 - 2011 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
-defined( '_JEXEC' ) or die( 'Restricted Access' );
+defined( '_JEXEC' ) or die( );
 
 /**
  * Slideshow class for RSGallery2
- * Based on Smoothgallery from Johndesign.net
+ * Based on Smoothgallery from Jondesign.net
  * @package RSGallery2
  * @author Ronald Smit <ronald.smit@rsdev.nl>, based on contribution by Parth <parth.lawate@tekdi.net>
  */
@@ -18,7 +18,7 @@ class rsgDisplay_slideshow_parth extends rsgDisplay{
 	var $maxSlideshowWidth;
 
 	function showSlideShow(){
-		global $rsgConfig;
+		// global $rsgConfig;
 		
 		$gallery = rsgGalleryManager::get();
 		
@@ -27,8 +27,8 @@ class rsgDisplay_slideshow_parth extends rsgDisplay{
 			return;
 		
 		$k = 0;
-		$maxSlideshowHeight = 0;
-		$maxSlideshowWidth = 0;
+		$this->maxSlideshowHeight = 0;
+		$this->maxSlideshowWidth = 0;
 		$text = "";
 		foreach ($gallery->items() as $item){
 			if( $item->type != 'image' ) return;
@@ -52,7 +52,10 @@ class rsgDisplay_slideshow_parth extends rsgDisplay{
 			$search[] = '</p>';
 			$replace = ' ';
 			$item->descr = str_replace($search, $replace, $item->descr);
-			$openImageLink = 'index.php?option=com_rsgallery2&page=inline&Itemid='.JRequest::getInt('Itemid').'&id='.$item->id;
+			//$openImageLink = 'index.php?option=com_rsgallery2&page=inline&Itemid='.JRequest::getInt('Itemid').'&id='.$item->id;
+			$input = JFactory::getApplication()->input;
+			$itemId = $input->get( 'Itemid', null, 'INT');					
+			$openImageLink = 'index.php?option=com_rsgallery2&page=inline&Itemid='.$itemId.'&id='.$item->id;
 			
 			$text .= "<div class=\"imageElement\">" .
 					"<h3>$item->title</h3>" .

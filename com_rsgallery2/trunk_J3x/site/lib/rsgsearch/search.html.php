@@ -8,13 +8,13 @@
 * RSGallery is Free Software
 */
 
-defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die();
 
 class html_rsg2_search {
 	
-	function showSearchBox() {
-		$document=& JFactory::getDocument();
-		
+	static function showSearchBox() {
+		$document= JFactory::getDocument();
+
 		if($document->getType() == 'html') {
 			$css = "<link rel=\"stylesheet\" href=\"".JURI_SITE."components/com_rsgallery2/lib/rsgsearch/rsgsearch.css\" type=\"text/css\" />";
 			$document->addCustomTag($css);
@@ -76,7 +76,7 @@ class html_rsg2_search {
 						</a>
 						<p><?php echo galleryUtils::highlight_keywords($match->descr, $searchtext);?></p>
 						<p style="color: #999999;font-size:10px;">
-				[<?php echo JText::_('COM_RSGALLERY2_GALLERY_NAME');?>:<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&gid=".$match->gallery_id);?>"><?php echo $match->name;?></a>]
+							[<?php echo JText::_('COM_RSGALLERY2_GALLERY_NAME');?>:<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&gid=".$match->gallery_id);?>"><?php echo $match->name;?></a>]
 							<?php
 							if ($match->userid > 0) {
 								echo "[".JText::_('COM_RSGALLERY2_OWNER').":&nbsp;".galleryUtils::genericGetUsername($match->userid)."]";

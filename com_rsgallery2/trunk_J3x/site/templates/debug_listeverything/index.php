@@ -7,22 +7,28 @@
 * RSGallery is Free Software
 */
 
-defined( '_JEXEC' ) or die( 'Restricted Access' );
+defined( '_JEXEC' ) or die();
 
 // bring in display code
 $templatePath = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'debug_listeverything';
 require_once( $templatePath . DS . 'display.class.php');
 
+global $mainframe;
 $template_dir = "JURI_SITE/components/com_rsgallery2/templates/debug_listeverything";
 ?>
 <link href="<?php echo $template_dir ?>/css/template.css" rel="stylesheet" type="text/css" />
 <?php
 
-$gid = JRequest::getInt('gid', 0); 
+$input =JFactory::getApplication()->input;		
+//$gid = JRequest::getInt('gid', 0); 
+$gid = $input->get( 'gid', 0, 'INT');	
+
 
 echo JText::_('COM_RSGALLERY2_LISTING_CONTENTS_OF_GALLERIES');
 
-switch(JRequest::getCmd( 'task', 'listEverything' )){
+//switch(JRequest::getCmd( 'task', 'listEverything' )){
+$cmd = $input->get( 'task', 'listEverything', 'CMD');		
+switch( $cmd ) {
 	case 'dumpGallery':
 		dumpGallery( $gid );
 	break;

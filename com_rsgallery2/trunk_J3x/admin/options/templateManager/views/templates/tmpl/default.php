@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id$
+ * @version		$Id: default.php 1012 2011-02-01 15:13:13Z mirjam $
  * @package		RSGallery2
  * @subpackage	Template installer
  * @copyright	Copyright (C) 2005 - 2011 Open Source Matters. All rights reserved.
@@ -50,5 +50,5 @@
 	<input type="hidden" name="option" value="com_rsgallery2" />
 	<input type="hidden" name="rsgOption" value="installer" />
 	<input type="hidden" name="type" value="templates" />
-	<?php echo JHTML::_( 'form.token' ); ?>
+	<?php echo JHtml::_( 'form.token' ); ?>
 </form>

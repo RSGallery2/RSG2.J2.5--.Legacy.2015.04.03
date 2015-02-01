@@ -1744,7 +1744,7 @@ class phpExifReader {
 	/**
 	*
 	*/
-	function string_format($str) {
+	static function string_format($str) {
 		$tmpStr = "";
 
 		for($i=0;$i<strlen($str);$i++) {
@@ -1757,7 +1757,7 @@ class phpExifReader {
     /**
     * Returns time in microseconds
     */
-    function getmicrotime(){
+    static function getmicrotime(){
         list($usec, $sec) = explode(" ",microtime());
         return ((float)$usec + (float)$sec);
     }

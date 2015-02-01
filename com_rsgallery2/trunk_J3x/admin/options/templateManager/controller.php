@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id$
+ * @version		$Id: controller.php 1011 2011-01-26 15:36:02Z mirjam $
  * @package		Joomla
  * @subpackage	Installer
  * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
@@ -25,7 +25,7 @@ jimport('joomla.client.helper');
  * @subpackage	Installer
  * @since		1.5
  */
-class InstallerController extends JController
+class InstallerController extends JControllerLegacy
 {
 	/**
 	 * Display the extension installer form
@@ -36,11 +36,11 @@ class InstallerController extends JController
 	 */
 	function installform()
 	{
-		$model	= &$this->getModel( 'Install' );
-		$view	= &$this->getView( 'Install', '', '', array( 'base_path'=>rsgOptions_installer_path ) );
+		$model	= $this->getModel( 'Install' );
+		$view	= $this->getView( 'Install', '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
-		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
-		$view->assignRef('ftp', $ftp);
+		$ftp    = JClientHelper::setCredentialsFromRequest('ftp');
+		$view->ftp = $ftp;
 		
 		$view->setModel( $model, true );
 		$view->display();
@@ -53,16 +53,17 @@ class InstallerController extends JController
 	 * @return	void
 	 * @since	1.5
 	 */
-	function doInstall()
+	static function doInstall()
 	{
 		// Check for request forgeries
-		JRequest::checkToken() or die( 'Invalid Token' );
-		
+		//JRequest::checkToken() or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
 		$model	= &$this->getModel( 'Install' );
 		$view	= &$this->getView( 'Install' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
-		$view->assignRef('ftp', $ftp);
+		$view->ftp = $ftp;
 		
 		if ($model->install()) {
 			$cache = &JFactory::getCache('mod_menu');
@@ -80,13 +81,13 @@ class InstallerController extends JController
 	 * @return	void
 	 * @since	1.5
 	 */
-	function manage()
+	static function manage()
 	{
 		$model	= &$this->getModel( 'templates' );
 		$view	= &$this->getView( 'templates' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
-		$view->assignRef('ftp', $ftp);
+		$view->ftp = $ftp;
 		
 		$view->setModel( $model, true );
 		$view->display();
@@ -99,14 +100,18 @@ class InstallerController extends JController
 	 * @return	void
 	 * @since	1.5
 	 */
-	function setDefault()
+	static function setDefault()
 	{
 		
 		global $rsgConfig;
 		// Check for request forgeries
-		JRequest::checkToken( 'request' ) or die( 'Invalid Token' );
+		//JRequest::checkToken( 'request' ) or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
+		//$template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
 		
-		$template = JRequest::getVar( 'template' );
 		$rsgConfig->set('template', $template);
 		$rsgConfig->saveConfig();
 		$this->manage();
@@ -120,14 +125,17 @@ class InstallerController extends JController
 	 * @return	void
 	 * @since	1.5
 	 */
-	function remove()
+	static function remove()
 	{
 		global $rsgConfig;
 		
 		// Check for request forgeries
-		JRequest::checkToken() or die( 'Invalid Token' );
-		
-		$template = JRequest::getVar( 'template' );
+		//JRequest::checkToken() or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
+		//$template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
 		
 		if($rsgConfig->template == $template) {
 			JError::raiseWarning( 500, 'Can not delete default template.', "Select an other template and then delete this one." );
@@ -140,7 +148,7 @@ class InstallerController extends JController
 		
 	}
 	
-	function template(){
+	static function template(){
 		switch($this->get('task_type', 'templateGeneral')){
 			
 			case "templateCSS": $this->selectCSS();break;
@@ -157,17 +165,21 @@ class InstallerController extends JController
 	 * @since	RSG 1.5
 	 * @author John Caprez (john@porelaire.com)
 	 */
-	function editTemplate(){
+	static function editTemplate(){
 		// Check for request forgeries
-		JRequest::checkToken() or die( 'Invalid Token' );
-		
+		//JRequest::checkToken() or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
 		$model	= &$this->getModel( 'template' );
 		$view	= &$this->getView( 'template' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
-		$view->assignRef('ftp', $ftp);
+		$view->ftp = $ftp;
 		
-		$template = JRequest::getVar( 'template' );
+		//$template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
+		
 		$model->template = $template;
 		
 		$view->setModel( $model, true );
@@ -181,17 +193,21 @@ class InstallerController extends JController
 	 * @since	RSG 1.5
 	 * @author John Caprez (john@porelaire.com)
 	 */
-	function applyTemplate(){
+	static function applyTemplate(){
 		
 		$model	= &$this->getModel( 'template' );
 		$view	= &$this->getView( 'template' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
-		$view->assignRef('ftp', $ftp);
+		$view->ftp = $ftp;
 		
-		$template = JRequest::getVar( 'template' );
-		$params	= JRequest::getVar('params', array(), 'post', 'array');
+		//$template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
 		
+		//$params	= JRequest::getVar('params', array(), 'post', 'array');
+		$params = $input->post->get( 'params', array(), 'ARRAY');
+
 		$model->set('template', $template);
 		$model->set('params' , $params);
 		$model->update();
@@ -207,12 +223,16 @@ class InstallerController extends JController
 	* @since	RSG 1.5
 	* @author John Caprez (john@porelaire.com)
 	*/
-	function saveTemplate(){
+	static function saveTemplate(){
 		
 		$model	= &$this->getModel( 'template' );
 		
-		$template = JRequest::getVar( 'template' );
-		$params	= JRequest::getVar('params', array(), 'post', 'array');
+		//$template = JRequest::getVar( 'template' );
+		$input = JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
+		
+		//$params	= JRequest::getVar('params', array(), 'post', 'array');
+		$params = $input->post->get( 'params', array(), 'ARRAY');	
 		
 		$model->set('template', $template);
 		$model->set('params' , $params);
@@ -229,17 +249,21 @@ class InstallerController extends JController
 	 * @since	RSG 1.5
 	 * @author John Caprez (john@porelaire.com)
 	 */
-	function selectCss(){
+	static function selectCss(){
 		// Check for request forgeries
-		JRequest::checkToken() or die( 'Invalid Token' );
-		
+		//JRequest::checkToken() or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
 		$model	= &$this->getModel( 'selectCss' );
 		$view	= &$this->getView( 'selectCss' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
-		$view->assignRef('ftp', $ftp);
+		$view->ftp = $ftp;
 		
-		$template = JRequest::getVar( 'template' );
+		//$template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
+		
 		$model->template = $template;
 		
 		$view->setModel( $model, true );
@@ -252,52 +276,71 @@ class InstallerController extends JController
 	* @since	RSG 1.5
 	* @author John Caprez (john@porelaire.com)
 	*/
-	function editCSS(){
+	static function editCSS(){
 		// Check for request forgeries
-		JRequest::checkToken() or die( 'Invalid Token' );
-		
+		//JRequest::checkToken() or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
 		$model	= &$this->getModel( 'editCss' );
 		$view	= &$this->getView( 'editCss' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
-		$view->assignRef('ftp', $ftp);
+		$view->ftp = $ftp;
 		
-		$template = JRequest::getVar( 'template' );
+		//$template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
+		
 		$model->template = $template;
-		$model->filename = JRequest::getVar( 'filename' );
+		//$model->filename = JRequest::getVar( 'filename' );
+		$model->filename = $input->get( 'filename' );
 		
 		$view->setModel( $model, true );
 		$view->display();
 	}
-	function saveCSS()
+	static function saveCSS()
 	{
 		// Check for request forgeries
-		JRequest::checkToken() or die( 'Invalid Token' );
-		
+		//JRequest::checkToken() or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
 		$model	= &$this->getModel( 'editCss' );
-		$model->filename = JRequest::getVar( 'filename' );
-		$model->content = JRequest::getVar('csscontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
-		$model->template = JRequest::getVar( 'template' );
+		//$model->filename = JRequest::getVar( 'filename' );
+		$input =JFactory::getApplication()->input;
+		$model->filename = $input->get( 'filename' );
+		
+		//$model->content = JRequest::getVar('csscontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
+		$model->content = $input->post->get( 'csscontent', RAW);
+		//$model->template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
 		
 		$model->save();
 
 		$this->selectCss();
 	}
-	function applyCSS()
+	static function applyCSS()
 	{
 		// Check for request forgeries
-		JRequest::checkToken() or die( 'Invalid Token' );
-		
+		//JRequest::checkToken() or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
 		$model	= &$this->getModel( 'editCss' );
-		$model->filename = JRequest::getVar( 'filename' );
-		$model->content = JRequest::getVar('csscontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
-		$model->template = JRequest::getVar( 'template' );
+		//$model->filename = JRequest::getVar( 'filename' );
+		$input =JFactory::getApplication()->input;
+		$model->filename = $input->get( 'filename' );
 		
+		//$model->content = JRequest::getVar('csscontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
+		$model->content = $input->post->get( 'csscontent', RAW);
+		//$model->template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
+
 		$model->save();
 		
 		$this->editCSS();
 	}
-	function cancelCSS()
+	static function cancelCSS()
 	{
 		$this->selectCss();
 	}
@@ -309,17 +352,20 @@ class InstallerController extends JController
 	 * @since	RSG 1.5
 	 * @author John Caprez (john@porelaire.com)
 	 */
-	function selectHTML(){
+	static function selectHTML(){
 		// Check for request forgeries
-		JRequest::checkToken() or die( 'Invalid Token' );
-		
+		//JRequest::checkToken() or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
 		$model	= &$this->getModel( 'selectHtml' );
 		$view	= &$this->getView( 'selectHtml' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
-		$view->assignRef('ftp', $ftp);
+		$view->ftp = $ftp;
 		
-		$template = JRequest::getVar( 'template' );
+		//$template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
 		$model->template = $template;
 		
 		$view->setModel( $model, true );
@@ -332,52 +378,71 @@ class InstallerController extends JController
 	* @since	RSG 1.5
 	* @author John Caprez (john@porelaire.com)
 	*/
-	function editHTML() {
+	static function editHTML() {
 		// Check for request forgeries
-		JRequest::checkToken() or die( 'Invalid Token' );
-		
+		//JRequest::checkToken() or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
 		$model	= &$this->getModel( 'editHtml' );
 		$view	= &$this->getView( 'editHtml' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
 		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
-		$view->assignRef('ftp', $ftp);
+		$view->ftp = $ftp;
 		
-		$template = JRequest::getVar( 'template' );
+		//$template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
+		
 		$model->template = $template;
-		$model->filename = JRequest::getVar( 'filename' );
+		//$model->filename = JRequest::getVar( 'filename' );
+		$model->filename = $input->get( 'filename' );
 		
 		$view->setModel( $model, true );
 		$view->display();
 	}
-	function saveHTML()
+	static function saveHTML()
 	{
 		// Check for request forgeries
-		JRequest::checkToken() or die( 'Invalid Token' );
-		
+		//JRequest::checkToken() or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
 		$model	= &$this->getModel( 'editHtml' );
-		$model->filename = JRequest::getVar( 'filename' );
-		$model->content = JRequest::getVar('htmlcontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
-		$model->template = JRequest::getVar( 'template' );
+		//$model->filename = JRequest::getVar( 'filename' );
+		$input =JFactory::getApplication()->input;
+		$model->filename = $input->get( 'filename' );
+
+		//$model->content = JRequest::getVar('htmlcontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
+		$model->content = $input->post->get( 'htmlcontent', RAW);
+		//$model->template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
 		
 		$model->save();
 		
 		$this->selectHTML();
 	}
-	function applyHTML()
+	static function applyHTML()
 	{
 		// Check for request forgeries
-		JRequest::checkToken() or die( 'Invalid Token' );
-		
+		//JRequest::checkToken() or die( 'Invalid Token' );
+        JSession::checkToken() or jexit( 'Invalid Token' );
+
 		$model	= &$this->getModel( 'editHtml' );
-		$model->filename = JRequest::getVar( 'filename' );
-		$model->content = JRequest::getVar('htmlcontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
-		$model->template = JRequest::getVar( 'template' );
+		//$model->filename = JRequest::getVar( 'filename' );
+		$input =JFactory::getApplication()->input;
+		$model->filename = $input->get( 'filename' );
+
+		//$model->content = JRequest::getVar('htmlcontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
+		$model->content = $input->post->get( 'htmlcontent', RAW);
+		//$model->template = JRequest::getVar( 'template' );
+		$input =JFactory::getApplication()->input;
+		$template = $input->get( 'template' );
 		
 		$model->save();
 		
 		$this->editHTML();
 	}
-	function cancelHTML()
+	static function cancelHTML()
 	{
 		$this->selectHTML();
 	}

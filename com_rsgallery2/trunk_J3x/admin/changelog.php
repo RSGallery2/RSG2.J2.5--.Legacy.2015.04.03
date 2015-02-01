@@ -1,7 +1,7 @@
 <?php
 /**
 * Changelog for RSGallery2
-* @version $Id$
+* @version $Id: changelog.php 1096 2012-07-31 11:27:31Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2003 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -9,7 +9,7 @@
 **/
 
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die();
 ?>
 
 Check for the latest version of RSGallery2 at http://www.rsgallery2.nl/
@@ -31,14 +31,258 @@ Legend:
 ! -> Note
 
 
-! To do: Don't install/remove database table #__rsgallery2_acl
-! To do: Backend: Installation of template does not function (yet).
-! To do: find all 'config_' links that don't have rsgOption=config and add it.
-  To do: Delete galleries: create filter in gallery view and check that delete-permission is granted for deleting subgalleries/images. Right now you may delete everything if you have delete permission for the component, even if an item/(sub)gallery doesn't have delete permission.
-  To do: Convert JParameter to JForm http://docs.joomla.org/Adapting_a_Joomla_1.5_extension_to_Joomla_1.6#Converting_Your_JParameters_to_JForms
+! ToDo: Don't install/remove database table #__rsgallery2_acl
+! ToDo: Backend: Installation of template does not function (yet).
+! ToDo: find all 'config_' links that don't have rsgOption=config and add it.
+  ToDo: Delete galleries: create filter in gallery view and check that delete-permission 
+       is granted for deleting subgalleries/images. Right now you may delete everything
+	   if you have delete permission for the component, even if an item/(sub)gallery 
+	   doesn't have delete permission.
+  ToDo: Convert JParameter to (a)
+       JForm http://docs.joomla.org/Adapting_a_Joomla_1.5_extension_to_Joomla_1.6#Converting_Your_JParameters_to_JForms
+	   (b) Own Jparameter file (see below)
+       
+! ToDo: 
+	  ^ Language files in rsgallery2.xml moved according "Language file naming conventions
+		and precedence: www.http://docs.joomla.org/Specification_of_language_files"
+		Example folder path: language/en-GB/en-GB.com_rsgallery2.ini
+		Lang files for backend are just copied from the common ones 
+! ToDo: 
+	  ^ Language files missing
+		language/en-GB/en-GB.com_rsgallery2.sys.ini
+! ToDo: 2014.10.18 
+		Log files only when rsgallery2 debug switch is on (ok) 
+			-> Hint to user that there is one log per day (Missing)
+! ToDo: 2014.10.18 
+		Preparation: Delete chosen "Gallery thumbnail" file by hand. It will bring an error to 
+		back end and front side. Add function in "Consolidate Database which checks and correct this
+! ToDo: 2014.10.20  
+		Batch upload -> internal path 
+			a) field too small
+			b) field where the resulting path is shown
+			c) Improve info: a) general b) hint for standard setup ...
+			d) Test: Does it work for linux and windows installations (XAMPP ? path fails ?)
+			e) Hint for standard input in config 
+! ToDo: 2014.10.20 
+		replace foreign icons like  
+			* includes/js/ThemeOffice/warning.png\
+			* templates/bluestork/images/j_arrow.png
+		with icomoon icons if possible
+! ToDo: 2014.10.21 
+		**Categories** on Control Panel may be renamed to Galleries ??
+! ToDo: 2014.10.22  	
+		Date of image displayed: %11-%06-%2014
+! ToDo: 2014.10.22  
+		General: find all untranslated texts "...", '...'-> convert to constant. Let 
+		Joomla give a list for Translation ...
+! ToDo: 2014.10.27
+		Does the file and structure inside the Templates > templateDetails.xml have to be 
+		updated to 2.5 & 3.x structure to work better (debug_listeverything, meta,
+		semantic, slideshow_parth, slideshow_phatfusion, slideshowone)
+! ToDo: 2014.10.27
+		replace all rsgInstance::getVar with JRequest::get ... and replace these with JInput ... 
+! ToDo: 2014.11.14 *****
+		replace error handling from Joomla
+! ToDo: 2014.11.14 **
+		FIX: Missing parameter chmod , 755 -> directory, ... ???
+		--> if (JClientFtp::chmod( $baseDir . $userfile_name )) {
+! ToDo: 2015.01.02 *****
+		Check for plugin PlgDisplayGallery and PlgDisplaySingle for deprecated functions
+! ToDo: 2015.01.03 **
+		Cancel button in Upload
+! ToDo: 2015.01.06 ******
+		Replace missing header selection possibility *****
+		| Kontrollzentrum | Upload | Stapel-Upload | Bilder | Galerien | 
+		with new side selection (? Pictures ?)
+! ToDo: 2015.01.09 **
+		fix why we can't get the version from $rsgVersion! 
+		function rsgConfig
+		Only one place for version ID -> *.xml 
+! ToDo: 2015.01.15 ***
+		JParameter file: support reading parameters 
+! ToDo: 2015.01.18 *****
+		Check deprecated functions with phpstorm (admit + site)
+! ToDo: 2015.01.18 ****
+		Check all slideshows for working
+! ToDo: 2015.01.18 ***
+		Redesign upload forms 		
+		- one form for all , head register and start button on foot 
+		see joomla standard loading extensions 
+! ToDo: 2015.01.18 ***
+		Make images and galleries form more sortabele (date 
+! ToDo: 2015.01.18 ***
+		mirjam had a change for a user. Privileges for foreign users galleries
+		Search change in forum and take it
+! ToDo: 2015.01.18 ***
+		Add PHP doc to every function   (goal phpstorm no yellow :-(  )
+! ToDo: 2015.01.18 ***
+		Find all "addCustomTag" replace with ???
+! ToDo: 2015.01.30 ***
+		functions with X behind  split_sqlX ? remove or fix deprecated
+! ToDo: 2015.01.30 ***
+		file install.class.php. a lot of functions are marked red
+! ToDo: 2015.01.30 ***		
+		function _buildDataObject() -> pagination 
+		get function is deprecated, revisit function and improved
+! ToDo: 2015.01.30 ***		
+		$database->getErrorMsg() is deprecated. Has a lot of occurences
+! ToDo: 2015.01.30 ******
+		JRequest in instance.class.php multiple times
 
+		
 ---------------- Recent ----------------
 
+
+* --------------- 4.0.3 -- SVN 1131 -- 2015-01-11 -------------
+30.01.2015 finnern
++ Added phpdoc to some functions
++ removed / changed some deprecated functions
+!!! Attention some debug messages still active 
+    in templates/slideshow_phatfusion
+
+* --------------- 4.0.3 -- SVN 1127 -- 2015-01-11 -------------
+
+11.01.2015 finnern
++ Slideshow parth is working
++ Begun with adding PHP doc but may be wrong in some descriptions
++ Changed ... die('Restricted access'); to ... or die();
+	Joomla wants not to give an intruder any information 
++ Adjusted slidshow parth to mootools 1.4.5 (Removed 1.11 files in folder)	
+
+* --------------- 4.0.2 -- SVN 1127 -- 2015-01-11 -------------
+
+11.01.2015 finnern
+# Fixed: FTP upload didn't find given path: The new Joomla 
+    function Jinput replacing Jrequest was deleting the given 
+	path as a backslash at the end and absolute paths are 
+	rejected. The Path is read as raw now
++ Improved layout of main pages. They show now a link to 
+  the other main pages on the left side 
++ Changed order of menus -> 1. configuration, 2. galleries, 
+	3. batch upload, 4. uplaod, 5. images
+
+* --------------- 4.0.1 -- SVN 1126 -- 2015-01-04 -------------
+
+04.01.2015 finnern
+# Fixed: install_ Sql begun with first file
+   Check if version is already set in "_schemas" table
+   Create table #__schema entry for rsgallery if not used before
++ Improved layout of configuration pages
++ tried to improve slideshow parth
+   
+
+* --------------- 4.0.0 -- SVN 1124 -- 2014-10-31 -------------
+
+22.11.2014 finnern
++ Folder Template in site exchanged with tip revision files
+^ Updated mostly on parts in site
+
+
+* --------------- 4.0.0 -- SVN 1124 -- 2014-10-31 -------------
+
+31.10.2014 finnern
+^ Admin: Changes required from checking plugins
+^ Site: Folder template exchanged with version from tip revision
+  ==>  State: Galleries are shown in frontend, slideshow does 
+       not fall down but also does not show anything
+^ Site: Debug text only when debug in rsgallery2 config is selected
+
+
+* --------------- 4.0.0 -- SVN 1123 -- 2014-10-15 -------------
+
+15.10.2014 finnern
++ Removed reference assignments
+* State: Galleries and pictures may be seen on front site
+
+* --------------- 4.0.0 -- SVN 1120 -- 2014-10-12 -------------
+
+
+* --------------- 4.0.0 -- SVN 1121 -- 2014-10-12 -------------
+
+
+* --------------- 4.0.0 -- SVN 1120 -- 2014-10-12 -------------
+12.10.2014 finnern
++ Added old J! 2.5 Jparameter file into project as it is used 
+  but not supported by J! 3.x. Could not fix replacing it 
+  with other code
+- Minor fixes for compatibility with J! 3.x
+
+* --------------- 4.0.0 -- SVN 1119 -- 2014-10-04 -------------
+
+04.10.2014 finnern
+Fixed some errors viewing images in front end. Stil no view possible
+
+* --------------- 4.0.0 -- SVN 1118 -- 2014-10-04 -------------
+2014.05.04 finnern
+Fixed some errors viewing images in front end. Stil no view possible
+
+* --------------- 4.0.0 -- SVN 1118 -- 2014-10-03 -------------
+
+2014.10.03 finnern
+! Backend: Upload files, manage galleries and images is expected to work. Proper testing needed  
+
+* --------------- 4.0.0 -- SVN 1117 -- 2014-10-03 -------------
+
+2014.10.03 whazzup
+following changes occur in folder planB
+
+^ ->redirect with message needs need moved message with command ->enqueueMessage before
+^ JRequest::get needs use of JFactory::getApplication()->input; with $input->get( ..., 'type')
+  !!! Attention: The previous use of the JRequest::get function could not be translated 1:1 . 
+  There is left the feeling that some former used parameter combination are not working !!!
+  Old code is therefore left in the sources commented out
+^ JModel -> JModelLegacy
+^ Added static to function and sometimes removed it again 
+^ Removed assignRef used direct assignment
+^ $row->bind( JRequest::get('post') -> $row->bind( $input->post->getArray()
+^ behavior.mootools -> behavior.framework
+^ Replaced $dbo->loadResultArray() -> $dbo->loadColumn()
++ added file controler.php
++ Activated log file for backend per day 
+
+Revision: 1116
++ This project aims for a complete redevelopment of rsgallery2 with joomla 3 methods and file system.
+It can be installed parallel to an existing rsgallery2 installation on joomla 3
+
+Revision: 1114
+* Next improvements like renaming JURI to Juri ...
+
+Revision: 1113
+- Fixed:     $catid = JRequest::getInt( 'catid', array(0) ); -> 
+* Small changes
+
+Revision: 1112
+* Took File from towardsJ3
++ Installation like J3 wants it see install.rsgallery2.php
+* Added "static" in front of most functions
+* Replaced $database->query with $database->execute
+* Remover references $database = JFactory::getDBO()
+* Replaced JSubMenuHelper with JHtmlSidebar
+* Moved languages
+* 
+--- Known issues:
+* There may be too many "static" before "function"
+* Error on many pages: 
+  Notice: Undefined index: in D:\xampp\htdocs\Joomla3x\administrator\templates\isis\html\message.php on line 24
+  Always near: require_once( 'D:\xampp\htdocs\Joomla3x\administrator\components\com_rsgallery2\rsgallery2.php')
+* Only admin part tested, site untested
+
+
+* --------------- 4.0.0 -- SVN 1109-1111 -- 2014-??-?? -------------
+
+2014.04.01 whazzup
+Improved sql upgrade. It resides in an own folder sql/update now. Updated rsgallery2.xml for it.
+
+Didn't check if all changes do install. Did try to use "sql - upgrade" on other sources though which have worked
+Don't know if "scriptfile" works in rsgallery2.xml for uninstall 
+  <scriptfile>install.rsgallery2.php</scriptfile>
+  <scriptfile>uninstall.rsgallery2.php</scriptfile>
+
+  
+Revision: 1108
+Replaced deprecated $dg->getErrorNum, $db->getErrorMsg() with try catch handling
+  
+  
 * --------------- 3.2.0 -- SVN 1098 -- 2012-07-31 -------------
 
 2012-07-31 Mirjam - SVN 1096
@@ -158,7 +402,7 @@ Legend:
 2012-01-01 Mirjam - SVN 1056
 ! Changes to let RSG2 work on J!2.5 (backwards compatibility issues to be solved in extension):
 ^ Get $task and $option in admin.rsgallery2.php
-^ Get jimport( 'joomla.access.rules' ); where new JRules object is declared
+^ Get jimport( 'joomla.access.rules' ); where new JAccessRules object is declared
 ^ Submenu toolbar (contents of file: toolbar.rsgallery2.php) only executed from backend
 
 2011-12-21 Mirjam - SVN 1055
@@ -230,7 +474,7 @@ Legend:
 
 2011-04-27 Mirjam - SVN 1023
 + Added 2nd Help button for RSG2 ACL information on Control Panel page, only visible to those with core.admin (=configure permission).
-# Use JHtml::_('select.option'... instead of JHTMLSelect::option since "The JHTML widgets are lazily included depending on usage" (http://forum.joomla.org/viewtopic.php?p=1158553#p1158553)
+# Use JHtml::_('select.option'... instead of JHtmlSelect::option since "The JHtml widgets are lazily included depending on usage" (http://forum.joomla.org/viewtopic.php?p=1158553#p1158553)
 # Fixed several "Use of undefined constant"-notices.
 # In select list current parent may not be disabled in selectlist.
 ^ Used 'total' number of items for pagination in My galleries is no longer dependent on owned items, but return all items.
@@ -332,7 +576,7 @@ BACKEND
 + added jimport( 'joomla.html.parameter' ); in init.rsgallery2.php for JParameter
 + Around pageLinks a div with class pagination is needed (or else you’ll just see a bulleted list)
 + For menutree the elements directory is removed and a models/fields/gallery.php is created for a dropdown list where the gallery can be chosen: this adds parameter gid to the URL, so one can choose e.g. the root, with gid 0, or any other gallery. This also involved changes in the views/gallery/tmpl/default.xml.
-+ Added submenu: the submenu no longer appears automatically from the xml file admin submenu items: need  JSubMenuHelper::addEntry
++ Added submenu: the submenu no longer appears automatically from the xml file admin submenu items: need  JHtmlSidebar::addEntry
 ^ Changed reference to #__components table, that no longer exists in J!1.6, to #__extensions table 
 + Started with Backend ACL in JPATH_COMPONENT.'/helpers/ rsgallery2.php'; NOTE J!1.6 ACL is NOT implemented yet!
 
@@ -341,7 +585,7 @@ FRONTEND
 - Removed (legacy) mosToolBar
 ^ Added JToolBar styling to mygalleries.css
 ^ Minor adjustments to CSS
-^ Changed JHTML::_("date", $kid->date,"d-m-Y" ) to JHTML::_("date", $kid->date,JText::_('DATE_FORMAT_LC3')
+^ Changed JHtml::_("date", $kid->date,"d-m-Y" ) to JHtml::_("date", $kid->date,JText::_('DATE_FORMAT_LC3')
 ^ Pathway now working (global $option; replaced by $option = JRequest::getCmd('option');) and adjusted for the fact that subgalleries now also may be menu items.
 ^ With some help of EasyCreator all language strings have been converted: no spaces in keys, keys start with COM_RSGALLERY2_, no punctuation marks in keys; values in double quotes. E.g. COM_RSGALLERY2_KEY=”Value”. Removed redundand keys, or when they have all translations, commented them. Comment sign is a semi-colon ;. Needs to be checked by translators.
 

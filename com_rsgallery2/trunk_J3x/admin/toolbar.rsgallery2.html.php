@@ -1,46 +1,45 @@
 <?php
 /**
 * RSGallery2 Toolbar Menu HTML
-* @version $Id$
+* @version $Id: toolbar.rsgallery2.html.php 1085 2012-06-24 13:44:29Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 **/
 
 // ensure this file is being included by a parent file
-defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die();
 
 class menu_rsg2_submenu{
-	function addRSG2Submenu($rsgOption = '', $task = '') {
+	static function addRSG2Submenu($rsgOption = '', $task = '') {
 
 		//The template manager (still) has its own submenu
 		if (!($rsgOption == 'installer')){
 			//Control Panel
-			JSubMenuHelper::addEntry(
+			JHtmlSidebar::addEntry(
 				JText::_('COM_RSGALLERY2_SUBMENU_CONTROL-PANEL'),
 				'index.php?option=com_rsgallery2',
 		        (($rsgOption=='' AND $task == '' ) OR ($rsgOption == 'config')));
-			//Upload
-			JSubMenuHelper::addEntry(
-				JText::_('COM_RSGALLERY2_SUBMENU_UPLOAD'),
-				'index.php?option=com_rsgallery2&rsgOption=images&task=upload',
-		        $rsgOption=='images' AND $task == 'upload');
-		    //Batch Upload
-			JSubMenuHelper::addEntry(
-				JText::_('COM_RSGALLERY2_SUBMENU_BATCH-UPLOAD'),
-				'index.php?option=com_rsgallery2&rsgOption=images&task=batchupload',
-		        $rsgOption=='images' AND $task == 'batchupload');
-			//Items
-			JSubMenuHelper::addEntry(
-				JText::_('COM_RSGALLERY2_SUBMENU_ITEMS'),
-				'index.php?option=com_rsgallery2&rsgOption=images',
-		        $rsgOption=='images' AND ($task == '' OR $task == 'view_images'));
 		    //Galleries
-			JSubMenuHelper::addEntry(
+			JHtmlSidebar::addEntry(
 				JText::_('COM_RSGALLERY2_SUBMENU_GALLERIES'),
 				'index.php?option=com_rsgallery2&rsgOption=galleries',
 		        $rsgOption=='galleries' AND $task == '');
-
+		    //Batch Upload
+			JHtmlSidebar::addEntry(
+				JText::_('COM_RSGALLERY2_SUBMENU_BATCH-UPLOAD'),
+				'index.php?option=com_rsgallery2&rsgOption=images&task=batchupload',
+		        $rsgOption=='images' AND $task == 'batchupload');
+			//Upload
+			JHtmlSidebar::addEntry(
+				JText::_('COM_RSGALLERY2_SUBMENU_UPLOAD'),
+				'index.php?option=com_rsgallery2&rsgOption=images&task=upload',
+		        $rsgOption=='images' AND $task == 'upload');
+			//Items
+			JHtmlSidebar::addEntry(
+				JText::_('COM_RSGALLERY2_SUBMENU_ITEMS'),
+				'index.php?option=com_rsgallery2&rsgOption=images',
+		        $rsgOption=='images' AND ($task == '' OR $task == 'view_images'));
 		}
 	}
 }
@@ -48,7 +47,7 @@ class menu_rsg2_submenu{
 class menu_rsg2_maintenance{
 	// Only those with core.manage can get here via $rsgOption = maintenance
 	
-	function regenerateThumbs() {
+	static function regenerateThumbs() {
 		// Check if core.admin is allowed
 		$canDo	= Rsgallery2Helper::getActions();
 		if ($canDo->get('core.admin')) {
@@ -61,7 +60,7 @@ class menu_rsg2_maintenance{
 }
 
 class menu_rsg2_images{
-    function upload() {
+    static function upload() {
 		JToolBarHelper::title( JText::_('COM_RSGALLERY2_UPLOAD'), 'generic.png' );
         JToolBarHelper::spacer();
         JToolBarHelper::custom('save_upload','upload.png','upload.png','COM_RSGALLERY2_UPLOAD', false);
@@ -71,8 +70,11 @@ class menu_rsg2_images{
         JToolBarHelper::help( 'screen.rsgallery2',true );
     }
 
-    function show() {
-		$galleryId = JRequest::getInt('gallery_id',0);
+    static function show() {
+	
+		// $galleryId = JRequest::getInt('gallery_id',0);
+		$input =JFactory::getApplication()->input;
+		$galleryId = $input->get( 'gallery_id', 0, 'INT');					
 		$canDo	= Rsgallery2Helper::getActions($galleryId);
 
         JToolBarHelper::title( JText::_('COM_RSGALLERY2_MANAGE_ITEMS'), 'generic.png' );
@@ -89,7 +91,7 @@ class menu_rsg2_images{
 			JToolBarHelper::spacer();
 		}
 		if ($canDo->get('core.edit')) {
-			JToolBarHelper::editListX();
+			JToolBarHelper::editList();///was editListX
 			JToolBarHelper::spacer();
 		}
         if ($canDo->get('core.delete')) {
@@ -103,7 +105,7 @@ class menu_rsg2_images{
         JToolBarHelper::help( 'screen.rsgallery2',true );
     }
     
-    function edit() {
+    static function edit() {
         JToolBarHelper::apply();
 		JToolBarHelper::save();
         JToolBarHelper::spacer();
@@ -112,7 +114,7 @@ class menu_rsg2_images{
         JToolBarHelper::help( 'screen.rsgallery2',true );
     }
     
-    function remove() {
+    static function remove() {
         JToolBarHelper::cancel();
         JToolBarHelper::spacer();
         JToolBarHelper::custom('removeReal','delete_f2.png','','COM_RSGALLERY2_CONFIRM_REMOVAL', false);
@@ -123,7 +125,7 @@ class menu_rsg2_images{
 }
 
 class menu_rsg2_galleries{
-    function show() {
+    static function show() {
 		$canDo	= Rsgallery2Helper::getActions();
 		
 		JToolBarHelper::title( JText::_('COM_RSGALLERY2_MANAGE_GALLERIES'), 'generic.png' );
@@ -134,7 +136,7 @@ class menu_rsg2_galleries{
 			JToolBarHelper::spacer();
 		}
         if ($canDo->get('core.edit')) {
-			JToolBarHelper::editListX();
+			JToolBarHelper::editList();///was editListX (deprecated, see http://docs.joomla.org/Potential_backward_compatibility_issues_in_Joomla_3.0_and_Joomla_Platform_12.1 and https://groups.google.com/forum/#!topic/joomla-dev-general/kMo3fOcOz08
 			JToolBarHelper::spacer();
 		}
         if ($canDo->get('core.delete')) {
@@ -142,13 +144,13 @@ class menu_rsg2_galleries{
 			JToolBarHelper::spacer();
 		}
 		if ($canDo->get('core.create')) {
-			JToolBarHelper::addNewX();
+			JToolBarHelper::addNew();///was addNewX
 			JToolBarHelper::spacer();
 		}
         JToolBarHelper::help( 'screen.rsgallery2' ,true);
     }
 
-    function edit() {
+    static function edit() {
         JToolBarHelper::apply();
 		JToolBarHelper::save();
         JToolBarHelper::spacer();
@@ -157,7 +159,7 @@ class menu_rsg2_galleries{
         JToolBarHelper::help( 'screen.rsgallery2',true );
     }
     
-    function remove() {	//When a gallery is checked and delete is clicked this function is called to confirm removal
+    static function remove() {	//When a gallery is checked and delete is clicked this function is called to confirm removal
         JToolBarHelper::cancel();
         JToolBarHelper::spacer();
         JToolBarHelper::trash('removeReal', JText::_('COM_RSGALLERY2_CONFIRM_REMOVAL'), false);
@@ -168,25 +170,29 @@ class menu_rsg2_galleries{
 
 class menuRSGallery {
 
-    function adminTasksMenuX() {
+    static function adminTasksMenuX() {
     }
     
-    function image_new() {
+    static function image_new() {
         JToolBarHelper::save();
         JToolBarHelper::cancel();
         JToolBarHelper::spacer();
         }
 
-    function image_edit() {
+    static function image_edit() {
         JToolBarHelper::save('save_image');
         JToolBarHelper::cancel('view_images');
         JToolBarHelper::spacer();
         
         }
     
-    function image_batchUpload() {
+    static function image_batchUpload() {
 		JToolBarHelper::title( JText::_('COM_RSGALLERY2_BATCH_UPLOAD'), 'generic.png' );
-        if( JRequest::getBool('uploaded'  , null) )
+		
+        // 140701 original: if( JRequest::getBool('uploaded'  , null) )
+		$input =JFactory::getApplication()->input;
+		$uploaded		= $input->get( 'uploaded', null, 'BOOL');		
+        if( $uploaded )
         	JToolBarHelper::custom('save_batchupload','upload.png','upload.png','COM_RSGALLERY2_UPLOAD', false);
 		else
         	JToolBarHelper::custom('batchupload','forward.png','forward.png','COM_RSGALLERY2_NEXT', false);
@@ -194,20 +200,20 @@ class menuRSGallery {
         JToolBarHelper::help('screen.rsgallery2',true);
         }
     
-    function image_upload() {
+    static function image_upload() {
 		JToolBarHelper::title( JText::_('COM_RSGALLERY2_UPLOAD'), 'generic.png' );
         JToolBarHelper::custom('upload','upload_f2.png','upload_f2.png','COM_RSGALLERY2_UPLOAD', false);
 		JToolBarHelper::custom('upload','forward.png','forward.png','COM_RSGALLERY2_NEXT', false);
         }
     
-    function images_show() {
+    static function images_show() {
         JToolBarHelper::addNew('forward');
         JToolBarHelper::editList('edit_image');
         JToolBarHelper::deleteList( '', 'delete_image', JText::_('COM_RSGALLERY2_DELETE') );
         //menuRSGallery::adminTasksMenu();
         }
         
-    function config_rawEdit() {
+    static function config_rawEdit() {
 		$canDo	= Rsgallery2Helper::getActions();
 
 		if ($canDo->get('core.admin')) {
@@ -218,7 +224,7 @@ class menuRSGallery {
 		}
     }
     
-    function config_dumpVars() {
+    static function config_dumpVars() {
 		$canDo	= Rsgallery2Helper::getActions();
 
 		if ($canDo->get('core.admin')) {
@@ -228,7 +234,7 @@ class menuRSGallery {
 		}
     }
     
-    function config_show() {
+    static function config_show() {
         JToolBarHelper::title( JText::_('COM_RSGALLERY2_CONFIGURATION'), 'generic.png' );
         JToolBarHelper::apply('applyConfig');
         JToolBarHelper::save('saveConfig');
@@ -237,25 +243,25 @@ class menuRSGallery {
         //menuRSGallery::adminTasksMenu();
         }
         
-	function edit_main() {
+	static function edit_main() {
 		JToolBarHelper::save( 'save_main' );
 		JToolBarHelper::spacer();
 		JToolBarHelper::cancel('templates');
 	}
 
-	function edit_thumbs() {
+	static function edit_thumbs() {
 		JToolBarHelper::save( 'save_thumbs' );
 		JToolBarHelper::spacer();
 		JToolBarHelper::cancel('templates');
 	}
 
-	function edit_display() {
+	static function edit_display() {
 		JToolBarHelper::save( 'save_display' );
 		JToolBarHelper::spacer();
 		JToolBarHelper::cancel('templates');
 	}
 
-	function simple(){
+	static function simple(){
 		$user = JFactory::getUser();
 		$canConfigure = $user->authorise('core.admin', 	'com_rsgallery2');
 		
@@ -271,7 +277,7 @@ class menuRSGallery {
 } 
 
 class menu_rsg2_jumploader {
-	function show() {
+	static function show() {
 		JToolBarHelper::title( JText::_('COM_RSGALLERY2_JAVA_UPLOADER'), 'generic.png' );
 		JToolBarHelper::apply('');
 		JToolBarHelper::save('');
@@ -279,7 +285,7 @@ class menu_rsg2_jumploader {
 		JToolBarHelper::help('screen.rsgallery2',true);
 	}
 	
-	function simple() {
+	static function simple() {
 		JToolBarHelper::title( JText::_('COM_RSGALLERY2_JAVA_UPLOADER'), 'generic.png' );
 		JToolBarHelper::help('screen.rsgallery2',true);
 	}

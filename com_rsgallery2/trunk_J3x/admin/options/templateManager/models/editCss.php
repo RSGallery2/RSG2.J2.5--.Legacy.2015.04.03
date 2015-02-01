@@ -48,7 +48,9 @@ class InstallerModelEditCss extends InstallerModel
 		$dir = JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$this->template.DS.'css';
 		$file = $dir .DS. $this->filename;
 
-		$content = JFile::read($file);
+		//$content = JFile::read($ini); J3
+        // ToDo: Fix undefined variable $ini
+		$content = JFile::file_get_contents($ini);
 
 		if ($content == false)
 		{
@@ -57,9 +59,11 @@ class InstallerModelEditCss extends InstallerModel
 		
 		$item = new stdClass();
 		$this->item = $item;
+        //ToDo fix: filename not defined
 		$item->filename = $this->filename;
 		$item->content = $content;
 		$item->path = $file;
+        //ToDo fix: template not defined
 		$item->template = $this->template;
 		
 		return $item;

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id$
+ * @version		$Id: view.php 1011 2011-01-26 15:36:02Z mirjam $
  * @package		RSGallery2
  * @subpackage	Template installer
  * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
@@ -8,7 +8,7 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die();
 
 /**
  * RSGallery2 Template Manager Templates View
@@ -32,11 +32,14 @@ class InstallerViewEditHtml extends InstallerViewDefault
 		JToolBarHelper::cancel( 'cancelHTML');
 		JToolBarHelper::help( 'screen.installerSelectCss' );
 		
-		JRequest::setVar( 'hidemainmenu', 1 );
+		// JRequest::setVar( 'hidemainmenu', 1 );
+		$app = JFactory::getApplication();
+		$input = $app->input;
+		$input->set('hidemainmenu', 1);
 		
 		// Get data from the model
 		$item = &$this->get('Item');
-		$this->assignRef('item', $item);
+		$this->item = $item;
 		
 		parent::showTemplateHeader();
 		parent::display($tpl);

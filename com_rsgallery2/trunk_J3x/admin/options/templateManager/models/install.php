@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id$
+ * @version		$Id: install.php 1011 2011-01-26 15:36:02Z mirjam $
  * @package		Joomla
  * @subpackage	Menus
  * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
@@ -26,7 +26,7 @@ jimport('joomla.installer.helper');
  * @subpackage	Installer
  * @since		1.5
  */
-class InstallerModelInstall extends JModel
+class InstallerModelInstall extends JModelLegacy
 {
 	/** @var object JTable object */
 	var $_table = null;
@@ -50,7 +50,10 @@ class InstallerModelInstall extends JModel
 
 		$this->setState('action', 'install');
 
-		switch(JRequest::getWord('installtype'))
+		// 140701 original: switch(JRequest::getWord('installtype'))
+		$input =JFactory::getApplication()->input;
+		$installtype = $input->get( 'installtype',  '', 'WORD');					
+		switch($installtype)
 		{
 			case 'folder':
 				$package = $this->_getPackageFromFolder();
@@ -77,7 +80,7 @@ class InstallerModelInstall extends JModel
 		}
 
 		// Get a database connector
-		//$db = & JFactory::getDBO();
+		//$db =  JFactory::getDBO();
 
 		// Get an installer instance
 		$installer =& JInstaller::getInstance();
@@ -116,10 +119,12 @@ class InstallerModelInstall extends JModel
 	/**
 	 * @param string The class name for the installer
 	 */
-	function _getPackageFromUpload()
+	static function _getPackageFromUpload()
 	{
 		// Get the uploaded file information
-		$userfile = JRequest::getVar('install_package', null, 'files', 'array' );
+		// $userfile = JRequest::getVar('install_package', null, 'files', 'array' );
+		$input =JFactory::getApplication()->input;
+		$userfile = $input->get('install_package', null, 'FILES'); 
 
 		// Make sure that file uploads are enabled in php
 		if (!(bool) ini_get('file_uploads')) {
@@ -168,10 +173,13 @@ class InstallerModelInstall extends JModel
 	 * @return boolean True on success
 	 * @since 1.0
 	 */
-	function _getPackageFromFolder()
+	static function _getPackageFromFolder()
 	{
+	
 		// Get the path to the package to install
-		$p_dir = JRequest::getString('install_directory');
+		//$p_dir = JRequest::getString('install_directory');
+		$input =JFactory::getApplication()->input;
+		$p_dir = $input->get( 'install_directory', '', 'STRING');
 		$p_dir = JPath::clean( $p_dir );
 
 		// Did you give us a valid directory?
@@ -204,14 +212,16 @@ class InstallerModelInstall extends JModel
 	 * @return boolean True on success
 	 * @since 1.5
 	 */
-	function _getPackageFromUrl()
+	static function _getPackageFromUrl()
 	{
 		// Get a database connector
-		$db = & JFactory::getDBO();
+		$db =  JFactory::getDBO();
 
 		// Get the URL of the package to install
-		$url = JRequest::getString('install_url');
-
+		//$url = JRequest::getString('install_url');
+		$input =JFactory::getApplication()->input;
+		$url = $input->get( 'install_url', '', 'STRING');
+		
 		// Did you give us a URL?
 		if (!$url) {
 			JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_PLEASE_ENTER_A_URL'));

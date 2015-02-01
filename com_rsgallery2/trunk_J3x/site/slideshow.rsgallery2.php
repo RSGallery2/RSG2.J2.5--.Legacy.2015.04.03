@@ -1,14 +1,14 @@
 <?php
 /**
 * This file handles the slideshow processing for RSGallery2.
-* @version $Id$
+* @version $Id: slideshow.rsgallery2.php 1017 2011-03-28 12:09:35Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2003 - 2006 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 **/
 
-defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die();
 global $rsgConfig, $name, $imagepath;
 $imagepath = $rsgConfig->get('imgPath_display'); 
 $k = 0;

@@ -1,13 +1,13 @@
 <?php
 /**
 * This file handles gallery manipulation functions for RSGallery2
-* @version $Id$
+* @version $Id: gallery.manager.php 1085 2012-06-24 13:44:29Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2005 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
-defined( '_JEXEC' ) or die( 'Access Denied.' );
+defined( '_JEXEC' ) or die( );
 
 /**
 * Gallery utilities class
@@ -19,15 +19,19 @@ class rsgGalleryManager{
 	/**
 	 * returns the rsgGallery object with all associated items (one of which is the given item id)
 	 *
-	 * @param id of item
+	 * @param int|null $id id of item
+	 * @return null|rsgGallery
+	 * @throws Exception
 	 */
-	function getGalleryByItemID( $id = null ) {
-		$database =& JFactory::getDBO();
-		$mainframe =& JFactory::getApplication();
+	static function getGalleryByItemID( $id = null ) {
+		$database = JFactory::getDBO();
+		$mainframe = JFactory::getApplication();
 
 		// Make sure that the $id is an integer
 		if( $id === null ){
-			$id = JRequest::getInt( 'id', 0 );
+			//$id = JRequest::getInt( 'id', 0 );
+			$input =JFactory::getApplication()->input;
+			$id = $input->get( 'id', 0, 'INT');					
 		}
 		$query = 'SELECT `gallery_id` FROM `#__rsgallery2_files` WHERE `id` = '. (int) $id;
 
@@ -36,21 +40,25 @@ class rsgGalleryManager{
 		
 		if ($gid) {
 			$rsgGalleryObject = rsgGalleryManager::get( $gid );
-			return $rsgGalleryObject;	
 		} else {
 			// Redirect the user when the id of the gallery is not available
 			$msg = JText::_('COM_RSGALLERY2_REQUESTED_GALLERY_DOES_NOT_EXIST');
-			$mainframe->redirect("index.php",$msg);
+		    $mainframe->enqueueMessage( $msg );
+			$mainframe->redirect("index.php");
+            $rsgGalleryObject = null;
 		}
-	}
+
+        return $rsgGalleryObject;
+    }
 	
 	/**
 	 * Returns an rsgItem_image (or rsgItem_audio) object, which is taken from
 	 * an rsgGallery object and its associated items, based on the given item id.
-	 * @param id of an item
 	 * @deprecated Use rsgGallery->getItem() instead!
-	**/
-	function getItem( $id = null ){
+	 * @param int|null $id
+	 * @return mixed
+	 */
+	static function getItem( $id = null ){
 		$gallery = rsgGalleryManager::get();
 		return $gallery->getItem($id);
 	}
@@ -60,21 +68,30 @@ class rsgGalleryManager{
      * Checks for catid, gid in $_GET if no item id is given, 
      * and if those are not found then checks for (item) id in $_GET 
      * to get gallery id. 
-     * @param id of the gallery
-     */
-	function get( $id = null ){
-		global $rsgConfig;
-		$mainframe =& JFactory::getApplication();
+	 * @param int|null $id
+	 * @return null|rsgGallery
+	 * @throws Exception
+	 */
+	static function get( $id = null ){
+		//global $rsgConfig;
+		$mainframe = JFactory::getApplication();
 		$user	= JFactory::getUser();
 		$groups	= $user->getAuthorisedViewLevels();
 
 		if( $id === null ){
-			$id = JRequest::getInt( 'catid', 0 );
-			$id = JRequest::getInt( 'gid', $id );
+			//$id = JRequest::getInt( 'catid', 0 );
+			$input =JFactory::getApplication()->input;
+			$id = $input->get( 'catid', 0, 'INT');		
+			
+			//$id = JRequest::getInt( 'gid', $id );
+			$id = $input->get( 'gid', $id, 'INT');		
 			
 			if( !$id ){
 				// check if an item id is set and if so return the gallery for that item id
-				if( JRequest::getInt( 'id', 0 ))
+				// 140701 original: if(JRequest::getInt( 'id', 0 ))
+				//$id = JRequest::getInt( 'id', 0 );
+				$id = $input->get( 'id', 0, 'INT');		
+				if($id)
 					return rsgGalleryManager::getGalleryByItemID();
 			}
 		}
@@ -92,7 +109,8 @@ class rsgGalleryManager{
 			if (!($published AND $access)) {
 				if (!$owner) {
 					// "You are not authorised to view this resource."
-					$mainframe->redirect("index.php", JText::_('JERROR_ALERTNOAUTHOR'));
+					$mainframe->enqueueMessage( JText::_('JERROR_ALERTNOAUTHOR') );
+					$mainframe->redirect("index.php");
 				}
 			} 
 		}
@@ -102,26 +120,29 @@ class rsgGalleryManager{
 
     /**
      * returns an array of all images in $parent and sub galleries
-     * @param int id of parent gallery
      * @todo this is a stub, no functionality yet
-     */
-    function getFlatArrayofImages( $parent ){
+	 * @param $parent
+	 * @return bool
+	 */
+    static function getFlatArrayofImages( $parent ){
         return true;
     }
     /**
      * returns an array of all sub galleris in $parent including $parent
-     * @param int id of parent gallery
      * @todo this is a stub, no functionality yet
-     */
-    function getFlatArrayofGalleries( $parent ){
+	 * @param $parent
+	 * @return bool
+	 */
+    static function getFlatArrayofGalleries( $parent ){
         return true;
     }
 
     /**
      * returns an array of galleries from an array of IDs
-     * @param id of the gallery
-     */
-    function getArray( $cid ){
+	 * @param int [] $cid
+	 * @return array
+	 */
+    static function getArray( $cid ){
         $galleries = array();
         
         foreach( $cid as $gid ){
@@ -132,12 +153,14 @@ class rsgGalleryManager{
     
     /**
      * returns an array of galleries: the children of the given gallery that will be shown
-     * @param id of parent gallery
-     */
-    function getList( $parent ){
-        global $rsgConfig;
+	 * @param int $parent id of parent gallery
+	 * @return array|bool
+	 * @throws Exception
+	 */
+    static function getList( $parent ){
+        // global $rsgConfig;
 		$database = JFactory::getDBO();
-		$app =& JFactory::getApplication();
+		$app = JFactory::getApplication();
         if( !is_numeric( $parent )) return false;
 		
 		$user	= JFactory::getUser();
@@ -172,9 +195,10 @@ class rsgGalleryManager{
 
     /**
      * recursively deletes all galleries and subgalleries in array
-     * @param array of gallery ids
-     */
-    function deleteArray( $cid ){
+	 * @param int [] $cid array of gallery ids
+	 * @return bool
+	 */
+    static function deleteArray( $cid ){
 		// delete all galleries and sub galleries
         $galleries = rsgGalleryManager::_getArray( $cid );
 
@@ -189,13 +213,14 @@ class rsgGalleryManager{
 	/**
 	 * Returns an rsgGallery object of the gallery which id was given
 	 * with all associated items
-	 * @param the id of a gallery
-	*/
-	function _get( $gallery ){
+	 * @param int $gallery the id of a gallery
+	 * @return rsgGallery
+	 */
+	static function _get( $gallery ){
 		static $galleries = array();
 
 		if( !isset( $galleries[$gallery] )){
-			$database =& JFactory::getDBO();
+			$database = JFactory::getDBO();
 		
 			if( !is_numeric( $gallery )) die("gallery id is not a number: $gallery");
 			
@@ -222,12 +247,12 @@ class rsgGalleryManager{
     /**
      * return the top level gallery
      * this is a little interesting, because the top level gallery is a pseudo gallery, but we need to create some 
-     * usefull values so that it can be used as a real gallery.
+     * useful values so that it can be used as a real gallery.
      * @todo possibly have the top level gallery be a real gallery in the db.  this obviously needs to be discussed more.
      * @todo are these good defaults?  not sure....
-     * @param rsgGallery object
-     */
-    function _getRootGallery(){
+	 * @return rsgGallery
+	 */
+    static function _getRootGallery(){
         global $rsgConfig;
 
         return new rsgGallery( array(
@@ -252,9 +277,10 @@ class rsgGalleryManager{
     
     /**
      * returns an array of galleries from an array of IDs
-     * @param id of the gallery
-     */
-    function _getArray( $cid ){
+	 * @param int [] $cid array of gallery ids
+	 * @return rsgGallery []
+	 */
+    static function _getArray( $cid ){
         $galleries = array();
         
         foreach( $cid as $gid ){
@@ -265,11 +291,13 @@ class rsgGalleryManager{
 
     /**
      * recursively deletes a tree of galleries
-     * @param id of the gallery
      * @todo this is a quick hack.  galleryUtils and imgUtils need to be reorganized; and a rsgImage class created to do this proper
-     */
-    function _deleteTree( $galleries ){
-		$database =& JFactory::getDBO();
+	 * @param rsgGallery [] $galleries
+	 * @return bool
+	 * @throws Exception
+	 */
+    static function _deleteTree( $galleries ){
+		$database = JFactory::getDBO();
         foreach( $galleries as $gallery ){
             rsgGalleryManager::_deleteTree( $gallery->kids() );
 
@@ -297,5 +325,7 @@ class rsgGalleryManager{
 				}
 			}
 		}
+
+		return true;
 	}
 }

@@ -48,18 +48,24 @@ class InstallerModelEditHtml extends InstallerModel
 		$dir = JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$this->template.DS.'html';
 		$file = $dir .DS. $this->filename;
 		
-		$content = JFile::read($file);
+		//$content = JFile::read($ini); J3
+        // ToDo: Fix undefined variable $ini
+        // ToDo: Fix undefined function file_get_contents
+		$content = JFile::file_get_contents($ini);
 		
 		if ($content == false)
 		{
+            // ToDo deprecated:
 			JError::raiseWarning( 500, JText::sprintf('COM_RSGALLERY2_OPERATION_FAILED_COULD_NOT_OPEN', $client->path.$filename) );
 		}
 		
 		$item = new stdClass();
 		$this->item = $item;
+        // ToDo: Fix undefined variable $filename
 		$item->filename = $this->filename;
 		$item->content = $content;
 		$item->path = $file;
+        // ToDo: Fix undefined variable template
 		$item->template = $this->template;
 		
 		return $item;

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id$
+ * @version		$Id: router.php 1085 2012-06-24 13:44:29Z mirjam $
  * @package		RSGallery2
  * @copyright	Copyright (C) 2005 - 2012 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
@@ -11,13 +11,18 @@
  * See COPYRIGHT.php for copyright notices and details.
  */
 
- /*	- 	avanced SEF logic at the bottom of this file
-	-	not advanced SEF logic:
+ /*	- 	Advanced SEF logic at the bottom of this file
+	-	Not advanced SEF logic:
 		If gid, and it’s not part of a menulink: add ‘gallery’ (category was used <= v2.1.1) and add gid number
 		If id then add ‘item’ and id number
 		If start then add ‘itemPage’ and limitstart value - 1
 		If page then add ‘as’ concatenated with page value
   */
+
+  if(!defined('DS')){
+	define('DS',DIRECTORY_SEPARATOR);
+}
+
  
 function Rsgallery2BuildRoute(&$query) {
 	//Get config values
@@ -37,7 +42,7 @@ function Rsgallery2BuildRoute(&$query) {
 		else {
 			$menuItem = $menu->getItem($query['Itemid']); //Menu item from query
 		}
-		$menuGid	= (empty($menuItem->query['gid'])) ? null : $menuItem->query['gid'];
+		$menuGid	= (empty($menuItem->execute['gid'])) ? null : $menuItem->execute['gid'];
 
 		//if $rsgOption exists (e.g. myGalleries or rsgComments)
 		if (isset($query['rsgOption'])) {
@@ -116,7 +121,7 @@ function Rsgallery2BuildRoute(&$query) {
 		else {
 			$menuItem = $menu->getItem($query['Itemid']); //Menu item from query
 		}
-		$menuGid	= (empty($menuItem->query['gid'])) ? null : $menuItem->query['gid'];
+		$menuGid	= (empty($menuItem->execute['gid'])) ? null : $menuItem->execute['gid'];
 
 		$itemid		= isset($query['Itemid']) ? $query['Itemid'] : null;
 
@@ -218,8 +223,11 @@ function Rsgallery2ParseRoute($segments) {
 		$vars	= array();
 		
 		// Get the active menu item.
-		$menu	= &JSite::getMenu();
-		$item	= &$menu->getActive();
+		//$menu	= JSite::getMenu();
+		$app = JFactory::getApplication();
+		$menu = $app->getMenu();		
+		
+		$item	= $menu->getActive();
 
 		if(!empty($item)){
 			// We only want the gid from the menu-item-link when (this case the menulink refers to a subgallery)
@@ -286,7 +294,7 @@ function Rsgallery2GetGalleryName($gid){
 		$dbo = JFactory::getDBO();
 		$query = 'SELECT `alias` FROM `#__rsgallery2_galleries` WHERE `id`='. (int) $gid;
 		$dbo->setQuery($query);
-		$result = $dbo->query();
+		$result = $dbo->execute();
 		if($dbo->getNumRows($result) != 1){
 			// Gallery alias was not unique or is unknown, use the numeric value instead.
 			$segment = $gid;
@@ -361,10 +369,10 @@ function Rsgallery2GetItemName($id){
 	if($config->get("advancedSef") == true) {
 		$dbo = JFactory::getDBO();
 		$query = 'SELECT `alias` FROM `#__rsgallery2_files` WHERE `id`='. (int) $id;
-		$result = $dbo->query($query);
+		$result = $dbo->execute($query);
 		
 		$dbo->setQuery($query);
-		$result = $dbo->query();
+		$result = $dbo->execute();
 		if($dbo->getNumRows($result) != 1){
 			// Item id not found (or found multiple times?!)
 			$segment = $id;
@@ -392,10 +400,10 @@ function Rsgallery2GetGalleryIdFromItemId($id){
 	// Getch the gallery id (gid) from the database based on the id of an item
 	$dbo = JFactory::getDBO();
 	$query = 'SELECT `gallery_id` FROM `#__rsgallery2_files` WHERE `id`='. (int) $id;
-	$result = $dbo->query($query);
+	$result = $dbo->execute($query);
 	
 	$dbo->setQuery($query);
-	$result = $dbo->query();
+	$result = $dbo->execute();
 	$countRows = $dbo->getNumRows($result);
 	if ($countRows == 1) {
 		// Item id not found (or found multiple times?!)
@@ -409,7 +417,7 @@ function Rsgallery2GetGalleryIdFromItemId($id){
 			//...non unique id in table, should never happen
 			$msg = JText::_('COM_RSGALLERY2_SHOULD_NEVER_HAPPEN');
 		}
-		$app = &JFactory::getApplication();
+		$app = JFactory::getApplication();
 		JFactory::getLanguage()->load("com_rsgallery2");
 		$app->redirect("index.php", $msg);
 	}
@@ -440,17 +448,17 @@ function Rsgallery2GetItemIdFromGalleryIdAndLimitstart($gid,$limitstart){
 		$query->where('`published` = 1');
 	}
 	$query->order('ordering');
-	$result = $dbo->query($query);
+	$result = $dbo->execute($query);
 	$dbo->setQuery($query);
-	$result = $dbo->query();
+	$result = $dbo->execute();
 	$countRows = $dbo->getNumRows($result);
 	if ($countRows > 0) {
-		$column= $dbo->loadResultArray();
+		$column= $dbo->loadColumn();
 		$id = $column[$limitstart];
 	} else {
 		//todo: error //need to have non-zero number of items
 		//Redirect user and display error...
-		$app = &JFactory::getApplication();
+		$app = JFactory::getApplication();
 		JFactory::getLanguage()->load("com_rsgallery2");
 		$app->redirect("index.php", JText::sprintf('COM_RSGALLERY2_COULD_NOT_FIND_IMAGE_BASED_ON_GALLERYID_AND_LIMITSTART', (int) $gid, (int) $limitstart));//todo add to languange file
 	}

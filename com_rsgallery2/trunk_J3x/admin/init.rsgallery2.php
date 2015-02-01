@@ -1,13 +1,17 @@
 <?php
 /**
 * This file handles the initialization required for core functionality.
-* @version $Id$
+* @version $Id: init.rsgallery2.php 1083 2012-06-17 13:03:38Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2003 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
-defined( '_JEXEC' ) or die( 'Access Denied.' );
+defined( '_JEXEC' ) or die();
+
+if(!defined('DS')){
+	define('DS',DIRECTORY_SEPARATOR);
+}
 
 // create global variables in case we are not in the global scope.
 global $rsgConfig, $rsgVersion, $rsgOption, $mainframe ;
@@ -21,13 +25,13 @@ if (!defined('JPATH_RSGALLERY2_ADMIN')){	//might also be defined in router.php i
 define('JPATH_RSGALLERY2_LIBS',JPATH_ROOT. DS . 'components' . DS . 'com_rsgallery2' . DS . 'lib');
 
 $app =JFactory::getApplication();
-define('JURI_SITE', $app->isSite() ? JURI::base() : JURI::root());
+define('JURI_SITE', $app->isSite() ? JUri::base() : JUri::root());
 
 // check if this file has been included yet.
 if( isset( $rsgConfig )) return;
 
 // initialize the rsg config file
-require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'config.class.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/includes/config.class.php');
 $rsgConfig = new rsgConfig();
 
 //Set image paths for RSGallery2
@@ -66,4 +70,5 @@ require_once(JPATH_RSGALLERY2_LIBS . DS . 'rsgvoting' . DS . 'rsgvoting.class.ph
 require_once( $rsgOptions_path . 'images.class.php' );
 
 //Load Joomla library files
-jimport( 'joomla.html.parameter' );		//JParameter
+// deprecated JParameter 
+// jimport( 'joomla.html.parameter' );		//JParameter

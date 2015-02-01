@@ -1,14 +1,14 @@
 <?php
 /**
 * Access Manager Class for RSGallery2
-* @version $Id$
+* @version $Id: access.class.php 1021 2011-04-19 16:32:10Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2005 - 2006 rsgallery2.net
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
 
-defined( '_JEXEC' ) or die( 'Access Denied.' );
+defined( '_JEXEC' ) or die();
 
 /**
 * Access Manager
@@ -78,11 +78,11 @@ class rsgAccess extends JObject{
 */
 	/**
 	 * Returns an array with all permissions for a specific gallery
-	 * @param int Gallery ID
+	 * @param int $gallery_id Gallery ID
 	 * @return array actions as key, permissions as value
 	 */
 /*	function checkGalleryAll($gallery_id) {
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		foreach ($this->actions as $action) {
 			$list[] = rsgAccess::checkGallery($action, $gallery_id);
 		}
@@ -101,7 +101,7 @@ class rsgAccess extends JObject{
 	 */
 /*	function checkGallery($action, $gallery_id ) {
 		global $check;
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		$my =& JFactory::getUser();
 
 		//Check if Access Control is enabled
@@ -160,7 +160,7 @@ class rsgAccess extends JObject{
 	 * @return array gallery permissions
 	 */
 /*	function returnPermissions($id) {
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		$sql = "SELECT * FROM $this->_table WHERE gallery_id = '$id'";
 		$database->setQuery( $sql );
 		$rows = $database->loadObjectList();
@@ -182,7 +182,7 @@ class rsgAccess extends JObject{
 	 * @return array Array with selected gallery_id's
 	 */
 /*	function actionPermitted($action) {
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		$my =& JFactory::getUser();
 //MK// [todo] [In J1.6 usertypes, e.g. public, registered, are deprecated. So we won't check on usertype and for now give everybody the same admin priviliges!!!]		
 		//Check usertype of the logged in user (e.g. Author, Registered, Administrator)
@@ -195,7 +195,7 @@ class rsgAccess extends JObject{
 			// all actions permitted for admin users
 			$sql = "SELECT id FROM #__rsgallery2_galleries ";
 			$database->setQuery( $sql );
-			$galleries = $database->loadResultArray();
+			$galleries = $database->loadColumn();
 /*MK	}
 		else
 		{
@@ -205,14 +205,14 @@ class rsgAccess extends JObject{
 			$sql = "SELECT gallery_id FROM $this->_table WHERE ".$type." = 1";
 				//table #__rsgallery2_acl
 			$database->setQuery($sql);
-			$galleries = $database->loadResultArray();
+			$galleries = $database->loadColumn();
 			
 			// check if user is logged in
 			if( $my->id ){
 				// if so add galleries owned by users to list
 				$sql = "SELECT id FROM #__rsgallery2_galleries WHERE uid = '$my->id'";
 				$database->setQuery( $sql );
-				$galleries = array_merge($galleries, $database->loadResultArray());	
+				$galleries = array_merge($galleries, $database->loadColumn());	
 			}
 		}
 
@@ -227,7 +227,7 @@ class rsgAccess extends JObject{
 	 * @return boolean True if succesfull, false if otherwise
 	 */
 /*	function savePermissions( $perms, $gallery_id ) {
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		
 		//Check if permissions are set, if not, create them
 		if ( rsgAccess::arePermissionsSet($gallery_id) ) {
@@ -244,7 +244,7 @@ class rsgAccess extends JObject{
 			$sql = substr($sql, 0, - 2);
 			$sql .= " WHERE gallery_id = '$gallery_id'";
 			$database->setQuery($sql);
-			if ( $database->query() )
+			if ( $database->execute() )
 				return true;
 			else
 				return false;
@@ -263,14 +263,14 @@ class rsgAccess extends JObject{
 	 * @return boolean True if succesfull, false if not.
 	 */
 /*	function createDefaultPermissions($gallery_id) {
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		$parent_id = galleryUtils::getParentId($gallery_id);
 		
 		$sql = "INSERT INTO $this->_table ".
 			"(gallery_id, parent_id) VALUES ".
 			"('$gallery_id','$parent_id')";
 		$database->setQuery($sql);
-		if ($database->query())
+		if ($database->execute())
 			return true;
 		else
 			return false;
@@ -282,11 +282,11 @@ class rsgAccess extends JObject{
 	 * @return boolean True if succesfull, false if otherwise
 	 */
 /*	function deletePermissions( $gallery_id ) {
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		
 		$sql = "DELETE FROM $this->_table WHERE gallery_id = '$gallery_id'";
 		$database->setQuery($sql);
-		if ($database->query())
+		if ($database->execute())
 			return true;
 		else
 			return false;
@@ -297,11 +297,11 @@ class rsgAccess extends JObject{
 	 * Is called only once from install script on upgrade.
 	 */
 /*	function initializePermissions() {
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		$i = 0;
 		$sql = "SELECT id FROM #__rsgallery2_galleries";
 		$database->setQuery($sql);
-		$row = $database->loadResultArray();
+		$row = $database->loadColumn();
 		if (count($row) < 1) {
 			return false;
 		} else {
@@ -319,11 +319,11 @@ class rsgAccess extends JObject{
 	}*/
 	/**
 	 * Checks if a set of permissions is available for this specific gallery
-	 * @param integer Gallery id
+	 * @param integer $gallery_id Gallery id
 	 * @return boolean True or false
 	 */
 /*	function arePermissionsSet($gallery_id) {
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		$sql = "SELECT COUNT(1) FROM $this->_table WHERE gallery_id = '$gallery_id'";
 		$database->setQuery($sql);
 		$count = $database->loadresult();

@@ -1,9 +1,9 @@
 <?php
 
-defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die();
 /**
  * Class to determine correct mimetype for uploaded files
- * @version $Id$
+ * @version $Id: mimetype.php 1011 2011-01-26 15:36:02Z mirjam $
  * @package RSGallery2
  * @copyright (C) 2003 - 2006 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -47,7 +47,7 @@ class MimeTypes{
 	/**
 		TODO: php4 is terrible.  $mtypes should be a class level static var in php5
 	**/
-	function getMimeType($filename){
+	static function getMimeType($filename){
 		static $mtypes = array(
 	 "ez" => "application/andrew-inset",
 	 "hqx" => "application/mac-binhex40",
@@ -197,7 +197,7 @@ class MimeTypes{
 	   when php properlly detects mime types
 	   this will be a nice security feature
 	**/
-	function futuregetMimeType($filename, $uploadedName){
+	static function futuregetMimeType($filename, $uploadedName){
 		global $mtypes;
 		
 		$parts = pathinfo( $uploadedName );

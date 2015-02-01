@@ -1,11 +1,11 @@
 <?php
 /**
- * @version $Id$
+ * @version $Id: display.class.php 1089 2012-07-09 11:51:28Z mirjam $
  * @package RSGallery2
  * @copyright (C) 2003 - 2012 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
-defined( '_JEXEC' ) or die( 'Restricted Access' );
+defined( '_JEXEC' ) or die();
 
 /**
  * Template class for RSGallery2
@@ -23,14 +23,17 @@ class rsgDisplay_semantic extends rsgDisplay{
 	*/
 	function showMainGalleries() {
 		global $rsgConfig;
-		$app =& JFactory::getApplication();
+		$app = JFactory::getApplication();
 		
-		$gallery =  rsgInstance::getGallery();
+		// $gallery =  rsgInstance::getGallery(); deprecated
+		$gallery = rsgGalleryManager::get();
 		$this->gallery = $gallery;
 		
 		//Get values for page navigation from URL
 		$limit = $app->getUserStateFromRequest("galleryviewlimit", 'limit', $rsgConfig->get('galcountNrs'), 'int');
-		$limitstart = JRequest::getInt( 'limitstart', 0 );
+		//$limitstart = JRequest::getInt( 'limitstart', 0 );
+		$input = JFactory::getApplication()->input;
+		$limitstart = $input->get( 'limitstart', 0, 'INT');					
 		//Get number of galleries including main gallery
 		$this->kids = $gallery->kids();
 		$kidCountTotal = count( $gallery->kids() );
@@ -207,7 +210,9 @@ class rsgDisplay_semantic extends rsgDisplay{
 		$itemCount = $this->gallery->itemCount();
 
 		$limit = $rsgConfig->get("display_thumbs_maxPerPage") ;
-		$limitstart = JRequest::getInt( 'limitstart' );
+		//$limitstart = JRequest::getInt( 'limitstart' );
+		$input = JFactory::getApplication()->input;
+		$limitstart = $input->get( 'limitstart', 0, 'INT');					
 		
 		//instantiate page navigation
 		jimport('joomla.html.pagination');
@@ -256,7 +261,9 @@ class rsgDisplay_semantic extends rsgDisplay{
 	function showItem(){
 		global $rsgConfig;
 		
-		$item = rsgInstance::getItem();
+		// $item = rsgInstance::getItem(); deprecated
+		$gallery = rsgGalleryManager::get();
+		$item = $gallery->getItem();;
 
     	// increase hit counter
 		if (is_object($item)){	//Can this be achieved in a better way? When an item is unpublished (there is no $item object) a user gets a "Call to a member function hit() on a non-object" error without this check. With Joomla SEF we get a Notice "Could not find an image with image id ." (without the id number) and without Joomla SEF we get a blank page?!
@@ -290,7 +297,9 @@ class rsgDisplay_semantic extends rsgDisplay{
 	 */
 	function showDisplayPageNav() {//MK this is where the images are shown with limit=1
 		$gallery = rsgGalleryManager::get();
-		$itemId = JRequest::getInt( 'id', 0 );
+		//$itemId = JRequest::getInt( 'id', 0 );
+		$input = JFactory::getApplication()->input;
+		$itemId = $input->get( 'id', 0, 'INT');					
 		if( $itemId != 0 ){
 			// if the item id is set then we need to set the gid instead
 			// having the id variable set in the querystring breaks the page navigation
@@ -298,8 +307,8 @@ class rsgDisplay_semantic extends rsgDisplay{
 			// i have not found any other way to remove a query variable from the router
 			// JPagination uses the router to build the current route, so removing it from the 
 			// request variables only does not work.
-			$app	= &JFactory::getApplication();
-			$router = &$app->getRouter();
+			$app	= JFactory::getApplication();
+			$router = $app->getRouter();
 
 			$router->setVar('gid',$gallery->id);
 			$router->setVar('id',Null);				//unsets the var id from JRouter
@@ -307,7 +316,9 @@ class rsgDisplay_semantic extends rsgDisplay{
 			// set the limitstart so the pagination knows what page to start from
 			$itemIndex = $gallery->indexOfItem($itemId);
 			$router->setVar("limitstart", $itemIndex);
-			JRequest::setVar('limitstart', $itemIndex);
+			// Todo: 150130
+			// JRequest::setVar('limitstart', $itemIndex);
+			$input->set ('limitstart', $itemIndex);
 		}
 
 		$pageNav = $gallery->getPagination();	
@@ -378,8 +389,10 @@ class rsgDisplay_semantic extends rsgDisplay{
      */
 	function _showDescription( ) {
 		global $rsgConfig;
-		$item = rsgInstance::getItem();
-		
+		// $item = rsgInstance::getItem(); deprecated
+		$gallery = rsgGalleryManager::get();
+		$item = $gallery->getItem();;
+
 		if( $rsgConfig->get('displayHits')):
 		?>
 		<p class="rsg2_hits"><?php echo JText::_('COM_RSGALLERY2_HITS'); ?> <span><?php echo $item->hits; ?></span></p>
@@ -401,7 +414,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 	function _subGalleryList( $parent ){
 		global $rsgConfig;
 		$includeKids = $rsgConfig->get('includeKids',true);
-		$user =& JFactory::getUser();
+		$user = JFactory::getUser();
 		$kids = $parent->kids();
 
 		if( count( $kids ) == 0 ) return;

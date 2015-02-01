@@ -7,7 +7,7 @@
 * RSGallery is Free Software
 */
 
-defined( '_JEXEC' ) or die( 'Restricted Access' );
+defined( '_JEXEC' ) or die( );
 
 // bring in display code
 $templatePath = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'slideshowone';
@@ -15,6 +15,8 @@ require_once( $templatePath . DS . 'display.class.php');
 
 $rsgDisplay = new rsgDisplay_slideshowone();
 
-$rsgDisplay->cleanStart = JRequest::getBool( 'cleanStart' );
+//$rsgDisplay->cleanStart = JRequest::getBool( 'cleanStart' );
+$input =JFactory::getApplication()->input;
+$rsgDisplay->cleanStart	= $input->get( 'cleanStart', null, 'BOOL');		
 
 $rsgDisplay->showSlideShow();

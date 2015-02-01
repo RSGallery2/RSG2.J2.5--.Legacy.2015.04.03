@@ -1,18 +1,18 @@
 <?php
 /**
 * This file contains My galleries class
-* @version $Id$
+* @version $Id: mygalleries.class.php 1085 2012-06-24 13:44:29Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2003 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
 
-defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die();
 
 class myGalleries {
 
-   	function myGalleries() {
+   	static function myGalleries() {
 
    	}
    	
@@ -22,9 +22,9 @@ class myGalleries {
      * @param array Result array with image details (no longer only for logged in users)
      * @param array Result array with pagenav information
      */
-    function viewMyGalleriesPage($rows, $images, $pageNav) {
+    static function viewMyGalleriesPage($rows, $images, $pageNav) {
         global $rsgConfig;
-		$mainframe =& JFactory::getApplication();
+		$mainframe = JFactory::getApplication();
 		$database = JFactory::getDBO();
 		$user = JFactory::getUser();
 
@@ -38,7 +38,7 @@ class myGalleries {
 		//Load My Galleries javascript file after core-uncompressed.js to override its Joomla.submitbutton function
 //		$filename = 'mygalleries.js';
 //		$path = 'components/com_rsgallery2/lib/mygalleries/';
-//		JHTML::script($filename, $path);
+//		JHtml::script($filename, $path);
 		//As long as I'm unable to get JText with .js files working use this function:
 		myGalleries::mygalleriesJavascript();
 		
@@ -56,7 +56,7 @@ class myGalleries {
 		//Is it allowed to create a gallery on the component permission level (e.g. create a gallery with the root (gid = 0) as parent?
 		$createAllowedInRoot = rsgAuthorisation::authorisationCreate(0);
 
-		JHTML::_('behavior.framework',true);
+		JHtml::_('behavior.framework',true);
         // Set My Galleries tabs options
 		$tabOptions = array(
 			'onActive' => 'function(title, description){
@@ -96,12 +96,14 @@ class myGalleries {
         <?php
 	}
 	
-	function showCreateGallery($rows) {
+	static function showCreateGallery($rows) {
 		//This form is only shown when a user is allowed to create a gallery
 		
     	global $rsgConfig;
 		$user = JFactory::getUser();
-		$editor =& JFactory::getEditor();
+		//$editor =& JFactory::getEditor();
+		$editor = JFactory::getConfig()->get('editor'); // name of editor ?
+		$editor = JEditor::getInstance($editor);
 
 		//Script for this form is found in myGalleries::mygalleriesJavascript();
 
@@ -137,7 +139,7 @@ class myGalleries {
 						/* Not used since this gives a problem with Joomla SEF on: routes to http://wwww.mysite/index.php/rsgallery2-menu-item# instead of what is given in the task function
 						//	JToolBarHelper does not exist in the frontend, using JToolBar here
 						jimport( 'joomla.html.toolbar' );
-						$bar =& new JToolBar( 'MyGalleriesToolBar' );
+						$bar = new JToolBar( 'MyGalleriesToolBar' );
 						//appendButton: button type, class, display text on button, task, bool: selection from adminlist?
 						$bar->appendButton( 'Standard', 'save', 'Save', 'createGallery.saveCat', false );
 						$bar->appendButton( 'Standard', 'cancel', 'Cancel', 'createGallery.cancel', false );
@@ -185,9 +187,11 @@ class myGalleries {
 			</table>
 			<input type="hidden" name="task" value="" />
 			<input type="hidden" name="option" value="com_rsgallery2" />
-			<input type="hidden" name="rsgOption" value="<?php echo JRequest::getCmd('rsgOption'); ?>" />
-			<input type="hidden" name="Itemid" value="<?php echo JRequest::getInt('Itemid'); ?>" />
-			<?php echo JHTML::_('form.token'); ?>
+			<!--input type="hidden" name="rsgOption" value="< ? php echo JRequest::getCmd('rsgOption'); ? >" / -->
+			<input type="hidden" name="rsgOption" value="<?php echo JFactory::getApplication()->input->get( 'rsgOption', '', CMD); ?>" />
+			<!--input type="hidden" name="Itemid" value="< ?php echo JRequest::getInt('Itemid'); ? >" /-->
+			<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get( 'Itemid', 0, INT); ?>" />
+			<?php echo JHtml::_('form.token'); ?>
         </form>
         <?php
 	}
@@ -196,7 +200,7 @@ class myGalleries {
 	* Displays details about the logged in user and the privileges he/she has
 	* $param integer User ID from Joomla user table
 	*/
-	function RSGalleryUserInfo($id) {
+	static function RSGalleryUserInfo($id) {
 		global $rsgConfig;
 		$user = JFactory::getUser();
 		$maxcat = $rsgConfig->get('uu_maxCat');
@@ -224,10 +228,12 @@ class myGalleries {
 		<?php
 	}
 	
-	function showImageUpload() {
+	static function showImageUpload() {
         global $rsgConfig;
 		$my = JFactory::getUser();
-		$editor = JFactory::getEditor();
+		//$editor = JFactory::getEditor();
+		$editor = JFactory::getConfig()->get('editor'); // name of editor ?
+		$editor = JEditor::getInstance($editor);
 
 		//function showImageUpload should only be called when user has create permission for one or more galleries
         
@@ -235,7 +241,7 @@ class myGalleries {
         ?>
 
         <form name="imgUpload" id="imgUpload" method="post" action="
-<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=saveUploadedItem"); ?>" enctype="multipart/form-data">
+        <?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=saveUploadedItem"); ?>" enctype="multipart/form-data">
 		<div class="rsg2">
         <table class="adminlist">
             <tr>
@@ -294,7 +300,7 @@ class myGalleries {
         </div>
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="option" value="com_rsgallery2" />
-		<?php echo JHTML::_('form.token'); ?>
+		<?php echo JHtml::_('form.token'); ?>
 		</form>
         <?php
 	}
@@ -451,9 +457,11 @@ class myGalleries {
      * This presents the list of galleries shown in My galleries
      * @param array $rows All galleries (no longer only for logged in users)
      */
-    function showMyGalleries($rows) {
+    static function showMyGalleries($rows) {
 		$database = JFactory::getDBO();
-		$Itemid = JRequest::getInt('Itemid');
+		//$Itemid = JRequest::getInt('Itemid');
+		$input =JFactory::getApplication()->input;
+		$Itemid = $input->get( 'Itemid', 0, 'INT');		
 		//Set variables
 		$count = count($rows);
 		$user = JFactory::getUser();
@@ -603,12 +611,17 @@ class myGalleries {
      * @param array Result array with image details for the logged in users
      * @param array Result array with pagenav details
      */
-    function showMyImages($images, $pageNav) {
-        JHTML::_('behavior.tooltip');
-		$option = JRequest::getCmd('option');
-		$rsgOption = JRequest::getCmd('rsgOption');
-		$Itemid = JRequest::getInt('Itemid');
-		$limit = JRequest::getInt('limit');
+    static function showMyImages($images, $pageNav) {
+        JHtml::_('behavior.tooltip');
+		$input =JFactory::getApplication()->input;
+		//$option = JRequest::getCmd('option');
+		$option = $input->get( 'option', '', 'CMD');
+		//$rsgOption = JRequest::getCmd('rsgOption');
+		$rsgOption = $input->get( 'rsgOption', null, 'CMD');		
+		//$Itemid = JRequest::getInt('Itemid');
+		$Itemid = $input->get( 'Itemid', 0, 'INT');		
+		//$limit = JRequest::getInt('limit');
+		$limit = $input->get( 'limit', 0, 'INT');		
 		$user = JFactory::getUser();
 		$userId = $user->id;
 		jimport( 'joomla.html.html.grid' );
@@ -662,7 +675,7 @@ class myGalleries {
 				
 				<?php
 				for ($i=0, $n=count( $images ); $i < $n; $i++) {
-					$image = &$images[$i];
+					$image = $images[$i];
 				//foreach ($images as $image) {
 					global $rsgConfig;
 					//Get permissions
@@ -677,7 +690,7 @@ class myGalleries {
 							if ($image->checked_out) {
 								$image->editor = JFactory::getUser($image->checked_out)->get('username');
 							} 
-							$checked 	= JHTML::_('grid.checkedout', $image, $i );
+							$checked 	= JHtml::_('grid.checkedout', $image, $i );
 							echo $checked;
 							?>
 						</td>
@@ -686,13 +699,13 @@ class myGalleries {
 							//Tooltip with or without link
 							if ($can['EditImage']){
 								//tooltip: tip, tiptitle, tipimage, tiptext, url, depreciated bool=1 (@todo: this link has two // in it between root and imgPath_thumb)
-								echo JHTML::tooltip('<img src="'.JURI::root().$rsgConfig->get('imgPath_thumb').'/'.$image->name.'.jpg" alt="'.$image->name.'" />',
+								echo JHtml::tooltip('<img src="'.JUri::root().$rsgConfig->get('imgPath_thumb').'/'.$image->name.'.jpg" alt="'.$image->name.'" />',
 								$image->name,
 								JURI_SITE."components/com_rsgallery2/images/notice-info_19.png",
 								'',
 								"index.php?option=com_rsgallery2&Itemid=".$Itemid."&rsgOption=myGalleries&task=editItem&id=".$image->id);
 								} else {
-								echo JHTML::tooltip('<img src="'.JURI::root().$rsgConfig->get('imgPath_thumb').'/'.$image->name.'.jpg" alt="'.$image->name.'" />',
+								echo JHtml::tooltip('<img src="'.JUri::root().$rsgConfig->get('imgPath_thumb').'/'.$image->name.'.jpg" alt="'.$image->name.'" />',
 								$image->name,
 								JURI_SITE."components/com_rsgallery2/images/notice-info_19.png", '', '', '');
 							}
@@ -798,10 +811,12 @@ class myGalleries {
 		<?php
     }
     
-    function editItem($rows) {
+    static function editItem($rows) {
         global $rsgConfig;
 		$my = JFactory::getUser();
-		$editor = JFactory::getEditor();
+		//$editor = JFactory::getEditor();
+		$editor = JFactory::getConfig()->get('editor'); // name of editor ?
+		$editor = JEditor::getInstance($editor);
 
         foreach ($rows as $row) {
             $filename       = $row->name;
@@ -896,9 +911,12 @@ class myGalleries {
 			<input type="hidden" name="id" 		value="<?php echo $id; ?>" />
 			<input type="hidden" name="task" 	value="" />
 			<input type="hidden" name="option" 	value="com_rsgallery2>" />
-			<input type="hidden" name="Itemid"	value="<?php echo JRequest::getInt('Itemid'); ?>" />
-			<input type="hidden" name="rsgOption"	value="<?php echo JRequest::getCmd('rsgOption'); ?>" />
-			<?php echo JHTML::_('form.token'); ?>
+			<!-- input type="hidden" name="Itemid" value="<?php echo JRequest::getInt('Itemid'); ?>" / -->
+			<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get( 'Itemid', 0, INT); ?>" />
+			<!-- input type="hidden" name="rsgOption" value="<?php echo JRequest::getCmd('rsgOption'); ?>" / -->
+			<input type="hidden" name="rsgOption" value="<?php echo JFactory::getApplication()->input->get( 'rsgOption', '', CMD); ?>" />
+			
+			<?php echo JHtml::_('form.token'); ?>
         </form>
         <?php
     }
@@ -906,7 +924,9 @@ class myGalleries {
 function editCat($rows = null) {
     global $rsgConfig;
 	$my = JFactory::getUser();
-	$editor =& JFactory::getEditor();
+	//$editor =& JFactory::getEditor();
+	$editor = JFactory::getConfig()->get('editor'); // name of editor ?
+	$editor = JEditor::getInstance($editor);
 
 	//IE has a bug for 'disabled' options in a select box. Fix used from http://www.lattimore.id.au/2005/07/01/select-option-disabled-and-the-javascript-solution/
 ?>	<!--[if lt IE 8]>
@@ -1010,7 +1030,7 @@ function editCat($rows = null) {
         <input type="hidden" name="ordering" value="<?php echo $ordering; ?>" />
 		<input type="hidden" name="task" 	value="" />
 		<input type="hidden" name="option" 	value="com_rsgallery2>" />
-		<?php echo JHTML::_('form.token'); ?>
+		<?php echo JHtml::_('form.token'); ?>
         </table>
 	</form>
         <?php
@@ -1021,7 +1041,9 @@ function editCat($rows = null) {
  * toolbarbutton sends information in formname.task format.
  */
 function mygalleriesJavascript() {
-	$editor =& JFactory::getEditor();
+	//$editor =& JFactory::getEditor();
+	$editor = JFactory::getConfig()->get('editor'); // name of editor ?
+	$editor = JEditor::getInstance($editor);	
 	?>
 	<script type="text/javascript">
 	Joomla.submitbutton = function(formTask) {
@@ -1100,7 +1122,7 @@ function mygalleriesJavascript() {
 	* $level	Hierarchy level (e.g. sub gallery of root is level 1)
 	* return	Array
 	*/
-	function recursiveGalleriesList(){
+	static function recursiveGalleriesList(){
 		global $rsgConfig;
 		$user = JFactory::getUser();
 		$groups	= $user->getAuthorisedViewLevels();
@@ -1124,7 +1146,7 @@ function mygalleriesJavascript() {
 		}
 		
 		// Get a list of all galleries (id/parent) ordered by parent/ordering
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		$query = $database->getQuery(true);
 		$query->select('*');
 		$query->from('#__rsgallery2_galleries');

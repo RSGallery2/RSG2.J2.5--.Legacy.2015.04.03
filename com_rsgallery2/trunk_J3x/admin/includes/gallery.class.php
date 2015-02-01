@@ -1,13 +1,13 @@
 <?php
 /**
 * This file contains the class representing a gallery.
-* @version $Id$
+* @version $Id: gallery.class.php 1085 2012-06-24 13:44:29Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2005 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
-defined( '_JEXEC' ) or die( 'Access Denied.' );
+defined( '_JEXEC' ) or die();
 
 /**
 * Class representing a gallery.
@@ -111,12 +111,12 @@ class rsgGallery extends JObject{
 	 * @todo rewrite the sql to use better date features
 	 */
 	function hasNewImages($days = 7){
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		$lastweek  = mktime (0, 0, 0, date("m"),    date("d") - $days, date("Y"));
 		$lastweek = date("Y-m-d H:m:s",$lastweek);
 		$query = 'SELECT * FROM `#__rsgallery2_files` WHERE `date` >= '. $database->quote($lastweek). ' AND `gallery_id` = '. (int) $this->id .' AND `published` = 1';
 		$database->setQuery($query);
-		$database->query();
+		$database->execute();
 		return (bool) $database->getNumRows();
 	}
 	
@@ -125,7 +125,7 @@ class rsgGallery extends JObject{
 	*/
 	function itemCount(){
 		if( $this->_itemCount === null ){
-			$db =& JFactory::getDBO();
+			$db = JFactory::getDBO();
 			
 			$gid = $this->id;
 
@@ -171,11 +171,14 @@ class rsgGallery extends JObject{
 		if( $this->_itemRows === null ){
 
 			global $rsgConfig;
-			$my =& JFactory::getUser();
-			$database =& JFactory::getDBO();
+			$my = JFactory::getUser();
+			$database = JFactory::getDBO();
 		
-			$filter_order = JRequest::getWord( 'filter_order',  $rsgConfig->get("filter_order") );
-			$filter_order_Dir = JRequest::getWord( 'filter_order_Dir', $rsgConfig->get("filter_order_Dir"));
+			//$filter_order = JRequest::getWord( 'filter_order',  $rsgConfig->get("filter_order") );
+			$input =JFactory::getApplication()->input;
+			$filter_order = $input->get( 'filter_order',  $rsgConfig->get("filter_order"), 'WORD');					
+			//$filter_order_Dir = JRequest::getWord( 'filter_order_Dir', $rsgConfig->get("filter_order_Dir"));
+			$filter_order_Dir = $input->get( 'filter_order_Dir',  $rsgConfig->get("filter_order_Dir"), 'WORD');					
 	
 			$where = ' WHERE `gallery_id` = '. (int) $this->get('id');
 
@@ -226,8 +229,11 @@ class rsgGallery extends JObject{
 		if( $length == 0 )
 			return $this->items; // 0 means display all
 
-		$current = $this->indexOfItem(JRequest::getInt( 'id', 0 ));
-		$current = JRequest::getInt( 'limitstart', $current );
+		$input =JFactory::getApplication()->input;
+		//$current = $this->indexOfItem(JRequest::getInt( 'id', 0 ));
+		$current = $input->get( 'id', 0, 'INT');		
+		//$current = JRequest::getInt( 'limitstart', $current );
+		$current = $input->get( 'limitstart', $current, 'INT');		
 		
 		// calculate page from current position
 		$start =  floor($current  / $length) * $length;
@@ -247,7 +253,6 @@ class rsgGallery extends JObject{
 	}
 
 	
-	
 	/**
 	*  returns item by it's db id
 	*/
@@ -259,19 +264,24 @@ class rsgGallery extends JObject{
 		if( $id !== null )
 			return $this->items[$id];
 
-		$id = JRequest::getInt( 'id', null );
+		//$id = JRequest::getInt( 'id', null );
+		$input =JFactory::getApplication()->input;
+		$id = $input->get( 'id', null, 'INT');		
 		if( $id !== null )
 			return $this->items[$id];
 			
-		$id = JRequest::getInt( 'limitstart', 0 );
-		return array_pop(array_slice($this->items, $id, 1));
-
+		//$id = JRequest::getInt( 'limitstart', 0 );
+		$id = $input->get( 'limitstart', 0, 'INT');
+        $arr = array_slice($this->items, $id, 1);
+		return array_pop($arr);
 	}
 	
 	function indexOfItem($id = null){
 	
 		if( $id === null ){
-			$id = JRequest::getInt( 'id', null );
+			// $id = JRequest::getInt( 'id', null );
+			$input =JFactory::getApplication()->input;
+			$id = $input->get( 'id', null, 'INT');		
 			if( $id === null ){
 				return 0;
 			}
@@ -315,10 +325,10 @@ class rsgGallery extends JObject{
 	function hit(){
 		$query = 'UPDATE `#__rsgallery2_galleries` SET `hits` = hits + 1 WHERE `id` = '. (int) $this->id;
 
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		$database->setQuery( $query );
 		
-		if( !$database->query() ) {
+		if( !$database->execute() ) {
 // 			$this->setError( $db->getErrorMsg() );
 			return false;
 		}
@@ -338,7 +348,12 @@ class rsgGallery extends JObject{
 		if (empty($this->_pagination))
 		{
 			jimport('joomla.html.pagination');
-			$this->_pagination = new JPagination( $this->itemCount(), JRequest::getInt( 'limitstart', 0 ), JRequest::getInt( 'limit', 1 ) );
+			$input =JFactory::getApplication()->input;
+			//$limitstart = JRequest::getInt( 'limitstart', 0 );
+			$limitstart = $input->get( 'limitstart', 0, 'INT');					
+			//$limit = JRequest::getInt( 'limit', 1 ) ;
+			$limit = $input->get( 'limit', 1, 'INT');					
+			$this->_pagination = new JPagination( $this->itemCount(), $limitstart, $limit);
 		}
 
 		return $this->_pagination;
@@ -388,7 +403,7 @@ class rsgGallery extends JObject{
 	 * @param int $length Length
 	 * @return array
 	 */
-	function array_slice_preserve_keys($array, $offset, $length = null)
+	static function array_slice_preserve_keys($array, $offset, $length = null)
 	{
 		// PHP >= 5.0.2 is able to do this itself
 		if(version_compare(phpversion(),"5.0.2",">="))
@@ -418,16 +433,20 @@ class rsgGallery extends JObject{
 		return($result);
 	}
 
-	function explode_assoc($glue1, $glue2, $array)
+	static function explode_assoc($glue1, $glue2, $array)
 	{
-	  $array2=explode($glue2, $array);
-	  foreach($array2 as  $val)
-	  {
-				$pos=strpos($val,$glue1);
-				$key=substr($val,0,$pos);
-				$array3[$key] =substr($val,$pos+1,strlen($val));
-	  }
-	  return $array3;
+        //$array3 = []; // 141031 thomas
+        //$array3 = (); // 141031 thomas
+
+        $array2=explode($glue2, $array);
+        foreach($array2 as  $val)
+        {
+            $pos=strpos($val,$glue1);
+            $key=substr($val,0,$pos);
+            $array3[$key] =substr($val,$pos+1,strlen($val));
+        }
+
+	    return $array3;
 	}
 
 }

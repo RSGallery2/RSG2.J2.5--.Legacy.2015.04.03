@@ -1,7 +1,7 @@
 <?php
 /**
 * category class
-* @version $Id$
+* @version $Id: galleries.class.php 1049 2011-11-08 13:57:16Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2005 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -9,7 +9,7 @@
 **/
 
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die();
 
 /**
 * Category database table class
@@ -47,7 +47,7 @@ class rsgGalleriesItem extends JTable {
      * overloaded check function 
      */
     function check() {
-		$db =& JFactory::getDBO();
+		$db = JFactory::getDBO();
         // filter malicious code
         $ignoreList = array( 'params','description' );
 		
@@ -107,7 +107,7 @@ class rsgGalleriesItem extends JTable {
 	 *
 	 * @return      int
 	 */
-	protected function _getAssetParentId() {
+	protected function _getAssetParentId(JTable $table = null, $id = null) {
 		// Initialise variables
 		$assetId = null;
 		$db		= $this->getDbo();	//$this is the rsgGalleriesItem object
@@ -149,7 +149,7 @@ class rsgGalleriesItem extends JTable {
  * @return HTML Selectlist
  */
 function galleryParentSelectList( &$row ) {
-    $database =& JFactory::getDBO();
+    $database = JFactory::getDBO();
 
     $id = '';
     if ( $row->id ) {
@@ -182,7 +182,7 @@ function galleryParentSelectList( &$row ) {
     }
 
     // second pass - get an indent list of the items
-    $list = JHTML::_('menu.treerecurse', 0, '', array(), $children, 9999, 0, 0 );
+    $list = JHtml::_('menu.treerecurse', 0, '', array(), $children, 9999, 0, 0 );
 
     // assemble menu items to the array
     $mitems     = array();
@@ -192,18 +192,18 @@ function galleryParentSelectList( &$row ) {
 	}
 
     foreach ( $list as $item ) {
-		//[hack] [the original treename holds &#160; as a non breacking space for subgalleries, but JHTMLSelect::option cannot handle that, nor &nbsp;] 
+		//[hack] [the original treename holds &#160; as a non breacking space for subgalleries, but JHtmlSelect::option cannot handle that, nor &nbsp;] 
     	$item->treename = str_replace  ( '&#160;&#160;'  ,  '...' ,  $item->treename  ); 
 		//Check create permission for each possible parent
 		$canCreateInParentGallery = JFactory::getUser()->authorise('core.create', 'com_rsgallery2.gallery.'.$item->id);
 		//Get the allowed parents and the current parent
 		if (($canCreateInParentGallery) OR ($row->parent == $item->id)) {
-			$mitems[] = JHTML::_('select.option', $item->id, '...'. $item->treename);
+			$mitems[] = JHtml::_('select.option', $item->id, '...'. $item->treename);
 		}
     }
     
-//genericlist(array of objects, value of HMTL name attribute, additional HTML attributes for <select> tag, name of objectvarialbe for the option value, name of objectvariable for option text, key that is selected,???,???)
-    $output = JHTML::_("select.genericlist", $mitems, 'parent', 'class="inputbox" size="10"', 'value', 'text', $row->parent );
+	//genericlist(array of objects, value of HMTL name attribute, additional HTML attributes for <select> tag, name of objectvarialbe for the option value, name of objectvariable for option text, key that is selected,???,???)
+    $output = JHtml::_("select.genericlist", $mitems, 'parent', 'class="inputbox" size="10"', 'value', 'text', $row->parent );
 
     return $output;
 }
@@ -214,10 +214,10 @@ function galleryParentSelectList( &$row ) {
  * @return array Array with Gallery ID's from children
  */
 function subList( $gallery_id ) {
-	$database =& JFactory::getDBO();
+	$database = JFactory::getDBO();
 	$sql = "SELECT id FROM #__rsgallery2_galleries WHERE parent = '$gallery_id'";
 	$database->setQuery( $sql );
-	$result = $database->loadResultArray();
+	$result = $database->loadColumn();
 	if (count($result) > 0)
 		return result;
 	else

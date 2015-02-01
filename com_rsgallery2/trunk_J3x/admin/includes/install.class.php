@@ -1,7 +1,7 @@
 <?php
 /**
 * This file contains the install class for RSGallery2
-* @version $Id$
+* @version $Id: install.class.php 1088 2012-07-05 19:28:28Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -9,14 +9,44 @@
 */
 
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die();
+
+if(!defined('DS')){
+	define('DS',DIRECTORY_SEPARATOR);
+}
+
+// Include the JLog class.
+jimport('joomla.log.log');
+
+
+/* Add the logger.
+JLog::addLogger(
+     // Pass an array of configuration options
+    array(
+            // Set the name of the log file
+			//'text_file' => substr($application->scope, 4) . ".log.php",
+            'text_file' => 'rsgallery.install.log.php',
+
+            // (optional) you can change the directory
+            'text_file_path' => 'logs'
+     ) 
+);
+
+JLog::add('Starting to log install.class.php');
+*/
+
+//require_once( $rsgClasses_path . 'file.utils.php' );
 
 global $rsgConfig;
 if( !isset( $rsgConfig )){
     
+	JLog::add('require once: config /version');
+	
     require_once( JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . 'includes' .DS. "config.class.php" );
     require_once( JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . 'includes' .DS. "version.rsgallery2.php" );
 
+	JLog::add('create config /version');
+		
     $rsgVersion = new rsgalleryVersion();
     $rsgConfig = new rsgConfig( false );
 
@@ -53,21 +83,25 @@ class rsgInstall {
     /** Constructor */
     function rsgInstall(){
 		global $rsgConfig;
+		
+		JLog::add('Constructor rsgInstall class');
+		
         $app =JFactory::getApplication();
 		
 		if (!defined("JURI_SITE")){
-			define('JURI_SITE', $app->isSite() ? JURI::base() : JURI::root());
+			define('JURI_SITE', $app->isSite() ? JUri::base() : JUri::root());
 		}
 		
         $this->galleryDir   = '/images/rsgallery';
-        $this->dirOriginal  = '/images/rsgallery/original';
         $this->dirThumbs    = '/images/rsgallery/thumb';
+        $this->dirOriginal  = '/images/rsgallery/original';
         $this->dirDisplay   = '/images/rsgallery/display';
 		$this->dirWatermarked  = '/images/rsgallery/watermarked';
 		
         $this->tablelistNew = array('#__rsgallery2_galleries','#__rsgallery2_files','#__rsgallery2_comments','#__rsgallery2_config', '#__rsgallery2_acl');
         $this->tablelistOld = array('#__rsgallery','#__rsgalleryfiles','#__rsgallery_comments','');
 
+		
         //TODO: this should use the master list in imgUtils
         $this->allowedExt   = array("jpg","gif","png");
 
@@ -79,24 +113,28 @@ class rsgInstall {
             new migrate_com_easygallery_10B5
         );
 
+		
         if( $rsgConfig->get( 'debug' )){
             $this->galleryList[] = new migrate_testMigrator;
             $this->galleryList[] = new migrate_testMigratorFail;
         }
         
+		JLog::add('rsgInstall: exit constructor');
+
     }
     /** For debug purposes only */
     function echo_values(){
-    echo JText::_('COM_RSGALLERY2_THUMBDIRECTORY_IS').$this->dirThumbs;
+		echo JText::_('COM_RSGALLERY2_THUMBDIRECTORY_IS').$this->dirThumbs;
     }
+	
     /**
      * Changes Menu icon in backend to RSGallery2 logo
 	 * Deprecated in v3.0 for J!1.6
      */
     function changeMenuIcon() {
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		$database->setQuery("UPDATE #__extensions SET admin_menu_img='../administrator/components/com_rsgallery2/images/rsg2_menu.png' WHERE admin_menu_link='option=com_rsgallery2'");
-		if ($database->query())
+		if ($database->execute())
 			{
 			$this->writeInstallMsg(JText::_('COM_RSGALLERY2_MENU_IMAGE_RSGALLERY2_SUCCESFULLY_CHANGED'), 'ok');
 			}
@@ -111,6 +149,8 @@ class rsgInstall {
      */
     function createDirStructure() {
         
+		JLog::add('rsgInstall: createDirStructure');
+		
         $dirs = array($this->galleryDir, $this->dirOriginal, $this->dirThumbs, $this->dirDisplay, $this->dirWatermarked);
         $count = 0;
         
@@ -133,10 +173,13 @@ class rsgInstall {
 
     /**
         Creates database table (needed for fresh install)
-		DEPRECIATED (for migrator): use GenericMigrator:: instead [@todo: check usage and if indeed deprcated]
+		DEPRECIATED (for migrator): use GenericMigrator:: instead [@todo: check usage and if indeed deprecated]
     **/
     function createTableStructure(){
-        $result = $this->populate_db();
+
+		JLog::add('rsgInstall: createTableStructure');
+
+		$result = $this->populate_db();
 
         if( count( $result ) == 0 ){
             $this->writeInstallMsg(JText::_('COM_RSGALLERY2_DATABASE_TABLES_CREATED_SUCCESFULLY'),"ok");
@@ -155,9 +198,9 @@ class rsgInstall {
     * @param object database object
     * @param string File name
     * @return array containing errors
-    */
-    function populate_db( $sqlfile='rsgallery2.sql') {
-        $database =& JFactory::getDBO();
+    * /
+    static function populate_db( $sqlfile='rsgallery2.sql') {
+        $database = JFactory::getDBO();
 		
         $sqlDir = JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "sql/";
         $errors = array();
@@ -169,23 +212,26 @@ class rsgInstall {
             $pieces[$i] = trim($pieces[$i]);
             if(!empty($pieces[$i]) && $pieces[$i] != "#") {
                 $database->setQuery( $pieces[$i] );
-                if (!$database->query()) {
+                if (!$database->execute()) {
                     $errors[] = array ( $database->getErrorMsg(), $pieces[$i] );
                 }
             }
         }
         return $errors;
     }
-    
+    /**/
+	
     /**
         ripped from joomla core: /installation/install2.php
         DEPRECIATED: use GenericMigrator:: instead
     * @param string
     */
-    function split_sqlX($sql) {
+    static function split_sqlX($sql) {
         $sql = trim($sql);
-        $sql = ereg_replace("\n#[^\n]*\n", "\n", $sql);
-    
+        //$sql = ereg_replace("\n#[^\n]*\n", "\n", $sql);
+        // ereg_replace deprecated
+        $sql = preg_replace("/\n#[^\n]*\n/", "\n", $sql);
+
         $buffer = array();
         $ret = array();
         $in_string = false;
@@ -223,51 +269,54 @@ class rsgInstall {
      * @todo Do a check on allowed filetypes, so only gif, jpeg and png are fed to the image convertor
      */
     function createImages($dir, $type = "display") {
-    global $rsgConfig;
-    /** 
-     * Set timelimit to avoid time out errors due to restrictions 
-     * in php.ini's 'max_execution_time' which defaults to 30 in
-     * most installations.
-     */
-    switch ($type) {
-    case "thumbs":
-        $tdir    = $this->dirThumbs;
-        $width  = $rsgConfig->get("thumb_width");
-        break;
-    default:
-    case "display":
-        $tdir    = $this->dirDisplay;
-        $width  = $rsgConfig->get("image_width");
-        break;
-    }
 
-    set_time_limit(120);
-    $count = 0;
-    if (is_dir($dir))
-        {
-        if ($handle = opendir($dir))
-            {
-            while (($filename = readdir($handle)) !== false)
-                {
-                if (!is_dir($dir.$filename) && $filename !== "." && $filename !== ".." && $filename !== "Thumbs.db")
-                    {
-                    if(imgUtils::resizeImage($dir."/".$filename, JPATH_SITE.$this->dirDisplay."/".$filename, $rsgConfig->get('image_width')))
-                        {
-                        continue;
-                        }
-                    else
-                        {
-                        $count++;
-                        }
-                    }
-                }
-            closedir($handle);
-            }
-        }
-    if ($count > 0)
-        return false;
-    else
-        return true;
+		JLog::add('rsgInstall: createImages');
+
+		global $rsgConfig;
+		/** 
+		 * Set timelimit to avoid time out errors due to restaticions 
+		 * in php.ini's 'max_execution_time' which defaults to 30 in
+		 * most installations.
+		 */
+		switch ($type) {
+		case "thumbs":
+			$tdir    = $this->dirThumbs;
+			$width  = $rsgConfig->get("thumb_width");
+			break;
+		default:
+		case "display":
+			$tdir    = $this->dirDisplay;
+			$width  = $rsgConfig->get("image_width");
+			break;
+		}
+
+		set_time_limit(120);
+		$count = 0;
+		if (is_dir($dir))
+			{
+			if ($handle = opendir($dir))
+				{
+				while (($filename = readdir($handle)) !== false)
+					{
+					if (!is_dir($dir.$filename) && $filename !== "." && $filename !== ".." && $filename !== "Thumbs.db")
+						{
+						if(imgUtils::resizeImage($dir."/".$filename, JPATH_SITE.$this->dirDisplay."/".$filename, $rsgConfig->get('image_width')))
+							{
+							continue;
+							}
+						else
+							{
+							$count++;
+							}
+						}
+					}
+				closedir($handle);
+				}
+			}
+		if ($count > 0)
+			return false;
+		else
+			return true;
     }
     
     /**
@@ -280,59 +329,59 @@ class rsgInstall {
      * @return boolean true on success, false on failure
      */
     function copyFiles($source, $target, $chmod=0777, $subdir=false){
-    $errorcount = 0;
-    $exceptions = array('.','..');
-    /** 
-     * Set timelimit to avoid time out errors due to restrictions 
-     * in php.ini's 'max_execution_time' which defaults to 30 in
-     * most installations.
-     */
-    set_time_limit(0);
-    //* Processing
-    $handle = opendir($source);
-    while (false!==($item=readdir($handle)))
-        if (!in_array($item,$exceptions))
-            {
-            /** cleanup for trailing slashes in directories destinations */
-            $from    = str_replace('//','/',$source.'/'.$item);
-            $to      = str_replace('//','/',$target.'/'.$item);
-            if (is_file($from))
-                {
-                if (@copy($from,$to))
-                    {
-                    chmod($to,$chmod);
-                    touch($to,filemtime($from)); // to track last modified time
-						$messages[]=JText::_('COM_RSGALLERY2_INSTALL_FILE_COPIED_FROM').$from.JText::_('COM_RSGALLERY2_INSTALL_FILE_COPIED_TO').$to;
-                    }
-                else
-                    {
-                    $errors[]=JText::_('COM_RSGALLERY2_CANNOT_COPY_FILE_FROM').$from.JText::_('COM_RSGALLERY2_INSTALL_FILE_COPIED_TO').$to;
-                    $errorcount++;
-                    }
-                }
-            if (is_dir($from))
-                {
-                if($subdir)
-                    {
-                    if (@mkdir($to))
-                        {
-                        chmod($to,$chmod);
-                        $messages[]=JText::_('COM_RSGALLERY2_DIRECTORY_CREATED').$to;
-                        }
-                    else
-                        {
-                        $errors[]=JText::_('COM_RSGALLERY2_CANNOT_CREATE_DIRECTORY').' '.$to;
-                        $errorcount++;
-                        }
-                    $this->copyFiles($from, $to, $chmod, $subdir);
-                    }
-                }
-            }
-    closedir($handle);
-    if ($errorcount > 0)
-        return false;
-    else
-        return true;
+		$errorcount = 0;
+		$exceptions = array('.','..');
+		/** 
+		 * Set timelimit to avoid time out errors due to restaticions 
+		 * in php.ini's 'max_execution_time' which defaults to 30 in
+		 * most installations.
+		 */
+		set_time_limit(0);
+		//* Processing
+		$handle = opendir($source);
+		while (false!==($item=readdir($handle)))
+			if (!in_array($item,$exceptions))
+				{
+				/** cleanup for trailing slashes in directories destinations */
+				$from    = str_replace('//','/',$source.'/'.$item);
+				$to      = str_replace('//','/',$target.'/'.$item);
+				if (is_file($from))
+					{
+					if (@copy($from,$to))
+						{
+						chmod($to,$chmod);
+						touch($to,filemtime($from)); // to track last modified time
+							$messages[]=JText::_('COM_RSGALLERY2_INSTALL_FILE_COPIED_FROM').$from.JText::_('COM_RSGALLERY2_INSTALL_FILE_COPIED_TO').$to;
+						}
+					else
+						{
+						$errors[]=JText::_('COM_RSGALLERY2_CANNOT_COPY_FILE_FROM').$from.JText::_('COM_RSGALLERY2_INSTALL_FILE_COPIED_TO').$to;
+						$errorcount++;
+						}
+					}
+				if (is_dir($from))
+					{
+					if($subdir)
+						{
+						if (@mkdir($to))
+							{
+							chmod($to,$chmod);
+							$messages[]=JText::_('COM_RSGALLERY2_DIRECTORY_CREATED').$to;
+							}
+						else
+							{
+							$errors[]=JText::_('COM_RSGALLERY2_CANNOT_CREATE_DIRECTORY').' '.$to;
+							$errorcount++;
+							}
+						$this->copyFiles($from, $to, $chmod, $subdir);
+						}
+					}
+				}
+		closedir($handle);
+		if ($errorcount > 0)
+			return false;
+		else
+			return true;
     }
      
     /**
@@ -345,46 +394,48 @@ class rsgInstall {
      */
     function deleteGalleryDir($target, $exceptions, $output=false) {
     
-    if (file_exists($target) && is_dir($target))
-        {
-        $sourcedir = opendir($target);
-        while(false !== ($filename = readdir($sourcedir)))
-            {
-            if(!in_array($filename, $exceptions))
-                {
-                if($output)
-                    {
-                    echo JText::_('COM_RSGALLERY2_PROCESSING').$target."/".$filename."<br>";
-                    }
-                if(is_dir($target."/".$filename))
-                    {
-                    // recurse subdirectory; call of function recursive
-                    $this->deleteGalleryDir($target."/".$filename, $exceptions);
-                    }
-                else if(is_file($target."/".$filename))
-                    {
-                    // unlink file
-                    unlink($target."/".$filename);
-                    }
-                }
-            }
-        closedir($sourcedir);
-        if(rmdir($target))
-            {
-            //return 0;
-            $this->writeInstallMsg(JText::sprintf('COM_RSGALLERY2_DIRECTORY_STRUCTURE_DELETED', $target),"ok");
-            }
-        else
-            {
-            //return 1;
-            $this->writeInstallMsg(JText::sprintf('COM_RSGALLERY2_DELETING_OLD_DIRECTORY_STRUCTURE_FAILED', $target), "error");
-            }
-        }
-    else
-        {
-        //return 2;
-        $this->writeInstallMsg(JText::_("COM_RSGALLERY2_NO_OLD_DIRECTORY_STRUCTURE_FOUND_CONTINUE"),"ok");
-        }
+		JLog::add('rsgInstall: deleteGalleryDir: ' + $target);
+		
+		if (file_exists($target) && is_dir($target))
+		{
+			$sourcedir = opendir($target);
+			while(false !== ($filename = readdir($sourcedir)))
+				{
+				if(!in_array($filename, $exceptions))
+					{
+					if($output)
+						{
+						echo JText::_('COM_RSGALLERY2_PROCESSING').$target."/".$filename."<br>";
+						}
+					if(is_dir($target."/".$filename))
+						{
+						// recourse subdirectory; call of function recursive
+						$this->deleteGalleryDir($target."/".$filename, $exceptions);
+						}
+					else if(is_file($target."/".$filename))
+						{
+						// unlink file
+						unlink($target."/".$filename);
+						}
+					}
+				}
+			closedir($sourcedir);
+			if(rmdir($target))
+				{
+				//return 0;
+				$this->writeInstallMsg(JText::sprintf('COM_RSGALLERY2_DIRECTORY_STRUCTURE_DELETED', $target),"ok");
+				}
+			else
+				{
+				//return 1;
+				$this->writeInstallMsg(JText::sprintf('COM_RSGALLERY2_DELETING_OLD_DIRECTORY_STRUCTURE_FAILED', $target), "error");
+				}
+			}
+		else
+			{
+			//return 2;
+			$this->writeInstallMsg(JText::_("COM_RSGALLERY2_NO_OLD_DIRECTORY_STRUCTURE_FOUND_CONTINUE"),"ok");
+			}
     }
     
     /**
@@ -394,8 +445,10 @@ class rsgInstall {
      * @param int Warning number
      * @todo Rewrite this to function properly. Error trapping is different in class now
      */
-    function setDirPermsOnGallery($dir, &$warning_num)
-        {
+    static function setDirPermsOnGallery($dir, &$warning_num)
+    {
+		JLog::add('rsgInstall: setDirPermsOnGallery');
+		
         global $ftpIsAvailable, $ftpUse;
         if(file_exists($dir))
             {
@@ -461,8 +514,10 @@ class rsgInstall {
      * @param Component name (eg 'com_rsgallery2')
      * @return True or False
      */
-    function componentInstalled($component){
-		$database =& JFactory::getDBO();
+    static function componentInstalled($component){
+		$database = JFactory::getDBO();
+		
+		JLog::add('rsgInstall: componentInstalled');
 		
 		$component = $database->quote($component);
 		$sql = "SELECT COUNT(1) FROM #__extensions as a WHERE a.element = '$component'";
@@ -481,7 +536,7 @@ class rsgInstall {
      * @param string Message to write
      * @param string Type of message (ok,error)
      */
-    function writeInstallMsg($msg, $type = NULL) {
+    static function writeInstallMsg($msg, $type = NULL) {
         if ($type == "ok") {
             $icon = "tick.png";
 		} elseif ($type == "error") {
@@ -515,9 +570,9 @@ class rsgInstall {
 	}
         
      /**
-      * Shows the "Installation complete" box with a link to the controlpanel
+      * Shows the "Installation complete" box with a link to the control panel
       */
-     function installComplete($msg = null){
+     static function installComplete($msg = null){
 		if($msg == null) $msg = JText::_('COM_RSGALLERY2_INSTALLATION_OF_RSGALLERY_IS_COMPLETED');
 		?>
 		<div align="center">
@@ -550,11 +605,13 @@ class rsgInstall {
      * @param string Tablename to delete
      */
     function deleteTable($table)
-        {
-        $database =& JFactory::getDBO();
+    {
+		JLog::add('rsgInstall: deleteTable');
+	
+        $database = JFactory::getDBO();
         $sql = "DROP TABLE IF EXISTS `$table`";
         $database->setQuery($sql);
-        if ($database->query())
+        if ($database->execute())
             {
             $this->writeInstallMsg(JText::sprintf('COM_RSGALLERY2_IS_DELETED_OR_TABLE_DOES_NOT_EXIST_YET', $table),"ok");
             }
@@ -567,7 +624,7 @@ class rsgInstall {
     /**
      * Performs exactly the same as the PHP5 function array_combine()
      */
-    function array_combine_emulated($keys, $vals) {
+    static function array_combine_emulated($keys, $vals) {
         $keys = array_values( (array) $keys );
         $vals = array_values( (array) $vals );
         $n = max( count( $keys ), count( $vals ) );
@@ -584,8 +641,8 @@ class rsgInstall {
      * @param integer Autoincrement ID for the table
      * @return integer Highest value for ID in table
      */
-    function maxId($tablename = "#__rsgallery2_cats", $id = "id") {
-        $database =& JFactory::getDBO();
+    static function maxId($tablename = "#__rsgallery2_cats", $id = "id") {
+        $database = JFactory::getDBO();
         $sql = "SELECT MAX($id) FROM $tablename";
         $database->setQuery($sql);
         $max_id = $database->loadResult();
@@ -623,7 +680,7 @@ class rsgInstall {
 	                "(name, descr, title, date, userid, gallery_id) VALUES ".
 	                "('$filename', '$descr', '$imagename', '$date', '$uid', '$catid')";
 	        $database->setQuery($sql2);
-	        if (!$database->query()) {
+	        if (!$database->execute()) {
 	            $error++;
 	        } else {
 	            $file++;
@@ -645,50 +702,56 @@ class rsgInstall {
      * @param string Old Parent ID field name
      * @param string Old Description field name
      */
-    function migrateOldCatsX($old_table, $old_catid = "id", $old_catname = "catname", $old_parent_id = "parent_id", $old_descr_name = "description", $max_id) {
+    static function migrateOldCatsX($old_table, $old_catid = "id", $old_catname = "catname", $old_parent_id = "parent_id", $old_descr_name = "description", $max_id) {
 
     }
     
-    function migrateOldCommentsX($old_table = "#__zoom_comments", $old_comment = "cmtcontent", $old_img_id = "imgid") {
+    static function migrateOldCommentsX($old_table = "#__zoom_comments", $old_comment = "cmtcontent", $old_img_id = "imgid") {
 		$database = JFactory::getDBO();
     }
     
     function migrateFromZoomX() {
-    global $mosConfig_absolute_path;
-    
-    if ($this->componentInstalled("com_zoom"))
+		global $mosConfig_absolute_path;
+		
+		if ($this->componentInstalled("com_zoom"))
         {
-        include_once(JPATH_SITE."/components/com_zoom/etc/zoom_config.php");
-        //First check if the right version is installed
-        if ($zoomConfig['version'] == "2.5.1 RC1" OR $zoomConfig['version'] == "2.5.1 RC2")
+			include_once(JPATH_SITE."/components/com_zoom/etc/zoom_config.php");
+			//First check if the right version is installed
+            // ToDO FIX: $zoomConfig undefined variable ?
+			if ($zoomConfig['version'] == "2.5.1 RC1" OR $zoomConfig['version'] == "2.5.1 RC2")
             {
-            $basedir = JPATH_SITE."/".$zoomConfig['imagepath'];
-            $this->writeInstallMsg("OK, right version (".$zoomConfig['version'].") is installed. Let's migrate!","ok");
-            $max_id = $this->maxId();
-            $this->createTableStructure();
-            $this->migrateOldCats("#__zoom", "catid", "catname", "subcat_id", "catdescr", $max_id);
-            $this->migrateOldFiles("#__zoomfiles", "imgname", "imgfilename", "imgdate", "imgdescr", "uid", "catid", $max_id);
-            //$this->migrateOldComments();//Obsolete for now
-            $this->createDirStructure();
-            if ($this->copyZoomImages($basedir))
+				$basedir = JPATH_SITE."/".$zoomConfig['imagepath'];
+				$this->writeInstallMsg("OK, right version (".$zoomConfig['version'].") is installed. Let's migrate!","ok");
+				$max_id = $this->maxId();
+				$this->createTableStructure();
+				$this->migrateOldCats("#__zoom", "catid", "catname", "subcat_id", "catdescr", $max_id);
+				$this->migrateOldFiles("#__zoomfiles", "imgname", "imgfilename", "imgdate", "imgdescr", "uid", "catid", $max_id);
+				//$this->migrateOldComments();//Obsolete for now
+				$this->createDirStructure();
+				if ($this->copyZoomImages($basedir))
                 {
-                $this->writeInstallMsg(JText::_('COM_RSGALLERY2_FILES_SUCCESFULLY_COPIED_TO_NEW_STRUCTURE'),"ok");
+					$this->writeInstallMsg(JText::_('COM_RSGALLERY2_FILES_SUCCESFULLY_COPIED_TO_NEW_STRUCTURE'),"ok");
                 }
-            else
+				else
                 {
-                $this->writeInstallMsg(JText::_('COM_RSGALLERY2_THERE_WERE_ERRORS_COPYING_FILES_TO_THE_NEW_STRUCTURE'),"error");
+					$this->writeInstallMsg(JText::_('COM_RSGALLERY2_THERE_WERE_ERRORS_COPYING_FILES_TO_THE_NEW_STRUCTURE'),"error");
                 }
-            $this->installComplete(JText::_('COM_RSGALLERY2_MIGRATION_OF_ZOOM_GALLERY_COMPLETED_GOTO_THE_CONTROL_PANEL'));
+				$this->installComplete(JText::_('COM_RSGALLERY2_MIGRATION_OF_ZOOM_GALLERY_COMPLETED_GOTO_THE_CONTROL_PANEL'));
             }
-        else
+			else
             {
-            //Wrong version, we only migrate from Zoom 2.5.1 RC1
+				//Wrong version, we only migrate from Zoom 2.5.1 RC1
             }
         }
     }
 
     function upgradeInstallX() {
     global $rsgConfig, $database, $mosConfig_absolute_path;
+	
+		JLog::add('upgradeInstallX()');
+
+
+	
         $imagepath_old = $mosConfig_absolute_path."/images/gallery";
         /**
          * 0. We assume:
@@ -707,14 +770,17 @@ class rsgInstall {
             $config_file = JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "language" . DS . "english.php";
             if (file_exists($config_file))
                 {
-                //Supress notices on duplicate definitions with @, as we loaded the new english.php already
+                //Suppress notices on duplicate definitions with @, as we loaded the new english.php already
                 @include_once( JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "language" . DS . "english.php");
                 $version = _RSGALLERY_VERSION;
                 }
             else
                 {
                 //Well, component is installed, but no version information can be established
-                $mainframe->redirect("index.php?option=com_rsgallery2&task=install",JText::_('COM_RSGALLERY2_UPGRADE_REC_FULL'));
+				JLog::add('-  redirect: no version information can be established: ' + COM_RSGALLERY2_UPGRADE_REC_FULL);
+                // ToDo Fix: Undefined variable mainframe ?
+					$mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_UPGRADE_REC_FULL') );
+                    $mainframe->redirect("index.php?option=com_rsgallery2&task=install");
                 }
             /**
              * 2. Then we need to create the new directory structure.
@@ -800,7 +866,7 @@ class rsgInstall {
                     {
                     $sql = "sql".$i;
                     $database->setQuery($$sql);
-                    if ($database->query())
+                    if ($database->execute())
                         {
                         $this->writeInstallMsg(JText::_('COM_RSGALLERY2_TABLE')."<strong>".$this->tablelist[$i]."</strong>".JText::_('COM_RSGALLERY2_IS_SUCCESFULLY_ALTERED'),"OK");
                         }
@@ -817,7 +883,7 @@ class rsgInstall {
                     {
                     $sql = "sql".$i;
                     $database->setQuery($$sql);
-                    if ($database->query())
+                    if ($database->execute())
                         {
                         $this->writeInstallMsg(JText::_('COM_RSGALLERY2_TABLE')."<strong>".$this->tablelist[$i]."</strong>".JText::_('COM_RSGALLERY2_IS_SUCCESFULLY_RENAMED'),"OK");
                         }
@@ -837,7 +903,7 @@ class rsgInstall {
                     {
                     $sql = "sql".$i;
                     $database->setQuery($$sql);
-                    if (!$database->query())
+                    if (!$database->execute())
                         {
                         $x++;
                         }
@@ -874,7 +940,7 @@ class rsgInstall {
                     {
                     $sql = "sql".$i;
                     $database->setQuery($$sql);
-                    if ($database->query())
+                    if ($database->execute())
                         {
                         $this->writeInstallMsg(JText::_('COM_RSGALLERY2_TABLE')."<strong>".$this->tablelistOld[$i]."</strong> ".JText::_('COM_RSGALLERY2_IS_SUCCESFULLY_ALTERED'),"OK");
                         }
@@ -895,7 +961,7 @@ class rsgInstall {
                     {
                     $sql = "sql".$i;
                     $database->setQuery($$sql);
-                    if (!$database->query())
+                    if (!$database->execute())
                         {
                         $x++;
                         }
@@ -911,13 +977,17 @@ class rsgInstall {
                 $exceptions = array(".","..");
                 $this->deleteGalleryDir(JPATH_SITE.$this->galleryDir, $exceptions, $output=false);
                 //Abort upgrade. Gallery structure present but no version information could be retrieved
-                $mainframe->redirect("index.php?option=com_rsgallery2&task=install",JText::_('COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE'));
+				JLog::add('-  redirect: Abort upgrade. Gallery structure present but no version information could be retrieved: ' + COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE);
+				$mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE') );
+                $mainframe->redirect("index.php?option=com_rsgallery2&task=install");
                 }
             }
         else
             {
             //No, component is not installed
-            $mainframe->redirect("index.php?option=com_rsgallery2&task=install",JText::_('COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE'));
+			JLog::add('-  redirect: No, component is not installed: ' + COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE);
+			$mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE') );
+            $mainframe->redirect("index.php?option=com_rsgallery2&task=install");
             }
         /**
          * 8. Finally a check if everything went OK (rights, etc)
@@ -926,7 +996,7 @@ class rsgInstall {
     $this->installComplete(JText::_('COM_RSGALLERY2_UPGRADE_SUCCESS'));
     }
 
-    function showInstallOptions(){
+    static function showInstallOptions(){
         ?>
         <table width="100%">
         <tr>
@@ -988,26 +1058,43 @@ class rsgInstall {
         <?php
     }
 
-    function freshInstall() {
-        global $rsgConfig;
-		$database =& JFactory::getDBO();
-		
-        echo '<h2>'.JText::_('COM_RSGALLERY2_FRESH_INSTALL').'</h2>';
-        //Delete images and directories if exist
+	function RemoveAccidentallyLeftovers () {
+       //Delete images and directories if exist
         $exceptions = array(".", "..");
         $this->deleteGalleryDir(JPATH_SITE.$this->galleryDir, $exceptions, false);
 
+		/*
         //Delete database tables
         foreach ($this->tablelistNew as $table)
-            {
+        {
             $this->deleteTable($table);
-            }
-        
+        } 
+		*/		
+ 	}
+	
+    function freshInstall() {
+        global $rsgConfig;
+		$database = JFactory::getDBO();
+		
+        //echo '<h2>'.JText::_('COM_RSGALLERY2_FRESH_INSTALL').'</h2>';
+        echo '<b>'.JText::_('COM_RSGALLERY2_FRESH_INSTALL').'</b>';
+
+        //Delete images and directories if exist
+//		$this->RemoveAccidentallyLeftovers ();
+
+		/* ToDo: Too late here -> use preflight 
+        //Delete database tables
+        foreach ($this->tablelistNew as $table)
+        {
+            $this->deleteTable($table);
+        }
+		*/
+		
         //Create new directories
         $this->createDirStructure();
         
 		//Create RSGallery2 table structure
-        $this->createTableStructure();
+        //$this->createTableStructure();
 
         // save config to populate database with default config values
         $rsgConfig->saveConfig();
@@ -1066,14 +1153,14 @@ class rsgInstall {
      * @param string Tablename
      * @return True or False
      */
-    function tableExists($table) {
+    static function tableExists($table) {
 		global $mosConfig_dbprefix;
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 			
 		$table = substr($table, 3);
 		$sql = "SHOW TABLES LIKE '$mosConfig_dbprefix$table'";
 		$database->setQuery($sql);
-		if ($database->query())
+		if ($database->execute())
 			$result = $database->getNumRows();
 		if ($result > 0)
 			{
@@ -1090,7 +1177,7 @@ class rsgInstall {
      * @param integer Filename
      * @return Extension of filename
      */
-    function getExtension($filename){
+    static function getExtension($filename){
         $parts = array_reverse(explode(".", $filename));
         $ext = $parts[0];
         return strtolower($ext);
@@ -1110,14 +1197,14 @@ class GenericMigrator{
      * It would be advisable to use the class name.  we would just use get_class(), but it's implementation is differs in PHP 4 and 5.
      * @return string Technical name
      */
-    function getTechName(){
+    static function getTechName(){
         return 'GenericMigrator';
     }
 
     /**
      * @return string containing user friendly name and version(s) of which gallery this class migrates
      */
-    function getName(){
+    static function getName(){
         return 'GenericMigrator';
     }
 
@@ -1125,7 +1212,7 @@ class GenericMigrator{
      * detect if the gallery version this class handles is installed
      * @return true or false
      */
-    function detect(){
+    static function detect(){
         return false;
     }
 
@@ -1163,7 +1250,7 @@ class GenericMigrator{
      * @return array containing errors
      */
     function runSqlFile( $sqlfile ) {
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
         $sqlDir =  JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "sql/";
 
         $errors = array();
@@ -1175,7 +1262,7 @@ class GenericMigrator{
             $pieces[$i] = trim($pieces[$i]);
             if(!empty($pieces[$i]) && $pieces[$i] != "#") {
                 $database->setQuery( $pieces[$i] );
-                if (!$database->query()) {
+                if (!$database->execute()) {
                     $errors[] = array ( $database->getErrorMsg(), $pieces[$i] );
                 }
             }
@@ -1187,10 +1274,12 @@ class GenericMigrator{
      * ripped from joomla core: /installation/install2.php
      * @param string
      */
-    function split_sql($sql) {
+    static function split_sql($sql) {
         $sql = trim($sql);
-        $sql = ereg_replace("\n#[^\n]*\n", "\n", $sql);
-    
+        //$sql = ereg_replace("\n#[^\n]*\n", "\n", $sql);
+        // ereg_replace deprecated
+        $sql = preg_replace("/\n#[^\n]*\n/", "\n", $sql);
+
         $buffer = array();
         $ret = array();
         $in_string = false;
@@ -1229,7 +1318,7 @@ class GenericMigrator{
      * @param string Old Parent ID field name
      * @param string Old Description field name
      */
-	function migrateGalleries($old_table, $old_catid = "id", $old_catname = "catname", $old_parent_id = "parent_id", $old_descr_name = "description", $max_id) {
+	static function migrateGalleries($old_table, $old_catid = "id", $old_catname = "catname", $old_parent_id = "parent_id", $old_descr_name = "description", $max_id) {
 		$database = JFactory::getDBO();
 	    //Set variables
 	    $error = 0;
@@ -1260,7 +1349,7 @@ class GenericMigrator{
 	                "('$id','$catname','$parent_id','$description', '1', '$alias')";
 	        $database->setQuery($sql2);
 			//Count errors and migrated files
-	        if (!$database->query()) {
+	        if (!$database->execute()) {
 	            $error++;
 	        } else {
 	            $file++;
@@ -1287,7 +1376,7 @@ class GenericMigrator{
      * @param integer Old category ID
      * @param integer Highest value in new table
      */
-    function migrateItems($old_table, $old_image_name, $old_image_filename, $old_image_date, $old_description, $old_uid, $old_catid, $max_id, $prefix) {
+    static function migrateItems($old_table, $old_image_name, $old_image_filename, $old_image_date, $old_description, $old_uid, $old_catid, $max_id, $prefix) {
 		$database = JFactory::getDBO();
 	    //Set variables
 	    $error = 0;
@@ -1315,7 +1404,7 @@ class GenericMigrator{
 	        $database->setQuery($sql2);
 	        
 	        //Error and file counting
-	        if (!$database->query()) {
+	        if (!$database->execute()) {
 	            $error++;
 	        } else {
 	            $file++;
@@ -1336,7 +1425,7 @@ class GenericMigrator{
      * @param string Old comment text
      * @todo Make this work. As images get new Image ID's this means the comments don't match when migrated.
      */	
-	function migrateComments($old_table = "#__zoom_comments", $old_comment = "cmtcontent", $old_img_id = "imgid") {
+	static function migrateComments($old_table = "#__zoom_comments", $old_comment = "cmtcontent", $old_img_id = "imgid") {
 		$database = JFactory::getDBO();
     	return true;
     }
@@ -1347,13 +1436,13 @@ class GenericMigrator{
  * @package RSGallery2
  */
 class migrate_testMigrator extends GenericMigrator{
-    function getTechName(){
+    static function getTechName(){
         return 'testMigrator';
     }
-    function getName(){
+    static function getName(){
         return 'test migrator for debug mode';
     }
-    function detect(){
+    static function detect(){
         return true;
     }
 	/**
@@ -1369,13 +1458,13 @@ class migrate_testMigrator extends GenericMigrator{
  * @package RSGallery2
  */
 class migrate_testMigratorFail extends GenericMigrator{
-    function getTechName(){
+    static function getTechName(){
         return 'testMigratorFail';
     }
-    function getName(){
+    static function getName(){
         return 'test migrator for debug mode - always fails';
     }
-    function detect(){
+    static function detect(){
         return true;
     }
 	/**
@@ -1401,7 +1490,7 @@ class migrate_com_akogallery extends GenericMigrator{
     /**
      * @return string containing the technical name.  no spaces, special characters, etc allowed as this will be used in GET/POST.  advisable to use the class name.  we would just use get_class(), but it's implementation differs in PHP 4 and 5.
      */
-    function getTechName(){
+    static function getTechName(){
         return 'com_akogallery';
     }
 
@@ -1409,7 +1498,7 @@ class migrate_com_akogallery extends GenericMigrator{
     /**
      * @return string containing a user friendly name and version(s) of which gallery this class migrates
      */
-    function getName(){
+    static function getName(){
         return 'AKO Gallery - any version';
     }
 
@@ -1417,7 +1506,7 @@ class migrate_com_akogallery extends GenericMigrator{
      * detect if the gallery version this class handles is installed
      * @return true or false
      */
-    function detect(){
+    static function detect(){
         // if AKO has changed it's storage format over time, we should also check for version
         return rsgInstall::componentInstalled( 'com_akogallery' );
     }
@@ -1441,25 +1530,30 @@ class migrate_com_akogallery extends GenericMigrator{
             return 'Image Directory does not exist.';
         }
 
-        set_magic_quotes_runtime(1);
-        
+        // set_magic_quotes_runtime is deprecated since PHP 5.3.0
+        // minimum version for J!3 is PHP 3.10
+        // example how to check it
+        //if(get_magic_quotes_runtime()) // Checks if lower then PHP 5.3
+        //    set_magic_quotes_runtime(1);
+        // -> all further functions are
+        // Deprecated: set_magic_quotes_runtime(1);
         $oldnewcats = $this->migrateCategories();
         if( $oldnewcats === false ){
-            set_magic_quotes_runtime(0);
+            // Deprecated: set_magic_quotes_runtime(0);
             return 'Error migrating Categories';
         }
 
         if( !$this->migrateImages( $imgDir, $oldnewcats )){
-            set_magic_quotes_runtime(0);
+            // Deprecated: set_magic_quotes_runtime(0);
             return 'Error migrating images';
         }
 
         if( !$this->migrateComments() ){
-            set_magic_quotes_runtime(0);
+            // Deprecated: set_magic_quotes_runtime(0);
             return 'Error migrating Comments';
         }
 
-        set_magic_quotes_runtime(0);
+        // Deprecated: set_magic_quotes_runtime(0);
             
         return 'Successful migration';
     }
@@ -1469,7 +1563,7 @@ class migrate_com_akogallery extends GenericMigrator{
 // #__rsgallery2_cat does not exist in v3.1.0, so comment entire function
 /*    function migrateCategories(){
         
-        $database =& JFactory::getDBO();
+        $database = JFactory::getDBO();
         $objects = 0;
         $error = 0;
         
@@ -1511,7 +1605,7 @@ class migrate_com_akogallery extends GenericMigrator{
             "( $id, '$catname', $parent_id, '$desc' )";
             $database->setQuery( $insertSQL );
             
-            if( ! $database->query() )
+            if( ! $database->execute() )
             {
                 $error++;
                 rsgInstall::writeInstallMsg( "Error importing AKOGallery categories into RSG2 category table. Category Migration rolled back. Please post a bug about this so we can help you with it.
@@ -1542,7 +1636,7 @@ class migrate_com_akogallery extends GenericMigrator{
         /*
         for every entry in $this->imgTable call imgUtils::importImage() with the info from $this->imgTable, $this->$commentTable and full path to image using $imgDir
         */
-        $database =& JFactory::getDBO();
+        $database = JFactory::getDBO();
         
         $selectSQL = "SELECT imgfilename, imgtitle, catid FROM $this->imgTable";
         $database->setQuery( $selectSQL );
@@ -1551,7 +1645,7 @@ class migrate_com_akogallery extends GenericMigrator{
         $finalResult = true;
         
         foreach ( $AKOFile as $file ) {
-            set_magic_quotes_runtime(0);
+            // Deprecated: set_magic_quotes_runtime(0);
             $filePath   = $imgDir . "/" . $file->imgfilename;
             $imgTitle   = $file->imgtitle;
             $catId      = $oldnewcats[ $file->catid ];
@@ -1570,7 +1664,7 @@ class migrate_com_akogallery extends GenericMigrator{
 
 //picid and name do not exist in #__rsgallery2_comments in v3.1.0, so comment entire function?!
 /*	function migrateComments() {
-        $database =& JFactory::getDBO();
+        $database = JFactory::getDBO();
         $error = 0;
         $objects = 0;
 
@@ -1590,7 +1684,7 @@ class migrate_com_akogallery extends GenericMigrator{
             "( $picId, '$name', '$commentText' )";	//picid and name do not exist in #__rsgallery2_comments in v3.1.0, so comment entire function?!
             $database->setQuery( $insertSQL );
 
-            if( !$database->query() )
+            if( !$database->execute() )
             $error++;
             else
             $objects++;
@@ -1616,7 +1710,7 @@ class migrate_com_ponygallery_ml_241 extends genericMigrator {
 	/**
      * @return string containing the technical name.  no spaces, special characters, etc allowed as this will be used in GET/POST.  advisable to use the class name.  we would just use get_class(), but it's implementation is differs in PHP 4 and 5.
      */
-    function getTechName(){
+    static function getTechName(){
         return 'com_ponygallery_ml_241';
     }
 
@@ -1624,7 +1718,7 @@ class migrate_com_ponygallery_ml_241 extends genericMigrator {
     /**
      * @return string containing a user friendly name and version(s) of which gallery this class migrates
      */
-    function getName(){
+    static function getName(){
         return 'Pony Gallery ML 2.4.1';
     }
 
@@ -1632,7 +1726,7 @@ class migrate_com_ponygallery_ml_241 extends genericMigrator {
      * detect if the gallery version this class handles is installed
      * @return true or false
     **/
-    function detect(){
+    static function detect(){
         
         if( rsgInstall::componentInstalled( "com_ponygallery" )){
             include_once(JPATH_SITE . DS . "components" . DS . "com_ponygallery" . DS . "language" . DS . "english.php");
@@ -1721,7 +1815,7 @@ class migrate_com_zoom_251_RC4 extends GenericMigrator{
     /**
      * @return string containing the technical name.  no spaces, special characters, etc allowed as this will be used in GET/POST.  advisable to use the class name.  we would just use get_class(), but it's implementation is differs in PHP 4 and 5.
      */
-    function getTechName(){
+    static function getTechName(){
         return 'com_zoom_251_RC4';
     }
 
@@ -1729,7 +1823,7 @@ class migrate_com_zoom_251_RC4 extends GenericMigrator{
     /**
      * @return string containing a user friendly name and version(s) of which gallery this class migrates
      */
-    function getName(){
+    static function getName(){
         return 'ZOOM Gallery 2.5.1 RC4';
     }
 
@@ -1737,7 +1831,7 @@ class migrate_com_zoom_251_RC4 extends GenericMigrator{
      * detect if the gallery version this class handles is installed
      * @return true or false
     **/
-    function detect(){
+    static function detect(){
         
         $comdir =  JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_zoom";
         
@@ -1794,7 +1888,7 @@ class migrate_com_zoom_251_RC4 extends GenericMigrator{
 	    rsgInstall::installComplete("Migration of ".$this->getName()." completed");
 	}
 	
-	function copyImages($basedir, $prefix = "zoom_") {
+	static function copyImages($basedir, $prefix = "zoom_") {
 		global $rsgConfig;
 		$database = JFactory::getDBO();
 		
@@ -1841,7 +1935,7 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
     /**
      * @return string containing the technical name.  no spaces, special characters, etc allowed as this will be used in GET/POST.  advisable to use the class name.  we would just use get_class(), but it's implementation is differs in PHP 4 and 5.
      */
-    function getTechName(){
+    static function getTechName(){
         return 'com_easygallery_10B5';
     }
 
@@ -1849,7 +1943,7 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
     /**
      * @return string containing a user friendly name and version(s) of which gallery this class migrates
      */
-    function getName(){
+    static function getName(){
         return 'Easy Gallery 1.0 beta 5';
     }
 
@@ -1857,7 +1951,7 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
      * detect if the gallery version this class handles is installed
      * @return true or false
     **/
-    function detect(){
+    static function detect(){
         global $mosConfig_absolute_path;
         
         if( rsgInstall::componentInstalled( "com_easygallery" )){
@@ -1914,7 +2008,7 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
      * @param string Old Parent ID field name
      * @param string Old Description field name
      */
-	function migrateGalleries($old_table, $old_catid = "id", $old_catname = "catname", $old_parent_id = "parent_id", $old_descr_name = "description", $max_id) {
+	static function migrateGalleries($old_table, $old_catid = "id", $old_catname = "catname", $old_parent_id = "parent_id", $old_descr_name = "description", $max_id) {
 		$database = JFactory::getDBO();
 	    //Set variables
 	    $error = 0;
@@ -1949,7 +2043,7 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
 	                "('$id','$catname','$parent_id','$description', '1', '$alias')";
 	        $database->setQuery($sql2);
 			//Count errors and migrated files
-	        if (!$database->query()) {
+	        if (!$database->execute()) {
 	            $error++;
 	        } else {
 	            $file++;
@@ -1979,7 +2073,7 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
      * @param integer Old category ID
      * @param integer Highest value in new table
      */
-    function migrateItems($old_table, $old_image_name, $old_image_filename, $old_image_date, $old_description, $old_uid, $old_catid, $max_id, $prefix) {
+    static function migrateItems($old_table, $old_image_name, $old_image_filename, $old_image_date, $old_description, $old_uid, $old_catid, $max_id, $prefix) {
 		$database = JFactory::getDBO();
 	    //Set variables
 	    $error = 0;
@@ -2008,7 +2102,7 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
 	        $database->setQuery($sql2);
 	        
 	        //Error and file counting
-	        if (!$database->query()) {
+	        if (!$database->execute()) {
 	            $error++;
 	        } else {
 	            $file++;
@@ -2026,9 +2120,9 @@ class migrate_com_easygallery_10B5 extends GenericMigrator{
 	 * Copies original images from Pony Gallery to the RSGallery2 file structure
 	 * and then creates display and thumb images.
 	 * @param string full path to the original Pony Images
-	 * @return True id succesfull, false if not
+	 * @return True id successful, false if not
 	 */
-	function copyImages($basedir, $prefix = "easy_"){
+	static function copyImages($basedir, $prefix = "easy_"){
         global $rsgConfig;
         $database = JFactory::getDBO();
         
@@ -2069,14 +2163,14 @@ class migrate_com_rsgallery extends GenericMigrator {
     /**
      * @return string containing the technical name.  no spaces, special characters, etc allowed as this will be used in GET/POST.  advisable to use the class name.  we would just use get_class(), but it's implementation is differs in PHP 4 and 5.
      */
-    function getTechName(){
+    static function getTechName(){
         return 'com_rsgallery';
     }
 
     /**
      * @return String containing name and version(s) of which gallery this class migrates
      */
-    function getName(){
+    static function getName(){
         return 'RSGallery2 1.10.2+';
     }
 
@@ -2084,8 +2178,8 @@ class migrate_com_rsgallery extends GenericMigrator {
      * detect if the gallery version this class handles is installed
      * @return true or false
      */
-	function detect(){
-		$database =& JFactory::getDBO();
+	static function detect(){
+		$database = JFactory::getDBO();
 		
 		if( in_array( $database->getPrefix().'rsgallery2_config', $database->getTableList() ) === false ){ 
             // rsgallery2_config table does not exist
@@ -2101,12 +2195,12 @@ class migrate_com_rsgallery extends GenericMigrator {
 	*/
 	function migrate(){
 		global $rsgConfig;
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		
 		// in versions prior to 1.11.0, if the config had never been saved, no variables (including the version) would exist
 		// if this is the case, we set the version to something appropiate
 		$database->setQuery( "SELECT * FROM #__rsgallery2_config" );
-		$database->query();
+		$database->execute();
 		if( $database->getNumRows() == 0 )
 			$rsgConfig->set( 'version', '1.10.?' );
 
@@ -2173,7 +2267,7 @@ class migrate_com_rsgallery extends GenericMigrator {
      * @param string version to check against
      * @return true if installed version is less than $ver otherwise false
      */
-    function beforeVersion( $ver ){
+    static function beforeVersion( $ver ){
         global $rsgConfig;
 
         // version in existing database (the version we are migrating from)
@@ -2207,7 +2301,7 @@ class migrate_com_rsgallery extends GenericMigrator {
     /**
      * updates the version number in database to the hardcoded version number
      */
-    function updateVersionNumber(){
+    static function updateVersionNumber(){
         global $rsgConfig;
 
         $rsgConfig->set( 'version', $rsgConfig->getDefault( 'version' ));
@@ -2223,7 +2317,7 @@ class migrate_com_rsgallery extends GenericMigrator {
      */
     function upgradeTo_1_12_2(){
         global $mosConfig_dbprefix;
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		
         if( $mosConfig_dbprefix == 'jos_' )
             return;  // prefix is jos, so it doesn't matter.
@@ -2237,22 +2331,22 @@ class migrate_com_rsgallery extends GenericMigrator {
             // now remove jos_rsgallery2_acl if it does not belong
             // we only want to do this if it is empty and there is no other joomla installed using jos_
             $database->setQuery( "SHOW TABLES LIKE 'jos_content'" );
-            $database->query();
+            $database->execute();
             if( $database->getNumRows() == 1 ) return; // joomla using jos_ exists
 
             $database->setQuery( "SELECT * FROM `jos_rsgallery2_acl`" );
-            $database->query();
+            $database->execute();
             if( $database->getNumRows() > 0 ) return; // table not empty, leave it alone
 
             $database->setQuery( "DROP TABLE `jos_rsgallery2_acl`" );
-            $database->query();
+            $database->execute();
         }
     }
-	function upgradeTo_2_2_1(){
+	static function upgradeTo_2_2_1(){
 		//There is a new field 'alias in tables #__rsgallery2_galleries and 
 		// #__rsgallery2_files and it needs to be filled as our SEF router uses it
 		$error = false;
-		$db =& JFactory::getDBO();
+		$db = JFactory::getDBO();
 		
 		//Get id, name for the galleries
 		$query = 'SELECT id, name FROM #__rsgallery2_galleries';
@@ -2269,7 +2363,7 @@ class migrate_com_rsgallery extends GenericMigrator {
 					.' SET `alias` = '. $db->quote($value[alias])
 					.' WHERE `id` = '. (int) $value[id];
 			$db->setQuery($query);
-			$result = $db->query();
+			$result = $db->execute();
 			if (!$result) {
 				$msg = JText::_('COM_RSGALLERY2_MIGRATE_ERROR_FILLING_ALIAS_GALLERY',$value[id], $value[name]);
 				JError::raiseNotice( 100, $msg);
@@ -2292,7 +2386,7 @@ class migrate_com_rsgallery extends GenericMigrator {
 					.' SET `alias` = '. $db->quote($value[alias])
 					.' WHERE `id` = '. (int) $value[id];
 			$db->setQuery($query);
-			$result = $db->query();
+			$result = $db->execute();
 			if (!$result) {
 				$msg = JText::_('COM_RSGALLERY2_MIGRATE_ERROR_FILLING_ALIAS_ITEM',$value[id], $value[title]);
 				JError::raiseNotice( 100, $msg);
@@ -2305,9 +2399,9 @@ class migrate_com_rsgallery extends GenericMigrator {
 			rsgInstall::writeInstallMsg(JText::_('COM_RSGALLERY2_FINISHED_CREATING_ALIASES'), 'ok');
 		}
 	}
-	function upgradeTo_3_2_0(){
+	static function upgradeTo_3_2_0(){
 		// Change comments in table from BB Code to HTML
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 
 		$query = 'SELECT id, comment FROM #__rsgallery2_comments';
 		$database->setQuery( $query );
@@ -2326,7 +2420,7 @@ class migrate_com_rsgallery extends GenericMigrator {
 			// Update comment in table
 			$query = 'UPDATE #__rsgallery2_comments SET comment  = '.$database->Quote($comment['comment']).' where id ='. (int) $comment['id'];
 			$database->setQuery( $query );
-			$result = $database->query();
+			$result = $database->execute();
 		}
 	} // end of function upgradeTo_3_2_0
 }	//end class migrate_com_rsgallery
@@ -2351,6 +2445,7 @@ class migrate_com_rsgallery_hierarchical_structure extends GenericMigrator {
  * (Stripped) Class for the comments plugin - only here for converting comments from 2.2.1 to 2.3.0
  * @author Ronald Smit <ronald.smit@rsdev.nl>
  */
+if (!class_exists('rsgComments')) {
 class rsgComments {
 	var $_buttons;
 	var $_emoticons;
@@ -2396,7 +2491,7 @@ class rsgComments {
 	/**
 	 * Retrieves raw text and converts bbcode to HTML
 	 */
-	function parseUBB($html, $hide = 0) {	//needed
+	static function parseUBB($html, $hide = 0) {	//needed
 		$html = str_replace(']www.', ']http://www.', $html);
 		$html = str_replace('=www.', '=http://www.', $html);
 		$patterns = array('/\[b\](.*?)\[\/b\]/i',
@@ -2439,14 +2534,14 @@ class rsgComments {
 	/**
 	 * Parses an image element to HTML
 	 */
-	function parseImgElement($html) {	//needed
+	static function parseImgElement($html) {	//needed
 			return preg_replace('/\[img\](.*?)\[\/img\]/i', '<img src=\'\\1\' alt=\'Posted image\' />', $html);
 	}
 
 	/**
 	 * Parse a quote element to HTML
 	 */
-	function parseQuoteElement($html) {	//needed
+	static function parseQuoteElement($html) {	//needed
         $q1 = substr_count($html, "[/quote]");
         $q2 = substr_count($html, "[quote=");
         if ($q1 > $q2) $quotes = $q1;
@@ -2488,7 +2583,7 @@ class rsgComments {
 		return str_replace('&#13;', "\r", nl2br($html));
     }
 	
-	function code_unprotect($val) {	//needed
+	static function code_unprotect($val) {	//needed
 		$val = str_replace("{ : }", ":", $val);
 		$val = str_replace("{ ; }", ";", $val);
 		$val = str_replace("{ [ }", "[", $val);
@@ -2498,5 +2593,6 @@ class rsgComments {
 		return $val;
     }
 }	//end class rsgComments
+}
 
 ?>

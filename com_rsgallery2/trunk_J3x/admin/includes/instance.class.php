@@ -1,6 +1,6 @@
 <?php
 /**
-* @version $Id$
+* @version $Id: instance.class.php 1088 2012-07-05 19:28:28Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2005 - 2006 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -8,7 +8,7 @@
 */
 
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die();
 
 /**
  * Create the request global object
@@ -26,12 +26,12 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * Creates a new RSG2 instance and executes it.
 	 *
 	 * @static
-	 * @param	array	$instance		What parameters to use for the new instance.  Your options are:
+	 * @param array	$newInstance 		What parameters to use for the new instance.  Your options are:
 	 * array			A custom array.
 	 * 'request'	Use the request array (default).
-	 * @param boolean show a template or not.
+	 * @param  boolean $showTemplate show a template or not.
 	 */
-	function instance( $newInstance = 'request', $showTemplate = true ){
+	static function instance( $newInstance = 'request', $showTemplate = true ){
 		static $instanceStack = array();
 		$stacked = false;
 
@@ -61,8 +61,11 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	/**
 	* This is the main task switch where we decide what to do.
 	*/
-	function mainSwitch(){
-		switch( JRequest::getCmd( 'rsgOption', '' )) {
+	static function mainSwitch(){
+		// 140701 original: switch( JRequest::getCmd( 'rsgOption', '' )) {
+		$input =JFactory::getApplication()->input;		
+		$cmd = $input->get( 'rsgOption', '', 'CMD');		
+		switch( $cmd ) {
 			case 'rsgComments':
 				require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgcomments' . DS . 'rsgcomments.php');
 				break;
@@ -76,11 +79,14 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 				require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgsearch' . DS . 'search.php');
 				break;
 			default:
-				switch( JRequest::getCmd( 'task', '' ) ){
+				// 140701 original: switch( JRequest::getCmd( 'task', '' ) ){
+				$task = $input->get( 'task', '', 'CMD');		
+				switch( $task ){
 					case 'xml':
 						xmlFile();
 						break;
 					case "downloadfile":
+                        // Todo Fix: downloadFile (id) Id is missing
 						downloadFile();
 						break;
 					default:
@@ -102,8 +108,8 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * @static
 	 * @deprecated Use rsgGalleryManager::get(); instead!
 	 */
-	function getGallery(){
-		return rsgGalleryManager::get( );
+	static function getGallery(){
+		return rsgGalleryManager::get();
 	}
 	
 	/**
@@ -112,8 +118,9 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * @static
 	 * @deprecated Use rsgGallery->getItem(); instead!
 	 */
-	function getItem(){
-		$gallery = rsgInstance::getGallery();
+	static function getItem(){
+		//$gallery = rsgInstance::getGallery();
+		$gallery = rsgGalleryManager::get();
 	//	if (isset($gallery)){
 			$result = $gallery->getItem();
 	//	} else {
@@ -128,13 +135,13 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * @static
 	 * @deprecated Use rsgGallery->items(); instead!
 	 */
-	function getItems(){
+	static function getItems(){
 		$gallery = rsgInstance::getGallery();
 		return $gallery->items();
 	}
 	
 	/**
-		JRequest functions
+		Jinput function // old: JRequest functions
 		
 		Here we override functions necessary to use our rsgInstance::instance array.
 		In v3: always use JRequest::get* functions and NOT rsgInstance::get* functions!
@@ -162,11 +169,11 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * @param	string	$default	Default value if the variable does not exist
 	 * @param	string	$hash		Where the var should come from (POST, GET, FILES, COOKIE, METHOD)
 	 * @param	string	$type		Return type for the variable, for valid values see {@link JInputFilter::clean()}
-	 * @param	int		$mask		Filter mask for the variable
+	 * @param	int		$mask		Filter mask for the variable only used for signature now
 	 * @return	mixed	Requested variable
 	 * @since	1.5
 	 */
-	function getVar($name, $default = null, $hash = 'default', $type = 'none', $mask = 0)
+	static function getVar($name, $default = null, $hash = 'default', $type = 'none', $mask = 0)
 	{
 		// Ensure hash and type are uppercase
 		$hash = strtoupper( $hash );
@@ -226,17 +233,23 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 		{
 			if (isset($input[$name]) && $input[$name] !== null) {
 				// Get the variable from the input hash and clean it
-				$var = JRequest::_cleanVar($input[$name], $mask, $type);
+				//$var = JRequest::_cleanVar($input[$name], $mask, $type);
+				$noHtmlFilter = JFilterInput::getInstance();
+				$var = $noHtmlFilter->clean($input[$name], $type);
 
 				// Handle magic quotes compatability
 				if (get_magic_quotes_gpc() && ($var != $default) && ($hash != 'FILES')) {
+                    // ToDo Deprecated: JRequest ... clean var
 					$var = JRequest::_stripSlashesRecursive( $var );
 				}
 
 				$GLOBALS['_JREQUEST'][$name][$sig] = $var;
 			} elseif ($default !== null) {
 				// Clean the default value
-				$var = JRequest::_cleanVar($default, $mask, $type);
+				//$var = JRequest::_cleanVar($default, $mask, $type);
+				$noHtmlFilter = JFilterInput::getInstance();
+				$var = $noHtmlFilter->clean($default, $type);
+	
 			} else {
 				$var = $default;
 			}
@@ -261,8 +274,10 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * @return	integer	Requested variable
 	 * @since	1.5
 	 */
-	function getInt($name, $default = 0, $hash = 'default') {
-		return JRequest::getVar($name, $default, $hash, 'int');
+	static function getInt($name, $default = 0, $hash = 'default') {
+		// return JRequest::getVar($name, $default, $hash, 'int');
+		$input =JFactory::getApplication()->input;
+		return $input->get( $name, $default, 'INT');		
 	}
 
 	/**
@@ -279,8 +294,10 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * @return	float	Requested variable
 	 * @since	1.5
 	 */
-	function getFloat($name, $default = 0.0, $hash = 'default') {
-		return JRequest::getVar($name, $default, $hash, 'float');
+	static function getFloat($name, $default = 0.0, $hash = 'default') {
+		//return JRequest::getVar($name, $default, $hash, 'float');
+		$input =JFactory::getApplication()->input;
+		return $input->get( $name, $default, 'FLOAT');				
 	}
 
 	/**
@@ -297,8 +314,10 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * @return	bool		Requested variable
 	 * @since	1.5
 	 */
-	function getBool($name, $default = false, $hash = 'default') {
-		return JRequest::getVar($name, $default, $hash, 'bool');
+	static function getBool($name, $default = false, $hash = 'default') {
+		//return JRequest::getVar($name, $default, $hash, 'bool');
+		$input =JFactory::getApplication()->input;
+		return $input->get( $name, $default, 'BOOL');		
 	}
 
 	/**
@@ -315,8 +334,10 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * @return	string	Requested variable
 	 * @since	1.5
 	 */
-	function getWord($name, $default = '', $hash = 'default') {
-		return JRequest::getVar($name, $default, $hash, 'word');
+	static function getWord($name, $default = '', $hash = 'default') {
+		//return JRequest::getVar($name, $default, $hash, 'word');
+		$input =JFactory::getApplication()->input;
+		return $input->get( $name, $default, 'WORD');		
 	}
 
 	/**
@@ -333,8 +354,10 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * @return	string	Requested variable
 	 * @since	1.5
 	 */
-	function getCmd($name, $default = '', $hash = 'default') {
-		return JRequest::getVar($name, $default, $hash, 'cmd');
+	static function getCmd($name, $default = '', $hash = 'default') {
+		//return JRequest::getVar($name, $default, $hash, 'cmd');
+		$input =JFactory::getApplication()->input;
+		return $input->get( $name, $default, 'CMD');		
 	}
 
 	/**
@@ -352,10 +375,12 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * @return	string	Requested variable
 	 * @since	1.5
 	 */
-	function getString($name, $default = '', $hash = 'default', $mask = 0)
+	static function getString($name, $default = '', $hash = 'default', $mask = 0)
 	{
 		// Cast to string, in case JREQUEST_ALLOWRAW was specified for mask
-		return (string) JRequest::getVar($name, $default, $hash, 'string', $mask);
+		//return (string) JRequest::getVar($name, $default, $hash, 'string', $mask);
+		$input =JFactory::getApplication()->input;
+		return $input->get( $name, $default, 'STRING');		
 	}
 
 	/**
@@ -369,7 +394,7 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * @return	string	Previous value
 	 * @since	1.5
 	 */
-	function setVar($name, $value = null, $hash = 'default', $overwrite = true)
+	static function setVar($name, $value = null, $hash = 'default', $overwrite = true)
 	{
 		//If overwrite is true, makes sure the variable hasn't been set yet
 		if(!$overwrite && isset($_REQUEST[$name])) {
@@ -457,7 +482,7 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * @return	mixed	Request hash
 	 * @since	1.5
 	 */
-	function get($hash = 'default', $mask = 0)
+	static function get($hash = 'default', $mask = 0)
 	{
 		$hash = strtoupper($hash);
 
@@ -493,17 +518,21 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 				break;
 		}
 
-		$result = JRequest::_cleanVar($input, $mask);
+        // ToDo Deprecated: JRequest ... clean var
+		#//$result = JRequest::_cleanVar($input, $mask);
+        $noHtmlFilter = JFilterInput::getInstance();
+        $result = $noHtmlFilter->clean($input, $mask);
 
-		// Handle magic quotes compatability
+        // Handle magic quotes compatability
 		if (get_magic_quotes_gpc() && ($hash != 'FILES')) {
-			$result = JRequest::_stripSlashesRecursive( $result );
+		    // ToDo Deprecated: JRequest ... clean var
+            $result = JRequest::_stripSlashesRecursive( $result );
 		}
 
 		return $result;
 	}
 
-	function set($array, $hash = 'default', $overwrite = true)
+	static function set($array, $hash = 'default', $overwrite = true)
 	{
 		foreach($array as $key => $value) {
 			rsgInstance::setVar($key, $value, $hash, $overwrite);
@@ -517,8 +546,9 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * @return	void
 	 * @since	1.5
 	 */
-	function clean()
+	static function clean()
 	{
+        // ToDo: Deprecated: JRequest ... clean var
 		JRequest::_cleanArray( $_FILES );
 		JRequest::_cleanArray( $_ENV );
 		JRequest::_cleanArray( $_GET );
@@ -571,7 +601,7 @@ class rsgInstance{//as of v2.1.0 SVN 975 no longer extending JRequest
 	 * @param	boolean	True if the array is to be added to the GLOBALS
 	 * @since	1.5
 	 */
-	function _cleanArray( &$array, $globalise=false )
+	static function _cleanArray( &$array, $globalise=false )
 	{
 		static $banned = array( '_files', '_env', '_get', '_post', '_cookie', '_server', '_session', 'globals' );
 

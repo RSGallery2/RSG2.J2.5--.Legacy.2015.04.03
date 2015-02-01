@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id$
+ * @version		$Id: gpagination.php 1057 2012-01-09 17:00:55Z mirjam $
  * @package		RSgallery2 Component
  * @copyright	Copyright (C) 2005 - 2012 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
@@ -171,7 +171,8 @@ class JGPagination extends JPagination
 		$limits[] = JHtml::_('select.option', '100');
 		$limits[] = JHtml::_('select.option', '0', JText::_('COM_RSGALLERY2_ALL'));
 
-		$selected = $this->_viewall ? 0 : $this->limit;
+		//$selected = $this->_viewall ? 0 : $this->limit; J3
+		$selected = $this->viewall ? 0 : $this->limit;
 
 		// Build the select list
 		if ($appl->isAdmin()) {
@@ -231,7 +232,8 @@ class JGPagination extends JPagination
 		$data = new stdClass();
 
 		$data->all	= new JPaginationObject(JText::_('COM_RSGALLERY2_VIEW_ALL'));
-		if (!$this->_viewall) {
+		//if (!$this->_viewall) { J3
+		if (!$this->viewall) {
 			$data->all->base	= '0';
 			$data->all->link	= JRoute::_("&limitstartg=");
 		}
@@ -276,7 +278,8 @@ class JGPagination extends JPagination
 			$offset = $offset == 0 ? '' : $offset;  //set the empty for removal from route
 
 			$data->pages[$i] = new JPaginationObject($i);
-			if ($i != $this->get('pages.current') || $this->_viewall)
+			//if ($i != $this->get('pages.current') || $this->_viewall) J3
+			if ($i != $this->get('pages.current') || $this->viewall)
 			{
 				$data->pages[$i]->base	= $offset;
 				$data->pages[$i]->link	= JRoute::_("&limitstartg=".$offset);

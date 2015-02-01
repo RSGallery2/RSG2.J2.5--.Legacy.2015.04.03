@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id$
+ * @version		$Id: view.php 1011 2011-01-26 15:36:02Z mirjam $
  * @package		Joomla
  * @subpackage	Menus
  * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
@@ -13,7 +13,7 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die();
 
 /**
  * RSGallery2 Template Manager Install View
@@ -37,8 +37,8 @@ class InstallerViewInstall extends InstallerViewDefault
 		$paths = new stdClass();
 		$paths->first = '';
 
-		$this->assignRef('paths', $paths);
-		$this->assignRef('state', $this->get('state'));
+		$this->paths = $paths;
+		$this->state = $this->get('state');
 
 		parent::showHeader();
 		parent::display($tpl);

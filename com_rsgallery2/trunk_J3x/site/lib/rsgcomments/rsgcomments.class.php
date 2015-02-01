@@ -1,13 +1,13 @@
 <?php
 /**
 * Comments plugin for RSGallery2
-* @version $Id$
+* @version $Id: rsgcomments.class.php 1096 2012-07-31 11:27:31Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2003 - 2011 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
-defined( '_JEXEC' ) or die( 'Access Denied.' );
+defined( '_JEXEC' ) or die();
 /**
  * Class for the comments plugin
  * @author Ronald Smit <ronald.smit@rsdev.nl>
@@ -243,13 +243,15 @@ function parse( $html ) {
  */
 function editComment( $item_id ) {
 	global $rsgConfig ;
-	$my =& JFactory::getUser();
-	$doc =& JFactory::getDocument();
+	$my = JFactory::getUser();
+	$doc = JFactory::getDocument();
 	$doc->addScript(JURI_SITE."/components/com_rsgallery2/lib/rsgcomments/js/client.js");
 	$doc->addStyleSheet(JURI_SITE."/components/com_rsgallery2/lib/rsgcomments/rsgcomments.css");
 	$gid=galleryUtils::getCatIdFromFileId($item_id);//galleryid gid used to be named catid
 	
-	$editor =& JFactory::getEditor();
+	//$editor =& JFactory::getEditor();
+	$editor = JFactory::getConfig()->get('editor'); // name of editor ?
+	$editor = JEditor::getInstance($editor);
 	?>
 	<script type="text/javascript">
         function submitbutton(pressbutton) {
@@ -365,7 +367,7 @@ function showComments( $item_id ) {
 	global $database;
 	
 	// Get the current JUser object
-	$user = &JFactory::getUser();
+	$user = JFactory::getUser();
 	$deleteComment = false;
 
 	// user is admin or super admin and can delete the comment
@@ -413,7 +415,7 @@ function showComments( $item_id ) {
 			<tr>
                 <td valign="top" width="100"><span class="postusername"><?php echo $comment['user_name'] ;?></span></td></td>
 				<td valign="top" class="content_area">
-				<?php echo JHTML::_("date",$comment['datetime']);?>
+				<?php echo JHtml::_("date",$comment['datetime']);?>
 				<hr />
 				<?php echo $comment['comment']; ?>
 				<?php if ( $deleteComment ): ?>
@@ -446,7 +448,7 @@ function showComments( $item_id ) {
  * Is this used anywhere in 3.1.0? Seems not...
  */
 function _get( $id ){
-    $database =& JFactory::getDBO();
+    $database = JFactory::getDBO();
 	//Check value type
     if( !is_numeric( $id )) die("item id is not a number: $id");
     
@@ -472,7 +474,7 @@ function _get( $id ){
  * @param int item_id
  */
 function _getList( $item_id ) {
-	$database =& JFactory::getDBO();
+	$database = JFactory::getDBO();
 	
 	$result = array();
 	$sql = 'SELECT * FROM `#__rsgallery2_comments` ' .

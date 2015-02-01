@@ -1,12 +1,13 @@
 <?php
 /**
 * Item class
-* @version $Id$
+* @version $Id: video.php 1011 2011-01-26 15:36:02Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2005 - 2006 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
+defined( '_JEXEC' ) or die(); 
 
 /**
 * The generic item class
@@ -32,7 +33,7 @@ class rsgItem_video extends rsgItem{
 	
 	/**
 	 * @return the thumbnail
-	 * @todo: we need to return video humbnail
+	 * @todo: we need to return video thumbnail
 	 */
 	function thumb(){
 		return $this->thumb;

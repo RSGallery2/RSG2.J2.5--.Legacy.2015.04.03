@@ -1,14 +1,14 @@
 <?php
 /**
  * Class handles all configuration parameters for RSGallery2
- * @version $Id$
+ * @version $Id: config.class.php 1088 2012-07-05 19:28:28Z mirjam $
  * @package RSGallery2
  * @copyright (C) 2003 - 2012 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die();
 
 /**
  * Generic Config class
@@ -104,7 +104,7 @@ class rsgConfig {
     // watermarking
     var $watermark           = 0;
     var $watermark_type		 = "text";	//Values are text or image
-    var $watermark_text      = "(c) 2012 - RSGallery2";
+    var $watermark_text      = "(c) 2015 - RSGallery2";
     var $watermark_image	 = "watermark.png";
     var $watermark_angle     = 0;
     var $watermark_position  = 5;
@@ -139,14 +139,15 @@ class rsgConfig {
 
     /**
      * constructor
-     * @param bool true loads config from db, false will retain defaults
+     * @param bool $loadFromDB true loads config from db, false will retain defaults
      * @todo: fix why we can't get the version from $rsgVersion!
      */
     function rsgConfig( $loadFromDB = true ){
         // get version
         // global $rsgVersion;
         // $this->version = $rsgVersion->getVersionOnly();
-        $this->version = '3.2.0';
+        //$this->version = '3.2.0';
+        $this->version = '4.0.3';
 
         if( $loadFromDB )
             $this->_loadConfig();
@@ -168,9 +169,10 @@ class rsgConfig {
 	}
 
 	/**
-	 *	binds a named array/hash to this object
-	 *	@param array $hash named array
-	 *	@return null|string	null is operation was satisfactory, otherwise returns an error
+	 * binds a named array/hash to this object
+	 * @param array $array $hash named array
+	 * @param string $ignore
+	 * @return bool|null|string	null is operation was satisfactory, otherwise returns an error
 	 */
 	function _bind( $array, $ignore='' ) {
 		if (!is_array( $array )) {
@@ -180,7 +182,7 @@ class rsgConfig {
 			return $this->rsgBindArrayToObject( $array, $this, $ignore );
 		}
 	}
-	function rsgBindArrayToObject( $array, &$obj, $ignore='', $prefix=NULL, $checkSlashes=true )
+	static function rsgBindArrayToObject( $array, &$obj, $ignore='', $prefix=NULL, $checkSlashes=true )
 	{
 		if (!is_array( $array ) || !is_object( $obj )) {
 			return (false);
@@ -221,12 +223,12 @@ class rsgConfig {
 	 * Binds the global configuration variables to the class properties
 	 */
 	function _loadConfig() {
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 
 		$query = "SELECT * FROM #__rsgallery2_config";
 		$database->setQuery($query);
 
-		if( !$database->query() ){
+		if( !$database->execute() ){
 			// database doesn't exist, use defaults.
 			return;
 		}
@@ -240,11 +242,11 @@ class rsgConfig {
 
 	/**
 	 * takes an array, binds it to the class and saves it to the database
-	 * @param array of settings
+	 * @param $config array of settings
 	 * @return false if fail
 	 */
 	function saveConfig( $config=null ) {
-		$db =& JFactory::getDBO();
+		$db = JFactory::getDBO();
 		
 		//bind array to class
 		if( $config !== null){
@@ -253,9 +255,17 @@ class rsgConfig {
 				$this->exifTags = implode("|", $config['exifTags']);
 		}
 	
-		$db->setQuery( "TRUNCATE #__rsgallery2_config" );
-		$db->query() or JError::raiseError( $dg->getErrorNum, $db->getErrorMsg() ); 
-
+		try
+		{
+			$db->setQuery( "TRUNCATE #__rsgallery2_config" );
+			$db->execute();
+		}	
+		catch (RuntimeException $e)
+		{
+			echo $e->getMessage(); 
+			return false;
+		}
+		
 		$query = 'INSERT INTO `#__rsgallery2_config` ( `name`, `value` ) VALUES ';
 
 		$vars = $this->getPublicVars();
@@ -264,33 +274,42 @@ class rsgConfig {
 		}
 
 		$query = substr( $query, 0, -2 );
-		$db->setQuery( $query );
-		$db->query() or JError::raiseError( $dg->getErrorNum, $db->getErrorMsg() ); 
+		try
+		{
+			$db->setQuery( $query );
+			$db->execute();
+		}	
+		catch (RuntimeException $e)
+		{
+			echo $e->getMessage(); 
+			return false;
+		}
 
 		return true;
 	}
 
 	/**
-	 * @param string name of variable
-	 * @return the requested variable
+	 * @param string $varname name of variable
+	 * @return mixed the requested variable
 	 */
 	function get($varname){
 		return $this->$varname;
 	}
     
     /**
-     * @param string name of variable
+     * @param string $varname name of variable
      * @param var new value
+	 * @param $value
      */
     function set( $varname, $value ){
         $this->$varname = $value;
     }
     
     /**
-     * @param string name of variable
-     * @return the default value of requested variable
+     * @param string $varnamename of variable
+     * @return mixed the default value of requested variable
      */
-    function getDefault( $varname ){
+    static function getDefault( $varname ){
         $defaultConfig = new rsgConfig( false );
         return $defaultConfig->get( $varname );
     }
@@ -306,7 +325,7 @@ class rsgConfig {
 	 * @return	mixed	Object describing the client or false if not known
 	 * @since	1.5
 	 */
-	function getClientInfo($id = null, $byName = false)
+	static function getClientInfo($id = null, $byName = false)
 	{
 		static $clients;
 		

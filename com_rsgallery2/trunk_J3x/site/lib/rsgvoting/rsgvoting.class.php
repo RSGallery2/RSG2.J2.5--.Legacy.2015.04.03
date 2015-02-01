@@ -1,23 +1,25 @@
 <?php
 /**
 * This file contains the class used for voging.
-* @version $Id$
+* @version $Id: rsgvoting.class.php 1085 2012-06-24 13:44:29Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2003 - 2012 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
 
-defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die();
 
 class rsgVoting {
 
     function rsgVoting() {
     }
     
-    function showVoting( $option = "com_rsgallery2") {
+    static function showVoting( $option = "com_rsgallery2") {
     	global $rsgConfig;
-		$item = rsgInstance::getItem();
+		// $item = rsgInstance::getItem(); deprecated
+		$gallery = rsgGalleryManager::get();
+		$item = $gallery->getItem();;
 		$gid = $item->gallery_id;
 		
     	if (JFactory::getUser()->authorise('rsgallery2.vote','com_rsgallery2.gallery.'.$gid)) {
@@ -27,8 +29,8 @@ class rsgVoting {
     }
 
 	
-	function getTotal( $id ) {
-		$database =& JFactory::getDBO();
+	static function getTotal( $id ) {
+		$database = JFactory::getDBO();
 		$sql = 'SELECT `rating` FROM `#__rsgallery2_files` WHERE `id` = '. (int) $id;
 		$database->setQuery($sql);
 		$total = $database->loadResult();
@@ -36,8 +38,8 @@ class rsgVoting {
 		return $total;
 	}
 	
-	function getVoteCount( $id ) {
-		$database =& JFactory::getDBO();
+	static function getVoteCount( $id ) {
+		$database = JFactory::getDBO();
 		$sql = 'SELECT `votes` FROM `#__rsgallery2_files` WHERE `id` = '. (int) $id;
 		$database->setQuery($sql);
 		$votes = $database->loadResult();
@@ -45,7 +47,7 @@ class rsgVoting {
 		return $votes;
 	}
 	
-	function calculateAverage( $id ) {
+	static function calculateAverage( $id ) {
 		if (rsgVoting::getVoteCount($id) > 0) {
 			$avg = rsgVoting::getTotal($id) / rsgVoting::getVoteCount($id);
    			$value = round(($avg*2), 0)/2;
@@ -55,8 +57,10 @@ class rsgVoting {
 		}
 	}
 	
-	function showScore() {
-		$item = rsgInstance::getItem();
+	static function showScore() {
+		// $item = rsgInstance::getItem(); deprecated
+		$gallery = rsgGalleryManager::get();
+		$item = $gallery->getItem();;
 		$id = $item->id;
 		require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgvoting' . DS .'tmpl' . DS . 'result.php');
 	}
@@ -65,7 +69,7 @@ class rsgVoting {
 	 * @param int ID of item to vote on
 	 * @return True or False
 	 */
-	function alreadyVoted( $id ) {
+	static function alreadyVoted( $id ) {
 		global $rsgConfig;
 
 		if($rsgConfig->get('voting_once') == 0)
@@ -84,8 +88,10 @@ class rsgVoting {
 	 * Checks if it is allowed to vote in this gallery
 	 * @return True or False
 	 */
-	function voteAllowed() {
-		$item_id	= JRequest::getInt('id');
+	static function voteAllowed() {
+		//$item_id	= JRequest::getInt('id');
+		$input =JFactory::getApplication()->input;
+		$item_id = $input->get( 'id', 0, 'INT');		
 		$gid		= galleryUtils::getCatIdFromFileId($item_id);
 		
 		$voteAllowed = (JFactory::getUser()->authorise('rsgallery2.vote','com_rsgallery2.gallery.'.$gid) ? true : false);
