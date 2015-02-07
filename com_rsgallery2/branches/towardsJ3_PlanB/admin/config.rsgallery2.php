@@ -940,7 +940,6 @@ class galleryUtils {
 	 	}
 	 	$list = JHtml::_("select.genericlist", $fontlist, 'watermark_font', '', 'value', 'text', $selected );
 	 	return $list;
-	 	
 	 }
 
 	/**
