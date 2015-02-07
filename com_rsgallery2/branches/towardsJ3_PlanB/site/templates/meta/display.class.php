@@ -55,6 +55,7 @@ class rsgDisplay extends JObject{
 	
 	/**
 	 * Switch for the main page, when not handled by rsgOption
+	 * @throws Exception
 	 */
 	function mainPage(){
 		global $rsgConfig;
@@ -122,7 +123,8 @@ class rsgDisplay extends JObject{
 	}
 
 	/**
-	 * 
+	 * @param string $file
+	 * @throws Exception
 	 */
 	function display( $file = null ){
 		global $rsgConfig;
@@ -142,6 +144,7 @@ class rsgDisplay extends JObject{
 
 	/**
 	 * Shows the top bar for the RSGallery2 screen
+	 * @throws Exception
 	 */
 	function showRsgHeader() {
 		// $rsgOption 	= JRequest::getCmd( 'rsgOption'  , '');
@@ -179,7 +182,8 @@ class rsgDisplay extends JObject{
 	
     /**
      * Shows the proper Joomla path
-     */
+     * @throws Exception
+	 */
 	function showRSPathWay() {
 		$mainframe = JFactory::getApplication();
 		$pathway = $mainframe->getPathway();
@@ -252,8 +256,9 @@ class rsgDisplay extends JObject{
 
 	/**
 	 * Insert meta data and page title into head
+	 * @throws Exception
 	 */
-	function metadata(){
+ 	function metadata(){
 		$app = JFactory::getApplication();
 		$document = JFactory::getDocument();
 
@@ -325,6 +330,9 @@ class rsgDisplay extends JObject{
 		return;
 	}
 
+	/**
+	 * @return string
+	 */
 	function getGalleryLimitBox(){
 		$pagelinks = $this->pageNav->getLimitBox("index.php?option=com_rsgallery2");
 		// add form for LimitBox
@@ -334,11 +342,19 @@ class rsgDisplay extends JObject{
 
 		return $pagelinks; 
 	}
+
+	/**
+	 * @return mixed
+	 */
 	function getGalleryPageLinks(){
 		$pagelinks = $this->pageNav->getPagesLinks("index.php?option=com_rsgallery2");
 		return $pagelinks;
 		
 	}
+
+	/**
+	 * @return mixed
+	 */
 	function getGalleryPagesCounter(){
 		return $this->pageNav->getPagesCounter();
 	}
@@ -349,7 +365,9 @@ class rsgDisplay extends JObject{
 	
     /**
      * shows the image
-     */
+	 * @param string $name
+	 * @param string $descr
+	 */
     function _showImageBox($name, $descr) {
         global $rsgConfig ;
 
@@ -410,10 +428,10 @@ class rsgDisplay extends JObject{
     
     /**
      * Shows either random or latest images, depending on parameter
-     * @param String Type of images. Options are 'latest' or 'random'
-     * @param Int Number of images to show. Defaults to 3
-     * @param String Style, options are 'vert' or 'hor'.(Vertical or horizontal)
-     * @return HTML representation of image block.
+     * @param String $type Type of images. Options are 'latest' or 'random'
+     * @param Int $number Number of images to show. Defaults to 3
+     * @param String $style Style, options are 'vert' or 'hor'.(Vertical or horizontal)
+     *  string HTML representation of image block.
      */
     function showImages($type="latest", $number = 3, $style = "hor") {
     	global $rsgConfig;
@@ -531,10 +549,10 @@ class rsgDisplay extends JObject{
     
 	/**
 	 * Write downloadlink for image
-	 * @param int image ID
-	 * @param string Text below button
-	 * @param string Button or HTML link (button/link)
-	 * @return HTML for downloadlink
+	 * @param int $id image ID
+	 * @param bool $showtext
+	 * @param string $type ? Text below button
+	 * return HTML for downloadlink
 	 */
 	function _writeDownloadLink($id, $showtext = true, $type = 'button') {
 		global $rsgConfig;
@@ -573,8 +591,11 @@ class rsgDisplay extends JObject{
 		
 		$exif = new phpExifReader($filename);
 		$exif->showFormattedEXIF();
- 	}    
-    
+ 	}
+
+	/**
+	 *
+	 */
     function showSearchBox() {
 		global $rsgConfig;
 		
@@ -584,7 +605,10 @@ class rsgDisplay extends JObject{
 			html_rsg2_search::showSearchBox();
 		}
     }
-    
+
+	/**
+	 * @throws Exception
+	 */
     function showSearchBoxXX() {
     	global $mainframe;
     	$mainframe = JFactory::getApplication();		

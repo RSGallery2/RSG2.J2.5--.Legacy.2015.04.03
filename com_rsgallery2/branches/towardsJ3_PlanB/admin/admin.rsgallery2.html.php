@@ -522,6 +522,9 @@ class HTML_RSGALLERY{
         <?php
         }
 
+    /**
+     *
+     */
     static function showUploadStep1(){
         ?>
         <script type="text/javascript">
