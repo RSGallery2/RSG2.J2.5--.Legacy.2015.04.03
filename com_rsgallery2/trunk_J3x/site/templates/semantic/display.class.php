@@ -14,13 +14,17 @@ defined( '_JEXEC' ) or die();
  */
 class rsgDisplay_semantic extends rsgDisplay{
 
+	/**
+	 *
+	 */
 	function inline(){
 		$this->display( 'inline.php' );
 	}
 
 	/**
 	* Show main gallery page
-	*/
+	 * @throws Exception
+	 */
 	function showMainGalleries() {
 		global $rsgConfig;
 		$app = JFactory::getApplication();
@@ -62,6 +66,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 	***************************/
 	/**
 	 * Shows the gallery details block when set in the backend
+	 * @param $kid
 	 */
 	function _showGalleryDetails( $kid ) {
 		global $rsgConfig;
@@ -201,6 +206,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 
 	/**
 	 * Shows thumbnails for gallery
+	 * @throws Exception
 	 */
 	function showThumbs() {
 		global $rsgConfig;
@@ -257,7 +263,7 @@ class rsgDisplay_semantic extends rsgDisplay{
     
     /**
      * Shows main item
-     */
+	 */
 	function showItem(){
 		global $rsgConfig;
 		
@@ -294,6 +300,7 @@ class rsgDisplay_semantic extends rsgDisplay{
  
 	/**
 	 * Show page navigation for Display image
+	 * @throws Exception
 	 */
 	function showDisplayPageNav() {//MK this is where the images are shown with limit=1
 		$gallery = rsgGalleryManager::get();
@@ -409,7 +416,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 	
 	/**
 	* list sub galleries in a gallery
-	* @param rsgGallery parent gallery
+	* @param rsgGallery $parent gallery
 	*/
 	function _subGalleryList( $parent ){
 		global $rsgConfig;

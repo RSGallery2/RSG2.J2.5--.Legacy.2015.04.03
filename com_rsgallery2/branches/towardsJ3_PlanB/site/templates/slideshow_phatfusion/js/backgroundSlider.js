@@ -1,21 +1,25 @@
 
-
 /**************************************************************
 
 	Script		: Background Slider
-	Version		: 1.1
+	Version		: 1.3
 	Authors		: Samuel Birch
 	Desc		: Slides a layer to a given elements position and dimensions.
 	Licence		: Open Source MIT Licence
 
 **************************************************************/
 
-var BackgroundSlider = new Class({
+var backgroundSlider = new Class({
 
+	/**
+	 *
+	 * @returns {{duration: number, wait: number, transition: easeInOut, className: null, fixHeight: null, fixWidth: null, start: number, id: null, padding: {top: number, right: number, bottom: number, left: number}, _onClick: Function, mouseOver: boolean}}
+	 */
 	getOptions: function(){
 		
 //		alert ('MooTools.version: ' + MooTools.version);
-	
+		console.log("Back:getOptions start/exit");
+
 		return {
 			duration: 300,
 			wait: 500,
@@ -31,8 +35,14 @@ var BackgroundSlider = new Class({
 		};
 	},
 
+	/**
+	 *
+	 * @param elements
+	 * @param options
+	 */
 	initialize: function(elements, options){
 		try {
+			console.log("Back:initialize");
 			this.setOptions(this.getOptions(), options);
 			
 			this.elements = $$(elements);
@@ -47,27 +57,28 @@ var BackgroundSlider = new Class({
 				}
 			}
 			
-		this.effects = new Fx.Morph(this.bg, {duration: this.options.duration, transition: this.options.transition});
+			this.effects = new Fx.Morph(this.bg, {duration: this.options.duration, transition: this.options.transition});
 			
 			this.elements.each(function(el,i){
 				if(this.options.mouseOver){
 					el.addEvent('mouseover', this.move.bind(this,el));
-				el.addEvent('mouseout', this.delayReset.bind(this));
+					el.addEvent('mouseout', this.delayReset.bind(this));
 				}
-			el.addEvent('click', this.setStart.bind(this, el));
+				el.addEvent('click', this.setStart.bind(this, el));
 			},this);
 			
-		this.set(this.elements[this.options.start-1]);
-		
-		this.mouseOver = false;
-		this.bg.addEvent('mouseover', function(){this.mouseOver = true;}.bind(this));
-		this.bg.addEvent('mouseout', function(){this.mouseOver = false; this.reset();}.bind(this));
-		this.bg.addEvent('click', this.setStart.bind(this,false));
-		
+			this.set(this.elements[this.options.start-1]);
+
+			this.mouseOver = false;
+			this.bg.addEvent('mouseover', function(){this.mouseOver = true;}.bind(this));
+			this.bg.addEvent('mouseout', function(){this.mouseOver = false; this.reset();}.bind(this));
+			this.bg.addEvent('click', this.setStart.bind(this,false));
+
 			window.addEvent('resize',function(e){
 				this.move(this.startElement);
 			}.bind(this));
 			
+			console.log("Back:initialize exit");
 		}
 		catch (err)
 		{
@@ -77,12 +88,15 @@ var BackgroundSlider = new Class({
 	
 	setStart: function(el){
 		try {
-		if(el){
-			this.startElement = el;
-		}else{
-			this.startElement = this.currentElement;
-		}
-		this.options._onClick(this.startElement);
+			console.log("Back:setStart");
+			if(el){
+				this.startElement = el;
+			}else{
+				this.startElement = this.currentElement;
+			}
+			this.options._onClick(this.startElement);
+
+			console.log("Back:setStart exit");
 		}
 		catch (err)
 		{
@@ -92,6 +106,7 @@ var BackgroundSlider = new Class({
 	
 	set: function(el){
 		try {
+			console.log("Back:set");
 			this.setStart(el);
 			var pos = el.getCoordinates();
 			
@@ -115,6 +130,8 @@ var BackgroundSlider = new Class({
 			}
 			
 			this.bg.setStyles(obj);
+
+			console.log("Back:set");
 		}
 		catch (err)
 		{
@@ -124,7 +141,9 @@ var BackgroundSlider = new Class({
 	
 	delayReset: function(){
 		try {
+			console.log("Back:delayReset");
 			this.reset.delay(500, this);
+			console.log("Back:delayReset exit");
 		}
 		catch (err)
 		{
@@ -134,12 +153,14 @@ var BackgroundSlider = new Class({
 	
 	reset: function(){
 		try {
+			console.log("Back:reset");
 			$clear(this.timer);
 			if(!this.mouseOver){
 				if(this.options.wait){
 					this.timer = this.move.delay(this.options.wait, this, this.startElement);
 				}
 			}
+			console.log("Back:reset exit");
 		}
 		catch (err)
 		{
@@ -149,8 +170,10 @@ var BackgroundSlider = new Class({
 	
 	move: function(el){
 		try {
+			console.log("Back:move");
 			// $clear => use the native clearTimeout when using fn.delay, use clearInterval when using fn.periodical.
-			$clearTimeout(this.timer);
+			// this.clearTimeout(this.timer);
+			$clear(this.timer);
 			var pos = el.getCoordinates();
 		    this.effects.cancel();
 		    this.currentElement = el;
@@ -166,6 +189,7 @@ var BackgroundSlider = new Class({
 			}
 			
 			this.effects.start(obj);
+			console.log("Back:move exit");
 		}
 		catch (err)
 		{
@@ -174,7 +198,7 @@ var BackgroundSlider = new Class({
 	}
 
 });
-BackgroundSlider.implement(new Options);
-BackgroundSlider.implement(new Events);
+backgroundSlider.implement(new Options);
+backgroundSlider.implement(new Events);
 
 /*************************************************************/

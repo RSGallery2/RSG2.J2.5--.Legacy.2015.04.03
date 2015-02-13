@@ -128,10 +128,17 @@ Legend:
 		$database->getErrorMsg() is deprecated. Has a lot of occurences
 ! ToDo: 2015.01.30 ******
 		JRequest in instance.class.php multiple times
-
+! ToDo: 13.02.2015 *******
+		mygalleries: Buttons do not work. Probable reason:
+		There a more than one form inside the created HTML Page.
+		Maybe submit needs a unique id 
 		
 ---------------- Recent ----------------
 
+* --------------- 4.0.4 -- SVN 1141 -- 2015-02-13 -------------
+13.02.2015 finnern
++ Improved mygalleries. No error and debug messages
+* PHP doc improved
 
 * --------------- 4.0.3 -- SVN 1131 -- 2015-01-11 -------------
 30.01.2015 finnern

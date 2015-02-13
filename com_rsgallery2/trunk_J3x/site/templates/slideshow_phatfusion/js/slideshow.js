@@ -10,8 +10,13 @@
 **************************************************************/
 
 var SlideShow = new Class({
-	
+
+	/**
+	 *
+	 * @returns {{effect: string, duration: number, transition: Fx.Transitions.linear, direction: string, color: boolean, wait: number, loop: boolean, thumbnails: boolean, thumbnailCls: string, backgroundSlider: boolean, loadingCls: string, onClick: boolean}}
+	 */
 	getOptions: function(){
+		console.log("Slide:getOptions (start/exit)");
 		return {
 			effect: 'fade', //fade|wipe|slide|random
 			duration: 2000,
@@ -28,8 +33,15 @@ var SlideShow = new Class({
 		};
 	},
 
+	/**
+	 *
+	 * @param container
+	 * @param images
+	 * @param options
+	 */
 	initialize: function(container, images, options){
-		try {  
+		try {
+			console.log("Slide:initialize");
 			this.setOptions(this.getOptions(), options);
 			
 			this.container = $(container);
@@ -116,6 +128,8 @@ var SlideShow = new Class({
 			this.stopped = true;
 			this.started = false;
 			this.animating = false;
+
+			console.log("Slide:initialize exit");
 		}
 		catch (err) 
 		{
@@ -124,8 +138,10 @@ var SlideShow = new Class({
 	},
 	
 	load: function(){
-		try {  
-			clearTimeout(this.timer);
+		try {
+			console.log("Slide:load");
+			//this.clearTimeout(this.timer);
+			$clear(this.timer);
 			this.loading.setStyle('display','block');
 			this.image++;
 			var img = this.images[this.image];
@@ -146,7 +162,7 @@ var SlideShow = new Class({
 				this.add = true;
 				this.imageObj = new Asset.image(img, {onload: this.show.bind(this)});
 			}
-			
+			console.log("Slide:load exit");
 		}
 		catch (err) 
 		{
@@ -155,8 +171,8 @@ var SlideShow = new Class({
 	},
 
 	show: function(add){
-		try {  
-		
+		try {
+			console.log("Slide:show");
 			if(this.add){
 				this.imageObj.Inside(this.imagesHolder, 'bottom');
 			}
@@ -190,6 +206,8 @@ var SlideShow = new Class({
 				}
 			}
 			this.effect();
+
+			console.log("Slide:show exit");
 		}
 		catch (err) 
 		{
@@ -198,8 +216,10 @@ var SlideShow = new Class({
 	},
 	
 	wait: function(){
-		try {  
+		try {
+			console.log("Slide:wait");
 			this.timer = this.load.delay(this.options.wait,this);
+			console.log("Slide:wait exit");
 		}
 		catch (err) 
 		{
@@ -208,7 +228,8 @@ var SlideShow = new Class({
 	},
 	
 	play: function(num){
-		try {  
+		try {
+			console.log("Slide:play");
 			if(this.stopped){
 				if(num > -1)
 					{this.image = num-1;}
@@ -222,6 +243,7 @@ var SlideShow = new Class({
 					this.started = true;
 				}
 			}
+			console.log("Slide:play exit");
 		}
 		catch (err) 
 		{
@@ -230,10 +252,13 @@ var SlideShow = new Class({
 	},
 	
 	stop: function(){
-		try {  
+		try {
+			console.log("Slide:stop");
 			// $clear => use the native clearTimeout when using fn.delay, use clearInterval when using fn.periodical.
-			$clearTimeout(this.timer);
+			//this.clearTimeout(this.timer);
+			$clear(this.timer);
 			this.stopped = true;
+			console.log("Slide:stop exit");
 		}
 		catch (err) 
 		{
@@ -242,7 +267,8 @@ var SlideShow = new Class({
 	},
 	
 	next: function(wait){
-		try {  
+		try {
+			console.log("Slide:next");
 			var doNext = true;
 			if(wait && this.stopped){
 				doNext = false;
@@ -252,7 +278,8 @@ var SlideShow = new Class({
 			}
 			if(doNext){
 				this.cloneImage();
-				$clearTimeout(this.timer);
+				// this.clearTimeout(this.timer);
+				$clear(this.timer);
 				if(this.image < this.images.length-1){
 					if(wait){
 						this.wait();
@@ -272,6 +299,7 @@ var SlideShow = new Class({
 					}
 				}
 			}
+			console.log("Slide:next exit");
 		}
 		catch (err) 
 		{
@@ -280,13 +308,15 @@ var SlideShow = new Class({
 	},
 	
 	previous: function(){
-		try {  
+		try {
+			console.log("Slide:previous");
 			if(this.imageLoaded == 0){
 				this.image = this.images.length-2;	
 			}else{
 				this.image = this.imageLoaded-2;
 			}
 			this.next();
+			console.log("Slide:previous exit");
 		}
 		catch (err) 
 		{
@@ -295,7 +325,8 @@ var SlideShow = new Class({
 	},
 	
 	cloneImage: function(){
-		try {  
+		try {
+			console.log("Slide:cloneImage");
 			var img = this.oldImage.getElement('img');
 			if(img){
 				img.replaceWith(this.imageObj.clone());
@@ -312,6 +343,7 @@ var SlideShow = new Class({
 			});
 			
 			this.newImage.setStyles({opacity:0});
+			console.log("Slide:cloneImage exit");
 		}
 		catch (err) 
 		{
@@ -321,7 +353,8 @@ var SlideShow = new Class({
 	
 	
 	effect: function(){
-		try {  
+		try {
+			console.log("Slide:effect");
 			this.animating = true;
 			this.effectObj = this.newImage.effects({
 				duration: this.options.duration,
@@ -364,6 +397,7 @@ var SlideShow = new Class({
 				}
 				this[type]();
 			}
+			console.log("Slide:effect exit");
 		}
 		catch (err) 
 		{
@@ -372,7 +406,8 @@ var SlideShow = new Class({
 	},
 	
 	setup: function(dir){
-		try {  
+		try {
+			console.log("Slide:setup");
 			if(dir == 'top'){
 				this.top = -this.container.getStyle('height').toInt();
 				this.left = 0;
@@ -403,6 +438,7 @@ var SlideShow = new Class({
 				this.topOut = 0;
 				this.leftOut = 0;
 			}
+			console.log("Slide:setup exit");
 		}
 		catch (err) 
 		{
@@ -411,7 +447,8 @@ var SlideShow = new Class({
 	},
 	
 	fade: function(){
-		try {  
+		try {
+			console.log("Slide:fade");
 			this.effectObj.start({
 				opacity: [0,1]
 			});
@@ -419,6 +456,7 @@ var SlideShow = new Class({
 			if(!this.stopped){
 			this.next.delay(this.options.duration+100,this,true);
 			}
+			console.log("Slide:fade exit");
 		}
 		catch (err) 
 		{
@@ -427,7 +465,8 @@ var SlideShow = new Class({
 	},
 	
 	wipe: function(){
-		try {  
+		try {
+			console.log("Slide:wipe");
 			this.oldImage.effects({
 				duration: this.options.duration,
 				transition: this.options.transition
@@ -444,6 +483,7 @@ var SlideShow = new Class({
 			if(!this.stopped){
 			this.next.delay(this.options.duration+100,this,true);
 			}
+			console.log("Slide:wipe exit");
 		}
 		catch (err) 
 		{
@@ -452,7 +492,8 @@ var SlideShow = new Class({
 	},
 	
 	slide: function(){
-		try {  
+		try {
+			console.log("Slide:slide");
 			this.effectObj.start({
 				top: [this.top,0],
 				left: [this.left,0],
@@ -462,6 +503,7 @@ var SlideShow = new Class({
 			if(!this.stopped){
 			this.next.delay(this.options.duration+100,this,true);
 			}
+			console.log("Slide:slide exit");
 		}
 		catch (err) 
 		{
@@ -470,8 +512,10 @@ var SlideShow = new Class({
 	},
 	
 	resetAnimation: function(){
-		try {  
+		try {
+			console.log("Slide:resetAnimation");
 			this.animating = false;
+			console.log("Slide:resetAnimation exit");
 		}
 		catch (err) 
 		{

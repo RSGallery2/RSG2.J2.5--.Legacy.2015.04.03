@@ -13,6 +13,7 @@ defined( '_JEXEC' ) or die();
  * this is the primary and default function
  * it loads a template to run
  * that template's rsgDisplay has a switch for $page to handle various features
+ * @throws Exception
  */
 function template(){
 	global $rsgConfig;
@@ -31,6 +32,9 @@ function template(){
 		require( $templateLocation );
 }
 
+/**
+ * @throws Exception
+ */
 function xmlFile(){
 	// $template = preg_replace( '#\W#', '', JRequest::getCmd( 'xmlTemplate', 'meta' ) );
 	$input =JFactory::getApplication()->input;
@@ -61,9 +65,8 @@ function xmlFile(){
 
 /**
  * Forces a download box to download single images
- * Thanks to Rich Malak <rmalak@fuseideas.com>for his invaluable contribution
+ * Thanks to Rich Malak <rmalak@fuseideas.com> for his invaluable contribution
  * to this very important feature!
- * @param int Id of the file to download
  */
 //function downloadFile($id) {
 function downloadFile() {
