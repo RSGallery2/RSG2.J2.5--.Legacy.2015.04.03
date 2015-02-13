@@ -22,6 +22,9 @@ include_once(dirname(__FILE__).DS.'..'.DS.'default'.DS.'view.php');
 
 class InstallerViewTemplates extends InstallerViewDefault
 {
+	/**
+	 * @param null $tpl
+	 */
 	function display($tpl=null)
 	{
 		/*
@@ -44,6 +47,9 @@ class InstallerViewTemplates extends InstallerViewDefault
 		parent::display($tpl);
 	}
 
+	/**
+	 * @param int $index
+	 */
 	function loadItem($index=0)
 	{
 		$item =& $this->items[$index];
