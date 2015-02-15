@@ -176,7 +176,8 @@ class rsgConfig {
 	 */
 	function _bind( $array, $ignore='' ) {
 		if (!is_array( $array )) {
-			$this->_error = strtolower(get_class( $this )).'::bind failed.';
+			// $this->_error = strtolower(get_class( $this )).'::bind failed.';
+			$this->setError (strtolower(get_class( $this )).'::bind failed.');
 			return false;
 		} else {
 			return $this->rsgBindArrayToObject( $array, $this, $ignore );
