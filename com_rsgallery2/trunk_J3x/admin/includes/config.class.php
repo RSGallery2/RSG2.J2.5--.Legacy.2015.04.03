@@ -147,7 +147,7 @@ class rsgConfig {
         // global $rsgVersion;
         // $this->version = $rsgVersion->getVersionOnly();
         //$this->version = '3.2.0';
-        $this->version = '4.0.4';
+        $this->version = '4.0.5';
 
         if( $loadFromDB )
             $this->_loadConfig();
@@ -230,15 +230,23 @@ class rsgConfig {
 		$database->setQuery($query);
 
 		if( !$database->execute() ){
-			// database doesn't exist, use defaults.
+			// database doesn't exist, use defaults
+			// for this->name = value association (see below)
 			return;
 		}
 
 		$vars = $database->loadAssocList();
+        if( !$vars ){
+            // database doesn't exist, use defaults
+            // for this->name = value association (see below)
+            return;
+        }
 
 		foreach ($vars as $v) {
-			$this->$v['name'] = $v['value'];
-		}
+            if ($v['name'] != "") {
+                $this->$v['name'] = $v['value'];
+            }
+        }
 	}
 
 	/**
