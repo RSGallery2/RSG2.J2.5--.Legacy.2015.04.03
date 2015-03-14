@@ -139,6 +139,12 @@ Legend:
 ---------------- Recent ----------------
 
 * --------------- 4.0.5 -- SVN 1141 -- 2015-03-10 -------------
+14.03.2015 finnern
++ Removed debug messages from setup
++ Removed log path to administrator folder for 
+  installation (Did not install on all servers)
+
+* --------------- 4.0.5 -- SVN 1141 -- 2015-03-10 -------------
 13.02.2015 finnern
 + Improved template manager 
 + Sidebar is shown on template manager and maintenance
