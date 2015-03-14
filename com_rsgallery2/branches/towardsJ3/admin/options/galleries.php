@@ -113,7 +113,7 @@ function show(){
 	}
 	catch (RuntimeException $e)
 	{
-		echo $e->getMessage() ); 
+		echo $e->getMessage(); 
 		return false;
 	}
 		
