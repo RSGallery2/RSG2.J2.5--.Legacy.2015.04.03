@@ -260,7 +260,7 @@ class rsgConfig {
 		}	
 		catch (RuntimeException $e)
 		{
-			echo $e->getMessage() ); 
+			echo $e->getMessage(); 
 			return false;
 		}
 		
@@ -279,7 +279,7 @@ class rsgConfig {
 		}	
 		catch (RuntimeException $e)
 		{
-			echo $e->getMessage() ); 
+			echo $e->getMessage(); 
 			return false;
 		}
 
