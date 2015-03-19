@@ -462,7 +462,7 @@ class fileHandler {
 		}
 
 		//Before extracting upload the archive to /JOOMLAROOT/images/rsgallery/tmp/ with JFile::upload(). It transfers a file from the source file path to the destination path. Filename is made safe.
-		$fileDestination = JPATH_ROOT.DS.'images'.DS.'rsgallery'.DS.'tmp'.DS.JFile::makeSafe(JFile::baseName($archive['name']));
+		$fileDestination = JPATH_ROOT.DS.'images'.DS.'rsgallery'.DS.'tmp'.DS.JFile::makeSafe(basename($archive['name']));
 		// Move uploaded file (this is truely uploading the file)
 		if (!JFile::upload($archive['tmp_name'], $fileDestination)){
 			$uploadError	= 1;

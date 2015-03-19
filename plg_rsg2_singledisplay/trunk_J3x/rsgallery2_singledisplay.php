@@ -6,13 +6,38 @@
 * @copyright Copyright (C) 2010 Radek Kafka. (Migration of plugin to Joomla 1.5.x and addition of Highslide using Highslide JS for Joomla plugin)
 * @copyright Copyright (C) 2011 RSGallery2 Team. (Addition of popup options and the popup styles: No popup, Normal popup, Joomla Modal. Code slightly re-arranged.)
 * @copyright Copyright (C) 2012 RSGallery2 Team. (Code changed for Joomla 2.5;  addition of clearfloat and modal behaviour; added parameters and userfriendly messages in case of problems)
-* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-* Usage example: {rsg2_singledisplay:9999,thumb,true,left;float:left,both}
+* @copyright Copyright (C) 2012 RSGallery2 Team. (Code changed for Joomla 3.x; ...)
+* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+* RSGallery is Free Software
+*
+* Usage example: 
+*    {rsg2_singledisplay:9999,thumb,true,left;float:left,both}
 *	 imageid: Backend > Components > RSGallery2 > Items: use the number from the ID column.
 *	 size: thumb, display or original.
 *	 caption: true (use the item desciption as a caption) or false (no caption).
 *	 format: text-align style property
 *	 clearfloat: both, left, right (clears float after image with extra div with style clear:both/left/right) or false for no added div
+*/
+
+
+/*'
+todo:
+replace this code:
+
+parent::__construct($subject, $params);      
+$this->plugin = &amp;JPluginHelper::getPlugin('content', 'PLUGIN_NAME');
+$this->params = new JParameter($this->plugin->params);
+ 
+with this:
+
+parent::__construct($subject, $params); 
+$mode = $this->params->def('mode', 1);
+ 
+By doing this, you will be able to access a parameter in the parameters object like this:
+
+$this->params->get('PARAMETER_NAME')
+
+2015.01 finnern (ToDO: To be checked as Jparameter is not available any more in J3!
 */
 
 // Ensure this file is being included by a parent file
@@ -22,7 +47,16 @@ class plgContentrsgallery2_singledisplay extends JPlugin {
 	
 	var $popup_style	= 'normal_popup';
 	var $debug			= 0;
-	
+
+    /**
+     * Load the language file on instantiation. Note this is only available in Joomla 3.1 and higher.
+     * If you want to support 3.0 series you must override the constructor
+     *
+     * @var    boolean
+     * @since  3.1
+     */
+    protected $autoloadLanguage = true;
+
 	/**
 	 * Constructor
 	 *
@@ -30,18 +64,20 @@ class plgContentrsgallery2_singledisplay extends JPlugin {
 	 * @param       object  $subject The object to observe
 	 * @param       array   $config  An array that holds the plugin configuration
 	 * @since       1.5
-	 */
+	 *
 	public function __construct(& $subject, $config)
 	{
 		parent::__construct($subject, $config);
 		$this->loadLanguage();
 	}
+    /**/
 
-	/**
-	 * @param	string	The context of the content being passed to the plugin.
-	 * @param	object	The article object.  Note $article->text is also available
-	 * @param	object	The article params
-	 * @param	int		The 'page' number
+    /**
+	 * @param	string	$context The context of the content being passed to the plugin.
+	 * @param	object	$article The article object.  Note $article->text is also available
+	 * @param	object	$params The article params
+	 * @param	int		$page The 'page' number
+     * @return	bool
 	 */
 	public function onContentPrepare($context, &$article, &$params, $page = 0) {
 		// Simple performance check to determine whether bot should process further.
@@ -64,15 +100,45 @@ class plgContentrsgallery2_singledisplay extends JPlugin {
 	/**
 	 * Replaces the matched tags.
 	 *
-	 * @param	array	An array of matches
+	 * @param	array	$matches An array of matches
 	 * @return	string
 	 */
-	protected function _replacer( &$matches ) {
-		$app =& JFactory::getApplication();
+	protected function _replacer( $matches ) {
+		global $rsgConfig;
+
+		$app = JFactory::getApplication();
 
 		if( $matches ) {
 			// Initialize RSGallery2 
-			require_once( JPATH_BASE.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
+			//require_once( JPATH_BASE.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
+			require_once( JPATH_ROOT.'/administrator/components/com_rsgallery2/init.rsgallery2.php' );
+						
+			$Rsg2DebugActive = $rsgConfig->get('debug');
+			if ($Rsg2DebugActive)
+			{
+				// Include the JLog class.
+				jimport('joomla.log.log');
+
+				// Get the date for log file name
+				$date = JFactory::getDate()->format('Y-m-d');
+
+				// Add the logger.
+				JLog::addLogger(
+					// Pass an array of configuration options
+					array(
+							// Set the name of the log file
+							//'text_file' => substr($application->scope, 4) . ".log.php",
+							'text_file' => 'rsgallery2.SingleDisplays.log.'.$date.'.php',
+
+							// (optional) you can change the directory
+							'text_file_path' => 'logs'
+					 ) ,
+						JLog::ALL ^ JLog::DEBUG // leave out db messages
+				);
+				
+				// start logging...
+				JLog::add('Start rsgallery2.plg_rsg2_singledisplay.php: debug active in RSGallery2', JLog::DEBUG);
+			}			
 
 			// Get attributes from matches and create array
 			$attribs = explode( ',',$matches[1] );
@@ -165,6 +231,8 @@ class plgContentrsgallery2_singledisplay extends JPlugin {
 				return false;
 			}
 		}	//endif matches
+
+        return false;
 	}
 
 	/**
@@ -173,8 +241,9 @@ class plgContentrsgallery2_singledisplay extends JPlugin {
 	 * @param object $image_object
 	 * @param string $image_size
 	 * @param bool $image_caption
-	 * @param string $image_align 
-	 * @return string
+	 * @param string $image_align
+     * @param $clearfloat
+     * @return string
 	 * Example: {rsg2_singledisplay:9999,thumb,true,left;float:left} 
 	 */
 	function bot_rsg2_singledisplay_display ( $image_object, $image_size ,$image_caption, $image_align, $clearfloat) {
@@ -198,11 +267,17 @@ class plgContentrsgallery2_singledisplay extends JPlugin {
 			$audio = $image_object->original();
 			// thumb
 			if ( strtolower( $image_size ) == "thumb" ) {
-				$output .= '<object type="application/x-shockwave-flash" width="17" height="17" data="' . JURI::base() . 'components/com_rsgallery2/flash/xspf/musicplayer.swf?song_title=' . $image_object->name . '&song_url=' . $audio->url() .'"><param name="movie" value="' . JURI::base() . 'components/com_rsgallery2/flash/xspf/musicplayer.swf?song_title=' . $image_object->name
+				$output .= '<object type="application/x-shockwave-flash" width="17" height="17" data="' . JURI::base()
+                    . 'components/com_rsgallery2/flash/xspf/musicplayer.swf?song_title=' . $image_object->name
+                    . '&song_url=' . $audio->url() .'"><param name="movie" value="' . JURI::base()
+                    . 'components/com_rsgallery2/flash/xspf/musicplayer.swf?song_title=' . $image_object->name
 					.'&song_url=' . $audio->url() . '" /></object>';
 			// not thumb
 			} else {
-			$output .= '<object type="application/x-shockwave-flash" width="400" height="15" data="' . JURI::base() . 'components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=' . $image_object->name . '&song_url=' . $audio->url() .'"><param name="movie" value="' . JURI::base() . 'components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=' . $image_object->name
+			$output .= '<object type="application/x-shockwave-flash" width="400" height="15" data="' . JURI::base()
+                . 'components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=' . $image_object->name
+                . '&song_url=' . $audio->url() .'"><param name="movie" value="' . JURI::base()
+                . 'components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=' . $image_object->name
 					.'&song_url=' . $audio->url() . '" /></object>';			
 			}
 			
@@ -211,11 +286,11 @@ class plgContentrsgallery2_singledisplay extends JPlugin {
 				$parse_url = parse_url( $params_obj->get( 'link', '' ) );
 				( $parse_url['scheme'] == "http" ) ? $link = $params_obj->get( 'link', '' ) : $link = 'http://' . $params_obj->get( 'link', '' );
 				$output .= '<a href="' . $link . '">';
-				$output .= $image_output . '<br />';
+				$output .= $image_output . '<br />';  // ToDo: why is $image_output not defined -> debug and see below (? code moved ?)
 				if( $params_obj->get( 'link_text','' ) ){ $output .= $params_obj->get( 'link_text','' ); }
 				$output .= '</a>';
 			} else {
-				$output .= $image_output;
+				$output .= $image_output; // ToDo: why is $image_output not defined -> debug
 			}
 
 		// For image objects
@@ -384,7 +459,7 @@ class plgContentrsgallery2_singledisplay extends JPlugin {
 	/**
 	 * Remove spaces (&nbsp;) from attributes and trim whith space
 	 *
-	 * @param string $var
+	 * @param string $attrib
 	 * @return string
 	 */
 	function bot_rsg2_singledisplay_clean_data ( $attrib ) {
@@ -399,7 +474,6 @@ class plgContentrsgallery2_singledisplay extends JPlugin {
 	 * @return object
 	 */
 	function rsgallery2_singledisplay_parameters () {
-		jimport('joomla.html.parameter');
 		$pluginName = 'rsgallery2_singledisplay';
 		$plugin = JPluginHelper::getPlugin('content', $pluginName);
 		$pluginParams = new JParameter( $plugin->params );
@@ -411,7 +485,7 @@ class plgContentrsgallery2_singledisplay extends JPlugin {
 	}	
 	
 	function rsgallery2_singledisplay_checks ($image_id) {
-		$app =& JFactory::getApplication();
+		$app = JFactory::getApplication();
 		$db = JFactory::getDbo();
 		
 		// Get the image and gallery details for the checks

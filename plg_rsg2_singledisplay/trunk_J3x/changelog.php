@@ -31,6 +31,9 @@ Legend:
 - -> Removed
 ! -> Note
 
+2015-01-10 finnern - SVN ...
++ Adapted for J!3.x
+  
 2012-10-30 Mirjam - SVN 1100
 + Added "jimport('joomla.html.parameter');" to function rsgallery2_singledisplay_parameters
   User dartVader suggested this fix for "Fatal error: Class 'JParameter' not found" error
