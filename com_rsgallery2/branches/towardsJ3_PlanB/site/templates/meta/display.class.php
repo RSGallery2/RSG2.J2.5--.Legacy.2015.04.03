@@ -12,6 +12,7 @@ defined( '_JEXEC' ) or die();
 // ToDo: Remove call of file helpers/parameter.php. actual needed for compatibility with 2.5
 // require_once (JPATH_COMPONENT_ADMINISTRATOR.'/helpers/parameter.php');
 require_once (JPATH_ROOT.'/administrator/components/com_rsgallery2/helpers/parameter.php');
+//require_once (JPATH_ROOT.'/administrator/components/com_rsgallery2/helpers/TemplateParameter.php');
 jimport( 'joomla.filesystem.files' );
 
 class rsgDisplay extends JObject{
@@ -48,9 +49,9 @@ class rsgDisplay extends JObject{
 			$ini_contents = '';
 			JFile::write($ini,$ini_contents);
 		}
-		$xml	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template .DS.'templateDetails.xml';
-		$this->params = new JParameter($content, $xml, 'template');
-		
+		$xmlPath	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$template .DS.'templateDetails.xml';
+		$this->params = new JParameter($content, $xmlPath, 'template');
+        //$this->params = new TemplateParameter($content, $xmlPath);
 	}
 	
 	/**
@@ -73,6 +74,7 @@ class rsgDisplay extends JObject{
 				rsgInstance::instance( array( 'rsgTemplate' => $rsgConfig->get('current_slideshow'), 'gid' => $gallery->id ));
 			break;
 			case 'inline':
+                //@todo Methode inline not found in class rsgDisplay
 				$this->inline();
 			break;
 			case 'viewChangelog':
@@ -278,7 +280,7 @@ class rsgDisplay extends JObject{
 		$page = $input->get( 'page', '', 'CMD');		
 
 		// Get the gid in the URL of the active menu item
-        $app = JFactory::getApplication();
+        // $app = JFactory::getApplication();
 		if (isset($app->getMenu()->getActive()->query['gid'])){
 			$menuGid = $app->getMenu()->getActive()->query['gid'];
 		} else {

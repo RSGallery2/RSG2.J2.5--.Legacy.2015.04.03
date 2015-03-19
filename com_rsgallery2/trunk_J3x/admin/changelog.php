@@ -33,36 +33,25 @@ Legend:
 
 ! ToDo: Don't install/remove database table #__rsgallery2_acl
 ! ToDo: Backend: Installation of template does not function (yet).
-! ToDo: find all 'config_' links that don't have rsgOption=config and add it.
-  ToDo: Delete galleries: create filter in gallery view and check that delete-permission 
-       is granted for deleting sub galleries/images. Right now you may delete everything
-	   if you have delete permission for the component, even if an item/(sub)gallery 
-	   doesn't have delete permission.
-  ToDo: Convert JParameter to (a)
-       JForm http://docs.joomla.org/Adapting_a_Joomla_1.5_extension_to_Joomla_1.6#Converting_Your_JParameters_to_JForms
-	   (b) Own Jparameter file (see below)
-       
-! ToDo: 
-	  ^ Language files in rsgallery2.xml moved according "Language file naming conventions
-		and precedence: www.http://docs.joomla.org/Specification_of_language_files"
-		Example folder path: language/en-GB/en-GB.com_rsgallery2.ini
-		Lang files for backend are just copied from the common ones 
-! ToDo: 
-	  ^ Language files missing
-		language/en-GB/en-GB.com_rsgallery2.sys.ini
-! ToDo: 2014.10.18 
-		Log files only when rsgallery2 debug switch is on (ok) 
-			-> Hint to user that there is one log per day (Missing)
+! ToDo: Find all 'config_' links that don't have rsgOption=config and add it.
+! ToDo: Delete galleries: create filter in gallery view and check that delete-permission 
+		is granted for deleting sub galleries/images. Right now you may delete everything 
+		if you have delete permission for the component, even if an item/(sub)gallery 
+		doesn't have delete permission.
+! ToDo: Convert JParameter to 
+		(a)
+		JForm http://docs.joomla.org/Adapting_a_Joomla_1.5_extension_to_Joomla_1.6#Converting_Your_JParameters_to_JForms
+		(b) Own Jparameter file (see below)
 ! ToDo: 2014.10.18 
 		Preparation: Delete chosen "Gallery thumbnail" file by hand. It will bring an error to 
 		back end and front side. Add function in "Consolidate Database which checks and correct this
 ! ToDo: 2014.10.20  
 		Batch upload -> internal path 
-			a) field too small
-			b) field where the resulting path is shown
-			c) Improve info: a) general b) hint for standard setup ...
-			d) Test: Does it work for linux and windows installations (XAMPP ? path fails ?)
-			e) Hint for standard input in config 
+			a) field too small (OK now)
+			b) field where the resulting path is shown (-> open)
+			c) Improve info: a) general (ok) b) hint for standard setup (May not be needed)
+			d) Test: Does it work for linux and windows installations (XAMPP ? path fails ? -> open)
+			e) Hint for standard input in config (Ok: Not needed)
 ! ToDo: 2014.10.20 
 		replace foreign icons like  
 			* includes/js/ThemeOffice/warning.png\
@@ -105,7 +94,7 @@ Legend:
 		- one form for all , head register and start button on foot 
 		see joomla standard loading extensions 
 ! ToDo: 2015.01.18 ***
-		Make images and galleries form more sortabele (date 
+		Make images and galleries form more sortabele (date ...)
 ! ToDo: 2015.01.18 ***
 		mirjam had a change for a user. Privileges for foreign users galleries
 		Search change in forum and take it
@@ -125,8 +114,9 @@ Legend:
 ! ToDo: 2015.01.30 ******
 		JRequest in instance.class.php multiple times
 ! ToDo: 18.02.2015 *******
-		mygalleries: Update of image information or gallery 
-		information change will not call function inside 
+		mygalleries: Update of image or gallery information 
+		change will not call script function 
+		"joomls.submitbutton" inside 
 ! ToDo: 18.02.2015 ***
 		If the table rsgallery_config is empty caused by 
         repair of sql table RSG2 is not starting any more
@@ -137,8 +127,14 @@ Legend:
 		
 		
 ---------------- Recent ----------------
+* Hint to user for debug on that there is one log per day
+* Top gallery can't be selected on upload files / zip
+# Upload ZiP did get error JFile::baseName does not exist
+* Added debug activated text ("One log file per day if debug is on ...")
+* Added info for file upload ("Path must start with joomla base path...")
 
-* --------------- 4.0.5 -- SVN 1144 -- 2015-03-14 -------------
+
+* --------------- 4.0.6 -- SVN 1147 -- 2015-03-14 -------------
 14.03.2015 finnern
 * Changed array definition which was not valid for PHP 5.3.27
 

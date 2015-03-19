@@ -575,7 +575,7 @@ function uploadImage( $option ) {
     }
     
 	//Create gallery selectlist
-	$lists['gallery_id'] = galleryUtils::galleriesSelectList( NULL, 'gallery_id', false , Null, 0);
+	$lists['gallery_id'] = galleryUtils::galleriesSelectList( NULL, 'gallery_id', false , Null, 0, true);
 	html_rsg2_images::uploadImage( $lists, $option );
 }
 
