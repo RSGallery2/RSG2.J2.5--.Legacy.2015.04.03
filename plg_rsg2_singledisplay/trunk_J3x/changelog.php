@@ -31,6 +31,9 @@ Legend:
 - -> Removed
 ! -> Note
 
+2015-03-19 finnern - SVN ...
++ Added try and catch with error messages
+  
 2015-01-10 finnern - SVN ...
 + Adapted for J!3.x
   
