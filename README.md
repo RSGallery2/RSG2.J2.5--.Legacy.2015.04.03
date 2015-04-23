@@ -1,4 +1,5 @@
 #Legacy repository for RSGallery2 a free joomla! gallery extension
+Repository for components, modules and plugins for joomla J1.x - J!2.5 
 Version RSG2.Legacy.2015.04.03
 The repository taken from a SVN Version. Includes all versions from J1.0, J2.5 to first tries of J3x
 
